@@ -16,19 +16,21 @@ namespace DemoWebApi.Controllers
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public string Get(int id, string name)
         {
-            return "value";
+            return name + id.ToString();
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public string Post([FromBody]string value)
         {
+            return value.ToUpper();
         }
 
         // PUT api/values/5
         public void Put(int id, [FromBody]string value)
         {
+            System.Diagnostics.Debug.WriteLine("Put " + id.ToString() + value);
         }
 
         // DELETE api/values/5

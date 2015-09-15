@@ -35,7 +35,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// GET api/Entities/{id}
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Entity> GetAsync(long id)
+        public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
         {
             var template = new System.UriTemplate("api/Entities/{id}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
@@ -44,14 +44,14 @@ namespace DemoWebApi.Controllers.Client
             var responseMessage = await client.GetAsync(requestUri.ToString());
             responseMessage.EnsureSuccessStatusCode();
             var text = await responseMessage.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Entity>(text);
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
         }
         
         /// <summary>
         /// 
         /// GET api/Entities/{id}
         /// </summary>
-        public DemoWebApi.DemoData.Client.Entity Get(long id)
+        public DemoWebApi.DemoData.Client.Person GetPerson(long id)
         {
             var template = new System.UriTemplate("api/Entities/{id}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
@@ -60,7 +60,7 @@ namespace DemoWebApi.Controllers.Client
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
             responseMessage.EnsureSuccessStatusCode();
             var text = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Entity>(text);
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
         }
         
         /// <summary>
@@ -185,13 +185,14 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET api/Values/{id}
+        /// GET api/Values/{id}?name={name}
         /// </summary>
-        public async Task<System.String> GetAsync(int id)
+        public async Task<System.String> GetAsync(int id, string name)
         {
-            var template = new System.UriTemplate("api/Values/{id}");
+            var template = new System.UriTemplate("api/Values/{id}?name={name}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("id", id.ToString());
+            uriParameters.Add("name", name);
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = await client.GetAsync(requestUri.ToString());
             responseMessage.EnsureSuccessStatusCode();
@@ -201,13 +202,14 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET api/Values/{id}
+        /// GET api/Values/{id}?name={name}
         /// </summary>
-        public string Get(int id)
+        public string Get(int id, string name)
         {
-            var template = new System.UriTemplate("api/Values/{id}");
+            var template = new System.UriTemplate("api/Values/{id}?name={name}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("id", id.ToString());
+            uriParameters.Add("name", name);
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
             responseMessage.EnsureSuccessStatusCode();
@@ -219,22 +221,26 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Values
         /// </summary>
-        public async Task PostAsync(string value)
+        public async Task<System.String> PostAsync(string value)
         {
             var requestUri = new System.Uri(this.baseUri, "api/Values");
             var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), value);
             responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<string>(text);
         }
         
         /// <summary>
         /// 
         /// POST api/Values
         /// </summary>
-        public void Post(string value)
+        public string Post(string value)
         {
             var requestUri = new System.Uri(this.baseUri, "api/Values");
             var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), value).Result;
             responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<string>(text);
         }
         
         /// <summary>

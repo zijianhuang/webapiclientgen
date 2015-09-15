@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 
 namespace DemoWebApi.DemoData
 {
+    [DataContract(Namespace = Constants.DataNamespace)]
     public sealed class Constants
     {
         public const string DataNamespace = "http://fonlow.com/DemoData/2014/02";

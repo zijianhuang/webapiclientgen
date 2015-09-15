@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://fonlow.com/DemoData/2014/02" elementFormDefault="qualified" targetNamespace="http://fonlow.com/DemoData/2014/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Constants">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="Constants" nillable="true" type="tns:Constants" />
+  <xs:complexType name="Entity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddress" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Entity" nillable="true" type="tns:Entity" />
+  <xs:complexType name="ArrayOfAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAddress" nillable="true" type="tns:ArrayOfAddress" />
+  <xs:complexType name="Address">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Street1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Street2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" type="tns:AddressType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Address" nillable="true" type="tns:Address" />
+  <xs:simpleType name="AddressType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Postal" />
+      <xs:enumeration value="Residential" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AddressType" nillable="true" type="tns:AddressType" />
+  <xs:complexType name="Person">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Entity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="GivenName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Person" nillable="true" type="tns:Person" />
+  <xs:complexType name="Company">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Entity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BusinessNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BusinessNumberType" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Company" nillable="true" type="tns:Company" />
+</xs:schema>

@@ -12,13 +12,14 @@ namespace DemoWebApi.Controllers
     public class EntitiesController : ApiController
     {
         [HttpGet]
-        public Entity Get(long id)
+        public Person GetPerson(long id)
         {
             return new Person()
             {
                 Surname = "Huang",
                 GivenName = "Z",
                 Name = "Z Huang",
+                BirthDate=DateTime.Now.AddYears(-20),
             };
         }
 

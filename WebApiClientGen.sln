@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.DemoData", "Demo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.ClientApi", "DemoWebApi.ClientApi\DemoWebApi.ClientApi.csproj", "{31E10725-9320-49D6-9AD6-51300C5EB634}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{BC9CE351-C442-44BA-B7A1-438C22C150CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DBC9CAF6-2B63-417C-90E8-A2E7A468697C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +37,15 @@ Global
 		{31E10725-9320-49D6-9AD6-51300C5EB634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31E10725-9320-49D6-9AD6-51300C5EB634}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31E10725-9320-49D6-9AD6-51300C5EB634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC9CE351-C442-44BA-B7A1-438C22C150CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC9CE351-C442-44BA-B7A1-438C22C150CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC9CE351-C442-44BA-B7A1-438C22C150CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC9CE351-C442-44BA-B7A1-438C22C150CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC9CE351-C442-44BA-B7A1-438C22C150CA} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 	EndGlobalSection
 EndGlobal

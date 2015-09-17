@@ -13,24 +13,52 @@ namespace DemoWebApi.Controllers
     {
         /// <summary>
         /// Trigger the API to generate WebApiClientAuto.cs for an established client API project.
+        /// POST to  http://localhost:10965/api/CodeGen
         /// </summary>
-        /// <param name="clientLibraryProjectFolderName">Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.</param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        /// <remarks>Convenient to use GET, e.g. http://localhost:10965/api/CodeGen?clientLibraryProjectFolderName=DemoWebApi.ClientApi
-        /// or semantically correct to use POST.
-        /// </remarks>
-        [HttpGet]
+        /// <remarks>POST to  http://localhost:10965/api/CodeGen
         [HttpPost]
-        public string TriggerCodeGen(string clientLibraryProjectFolderName)
+        public string TriggerCodeGen(CodeGenParameters parameters)
         {
+            if (parameters == null)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "parametersNull" });
+            if (parameters.ClientLibraryProjectFolderName == null)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNameNull" });
+
             string webRootPath = System.Web.Hosting.HostingEnvironment.MapPath("~");
-            var path = System.IO.Path.Combine(webRootPath, "..", clientLibraryProjectFolderName, "WebApiClientAuto.cs");
+            var path = System.IO.Path.Combine(webRootPath, "..", parameters.ClientLibraryProjectFolderName, "WebApiClientAuto.cs");
             var apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions;
-            var gen = new Fonlow.Net.Http.ControllersClientApiGen(new string[] { "DemoWebApi" }, new string[] { "DemoWebApi.Controllers.Account" });
+            var gen = new Fonlow.Net.Http.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames );
             gen.Generate(apiDescriptions, true);
             gen.SaveCSharpCode(path);
             return "OK";
         }
     }
+
+    public class CodeGenParameters
+    {
+        /// <summary>
+        /// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
+        /// </summary>
+        public string ClientLibraryProjectFolderName { get; set; }
+
+        public string[] PrefixesOfCustomNamespaces { get; set; }
+
+        public string[] ExcludedControllerNames { get; set; }
+    }
+    /*
+    json object to post with content-type application/json
+    {
+        "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
+        "PrefixesOfCustomNamespaces": [
+          "DemoWebApi"
+        ],
+        "ExcludedControllerNames": [
+          "DemoWebApi.Controllers.Account"
+        ]
+      }
+    */
+
 #endif
 }

@@ -36,7 +36,7 @@ namespace Fonlow.Net.Http
         public ControllersClientApiGen(string[] prefixesOfCustomNamespaces, string[] excludedControllerNames = null)
         {
             sharedContext = new SharedContext();
-            sharedContext.prefixesOfCustomNamespaces = prefixesOfCustomNamespaces;
+            sharedContext.prefixesOfCustomNamespaces = prefixesOfCustomNamespaces==null? new string[]{} : prefixesOfCustomNamespaces;
             targetUnit = new CodeCompileUnit();
             apiClassesDic = new Dictionary<string, object>();
             this.excludedControllerNames = excludedControllerNames;

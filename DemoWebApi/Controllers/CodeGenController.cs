@@ -30,7 +30,7 @@ namespace DemoWebApi.Controllers
             var path = System.IO.Path.Combine(webRootPath, "..", parameters.ClientLibraryProjectFolderName, "WebApiClientAuto.cs");
             var apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions;
             var gen = new Fonlow.Net.Http.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames );
-            gen.Generate(apiDescriptions, true);
+            gen.Generate(apiDescriptions, parameters.GenerateBothAsyncAndSync);
             gen.SaveCSharpCode(path);
             return "OK";
         }
@@ -46,6 +46,8 @@ namespace DemoWebApi.Controllers
         public string[] PrefixesOfCustomNamespaces { get; set; }
 
         public string[] ExcludedControllerNames { get; set; }
+
+        public bool GenerateBothAsyncAndSync { get; set; }
     }
     /*
     json object to post with content-type application/json
@@ -56,7 +58,8 @@ namespace DemoWebApi.Controllers
         ],
         "ExcludedControllerNames": [
           "DemoWebApi.Controllers.Account"
-        ]
+        ],
+        "GenerateBothAsyncAndSync": true
       }
     */
 

@@ -18,6 +18,238 @@ namespace DemoWebApi.Controllers.Client
     using System.Net;
     
     
+    public partial class AsyncDemo
+    {
+        
+        private System.Net.Http.HttpClient client;
+        
+        private System.Uri baseUri;
+        
+        public AsyncDemo(System.Net.Http.HttpClient client, System.Uri baseUri)
+        {
+            this.client = client;
+            this.baseUri = baseUri;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET int?d={d}
+        /// </summary>
+        public async Task<System.Int32> GetIntSquareAsync(int d)
+        {
+            var template = new System.UriTemplate("int?d={d}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("d", d.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET int?d={d}
+        /// </summary>
+        public int GetIntSquare(int d)
+        {
+            var template = new System.UriTemplate("int?d={d}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("d", d.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET decimal?d={d}
+        /// </summary>
+        public async Task<System.Decimal> GetDecimalSquareAsync(decimal d)
+        {
+            var template = new System.UriTemplate("decimal?d={d}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("d", d.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Decimal>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET decimal?d={d}
+        /// </summary>
+        public decimal GetDecimalSquare(decimal d)
+        {
+            var template = new System.UriTemplate("decimal?d={d}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("d", d.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Decimal>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET NullableDatetime?hasValue={hasValue}
+        /// </summary>
+        public async Task<Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue)
+        {
+            var template = new System.UriTemplate("NullableDatetime?hasValue={hasValue}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("hasValue", hasValue.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Nullable<System.DateTime>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET NullableDatetime?hasValue={hasValue}
+        /// </summary>
+        public System.Nullable<System.DateTime> GetDateTime(bool hasValue)
+        {
+            var template = new System.UriTemplate("NullableDatetime?hasValue={hasValue}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("hasValue", hasValue.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<Nullable<System.DateTime>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET NullableDecimal?hasValue={hasValue}
+        /// </summary>
+        public async Task<Nullable<System.Decimal>> GetDecimalAsync(bool hasValue)
+        {
+            var template = new System.UriTemplate("NullableDecimal?hasValue={hasValue}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("hasValue", hasValue.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Nullable<System.Decimal>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET NullableDecimal?hasValue={hasValue}
+        /// </summary>
+        public System.Nullable<decimal> GetDecimal(bool hasValue)
+        {
+            var template = new System.UriTemplate("NullableDecimal?hasValue={hasValue}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("hasValue", hasValue.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<Nullable<System.Decimal>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET FloatZero
+        /// </summary>
+        public async Task<System.Single> GetFloatZeroAsync()
+        {
+            var template = new System.UriTemplate("FloatZero");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Single.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET FloatZero
+        /// </summary>
+        public float GetFloatZero()
+        {
+            var template = new System.UriTemplate("FloatZero");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Single.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET DoubleZero
+        /// </summary>
+        public async Task<System.Double> GetDoubleZeroAsync()
+        {
+            var template = new System.UriTemplate("DoubleZero");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Double.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET DoubleZero
+        /// </summary>
+        public double GetDoubleZero()
+        {
+            var template = new System.UriTemplate("DoubleZero");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Double.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET DecimalZero
+        /// </summary>
+        public async Task<System.Decimal> GetDecimalZeroAsync()
+        {
+            var template = new System.UriTemplate("DecimalZero");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Decimal>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET DecimalZero
+        /// </summary>
+        public decimal GetDecimalZero()
+        {
+            var template = new System.UriTemplate("DecimalZero");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Decimal>(text);
+        }
+    }
+    
     public partial class Entities
     {
         

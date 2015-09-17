@@ -231,6 +231,9 @@ namespace Fonlow.Net.Http
 
 
             methodName = description.ActionDescriptor.ActionName;
+            if (methodName.EndsWith("Async"))
+                methodName = methodName.Substring(0, methodName.Length - 5);
+
             returnType = description.ActionDescriptor.ReturnType;
 
         }

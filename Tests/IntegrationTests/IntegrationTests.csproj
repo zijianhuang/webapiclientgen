@@ -69,6 +69,7 @@
     <Compile Include="IisExpressCollection.cs" />
     <Compile Include="IisExpressFixture.cs" />
     <Compile Include="EntitiesApiIntegration.cs" />
+    <Compile Include="AsyncDemoIntegration.cs" />
     <Compile Include="ValuesApiIntegration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

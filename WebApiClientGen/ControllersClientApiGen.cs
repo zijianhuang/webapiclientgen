@@ -3,9 +3,7 @@ using System.Reflection;
 using System.IO;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using Microsoft.CSharp;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -36,7 +34,7 @@ namespace Fonlow.Net.Http
         public ControllersClientApiGen(string[] prefixesOfCustomNamespaces, string[] excludedControllerNames = null)
         {
             sharedContext = new SharedContext();
-            sharedContext.prefixesOfCustomNamespaces = prefixesOfCustomNamespaces==null? new string[]{} : prefixesOfCustomNamespaces;
+            sharedContext.prefixesOfCustomNamespaces = prefixesOfCustomNamespaces == null ? new string[] { } : prefixesOfCustomNamespaces;
             targetUnit = new CodeCompileUnit();
             apiClassesDic = new Dictionary<string, object>();
             this.excludedControllerNames = excludedControllerNames;
@@ -382,9 +380,9 @@ namespace Fonlow.Net.Http
             method.Parameters.AddRange(parameters);
 
             method.Statements.Add(new CodeVariableDeclarationStatement(
-   new CodeTypeReference("var"), "template",
-   new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
-   ));
+                new CodeTypeReference("var"), "template",
+                new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
+            ));
             var templateReference = new CodeVariableReferenceExpression("template");
 
             //Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
@@ -428,7 +426,8 @@ namespace Fonlow.Net.Http
         void AddReturnStatement()
         {
             method.Statements.Add(new CodeVariableDeclarationStatement(
-    new CodeTypeReference("var"), "text", new CodeSnippetExpression(forAsync ? "await responseMessage.Content.ReadAsStringAsync()" : "responseMessage.Content.ReadAsStringAsync().Result")));
+                new CodeTypeReference("var"), "text",
+                new CodeSnippetExpression(forAsync ? "await responseMessage.Content.ReadAsStringAsync()" : "responseMessage.Content.ReadAsStringAsync().Result")));
             var textReference = new CodeVariableReferenceExpression("text");
             if (IsStringType(returnType))
             {
@@ -503,9 +502,9 @@ namespace Fonlow.Net.Http
 
                 //Statement: ar template = new System.UriTemplate("api/UserManagement/Account");
                 method.Statements.Add(new CodeVariableDeclarationStatement(
-            new CodeTypeReference("var"), "template",
-            new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
-            ));
+                    new CodeTypeReference("var"), "template",
+                    new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
+                ));
                 var templateReference = new CodeVariableReferenceExpression("template");
 
                 //Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
@@ -530,7 +529,8 @@ namespace Fonlow.Net.Http
             Action AddRequestUriAssignmentStatement = () =>
             {
                 method.Statements.Add(new CodeVariableDeclarationStatement(
-    new CodeTypeReference("var"), "requestUri", new CodeObjectCreateExpression("System.Uri", sharedContext.baseUriReference, new CodePrimitiveExpression(description.RelativePath))));
+                    new CodeTypeReference("var"), "requestUri",
+                    new CodeObjectCreateExpression("System.Uri", sharedContext.baseUriReference, new CodePrimitiveExpression(description.RelativePath))));
 
             };
 
@@ -604,10 +604,6 @@ namespace Fonlow.Net.Http
 
         }
 
-
-
-
     }
-
 
 }

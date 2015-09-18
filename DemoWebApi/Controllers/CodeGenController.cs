@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#if DEBUG  //This controller is not needed in production release, since the client API should be generated during development of the Web Api.
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace DemoWebApi.Controllers
+namespace Fonlow.WebApiClientGen
 {
-#if DEBUG  //This controller is not needed in production release, since the client API should be generated during development of the Web Api.
     [System.Web.Http.Description.ApiExplorerSettings(IgnoreApi = true)]//this controller is a dev backdoor during development, no need to be visible in ApiExplorer.
     public class CodeGenController : ApiController
     {
@@ -63,5 +60,5 @@ namespace DemoWebApi.Controllers
       }
     */
 
-#endif
 }
+#endif

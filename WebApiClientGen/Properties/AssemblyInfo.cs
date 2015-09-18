@@ -7,7 +7,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WebApiClientGen")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Generate strongly typed client API for ASP.NET Web API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fonlow")]
 [assembly: AssemblyProduct("WebApiClientGen")]

@@ -10,8 +10,8 @@
     <projectUrl>https://webapiclientgen.codeplex.com</projectUrl>
     <iconUrl>https://webapiclientgen.codeplex.com</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Generate strongly typed client API for ASP.NET Web API</description>
-    <releaseNotes>Support IHttpActionResult and HttpResponseMessage</releaseNotes>
+    <description>Generate C# codes of strongly typed client API for ASP.NET Web API</description>
+    <releaseNotes>Support IHttpActionResult and HttpResponseMessage.</releaseNotes>
     <copyright>Copyright © Fonlow 2015</copyright>
     <tags>ASP API Web Client</tags>
   </metadata>

@@ -149,9 +149,10 @@ namespace IntegrationTests
         [Fact]
         public void TestGetChar()
         {
-            var response = api.GetChar();
-            var text = response.Content.ReadAsStringAsync().Result;//Web API return only string, and does not support char directly.
-            Assert.Equal("\"A\"", text);
+            //var response = api.GetChar();
+            //var text = response.Content.ReadAsStringAsync().Result;//Web API return only string, and does not support char directly.
+            //Assert.Equal("\"A\"", text);
+            Assert.Equal('A', api.GetChar());
         }
 
         [Fact]

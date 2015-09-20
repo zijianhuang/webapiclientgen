@@ -10,10 +10,10 @@ namespace Fonlow.WebApiClientGen
     {
         /// <summary>
         /// Trigger the API to generate WebApiClientAuto.cs for an established client API project.
-        /// POST to  http://localhost:10965/api/CodeGen
+        /// POST to  http://localhost:10965/api/CodeGen with json object CodeGenParameters
         /// </summary>
         /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <returns>OK if OK</returns>
         [HttpPost]
         public string TriggerCodeGen(CodeGenParameters parameters)
         {

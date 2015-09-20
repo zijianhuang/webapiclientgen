@@ -363,7 +363,7 @@ namespace Fonlow.Net.Http
 
         string TranslateCustomTypeToClientType(Type t)
         {
-            if ((t == typeOfHttpActionResult)||(t==typeOfChar))
+            if (t == typeOfHttpActionResult)
                 return "System.Net.Http.HttpResponseMessage";
 
 
@@ -434,7 +434,7 @@ namespace Fonlow.Net.Http
 
         void AddReturnStatement()
         {
-            if ((returnType == typeOfHttpResponseMessage) || (returnType == typeOfHttpActionResult) || (returnType == typeOfChar))
+            if ((returnType == typeOfHttpResponseMessage) || (returnType == typeOfHttpActionResult))
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
                 return;
@@ -447,6 +447,10 @@ namespace Fonlow.Net.Http
             if (IsStringType(returnType))
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("JsonConvert.DeserializeObject<string>(text)")));
+            }
+            else if (returnType==typeOfChar)
+            {
+                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("JsonConvert.DeserializeObject<char>(text)")));
             }
             else if (returnType.IsPrimitive)
             {

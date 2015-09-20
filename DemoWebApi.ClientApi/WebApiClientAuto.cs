@@ -669,28 +669,30 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// GET api/SuperDemo/char
         /// </summary>
-        public async Task<System.Net.Http.HttpResponseMessage> GetCharAsync()
+        public async Task<System.Char> GetCharAsync()
         {
             var template = new System.UriTemplate("api/SuperDemo/char");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = await client.GetAsync(requestUri.ToString());
             responseMessage.EnsureSuccessStatusCode();
-            return responseMessage;
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<char>(text);
         }
         
         /// <summary>
         /// 
         /// GET api/SuperDemo/char
         /// </summary>
-        public System.Net.Http.HttpResponseMessage GetChar()
+        public char GetChar()
         {
             var template = new System.UriTemplate("api/SuperDemo/char");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
             responseMessage.EnsureSuccessStatusCode();
-            return responseMessage;
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<char>(text);
         }
         
         /// <summary>

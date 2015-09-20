@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Fonlow.WebApiClientGen</id>
-    <version>1.0.0.0</version>
+    <version>1.1.0.0</version>
     <title>WebApiClientGen</title>
     <authors>Zijian Huang</authors>
     <owners>Zijian Huang</owners>
@@ -11,9 +11,9 @@
     <iconUrl>https://webapiclientgen.codeplex.com</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Generate strongly typed client API for ASP.NET Web API</description>
-    <releaseNotes>Initial release with NuGet</releaseNotes>
+    <releaseNotes>Support IHttpActionResult and HttpResponseMessage</releaseNotes>
     <copyright>Copyright © Fonlow 2015</copyright>
-    <tags>ASP API Client</tags>
+    <tags>ASP API Web Client</tags>
   </metadata>
   <files>
     <file src="..\DemoWebApi\Controllers\CodeGenController.cs" target="content\Controllers\CodeGenController.cs"/>

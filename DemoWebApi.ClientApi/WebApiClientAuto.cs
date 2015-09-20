@@ -18,14 +18,14 @@ namespace DemoWebApi.Controllers.Client
     using System.Net;
     
     
-    public partial class AsyncDemo
+    public partial class SuperDemo
     {
         
         private System.Net.Http.HttpClient client;
         
         private System.Uri baseUri;
         
-        public AsyncDemo(System.Net.Http.HttpClient client, System.Uri baseUri)
+        public SuperDemo(System.Net.Http.HttpClient client, System.Uri baseUri)
         {
             this.client = client;
             this.baseUri = baseUri;
@@ -33,11 +33,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET int?d={d}
+        /// GET api/SuperDemo/int?d={d}
         /// </summary>
         public async Task<System.Int32> GetIntSquareAsync(int d)
         {
-            var template = new System.UriTemplate("int?d={d}");
+            var template = new System.UriTemplate("api/SuperDemo/int?d={d}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("d", d.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -49,11 +49,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET int?d={d}
+        /// GET api/SuperDemo/int?d={d}
         /// </summary>
         public int GetIntSquare(int d)
         {
-            var template = new System.UriTemplate("int?d={d}");
+            var template = new System.UriTemplate("api/SuperDemo/int?d={d}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("d", d.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -65,11 +65,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET decimal?d={d}
+        /// GET api/SuperDemo/decimal?d={d}
         /// </summary>
         public async Task<System.Decimal> GetDecimalSquareAsync(decimal d)
         {
-            var template = new System.UriTemplate("decimal?d={d}");
+            var template = new System.UriTemplate("api/SuperDemo/decimal?d={d}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("d", d.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -81,11 +81,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET decimal?d={d}
+        /// GET api/SuperDemo/decimal?d={d}
         /// </summary>
         public decimal GetDecimalSquare(decimal d)
         {
-            var template = new System.UriTemplate("decimal?d={d}");
+            var template = new System.UriTemplate("api/SuperDemo/decimal?d={d}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("d", d.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -97,11 +97,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET NullableDatetime?hasValue={hasValue}
+        /// GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
         /// </summary>
         public async Task<Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue)
         {
-            var template = new System.UriTemplate("NullableDatetime?hasValue={hasValue}");
+            var template = new System.UriTemplate("api/SuperDemo/NullableDatetime?hasValue={hasValue}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("hasValue", hasValue.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -113,11 +113,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET NullableDatetime?hasValue={hasValue}
+        /// GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
         /// </summary>
         public System.Nullable<System.DateTime> GetDateTime(bool hasValue)
         {
-            var template = new System.UriTemplate("NullableDatetime?hasValue={hasValue}");
+            var template = new System.UriTemplate("api/SuperDemo/NullableDatetime?hasValue={hasValue}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("hasValue", hasValue.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -129,11 +129,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET NullableDecimal?hasValue={hasValue}
+        /// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
         /// </summary>
-        public async Task<Nullable<System.Decimal>> GetDecimalAsync(bool hasValue)
+        public async Task<Nullable<System.Decimal>> GetNullableDecimalAsync(bool hasValue)
         {
-            var template = new System.UriTemplate("NullableDecimal?hasValue={hasValue}");
+            var template = new System.UriTemplate("api/SuperDemo/NullableDecimal?hasValue={hasValue}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("hasValue", hasValue.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -145,11 +145,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET NullableDecimal?hasValue={hasValue}
+        /// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
         /// </summary>
-        public System.Nullable<decimal> GetDecimal(bool hasValue)
+        public System.Nullable<decimal> GetNullableDecimal(bool hasValue)
         {
-            var template = new System.UriTemplate("NullableDecimal?hasValue={hasValue}");
+            var template = new System.UriTemplate("api/SuperDemo/NullableDecimal?hasValue={hasValue}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("hasValue", hasValue.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -161,11 +161,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET FloatZero
+        /// GET api/SuperDemo/FloatZero
         /// </summary>
         public async Task<System.Single> GetFloatZeroAsync()
         {
-            var template = new System.UriTemplate("FloatZero");
+            var template = new System.UriTemplate("api/SuperDemo/FloatZero");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = await client.GetAsync(requestUri.ToString());
@@ -176,11 +176,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET FloatZero
+        /// GET api/SuperDemo/FloatZero
         /// </summary>
         public float GetFloatZero()
         {
-            var template = new System.UriTemplate("FloatZero");
+            var template = new System.UriTemplate("api/SuperDemo/FloatZero");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
@@ -191,11 +191,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET DoubleZero
+        /// GET api/SuperDemo/DoubleZero
         /// </summary>
         public async Task<System.Double> GetDoubleZeroAsync()
         {
-            var template = new System.UriTemplate("DoubleZero");
+            var template = new System.UriTemplate("api/SuperDemo/DoubleZero");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = await client.GetAsync(requestUri.ToString());
@@ -206,11 +206,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET DoubleZero
+        /// GET api/SuperDemo/DoubleZero
         /// </summary>
         public double GetDoubleZero()
         {
-            var template = new System.UriTemplate("DoubleZero");
+            var template = new System.UriTemplate("api/SuperDemo/DoubleZero");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
@@ -221,11 +221,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET DecimalZero
+        /// GET api/SuperDemo/DecimalZero
         /// </summary>
         public async Task<System.Decimal> GetDecimalZeroAsync()
         {
-            var template = new System.UriTemplate("DecimalZero");
+            var template = new System.UriTemplate("api/SuperDemo/DecimalZero");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = await client.GetAsync(requestUri.ToString());
@@ -236,17 +236,491 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET DecimalZero
+        /// GET api/SuperDemo/DecimalZero
         /// </summary>
         public decimal GetDecimalZero()
         {
-            var template = new System.UriTemplate("DecimalZero");
+            var template = new System.UriTemplate("api/SuperDemo/DecimalZero");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
             responseMessage.EnsureSuccessStatusCode();
             var text = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<System.Decimal>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/NullString
+        /// </summary>
+        public async Task<System.String> GetNullStringAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/NullString");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<string>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/NullString
+        /// </summary>
+        public string GetNullString()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/NullString");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<string>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/EmptyString
+        /// </summary>
+        public async Task<System.String> GetEmptyStringAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/EmptyString");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<string>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/EmptyString
+        /// </summary>
+        public string GetEmptyString()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/EmptyString");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<string>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/NullObject
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/NullObject");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/NullObject
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person GetNullPerson()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/NullObject");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/TextStream
+        /// </summary>
+        public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/TextStream");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/TextStream
+        /// </summary>
+        public System.Net.Http.HttpResponseMessage GetTextStream()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/TextStream");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ByteArray
+        /// </summary>
+        public async Task<System.Byte[]> GetByteArrayAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ByteArray");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Byte[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ByteArray
+        /// </summary>
+        public byte[] GetByteArray()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ByteArray");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Byte[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ActionResult
+        /// </summary>
+        public async Task<System.Net.Http.HttpResponseMessage> GetActionResultAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ActionResult");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ActionResult
+        /// </summary>
+        public System.Net.Http.HttpResponseMessage GetActionResult()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ActionResult");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/byte
+        /// </summary>
+        public async Task<System.Byte> GetbyteAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/byte");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Byte.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/byte
+        /// </summary>
+        public byte Getbyte()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/byte");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Byte.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/sbyte
+        /// </summary>
+        public async Task<System.SByte> GetsbyteAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/sbyte");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.SByte.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/sbyte
+        /// </summary>
+        public sbyte Getsbyte()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/sbyte");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.SByte.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/short
+        /// </summary>
+        public async Task<System.Int16> GetShortAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/short");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int16.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/short
+        /// </summary>
+        public short GetShort()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/short");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int16.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ushort
+        /// </summary>
+        public async Task<System.UInt16> GetUShortAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ushort");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.UInt16.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ushort
+        /// </summary>
+        public ushort GetUShort()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ushort");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.UInt16.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/uint
+        /// </summary>
+        public async Task<System.UInt32> GetUintAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/uint");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.UInt32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/uint
+        /// </summary>
+        public uint GetUint()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/uint");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.UInt32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ulong
+        /// </summary>
+        public async Task<System.UInt64> GetulongAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ulong");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.UInt64.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ulong
+        /// </summary>
+        public ulong Getulong()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ulong");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.UInt64.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/doulbe
+        /// </summary>
+        public async Task<System.Double> GetdoubleAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/doulbe");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Double.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/doulbe
+        /// </summary>
+        public double Getdouble()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/doulbe");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Double.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/decimal
+        /// </summary>
+        public async Task<System.Decimal> GetDecimalAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/decimal");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Decimal>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/decimal
+        /// </summary>
+        public decimal GetDecimal()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/decimal");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Decimal>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/char
+        /// </summary>
+        public async Task<System.Net.Http.HttpResponseMessage> GetCharAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/char");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/char
+        /// </summary>
+        public System.Net.Http.HttpResponseMessage GetChar()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/char");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/bool
+        /// </summary>
+        public async Task<System.Boolean> GetBoolAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/bool");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/bool
+        /// </summary>
+        public bool GetBool()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/bool");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Boolean.Parse(text);
         }
     }
     

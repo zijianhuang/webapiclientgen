@@ -14,7 +14,6 @@ namespace Fonlow.WebApiClientGen
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        /// <remarks>POST to  http://localhost:10965/api/CodeGen
         [HttpPost]
         public string TriggerCodeGen(CodeGenParameters parameters)
         {
@@ -48,7 +47,8 @@ namespace Fonlow.WebApiClientGen
     }
     /*
     json object to post with content-type application/json
-    {
+    
+     {
         "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
         "PrefixesOfCustomNamespaces": [
           "DemoWebApi"

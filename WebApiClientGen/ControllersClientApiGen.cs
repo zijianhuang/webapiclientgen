@@ -236,6 +236,9 @@ namespace Fonlow.Net.Http
 
         }
 
+        static readonly Type typeOfHttpActionResult = typeof(System.Web.Http.IHttpActionResult);
+        static readonly Type typeOfChar = typeof(char);
+
         public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description, bool forAsync = false)
         {
             var gen = new ClientApiFunctionGen(sharedContext, description);
@@ -360,6 +363,10 @@ namespace Fonlow.Net.Http
 
         string TranslateCustomTypeToClientType(Type t)
         {
+            if ((t == typeOfHttpActionResult)||(t==typeOfChar))
+                return "System.Net.Http.HttpResponseMessage";
+
+
             if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
                 return t.Namespace + ".Client." + t.Name;
 
@@ -423,8 +430,16 @@ namespace Fonlow.Net.Http
 
         }
 
+        static readonly Type typeOfHttpResponseMessage = typeof(System.Net.Http.HttpResponseMessage);
+
         void AddReturnStatement()
         {
+            if ((returnType == typeOfHttpResponseMessage) || (returnType == typeOfHttpActionResult) || (returnType == typeOfChar))
+            {
+                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
+                return;
+            }
+
             method.Statements.Add(new CodeVariableDeclarationStatement(
                 new CodeTypeReference("var"), "text",
                 new CodeSnippetExpression(forAsync ? "await responseMessage.Content.ReadAsStringAsync()" : "responseMessage.Content.ReadAsStringAsync().Result")));

@@ -106,7 +106,7 @@ namespace IntegrationTests
         public void TestGetTextStream()
         {
             var response = api.GetTextStream();
-            using (var stream = response.Content.ReadAsStreamAsync().Result)
+            var stream = response.Content.ReadAsStreamAsync().Result;
             using (var reader = new System.IO.StreamReader(stream))
             {
                 var s = reader.ReadToEnd();
@@ -119,7 +119,7 @@ namespace IntegrationTests
         public void TestGetActionResult()
         {
             var response = api.GetActionResult();
-            using (var stream = response.Content.ReadAsStreamAsync().Result)
+            var stream = response.Content.ReadAsStreamAsync().Result;
             using (var reader = new System.IO.StreamReader(stream))
             {
                 var s = reader.ReadToEnd();
@@ -179,9 +179,27 @@ namespace IntegrationTests
             Assert.Equal(18446744073709551615, api.Getulong());
         }
 
+        #region IDisposable pattern
+        bool disposed;
+
         public void Dispose()
         {
-            httpClient.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    httpClient.Dispose();
+                }
+
+                disposed = true;
+            }
+        }
+        #endregion
     }
 }

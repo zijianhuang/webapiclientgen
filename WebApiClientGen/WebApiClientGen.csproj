@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientApiFunctionGen.cs" />
     <Compile Include="ControllersClientApiGen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

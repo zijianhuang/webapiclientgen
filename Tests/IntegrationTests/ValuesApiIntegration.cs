@@ -7,19 +7,51 @@ using Xunit;
 
 namespace IntegrationTests
 {
-    [Collection(TestConstants.IisExpressAndInit)]
-    public class ValuesApiIntegration : IDisposable
+    public class ValuesFixture : IDisposable
     {
-        public ValuesApiIntegration()
+        public ValuesFixture()
         {
-            baseUri=new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-            httpClient=new System.Net.Http.HttpClient();
-            api = new DemoWebApi.Controllers.Client.Values(httpClient, baseUri);
+            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
+            httpClient = new System.Net.Http.HttpClient();
+            Api = new DemoWebApi.Controllers.Client.Values(httpClient, baseUri);
         }
+
+        public DemoWebApi.Controllers.Client.Values Api { get; private set; }
 
         System.Net.Http.HttpClient httpClient;
 
-        Uri baseUri;
+        #region IDisposable pattern
+        bool disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    httpClient.Dispose();
+                }
+
+                disposed = true;
+            }
+        }
+        #endregion
+    }
+
+
+    [Collection(TestConstants.IisExpressAndInit)]
+    public class ValuesApiIntegration : IClassFixture<ValuesFixture>
+    {
+        public ValuesApiIntegration(ValuesFixture fixture)
+        {
+            api = fixture.Api;
+        }
 
         DemoWebApi.Controllers.Client.Values api;
 
@@ -81,30 +113,5 @@ namespace IntegrationTests
             api.Delete(1);
         }
 
-
-
-
-        #region IDisposable pattern
-        bool disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    httpClient.Dispose();
-                }
-
-                disposed = true;
-            }
-        }
-        #endregion
     }
 }

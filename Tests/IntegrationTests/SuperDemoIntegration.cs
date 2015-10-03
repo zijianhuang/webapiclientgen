@@ -7,19 +7,51 @@ using Xunit;
 
 namespace IntegrationTests
 {
-    [Collection(TestConstants.IisExpressAndInit)]
-    public class SuperDemoApiIntegration : IDisposable
+    public class SuperDemoFixture : IDisposable
     {
-        public SuperDemoApiIntegration()
+        public SuperDemoFixture()
         {
-            baseUri=new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-            httpClient=new System.Net.Http.HttpClient();
-            api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, baseUri);
+            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
+            httpClient = new System.Net.Http.HttpClient();
+            Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, baseUri);
         }
+
+        public DemoWebApi.Controllers.Client.SuperDemo Api { get; private set; }
 
         System.Net.Http.HttpClient httpClient;
 
-        Uri baseUri;
+        #region IDisposable pattern
+        bool disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    httpClient.Dispose();
+                }
+
+                disposed = true;
+            }
+        }
+        #endregion
+    }
+
+
+    [Collection(TestConstants.IisExpressAndInit)]
+    public class SuperDemoApiIntegration : IClassFixture<SuperDemoFixture>
+    {
+        public SuperDemoApiIntegration(SuperDemoFixture fixture)
+        {
+            api = fixture.Api;
+        }
 
         DemoWebApi.Controllers.Client.SuperDemo api;
 
@@ -179,27 +211,5 @@ namespace IntegrationTests
             Assert.Equal(18446744073709551615, api.Getulong());
         }
 
-        #region IDisposable pattern
-        bool disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    httpClient.Dispose();
-                }
-
-                disposed = true;
-            }
-        }
-        #endregion
     }
 }

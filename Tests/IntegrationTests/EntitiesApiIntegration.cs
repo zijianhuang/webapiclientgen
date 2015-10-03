@@ -8,21 +8,18 @@ using DemoWebApi.DemoData.Client;
 
 namespace IntegrationTests
 {
-    [Collection(TestConstants.IisExpressAndInit)]
-    public class EntitiesApiIntegration : IDisposable
+    public class EntitiesFixture : IDisposable
     {
-        public EntitiesApiIntegration()
+        public EntitiesFixture()
         {
-            baseUri=new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-            httpClient=new System.Net.Http.HttpClient();
-            api = new DemoWebApi.Controllers.Client.Entities(httpClient, baseUri);
+            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
+            httpClient = new System.Net.Http.HttpClient();
+            Api = new DemoWebApi.Controllers.Client.Entities(httpClient, baseUri);
         }
 
+        public DemoWebApi.Controllers.Client.Entities Api { get; private set; }
+
         System.Net.Http.HttpClient httpClient;
-
-        Uri baseUri;
-
-        DemoWebApi.Controllers.Client.Entities api;
 
         #region IDisposable pattern
         bool disposed;
@@ -46,8 +43,20 @@ namespace IntegrationTests
             }
         }
         #endregion
+    }
 
-        [Fact]
+
+    [Collection(TestConstants.IisExpressAndInit)]
+    public class EntitiesApiIntegration : IClassFixture<EntitiesFixture>
+    {
+        public EntitiesApiIntegration(EntitiesFixture fixture)
+        {
+            api = fixture.Api;
+        }
+
+        DemoWebApi.Controllers.Client.Entities api;
+
+         [Fact]
         public void TestCreatePerson()
         {
             Person person = new Person()

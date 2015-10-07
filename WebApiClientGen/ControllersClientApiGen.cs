@@ -70,7 +70,7 @@ namespace Fonlow.Net.Http
                 new CodeNamespaceImport("System.Threading.Tasks"),
                 new CodeNamespaceImport("System.Net.Http"),
                 new CodeNamespaceImport("Newtonsoft.Json"),
-                new CodeNamespaceImport("System.Net"),
+           //     new CodeNamespaceImport("System.Net"),
 
                 });
 
@@ -176,6 +176,12 @@ namespace Fonlow.Net.Http
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
                 "System.Uri", "baseUri"));
 
+            constructor.Statements.Add(new CodeSnippetStatement(@"            if (client == null)
+                throw new ArgumentNullException(""client"", ""Null HttpClient."");
+"));
+            constructor.Statements.Add(new CodeSnippetStatement(@"            if (baseUri == null)
+                throw new ArgumentNullException(""baseUri"", ""Null baseUri"");
+"));
             // Add field initialization logic
             sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
             constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));

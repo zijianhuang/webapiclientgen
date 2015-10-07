@@ -19,11 +19,15 @@ namespace Fonlow.WebApiClientGen
         {
             if (parameters == null)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "parametersNull" });
-            if (parameters.ClientLibraryProjectFolderName == null)
+            if (string.IsNullOrWhiteSpace( parameters.ClientLibraryProjectFolderName ))
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNameNull" });
 
             string webRootPath = System.Web.Hosting.HostingEnvironment.MapPath("~");
-            var path = System.IO.Path.Combine(webRootPath, "..", parameters.ClientLibraryProjectFolderName, "WebApiClientAuto.cs");
+            string clientProjectDir = System.IO.Path.Combine(webRootPath, "..", parameters.ClientLibraryProjectFolderName);
+            if (!System.IO.Directory.Exists(clientProjectDir))
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNotExist" });
+
+            var path = System.IO.Path.Combine(clientProjectDir, "WebApiClientAuto.cs");
             var apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions;
             var gen = new Fonlow.Net.Http.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames );
             gen.Generate(apiDescriptions, parameters.GenerateBothAsyncAndSync);

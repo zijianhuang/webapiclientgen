@@ -14,7 +14,7 @@ namespace DemoWebApi.DemoData
     }
 
 
-    [DataContract(Namespace = Constants.DataNamespace)]
+    [DataContract(Namespace = Constants.DataNamespace, Name ="entity")]
     public class Entity
     {
         public Entity()
@@ -45,6 +45,17 @@ namespace DemoWebApi.DemoData
         [EnumMember]
         Residential,
     };
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    public enum MyEnumType
+    {
+        [EnumMember]
+        First=1,
+        [EnumMember]
+        Two=2,
+    };
+
+
 
     [DataContract(Namespace = Constants.DataNamespace)]
     public class Address
@@ -99,4 +110,12 @@ namespace DemoWebApi.DemoData
     }
 
 
+    [DataContract(Namespace = Constants.DataNamespace)]
+    public struct MyPoint
+    {
+        [DataMember]
+        public double X;
+        [DataMember]
+        public double Y;
+    }
 }

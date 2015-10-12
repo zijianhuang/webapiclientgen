@@ -30,8 +30,9 @@ namespace Fonlow.WebApiClientGen
             var path = System.IO.Path.Combine(clientProjectDir, "WebApiClientAuto.cs");
             var apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions;
             var gen = new Fonlow.Net.Http.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames );
-            gen.Generate(apiDescriptions, parameters.GenerateBothAsyncAndSync);
-            gen.SaveCSharpCode(path);
+            gen.ForBothAsyncAndSync = parameters.GenerateBothAsyncAndSync;
+            gen.Generate(apiDescriptions);
+            gen.Save(path);
             return "OK";
         }
     }

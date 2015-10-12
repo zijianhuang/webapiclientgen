@@ -1,27 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://fonlow.com/DemoData/2014/02" elementFormDefault="qualified" targetNamespace="http://fonlow.com/DemoData/2014/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="Constants">
     <xs:sequence />
   </xs:complexType>
   <xs:element name="Constants" nillable="true" type="tns:Constants" />
-  <xs:complexType name="Entity">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddress" />
-      <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Entity" nillable="true" type="tns:Entity" />
-  <xs:complexType name="ArrayOfAddress">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfAddress" nillable="true" type="tns:ArrayOfAddress" />
+  <xs:simpleType name="AddressType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Postal" />
+      <xs:enumeration value="Residential" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AddressType" nillable="true" type="tns:AddressType" />
+  <xs:simpleType name="MyEnumType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="First">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Two">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyEnumType" nillable="true" type="tns:MyEnumType" />
   <xs:complexType name="Address">
     <xs:sequence>
       <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Location" type="tns:MyPoint" />
       <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Street1" nillable="true" type="xs:string" />
@@ -30,16 +44,35 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Address" nillable="true" type="tns:Address" />
-  <xs:simpleType name="AddressType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Postal" />
-      <xs:enumeration value="Residential" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="AddressType" nillable="true" type="tns:AddressType" />
+  <xs:complexType name="MyPoint">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="X" type="xs:double" />
+      <xs:element minOccurs="0" name="Y" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyPoint" nillable="true" type="tns:MyPoint" />
+  <xs:complexType name="entity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddress" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="entity" nillable="true" type="tns:entity" />
+  <xs:complexType name="ArrayOfAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAddress" nillable="true" type="tns:ArrayOfAddress" />
   <xs:complexType name="Person">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Entity">
+      <xs:extension base="tns:entity">
         <xs:sequence>
           <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:dateTime" />
           <xs:element minOccurs="0" name="GivenName" nillable="true" type="xs:string" />
@@ -51,7 +84,7 @@
   <xs:element name="Person" nillable="true" type="tns:Person" />
   <xs:complexType name="Company">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Entity">
+      <xs:extension base="tns:entity">
         <xs:sequence>
           <xs:element minOccurs="0" name="BusinessNumber" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="BusinessNumberType" nillable="true" type="xs:string" />

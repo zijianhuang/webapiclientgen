@@ -42,7 +42,6 @@ namespace Fonlow.Net.Http
             this.sharedContext = sharedContext;
 
             relativePath = description.RelativePath;
-            //   route = description.Route;
             parameterDescriptions = description.ParameterDescriptions;
             controllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName;
 

@@ -40,22 +40,24 @@ namespace Fonlow.Net.Http
         /// Save C# codes into a file.
         /// </summary>
         /// <param name="fileName"></param>
-        public void SaveCSharpCode(string fileName)
+        public void Save(string fileName)
         {
             CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
             CodeGeneratorOptions options = new CodeGeneratorOptions();
             options.BracingStyle = "C";
-            using (StreamWriter sourceWriter = new StreamWriter(fileName))
+            using (StreamWriter writer = new StreamWriter(fileName))
             {
-                provider.GenerateCodeFromCompileUnit(targetUnit, sourceWriter, options);
+                provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
             }
         }
+
+        public bool ForBothAsyncAndSync { get; set; }
 
         /// <summary>
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public void Generate(Collection<ApiDescription> descriptions, bool forBothAsyncAndSync = false)
+        public void Generate(Collection<ApiDescription> descriptions)
         {
             //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
@@ -99,7 +101,7 @@ namespace Fonlow.Net.Http
 
                 var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, true);
                 existingClientClass.Members.Add(apiFunction);
-                if (forBothAsyncAndSync)
+                if (ForBothAsyncAndSync)
                 {
                     existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, false));
                 }

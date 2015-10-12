@@ -39,10 +39,11 @@ namespace Fonlow.Poco2Ts
             //   var provider = CodeDomProvider.CreateProvider("CSharp");
             CodeGeneratorOptions options = new CodeGeneratorOptions()
             {
-                BracingStyle = "C",
+                BracingStyle = "JS",//not yet working
                 IndentString="    ",
             };
             using (StreamWriter writer = new StreamWriter(fileName))
+           // using (var writer = new IndentedTextWriter(new StreamWriter(fileName)))
             {                
                 provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
             }

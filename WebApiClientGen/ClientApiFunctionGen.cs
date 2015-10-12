@@ -10,16 +10,6 @@ using System.Diagnostics;
 namespace Fonlow.Net.Http
 {
     /// <summary>
-    /// Store CodeDom references shared by all functions of the client API class.
-    /// </summary>
-    internal class SharedContext
-    {
-        public CodeFieldReferenceExpression clientReference { get; set; }
-        public string[] prefixesOfCustomNamespaces { get; set; }
-        public CodeFieldReferenceExpression baseUriReference { get; set; }
-    }
-
-    /// <summary>
     /// Generate a client function upon ApiDescription
     /// </summary>
     internal class ClientApiFunctionGen

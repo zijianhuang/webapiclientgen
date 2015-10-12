@@ -12,14 +12,14 @@ namespace Fonlow.Net.Http
     /// <summary>
     /// Generate .NET codes of the client API of the controllers
     /// </summary>
-    public class ControllersClientApiGen
+    public class ControllersClientApiGen : ControllersClientApiGenBase
     {
-        CodeCompileUnit targetUnit;
-        Dictionary<string, object> apiClassesDic;
-        CodeTypeDeclaration[] newClassesCreated;
-        //  string[] prefixesOfCustomNamespaces;
-        SharedContext sharedContext;
-        string[] excludedControllerNames;
+        //CodeCompileUnit targetUnit;
+        //Dictionary<string, object> apiClassesDic;
+        //CodeTypeDeclaration[] newClassesCreated;
+        ////  string[] prefixesOfCustomNamespaces;
+        //SharedContext sharedContext;
+        //string[] excludedControllerNames;
 
         /// <summary>
         /// 
@@ -28,19 +28,20 @@ namespace Fonlow.Net.Http
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
         public ControllersClientApiGen(string[] prefixesOfCustomNamespaces, string[] excludedControllerNames = null)
+            :base(prefixesOfCustomNamespaces, excludedControllerNames)
         {
-            sharedContext = new SharedContext();
-            sharedContext.prefixesOfCustomNamespaces = prefixesOfCustomNamespaces == null ? new string[] { } : prefixesOfCustomNamespaces;
-            targetUnit = new CodeCompileUnit();
-            apiClassesDic = new Dictionary<string, object>();
-            this.excludedControllerNames = excludedControllerNames;
+            //sharedContext = new SharedContext();
+            //sharedContext.prefixesOfCustomNamespaces = prefixesOfCustomNamespaces == null ? new string[] { } : prefixesOfCustomNamespaces;
+            //targetUnit = new CodeCompileUnit();
+            //apiClassesDic = new Dictionary<string, object>();
+            //this.excludedControllerNames = excludedControllerNames;
         }
 
         /// <summary>
         /// Save C# codes into a file.
         /// </summary>
         /// <param name="fileName"></param>
-        public void Save(string fileName)
+        public override void Save(string fileName)
         {
             CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
             CodeGeneratorOptions options = new CodeGeneratorOptions();
@@ -57,7 +58,7 @@ namespace Fonlow.Net.Http
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public void Generate(Collection<ApiDescription> descriptions)
+        public override  void Generate(Collection<ApiDescription> descriptions)
         {
             //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);

@@ -7,35 +7,10 @@ using System.Runtime.Serialization;
 
 namespace DemoWebApi.DemoData
 {
-    [DataContract(Namespace = Constants.DataNamespace)]
     public sealed class Constants
     {
         public const string DataNamespace = "http://fonlow.com/DemoData/2014/02";
     }
-
-
-    [DataContract(Namespace = Constants.DataNamespace, Name ="entity")]
-    public class Entity
-    {
-        public Entity()
-        {
-            Addresses = new List<Address>();
-        }
-        [DataMember]
-        public long Id { get; set; }
-
-        [DataMember]
-        public string Name { get; set; }
-
-        [DataMember]
-        public IList<Address> Addresses { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
-
 
     [DataContract(Namespace = Constants.DataNamespace)]
     public enum AddressType
@@ -46,13 +21,14 @@ namespace DemoWebApi.DemoData
         Residential,
     };
 
+
     [DataContract(Namespace = Constants.DataNamespace)]
     public enum MyEnumType
     {
         [EnumMember]
-        First=1,
+        First = 1,
         [EnumMember]
-        Two=2,
+        Two = 2,
     };
 
 
@@ -80,7 +56,35 @@ namespace DemoWebApi.DemoData
 
         [DataMember]
         public AddressType Type { get; set; }
+
+        [DataMember]
+        public DemoWebApi.DemoData.Another.MyPoint Location;
     }
+
+
+    [DataContract(Namespace = Constants.DataNamespace, Name ="entity")]
+    public class Entity
+    {
+        public Entity()
+        {
+            Addresses = new List<Address>();
+        }
+        [DataMember]
+        public long Id { get; set; }
+
+        [DataMember]
+        public string Name { get; set; }
+
+        [DataMember]
+        public IList<Address> Addresses { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+
+
 
     [DataContract(Namespace = Constants.DataNamespace)]
     public class Person : Entity
@@ -110,6 +114,11 @@ namespace DemoWebApi.DemoData
     }
 
 
+
+}
+
+namespace DemoWebApi.DemoData.Another
+{
     [DataContract(Namespace = Constants.DataNamespace)]
     public struct MyPoint
     {

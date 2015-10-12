@@ -57,7 +57,10 @@ namespace Fonlow.Net.Http
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
         public void Generate(Collection<ApiDescription> descriptions, bool forBothAsyncAndSync = false)
         {
+            //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
+
+            //Create client classes mapping to controller classes
             foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
             {
                 var clientNamespaceText = grouppedControllerDescriptions.Key + ".Client";
@@ -70,8 +73,6 @@ namespace Fonlow.Net.Http
                 new CodeNamespaceImport("System.Threading.Tasks"),
                 new CodeNamespaceImport("System.Net.Http"),
                 new CodeNamespaceImport("Newtonsoft.Json"),
-           //     new CodeNamespaceImport("System.Net"),
-
                 });
 
                 newClassesCreated = grouppedControllerDescriptions.Select(d =>

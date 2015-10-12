@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D3980DE-E732-4B48-B04E-64F36DB9E3B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TypescriptCodeDom</RootNamespace>
+    <AssemblyName>TypescriptCodeDom</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeExpressions\ArgumentReference\ITypescriptArgumentReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\BinaryOperator\TypescriptBinaryOperatorExpression.cs" />
+    <Compile Include="CodeExpressions\ExpressionFactory.cs" />
+    <Compile Include="CodeExpressions\Extensions.cs" />
+    <Compile Include="CodeExpressions\IExpression.cs" />
+    <Compile Include="CodeExpressions\IExpressionFactory.cs" />
+    <Compile Include="CodeExpressions\ArrayCreate\ITypescriptArrayCreateExpression.cs" />
+    <Compile Include="CodeExpressions\ArrayIndexer\ITypescriptArrayIndexerExpression.cs" />
+    <Compile Include="CodeExpressions\BaseReference\ITypescriptBaseReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\BinaryOperator\ITypescriptBinaryOperatorExpression.cs" />
+    <Compile Include="CodeExpressions\Cast\ITypescriptCastExpression.cs" />
+    <Compile Include="CodeExpressions\DefaultValue\ITypescriptDefaultValueExpression.cs" />
+    <Compile Include="CodeExpressions\DelegateCreate\ITypescriptDelegateCreateExpression.cs" />
+    <Compile Include="CodeExpressions\DelegateInvoke\ITypescriptDelegateInvokeExpression.cs" />
+    <Compile Include="CodeExpressions\Direction\ITypescriptDirectionExpression.cs" />
+    <Compile Include="CodeExpressions\EventReference\ITypescriptEventReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\FieldReference\ITypescriptFieldReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\Indexer\ITypescriptIndexerExpression.cs" />
+    <Compile Include="CodeExpressions\MethodInvoke\ITypescriptMethodInvokeExpression.cs" />
+    <Compile Include="CodeExpressions\MethodReference\ITypescriptMethodReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\ObjectCreate\ITypescriptObjectCreateExpression.cs" />
+    <Compile Include="CodeExpressions\ParameterDeclaration\ITypescriptParameterDeclarationExpression.cs" />
+    <Compile Include="CodeExpressions\Primitive\ITypescriptPrimitiveExpression.cs" />
+    <Compile Include="CodeExpressions\PropertyReference\ITypescriptPropertyReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\PropertySetValue\ITypescriptPropertySetValueReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\Snippet\ITypescriptSnippetExpression.cs" />
+    <Compile Include="CodeExpressions\ThisReference\ITypescriptThisReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\TypeOf\ITypescriptTypeOfExpression.cs" />
+    <Compile Include="CodeExpressions\TypeReference\ITypescriptTypeReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\VariableReference\ITypescriptVariableReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\TypeReference\TypescriptTypeReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\ArgumentReference\TypescriptArgumentReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\ArrayCreate\TypescriptArrayCreateExpression.cs" />
+    <Compile Include="CodeExpressions\ArrayIndexer\TypescriptArrayIndexerExpression.cs" />
+    <Compile Include="CodeExpressions\BaseReference\TypescriptBaseReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\Cast\TypescriptCastExpression.cs" />
+    <Compile Include="CodeExpressions\DefaultValue\TypescriptDefaultValueExpression.cs" />
+    <Compile Include="CodeExpressions\DelegateCreate\TypescriptDelegateCreateExpression.cs" />
+    <Compile Include="CodeExpressions\DelegateInvoke\TypescriptDelegateInvokeExpression.cs" />
+    <Compile Include="CodeExpressions\Direction\TypescriptDirectionExpression.cs" />
+    <Compile Include="CodeExpressions\EventReference\TypescriptEventReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\FieldReference\TypescriptFieldReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\Indexer\TypescriptIndexerExpression.cs" />
+    <Compile Include="CodeExpressions\MethodInvoke\TypescriptMethodInvokeExpression.cs" />
+    <Compile Include="CodeExpressions\MethodReference\TypescriptMethodReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\ObjectCreate\TypescriptObjectCreateExpression.cs" />
+    <Compile Include="CodeExpressions\ParameterDeclaration\TypescriptParameterDeclarationExpression.cs" />
+    <Compile Include="CodeExpressions\Primitive\TypescriptPrimitiveExpression.cs" />
+    <Compile Include="CodeExpressions\PropertyReference\TypescriptPropertyReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\PropertySetValue\TypescriptPropertySetValueReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\Snippet\TypescriptSnippetExpression.cs" />
+    <Compile Include="CodeExpressions\ThisReference\TypescriptThisReferenceExpression.cs" />
+    <Compile Include="CodeExpressions\TypeOf\TypescriptTypeOfExpression.cs" />
+    <Compile Include="CodeExpressions\VariableReference\TypescriptVariableReferenceExpression.cs" />
+    <Compile Include="CodeNamespaces\ITypescriptNamespace.cs" />
+    <Compile Include="CodeNamespaces\TypescriptNamespace.cs" />
+    <Compile Include="CodeStatements\IStatement.cs" />
+    <Compile Include="CodeStatements\IStatementFactory.cs" />
+    <Compile Include="CodeStatements\StatementFactory.cs" />
+    <Compile Include="CodeStatements\TypescriptAssignStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptAttachEventStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptCommentStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptConditionStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptExpressionStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptGotoStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptIterationStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptLabeledStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptMethodReturnStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptRemoveEventStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptSnippetStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptThrowExceptionStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptTryCatchFinallyStatement.cs" />
+    <Compile Include="CodeStatements\TypescriptVariableDeclarationStatement.cs" />
+    <Compile Include="CodeTypeMembers\Extensions.cs" />
+    <Compile Include="CodeTypeMembers\IMember.cs" />
+    <Compile Include="CodeTypeMembers\MemberFactory.cs" />
+    <Compile Include="CodeTypeMembers\TypescriptConstructor.cs" />
+    <Compile Include="CodeTypeMembers\TypescriptMemberEvent.cs" />
+    <Compile Include="CodeTypeMembers\TypescriptMemberField.cs" />
+    <Compile Include="CodeTypeMembers\TypescriptMemberMethod.cs" />
+    <Compile Include="CodeTypeMembers\TypescriptMemberProperty.cs" />
+    <Compile Include="CodeTypeMembers\TypescriptSnippetTypeMember.cs" />
+    <Compile Include="CodeTypeMembers\TypescriptTypeDeclaration.cs" />
+    <Compile Include="CodeTypeParameters\ITypescriptTypeParameter.cs" />
+    <Compile Include="CodeTypeParameters\TypescriptTypeParameter.cs" />
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\Keyword\ITypescriptKeywordsHandler.cs" />
+    <Compile Include="Common\TypeMapper\ITypescriptTypeMapper.cs" />
+    <Compile Include="Common\Keyword\TypescriptKeywordsHandler.cs" />
+    <Compile Include="Common\TypeMapper\TypescriptTypeMapper.cs" />
+    <Compile Include="CodeStatements\Extensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="TypescriptCodeGenerator.cs" />
+    <Compile Include="TypescriptCodeProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TypescriptCompiler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CodeStatements\Assign\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

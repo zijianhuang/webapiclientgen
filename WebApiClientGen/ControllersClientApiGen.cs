@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Http.Description;
 
-namespace Fonlow.Net.Http
+namespace Fonlow.CodeDom.Web.Cs
 {
     /// <summary>
     /// Generate .NET codes of the client API of the controllers

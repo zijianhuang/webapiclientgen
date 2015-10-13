@@ -7,7 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Diagnostics;
 
-namespace Fonlow.Net.Http
+namespace Fonlow.CodeDom.Web.Cs
 {
     /// <summary>
     /// Generate a client function upon ApiDescription

@@ -7,7 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Diagnostics;
 
-namespace Fonlow.Net.Http.Ts
+namespace Fonlow.CodeDom.Web.Ts
 {
     /// <summary>
     /// Generate a client function upon ApiDescription
@@ -23,8 +23,6 @@ namespace Fonlow.Net.Http.Ts
         string methodName;
         Type returnType;
         CodeMemberMethod method;
-
-        bool forAsync;
 
         public ClientApiTsFunctionGen(SharedContext sharedContext, ApiDescription description)
         {
@@ -47,15 +45,14 @@ namespace Fonlow.Net.Http.Ts
         static readonly Type typeOfHttpActionResult = typeof(System.Web.Http.IHttpActionResult);
         static readonly Type typeOfChar = typeof(char);
 
-        public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description, bool forAsync = false)
+        public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description)
         {
-            var gen = new ClientApiFunctionGen(sharedContext, description);
-            return gen.CreateApiFunction(forAsync);
+            var gen = new ClientApiTsFunctionGen(sharedContext, description);
+            return gen.CreateApiFunction();
         }
 
-        public CodeMemberMethod CreateApiFunction(bool forAsync = false)
+        public CodeMemberMethod CreateApiFunction()
         {
-            this.forAsync = forAsync;
             //create method
             method = CreateMethodBasic();
 
@@ -69,31 +66,15 @@ namespace Fonlow.Net.Http.Ts
             switch (description.HttpMethod.Method)
             {
                 case "GET":
-                    if (forAsync)
-                    {
-                        RenderGetOrDeleteImplementation(
-                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "GetAsync", new CodeSnippetExpression("requestUri.ToString()")));
-                    }
-                    else
-                    {
                         RenderGetOrDeleteImplementation(
                             new CodePropertyReferenceExpression(
                             new CodeMethodInvokeExpression(sharedContext.clientReference, "GetAsync", new CodeSnippetExpression("requestUri.ToString()")), "Result"));
-                    }
                     break;
                 case "DELETE":
-                    if (forAsync)
-                    {
-                        RenderGetOrDeleteImplementation(
-                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "DeleteAsync", new CodeSnippetExpression("requestUri.ToString()")));
-                    }
-                    else
-                    {
                         RenderGetOrDeleteImplementation(
                             new CodePropertyReferenceExpression(
                             new CodeMethodInvokeExpression(sharedContext.clientReference, "DeleteAsync", new CodeSnippetExpression("requestUri.ToString()"))
                             , "Result"));
-                    }
                     break;
                 case "POST":
                     RenderPostOrPutImplementation(true);
@@ -250,7 +231,7 @@ namespace Fonlow.Net.Http.Ts
 
             method.Statements.Add(new CodeVariableDeclarationStatement(
                 new CodeTypeReference("var"), "text",
-                new CodeSnippetExpression(forAsync ? "await responseMessage.Content.ReadAsStringAsync()" : "responseMessage.Content.ReadAsStringAsync().Result")));
+                new CodeSnippetExpression("responseMessage.Content.ReadAsStringAsync().Result")));
             var textReference = new CodeVariableReferenceExpression("text");
             if (IsStringType(returnType))
             {
@@ -381,38 +362,19 @@ namespace Fonlow.Net.Http.Ts
 
             if (singleFromBodyParameterDescription != null)
             {
-                if (forAsync)
-                {
-                    AddPostStatement(
-                    new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ? "PostAsJsonAsync" : "PutAsJsonAsync", new CodeSnippetExpression("requestUri.ToString()")
-              , new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
-                }
-                else
-                {
+
                     AddPostStatement(new CodePropertyReferenceExpression(
                     new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? "PostAsJsonAsync" : "PutAsJsonAsync", new CodeSnippetExpression("requestUri.ToString()")
               , new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName))
                     , "Result"));
-                }
             }
             else
             {
-                if (forAsync)
-                {
-                    AddPostStatement(
-                        new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ? "PostAsync" : "PutAsync"
-                        , new CodeSnippetExpression("requestUri.ToString()")
-                        , new CodeSnippetExpression("new StringContent(String.Empty)")));
-                }
-                else
-                {
                     AddPostStatement(new CodePropertyReferenceExpression(
                         new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? "PostAsync" : "PutAsync"
                         , new CodeSnippetExpression("requestUri.ToString()")
                         , new CodeSnippetExpression("new StringContent(String.Empty)"))
                         , "Result"));
-                }
-
             }
 
             ////Statement: var result = task.Result;

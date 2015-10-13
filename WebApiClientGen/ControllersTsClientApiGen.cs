@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.Web.Http.Description;
 using TypescriptCodeDom;
 
-namespace Fonlow.Net.Http.Ts
+namespace Fonlow.CodeDom.Web.Ts
 {
     /// <summary>
     /// Generate .NET codes of the client API of the controllers
@@ -95,7 +95,7 @@ namespace Fonlow.Net.Http.Ts
                 var existingClientClass = LookupExistingClass(controllerNamespace, controllerName);
                 System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-                var apiFunction = ClientApiTsFunctionGen.Create(sharedContext, d, true);
+                var apiFunction = ClientApiTsFunctionGen.Create(sharedContext, d);
                 existingClientClass.Members.Add(apiFunction);
             }
 

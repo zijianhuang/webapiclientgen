@@ -33,7 +33,7 @@ namespace Fonlow.WebApiClientGen
                     throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNotExist" });
 
                 var path = System.IO.Path.Combine(clientProjectDir, "WebApiClientAuto.cs");
-                var gen = new Fonlow.Net.Http.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
+                var gen = new Fonlow.CodeDom.Web.Cs.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
                 gen.ForBothAsyncAndSync = parameters.GenerateBothAsyncAndSync;
                 gen.Generate(apiDescriptions);
                 gen.Save(path);
@@ -60,7 +60,7 @@ namespace Fonlow.WebApiClientGen
                 }
                 string tsPath = System.IO.Path.Combine(theFolder, "WebApiClientAuto.ts");
 
-                var tsGen = new Fonlow.Net.Http.Ts.ControllersTsClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
+                var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
                 tsGen.Generate(apiDescriptions);
                 tsGen.Save(tsPath);
             }

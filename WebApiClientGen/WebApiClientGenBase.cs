@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Http.Description;
 
-namespace Fonlow.Net.Http
+namespace Fonlow.CodeDom.Web
 {
     /// <summary>
     /// Store CodeDom references shared by all functions of the client API class.

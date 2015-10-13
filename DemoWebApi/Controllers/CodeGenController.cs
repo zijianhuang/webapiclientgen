@@ -19,20 +19,51 @@ namespace Fonlow.WebApiClientGen
         {
             if (parameters == null)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "parametersNull" });
-            if (string.IsNullOrWhiteSpace( parameters.ClientLibraryProjectFolderName ))
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNameNull" });
 
             string webRootPath = System.Web.Hosting.HostingEnvironment.MapPath("~");
-            string clientProjectDir = System.IO.Path.Combine(webRootPath, "..", parameters.ClientLibraryProjectFolderName);
-            if (!System.IO.Directory.Exists(clientProjectDir))
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNotExist" });
-
-            var path = System.IO.Path.Combine(clientProjectDir, "WebApiClientAuto.cs");
             var apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions;
-            var gen = new Fonlow.Net.Http.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames );
-            gen.ForBothAsyncAndSync = parameters.GenerateBothAsyncAndSync;
-            gen.Generate(apiDescriptions);
-            gen.Save(path);
+
+            if (!string.IsNullOrEmpty(parameters.ClientLibraryProjectFolderName))
+            {
+                if (string.IsNullOrWhiteSpace(parameters.ClientLibraryProjectFolderName))
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNameNull" });
+
+                string clientProjectDir = System.IO.Path.Combine(webRootPath, "..", parameters.ClientLibraryProjectFolderName);
+                if (!System.IO.Directory.Exists(clientProjectDir))
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNotExist" });
+
+                var path = System.IO.Path.Combine(clientProjectDir, "WebApiClientAuto.cs");
+                var gen = new Fonlow.Net.Http.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
+                gen.ForBothAsyncAndSync = parameters.GenerateBothAsyncAndSync;
+                gen.Generate(apiDescriptions);
+                gen.Save(path);
+            }
+
+            if (!string.IsNullOrEmpty(parameters.TypeScriptFolder))
+            {
+                string theFolder;
+                try
+                {
+                    theFolder = System.IO.Path.IsPathRooted(parameters.TypeScriptFolder) ? parameters.TypeScriptFolder
+                : System.IO.Path.Combine(webRootPath, "..", parameters.TypeScriptFolder);
+
+                }
+                catch (System.ArgumentException e)
+                {
+                    System.Diagnostics.Trace.TraceWarning(e.Message);
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "InvalidTypeScriptFolder" });
+                }
+
+                if (!System.IO.Directory.Exists(theFolder))
+                {
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "TypeScriptFolderNotExist" });
+                }
+                string tsPath = System.IO.Path.Combine(theFolder, "WebApiClientAuto.ts");
+
+                var tsGen = new Fonlow.Net.Http.Ts.ControllersTsClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
+                tsGen.Generate(apiDescriptions);
+                tsGen.Save(tsPath);
+            }
             return "OK";
         }
     }
@@ -48,7 +79,15 @@ namespace Fonlow.WebApiClientGen
 
         public string[] ExcludedControllerNames { get; set; }
 
+        /// <summary>
+        /// For .NET client, generate both async and sync functions for each Web API function
+        /// </summary>
         public bool GenerateBothAsyncAndSync { get; set; }
+
+        /// <summary>
+        /// Absolute path or relative path of a sibling of Web API project.
+        /// </summary>
+        public string TypeScriptFolder { get; set; }
     }
     /*
     json object to post with content-type application/json
@@ -61,7 +100,8 @@ namespace Fonlow.WebApiClientGen
         "ExcludedControllerNames": [
           "DemoWebApi.Controllers.Account"
         ],
-        "GenerateBothAsyncAndSync": true
+        "GenerateBothAsyncAndSync": true,
+        "TypeScriptFolder" : "c:\\test"
       }
     */
 

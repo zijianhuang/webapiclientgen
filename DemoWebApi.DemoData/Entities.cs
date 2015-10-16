@@ -22,7 +22,7 @@ namespace DemoWebApi.DemoData
     };
 
 
-    [DataContract(Namespace = Constants.DataNamespace)]
+    
     public enum MyEnumType
     {
         [EnumMember]
@@ -31,6 +31,24 @@ namespace DemoWebApi.DemoData
         Two = 2,
     };
 
+    [DataContract(Namespace = Constants.DataNamespace)]
+    enum Days
+    {
+        [EnumMember]
+        Sat = 1,
+        [EnumMember]
+        Sun,
+        [EnumMember]
+        Mon,
+        [EnumMember]
+        Tue,
+        [EnumMember]
+        Wed,
+        [EnumMember]
+        Thu,
+        [EnumMember]
+        Fri
+    };
 
 
     [DataContract(Namespace = Constants.DataNamespace)]

@@ -36,16 +36,16 @@ namespace Fonlow.Poco2Ts
         public void SaveTsCode(string fileName)
         {
             var provider = new TypescriptCodeProvider();
-            //   var provider = CodeDomProvider.CreateProvider("CSharp");
+           //    var provider = CodeDomProvider.CreateProvider("CSharp");
             CodeGeneratorOptions options = new CodeGeneratorOptions()
             {
                 BracingStyle = "JS",//not yet working
                 IndentString="    ",
             };
             using (StreamWriter writer = new StreamWriter(fileName))
-           // using (var writer = new IndentedTextWriter(new StreamWriter(fileName)))
+            using (var indentedTextWriter = new IndentedTextWriter(writer))
             {                
-                provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+                provider.GenerateCodeFromCompileUnit(targetUnit, indentedTextWriter, options);
             }
         }
 
@@ -107,6 +107,8 @@ namespace Fonlow.Poco2Ts
                                 {
                                     Name = tsPropertyName,
                                     Type = GetClientFieldTypeText(propertyInfo.PropertyType),
+               //                     Attributes = MemberAttributes.Public,
+
                                 };
                                 typeDeclaration.Members.Add(clientField);
 
@@ -127,6 +129,7 @@ namespace Fonlow.Poco2Ts
                                 {
                                     Name = tsPropertyName,
                                     Type = GetClientFieldTypeText(fieldInfo.FieldType),
+                           //         Attributes = MemberAttributes.Public,
                                 };
 
                                 typeDeclaration.Members.Add(clientField);
@@ -137,20 +140,24 @@ namespace Fonlow.Poco2Ts
                     {
                         typeDeclaration = CreatePodClientEnum(clientNamespace, tsName);
 
+                        int k = 0;
                         foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
                         {
                             var name = fieldInfo.Name;
                             var intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
                             Debug.WriteLine(name + " -- " + intValue);
+                            var isInitialized = intValue != k;
+
                             var clientField = new CodeMemberField()
                             {
                                 Name = name,
                                 Type = new CodeTypeReference(fieldInfo.FieldType),
-                                InitExpression = new CodePrimitiveExpression(intValue),
+                                InitExpression = isInitialized ? new CodePrimitiveExpression(intValue): null,
+                              //  Attributes= MemberAttributes.Public,
                             };
 
                             typeDeclaration.Members.Add(clientField);
-
+                            k++;
                         }
 
                     }
@@ -198,7 +205,6 @@ namespace Fonlow.Poco2Ts
             var targetClass = new CodeTypeDeclaration(className)
             {
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
-
             };
 
             ns.Types.Add(targetClass);

@@ -4,7 +4,8 @@ using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Linq;
 using System.Collections.Generic;
-using TypescriptCodeDom;
+//using TypescriptCodeDom;
+using Fonlow.TypeScriptCodeDom;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System;
@@ -30,22 +31,21 @@ namespace Fonlow.Poco2Ts
         }
 
         /// <summary>
-        /// Save C# codes into a file.
+        /// Save TS codes into a file.
         /// </summary>
         /// <param name="fileName"></param>
         public void SaveTsCode(string fileName)
         {
-            var provider = new TypescriptCodeProvider();
-           //    var provider = CodeDomProvider.CreateProvider("CSharp");
+            var provider = new TypeScriptCodeProvider();
+            //    var provider = CodeDomProvider.CreateProvider("CSharp");
             CodeGeneratorOptions options = new CodeGeneratorOptions()
             {
-                BracingStyle = "JS",//not yet working
-                IndentString="    ",
+                BracingStyle = "JS",//not really used
+                IndentString = "    ",
             };
             using (StreamWriter writer = new StreamWriter(fileName))
-            using (var indentedTextWriter = new IndentedTextWriter(writer))
-            {                
-                provider.GenerateCodeFromCompileUnit(targetUnit, indentedTextWriter, options);
+            {
+                provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
             }
         }
 
@@ -57,9 +57,9 @@ namespace Fonlow.Poco2Ts
         Type[] pendingTypes;
 
         /// <summary>
-        /// Generate CodeDom of the client API for ApiDescriptions.
+        /// Generate type declarations in TS for POCO types
         /// </summary>
-        /// <param name="types">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
+        /// <param name="types">POCO types</param>
         public void Generate(Type[] types)
         {
             this.pendingTypes = types;
@@ -86,7 +86,7 @@ namespace Fonlow.Poco2Ts
                         {
                             if (namespacesOfTypes.Contains(type.BaseType.Namespace))
                             {
-                                typeDeclaration.BaseTypes.Add(type.BaseType.Namespace + ".Client."+ type.BaseType.Name);
+                                typeDeclaration.BaseTypes.Add(type.BaseType.Namespace + ".Client." + type.BaseType.Name);
                             }
                             else
                             {
@@ -107,7 +107,7 @@ namespace Fonlow.Poco2Ts
                                 {
                                     Name = tsPropertyName,
                                     Type = GetClientFieldTypeText(propertyInfo.PropertyType),
-               //                     Attributes = MemberAttributes.Public,
+                                    //                     Attributes = MemberAttributes.Public,
 
                                 };
                                 typeDeclaration.Members.Add(clientField);
@@ -129,7 +129,7 @@ namespace Fonlow.Poco2Ts
                                 {
                                     Name = tsPropertyName,
                                     Type = GetClientFieldTypeText(fieldInfo.FieldType),
-                           //         Attributes = MemberAttributes.Public,
+                                    //         Attributes = MemberAttributes.Public,
                                 };
 
                                 typeDeclaration.Members.Add(clientField);
@@ -152,8 +152,8 @@ namespace Fonlow.Poco2Ts
                             {
                                 Name = name,
                                 Type = new CodeTypeReference(fieldInfo.FieldType),
-                                InitExpression = isInitialized ? new CodePrimitiveExpression(intValue): null,
-                              //  Attributes= MemberAttributes.Public,
+                                InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
+                                //  Attributes= MemberAttributes.Public,
                             };
 
                             typeDeclaration.Members.Add(clientField);
@@ -190,6 +190,14 @@ namespace Fonlow.Poco2Ts
 
                     return codeTypeReference;
                 }
+                else if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    var genericTypeNames = t.GenericTypeArguments.Select(d => GetClientFieldTypeText(d)).ToArray();
+                    var codeTypeReference = new CodeTypeReference(typeof(Nullable<>));
+                    codeTypeReference.TypeArguments.AddRange(genericTypeNames);
+
+                    return codeTypeReference;
+                }
                 else
                     return null;
             }
@@ -200,7 +208,7 @@ namespace Fonlow.Poco2Ts
 
 
 
-        CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
+        static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
         {
             var targetClass = new CodeTypeDeclaration(className)
             {
@@ -211,7 +219,7 @@ namespace Fonlow.Poco2Ts
             return targetClass;
         }
 
-        CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
+        static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
         {
             var targetClass = new CodeTypeDeclaration(className)
             {

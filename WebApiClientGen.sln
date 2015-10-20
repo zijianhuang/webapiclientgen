@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DBC9CAF6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.Poco2Ts", "Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj", "{70CAA10C-642A-454B-9DEC-9AB391EB9C99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypescriptCodeDom", "TypescriptCodeDom\TypescriptCodeDom.csproj", "{9D3980DE-E732-4B48-B04E-64F36DB9E3B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.TypeScriptCodeDom", "Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj", "{0DC57B30-7487-455C-8C75-1B814686049C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptCodeDomTests", "TypeScriptCodeDomTests\TypeScriptCodeDomTests.csproj", "{CE5522A1-10AB-4941-BD74-2FCF5AC7823F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,15 +51,20 @@ Global
 		{70CAA10C-642A-454B-9DEC-9AB391EB9C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70CAA10C-642A-454B-9DEC-9AB391EB9C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70CAA10C-642A-454B-9DEC-9AB391EB9C99}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D3980DE-E732-4B48-B04E-64F36DB9E3B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D3980DE-E732-4B48-B04E-64F36DB9E3B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D3980DE-E732-4B48-B04E-64F36DB9E3B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D3980DE-E732-4B48-B04E-64F36DB9E3B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DC57B30-7487-455C-8C75-1B814686049C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DC57B30-7487-455C-8C75-1B814686049C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DC57B30-7487-455C-8C75-1B814686049C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DC57B30-7487-455C-8C75-1B814686049C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE5522A1-10AB-4941-BD74-2FCF5AC7823F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE5522A1-10AB-4941-BD74-2FCF5AC7823F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE5522A1-10AB-4941-BD74-2FCF5AC7823F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE5522A1-10AB-4941-BD74-2FCF5AC7823F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BC9CE351-C442-44BA-B7A1-438C22C150CA} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
+		{CE5522A1-10AB-4941-BD74-2FCF5AC7823F} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 	EndGlobalSection
 EndGlobal

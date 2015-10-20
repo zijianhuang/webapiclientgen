@@ -75,9 +75,9 @@
     <None Include="WebApiClientGen.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TypescriptCodeDom\TypescriptCodeDom.csproj">
-      <Project>{9d3980de-e732-4b48-b04e-64f36db9e3b3}</Project>
-      <Name>TypescriptCodeDom</Name>
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
+      <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
+      <Name>Fonlow.TypeScriptCodeDom</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

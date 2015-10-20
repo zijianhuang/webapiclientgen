@@ -55,6 +55,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Essential.Diagnostics, Version=1.2.0.0, Culture=neutral, PublicKeyToken=9d041bca93991466, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdParty\EssentialDiagnostics\Essential.Diagnostics.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -314,6 +318,10 @@
     <ProjectReference Include="..\DemoWebApi.DemoData\DemoWebApi.DemoData.csproj">
       <Project>{389e24f3-74ee-46f0-8bbb-cc91c006004c}</Project>
       <Name>DemoWebApi.DemoData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
+      <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
+      <Name>Fonlow.TypeScriptCodeDom</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebApiClientGen\WebApiClientGen.csproj">
       <Project>{1673d7d1-16be-48a0-901a-9706087293d4}</Project>

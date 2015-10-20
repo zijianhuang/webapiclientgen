@@ -6,7 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Http.Description;
-using TypescriptCodeDom;
+using Fonlow.TypeScriptCodeDom;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -44,7 +44,7 @@ namespace Fonlow.CodeDom.Web.Ts
         /// <param name="fileName"></param>
         public override void Save(string fileName)
         {
-            var provider = new TypescriptCodeProvider();
+            var provider = new TypeScriptCodeProvider();
             //   var provider = CodeDomProvider.CreateProvider("CSharp");
             CodeGeneratorOptions options = new CodeGeneratorOptions()
             {

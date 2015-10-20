@@ -101,45 +101,6 @@ namespace Fonlow.CodeDom.Web.Ts
             };
         }
 
-        //CodeMemberMethod CreateMethodBasicForAsync()
-        //{
-        //    return new CodeMemberMethod()
-        //    {
-        //        Attributes = MemberAttributes.Public | MemberAttributes.Final,
-        //        Name = methodName + "Async",
-        //        ReturnType = returnType == null ? new CodeTypeReference("async Task")
-        //        : new CodeTypeReference(String.Format("async Task<{0}>", returnType.IsGenericType ? GetGenericTypeFriendlyName(returnType) : TranslateCustomTypeToClientType(returnType))),
-        //    };
-        //}
-
-        //void CreateDocComments()
-        //{
-        //    Action<string, string> CreateDocComment = (elementName, doc) =>
-        //    {
-        //        if (string.IsNullOrWhiteSpace(doc))
-        //            return;
-
-        //        method.Comments.Add(new CodeCommentStatement("<" + elementName + ">" + doc + "</" + elementName + ">", true));
-        //    };
-
-        //    Action<string, string> CreateParamDocComment = (paramName, doc) =>
-        //    {
-        //        if (String.IsNullOrWhiteSpace(doc))
-        //            return;
-
-        //        method.Comments.Add(new CodeCommentStatement("<param name=\"" + paramName + "\">" + doc + "</param>", true));
-        //    };
-
-        //    method.Comments.Add(new CodeCommentStatement("<summary>", true));
-        //    method.Comments.Add(new CodeCommentStatement(description.Documentation, true));
-        //    method.Comments.Add(new CodeCommentStatement(description.HttpMethod.Method + " " + description.RelativePath, true));
-        //    method.Comments.Add(new CodeCommentStatement("</summary>", true));
-        //    foreach (var item in description.ParameterDescriptions)
-        //    {
-        //        CreateParamDocComment(item.Name, item.Documentation);
-        //    }
-        //    CreateDocComment("returns", description.ResponseDescription.Documentation);
-        //}
 
         string GetGenericTypeFriendlyName(Type r)
         {

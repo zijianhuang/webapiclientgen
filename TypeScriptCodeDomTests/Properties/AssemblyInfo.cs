@@ -1,16 +1,15 @@
-﻿using System.Resources;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("POCO to TypeScript")]
-[assembly: AssemblyDescription("Generate TypeScript interfaces from POCO classes decorated by DataContractAttribute")]
+[assembly: AssemblyTitle("TypeScriptCodeDomTests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Fonlow")]
-[assembly: AssemblyProduct("Fonlow.Poco2Ts")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("TypeScriptCodeDomTests")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("70caa10c-642a-454b-9dec-9ab391eb9c99")]
+[assembly: Guid("ce5522a1-10ab-4941-bd74-2fcf5ac7823f")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -35,5 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: NeutralResourcesLanguage("en")]
-

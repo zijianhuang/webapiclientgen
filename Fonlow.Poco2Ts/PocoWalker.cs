@@ -9,7 +9,7 @@ namespace Fonlow.Poco2Ts
     /// <summary>
     /// 
     /// </summary>
-    public class PocoWalker
+    public sealed class PocoWalker
     {
         //http://www.typescriptlang.org/Handbook#basic-types
 
@@ -25,11 +25,6 @@ namespace Fonlow.Poco2Ts
             var gen = new TsPodGen();
             gen.Generate(typesWithDataContract);
             gen.SaveTsCode(tsFileName);
-
-            //foreach (var type in typesWithDataContract)
-            //{
-            //    WalkDataContactType(type);
-            //}
         }
 
         static Assembly LoadAssembly(string assemblyFileName)
@@ -90,55 +85,7 @@ namespace Fonlow.Poco2Ts
             return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
         }
 
-        //static void WalkDataContactType(Type type)
-        //{
-        //    var dataContractAttribute = PropertyHelper.ReadAttribute<DataContractAttribute>(type);
-        //    Trace.Assert(dataContractAttribute != null);
 
-        //    var tsName = String.IsNullOrEmpty(dataContractAttribute.Name) ? type.Name : dataContractAttribute.Name;
-        //    var tsNamespace = type.Namespace;
-        //    Debug.WriteLine("tsClass: " + tsNamespace + "  " + tsName);
-
-        //    if (IsClassOrStruct(type))
-        //    {
-        //        foreach (var propertyInfo in type.GetProperties())
-        //        {
-        //            string tsPropertyName;
-        //            var dataMemberAttribute = PropertyHelper.ReadAttribute<DataMemberAttribute>(propertyInfo);
-        //            if (dataMemberAttribute != null)
-        //            {
-        //                tsPropertyName = String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
-        //                Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
-        //            }
-
-        //        }
-
-        //        foreach (var fieldInfo in type.GetFields().Where(d => d.IsPublic))
-        //        {
-        //            string tsPropertyName;
-        //            var dataMemberAttribute = PropertyHelper.ReadAttribute<DataMemberAttribute>(fieldInfo);
-        //            if (dataMemberAttribute != null)
-        //            {
-        //                tsPropertyName = String.IsNullOrEmpty(dataMemberAttribute.Name) ? fieldInfo.Name : dataMemberAttribute.Name;
-        //                Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
-        //            }
-        //        }
-        //    }
-        //    else if (type.IsEnum)
-        //    {
-        //        foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
-        //        {
-        //            var name = fieldInfo.Name;
-        //            var ulongValue = (ulong)Convert.ChangeType(fieldInfo.GetValue(null), typeof(ulong));
-        //            Debug.WriteLine(name + " -- " + ulongValue);
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        Trace.TraceWarning("Not yet supported: " + type.Name);
-        //    }
-        //}
     }
 
 

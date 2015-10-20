@@ -36,7 +36,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>WebApiClientGen.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\WebApiClientGen.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -69,10 +69,12 @@
     <Compile Include="WebApiClientGenBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\WebApiClientGen.snk">
+      <Link>Properties\WebApiClientGen.snk</Link>
+    </None>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="PackNupkg.bat" />
-    <None Include="WebApiClientGen.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">

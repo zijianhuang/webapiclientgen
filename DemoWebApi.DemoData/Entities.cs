@@ -129,6 +129,13 @@ namespace DemoWebApi.DemoData
 
         [DataMember]
         public string BusinessNumberType { get; set; }
+
+        [DataMember]
+        public string[][] TextMatrix
+        { get; set; }
+
+        [DataMember]
+        public int[][][] Int3D;
     }
 
 

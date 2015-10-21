@@ -47,19 +47,6 @@ namespace Fonlow.TypeScriptCodeDom
             return typeName.Contains("System.Nullable");
         }
 
-        ///// <summary>
-        ///// return the element type name of the array
-        ///// </summary>
-        ///// <param name="typeName"></param>
-        ///// <returns></returns>
-        //static string IsArrayType(string typeName)
-        //{
-        //    if (typeName.EndsWith("]"))
-        //        return typeName.TrimEnd('[', ']', ' ');
-
-        //    return null;
-        //}
-
         static bool IsArrayType(CodeTypeReference codeTypeReference)
         {
             return codeTypeReference.ArrayElementType != null;

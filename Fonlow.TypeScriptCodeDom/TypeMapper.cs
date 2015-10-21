@@ -47,6 +47,24 @@ namespace Fonlow.TypeScriptCodeDom
             return typeName.Contains("System.Nullable");
         }
 
+        ///// <summary>
+        ///// return the element type name of the array
+        ///// </summary>
+        ///// <param name="typeName"></param>
+        ///// <returns></returns>
+        //static string IsArrayType(string typeName)
+        //{
+        //    if (typeName.EndsWith("]"))
+        //        return typeName.TrimEnd('[', ']', ' ');
+
+        //    return null;
+        //}
+
+        static bool IsArrayType(CodeTypeReference codeTypeReference)
+        {
+            return codeTypeReference.ArrayElementType != null;
+        }
+
         static readonly string typeNameOfObject = typeof(object).FullName;
 
         public static bool IsValidTypeForDerivation(CodeTypeReference type)
@@ -58,6 +76,14 @@ namespace Fonlow.TypeScriptCodeDom
         {
             System.Diagnostics.Debug.WriteLine("type.BaseType: " + type.BaseType);
             string tsTypeName;
+            if (IsArrayType(type))//I am not sure why the type.BaseType is the same as the ArrayElementType, even if I gave it System.Array
+            {
+                var elementTypeName = GetTypeOutput(type.ArrayElementType);
+                return $"Array<{elementTypeName}>"; //more consistence with IEnumerable
+                //var arrayBaskets = string.Concat(Enumerable.Repeat("[]", type.ArrayRank));
+                //return $"{type.ArrayElementType.BaseType}{arrayBaskets}";
+            }
+
             if (typeMap.TryGetValue(type.BaseType, out tsTypeName))
                 return tsTypeName;
 

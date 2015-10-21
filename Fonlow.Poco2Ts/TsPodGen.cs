@@ -54,6 +54,7 @@ namespace Fonlow.Poco2Ts
         }
 
         Type[] pendingTypes;
+        string[] pendingTypesNames;
 
         /// <summary>
         /// Generate type declarations in TS for POCO types
@@ -62,6 +63,7 @@ namespace Fonlow.Poco2Ts
         public void Generate(Type[] types)
         {
             this.pendingTypes = types;
+            this.pendingTypesNames = types.Select(d => d.FullName).ToArray();
             var typeGroupedByNamespace = types.GroupBy(d => d.Namespace);
             var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
             foreach (var groupedTypes in typeGroupedByNamespace)
@@ -200,8 +202,30 @@ namespace Fonlow.Poco2Ts
                 else
                     return null;
             }
-            else
-                return new CodeTypeReference(t);
+            else if (t.IsArray)
+            {
+                Debug.Assert(t.Name.EndsWith("]"));
+                var elementType = t.GetElementType();
+                var arrayRank = t.GetArrayRank();
+                if (pendingTypes.Contains(elementType))
+                {
+                    var elementTypeReference = new CodeTypeReference(t.Namespace + ".Client." + elementType.Name);
+                    var arrayTypeReference = new CodeTypeReference("System.Array");
+                    var typeReference = new CodeTypeReference(arrayTypeReference, arrayRank)
+                    {
+                        ArrayElementType = elementTypeReference,
+                    };
+                    return typeReference;
+                }
+
+                var otherArrayType= new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
+                {
+                    ArrayElementType = GetClientFieldTypeText(elementType),
+                };
+                return otherArrayType;
+            }
+
+            return new CodeTypeReference(t);
 
         }
 

@@ -19,7 +19,32 @@ namespace Fonlow.Poco2Ts
 
             var assemblyName = args[0];
             var tsFileName = args[1];
+            AppDomain appDomain = AppDomain.CurrentDomain;
+            appDomain.AssemblyResolve += AppDomain_AssemblyResolve;
             PocoWalker.Walk(assemblyName, tsFileName);
+        }
+
+        private static System.Reflection.Assembly AppDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            System.Reflection.Assembly assembly;
+            try
+            {
+                if (args.RequestingAssembly == null)
+                    return null;
+
+                assembly = System.Reflection.Assembly.Load(args.Name);
+                System.Diagnostics.Trace.TraceInformation("Load {0} that {1} depends on.", args.Name, args.RequestingAssembly.FullName);
+                return assembly;
+            }
+            catch (System.IO.FileNotFoundException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+                var dirOfRequestingAssembly = System.IO.Path.GetDirectoryName(args.RequestingAssembly.Location);
+                var assemblyShortName = args.Name.Substring(0, args.Name.IndexOf(','));
+                var assemblyFullPath = System.IO.Path.Combine(dirOfRequestingAssembly, assemblyShortName + ".dll");//hopefully nobody would use exe.
+                assembly = System.Reflection.Assembly.LoadFrom(assemblyFullPath);
+                return assembly;
+            }
         }
     }
 }

@@ -16,8 +16,8 @@ namespace Fonlow.Poco2Ts
         public static void Walk(string assemblyFileName, string tsFileName)
         {
             var absolutePath = System.IO.Path.GetFullPath(assemblyFileName);
-            var workdingDir = System.IO.Path.GetDirectoryName(absolutePath);
-            Environment.CurrentDirectory = workdingDir;
+            //var workdingDir = System.IO.Path.GetDirectoryName(absolutePath);
+            //Environment.CurrentDirectory = workdingDir;
             var assembly = LoadAssembly(absolutePath);
             if (assembly == null)
                 return;
@@ -33,7 +33,8 @@ namespace Fonlow.Poco2Ts
         {
             try
             {
-                return Assembly.LoadFile(assemblyFileName);
+                 return Assembly.LoadFile(assemblyFileName);
+               // return Assembly.ReflectionOnlyLoadFrom(assemblyFileName);
             }
             catch (System.IO.FileLoadException e)
             {

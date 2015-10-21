@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -32,6 +33,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (e == null)
                 return;
 
+            var currentIndent = o.IndentString;
             w.Write(o.IndentString);
             var argumentReferenceExpression = e as CodeArgumentReferenceExpression;
             if (argumentReferenceExpression != null)
@@ -76,21 +78,74 @@ namespace Fonlow.TypeScriptCodeDom
                 w.Write(methodInvokeExpression.Method.MethodName + "(");
                 methodInvokeExpression.Parameters.OfType<CodeExpression>().ToList().ForEach(d => GenerateCodeFromExpression(d, w, o));
                 w.WriteLine(")l");
+                return;
+            }
+
+            var methodReferenceExpression = e as CodeMethodReferenceExpression;
+            if (methodReferenceExpression!=null)
+            {
+                CodeObjectHelper.GenerateCodeMethodExpression(methodReferenceExpression, w, o);
+                return;
+            }
+
+            var objectCreateExpression = e as CodeObjectCreateExpression;
+            if (objectCreateExpression!=null)
+            {
+                w.Write($"{currentIndent}new {TypeMapper.GetTypeOutput(objectCreateExpression.CreateType)}(");
+                objectCreateExpression.Parameters.OfType<CodeExpression>().ToList().ForEach(d => GenerateCodeFromExpression(d, w, o));
+                w.WriteLine(")");
+                return;
+            }
+
+            var parameterDeclarationExpression = e as CodeParameterDeclarationExpression;
+            if (parameterDeclarationExpression!=null)
+            {
+                w.Write($"{parameterDeclarationExpression.Name}: {TypeMapper.GetTypeOutput(parameterDeclarationExpression.Type)}");
+                return;
+            }
+
+            var primitiveExpression = e as CodePrimitiveExpression;
+            if (primitiveExpression!=null)
+            {
+                w.Write(primitiveExpression.Value);
+                return;
+            }
+
+            var propertyReferenceExpression = e as CodePropertyReferenceExpression;
+            if (propertyReferenceExpression!=null)
+            {
+                w.Write(propertyReferenceExpression.PropertyName + ".");
+                GenerateCodeFromExpression(propertyReferenceExpression.TargetObject, w, o);
+                return;
+            }
+
+            //todo: CodePropertySetValueReferenceExpression
+
+            var snippetExpression = e as CodeSnippetExpression;
+            if (snippetExpression!=null)
+            {
+                w.Write(snippetExpression.Value);
+                return;
+            }
+
+            var thisReferenceExpression = e as CodeThisReferenceExpression;
+            if (thisReferenceExpression!=null)
+            {
+                w.Write("this.");
+                return;
+            }
+
+            //todo: CodeTypeOfExpression maybe not
+            //todo: CodeTypeReferenceExpression
+
+            var variableReferenceExpression = e as CodeVariableReferenceExpression;
+            if (variableReferenceExpression!=null)
+            {
+                w.Write(variableReferenceExpression.VariableName);
+                return;
             }
 
 
-        }
-
-        static void GenerateCodeMethodExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)
-        {
-            w.Write(o.IndentString);
-            w.Write(expression.MethodName + "(");
-
-            var arguments = expression.TypeArguments.OfType<CodeTypeReference>().Select(d => TypeMapper.GetTypeOutput(d));
-            w.Write(String.Join(", ", arguments));
-            w.Write(")");
-           // expression.TargetObject
-           //todo: not fully done yet
         }
 
         public void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
@@ -191,19 +246,17 @@ namespace Fonlow.TypeScriptCodeDom
 
         public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
+            var currentIndent = o.IndentString;
             var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export" : String.Empty;
-            var typeOfType = GetTypeOfType(e);
+            var typeOfType = CodeObjectHelper.GetTypeOfType(e);
             var name = e.Name;
-            var typeParametersExpression = GetTypeParametersExpression(e);
-            var baseTypesExpression = GetBaseTypeExpression(e);
-            var membersLines = GetTypeMembersLines(e);
-
-            w.WriteLine($"{o.IndentString}{accessModifier} {typeOfType} {name}{typeParametersExpression}{baseTypesExpression}{{");
-            w.Write($"{o.IndentString}{o.IndentString}");
-            var separator = e.IsEnum ? "," : ";";
-            w.WriteLine(String.Join($"{separator}{Environment.NewLine}{o.IndentString}{o.IndentString}", membersLines));
-            w.WriteLine($"{o.IndentString}}}");
-            w.WriteLine();
+            var typeParametersExpression = CodeObjectHelper.GetTypeParametersExpression(e);
+            var baseTypesExpression = CodeObjectHelper.GetBaseTypeExpression(e);
+            w.Write($"{o.IndentString}{accessModifier} {typeOfType} {name}{typeParametersExpression}{baseTypesExpression}{{");
+            o.IndentString += Constants.BasicIndent;
+            CodeObjectHelper.GenerateTypeMembers(e, w, o);
+            w.WriteLine(currentIndent+"}");
+            o.IndentString = currentIndent;
         }
 
         public string GetTypeOutput(CodeTypeReference type)
@@ -244,119 +297,6 @@ namespace Fonlow.TypeScriptCodeDom
             KeywordHandler.ValidateIdentifier(value);
         }
 
-        static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
-        {
-            return typeDeclaration.IsEnum
-                ? "enum"
-                : typeDeclaration.IsInterface
-                    ? "interface"
-                    : "class";
-        }
-
-        static string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
-        {
-            if (typeDeclaration.TypeParameters.Count == 0)
-                return string.Empty;
-
-            var parameterNames = typeDeclaration.TypeParameters.OfType<CodeTypeParameter>().Select(d =>
-            {
-                var typeParameterConstraint = string.Empty;
-                if (d.Constraints.Count > 0)
-                {
-                    var constraint = d.Constraints.OfType<CodeTypeReference>().First();
-                    var type = TypeMapper.GetTypeOutput(constraint);
-                    typeParameterConstraint = $" extends {type}";
-                }
-
-
-                return $"{d.Name}{typeParameterConstraint}";
-            }).ToArray();
-
-            return parameterNames.Length == 0 ? String.Empty : $"<{String.Join(", ", parameterNames)}>";
-        }
-
-        static string GetBaseTypeExpression(CodeTypeDeclaration typeDeclaration)
-        {
-            var baseTypes = typeDeclaration.BaseTypes
-                .OfType<CodeTypeReference>()
-                .Where(reference => TypeMapper.IsValidTypeForDerivation(reference))
-                .Select(reference => TypeMapper.GetTypeOutput(reference))
-                .ToList();
-            var baseTypesExpression = string.Empty;
-            if (baseTypes.Any() && !typeDeclaration.IsEnum)
-            {
-                return $" extends {string.Join(",", baseTypes)}";
-            }
-
-            return String.Empty;
-        }
-
-        static string[] GetTypeMembersLines(CodeTypeDeclaration typeDeclaration)
-        {
-            if (typeDeclaration.IsEnum)
-            {
-                return typeDeclaration.Members.OfType<CodeTypeMember>().Select(ctm =>
-                {
-                    var codeMemberField = ctm as CodeMemberField;
-                    System.Diagnostics.Trace.Assert(codeMemberField != null);
-                    var enumMember = GetEnumMember(codeMemberField);
-                    System.Diagnostics.Trace.Assert(!String.IsNullOrEmpty(enumMember));
-                    return enumMember;
-                    // return GetCodeMemberFieldText(codeMemberField);
-                }).ToArray();
-            }
-
-            var membersLines = typeDeclaration.Members.OfType<CodeTypeMember>().Select(ctm =>
-            {
-                var codeMemberField = ctm as CodeMemberField;
-                if (codeMemberField != null)
-                {
-                    return GetCodeMemberFieldText(codeMemberField);
-                }
-
-                var codeMemberProperty = ctm as CodeMemberProperty;
-                if (codeMemberProperty != null)
-                {
-                    return GetCodeMemberPropertyText(codeMemberProperty);
-                }
-
-                return string.Empty;
-            }).ToArray();
-            return membersLines;
-        }
-
-        static string GetEnumMember(CodeMemberField _member)
-        {
-            var initExpression = _member.InitExpression as CodePrimitiveExpression;
-            return (initExpression == null) ? $"{_member.Name}" : $"{_member.Name}={initExpression.Value}";
-        }
-
-        static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
-        {
-            return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
-        }
-
-        static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
-        {
-            return TypeMapper.GetTypeOutput(codeTypeReference);
-        }
-
-        static string GetCodeMemberPropertyText(CodeMemberProperty codeMemberProperty)
-        {
-            return RefineNameAndType(codeMemberProperty.Name, GetCodeTypeReferenceText(codeMemberProperty.Type));
-        }
-
-        static string RefineNameAndType(string name, string typeName)
-        {
-            if (typeName.EndsWith("?"))
-            {
-                var newName = name + "?";
-                var newTypeName = typeName.TrimEnd('?');
-                return $"{newName}: {newTypeName}";
-            }
-
-            return $"{name}: {typeName}";
-        }
     }
 
 

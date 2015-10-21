@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeObjectHelper.cs" />
     <Compile Include="KeywordHandler.cs" />
     <Compile Include="TsCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

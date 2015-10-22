@@ -61,6 +61,9 @@ namespace Fonlow.TypeScriptCodeDom
 
         public static string GetTypeOutput(CodeTypeReference type)
         {
+            if (type == null)
+                return null;
+
             System.Diagnostics.Debug.WriteLine("type.BaseType: " + type.BaseType);
             string tsTypeName;
             if (IsArrayType(type))//I am not sure why the type.BaseType is the same as the ArrayElementType, even if I gave it System.Array

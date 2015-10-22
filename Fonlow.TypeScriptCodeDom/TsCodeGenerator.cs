@@ -37,20 +37,26 @@ namespace Fonlow.TypeScriptCodeDom
         {
             w.WriteLine($"module {e.Name}{{");
 
+            for (int i = 0; i < e.Imports.Count; i++)
+            {
+                var ns = e.Imports[i];
+                var nsText = ns.Namespace;
+                var alias = nsText.Replace('.', '_');
+                w.WriteLine($"{o.IndentString}import {alias} = {nsText};");
+            }
+
             e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
             {
                 GenerateCodeFromType(t, w, o);
                 w.WriteLine();
             });
-            //todo: later e.Imports.
-
+                       
             w.WriteLine($"}}");
         }
 
         public void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
         {
             CodeObjectHelper.GenerateCodeFromStatement(e, w, o);
-          //  w.WriteLine(";");
         }
 
         public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
@@ -86,18 +92,19 @@ namespace Fonlow.TypeScriptCodeDom
             | GeneratorSupport.TryCatchStatements
             | GeneratorSupport.DeclareValueTypes
             | GeneratorSupport.DeclareEnums
-            | GeneratorSupport.GotoStatements
+           // | GeneratorSupport.GotoStatements
             | GeneratorSupport.StaticConstructors
             | GeneratorSupport.DeclareInterfaces
             | GeneratorSupport.DeclareDelegates
-            | GeneratorSupport.DeclareEvents
+           // | GeneratorSupport.DeclareEvents
             | GeneratorSupport.NestedTypes
             | GeneratorSupport.MultipleInterfaceMembers
             | GeneratorSupport.ComplexExpressions
-            | GeneratorSupport.PartialTypes
+           // | GeneratorSupport.PartialTypes
             | GeneratorSupport.GenericTypeReference
             | GeneratorSupport.GenericTypeDeclaration
-            | GeneratorSupport.DeclareIndexerProperties;
+           // | GeneratorSupport.DeclareIndexerProperties
+           ;
 
         public void ValidateIdentifier(string value)
         {

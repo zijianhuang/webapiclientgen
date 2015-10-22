@@ -105,11 +105,24 @@ namespace Fonlow.TypeScriptCodeDom
                 var memberMethod = ctm as CodeMemberMethod;
                 if (memberMethod != null)
                 {
+                    var isCodeConstructor = memberMethod is CodeConstructor;
+                    //todo: CodeEntryPointMethod
+                    //todo: CodeTypeConstructor
                     w.WriteLine();
-                    w.Write(o.IndentString + memberMethod.Name + "(");
+                    var methodName = isCodeConstructor ? typeDeclaration.Name : memberMethod.Name;
+                    w.Write(o.IndentString +methodName + "(");
                     GenerateCodeParameterDeclarationExpressionList(memberMethod.Parameters.OfType<CodeParameterDeclarationExpression>(), w);
                     w.Write(")");
-                    w.Write(": " + TypeMapper.GetTypeOutput(memberMethod.ReturnType));
+
+                    var returnTypeText = TypeMapper.GetTypeOutput(memberMethod.ReturnType);
+                    if (!(isCodeConstructor || returnTypeText=="void" || memberMethod.ReturnType == null))
+                    {
+                        if (returnTypeText.Contains("?"))
+                            w.Write(": any");
+                        else
+                            w.Write(": " + returnTypeText);
+                    }
+
                     w.WriteLine("{");
 
                     //todo:  memberMethod.TypeParameters
@@ -118,6 +131,9 @@ namespace Fonlow.TypeScriptCodeDom
 
                     w.WriteLine(o.IndentString + "}");
                 }
+
+                //todo: CodeSnippetTypeMember
+                //todo: CodeTypeDeclaration 
 
             });
 
@@ -132,9 +148,13 @@ namespace Fonlow.TypeScriptCodeDom
             o.IndentString += Constants.BasicIndent;
             for (int i = 0; i < statements.Count; i++)
             {
-                w.Write(o.IndentString);
-                GenerateCodeFromStatement(statements[i], w, o);
-                w.WriteLine(";");
+                var statement = statements[i];
+                if (!GenerateCodeSnippetStatement(statement as CodeSnippetStatement, w, o))
+                {
+                    w.Write(o.IndentString);
+                    GenerateCodeFromStatement(statement, w, o);
+                    w.WriteLine(";");
+                }
             }
             o.IndentString = currentIndent;
         }
@@ -194,43 +214,51 @@ namespace Fonlow.TypeScriptCodeDom
             //todo: not fully done yet
         }
 
+        static bool GenerateCodeConditionStatement(CodeConditionStatement conditionStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (conditionStatement == null)
+                return false;
+
+            w.Write("if (");
+            GenerateCodeFromExpression(conditionStatement.Condition, w, o);
+            w.WriteLine("){");
+
+            GenerateCodeStatementCollection(conditionStatement.TrueStatements, w, o);
+            w.Write(o.IndentString);
+            w.WriteLine("}");
+            if (conditionStatement.FalseStatements != null)
+            {
+                w.WriteLine($"{o.IndentString}{{");
+                GenerateCodeStatementCollection(conditionStatement.FalseStatements, w, o);
+                w.Write(o.IndentString);
+                w.WriteLine("}");
+            }
+
+            return true;
+        }
+
+        static bool GenerateCodeAssignStatement(CodeAssignStatement assignStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (assignStatement == null)
+                return false;
+
+            GenerateCodeFromExpression(assignStatement.Left, w, o);
+            w.Write(" = ");
+            GenerateCodeFromExpression(assignStatement.Right, w, o);
+            return true;
+        }
+
         public static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
         {
             var currentIndent = o.IndentString;
 
-            var assignStatement = e as CodeAssignStatement;
-            if (assignStatement != null)
-            {
-                GenerateCodeFromExpression(assignStatement.Left, w, o);
-                w.Write(" = ");
-                GenerateCodeFromExpression(assignStatement.Right, w, o);
-                o.IndentString = currentIndent;
+            if (GenerateCodeAssignStatement(e as CodeAssignStatement, w, o))
                 return;
-            }
 
             //todo: CodeAttachEventStatement
             //todo: CodeCommentStatement
-            var conditionStatement = e as CodeConditionStatement;
-            if (conditionStatement != null)
-            {
-                w.Write("if (");
-                GenerateCodeFromExpression(conditionStatement.Condition, w, o);
-                w.WriteLine("){");
-
-                GenerateCodeStatementCollection(conditionStatement.TrueStatements, w, o);
-                w.Write(currentIndent);
-                w.WriteLine("}");
-                if (conditionStatement.FalseStatements != null)
-                {
-                    w.WriteLine($"{currentIndent}{{");
-                    GenerateCodeStatementCollection(conditionStatement.FalseStatements, w, o);
-                    w.Write(currentIndent);
-                    w.WriteLine("}");
-                }
-
-                o.IndentString = currentIndent;
+            if (GenerateCodeConditionStatement(e as CodeConditionStatement, w, o))
                 return;
-            }
 
             var expressStatement = e as CodeExpressionStatement;
             if (expressStatement != null)
@@ -253,39 +281,45 @@ namespace Fonlow.TypeScriptCodeDom
 
             //todo: CodeRemoveEventStatement
 
-            var snippetStatement = e as CodeSnippetStatement;
-            if (snippetStatement != null)
-            {
-                w.WriteLine();
-                w.WriteLine(IndentLines(snippetStatement.Value, o.IndentString));
-                o.IndentString = currentIndent;
-                return;
-            }
-
             //todo: CodeThrowExceptionStatement
             //todo: CodeCatchFinallyStatement
 
-            var variableDeclarationStatement = e as CodeVariableDeclarationStatement;
-            if (variableDeclarationStatement != null)
-            {
-                w.Write($"var {variableDeclarationStatement.Name}");
-                if (variableDeclarationStatement.Type != null)
-                {
-                    w.Write($":{TypeMapper.GetTypeOutput(variableDeclarationStatement.Type)}");
-                }
-
-                if (variableDeclarationStatement.InitExpression != null)
-                {
-                    w.Write(" = ");
-                    GenerateCodeFromExpression(variableDeclarationStatement.InitExpression, w, o);
-                }
-
-                o.IndentString = currentIndent;
-
+            if (GenerateCodeVariableDeclarationStatement(e as CodeVariableDeclarationStatement, w, o))
                 return;
-            }
 
         }
+
+        static bool GenerateCodeSnippetStatement(CodeSnippetStatement snippetStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (snippetStatement == null)
+                return false;
+
+            w.WriteLine();
+            w.WriteLine(IndentLines(snippetStatement.Value, o.IndentString));
+            return true;
+
+        }
+
+        static bool GenerateCodeVariableDeclarationStatement(CodeVariableDeclarationStatement variableDeclarationStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (variableDeclarationStatement == null)
+                return false;
+
+            w.Write(TypeMapper.GetTypeOutput(variableDeclarationStatement.Type) + " "+ variableDeclarationStatement.Name);
+            //if (variableDeclarationStatement.Type != null)
+            //{
+            //    w.Write($":{TypeMapper.GetTypeOutput(variableDeclarationStatement.Type)}");
+            //}
+
+            if (variableDeclarationStatement.InitExpression != null)
+            {
+                w.Write(" = ");
+                GenerateCodeFromExpression(variableDeclarationStatement.InitExpression, w, o);
+            }
+
+            return true;
+        }
+
 
         static string IndentLines(string s, string indent)
         {
@@ -294,7 +328,7 @@ namespace Fonlow.TypeScriptCodeDom
 
             var lines = s.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
             var indentedLines = lines.Select(d => indent + d);
-            var ss= String.Join("\r\n", indentedLines);
+            var ss = String.Join("\r\n", indentedLines);
             return ss;
         }
 
@@ -388,7 +422,11 @@ namespace Fonlow.TypeScriptCodeDom
             var primitiveExpression = e as CodePrimitiveExpression;
             if (primitiveExpression != null)
             {
-                w.Write(primitiveExpression.Value);
+                if (primitiveExpression.Value.GetType() == typeOfString)
+                    w.Write($"\"{primitiveExpression.Value}\"");
+                else
+                    w.Write(primitiveExpression.Value);
+
                 return;
             }
 
@@ -429,6 +467,8 @@ namespace Fonlow.TypeScriptCodeDom
 
 
         }
+
+        static readonly Type typeOfString = typeof(string);
 
 
     }

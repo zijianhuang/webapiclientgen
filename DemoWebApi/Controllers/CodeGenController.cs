@@ -60,7 +60,8 @@ namespace Fonlow.WebApiClientGen
                 }
                 string tsPath = System.IO.Path.Combine(theFolder, "WebApiClientAuto.ts");
 
-                var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
+                var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(parameters.PrefixesOfCustomNamespaces, 
+                    parameters.ExcludedControllerNames, parameters.TypeScriptDataModelNamespaces);
                 tsGen.Generate(apiDescriptions);
                 tsGen.Save(tsPath);
             }
@@ -88,6 +89,12 @@ namespace Fonlow.WebApiClientGen
         /// Absolute path or relative path of a sibling of Web API project.
         /// </summary>
         public string TypeScriptFolder { get; set; }
+
+        /// <summary>
+        /// TypeScript uses import which only partially simulate namespaces in .NET
+        /// </summary>
+        public string[] TypeScriptDataModelNamespaces
+        { get; set; }
     }
     /*
     json object to post with content-type application/json
@@ -101,7 +108,10 @@ namespace Fonlow.WebApiClientGen
           "DemoWebApi.Controllers.Account"
         ],
         "GenerateBothAsyncAndSync": true,
-        "TypeScriptFolder" : "c:\\test"
+        "TypeScriptFolder" : "c:\\test",
+        "TypeScriptDataModelNamespaces" : [
+           "DemoWebApi.DemoData.Client"
+        ],
       }
     */
 

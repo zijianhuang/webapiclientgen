@@ -118,7 +118,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 
             if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
-                return t.Namespace + ".Client." + t.Name;
+                return  t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
 
             return t.FullName;
         }

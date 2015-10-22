@@ -12,7 +12,7 @@ namespace Fonlow.Poco2Ts
         {
             if (args.Length<2)
             {
-                Console.WriteLine("Fonlow.Poco2Ts.exe generates TypeScript data classes from POCO classes decorated by DataContractAttribute.");
+                Console.WriteLine("Poco2Ts.exe generates TypeScript data  model interfaces from POCO classes decorated by DataContractAttribute.");
                 Console.WriteLine("Example:  Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts");
                 return;
             }

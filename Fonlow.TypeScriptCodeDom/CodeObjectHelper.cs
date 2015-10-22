@@ -106,12 +106,12 @@ namespace Fonlow.TypeScriptCodeDom
                 if (memberMethod != null)
                 {
                     var isCodeConstructor = memberMethod is CodeConstructor;
-                    //todo: CodeEntryPointMethod
-                    //todo: CodeTypeConstructor
+                    //todo: CodeEntryPointMethod not applicable to TS
+                    //todo: CodeTypeConstructor  TS support partially static, so probably not applicable
                     w.WriteLine();
-                    var methodName = isCodeConstructor ? typeDeclaration.Name : memberMethod.Name;
+                    var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
                     w.Write(o.IndentString +methodName + "(");
-                    GenerateCodeParameterDeclarationExpressionList(memberMethod.Parameters.OfType<CodeParameterDeclarationExpression>(), w);
+                    GenerateCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
                     w.Write(")");
 
                     var returnTypeText = TypeMapper.GetTypeOutput(memberMethod.ReturnType);
@@ -124,20 +124,38 @@ namespace Fonlow.TypeScriptCodeDom
                     }
 
                     w.WriteLine("{");
-
-                    //todo:  memberMethod.TypeParameters
+                    
+                    //todo:  memberMethod.TypeParameters ? how many would generate generic methods
 
                     GenerateCodeStatementCollection(memberMethod.Statements, w, o);
 
                     w.WriteLine(o.IndentString + "}");
                 }
 
-                //todo: CodeSnippetTypeMember
-                //todo: CodeTypeDeclaration 
+                var snippetTypeMember = ctm as CodeSnippetTypeMember;
+                if (snippetTypeMember!=null)
+                {
+                    w.WriteLine(snippetTypeMember.Text);
+                    return;
+                }
+
+                //todo: CodeTypeDeclaration not to implement
+              /* TypeScript seems to support or simulate nested type declaration. But not likely many programmers will generate such codes.
+                class b
+    {
+    }
+
+    module b
+    {
+        class c
+        {
+        }
+    }
+                */
 
             });
 
-            w.WriteLine();
+         //   w.WriteLine();
             w.WriteLine(currentIndent + "}");
             o.IndentString = currentIndent;
         }
@@ -196,22 +214,22 @@ namespace Fonlow.TypeScriptCodeDom
 
         #endregion
 
-        public static void GenerateCodeParameterDeclarationExpressionList(IEnumerable<CodeParameterDeclarationExpression> parameterDeclarations, TextWriter w)
+        public static void GenerateCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
         {
-            var pairs = parameterDeclarations.Select(d => $"{d.Name}: {TypeMapper.GetTypeOutput(d.Type)}");
+            var pairs = parameterDeclarations.OfType< CodeParameterDeclarationExpression>().Select(d => $"{d.Name}: {TypeMapper.GetTypeOutput(d.Type)}");
             w.Write(String.Join(", ", pairs));
         }
 
-        public static void GenerateCodeMethodExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)
+        public static void GenerateCodeMethodReferenceExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)
         {
             w.Write(o.IndentString);
+            GenerateCodeFromExpression(expression.TargetObject, w, o);
+            w.Write(".");
             w.Write(expression.MethodName + "(");
-
+            
             var arguments = expression.TypeArguments.OfType<CodeTypeReference>().Select(d => TypeMapper.GetTypeOutput(d));
             w.Write(String.Join(", ", arguments));
             w.Write(")");
-            // expression.TargetObject
-            //todo: not fully done yet
         }
 
         static bool GenerateCodeConditionStatement(CodeConditionStatement conditionStatement, TextWriter w, CodeGeneratorOptions o)
@@ -255,8 +273,10 @@ namespace Fonlow.TypeScriptCodeDom
             if (GenerateCodeAssignStatement(e as CodeAssignStatement, w, o))
                 return;
 
-            //todo: CodeAttachEventStatement
+            //todo: CodeAttachEventStatement  TS does not seem to support, 
+
             //todo: CodeCommentStatement
+
             if (GenerateCodeConditionStatement(e as CodeConditionStatement, w, o))
                 return;
 
@@ -279,7 +299,7 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            //todo: CodeRemoveEventStatement
+            //todo: CodeRemoveEventStatement not to support
 
             //todo: CodeThrowExceptionStatement
             //todo: CodeCatchFinallyStatement
@@ -306,10 +326,6 @@ namespace Fonlow.TypeScriptCodeDom
                 return false;
 
             w.Write(TypeMapper.GetTypeOutput(variableDeclarationStatement.Type) + " "+ variableDeclarationStatement.Name);
-            //if (variableDeclarationStatement.Type != null)
-            //{
-            //    w.Write($":{TypeMapper.GetTypeOutput(variableDeclarationStatement.Type)}");
-            //}
 
             if (variableDeclarationStatement.InitExpression != null)
             {
@@ -399,7 +415,7 @@ namespace Fonlow.TypeScriptCodeDom
             var methodReferenceExpression = e as CodeMethodReferenceExpression;
             if (methodReferenceExpression != null)
             {
-                CodeObjectHelper.GenerateCodeMethodExpression(methodReferenceExpression, w, o);
+                CodeObjectHelper.GenerateCodeMethodReferenceExpression(methodReferenceExpression, w, o);
                 return;
             }
 
@@ -456,8 +472,12 @@ namespace Fonlow.TypeScriptCodeDom
             }
 
             //todo: CodeTypeOfExpression maybe not
-            //todo: CodeTypeReferenceExpression
 
+            var typeReferenceExpression = e as CodeTypeReferenceExpression;
+            if (typeReferenceExpression !=null)
+            {
+                w.Write(TypeMapper.GetTypeOutput(typeReferenceExpression.Type));
+            }
             var variableReferenceExpression = e as CodeVariableReferenceExpression;
             if (variableReferenceExpression != null)
             {

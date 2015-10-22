@@ -14,6 +14,20 @@ namespace Fonlow.TypeScriptCodeDom
 
     internal static class CodeObjectHelper
     {
+        public static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+        {
+            var currentIndent = o.IndentString;
+            var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export" : String.Empty;
+            var typeOfType = CodeObjectHelper.GetTypeOfType(e);
+            var name = e.Name;
+            var typeParametersExpression = CodeObjectHelper.GetTypeParametersExpression(e);
+            var baseTypesExpression = CodeObjectHelper.GetBaseTypeExpression(e);
+            w.Write($"{o.IndentString}{accessModifier} {typeOfType} {name}{typeParametersExpression}{baseTypesExpression}{{");
+            WriteTypeMembersAndCloseBracing(e, w, o);
+            o.IndentString = currentIndent;
+        }
+
+
         public static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
         {
             return typeDeclaration.IsEnum
@@ -62,7 +76,7 @@ namespace Fonlow.TypeScriptCodeDom
         }
 
 
-        public static void GenerateTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
+        static void WriteTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
         {
             if (typeDeclaration.IsEnum)
             {
@@ -110,12 +124,12 @@ namespace Fonlow.TypeScriptCodeDom
                     //todo: CodeTypeConstructor  TS support partially static, so probably not applicable
                     w.WriteLine();
                     var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
-                    w.Write(o.IndentString +methodName + "(");
-                    GenerateCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
+                    w.Write(o.IndentString + methodName + "(");
+                    WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
                     w.Write(")");
 
                     var returnTypeText = TypeMapper.GetTypeOutput(memberMethod.ReturnType);
-                    if (!(isCodeConstructor || returnTypeText=="void" || memberMethod.ReturnType == null))
+                    if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
                     {
                         if (returnTypeText.Contains("?"))
                             w.Write(": any");
@@ -124,50 +138,50 @@ namespace Fonlow.TypeScriptCodeDom
                     }
 
                     w.WriteLine("{");
-                    
+
                     //todo:  memberMethod.TypeParameters ? how many would generate generic methods
 
-                    GenerateCodeStatementCollection(memberMethod.Statements, w, o);
+                    WriteCodeStatementCollection(memberMethod.Statements, w, o);
 
                     w.WriteLine(o.IndentString + "}");
                 }
 
                 var snippetTypeMember = ctm as CodeSnippetTypeMember;
-                if (snippetTypeMember!=null)
+                if (snippetTypeMember != null)
                 {
                     w.WriteLine(snippetTypeMember.Text);
                     return;
                 }
 
                 //todo: CodeTypeDeclaration not to implement
-              /* TypeScript seems to support or simulate nested type declaration. But not likely many programmers will generate such codes.
-                class b
-    {
-    }
+                /* TypeScript seems to support or simulate nested type declaration. But not likely many programmers will generate such codes.
+                  class b
+      {
+      }
 
-    module b
-    {
-        class c
-        {
-        }
-    }
-                */
+      module b
+      {
+          class c
+          {
+          }
+      }
+                  */
 
             });
 
-         //   w.WriteLine();
+            //   w.WriteLine();
             w.WriteLine(currentIndent + "}");
             o.IndentString = currentIndent;
         }
 
-        static void GenerateCodeStatementCollection(CodeStatementCollection statements, TextWriter w, CodeGeneratorOptions o)
+        static void WriteCodeStatementCollection(CodeStatementCollection statements, TextWriter w, CodeGeneratorOptions o)
         {
             var currentIndent = o.IndentString;
             o.IndentString += Constants.BasicIndent;
             for (int i = 0; i < statements.Count; i++)
             {
                 var statement = statements[i];
-                if (!GenerateCodeSnippetStatement(statement as CodeSnippetStatement, w, o))
+                if (!WriteCodeSnippetStatement(statement as CodeSnippetStatement, w, o))
                 {
                     w.Write(o.IndentString);
                     GenerateCodeFromStatement(statement, w, o);
@@ -200,7 +214,7 @@ namespace Fonlow.TypeScriptCodeDom
             return RefineNameAndType(codeMemberProperty.Name, GetCodeTypeReferenceText(codeMemberProperty.Type));
         }
 
-        public static string RefineNameAndType(string name, string typeName)
+        static string RefineNameAndType(string name, string typeName)
         {
             if (typeName.EndsWith("?"))
             {
@@ -214,19 +228,19 @@ namespace Fonlow.TypeScriptCodeDom
 
         #endregion
 
-        public static void GenerateCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
+        static void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
         {
-            var pairs = parameterDeclarations.OfType< CodeParameterDeclarationExpression>().Select(d => $"{d.Name}: {TypeMapper.GetTypeOutput(d.Type)}");
+            var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>().Select(d => $"{d.Name}: {TypeMapper.GetTypeOutput(d.Type)}");
             w.Write(String.Join(", ", pairs));
         }
 
-        public static void GenerateCodeMethodReferenceExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)
+        static void WriteCodeMethodReferenceExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)
         {
             w.Write(o.IndentString);
             GenerateCodeFromExpression(expression.TargetObject, w, o);
             w.Write(".");
             w.Write(expression.MethodName + "(");
-            
+
             var arguments = expression.TypeArguments.OfType<CodeTypeReference>().Select(d => TypeMapper.GetTypeOutput(d));
             w.Write(String.Join(", ", arguments));
             w.Write(")");
@@ -241,13 +255,13 @@ namespace Fonlow.TypeScriptCodeDom
             GenerateCodeFromExpression(conditionStatement.Condition, w, o);
             w.WriteLine("){");
 
-            GenerateCodeStatementCollection(conditionStatement.TrueStatements, w, o);
+            WriteCodeStatementCollection(conditionStatement.TrueStatements, w, o);
             w.Write(o.IndentString);
             w.WriteLine("}");
             if (conditionStatement.FalseStatements != null)
             {
                 w.WriteLine($"{o.IndentString}{{");
-                GenerateCodeStatementCollection(conditionStatement.FalseStatements, w, o);
+                WriteCodeStatementCollection(conditionStatement.FalseStatements, w, o);
                 w.Write(o.IndentString);
                 w.WriteLine("}");
             }
@@ -275,7 +289,12 @@ namespace Fonlow.TypeScriptCodeDom
 
             //todo: CodeAttachEventStatement  TS does not seem to support, 
 
-            //todo: CodeCommentStatement
+            var commentStatement = e as CodeCommentStatement;
+            if (commentStatement != null)
+            {
+                w.WriteLine(commentStatement.Comment.Text);
+                return;
+            }
 
             if (GenerateCodeConditionStatement(e as CodeConditionStatement, w, o))
                 return;
@@ -287,7 +306,10 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
             //todo: CodeGotoStatement, probably not to support
-            //todo: CodeIterationStatement
+
+            if (WriteCodeIterationStatement(e as CodeIterationStatement, w, o))
+                return;
+
             //todo: CodeLabeledStatement, probably not to support
 
             var methodReturnStatement = e as CodeMethodReturnStatement;
@@ -301,15 +323,90 @@ namespace Fonlow.TypeScriptCodeDom
 
             //todo: CodeRemoveEventStatement not to support
 
-            //todo: CodeThrowExceptionStatement
-            //todo: CodeCatchFinallyStatement
+            var throwExceptionStatement = e as CodeThrowExceptionStatement;
+            if (throwExceptionStatement != null)
+            {
+                w.Write("throw ");
+                GenerateCodeFromExpression(throwExceptionStatement.ToThrow, w, o);
+                return;
+            }
 
-            if (GenerateCodeVariableDeclarationStatement(e as CodeVariableDeclarationStatement, w, o))
+            if (WriteCodeTryCatchFinallyStatement(e as CodeTryCatchFinallyStatement, w, o))
+                return;
+
+            if (WriteCodeVariableDeclarationStatement(e as CodeVariableDeclarationStatement, w, o))
                 return;
 
         }
 
-        static bool GenerateCodeSnippetStatement(CodeSnippetStatement snippetStatement, TextWriter w, CodeGeneratorOptions o)
+        static bool WriteCodeTryCatchFinallyStatement(CodeTryCatchFinallyStatement tryCatchFinallyStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (tryCatchFinallyStatement == null)
+                return false;
+
+            var currentIndent = o.IndentString;
+            w.WriteLine(o.IndentString);
+            w.WriteLine("try {");
+            o.IndentString += Constants.BasicIndent;
+            WriteCodeStatementCollection(tryCatchFinallyStatement.TryStatements, w, o);
+            o.IndentString = currentIndent;
+            w.Write(o.IndentString);
+            w.WriteLine("}");
+
+            for (int i = 0; i < tryCatchFinallyStatement.CatchClauses.Count; i++)
+            {
+                WriteCodeCatchClause(tryCatchFinallyStatement.CatchClauses[i], w, o);
+            }
+
+            if (tryCatchFinallyStatement.FinallyStatements.Count>0)
+            {
+                o.IndentString += Constants.BasicIndent;
+                w.Write(currentIndent);
+                w.WriteLine("finally {");
+                WriteCodeStatementCollection(tryCatchFinallyStatement.FinallyStatements, w, o);
+                w.Write(currentIndent);
+                w.WriteLine("}");
+            }
+
+            o.IndentString = currentIndent;
+
+            return true;
+        }
+
+        /// <summary>
+        /// 5.14 Try Statements
+        /// The variable introduced by a 'catch' clause of a 'try' statement is always of type Any.It is not possible to include a type annotation in a 'catch' clause.
+        /// </summary>
+        /// <param name="catchClause"></param>
+        /// <param name="w"></param>
+        /// <param name="o"></param>
+        static void WriteCodeCatchClause(CodeCatchClause catchClause, TextWriter w, CodeGeneratorOptions o)
+        {
+            w.Write(o.IndentString);
+            w.WriteLine($"catch ({catchClause.LocalName}) {{");
+            WriteCodeStatementCollection(catchClause.Statements, w, o);
+            w.Write(o.IndentString);
+            w.WriteLine("}");
+        }
+
+        static bool WriteCodeIterationStatement(CodeIterationStatement iterationStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (iterationStatement == null)
+                return false;
+
+            w.Write("for (");
+            GenerateCodeFromStatement(iterationStatement.InitStatement, w, o);
+            w.Write("; ");
+            GenerateCodeFromExpression(iterationStatement.TestExpression, w, o);
+            w.Write("; ");
+            GenerateCodeFromStatement(iterationStatement.IncrementStatement, w, o);
+            w.WriteLine("){");
+            WriteCodeStatementCollection(iterationStatement.Statements, w, o);
+            w.WriteLine("}");
+            return true;
+        }
+
+        static bool WriteCodeSnippetStatement(CodeSnippetStatement snippetStatement, TextWriter w, CodeGeneratorOptions o)
         {
             if (snippetStatement == null)
                 return false;
@@ -320,12 +417,12 @@ namespace Fonlow.TypeScriptCodeDom
 
         }
 
-        static bool GenerateCodeVariableDeclarationStatement(CodeVariableDeclarationStatement variableDeclarationStatement, TextWriter w, CodeGeneratorOptions o)
+        static bool WriteCodeVariableDeclarationStatement(CodeVariableDeclarationStatement variableDeclarationStatement, TextWriter w, CodeGeneratorOptions o)
         {
             if (variableDeclarationStatement == null)
                 return false;
 
-            w.Write(TypeMapper.GetTypeOutput(variableDeclarationStatement.Type) + " "+ variableDeclarationStatement.Name);
+            w.Write(TypeMapper.GetTypeOutput(variableDeclarationStatement.Type) + " " + variableDeclarationStatement.Name);
 
             if (variableDeclarationStatement.InitExpression != null)
             {
@@ -415,7 +512,7 @@ namespace Fonlow.TypeScriptCodeDom
             var methodReferenceExpression = e as CodeMethodReferenceExpression;
             if (methodReferenceExpression != null)
             {
-                CodeObjectHelper.GenerateCodeMethodReferenceExpression(methodReferenceExpression, w, o);
+                WriteCodeMethodReferenceExpression(methodReferenceExpression, w, o);
                 return;
             }
 
@@ -474,7 +571,7 @@ namespace Fonlow.TypeScriptCodeDom
             //todo: CodeTypeOfExpression maybe not
 
             var typeReferenceExpression = e as CodeTypeReferenceExpression;
-            if (typeReferenceExpression !=null)
+            if (typeReferenceExpression != null)
             {
                 w.Write(TypeMapper.GetTypeOutput(typeReferenceExpression.Type));
             }

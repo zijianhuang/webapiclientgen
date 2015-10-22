@@ -66,14 +66,14 @@ namespace Fonlow.TypeScriptCodeDom
         {
             if (typeDeclaration.IsEnum)
             {
-                var enumMembers= typeDeclaration.Members.OfType<CodeTypeMember>().Select(ctm =>
-                {
-                    var codeMemberField = ctm as CodeMemberField;
-                    System.Diagnostics.Trace.Assert(codeMemberField != null);
-                    var enumMember = GetEnumMember(codeMemberField);
-                    System.Diagnostics.Trace.Assert(!String.IsNullOrEmpty(enumMember));
-                    return enumMember;
-                }).ToArray();
+                var enumMembers = typeDeclaration.Members.OfType<CodeTypeMember>().Select(ctm =>
+                 {
+                     var codeMemberField = ctm as CodeMemberField;
+                     System.Diagnostics.Trace.Assert(codeMemberField != null);
+                     var enumMember = GetEnumMember(codeMemberField);
+                     System.Diagnostics.Trace.Assert(!String.IsNullOrEmpty(enumMember));
+                     return enumMember;
+                 }).ToArray();
                 w.Write(String.Join(", ", enumMembers));
                 w.WriteLine("}");
                 return;
@@ -91,14 +91,14 @@ namespace Fonlow.TypeScriptCodeDom
                 var codeMemberField = ctm as CodeMemberField;
                 if (codeMemberField != null)
                 {
-                    w.WriteLine(GetCodeMemberFieldText(codeMemberField)+";");
+                    w.WriteLine(GetCodeMemberFieldText(codeMemberField) + ";");
                     return;
                 }
 
                 var codeMemberProperty = ctm as CodeMemberProperty;
                 if (codeMemberProperty != null)
                 {
-                    w.WriteLine(GetCodeMemberPropertyText(codeMemberProperty)+";");
+                    w.WriteLine(GetCodeMemberPropertyText(codeMemberProperty) + ";");
                     return;
                 }
 
@@ -106,17 +106,17 @@ namespace Fonlow.TypeScriptCodeDom
                 if (memberMethod != null)
                 {
                     w.WriteLine();
-                    w.Write(o.IndentString+ memberMethod.Name + "(");
+                    w.Write(o.IndentString + memberMethod.Name + "(");
                     GenerateCodeParameterDeclarationExpressionList(memberMethod.Parameters.OfType<CodeParameterDeclarationExpression>(), w);
                     w.Write(")");
-                    w.Write(": "+TypeMapper.GetTypeOutput(memberMethod.ReturnType));
+                    w.Write(": " + TypeMapper.GetTypeOutput(memberMethod.ReturnType));
                     w.WriteLine("{");
 
                     //todo:  memberMethod.TypeParameters
 
                     GenerateCodeStatementCollection(memberMethod.Statements, w, o);
 
-                    w.WriteLine(o.IndentString+"}");
+                    w.WriteLine(o.IndentString + "}");
                 }
 
             });
@@ -232,7 +232,12 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            //todo: CodeExpressionStatement
+            var expressStatement = e as CodeExpressionStatement;
+            if (expressStatement != null)
+            {
+                GenerateCodeFromExpression(expressStatement.Expression, w, o);
+                return;
+            }
             //todo: CodeGotoStatement, probably not to support
             //todo: CodeIterationStatement
             //todo: CodeLabeledStatement, probably not to support
@@ -251,7 +256,8 @@ namespace Fonlow.TypeScriptCodeDom
             var snippetStatement = e as CodeSnippetStatement;
             if (snippetStatement != null)
             {
-                w.WriteLine($"{snippetStatement.Value}");//todo: break Value into lines and compensate with indent.
+                w.WriteLine();
+                w.WriteLine(IndentLines(snippetStatement.Value, o.IndentString));
                 o.IndentString = currentIndent;
                 return;
             }
@@ -279,6 +285,17 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
+        }
+
+        static string IndentLines(string s, string indent)
+        {
+            if (String.IsNullOrEmpty(s))
+                return String.Empty;
+
+            var lines = s.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            var indentedLines = lines.Select(d => indent + d);
+            var ss= String.Join("\r\n", indentedLines);
+            return ss;
         }
 
         public static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
@@ -336,7 +353,7 @@ namespace Fonlow.TypeScriptCodeDom
 
             var methodInvokeExpression = e as CodeMethodInvokeExpression;
             if (methodInvokeExpression != null)
-            {   
+            {
                 GenerateCodeFromExpression(methodInvokeExpression.Method.TargetObject, w, o);
                 w.Write(".");
                 w.Write(methodInvokeExpression.Method.MethodName + "(");

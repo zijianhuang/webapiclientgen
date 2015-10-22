@@ -171,11 +171,13 @@ namespace Fonlow.CodeDom.Web.Ts
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
                 "System.Uri", "baseUri"));
 
-            constructor.Statements.Add(new CodeSnippetStatement(@"            if (client == null)
-                throw new ArgumentNullException(""client"", ""Null HttpClient."");
+            constructor.Statements.Add(new CodeSnippetStatement(
+@"if (client == null)
+      throw new ArgumentNullException(""client"", ""Null HttpClient."");
 "));
-            constructor.Statements.Add(new CodeSnippetStatement(@"            if (baseUri == null)
-                throw new ArgumentNullException(""baseUri"", ""Null baseUri"");
+            constructor.Statements.Add(new CodeSnippetStatement(
+@"if (baseUri == null)
+      throw new ArgumentNullException(""baseUri"", ""Null baseUri"");
 "));
             // Add field initialization logic
             sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");

@@ -61,22 +61,8 @@ namespace Fonlow.TypeScriptCodeDom
             return String.Empty;
         }
 
-        public static void GenerateCodeTypeMember(CodeTypeMember e, TextWriter w, CodeGeneratorOptions o)
-        {
-            if (e == null)
-                return;
 
-            //todo: CodeMemberEvent
-
-
-        }
-
-        public static void GenerateCodeTypeField(CodeMemberField memberField, TextWriter w, CodeGeneratorOptions o, bool isEnum)
-        {
-        }
-
-
-        public static void GenerateTypeMembers(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
+        public static void GenerateTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
         {
             if (typeDeclaration.IsEnum)
             {
@@ -89,10 +75,14 @@ namespace Fonlow.TypeScriptCodeDom
                     return enumMember;
                 }).ToArray();
                 w.Write(String.Join(", ", enumMembers));
+                w.WriteLine("}");
                 return;
             }
 
             w.WriteLine();
+
+            var currentIndent = o.IndentString;
+            o.IndentString += Constants.BasicIndent;
 
             typeDeclaration.Members.OfType<CodeTypeMember>().ToList().ForEach(ctm =>
             {
@@ -115,31 +105,46 @@ namespace Fonlow.TypeScriptCodeDom
                 var memberMethod = ctm as CodeMemberMethod;
                 if (memberMethod != null)
                 {
-                    w.Write(memberMethod.Name + "(");
+                    w.WriteLine();
+                    w.Write(o.IndentString+ memberMethod.Name + "(");
                     GenerateCodeParameterDeclarationExpressionList(memberMethod.Parameters.OfType<CodeParameterDeclarationExpression>(), w);
                     w.Write(")");
                     w.Write(": "+TypeMapper.GetTypeOutput(memberMethod.ReturnType));
-                    w.Write("{");
+                    w.WriteLine("{");
 
                     //todo:  memberMethod.TypeParameters
-                    var currentIndent = o.IndentString;
-                    o.IndentString += Constants.BasicIndent;
-                    for (int i = 0; i < memberMethod.Statements.Count; i++)
-                    {
-                        GenerateCodeFromStatement(memberMethod.Statements[i], w, o);
-                    }
-                    o.IndentString = currentIndent;
+
+                    GenerateCodeStatementCollection(memberMethod.Statements, w, o);
+
                     w.WriteLine(o.IndentString+"}");
                 }
 
             });
 
+            w.WriteLine();
+            w.WriteLine(currentIndent + "}");
+            o.IndentString = currentIndent;
         }
 
-        public static string GetEnumMember(CodeMemberField _member)
+        static void GenerateCodeStatementCollection(CodeStatementCollection statements, TextWriter w, CodeGeneratorOptions o)
         {
-            var initExpression = _member.InitExpression as CodePrimitiveExpression;
-            return (initExpression == null) ? $"{_member.Name}" : $"{_member.Name}={initExpression.Value}";
+            var currentIndent = o.IndentString;
+            o.IndentString += Constants.BasicIndent;
+            for (int i = 0; i < statements.Count; i++)
+            {
+                w.Write(o.IndentString);
+                GenerateCodeFromStatement(statements[i], w, o);
+                w.WriteLine(";");
+            }
+            o.IndentString = currentIndent;
+        }
+
+        #region text
+
+        public static string GetEnumMember(CodeMemberField member)
+        {
+            var initExpression = member.InitExpression as CodePrimitiveExpression;
+            return (initExpression == null) ? $"{member.Name}" : $"{member.Name}={initExpression.Value}";
         }
 
         public static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
@@ -169,6 +174,8 @@ namespace Fonlow.TypeScriptCodeDom
             return $"{name}: {typeName}";
         }
 
+        #endregion
+
         public static void GenerateCodeParameterDeclarationExpressionList(IEnumerable<CodeParameterDeclarationExpression> parameterDeclarations, TextWriter w)
         {
             var pairs = parameterDeclarations.Select(d => $"{d.Name}: {TypeMapper.GetTypeOutput(d.Type)}");
@@ -189,11 +196,15 @@ namespace Fonlow.TypeScriptCodeDom
 
         public static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
         {
-            w.Write(o.IndentString);
+            var currentIndent = o.IndentString;
+
             var assignStatement = e as CodeAssignStatement;
             if (assignStatement != null)
             {
-                w.Write($"{o.IndentString}{assignStatement.Left} = {assignStatement.Right};");
+                GenerateCodeFromExpression(assignStatement.Left, w, o);
+                w.Write(" = ");
+                GenerateCodeFromExpression(assignStatement.Right, w, o);
+                o.IndentString = currentIndent;
                 return;
             }
 
@@ -202,21 +213,19 @@ namespace Fonlow.TypeScriptCodeDom
             var conditionStatement = e as CodeConditionStatement;
             if (conditionStatement != null)
             {
-                var currentIndent = o.IndentString;
                 w.Write("if (");
                 GenerateCodeFromExpression(conditionStatement.Condition, w, o);
                 w.WriteLine("){");
 
-                var trueStatements = conditionStatement.TrueStatements.OfType<CodeStatement>().ToList();
-                o.IndentString = currentIndent + o.IndentString;
-                trueStatements.ForEach(d => GenerateCodeFromStatement(d, w, o));
+                GenerateCodeStatementCollection(conditionStatement.TrueStatements, w, o);
                 w.Write(currentIndent);
                 w.WriteLine("}");
                 if (conditionStatement.FalseStatements != null)
                 {
                     w.WriteLine($"{currentIndent}{{");
-                    var falseStatements = conditionStatement.FalseStatements.OfType<CodeStatement>().ToList();
-                    falseStatements.ForEach(d => GenerateCodeFromStatement(d, w, o));
+                    GenerateCodeStatementCollection(conditionStatement.FalseStatements, w, o);
+                    w.Write(currentIndent);
+                    w.WriteLine("}");
                 }
 
                 o.IndentString = currentIndent;
@@ -231,9 +240,9 @@ namespace Fonlow.TypeScriptCodeDom
             var methodReturnStatement = e as CodeMethodReturnStatement;
             if (methodReturnStatement != null)
             {
-                w.Write($"{o.IndentString}return ");
+                w.Write($"return ");
                 GenerateCodeFromExpression(methodReturnStatement.Expression, w, o);
-                w.WriteLine($"{o.IndentString}}}");
+                o.IndentString = currentIndent;
                 return;
             }
 
@@ -242,7 +251,8 @@ namespace Fonlow.TypeScriptCodeDom
             var snippetStatement = e as CodeSnippetStatement;
             if (snippetStatement != null)
             {
-                w.WriteLine($"{o.IndentString}{snippetStatement.Value}");
+                w.WriteLine($"{snippetStatement.Value}");//todo: break Value into lines and compensate with indent.
+                o.IndentString = currentIndent;
                 return;
             }
 
@@ -264,7 +274,9 @@ namespace Fonlow.TypeScriptCodeDom
                     GenerateCodeFromExpression(variableDeclarationStatement.InitExpression, w, o);
                 }
 
-                w.WriteLine(";");
+                o.IndentString = currentIndent;
+
+                return;
             }
 
         }
@@ -275,11 +287,10 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
 
             var currentIndent = o.IndentString;
-            w.Write(o.IndentString);
             var argumentReferenceExpression = e as CodeArgumentReferenceExpression;
             if (argumentReferenceExpression != null)
             {
-                w.WriteLine(argumentReferenceExpression.ParameterName);
+                w.Write(argumentReferenceExpression.ParameterName);
                 return;
             }
 
@@ -304,21 +315,33 @@ namespace Fonlow.TypeScriptCodeDom
             var fieldReference = e as CodeFieldReferenceExpression;
             if (fieldReference != null)
             {
-                w.Write(fieldReference.FieldName);
                 GenerateCodeFromExpression(fieldReference.TargetObject, w, o);
+                w.Write(".");
+                w.Write(fieldReference.FieldName);
                 return;
             }
 
             //todo: CodeIndexerExpression
 
+            Action<CodeExpressionCollection> GenerateCodeExpressionCollection = (collection) =>
+            {
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    if (i > 0)
+                        w.Write(", ");
+                    GenerateCodeFromExpression(collection[i], w, o);
+                }
+
+            };
+
             var methodInvokeExpression = e as CodeMethodInvokeExpression;
             if (methodInvokeExpression != null)
-            {
+            {   
                 GenerateCodeFromExpression(methodInvokeExpression.Method.TargetObject, w, o);
                 w.Write(".");
                 w.Write(methodInvokeExpression.Method.MethodName + "(");
-                methodInvokeExpression.Parameters.OfType<CodeExpression>().ToList().ForEach(d => GenerateCodeFromExpression(d, w, o));
-                w.WriteLine(")l");
+                GenerateCodeExpressionCollection(methodInvokeExpression.Parameters);
+                w.Write(")");
                 return;
             }
 
@@ -332,9 +355,9 @@ namespace Fonlow.TypeScriptCodeDom
             var objectCreateExpression = e as CodeObjectCreateExpression;
             if (objectCreateExpression != null)
             {
-                w.Write($"{currentIndent}new {TypeMapper.GetTypeOutput(objectCreateExpression.CreateType)}(");
-                objectCreateExpression.Parameters.OfType<CodeExpression>().ToList().ForEach(d => GenerateCodeFromExpression(d, w, o));
-                w.WriteLine(")");
+                w.Write($"new {TypeMapper.GetTypeOutput(objectCreateExpression.CreateType)}(");
+                GenerateCodeExpressionCollection(objectCreateExpression.Parameters);
+                w.Write(")");
                 return;
             }
 
@@ -355,8 +378,9 @@ namespace Fonlow.TypeScriptCodeDom
             var propertyReferenceExpression = e as CodePropertyReferenceExpression;
             if (propertyReferenceExpression != null)
             {
-                w.Write(propertyReferenceExpression.PropertyName + ".");
                 GenerateCodeFromExpression(propertyReferenceExpression.TargetObject, w, o);
+                w.Write(".");
+                w.Write(propertyReferenceExpression.PropertyName);
                 return;
             }
 
@@ -372,7 +396,7 @@ namespace Fonlow.TypeScriptCodeDom
             var thisReferenceExpression = e as CodeThisReferenceExpression;
             if (thisReferenceExpression != null)
             {
-                w.Write("this.");
+                w.Write("this");
                 return;
             }
 

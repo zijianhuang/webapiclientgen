@@ -50,6 +50,7 @@ namespace Fonlow.TypeScriptCodeDom
         public void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
         {
             CodeObjectHelper.GenerateCodeFromStatement(e, w, o);
+          //  w.WriteLine(";");
         }
 
         public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
@@ -61,9 +62,7 @@ namespace Fonlow.TypeScriptCodeDom
             var typeParametersExpression = CodeObjectHelper.GetTypeParametersExpression(e);
             var baseTypesExpression = CodeObjectHelper.GetBaseTypeExpression(e);
             w.Write($"{o.IndentString}{accessModifier} {typeOfType} {name}{typeParametersExpression}{baseTypesExpression}{{");
-            o.IndentString += Constants.BasicIndent;
-            CodeObjectHelper.GenerateTypeMembers(e, w, o);
-            w.WriteLine(currentIndent+"}");
+            CodeObjectHelper.GenerateTypeMembersAndCloseBracing(e, w, o);
             o.IndentString = currentIndent;
         }
 

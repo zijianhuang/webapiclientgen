@@ -14,6 +14,7 @@ namespace Fonlow.TypeScriptCodeDom
 
     internal static class CodeObjectHelper
     {
+        #region GenerateCodeFromXXX
         public static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
             var currentIndent = o.IndentString;
@@ -27,6 +28,220 @@ namespace Fonlow.TypeScriptCodeDom
             o.IndentString = currentIndent;
         }
 
+        public static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (e == null)
+                return;
+
+            var currentIndent = o.IndentString;
+            var argumentReferenceExpression = e as CodeArgumentReferenceExpression;
+            if (argumentReferenceExpression != null)
+            {
+                w.Write(argumentReferenceExpression.ParameterName);
+                return;
+            }
+
+            if (WriteCodeArrayCreateExpression(e as CodeArrayCreateExpression, w, o))
+                return;
+
+            var arrayIndexerExpression = e as CodeArrayIndexerExpression;
+            if (arrayIndexerExpression!=null)
+            {
+                GenerateCodeFromExpression(arrayIndexerExpression.TargetObject, w, o);
+                for (int i = 0; i < arrayIndexerExpression.Indices.Count ; i++)
+                {
+                    w.Write("[");
+                    GenerateCodeFromExpression(arrayIndexerExpression.Indices[i], w, o);
+                    w.Write("]");
+                }
+            }
+
+            var baseReferenceExpression = e as CodeBaseReferenceExpression;
+            if (baseReferenceExpression!=null)
+            {
+                w.Write("super");
+                return;
+            }
+            //todo: CodeBinaryOperatorExpression   https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
+            //todo: CodeCastExpression, example <HTMLSpanElement>document, not sure anyone would use type casting in generated codes.
+
+            //todo: CodeDefaultValueExpression; ts not supported?
+            //todo: CodeDelegateCreateExpression no
+            //todo: CodeDelegateInvokeExpression no
+            //todo: CodeDirectionExpression; ts not supported
+            //todo: CodeEventReferenceExpression; probably better with snippetExpression
+
+            var fieldReference = e as CodeFieldReferenceExpression;
+            if (fieldReference != null)
+            {
+                GenerateCodeFromExpression(fieldReference.TargetObject, w, o);
+                w.Write(".");
+                w.Write(fieldReference.FieldName);
+                return;
+            }
+
+            var indexerExpression = e as CodeIndexerExpression;
+            if (indexerExpression!=null)
+            {
+                GenerateCodeFromExpression(indexerExpression.TargetObject, w, o);
+                for (int i = 0; i < indexerExpression.Indices.Count; i++)
+                {
+                    w.Write("[");
+                    GenerateCodeFromExpression(indexerExpression.Indices[i], w, o);
+                    w.Write("]");
+                }
+            }
+
+            var methodInvokeExpression = e as CodeMethodInvokeExpression;
+            if (methodInvokeExpression != null)
+            {
+                GenerateCodeFromExpression(methodInvokeExpression.Method.TargetObject, w, o);
+                w.Write(".");
+                w.Write(methodInvokeExpression.Method.MethodName + "(");
+                WriteCodeExpressionCollection(methodInvokeExpression.Parameters, w, o);
+                w.Write(")");
+                return;
+            }
+
+            var methodReferenceExpression = e as CodeMethodReferenceExpression;
+            if (methodReferenceExpression != null)
+            {
+                WriteCodeMethodReferenceExpression(methodReferenceExpression, w, o);
+                return;
+            }
+
+            var objectCreateExpression = e as CodeObjectCreateExpression;
+            if (objectCreateExpression != null)
+            {
+                w.Write($"new {TypeMapper.GetTypeOutput(objectCreateExpression.CreateType)}(");
+                WriteCodeExpressionCollection(objectCreateExpression.Parameters, w, o);
+                w.Write(")");
+                return;
+            }
+
+            var parameterDeclarationExpression = e as CodeParameterDeclarationExpression;
+            if (parameterDeclarationExpression != null)
+            {
+                w.Write($"{parameterDeclarationExpression.Name}: {TypeMapper.GetTypeOutput(parameterDeclarationExpression.Type)}");
+                return;
+            }
+
+            var primitiveExpression = e as CodePrimitiveExpression;
+            if (primitiveExpression != null)
+            {
+                if (primitiveExpression.Value.GetType() == typeOfString)
+                    w.Write($"\"{primitiveExpression.Value}\"");
+                else
+                    w.Write(primitiveExpression.Value);
+
+                return;
+            }
+
+            var propertyReferenceExpression = e as CodePropertyReferenceExpression;
+            if (propertyReferenceExpression != null)
+            {
+                GenerateCodeFromExpression(propertyReferenceExpression.TargetObject, w, o);
+                w.Write(".");
+                w.Write(propertyReferenceExpression.PropertyName);
+                return;
+            }
+
+            //todo: CodePropertySetValueReferenceExpression
+
+            var snippetExpression = e as CodeSnippetExpression;
+            if (snippetExpression != null)
+            {
+                w.Write(snippetExpression.Value);
+                return;
+            }
+
+            var thisReferenceExpression = e as CodeThisReferenceExpression;
+            if (thisReferenceExpression != null)
+            {
+                w.Write("this");
+                return;
+            }
+
+            //todo: CodeTypeOfExpression maybe not
+
+            var typeReferenceExpression = e as CodeTypeReferenceExpression;
+            if (typeReferenceExpression != null)
+            {
+                w.Write(TypeMapper.GetTypeOutput(typeReferenceExpression.Type));
+            }
+            var variableReferenceExpression = e as CodeVariableReferenceExpression;
+            if (variableReferenceExpression != null)
+            {
+                w.Write(variableReferenceExpression.VariableName);
+                return;
+            }
+
+
+        }
+
+        public static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
+        {
+            var currentIndent = o.IndentString;
+
+            if (WriteCodeAssignStatement(e as CodeAssignStatement, w, o))
+                return;
+
+            //todo: CodeAttachEventStatement  TS does not seem to support, 
+
+            var commentStatement = e as CodeCommentStatement;
+            if (commentStatement != null)
+            {
+                w.WriteLine(commentStatement.Comment.Text);
+                return;
+            }
+
+            if (GenerateCodeConditionStatement(e as CodeConditionStatement, w, o))
+                return;
+
+            var expressStatement = e as CodeExpressionStatement;
+            if (expressStatement != null)
+            {
+                GenerateCodeFromExpression(expressStatement.Expression, w, o);
+                return;
+            }
+            //todo: CodeGotoStatement, probably not to support
+
+            if (WriteCodeIterationStatement(e as CodeIterationStatement, w, o))
+                return;
+
+            //todo: CodeLabeledStatement, probably not to support
+
+            var methodReturnStatement = e as CodeMethodReturnStatement;
+            if (methodReturnStatement != null)
+            {
+                w.Write($"return ");
+                GenerateCodeFromExpression(methodReturnStatement.Expression, w, o);
+                o.IndentString = currentIndent;
+                return;
+            }
+
+            //todo: CodeRemoveEventStatement not to support
+
+            var throwExceptionStatement = e as CodeThrowExceptionStatement;
+            if (throwExceptionStatement != null)
+            {
+                w.Write("throw ");
+                GenerateCodeFromExpression(throwExceptionStatement.ToThrow, w, o);
+                return;
+            }
+
+            if (WriteCodeTryCatchFinallyStatement(e as CodeTryCatchFinallyStatement, w, o))
+                return;
+
+            if (WriteCodeVariableDeclarationStatement(e as CodeVariableDeclarationStatement, w, o))
+                return;
+
+        }
+
+        #endregion
+
+
+        #region Text
 
         public static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
         {
@@ -75,6 +290,80 @@ namespace Fonlow.TypeScriptCodeDom
             return String.Empty;
         }
 
+        public static string GetEnumMember(CodeMemberField member)
+        {
+            var initExpression = member.InitExpression as CodePrimitiveExpression;
+            return (initExpression == null) ? $"{member.Name}" : $"{member.Name}={initExpression.Value}";
+        }
+
+        public static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
+        {
+            return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
+        }
+
+        public static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
+        {
+            return TypeMapper.GetTypeOutput(codeTypeReference);
+        }
+
+        public static string GetCodeMemberPropertyText(CodeMemberProperty codeMemberProperty)
+        {
+            return RefineNameAndType(codeMemberProperty.Name, GetCodeTypeReferenceText(codeMemberProperty.Type));
+        }
+
+        static string RefineNameAndType(string name, string typeName)
+        {
+            if (typeName.EndsWith("?"))
+            {
+                var newName = name + "?";
+                var newTypeName = typeName.TrimEnd('?');
+                return $"{newName}: {newTypeName}";
+            }
+
+            return $"{name}: {typeName}";
+        }
+
+        #endregion
+
+        //http://www.codebelt.com/typescript/javascript-getters-setters-typescript-accessor-tutorial/
+        static void WriteCodeMemberProperty(CodeMemberProperty codeMemberProperty, TextWriter w, CodeGeneratorOptions o)
+        {
+
+        }
+
+        static void WriteCodeExpressionCollection(CodeExpressionCollection collection, TextWriter w, CodeGeneratorOptions o)
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (i > 0)
+                    w.Write(", ");
+                GenerateCodeFromExpression(collection[i], w, o);
+            }
+        }
+
+
+        static bool WriteCodeArrayCreateExpression(CodeArrayCreateExpression arrayCreateExpression, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (arrayCreateExpression == null)
+                return false;
+
+            w.Write("[");
+            WriteCodeExpressionCollection(arrayCreateExpression.Initializers, w, o);
+            w.Write("]");
+            //TS does not care about other properties of CodeArrayCreateExpression
+            return true;
+        }
+
+        static bool WriteCodeAssignStatement(CodeAssignStatement assignStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (assignStatement == null)
+                return false;
+
+            GenerateCodeFromExpression(assignStatement.Left, w, o);
+            w.Write(" = ");
+            GenerateCodeFromExpression(assignStatement.Right, w, o);
+            return true;
+        }
 
         static void WriteTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
         {
@@ -169,7 +458,6 @@ namespace Fonlow.TypeScriptCodeDom
 
             });
 
-            //   w.WriteLine();
             w.WriteLine(currentIndent + "}");
             o.IndentString = currentIndent;
         }
@@ -190,43 +478,6 @@ namespace Fonlow.TypeScriptCodeDom
             }
             o.IndentString = currentIndent;
         }
-
-        #region text
-
-        public static string GetEnumMember(CodeMemberField member)
-        {
-            var initExpression = member.InitExpression as CodePrimitiveExpression;
-            return (initExpression == null) ? $"{member.Name}" : $"{member.Name}={initExpression.Value}";
-        }
-
-        public static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
-        {
-            return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
-        }
-
-        public static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
-        {
-            return TypeMapper.GetTypeOutput(codeTypeReference);
-        }
-
-        public static string GetCodeMemberPropertyText(CodeMemberProperty codeMemberProperty)
-        {
-            return RefineNameAndType(codeMemberProperty.Name, GetCodeTypeReferenceText(codeMemberProperty.Type));
-        }
-
-        static string RefineNameAndType(string name, string typeName)
-        {
-            if (typeName.EndsWith("?"))
-            {
-                var newName = name + "?";
-                var newTypeName = typeName.TrimEnd('?');
-                return $"{newName}: {newTypeName}";
-            }
-
-            return $"{name}: {typeName}";
-        }
-
-        #endregion
 
         static void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
         {
@@ -269,76 +520,6 @@ namespace Fonlow.TypeScriptCodeDom
             return true;
         }
 
-        static bool GenerateCodeAssignStatement(CodeAssignStatement assignStatement, TextWriter w, CodeGeneratorOptions o)
-        {
-            if (assignStatement == null)
-                return false;
-
-            GenerateCodeFromExpression(assignStatement.Left, w, o);
-            w.Write(" = ");
-            GenerateCodeFromExpression(assignStatement.Right, w, o);
-            return true;
-        }
-
-        public static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
-        {
-            var currentIndent = o.IndentString;
-
-            if (GenerateCodeAssignStatement(e as CodeAssignStatement, w, o))
-                return;
-
-            //todo: CodeAttachEventStatement  TS does not seem to support, 
-
-            var commentStatement = e as CodeCommentStatement;
-            if (commentStatement != null)
-            {
-                w.WriteLine(commentStatement.Comment.Text);
-                return;
-            }
-
-            if (GenerateCodeConditionStatement(e as CodeConditionStatement, w, o))
-                return;
-
-            var expressStatement = e as CodeExpressionStatement;
-            if (expressStatement != null)
-            {
-                GenerateCodeFromExpression(expressStatement.Expression, w, o);
-                return;
-            }
-            //todo: CodeGotoStatement, probably not to support
-
-            if (WriteCodeIterationStatement(e as CodeIterationStatement, w, o))
-                return;
-
-            //todo: CodeLabeledStatement, probably not to support
-
-            var methodReturnStatement = e as CodeMethodReturnStatement;
-            if (methodReturnStatement != null)
-            {
-                w.Write($"return ");
-                GenerateCodeFromExpression(methodReturnStatement.Expression, w, o);
-                o.IndentString = currentIndent;
-                return;
-            }
-
-            //todo: CodeRemoveEventStatement not to support
-
-            var throwExceptionStatement = e as CodeThrowExceptionStatement;
-            if (throwExceptionStatement != null)
-            {
-                w.Write("throw ");
-                GenerateCodeFromExpression(throwExceptionStatement.ToThrow, w, o);
-                return;
-            }
-
-            if (WriteCodeTryCatchFinallyStatement(e as CodeTryCatchFinallyStatement, w, o))
-                return;
-
-            if (WriteCodeVariableDeclarationStatement(e as CodeVariableDeclarationStatement, w, o))
-                return;
-
-        }
-
         static bool WriteCodeTryCatchFinallyStatement(CodeTryCatchFinallyStatement tryCatchFinallyStatement, TextWriter w, CodeGeneratorOptions o)
         {
             if (tryCatchFinallyStatement == null)
@@ -358,7 +539,7 @@ namespace Fonlow.TypeScriptCodeDom
                 WriteCodeCatchClause(tryCatchFinallyStatement.CatchClauses[i], w, o);
             }
 
-            if (tryCatchFinallyStatement.FinallyStatements.Count>0)
+            if (tryCatchFinallyStatement.FinallyStatements.Count > 0)
             {
                 o.IndentString += Constants.BasicIndent;
                 w.Write(currentIndent);
@@ -443,146 +624,6 @@ namespace Fonlow.TypeScriptCodeDom
             var indentedLines = lines.Select(d => indent + d);
             var ss = String.Join("\r\n", indentedLines);
             return ss;
-        }
-
-        public static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
-        {
-            if (e == null)
-                return;
-
-            var currentIndent = o.IndentString;
-            var argumentReferenceExpression = e as CodeArgumentReferenceExpression;
-            if (argumentReferenceExpression != null)
-            {
-                w.Write(argumentReferenceExpression.ParameterName);
-                return;
-            }
-
-            var arrayCreateExpression = e as CodeArrayCreateExpression;
-            if (arrayCreateExpression != null)
-            {//todo: later
-             //   arrayCreateExpression.
-            }
-
-            //todo: CodeArrayIndexerExpression
-
-            //todo: CodeBaseReferenceExpression
-            //todo: CodeBinaryOperatorExpression
-            //todo: CodeCastExpression, not to support?
-
-            //todo: CodeDefaultValueExpression; ts not good?
-            //todo: CodeDelegateCreateExpression no
-            //todo: CodeDelegateInvokeExpression no
-            //todo: CodeDirectionExpression;
-            //todo: CodeEventReferenceExpression;
-
-            var fieldReference = e as CodeFieldReferenceExpression;
-            if (fieldReference != null)
-            {
-                GenerateCodeFromExpression(fieldReference.TargetObject, w, o);
-                w.Write(".");
-                w.Write(fieldReference.FieldName);
-                return;
-            }
-
-            //todo: CodeIndexerExpression
-
-            Action<CodeExpressionCollection> GenerateCodeExpressionCollection = (collection) =>
-            {
-                for (int i = 0; i < collection.Count; i++)
-                {
-                    if (i > 0)
-                        w.Write(", ");
-                    GenerateCodeFromExpression(collection[i], w, o);
-                }
-
-            };
-
-            var methodInvokeExpression = e as CodeMethodInvokeExpression;
-            if (methodInvokeExpression != null)
-            {
-                GenerateCodeFromExpression(methodInvokeExpression.Method.TargetObject, w, o);
-                w.Write(".");
-                w.Write(methodInvokeExpression.Method.MethodName + "(");
-                GenerateCodeExpressionCollection(methodInvokeExpression.Parameters);
-                w.Write(")");
-                return;
-            }
-
-            var methodReferenceExpression = e as CodeMethodReferenceExpression;
-            if (methodReferenceExpression != null)
-            {
-                WriteCodeMethodReferenceExpression(methodReferenceExpression, w, o);
-                return;
-            }
-
-            var objectCreateExpression = e as CodeObjectCreateExpression;
-            if (objectCreateExpression != null)
-            {
-                w.Write($"new {TypeMapper.GetTypeOutput(objectCreateExpression.CreateType)}(");
-                GenerateCodeExpressionCollection(objectCreateExpression.Parameters);
-                w.Write(")");
-                return;
-            }
-
-            var parameterDeclarationExpression = e as CodeParameterDeclarationExpression;
-            if (parameterDeclarationExpression != null)
-            {
-                w.Write($"{parameterDeclarationExpression.Name}: {TypeMapper.GetTypeOutput(parameterDeclarationExpression.Type)}");
-                return;
-            }
-
-            var primitiveExpression = e as CodePrimitiveExpression;
-            if (primitiveExpression != null)
-            {
-                if (primitiveExpression.Value.GetType() == typeOfString)
-                    w.Write($"\"{primitiveExpression.Value}\"");
-                else
-                    w.Write(primitiveExpression.Value);
-
-                return;
-            }
-
-            var propertyReferenceExpression = e as CodePropertyReferenceExpression;
-            if (propertyReferenceExpression != null)
-            {
-                GenerateCodeFromExpression(propertyReferenceExpression.TargetObject, w, o);
-                w.Write(".");
-                w.Write(propertyReferenceExpression.PropertyName);
-                return;
-            }
-
-            //todo: CodePropertySetValueReferenceExpression
-
-            var snippetExpression = e as CodeSnippetExpression;
-            if (snippetExpression != null)
-            {
-                w.Write(snippetExpression.Value);
-                return;
-            }
-
-            var thisReferenceExpression = e as CodeThisReferenceExpression;
-            if (thisReferenceExpression != null)
-            {
-                w.Write("this");
-                return;
-            }
-
-            //todo: CodeTypeOfExpression maybe not
-
-            var typeReferenceExpression = e as CodeTypeReferenceExpression;
-            if (typeReferenceExpression != null)
-            {
-                w.Write(TypeMapper.GetTypeOutput(typeReferenceExpression.Type));
-            }
-            var variableReferenceExpression = e as CodeVariableReferenceExpression;
-            if (variableReferenceExpression != null)
-            {
-                w.Write(variableReferenceExpression.VariableName);
-                return;
-            }
-
-
         }
 
         static readonly Type typeOfString = typeof(string);

@@ -45,10 +45,10 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
 
             var arrayIndexerExpression = e as CodeArrayIndexerExpression;
-            if (arrayIndexerExpression!=null)
+            if (arrayIndexerExpression != null)
             {
                 GenerateCodeFromExpression(arrayIndexerExpression.TargetObject, w, o);
-                for (int i = 0; i < arrayIndexerExpression.Indices.Count ; i++)
+                for (int i = 0; i < arrayIndexerExpression.Indices.Count; i++)
                 {
                     w.Write("[");
                     GenerateCodeFromExpression(arrayIndexerExpression.Indices[i], w, o);
@@ -57,7 +57,7 @@ namespace Fonlow.TypeScriptCodeDom
             }
 
             var baseReferenceExpression = e as CodeBaseReferenceExpression;
-            if (baseReferenceExpression!=null)
+            if (baseReferenceExpression != null)
             {
                 w.Write("super");
                 return;
@@ -81,7 +81,7 @@ namespace Fonlow.TypeScriptCodeDom
             }
 
             var indexerExpression = e as CodeIndexerExpression;
-            if (indexerExpression!=null)
+            if (indexerExpression != null)
             {
                 GenerateCodeFromExpression(indexerExpression.TargetObject, w, o);
                 for (int i = 0; i < indexerExpression.Indices.Count; i++)
@@ -326,9 +326,77 @@ namespace Fonlow.TypeScriptCodeDom
         #endregion
 
         //http://www.codebelt.com/typescript/javascript-getters-setters-typescript-accessor-tutorial/
-        static void WriteCodeMemberProperty(CodeMemberProperty codeMemberProperty, TextWriter w, CodeGeneratorOptions o)
+        static bool WriteCodeMemberProperty(CodeMemberProperty codeMemberProperty, TextWriter w, CodeGeneratorOptions o)
         {
+            if (codeMemberProperty == null)
+                return false;
 
+            var accessibility = GetAccessibilityModifier(codeMemberProperty.Attributes);
+
+            var currentIndent = o.IndentString;
+            var propertyType = TypeMapper.GetTypeOutput(codeMemberProperty.Type);
+            if (codeMemberProperty.GetStatements.Count > 0)
+            {
+                w.Write(o.IndentString);
+                w.WriteLine($"{accessibility} get {codeMemberProperty.Name}(): {propertyType}");
+                w.WriteLine("{");
+                o.IndentString += Constants.BasicIndent;
+                WriteCodeStatementCollection(codeMemberProperty.GetStatements, w, o);
+                o.IndentString = currentIndent;
+            }
+
+            if (codeMemberProperty.SetStatements.Count > 0)
+            {
+                w.Write(o.IndentString);
+                w.WriteLine($"{accessibility} get {codeMemberProperty.Name}(): {propertyType}");
+                w.WriteLine("{");
+                o.IndentString += Constants.BasicIndent;
+                WriteCodeStatementCollection(codeMemberProperty.SetStatements, w, o);
+                o.IndentString = currentIndent;
+            }
+
+            return true;
+        }
+
+        static string GetAccessibilityModifier(MemberAttributes a)
+        {
+            switch (a)
+            {
+                case MemberAttributes.Abstract:
+                    return "abstract";
+                case MemberAttributes.Final:
+                    return "final";
+                case MemberAttributes.Static:
+                    return "static";
+                //case MemberAttributes.Override:
+                //    break;
+                case MemberAttributes.Const:
+                    return "const";
+                //case MemberAttributes.New:
+                //    break;
+                //case MemberAttributes.Overloaded:
+                //    break;
+                //case MemberAttributes.Assembly:
+                //    break;
+                //case MemberAttributes.FamilyAndAssembly:
+                //    break;
+                case MemberAttributes.Family:
+                    return "protected";
+                //case MemberAttributes.FamilyOrAssembly:
+                //    break;
+                case MemberAttributes.Private:
+                    return "private";
+                case MemberAttributes.Public:
+                    return "public";
+                //case MemberAttributes.AccessMask:
+                //    break;
+                //case MemberAttributes.ScopeMask:
+                //    break;
+                //case MemberAttributes.VTableMask:
+                //    break;
+                default:
+                    throw new InvalidOperationException("Not supported: " + a.ToString());
+            }
         }
 
         static void WriteCodeExpressionCollection(CodeExpressionCollection collection, TextWriter w, CodeGeneratorOptions o)
@@ -387,79 +455,79 @@ namespace Fonlow.TypeScriptCodeDom
             var currentIndent = o.IndentString;
             o.IndentString += Constants.BasicIndent;
 
-            typeDeclaration.Members.OfType<CodeTypeMember>().ToList().ForEach(ctm =>
+            for (int i = 0; i < typeDeclaration.Members.Count; i++)
             {
-                w.Write(o.IndentString);
-
-                var codeMemberField = ctm as CodeMemberField;
-                if (codeMemberField != null)
-                {
-                    w.WriteLine(GetCodeMemberFieldText(codeMemberField) + ";");
-                    return;
-                }
-
-                var codeMemberProperty = ctm as CodeMemberProperty;
-                if (codeMemberProperty != null)
-                {
-                    w.WriteLine(GetCodeMemberPropertyText(codeMemberProperty) + ";");
-                    return;
-                }
-
-                var memberMethod = ctm as CodeMemberMethod;
-                if (memberMethod != null)
-                {
-                    var isCodeConstructor = memberMethod is CodeConstructor;
-                    //todo: CodeEntryPointMethod not applicable to TS
-                    //todo: CodeTypeConstructor  TS support partially static, so probably not applicable
-                    w.WriteLine();
-                    var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
-                    w.Write(o.IndentString + methodName + "(");
-                    WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
-                    w.Write(")");
-
-                    var returnTypeText = TypeMapper.GetTypeOutput(memberMethod.ReturnType);
-                    if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
-                    {
-                        if (returnTypeText.Contains("?"))
-                            w.Write(": any");
-                        else
-                            w.Write(": " + returnTypeText);
-                    }
-
-                    w.WriteLine("{");
-
-                    //todo:  memberMethod.TypeParameters ? how many would generate generic methods
-
-                    WriteCodeStatementCollection(memberMethod.Statements, w, o);
-
-                    w.WriteLine(o.IndentString + "}");
-                }
-
-                var snippetTypeMember = ctm as CodeSnippetTypeMember;
-                if (snippetTypeMember != null)
-                {
-                    w.WriteLine(snippetTypeMember.Text);
-                    return;
-                }
-
-                //todo: CodeTypeDeclaration not to implement
-                /* TypeScript seems to support or simulate nested type declaration. But not likely many programmers will generate such codes.
-                  class b
-      {
-      }
-
-      module b
-      {
-          class c
-          {
-          }
-      }
-                  */
-
-            });
+                WriteCodeTypeMember(typeDeclaration.Members[i], w, o);
+            };
 
             w.WriteLine(currentIndent + "}");
             o.IndentString = currentIndent;
+        }
+
+        static void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
+        {
+            w.Write(o.IndentString);
+
+            var codeMemberField = ctm as CodeMemberField;
+            if (codeMemberField != null)
+            {
+                w.WriteLine(GetCodeMemberFieldText(codeMemberField) + ";");
+                return;
+            }
+
+            if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
+                return;
+
+            var memberMethod = ctm as CodeMemberMethod;
+            if (memberMethod != null)
+            {
+                var isCodeConstructor = memberMethod is CodeConstructor;
+                //todo: CodeEntryPointMethod not applicable to TS
+                //todo: CodeTypeConstructor  TS support partially static, so probably not applicable
+                w.WriteLine();
+                var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
+                w.Write(o.IndentString + methodName + "(");
+                WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
+                w.Write(")");
+
+                var returnTypeText = TypeMapper.GetTypeOutput(memberMethod.ReturnType);
+                if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
+                {
+                    if (returnTypeText.Contains("?"))
+                        w.Write(": any");
+                    else
+                        w.Write(": " + returnTypeText);
+                }
+
+                w.WriteLine("{");
+
+                //todo:  memberMethod.TypeParameters ? how many would generate generic methods
+
+                WriteCodeStatementCollection(memberMethod.Statements, w, o);
+
+                w.WriteLine(o.IndentString + "}");
+            }
+
+            var snippetTypeMember = ctm as CodeSnippetTypeMember;
+            if (snippetTypeMember != null)
+            {
+                w.WriteLine(snippetTypeMember.Text);
+                return;
+            }
+
+            //todo: CodeTypeDeclaration not to implement
+            /* TypeScript seems to support or simulate nested type declaration. But not likely many programmers will generate such codes.
+              class b
+  {
+  }
+
+  module b
+  {
+      class c
+      {
+      }
+  }
+              */
         }
 
         static void WriteCodeStatementCollection(CodeStatementCollection statements, TextWriter w, CodeGeneratorOptions o)

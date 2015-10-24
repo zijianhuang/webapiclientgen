@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.Poco2Ts", "Fonlow.Po
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.TypeScriptCodeDom", "Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj", "{0DC57B30-7487-455C-8C75-1B814686049C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptCodeDomTests", "TypeScriptCodeDomTests\TypeScriptCodeDomTests.csproj", "{CE5522A1-10AB-4941-BD74-2FCF5AC7823F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptCodeDomTests", "Tests\TypeScriptCodeDomTests\TypeScriptCodeDomTests.csproj", "{CE5522A1-10AB-4941-BD74-2FCF5AC7823F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

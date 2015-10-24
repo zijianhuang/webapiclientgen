@@ -3,7 +3,7 @@ using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -12,9 +12,10 @@ namespace Fonlow.TypeScriptCodeDom
         public const string BasicIndent = "    ";
     }
 
-    internal static class CodeObjectHelper
+    public static class CodeObjectHelper
     {
         #region GenerateCodeFromXXX
+
         public static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
             var currentIndent = o.IndentString;
@@ -146,7 +147,7 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            //todo: CodePropertySetValueReferenceExpression
+            //todo: CodePropertySetValueReferenceExpression  not to support
 
             var snippetExpression = e as CodeSnippetExpression;
             if (snippetExpression != null)
@@ -162,13 +163,19 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            //todo: CodeTypeOfExpression maybe not
+            var typeOfExpression = e as CodeTypeOfExpression;
+            if (typeOfExpression != null)
+            {
+                w.Write("typeof " + TypeMapper.GetTypeOutput(typeOfExpression.Type));
+                return;
+            }
 
             var typeReferenceExpression = e as CodeTypeReferenceExpression;
             if (typeReferenceExpression != null)
             {
                 w.Write(TypeMapper.GetTypeOutput(typeReferenceExpression.Type));
             }
+
             var variableReferenceExpression = e as CodeVariableReferenceExpression;
             if (variableReferenceExpression != null)
             {
@@ -239,6 +246,7 @@ namespace Fonlow.TypeScriptCodeDom
         }
 
         #endregion
+
 
 
         #region Text
@@ -348,7 +356,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (codeMemberProperty.SetStatements.Count > 0)
             {
                 w.Write(o.IndentString);
-                w.WriteLine($"{accessibility} get {codeMemberProperty.Name}(): {propertyType}");
+                w.WriteLine($"{accessibility} set {codeMemberProperty.Name}(value : {propertyType})");
                 w.WriteLine("{");
                 o.IndentString += Constants.BasicIndent;
                 WriteCodeStatementCollection(codeMemberProperty.SetStatements, w, o);
@@ -419,6 +427,12 @@ namespace Fonlow.TypeScriptCodeDom
             WriteCodeExpressionCollection(arrayCreateExpression.Initializers, w, o);
             w.Write("]");
             //TS does not care about other properties of CodeArrayCreateExpression
+            if (arrayCreateExpression.Size > 0)
+                Trace.TraceWarning("CodeArrayCreateExpression in TypeScript does not care about Size.");
+
+            if (arrayCreateExpression.SizeExpression != null)
+                Trace.TraceWarning("CodeArrayCreateExpression in TypeScript does not care about SizeExpression.");
+
             return true;
         }
 
@@ -515,7 +529,7 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            //todo: CodeTypeDeclaration not to implement
+            //todo: nested CodeTypeDeclaration not to implement
             /* TypeScript seems to support or simulate nested type declaration. But not likely many programmers will generate such codes.
               class b
   {
@@ -555,14 +569,15 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void WriteCodeMethodReferenceExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)
         {
-            w.Write(o.IndentString);
             GenerateCodeFromExpression(expression.TargetObject, w, o);
             w.Write(".");
-            w.Write(expression.MethodName + "(");
+            w.Write(expression.MethodName);
+            if (expression.TypeArguments.Count>0)
+            {
+                w.Write($"<{TypeMapper.GetCodeTypeReferenceCollection(expression.TypeArguments)}>");
+            }
 
-            var arguments = expression.TypeArguments.OfType<CodeTypeReference>().Select(d => TypeMapper.GetTypeOutput(d));
-            w.Write(String.Join(", ", arguments));
-            w.Write(")");
+            w.Write("()");
         }
 
         static bool GenerateCodeConditionStatement(CodeConditionStatement conditionStatement, TextWriter w, CodeGeneratorOptions o)

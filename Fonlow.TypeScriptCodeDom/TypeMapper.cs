@@ -77,24 +77,32 @@ namespace Fonlow.TypeScriptCodeDom
             if (typeMap.TryGetValue(type.BaseType, out tsTypeName))
                 return tsTypeName;
 
-            var genericTypeArgument = type.TypeArguments.OfType<CodeTypeReference>().FirstOrDefault();
 
-            if (genericTypeArgument == null)
+            if (type.TypeArguments.Count == 0)
                 return type.BaseType;
 
             if (IsGenericArrayType(type.BaseType))
             {
-                System.Diagnostics.Debug.Assert(genericTypeArgument != null);
-                return $"Array<{GetTypeOutput(genericTypeArgument)}>";
+                System.Diagnostics.Trace.Assert(type.TypeArguments.Count == 1);
+                return $"Array<{GetTypeOutput(type.TypeArguments[0])}>";
             }
 
             if (IsNullableType(type.BaseType))
             {
-                System.Diagnostics.Debug.Assert(genericTypeArgument != null);
-                return GetTypeOutput(genericTypeArgument) + "?";
+                System.Diagnostics.Trace.Assert(type.TypeArguments.Count == 1);
+                return GetTypeOutput(type.TypeArguments[0]) + "?";
             }
 
-            return $"{type.BaseType}<{GetTypeOutput(genericTypeArgument)}>";
+            var genericBaseTypeName = type.BaseType.Contains("`1") ? type.BaseType.Replace("`1", null) : type.BaseType;  //.NET runtime gives `1 suffix, but TS does not need it.
+
+            return $"{genericBaseTypeName}<{GetCodeTypeReferenceCollection(type.TypeArguments)}>";
+        }
+
+
+        public static string GetCodeTypeReferenceCollection(CodeTypeReferenceCollection collection)
+        {
+            var arguments = collection.OfType<CodeTypeReference>().Select(d => GetTypeOutput(d));
+            return String.Join(", ", arguments);
         }
 
 

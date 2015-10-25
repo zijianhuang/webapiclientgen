@@ -195,12 +195,8 @@ namespace Fonlow.TypeScriptCodeDom
 
             //todo: CodeAttachEventStatement  TS does not seem to support, 
 
-            var commentStatement = e as CodeCommentStatement;
-            if (commentStatement != null)
-            {
-                w.WriteLine(commentStatement.Comment.Text);
+            if (WriteCodeCommentStatement(e as CodeCommentStatement, w, o))
                 return;
-            }
 
             if (GenerateCodeConditionStatement(e as CodeConditionStatement, w, o))
                 return;
@@ -333,6 +329,52 @@ namespace Fonlow.TypeScriptCodeDom
 
         #endregion
 
+        /// <summary>
+        /// Multi-line doc comment will be split according to JSDoc 3 at http://usejsdoc.org
+        /// Multi-line comment will be split
+        /// </summary>
+        /// <param name="commentStatement"></param>
+        /// <param name="w"></param>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        static bool WriteCodeCommentStatement(CodeCommentStatement commentStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (commentStatement == null)
+                return false;
+
+            if (commentStatement.Comment.DocComment)
+            {
+                w.Write(o.IndentString + "/** ");
+                if (commentStatement.Comment.Text.Contains('\n'))
+                {
+                    w.WriteLine();
+                    var lines = commentStatement.Comment.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        w.WriteLine($"{o.IndentString} * {lines[i]}");
+                    }
+                    w.WriteLine($"{o.IndentString} */");
+                }
+                else
+                {
+                    w.Write(commentStatement.Comment.Text);
+                    w.WriteLine(" */");
+                }
+            }
+            else
+            {
+                var lines = commentStatement.Comment.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    w.WriteLine($"{o.IndentString}// {lines[i]}");
+                }
+
+                //w.WriteLine(o.IndentString + "// " + commentStatement.Comment.Text);
+            }
+
+            return true;
+        }
+
         //http://www.codebelt.com/typescript/javascript-getters-setters-typescript-accessor-tutorial/
         static bool WriteCodeMemberProperty(CodeMemberProperty codeMemberProperty, TextWriter w, CodeGeneratorOptions o)
         {
@@ -441,6 +483,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (assignStatement == null)
                 return false;
 
+            w.Write(o.IndentString);
             GenerateCodeFromExpression(assignStatement.Left, w, o);
             w.Write(" = ");
             GenerateCodeFromExpression(assignStatement.Right, w, o);
@@ -572,7 +615,7 @@ namespace Fonlow.TypeScriptCodeDom
             GenerateCodeFromExpression(expression.TargetObject, w, o);
             w.Write(".");
             w.Write(expression.MethodName);
-            if (expression.TypeArguments.Count>0)
+            if (expression.TypeArguments.Count > 0)
             {
                 w.Write($"<{TypeMapper.GetCodeTypeReferenceCollection(expression.TypeArguments)}>");
             }

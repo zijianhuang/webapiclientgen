@@ -27,7 +27,35 @@ namespace TypeScriptCodeDomTests
         public void TestCodeAssignStatement()
         {
             TestCodeStatement(new CodeAssignStatement(new CodeSnippetExpression("s"), new CodePrimitiveExpression("abc")),
-                "s = \"abc\"");
+                "    s = \"abc\"");
+        }
+
+        [Fact]
+        public void TestCodeCommentStatement()
+        {
+            TestCodeStatement(new CodeCommentStatement("my comment"),
+                "    // my comment\r\n");
+
+        }
+
+        [Fact]
+        public void TestCodeCommentStatementDocComment()
+        {
+            TestCodeStatement(new CodeCommentStatement("my comment", true),
+                "    /** my comment */\r\n");
+
+        }
+
+        [Fact]
+        public void TestCodeCommentStatementDocCommentLines()
+        {
+            TestCodeStatement(new CodeCommentStatement("my comment\r\nSecond line", true),
+@"    /** 
+     * my comment
+     * Second line
+     */
+");
+
         }
     }
 }

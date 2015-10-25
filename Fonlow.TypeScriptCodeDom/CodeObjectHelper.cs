@@ -18,15 +18,15 @@ namespace Fonlow.TypeScriptCodeDom
 
         public static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
-            var currentIndent = o.IndentString;
-            var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export" : String.Empty;
+          //  var currentIndent = o.IndentString;
+            var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
             var typeOfType = CodeObjectHelper.GetTypeOfType(e);
             var name = e.Name;
             var typeParametersExpression = CodeObjectHelper.GetTypeParametersExpression(e);
             var baseTypesExpression = CodeObjectHelper.GetBaseTypeExpression(e);
-            w.Write($"{o.IndentString}{accessModifier} {typeOfType} {name}{typeParametersExpression}{baseTypesExpression}{{");
+            w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}{typeParametersExpression}{baseTypesExpression} {{");
             WriteTypeMembersAndCloseBracing(e, w, o);
-            o.IndentString = currentIndent;
+        //    o.IndentString = currentIndent;
         }
 
         public static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)

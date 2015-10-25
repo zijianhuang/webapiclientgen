@@ -63,7 +63,9 @@ namespace Fonlow.TypeScriptCodeDom
                 w.Write("super");
                 return;
             }
-            //todo: CodeBinaryOperatorExpression   https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
+            if (WriteCodeBinaryOperatorExpression(e as CodeBinaryOperatorExpression, w, o))
+                return;
+
             //todo: CodeCastExpression, example <HTMLSpanElement>document, not sure anyone would use type casting in generated codes.
 
             //todo: CodeDefaultValueExpression; ts not supported?
@@ -198,12 +200,13 @@ namespace Fonlow.TypeScriptCodeDom
             if (WriteCodeCommentStatement(e as CodeCommentStatement, w, o))
                 return;
 
-            if (GenerateCodeConditionStatement(e as CodeConditionStatement, w, o))
+            if (WriteCodeConditionStatement(e as CodeConditionStatement, w, o))
                 return;
 
             var expressStatement = e as CodeExpressionStatement;
             if (expressStatement != null)
             {
+                w.Write(o.IndentString);
                 GenerateCodeFromExpression(expressStatement.Expression, w, o);
                 return;
             }
@@ -217,6 +220,7 @@ namespace Fonlow.TypeScriptCodeDom
             var methodReturnStatement = e as CodeMethodReturnStatement;
             if (methodReturnStatement != null)
             {
+                w.Write(o.IndentString);
                 w.Write($"return ");
                 GenerateCodeFromExpression(methodReturnStatement.Expression, w, o);
                 o.IndentString = currentIndent;
@@ -228,7 +232,7 @@ namespace Fonlow.TypeScriptCodeDom
             var throwExceptionStatement = e as CodeThrowExceptionStatement;
             if (throwExceptionStatement != null)
             {
-                w.Write("throw ");
+                w.Write(o.IndentString+"throw ");
                 GenerateCodeFromExpression(throwExceptionStatement.ToThrow, w, o);
                 return;
             }
@@ -243,91 +247,65 @@ namespace Fonlow.TypeScriptCodeDom
 
         #endregion
 
-
-
-        #region Text
-
-        public static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
+        /// <summary>
+        /// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators
+        /// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        static string GetCodeBinaryOperatorTypeText(CodeBinaryOperatorType t)
         {
-            return typeDeclaration.IsEnum
-                ? "enum"
-                : typeDeclaration.IsInterface
-                    ? "interface"
-                    : "class";
-        }
-
-        public static string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
-        {
-            if (typeDeclaration.TypeParameters.Count == 0)
-                return string.Empty;
-
-            var parameterNames = typeDeclaration.TypeParameters.OfType<CodeTypeParameter>().Select(d =>
+            switch (t)
             {
-                var typeParameterConstraint = string.Empty;
-                if (d.Constraints.Count > 0)
-                {
-                    var constraint = d.Constraints.OfType<CodeTypeReference>().First();
-                    var type = TypeMapper.GetTypeOutput(constraint);
-                    typeParameterConstraint = $" extends {type}";
-                }
-
-
-                return $"{d.Name}{typeParameterConstraint}";
-            }).ToArray();
-
-            return parameterNames.Length == 0 ? String.Empty : $"<{String.Join(", ", parameterNames)}>";
-        }
-
-        public static string GetBaseTypeExpression(CodeTypeDeclaration typeDeclaration)
-        {
-            var baseTypes = typeDeclaration.BaseTypes
-                .OfType<CodeTypeReference>()
-                .Where(reference => TypeMapper.IsValidTypeForDerivation(reference))
-                .Select(reference => TypeMapper.GetTypeOutput(reference))
-                .ToList();
-            var baseTypesExpression = string.Empty;
-            if (baseTypes.Any() && !typeDeclaration.IsEnum)
-            {
-                return $" extends {string.Join(",", baseTypes)}";
+                case CodeBinaryOperatorType.Add:
+                    return "+";
+                case CodeBinaryOperatorType.Subtract:
+                    return "-" ;
+                case CodeBinaryOperatorType.Multiply:
+                    return "*";
+                case CodeBinaryOperatorType.Divide:
+                    return "/";
+                case CodeBinaryOperatorType.Modulus:
+                    return "%";
+                case CodeBinaryOperatorType.Assign:
+                    return "=";
+                case CodeBinaryOperatorType.IdentityInequality:
+                    return "!=";
+                case CodeBinaryOperatorType.IdentityEquality:
+                    return "==";
+                case CodeBinaryOperatorType.ValueEquality:
+                    return "==";
+                case CodeBinaryOperatorType.BitwiseOr:
+                    return "|";
+                case CodeBinaryOperatorType.BitwiseAnd:
+                    return "&";
+                case CodeBinaryOperatorType.BooleanOr:
+                    return "||";
+                case CodeBinaryOperatorType.BooleanAnd:
+                    return "&&";
+                case CodeBinaryOperatorType.LessThan:
+                    return "<";
+                case CodeBinaryOperatorType.LessThanOrEqual:
+                    return "<=";
+                case CodeBinaryOperatorType.GreaterThan:
+                    return ">";
+                case CodeBinaryOperatorType.GreaterThanOrEqual:
+                    return ">=";
+                default:
+                    throw new ArgumentException(t + " is not supported.");
             }
-
-            return String.Empty;
         }
 
-        public static string GetEnumMember(CodeMemberField member)
+        static bool WriteCodeBinaryOperatorExpression(CodeBinaryOperatorExpression binaryOperatorExpression, TextWriter w, CodeGeneratorOptions o)
         {
-            var initExpression = member.InitExpression as CodePrimitiveExpression;
-            return (initExpression == null) ? $"{member.Name}" : $"{member.Name}={initExpression.Value}";
+            if (binaryOperatorExpression == null)
+                return false;
+
+            GenerateCodeFromExpression(binaryOperatorExpression.Left, w, o);
+            w.Write($" {GetCodeBinaryOperatorTypeText(binaryOperatorExpression.Operator)} ");
+            GenerateCodeFromExpression(binaryOperatorExpression.Right, w, o);
+            return true;
         }
-
-        public static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
-        {
-            return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
-        }
-
-        public static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
-        {
-            return TypeMapper.GetTypeOutput(codeTypeReference);
-        }
-
-        public static string GetCodeMemberPropertyText(CodeMemberProperty codeMemberProperty)
-        {
-            return RefineNameAndType(codeMemberProperty.Name, GetCodeTypeReferenceText(codeMemberProperty.Type));
-        }
-
-        static string RefineNameAndType(string name, string typeName)
-        {
-            if (typeName.EndsWith("?"))
-            {
-                var newName = name + "?";
-                var newTypeName = typeName.TrimEnd('?');
-                return $"{newName}: {newTypeName}";
-            }
-
-            return $"{name}: {typeName}";
-        }
-
-        #endregion
 
         /// <summary>
         /// Multi-line doc comment will be split according to JSDoc 3 at http://usejsdoc.org
@@ -368,8 +346,6 @@ namespace Fonlow.TypeScriptCodeDom
                 {
                     w.WriteLine($"{o.IndentString}// {lines[i]}");
                 }
-
-                //w.WriteLine(o.IndentString + "// " + commentStatement.Comment.Text);
             }
 
             return true;
@@ -587,16 +563,23 @@ namespace Fonlow.TypeScriptCodeDom
               */
         }
 
+        /// <summary>
+        /// Write every statements with 1 more BasicIndent of the caller, and add ; and linebreak at the end,
+        /// </summary>
+        /// <param name="statements"></param>
+        /// <param name="w"></param>
+        /// <param name="o"></param>
         static void WriteCodeStatementCollection(CodeStatementCollection statements, TextWriter w, CodeGeneratorOptions o)
         {
             var currentIndent = o.IndentString;
             o.IndentString += Constants.BasicIndent;
+
             for (int i = 0; i < statements.Count; i++)
             {
                 var statement = statements[i];
-                if (!WriteCodeSnippetStatement(statement as CodeSnippetStatement, w, o))
+                if (!WriteCodeSnippetStatement(statement as CodeSnippetStatement, w, o) &&
+                    !WriteCodeCommentStatement(statement as CodeCommentStatement, w, o))
                 {
-                    w.Write(o.IndentString);
                     GenerateCodeFromStatement(statement, w, o);
                     w.WriteLine(";");
                 }
@@ -623,21 +606,22 @@ namespace Fonlow.TypeScriptCodeDom
             w.Write("()");
         }
 
-        static bool GenerateCodeConditionStatement(CodeConditionStatement conditionStatement, TextWriter w, CodeGeneratorOptions o)
+        static bool WriteCodeConditionStatement(CodeConditionStatement conditionStatement, TextWriter w, CodeGeneratorOptions o)
         {
             if (conditionStatement == null)
                 return false;
 
+            w.Write(o.IndentString);
             w.Write("if (");
             GenerateCodeFromExpression(conditionStatement.Condition, w, o);
-            w.WriteLine("){");
+            w.WriteLine(") {");
 
             WriteCodeStatementCollection(conditionStatement.TrueStatements, w, o);
             w.Write(o.IndentString);
             w.WriteLine("}");
-            if (conditionStatement.FalseStatements != null)
+            if (conditionStatement.FalseStatements.Count>0)
             {
-                w.WriteLine($"{o.IndentString}{{");
+                w.WriteLine($"{o.IndentString}else {{");
                 WriteCodeStatementCollection(conditionStatement.FalseStatements, w, o);
                 w.Write(o.IndentString);
                 w.WriteLine("}");
@@ -646,36 +630,40 @@ namespace Fonlow.TypeScriptCodeDom
             return true;
         }
 
+        /// <summary>
+        /// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
+        /// </summary>
+        /// <param name="tryCatchFinallyStatement"></param>
+        /// <param name="w"></param>
+        /// <param name="o"></param>
+        /// <returns></returns>
         static bool WriteCodeTryCatchFinallyStatement(CodeTryCatchFinallyStatement tryCatchFinallyStatement, TextWriter w, CodeGeneratorOptions o)
         {
             if (tryCatchFinallyStatement == null)
                 return false;
 
-            var currentIndent = o.IndentString;
-            w.WriteLine(o.IndentString);
+            w.Write(o.IndentString);
             w.WriteLine("try {");
-            o.IndentString += Constants.BasicIndent;
             WriteCodeStatementCollection(tryCatchFinallyStatement.TryStatements, w, o);
-            o.IndentString = currentIndent;
             w.Write(o.IndentString);
             w.WriteLine("}");
 
-            for (int i = 0; i < tryCatchFinallyStatement.CatchClauses.Count; i++)
+            if (tryCatchFinallyStatement.CatchClauses.Count > 1)
+                throw new ArgumentException("Javascript does not support multiple CatchClauses.", "tryCatchFinallyStatement.CatchClauses");
+
+            if (tryCatchFinallyStatement.CatchClauses.Count>0)
             {
-                WriteCodeCatchClause(tryCatchFinallyStatement.CatchClauses[i], w, o);
+                WriteCodeCatchClause(tryCatchFinallyStatement.CatchClauses[0], w, o);
             }
 
             if (tryCatchFinallyStatement.FinallyStatements.Count > 0)
             {
-                o.IndentString += Constants.BasicIndent;
-                w.Write(currentIndent);
+                w.Write(o.IndentString);
                 w.WriteLine("finally {");
                 WriteCodeStatementCollection(tryCatchFinallyStatement.FinallyStatements, w, o);
-                w.Write(currentIndent);
+                w.Write(o.IndentString);
                 w.WriteLine("}");
             }
-
-            o.IndentString = currentIndent;
 
             return true;
         }
@@ -701,15 +689,19 @@ namespace Fonlow.TypeScriptCodeDom
             if (iterationStatement == null)
                 return false;
 
+            var currentIndent = o.IndentString;
+            w.Write(o.IndentString);
             w.Write("for (");
+            o.IndentString = "";
             GenerateCodeFromStatement(iterationStatement.InitStatement, w, o);
             w.Write("; ");
             GenerateCodeFromExpression(iterationStatement.TestExpression, w, o);
             w.Write("; ");
             GenerateCodeFromStatement(iterationStatement.IncrementStatement, w, o);
-            w.WriteLine("){");
+            w.WriteLine(") {");
+            o.IndentString = currentIndent;
             WriteCodeStatementCollection(iterationStatement.Statements, w, o);
-            w.WriteLine("}");
+            w.WriteLine(o.IndentString+"}");
             return true;
         }
 
@@ -718,7 +710,6 @@ namespace Fonlow.TypeScriptCodeDom
             if (snippetStatement == null)
                 return false;
 
-            w.WriteLine();
             w.WriteLine(IndentLines(snippetStatement.Value, o.IndentString));
             return true;
 
@@ -729,7 +720,8 @@ namespace Fonlow.TypeScriptCodeDom
             if (variableDeclarationStatement == null)
                 return false;
 
-            w.Write(TypeMapper.GetTypeOutput(variableDeclarationStatement.Type) + " " + variableDeclarationStatement.Name);
+            w.Write(o.IndentString);
+            w.Write($"var {variableDeclarationStatement.Name}: {TypeMapper.GetTypeOutput(variableDeclarationStatement.Type)}");
 
             if (variableDeclarationStatement.InitExpression != null)
             {
@@ -740,6 +732,10 @@ namespace Fonlow.TypeScriptCodeDom
             return true;
         }
 
+
+        static readonly Type typeOfString = typeof(string);
+
+        #region Text
 
         static string IndentLines(string s, string indent)
         {
@@ -752,8 +748,89 @@ namespace Fonlow.TypeScriptCodeDom
             return ss;
         }
 
-        static readonly Type typeOfString = typeof(string);
+        public static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
+        {
+            return typeDeclaration.IsEnum
+                ? "enum"
+                : typeDeclaration.IsInterface
+                    ? "interface"
+                    : "class";
+        }
+
+        public static string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
+        {
+            if (typeDeclaration.TypeParameters.Count == 0)
+                return string.Empty;
+
+            var parameterNames = typeDeclaration.TypeParameters.OfType<CodeTypeParameter>().Select(d =>
+            {
+                var typeParameterConstraint = string.Empty;
+                if (d.Constraints.Count > 0)
+                {
+                    var constraint = d.Constraints.OfType<CodeTypeReference>().First();
+                    var type = TypeMapper.GetTypeOutput(constraint);
+                    typeParameterConstraint = $" extends {type}";
+                }
+
+
+                return $"{d.Name}{typeParameterConstraint}";
+            }).ToArray();
+
+            return parameterNames.Length == 0 ? String.Empty : $"<{String.Join(", ", parameterNames)}>";
+        }
+
+        public static string GetBaseTypeExpression(CodeTypeDeclaration typeDeclaration)
+        {
+            var baseTypes = typeDeclaration.BaseTypes
+                .OfType<CodeTypeReference>()
+                .Where(reference => TypeMapper.IsValidTypeForDerivation(reference))
+                .Select(reference => TypeMapper.GetTypeOutput(reference))
+                .ToList();
+            var baseTypesExpression = string.Empty;
+            if (baseTypes.Any() && !typeDeclaration.IsEnum)
+            {
+                return $" extends {string.Join(",", baseTypes)}";
+            }
+
+            return String.Empty;
+        }
+
+        public static string GetEnumMember(CodeMemberField member)
+        {
+            var initExpression = member.InitExpression as CodePrimitiveExpression;
+            return (initExpression == null) ? $"{member.Name}" : $"{member.Name}={initExpression.Value}";
+        }
+
+        public static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
+        {
+            return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
+        }
+
+        public static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
+        {
+            return TypeMapper.GetTypeOutput(codeTypeReference);
+        }
+
+        public static string GetCodeMemberPropertyText(CodeMemberProperty codeMemberProperty)
+        {
+            return RefineNameAndType(codeMemberProperty.Name, GetCodeTypeReferenceText(codeMemberProperty.Type));
+        }
+
+        static string RefineNameAndType(string name, string typeName)
+        {
+            if (typeName.EndsWith("?"))
+            {
+                var newName = name + "?";
+                var newTypeName = typeName.TrimEnd('?');
+                return $"{newName}: {newTypeName}";
+            }
+
+            return $"{name}: {typeName}";
+        }
+
+        #endregion
 
 
     }
+
 }

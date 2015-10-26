@@ -1,9 +1,7 @@
-﻿using System;
-using System.CodeDom;
+﻿using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace Fonlow.TypeScriptCodeDom
 {

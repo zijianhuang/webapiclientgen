@@ -5,6 +5,7 @@ var DemoWebApi;
     (function (DemoData) {
         var Client;
         (function (Client) {
+            //import DemoWebApi_DemoData_Client = DemoWebApi.DemoData.Client;
             var EntitiesApi = (function () {
                 function EntitiesApi(httpclient, baseUri) {
                     this.client = httpclient;

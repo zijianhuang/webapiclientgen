@@ -51,7 +51,6 @@ namespace TypeScriptCodeDomTests
         public void TestCodeTypeDeclarationWithBaseTypePublic()
         {
             CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType");
-          //  newType.TypeAttributes = System.Reflection.TypeAttributes.NotPublic; default is public
             newType.BaseTypes.Add("BaseType");
             AssertCodeTypeDeclaration(newType,
 @"    export class TestType extends BaseType {

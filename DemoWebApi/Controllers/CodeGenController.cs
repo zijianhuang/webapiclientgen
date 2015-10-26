@@ -45,7 +45,7 @@ namespace Fonlow.WebApiClientGen
                 try
                 {
                     theFolder = System.IO.Path.IsPathRooted(parameters.TypeScriptFolder) ? parameters.TypeScriptFolder
-                : System.IO.Path.Combine(webRootPath, "..", parameters.TypeScriptFolder);
+                : System.IO.Path.Combine(webRootPath, "Scripts", parameters.TypeScriptFolder);
 
                 }
                 catch (System.ArgumentException e)
@@ -86,7 +86,7 @@ namespace Fonlow.WebApiClientGen
         public bool GenerateBothAsyncAndSync { get; set; }
 
         /// <summary>
-        /// Absolute path or relative path of a sibling of Web API project.
+        /// Absolute path or relative path under the Scripts folder of current Web API project.
         /// </summary>
         public string TypeScriptFolder { get; set; }
 
@@ -108,7 +108,7 @@ namespace Fonlow.WebApiClientGen
           "DemoWebApi.Controllers.Account"
         ],
         "GenerateBothAsyncAndSync": true,
-        "TypeScriptFolder" : "c:\\test",
+        "TypeScriptFolder" : "ClientApi",
         "TypeScriptDataModelNamespaces" : [
            "DemoWebApi_DemoData_Client"
         ],

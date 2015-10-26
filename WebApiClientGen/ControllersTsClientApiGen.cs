@@ -74,11 +74,11 @@ namespace Fonlow.CodeDom.Web.Ts
             {
                 var clientNamespaceText = (grouppedControllerDescriptions.Key + ".Client").Replace('.', '_');
                 var clientNamespace = new CodeNamespace(clientNamespaceText);
-                if (dataModelNamespaces != null)
-                {
-                    var dataModeNamespaceImports = dataModelNamespaces.Select(d => new CodeNamespaceImport(d)).ToArray();
-                    clientNamespace.Imports.AddRange(dataModeNamespaceImports);
-                }
+                //if (dataModelNamespaces != null)
+                //{
+                //    var dataModeNamespaceImports = dataModelNamespaces.Select(d => new CodeNamespaceImport(d)).ToArray();
+                //    clientNamespace.Imports.AddRange(dataModeNamespaceImports);
+                //}
 
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 

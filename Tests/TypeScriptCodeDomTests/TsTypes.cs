@@ -71,7 +71,7 @@ namespace TypeScriptCodeDomTests
     }
 ");
 
-        }
+        }  
 
 
     }

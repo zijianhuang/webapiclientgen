@@ -37,7 +37,7 @@ namespace Fonlow.TypeScriptCodeDom
         {
             var refinedNamespaceText = e.Name.Replace('.', '_');
 
-            w.WriteLine($"namespace {refinedNamespaceText}{{");
+            w.WriteLine($"namespace {refinedNamespaceText} {{");
 
             for (int i = 0; i < e.Imports.Count; i++)
             {

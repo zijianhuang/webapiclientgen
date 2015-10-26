@@ -35,7 +35,9 @@ namespace Fonlow.TypeScriptCodeDom
 
         public void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
         {
-            w.WriteLine($"module {e.Name}{{");
+            var refinedNamespaceText = e.Name.Replace('.', '_');
+
+            w.WriteLine($"namespace {refinedNamespaceText}{{");
 
             for (int i = 0; i < e.Imports.Count; i++)
             {

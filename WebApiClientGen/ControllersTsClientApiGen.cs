@@ -72,7 +72,7 @@ namespace Fonlow.CodeDom.Web.Ts
             //Create client classes mapping to controller classes
             foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
             {
-                var clientNamespaceText = grouppedControllerDescriptions.Key + ".Client";
+                var clientNamespaceText = (grouppedControllerDescriptions.Key + ".Client").Replace('.', '_');
                 var clientNamespace = new CodeNamespace(clientNamespaceText);
                 if (dataModelNamespaces != null)
                 {
@@ -118,10 +118,11 @@ namespace Fonlow.CodeDom.Web.Ts
         /// <returns></returns>
         CodeTypeDeclaration LookupExistingClass(string namespaceText, string controllerName)
         {
+            var refined = (namespaceText + ".Client").Replace('.', '_');
             for (int i = 0; i < targetUnit.Namespaces.Count; i++)
             {
                 var ns = targetUnit.Namespaces[i];
-                if (ns.Name == namespaceText + ".Client")
+                if (ns.Name == refined)
                 {
                     for (int k = 0; k < ns.Types.Count; k++)
                     {

@@ -110,7 +110,7 @@ namespace Fonlow.WebApiClientGen
         "GenerateBothAsyncAndSync": true,
         "TypeScriptFolder" : "c:\\test",
         "TypeScriptDataModelNamespaces" : [
-           "DemoWebApi.DemoData.Client"
+           "DemoWebApi_DemoData_Client"
         ],
       }
     */

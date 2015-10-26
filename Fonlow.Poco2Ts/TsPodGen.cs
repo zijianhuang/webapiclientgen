@@ -68,7 +68,7 @@ namespace Fonlow.Poco2Ts
             var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
             foreach (var groupedTypes in typeGroupedByNamespace)
             {
-                var clientNamespaceText = groupedTypes.Key + ".Client";
+                var clientNamespaceText = (groupedTypes.Key + ".Client").Replace('.', '_');
                 var clientNamespace = new CodeNamespace(clientNamespaceText);
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
@@ -87,7 +87,7 @@ namespace Fonlow.Poco2Ts
                         {
                             if (namespacesOfTypes.Contains(type.BaseType.Namespace))
                             {
-                                typeDeclaration.BaseTypes.Add(type.BaseType.Namespace + ".Client." + type.BaseType.Name);
+                                typeDeclaration.BaseTypes.Add((type.BaseType.Namespace).Replace('.', '_') + "_Client." + type.BaseType.Name);
                             }
                             else
                             {
@@ -180,7 +180,7 @@ namespace Fonlow.Poco2Ts
         CodeTypeReference GetClientFieldTypeText(Type t)
         {
             if (pendingTypes.Contains(t))
-                return new CodeTypeReference(t.Namespace + ".Client." + t.Name);
+                return new CodeTypeReference(t.Namespace.Replace('.', '_') + "_Client." + t.Name);
             else if (t.IsGenericType)
             {
                 if (t.GetInterfaces().Any(d => d.IsGenericType && d.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
@@ -209,7 +209,7 @@ namespace Fonlow.Poco2Ts
                 var arrayRank = t.GetArrayRank();
                 if (pendingTypes.Contains(elementType))
                 {
-                    var elementTypeReference = new CodeTypeReference(t.Namespace + ".Client." + elementType.Name);
+                    var elementTypeReference = new CodeTypeReference(t.Namespace.Replace('.', '_') + "_Client." + elementType.Name);
                     var arrayTypeReference = new CodeTypeReference("System.Array");
                     var typeReference = new CodeTypeReference(arrayTypeReference, arrayRank)
                     {

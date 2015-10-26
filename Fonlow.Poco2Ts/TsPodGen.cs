@@ -42,9 +42,25 @@ namespace Fonlow.Poco2Ts
                 BracingStyle = "JS",//not really used
                 IndentString = "    ",
             };
-            using (StreamWriter writer = new StreamWriter(fileName))
+            try
             {
-                provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+                using (StreamWriter writer = new StreamWriter(fileName))
+                {
+                    provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+                }
+
+            }
+            catch (IOException e)
+            {
+                Trace.TraceWarning(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Trace.TraceWarning(e.Message);
+            }
+            catch (System.Security.SecurityException e)
+            {
+                Trace.TraceWarning(e.Message);
             }
         }
 

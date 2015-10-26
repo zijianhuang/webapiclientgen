@@ -20,9 +20,7 @@ namespace DemoWebApi.DemoData
         [EnumMember]
         Residential,
     };
-
-
-    
+  
     public enum MyEnumType
     {
         [EnumMember]
@@ -55,6 +53,16 @@ namespace DemoWebApi.DemoData
     public class Address
     {
         [DataMember]
+        public Guid Id { get; set; }
+
+        public Entity Entity { get; set; }
+
+        /// <summary>
+        /// Foreign key to Entity
+        /// </summary>
+        public Guid EntityId { get; set; }
+
+        [DataMember]
         public string Street1 { get; set; }
 
         [DataMember]
@@ -80,15 +88,16 @@ namespace DemoWebApi.DemoData
     }
 
 
-    [DataContract(Namespace = Constants.DataNamespace, Name ="entity")]
+    [DataContract(Namespace = Constants.DataNamespace)]
     public class Entity
     {
         public Entity()
         {
             Addresses = new List<Address>();
         }
+
         [DataMember]
-        public long Id { get; set; }
+        public Guid Id { get; set; }
 
         [DataMember]
         public string Name { get; set; }
@@ -101,8 +110,6 @@ namespace DemoWebApi.DemoData
             return Name;
         }
     }
-
-
 
     [DataContract(Namespace = Constants.DataNamespace)]
     public class Person : Entity
@@ -137,8 +144,6 @@ namespace DemoWebApi.DemoData
         [DataMember]
         public int[][][] Int3D;
     }
-
-
 
 }
 

@@ -4,6 +4,7 @@ namespace DemoWebApi_DemoData_Client {
     export enum Days {Sat=1, Sun=2, Mon=3, Tue=4, Wed=5, Thu=6, Fri=7}
 
     export interface Address {
+        Id: string;
         Street1: string;
         Street2: string;
         City: string;
@@ -15,7 +16,7 @@ namespace DemoWebApi_DemoData_Client {
     }
 
     export interface Entity {
-        Id: number;
+        Id: string;
         Name: string;
         Addresses: Array<DemoWebApi_DemoData_Client.Address>;
     }
@@ -24,7 +25,7 @@ namespace DemoWebApi_DemoData_Client {
         Surname: string;
         GivenName: string;
         BirthDate?: Date;
-        Id: number;
+        Id: string;
         Name: string;
         Addresses: Array<DemoWebApi_DemoData_Client.Address>;
     }
@@ -33,7 +34,7 @@ namespace DemoWebApi_DemoData_Client {
         BusinessNumber: string;
         BusinessNumberType: string;
         TextMatrix: Array<Array<string>>;
-        Id: number;
+        Id: string;
         Name: string;
         Addresses: Array<DemoWebApi_DemoData_Client.Address>;
         Int3D: Array<Array<Array<number>>>;

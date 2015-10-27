@@ -5,6 +5,10 @@ using System.IO;
 
 namespace Fonlow.TypeScriptCodeDom
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>As stated in msdn, when implementing ICodeGenerator, "you must not call the corresponding method of the base class."</remarks>
     public sealed class TypeScriptCodeProvider : CodeDomProvider, ICodeGenerator
     {
         public TypeScriptCodeProvider()
@@ -17,7 +21,7 @@ namespace Fonlow.TypeScriptCodeDom
         [Obsolete("Callers should not use the ICodeCompiler interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.")]
         public override ICodeCompiler CreateCompiler()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("TypeScript compiler is not to be supported in CodeDom.");
         }
 
         [Obsolete("Callers should not use the ICodeGenerator interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.")]
@@ -26,57 +30,61 @@ namespace Fonlow.TypeScriptCodeDom
             return generator;
         }
 
-        string ICodeGenerator.CreateEscapedIdentifier(string value)
+        public override string CreateEscapedIdentifier(string value)
         {
             return generator.CreateEscapedIdentifier(value);
         }
 
-        string ICodeGenerator.CreateValidIdentifier(string value)
+        public override string CreateValidIdentifier(string value)
         {
             return generator.CreateEscapedIdentifier(value);
         }
 
-        void ICodeGenerator.GenerateCodeFromCompileUnit(CodeCompileUnit e, TextWriter w, CodeGeneratorOptions o)
+        public override void GenerateCodeFromCompileUnit(CodeCompileUnit e, TextWriter w, CodeGeneratorOptions o)
         {
             generator.GenerateCodeFromCompileUnit(e, w, o);
         }
 
-        void ICodeGenerator.GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
+        public override void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
         {
             generator.GenerateCodeFromExpression(e, w, o);
         }
 
-        void ICodeGenerator.GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+        public override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
         {
             generator.GenerateCodeFromNamespace(e, w, o);
         }
 
-        void ICodeGenerator.GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
+        public override void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
         {
             generator.GenerateCodeFromStatement(e, w, o);
         }
 
-        void ICodeGenerator.GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+        public override void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
             generator.GenerateCodeFromType(e, w, o);
         }
 
-        string ICodeGenerator.GetTypeOutput(CodeTypeReference type)
+        public override string GetTypeOutput(CodeTypeReference type)
         {
             return generator.GetTypeOutput(type);
         }
 
-        bool ICodeGenerator.IsValidIdentifier(string value)
+        public override bool IsValidIdentifier(string value)
         {
             return generator.IsValidIdentifier(value);
         }
 
-        bool ICodeGenerator.Supports(GeneratorSupport supports)
+        public override bool Supports(GeneratorSupport supports)
         {
             return generator.Supports(supports);
         }
 
-        void ICodeGenerator.ValidateIdentifier(string value)
+        /// <summary>
+        /// Chick if not keyword, and leave the compiler to validate other factors
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        public void ValidateIdentifier(string value)
         {
             generator.ValidateIdentifier(value);
         }

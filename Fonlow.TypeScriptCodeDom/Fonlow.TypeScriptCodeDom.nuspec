@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Fonlow.TypeScriptCodeDOM</id>
-    <version>1.1.0.0</version>
+    <version>$version$</version>
     <title>TypeScript CodeDOM</title>
     <authors>Zijian Huang</authors>
     <owners>Zijian Huang</owners>
@@ -10,9 +10,9 @@
     <projectUrl>https://webapiclientgen.codeplex.com</projectUrl>
     <iconUrl>https://webapiclientgen.codeplex.com</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>TypeScript CodeDOM which has been used in POCO2TS.exe and strongly typed client API for Web API.</description>
-    <summary>TypeScript CodeDOM</summary>
-    <releaseNotes>initial release.</releaseNotes>
+    <description>TypeScript CodeDOM has TypeScriptCodeProvider implementing ICodeGenerator which has been used in POCO2TS.exe and strongly typed client API for Web API.</description>
+    <summary>TypeScript CodeDOM has TypeScriptCodeProvider implementing ICodeGenerator which has been used in POCO2TS.exe and strongly typed client API for Web API.</summary>
+    <releaseNotes>Minor changes</releaseNotes>
     <copyright>Copyright © Fonlow 2015</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</tags>
   </metadata>

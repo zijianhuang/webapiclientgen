@@ -14,11 +14,10 @@ namespace Fonlow.TypeScriptCodeDom
 
     public static class CodeObjectHelper
     {
-        #region GenerateCodeFromXXX
+        #region public GenerateCodeFromXXX
 
         public static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
-            //  var currentIndent = o.IndentString;
             var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
             var typeOfType = CodeObjectHelper.GetTypeOfType(e);
             var name = e.Name;
@@ -26,7 +25,6 @@ namespace Fonlow.TypeScriptCodeDom
             var baseTypesExpression = CodeObjectHelper.GetBaseTypeExpression(e);
             w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}{typeParametersExpression}{baseTypesExpression} {{");
             WriteTypeMembersAndCloseBracing(e, w, o);
-            //    o.IndentString = currentIndent;
         }
 
         public static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
@@ -189,6 +187,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 
 
+        #region WriteCodeXXXX
 
         static bool WriteCodeArrayIndexerExpression(CodeArrayIndexerExpression arrayIndexerExpression, TextWriter w, CodeGeneratorOptions o)
         {
@@ -710,7 +709,7 @@ namespace Fonlow.TypeScriptCodeDom
 
         static readonly Type typeOfString = typeof(string);
 
-
+        #endregion
 
 
 

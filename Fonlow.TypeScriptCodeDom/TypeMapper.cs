@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
-    public static class TypeMapper
+    internal static class TypeMapper
     {
         static readonly Dictionary<string, string> typeMap = new Dictionary<string, string>();
 

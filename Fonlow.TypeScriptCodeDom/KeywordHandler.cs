@@ -2,13 +2,25 @@
 
 namespace Fonlow.TypeScriptCodeDom
 {
+    /// <summary>
+    /// Keywoards not good for identifier in TS v1.6 as defined in https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md
+    /// </summary>
     public static class KeywordHandler
     {
         static readonly System.Collections.Generic.HashSet<string> keywords = new System.Collections.Generic.HashSet<string>(
            new string[] {
-               "any", "number", "boolean", "string", "void",
-               "new", "public", "super", "typeof", "instanceof", "this", "function",
-               "export", "declare", "class", "extends", "Implements"
+"break",     "case",      "catch",     "class",
+"const",     "continue",  "debugger",  "default",
+"delete",    "do","else",      "enum",
+"export",    "extends",   "false",     "finally",
+"for",       "function",  "if","import",
+"in","instanceof","new",       "null",
+"return",    "super",     "switch",    "this",
+"throw",     "true",      "try",       "typeof",
+"var",       "void",      "while",     "with",
+"implements","interface", "let",       "package",
+"private",   "protected", "public",    "static",
+"yield"
            }
 
         );
@@ -23,9 +35,14 @@ namespace Fonlow.TypeScriptCodeDom
             return $"_{value}";
         }
 
+        /// <summary>
+        /// Chick if not keyword, and leave the compiler to validate other factors
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool IsValidIdentifier(string value)
         {
-            return !IsAKeyword(value);
+            return !IsAKeyword(value); 
         }
 
         public static string CreateValidIdentifier(string value)
@@ -36,7 +53,7 @@ namespace Fonlow.TypeScriptCodeDom
         public static void ValidateIdentifier(string value)
         {
             if (keywords.Contains(value))
-                throw new ArgumentException("Keywords cannot be used as an identifier", "value");
+                throw new ArgumentException($"Keyword {value} cannot be used as an identifier.", "value");
         }
 
     }

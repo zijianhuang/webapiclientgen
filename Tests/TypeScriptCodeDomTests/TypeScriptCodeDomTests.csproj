@@ -60,6 +60,7 @@
     <Compile Include="TsCodeExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TsCodeStatement.cs" />
+    <Compile Include="TsICodeGenerator.cs" />
     <Compile Include="TsTypes.cs" />
   </ItemGroup>
   <ItemGroup>

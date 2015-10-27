@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
-    public class TsCodeGenerator : ICodeGenerator
+    internal class TsCodeGenerator : ICodeGenerator
     {
         public string CreateEscapedIdentifier(string value)
         {

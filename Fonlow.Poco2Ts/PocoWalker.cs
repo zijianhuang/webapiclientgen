@@ -27,6 +27,7 @@ namespace Fonlow.Poco2Ts
             var gen = new TsPodGen();
             gen.Generate(typesWithDataContract);
             gen.SaveTsCode(tsFileName);
+            Trace.WriteLine($"{tsFileName} is generated.");
         }
 
         static Assembly LoadAssembly(string assemblyFileName)

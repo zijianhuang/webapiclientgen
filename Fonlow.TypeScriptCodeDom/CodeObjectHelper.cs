@@ -18,7 +18,7 @@ namespace Fonlow.TypeScriptCodeDom
 
         public static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
-          //  var currentIndent = o.IndentString;
+            //  var currentIndent = o.IndentString;
             var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
             var typeOfType = CodeObjectHelper.GetTypeOfType(e);
             var name = e.Name;
@@ -26,7 +26,7 @@ namespace Fonlow.TypeScriptCodeDom
             var baseTypesExpression = CodeObjectHelper.GetBaseTypeExpression(e);
             w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}{typeParametersExpression}{baseTypesExpression} {{");
             WriteTypeMembersAndCloseBracing(e, w, o);
-        //    o.IndentString = currentIndent;
+            //    o.IndentString = currentIndent;
         }
 
         public static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
@@ -45,17 +45,8 @@ namespace Fonlow.TypeScriptCodeDom
             if (WriteCodeArrayCreateExpression(e as CodeArrayCreateExpression, w, o))
                 return;
 
-            var arrayIndexerExpression = e as CodeArrayIndexerExpression;
-            if (arrayIndexerExpression != null)
-            {
-                GenerateCodeFromExpression(arrayIndexerExpression.TargetObject, w, o);
-                for (int i = 0; i < arrayIndexerExpression.Indices.Count; i++)
-                {
-                    w.Write("[");
-                    GenerateCodeFromExpression(arrayIndexerExpression.Indices[i], w, o);
-                    w.Write("]");
-                }
-            }
+            if (WriteCodeArrayIndexerExpression(e as CodeArrayIndexerExpression, w, o))
+                return;
 
             var baseReferenceExpression = e as CodeBaseReferenceExpression;
             if (baseReferenceExpression != null)
@@ -63,6 +54,7 @@ namespace Fonlow.TypeScriptCodeDom
                 w.Write("super");
                 return;
             }
+
             if (WriteCodeBinaryOperatorExpression(e as CodeBinaryOperatorExpression, w, o))
                 return;
 
@@ -74,37 +66,15 @@ namespace Fonlow.TypeScriptCodeDom
             //todo: CodeDirectionExpression; ts not supported
             //todo: CodeEventReferenceExpression; probably better with snippetExpression
 
-            var fieldReference = e as CodeFieldReferenceExpression;
-            if (fieldReference != null)
-            {
-                GenerateCodeFromExpression(fieldReference.TargetObject, w, o);
-                w.Write(".");
-                w.Write(fieldReference.FieldName);
+            if (WriteCodeFieldReferenceExpression(e as CodeFieldReferenceExpression, w, o))
                 return;
-            }
 
-            var indexerExpression = e as CodeIndexerExpression;
-            if (indexerExpression != null)
-            {
-                GenerateCodeFromExpression(indexerExpression.TargetObject, w, o);
-                for (int i = 0; i < indexerExpression.Indices.Count; i++)
-                {
-                    w.Write("[");
-                    GenerateCodeFromExpression(indexerExpression.Indices[i], w, o);
-                    w.Write("]");
-                }
-            }
-
-            var methodInvokeExpression = e as CodeMethodInvokeExpression;
-            if (methodInvokeExpression != null)
-            {
-                GenerateCodeFromExpression(methodInvokeExpression.Method.TargetObject, w, o);
-                w.Write(".");
-                w.Write(methodInvokeExpression.Method.MethodName + "(");
-                WriteCodeExpressionCollection(methodInvokeExpression.Parameters, w, o);
-                w.Write(")");
+            if (WriteCodeIndexerExpression(e as CodeIndexerExpression, w, o))
                 return;
-            }
+
+            if (WriteCodeMethodInvokeExpression(e as CodeMethodInvokeExpression, w, o))
+                return;
+
 
             var methodReferenceExpression = e as CodeMethodReferenceExpression;
             if (methodReferenceExpression != null)
@@ -113,14 +83,8 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            var objectCreateExpression = e as CodeObjectCreateExpression;
-            if (objectCreateExpression != null)
-            {
-                w.Write($"new {TypeMapper.GetTypeOutput(objectCreateExpression.CreateType)}(");
-                WriteCodeExpressionCollection(objectCreateExpression.Parameters, w, o);
-                w.Write(")");
+            if (WriteCodeObjectCreateExpression(e as CodeObjectCreateExpression, w, o))
                 return;
-            }
 
             var parameterDeclarationExpression = e as CodeParameterDeclarationExpression;
             if (parameterDeclarationExpression != null)
@@ -129,25 +93,12 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            var primitiveExpression = e as CodePrimitiveExpression;
-            if (primitiveExpression != null)
-            {
-                if (primitiveExpression.Value.GetType() == typeOfString)
-                    w.Write($"\"{primitiveExpression.Value}\"");
-                else
-                    w.Write(primitiveExpression.Value);
-
+            if (WriteCodePrimitiveExpression(e as CodePrimitiveExpression, w, o))
                 return;
-            }
 
-            var propertyReferenceExpression = e as CodePropertyReferenceExpression;
-            if (propertyReferenceExpression != null)
-            {
-                GenerateCodeFromExpression(propertyReferenceExpression.TargetObject, w, o);
-                w.Write(".");
-                w.Write(propertyReferenceExpression.PropertyName);
+
+            if (WriteCodePropertyReferenceExpression(e as CodePropertyReferenceExpression, w, o))
                 return;
-            }
 
             //todo: CodePropertySetValueReferenceExpression  not to support
 
@@ -176,6 +127,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (typeReferenceExpression != null)
             {
                 w.Write(TypeMapper.GetTypeOutput(typeReferenceExpression.Type));
+                return;
             }
 
             var variableReferenceExpression = e as CodeVariableReferenceExpression;
@@ -185,7 +137,7 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-
+            Trace.TraceWarning($"CodeExpression not supported: {e.ToString()}");
         }
 
         public static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
@@ -203,13 +155,10 @@ namespace Fonlow.TypeScriptCodeDom
             if (WriteCodeConditionStatement(e as CodeConditionStatement, w, o))
                 return;
 
-            var expressStatement = e as CodeExpressionStatement;
-            if (expressStatement != null)
-            {
-                w.Write(o.IndentString);
-                GenerateCodeFromExpression(expressStatement.Expression, w, o);
+            if (WriteCodeExpressionStatement(e as CodeExpressionStatement, w, o))
                 return;
-            }
+
+
             //todo: CodeGotoStatement, probably not to support
 
             if (WriteCodeIterationStatement(e as CodeIterationStatement, w, o))
@@ -217,25 +166,13 @@ namespace Fonlow.TypeScriptCodeDom
 
             //todo: CodeLabeledStatement, probably not to support
 
-            var methodReturnStatement = e as CodeMethodReturnStatement;
-            if (methodReturnStatement != null)
-            {
-                w.Write(o.IndentString);
-                w.Write($"return ");
-                GenerateCodeFromExpression(methodReturnStatement.Expression, w, o);
-                o.IndentString = currentIndent;
+            if (WriteCodeMethodReturnStatement(e as CodeMethodReturnStatement, w, o))
                 return;
-            }
 
             //todo: CodeRemoveEventStatement not to support
 
-            var throwExceptionStatement = e as CodeThrowExceptionStatement;
-            if (throwExceptionStatement != null)
-            {
-                w.Write(o.IndentString+"throw ");
-                GenerateCodeFromExpression(throwExceptionStatement.ToThrow, w, o);
+            if (WriteCodeThrowExceptionStatement(e as CodeThrowExceptionStatement, w, o))
                 return;
-            }
 
             if (WriteCodeTryCatchFinallyStatement(e as CodeTryCatchFinallyStatement, w, o))
                 return;
@@ -243,57 +180,136 @@ namespace Fonlow.TypeScriptCodeDom
             if (WriteCodeVariableDeclarationStatement(e as CodeVariableDeclarationStatement, w, o))
                 return;
 
+            Trace.TraceWarning($"CodeStatement not supported: {e.ToString()}");
         }
 
         #endregion
 
-        /// <summary>
-        /// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators
-        /// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        static string GetCodeBinaryOperatorTypeText(CodeBinaryOperatorType t)
+
+
+
+
+
+        static bool WriteCodeArrayIndexerExpression(CodeArrayIndexerExpression arrayIndexerExpression, TextWriter w, CodeGeneratorOptions o)
         {
-            switch (t)
+            if (arrayIndexerExpression == null)
+                return false;
+
+            GenerateCodeFromExpression(arrayIndexerExpression.TargetObject, w, o);
+            for (int i = 0; i < arrayIndexerExpression.Indices.Count; i++)
             {
-                case CodeBinaryOperatorType.Add:
-                    return "+";
-                case CodeBinaryOperatorType.Subtract:
-                    return "-" ;
-                case CodeBinaryOperatorType.Multiply:
-                    return "*";
-                case CodeBinaryOperatorType.Divide:
-                    return "/";
-                case CodeBinaryOperatorType.Modulus:
-                    return "%";
-                case CodeBinaryOperatorType.Assign:
-                    return "=";
-                case CodeBinaryOperatorType.IdentityInequality:
-                    return "!=";
-                case CodeBinaryOperatorType.IdentityEquality:
-                    return "==";
-                case CodeBinaryOperatorType.ValueEquality:
-                    return "==";
-                case CodeBinaryOperatorType.BitwiseOr:
-                    return "|";
-                case CodeBinaryOperatorType.BitwiseAnd:
-                    return "&";
-                case CodeBinaryOperatorType.BooleanOr:
-                    return "||";
-                case CodeBinaryOperatorType.BooleanAnd:
-                    return "&&";
-                case CodeBinaryOperatorType.LessThan:
-                    return "<";
-                case CodeBinaryOperatorType.LessThanOrEqual:
-                    return "<=";
-                case CodeBinaryOperatorType.GreaterThan:
-                    return ">";
-                case CodeBinaryOperatorType.GreaterThanOrEqual:
-                    return ">=";
-                default:
-                    throw new ArgumentException(t + " is not supported.");
+                w.Write("[");
+                GenerateCodeFromExpression(arrayIndexerExpression.Indices[i], w, o);
+                w.Write("]");
             }
+
+            return true;
+        }
+
+        static bool WriteCodeFieldReferenceExpression(CodeFieldReferenceExpression fieldReferenceExpression, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (fieldReferenceExpression == null)
+                return false;
+
+            GenerateCodeFromExpression(fieldReferenceExpression.TargetObject, w, o);
+            w.Write(".");
+            w.Write(fieldReferenceExpression.FieldName);
+            return true;
+        }
+
+        static bool WriteCodeObjectCreateExpression(CodeObjectCreateExpression objectCreateExpression, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (objectCreateExpression == null)
+                return false;
+
+            w.Write($"new {TypeMapper.GetTypeOutput(objectCreateExpression.CreateType)}(");
+            WriteCodeExpressionCollection(objectCreateExpression.Parameters, w, o);
+            w.Write(")");
+            return true;
+        }
+
+        static bool WriteCodePrimitiveExpression(CodePrimitiveExpression primitiveExpression, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (primitiveExpression == null)
+                return false;
+
+            if (primitiveExpression.Value.GetType() == typeOfString)
+                w.Write($"\"{primitiveExpression.Value}\"");
+            else
+                w.Write(primitiveExpression.Value);
+
+            return true;
+        }
+
+        static bool WriteCodePropertyReferenceExpression(CodePropertyReferenceExpression propertyReferenceExpression, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (propertyReferenceExpression == null)
+                return false;
+
+            GenerateCodeFromExpression(propertyReferenceExpression.TargetObject, w, o);
+            w.Write(".");
+            w.Write(propertyReferenceExpression.PropertyName);
+            return true;
+        }
+
+        static bool WriteCodeMethodInvokeExpression(CodeMethodInvokeExpression methodInvokeExpression, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (methodInvokeExpression == null)
+                return false;
+
+            GenerateCodeFromExpression(methodInvokeExpression.Method.TargetObject, w, o);
+            w.Write(".");
+            w.Write(methodInvokeExpression.Method.MethodName + "(");
+            WriteCodeExpressionCollection(methodInvokeExpression.Parameters, w, o);
+            w.Write(")");
+            return true;
+        }
+
+        static bool WriteCodeIndexerExpression(CodeIndexerExpression indexerExpression, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (indexerExpression == null)
+                return false;
+
+            GenerateCodeFromExpression(indexerExpression.TargetObject, w, o);
+            for (int i = 0; i < indexerExpression.Indices.Count; i++)
+            {
+                w.Write("[");
+                GenerateCodeFromExpression(indexerExpression.Indices[i], w, o);
+                w.Write("]");
+            }
+
+            return true;
+        }
+
+        static bool WriteCodeExpressionStatement(CodeExpressionStatement expressStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (expressStatement == null)
+                return false;
+
+            w.Write(o.IndentString);
+            GenerateCodeFromExpression(expressStatement.Expression, w, o);
+            return true;
+        }
+
+        static bool WriteCodeMethodReturnStatement(CodeMethodReturnStatement methodReturnStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (methodReturnStatement == null)
+                return false;
+
+            w.Write(o.IndentString);
+            w.Write($"return ");
+            GenerateCodeFromExpression(methodReturnStatement.Expression, w, o);
+            return true;
+        }
+
+        static bool WriteCodeThrowExceptionStatement(CodeThrowExceptionStatement throwExceptionStatement, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (throwExceptionStatement == null)
+                return false;
+
+            w.Write(o.IndentString + "throw ");
+            GenerateCodeFromExpression(throwExceptionStatement.ToThrow, w, o);
+            return true;
         }
 
         static bool WriteCodeBinaryOperatorExpression(CodeBinaryOperatorExpression binaryOperatorExpression, TextWriter w, CodeGeneratorOptions o)
@@ -382,47 +398,6 @@ namespace Fonlow.TypeScriptCodeDom
             }
 
             return true;
-        }
-
-        static string GetAccessibilityModifier(MemberAttributes a)
-        {
-            switch (a)
-            {
-                case MemberAttributes.Abstract:
-                    return "abstract";
-                case MemberAttributes.Final:
-                    return "final";
-                case MemberAttributes.Static:
-                    return "static";
-                //case MemberAttributes.Override:
-                //    break;
-                case MemberAttributes.Const:
-                    return "const";
-                //case MemberAttributes.New:
-                //    break;
-                //case MemberAttributes.Overloaded:
-                //    break;
-                //case MemberAttributes.Assembly:
-                //    break;
-                //case MemberAttributes.FamilyAndAssembly:
-                //    break;
-                case MemberAttributes.Family:
-                    return "protected";
-                //case MemberAttributes.FamilyOrAssembly:
-                //    break;
-                case MemberAttributes.Private:
-                    return "private";
-                case MemberAttributes.Public:
-                    return "public";
-                //case MemberAttributes.AccessMask:
-                //    break;
-                //case MemberAttributes.ScopeMask:
-                //    break;
-                //case MemberAttributes.VTableMask:
-                //    break;
-                default:
-                    throw new InvalidOperationException("Not supported: " + a.ToString());
-            }
         }
 
         static void WriteCodeExpressionCollection(CodeExpressionCollection collection, TextWriter w, CodeGeneratorOptions o)
@@ -619,7 +594,7 @@ namespace Fonlow.TypeScriptCodeDom
             WriteCodeStatementCollection(conditionStatement.TrueStatements, w, o);
             w.Write(o.IndentString);
             w.WriteLine("}");
-            if (conditionStatement.FalseStatements.Count>0)
+            if (conditionStatement.FalseStatements.Count > 0)
             {
                 w.WriteLine($"{o.IndentString}else {{");
                 WriteCodeStatementCollection(conditionStatement.FalseStatements, w, o);
@@ -651,7 +626,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (tryCatchFinallyStatement.CatchClauses.Count > 1)
                 throw new ArgumentException("Javascript does not support multiple CatchClauses.", "tryCatchFinallyStatement.CatchClauses");
 
-            if (tryCatchFinallyStatement.CatchClauses.Count>0)
+            if (tryCatchFinallyStatement.CatchClauses.Count > 0)
             {
                 WriteCodeCatchClause(tryCatchFinallyStatement.CatchClauses[0], w, o);
             }
@@ -701,7 +676,7 @@ namespace Fonlow.TypeScriptCodeDom
             w.WriteLine(") {");
             o.IndentString = currentIndent;
             WriteCodeStatementCollection(iterationStatement.Statements, w, o);
-            w.WriteLine(o.IndentString+"}");
+            w.WriteLine(o.IndentString + "}");
             return true;
         }
 
@@ -735,7 +710,101 @@ namespace Fonlow.TypeScriptCodeDom
 
         static readonly Type typeOfString = typeof(string);
 
+
+
+
+
         #region Text
+
+        /// <summary>
+        /// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators
+        /// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        static string GetCodeBinaryOperatorTypeText(CodeBinaryOperatorType t)
+        {
+            switch (t)
+            {
+                case CodeBinaryOperatorType.Add:
+                    return "+";
+                case CodeBinaryOperatorType.Subtract:
+                    return "-";
+                case CodeBinaryOperatorType.Multiply:
+                    return "*";
+                case CodeBinaryOperatorType.Divide:
+                    return "/";
+                case CodeBinaryOperatorType.Modulus:
+                    return "%";
+                case CodeBinaryOperatorType.Assign:
+                    return "=";
+                case CodeBinaryOperatorType.IdentityInequality:
+                    return "!=";
+                case CodeBinaryOperatorType.IdentityEquality:
+                    return "==";
+                case CodeBinaryOperatorType.ValueEquality:
+                    return "==";
+                case CodeBinaryOperatorType.BitwiseOr:
+                    return "|";
+                case CodeBinaryOperatorType.BitwiseAnd:
+                    return "&";
+                case CodeBinaryOperatorType.BooleanOr:
+                    return "||";
+                case CodeBinaryOperatorType.BooleanAnd:
+                    return "&&";
+                case CodeBinaryOperatorType.LessThan:
+                    return "<";
+                case CodeBinaryOperatorType.LessThanOrEqual:
+                    return "<=";
+                case CodeBinaryOperatorType.GreaterThan:
+                    return ">";
+                case CodeBinaryOperatorType.GreaterThanOrEqual:
+                    return ">=";
+                default:
+                    throw new ArgumentException(t + " is not supported.");
+            }
+        }
+
+        static string GetAccessibilityModifier(MemberAttributes a)
+        {
+            switch (a)
+            {
+                case MemberAttributes.Abstract:
+                    return "abstract";
+                case MemberAttributes.Final:
+                    return "final";
+                case MemberAttributes.Static:
+                    return "static";
+                //case MemberAttributes.Override:
+                //    break;
+                case MemberAttributes.Const:
+                    return "const";
+                //case MemberAttributes.New:
+                //    break;
+                //case MemberAttributes.Overloaded:
+                //    break;
+                //case MemberAttributes.Assembly:
+                //    break;
+                //case MemberAttributes.FamilyAndAssembly:
+                //    break;
+                case MemberAttributes.Family:
+                    return "protected";
+                //case MemberAttributes.FamilyOrAssembly:
+                //    break;
+                case MemberAttributes.Private:
+                    return "private";
+                case MemberAttributes.Public:
+                    return "public";
+                //case MemberAttributes.AccessMask:
+                //    break;
+                //case MemberAttributes.ScopeMask:
+                //    break;
+                //case MemberAttributes.VTableMask:
+                //    break;
+                default:
+                    throw new InvalidOperationException("Not supported: " + a.ToString());
+            }
+        }
 
         static string IndentLines(string s, string indent)
         {

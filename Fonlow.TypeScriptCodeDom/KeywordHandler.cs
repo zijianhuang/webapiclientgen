@@ -5,7 +5,7 @@ namespace Fonlow.TypeScriptCodeDom
     /// <summary>
     /// Keywoards not good for identifier in TS v1.6 as defined in https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md
     /// </summary>
-    public static class KeywordHandler
+    internal static class KeywordHandler
     {
         static readonly System.Collections.Generic.HashSet<string> keywords = new System.Collections.Generic.HashSet<string>(
            new string[] {

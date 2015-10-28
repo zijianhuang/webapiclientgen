@@ -9,25 +9,27 @@ namespace Fonlow.Poco2Ts
     /// <summary>
     /// 
     /// </summary>
-    public sealed class PocoWalker
+    public static class PocoAssemblyWalker
     {
-        //http://www.typescriptlang.org/Handbook#basic-types
 
-        public static void Walk(string assemblyFileName, string tsFileName)
+        /// <summary>
+        /// Walk classes in the assembly decorated by DataContractAttribute, and save TypeScript codes to the file.
+        /// </summary>
+        /// <param name="assemblyFilePath">Absolute or relative path, including the assembly file extension name dll or exe.</param>
+        /// <param name="tsFilePath"></param>
+        public static void Walk(string assemblyFilePath, string tsFilePath)
         {
-            var absolutePath = System.IO.Path.GetFullPath(assemblyFileName);
-            //var workdingDir = System.IO.Path.GetDirectoryName(absolutePath);
-            //Environment.CurrentDirectory = workdingDir;
+            var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);
             var assembly = LoadAssembly(absolutePath);
             if (assembly == null)
                 return;
 
             var typesWithDataContract = GetDataContractTypes(assembly);
 
-            var gen = new TsPodGen();
+            var gen = new Poco2TsGen();
             gen.Generate(typesWithDataContract);
-            gen.SaveTsCode(tsFileName);
-            Trace.WriteLine($"{tsFileName} is generated.");
+            gen.SaveTsCodeToFile(tsFilePath);
+            Trace.WriteLine($"{tsFilePath} is generated.");
         }
 
         static Assembly LoadAssembly(string assemblyFileName)
@@ -35,7 +37,6 @@ namespace Fonlow.Poco2Ts
             try
             {
                  return Assembly.LoadFile(assemblyFileName);
-               // return Assembly.ReflectionOnlyLoadFrom(assemblyFileName);
             }
             catch (System.IO.FileLoadException e)
             {

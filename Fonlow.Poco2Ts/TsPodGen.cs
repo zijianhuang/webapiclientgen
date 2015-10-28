@@ -11,42 +11,35 @@ using System;
 
 namespace Fonlow.Poco2Ts
 {
-    public class TsPodGen
+    /// <summary>
+    /// POCO to TypeScript interfaces generator
+    /// </summary>
+    public class Poco2TsGen
     {
         CodeCompileUnit targetUnit;
         Dictionary<string, object> apiClassesDic;
         CodeTypeDeclaration[] newTypesCreated;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prefixesOfCustomNamespaces">Prefixes of namespaces of custom complex data types, so the code gen will use .client of client data types.</param>
-        /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
-        /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-        public TsPodGen()
+        public Poco2TsGen()
         {
             targetUnit = new CodeCompileUnit();
             apiClassesDic = new Dictionary<string, object>();
         }
 
         /// <summary>
-        /// Save TS codes into a file.
+        /// Save TypeScript codes generated into a file.
         /// </summary>
         /// <param name="fileName"></param>
-        public void SaveTsCode(string fileName)
+        public void SaveTsCodeToFile(string fileName)
         {
-            var provider = new TypeScriptCodeProvider();
-            //    var provider = CodeDomProvider.CreateProvider("CSharp");
-            CodeGeneratorOptions options = new CodeGeneratorOptions()
-            {
-                BracingStyle = "JS",//not really used
-                IndentString = "    ",
-            };
+            if (String.IsNullOrEmpty(fileName))
+                throw new ArgumentException("fileName", "A valid fileName is not defined.");
+
             try
             {
                 using (StreamWriter writer = new StreamWriter(fileName))
                 {
-                    provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+                    SaveTsCode(writer);
                 }
 
             }
@@ -64,6 +57,25 @@ namespace Fonlow.Poco2Ts
             }
         }
 
+        /// <summary>
+        /// Save TypeScript codes generated into a TextWriter.
+        /// </summary>
+        /// <param name="writer"></param>
+        public void SaveTsCode(TextWriter writer)
+        {
+            if (writer == null)
+                throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
+
+            var provider = new TypeScriptCodeProvider();
+            CodeGeneratorOptions options = new CodeGeneratorOptions()
+            {
+                BracingStyle = "JS",//not really used
+                IndentString = "    ",
+            };
+
+            provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+        }
+
         static bool IsClassOrStruct(Type type)
         {
             return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
@@ -73,11 +85,15 @@ namespace Fonlow.Poco2Ts
         string[] pendingTypesNames;
 
         /// <summary>
-        /// Generate type declarations in TS for POCO types
+        /// Generate type declarations in TypeScripCodeDom for POCO types. Only members decorated by MemberDataAttribute will be processed.
+        /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
-        /// <param name="types">POCO types</param>
+        /// <param name="types">POCO types with members decorated by MemberDataAttribute.</param>
         public void Generate(Type[] types)
         {
+            if (types == null)
+                throw new ArgumentNullException("types", "types is not defined.");
+
             this.pendingTypes = types;
             this.pendingTypesNames = types.Select(d => d.FullName).ToArray();
             var typeGroupedByNamespace = types.GroupBy(d => d.Namespace);

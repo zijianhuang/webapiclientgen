@@ -21,7 +21,7 @@ namespace Fonlow.Poco2Ts
             var tsFileName = args[1];
             AppDomain appDomain = AppDomain.CurrentDomain;
             appDomain.AssemblyResolve += AppDomain_AssemblyResolve;
-            PocoWalker.Walk(assemblyName, tsFileName);
+            PocoAssemblyWalker.Walk(assemblyName, tsFileName);
         }
 
         private static System.Reflection.Assembly AppDomain_AssemblyResolve(object sender, ResolveEventArgs args)

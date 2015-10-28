@@ -6,7 +6,7 @@ using System.IO;
 namespace Fonlow.TypeScriptCodeDom
 {
     /// <summary>
-    /// 
+    /// TypeScriptCodeProvider has ICodeGenerator implemented for TypeScript.
     /// </summary>
     /// <remarks>As stated in msdn, when implementing ICodeGenerator, "you must not call the corresponding method of the base class."</remarks>
     public sealed class TypeScriptCodeProvider : CodeDomProvider, ICodeGenerator
@@ -29,6 +29,16 @@ namespace Fonlow.TypeScriptCodeDom
         {
             return generator;
         }
+
+        public override string FileExtension
+        {
+            get
+            {
+                return "ts";
+            }
+        }
+
+        #region ICodeGenerator
 
         public override string CreateEscapedIdentifier(string value)
         {
@@ -75,6 +85,7 @@ namespace Fonlow.TypeScriptCodeDom
             return generator.IsValidIdentifier(value);
         }
 
+
         public override bool Supports(GeneratorSupport supports)
         {
             return generator.Supports(supports);
@@ -88,5 +99,7 @@ namespace Fonlow.TypeScriptCodeDom
         {
             generator.ValidateIdentifier(value);
         }
+
+        #endregion
     }
 }

@@ -90,7 +90,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (IsNullableType(type.BaseType))
             {
                 System.Diagnostics.Trace.Assert(type.TypeArguments.Count == 1);
-                return GetTypeOutput(type.TypeArguments[0]) + "?";
+                return GetTypeOutput(type.TypeArguments[0]);// + "?"; in javascript all is optional anyway.
             }
 
             var genericBaseTypeName = type.BaseType.Contains("`1") ? type.BaseType.Replace("`1", null) : type.BaseType;  //.NET runtime gives `1 suffix, but TS does not need it.

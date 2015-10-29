@@ -88,7 +88,7 @@ namespace Fonlow.Poco2Ts
         /// Generate type declarations in TypeScripCodeDom for POCO types. Only members decorated by MemberDataAttribute will be processed.
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
-        /// <param name="types">POCO types with members decorated by MemberDataAttribute.</param>
+        /// <param name="types">POCO types with members decorated by DataMemberAttribute.</param>
         public void Generate(Type[] types)
         {
             if (types == null)
@@ -134,11 +134,12 @@ namespace Fonlow.Poco2Ts
                             var dataMemberAttribute = PropertyHelper.ReadAttribute<DataMemberAttribute>(propertyInfo);
                             if (dataMemberAttribute != null)
                             {
+                                var isRequired = dataMemberAttribute.IsRequired;
                                 tsPropertyName = String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                                 Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
                                 var clientField = new CodeMemberField()
                                 {
-                                    Name = tsPropertyName,
+                                    Name = tsPropertyName + (isRequired?String.Empty : "?"),
                                     Type = GetClientFieldTypeText(propertyInfo.PropertyType),
                                     //                     Attributes = MemberAttributes.Public,
 
@@ -156,11 +157,12 @@ namespace Fonlow.Poco2Ts
                             var dataMemberAttribute = PropertyHelper.ReadAttribute<DataMemberAttribute>(fieldInfo);
                             if (dataMemberAttribute != null)
                             {
+                                var isRequired = dataMemberAttribute.IsRequired;
                                 tsPropertyName = String.IsNullOrEmpty(dataMemberAttribute.Name) ? fieldInfo.Name : dataMemberAttribute.Name;
                                 Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
                                 var clientField = new CodeMemberField()
                                 {
-                                    Name = tsPropertyName,
+                                    Name = tsPropertyName + (isRequired ? String.Empty : "?"),
                                     Type = GetClientFieldTypeText(fieldInfo.FieldType),
                                     //         Attributes = MemberAttributes.Public,
                                 };

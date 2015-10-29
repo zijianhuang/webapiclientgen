@@ -500,9 +500,9 @@ namespace Fonlow.TypeScriptCodeDom
                 var returnTypeText = TypeMapper.GetTypeOutput(memberMethod.ReturnType);
                 if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
                 {
-                    if (returnTypeText.Contains("?"))
-                        w.Write(": any");
-                    else
+                    //if (returnTypeText.Contains("?"))
+                    //    w.Write(": any");
+                    //else
                         w.Write(": " + returnTypeText);
                 }
 
@@ -886,12 +886,12 @@ namespace Fonlow.TypeScriptCodeDom
 
         static string RefineNameAndType(string name, string typeName)
         {
-            if (typeName.EndsWith("?"))
-            {
-                var newName = name + "?";
-                var newTypeName = typeName.TrimEnd('?');
-                return $"{newName}: {newTypeName}";
-            }
+            //if (typeName.EndsWith("?"))
+            //{
+            //    var newName = name + "?";
+            //    var newTypeName = typeName.TrimEnd('?');
+            //    return $"{newName}: {newTypeName}";
+            //}
 
             return $"{name}: {typeName}";
         }

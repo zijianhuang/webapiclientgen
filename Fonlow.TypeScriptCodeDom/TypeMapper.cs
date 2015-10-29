@@ -65,6 +65,7 @@ namespace Fonlow.TypeScriptCodeDom
                 return null;
 
             System.Diagnostics.Debug.WriteLine("type.BaseType: " + type.BaseType);
+            System.Diagnostics.Debug.WriteLineIf(type.BaseType == "System.Void", "For this void type :" + type.ToString());
             string tsTypeName;
             if (IsArrayType(type))//I am not sure why the type.BaseType is the same as the ArrayElementType, even if I gave it System.Array
             {

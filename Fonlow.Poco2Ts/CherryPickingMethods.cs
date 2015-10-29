@@ -51,7 +51,7 @@ namespace Fonlow.Poco2Ts
             return true;
         }
 
-        public static CherryType IsCherryMember(MemberInfo memberInfo, CherryPickingMethods methods)
+        public static CherryType GetCherryMemberType(MemberInfo memberInfo, CherryPickingMethods methods)
         {
             if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
             {
@@ -77,7 +77,10 @@ namespace Fonlow.Poco2Ts
             if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
             {
                 var a =PropertyHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonPropertyAttribute");
-                return a == null ? CherryType.Cherry : CherryType.BigCherry;
+                if (a == null)
+                    return CherryType.None;
+
+                return !PropertyHelper.GetRequired(a, "Required", "Default") ? CherryType.BigCherry : CherryType.Cherry;
             }
 
             return  CherryType.Cherry;

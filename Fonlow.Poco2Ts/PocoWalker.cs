@@ -13,7 +13,7 @@ namespace Fonlow.Poco2Ts
     {
 
         /// <summary>
-        /// Walk classes in the assembly decorated by DataContractAttribute, and save TypeScript codes to the file.
+        /// Walk classes in the assembly decorated by cherry picking data annotation attributes, and save TypeScript codes to the file.
         /// </summary>
         /// <param name="assemblyFilePath">Absolute or relative path, including the assembly file extension name dll or exe.</param>
         /// <param name="tsFilePath"></param>
@@ -24,10 +24,10 @@ namespace Fonlow.Poco2Ts
             if (assembly == null)
                 return;
 
-            var typesWithDataContract = GetCherryTypes(assembly, methods);
+            var cherryTypes = GetCherryTypes(assembly, methods);
 
             var gen = new Poco2TsGen();
-            gen.Generate(typesWithDataContract, methods);
+            gen.Generate(cherryTypes, methods);
             gen.SaveTsCodeToFile(tsFilePath);
             Trace.WriteLine($"{tsFilePath} is generated.");
         }

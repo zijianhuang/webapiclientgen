@@ -82,7 +82,20 @@ namespace Fonlow.Poco2Ts
 
         }
 
+        internal static bool GetRequired(Attribute a, string propertyName, string expectedValue)
+        {
+            var type = a.GetType();
+            var publicProperties= type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
+            var expectedProperty = publicProperties.FirstOrDefault(d => d.Name == propertyName);
+            if (expectedProperty == null)
+                throw new InvalidOperationException($"Expected property {propertyName} does not exist in {a.GetType().FullName}");
 
+            var propertyValue = expectedProperty.GetValue(a);
+            if (propertyValue == null)
+                return false;
+
+            return propertyValue.ToString() == expectedValue;
+        }
 
 
     }

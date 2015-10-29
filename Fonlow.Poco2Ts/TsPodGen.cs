@@ -128,32 +128,31 @@ namespace Fonlow.Poco2Ts
                         }
 
 
-                        foreach (var propertyInfo in type.GetProperties())
+                        foreach (var propertyInfo in type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
                         {
-                            var isCherry = CherryPicking.IsCherryMember(propertyInfo, methods);
+                            var cherryType = CherryPicking.GetCherryMemberType(propertyInfo, methods);
+                            if (cherryType == CherryType.None)
+                                continue;
                             string tsPropertyName;
-                        
-                            var dataMemberAttribute = PropertyHelper.ReadAttribute<DataMemberAttribute>(propertyInfo);
-                            if (dataMemberAttribute != null)
+                            
+
+                            var isRequired = cherryType == CherryType.BigCherry;
+                            tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
+                            var clientField = new CodeMemberField()
                             {
-                                var isRequired = dataMemberAttribute.IsRequired;
-                                tsPropertyName = String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
-                                Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
-                                var clientField = new CodeMemberField()
-                                {
-                                    Name = tsPropertyName + (isRequired?String.Empty : "?"),
-                                    Type = GetClientFieldTypeText(propertyInfo.PropertyType),
-                                    //                     Attributes = MemberAttributes.Public,
+                                Name = tsPropertyName + (isRequired ? String.Empty : "?"),
+                                Type = GetClientFieldTypeText(propertyInfo.PropertyType),
+                                //                     Attributes = MemberAttributes.Public,
 
-                                };
-                                typeDeclaration.Members.Add(clientField);
+                            };
+                            typeDeclaration.Members.Add(clientField);
 
-                            }
 
 
                         }
 
-                        foreach (var fieldInfo in type.GetFields().Where(d => d.IsPublic))
+                        foreach (var fieldInfo in type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
                         {
                             string tsPropertyName;
                             var dataMemberAttribute = PropertyHelper.ReadAttribute<DataMemberAttribute>(fieldInfo);
@@ -254,7 +253,7 @@ namespace Fonlow.Poco2Ts
                     return typeReference;
                 }
 
-                var otherArrayType= new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
+                var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
                 {
                     ArrayElementType = GetClientFieldTypeText(elementType),
                 };

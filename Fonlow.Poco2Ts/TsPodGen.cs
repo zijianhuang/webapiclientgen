@@ -89,7 +89,7 @@ namespace Fonlow.Poco2Ts
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
         /// <param name="types">POCO types with members decorated by DataMemberAttribute.</param>
-        public void Generate(Type[] types)
+        public void Generate(Type[] types, CherryPickingMethods methods)
         {
             if (types == null)
                 throw new ArgumentNullException("types", "types is not defined.");
@@ -130,7 +130,9 @@ namespace Fonlow.Poco2Ts
 
                         foreach (var propertyInfo in type.GetProperties())
                         {
+                            var isCherry = CherryPicking.IsCherryMember(propertyInfo, methods);
                             string tsPropertyName;
+                        
                             var dataMemberAttribute = PropertyHelper.ReadAttribute<DataMemberAttribute>(propertyInfo);
                             if (dataMemberAttribute != null)
                             {

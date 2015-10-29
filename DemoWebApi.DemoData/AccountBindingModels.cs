@@ -13,13 +13,16 @@ namespace DemoWebApi.Models
         public string ExternalAccessToken { get; set; }
     }
 
+    [JsonObject]
     public class ChangePasswordBindingModel
     {
+        [JsonProperty]
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
 
+        [JsonProperty]
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]

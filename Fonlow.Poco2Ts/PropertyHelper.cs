@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Fonlow.Poco2Ts
 {
@@ -57,6 +58,31 @@ namespace Fonlow.Poco2Ts
             }
             return null;
         }
+
+        internal static Attribute AttributeExists(Type type, string attributeTypeText)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+
+            //  return type.CustomAttributes.Any(d => d.AttributeType.FullName == attributeTypeText);
+            return type.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;
+        }
+
+        internal static Attribute AttributeExists(MemberInfo memberInfo, string attributeTypeText)
+        {
+            if (memberInfo == null)
+            {
+                throw new ArgumentNullException("memberInfo");
+            }
+
+            //    return memberInfo.CustomAttributes.Any(d => d.AttributeType.FullName == attributeTypeText);
+            return memberInfo.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;
+
+        }
+
+
 
 
     }

@@ -13,15 +13,44 @@ namespace Fonlow.Poco2Ts
             if (args.Length<2)
             {
                 Console.WriteLine("Poco2Ts.exe generates TypeScript data  model interfaces from POCO classes decorated by DataContractAttribute.");
-                Console.WriteLine("Example:  Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts");
+                Console.WriteLine(@"Example:  
+For classes decorated by DataContractAttribute:
+  Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts
+For classes decorated by Newtonsoft.Json.JsonObjectAttribute
+  Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /2
+For classes decorated by SerializableAttribute
+  Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /4
+For all classes
+  Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /0
+
+");
                 return;
             }
 
             var assemblyName = args[0];
             var tsFileName = args[1];
+            CherryPickingMethods methods = CherryPickingMethods.DataContract;
+            if (args.Length>2)
+            {
+                methods = ReadMethods(args[2]);
+            }
             AppDomain appDomain = AppDomain.CurrentDomain;
             appDomain.AssemblyResolve += AppDomain_AssemblyResolve;
-            PocoAssemblyWalker.Walk(assemblyName, tsFileName);
+            PocoAssemblyWalker.Walk(assemblyName, tsFileName, methods);
+
+#if DEBUG
+            Console.ReadLine();
+#endif
+        }
+
+        static CherryPickingMethods ReadMethods(string s)
+        {
+            var r = s.Remove(0, 1);
+            int m = 1;
+            if (int.TryParse(r, out m))
+                return (CherryPickingMethods)m;
+
+            return CherryPickingMethods.DataContract;
         }
 
         private static System.Reflection.Assembly AppDomain_AssemblyResolve(object sender, ResolveEventArgs args)

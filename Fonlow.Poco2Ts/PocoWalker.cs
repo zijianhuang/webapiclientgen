@@ -17,17 +17,17 @@ namespace Fonlow.Poco2Ts
         /// </summary>
         /// <param name="assemblyFilePath">Absolute or relative path, including the assembly file extension name dll or exe.</param>
         /// <param name="tsFilePath"></param>
-        public static void Walk(string assemblyFilePath, string tsFilePath)
+        public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods)
         {
             var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);
             var assembly = LoadAssembly(absolutePath);
             if (assembly == null)
                 return;
 
-            var typesWithDataContract = GetDataContractTypes(assembly);
+            var typesWithDataContract = GetCherryTypes(assembly, methods);
 
             var gen = new Poco2TsGen();
-            gen.Generate(typesWithDataContract);
+            gen.Generate(typesWithDataContract, methods);
             gen.SaveTsCodeToFile(tsFilePath);
             Trace.WriteLine($"{tsFilePath} is generated.");
         }
@@ -63,12 +63,12 @@ namespace Fonlow.Poco2Ts
         }
 
 
-        static Type[] GetDataContractTypes(Assembly assembly)
+        static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
         {
             try
             {
                 return assembly.GetTypes().Where(type => (IsClassOrStruct(type) || type.IsEnum)
-                && (PropertyHelper.ReadAttribute<DataContractAttribute>(type) != null)).ToArray();
+                && CherryPicking.IsCherryType(type, methods)).ToArray();
             }
             catch (ReflectionTypeLoadException e)
             {

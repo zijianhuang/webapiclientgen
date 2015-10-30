@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Diagnostics;
+using System.Text;
+using Fonlow.TypeScriptCodeDom;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -58,7 +60,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             var returnTypeReference = method.ReturnType;
 
-          //  CreateDocComments();
+            CreateDocComments();
 
 
             var binderAttributes = description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterBinderAttribute).ToArray();
@@ -90,6 +92,23 @@ namespace Fonlow.CodeDom.Web.Ts
 
             return method;
         }
+
+        void CreateDocComments()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine(description.Documentation);
+            builder.AppendLine(description.HttpMethod.Method + " " + description.RelativePath);
+            foreach (var item in description.ParameterDescriptions)
+            {
+                var parameterType = TypeMapper.GetTypeOutput(new CodeTypeReference( item.ParameterDescriptor.ParameterType));
+                builder.AppendLine($"@param {{{parameterType}}} {item.Name} {item.Documentation}");
+            }
+
+            var returnType = description.ResponseDescription.ResponseType==null? "void" : TypeMapper.GetTypeOutput(new CodeTypeReference(description.ResponseDescription.ResponseType));
+            builder.AppendLine($"@return {{{returnType}}} {description.ResponseDescription.Documentation}");
+            method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
+        }
+
 
         CodeMemberMethod CreateMethodBasic()
         {

@@ -11,6 +11,11 @@ namespace DemoWebApi.Controllers
 {
     public class EntitiesController : ApiController
     {
+        /// <summary>
+        /// Get a person
+        /// </summary>
+        /// <param name="id">unique id of that guy</param>
+        /// <returns>person in db</returns>
         [HttpGet]
         public Person GetPerson(long id)
         {

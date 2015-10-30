@@ -56,49 +56,62 @@ namespace Fonlow.Poco2Ts
     {
         public static bool IsCherryType(Type type, CherryPickingMethods methods)
         {
-            var r = false;
+            bool r0, r1, r2, r3, r4;
+            r0 = r1 = r2 = r3 = r4 = false;
 
             if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
             {
-                r= PropertyHelper.ReadAttribute<DataContractAttribute>(type) != null;
-                if (methods == CherryPickingMethods.DataContract)
-                    return r;
-            }
-
-            if ((methods & CherryPickingMethods.Serializable) == CherryPickingMethods.Serializable)
-            {
-                r= PropertyHelper.ReadAttribute<SerializableAttribute>(type) != null;
-                if (methods == CherryPickingMethods.Serializable)
-                    return r;
+                r1= PropertyHelper.ReadAttribute<DataContractAttribute>(type) != null;
             }
 
             if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
             {
-                r= PropertyHelper.AttributeExists(type, "Newtonsoft.Json.JsonObjectAttribute") !=null;
-                if (methods == CherryPickingMethods.NewtonsoftJson)
-                    return r;
+                r2= PropertyHelper.AttributeExists(type, "Newtonsoft.Json.JsonObjectAttribute") !=null;
             }
 
-            if ((methods & CherryPickingMethods.AspNet) == CherryPickingMethods.AspNet)//Asp.net seems not having good data annotation for cherry picking types
-                return true;
+            if ((methods & CherryPickingMethods.Serializable) == CherryPickingMethods.Serializable)
+            {
+                r3= PropertyHelper.ReadAttribute<SerializableAttribute>(type) != null;
+            }
 
-            return true;
+            if ((methods & CherryPickingMethods.AspNet) == CherryPickingMethods.AspNet)//Asp.net does not seem to define good data annotation for cherry picking types
+            {
+                r4 = true;
+            }
+
+            if (methods== CherryPickingMethods.All)
+            {
+                r0 = true;
+            }
+
+            return r0 | r1 | r2 | r3 | r4;
         }
 
-        public static CherryType GetCherryMemberType(MemberInfo memberInfo, CherryPickingMethods methods)
+        public static CherryType GetMemberCherryType(MemberInfo memberInfo, CherryPickingMethods methods)
         {
-            var r = CherryType.Cherry; //CherryPickingMethods.All
+            CherryType[] r = { CherryType.None, CherryType.None, CherryType.None, CherryType.None, CherryType.None };
 
             if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
             {
                 var a = PropertyHelper.ReadAttribute<DataMemberAttribute>(memberInfo);
                 if (a == null)
-                    r= CherryType.None;
+                    r[1]= CherryType.None;
                 else
-                    r= a.IsRequired ? CherryType.BigCherry : CherryType.Cherry;
+                    r[1]= a.IsRequired ? CherryType.BigCherry : CherryType.Cherry;
 
-                if (methods == CherryPickingMethods.DataContract)
-                    return r;
+            }
+
+            if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
+            {
+                var a =PropertyHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonPropertyAttribute");
+                if (a == null)
+                {
+                    r[2] = CherryType.None;
+                }
+                else
+                {
+                    r[2]= !PropertyHelper.GetRequired(a, "Required", "Default") ? CherryType.BigCherry : CherryType.Cherry;
+                }
             }
 
             if ((methods & CherryPickingMethods.Serializable) == CherryPickingMethods.Serializable)
@@ -107,42 +120,26 @@ namespace Fonlow.Poco2Ts
                 if (a==null)
                 {
                     var a2 = PropertyHelper.ReadAttribute<RequiredAttribute>(memberInfo);
-                    r=  a2 == null ? CherryType.Cherry : CherryType.BigCherry;
+                    r[3]=  a2 == null ? CherryType.Cherry : CherryType.BigCherry;
                 }
                 else
                 {
-                    r = CherryType.None;
+                    r[3] = CherryType.None;
                 }
-
-                if (methods == CherryPickingMethods.Serializable)
-                    return r;
             }
 
             if ((methods & CherryPickingMethods.AspNet) == CherryPickingMethods.AspNet)
             {
                 var a = PropertyHelper.ReadAttribute<RequiredAttribute>(memberInfo);
-                r= a == null ? CherryType.Cherry : CherryType.BigCherry;
-                if (methods == CherryPickingMethods.AspNet)
-                    return r;
+                r[4]= a == null ? CherryType.Cherry : CherryType.BigCherry;
             }
 
-            if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
+            if (methods== CherryPickingMethods.All)
             {
-                var a =PropertyHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonPropertyAttribute");
-                if (a == null)
-                {
-                    r = CherryType.None;
-                }
-                else
-                {
-                    r= !PropertyHelper.GetRequired(a, "Required", "Default") ? CherryType.BigCherry : CherryType.Cherry;
-                }
-
-                if (methods == CherryPickingMethods.NewtonsoftJson)
-                    return r;
+                r[0] = CherryType.Cherry;
             }
 
-            return r;
+            return r.Max();
 
         }
 

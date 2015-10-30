@@ -130,7 +130,7 @@ namespace Fonlow.Poco2Ts
 
                         foreach (var propertyInfo in type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
                         {
-                            var cherryType = CherryPicking.GetCherryMemberType(propertyInfo, methods);
+                            var cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods);
                             if (cherryType == CherryType.None)
                                 continue;
                             string tsPropertyName;

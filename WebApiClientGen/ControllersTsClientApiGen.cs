@@ -157,15 +157,25 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             CodeMemberField clientField = new CodeMemberField();
             clientField.Attributes = MemberAttributes.Private;
-            clientField.Name = "client";
-            clientField.Type = new CodeTypeReference("System.Net.Http.HttpClient");
+            clientField.Name = "httpClient";
+            clientField.Type = new CodeTypeReference("HttpClient");
             targetClass.Members.Add(clientField);
 
-            CodeMemberField baseUriField = new CodeMemberField();
-            baseUriField.Attributes = MemberAttributes.Private;
-            baseUriField.Name = "baseUri";
-            baseUriField.Type = new CodeTypeReference("System.Uri");
-            targetClass.Members.Add(baseUriField);
+            var errorHandlerField = new CodeMemberField()
+            {
+                Attributes = MemberAttributes.Private,
+                Name = "error",
+                Type = new CodeTypeReference("(jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any"),
+            };
+            targetClass.Members.Add(errorHandlerField);
+
+            var statusCodeField = new CodeMemberField()
+            {
+                Attributes = MemberAttributes.Private,
+                Name = "statusCode",
+                Type = new CodeTypeReference("{ [key: string]: any; }"),
+            };
+            targetClass.Members.Add(statusCodeField);
 
         }
 
@@ -177,23 +187,20 @@ namespace Fonlow.CodeDom.Web.Ts
 
             // Add parameters.
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "System.Net.Http.HttpClient", "client"));
+                " (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "error?"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "System.Uri", "baseUri"));
+                "{ [key: string]: any; }", "statusCode?"));
 
             constructor.Statements.Add(new CodeSnippetStatement(
-@"if (client == null)
-      throw new ArgumentNullException(""client"", ""Null HttpClient."");
-"));
-            constructor.Statements.Add(new CodeSnippetStatement(
-@"if (baseUri == null)
-      throw new ArgumentNullException(""baseUri"", ""Null baseUri"");
-"));
+@"this.httpClient = new HttpClient();
+this.error = error;
+this.statusCode = statusCode;"));
+            
             // Add field initialization logic
-            sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
-            constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));
-            sharedContext.baseUriReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "baseUri");
-            constructor.Statements.Add(new CodeAssignStatement(sharedContext.baseUriReference, new CodeArgumentReferenceExpression("baseUri")));
+            sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");//todo: remove
+        //    constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));
+            sharedContext.baseUriReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "baseUri");//todo: remove
+        //    constructor.Statements.Add(new CodeAssignStatement(sharedContext.baseUriReference, new CodeArgumentReferenceExpression("baseUri")));
             targetClass.Members.Add(constructor);
         }
 

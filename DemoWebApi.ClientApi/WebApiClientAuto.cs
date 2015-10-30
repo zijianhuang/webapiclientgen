@@ -751,9 +751,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Get a person
         /// GET api/Entities/{id}
         /// </summary>
+        /// <param name="id">unique id of that guy</param>
+        /// <returns>person in db</returns>
         public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
         {
             var template = new System.UriTemplate("api/Entities/{id}");
@@ -767,9 +769,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Get a person
         /// GET api/Entities/{id}
         /// </summary>
+        /// <param name="id">unique id of that guy</param>
+        /// <returns>person in db</returns>
         public DemoWebApi.DemoData.Client.Person GetPerson(long id)
         {
             var template = new System.UriTemplate("api/Entities/{id}");

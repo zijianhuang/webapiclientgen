@@ -1,347 +1,357 @@
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
-        client: System.Net.Http.HttpClient;
-        baseUri: System.Uri;
-        
-        constructor(client: System.Net.Http.HttpClient, baseUri: System.Uri){
-            if (client == null)
-                  throw new ArgumentNullException("client", "Null HttpClient.");
-            
-            if (baseUri == null)
-                  throw new ArgumentNullException("baseUri", "Null baseUri");
-            
-            this.client = client;
-            this.baseUri = baseUri;
+        httpClient: HttpClient;
+        error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
+        statusCode: { [key: string]: any; };
+
+        constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){
+            this.httpClient = new HttpClient();
+            this.error = error;
+            this.statusCode = statusCode;
         }
-        
-        GetIntSquare(d: number): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/int?d={d}");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("d", d.ToString());
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/int?d={d}
+         * @param {number} d 
+         * @return {void} 
+         */
+        GetIntSquare(d: number, callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/int?d={d}'+'d='+d&+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Int32.Parse(text);
         }
-        
-        GetDecimalSquare(d: number): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/decimal?d={d}");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("d", d.ToString());
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/decimal?d={d}
+         * @param {number} d 
+         * @return {void} 
+         */
+        GetDecimalSquare(d: number, callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/decimal?d={d}'+'d='+d&+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<System.Decimal>(text);
+            return JsonConvert.DeserializeObject<number>(text);
         }
-        
-        GetDateTime(hasValue: boolean): any{
-            var template: var = new System.UriTemplate("api/SuperDemo/NullableDatetime?hasValue={hasValue}");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("hasValue", hasValue.ToString());
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
+         * @param {boolean} hasValue 
+         * @return {void} 
+         */
+        GetDateTime(hasValue: boolean, callback: (data : Date) = > any){
+            this.httpClient.get('api/SuperDemo/NullableDatetime?hasValue={hasValue}'+'hasValue='+hasValue&+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<Nullable<System.DateTime>>(text);
+            return JsonConvert.DeserializeObject<Nullable<Date>>(text);
         }
-        
-        GetNullableDecimal(hasValue: boolean): any{
-            var template: var = new System.UriTemplate("api/SuperDemo/NullableDecimal?hasValue={hasValue}");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("hasValue", hasValue.ToString());
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
+         * @param {boolean} hasValue 
+         * @return {void} 
+         */
+        GetNullableDecimal(hasValue: boolean, callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/NullableDecimal?hasValue={hasValue}'+'hasValue='+hasValue&+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<Nullable<System.Decimal>>(text);
+            return JsonConvert.DeserializeObject<Nullable<number>>(text);
         }
-        
-        GetFloatZero(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/FloatZero");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/FloatZero
+         * @return {void} 
+         */
+        GetFloatZero(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/FloatZero'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Single.Parse(text);
         }
-        
-        GetDoubleZero(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/DoubleZero");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/DoubleZero
+         * @return {void} 
+         */
+        GetDoubleZero(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/DoubleZero'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Double.Parse(text);
         }
-        
-        GetDecimalZero(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/DecimalZero");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/DecimalZero
+         * @return {void} 
+         */
+        GetDecimalZero(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/DecimalZero'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<System.Decimal>(text);
+            return JsonConvert.DeserializeObject<number>(text);
         }
-        
-        GetNullString(): string{
-            var template: var = new System.UriTemplate("api/SuperDemo/NullString");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
-            var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<string>(text);
-        }
-        
-        GetEmptyString(): string{
-            var template: var = new System.UriTemplate("api/SuperDemo/EmptyString");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/NullString
+         * @return {void} 
+         */
+        GetNullString(callback: (data : string) = > any){
+            this.httpClient.get('api/SuperDemo/NullString'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<string>(text);
         }
-        
-        GetNullPerson(): DemoWebApi_DemoData_Client.Person{
-            var template: var = new System.UriTemplate("api/SuperDemo/NullObject");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/EmptyString
+         * @return {void} 
+         */
+        GetEmptyString(callback: (data : string) = > any){
+            this.httpClient.get('api/SuperDemo/EmptyString'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<DemoWebApi_DemoData_Client.Person>(text);
+            return JsonConvert.DeserializeObject<string>(text);
         }
-        
-        GetTextStream(): System.Net.Http.HttpResponseMessage{
-            var template: var = new System.UriTemplate("api/SuperDemo/TextStream");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/NullObject
+         * @return {void} 
+         */
+        GetNullPerson(callback: (data : DemoWebApi.DemoData.Person) = > any){
+            this.httpClient.get('api/SuperDemo/NullObject'+'callback='+callback, callback, this.error, this.statusCode);
+            var text: var = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Person>(text);
+        }
+
+        /** 
+         * GET api/SuperDemo/TextStream
+         * @return {void} 
+         */
+        GetTextStream(callback: (data : System.Net.Http.HttpResponseMessage) = > any){
+            this.httpClient.get('api/SuperDemo/TextStream'+'callback='+callback, callback, this.error, this.statusCode);
             return responseMessage;
         }
-        
-        GetByteArray(): Array<number>{
-            var template: var = new System.UriTemplate("api/SuperDemo/ByteArray");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/ByteArray
+         * @return {void} 
+         */
+        GetByteArray(callback: (data : Array<number>) = > any){
+            this.httpClient.get('api/SuperDemo/ByteArray'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<System.Byte[]>(text);
+            return JsonConvert.DeserializeObject<Array<number>>(text);
         }
-        
-        GetActionResult(): System.Net.Http.HttpResponseMessage{
-            var template: var = new System.UriTemplate("api/SuperDemo/ActionResult");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/ActionResult
+         * @return {void} 
+         */
+        GetActionResult(callback: (data : System.Web.Http.IHttpActionResult) = > any){
+            this.httpClient.get('api/SuperDemo/ActionResult'+'callback='+callback, callback, this.error, this.statusCode);
             return responseMessage;
         }
-        
-        Getbyte(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/byte");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/byte
+         * @return {void} 
+         */
+        Getbyte(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/byte'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Byte.Parse(text);
         }
-        
-        Getsbyte(): System.SByte{
-            var template: var = new System.UriTemplate("api/SuperDemo/sbyte");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/sbyte
+         * @return {void} 
+         */
+        Getsbyte(callback: (data : System.SByte) = > any){
+            this.httpClient.get('api/SuperDemo/sbyte'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.SByte.Parse(text);
         }
-        
-        GetShort(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/short");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/short
+         * @return {void} 
+         */
+        GetShort(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/short'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Int16.Parse(text);
         }
-        
-        GetUShort(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/ushort");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/ushort
+         * @return {void} 
+         */
+        GetUShort(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/ushort'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.UInt16.Parse(text);
         }
-        
-        GetUint(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/uint");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/uint
+         * @return {void} 
+         */
+        GetUint(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/uint'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.UInt32.Parse(text);
         }
-        
-        Getulong(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/ulong");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/ulong
+         * @return {void} 
+         */
+        Getulong(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/ulong'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.UInt64.Parse(text);
         }
-        
-        Getdouble(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/doulbe");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/doulbe
+         * @return {void} 
+         */
+        Getdouble(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/doulbe'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Double.Parse(text);
         }
-        
-        GetDecimal(): number{
-            var template: var = new System.UriTemplate("api/SuperDemo/decimal");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/decimal
+         * @return {void} 
+         */
+        GetDecimal(callback: (data : number) = > any){
+            this.httpClient.get('api/SuperDemo/decimal'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<System.Decimal>(text);
+            return JsonConvert.DeserializeObject<number>(text);
         }
-        
-        GetChar(): System.Char{
-            var template: var = new System.UriTemplate("api/SuperDemo/char");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/char
+         * @return {void} 
+         */
+        GetChar(callback: (data : System.Char) = > any){
+            this.httpClient.get('api/SuperDemo/char'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<char>(text);
         }
-        
-        GetBool(): boolean{
-            var template: var = new System.UriTemplate("api/SuperDemo/bool");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/SuperDemo/bool
+         * @return {void} 
+         */
+        GetBool(callback: (data : boolean) = > any){
+            this.httpClient.get('api/SuperDemo/bool'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Boolean.Parse(text);
         }
     }
 
     export class Entities {
-        client: System.Net.Http.HttpClient;
-        baseUri: System.Uri;
-        
-        constructor(client: System.Net.Http.HttpClient, baseUri: System.Uri){
-            if (client == null)
-                  throw new ArgumentNullException("client", "Null HttpClient.");
-            
-            if (baseUri == null)
-                  throw new ArgumentNullException("baseUri", "Null baseUri");
-            
-            this.client = client;
-            this.baseUri = baseUri;
+        httpClient: HttpClient;
+        error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
+        statusCode: { [key: string]: any; };
+
+        constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){
+            this.httpClient = new HttpClient();
+            this.error = error;
+            this.statusCode = statusCode;
         }
-        
-        GetPerson(id: number): DemoWebApi_DemoData_Client.Person{
-            var template: var = new System.UriTemplate("api/Entities/{id}");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("id", id.ToString());
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * Get a person
+         * GET api/Entities/{id}
+         * @param {number} id unique id of that guy
+         * @return {void} person in db
+         */
+        GetPerson(id: number, callback: (data : DemoWebApi.DemoData.Person) = > any){
+            this.httpClient.get('api/Entities/{id}'+'id='+id&+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<DemoWebApi_DemoData_Client.Person>(text);
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Person>(text);
         }
-        
-        CreatePerson(person: DemoWebApi_DemoData_Client.Person): number{
+
+        /** 
+         * POST api/Entities
+         * @param {DemoWebApi.DemoData.Person} person 
+         * @return {void} 
+         */
+        CreatePerson(person: DemoWebApi.DemoData.Person){
             var requestUri: var = new System.Uri(this.baseUri, "api/Entities");
             var responseMessage: var = this.client.PostAsJsonAsync(requestUri.ToString(), person).Result;
             responseMessage.EnsureSuccessStatusCode();
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Int64.Parse(text);
         }
-        
-        UpdatePerson(person: DemoWebApi_DemoData_Client.Person){
+
+        /** 
+         * PUT api/Entities
+         * @param {DemoWebApi.DemoData.Person} person 
+         * @return {void} 
+         */
+        UpdatePerson(person: DemoWebApi.DemoData.Person){
             var requestUri: var = new System.Uri(this.baseUri, "api/Entities");
             var responseMessage: var = this.client.PutAsJsonAsync(requestUri.ToString(), person).Result;
             responseMessage.EnsureSuccessStatusCode();
         }
-        
-        Delete(id: number){
-            var template: var = new System.UriTemplate("api/Entities/{id}");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("id", id.ToString());
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.DeleteAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * DELETE api/Entities/{id}
+         * @param {number} id 
+         * @return {void} 
+         */
+        Delete(id: number, callback: (data : ) = > any){
+            this.httpClient.get('api/Entities/{id}'+'id='+id&+'callback='+callback, callback, this.error, this.statusCode);
         }
     }
 
     export class Values {
-        client: System.Net.Http.HttpClient;
-        baseUri: System.Uri;
-        
-        constructor(client: System.Net.Http.HttpClient, baseUri: System.Uri){
-            if (client == null)
-                  throw new ArgumentNullException("client", "Null HttpClient.");
-            
-            if (baseUri == null)
-                  throw new ArgumentNullException("baseUri", "Null baseUri");
-            
-            this.client = client;
-            this.baseUri = baseUri;
+        httpClient: HttpClient;
+        error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
+        statusCode: { [key: string]: any; };
+
+        constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){
+            this.httpClient = new HttpClient();
+            this.error = error;
+            this.statusCode = statusCode;
         }
-        
-        Get(): Array<string>{
-            var template: var = new System.UriTemplate("api/Values");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/Values
+         * @return {void} 
+         */
+        Get(callback: (data : Array<string>) = > any){
+            this.httpClient.get('api/Values'+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<IEnumerable<System.String>>(text);
+            return JsonConvert.DeserializeObject<IEnumerable<string>>(text);
         }
-        
-        Get(id: number, name: string): string{
-            var template: var = new System.UriTemplate("api/Values/{id}?name={name}");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("id", id.ToString());
-            uriParameters.Add("name", name);
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * GET api/Values/{id}?name={name}
+         * @param {number} id 
+         * @param {string} name 
+         * @return {void} 
+         */
+        Get(id: number, name: string, callback: (data : string) = > any){
+            this.httpClient.get('api/Values/{id}?name={name}'+'id='+id&+'name='+name&+'callback='+callback, callback, this.error, this.statusCode);
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<string>(text);
         }
-        
-        Post(value: string): string{
+
+        /** 
+         * POST api/Values
+         * @param {string} value 
+         * @return {void} 
+         */
+        Post(value: string){
             var requestUri: var = new System.Uri(this.baseUri, "api/Values");
             var responseMessage: var = this.client.PostAsJsonAsync(requestUri.ToString(), value).Result;
             responseMessage.EnsureSuccessStatusCode();
             var text: var = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<string>(text);
         }
-        
+
+        /** 
+         * PUT api/Values/{id}
+         * @param {number} id 
+         * @param {string} value 
+         * @return {void} 
+         */
         Put(id: number, value: string){
             var template: var = new System.UriTemplate("api/Values/{id}");
             var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
@@ -350,14 +360,14 @@ namespace DemoWebApi_Controllers_Client {
             var responseMessage: var = this.client.PutAsJsonAsync(requestUri.ToString(), value).Result;
             responseMessage.EnsureSuccessStatusCode();
         }
-        
-        Delete(id: number){
-            var template: var = new System.UriTemplate("api/Values/{id}");
-            var uriParameters: var = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("id", id.ToString());
-            var requestUri: var = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage: var = this.client.DeleteAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
+
+        /** 
+         * DELETE api/Values/{id}
+         * @param {number} id 
+         * @return {void} 
+         */
+        Delete(id: number, callback: (data : ) = > any){
+            this.httpClient.get('api/Values/{id}'+'id='+id&+'callback='+callback, callback, this.error, this.statusCode);
         }
     }
 

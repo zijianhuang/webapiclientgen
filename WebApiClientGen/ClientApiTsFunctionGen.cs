@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Diagnostics;
+using System.Text;
+using Fonlow.TypeScriptCodeDom;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -56,12 +58,12 @@ namespace Fonlow.CodeDom.Web.Ts
             //create method
             method = CreateMethodBasic();
 
-            var returnTypeReference = method.ReturnType;
+        //    var returnTypeReference = method.ReturnType;
 
-          //  CreateDocComments();
+            CreateDocComments();
 
 
-            var binderAttributes = description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterBinderAttribute).ToArray();
+          //  var binderAttributes = description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterBinderAttribute).ToArray();
 
             switch (description.HttpMethod.Method)
             {
@@ -91,13 +93,30 @@ namespace Fonlow.CodeDom.Web.Ts
             return method;
         }
 
+        void CreateDocComments()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine(description.Documentation);
+            builder.AppendLine(description.HttpMethod.Method + " " + description.RelativePath);
+            foreach (var item in description.ParameterDescriptions)
+            {
+                var parameterType = TypeMapper.GetTypeOutput(new CodeTypeReference( item.ParameterDescriptor.ParameterType));
+                builder.AppendLine($"@param {{{parameterType}}} {item.Name} {item.Documentation}");
+            }
+
+            var returnType = description.ResponseDescription.ResponseType==null? "void" : TypeMapper.GetTypeOutput(new CodeTypeReference(description.ResponseDescription.ResponseType));
+            builder.AppendLine($"@return {{{returnType}}} {description.ResponseDescription.Documentation}");
+            method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
+        }
+
+
         CodeMemberMethod CreateMethodBasic()
         {
             return new CodeMemberMethod()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                 Name = methodName,
-                ReturnType = returnType == null ? null : new CodeTypeReference(TranslateCustomTypeToClientType(returnType)),
+              //  ReturnType = returnType == null ? null : new CodeTypeReference(TranslateCustomTypeToClientType(returnType)),
             };
         }
 
@@ -113,14 +132,17 @@ namespace Fonlow.CodeDom.Web.Ts
 
         string TranslateCustomTypeToClientType(Type t)
         {
-            if (t == typeOfHttpActionResult)
-                return "System.Net.Http.HttpResponseMessage";
+            if (t == null)
+                return null;
+            return TypeMapper.GetTypeOutput(new CodeTypeReference(t));//todo: refactoring to remove redundant functions
+            //if (t == typeOfHttpActionResult)
+            //    return "System.Net.Http.HttpResponseMessage";
 
 
-            if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
-                return  t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
+            //if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
+            //    return  t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
 
-            return t.FullName;
+            //return t.FullName;
         }
 
 
@@ -132,45 +154,32 @@ namespace Fonlow.CodeDom.Web.Ts
                 Name = d.Name,
                 Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
 
-            }).ToArray();
+            }).ToList();
 
-            method.Parameters.AddRange(parameters);
-
-            method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "template",
-                new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
-            ));
-            var templateReference = new CodeVariableReferenceExpression("template");
-
-            //Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
-            method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "uriParameters",
-                new CodeObjectCreateExpression("System.Collections.Specialized.NameValueCollection")
-            ));
-            var uriParametersReference = new CodeVariableReferenceExpression("uriParameters");
-            foreach (var p in parameters)
+            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
+            parameters.Add(new CodeParameterDeclarationExpression()
             {
-                //Statement:             template.Add("id", id);
-                method.Statements.Add(new CodeMethodInvokeExpression(uriParametersReference, "Add"
-                    , new CodePrimitiveExpression(p.Name), new CodeSnippetExpression(p.Type.BaseType == "System.String" ? p.Name : p.Name + ".ToString()")));
-            }
+                Name="callback",
+                Type=new CodeTypeReference(callbackTypeText),
+            });
 
-            //Statement: var requestUri = template.BindByName(this.baseUri, uriParameters);
-            method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "requestUri",
-                new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("template"), "BindByName", sharedContext.baseUriReference, new CodeSnippetExpression("uriParameters"))));
+            method.Parameters.AddRange(parameters.ToArray());
 
-            //Statement: var result = this.client.GetAsync(requestUri.ToString()).Result;
-            method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "responseMessage", httpMethodInvokeExpression));
+           
+            var queryParams = parameters.Select(p =>
+            {
+                var pValue = p.Type.BaseType == "System.String" ? $"encodeURIComponent({p.Name})" : p.Name;
+                return $"+'{p.Name}='+{pValue}";
+            });
 
-            ////Statement: var result = task.Result;
-            //method.Statements.Add(new CodeVariableDeclarationStatement(
-            //    new CodeTypeReference("var"), "result", new CodeSnippetExpression("task.Result")));
-            var resultReference = new CodeVariableReferenceExpression("responseMessage");
+            var queryExpressionText = String.Join("&", queryParams);
 
-            //Statement: result.EnsureSuccessStatusCode();
-            method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+
+
+            method.Statements.Add(new CodeSnippetStatement(
+                $"this.httpClient.get('{description.RelativePath}'{queryExpressionText}, callback, this.error, this.statusCode);"));
+
+
 
             //Statement: return something;
             if (returnType != null)

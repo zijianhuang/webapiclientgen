@@ -143,6 +143,9 @@ namespace DemoWebApi.DemoData
 
         [DataMember]
         public int[][][] Int3D;
+
+        [DataMember]
+        public IEnumerable<string> Lines;
     }
 
 }

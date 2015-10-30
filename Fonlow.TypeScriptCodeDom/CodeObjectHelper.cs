@@ -56,7 +56,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (WriteCodeBinaryOperatorExpression(e as CodeBinaryOperatorExpression, w, o))
                 return;
 
-            //todo: CodeCastExpression, example <HTMLSpanElement>document, not sure anyone would use type casting in generated codes.
+            // todo: CodeCastExpression, example <HTMLSpanElement>document, not sure anyone would use type casting in generated codes.
 
             //todo: CodeDefaultValueExpression; ts not supported?
             //todo: CodeDelegateCreateExpression no
@@ -341,7 +341,7 @@ namespace Fonlow.TypeScriptCodeDom
                 if (commentStatement.Comment.Text.Contains('\n'))
                 {
                     w.WriteLine();
-                    var lines = commentStatement.Comment.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                    var lines = commentStatement.Comment.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i < lines.Length; i++)
                     {
                         w.WriteLine($"{o.IndentString} * {lines[i]}");
@@ -356,7 +356,7 @@ namespace Fonlow.TypeScriptCodeDom
             }
             else
             {
-                var lines = commentStatement.Comment.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                var lines = commentStatement.Comment.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < lines.Length; i++)
                 {
                     w.WriteLine($"{o.IndentString}// {lines[i]}");
@@ -473,11 +473,10 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
         {
-            w.Write(o.IndentString);
-
             var codeMemberField = ctm as CodeMemberField;
             if (codeMemberField != null)
             {
+                w.Write(o.IndentString);
                 w.WriteLine(GetCodeMemberFieldText(codeMemberField) + ";");
                 return;
             }
@@ -488,10 +487,15 @@ namespace Fonlow.TypeScriptCodeDom
             var memberMethod = ctm as CodeMemberMethod;
             if (memberMethod != null)
             {
+                w.WriteLine();
+                if (memberMethod.Comments.Count>0)
+                {
+                    WriteCodeCommentStatement(memberMethod.Comments[0], w, o);
+                }
+
                 var isCodeConstructor = memberMethod is CodeConstructor;
                 //todo: CodeEntryPointMethod not applicable to TS
                 //todo: CodeTypeConstructor  TS support partially static, so probably not applicable
-                w.WriteLine();
                 var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
                 w.Write(o.IndentString + methodName + "(");
                 WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);

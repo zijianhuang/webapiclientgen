@@ -134,7 +134,7 @@ namespace Fonlow.Poco2Ts
                             if (cherryType == CherryType.None)
                                 continue;
                             string tsPropertyName;
-                            
+
 
                             var isRequired = cherryType == CherryType.BigCherry;
                             tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
@@ -147,9 +147,6 @@ namespace Fonlow.Poco2Ts
 
                             };
                             typeDeclaration.Members.Add(clientField);
-
-
-
                         }
 
                         foreach (var fieldInfo in type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
@@ -218,13 +215,12 @@ namespace Fonlow.Poco2Ts
                 return new CodeTypeReference(t.Namespace.Replace('.', '_') + "_Client." + t.Name);
             else if (t.IsGenericType)
             {
-                if (t.GetInterfaces().Any(d => d.IsGenericType && d.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+                if (t.GetInterface("IEnumerable", true) != null)
                 {
-                    var genericTypeNames = t.GenericTypeArguments.Select(d => GetClientFieldTypeText(d)).ToArray();
-                    var codeTypeReference = new CodeTypeReference(typeof(IList<>));
-                    codeTypeReference.TypeArguments.AddRange(genericTypeNames);
+                    Debug.Assert(t.GenericTypeArguments.Length == 1);
+                    var elementType = t.GenericTypeArguments[0];
+                    return CreateArraTypeReference(t, elementType, 1);
 
-                    return codeTypeReference;
                 }
                 else if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
@@ -242,26 +238,52 @@ namespace Fonlow.Poco2Ts
                 Debug.Assert(t.Name.EndsWith("]"));
                 var elementType = t.GetElementType();
                 var arrayRank = t.GetArrayRank();
-                if (pendingTypes.Contains(elementType))
-                {
-                    var elementTypeReference = new CodeTypeReference(t.Namespace.Replace('.', '_') + "_Client." + elementType.Name);
-                    var arrayTypeReference = new CodeTypeReference("System.Array");
-                    var typeReference = new CodeTypeReference(arrayTypeReference, arrayRank)
-                    {
-                        ArrayElementType = elementTypeReference,
-                    };
-                    return typeReference;
-                }
+                //if (pendingTypes.Contains(elementType))
+                //{
+                //    var elementTypeReference = new CodeTypeReference(t.Namespace.Replace('.', '_') + "_Client." + elementType.Name);
+                //    var arrayTypeReference = new CodeTypeReference("System.Array");
+                //    var typeReference = new CodeTypeReference(arrayTypeReference, arrayRank)
+                //    {
+                //        ArrayElementType = elementTypeReference,
+                //    };
+                //    return typeReference;
+                //}
 
-                var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
-                {
-                    ArrayElementType = GetClientFieldTypeText(elementType),
-                };
-                return otherArrayType;
+                //var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
+                //{
+                //    ArrayElementType = GetClientFieldTypeText(elementType),
+                //};
+                //return otherArrayType;
+                return CreateArraTypeReference(t, elementType, arrayRank);
             }
 
             return new CodeTypeReference(t);
 
+        }
+
+        CodeTypeReference CreateArrayOfCustomTypeReference(Type t, Type elementType, int arrayRank)
+        {
+            var elementTypeReference = new CodeTypeReference(elementType.Namespace.Replace('.', '_') + "_Client." + elementType.Name);
+            var arrayTypeReference = new CodeTypeReference("System.Array");
+            var typeReference = new CodeTypeReference(arrayTypeReference, arrayRank)
+            {
+                ArrayElementType = elementTypeReference,
+            };
+            return typeReference;
+        }
+
+        CodeTypeReference CreateArraTypeReference(Type t, Type elementType, int arrayRank)
+        {
+            if (pendingTypes.Contains(elementType))
+            {
+                return CreateArrayOfCustomTypeReference(t, elementType, arrayRank);
+            }
+
+            var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
+            {
+                ArrayElementType = GetClientFieldTypeText(elementType),
+            };
+            return otherArrayType;
         }
 
 

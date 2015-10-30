@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Fonlow.Poco2Ts
 {
     /// <summary>
-    /// Flagged options for cherry picking in various development operations.
+    /// Flagged options for cherry picking in various development processes.
     /// </summary>
     [Flags]
     public enum CherryPickingMethods

@@ -12,7 +12,7 @@ namespace Fonlow.Poco2Ts
         {
             if (args.Length<2)
             {
-                Console.WriteLine("Poco2Ts.exe generates TypeScript data  model interfaces from POCO classes decorated by DataContractAttribute.");
+                Console.WriteLine("Poco2Ts.exe generates TypeScript data  model interfaces from POCO classes.");
                 Console.WriteLine(@"Example:  
 For classes decorated by DataContractAttribute:
   Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts
@@ -20,6 +20,8 @@ For classes decorated by Newtonsoft.Json.JsonObjectAttribute
   Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /2
 For classes decorated by SerializableAttribute
   Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /4
+For public classes, properties and properties,  and use System.ComponentModel.DataAnnotations.RequiredAttribute.
+  Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /8
 For all classes
   Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /0
 

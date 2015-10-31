@@ -14,13 +14,6 @@ namespace Fonlow.CodeDom.Web.Cs
     /// </summary>
     public class ControllersClientApiGen : ControllersClientApiGenBase
     {
-        //CodeCompileUnit targetUnit;
-        //Dictionary<string, object> apiClassesDic;
-        //CodeTypeDeclaration[] newClassesCreated;
-        ////  string[] prefixesOfCustomNamespaces;
-        //SharedContext sharedContext;
-        //string[] excludedControllerNames;
-
         /// <summary>
         /// 
         /// </summary>
@@ -30,11 +23,6 @@ namespace Fonlow.CodeDom.Web.Cs
         public ControllersClientApiGen(string[] prefixesOfCustomNamespaces, string[] excludedControllerNames = null)
             :base(prefixesOfCustomNamespaces, excludedControllerNames)
         {
-            //sharedContext = new SharedContext();
-            //sharedContext.prefixesOfCustomNamespaces = prefixesOfCustomNamespaces == null ? new string[] { } : prefixesOfCustomNamespaces;
-            //targetUnit = new CodeCompileUnit();
-            //apiClassesDic = new Dictionary<string, object>();
-            //this.excludedControllerNames = excludedControllerNames;
         }
 
         /// <summary>

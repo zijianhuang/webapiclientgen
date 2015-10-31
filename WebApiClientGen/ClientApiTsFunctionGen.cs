@@ -56,33 +56,28 @@ namespace Fonlow.CodeDom.Web.Ts
         public CodeMemberMethod CreateApiFunction()
         {
             //create method
-            method = CreateMethodBasic();
+            method = CreateMethodName();
 
-        //    var returnTypeReference = method.ReturnType;
+            //    var returnTypeReference = method.ReturnType;
 
             CreateDocComments();
 
 
-          //  var binderAttributes = description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterBinderAttribute).ToArray();
+            //  var binderAttributes = description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterBinderAttribute).ToArray();
 
             switch (description.HttpMethod.Method)
             {
                 case "GET":
-                        RenderGetOrDeleteImplementation(
-                            new CodePropertyReferenceExpression(
-                            new CodeMethodInvokeExpression(sharedContext.clientReference, "GetAsync", new CodeSnippetExpression("requestUri.ToString()")), "Result"));
+                    RenderGetOrDeleteImplementation("get");
                     break;
                 case "DELETE":
-                        RenderGetOrDeleteImplementation(
-                            new CodePropertyReferenceExpression(
-                            new CodeMethodInvokeExpression(sharedContext.clientReference, "DeleteAsync", new CodeSnippetExpression("requestUri.ToString()"))
-                            , "Result"));
+                    RenderGetOrDeleteImplementation("delete");
                     break;
                 case "POST":
-                    RenderPostOrPutImplementation(true);
+                    RenderPostOrPutImplementation("post");
                     break;
                 case "PUT":
-                    RenderPostOrPutImplementation(false);
+                    RenderPostOrPutImplementation("put");
                     break;
 
                 default:
@@ -100,23 +95,23 @@ namespace Fonlow.CodeDom.Web.Ts
             builder.AppendLine(description.HttpMethod.Method + " " + description.RelativePath);
             foreach (var item in description.ParameterDescriptions)
             {
-                var parameterType = TypeMapper.GetTypeOutput(new CodeTypeReference( item.ParameterDescriptor.ParameterType));
+                var parameterType = TranslateCustomTypeToClientType(item.ParameterDescriptor.ParameterType);
                 builder.AppendLine($"@param {{{parameterType}}} {item.Name} {item.Documentation}");
             }
 
-            var returnType = description.ResponseDescription.ResponseType==null? "void" : TypeMapper.GetTypeOutput(new CodeTypeReference(description.ResponseDescription.ResponseType));
+            var returnType = description.ResponseDescription.ResponseType == null ? "void" : TranslateCustomTypeToClientType(description.ResponseDescription.ResponseType);
             builder.AppendLine($"@return {{{returnType}}} {description.ResponseDescription.Documentation}");
             method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
         }
 
 
-        CodeMemberMethod CreateMethodBasic()
+        CodeMemberMethod CreateMethodName()
         {
             return new CodeMemberMethod()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                 Name = methodName,
-              //  ReturnType = returnType == null ? null : new CodeTypeReference(TranslateCustomTypeToClientType(returnType)),
+                //  ReturnType = returnType == null ? null : new CodeTypeReference(TranslateCustomTypeToClientType(returnType)),
             };
         }
 
@@ -134,19 +129,30 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             if (t == null)
                 return null;
-            return TypeMapper.GetTypeOutput(new CodeTypeReference(t));//todo: refactoring to remove redundant functions
+
+            if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
+                return t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
+
+            var r = TypeMapper.GetCodeTypeReferenceText(new CodeTypeReference(t));
+            if (r != "any")
+                return r;
             //if (t == typeOfHttpActionResult)
             //    return "System.Net.Http.HttpResponseMessage";
 
-
-            //if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
-            //    return  t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
-
-            //return t.FullName;
+            return t.FullName;
         }
 
+        static string RefineCustomComplexTypeText(Type t)
+        {
+            return t.Namespace.Replace('.', '_') + "_Client." + t.Name;
+        }
 
-        void RenderGetOrDeleteImplementation(CodeExpression httpMethodInvokeExpression)
+        static bool IsClassOrStruct(Type type)
+        {
+            return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
+        }
+
+        void RenderGetOrDeleteImplementation(string httpMethod)
         {
             //Create function parameters
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
@@ -156,79 +162,30 @@ namespace Fonlow.CodeDom.Web.Ts
 
             }).ToList();
 
-            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
-            parameters.Add(new CodeParameterDeclarationExpression()
-            {
-                Name="callback",
-                Type=new CodeTypeReference(callbackTypeText),
-            });
-
-            method.Parameters.AddRange(parameters.ToArray());
-
-           
             var queryParams = parameters.Select(p =>
             {
                 var pValue = p.Type.BaseType == "System.String" ? $"encodeURIComponent({p.Name})" : p.Name;
                 return $"+'{p.Name}='+{pValue}";
-            });
+            }).ToList();
 
             var queryExpressionText = String.Join("&", queryParams);
 
+            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
+            parameters.Add(new CodeParameterDeclarationExpression()
+            {
+                Name = "callback",
+                Type = new CodeTypeReference(callbackTypeText),
+            });
 
+            method.Parameters.AddRange(parameters.ToArray());
 
             method.Statements.Add(new CodeSnippetStatement(
-                $"this.httpClient.get('{description.RelativePath}'{queryExpressionText}, callback, this.error, this.statusCode);"));
-
-
-
-            //Statement: return something;
-            if (returnType != null)
-            {
-                AddReturnStatement();
-            }
-
+                $"this.httpClient.{httpMethod}('{description.RelativePath}'{queryExpressionText}, callback, this.error, this.statusCode);"));
         }
 
         static readonly Type typeOfHttpResponseMessage = typeof(System.Net.Http.HttpResponseMessage);
 
-        void AddReturnStatement()
-        {
-            if ((returnType == typeOfHttpResponseMessage) || (returnType == typeOfHttpActionResult))
-            {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
-                return;
-            }
-
-            method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "text",
-                new CodeSnippetExpression("responseMessage.Content.ReadAsStringAsync().Result")));
-            var textReference = new CodeVariableReferenceExpression("text");
-            if (IsStringType(returnType))
-            {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("JsonConvert.DeserializeObject<string>(text)")));
-            }
-            else if (returnType == typeOfChar)
-            {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("JsonConvert.DeserializeObject<char>(text)")));
-            }
-            else if (returnType.IsPrimitive)
-            {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(text)", returnType.FullName))));
-            }
-            else if (returnType.IsGenericType)
-            {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("JsonConvert.DeserializeObject<{0}>(text)", GetGenericTypeFriendlyName(returnType)))));
-            }
-            else if (IsComplexType(returnType))
-            {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("JsonConvert.DeserializeObject<{0}>(text)", TranslateCustomTypeToClientType(returnType)))));
-            }
-            else
-            {
-                Trace.TraceWarning("This typ is not yet supported: {0}", returnType.FullName);
-            }
-
-        }
+ 
 
         Type typeOfString = typeof(string);
         bool IsSimpleType(Type type)
@@ -246,16 +203,15 @@ namespace Fonlow.CodeDom.Web.Ts
             return type.Equals(typeOfString);
         }
 
-        void RenderPostOrPutImplementation(bool isPost)
+        void RenderPostOrPutImplementation(string httpMethod)
         {
-            //Create function parameters in prototype
+            //Create function parameters
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
             {
                 Name = d.Name,
                 Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
 
-            }).ToArray();
-            method.Parameters.AddRange(parameters);
+            }).ToList();
 
             var uriQueryParameters = description.ParameterDescriptions.Where(d =>
                 (!(d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute) && IsSimpleType(d.ParameterDescriptor.ParameterType))
@@ -275,92 +231,28 @@ namespace Fonlow.CodeDom.Web.Ts
             }
             var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-            Action AddRequestUriWithQueryAssignmentStatement = () =>
+            var queryParams = parameters.Select(p =>
             {
+                var pValue = p.Type.BaseType == "System.String" ? $"encodeURIComponent({p.Name})" : p.Name;
+                return $"+'{p.Name}='+{pValue}";
+            }).ToList();
 
-                //Statement: ar template = new System.UriTemplate("api/UserManagement/Account");
-                method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "template",
-                    new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
-                ));
-                var templateReference = new CodeVariableReferenceExpression("template");
+            var queryExpressionText = String.Join("&", queryParams);
 
-                //Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
-                method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "uriParameters",
-                    new CodeObjectCreateExpression("System.Collections.Specialized.NameValueCollection")
-                ));
-                var uriParametersReference = new CodeVariableReferenceExpression("uriParameters");
-                foreach (var p in uriQueryParameters)
-                {
-                    //Statement:             template.Add("id", id);
-                    method.Statements.Add(new CodeMethodInvokeExpression(uriParametersReference, "Add",
-                        new CodePrimitiveExpression(p.Name), new CodeSnippetExpression(p.Type.BaseType == "System.String" ? p.Name : p.Name + ".ToString()")));
-                }
+            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
 
-                //Statement: var requestUri = template.BindByName(this.baseUri, uriParameters);
-                method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "requestUri",
-                    new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("template"), "BindByName", sharedContext.baseUriReference, new CodeSnippetExpression("uriParameters"))));
-            };
-
-            Action AddRequestUriAssignmentStatement = () =>
+            parameters.Add(new CodeParameterDeclarationExpression()
             {
-                method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "requestUri",
-                    new CodeObjectCreateExpression("System.Uri", sharedContext.baseUriReference, new CodePrimitiveExpression(description.RelativePath))));
+                Name = "callback",
+                Type = new CodeTypeReference(callbackTypeText),
+            });
 
-            };
+            method.Parameters.AddRange(parameters.ToArray());
 
-            Action<CodeExpression> AddPostStatement = (httpMethodInvokeExpression) =>
-            {
-                //Statement: var task = this.client.GetAsync(requestUri.ToString());
-                method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "responseMessage", httpMethodInvokeExpression));
+            var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-            };
-
-
-            if (uriQueryParameters.Length > 0)
-            {
-                AddRequestUriWithQueryAssignmentStatement();
-            }
-            else
-            {
-                AddRequestUriAssignmentStatement();
-            }
-
-            if (singleFromBodyParameterDescription != null)
-            {
-
-                    AddPostStatement(new CodePropertyReferenceExpression(
-                    new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? "PostAsJsonAsync" : "PutAsJsonAsync", new CodeSnippetExpression("requestUri.ToString()")
-              , new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName))
-                    , "Result"));
-            }
-            else
-            {
-                    AddPostStatement(new CodePropertyReferenceExpression(
-                        new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? "PostAsync" : "PutAsync"
-                        , new CodeSnippetExpression("requestUri.ToString()")
-                        , new CodeSnippetExpression("new StringContent(String.Empty)"))
-                        , "Result"));
-            }
-
-            ////Statement: var result = task.Result;
-            //method.Statements.Add(new CodeVariableDeclarationStatement(
-            //    new CodeTypeReference("var"), "result", new CodeSnippetExpression("task.Result")));
-            var resultReference = new CodeVariableReferenceExpression("responseMessage");
-
-            //Statement: result.EnsureSuccessStatusCode();
-            method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
-
-            //Statement: return something;
-            if (returnType != null)
-            {
-                AddReturnStatement();
-            }
-
+            method.Statements.Add(new CodeSnippetStatement(
+                $"this.httpClient.{httpMethod}('{description.RelativePath}'{queryExpressionText}, {dataToPost}, callback, this.error, this.statusCode);"));
         }
 
     }

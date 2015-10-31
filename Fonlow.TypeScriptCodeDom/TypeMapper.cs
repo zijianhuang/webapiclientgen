@@ -21,7 +21,9 @@ namespace Fonlow.TypeScriptCodeDom
             typeMap[typeof(double).FullName] = "number";
             typeMap[typeof(decimal).FullName] = "number";
             typeMap[typeof(byte).FullName] = "number";
+            typeMap[typeof(sbyte).FullName] = "number";
             typeMap[typeof(string).FullName] = "string";
+            typeMap[typeof(char).FullName] = "string";
             typeMap[typeof(Guid).FullName] = "string";
             typeMap[typeof(bool).FullName] = "boolean";
             typeMap[typeof(void).FullName] = "void";
@@ -59,7 +61,12 @@ namespace Fonlow.TypeScriptCodeDom
             return !type.BaseType.Equals(typeNameOfObject);
         }
 
-        public static string GetTypeOutput(CodeTypeReference type)
+        /// <summary>
+        /// Get the TypeScript text of the CodeTypeReference
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string GetCodeTypeReferenceText(CodeTypeReference type)
         {
             if (type == null)
                 return null;
@@ -69,7 +76,7 @@ namespace Fonlow.TypeScriptCodeDom
             string tsTypeName;
             if (IsArrayType(type))//I am not sure why the type.BaseType is the same as the ArrayElementType, even if I gave it System.Array
             {
-                var elementTypeName = GetTypeOutput(type.ArrayElementType);
+                var elementTypeName = GetCodeTypeReferenceText(type.ArrayElementType);
                 return $"Array<{elementTypeName}>"; //more consistence with IEnumerable
                 //var arrayBaskets = string.Concat(Enumerable.Repeat("[]", type.ArrayRank));
                 //return $"{type.ArrayElementType.BaseType}{arrayBaskets}";
@@ -85,24 +92,35 @@ namespace Fonlow.TypeScriptCodeDom
             if (IsGenericArrayType(type.BaseType))
             {
                 System.Diagnostics.Trace.Assert(type.TypeArguments.Count == 1);
-                return $"Array<{GetTypeOutput(type.TypeArguments[0])}>";
+                return $"Array<{GetCodeTypeReferenceText(type.TypeArguments[0])}>";
             }
 
             if (IsNullableType(type.BaseType))
             {
                 System.Diagnostics.Trace.Assert(type.TypeArguments.Count == 1);
-                return GetTypeOutput(type.TypeArguments[0]);// + "?"; in javascript all is optional anyway.
+                return GetCodeTypeReferenceText(type.TypeArguments[0]);// + "?"; in javascript all is optional anyway.
             }
 
-            var genericBaseTypeName = type.BaseType.Contains("`1") ? type.BaseType.Replace("`1", null) : type.BaseType;  //.NET runtime gives `1 suffix, but TS does not need it.
+            if (type.TypeArguments.Count > 0)
+            {
 
-            return $"{genericBaseTypeName}<{GetCodeTypeReferenceCollection(type.TypeArguments)}>";
+                var genericBaseTypeName = type.BaseType.Contains("`1") ? type.BaseType.Replace("`1", null) : type.BaseType;  //.NET runtime gives `1 suffix, but TS does not need it.
+
+                return $"{genericBaseTypeName}<{GetCodeTypeReferenceCollection(type.TypeArguments)}>";
+            }
+
+            System.Diagnostics.Trace.TraceInformation($"{type.BaseType} is mapped to any.");
+            return "any";//todo: this should never happen, should I raise an exception?
         }
 
-
+        /// <summary>
+        /// Get text of CodeTypeReferenceCollection in CSV
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         public static string GetCodeTypeReferenceCollection(CodeTypeReferenceCollection collection)
         {
-            var arguments = collection.OfType<CodeTypeReference>().Select(d => GetTypeOutput(d));
+            var arguments = collection.OfType<CodeTypeReference>().Select(d => GetCodeTypeReferenceText(d));
             return String.Join(", ", arguments);
         }
 

@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Fonlow.Poco2Ts
 {
     /// <summary>
-    /// 
+    /// Pick types in the assembly for further processing
     /// </summary>
     public static class PocoAssemblyWalker
     {
@@ -27,7 +27,7 @@ namespace Fonlow.Poco2Ts
             var cherryTypes = GetCherryTypes(assembly, methods);
 
             var gen = new Poco2TsGen();
-            gen.Generate(cherryTypes, methods);
+            gen.CreateTsCodeDom(cherryTypes, methods);
             gen.SaveTsCodeToFile(tsFilePath);
             Trace.WriteLine($"{tsFilePath} is generated.");
         }

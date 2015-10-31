@@ -39,7 +39,7 @@ namespace Fonlow.Poco2Ts
             {
                 using (StreamWriter writer = new StreamWriter(fileName))
                 {
-                    SaveTsCode(writer);
+                    WriteTsCode(writer);
                 }
 
             }
@@ -61,7 +61,7 @@ namespace Fonlow.Poco2Ts
         /// Save TypeScript codes generated into a TextWriter.
         /// </summary>
         /// <param name="writer"></param>
-        public void SaveTsCode(TextWriter writer)
+        public void WriteTsCode(TextWriter writer)
         {
             if (writer == null)
                 throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
@@ -85,11 +85,11 @@ namespace Fonlow.Poco2Ts
         string[] pendingTypesNames;
 
         /// <summary>
-        /// Generate type declarations in TypeScripCodeDom for POCO types. Only members decorated by MemberDataAttribute will be processed.
+        /// Create type declarations in TypeScripCodeDom for POCO types. Only members decorated by MemberDataAttribute will be processed.
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
         /// <param name="types">POCO types with members decorated by DataMemberAttribute.</param>
-        public void Generate(Type[] types, CherryPickingMethods methods)
+        public void CreateTsCodeDom(Type[] types, CherryPickingMethods methods)
         {
             if (types == null)
                 throw new ArgumentNullException("types", "types is not defined.");
@@ -119,7 +119,7 @@ namespace Fonlow.Poco2Ts
                         {
                             if (namespacesOfTypes.Contains(type.BaseType.Namespace))
                             {
-                                typeDeclaration.BaseTypes.Add((type.BaseType.Namespace).Replace('.', '_') + "_Client." + type.BaseType.Name);
+                                typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
                             }
                             else
                             {
@@ -212,7 +212,7 @@ namespace Fonlow.Poco2Ts
         CodeTypeReference GetClientFieldTypeText(Type t)
         {
             if (pendingTypes.Contains(t))
-                return new CodeTypeReference(t.Namespace.Replace('.', '_') + "_Client." + t.Name);
+                return new CodeTypeReference(RefineCustomComplexTypeText(t));
             else if (t.IsGenericType)
             {
                 if (t.GetInterface("IEnumerable", true) != null)
@@ -261,9 +261,14 @@ namespace Fonlow.Poco2Ts
 
         }
 
+        static string RefineCustomComplexTypeText(Type t)
+        {
+            return t.Namespace.Replace('.', '_') + "_Client." + t.Name;
+        }
+
         CodeTypeReference CreateArrayOfCustomTypeReference(Type t, Type elementType, int arrayRank)
         {
-            var elementTypeReference = new CodeTypeReference(elementType.Namespace.Replace('.', '_') + "_Client." + elementType.Name);
+            var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
             var arrayTypeReference = new CodeTypeReference("System.Array");
             var typeReference = new CodeTypeReference(arrayTypeReference, arrayRank)
             {

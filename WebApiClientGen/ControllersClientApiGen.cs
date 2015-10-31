@@ -46,7 +46,7 @@ namespace Fonlow.CodeDom.Web.Cs
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public override  void Generate(Collection<ApiDescription> descriptions)
+        public override  void CreateCodeDom(Collection<ApiDescription> descriptions)
         {
             //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);

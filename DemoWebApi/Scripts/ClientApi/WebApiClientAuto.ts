@@ -1,7 +1,13 @@
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="Common.ts" />
+/// <reference path="DataModelsAuto.ts" />
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
+
         httpClient: HttpClient;
+
         error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
+
         statusCode: { [key: string]: any; };
 
         constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){
@@ -200,8 +206,11 @@ namespace DemoWebApi_Controllers_Client {
     }
 
     export class Entities {
+
         httpClient: HttpClient;
+
         error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
+
         statusCode: { [key: string]: any; };
 
         constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){
@@ -249,8 +258,11 @@ namespace DemoWebApi_Controllers_Client {
     }
 
     export class Values {
+
         httpClient: HttpClient;
+
         error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
+
         statusCode: { [key: string]: any; };
 
         constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){

@@ -35,7 +35,7 @@ namespace Fonlow.WebApiClientGen
                 var path = System.IO.Path.Combine(clientProjectDir, "WebApiClientAuto.cs");
                 var gen = new Fonlow.CodeDom.Web.Cs.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
                 gen.ForBothAsyncAndSync = parameters.GenerateBothAsyncAndSync;
-                gen.Generate(apiDescriptions);
+                gen.CreateCodeDom(apiDescriptions);
                 gen.Save(path);
             }
 
@@ -62,7 +62,7 @@ namespace Fonlow.WebApiClientGen
 
                 var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(parameters.PrefixesOfCustomNamespaces, 
                     parameters.ExcludedControllerNames, parameters.TypeScriptDataModelNamespaces);
-                tsGen.Generate(apiDescriptions);
+                tsGen.CreateCodeDom(apiDescriptions);
                 tsGen.Save(tsPath);
             }
             return "OK";

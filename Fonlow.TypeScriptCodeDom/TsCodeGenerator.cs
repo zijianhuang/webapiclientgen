@@ -19,11 +19,16 @@ namespace Fonlow.TypeScriptCodeDom
 
         public void GenerateCodeFromCompileUnit(CodeCompileUnit e, TextWriter w, CodeGeneratorOptions o)
         {
-            e.Namespaces.OfType<CodeNamespace>().ToList().ForEach(n =>
+            for (int i = 0; i < e.ReferencedAssemblies.Count; i++)
             {
-                GenerateCodeFromNamespace(n, w, o);
+                w.WriteLine("/// "+e.ReferencedAssemblies[i]);
+            }
+
+            for (int i = 0; i < e.Namespaces.Count; i++)
+            {
+                GenerateCodeFromNamespace(e.Namespaces[i], w, o);
                 w.WriteLine();
-            });
+            }
         }
 
         public void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
@@ -33,25 +38,7 @@ namespace Fonlow.TypeScriptCodeDom
 
         public void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
         {
-            var refinedNamespaceText = e.Name.Replace('.', '_');
-
-            w.WriteLine($"namespace {refinedNamespaceText} {{");
-
-            for (int i = 0; i < e.Imports.Count; i++)
-            {
-                var ns = e.Imports[i];
-                var nsText = ns.Namespace;
-                var alias = nsText.Replace('.', '_');
-                w.WriteLine($"{o.IndentString}import {alias} = {nsText};");
-            }
-
-            e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
-            {
-                GenerateCodeFromType(t, w, o);
-                w.WriteLine();
-            });
-                       
-            w.WriteLine($"}}");
+            CodeObjectHelper.GenerateCodeFromNamespace(e, w, o);
         }
 
         public void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)

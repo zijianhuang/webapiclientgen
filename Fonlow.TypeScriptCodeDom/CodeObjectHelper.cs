@@ -16,8 +16,34 @@ namespace Fonlow.TypeScriptCodeDom
     {
         #region public GenerateCodeFromXXX
 
+        public static void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+        {
+            WriteCodeCommentStatementCollection(e.Comments, w, o);
+
+            var refinedNamespaceText = e.Name.Replace('.', '_');
+            w.WriteLine($"namespace {refinedNamespaceText} {{");
+
+            for (int i = 0; i < e.Imports.Count; i++)
+            {
+                var ns = e.Imports[i];
+                var nsText = ns.Namespace;
+                var alias = nsText.Replace('.', '_');
+                w.WriteLine($"{o.IndentString}import {alias} = {nsText};");
+            }
+
+            e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
+            {
+                GenerateCodeFromType(t, w, o);
+                w.WriteLine();
+            });
+
+            w.WriteLine($"}}");
+        }
+
         public static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
+            WriteCodeCommentStatementCollection(e.Comments, w, o);
+
             var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
             var typeOfType = CodeObjectHelper.GetTypeOfType(e);
             var name = e.Name;
@@ -31,7 +57,7 @@ namespace Fonlow.TypeScriptCodeDom
         {
             if (e == null)
                 return;
-
+           
             var currentIndent = o.IndentString;
             var argumentReferenceExpression = e as CodeArgumentReferenceExpression;
             if (argumentReferenceExpression != null)
@@ -208,9 +234,9 @@ namespace Fonlow.TypeScriptCodeDom
         static bool WriteCodeFieldReferenceExpression(CodeFieldReferenceExpression fieldReferenceExpression, TextWriter w, CodeGeneratorOptions o)
         {
             if (fieldReferenceExpression == null)
-                return false;
+                return false; 
 
-            GenerateCodeFromExpression(fieldReferenceExpression.TargetObject, w, o);
+             GenerateCodeFromExpression(fieldReferenceExpression.TargetObject, w, o);
             w.Write(".");
             w.Write(fieldReferenceExpression.FieldName);
             return true;
@@ -372,6 +398,8 @@ namespace Fonlow.TypeScriptCodeDom
             if (codeMemberProperty == null)
                 return false;
 
+            WriteCodeCommentStatementCollection(codeMemberProperty.Comments, w, o);
+
             var accessibility = GetAccessibilityModifier(codeMemberProperty.Attributes);
 
             var currentIndent = o.IndentString;
@@ -396,6 +424,38 @@ namespace Fonlow.TypeScriptCodeDom
                 o.IndentString = currentIndent;
             }
 
+            return true;
+        }
+
+        static bool WriteCodeMemberMethod(CodeMemberMethod memberMethod, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (memberMethod == null)
+                return false;
+
+            var isCodeConstructor = memberMethod is CodeConstructor;
+            //todo: CodeEntryPointMethod not applicable to TS
+            //todo: CodeTypeConstructor  TS support partially static, so probably not applicable
+            var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
+            w.Write(o.IndentString + methodName + "(");
+            WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
+            w.Write(")");
+
+            var returnTypeText = TypeMapper.GetCodeTypeReferenceText(memberMethod.ReturnType);
+            if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
+            {
+                //if (returnTypeText.Contains("?"))
+                //    w.Write(": any");
+                //else
+                w.Write(": " + returnTypeText);
+            }
+
+            w.WriteLine("{");
+
+            //todo:  memberMethod.TypeParameters ? how many would generate generic methods
+
+            WriteCodeStatementCollection(memberMethod.Statements, w, o);
+
+            w.WriteLine(o.IndentString + "}");
             return true;
         }
 
@@ -446,7 +506,7 @@ namespace Fonlow.TypeScriptCodeDom
             {
                 var enumMembers = typeDeclaration.Members.OfType<CodeTypeMember>().Select(ctm =>
                  {
-                     var codeMemberField = ctm as CodeMemberField;
+                     var codeMemberField = ctm as CodeMemberField;//codeMemberField.Comments is ignored here. Not sure anyone would write codegen that emit comments for enum members?
                      System.Diagnostics.Trace.Assert(codeMemberField != null);
                      var enumMember = GetEnumMember(codeMemberField);
                      System.Diagnostics.Trace.Assert(!String.IsNullOrEmpty(enumMember));
@@ -473,6 +533,9 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
         {
+            w.WriteLine();
+            WriteCodeCommentStatementCollection(ctm.Comments, w, o);
+
             var codeMemberField = ctm as CodeMemberField;
             if (codeMemberField != null)
             {
@@ -484,40 +547,8 @@ namespace Fonlow.TypeScriptCodeDom
             if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
                 return;
 
-            var memberMethod = ctm as CodeMemberMethod;
-            if (memberMethod != null)
-            {
-                w.WriteLine();
-                if (memberMethod.Comments.Count>0)
-                {
-                    WriteCodeCommentStatement(memberMethod.Comments[0], w, o);
-                }
-
-                var isCodeConstructor = memberMethod is CodeConstructor;
-                //todo: CodeEntryPointMethod not applicable to TS
-                //todo: CodeTypeConstructor  TS support partially static, so probably not applicable
-                var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
-                w.Write(o.IndentString + methodName + "(");
-                WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
-                w.Write(")");
-
-                var returnTypeText = TypeMapper.GetCodeTypeReferenceText(memberMethod.ReturnType);
-                if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
-                {
-                    //if (returnTypeText.Contains("?"))
-                    //    w.Write(": any");
-                    //else
-                        w.Write(": " + returnTypeText);
-                }
-
-                w.WriteLine("{");
-
-                //todo:  memberMethod.TypeParameters ? how many would generate generic methods
-
-                WriteCodeStatementCollection(memberMethod.Statements, w, o);
-
-                w.WriteLine(o.IndentString + "}");
-            }
+            if (WriteCodeMemberMethod(ctm as CodeMemberMethod, w, o))
+                return;
 
             var snippetTypeMember = ctm as CodeSnippetTypeMember;
             if (snippetTypeMember != null)
@@ -569,6 +600,14 @@ namespace Fonlow.TypeScriptCodeDom
         {
             var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>().Select(d => $"{d.Name}: {TypeMapper.GetCodeTypeReferenceText(d.Type)}");
             w.Write(String.Join(", ", pairs));
+        }
+
+        static void WriteCodeCommentStatementCollection(CodeCommentStatementCollection comments, TextWriter w, CodeGeneratorOptions  o)
+        {
+            for (int i = 0; i < comments.Count; i++)
+            {
+                WriteCodeCommentStatement(comments[i], w, o);
+            }
         }
 
         static void WriteCodeMethodReferenceExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)

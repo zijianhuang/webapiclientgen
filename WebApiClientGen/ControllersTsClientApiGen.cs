@@ -52,8 +52,9 @@ namespace Fonlow.CodeDom.Web.Ts
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public override  void Generate(Collection<ApiDescription> descriptions)
+        public override  void CreateCodeDom(Collection<ApiDescription> descriptions)
         {
+            AddBasicReferences();
             //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
 
@@ -96,6 +97,14 @@ namespace Fonlow.CodeDom.Web.Ts
                 existingClientClass.Members.Add(apiFunction);
             }
 
+        }
+
+        void AddBasicReferences()
+        {
+            targetUnit.ReferencedAssemblies.Add("<reference path=\"../typings/jquery/jquery.d.ts\" />");
+            targetUnit.ReferencedAssemblies.Add("<reference path=\"Common.ts\" />");
+            targetUnit.ReferencedAssemblies.Add("<reference path=\"DataModelsAuto.ts\" />");
+         //   targetUnit.ReferencedAssemblies.Add("");
         }
 
         /// <summary>

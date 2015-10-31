@@ -44,6 +44,6 @@ namespace Fonlow.CodeDom.Web
 
         public abstract void Save(string fileName);
 
-        public abstract void Generate(Collection<ApiDescription> descriptions);
+        public abstract void CreateCodeDom(Collection<ApiDescription> descriptions);
     }
 }

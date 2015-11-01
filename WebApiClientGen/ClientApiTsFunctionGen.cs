@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -46,6 +47,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
         static readonly Type typeOfHttpActionResult = typeof(System.Web.Http.IHttpActionResult);
         static readonly Type typeOfChar = typeof(char);
+        static readonly Type typeOfString = typeof(string);
 
         public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description)
         {
@@ -162,13 +164,39 @@ namespace Fonlow.CodeDom.Web.Ts
 
             }).ToList();
 
-            var queryParams = parameters.Select(p =>
+            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
+            parameters.Add(new CodeParameterDeclarationExpression()
             {
-                var pValue = p.Type.BaseType == "System.String" ? $"encodeURIComponent({p.Name})" : p.Name;
-                return $"+'{p.Name}='+{pValue}";
+                Name = "callback",
+                Type = new CodeTypeReference(callbackTypeText),
+            });
+
+            method.Parameters.AddRange(parameters.ToArray());
+
+            var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+            var uriText = jsUriQuery == null ? $"'{description.RelativePath}'" : RemoveTrialEmptyString( $"encodeURI('{jsUriQuery}')");
+            method.Statements.Add(new CodeSnippetStatement(
+                $"this.httpClient.{httpMethod}({uriText}, callback, this.error, this.statusCode);"));
+        }
+
+        void RenderPostOrPutImplementation(string httpMethod)
+        {
+            //Create function parameters
+            var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
+            {
+                Name = d.Name,
+                Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
+
             }).ToList();
 
-            var queryExpressionText = String.Join("&", queryParams);
+            var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
+                || (IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute) 
+                || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
+            if (fromBodyParameterDescriptions.Length > 1)
+            {
+                throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
+            }
+            var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
             var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
             parameters.Add(new CodeParameterDeclarationExpression()
@@ -179,15 +207,56 @@ namespace Fonlow.CodeDom.Web.Ts
 
             method.Parameters.AddRange(parameters.ToArray());
 
+            var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+
+            var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+            var uriText = jsUriQuery == null ? $"'{description.RelativePath}'" : RemoveTrialEmptyString( $"encodeURI('{jsUriQuery}')");
+
             method.Statements.Add(new CodeSnippetStatement(
-                $"this.httpClient.{httpMethod}('{description.RelativePath}'{queryExpressionText}, callback, this.error, this.statusCode);"));
+                $"this.httpClient.{httpMethod}({uriText}, {dataToPost}, callback, this.error, this.statusCode);"));
+        }
+
+        static string RemoveTrialEmptyString(string s)
+        {
+            var p = s.IndexOf("+''");
+            return s.Remove(p, 3);
+        }
+
+
+        static string CreateUriQuery(string uriText, Collection<ApiParameterDescription> parameterDescriptions)
+        {
+            var template = new UriTemplate(uriText);
+
+            if (template.QueryValueVariableNames.Count == 0 && template.PathSegmentVariableNames.Count == 0)
+                return null;
+
+            string newUriText = uriText;
+
+            var hasQuery = template.QueryValueVariableNames.Count > 0;
+
+            for (int i = 0; i < template.PathSegmentVariableNames.Count; i++)
+            {
+                var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
+                var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+                Debug.Assert(d != null);
+                newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
+            }
+
+            for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
+            {
+                var name = template.QueryValueVariableNames[i];
+                var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+                Debug.Assert(d != null);
+                newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
+            }
+
+            return newUriText;
         }
 
         static readonly Type typeOfHttpResponseMessage = typeof(System.Net.Http.HttpResponseMessage);
 
- 
 
-        Type typeOfString = typeof(string);
+
         bool IsSimpleType(Type type)
         {
             return type.IsPrimitive || type.Equals(typeOfString);
@@ -203,57 +272,6 @@ namespace Fonlow.CodeDom.Web.Ts
             return type.Equals(typeOfString);
         }
 
-        void RenderPostOrPutImplementation(string httpMethod)
-        {
-            //Create function parameters
-            var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
-            {
-                Name = d.Name,
-                Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
-
-            }).ToList();
-
-            var uriQueryParameters = description.ParameterDescriptions.Where(d =>
-                (!(d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute) && IsSimpleType(d.ParameterDescriptor.ParameterType))
-                || (IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
-                || (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
-                ).Select(d => new CodeParameterDeclarationExpression()
-                {
-                    Name = d.Name,
-                    Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
-                }).ToArray();
-
-            var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
-                || (IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute) || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
-            if (fromBodyParameterDescriptions.Length > 1)
-            {
-                throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
-            }
-            var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-            var queryParams = parameters.Select(p =>
-            {
-                var pValue = p.Type.BaseType == "System.String" ? $"encodeURIComponent({p.Name})" : p.Name;
-                return $"+'{p.Name}='+{pValue}";
-            }).ToList();
-
-            var queryExpressionText = String.Join("&", queryParams);
-
-            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
-
-            parameters.Add(new CodeParameterDeclarationExpression()
-            {
-                Name = "callback",
-                Type = new CodeTypeReference(callbackTypeText),
-            });
-
-            method.Parameters.AddRange(parameters.ToArray());
-
-            var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
-            method.Statements.Add(new CodeSnippetStatement(
-                $"this.httpClient.{httpMethod}('{description.RelativePath}'{queryExpressionText}, {dataToPost}, callback, this.error, this.statusCode);"));
-        }
 
     }
 

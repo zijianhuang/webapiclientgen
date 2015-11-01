@@ -22,7 +22,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         GetIntSquare(d: number, callback: (data : number) = > any){
-            this.httpClient.get('api/SuperDemo/int?d={d}'+'d='+d, callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI('api/SuperDemo/int?d='+d), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -31,7 +31,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         GetDecimalSquare(d: number, callback: (data : number) = > any){
-            this.httpClient.get('api/SuperDemo/decimal?d={d}'+'d='+d, callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI('api/SuperDemo/decimal?d='+d), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -40,7 +40,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         GetDateTime(hasValue: boolean, callback: (data : Date) = > any){
-            this.httpClient.get('api/SuperDemo/NullableDatetime?hasValue={hasValue}'+'hasValue='+hasValue, callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI('api/SuperDemo/NullableDatetime?hasValue='+hasValue), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -49,7 +49,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         GetNullableDecimal(hasValue: boolean, callback: (data : number) = > any){
-            this.httpClient.get('api/SuperDemo/NullableDecimal?hasValue={hasValue}'+'hasValue='+hasValue, callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI('api/SuperDemo/NullableDecimal?hasValue='+hasValue), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -226,7 +226,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} person in db
          */
         GetPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) = > any){
-            this.httpClient.get('api/Entities/{id}'+'id='+id, callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI('api/Entities/'+id), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -235,7 +235,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         CreatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : number) = > any){
-            this.httpClient.post('api/Entities'+'person='+person, person, callback, this.error, this.statusCode);
+            this.httpClient.post('api/Entities', person, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -244,7 +244,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         UpdatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : ) = > any){
-            this.httpClient.put('api/Entities'+'person='+person, person, callback, this.error, this.statusCode);
+            this.httpClient.put('api/Entities', person, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -253,7 +253,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         Delete(id: number, callback: (data : ) = > any){
-            this.httpClient.delete('api/Entities/{id}'+'id='+id, callback, this.error, this.statusCode);
+            this.httpClient.delete(encodeURI('api/Entities/'+id), callback, this.error, this.statusCode);
         }
     }
 
@@ -286,7 +286,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         Get(id: number, name: string, callback: (data : string) = > any){
-            this.httpClient.get('api/Values/{id}?name={name}'+'id='+id&+'name='+name, callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI('api/Values/'+id+'?name='+name), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -295,7 +295,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         Post(value: string, callback: (data : string) = > any){
-            this.httpClient.post('api/Values'+'value='+value, value, callback, this.error, this.statusCode);
+            this.httpClient.post('api/Values', value, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -305,7 +305,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         Put(id: number, value: string, callback: (data : ) = > any){
-            this.httpClient.put('api/Values/{id}'+'id='+id&+'value='+value, value, callback, this.error, this.statusCode);
+            this.httpClient.put(encodeURI('api/Values/'+id), value, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -314,7 +314,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         Delete(id: number, callback: (data : ) = > any){
-            this.httpClient.delete('api/Values/{id}'+'id='+id, callback, this.error, this.statusCode);
+            this.httpClient.delete(encodeURI('api/Values/'+id), callback, this.error, this.statusCode);
         }
     }
 

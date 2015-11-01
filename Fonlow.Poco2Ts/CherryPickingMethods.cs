@@ -45,13 +45,20 @@ namespace Fonlow.Poco2Ts
         AspNet = 8,
     }
 
+    /// <summary>
+    /// How significant the cherry is
+    /// </summary>
     public enum CherryType
     {
         None,
+
         Cherry,
         BigCherry,
     }
 
+    /// <summary>
+    /// Pick a type or a member field or property
+    /// </summary>
     public static class CherryPicking
     {
         public static bool IsCherryType(Type type, CherryPickingMethods methods)

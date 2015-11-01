@@ -69,6 +69,32 @@ namespace Fonlow.WebApiClientGen
         }
     }
 
+    /*
+json object to post with content-type application/json
+
+
+ {
+    "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
+    "PrefixesOfCustomNamespaces": [
+      "DemoWebApi"
+    ],
+    "ExcludedControllerNames": [
+      "DemoWebApi.Controllers.Account"
+    ],
+    "GenerateBothAsyncAndSync": true,
+
+    "TypeScriptFolder" : "ClientApi",
+    "TypeScriptDataModelNamespaces" : [
+       "DemoWebApi_DemoData_Client"
+    ],
+    "DataModelAssembliesNames" : [
+       "DemoWebApi.DemoData"
+    ],
+    "CherryPickingMethods" : 1,
+  }
+*/
+
+
 
 }
 #endif

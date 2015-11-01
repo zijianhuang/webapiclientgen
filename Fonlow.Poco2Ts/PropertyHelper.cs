@@ -66,7 +66,6 @@ namespace Fonlow.Poco2Ts
                 throw new ArgumentNullException("type");
             }
 
-            //  return type.CustomAttributes.Any(d => d.AttributeType.FullName == attributeTypeText);
             return type.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;
         }
 
@@ -77,7 +76,6 @@ namespace Fonlow.Poco2Ts
                 throw new ArgumentNullException("memberInfo");
             }
 
-            //    return memberInfo.CustomAttributes.Any(d => d.AttributeType.FullName == attributeTypeText);
             return memberInfo.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;
 
         }

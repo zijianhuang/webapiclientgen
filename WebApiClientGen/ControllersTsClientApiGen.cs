@@ -24,11 +24,9 @@ namespace Fonlow.CodeDom.Web.Ts
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
         public ControllersTsClientApiGen(CodeGenParameters codeGenParameters)
-            :base(codeGenParameters)
+            : base(codeGenParameters)
         {
         }
-
-        string[] dataModelNamespaces, dataModelAssemblyNames;
 
         /// <summary>
         /// Save C# codes into a file.
@@ -54,7 +52,7 @@ namespace Fonlow.CodeDom.Web.Ts
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public override  void CreateCodeDom(Collection<ApiDescription> descriptions)
+        public override void CreateCodeDom(Collection<ApiDescription> descriptions)
         {
             AddBasicReferences();
 
@@ -106,12 +104,16 @@ namespace Fonlow.CodeDom.Web.Ts
 
         void GenerateDataModels()
         {
+            if (codeGenParameters.DataModelAssemblyNames == null)
+                return;
+
             var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var assemblies= allAssemblies.Where(d => dataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
+            var assemblies = allAssemblies.Where(d => codeGenParameters.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
             var poco2TsGen = new Fonlow.Poco2Ts.Poco2TsGen(targetUnit);
+            var cherryPickingMethods = codeGenParameters.CherryPickingMethods.HasValue ? (Fonlow.Poco2Ts.CherryPickingMethods)codeGenParameters.CherryPickingMethods.Value : Poco2Ts.CherryPickingMethods.DataContract;
             foreach (var assembly in assemblies)
             {
-                poco2TsGen.CreateTsCodeDom(assembly, Poco2Ts.CherryPickingMethods.All);
+                poco2TsGen.CreateTsCodeDom(assembly, cherryPickingMethods);
             }
         }
 
@@ -119,8 +121,7 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             targetUnit.ReferencedAssemblies.Add("<reference path=\"../typings/jquery/jquery.d.ts\" />");
             targetUnit.ReferencedAssemblies.Add("<reference path=\"Common.ts\" />");
-            targetUnit.ReferencedAssemblies.Add("<reference path=\"DataModelsAuto.ts\" />");
-         //   targetUnit.ReferencedAssemblies.Add("");
+            //   targetUnit.ReferencedAssemblies.Add("");
         }
 
         /// <summary>
@@ -208,12 +209,7 @@ namespace Fonlow.CodeDom.Web.Ts
 @"this.httpClient = new HttpClient();
 this.error = error;
 this.statusCode = statusCode;"));
-            
-            // Add field initialization logic
-            sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");//todo: remove
-        //    constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));
-            sharedContext.baseUriReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "baseUri");//todo: remove
-        //    constructor.Statements.Add(new CodeAssignStatement(sharedContext.baseUriReference, new CodeArgumentReferenceExpression("baseUri")));
+
             targetClass.Members.Add(constructor);
         }
 

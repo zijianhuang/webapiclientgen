@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Fonlow.CodeDom.Web
 {
+    /// <summary>
+    /// Parameters to be used from client programs to CodeGen.
+    /// </summary>
     public class CodeGenParameters
     {
         /// <summary>
@@ -39,10 +42,15 @@ namespace Fonlow.CodeDom.Web
         public string[] DataModelAssemblyNames
         { get; set; }
 
+        /// <summary>
+        /// Cherry picking methods of POCO classes
+        /// </summary>
         public int? CherryPickingMethods { get; set; }
     }
+    // everytime the json gets updated, make a copy in CodeGenController
     /*
     json object to post with content-type application/json
+
     
      {
         "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
@@ -53,6 +61,7 @@ namespace Fonlow.CodeDom.Web
           "DemoWebApi.Controllers.Account"
         ],
         "GenerateBothAsyncAndSync": true,
+
         "TypeScriptFolder" : "ClientApi",
         "TypeScriptDataModelNamespaces" : [
            "DemoWebApi_DemoData_Client"
@@ -60,6 +69,7 @@ namespace Fonlow.CodeDom.Web
         "DataModelAssembliesNames" : [
            "DemoWebApi.DemoData"
         ],
+        "CherryPickingMethods" : 1,
       }
     */
 }

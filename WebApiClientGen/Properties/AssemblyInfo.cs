@@ -7,7 +7,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WebApiClientGen")]
-[assembly: AssemblyDescription("Generate strongly typed client API for ASP.NET Web API")]
+[assembly: AssemblyDescription("Generate strongly typed client API in C# or TypeScript for ASP.NET Web API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fonlow")]
 [assembly: AssemblyProduct("WebApiClientGen")]
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyFileVersion("1.3.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

@@ -39,7 +39,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             methodName = description.ActionDescriptor.ActionName;
             if (methodName.EndsWith("Async"))
-                methodName = methodName.Substring(0, methodName.Length - 5);
+                methodName = methodName.Substring(0, methodName.Length - 5);//HTTP does not care about the server side async.
 
             returnType = description.ActionDescriptor.ReturnType;
 
@@ -164,16 +164,15 @@ namespace Fonlow.CodeDom.Web.Ts
 
             if (httpMethod == "get" || httpMethod == "delete")
             {
-                method.Statements.Add(new CodeSnippetStatement(
-    $"this.httpClient.{httpMethod}({uriText}, callback, this.error, this.statusCode);"));
+                method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethod}({uriText}, callback, this.error, this.statusCode);"));
                 return;
             }
 
             if (httpMethod == "post" || httpMethod == "put")
             {
                 var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
-        || (IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
-        || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
+                    || (IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
+                    || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
                 if (fromBodyParameterDescriptions.Length > 1)
                 {
                     throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
@@ -182,8 +181,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-                method.Statements.Add(new CodeSnippetStatement(
-    $"this.httpClient.{httpMethod}({uriText}, {dataToPost}, callback, this.error, this.statusCode);"));
+                method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethod}({uriText}, {dataToPost}, callback, this.error, this.statusCode);"));
                 return;
             }
 

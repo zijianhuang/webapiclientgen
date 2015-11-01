@@ -17,19 +17,20 @@ namespace Fonlow.Poco2Ts
     public class Poco2TsGen
     {
         CodeCompileUnit targetUnit;
-        Dictionary<string, object> apiClassesDic;
         CodeTypeDeclaration[] newTypesCreated;
 
         public Poco2TsGen()
         {
             targetUnit = new CodeCompileUnit();
-            apiClassesDic = new Dictionary<string, object>();
         }
 
+        /// <summary>
+        /// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.
+        /// </summary>
+        /// <param name="codeCompileUnit"></param>
         public Poco2TsGen(CodeCompileUnit codeCompileUnit)
         {
             targetUnit = codeCompileUnit;
-            apiClassesDic = new Dictionary<string, object>();
         }
 
 
@@ -98,10 +99,10 @@ namespace Fonlow.Poco2Ts
         string[] pendingTypesNames;
 
         /// <summary>
-        /// Create type declarations in TypeScripCodeDom for POCO types. Only members decorated by MemberDataAttribute will be processed.
+        /// Create type declarations in TypeScripCodeDom for POCO types. 
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
-        /// <param name="types">POCO types with members decorated by DataMemberAttribute.</param>
+        /// <param name="types">POCO types.</param>
         public void CreateTsCodeDom(Type[] types, CherryPickingMethods methods)
         {
             if (types == null)
@@ -251,22 +252,6 @@ namespace Fonlow.Poco2Ts
                 Debug.Assert(t.Name.EndsWith("]"));
                 var elementType = t.GetElementType();
                 var arrayRank = t.GetArrayRank();
-                //if (pendingTypes.Contains(elementType))
-                //{
-                //    var elementTypeReference = new CodeTypeReference(t.Namespace.Replace('.', '_') + "_Client." + elementType.Name);
-                //    var arrayTypeReference = new CodeTypeReference("System.Array");
-                //    var typeReference = new CodeTypeReference(arrayTypeReference, arrayRank)
-                //    {
-                //        ArrayElementType = elementTypeReference,
-                //    };
-                //    return typeReference;
-                //}
-
-                //var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
-                //{
-                //    ArrayElementType = GetClientFieldTypeText(elementType),
-                //};
-                //return otherArrayType;
                 return CreateArraTypeReference(t, elementType, arrayRank);
             }
 

@@ -7,9 +7,9 @@ using System.Runtime.Serialization;
 namespace Fonlow.Poco2Ts
 {
     /// <summary>
-    /// Pick types in the assembly for further processing
+    /// Pick types in the assembly for further processing. This also takes care of dependency resolution.
     /// </summary>
-    public static class PocoAssemblyWalker
+    public static class PocoAssemblyFileWalker
     {
 
         /// <summary>
@@ -24,13 +24,12 @@ namespace Fonlow.Poco2Ts
             if (assembly == null)
                 return;
 
-            var cherryTypes = GetCherryTypes(assembly, methods);
-
             var gen = new Poco2TsGen();
-            gen.CreateTsCodeDom(cherryTypes, methods);
+            gen.CreateTsCodeDom(assembly, methods);
             gen.SaveTsCodeToFile(tsFilePath);
             Trace.WriteLine($"{tsFilePath} is generated.");
         }
+
 
         static Assembly LoadAssembly(string assemblyFileName)
         {
@@ -60,34 +59,6 @@ namespace Fonlow.Poco2Ts
                 return null;
             }
 
-        }
-
-
-        static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
-        {
-            try
-            {
-                return assembly.GetTypes().Where(type => (IsClassOrStruct(type) || type.IsEnum)
-                && CherryPicking.IsCherryType(type, methods)).ToArray();
-            }
-            catch (ReflectionTypeLoadException e)
-            {
-                foreach (Exception ex in e.LoaderExceptions)
-                {
-                    Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, ex.Message));
-                }
-            }
-            catch (TargetInvocationException e)
-            {
-                Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, e.Message + "~~" + e.InnerException.Message));
-            }
-
-            return null;
-        }
-
-        static bool IsClassOrStruct(Type type)
-        {
-            return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
         }
 
 

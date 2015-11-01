@@ -1104,6 +1104,10 @@
       <Project>{389e24f3-74ee-46f0-8bbb-cc91c006004c}</Project>
       <Name>DemoWebApi.DemoData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj">
+      <Project>{70caa10c-642a-454b-9dec-9ab391eb9c99}</Project>
+      <Name>Fonlow.Poco2Ts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
       <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
       <Name>Fonlow.TypeScriptCodeDom</Name>

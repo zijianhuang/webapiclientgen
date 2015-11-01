@@ -60,28 +60,16 @@ namespace Fonlow.CodeDom.Web.Ts
             //create method
             method = CreateMethodName();
 
-            //    var returnTypeReference = method.ReturnType;
-
             CreateDocComments();
-
-
-            //  var binderAttributes = description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterBinderAttribute).ToArray();
 
             switch (description.HttpMethod.Method)
             {
                 case "GET":
-                    RenderGetOrDeleteImplementation("get");
-                    break;
                 case "DELETE":
-                    RenderGetOrDeleteImplementation("delete");
-                    break;
                 case "POST":
-                    RenderPostOrPutImplementation("post");
-                    break;
                 case "PUT":
-                    RenderPostOrPutImplementation("put");
+                    RenderImplementation();
                     break;
-
                 default:
                     Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod.Method);
                     break;
@@ -138,8 +126,6 @@ namespace Fonlow.CodeDom.Web.Ts
             var r = TypeMapper.GetCodeTypeReferenceText(new CodeTypeReference(t));
             if (r != "any")
                 return r;
-            //if (t == typeOfHttpActionResult)
-            //    return "System.Net.Http.HttpResponseMessage";
 
             return t.FullName;
         }
@@ -154,9 +140,9 @@ namespace Fonlow.CodeDom.Web.Ts
             return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
         }
 
-        void RenderGetOrDeleteImplementation(string httpMethod)
+        void RenderImplementation()
         {
-            //Create function parameters
+            var httpMethod = description.HttpMethod.Method.ToLower(); //Method is always uppercase.
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
             {
                 Name = d.Name,
@@ -174,46 +160,34 @@ namespace Fonlow.CodeDom.Web.Ts
             method.Parameters.AddRange(parameters.ToArray());
 
             var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-            var uriText = jsUriQuery == null ? $"'{description.RelativePath}'" : RemoveTrialEmptyString( $"encodeURI('{jsUriQuery}')");
-            method.Statements.Add(new CodeSnippetStatement(
-                $"this.httpClient.{httpMethod}({uriText}, callback, this.error, this.statusCode);"));
-        }
+            var uriText = jsUriQuery == null ? $"'{description.RelativePath}'" : RemoveTrialEmptyString($"encodeURI('{jsUriQuery}')");
 
-        void RenderPostOrPutImplementation(string httpMethod)
-        {
-            //Create function parameters
-            var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
+            if (httpMethod == "get" || httpMethod == "delete")
             {
-                Name = d.Name,
-                Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
-
-            }).ToList();
-
-            var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
-                || (IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute) 
-                || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
-            if (fromBodyParameterDescriptions.Length > 1)
-            {
-                throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
+                method.Statements.Add(new CodeSnippetStatement(
+    $"this.httpClient.{httpMethod}({uriText}, callback, this.error, this.statusCode);"));
+                return;
             }
-            var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
-            parameters.Add(new CodeParameterDeclarationExpression()
+            if (httpMethod == "post" || httpMethod == "put")
             {
-                Name = "callback",
-                Type = new CodeTypeReference(callbackTypeText),
-            });
+                var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
+        || (IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
+        || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
+                if (fromBodyParameterDescriptions.Length > 1)
+                {
+                    throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
+                }
+                var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-            method.Parameters.AddRange(parameters.ToArray());
+                var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-            var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+                method.Statements.Add(new CodeSnippetStatement(
+    $"this.httpClient.{httpMethod}({uriText}, {dataToPost}, callback, this.error, this.statusCode);"));
+                return;
+            }
 
-            var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-            var uriText = jsUriQuery == null ? $"'{description.RelativePath}'" : RemoveTrialEmptyString( $"encodeURI('{jsUriQuery}')");
-
-            method.Statements.Add(new CodeSnippetStatement(
-                $"this.httpClient.{httpMethod}({uriText}, {dataToPost}, callback, this.error, this.statusCode);"));
+            Debug.Assert(false, "How come?");
         }
 
         static string RemoveTrialEmptyString(string s)

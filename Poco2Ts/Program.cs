@@ -38,7 +38,7 @@ For all classes, properties and fields
             }
             AppDomain appDomain = AppDomain.CurrentDomain;
             appDomain.AssemblyResolve += AppDomain_AssemblyResolve;
-            PocoAssemblyWalker.Walk(assemblyName, tsFileName, methods);
+            PocoAssemblyFileWalker.Walk(assemblyName, tsFileName, methods);
         }
 
         static CherryPickingMethods ReadMethods(string s)

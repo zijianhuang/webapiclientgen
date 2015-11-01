@@ -39,6 +39,7 @@ namespace DemoWebApi_DemoData_Client {
         BusinessNumberType?: string;
         TextMatrix?: Array<Array<string>>;
         Int3D?: Array<Array<Array<number>>>;
+        Lines?: Array<string>;
     }
 
 }

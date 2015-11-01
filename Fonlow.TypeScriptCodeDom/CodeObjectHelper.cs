@@ -533,7 +533,6 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
         {
-            w.WriteLine();
             WriteCodeCommentStatementCollection(ctm.Comments, w, o);
 
             var codeMemberField = ctm as CodeMemberField;
@@ -604,6 +603,9 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void WriteCodeCommentStatementCollection(CodeCommentStatementCollection comments, TextWriter w, CodeGeneratorOptions  o)
         {
+            if (comments.Count>0)
+                w.WriteLine();
+
             for (int i = 0; i < comments.Count; i++)
             {
                 WriteCodeCommentStatement(comments[i], w, o);

@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70CAA10C-642A-454B-9DEC-9AB391EB9C99}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{72613D4B-C775-4F43-AF7E-4C570F14FCFC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fonlow.Poco2Ts</RootNamespace>
-    <AssemblyName>Fonlow.Poco2Ts</AssemblyName>
+    <RootNamespace>Poco2Ts</RootNamespace>
+    <AssemblyName>Poco2Ts</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,24 +30,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Fonlow.Poco2Ts.xml</DocumentationFile>
-    <NoWarn>1591,1573</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\WebApiClientGen.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,19 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CherryPickingMethods.cs" />
-    <Compile Include="PocoWalker.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyHelper.cs" />
-    <Compile Include="TsPodGen.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\WebApiClientGen.snk">
-      <Link>Properties\WebApiClientGen.snk</Link>
-    </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj">
+      <Project>{70caa10c-642a-454b-9dec-9ab391eb9c99}</Project>
+      <Name>Fonlow.Poco2Ts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
       <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
       <Name>Fonlow.TypeScriptCodeDom</Name>

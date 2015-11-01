@@ -26,6 +26,13 @@ namespace Fonlow.Poco2Ts
             apiClassesDic = new Dictionary<string, object>();
         }
 
+        public Poco2TsGen(CodeCompileUnit codeCompileUnit)
+        {
+            targetUnit = codeCompileUnit;
+            apiClassesDic = new Dictionary<string, object>();
+        }
+
+
         /// <summary>
         /// Save TypeScript codes generated into a file.
         /// </summary>
@@ -41,7 +48,6 @@ namespace Fonlow.Poco2Ts
                 {
                     WriteTsCode(writer);
                 }
-
             }
             catch (IOException e)
             {
@@ -75,6 +81,13 @@ namespace Fonlow.Poco2Ts
 
             provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
         }
+
+        public void CreateTsCodeDom(Assembly assembly, CherryPickingMethods methods)
+        {
+            var cherryTypes = GetCherryTypes(assembly, methods);
+            CreateTsCodeDom(cherryTypes, methods);
+        }
+
 
         static bool IsClassOrStruct(Type type)
         {
@@ -315,7 +328,27 @@ namespace Fonlow.Poco2Ts
             return targetClass;
         }
 
+        static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
+        {
+            try
+            {
+                return assembly.GetTypes().Where(type => (IsClassOrStruct(type) || type.IsEnum)
+                && CherryPicking.IsCherryType(type, methods)).ToArray();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                foreach (Exception ex in e.LoaderExceptions)
+                {
+                    Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, ex.Message));
+                }
+            }
+            catch (TargetInvocationException e)
+            {
+                Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, e.Message + "~~" + e.InnerException.Message));
+            }
 
+            return null;
+        }
 
     }
 

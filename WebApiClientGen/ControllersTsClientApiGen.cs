@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Http.Description;
 using Fonlow.TypeScriptCodeDom;
+using System;
+using Fonlow.CodeDom.Web;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -21,13 +23,12 @@ namespace Fonlow.CodeDom.Web.Ts
         /// <param name="prefixesOfCustomNamespaces">Prefixes of namespaces of custom complex data types, so the code gen will use .client of client data types.</param>
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-        public ControllersTsClientApiGen(string[] prefixesOfCustomNamespaces, string[] excludedControllerNames = null, string[] dataModelNamespaces=null)
-            :base(prefixesOfCustomNamespaces, excludedControllerNames)
+        public ControllersTsClientApiGen(CodeGenParameters codeGenParameters)
+            :base(codeGenParameters)
         {
-            this.dataModelNamespaces = dataModelNamespaces;
         }
 
-        string[] dataModelNamespaces;
+        string[] dataModelNamespaces, dataModelAssemblyNames;
 
         /// <summary>
         /// Save C# codes into a file.
@@ -42,6 +43,7 @@ namespace Fonlow.CodeDom.Web.Ts
                 BracingStyle = "JS",//not yet working
                 IndentString = "    ",
             };
+
             using (StreamWriter writer = new StreamWriter(fileName))
             {
                 provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
@@ -55,6 +57,9 @@ namespace Fonlow.CodeDom.Web.Ts
         public override  void CreateCodeDom(Collection<ApiDescription> descriptions)
         {
             AddBasicReferences();
+
+            GenerateDataModels();
+
             //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
 
@@ -74,7 +79,7 @@ namespace Fonlow.CodeDom.Web.Ts
                 newClassesCreated = grouppedControllerDescriptions.Select(d =>
                 {
                     var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
-                    if (excludedControllerNames != null && excludedControllerNames.Contains(controllerFullName))
+                    if (codeGenParameters.ExcludedControllerNames != null && codeGenParameters.ExcludedControllerNames.Contains(controllerFullName))
                         return null;
 
                     return CreateControllerClientClass(clientNamespace, d.ControllerName);
@@ -87,7 +92,7 @@ namespace Fonlow.CodeDom.Web.Ts
                 var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
                 var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
                 var controllerFullName = controllerNamespace + "." + controllerName;
-                if (excludedControllerNames != null && excludedControllerNames.Contains(controllerFullName))
+                if (codeGenParameters.ExcludedControllerNames != null && codeGenParameters.ExcludedControllerNames.Contains(controllerFullName))
                     continue;
 
                 var existingClientClass = LookupExistingClass(controllerNamespace, controllerName);
@@ -97,6 +102,17 @@ namespace Fonlow.CodeDom.Web.Ts
                 existingClientClass.Members.Add(apiFunction);
             }
 
+        }
+
+        void GenerateDataModels()
+        {
+            var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies= allAssemblies.Where(d => dataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
+            var poco2TsGen = new Fonlow.Poco2Ts.Poco2TsGen(targetUnit);
+            foreach (var assembly in assemblies)
+            {
+                poco2TsGen.CreateTsCodeDom(assembly, Poco2Ts.CherryPickingMethods.All);
+            }
         }
 
         void AddBasicReferences()

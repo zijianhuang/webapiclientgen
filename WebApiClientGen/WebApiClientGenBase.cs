@@ -25,7 +25,7 @@ namespace Fonlow.CodeDom.Web
         protected  Dictionary<string, object> apiClassesDic;
         protected  CodeTypeDeclaration[] newClassesCreated;
         protected  SharedContext sharedContext;
-        protected  string[] excludedControllerNames;
+        protected CodeGenParameters codeGenParameters;
 
         /// <summary>
         /// 
@@ -33,13 +33,13 @@ namespace Fonlow.CodeDom.Web
         /// <param name="prefixesOfCustomNamespaces">Prefixes of namespaces of custom complex data types, so the code gen will use .client of client data types.</param>
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-        public ControllersClientApiGenBase(string[] prefixesOfCustomNamespaces, string[] excludedControllerNames = null)
+        public ControllersClientApiGenBase(CodeGenParameters codeGenParameters)
         {
+            this.codeGenParameters = codeGenParameters;
             sharedContext = new SharedContext();
-            sharedContext.prefixesOfCustomNamespaces = prefixesOfCustomNamespaces == null ? new string[] { } : prefixesOfCustomNamespaces;
+            sharedContext.prefixesOfCustomNamespaces = codeGenParameters.PrefixesOfCustomNamespaces == null ? new string[] { } : codeGenParameters.PrefixesOfCustomNamespaces;
             targetUnit = new CodeCompileUnit();
             apiClassesDic = new Dictionary<string, object>();
-            this.excludedControllerNames = excludedControllerNames;
         }
 
         public abstract void Save(string fileName);

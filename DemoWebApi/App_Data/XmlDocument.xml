@@ -493,33 +493,13 @@
             <param name="id">unique id of that guy</param>
             <returns>person in db</returns>
         </member>
-        <member name="M:Fonlow.WebApiClientGen.CodeGenController.TriggerCodeGen(Fonlow.WebApiClientGen.CodeGenParameters)">
+        <member name="M:Fonlow.WebApiClientGen.CodeGenController.TriggerCodeGen(Fonlow.CodeDom.Web.CodeGenParameters)">
             <summary>
             Trigger the API to generate WebApiClientAuto.cs for an established client API project.
             POST to  http://localhost:10965/api/CodeGen with json object CodeGenParameters
             </summary>
             <param name="parameters"></param>
             <returns>OK if OK</returns>
-        </member>
-        <member name="P:Fonlow.WebApiClientGen.CodeGenParameters.ClientLibraryProjectFolderName">
-            <summary>
-            Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
-            </summary>
-        </member>
-        <member name="P:Fonlow.WebApiClientGen.CodeGenParameters.GenerateBothAsyncAndSync">
-            <summary>
-            For .NET client, generate both async and sync functions for each Web API function
-            </summary>
-        </member>
-        <member name="P:Fonlow.WebApiClientGen.CodeGenParameters.TypeScriptFolder">
-            <summary>
-            Absolute path or relative path under the Scripts folder of current Web API project.
-            </summary>
-        </member>
-        <member name="P:Fonlow.WebApiClientGen.CodeGenParameters.TypeScriptDataModelNamespaces">
-            <summary>
-            TypeScript uses import which only partially simulate namespaces in .NET
-            </summary>
         </member>
     </members>
 </doc>

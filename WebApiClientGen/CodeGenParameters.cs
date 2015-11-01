@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Fonlow.CodeDom.Web
+{
+    public class CodeGenParameters
+    {
+        /// <summary>
+        /// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
+        /// </summary>
+        public string ClientLibraryProjectFolderName { get; set; }
+
+        public string[] PrefixesOfCustomNamespaces { get; set; }
+
+        public string[] ExcludedControllerNames { get; set; }
+
+        /// <summary>
+        /// For .NET client, generate both async and sync functions for each Web API function
+        /// </summary>
+        public bool GenerateBothAsyncAndSync { get; set; }
+
+        /// <summary>
+        /// Absolute path or relative path under the Scripts folder of current Web API project.
+        /// </summary>
+        public string TypeScriptFolder { get; set; }
+
+        /// <summary>
+        /// TypeScript uses import which only partially simulate namespaces in .NET
+        /// </summary>
+        public string[] TypeScriptDataModelNamespaces
+        { get; set; }
+
+        /// <summary>
+        /// Assembly name without file extension
+        /// </summary>
+        public string[] DataModelAssemblyNames
+        { get; set; }
+
+        public int? CherryPickingMethods { get; set; }
+    }
+    /*
+    json object to post with content-type application/json
+    
+     {
+        "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
+        "PrefixesOfCustomNamespaces": [
+          "DemoWebApi"
+        ],
+        "ExcludedControllerNames": [
+          "DemoWebApi.Controllers.Account"
+        ],
+        "GenerateBothAsyncAndSync": true,
+        "TypeScriptFolder" : "ClientApi",
+        "TypeScriptDataModelNamespaces" : [
+           "DemoWebApi_DemoData_Client"
+        ],
+        "DataModelAssembliesNames" : [
+           "DemoWebApi.DemoData"
+        ],
+      }
+    */
+}

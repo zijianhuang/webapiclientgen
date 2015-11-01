@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Fonlow.CodeDom.Web;
 
 namespace Fonlow.WebApiClientGen
 {
@@ -33,7 +34,7 @@ namespace Fonlow.WebApiClientGen
                     throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "ClientLibraryProjectFolderNotExist" });
 
                 var path = System.IO.Path.Combine(clientProjectDir, "WebApiClientAuto.cs");
-                var gen = new Fonlow.CodeDom.Web.Cs.ControllersClientApiGen(parameters.PrefixesOfCustomNamespaces, parameters.ExcludedControllerNames);
+                var gen = new Fonlow.CodeDom.Web.Cs.ControllersClientApiGen(parameters);
                 gen.ForBothAsyncAndSync = parameters.GenerateBothAsyncAndSync;
                 gen.CreateCodeDom(apiDescriptions);
                 gen.Save(path);
@@ -60,8 +61,7 @@ namespace Fonlow.WebApiClientGen
                 }
                 string tsPath = System.IO.Path.Combine(theFolder, "WebApiClientAuto.ts");
 
-                var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(parameters.PrefixesOfCustomNamespaces, 
-                    parameters.ExcludedControllerNames, parameters.TypeScriptDataModelNamespaces);
+                var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(parameters);
                 tsGen.CreateCodeDom(apiDescriptions);
                 tsGen.Save(tsPath);
             }
@@ -69,51 +69,6 @@ namespace Fonlow.WebApiClientGen
         }
     }
 
-    public class CodeGenParameters
-    {
-        /// <summary>
-        /// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
-        /// </summary>
-        public string ClientLibraryProjectFolderName { get; set; }
-
-        public string[] PrefixesOfCustomNamespaces { get; set; }
-
-        public string[] ExcludedControllerNames { get; set; }
-
-        /// <summary>
-        /// For .NET client, generate both async and sync functions for each Web API function
-        /// </summary>
-        public bool GenerateBothAsyncAndSync { get; set; }
-
-        /// <summary>
-        /// Absolute path or relative path under the Scripts folder of current Web API project.
-        /// </summary>
-        public string TypeScriptFolder { get; set; }
-
-        /// <summary>
-        /// TypeScript uses import which only partially simulate namespaces in .NET
-        /// </summary>
-        public string[] TypeScriptDataModelNamespaces
-        { get; set; }
-    }
-    /*
-    json object to post with content-type application/json
-    
-     {
-        "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
-        "PrefixesOfCustomNamespaces": [
-          "DemoWebApi"
-        ],
-        "ExcludedControllerNames": [
-          "DemoWebApi.Controllers.Account"
-        ],
-        "GenerateBothAsyncAndSync": true,
-        "TypeScriptFolder" : "ClientApi",
-        "TypeScriptDataModelNamespaces" : [
-           "DemoWebApi_DemoData_Client"
-        ],
-      }
-    */
 
 }
 #endif

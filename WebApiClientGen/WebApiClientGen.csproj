@@ -7,7 +7,7 @@
     <ProjectGuid>{1673D7D1-16BE-48A0-901A-9706087293D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fonlow.Net.Http</RootNamespace>
+    <RootNamespace>Fonlow.CodeDom.Web</RootNamespace>
     <AssemblyName>Fonlow.WebApiClientGen</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="ClientApiTsFunctionGen.cs" />
     <Compile Include="ClientApiFunctionGen.cs" />
+    <Compile Include="CodeGenParameters.cs" />
     <Compile Include="ControllersTsClientApiGen.cs" />
     <Compile Include="ControllersClientApiGen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +79,10 @@
     <None Include="PackNupkg.bat" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj">
+      <Project>{70caa10c-642a-454b-9dec-9ab391eb9c99}</Project>
+      <Name>Fonlow.Poco2Ts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
       <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
       <Name>Fonlow.TypeScriptCodeDom</Name>

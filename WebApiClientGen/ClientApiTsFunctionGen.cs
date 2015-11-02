@@ -89,7 +89,8 @@ namespace Fonlow.CodeDom.Web.Ts
                 builder.AppendLine($"@param {{{parameterType}}} {item.Name} {item.Documentation}");
             }
 
-            var returnType = description.ResponseDescription.ResponseType == null ? "void" : TranslateCustomTypeToClientType(description.ResponseDescription.ResponseType);
+            Type responseType = description.ResponseDescription.ResponseType ?? description.ResponseDescription.DeclaredType;
+            var returnType = responseType == null ? "void" : TranslateCustomTypeToClientType(responseType);
             builder.AppendLine($"@return {{{returnType}}} {description.ResponseDescription.Documentation}");
             method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
         }
@@ -118,10 +119,13 @@ namespace Fonlow.CodeDom.Web.Ts
         string TranslateCustomTypeToClientType(Type t)
         {
             if (t == null)
-                return null;
+                return "void";
 
             if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
                 return t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
+
+            if (t.Namespace.StartsWith("System."))
+                return "any";
 
             var r = TypeMapper.GetCodeTypeReferenceText(new CodeTypeReference(t));
             if (r != "any")
@@ -150,7 +154,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             }).ToList();
 
-            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) = > any";
+            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) => any";
             parameters.Add(new CodeParameterDeclarationExpression()
             {
                 Name = "callback",

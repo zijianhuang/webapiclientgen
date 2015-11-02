@@ -66,7 +66,7 @@ namespace Fonlow.CodeDom.Web
         "TypeScriptDataModelNamespaces" : [
            "DemoWebApi_DemoData_Client"
         ],
-        "DataModelAssembliesNames" : [
+        "DataModelAssemblyNames" : [
            "DemoWebApi.DemoData"
         ],
         "CherryPickingMethods" : 1,

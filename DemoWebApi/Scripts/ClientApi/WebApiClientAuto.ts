@@ -1,6 +1,5 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="Common.ts" />
-/// <reference path="DataModelsAuto.ts" />
+/// <reference path="HttpClient.ts" />
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
@@ -62,188 +61,188 @@ namespace DemoWebApi_Controllers_Client {
         /** 
          * GET api/SuperDemo/int?d={d}
          * @param {number} d 
-         * @return {void} 
+         * @return {number} 
          */
-        GetIntSquare(d: number, callback: (data : number) = > any){
+        GetIntSquare(d: number, callback: (data : number) => any){
             this.httpClient.get(encodeURI('api/SuperDemo/int?d='+d), callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/decimal?d={d}
          * @param {number} d 
-         * @return {void} 
+         * @return {number} 
          */
-        GetDecimalSquare(d: number, callback: (data : number) = > any){
+        GetDecimalSquare(d: number, callback: (data : number) => any){
             this.httpClient.get(encodeURI('api/SuperDemo/decimal?d='+d), callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
          * @param {boolean} hasValue 
-         * @return {void} 
+         * @return {Date} 
          */
-        GetDateTime(hasValue: boolean, callback: (data : Date) = > any){
+        GetDateTime(hasValue: boolean, callback: (data : Date) => any){
             this.httpClient.get(encodeURI('api/SuperDemo/NullableDatetime?hasValue='+hasValue), callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
          * @param {boolean} hasValue 
-         * @return {void} 
+         * @return {number} 
          */
-        GetNullableDecimal(hasValue: boolean, callback: (data : number) = > any){
+        GetNullableDecimal(hasValue: boolean, callback: (data : number) => any){
             this.httpClient.get(encodeURI('api/SuperDemo/NullableDecimal?hasValue='+hasValue), callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/FloatZero
-         * @return {void} 
+         * @return {number} 
          */
-        GetFloatZero(callback: (data : number) = > any){
+        GetFloatZero(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/FloatZero', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/DoubleZero
-         * @return {void} 
+         * @return {number} 
          */
-        GetDoubleZero(callback: (data : number) = > any){
+        GetDoubleZero(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/DoubleZero', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/DecimalZero
-         * @return {void} 
+         * @return {number} 
          */
-        GetDecimalZero(callback: (data : number) = > any){
+        GetDecimalZero(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/DecimalZero', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/NullString
-         * @return {void} 
+         * @return {string} 
          */
-        GetNullString(callback: (data : string) = > any){
+        GetNullString(callback: (data : string) => any){
             this.httpClient.get('api/SuperDemo/NullString', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/EmptyString
-         * @return {void} 
+         * @return {string} 
          */
-        GetEmptyString(callback: (data : string) = > any){
+        GetEmptyString(callback: (data : string) => any){
             this.httpClient.get('api/SuperDemo/EmptyString', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/NullObject
-         * @return {void} 
+         * @return {DemoWebApi_DemoData_Client.Person} 
          */
-        GetNullPerson(callback: (data : DemoWebApi_DemoData_Client.Person) = > any){
+        GetNullPerson(callback: (data : DemoWebApi_DemoData_Client.Person) => any){
             this.httpClient.get('api/SuperDemo/NullObject', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/TextStream
-         * @return {void} 
+         * @return {any} 
          */
-        GetTextStream(callback: (data : System.Net.Http.HttpResponseMessage) = > any){
+        GetTextStream(callback: (data : any) => any){
             this.httpClient.get('api/SuperDemo/TextStream', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/ByteArray
-         * @return {void} 
+         * @return {Array<number>} 
          */
-        GetByteArray(callback: (data : Array<number>) = > any){
+        GetByteArray(callback: (data : Array<number>) => any){
             this.httpClient.get('api/SuperDemo/ByteArray', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/ActionResult
-         * @return {void} 
+         * @return {any} 
          */
-        GetActionResult(callback: (data : System.Web.Http.IHttpActionResult) = > any){
+        GetActionResult(callback: (data : any) => any){
             this.httpClient.get('api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/byte
-         * @return {void} 
+         * @return {number} 
          */
-        Getbyte(callback: (data : number) = > any){
+        Getbyte(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/byte', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/sbyte
-         * @return {void} 
+         * @return {number} 
          */
-        Getsbyte(callback: (data : number) = > any){
+        Getsbyte(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/sbyte', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/short
-         * @return {void} 
+         * @return {number} 
          */
-        GetShort(callback: (data : number) = > any){
+        GetShort(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/short', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/ushort
-         * @return {void} 
+         * @return {number} 
          */
-        GetUShort(callback: (data : number) = > any){
+        GetUShort(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/ushort', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/uint
-         * @return {void} 
+         * @return {number} 
          */
-        GetUint(callback: (data : number) = > any){
+        GetUint(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/uint', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/ulong
-         * @return {void} 
+         * @return {number} 
          */
-        Getulong(callback: (data : number) = > any){
+        Getulong(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/ulong', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/doulbe
-         * @return {void} 
+         * @return {number} 
          */
-        Getdouble(callback: (data : number) = > any){
+        Getdouble(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/doulbe', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/decimal
-         * @return {void} 
+         * @return {number} 
          */
-        GetDecimal(callback: (data : number) = > any){
+        GetDecimal(callback: (data : number) => any){
             this.httpClient.get('api/SuperDemo/decimal', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/char
-         * @return {void} 
+         * @return {string} 
          */
-        GetChar(callback: (data : string) = > any){
+        GetChar(callback: (data : string) => any){
             this.httpClient.get('api/SuperDemo/char', callback, this.error, this.statusCode);
         }
 
         /** 
          * GET api/SuperDemo/bool
-         * @return {void} 
+         * @return {boolean} 
          */
-        GetBool(callback: (data : boolean) = > any){
+        GetBool(callback: (data : boolean) => any){
             this.httpClient.get('api/SuperDemo/bool', callback, this.error, this.statusCode);
         }
     }
@@ -262,18 +261,18 @@ namespace DemoWebApi_Controllers_Client {
          * Get a person
          * GET api/Entities/{id}
          * @param {number} id unique id of that guy
-         * @return {void} person in db
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
-        GetPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) = > any){
+        GetPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
             this.httpClient.get(encodeURI('api/Entities/'+id), callback, this.error, this.statusCode);
         }
 
         /** 
          * POST api/Entities
          * @param {DemoWebApi_DemoData_Client.Person} person 
-         * @return {void} 
+         * @return {number} 
          */
-        CreatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : number) = > any){
+        CreatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any){
             this.httpClient.post('api/Entities', person, callback, this.error, this.statusCode);
         }
 
@@ -282,7 +281,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {DemoWebApi_DemoData_Client.Person} person 
          * @return {void} 
          */
-        UpdatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : ) = > any){
+        UpdatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : void) => any){
             this.httpClient.put('api/Entities', person, callback, this.error, this.statusCode);
         }
 
@@ -291,7 +290,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {number} id 
          * @return {void} 
          */
-        Delete(id: number, callback: (data : ) = > any){
+        Delete(id: number, callback: (data : void) => any){
             this.httpClient.delete(encodeURI('api/Entities/'+id), callback, this.error, this.statusCode);
         }
     }
@@ -308,9 +307,9 @@ namespace DemoWebApi_Controllers_Client {
 
         /** 
          * GET api/Values
-         * @return {void} 
+         * @return {any} 
          */
-        Get(callback: (data : Array<string>) = > any){
+        Get(callback: (data : any) => any){
             this.httpClient.get('api/Values', callback, this.error, this.statusCode);
         }
 
@@ -318,18 +317,18 @@ namespace DemoWebApi_Controllers_Client {
          * GET api/Values/{id}?name={name}
          * @param {number} id 
          * @param {string} name 
-         * @return {void} 
+         * @return {string} 
          */
-        Get(id: number, name: string, callback: (data : string) = > any){
+        Get(id: number, name: string, callback: (data : string) => any){
             this.httpClient.get(encodeURI('api/Values/'+id+'?name='+name), callback, this.error, this.statusCode);
         }
 
         /** 
          * POST api/Values
          * @param {string} value 
-         * @return {void} 
+         * @return {string} 
          */
-        Post(value: string, callback: (data : string) = > any){
+        Post(value: string, callback: (data : string) => any){
             this.httpClient.post('api/Values', value, callback, this.error, this.statusCode);
         }
 
@@ -339,7 +338,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {string} value 
          * @return {void} 
          */
-        Put(id: number, value: string, callback: (data : ) = > any){
+        Put(id: number, value: string, callback: (data : void) => any){
             this.httpClient.put(encodeURI('api/Values/'+id), value, callback, this.error, this.statusCode);
         }
 
@@ -348,7 +347,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {number} id 
          * @return {void} 
          */
-        Delete(id: number, callback: (data : ) = > any){
+        Delete(id: number, callback: (data : void) => any){
             this.httpClient.delete(encodeURI('api/Values/'+id), callback, this.error, this.statusCode);
         }
     }

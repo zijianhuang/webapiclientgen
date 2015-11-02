@@ -120,7 +120,7 @@ namespace Fonlow.CodeDom.Web.Ts
         void AddBasicReferences()
         {
             targetUnit.ReferencedAssemblies.Add("<reference path=\"../typings/jquery/jquery.d.ts\" />");
-            targetUnit.ReferencedAssemblies.Add("<reference path=\"Common.ts\" />");
+            targetUnit.ReferencedAssemblies.Add("<reference path=\"HttpClient.ts\" />");
             //   targetUnit.ReferencedAssemblies.Add("");
         }
 

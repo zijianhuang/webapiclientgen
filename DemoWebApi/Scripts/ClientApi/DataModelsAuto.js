@@ -21,4 +21,3 @@ var DemoWebApi_DemoData_Client;
     })(DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
     var Days = DemoWebApi_DemoData_Client.Days;
 })(DemoWebApi_DemoData_Client || (DemoWebApi_DemoData_Client = {}));
-//# sourceMappingURL=DataModelsAuto.js.map

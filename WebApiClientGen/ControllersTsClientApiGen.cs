@@ -56,7 +56,7 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             AddBasicReferences();
 
-            GenerateDataModels();
+            GenerateTsFromPoco();
 
             //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
@@ -81,8 +81,7 @@ namespace Fonlow.CodeDom.Web.Ts
                         return null;
 
                     return CreateControllerClientClass(clientNamespace, d.ControllerName);
-                }
-                    ).ToArray();//add classes into the namespace
+                }).ToArray();//add classes into the namespace
             }
 
             foreach (var d in descriptions)
@@ -93,16 +92,17 @@ namespace Fonlow.CodeDom.Web.Ts
                 if (codeGenParameters.ExcludedControllerNames != null && codeGenParameters.ExcludedControllerNames.Contains(controllerFullName))
                     continue;
 
-                var existingClientClass = LookupExistingClass(controllerNamespace, controllerName);
+                var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, controllerName);
                 System.Diagnostics.Trace.Assert(existingClientClass != null);
 
                 var apiFunction = ClientApiTsFunctionGen.Create(sharedContext, d);
                 existingClientClass.Members.Add(apiFunction);
             }
 
+            RefineOverloadingFunctions();
         }
 
-        void GenerateDataModels()
+        void GenerateTsFromPoco()
         {
             if (codeGenParameters.DataModelAssemblyNames == null)
                 return;
@@ -127,12 +127,12 @@ namespace Fonlow.CodeDom.Web.Ts
         /// <summary>
         /// Lookup existing CodeTypeDeclaration created.
         /// </summary>
-        /// <param name="namespaceText"></param>
+        /// <param name="clrNamespaceText"></param>
         /// <param name="controllerName"></param>
         /// <returns></returns>
-        CodeTypeDeclaration LookupExistingClass(string namespaceText, string controllerName)
+        CodeTypeDeclaration LookupExistingClassInCodeDom(string clrNamespaceText, string controllerName)
         {
-            var refined = (namespaceText + ".Client").Replace('.', '_');
+            var refined = (clrNamespaceText + ".Client").Replace('.', '_');
             for (int i = 0; i < targetUnit.Namespaces.Count; i++)
             {
                 var ns = targetUnit.Namespaces[i];
@@ -148,6 +148,54 @@ namespace Fonlow.CodeDom.Web.Ts
             }
 
             return null;
+        }
+
+        void RefineOverloadingFunctions()
+        {
+            for (int i = 0; i < targetUnit.Namespaces.Count; i++)
+            {
+                var ns = targetUnit.Namespaces[i];
+                for (int k = 0; k < ns.Types.Count; k++)
+                {
+                    var c = ns.Types[k];
+                    List<CodeMemberMethod> methods = new List<CodeMemberMethod>();
+                    for (int m = 0; m < c.Members.Count; m++)
+                    {
+                        var method = c.Members[m] as CodeMemberMethod;
+                        if (method!=null)
+                        {
+                            methods.Add(method);
+                        }
+                    }
+
+                    if (methods.Count>1)//worth of checking overloading
+                    {
+                        var candidates = from m in methods group m by m.Name into grp where grp.Count() > 1 select grp.Key;
+                        foreach (var candidateName in candidates)
+                        {
+                            var overloadingMethods = methods.Where(d => d.Name == candidateName).ToArray();
+                            System.Diagnostics.Debug.Assert(overloadingMethods.Length > 1);
+                            foreach (var item in overloadingMethods) //Wow, 5 nested loops, plus 2 linq expressions
+                            {
+                                RenameCodeMemberMethod(item);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        static void RenameCodeMemberMethod(CodeMemberMethod method)
+        {
+            var basicName = method.Name;
+            var textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
+            var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Select(d => textInfo.ToTitleCase(d.Name)).ToList();
+            parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
+            if (parameterNamesInTitleCase.Count > 0)
+            {
+                method.Name += $"By{String.Join("And", parameterNamesInTitleCase)}";
+            }
         }
 
         CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)

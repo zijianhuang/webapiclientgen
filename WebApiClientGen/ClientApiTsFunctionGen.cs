@@ -124,12 +124,12 @@ namespace Fonlow.CodeDom.Web.Ts
             if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
                 return t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
 
-            if (t.Namespace.StartsWith("System."))
-                return "any";
-
             var r = TypeMapper.GetCodeTypeReferenceText(new CodeTypeReference(t));
             if (r != "any")
                 return r;
+
+            if (t.Namespace.StartsWith("System."))
+                return "any";
 
             return t.FullName;
         }

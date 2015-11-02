@@ -156,7 +156,7 @@ namespace Fonlow.Poco2Ts
                             var clientField = new CodeMemberField()
                             {
                                 Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-                                Type = GetClientFieldTypeText(propertyInfo.PropertyType),
+                                Type = TranslateToTsTypeReference(propertyInfo.PropertyType),
                                 //                     Attributes = MemberAttributes.Public,
 
                             };
@@ -175,7 +175,7 @@ namespace Fonlow.Poco2Ts
                                 var clientField = new CodeMemberField()
                                 {
                                     Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-                                    Type = GetClientFieldTypeText(fieldInfo.FieldType),
+                                    Type = TranslateToTsTypeReference(fieldInfo.FieldType),
                                     //         Attributes = MemberAttributes.Public,
                                 };
 
@@ -223,8 +223,11 @@ namespace Fonlow.Poco2Ts
         }
 
 
-        CodeTypeReference GetClientFieldTypeText(Type t)
+        public CodeTypeReference TranslateToTsTypeReference(Type t)
         {
+            if (t == null)
+                return new CodeTypeReference("void");
+
             if (pendingTypes.Contains(t))
                 return new CodeTypeReference(RefineCustomComplexTypeText(t));
             else if (t.IsGenericType)
@@ -238,7 +241,7 @@ namespace Fonlow.Poco2Ts
                 }
                 else if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
-                    var genericTypeNames = t.GenericTypeArguments.Select(d => GetClientFieldTypeText(d)).ToArray();
+                    var genericTypeNames = t.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
                     var codeTypeReference = new CodeTypeReference(typeof(Nullable<>));
                     codeTypeReference.TypeArguments.AddRange(genericTypeNames);
 
@@ -255,7 +258,11 @@ namespace Fonlow.Poco2Ts
                 return CreateArraTypeReference(t, elementType, arrayRank);
             }
 
-            return new CodeTypeReference(t);
+            var basicType = TypeMapper.MapToTsBasicType(t);
+            if (basicType != null)
+                return new CodeTypeReference(basicType);
+
+            return new CodeTypeReference("any");
 
         }
 
@@ -284,7 +291,7 @@ namespace Fonlow.Poco2Ts
 
             var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
             {
-                ArrayElementType = GetClientFieldTypeText(elementType),
+                ArrayElementType = TranslateToTsTypeReference(elementType),
             };
             return otherArrayType;
         }

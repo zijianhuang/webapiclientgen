@@ -9,6 +9,7 @@ using System.Web.Http.Description;
 using Fonlow.TypeScriptCodeDom;
 using System;
 using Fonlow.CodeDom.Web;
+using Fonlow.Poco2Ts;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -26,7 +27,10 @@ namespace Fonlow.CodeDom.Web.Ts
         public ControllersTsClientApiGen(CodeGenParameters codeGenParameters)
             : base(codeGenParameters)
         {
+            poco2TsGen = new Poco2TsGen(targetUnit);
         }
+
+        Poco2TsGen poco2TsGen;
 
         /// <summary>
         /// Save C# codes into a file.
@@ -95,7 +99,7 @@ namespace Fonlow.CodeDom.Web.Ts
                 var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, controllerName);
                 System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-                var apiFunction = ClientApiTsFunctionGen.Create(sharedContext, d);
+                var apiFunction = ClientApiTsFunctionGen.Create(sharedContext, d, poco2TsGen);
                 existingClientClass.Members.Add(apiFunction);
             }
 
@@ -109,7 +113,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
             var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             var assemblies = allAssemblies.Where(d => codeGenParameters.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
-            var poco2TsGen = new Fonlow.Poco2Ts.Poco2TsGen(targetUnit);
             var cherryPickingMethods = codeGenParameters.CherryPickingMethods.HasValue ? (Fonlow.Poco2Ts.CherryPickingMethods)codeGenParameters.CherryPickingMethods.Value : Poco2Ts.CherryPickingMethods.DataContract;
             foreach (var assembly in assemblies)
             {

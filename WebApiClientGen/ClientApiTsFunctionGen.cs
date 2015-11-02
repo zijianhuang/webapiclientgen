@@ -9,6 +9,7 @@ using System.Web.Http.Description;
 using System.Diagnostics;
 using System.Text;
 using Fonlow.TypeScriptCodeDom;
+using Fonlow.Poco2Ts;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -26,11 +27,13 @@ namespace Fonlow.CodeDom.Web.Ts
         string methodName;
         Type returnType;
         CodeMemberMethod method;
+        readonly Poco2TsGen poco2TsGen;
 
-        public ClientApiTsFunctionGen(SharedContext sharedContext, ApiDescription description)
+        public ClientApiTsFunctionGen(SharedContext sharedContext, ApiDescription description, Poco2TsGen poco2TsGen)
         {
             this.description = description;
             this.sharedContext = sharedContext;
+            this.poco2TsGen = poco2TsGen;
 
             relativePath = description.RelativePath;
             parameterDescriptions = description.ParameterDescriptions;
@@ -49,9 +52,9 @@ namespace Fonlow.CodeDom.Web.Ts
         static readonly Type typeOfChar = typeof(char);
         static readonly Type typeOfString = typeof(string);
 
-        public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description)
+        public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description, Poco2TsGen poco2TsGen)
         {
-            var gen = new ClientApiTsFunctionGen(sharedContext, description);
+            var gen = new ClientApiTsFunctionGen(sharedContext, description, poco2TsGen);
             return gen.CreateApiFunction();
         }
 
@@ -85,12 +88,14 @@ namespace Fonlow.CodeDom.Web.Ts
             builder.AppendLine(description.HttpMethod.Method + " " + description.RelativePath);
             foreach (var item in description.ParameterDescriptions)
             {
-                var parameterType = TranslateCustomTypeToClientType(item.ParameterDescriptor.ParameterType);
-                builder.AppendLine($"@param {{{parameterType}}} {item.Name} {item.Documentation}");
+                var tsParameterType = poco2TsGen.TranslateToTsTypeReference(item.ParameterDescriptor.ParameterType);
+            //    var parameterType = TranslateCustomTypeToClientType(item.ParameterDescriptor.ParameterType);
+                builder.AppendLine($"@param {{{TypeMapper.GetCodeTypeReferenceText(tsParameterType)}}} {item.Name} {item.Documentation}");
             }
 
             Type responseType = description.ResponseDescription.ResponseType ?? description.ResponseDescription.DeclaredType;
-            var returnType = responseType == null ? "void" : TranslateCustomTypeToClientType(responseType);
+            var tsResponseType = poco2TsGen.TranslateToTsTypeReference(responseType);
+            var returnType = responseType == null ? "void" : TypeMapper.GetCodeTypeReferenceText(tsResponseType);
             builder.AppendLine($"@return {{{returnType}}} {description.ResponseDescription.Documentation}");
             method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
         }
@@ -107,32 +112,32 @@ namespace Fonlow.CodeDom.Web.Ts
         }
 
 
-        string GetGenericTypeFriendlyName(Type r)
-        {
-            var separatorPosition = r.Name.IndexOf("`");
-            var genericTypeName = r.Name.Substring(0, separatorPosition);
-            var typeNameList = r.GenericTypeArguments.Select(d => TranslateCustomTypeToClientType(d));//support only 1 level of generic. This should be good enough. If more needed, recursive algorithm will help
-            var typesLiteral = String.Join(", ", typeNameList);
-            return String.Format("{0}<{1}>", genericTypeName, typesLiteral);
-        }
+        //string GetGenericTypeFriendlyName(Type r)
+        //{
+        //    var separatorPosition = r.Name.IndexOf("`");
+        //    var genericTypeName = r.Name.Substring(0, separatorPosition);
+        //    var typeNameList = r.GenericTypeArguments.Select(d => TranslateCustomTypeToClientType(d));//support only 1 level of generic. This should be good enough. If more needed, recursive algorithm will help
+        //    var typesLiteral = String.Join(", ", typeNameList);
+        //    return String.Format("{0}<{1}>", genericTypeName, typesLiteral);
+        //}
 
-        string TranslateCustomTypeToClientType(Type t)
-        {
-            if (t == null)
-                return "void";
+        //string TranslateCustomTypeToClientType(Type t)
+        //{
+        //    if (t == null)
+        //        return "void";
 
-            if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
-                return t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
+        //    if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
+        //        return t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
 
-            var r = TypeMapper.GetCodeTypeReferenceText(new CodeTypeReference(t));
-            if (r != "any")
-                return r;
+        //    var r = TypeMapper.GetCodeTypeReferenceText(new CodeTypeReference(t));
+        //    if (r != "any")
+        //        return r;
 
-            if (t.Namespace.StartsWith("System."))
-                return "any";
+        //    if (t.Namespace.StartsWith("System."))
+        //        return "any";
 
-            return t.FullName;
-        }
+        //    return t.FullName;
+        //}
 
         static string RefineCustomComplexTypeText(Type t)
         {
@@ -150,11 +155,12 @@ namespace Fonlow.CodeDom.Web.Ts
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
             {
                 Name = d.Name,
-                Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
+                Type = poco2TsGen.TranslateToTsTypeReference(d.ParameterDescriptor.ParameterType),// new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
 
             }).ToList();
 
-            var callbackTypeText = $"(data : {TranslateCustomTypeToClientType(returnType)}) => any";
+            var parameterType = poco2TsGen.TranslateToTsTypeReference(returnType);
+            var callbackTypeText = $"(data : {TypeMapper.GetCodeTypeReferenceText(parameterType)}) => any";
             parameters.Add(new CodeParameterDeclarationExpression()
             {
                 Name = "callback",

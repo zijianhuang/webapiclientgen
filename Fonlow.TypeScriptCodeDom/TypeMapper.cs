@@ -39,6 +39,16 @@ namespace Fonlow.TypeScriptCodeDom
             "System.Collections.Generic.IList",
             "System.Collections.Generic.IEnumerable" };
 
+        public static string MapToTsBasicType(Type type)
+        {
+            string tsTypeName;
+
+            if (typeMap.TryGetValue(type.FullName, out tsTypeName))
+                return tsTypeName;
+
+            return null;
+        }
+
         static bool IsGenericArrayType(string typeName)
         {
             return arrayGenericTypes.Any(d => typeName.Contains(d));

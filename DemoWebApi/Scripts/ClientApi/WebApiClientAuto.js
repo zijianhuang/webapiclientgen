@@ -244,7 +244,7 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * GET api/Values
-         * @return {any}
+         * @return {Array<string>}
          */
         Values.prototype.Get = function (callback) {
             this.httpClient.get('api/Values', callback, this.error, this.statusCode);

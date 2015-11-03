@@ -21,17 +21,12 @@ var DemoWebApi_DemoData_Client;
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     var SuperDemo = (function () {
-        // error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
-        //  statusCode: { [key: string]: any; };
         function SuperDemo(baseUri, error, statusCode) {
             if (baseUri === void 0) { baseUri = ''; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
             this.httpClient = new HttpClient();
-            this.baseUri = baseUri;
-            this.error = error;
-            this.statusCode = statusCode;
         }
         /**
          * GET api/SuperDemo/int?d={d}
@@ -204,10 +199,10 @@ var DemoWebApi_Controllers_Client;
     var Entities = (function () {
         function Entities(baseUri, error, statusCode) {
             if (baseUri === void 0) { baseUri = ''; }
-            this.httpClient = new HttpClient();
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
+            this.httpClient = new HttpClient();
         }
         /**
          * Get a person
@@ -248,10 +243,10 @@ var DemoWebApi_Controllers_Client;
     var Values = (function () {
         function Values(baseUri, error, statusCode) {
             if (baseUri === void 0) { baseUri = ''; }
-            this.httpClient = new HttpClient();
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
+            this.httpClient = new HttpClient();
         }
         /**
          * GET api/Values

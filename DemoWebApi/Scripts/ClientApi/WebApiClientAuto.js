@@ -198,11 +198,10 @@ var DemoWebApi_Controllers_Client;
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
         function Entities(baseUri, error, statusCode) {
-            if (baseUri === void 0) { baseUri = ''; }
-            this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
             this.httpClient = new HttpClient();
+            this.baseUri = baseUri;
         }
         /**
          * Get a person
@@ -211,7 +210,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         Entities.prototype.GetPerson = function (id, callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'api/Entities/' + id), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'apI/EntitieS/' + id), callback, this.error, this.statusCode);
         };
         /**
          * POST api/Entities

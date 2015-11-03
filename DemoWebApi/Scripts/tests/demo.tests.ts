@@ -14,7 +14,7 @@ var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:20012
 QUnit.test("data compare", function (assert) {
 
     var person: DemoWebApi_DemoData_Client.Person = {
-        Name: "someone",
+        Name: "someone", 
         Surname: "my",
         GivenName: "something",
     };
@@ -23,7 +23,7 @@ QUnit.test("data compare", function (assert) {
         Name: "someone",
         Surname: "my",
         GivenName: "something",
-    };
+    }; 
 
     assert.equal(JSON.stringify(person), JSON.stringify(person2));
 

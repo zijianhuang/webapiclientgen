@@ -245,8 +245,10 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Entities {
         httpClient: HttpClient;
-        constructor(public baseUri:  string = '', public error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        baseUri: string;
+        constructor(baseUri?:  string, public error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
+            this.baseUri = baseUri;
         }
 
         /** 
@@ -256,7 +258,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         GetPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
-            this.httpClient.get(encodeURI(this.baseUri + 'api/Entities/'+id), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'apI/EntitieS/'+id), callback, this.error, this.statusCode);
         }
 
         /** 

@@ -50,12 +50,8 @@ namespace DemoWebApi_DemoData_Another_Client {
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
         httpClient: HttpClient;
-        error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
-        statusCode: { [key: string]: any; };
-        constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){
+        constructor(public baseUri:  string = '', public error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
-            this.error = error;
-            this.statusCode = statusCode;
         }
 
         /** 
@@ -64,7 +60,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetIntSquare(d: number, callback: (data : number) => any){
-            this.httpClient.get(encodeURI('api/SuperDemo/int?d='+d), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int?d='+d), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -73,7 +69,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetDecimalSquare(d: number, callback: (data : number) => any){
-            this.httpClient.get(encodeURI('api/SuperDemo/decimal?d='+d), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/decimal?d='+d), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -82,7 +78,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         GetDateTime(hasValue: boolean, callback: (data : Date) => any){
-            this.httpClient.get(encodeURI('api/SuperDemo/NullableDatetime?hasValue='+hasValue), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue='+hasValue), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -91,7 +87,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetNullableDecimal(hasValue: boolean, callback: (data : number) => any){
-            this.httpClient.get(encodeURI('api/SuperDemo/NullableDecimal?hasValue='+hasValue), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullableDecimal?hasValue='+hasValue), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -249,12 +245,8 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Entities {
         httpClient: HttpClient;
-        error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
-        statusCode: { [key: string]: any; };
-        constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){
+        constructor(public baseUri:  string = '', public error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
-            this.error = error;
-            this.statusCode = statusCode;
         }
 
         /** 
@@ -264,7 +256,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         GetPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
-            this.httpClient.get(encodeURI('api/Entities/'+id), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Entities/'+id), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -291,18 +283,14 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         Delete(id: number, callback: (data : void) => any){
-            this.httpClient.delete(encodeURI('api/Entities/'+id), callback, this.error, this.statusCode);
+            this.httpClient.delete(encodeURI(this.baseUri + 'api/Entities/'+id), callback, this.error, this.statusCode);
         }
     }
 
     export class Values {
         httpClient: HttpClient;
-        error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
-        statusCode: { [key: string]: any; };
-        constructor(error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, statusCode?: { [key: string]: any; }){
+        constructor(public baseUri:  string = '', public error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
-            this.error = error;
-            this.statusCode = statusCode;
         }
 
         /** 
@@ -320,7 +308,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         GetByIdAndName(id: number, name: string, callback: (data : string) => any){
-            this.httpClient.get(encodeURI('api/Values/'+id+'?name='+name), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Values/'+id+'?name='+name), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -339,7 +327,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         Put(id: number, value: string, callback: (data : void) => any){
-            this.httpClient.put(encodeURI('api/Values/'+id), value, callback, this.error, this.statusCode);
+            this.httpClient.put(encodeURI(this.baseUri + 'api/Values/'+id), value, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -348,7 +336,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         Delete(id: number, callback: (data : void) => any){
-            this.httpClient.delete(encodeURI('api/Values/'+id), callback, this.error, this.statusCode);
+            this.httpClient.delete(encodeURI(this.baseUri + 'api/Values/'+id), callback, this.error, this.statusCode);
         }
     }
 

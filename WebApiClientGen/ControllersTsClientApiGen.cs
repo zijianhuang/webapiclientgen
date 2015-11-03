@@ -226,21 +226,21 @@ namespace Fonlow.CodeDom.Web.Ts
             clientField.Type = new CodeTypeReference("HttpClient");
             targetClass.Members.Add(clientField);
 
-            var errorHandlerField = new CodeMemberField()
-            {
-                Attributes = MemberAttributes.Private,
-                Name = "error",
-                Type = new CodeTypeReference("(jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any"),
-            };
-            targetClass.Members.Add(errorHandlerField);
+            //var errorHandlerField = new CodeMemberField()
+            //{
+            //    Attributes = MemberAttributes.Private,
+            //    Name = "error",
+            //    Type = new CodeTypeReference("(jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any"),
+            //};
+            //targetClass.Members.Add(errorHandlerField);
 
-            var statusCodeField = new CodeMemberField()
-            {
-                Attributes = MemberAttributes.Private,
-                Name = "statusCode",
-                Type = new CodeTypeReference("{ [key: string]: any; }"),
-            };
-            targetClass.Members.Add(statusCodeField);
+            //var statusCodeField = new CodeMemberField()
+            //{
+            //    Attributes = MemberAttributes.Private,
+            //    Name = "statusCode",
+            //    Type = new CodeTypeReference("{ [key: string]: any; }"),
+            //};
+            //targetClass.Members.Add(statusCodeField);
 
         }
 
@@ -252,14 +252,14 @@ namespace Fonlow.CodeDom.Web.Ts
 
             // Add parameters.
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                " (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "error?"));
+                " string = ''", "public baseUri"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "{ [key: string]: any; }", "statusCode?"));
+                " (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "public error?"));
+            constructor.Parameters.Add(new CodeParameterDeclarationExpression(
+                "{ [key: string]: any; }", "public statusCode?"));
 
             constructor.Statements.Add(new CodeSnippetStatement(
-@"this.httpClient = new HttpClient();
-this.error = error;
-this.statusCode = statusCode;"));
+@"this.httpClient = new HttpClient();"));
 
             targetClass.Members.Add(constructor);
         }

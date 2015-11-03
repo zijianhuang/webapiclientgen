@@ -21,8 +21,15 @@ var DemoWebApi_DemoData_Client;
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     var SuperDemo = (function () {
-        function SuperDemo(error, statusCode) {
+        // error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
+        //  statusCode: { [key: string]: any; };
+        function SuperDemo(baseUri, error, statusCode) {
+            if (baseUri === void 0) { baseUri = ''; }
+            this.baseUri = baseUri;
+            this.error = error;
+            this.statusCode = statusCode;
             this.httpClient = new HttpClient();
+            this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
         }
@@ -32,7 +39,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.GetIntSquare = function (d, callback) {
-            this.httpClient.get(encodeURI('api/SuperDemo/int?d=' + d), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int?d=' + d), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/decimal?d={d}
@@ -40,7 +47,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.GetDecimalSquare = function (d, callback) {
-            this.httpClient.get(encodeURI('api/SuperDemo/decimal?d=' + d), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/decimal?d=' + d), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
@@ -48,7 +55,7 @@ var DemoWebApi_Controllers_Client;
          * @return {Date}
          */
         SuperDemo.prototype.GetDateTime = function (hasValue, callback) {
-            this.httpClient.get(encodeURI('api/SuperDemo/NullableDatetime?hasValue=' + hasValue), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue=' + hasValue), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
@@ -56,7 +63,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.GetNullableDecimal = function (hasValue, callback) {
-            this.httpClient.get(encodeURI('api/SuperDemo/NullableDecimal?hasValue=' + hasValue), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullableDecimal?hasValue=' + hasValue), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/FloatZero
@@ -195,8 +202,10 @@ var DemoWebApi_Controllers_Client;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
-        function Entities(error, statusCode) {
+        function Entities(baseUri, error, statusCode) {
+            if (baseUri === void 0) { baseUri = ''; }
             this.httpClient = new HttpClient();
+            this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
         }
@@ -207,7 +216,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         Entities.prototype.GetPerson = function (id, callback) {
-            this.httpClient.get(encodeURI('api/Entities/' + id), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Entities/' + id), callback, this.error, this.statusCode);
         };
         /**
          * POST api/Entities
@@ -231,14 +240,16 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Entities.prototype.Delete = function (id, callback) {
-            this.httpClient.delete(encodeURI('api/Entities/' + id), callback, this.error, this.statusCode);
+            this.httpClient.delete(encodeURI(this.baseUri + 'api/Entities/' + id), callback, this.error, this.statusCode);
         };
         return Entities;
     })();
     DemoWebApi_Controllers_Client.Entities = Entities;
     var Values = (function () {
-        function Values(error, statusCode) {
+        function Values(baseUri, error, statusCode) {
+            if (baseUri === void 0) { baseUri = ''; }
             this.httpClient = new HttpClient();
+            this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
         }
@@ -256,7 +267,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Values.prototype.GetByIdAndName = function (id, name, callback) {
-            this.httpClient.get(encodeURI('api/Values/' + id + '?name=' + name), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Values/' + id + '?name=' + name), callback, this.error, this.statusCode);
         };
         /**
          * POST api/Values
@@ -273,7 +284,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Values.prototype.Put = function (id, value, callback) {
-            this.httpClient.put(encodeURI('api/Values/' + id), value, callback, this.error, this.statusCode);
+            this.httpClient.put(encodeURI(this.baseUri + 'api/Values/' + id), value, callback, this.error, this.statusCode);
         };
         /**
          * DELETE api/Values/{id}
@@ -281,10 +292,9 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Values.prototype.Delete = function (id, callback) {
-            this.httpClient.delete(encodeURI('api/Values/' + id), callback, this.error, this.statusCode);
+            this.httpClient.delete(encodeURI(this.baseUri + 'api/Values/' + id), callback, this.error, this.statusCode);
         };
         return Values;
     })();
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
-//# sourceMappingURL=WebApiClientAuto.js.map

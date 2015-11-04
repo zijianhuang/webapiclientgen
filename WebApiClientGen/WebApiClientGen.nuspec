@@ -18,7 +18,7 @@
     <dependencies>
       <group>
         <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.2" />
-        <dependency id="Fonlow.TypeScriptCodeDOM" version="1.0.0" />
+        <dependency id="Fonlow.TypeScriptCodeDOM" version="1.2.0" />
         <dependency id="Fonlow.Poco2Ts" version="1.0.0" />
         <dependency id="jQuery" version="2.1.2" />
         <dependency id="jquery.TypeScript.DefinitelyTyped" version="2.3.1" />
@@ -27,7 +27,7 @@
   </metadata>
   <files>
     <file src="..\DemoWebApi\Controllers\CodeGenController.cs" target="content\Controllers\CodeGenController.cs"/>
-    <file src="..\DemoWebApi\Scripts\ClientApi\Dummy.ts" target="Scripts\ClientApi\WebApiClientAuto.ts"/>
-    <file src="..\DemoWebApi\Scripts\ClientApi\HttpClient.ts" target="Scripts\ClientApi\HttpClient.ts"/>
+    <file src="..\DemoWebApi\Scripts\ClientApi\Dummy.ts" target="content\Scripts\ClientApi\WebApiClientAuto.ts"/>
+    <file src="..\DemoWebApi\Scripts\ClientApi\HttpClient.ts" target="content\Scripts\ClientApi\HttpClient.ts"/>
   </files>
 </package>

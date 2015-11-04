@@ -170,7 +170,8 @@ namespace Fonlow.CodeDom.Web.Ts
             method.Parameters.AddRange(parameters.ToArray());
 
             var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-            var uriText = jsUriQuery == null ? $"'{description.RelativePath}'" : RemoveTrialEmptyString($"encodeURI(this.baseUri + '{jsUriQuery}')");
+            var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{description.RelativePath}')" : 
+                RemoveTrialEmptyString($"encodeURI(this.baseUri + '{jsUriQuery}')");
 
             if (httpMethod == "get" || httpMethod == "delete")
             {

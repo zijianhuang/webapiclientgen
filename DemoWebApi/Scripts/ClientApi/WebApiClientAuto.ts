@@ -95,7 +95,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetFloatZero(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/FloatZero', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/FloatZero'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -103,7 +103,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetDoubleZero(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/DoubleZero', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/DoubleZero'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -111,7 +111,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetDecimalZero(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/DecimalZero', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/DecimalZero'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -119,7 +119,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         GetNullString(callback: (data : string) => any){
-            this.httpClient.get('api/SuperDemo/NullString', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullString'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -127,7 +127,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         GetEmptyString(callback: (data : string) => any){
-            this.httpClient.get('api/SuperDemo/EmptyString', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/EmptyString'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -135,7 +135,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         GetNullPerson(callback: (data : DemoWebApi_DemoData_Client.Person) => any){
-            this.httpClient.get('api/SuperDemo/NullObject', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullObject'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -143,7 +143,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         GetTextStream(callback: (data : any) => any){
-            this.httpClient.get('api/SuperDemo/TextStream', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/TextStream'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -151,7 +151,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {Array<number>} 
          */
         GetByteArray(callback: (data : Array<number>) => any){
-            this.httpClient.get('api/SuperDemo/ByteArray', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ByteArray'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -159,7 +159,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         GetActionResult(callback: (data : any) => any){
-            this.httpClient.get('api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ActionResult'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -167,7 +167,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         Getbyte(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/byte', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/byte'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -175,7 +175,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         Getsbyte(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/sbyte', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/sbyte'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -183,7 +183,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetShort(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/short', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/short'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -191,7 +191,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetUShort(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/ushort', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ushort'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -199,7 +199,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetUint(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/uint', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/uint'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -207,7 +207,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         Getulong(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/ulong', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ulong'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -215,7 +215,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         Getdouble(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/doulbe', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/doulbe'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -223,7 +223,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         GetDecimal(callback: (data : number) => any){
-            this.httpClient.get('api/SuperDemo/decimal', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/decimal'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -231,7 +231,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         GetChar(callback: (data : string) => any){
-            this.httpClient.get('api/SuperDemo/char', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/char'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -239,16 +239,14 @@ namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         GetBool(callback: (data : boolean) => any){
-            this.httpClient.get('api/SuperDemo/bool', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/bool'), callback, this.error, this.statusCode);
         }
     }
 
     export class Entities {
         httpClient: HttpClient;
-        baseUri: string;
-        constructor(baseUri?:  string, public error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri:  string = '', public error?:  (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
-            this.baseUri = baseUri;
         }
 
         /** 
@@ -258,7 +256,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         GetPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
-            this.httpClient.get(encodeURI(this.baseUri + 'apI/EntitieS/'+id), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Entities/'+id), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -267,7 +265,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         CreatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any){
-            this.httpClient.post('api/Entities', person, callback, this.error, this.statusCode);
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Entities'), person, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -276,7 +274,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         UpdatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : void) => any){
-            this.httpClient.put('api/Entities', person, callback, this.error, this.statusCode);
+            this.httpClient.put(encodeURI(this.baseUri + 'api/Entities'), person, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -300,7 +298,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {Array<string>} 
          */
         Get(callback: (data : Array<string>) => any){
-            this.httpClient.get('api/Values', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Values'), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -319,7 +317,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         Post(value: string, callback: (data : string) => any){
-            this.httpClient.post('api/Values', value, callback, this.error, this.statusCode);
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Values'), value, callback, this.error, this.statusCode);
         }
 
         /** 

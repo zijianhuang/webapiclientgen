@@ -65,143 +65,144 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.GetFloatZero = function (callback) {
-            this.httpClient.get('api/SuperDemo/FloatZero', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/FloatZero'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/DoubleZero
          * @return {number}
          */
         SuperDemo.prototype.GetDoubleZero = function (callback) {
-            this.httpClient.get('api/SuperDemo/DoubleZero', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/DoubleZero'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/DecimalZero
          * @return {number}
          */
         SuperDemo.prototype.GetDecimalZero = function (callback) {
-            this.httpClient.get('api/SuperDemo/DecimalZero', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/DecimalZero'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NullString
          * @return {string}
          */
         SuperDemo.prototype.GetNullString = function (callback) {
-            this.httpClient.get('api/SuperDemo/NullString', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullString'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/EmptyString
          * @return {string}
          */
         SuperDemo.prototype.GetEmptyString = function (callback) {
-            this.httpClient.get('api/SuperDemo/EmptyString', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/EmptyString'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NullObject
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         SuperDemo.prototype.GetNullPerson = function (callback) {
-            this.httpClient.get('api/SuperDemo/NullObject', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullObject'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/TextStream
          * @return {any}
          */
         SuperDemo.prototype.GetTextStream = function (callback) {
-            this.httpClient.get('api/SuperDemo/TextStream', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/TextStream'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/ByteArray
          * @return {Array<number>}
          */
         SuperDemo.prototype.GetByteArray = function (callback) {
-            this.httpClient.get('api/SuperDemo/ByteArray', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ByteArray'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/ActionResult
          * @return {any}
          */
         SuperDemo.prototype.GetActionResult = function (callback) {
-            this.httpClient.get('api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ActionResult'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/byte
          * @return {number}
          */
         SuperDemo.prototype.Getbyte = function (callback) {
-            this.httpClient.get('api/SuperDemo/byte', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/byte'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/sbyte
          * @return {number}
          */
         SuperDemo.prototype.Getsbyte = function (callback) {
-            this.httpClient.get('api/SuperDemo/sbyte', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/sbyte'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/short
          * @return {number}
          */
         SuperDemo.prototype.GetShort = function (callback) {
-            this.httpClient.get('api/SuperDemo/short', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/short'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/ushort
          * @return {number}
          */
         SuperDemo.prototype.GetUShort = function (callback) {
-            this.httpClient.get('api/SuperDemo/ushort', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ushort'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/uint
          * @return {number}
          */
         SuperDemo.prototype.GetUint = function (callback) {
-            this.httpClient.get('api/SuperDemo/uint', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/uint'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/ulong
          * @return {number}
          */
         SuperDemo.prototype.Getulong = function (callback) {
-            this.httpClient.get('api/SuperDemo/ulong', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ulong'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/doulbe
          * @return {number}
          */
         SuperDemo.prototype.Getdouble = function (callback) {
-            this.httpClient.get('api/SuperDemo/doulbe', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/doulbe'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/decimal
          * @return {number}
          */
         SuperDemo.prototype.GetDecimal = function (callback) {
-            this.httpClient.get('api/SuperDemo/decimal', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/decimal'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/char
          * @return {string}
          */
         SuperDemo.prototype.GetChar = function (callback) {
-            this.httpClient.get('api/SuperDemo/char', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/char'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/bool
          * @return {boolean}
          */
         SuperDemo.prototype.GetBool = function (callback) {
-            this.httpClient.get('api/SuperDemo/bool', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/bool'), callback, this.error, this.statusCode);
         };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
         function Entities(baseUri, error, statusCode) {
+            if (baseUri === void 0) { baseUri = ''; }
+            this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
             this.httpClient = new HttpClient();
-            this.baseUri = baseUri;
         }
         /**
          * Get a person
@@ -210,7 +211,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         Entities.prototype.GetPerson = function (id, callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'apI/EntitieS/' + id), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Entities/' + id), callback, this.error, this.statusCode);
         };
         /**
          * POST api/Entities
@@ -218,7 +219,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         Entities.prototype.CreatePerson = function (person, callback) {
-            this.httpClient.post('api/Entities', person, callback, this.error, this.statusCode);
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Entities'), person, callback, this.error, this.statusCode);
         };
         /**
          * PUT api/Entities
@@ -226,7 +227,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Entities.prototype.UpdatePerson = function (person, callback) {
-            this.httpClient.put('api/Entities', person, callback, this.error, this.statusCode);
+            this.httpClient.put(encodeURI(this.baseUri + 'api/Entities'), person, callback, this.error, this.statusCode);
         };
         /**
          * DELETE api/Entities/{id}
@@ -252,7 +253,7 @@ var DemoWebApi_Controllers_Client;
          * @return {Array<string>}
          */
         Values.prototype.Get = function (callback) {
-            this.httpClient.get('api/Values', callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Values'), callback, this.error, this.statusCode);
         };
         /**
          * GET api/Values/{id}?name={name}
@@ -269,7 +270,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Values.prototype.Post = function (value, callback) {
-            this.httpClient.post('api/Values', value, callback, this.error, this.statusCode);
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Values'), value, callback, this.error, this.statusCode);
         };
         /**
          * PUT api/Values/{id}

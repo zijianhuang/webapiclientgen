@@ -1,12 +1,13 @@
 ﻿{
-    "Framework": "qunit",
-    "References" : [
-        {"Path" : "Scripts/jquery-2.1.4.min.js" } 
-    ],
     "Compile": {
         "Mode": "External",
         "Extensions": [ ".ts" ],
         "ExtensionsWithNoOutput": [ ".d.ts" ]
 
-    }
+    },
+    "Framework": "qunit",
+    "References": [
+        { "Path": "Scripts/jquery-2.1.4.min.js" }
+    ],
+    "RootReferencePathMode": "SettingsFileDirectory"
 }

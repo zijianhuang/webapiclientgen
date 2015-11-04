@@ -316,7 +316,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {string} value 
          * @return {string} 
          */
-        Post(value: string, callback: (data : string) => any){
+        Post(value: {'':string}, callback: (data : string) => any){
             this.httpClient.post(encodeURI(this.baseUri + 'api/Values'), value, callback, this.error, this.statusCode);
         }
 
@@ -326,7 +326,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {string} value 
          * @return {void} 
          */
-        Put(id: number, value: string, callback: (data : void) => any){
+        Put(id: number, value: {'':string}, callback: (data : void) => any){
             this.httpClient.put(encodeURI(this.baseUri + 'api/Values/'+id), value, callback, this.error, this.statusCode);
         }
 

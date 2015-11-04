@@ -89,7 +89,7 @@ namespace Fonlow.CodeDom.Web.Ts
             foreach (var item in description.ParameterDescriptions)
             {
                 var tsParameterType = poco2TsGen.TranslateToTsTypeReference(item.ParameterDescriptor.ParameterType);
-            //    var parameterType = TranslateCustomTypeToClientType(item.ParameterDescriptor.ParameterType);
+                //    var parameterType = TranslateCustomTypeToClientType(item.ParameterDescriptor.ParameterType);
                 builder.AppendLine($"@param {{{TypeMapper.GetCodeTypeReferenceText(tsParameterType)}}} {item.Name} {item.Documentation}");
             }
 
@@ -155,7 +155,8 @@ namespace Fonlow.CodeDom.Web.Ts
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
             {
                 Name = d.Name,
-                Type = poco2TsGen.TranslateToTsTypeReference(d.ParameterDescriptor.ParameterType),// new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
+                Type = IsFromBodySimpleType(d) ? CreateCodeTypeReferenceForFromBodySimpleType(d.ParameterDescriptor.ParameterType)
+                    : poco2TsGen.TranslateToTsTypeReference(d.ParameterDescriptor.ParameterType),// new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
 
             }).ToList();
 
@@ -170,7 +171,7 @@ namespace Fonlow.CodeDom.Web.Ts
             method.Parameters.AddRange(parameters.ToArray());
 
             var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-            var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{description.RelativePath}')" : 
+            var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{description.RelativePath}')" :
                 RemoveTrialEmptyString($"encodeURI(this.baseUri + '{jsUriQuery}')");
 
             if (httpMethod == "get" || httpMethod == "delete")
@@ -197,6 +198,17 @@ namespace Fonlow.CodeDom.Web.Ts
             }
 
             Debug.Assert(false, "How come?");
+        }
+
+        static CodeTypeReference CreateCodeTypeReferenceForFromBodySimpleType(Type t)
+        {
+            var typeText = TypeMapper.MapToTsBasicType(t);
+            return new CodeTypeReference($"{{'':{typeText}}}");
+        }
+
+        static bool IsFromBodySimpleType(ApiParameterDescription d)
+        {
+            return IsSimpleType(d.ParameterDescriptor.ParameterType) && (d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute);
         }
 
         static string RemoveTrialEmptyString(string s)
@@ -240,17 +252,17 @@ namespace Fonlow.CodeDom.Web.Ts
 
 
 
-        bool IsSimpleType(Type type)
+        static bool IsSimpleType(Type type)
         {
             return type.IsPrimitive || type.Equals(typeOfString);
         }
 
-        bool IsComplexType(Type type)
+        static bool IsComplexType(Type type)
         {
             return !IsSimpleType(type);
         }
 
-        bool IsStringType(Type type)
+        static bool IsStringType(Type type)
         {
             return type.Equals(typeOfString);
         }

@@ -1,10 +1,11 @@
 /// <reference path="../typings/jquery/jquery.d.ts"/>
 /// <reference path="../typings/qunit/qunit.d.ts"/>
 /// <reference path="../ClientApi/WebApiClientAuto.ts"/>
-QUnit.module("test2");
+QUnit.config.testTimeout = 30000;
 var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/');
 var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:9024/");
 var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:9024/");
+QUnit.module("Entities");
 QUnit.test("data compare", function (assert) {
     var person = {
         Name: "someone",
@@ -31,6 +32,12 @@ QUnit.test("AddPerson", function (assert) {
         Name: "some body",
         GivenName: "some",
         Surname: "body",
+        BirthDate: new Date("1977-08-18"),
+        Addresses: [{
+                City: "Brisbane",
+                State: "QLD",
+                Type: DemoWebApi_DemoData_Client.AddressType.Residential
+            }]
     }, function (data) {
         assert.ok(data > 0);
         done();
@@ -210,24 +217,52 @@ test("Getulong", function (assert) {
         done();
     });
 });
-//test("", function (assert) {
-//    var done = assert.async();
-//    superDemoApi((data) => {
-//        assert.equal(data, 0);
-//        done();
-//    });
-//});
-//test("", function (assert) {
-//    var done = assert.async();
-//    superDemoApi((data) => {
-//        assert.equal(data, 0);
-//        done();
-//    });
-//});
-//test("", function (assert) {
-//    var done = assert.async();
-//    superDemoApi((data) => {
-//        assert.equal(data, 0);
-//        done();
-//    });
-//});
+QUnit.module("ValuesTests");
+test("Get", function (assert) {
+    var done = assert.async();
+    valuesApi.Get(function (data) {
+        assert.equal(data[1], "value2");
+        done();
+    });
+});
+test("GetByIdAndName", function (assert) {
+    var done = assert.async();
+    valuesApi.GetByIdAndName(1, "something", function (data) {
+        assert.equal(data, "something1");
+        done();
+    });
+});
+test("PostValue", function (assert) {
+    var done = assert.async();
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr.responseText);
+        done();
+    });
+    var v = { '': 'value' };
+    api.Post(v, function (data) {
+        assert.equal(data, "VALUE");
+        done();
+    });
+});
+test("Put", function (assert) {
+    assert.expect(0);
+    var done = assert.async();
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr.responseText);
+        done();
+    });
+    api.Put(1, { '': 'value' }, function (data) {
+        done();
+    });
+});
+test("Delete", function (assert) {
+    assert.expect(0);
+    var done = assert.async();
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr.responseText);
+        done();
+    });
+    api.Delete(1, function (data) {
+        done();
+    });
+});

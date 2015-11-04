@@ -493,6 +493,12 @@
             <param name="id">unique id of that guy</param>
             <returns>person in db</returns>
         </member>
+        <member name="T:DemoWebApi.Models.TraceErrorAttribute">
+            <summary>
+            HandleErrorAttribute registered in FilterConfig will display error details if the request is made locally. This attribute will
+            additionally trace the exception before passing the exception to the default handler.
+            </summary>
+        </member>
         <member name="M:Fonlow.WebApiClientGen.CodeGenController.TriggerCodeGen(Fonlow.CodeDom.Web.CodeGenParameters)">
             <summary>
             Trigger the API to generate WebApiClientAuto.cs for an established client API project.

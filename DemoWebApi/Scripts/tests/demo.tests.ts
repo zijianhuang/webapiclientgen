@@ -2,12 +2,13 @@
 /// <reference path="../typings/qunit/qunit.d.ts"/>
 /// <reference path="../ClientApi/WebApiClientAuto.ts"/>
  
-
-QUnit.module("test2");
+QUnit.config.testTimeout = 30000;
 
 var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/');
 var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:9024/");
 var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:9024/");
+
+QUnit.module("Entities");
 
 
 
@@ -18,7 +19,7 @@ QUnit.test("data compare", function (assert) {
         Surname: "my",
         GivenName: "something",
     };
-
+    
     var person2: DemoWebApi_DemoData_Client.Person = {
         Name: "someone",
         Surname: "my",
@@ -45,7 +46,12 @@ QUnit.test("AddPerson", function (assert) {
         Name: "some body",
         GivenName: "some",
         Surname: "body",
-
+        BirthDate: new Date("1977-08-18"),
+        Addresses: [{
+            City: "Brisbane",
+            State: "QLD",
+            Type: DemoWebApi_DemoData_Client.AddressType.Residential
+        }]
     }, (data) => {
         assert.ok(data > 0);
         done();
@@ -66,7 +72,7 @@ QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
 
     }, (data) => {
         assert.ok(data > 0);
-       // done();
+        // done();
     });
 });
 
@@ -156,7 +162,7 @@ test("GetNullableDecimalNull", function (assert) {
 test("GetNullString", function (assert) {
     var done = assert.async();
     superDemoApi.GetNullString((data) => {
-        assert.ok(data==null);
+        assert.ok(data == null);
         done();
     });
 });
@@ -164,7 +170,7 @@ test("GetNullString", function (assert) {
 test("GetNullPerson", function (assert) {
     var done = assert.async();
     superDemoApi.GetNullPerson((data) => {
-        assert.ok(data==null);
+        assert.ok(data == null);
         done();
     });
 });
@@ -172,7 +178,7 @@ test("GetNullPerson", function (assert) {
 test("GetByteArray", function (assert) {
     var done = assert.async();
     superDemoApi.GetByteArray((data) => {
-        assert.ok(data.length> 0);
+        assert.ok(data.length > 0);
         done();
     });
 });
@@ -257,29 +263,63 @@ test("Getulong", function (assert) {
     });
 });
 
-//test("", function (assert) {
-//    var done = assert.async();
-//    superDemoApi((data) => {
-//        assert.equal(data, 0);
-//        done();
-//    });
-//});
 
-//test("", function (assert) {
-//    var done = assert.async();
-//    superDemoApi((data) => {
-//        assert.equal(data, 0);
-//        done();
-//    });
-//});
+QUnit.module("ValuesTests");
 
-//test("", function (assert) {
-//    var done = assert.async();
-//    superDemoApi((data) => {
-//        assert.equal(data, 0);
-//        done();
-//    });
-//});
+test("Get", function (assert) {
+    var done = assert.async();
+    valuesApi.Get((data) => {
+        assert.equal(data[1], "value2");
+        done();
+    });
+});
 
+test("GetByIdAndName", function (assert) {
+    var done = assert.async();
+    valuesApi.GetByIdAndName(1, "something", (data) => {
+        assert.equal(data, "something1");
+        done();
+    });
+});
 
+test("PostValue", function (assert) {
+
+    var done = assert.async();
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr.responseText);
+        done();
+    });
+
+    var v = { '': 'value' };
+    api.Post(v, (data) => {
+        assert.equal(data, "VALUE");
+        done();
+    });
+});
+
+test("Put", function (assert) {
+    assert.expect(0);
+    var done = assert.async();
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr.responseText);
+        done();
+    });
+
+    api.Put(1, { '': 'value' }, (data) => {
+        done();
+    });
+});
+
+test("Delete", function (assert) {
+    assert.expect(0);
+    var done = assert.async();
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr.responseText);
+        done();
+    });
+
+    api.Delete(1, (data) => {
+        done();
+    });
+});
 

@@ -49,22 +49,23 @@ class HttpClient {
         statusCodeCallback: { [key: string]: any; }
     ) {
         //http://api.jquery.com/jquery.ajax/
-        $.ajax(url, {
-            data: dataToSave,
-            type: httpVerb,
-            success: (data: any, textStatus: string, jqXHR: JQueryXHR): any => {
-                if (callback !== null) {
-                    callback(data);
-                }
-            },
-            error: (xhr, ajaxOptions, thrown) => {
-                if (errorCallback != null) {
-                    errorCallback(xhr, ajaxOptions, thrown);
-                }
-            },
+        $.ajax(url,
+            {
+                data: dataToSave,
+                type: httpVerb,
+                success: (data: any, textStatus: string, jqXHR: JQueryXHR): any => {
+                    if (callback !== null) {
+                        callback(data);
+                    }
+                },
+                error: (xhr, ajaxOptions, thrown) => {
+                    if (errorCallback != null) {
+                        errorCallback(xhr, ajaxOptions, thrown);
+                    }
+                },
 
-            statusCode: statusCodeCallback,
+                statusCode: statusCodeCallback,
 
-        });
+            });
     }
 }

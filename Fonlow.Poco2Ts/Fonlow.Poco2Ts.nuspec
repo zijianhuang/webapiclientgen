@@ -1,18 +1,23 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Fonlow.TypeScriptCodeDOM</id>
+    <id>Fonlow.Poco2Ts</id>
     <version>$version$</version>
-    <title>TypeScript CodeDOM</title>
+    <title>Generate data models in TypsScript from POCO classes</title>
     <authors>Zijian Huang</authors>
     <owners>Zijian Huang</owners>
     <licenseUrl>https://webapiclientgen.codeplex.com/license</licenseUrl>
     <projectUrl>https://webapiclientgen.codeplex.com</projectUrl>
     <iconUrl>https://webapiclientgen.codeplex.com</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>TypeScript CodeDOM has TypeScriptCodeProvider implementing ICodeGenerator which has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</description>
-    <releaseNotes>More CodeDOM features</releaseNotes>
+    <description>Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</description>
+    <releaseNotes>repack from POCO2TS.exe</releaseNotes>
     <copyright>Copyright © Fonlow 2015</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</tags>
+    <dependencies>
+      <group>
+        <dependency id="Fonlow.TypeScriptCodeDOM" version="1.0.0" />
+      </group>
+    </dependencies>  
   </metadata>
 </package>

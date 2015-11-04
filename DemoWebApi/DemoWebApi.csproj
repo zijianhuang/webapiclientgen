@@ -319,7 +319,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\app\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -344,6 +343,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\app\MyApp.ts" />
+    <TypeScriptCompile Include="Scripts\ClientApi\Dummy.ts" />
     <TypeScriptCompile Include="Scripts\ClientApi\HttpClient.ts" />
     <TypeScriptCompile Include="Scripts\ClientApi\WebApiClientAuto.ts" />
     <TypeScriptCompile Include="Scripts\tests\demo.tests.ts" />

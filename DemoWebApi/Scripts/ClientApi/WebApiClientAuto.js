@@ -22,7 +22,6 @@ var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     var SuperDemo = (function () {
         function SuperDemo(baseUri, error, statusCode) {
-            if (baseUri === void 0) { baseUri = ''; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
@@ -198,7 +197,6 @@ var DemoWebApi_Controllers_Client;
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
         function Entities(baseUri, error, statusCode) {
-            if (baseUri === void 0) { baseUri = ''; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
@@ -242,7 +240,6 @@ var DemoWebApi_Controllers_Client;
     DemoWebApi_Controllers_Client.Entities = Entities;
     var Values = (function () {
         function Values(baseUri, error, statusCode) {
-            if (baseUri === void 0) { baseUri = ''; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;

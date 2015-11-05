@@ -11,10 +11,6 @@ class HttpClient {
         $.get(url, callback);
     }
 
-    /** something to say
-     * @param {string} url very good
-     * @return {void}
-     */
     post(url: string,
         dataToSave: any,
         callback: (data: any) => any,

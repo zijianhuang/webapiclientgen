@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Fonlow.Poco2Ts
 {
     /// <summary>
-    /// Pick types in the assembly for further processing. This also takes care of dependency resolution.
+    /// Pick types in the assembly for further processing.
     /// </summary>
     public static class PocoAssemblyFileWalker
     {

@@ -22,7 +22,17 @@ namespace Fonlow.WebApiClientGen
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "parametersNull" });
 
             string webRootPath = System.Web.Hosting.HostingEnvironment.MapPath("~");
-            var apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions;
+            System.Collections.ObjectModel.Collection<System.Web.Http.Description.ApiDescription> apiDescriptions;
+            try
+            {
+                apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions;
+
+            }
+            catch (System.InvalidOperationException e)
+            {
+                System.Diagnostics.Trace.TraceWarning(e.Message);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable) { ReasonPhrase = "CodeGenNotReady" });
+            }
 
             if (!string.IsNullOrEmpty(parameters.ClientLibraryProjectFolderName))
             {

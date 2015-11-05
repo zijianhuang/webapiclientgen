@@ -7,10 +7,6 @@ var HttpClient = (function () {
     HttpClient.prototype.get = function (url, callback, errorCalback, statusCodeCallback) {
         $.get(url, callback);
     };
-    /** something to say
-     * @param {string} url very good
-     * @return {void}
-     */
     HttpClient.prototype.post = function (url, dataToSave, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback);
     };

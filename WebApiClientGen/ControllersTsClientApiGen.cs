@@ -252,9 +252,9 @@ namespace Fonlow.CodeDom.Web.Ts
 
             // Add parameters.
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                " string = ''", "public baseUri"));
+                "string", "public baseUri?"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                " (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "public error?"));
+                "(xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "public error?"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
                 "{ [key: string]: any; }", "public statusCode?"));
 

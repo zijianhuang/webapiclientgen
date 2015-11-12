@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
+    /// <summary>
+    /// Map CLR types to TS types
+    /// </summary>
     public static class TypeMapper
     {
         static readonly Dictionary<string, string> typeMap = new Dictionary<string, string>();
@@ -39,16 +42,6 @@ namespace Fonlow.TypeScriptCodeDom
             "System.Collections.Generic.IList",
             "System.Collections.Generic.IEnumerable" };
 
-        public static string MapToTsBasicType(Type type)
-        {
-            string tsTypeName;
-
-            if (typeMap.TryGetValue(type.FullName, out tsTypeName))
-                return tsTypeName;
-
-            return null;
-        }
-
         static bool IsGenericArrayType(string typeName)
         {
             return arrayGenericTypes.Any(d => typeName.Contains(d));
@@ -71,55 +64,63 @@ namespace Fonlow.TypeScriptCodeDom
             return !type.BaseType.Equals(typeNameOfObject);
         }
 
+        public static string MapToTsBasicType(Type type)
+        {
+            string tsTypeName;
+
+            if (typeMap.TryGetValue(type.FullName, out tsTypeName))
+                return tsTypeName;
+
+            return null;
+        }
+
         /// <summary>
         /// Get the TypeScript text of the CodeTypeReference
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="codeTypeReference">CodeTypeReference to a CLR type</param>
         /// <returns></returns>
-        public static string GetCodeTypeReferenceText(CodeTypeReference type)
+        public static string MapCodeTypeReferenceToTsText(CodeTypeReference codeTypeReference)
         {
-            if (type == null)
+            if (codeTypeReference == null)
                 return null;
 
-            System.Diagnostics.Debug.WriteLine("type.BaseType: " + type.BaseType);
-            System.Diagnostics.Debug.WriteLineIf(type.BaseType == "System.Void", "For this void type :" + type.ToString());
-            string tsTypeName;
-            if (IsArrayType(type))//I am not sure why the type.BaseType is the same as the ArrayElementType, even if I gave it System.Array
+            System.Diagnostics.Debug.WriteLine("type.BaseType: " + codeTypeReference.BaseType);
+            System.Diagnostics.Debug.WriteLineIf(codeTypeReference.BaseType == "System.Void", "For this void type :" + codeTypeReference.ToString());
+            if (IsArrayType(codeTypeReference))//I am not sure why the type.BaseType is the same as the ArrayElementType, even if I gave it System.Array
             {
-                var elementTypeName = GetCodeTypeReferenceText(type.ArrayElementType);
+                var elementTypeName = MapCodeTypeReferenceToTsText(codeTypeReference.ArrayElementType);
                 return $"Array<{elementTypeName}>"; //more consistence with IEnumerable
                 //var arrayBaskets = string.Concat(Enumerable.Repeat("[]", type.ArrayRank));
                 //return $"{type.ArrayElementType.BaseType}{arrayBaskets}";
             }
 
-            if (typeMap.TryGetValue(type.BaseType, out tsTypeName))
+            string tsTypeName;
+            if (typeMap.TryGetValue(codeTypeReference.BaseType, out tsTypeName))
                 return tsTypeName;
 
 
-            if (type.TypeArguments.Count == 0)
-                return type.BaseType;
+            if (codeTypeReference.TypeArguments.Count == 0)
+                return codeTypeReference.BaseType;
 
-            if (IsGenericArrayType(type.BaseType))
+            if (IsGenericArrayType(codeTypeReference.BaseType))
             {
-                System.Diagnostics.Trace.Assert(type.TypeArguments.Count == 1);
-                return $"Array<{GetCodeTypeReferenceText(type.TypeArguments[0])}>";
+                System.Diagnostics.Trace.Assert(codeTypeReference.TypeArguments.Count == 1);
+                return $"Array<{MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0])}>";
             }
 
-            if (IsNullableType(type.BaseType))
+            if (IsNullableType(codeTypeReference.BaseType))
             {
-                System.Diagnostics.Trace.Assert(type.TypeArguments.Count == 1);
-                return GetCodeTypeReferenceText(type.TypeArguments[0]);// + "?"; in javascript all is optional anyway.
+                System.Diagnostics.Trace.Assert(codeTypeReference.TypeArguments.Count == 1);
+                return MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);// + "?"; in javascript all is optional anyway.
             }
 
-            if (type.TypeArguments.Count > 0)
+            if (codeTypeReference.TypeArguments.Count > 0)
             {
-
-                var genericBaseTypeName = type.BaseType.Contains("`1") ? type.BaseType.Replace("`1", null) : type.BaseType;  //.NET runtime gives `1 suffix, but TS does not need it.
-
-                return $"{genericBaseTypeName}<{GetCodeTypeReferenceCollection(type.TypeArguments)}>";
+                var genericBaseTypeName = codeTypeReference.BaseType.Contains("`1") ? codeTypeReference.BaseType.Replace("`1", null) : codeTypeReference.BaseType;  //.NET runtime gives `1 suffix, but TS does not need it.
+                return $"{genericBaseTypeName}<{MapCodeTypeReferenceCollectionToTsText(codeTypeReference.TypeArguments)}>";
             }
 
-            System.Diagnostics.Trace.TraceInformation($"{type.BaseType} is mapped to any.");
+            System.Diagnostics.Trace.TraceWarning($"{codeTypeReference.BaseType} is mapped to any.");
             return "any";//todo: this should never happen, should I raise an exception?
         }
 
@@ -128,9 +129,9 @@ namespace Fonlow.TypeScriptCodeDom
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        public static string GetCodeTypeReferenceCollection(CodeTypeReferenceCollection collection)
+        public static string MapCodeTypeReferenceCollectionToTsText(CodeTypeReferenceCollection collection)
         {
-            var arguments = collection.OfType<CodeTypeReference>().Select(d => GetCodeTypeReferenceText(d));
+            var arguments = collection.OfType<CodeTypeReference>().Select(d => MapCodeTypeReferenceToTsText(d));
             return String.Join(", ", arguments);
         }
 

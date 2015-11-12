@@ -113,7 +113,7 @@ namespace Fonlow.TypeScriptCodeDom
             var parameterDeclarationExpression = e as CodeParameterDeclarationExpression;
             if (parameterDeclarationExpression != null)
             {
-                w.Write($"{parameterDeclarationExpression.Name}: {TypeMapper.GetCodeTypeReferenceText(parameterDeclarationExpression.Type)}");
+                w.Write($"{parameterDeclarationExpression.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type)}");
                 return;
             }
 
@@ -143,14 +143,14 @@ namespace Fonlow.TypeScriptCodeDom
             var typeOfExpression = e as CodeTypeOfExpression;
             if (typeOfExpression != null)
             {
-                w.Write("typeof " + TypeMapper.GetCodeTypeReferenceText(typeOfExpression.Type));
+                w.Write("typeof " + TypeMapper.MapCodeTypeReferenceToTsText(typeOfExpression.Type));
                 return;
             }
 
             var typeReferenceExpression = e as CodeTypeReferenceExpression;
             if (typeReferenceExpression != null)
             {
-                w.Write(TypeMapper.GetCodeTypeReferenceText(typeReferenceExpression.Type));
+                w.Write(TypeMapper.MapCodeTypeReferenceToTsText(typeReferenceExpression.Type));
                 return;
             }
 
@@ -247,7 +247,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (objectCreateExpression == null)
                 return false;
 
-            w.Write($"new {TypeMapper.GetCodeTypeReferenceText(objectCreateExpression.CreateType)}(");
+            w.Write($"new {TypeMapper.MapCodeTypeReferenceToTsText(objectCreateExpression.CreateType)}(");
             WriteCodeExpressionCollection(objectCreateExpression.Parameters, w, o);
             w.Write(")");
             return true;
@@ -403,7 +403,7 @@ namespace Fonlow.TypeScriptCodeDom
             var accessibility = GetAccessibilityModifier(codeMemberProperty.Attributes);
 
             var currentIndent = o.IndentString;
-            var propertyType = TypeMapper.GetCodeTypeReferenceText(codeMemberProperty.Type);
+            var propertyType = TypeMapper.MapCodeTypeReferenceToTsText(codeMemberProperty.Type);
             if (codeMemberProperty.GetStatements.Count > 0)
             {
                 w.Write(o.IndentString);
@@ -440,7 +440,7 @@ namespace Fonlow.TypeScriptCodeDom
             WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
             w.Write(")");
 
-            var returnTypeText = TypeMapper.GetCodeTypeReferenceText(memberMethod.ReturnType);
+            var returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(memberMethod.ReturnType);
             if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
             {
                 //if (returnTypeText.Contains("?"))
@@ -597,7 +597,7 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
         {
-            var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>().Select(d => $"{d.Name}: {TypeMapper.GetCodeTypeReferenceText(d.Type)}");
+            var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>().Select(d => $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}");
             w.Write(String.Join(", ", pairs));
         }
 
@@ -619,7 +619,7 @@ namespace Fonlow.TypeScriptCodeDom
             w.Write(expression.MethodName);
             if (expression.TypeArguments.Count > 0)
             {
-                w.Write($"<{TypeMapper.GetCodeTypeReferenceCollection(expression.TypeArguments)}>");
+                w.Write($"<{TypeMapper.MapCodeTypeReferenceCollectionToTsText(expression.TypeArguments)}>");
             }
 
             w.Write("()");
@@ -740,7 +740,7 @@ namespace Fonlow.TypeScriptCodeDom
                 return false;
 
             w.Write(o.IndentString);
-            w.Write($"var {variableDeclarationStatement.Name}: {TypeMapper.GetCodeTypeReferenceText(variableDeclarationStatement.Type)}");
+            w.Write($"var {variableDeclarationStatement.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(variableDeclarationStatement.Type)}");
 
             if (variableDeclarationStatement.InitExpression != null)
             {
@@ -819,32 +819,14 @@ namespace Fonlow.TypeScriptCodeDom
                     return "final";
                 case MemberAttributes.Static:
                     return "static";
-                //case MemberAttributes.Override:
-                //    break;
                 case MemberAttributes.Const:
                     return "const";
-                //case MemberAttributes.New:
-                //    break;
-                //case MemberAttributes.Overloaded:
-                //    break;
-                //case MemberAttributes.Assembly:
-                //    break;
-                //case MemberAttributes.FamilyAndAssembly:
-                //    break;
                 case MemberAttributes.Family:
                     return "protected";
-                //case MemberAttributes.FamilyOrAssembly:
-                //    break;
                 case MemberAttributes.Private:
                     return "private";
                 case MemberAttributes.Public:
                     return "public";
-                //case MemberAttributes.AccessMask:
-                //    break;
-                //case MemberAttributes.ScopeMask:
-                //    break;
-                //case MemberAttributes.VTableMask:
-                //    break;
                 default:
                     throw new InvalidOperationException("Not supported: " + a.ToString());
             }
@@ -861,7 +843,7 @@ namespace Fonlow.TypeScriptCodeDom
             return ss;
         }
 
-        public static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
+        static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
         {
             return typeDeclaration.IsEnum
                 ? "enum"
@@ -870,7 +852,7 @@ namespace Fonlow.TypeScriptCodeDom
                     : "class";
         }
 
-        public static string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
+        static string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
         {
             if (typeDeclaration.TypeParameters.Count == 0)
                 return string.Empty;
@@ -881,7 +863,7 @@ namespace Fonlow.TypeScriptCodeDom
                 if (d.Constraints.Count > 0)
                 {
                     var constraint = d.Constraints.OfType<CodeTypeReference>().First();
-                    var type = TypeMapper.GetCodeTypeReferenceText(constraint);
+                    var type = TypeMapper.MapCodeTypeReferenceToTsText(constraint);
                     typeParameterConstraint = $" extends {type}";
                 }
 
@@ -892,12 +874,12 @@ namespace Fonlow.TypeScriptCodeDom
             return parameterNames.Length == 0 ? String.Empty : $"<{String.Join(", ", parameterNames)}>";
         }
 
-        public static string GetBaseTypeExpression(CodeTypeDeclaration typeDeclaration)
+        static string GetBaseTypeExpression(CodeTypeDeclaration typeDeclaration)
         {
             var baseTypes = typeDeclaration.BaseTypes
                 .OfType<CodeTypeReference>()
                 .Where(reference => TypeMapper.IsValidTypeForDerivation(reference))
-                .Select(reference => TypeMapper.GetCodeTypeReferenceText(reference))
+                .Select(reference => TypeMapper.MapCodeTypeReferenceToTsText(reference))
                 .ToList();
             var baseTypesExpression = string.Empty;
             if (baseTypes.Any() && !typeDeclaration.IsEnum)
@@ -908,36 +890,29 @@ namespace Fonlow.TypeScriptCodeDom
             return String.Empty;
         }
 
-        public static string GetEnumMember(CodeMemberField member)
+        static string GetEnumMember(CodeMemberField member)
         {
             var initExpression = member.InitExpression as CodePrimitiveExpression;
             return (initExpression == null) ? $"{member.Name}" : $"{member.Name}={initExpression.Value}";
         }
 
-        public static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
+        static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
         {
             return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
         }
 
-        public static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
+        static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
         {
-            return TypeMapper.GetCodeTypeReferenceText(codeTypeReference);
+            return TypeMapper.MapCodeTypeReferenceToTsText(codeTypeReference);
         }
 
-        public static string GetCodeMemberPropertyText(CodeMemberProperty codeMemberProperty)
+        static string GetCodeMemberPropertyText(CodeMemberProperty codeMemberProperty)
         {
             return RefineNameAndType(codeMemberProperty.Name, GetCodeTypeReferenceText(codeMemberProperty.Type));
         }
 
         static string RefineNameAndType(string name, string typeName)
         {
-            //if (typeName.EndsWith("?"))
-            //{
-            //    var newName = name + "?";
-            //    var newTypeName = typeName.TrimEnd('?');
-            //    return $"{newName}: {newTypeName}";
-            //}
-
             return $"{name}: {typeName}";
         }
 

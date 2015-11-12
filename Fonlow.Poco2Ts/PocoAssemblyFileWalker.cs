@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 
 namespace Fonlow.Poco2Ts
 {

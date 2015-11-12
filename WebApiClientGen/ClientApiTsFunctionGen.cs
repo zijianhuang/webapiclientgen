@@ -90,12 +90,12 @@ namespace Fonlow.CodeDom.Web.Ts
             {
                 var tsParameterType = poco2TsGen.TranslateToTsTypeReference(item.ParameterDescriptor.ParameterType);
                 //    var parameterType = TranslateCustomTypeToClientType(item.ParameterDescriptor.ParameterType);
-                builder.AppendLine($"@param {{{TypeMapper.GetCodeTypeReferenceText(tsParameterType)}}} {item.Name} {item.Documentation}");
+                builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {item.Documentation}");
             }
 
             Type responseType = description.ResponseDescription.ResponseType ?? description.ResponseDescription.DeclaredType;
             var tsResponseType = poco2TsGen.TranslateToTsTypeReference(responseType);
-            var returnType = responseType == null ? "void" : TypeMapper.GetCodeTypeReferenceText(tsResponseType);
+            var returnType = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
             builder.AppendLine($"@return {{{returnType}}} {description.ResponseDescription.Documentation}");
             method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
         }
@@ -161,7 +161,7 @@ namespace Fonlow.CodeDom.Web.Ts
             }).ToList();
 
             var parameterType = poco2TsGen.TranslateToTsTypeReference(returnType);
-            var callbackTypeText = $"(data : {TypeMapper.GetCodeTypeReferenceText(parameterType)}) => any";
+            var callbackTypeText = $"(data : {TypeMapper.MapCodeTypeReferenceToTsText(parameterType)}) => any";
             parameters.Add(new CodeParameterDeclarationExpression()
             {
                 Name = "callback",

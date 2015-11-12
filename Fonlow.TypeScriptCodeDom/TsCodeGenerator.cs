@@ -53,7 +53,7 @@ namespace Fonlow.TypeScriptCodeDom
 
         public string GetTypeOutput(CodeTypeReference type)
         {
-            return TypeMapper.GetCodeTypeReferenceText(type);
+            return TypeMapper.MapCodeTypeReferenceToTsText(type);
         }
 
         public bool IsValidIdentifier(string value)

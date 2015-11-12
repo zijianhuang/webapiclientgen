@@ -4,7 +4,6 @@ using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Linq;
 using System.Collections.Generic;
-using Fonlow.TypeScriptCodeDom;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System;
@@ -19,6 +18,9 @@ namespace Fonlow.Poco2Ts
         CodeCompileUnit targetUnit;
         CodeTypeDeclaration[] newTypesCreated;
 
+        /// <summary>
+        /// Init with its own CodeCompileUnit.
+        /// </summary>
         public Poco2TsGen()
         {
             targetUnit = new CodeCompileUnit();
@@ -73,7 +75,7 @@ namespace Fonlow.Poco2Ts
             if (writer == null)
                 throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-            var provider = new TypeScriptCodeProvider();
+            var provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider();
             CodeGeneratorOptions options = new CodeGeneratorOptions()
             {
                 BracingStyle = "JS",//not really used
@@ -99,7 +101,7 @@ namespace Fonlow.Poco2Ts
         string[] pendingTypesNames;
 
         /// <summary>
-        /// Create type declarations in TypeScripCodeDom for POCO types. 
+        /// Create TypeScript CodeDOM for POCO types. 
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
         /// <param name="types">POCO types.</param>
@@ -200,7 +202,6 @@ namespace Fonlow.Poco2Ts
                                 Name = name,
                                 Type = new CodeTypeReference(fieldInfo.FieldType),
                                 InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
-                                //  Attributes= MemberAttributes.Public,
                             };
 
                             typeDeclaration.Members.Add(clientField);
@@ -236,16 +237,14 @@ namespace Fonlow.Poco2Ts
                 {
                     Debug.Assert(t.GenericTypeArguments.Length == 1);
                     var elementType = t.GenericTypeArguments[0];
-                    return CreateArraTypeReference(t, elementType, 1);
+                    return CreateArrayTypeReference(t, elementType, 1);
 
                 }
                 else if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
-                    var genericTypeNames = t.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
-                    var codeTypeReference = new CodeTypeReference(typeof(Nullable<>));
-                    codeTypeReference.TypeArguments.AddRange(genericTypeNames);
-
-                    return codeTypeReference;
+                    var genericTypeReferences = t.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
+                    Debug.Assert(genericTypeReferences.Length == 1);
+                    return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
                 }
                 else
                     return null;
@@ -255,15 +254,14 @@ namespace Fonlow.Poco2Ts
                 Debug.Assert(t.Name.EndsWith("]"));
                 var elementType = t.GetElementType();
                 var arrayRank = t.GetArrayRank();
-                return CreateArraTypeReference(t, elementType, arrayRank);
+                return CreateArrayTypeReference(t, elementType, arrayRank);
             }
 
-            var basicType = TypeMapper.MapToTsBasicType(t);
-            if (basicType != null)
-                return new CodeTypeReference(basicType);
+            var tsBasicTypeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(t);
+            if (tsBasicTypeText != null)
+                return new CodeTypeReference(tsBasicTypeText);
 
             return new CodeTypeReference("any");
-
         }
 
         static string RefineCustomComplexTypeText(Type t)
@@ -271,18 +269,17 @@ namespace Fonlow.Poco2Ts
             return t.Namespace.Replace('.', '_') + "_Client." + t.Name;
         }
 
-        CodeTypeReference CreateArrayOfCustomTypeReference(Type t, Type elementType, int arrayRank)
+        static CodeTypeReference CreateArrayOfCustomTypeReference(Type t, Type elementType, int arrayRank)
         {
             var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
-            var arrayTypeReference = new CodeTypeReference("System.Array");
-            var typeReference = new CodeTypeReference(arrayTypeReference, arrayRank)
+            var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
             {
                 ArrayElementType = elementTypeReference,
             };
             return typeReference;
         }
 
-        CodeTypeReference CreateArraTypeReference(Type t, Type elementType, int arrayRank)
+        CodeTypeReference CreateArrayTypeReference(Type t, Type elementType, int arrayRank)
         {
             if (pendingTypes.Contains(elementType))
             {
@@ -295,8 +292,6 @@ namespace Fonlow.Poco2Ts
             };
             return otherArrayType;
         }
-
-
 
         static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
         {

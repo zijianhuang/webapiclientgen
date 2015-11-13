@@ -7,16 +7,13 @@ using System.Diagnostics;
 
 namespace Fonlow.TypeScriptCodeDom
 {
-    internal sealed class Constants
-    {
-        public const string BasicIndent = "    ";
-    }
-
     public static class CodeObjectHelper
     {
+        const string BasicIndent = "    ";
+
         #region public GenerateCodeFromXXX
 
-        public static void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+        internal static void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
         {
             WriteCodeCommentStatementCollection(e.Comments, w, o);
 
@@ -40,7 +37,7 @@ namespace Fonlow.TypeScriptCodeDom
             w.WriteLine($"}}");
         }
 
-        public static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+        internal static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
             WriteCodeCommentStatementCollection(e.Comments, w, o);
 
@@ -53,12 +50,11 @@ namespace Fonlow.TypeScriptCodeDom
             WriteTypeMembersAndCloseBracing(e, w, o);
         }
 
-        public static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
+        internal static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
         {
             if (e == null)
                 return;
            
-            var currentIndent = o.IndentString;
             var argumentReferenceExpression = e as CodeArgumentReferenceExpression;
             if (argumentReferenceExpression != null)
             {
@@ -81,14 +77,6 @@ namespace Fonlow.TypeScriptCodeDom
 
             if (WriteCodeBinaryOperatorExpression(e as CodeBinaryOperatorExpression, w, o))
                 return;
-
-            // todo: CodeCastExpression, example <HTMLSpanElement>document, not sure anyone would use type casting in generated codes.
-
-            //todo: CodeDefaultValueExpression; ts not supported?
-            //todo: CodeDelegateCreateExpression no
-            //todo: CodeDelegateInvokeExpression no
-            //todo: CodeDirectionExpression; ts not supported
-            //todo: CodeEventReferenceExpression; probably better with snippetExpression
 
             if (WriteCodeFieldReferenceExpression(e as CodeFieldReferenceExpression, w, o))
                 return;
@@ -117,14 +105,12 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            if (WriteCodePrimitiveExpression(e as CodePrimitiveExpression, w, o))
+            if (WriteCodePrimitiveExpression(e as CodePrimitiveExpression, w))
                 return;
 
 
             if (WriteCodePropertyReferenceExpression(e as CodePropertyReferenceExpression, w, o))
                 return;
-
-            //todo: CodePropertySetValueReferenceExpression  not to support
 
             var snippetExpression = e as CodeSnippetExpression;
             if (snippetExpression != null)
@@ -164,14 +150,12 @@ namespace Fonlow.TypeScriptCodeDom
             Trace.TraceWarning($"CodeExpression not supported: {e.ToString()}");
         }
 
-        public static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
+        internal static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
         {
-            var currentIndent = o.IndentString;
-
             if (WriteCodeAssignStatement(e as CodeAssignStatement, w, o))
                 return;
 
-            //todo: CodeAttachEventStatement  TS does not seem to support, 
+            //CodeAttachEventStatement  TS does not seem to support, Js DOM event better done with code snippet.
 
             if (WriteCodeCommentStatement(e as CodeCommentStatement, w, o))
                 return;
@@ -253,7 +237,7 @@ namespace Fonlow.TypeScriptCodeDom
             return true;
         }
 
-        static bool WriteCodePrimitiveExpression(CodePrimitiveExpression primitiveExpression, TextWriter w, CodeGeneratorOptions o)
+        static bool WriteCodePrimitiveExpression(CodePrimitiveExpression primitiveExpression, TextWriter w)
         {
             if (primitiveExpression == null)
                 return false;
@@ -409,7 +393,7 @@ namespace Fonlow.TypeScriptCodeDom
                 w.Write(o.IndentString);
                 w.WriteLine($"{accessibility} get {codeMemberProperty.Name}(): {propertyType}");
                 w.WriteLine("{");
-                o.IndentString += Constants.BasicIndent;
+                o.IndentString += BasicIndent;
                 WriteCodeStatementCollection(codeMemberProperty.GetStatements, w, o);
                 o.IndentString = currentIndent;
             }
@@ -419,7 +403,7 @@ namespace Fonlow.TypeScriptCodeDom
                 w.Write(o.IndentString);
                 w.WriteLine($"{accessibility} set {codeMemberProperty.Name}(value : {propertyType})");
                 w.WriteLine("{");
-                o.IndentString += Constants.BasicIndent;
+                o.IndentString += BasicIndent;
                 WriteCodeStatementCollection(codeMemberProperty.SetStatements, w, o);
                 o.IndentString = currentIndent;
             }
@@ -433,8 +417,6 @@ namespace Fonlow.TypeScriptCodeDom
                 return false;
 
             var isCodeConstructor = memberMethod is CodeConstructor;
-            //todo: CodeEntryPointMethod not applicable to TS
-            //todo: CodeTypeConstructor  TS support partially static, so probably not applicable
             var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
             w.Write(o.IndentString + methodName + "(");
             WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
@@ -443,15 +425,11 @@ namespace Fonlow.TypeScriptCodeDom
             var returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(memberMethod.ReturnType);
             if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
             {
-                //if (returnTypeText.Contains("?"))
-                //    w.Write(": any");
-                //else
                 w.Write(": " + returnTypeText);
             }
 
             w.WriteLine("{");
 
-            //todo:  memberMethod.TypeParameters ? how many would generate generic methods
 
             WriteCodeStatementCollection(memberMethod.Statements, w, o);
 
@@ -506,7 +484,7 @@ namespace Fonlow.TypeScriptCodeDom
             {
                 var enumMembers = typeDeclaration.Members.OfType<CodeTypeMember>().Select(ctm =>
                  {
-                     var codeMemberField = ctm as CodeMemberField;//codeMemberField.Comments is ignored here. Not sure anyone would write codegen that emit comments for enum members?
+                     var codeMemberField = ctm as CodeMemberField;//todo: codeMemberField.Comments is ignored here. Not sure anyone would write codegen that emit comments for enum members?
                      System.Diagnostics.Trace.Assert(codeMemberField != null);
                      var enumMember = GetEnumMember(codeMemberField);
                      System.Diagnostics.Trace.Assert(!String.IsNullOrEmpty(enumMember));
@@ -520,7 +498,7 @@ namespace Fonlow.TypeScriptCodeDom
             w.WriteLine();
 
             var currentIndent = o.IndentString;
-            o.IndentString += Constants.BasicIndent;
+            o.IndentString += BasicIndent;
 
             for (int i = 0; i < typeDeclaration.Members.Count; i++)
             {
@@ -556,19 +534,6 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            //todo: nested CodeTypeDeclaration not to implement
-            /* TypeScript seems to support or simulate nested type declaration. But not likely many programmers will generate such codes.
-              class b
-  {
-  }
-
-  module b
-  {
-      class c
-      {
-      }
-  }
-              */
         }
 
         /// <summary>
@@ -580,7 +545,7 @@ namespace Fonlow.TypeScriptCodeDom
         static void WriteCodeStatementCollection(CodeStatementCollection statements, TextWriter w, CodeGeneratorOptions o)
         {
             var currentIndent = o.IndentString;
-            o.IndentString += Constants.BasicIndent;
+            o.IndentString += BasicIndent;
 
             for (int i = 0; i < statements.Count; i++)
             {
@@ -668,7 +633,7 @@ namespace Fonlow.TypeScriptCodeDom
             w.WriteLine("}");
 
             if (tryCatchFinallyStatement.CatchClauses.Count > 1)
-                throw new ArgumentException("Javascript does not support multiple CatchClauses.", "tryCatchFinallyStatement.CatchClauses");
+                throw new ArgumentException("Javascript does not support multiple CatchClauses.", "tryCatchFinallyStatement");
 
             if (tryCatchFinallyStatement.CatchClauses.Count > 0)
             {
@@ -837,9 +802,9 @@ namespace Fonlow.TypeScriptCodeDom
             if (String.IsNullOrEmpty(s))
                 return String.Empty;
 
-            var lines = s.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            var lines = s.Split(new string[] { Environment.NewLine, "\n", "\r" }, StringSplitOptions.None);
             var indentedLines = lines.Select(d => indent + d);
-            var ss = String.Join("\r\n", indentedLines);
+            var ss = String.Join(Environment.NewLine, indentedLines);
             return ss;
         }
 
@@ -881,7 +846,6 @@ namespace Fonlow.TypeScriptCodeDom
                 .Where(reference => TypeMapper.IsValidTypeForDerivation(reference))
                 .Select(reference => TypeMapper.MapCodeTypeReferenceToTsText(reference))
                 .ToList();
-            var baseTypesExpression = string.Empty;
             if (baseTypes.Any() && !typeDeclaration.IsEnum)
             {
                 return $" extends {string.Join(",", baseTypes)}";
@@ -904,11 +868,6 @@ namespace Fonlow.TypeScriptCodeDom
         static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
         {
             return TypeMapper.MapCodeTypeReferenceToTsText(codeTypeReference);
-        }
-
-        static string GetCodeMemberPropertyText(CodeMemberProperty codeMemberProperty)
-        {
-            return RefineNameAndType(codeMemberProperty.Name, GetCodeTypeReferenceText(codeMemberProperty.Type));
         }
 
         static string RefineNameAndType(string name, string typeName)

@@ -42,7 +42,7 @@ namespace Fonlow.CodeDom.Web.Ts
             //   var provider = CodeDomProvider.CreateProvider("CSharp");
             CodeGeneratorOptions options = new CodeGeneratorOptions()
             {
-                BracingStyle = "JS",//not yet working
+                BracingStyle = "JS",
                 IndentString = "    ",
             };
 
@@ -70,11 +70,6 @@ namespace Fonlow.CodeDom.Web.Ts
             {
                 var clientNamespaceText = (grouppedControllerDescriptions.Key + ".Client").Replace('.', '_');
                 var clientNamespace = new CodeNamespace(clientNamespaceText);
-                //if (dataModelNamespaces != null)
-                //{
-                //    var dataModeNamespaceImports = dataModelNamespaces.Select(d => new CodeNamespaceImport(d)).ToArray();
-                //    clientNamespace.Imports.AddRange(dataModeNamespaceImports);
-                //}
 
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
@@ -99,7 +94,7 @@ namespace Fonlow.CodeDom.Web.Ts
                 var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, controllerName);
                 System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-                var apiFunction = ClientApiTsFunctionGen.Create(sharedContext, d, poco2TsGen);
+                var apiFunction = ClientApiTsFunctionGen.Create(d, poco2TsGen);
                 existingClientClass.Members.Add(apiFunction);
             }
 
@@ -124,7 +119,6 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             targetUnit.ReferencedAssemblies.Add("<reference path=\"../typings/jquery/jquery.d.ts\" />");
             targetUnit.ReferencedAssemblies.Add("<reference path=\"HttpClient.ts\" />");
-            //   targetUnit.ReferencedAssemblies.Add("");
         }
 
         /// <summary>
@@ -165,13 +159,13 @@ namespace Fonlow.CodeDom.Web.Ts
                     for (int m = 0; m < c.Members.Count; m++)
                     {
                         var method = c.Members[m] as CodeMemberMethod;
-                        if (method!=null)
+                        if (method != null)
                         {
                             methods.Add(method);
                         }
                     }
 
-                    if (methods.Count>1)//worth of checking overloading
+                    if (methods.Count > 1)//worth of checking overloading
                     {
                         var candidates = from m in methods group m by m.Name into grp where grp.Count() > 1 select grp.Key;
                         foreach (var candidateName in candidates)
@@ -180,7 +174,7 @@ namespace Fonlow.CodeDom.Web.Ts
                             System.Diagnostics.Debug.Assert(overloadingMethods.Length > 1);
                             foreach (var item in overloadingMethods) //Wow, 5 nested loops, plus 2 linq expressions
                             {
-                                RenameCodeMemberMethod(item);
+                                RenameCodeMemberMethodWithParameterNames(item);
                             }
                         }
                     }
@@ -189,11 +183,14 @@ namespace Fonlow.CodeDom.Web.Ts
 
         }
 
-        static void RenameCodeMemberMethod(CodeMemberMethod method)
+        static string ToTitleCase(string s)
         {
-            var basicName = method.Name;
-            var textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
-            var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Select(d => textInfo.ToTitleCase(d.Name)).ToList();
+            return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s);
+        }
+
+        static void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)
+        {
+            var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Select(d => ToTitleCase(d.Name)).ToList();
             parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
             if (parameterNamesInTitleCase.Count > 0)
             {
@@ -201,7 +198,7 @@ namespace Fonlow.CodeDom.Web.Ts
             }
         }
 
-        CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
+        static CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
         {
             var targetClass = new CodeTypeDeclaration(className)
             {
@@ -218,33 +215,16 @@ namespace Fonlow.CodeDom.Web.Ts
         }
 
 
-        void AddLocalFields(CodeTypeDeclaration targetClass)
+        static void AddLocalFields(CodeTypeDeclaration targetClass)
         {
             CodeMemberField clientField = new CodeMemberField();
             clientField.Attributes = MemberAttributes.Private;
             clientField.Name = "httpClient";
             clientField.Type = new CodeTypeReference("HttpClient");
             targetClass.Members.Add(clientField);
-
-            //var errorHandlerField = new CodeMemberField()
-            //{
-            //    Attributes = MemberAttributes.Private,
-            //    Name = "error",
-            //    Type = new CodeTypeReference("(jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any"),
-            //};
-            //targetClass.Members.Add(errorHandlerField);
-
-            //var statusCodeField = new CodeMemberField()
-            //{
-            //    Attributes = MemberAttributes.Private,
-            //    Name = "statusCode",
-            //    Type = new CodeTypeReference("{ [key: string]: any; }"),
-            //};
-            //targetClass.Members.Add(statusCodeField);
-
         }
 
-        void AddConstructor(CodeTypeDeclaration targetClass)
+        static void AddConstructor(CodeTypeDeclaration targetClass)
         {
             CodeConstructor constructor = new CodeConstructor();
             constructor.Attributes =
@@ -255,11 +235,9 @@ namespace Fonlow.CodeDom.Web.Ts
                 "string", "public baseUri?"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
                 "(xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "public error?"));
-            constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "{ [key: string]: any; }", "public statusCode?"));
+            constructor.Parameters.Add(new CodeParameterDeclarationExpression("{ [key: string]: any; }", "public statusCode?"));
 
-            constructor.Statements.Add(new CodeSnippetStatement(
-@"this.httpClient = new HttpClient();"));
+            constructor.Statements.Add(new CodeSnippetStatement(@"this.httpClient = new HttpClient();"));
 
             targetClass.Members.Add(constructor);
         }

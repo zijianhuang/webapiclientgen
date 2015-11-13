@@ -16,12 +16,12 @@ namespace Fonlow.TypeScriptCodeDom
             generator = new TsCodeGenerator();
         }
 
-        TsCodeGenerator generator;
+        ICodeGenerator generator;
 
         [Obsolete("Callers should not use the ICodeCompiler interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.")]
         public override ICodeCompiler CreateCompiler()
         {
-            throw new NotImplementedException("TypeScript compiler is not to be supported in CodeDom.");
+            throw new NotImplementedException("TypeScript compiler is not to be supported in CodeDOM.");
         }
 
         [Obsolete("Callers should not use the ICodeGenerator interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.")]

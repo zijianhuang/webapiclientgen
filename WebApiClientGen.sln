@@ -30,6 +30,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poco2Ts", "Poco2Ts\Poco2Ts.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{571408D0-78B2-46A1-8EF0-E336ABBE76AA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A209BA4-555C-45E6-979B-05F702889260}"
+	ProjectSection(SolutionItems) = preProject
+		Fonlow.ruleset = Fonlow.ruleset
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

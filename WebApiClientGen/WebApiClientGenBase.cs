@@ -21,11 +21,11 @@ namespace Fonlow.CodeDom.Web
 
     public abstract class ControllersClientApiGenBase
     {
-        protected  CodeCompileUnit targetUnit;
-        protected  Dictionary<string, object> apiClassesDic;
-        protected  CodeTypeDeclaration[] newClassesCreated;
-        protected  SharedContext sharedContext;
-        protected CodeGenParameters codeGenParameters;
+        protected  CodeCompileUnit targetUnit { get; set; }
+        protected  Dictionary<string, object> apiClassesDic { get; private set; }
+        protected  CodeTypeDeclaration[] newClassesCreated { get; set; }
+        protected  SharedContext sharedContext { get; set; }
+        protected CodeGenParameters codeGenParameters { get; set; }
 
         /// <summary>
         /// 
@@ -33,8 +33,11 @@ namespace Fonlow.CodeDom.Web
         /// <param name="prefixesOfCustomNamespaces">Prefixes of namespaces of custom complex data types, so the code gen will use .client of client data types.</param>
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-        public ControllersClientApiGenBase(CodeGenParameters codeGenParameters)
+        protected ControllersClientApiGenBase(CodeGenParameters codeGenParameters)
         {
+            if (codeGenParameters == null)
+                throw new System.ArgumentNullException("codeGenParameters");
+
             this.codeGenParameters = codeGenParameters;
             sharedContext = new SharedContext();
             sharedContext.prefixesOfCustomNamespaces = codeGenParameters.PrefixesOfCustomNamespaces == null ? new string[] { } : codeGenParameters.PrefixesOfCustomNamespaces;

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DemoWebApi.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DemoWebApi.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="AddExternalLoginBindingModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ExternalAccessToken" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AddExternalLoginBindingModel" nillable="true" type="tns:AddExternalLoginBindingModel" />
+  <xs:complexType name="ChangePasswordBindingModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfirmPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NewPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OldPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangePasswordBindingModel" nillable="true" type="tns:ChangePasswordBindingModel" />
+  <xs:complexType name="RegisterBindingModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfirmPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RegisterBindingModel" nillable="true" type="tns:RegisterBindingModel" />
+  <xs:complexType name="RegisterExternalBindingModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RegisterExternalBindingModel" nillable="true" type="tns:RegisterExternalBindingModel" />
+  <xs:complexType name="RemoveLoginBindingModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LoginProvider" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProviderKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RemoveLoginBindingModel" nillable="true" type="tns:RemoveLoginBindingModel" />
+  <xs:complexType name="SetPasswordBindingModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfirmPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NewPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SetPasswordBindingModel" nillable="true" type="tns:SetPasswordBindingModel" />
+  <xs:complexType name="ExternalLoginViewModel">
+    <xs:sequence>
+      <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_State_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Url_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ExternalLoginViewModel" nillable="true" type="tns:ExternalLoginViewModel" />
+  <xs:complexType name="ManageInfoViewModel">
+    <xs:sequence>
+      <xs:element name="_x003C_Email_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_ExternalLoginProviders_x003E_k__BackingField" nillable="true" type="tns:ArrayOfExternalLoginViewModel" />
+      <xs:element name="_x003C_LocalLoginProvider_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Logins_x003E_k__BackingField" nillable="true" type="tns:ArrayOfUserLoginInfoViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ManageInfoViewModel" nillable="true" type="tns:ManageInfoViewModel" />
+  <xs:complexType name="ArrayOfExternalLoginViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ExternalLoginViewModel" nillable="true" type="tns:ExternalLoginViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfExternalLoginViewModel" nillable="true" type="tns:ArrayOfExternalLoginViewModel" />
+  <xs:complexType name="ArrayOfUserLoginInfoViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserLoginInfoViewModel" nillable="true" type="tns:UserLoginInfoViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserLoginInfoViewModel" nillable="true" type="tns:ArrayOfUserLoginInfoViewModel" />
+  <xs:complexType name="UserLoginInfoViewModel">
+    <xs:sequence>
+      <xs:element name="_x003C_LoginProvider_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_ProviderKey_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserLoginInfoViewModel" nillable="true" type="tns:UserLoginInfoViewModel" />
+  <xs:complexType name="UserInfoViewModel">
+    <xs:sequence>
+      <xs:element name="Dummy1" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Email_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_HasRegistered_x003E_k__BackingField" type="xs:boolean" />
+      <xs:element name="_x003C_LoginProvider_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserInfoViewModel" nillable="true" type="tns:UserInfoViewModel" />
+</xs:schema>

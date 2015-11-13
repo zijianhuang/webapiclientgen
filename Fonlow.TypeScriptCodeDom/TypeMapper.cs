@@ -10,32 +10,31 @@ namespace Fonlow.TypeScriptCodeDom
     /// </summary>
     public static class TypeMapper
     {
-        static readonly Dictionary<string, string> typeMap = new Dictionary<string, string>();
-
-        static TypeMapper()
+        static readonly Dictionary<string, string> typeMap = new Dictionary<string, string>()
         {
-            typeMap[typeof(int).FullName] = "number";
-            typeMap[typeof(uint).FullName] = "number";
-            typeMap[typeof(long).FullName] = "number";
-            typeMap[typeof(ulong).FullName] = "number";
-            typeMap[typeof(short).FullName] = "number";
-            typeMap[typeof(ushort).FullName] = "number";
-            typeMap[typeof(float).FullName] = "number";
-            typeMap[typeof(double).FullName] = "number";
-            typeMap[typeof(decimal).FullName] = "number";
-            typeMap[typeof(byte).FullName] = "number";
-            typeMap[typeof(sbyte).FullName] = "number";
-            typeMap[typeof(string).FullName] = "string";
-            typeMap[typeof(char).FullName] = "string";
-            typeMap[typeof(Guid).FullName] = "string";
-            typeMap[typeof(bool).FullName] = "boolean";
-            typeMap[typeof(void).FullName] = "void";
-            typeMap[typeof(object).FullName] = "any";
-            typeMap[typeof(DateTime).FullName] = "Date";
-            typeMap[typeof(DateTimeOffset).FullName] = "Date";
-            typeMap["System.Collections.IEnumerable"] = "Array";
-            typeMap["System.Array"] = "Array";
-        }
+            {typeof(int).FullName, "number"},
+            {typeof(uint).FullName, "number"},
+            {typeof(long).FullName, "number"},
+            {typeof(ulong).FullName, "number"},
+            {typeof(short).FullName, "number"},
+            {typeof(ushort).FullName, "number"},
+            {typeof(float).FullName, "number"},
+            {typeof(double).FullName, "number"},
+            {typeof(decimal).FullName, "number"},
+            {typeof(byte).FullName, "number"},
+            {typeof(sbyte).FullName, "number"},
+            {typeof(string).FullName, "string"},
+            {typeof(char).FullName, "string"},
+            {typeof(Guid).FullName, "string"},
+            {typeof(bool).FullName, "boolean"},
+            {typeof(void).FullName, "void"},
+            {typeof(object).FullName, "any"},
+            {typeof(DateTime).FullName, "Date"},
+            {typeof(DateTimeOffset).FullName, "Date"},
+            {"System.Collections.IEnumerable", "Array"},
+            {"System.Array", "Array"},
+
+        };
 
         static readonly string[] arrayGenericTypes = {
             "System.Collections.Generic.List",
@@ -59,13 +58,15 @@ namespace Fonlow.TypeScriptCodeDom
 
         static readonly string typeNameOfObject = typeof(object).FullName;
 
-        public static bool IsValidTypeForDerivation(CodeTypeReference type)
+        internal static bool IsValidTypeForDerivation(CodeTypeReference type)
         {
             return !type.BaseType.Equals(typeNameOfObject);
         }
 
         public static string MapToTsBasicType(Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException("type");
             string tsTypeName;
 
             if (typeMap.TryGetValue(type.FullName, out tsTypeName))

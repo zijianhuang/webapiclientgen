@@ -140,7 +140,7 @@ namespace Fonlow.CodeDom.Web.Cs
         }
 
 
-        void AddLocalFields(CodeTypeDeclaration targetClass)
+        static void AddLocalFields(CodeTypeDeclaration targetClass)
         {
             CodeMemberField clientField = new CodeMemberField();
             clientField.Attributes = MemberAttributes.Private;

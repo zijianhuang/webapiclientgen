@@ -19,7 +19,8 @@ namespace TypeScriptCodeDomTests
             var o = new CodeGeneratorOptions() { IndentString = "    " };
             using (var w = new StringWriter(builder))
             {
-                CodeObjectHelper.GenerateCodeFromExpression(e, w, o);
+                var provider = new TypeScriptCodeProvider();
+                provider.GenerateCodeFromExpression(e, w, o);
             }
             Assert.Equal("myParameterName", builder.ToString());
         }
@@ -27,10 +28,11 @@ namespace TypeScriptCodeDomTests
         static void TestCodeExpression(CodeExpression e, string expected)
         {
             var builder = new StringBuilder();
-            var options = new CodeGeneratorOptions() { IndentString = "    " };
-            using (var textWriter = new StringWriter(builder))
+            var o = new CodeGeneratorOptions() { IndentString = "    " };
+            using (var w = new StringWriter(builder))
             {
-                CodeObjectHelper.GenerateCodeFromExpression(e, textWriter, options);
+                var provider = new TypeScriptCodeProvider();
+                provider.GenerateCodeFromExpression(e, w, o);
             }
             var s = builder.ToString();
             Assert.Equal(expected, s);

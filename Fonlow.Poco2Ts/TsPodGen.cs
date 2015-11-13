@@ -16,7 +16,6 @@ namespace Fonlow.Poco2Ts
     public class Poco2TsGen
     {
         CodeCompileUnit targetUnit;
-        CodeTypeDeclaration[] newTypesCreated;
 
         /// <summary>
         /// Init with its own CodeCompileUnit.
@@ -43,7 +42,7 @@ namespace Fonlow.Poco2Ts
         public void SaveTsCodeToFile(string fileName)
         {
             if (String.IsNullOrEmpty(fileName))
-                throw new ArgumentException("fileName", "A valid fileName is not defined.");
+                throw new ArgumentException("A valid fileName is not defined.", "fileName");
 
             try
             {
@@ -98,20 +97,17 @@ namespace Fonlow.Poco2Ts
         }
 
         Type[] pendingTypes;
-        string[] pendingTypesNames;
-
         /// <summary>
         /// Create TypeScript CodeDOM for POCO types. 
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
         /// <param name="types">POCO types.</param>
         public void CreateTsCodeDom(Type[] types, CherryPickingMethods methods)
-        {
+       {
             if (types == null)
                 throw new ArgumentNullException("types", "types is not defined.");
 
             this.pendingTypes = types;
-            this.pendingTypesNames = types.Select(d => d.FullName).ToArray();
             var typeGroupedByNamespace = types.GroupBy(d => d.Namespace);
             var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
             foreach (var groupedTypes in typeGroupedByNamespace)
@@ -121,7 +117,7 @@ namespace Fonlow.Poco2Ts
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
                 Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
-                newTypesCreated = groupedTypes.Select(type =>
+                groupedTypes.Select(type =>
                 {
                     var tsName = type.Name;
                     Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);
@@ -237,7 +233,7 @@ namespace Fonlow.Poco2Ts
                 {
                     Debug.Assert(t.GenericTypeArguments.Length == 1);
                     var elementType = t.GenericTypeArguments[0];
-                    return CreateArrayTypeReference(t, elementType, 1);
+                    return CreateArrayTypeReference(elementType, 1);
 
                 }
                 else if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -254,7 +250,7 @@ namespace Fonlow.Poco2Ts
                 Debug.Assert(t.Name.EndsWith("]"));
                 var elementType = t.GetElementType();
                 var arrayRank = t.GetArrayRank();
-                return CreateArrayTypeReference(t, elementType, arrayRank);
+                return CreateArrayTypeReference(elementType, arrayRank);
             }
 
             var tsBasicTypeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(t);
@@ -269,7 +265,7 @@ namespace Fonlow.Poco2Ts
             return t.Namespace.Replace('.', '_') + "_Client." + t.Name;
         }
 
-        static CodeTypeReference CreateArrayOfCustomTypeReference(Type t, Type elementType, int arrayRank)
+        static CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
         {
             var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
             var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
@@ -279,11 +275,11 @@ namespace Fonlow.Poco2Ts
             return typeReference;
         }
 
-        CodeTypeReference CreateArrayTypeReference(Type t, Type elementType, int arrayRank)
+        CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
         {
             if (pendingTypes.Contains(elementType))
             {
-                return CreateArrayOfCustomTypeReference(t, elementType, arrayRank);
+                return CreateArrayOfCustomTypeReference(elementType, arrayRank);
             }
 
             var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.

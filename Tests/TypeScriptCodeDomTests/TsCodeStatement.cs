@@ -13,10 +13,11 @@ namespace TypeScriptCodeDomTests
         static void TestCodeStatement(CodeStatement e, string expected)
         {
             var builder = new StringBuilder();
-            var options = new CodeGeneratorOptions() { IndentString = "    " };
-            using (var textWriter = new StringWriter(builder))
+            var o = new CodeGeneratorOptions() { IndentString = "    " };
+            using (var w = new StringWriter(builder))
             {
-                CodeObjectHelper.GenerateCodeFromStatement(e, textWriter, options);
+                var provider = new TypeScriptCodeProvider();
+                provider.GenerateCodeFromStatement(e, w, o);
             }
             var s = builder.ToString();
             Assert.Equal(expected, s);

@@ -16,10 +16,10 @@ namespace Fonlow.CodeDom.Web.Cs
     {
         SharedContext sharedContext;
         ApiDescription description;
-        string relativePath;
+    //    string relativePath;
         //  string route;
-        Collection<ApiParameterDescription> parameterDescriptions;
-        string controllerName;
+      //  Collection<ApiParameterDescription> parameterDescriptions;
+     //   string controllerName;
         string methodName;
         Type returnType;
         CodeMemberMethod method;
@@ -31,9 +31,9 @@ namespace Fonlow.CodeDom.Web.Cs
             this.description = description;
             this.sharedContext = sharedContext;
 
-            relativePath = description.RelativePath;
-            parameterDescriptions = description.ParameterDescriptions;
-            controllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName;
+         //   relativePath = description.RelativePath;
+         //   parameterDescriptions = description.ParameterDescriptions;
+         //   controllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName;
 
 
             methodName = description.ActionDescriptor.ActionName;
@@ -53,18 +53,13 @@ namespace Fonlow.CodeDom.Web.Cs
             return gen.CreateApiFunction(forAsync);
         }
 
-        public CodeMemberMethod CreateApiFunction(bool forAsync = false)
+        public CodeMemberMethod CreateApiFunction(bool createAsync = false)
         {
-            this.forAsync = forAsync;
+            this.forAsync = createAsync;
             //create method
             method = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 
-            var returnTypeReference = method.ReturnType;
-
             CreateDocComments();
-
-
-            var binderAttributes = description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterBinderAttribute).ToArray();
 
             switch (description.HttpMethod.Method)
             {
@@ -198,7 +193,6 @@ namespace Fonlow.CodeDom.Web.Cs
                 new CodeTypeReference("var"), "template",
                 new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
             ));
-            var templateReference = new CodeVariableReferenceExpression("template");
 
             //Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
             method.Statements.Add(new CodeVariableDeclarationStatement(
@@ -251,7 +245,7 @@ namespace Fonlow.CodeDom.Web.Cs
             method.Statements.Add(new CodeVariableDeclarationStatement(
                 new CodeTypeReference("var"), "text",
                 new CodeSnippetExpression(forAsync ? "await responseMessage.Content.ReadAsStringAsync()" : "responseMessage.Content.ReadAsStringAsync().Result")));
-            var textReference = new CodeVariableReferenceExpression("text");
+
             if (IsStringType(returnType))
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("JsonConvert.DeserializeObject<string>(text)")));
@@ -332,7 +326,6 @@ namespace Fonlow.CodeDom.Web.Cs
                     new CodeTypeReference("var"), "template",
                     new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
                 ));
-                var templateReference = new CodeVariableReferenceExpression("template");
 
                 //Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
                 method.Statements.Add(new CodeVariableDeclarationStatement(

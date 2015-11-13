@@ -18,27 +18,18 @@ namespace Fonlow.CodeDom.Web.Ts
     /// </summary>
     internal class ClientApiTsFunctionGen
     {
-        SharedContext sharedContext;
+   //     SharedContext sharedContext;
         ApiDescription description;
-        string relativePath;
-        //  string route;
-        Collection<ApiParameterDescription> parameterDescriptions;
-        string controllerName;
         string methodName;
         Type returnType;
         CodeMemberMethod method;
         readonly Poco2TsGen poco2TsGen;
 
-        public ClientApiTsFunctionGen(SharedContext sharedContext, ApiDescription description, Poco2TsGen poco2TsGen)
+        public ClientApiTsFunctionGen(ApiDescription description, Poco2TsGen poco2TsGen)
         {
             this.description = description;
-            this.sharedContext = sharedContext;
+         //   this.sharedContext = sharedContext;
             this.poco2TsGen = poco2TsGen;
-
-            relativePath = description.RelativePath;
-            parameterDescriptions = description.ParameterDescriptions;
-            controllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName;
-
 
             methodName = description.ActionDescriptor.ActionName;
             if (methodName.EndsWith("Async"))
@@ -48,13 +39,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
         }
 
-        static readonly Type typeOfHttpActionResult = typeof(System.Web.Http.IHttpActionResult);
-        static readonly Type typeOfChar = typeof(char);
         static readonly Type typeOfString = typeof(string);
 
-        public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description, Poco2TsGen poco2TsGen)
+        public static CodeMemberMethod Create(ApiDescription description, Poco2TsGen poco2TsGen)
         {
-            var gen = new ClientApiTsFunctionGen(sharedContext, description, poco2TsGen);
+            var gen = new ClientApiTsFunctionGen(description, poco2TsGen);
             return gen.CreateApiFunction();
         }
 
@@ -89,14 +78,13 @@ namespace Fonlow.CodeDom.Web.Ts
             foreach (var item in description.ParameterDescriptions)
             {
                 var tsParameterType = poco2TsGen.TranslateToTsTypeReference(item.ParameterDescriptor.ParameterType);
-                //    var parameterType = TranslateCustomTypeToClientType(item.ParameterDescriptor.ParameterType);
                 builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {item.Documentation}");
             }
 
             Type responseType = description.ResponseDescription.ResponseType ?? description.ResponseDescription.DeclaredType;
             var tsResponseType = poco2TsGen.TranslateToTsTypeReference(responseType);
-            var returnType = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
-            builder.AppendLine($"@return {{{returnType}}} {description.ResponseDescription.Documentation}");
+            var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
+            builder.AppendLine($"@return {{{returnTypeOfResponse}}} {description.ResponseDescription.Documentation}");
             method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
         }
 
@@ -107,47 +95,14 @@ namespace Fonlow.CodeDom.Web.Ts
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                 Name = methodName,
-                //  ReturnType = returnType == null ? null : new CodeTypeReference(TranslateCustomTypeToClientType(returnType)),
             };
         }
 
 
-        //string GetGenericTypeFriendlyName(Type r)
+        //static bool IsClassOrStruct(Type type)
         //{
-        //    var separatorPosition = r.Name.IndexOf("`");
-        //    var genericTypeName = r.Name.Substring(0, separatorPosition);
-        //    var typeNameList = r.GenericTypeArguments.Select(d => TranslateCustomTypeToClientType(d));//support only 1 level of generic. This should be good enough. If more needed, recursive algorithm will help
-        //    var typesLiteral = String.Join(", ", typeNameList);
-        //    return String.Format("{0}<{1}>", genericTypeName, typesLiteral);
+        //    return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
         //}
-
-        //string TranslateCustomTypeToClientType(Type t)
-        //{
-        //    if (t == null)
-        //        return "void";
-
-        //    if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
-        //        return t.Namespace.Replace('.', '_') + "_Client." + t.Name;//The alias name in TS import
-
-        //    var r = TypeMapper.GetCodeTypeReferenceText(new CodeTypeReference(t));
-        //    if (r != "any")
-        //        return r;
-
-        //    if (t.Namespace.StartsWith("System."))
-        //        return "any";
-
-        //    return t.FullName;
-        //}
-
-        static string RefineCustomComplexTypeText(Type t)
-        {
-            return t.Namespace.Replace('.', '_') + "_Client." + t.Name;
-        }
-
-        static bool IsClassOrStruct(Type type)
-        {
-            return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
-        }
 
         void RenderImplementation()
         {
@@ -156,7 +111,7 @@ namespace Fonlow.CodeDom.Web.Ts
             {
                 Name = d.Name,
                 Type = IsFromBodySimpleType(d) ? CreateCodeTypeReferenceForFromBodySimpleType(d.ParameterDescriptor.ParameterType)
-                    : poco2TsGen.TranslateToTsTypeReference(d.ParameterDescriptor.ParameterType),// new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
+                    : poco2TsGen.TranslateToTsTypeReference(d.ParameterDescriptor.ParameterType),
 
             }).ToList();
 
@@ -227,8 +182,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
             string newUriText = uriText;
 
-            var hasQuery = template.QueryValueVariableNames.Count > 0;
-
             for (int i = 0; i < template.PathSegmentVariableNames.Count; i++)
             {
                 var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
@@ -248,10 +201,6 @@ namespace Fonlow.CodeDom.Web.Ts
             return newUriText;
         }
 
-        static readonly Type typeOfHttpResponseMessage = typeof(System.Net.Http.HttpResponseMessage);
-
-
-
         static bool IsSimpleType(Type type)
         {
             return type.IsPrimitive || type.Equals(typeOfString);
@@ -260,11 +209,6 @@ namespace Fonlow.CodeDom.Web.Ts
         static bool IsComplexType(Type type)
         {
             return !IsSimpleType(type);
-        }
-
-        static bool IsStringType(Type type)
-        {
-            return type.Equals(typeOfString);
         }
 
 

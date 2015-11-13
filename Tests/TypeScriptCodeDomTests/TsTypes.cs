@@ -7,6 +7,7 @@ using System.Text;
 using Xunit;
 using Fonlow.TypeScriptCodeDom;
 
+
 namespace TypeScriptCodeDomTests
 {
     public class TsTypes
@@ -17,7 +18,8 @@ namespace TypeScriptCodeDomTests
             var options = new CodeGeneratorOptions() { IndentString = "    " };
             using (var textWriter = new StringWriter(builder))
             {
-                CodeObjectHelper.GenerateCodeFromType(e, textWriter, options);
+                ICodeGenerator gen = new TypeScriptCodeProvider();
+                gen.GenerateCodeFromType(e, textWriter, options);
             }
             var s = builder.ToString();
             Assert.Equal(expected, s);

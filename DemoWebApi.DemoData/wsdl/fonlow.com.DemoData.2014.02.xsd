@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://fonlow.com/DemoData/2014/02" elementFormDefault="qualified" targetNamespace="http://fonlow.com/DemoData/2014/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://fonlow.com/DemoData/2014/02" elementFormDefault="qualified" targetNamespace="http://fonlow.com/DemoData/2014/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:complexType name="Constants">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:element name="Constants" nillable="true" type="tns:Constants" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:simpleType name="AddressType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Postal" />
@@ -12,29 +9,65 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="AddressType" nillable="true" type="tns:AddressType" />
-  <xs:simpleType name="MyEnumType">
+  <xs:simpleType name="Days">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="First">
+      <xs:enumeration value="Sat">
         <xs:annotation>
           <xs:appinfo>
             <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="Two">
+      <xs:enumeration value="Sun">
         <xs:annotation>
           <xs:appinfo>
             <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="Mon">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Tue">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Wed">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Thu">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Fri">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:element name="MyEnumType" nillable="true" type="tns:MyEnumType" />
+  <xs:element name="Days" nillable="true" type="tns:Days" />
   <xs:complexType name="Address">
     <xs:sequence>
       <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
       <xs:element minOccurs="0" name="Location" type="tns:MyPoint" />
       <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
@@ -56,14 +89,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="MyPoint" nillable="true" type="tns:MyPoint" />
-  <xs:complexType name="entity">
+  <xs:complexType name="Entity">
     <xs:sequence>
       <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddress" />
-      <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element name="Name" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="entity" nillable="true" type="tns:entity" />
+  <xs:element name="Entity" nillable="true" type="tns:Entity" />
   <xs:complexType name="ArrayOfAddress">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
@@ -72,7 +105,7 @@
   <xs:element name="ArrayOfAddress" nillable="true" type="tns:ArrayOfAddress" />
   <xs:complexType name="Person">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:entity">
+      <xs:extension base="tns:Entity">
         <xs:sequence>
           <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:dateTime" />
           <xs:element minOccurs="0" name="GivenName" nillable="true" type="xs:string" />
@@ -84,10 +117,13 @@
   <xs:element name="Person" nillable="true" type="tns:Person" />
   <xs:complexType name="Company">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:entity">
+      <xs:extension base="tns:Entity">
         <xs:sequence>
           <xs:element minOccurs="0" name="BusinessNumber" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="BusinessNumberType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Int3D" nillable="true" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" type="q1:ArrayOfArrayOfArrayOfint" />
+          <xs:element minOccurs="0" name="Lines" nillable="true" xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" type="q2:ArrayOfstring" />
+          <xs:element minOccurs="0" name="TextMatrix" nillable="true" xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" type="q3:ArrayOfArrayOfstring" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

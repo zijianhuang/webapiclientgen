@@ -6,6 +6,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Http.Description;
+using Fonlow.CodeDom.Web;
+using Fonlow.Poco2Ts;
+using System;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -23,7 +26,10 @@ namespace Fonlow.CodeDom.Web.Cs
         public ControllersClientApiGen(CodeGenParameters codeGenParameters)
             :base(codeGenParameters)
         {
+            poco2CsGen = new Poco2CsGen(targetUnit);
         }
+
+        Poco2CsGen poco2CsGen;
 
         /// <summary>
         /// Save C# codes into a file.
@@ -42,12 +48,29 @@ namespace Fonlow.CodeDom.Web.Cs
 
         public bool ForBothAsyncAndSync { get; set; }
 
+
+        void GenerateCsFromPoco()
+        {
+            if (codeGenParameters.DataModelAssemblyNames == null)
+                return;
+
+            var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = allAssemblies.Where(d => codeGenParameters.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
+            var cherryPickingMethods = codeGenParameters.CherryPickingMethods.HasValue ? (Fonlow.Poco2Ts.CherryPickingMethods)codeGenParameters.CherryPickingMethods.Value : Poco2Ts.CherryPickingMethods.DataContract;
+            foreach (var assembly in assemblies)
+            {
+                poco2CsGen.CreateTsCodeDom(assembly, cherryPickingMethods);
+            }
+        }
+
+
         /// <summary>
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
         public override  void CreateCodeDom(Collection<ApiDescription> descriptions)
         {
+            GenerateCsFromPoco();
             //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
 

@@ -13,14 +13,14 @@ namespace Fonlow.Poco2Ts
     /// <summary>
     /// POCO to TypeScript interfaces generator
     /// </summary>
-    public class Poco2TsGen
+    public class Poco2CsGen
     {
         CodeCompileUnit targetUnit;
 
         /// <summary>
         /// Init with its own CodeCompileUnit.
         /// </summary>
-        public Poco2TsGen()
+        public Poco2CsGen()
         {
             targetUnit = new CodeCompileUnit();
         }
@@ -29,7 +29,7 @@ namespace Fonlow.Poco2Ts
         /// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.
         /// </summary>
         /// <param name="codeCompileUnit"></param>
-        public Poco2TsGen(CodeCompileUnit codeCompileUnit)
+        public Poco2CsGen(CodeCompileUnit codeCompileUnit)
         {
             targetUnit = codeCompileUnit;
         }
@@ -48,7 +48,7 @@ namespace Fonlow.Poco2Ts
             {
                 using (StreamWriter writer = new StreamWriter(fileName))
                 {
-                    WriteTsCode(writer);
+                    WriteCode(writer);
                 }
             }
             catch (IOException e)
@@ -69,17 +69,13 @@ namespace Fonlow.Poco2Ts
         /// Save TypeScript codes generated into a TextWriter.
         /// </summary>
         /// <param name="writer"></param>
-        public void WriteTsCode(TextWriter writer)
+        public void WriteCode(TextWriter writer)
         {
             if (writer == null)
                 throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-            var provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider();
-            CodeGeneratorOptions options = new CodeGeneratorOptions()
-            {
-                BracingStyle = "JS",//not really used
-                IndentString = "    ",
-            };
+            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+            CodeGeneratorOptions options = new CodeGeneratorOptions();
 
             provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
         }
@@ -87,7 +83,7 @@ namespace Fonlow.Poco2Ts
         public void CreateTsCodeDom(Assembly assembly, CherryPickingMethods methods)
         {
             var cherryTypes = GetCherryTypes(assembly, methods);
-            CreateTsCodeDom(cherryTypes, methods);
+            CreateCodeDom(cherryTypes, methods);
         }
 
 
@@ -102,7 +98,7 @@ namespace Fonlow.Poco2Ts
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
         /// <param name="types">POCO types.</param>
-        public void CreateTsCodeDom(Type[] types, CherryPickingMethods methods)
+        public void CreateCodeDom(Type[] types, CherryPickingMethods methods)
         {
             if (types == null)
                 throw new ArgumentNullException("types", "types is not defined.");
@@ -112,7 +108,7 @@ namespace Fonlow.Poco2Ts
             var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
             foreach (var groupedTypes in typeGroupedByNamespace)
             {
-                var clientNamespaceText = (groupedTypes.Key + ".Client").Replace('.', '_');
+                var clientNamespaceText = (groupedTypes.Key + ".Client");
                 var clientNamespace = new CodeNamespace(clientNamespaceText);
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
@@ -120,12 +116,12 @@ namespace Fonlow.Poco2Ts
                 groupedTypes.Select(type =>
                 {
                     var tsName = type.Name;
-                    Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);
+                    Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
 
                     CodeTypeDeclaration typeDeclaration;
                     if (IsClassOrStruct(type))
                     {
-                        typeDeclaration = CreatePodClientInterface(clientNamespace, tsName);
+                        typeDeclaration = CreatePodClientClass(clientNamespace, tsName);
 
                         if (!type.IsValueType)
                         {
@@ -151,14 +147,26 @@ namespace Fonlow.Poco2Ts
                             var isRequired = cherryType == CherryType.BigCherry;
                             tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
-                            var clientField = new CodeMemberField()
-                            {
-                                Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-                                Type = TranslateToTsTypeReference(propertyInfo.PropertyType),
-                                //                     Attributes = MemberAttributes.Public,
 
+                            var clientProperty = new CodeMemberProperty()
+                            {
+                                Name = tsPropertyName,
+                                Type = TranslateToTsTypeReference(propertyInfo.PropertyType),
+                                Attributes= MemberAttributes.Public | MemberAttributes.Final,
+                                //todo: add some attributes
+                                
                             };
-                            typeDeclaration.Members.Add(clientField);
+                            var privateFieldName = "_" + tsPropertyName;
+
+                            typeDeclaration.Members.Add(new CodeMemberField()
+                            {
+                                Name = privateFieldName,
+                                Type = TranslateToTsTypeReference(propertyInfo.PropertyType),
+                            });
+
+                            clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
+                            clientProperty.SetStatements.Add(new CodeSnippetStatement($"                {privateFieldName} = value;"));
+                            typeDeclaration.Members.Add(clientProperty);
                         }
 
                         foreach (var fieldInfo in type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
@@ -174,15 +182,25 @@ namespace Fonlow.Poco2Ts
 
                             tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
-                            var clientField = new CodeMemberField()
+                            var clientProperty = new CodeMemberProperty()
                             {
-                                Name = tsPropertyName + (isRequired ? String.Empty : "?"),
+                                Name = tsPropertyName,
                                 Type = TranslateToTsTypeReference(fieldInfo.FieldType),
-                                //         Attributes = MemberAttributes.Public,
+                                Attributes = MemberAttributes.Public | MemberAttributes.Final,
+                                //todo: add some attributes
+
                             };
+                            var privateFieldName = "_" + tsPropertyName;
 
-                            typeDeclaration.Members.Add(clientField);
+                            typeDeclaration.Members.Add(new CodeMemberField()
+                            {
+                                Name = privateFieldName,
+                                Type = TranslateToTsTypeReference(fieldInfo.FieldType),
+                            });
 
+                            clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
+                            clientProperty.SetStatements.Add(new CodeSnippetStatement($"                {privateFieldName} = value;"));
+                            typeDeclaration.Members.Add(clientProperty);
                         }
                     }
                     else if (type.IsEnum)
@@ -242,9 +260,7 @@ namespace Fonlow.Poco2Ts
                 }
                 else if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
-                    var genericTypeReferences = t.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
-                    Debug.Assert(genericTypeReferences.Length == 1);
-                    return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
+                    return new CodeTypeReference(t);
                 }
                 else
                     return null;
@@ -257,16 +273,14 @@ namespace Fonlow.Poco2Ts
                 return CreateArrayTypeReference(elementType, arrayRank);
             }
 
-            var tsBasicTypeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(t);
-            if (tsBasicTypeText != null)
-                return new CodeTypeReference(tsBasicTypeText);
 
-            return new CodeTypeReference("any");
+            return new CodeTypeReference(t);
+
         }
 
         static string RefineCustomComplexTypeText(Type t)
         {
-            return t.Namespace.Replace('.', '_') + "_Client." + t.Name;
+            return t.Namespace + ".Client." + t.Name;
         }
 
         static CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
@@ -293,11 +307,11 @@ namespace Fonlow.Poco2Ts
             return otherArrayType;
         }
 
-        static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
+        static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)
         {
             var targetClass = new CodeTypeDeclaration(className)
             {
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
+                TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
             };
 
             ns.Types.Add(targetClass);

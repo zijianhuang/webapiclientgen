@@ -8,6 +8,368 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace DemoWebApi.DemoData.Client
+{
+    
+    
+    public enum AddressType
+    {
+        
+        Postal,
+        
+        Residential,
+    }
+    
+    public enum Days
+    {
+        
+        Sat = 1,
+        
+        Sun = 2,
+        
+        Mon = 3,
+        
+        Tue = 4,
+        
+        Wed = 5,
+        
+        Thu = 6,
+        
+        Fri = 7,
+    }
+    
+    public class Address : object
+    {
+        
+        private System.Guid _Id;
+        
+        private string _Street1;
+        
+        private string _Street2;
+        
+        private string _City;
+        
+        private string _State;
+        
+        private string _PostalCode;
+        
+        private string _Country;
+        
+        private DemoWebApi.DemoData.Client.AddressType _Type;
+        
+        private DemoWebApi.DemoData.Another.Client.MyPoint _Location;
+        
+        public System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string Street1
+        {
+            get
+            {
+                return _Street1;
+            }
+            set
+            {
+                _Street1 = value;
+            }
+        }
+        
+        public string Street2
+        {
+            get
+            {
+                return _Street2;
+            }
+            set
+            {
+                _Street2 = value;
+            }
+        }
+        
+        public string City
+        {
+            get
+            {
+                return _City;
+            }
+            set
+            {
+                _City = value;
+            }
+        }
+        
+        public string State
+        {
+            get
+            {
+                return _State;
+            }
+            set
+            {
+                _State = value;
+            }
+        }
+        
+        public string PostalCode
+        {
+            get
+            {
+                return _PostalCode;
+            }
+            set
+            {
+                _PostalCode = value;
+            }
+        }
+        
+        public string Country
+        {
+            get
+            {
+                return _Country;
+            }
+            set
+            {
+                _Country = value;
+            }
+        }
+        
+        public DemoWebApi.DemoData.Client.AddressType Type
+        {
+            get
+            {
+                return _Type;
+            }
+            set
+            {
+                _Type = value;
+            }
+        }
+        
+        public DemoWebApi.DemoData.Another.Client.MyPoint Location
+        {
+            get
+            {
+                return _Location;
+            }
+            set
+            {
+                _Location = value;
+            }
+        }
+    }
+    
+    public class Entity : object
+    {
+        
+        private System.Guid _Id;
+        
+        private string _Name;
+        
+        private DemoWebApi.DemoData.Client.Address[] _Addresses;
+        
+        public System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                _Name = value;
+            }
+        }
+        
+        public DemoWebApi.DemoData.Client.Address[] Addresses
+        {
+            get
+            {
+                return _Addresses;
+            }
+            set
+            {
+                _Addresses = value;
+            }
+        }
+    }
+    
+    public class Person : DemoWebApi.DemoData.Client.Entity
+    {
+        
+        private string _Surname;
+        
+        private string _GivenName;
+        
+        private System.Nullable<System.DateTime> _BirthDate;
+        
+        public string Surname
+        {
+            get
+            {
+                return _Surname;
+            }
+            set
+            {
+                _Surname = value;
+            }
+        }
+        
+        public string GivenName
+        {
+            get
+            {
+                return _GivenName;
+            }
+            set
+            {
+                _GivenName = value;
+            }
+        }
+        
+        public System.Nullable<System.DateTime> BirthDate
+        {
+            get
+            {
+                return _BirthDate;
+            }
+            set
+            {
+                _BirthDate = value;
+            }
+        }
+    }
+    
+    public class Company : DemoWebApi.DemoData.Client.Entity
+    {
+        
+        private string _BusinessNumber;
+        
+        private string _BusinessNumberType;
+        
+        private string[][] _TextMatrix;
+        
+        private int[][][] _Int3D;
+        
+        private string[] _Lines;
+        
+        public string BusinessNumber
+        {
+            get
+            {
+                return _BusinessNumber;
+            }
+            set
+            {
+                _BusinessNumber = value;
+            }
+        }
+        
+        public string BusinessNumberType
+        {
+            get
+            {
+                return _BusinessNumberType;
+            }
+            set
+            {
+                _BusinessNumberType = value;
+            }
+        }
+        
+        public string[][] TextMatrix
+        {
+            get
+            {
+                return _TextMatrix;
+            }
+            set
+            {
+                _TextMatrix = value;
+            }
+        }
+        
+        public int[][][] Int3D
+        {
+            get
+            {
+                return _Int3D;
+            }
+            set
+            {
+                _Int3D = value;
+            }
+        }
+        
+        public string[] Lines
+        {
+            get
+            {
+                return _Lines;
+            }
+            set
+            {
+                _Lines = value;
+            }
+        }
+    }
+}
+namespace DemoWebApi.DemoData.Another.Client
+{
+    
+    
+    public class MyPoint
+    {
+        
+        private double _X;
+        
+        private double _Y;
+        
+        public double X
+        {
+            get
+            {
+                return _X;
+            }
+            set
+            {
+                _X = value;
+            }
+        }
+        
+        public double Y
+        {
+            get
+            {
+                return _Y;
+            }
+            set
+            {
+                _Y = value;
+            }
+        }
+    }
+}
 namespace DemoWebApi.Controllers.Client
 {
     using System;

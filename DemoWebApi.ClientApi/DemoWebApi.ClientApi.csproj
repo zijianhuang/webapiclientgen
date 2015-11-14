@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DemoWebApiClientDataAuto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApiClientAuto.cs" />
   </ItemGroup>

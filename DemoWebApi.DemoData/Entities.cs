@@ -142,7 +142,10 @@ namespace DemoWebApi.DemoData
         { get; set; }
 
         [DataMember]
-        public int[][][] Int3D;
+        public int[][][] Int3DJagged;
+
+        [DataMember]
+        public int[,] Int2D;
 
         [DataMember]
         public IEnumerable<string> Lines;

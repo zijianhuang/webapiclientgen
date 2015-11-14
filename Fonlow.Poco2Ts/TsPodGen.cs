@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System;
+using Fonlow.Poco2Client;
 
 namespace Fonlow.Poco2Ts
 {

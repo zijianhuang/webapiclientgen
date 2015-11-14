@@ -33,7 +33,8 @@ namespace DemoWebApi_DemoData_Client {
         BusinessNumber?: string;
         BusinessNumberType?: string;
         TextMatrix?: Array<Array<string>>;
-        Int3D?: Array<Array<Array<number>>>;
+        Int3DJagged?: Array<Array<Array<number>>>;
+        Int2D?: number[][];
         Lines?: Array<string>;
     }
 
@@ -240,6 +241,22 @@ namespace DemoWebApi_Controllers_Client {
          */
         GetBool(callback: (data : boolean) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/bool'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/int2d
+         * @return {number[][]} 
+         */
+        GetInt2D(callback: (data : number[][]) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2d'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/int2djagged
+         * @return {Array<Array<number>>} 
+         */
+        GetInt2DJagged(callback: (data : Array<Array<number>>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2djagged'), callback, this.error, this.statusCode);
         }
     }
 

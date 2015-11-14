@@ -269,7 +269,9 @@ namespace DemoWebApi.DemoData.Client
         
         private string[][] _TextMatrix;
         
-        private int[][][] _Int3D;
+        private int[][][] _Int3DJagged;
+        
+        private int[,] _Int2D;
         
         private string[] _Lines;
         
@@ -309,15 +311,27 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
-        public int[][][] Int3D
+        public int[][][] Int3DJagged
         {
             get
             {
-                return _Int3D;
+                return _Int3DJagged;
             }
             set
             {
-                _Int3D = value;
+                _Int3DJagged = value;
+            }
+        }
+        
+        public int[,] Int2D
+        {
+            get
+            {
+                return _Int2D;
+            }
+            set
+            {
+                _Int2D = value;
             }
         }
         
@@ -1090,6 +1104,66 @@ namespace DemoWebApi.Controllers.Client
             responseMessage.EnsureSuccessStatusCode();
             var text = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/int2d
+        /// </summary>
+        public async Task<System.Int32[,]> GetInt2DAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/int2d");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Int32[,]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/int2d
+        /// </summary>
+        public int[,] GetInt2D()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/int2d");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Int32[,]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/int2djagged
+        /// </summary>
+        public async Task<System.Int32[][]> GetInt2DJaggedAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/int2djagged");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Int32[][]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/int2djagged
+        /// </summary>
+        public int[][] GetInt2DJagged()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/int2djagged");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Int32[][]>(text);
         }
     }
     

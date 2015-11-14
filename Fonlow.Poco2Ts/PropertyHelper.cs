@@ -3,7 +3,7 @@ using System.Reflection;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Fonlow.Poco2Ts
+namespace Fonlow.Poco2Client
 {
     internal static class PropertyHelper
     {

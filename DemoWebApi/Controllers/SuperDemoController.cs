@@ -203,6 +203,26 @@ namespace DemoWebApi.Controllers
             return true;
         }
 
-
+        [HttpGet]
+        [Route("int2d")]
+        public int[,] GetInt2D()
+        {
+            return new int[,]
+            {
+               {1,2,3, 4 },
+               {5,6,7, 8 }
+            };
+        }
+        
+        [HttpGet]
+        [Route("int2djagged")]
+        public int[][] GetInt2DJagged()
+        {
+            return new int[][]
+            {
+               new int[] {1,2,3, 4 },
+               new int[] {5,6,7, 8 }
+            };
+        }
     }
 }

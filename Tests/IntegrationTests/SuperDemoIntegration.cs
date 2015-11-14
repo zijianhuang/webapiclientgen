@@ -211,5 +211,26 @@ namespace IntegrationTests
             Assert.Equal(18446744073709551615, api.Getulong());
         }
 
+        [Fact]
+        public void TestInt2D()
+        {
+            var d = api.GetInt2D();
+            Assert.Equal(1, d.GetUpperBound(0));
+            Assert.Equal(3, d.GetUpperBound(1));
+            Assert.Equal(1, d[0, 0]);
+            Assert.Equal(4, d[0, 3]);
+            Assert.Equal(8, d[1, 3]);
+        }
+
+        [Fact]
+        public void TestInt2DJagged()
+        {
+            var d = api.GetInt2DJagged();
+            Assert.Equal(1, d.GetUpperBound(0));
+            Assert.Equal(1, d[0][ 0]);
+            Assert.Equal(4, d[0][ 3]);
+            Assert.Equal(8, d[1][ 3]);
+        }
+
     }
 }

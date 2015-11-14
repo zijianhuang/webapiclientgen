@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Fonlow.Poco2Ts;
+using Fonlow.Poco2Client;
 
 namespace Poco2TsTests
 {

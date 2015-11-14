@@ -10,6 +10,7 @@ using Fonlow.TypeScriptCodeDom;
 using System;
 using Fonlow.CodeDom.Web;
 using Fonlow.Poco2Ts;
+using Fonlow.Poco2Client;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -108,7 +109,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             var assemblies = allAssemblies.Where(d => codeGenParameters.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
-            var cherryPickingMethods = codeGenParameters.CherryPickingMethods.HasValue ? (Fonlow.Poco2Ts.CherryPickingMethods)codeGenParameters.CherryPickingMethods.Value : Poco2Ts.CherryPickingMethods.DataContract;
+            var cherryPickingMethods = codeGenParameters.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
             foreach (var assembly in assemblies)
             {
                 poco2TsGen.CreateTsCodeDom(assembly, cherryPickingMethods);

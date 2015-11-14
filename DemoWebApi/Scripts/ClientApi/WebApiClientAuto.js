@@ -192,6 +192,20 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.GetBool = function (callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/bool'), callback, this.error, this.statusCode);
         };
+        /**
+         * GET api/SuperDemo/int2d
+         * @return {Array<number>}
+         */
+        SuperDemo.prototype.GetInt2D = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2d'), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/int2djagged
+         * @return {Array<Array<number>>}
+         */
+        SuperDemo.prototype.GetInt2DJagged = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2djagged'), callback, this.error, this.statusCode);
+        };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;

@@ -87,12 +87,15 @@ namespace Fonlow.TypeScriptCodeDom
 
             System.Diagnostics.Debug.WriteLine("type.BaseType: " + codeTypeReference.BaseType);
             System.Diagnostics.Debug.WriteLineIf(codeTypeReference.BaseType == "System.Void", "For this void type :" + codeTypeReference.ToString());
-            if (IsArrayType(codeTypeReference))//I am not sure why the type.BaseType is the same as the ArrayElementType, even if I gave it System.Array
+            if (IsArrayType(codeTypeReference))
             {
+                var rank = codeTypeReference.ArrayRank;
+                if (rank>1)
+                {
+                    return codeTypeReference.BaseType + new System.Text.StringBuilder().Insert(0, "[]", rank).ToString();
+                }
                 var elementTypeName = MapCodeTypeReferenceToTsText(codeTypeReference.ArrayElementType);
-                return $"Array<{elementTypeName}>"; //more consistence with IEnumerable
-                //var arrayBaskets = string.Concat(Enumerable.Repeat("[]", type.ArrayRank));
-                //return $"{type.ArrayElementType.BaseType}{arrayBaskets}";
+                return $"Array<{elementTypeName}>";
             }
 
             string tsTypeName;

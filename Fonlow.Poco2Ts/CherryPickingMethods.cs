@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 
-namespace Fonlow.Poco2Ts
+namespace Fonlow.Poco2Client
 {
     /// <summary>
     /// Flagged options for cherry picking in various development processes.

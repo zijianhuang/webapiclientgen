@@ -1138,11 +1138,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET api/SuperDemo/int2djagged
+        /// GET api/SuperDemo/int2dJagged
         /// </summary>
         public async Task<System.Int32[][]> GetInt2DJaggedAsync()
         {
-            var template = new System.UriTemplate("api/SuperDemo/int2djagged");
+            var template = new System.UriTemplate("api/SuperDemo/int2dJagged");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = await client.GetAsync(requestUri.ToString());
@@ -1153,17 +1153,125 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET api/SuperDemo/int2djagged
+        /// GET api/SuperDemo/int2dJagged
         /// </summary>
         public int[][] GetInt2DJagged()
         {
-            var template = new System.UriTemplate("api/SuperDemo/int2djagged");
+            var template = new System.UriTemplate("api/SuperDemo/int2dJagged");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
             responseMessage.EnsureSuccessStatusCode();
             var text = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<System.Int32[][]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/int2d
+        /// </summary>
+        public async Task<System.Boolean> PostInt2DAsync(int[,] a)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/int2d");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), a);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/int2d
+        /// </summary>
+        public bool PostInt2D(int[,] a)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/int2d");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), a).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/int2djagged
+        /// </summary>
+        public async Task<System.Boolean> PostInt2DJaggedAsync(int[][] a)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/int2djagged");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), a);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/int2djagged
+        /// </summary>
+        public bool PostInt2DJagged(int[][] a)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/int2djagged");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), a).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/intArray
+        /// </summary>
+        public async Task<System.Boolean> PostIntArrayAsync(int[] a)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/intArray");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), a);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/intArray
+        /// </summary>
+        public bool PostIntArray(int[] a)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/intArray");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), a).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/intArray
+        /// </summary>
+        public async Task<System.Int32[]> GetIntArrayAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/intArray");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Int32[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/intArray
+        /// </summary>
+        public int[] GetIntArray()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/intArray");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Int32[]>(text);
         }
     }
     

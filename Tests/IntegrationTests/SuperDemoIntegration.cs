@@ -212,6 +212,19 @@ namespace IntegrationTests
         }
 
         [Fact]
+        public void TestIntArray()
+        {
+            var d = api.GetIntArray();
+            Assert.Equal(8, d[7]);
+        }
+
+        [Fact]
+        public void TestPostIntArray()
+        {
+            Assert.True(api.PostIntArray(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 }));
+        }
+
+        [Fact]
         public void TestInt2D()
         {
             var d = api.GetInt2D();
@@ -230,6 +243,50 @@ namespace IntegrationTests
             Assert.Equal(1, d[0][ 0]);
             Assert.Equal(4, d[0][ 3]);
             Assert.Equal(8, d[1][ 3]);
+        }
+
+        [Fact]
+        public void TestPostInt2D()
+        {
+            var d = api.PostInt2D(new int[,]
+            {
+               {1,2,3, 4 },
+               {5,6,7, 8 }
+            });
+            Assert.True(d);
+        }
+
+        [Fact]
+        public void TestPostInt2DExpectedFalse()
+        {
+            var d = api.PostInt2D(new int[,]
+            {
+               {1,2,3, 4 },
+               {5,6,7, 9 }
+            });
+            Assert.False(d);
+        }
+
+        [Fact]
+        public void TestPostInt2DJagged()
+        {
+            var d = api.PostInt2DJagged(new int[][]
+            {
+               new int[] {1,2,3, 4 },
+               new int[] {5,6,7, 8 }
+            });
+            Assert.True(d);
+        }
+
+        [Fact]
+        public void TestPostInt2DJaggedExpectedFalse()
+        {
+            var d = api.PostInt2DJagged(new int[][]
+            {
+               new int[] {1,2,3, 4 },
+               new int[] {5,6,7, 9 }
+            });
+            Assert.False(d);
         }
 
     }

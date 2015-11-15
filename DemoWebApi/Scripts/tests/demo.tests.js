@@ -217,6 +217,67 @@ test("Getulong", function (assert) {
         done();
     });
 });
+//test("GetInt2d", function (assert) { for some reasons, when running inside Chutzpah, jQuery refuses to interpret array, while running inside a Web app is OK.
+//    var done = assert.async();
+//    superDemoApi.GetInt2D((data) => {
+//        assert.equal(data[0][ 0], 1);
+//        assert.equal(data[0] [3], 4);
+//        assert.equal(data[1][ 0], 5);
+//        assert.equal(data[1][ 3], 8);
+//        done();
+//    });
+//});
+//test("GetInt2dJagged", function (assert) {
+//    var done = assert.async();
+//    superDemoApi.GetInt2DJagged((data) => {
+//        assert.equal(data[0][0], 1);
+//        assert.equal(data[0][3], 4);
+//        assert.equal(data[1][0], 5);
+//        assert.equal(data[1][3], 8);
+//        done();
+//    });
+//});
+//test("PostInt2d", function (assert) {
+//    var done = assert.async();
+//    superDemoApi.PostInt2D([[1, 2, 3, 4], [5, 6, 7, 8]], (data) => {
+//        assert.ok(data);
+//        done();
+//    });
+//});
+//test("PostInt2dExpectedFalse", function (assert) {
+//    var done = assert.async();
+//    superDemoApi.PostInt2D([[1, 2, 3, 4], [5, 6, 7, 9]], (data) => {
+//        assert.ok(data == false);
+//        done();
+//    });
+//});
+//test("PostIntArray", function (assert) {
+//    var done = assert.async();
+//    superDemoApi.PostIntArray(([1, 2, 3, 4,5, 6, 7, 8]), (data) => {
+//        assert.ok(data);
+//        done();
+//    });
+//});
+//test("GetIntArray", function (assert) {
+//    var done = assert.async();
+//    superDemoApi.GetIntArray((data) => {
+//        assert.equal(data[7], 8);
+//    });
+//});
+//test("PostInt2dJagged", function (assert) {
+//    var done = assert.async();
+//    superDemoApi.PostInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 8]], (data) => {
+//        assert.ok(data);
+//        done();
+//    });
+//});
+//test("PostInt2dJaggedExpectedFalse", function (assert) {
+//    var done = assert.async();
+//    superDemoApi.PostInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 9]], (data) => {
+//        assert.ok(data == false);
+//        done();
+//    });
+//});
 QUnit.module("ValuesTests");
 test("Get", function (assert) {
     var done = assert.async();
@@ -266,4 +327,3 @@ test("Delete", function (assert) {
         done();
     });
 });
-//# sourceMappingURL=demo.tests.js.map

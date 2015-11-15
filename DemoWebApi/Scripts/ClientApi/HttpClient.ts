@@ -61,7 +61,6 @@ class HttpClient {
                 },
 
                 statusCode: statusCodeCallback,
-
             });
     }
 }

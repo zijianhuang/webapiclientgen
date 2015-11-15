@@ -51,7 +51,7 @@ namespace DemoWebApi_DemoData_Another_Client {
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
         httpClient: HttpClient;
-        constructor(public baseUri?: string, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string='', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -252,17 +252,52 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/SuperDemo/int2djagged
+         * GET api/SuperDemo/int2dJagged
          * @return {Array<Array<number>>} 
          */
         GetInt2DJagged(callback: (data : Array<Array<number>>) => any){
-            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2djagged'), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2dJagged'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/int2d
+         * @param {number[][]} a 
+         * @return {boolean} 
+         */
+        PostInt2D(a: number[][], callback: (data : boolean) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/int2d'), a, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/int2djagged
+         * @param {Array<Array<number>>} a 
+         * @return {boolean} 
+         */
+        PostInt2DJagged(a: Array<Array<number>>, callback: (data : boolean) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/int2djagged'), a, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/intArray
+         * @param {Array<number>} a 
+         * @return {boolean} 
+         */
+        PostIntArray(a: Array<number>, callback: (data : boolean) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/intArray'), a, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/intArray
+         * @return {Array<number>} 
+         */
+        GetIntArray(callback: (data : Array<number>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/intArray'), callback, this.error, this.statusCode);
         }
     }
 
-    export class Entities {
+    export class Entities { 
         httpClient: HttpClient;
-        constructor(public baseUri?: string, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string='', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -306,7 +341,7 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Values {
         httpClient: HttpClient;
-        constructor(public baseUri?: string, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string='', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 

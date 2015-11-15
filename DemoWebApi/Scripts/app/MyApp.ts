@@ -8,6 +8,11 @@ namespace MyApp {
             var api = new DemoWebApi_Controllers_Client.Entities();
             api.GetPerson(100, (data) => { $('#nameTag').html("<pre>" + data.Name + "</pre>"); });
         }
+
+        getArrayLastMember() {
+            var api = new DemoWebApi_Controllers_Client.SuperDemo();
+            api.GetIntArray((data) => { $('#nameTag').html("<pre>" + data[7] + "</pre>"); });
+        }
     }
         
 }

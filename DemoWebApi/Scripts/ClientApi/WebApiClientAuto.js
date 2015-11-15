@@ -22,6 +22,7 @@ var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     var SuperDemo = (function () {
         function SuperDemo(baseUri, error, statusCode) {
+            if (baseUri === void 0) { baseUri = ''; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
@@ -194,23 +195,55 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/SuperDemo/int2d
-         * @return {Array<number>}
+         * @return {number[][]}
          */
         SuperDemo.prototype.GetInt2D = function (callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2d'), callback, this.error, this.statusCode);
         };
         /**
-         * GET api/SuperDemo/int2djagged
+         * GET api/SuperDemo/int2dJagged
          * @return {Array<Array<number>>}
          */
         SuperDemo.prototype.GetInt2DJagged = function (callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2djagged'), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/int2dJagged'), callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/int2d
+         * @param {number[][]} a
+         * @return {boolean}
+         */
+        SuperDemo.prototype.PostInt2D = function (a, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/int2d'), a, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/int2djagged
+         * @param {Array<Array<number>>} a
+         * @return {boolean}
+         */
+        SuperDemo.prototype.PostInt2DJagged = function (a, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/int2djagged'), a, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/intArray
+         * @param {Array<number>} a
+         * @return {boolean}
+         */
+        SuperDemo.prototype.PostIntArray = function (a, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/intArray'), a, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/intArray
+         * @return {Array<number>}
+         */
+        SuperDemo.prototype.GetIntArray = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/intArray'), callback, this.error, this.statusCode);
         };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
         function Entities(baseUri, error, statusCode) {
+            if (baseUri === void 0) { baseUri = ''; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
@@ -254,6 +287,7 @@ var DemoWebApi_Controllers_Client;
     DemoWebApi_Controllers_Client.Entities = Entities;
     var Values = (function () {
         function Values(baseUri, error, statusCode) {
+            if (baseUri === void 0) { baseUri = ''; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
@@ -304,4 +338,3 @@ var DemoWebApi_Controllers_Client;
     })();
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
-//# sourceMappingURL=WebApiClientAuto.js.map

@@ -60,7 +60,7 @@ namespace Fonlow.CodeDom.Web.Cs
             var cherryPickingMethods = codeGenParameters.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
             foreach (var assembly in assemblies)
             {
-                poco2CsGen.CreateTsCodeDom(assembly, cherryPickingMethods);
+                poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods);
             }
         }
 

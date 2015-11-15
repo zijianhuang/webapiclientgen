@@ -3,16 +3,13 @@ using System.IO;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Linq;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 using System;
-using Fonlow.Poco2Client;
 
-namespace Fonlow.Poco2Ts
+namespace Fonlow.Poco2Client
 {
     /// <summary>
-    /// POCO to TypeScript interfaces generator
+    /// POCO to C# client data types generator
     /// </summary>
     public class Poco2CsGen
     {
@@ -27,7 +24,7 @@ namespace Fonlow.Poco2Ts
         }
 
         /// <summary>
-        /// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.
+        /// Gen will share the same CodeCompileUnit with other CodeGen components.
         /// </summary>
         /// <param name="codeCompileUnit"></param>
         public Poco2CsGen(CodeCompileUnit codeCompileUnit)
@@ -36,52 +33,52 @@ namespace Fonlow.Poco2Ts
         }
 
 
-        /// <summary>
-        /// Save TypeScript codes generated into a file.
-        /// </summary>
-        /// <param name="fileName"></param>
-        public void SaveTsCodeToFile(string fileName)
-        {
-            if (String.IsNullOrEmpty(fileName))
-                throw new ArgumentException("A valid fileName is not defined.", "fileName");
+        ///// <summary>
+        ///// Save TypeScript codes generated into a file.
+        ///// </summary>
+        ///// <param name="fileName"></param>
+        //public void SaveCsCodeToFile(string fileName)
+        //{
+        //    if (String.IsNullOrEmpty(fileName))
+        //        throw new ArgumentException("A valid fileName is not defined.", "fileName");
 
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(fileName))
-                {
-                    WriteCode(writer);
-                }
-            }
-            catch (IOException e)
-            {
-                Trace.TraceWarning(e.Message);
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                Trace.TraceWarning(e.Message);
-            }
-            catch (System.Security.SecurityException e)
-            {
-                Trace.TraceWarning(e.Message);
-            }
-        }
+        //    try
+        //    {
+        //        using (StreamWriter writer = new StreamWriter(fileName))
+        //        {
+        //            WriteCode(writer);
+        //        }
+        //    }
+        //    catch (IOException e)
+        //    {
+        //        Trace.TraceWarning(e.Message);
+        //    }
+        //    catch (UnauthorizedAccessException e)
+        //    {
+        //        Trace.TraceWarning(e.Message);
+        //    }
+        //    catch (System.Security.SecurityException e)
+        //    {
+        //        Trace.TraceWarning(e.Message);
+        //    }
+        //}
 
-        /// <summary>
-        /// Save TypeScript codes generated into a TextWriter.
-        /// </summary>
-        /// <param name="writer"></param>
-        public void WriteCode(TextWriter writer)
-        {
-            if (writer == null)
-                throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
+        ///// <summary>
+        ///// Save TypeScript codes generated into a TextWriter.
+        ///// </summary>
+        ///// <param name="writer"></param>
+        //public void WriteCode(TextWriter writer)
+        //{
+        //    if (writer == null)
+        //        throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-            CodeGeneratorOptions options = new CodeGeneratorOptions();
+        //    CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+        //    CodeGeneratorOptions options = new CodeGeneratorOptions();
 
-            provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
-        }
+        //    provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+        //}
 
-        public void CreateTsCodeDom(Assembly assembly, CherryPickingMethods methods)
+        public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods)
         {
             var cherryTypes = GetCherryTypes(assembly, methods);
             CreateCodeDom(cherryTypes, methods);
@@ -145,14 +142,14 @@ namespace Fonlow.Poco2Ts
                             string tsPropertyName;
 
 
-                            var isRequired = cherryType == CherryType.BigCherry;
+                     //todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
                             tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
 
                             var clientProperty = new CodeMemberProperty()
                             {
                                 Name = tsPropertyName,
-                                Type = TranslateToTsTypeReference(propertyInfo.PropertyType),
+                                Type = TranslateToTypeReference(propertyInfo.PropertyType),
                                 Attributes= MemberAttributes.Public | MemberAttributes.Final,
                                 //todo: add some attributes
                                 
@@ -162,7 +159,7 @@ namespace Fonlow.Poco2Ts
                             typeDeclaration.Members.Add(new CodeMemberField()
                             {
                                 Name = privateFieldName,
-                                Type = TranslateToTsTypeReference(propertyInfo.PropertyType),
+                                Type = TranslateToTypeReference(propertyInfo.PropertyType),
                             });
 
                             clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
@@ -178,7 +175,7 @@ namespace Fonlow.Poco2Ts
                             string tsPropertyName;
 
 
-                            var isRequired = cherryType == CherryType.BigCherry;
+                          //  var isRequired = cherryType == CherryType.BigCherry;
 
 
                             tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
@@ -186,7 +183,7 @@ namespace Fonlow.Poco2Ts
                             var clientProperty = new CodeMemberProperty()
                             {
                                 Name = tsPropertyName,
-                                Type = TranslateToTsTypeReference(fieldInfo.FieldType),
+                                Type = TranslateToTypeReference(fieldInfo.FieldType),
                                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                                 //todo: add some attributes
 
@@ -196,7 +193,7 @@ namespace Fonlow.Poco2Ts
                             typeDeclaration.Members.Add(new CodeMemberField()
                             {
                                 Name = privateFieldName,
-                                Type = TranslateToTsTypeReference(fieldInfo.FieldType),
+                                Type = TranslateToTypeReference(fieldInfo.FieldType),
                             });
 
                             clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
@@ -243,7 +240,7 @@ namespace Fonlow.Poco2Ts
         }
 
 
-        public CodeTypeReference TranslateToTsTypeReference(Type t)
+        public CodeTypeReference TranslateToTypeReference(Type t)
         {
             if (t == null)
                 return new CodeTypeReference("void");
@@ -303,7 +300,7 @@ namespace Fonlow.Poco2Ts
 
             var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
             {
-                ArrayElementType = TranslateToTsTypeReference(elementType),
+                ArrayElementType = TranslateToTypeReference(elementType),
             };
             return otherArrayType;
         }

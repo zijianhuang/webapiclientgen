@@ -19,7 +19,7 @@ namespace DemoWebApi.Controllers
         [Route("int")]
         public async Task<int> GetIntSquareAsync(int d)//some shops might have strict style guid to name async function with Async suffix always.
         {
-            return await Task.Run(() =>  d * d);
+            return await Task.Run(() => d * d);
         }
 
         [HttpGet]
@@ -113,7 +113,7 @@ namespace DemoWebApi.Controllers
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Content=content
+                    Content = content
                 };
             }
         }
@@ -136,7 +136,7 @@ namespace DemoWebApi.Controllers
         [HttpGet]
         [Route("byte")]
         public byte Getbyte()
-        {  
+        {
             return 255;
         }
 
@@ -213,9 +213,9 @@ namespace DemoWebApi.Controllers
                {5,6,7, 8 }
             };
         }
-        
+
         [HttpGet]
-        [Route("int2djagged")]
+        [Route("int2dJagged")]
         public int[][] GetInt2DJagged()
         {
             return new int[][]
@@ -224,5 +224,35 @@ namespace DemoWebApi.Controllers
                new int[] {5,6,7, 8 }
             };
         }
+
+        [HttpPost]
+        [Route("int2d")]
+        public bool PostInt2D(int[,] a)
+        {
+            return a[1, 3] == 8;
+        }
+
+        [HttpPost]
+        [Route("int2djagged")]
+        public bool PostInt2DJagged(int[][] a)
+        {
+            return a[1][3] == 8;
+        }
+
+
+        [HttpPost]
+        [Route("intArray")]
+        public bool PostIntArray(int[] a)
+        {
+            return a[7] == 8;
+        }
+
+        [HttpGet]
+        [Route("intArray")]
+        public int[] GetIntArray()
+        {
+            return new int[] {1, 2, 3, 4, 5, 6, 7, 8 };
+        }
+
     }
 }

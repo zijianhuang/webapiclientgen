@@ -142,7 +142,7 @@ namespace DemoWebApi.DemoData
         { get; set; }
 
         [DataMember]
-        public int[][][] Int3DJagged;
+        public int[][] Int2DJagged;
 
         [DataMember]
         public int[,] Int2D;

@@ -153,5 +153,18 @@ namespace IntegrationTests
             Assert.True(ids[50] > 0);
 
         }
+
+        [Fact]
+        public void GetCompany()
+        {
+            var c = api.GetCompany(1);
+            Assert.Equal("Super Co", c.Name);
+            Assert.Equal(2, c.Addresses.Length);
+            Assert.Equal(AddressType.Postal, c.Addresses[0].Type);
+            Assert.Equal(AddressType.Residential, c.Addresses[1].Type);
+            Assert.Equal(8, c.Int2D[1, 7]);
+            Assert.Equal(8, c.Int2DJagged[1][7]);
+
+        }
     }
 }

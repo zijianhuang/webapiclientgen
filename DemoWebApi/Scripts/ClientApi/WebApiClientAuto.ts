@@ -33,7 +33,7 @@ namespace DemoWebApi_DemoData_Client {
         BusinessNumber?: string;
         BusinessNumberType?: string;
         TextMatrix?: Array<Array<string>>;
-        Int3DJagged?: Array<Array<Array<number>>>;
+        Int2DJagged?: Array<Array<number>>;
         Int2D?: number[][];
         Lines?: Array<string>;
     }
@@ -51,7 +51,7 @@ namespace DemoWebApi_DemoData_Another_Client {
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
         httpClient: HttpClient;
-        constructor(public baseUri: string='', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string = '', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -295,10 +295,19 @@ namespace DemoWebApi_Controllers_Client {
         }
     }
 
-    export class Entities { 
+    export class Entities {
         httpClient: HttpClient;
-        constructor(public baseUri: string='', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string = '', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
+        }
+
+        /** 
+         * GET Company?id={id}
+         * @param {number} id 
+         * @return {DemoWebApi_DemoData_Client.Company} 
+         */
+        GetCompany(id: number, callback: (data : DemoWebApi_DemoData_Client.Company) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'Company?id='+id), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -341,7 +350,7 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Values {
         httpClient: HttpClient;
-        constructor(public baseUri: string='', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string = '', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 

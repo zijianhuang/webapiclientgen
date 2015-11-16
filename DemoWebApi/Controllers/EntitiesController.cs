@@ -24,7 +24,7 @@ namespace DemoWebApi.Controllers
                 Surname = "Huang",
                 GivenName = "Z",
                 Name = "Z Huang",
-                BirthDate=DateTime.Now.AddYears(-20),
+                BirthDate = DateTime.Now.AddYears(-20),
             };
         }
 
@@ -34,7 +34,7 @@ namespace DemoWebApi.Controllers
             if (person.Name == "Exception")
                 throw new InvalidOperationException("It is exception");
 
-           Debug.WriteLine("Create " + person);
+            Debug.WriteLine("Create " + person);
             return 1000;
         }
 
@@ -50,6 +50,45 @@ namespace DemoWebApi.Controllers
             Debug.WriteLine("Delete " + id);
         }
 
-        
+        [Route("Company")]
+        [HttpGet]
+        public Company GetCompany(long id)
+        {
+            return new Company()
+            {
+                Name = "Super Co",
+                Addresses = new List<Address>(new Address[]
+                {
+                    new Address()
+                    {
+                        Street1="somewhere street",
+                        State="QLD",
+                        Type= AddressType.Postal,
+                    },
+
+                    new Address()
+                    {
+                        Street1="Rainbow rd",
+                        State="Queensland",
+                        Type= AddressType.Residential,
+                    }
+                }),
+
+                Int2D = new int[,] {
+               {1,2,3, 4 },
+               {5,6,7, 8 }
+            },
+
+                Int2DJagged = new int[][]
+            {
+               new int[] {1,2,3, 4 },
+               new int[] {5,6,7, 8 }
+            },
+
+               
+            };
+        }
+
+
     }
 }

@@ -269,7 +269,7 @@ namespace DemoWebApi.DemoData.Client
         
         private string[][] _TextMatrix;
         
-        private int[][][] _Int3DJagged;
+        private int[][] _Int2DJagged;
         
         private int[,] _Int2D;
         
@@ -311,15 +311,15 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
-        public int[][][] Int3DJagged
+        public int[][] Int2DJagged
         {
             get
             {
-                return _Int3DJagged;
+                return _Int2DJagged;
             }
             set
             {
-                _Int3DJagged = value;
+                _Int2DJagged = value;
             }
         }
         
@@ -1292,6 +1292,38 @@ namespace DemoWebApi.Controllers.Client
 
             this.client = client;
             this.baseUri = baseUri;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET Company?id={id}
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Company> GetCompanyAsync(long id)
+        {
+            var template = new System.UriTemplate("Company?id={id}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("id", id.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Company>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET Company?id={id}
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Company GetCompany(long id)
+        {
+            var template = new System.UriTemplate("Company?id={id}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("id", id.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Company>(text);
         }
         
         /// <summary>

@@ -250,6 +250,14 @@ var DemoWebApi_Controllers_Client;
             this.httpClient = new HttpClient();
         }
         /**
+         * GET Company?id={id}
+         * @param {number} id
+         * @return {DemoWebApi_DemoData_Client.Company}
+         */
+        Entities.prototype.GetCompany = function (id, callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'Company?id=' + id), callback, this.error, this.statusCode);
+        };
+        /**
          * Get a person
          * GET api/Entities/{id}
          * @param {number} id unique id of that guy
@@ -338,3 +346,4 @@ var DemoWebApi_Controllers_Client;
     })();
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
+//# sourceMappingURL=WebApiClientAuto.js.map

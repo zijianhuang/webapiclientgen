@@ -6,7 +6,7 @@ namespace MyApp {
     export class First {
         getPerson() {
             var api = new DemoWebApi_Controllers_Client.Entities();
-            api.GetPerson(100, (data) => { $('#nameTag').html("<pre>" + data.Name + "</pre>"); });
+            //api.GetPerson(100, (data) => { $('#nameTag').html("<pre>" + data.Name + "</pre>"); });
         }
 
         getArrayLastMember() {

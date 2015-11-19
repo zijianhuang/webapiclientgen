@@ -46,6 +46,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
         static readonly Type typeOfHttpActionResult = typeof(System.Web.Http.IHttpActionResult);
         static readonly Type typeOfChar = typeof(char);
+        static readonly Type typeOfObject = typeof(Object);
 
         public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description, bool forAsync = false)
         {
@@ -117,6 +118,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
         CodeMemberMethod CreateMethodBasicForAsync()
         {
+           // Debug.Assert(!methodName.Contains("Anonymous"));
             return new CodeMemberMethod()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
@@ -169,6 +171,8 @@ namespace Fonlow.CodeDom.Web.Cs
             if (t == typeOfHttpActionResult)
                 return "System.Net.Http.HttpResponseMessage";
 
+            if (t == typeOfObject && (t.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+                return "Newtonsoft.Json.Linq.JObject";
 
             if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
                 return t.Namespace + ".Client." + t.Name;

@@ -238,6 +238,28 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.GetIntArray = function (callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/intArray'), callback, this.error, this.statusCode);
         };
+        /**
+         * GET api/SuperDemo/AnonymousDynamic
+         * @return {any}
+         */
+        SuperDemo.prototype.GetAnonymousDynamic = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousDynamic'), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/AnonymousObject
+         * @return {any}
+         */
+        SuperDemo.prototype.GetAnonymousObject = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject'), callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/AnonymousObject
+         * @param {any} obj
+         * @return {any}
+         */
+        SuperDemo.prototype.PostAnonymousObject = function (obj, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject'), obj, callback, this.error, this.statusCode);
+        };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
@@ -346,4 +368,3 @@ var DemoWebApi_Controllers_Client;
     })();
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
-//# sourceMappingURL=WebApiClientAuto.js.map

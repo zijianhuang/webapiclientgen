@@ -293,6 +293,31 @@ namespace DemoWebApi_Controllers_Client {
         GetIntArray(callback: (data : Array<number>) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/intArray'), callback, this.error, this.statusCode);
         }
+
+        /** 
+         * GET api/SuperDemo/AnonymousDynamic
+         * @return {any} 
+         */
+        GetAnonymousDynamic(callback: (data : any) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousDynamic'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/AnonymousObject
+         * @return {any} 
+         */
+        GetAnonymousObject(callback: (data : any) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/AnonymousObject
+         * @param {any} obj 
+         * @return {any} 
+         */
+        PostAnonymousObject(obj: any, callback: (data : any) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject'), obj, callback, this.error, this.statusCode);
+        }
     }
 
     export class Entities {
@@ -377,7 +402,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {string} value 
          * @return {string} 
          */
-        Post(value: {'':string}, callback: (data : string) => any){
+        Post(value: string, callback: (data : string) => any){
             this.httpClient.post(encodeURI(this.baseUri + 'api/Values'), value, callback, this.error, this.statusCode);
         }
 
@@ -387,7 +412,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {string} value 
          * @return {void} 
          */
-        Put(id: number, value: {'':string}, callback: (data : void) => any){
+        Put(id: number, value: string, callback: (data : void) => any){
             this.httpClient.put(encodeURI(this.baseUri + 'api/Values/'+id), value, callback, this.error, this.statusCode);
         }
 

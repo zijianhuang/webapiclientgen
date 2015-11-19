@@ -1273,6 +1273,92 @@ namespace DemoWebApi.Controllers.Client
             var text = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<System.Int32[]>(text);
         }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/AnonymousDynamic
+        /// </summary>
+        public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamicAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/AnonymousDynamic");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/AnonymousDynamic
+        /// </summary>
+        public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/AnonymousDynamic");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/AnonymousObject
+        /// </summary>
+        public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObjectAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/AnonymousObject");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/AnonymousObject
+        /// </summary>
+        public Newtonsoft.Json.Linq.JObject GetAnonymousObject()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/AnonymousObject");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/AnonymousObject
+        /// </summary>
+        public async Task<Newtonsoft.Json.Linq.JObject> PostAnonymousObjectAsync(Newtonsoft.Json.Linq.JObject obj)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), obj);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/AnonymousObject
+        /// </summary>
+        public Newtonsoft.Json.Linq.JObject PostAnonymousObject(Newtonsoft.Json.Linq.JObject obj)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), obj).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(text);
+        }
     }
     
     public partial class Entities

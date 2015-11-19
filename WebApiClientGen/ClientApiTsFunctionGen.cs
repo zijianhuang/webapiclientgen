@@ -158,7 +158,7 @@ namespace Fonlow.CodeDom.Web.Ts
         static CodeTypeReference CreateCodeTypeReferenceForFromBodySimpleType(Type t)
         {
             var typeText = TypeMapper.MapToTsBasicType(t);
-            return new CodeTypeReference($"{{'':{typeText}}}");
+            return new CodeTypeReference(typeText);
         }
 
         static bool IsFromBodySimpleType(ApiParameterDescription d)

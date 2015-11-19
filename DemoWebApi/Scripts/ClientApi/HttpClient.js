@@ -19,7 +19,7 @@ var HttpClient = (function () {
     HttpClient.prototype.executeAjax = function (url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback) {
         //http://api.jquery.com/jquery.ajax/
         $.ajax(url, {
-            data: dataToSave,
+            data: JSON.stringify(dataToSave),
             type: httpVerb,
             success: function (data, textStatus, jqXHR) {
                 if (callback !== null) {
@@ -32,8 +32,11 @@ var HttpClient = (function () {
                 }
             },
             statusCode: statusCodeCallback,
+            contentType: 'application/json; charset=UTF-8',
+            headers: {
+                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
+            }
         });
     };
     return HttpClient;
 })();
-//# sourceMappingURL=HttpClient.js.map

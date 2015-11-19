@@ -263,52 +263,81 @@ test("Getulong", function (assert) {
     });
 });
 
-//test("GetInt2d", function (assert) { for some reasons, when running inside Chutzpah, jQuery refuses to interpret array, while running inside a Web app is OK.
-//    var done = assert.async();
-//    superDemoApi.GetInt2D((data) => {
-//        assert.equal(data[0][ 0], 1);
-//        assert.equal(data[0] [3], 4);
-//        assert.equal(data[1][ 0], 5);
-//        assert.equal(data[1][ 3], 8);
-//        done();
-//    });
-//});
+test("GetAnonymousDynamic", function (assert) {
+    var done = assert.async();
+    superDemoApi.GetAnonymousDynamic((data) => {
+        assert.equal(data.Id, 12345);
+        assert.equal(data.Name, "Something");
+        done();
+    });
+});
 
-//test("GetInt2dJagged", function (assert) {
-//    var done = assert.async();
-//    superDemoApi.GetInt2DJagged((data) => {
-//        assert.equal(data[0][0], 1);
-//        assert.equal(data[0][3], 4);
-//        assert.equal(data[1][0], 5);
-//        assert.equal(data[1][3], 8);
-//        done();
-//    });
-//});
+test("GetAnonymousObject", function (assert) {
+    var done = assert.async();
+    superDemoApi.GetAnonymousObject((data) => {
+        assert.equal(data.Id, 12345);
+        assert.equal(data.Name, "Something");
+        done();
+    });
+});
+
+test("PostAnonymousObject", function (assert) {
+    var done = assert.async();
+    superDemoApi.PostAnonymousObject({ "Id": "12345", "Name": "Something" }, (data) => {
+        assert.equal(data.Id, "123451");
+        assert.equal(data.Name, "Something1");
+        done();
+    });
+});
 
 
-//test("PostInt2d", function (assert) {
-//    var done = assert.async();
-//    superDemoApi.PostInt2D([[1, 2, 3, 4], [5, 6, 7, 8]], (data) => {
-//        assert.ok(data);
-//        done();
-//    });
-//});
 
-//test("PostInt2dExpectedFalse", function (assert) {
-//    var done = assert.async();
-//    superDemoApi.PostInt2D([[1, 2, 3, 4], [5, 6, 7, 9]], (data) => {
-//        assert.ok(data == false);
-//        done();
-//    });
-//});
+test("GetInt2d", function (assert) { 
+    var done = assert.async();
+    superDemoApi.GetInt2D((data) => {
+        assert.equal(data[0][ 0], 1);
+        assert.equal(data[0] [3], 4);
+        assert.equal(data[1][ 0], 5);
+        assert.equal(data[1][ 3], 8);
+        done();
+    });
+});
 
-//test("PostIntArray", function (assert) {
-//    var done = assert.async();
-//    superDemoApi.PostIntArray(([1, 2, 3, 4,5, 6, 7, 8]), (data) => {
-//        assert.ok(data);
-//        done();
-//    });
-//});
+test("GetInt2dJagged", function (assert) {
+    var done = assert.async();
+    superDemoApi.GetInt2DJagged((data) => {
+        assert.equal(data[0][0], 1);
+        assert.equal(data[0][3], 4);
+        assert.equal(data[1][0], 5);
+        assert.equal(data[1][3], 8);
+        done();
+    });
+});
+
+
+test("PostInt2d", function (assert) {
+    var done = assert.async();
+    superDemoApi.PostInt2D([[1, 2, 3, 4], [5, 6, 7, 8]], (data) => {
+        assert.ok(data);
+        done();
+    });
+});
+
+test("PostInt2dExpectedFalse", function (assert) {
+    var done = assert.async();
+    superDemoApi.PostInt2D([[1, 2, 3, 4], [5, 6, 7, 9]], (data) => {
+        assert.ok(data == false);
+        done();
+    });
+});
+
+test("PostIntArray", function (assert) {
+    var done = assert.async();
+    superDemoApi.PostIntArray([1, 2, 3, 4,5, 6, 7, 8], (data) => {
+        assert.ok(data);
+        done();
+    });
+});
 
 //test("GetIntArray", function (assert) {
 //    var done = assert.async();
@@ -361,8 +390,7 @@ test("PostValue", function (assert) {
         done();
     });
 
-    var v = { '': 'value' };
-    api.Post(v, (data) => {
+    api.Post('value', (data) => {
         assert.equal(data, "VALUE");
         done();
     });
@@ -376,7 +404,7 @@ test("Put", function (assert) {
         done();
     });
 
-    api.Put(1, { '': 'value' }, (data) => {
+    api.Put(1, 'value', (data) => {
         done();
     });
 });

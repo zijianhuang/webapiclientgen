@@ -40,3 +40,4 @@ var HttpClient = (function () {
     };
     return HttpClient;
 })();
+//# sourceMappingURL=HttpClient.js.map

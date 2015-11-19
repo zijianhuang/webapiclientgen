@@ -10,7 +10,7 @@ namespace MyApp {
         }
 
         getArrayLastMember() {
-            var api = new DemoWebApi_Controllers_Client.SuperDemo();
+            var api = new DemoWebApi_Controllers_Client.SuperDemo(window.location.origin+'/');
             api.GetIntArray((data) => { $('#nameTag').html("<pre>" + data[7] + "</pre>"); });
         }
 

@@ -339,28 +339,28 @@ test("PostIntArray", function (assert) {
     });
 });
 
-//test("GetIntArray", function (assert) {
+//test("GetIntArray", function (assert) {//this little fella refuses to finish even if the service had returned the right data. This happens only in the Chupaz runner. In browsers the script is OK.
 //    var done = assert.async();
 //    superDemoApi.GetIntArray((data) => {
 //        assert.equal(data[7], 8);
 //    });
 //});
 
-//test("PostInt2dJagged", function (assert) {
-//    var done = assert.async();
-//    superDemoApi.PostInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 8]], (data) => {
-//        assert.ok(data);
-//        done();
-//    });
-//});
+test("PostInt2dJagged", function (assert) {
+    var done = assert.async();
+    superDemoApi.PostInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 8]], (data) => {
+        assert.ok(data);
+        done();
+    });
+});
 
-//test("PostInt2dJaggedExpectedFalse", function (assert) {
-//    var done = assert.async();
-//    superDemoApi.PostInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 9]], (data) => {
-//        assert.ok(data == false);
-//        done();
-//    });
-//});
+test("PostInt2dJaggedExpectedFalse", function (assert) {
+    var done = assert.async();
+    superDemoApi.PostInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 9]], (data) => {
+        assert.ok(data == false);
+        done();
+    });
+});
 
 
 

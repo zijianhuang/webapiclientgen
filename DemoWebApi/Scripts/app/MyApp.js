@@ -11,7 +11,7 @@ var MyApp;
             //api.GetPerson(100, (data) => { $('#nameTag').html("<pre>" + data.Name + "</pre>"); });
         };
         First.prototype.getArrayLastMember = function () {
-            var api = new DemoWebApi_Controllers_Client.SuperDemo();
+            var api = new DemoWebApi_Controllers_Client.SuperDemo(window.location.origin + '/');
             api.GetIntArray(function (data) { $('#nameTag').html("<pre>" + data[7] + "</pre>"); });
         };
         First.prototype.postObject = function () {
@@ -39,3 +39,4 @@ var MyApp;
     MyApp.First = First;
 })(MyApp || (MyApp = {}));
 var first = new MyApp.First();
+//# sourceMappingURL=MyApp.js.map

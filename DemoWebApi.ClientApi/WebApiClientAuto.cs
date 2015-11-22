@@ -221,7 +221,7 @@ namespace DemoWebApi.DemoData.Client
         
         private string _GivenName;
         
-        private System.Nullable<System.DateTime> _BirthDate;
+        private System.DateTime _BirthDate;
         
         public string Surname
         {
@@ -247,7 +247,7 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
-        public System.Nullable<System.DateTime> BirthDate
+        public System.DateTime BirthDate
         {
             get
             {
@@ -344,6 +344,52 @@ namespace DemoWebApi.DemoData.Client
             set
             {
                 _Lines = value;
+            }
+        }
+    }
+    
+    public class MyPeopleDic : object
+    {
+        
+        private System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Person>> _Dic;
+        
+        private System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, string>> _AnotherDic;
+        
+        private System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int, string>> _IntDic;
+        
+        public System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Person>> Dic
+        {
+            get
+            {
+                return _Dic;
+            }
+            set
+            {
+                _Dic = value;
+            }
+        }
+        
+        public System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, string>> AnotherDic
+        {
+            get
+            {
+                return _AnotherDic;
+            }
+            set
+            {
+                _AnotherDic = value;
+            }
+        }
+        
+        public System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int, string>> IntDic
+        {
+            get
+            {
+                return _IntDic;
+            }
+            set
+            {
+                _IntDic = value;
             }
         }
     }
@@ -1358,6 +1404,36 @@ namespace DemoWebApi.Controllers.Client
             responseMessage.EnsureSuccessStatusCode();
             var text = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo
+        /// </summary>
+        public async Task<IDictionary<System.String, DemoWebApi.DemoData.Client.Person>> GetDictionaryOfPeopleAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<IDictionary<System.String, DemoWebApi.DemoData.Client.Person>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo
+        /// </summary>
+        public System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Person> GetDictionaryOfPeople()
+        {
+            var template = new System.UriTemplate("api/SuperDemo");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<IDictionary<System.String, DemoWebApi.DemoData.Client.Person>>(text);
         }
     }
     

@@ -56,6 +56,11 @@ namespace Fonlow.TypeScriptCodeDom
             return codeTypeReference.ArrayElementType != null;
         }
 
+        static bool IsKeyValuePairType(string typeName)
+        {
+            return typeName.Contains("System.Collections.Generic.KeyValuePair");
+        }
+
         static readonly string typeNameOfObject = typeof(object).FullName;
 
         internal static bool IsValidTypeForDerivation(CodeTypeReference type)
@@ -116,6 +121,14 @@ namespace Fonlow.TypeScriptCodeDom
             {
                 System.Diagnostics.Trace.Assert(codeTypeReference.TypeArguments.Count == 1);
                 return MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);// + "?"; in javascript all is optional anyway.
+            }
+
+            if (IsKeyValuePairType(codeTypeReference.BaseType))
+            {
+                System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
+                var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
+                var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
+                return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText}; }}";
             }
 
             if (codeTypeReference.TypeArguments.Count > 0)

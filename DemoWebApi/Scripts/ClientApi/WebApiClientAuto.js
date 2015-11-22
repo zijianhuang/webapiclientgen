@@ -260,6 +260,13 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.PostAnonymousObject = function (obj, callback) {
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject'), obj, callback, this.error, this.statusCode);
         };
+        /**
+         * GET api/SuperDemo
+         * @return {Array<string>}
+         */
+        SuperDemo.prototype.GetDictionaryOfPeople = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo'), callback, this.error, this.statusCode);
+        };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;

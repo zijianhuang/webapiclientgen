@@ -251,7 +251,7 @@ namespace DemoWebApi.Controllers
         [Route("intArray")]
         public int[] GetIntArray()
         {
-            return new int[] {1, 2, 3, 4, 5, 6, 7, 8 };
+            return new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         }
 
         [HttpGet]
@@ -280,7 +280,7 @@ namespace DemoWebApi.Controllers
         [Route("AnonymousObject")]
         public object PostAnonymousObject([FromBody] dynamic obj)
         {
-            if (obj==null)
+            if (obj == null)
             {
                 System.Diagnostics.Debug.WriteLine("dynamic null");
                 return new
@@ -295,7 +295,59 @@ namespace DemoWebApi.Controllers
             return obj;
         }
 
+        //[HttpGet]
+        //public IDictionary<string, string> GetDictionary()
+        //{
+        //    return new Dictionary<string, string>()
+        //{
+        //    {typeof(int).FullName, "number"},
+        //    {typeof(uint).FullName, "number"},
+        //    {typeof(long).FullName, "number"},
+        //    {typeof(ulong).FullName, "number"},
+        //    {typeof(short).FullName, "number"},
+        //    {typeof(ushort).FullName, "number"},
+        //    {typeof(float).FullName, "number"},
+        //    {typeof(double).FullName, "number"},
+        //    {typeof(decimal).FullName, "number"},
+        //    {typeof(byte).FullName, "number"},
+        //    {typeof(sbyte).FullName, "number"},
+        //    {typeof(string).FullName, "string"},
+        //    {typeof(char).FullName, "string"},
+        //    {typeof(Guid).FullName, "string"},
+        //    {typeof(bool).FullName, "boolean"},
+        //    {typeof(void).FullName, "void"},
+        //    {typeof(object).FullName, "any"},
+        //    {typeof(DateTime).FullName, "Date"},
+        //    {typeof(DateTimeOffset).FullName, "Date"},
+        //    {"System.Collections.IEnumerable", "Array"},
+        //    {"System.Array", "Array"},
 
+        //};
+        //}
+
+        [HttpGet]
+        public IDictionary<string, DemoData.Person> GetDictionaryOfPeople()
+        {
+            return new Dictionary<string, DemoData.Person>()
+            {
+                {"Iron Man", new DemoData.Person()
+                {
+                    Name= "Tony Stark",
+                    Surname="Stark",
+                    GivenName="Tony"
+                } },
+
+                {"Spider Man", new DemoData.Person() {
+                    Name="Peter Parker",
+                    Addresses= new List<DemoData.Address>(
+                        new DemoData.Address[] { new DemoData.Address() {
+                            City="New York"
+
+                        } }
+                    ),
+                } },
+            };
+        }
 
     }
-}
+    }

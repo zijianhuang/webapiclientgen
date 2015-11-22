@@ -30,7 +30,7 @@ namespace DemoWebApi.DemoData
     };
 
     [DataContract(Namespace = Constants.DataNamespace)]
-    enum Days
+    public enum Days
     {
         [EnumMember]
         Sat = 1,
@@ -149,6 +149,20 @@ namespace DemoWebApi.DemoData
 
         [DataMember]
         public IEnumerable<string> Lines;
+    }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    public class MyPeopleDic 
+    {
+        [DataMember]
+        public IDictionary<string, Person> Dic { get; set; }
+
+        [DataMember]
+        public IDictionary<string, string> AnotherDic { get; set; }
+
+        [DataMember]
+        public IDictionary<int, string> IntDic { get; set; }
+     
     }
 
 }

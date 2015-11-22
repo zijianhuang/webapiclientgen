@@ -38,6 +38,12 @@ namespace DemoWebApi_DemoData_Client {
         Lines?: Array<string>;
     }
 
+    export interface MyPeopleDic {
+        Dic?: Array<{[id: string]: DemoWebApi_DemoData_Client.Person; }>;
+        AnotherDic?: Array<{[id: string]: string; }>;
+        IntDic?: Array<{[id: number]: string; }>;
+    }
+
 }
 
 namespace DemoWebApi_DemoData_Another_Client {
@@ -317,6 +323,14 @@ namespace DemoWebApi_Controllers_Client {
          */
         PostAnonymousObject(obj: any, callback: (data : any) => any){
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject'), obj, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo
+         * @return {Array<{[id: string]: DemoWebApi_DemoData_Client.Person; }>} 
+         */
+        GetDictionaryOfPeople(callback: (data : Array<{[id: string]: DemoWebApi_DemoData_Client.Person; }>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo'), callback, this.error, this.statusCode);
         }
     }
 

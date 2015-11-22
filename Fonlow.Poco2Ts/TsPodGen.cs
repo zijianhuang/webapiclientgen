@@ -12,7 +12,7 @@ using Fonlow.Poco2Client;
 namespace Fonlow.Poco2Ts
 {
     /// <summary>
-    /// POCO to TypeScript interfaces generator
+    /// POCO to TypeScript interfaces generator. Create CodeDOM and output TS codes
     /// </summary>
     public class Poco2TsGen
     {
@@ -92,12 +92,6 @@ namespace Fonlow.Poco2Ts
         }
 
 
-        static bool IsClassOrStruct(Type type)
-        {
-            return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
-        }
-
-        Type[] pendingTypes;
         /// <summary>
         /// Create TypeScript CodeDOM for POCO types. 
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
@@ -224,45 +218,108 @@ namespace Fonlow.Poco2Ts
 
         }
 
-
-        public CodeTypeReference TranslateToTsTypeReference(Type t)
+        public CodeTypeReference TranslateToTsTypeReference(Type type)
         {
-            if (t == null)
+            if (type == null)
                 return new CodeTypeReference("void");
 
-            if (pendingTypes.Contains(t))
-                return new CodeTypeReference(RefineCustomComplexTypeText(t));
-            else if (t.IsGenericType)
+            if (pendingTypes.Contains(type))
+                return new CodeTypeReference(RefineCustomComplexTypeText(type));
+            else if (type.IsGenericType)
             {
-                if (t.GetInterface("IEnumerable", true) != null)
-                {
-                    Debug.Assert(t.GenericTypeArguments.Length == 1);
-                    var elementType = t.GenericTypeArguments[0];
-                    return CreateArrayTypeReference(elementType, 1);
-
-                }
-                else if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
-                {
-                    var genericTypeReferences = t.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
-                    Debug.Assert(genericTypeReferences.Length == 1);
-                    return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
-                }
-                else
-                    return null;
+                return TranslateGenericToTsTypeReference(type);
             }
-            else if (t.IsArray)
+            else if (type.IsArray)
             {
-                Debug.Assert(t.Name.EndsWith("]"));
-                var elementType = t.GetElementType();
-                var arrayRank = t.GetArrayRank();
+                Debug.Assert(type.Name.EndsWith("]"));
+                var elementType = type.GetElementType();
+                var arrayRank = type.GetArrayRank();
                 return CreateArrayTypeReference(elementType, arrayRank);
             }
 
-            var tsBasicTypeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(t);
+            var tsBasicTypeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
             if (tsBasicTypeText != null)
                 return new CodeTypeReference(tsBasicTypeText);
 
             return new CodeTypeReference("any");
+        }
+
+        static bool IsClassOrStruct(Type type)
+        {
+            return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
+        }
+
+        Type[] pendingTypes;
+
+        CodeTypeReference TranslateGenericToTsTypeReference(Type type)
+        {
+            Type genericTypeDefinition = type.GetGenericTypeDefinition();
+            if (genericTypeDefinition == typeof(Nullable<>))
+            {
+                var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
+                Debug.Assert(genericTypeReferences.Length == 1);
+                return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
+            }
+
+            if (genericTypeDefinition == typeof(KeyValuePair<,>))
+            {
+                return new CodeTypeReference(type);
+            }
+
+            //if (IsTuple(genericTypeDefinition))
+            //{
+            //    return new CodeTypeReference(type);
+            //}
+
+            Type[] genericArguments = type.GetGenericArguments();
+            if (genericArguments.Length == 1)
+            {
+                if (genericTypeDefinition == typeof(IList<>) ||
+                    genericTypeDefinition == typeof(IEnumerable<>) ||
+                    genericTypeDefinition == typeof(ICollection<>) ||
+                    genericTypeDefinition == typeof(IQueryable<>)
+                    )
+                {
+                    Debug.Assert(type.GenericTypeArguments.Length == 1);
+                    var elementType = type.GenericTypeArguments[0];
+                    return CreateArrayTypeReference(elementType, 1);
+                }
+
+                //Type closedCollectionType = typeof(ICollection<>).MakeGenericType(genericArguments[0]);
+                //if (closedCollectionType.IsAssignableFrom(type))
+                //{
+                //    return GenerateCollection(type, collectionSize, createdObjectReferences);
+                //}
+                return null;
+            }
+
+            if (genericArguments.Length == 2)
+            {
+                if (genericTypeDefinition == typeof(IDictionary<,>))
+                {
+                    return new CodeTypeReference(new CodeTypeReference(), 1)
+                    {
+                        ArrayElementType = CreateKeyValuePairTypeReference(genericArguments[0], genericArguments[1])
+                    };
+                }
+
+                Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
+                if (closedDictionaryType.IsAssignableFrom(type))
+                {
+                    return new CodeTypeReference(new CodeTypeReference(), 1)
+                    {
+                        ArrayElementType = CreateKeyValuePairTypeReference(genericArguments[0], genericArguments[1])
+                    };
+                }
+            }
+
+            return new CodeTypeReference("any");
+
+        }
+
+        CodeTypeReference CreateKeyValuePairTypeReference(Type keyType, Type valueType)
+        {
+            return new CodeTypeReference( typeof(KeyValuePair<,>).FullName, TranslateToTsTypeReference(keyType), TranslateToTsTypeReference(valueType));
         }
 
         static string RefineCustomComplexTypeText(Type t)
@@ -321,7 +378,7 @@ namespace Fonlow.Poco2Ts
             try
             {
                 return assembly.GetTypes().Where(type => (IsClassOrStruct(type) || type.IsEnum)
-                && CherryPicking.IsCherryType(type, methods)).ToArray();
+                && CherryPicking.IsCherryType(type, methods) && type.IsPublic).ToArray();
             }
             catch (ReflectionTypeLoadException e)
             {

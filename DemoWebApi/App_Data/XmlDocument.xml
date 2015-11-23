@@ -486,6 +486,13 @@
             For testing different commbinations of parameters and returns
             </summary>
         </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostDateTimeOffset(System.DateTimeOffset)">
+            <summary>
+            DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
         <member name="M:DemoWebApi.Controllers.EntitiesController.GetPerson(System.Int64)">
             <summary>
             Get a person

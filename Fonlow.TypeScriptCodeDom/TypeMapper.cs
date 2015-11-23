@@ -31,25 +31,9 @@ namespace Fonlow.TypeScriptCodeDom
             {typeof(object).FullName, "any"},
             {typeof(DateTime).FullName, "Date"},
             {typeof(DateTimeOffset).FullName, "Date"},
-            {"System.Collections.IEnumerable", "Array"},
-            {"System.Array", "Array"},
-
+            //TimeSpan is not so supported in Javascript
         };
 
-        static readonly string[] arrayGenericTypes = {
-            "System.Collections.Generic.List",
-            "System.Collections.Generic.IList",
-            "System.Collections.Generic.IEnumerable" };
-
-        static bool IsGenericArrayType(string typeName)
-        {
-            return arrayGenericTypes.Any(d => typeName.Contains(d));
-        }
-
-        static bool IsNullableType(string typeName)
-        {
-            return typeName.Contains("System.Nullable");
-        }
 
         static bool IsArrayType(CodeTypeReference codeTypeReference)
         {
@@ -111,18 +95,6 @@ namespace Fonlow.TypeScriptCodeDom
             if (codeTypeReference.TypeArguments.Count == 0)
                 return codeTypeReference.BaseType;
 
-            if (IsGenericArrayType(codeTypeReference.BaseType))
-            {
-                System.Diagnostics.Trace.Assert(codeTypeReference.TypeArguments.Count == 1);
-                return $"Array<{MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0])}>";
-            }
-
-            if (IsNullableType(codeTypeReference.BaseType))
-            {
-                System.Diagnostics.Trace.Assert(codeTypeReference.TypeArguments.Count == 1);
-                return MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);// + "?"; in javascript all is optional anyway.
-            }
-
             if (IsKeyValuePairType(codeTypeReference.BaseType))
             {
                 System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
@@ -139,14 +111,8 @@ namespace Fonlow.TypeScriptCodeDom
                 return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
             }
 
-            if (codeTypeReference.TypeArguments.Count > 0)
-            {
-                var genericBaseTypeName = codeTypeReference.BaseType.Contains("`1") ? codeTypeReference.BaseType.Replace("`1", null) : codeTypeReference.BaseType;  //.NET runtime gives `1 suffix, but TS does not need it.
-                return $"{genericBaseTypeName}<{MapCodeTypeReferenceCollectionToTsText(codeTypeReference.TypeArguments)}>";
-            }
-
             System.Diagnostics.Trace.TraceWarning($"{codeTypeReference.BaseType} is mapped to any.");
-            return "any";//todo: this should never happen, should I raise an exception?
+            return "any";
         }
 
         /// <summary>
@@ -159,7 +125,6 @@ namespace Fonlow.TypeScriptCodeDom
             var arguments = collection.OfType<CodeTypeReference>().Select(d => MapCodeTypeReferenceToTsText(d));
             return String.Join(", ", arguments);
         }
-
 
     }
 }

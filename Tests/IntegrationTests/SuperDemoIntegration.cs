@@ -72,7 +72,7 @@ namespace IntegrationTests
         public void TestGetDateTime()
         {
             var dt = api.GetDateTime(true);
-            Assert.True(dt.Value <= DateTime.Now);
+            Assert.True( (DateTime.Now- dt.Value)< TimeSpan.FromSeconds(2));
         }
 
         [Fact]
@@ -83,12 +83,40 @@ namespace IntegrationTests
         }
 
         [Fact]
+        public void TestGetDateTimeOffset()
+        {
+            var dt = api.GetDateTimeOffset();
+            Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
+        }
+
+        [Fact]
+        public void TestPostDateTimeOffset()
+        {
+            var r = api.PostDateTimeOffset(DateTimeOffset.Now);
+            Assert.True(r);
+        }
+
+        [Fact]
+        public void TestPostDateTimeOffsetNullable()
+        {
+            var r = api.PostDateTimeOffsetNullable(DateTimeOffset.Now);
+            Assert.True(r);
+        }
+
+        [Fact]
+        public void TestPostDateTimeOffsetWithNull()
+        {
+            var r = api.PostDateTimeOffsetNullable(null);
+            Assert.False(r);
+        }
+
+        [Fact]
         public void TestGetNullableDecimal()
         {
             var d = api.GetNullableDecimal(true);
             Assert.True(d.Value > 10);
         }
-      
+
         [Fact]
         public void TestGetDecimalNull()
         {
@@ -131,7 +159,7 @@ namespace IntegrationTests
         public void TestGetByteArray()
         {
             var array = api.GetByteArray();
-            var s= System.Text.Encoding.UTF8.GetString(array);
+            var s = System.Text.Encoding.UTF8.GetString(array);
             Assert.Equal("abcdefg", s);
         }
 
@@ -241,9 +269,9 @@ namespace IntegrationTests
         {
             var d = api.GetInt2DJagged();
             Assert.Equal(1, d.GetUpperBound(0));
-            Assert.Equal(1, d[0][ 0]);
-            Assert.Equal(4, d[0][ 3]);
-            Assert.Equal(8, d[1][ 3]);
+            Assert.Equal(1, d[0][0]);
+            Assert.Equal(4, d[0][3]);
+            Assert.Equal(8, d[1][3]);
         }
 
         [Fact]
@@ -349,7 +377,7 @@ namespace IntegrationTests
                     Name="Peter Parker",
                     Addresses= new Address[] { new Address() {
                             City="New York"
-                        } 
+                        }
                     },
                 } },
             });
@@ -358,11 +386,112 @@ namespace IntegrationTests
         }
 
         [Fact]
-        public void GetKeyValuePair()
+        public void TestGetKeyValuePair()
         {
             var r = api.GetKeyhValuePair();
             Assert.Equal("Spider Man", r.Key);
             Assert.Equal("Peter Parker", r.Value.Name);
+        }
+
+        [Fact]
+        public void TestGetICollection()
+        {
+            var r = api.GetICollection();
+            Assert.Equal("Peter Parker", r[1].Name);
+        }
+
+        [Fact]
+        public void TestGetCollection()
+        {
+            var r = api.GetCollection();
+            Assert.Equal("Peter Parker", r[1].Name);
+        }
+
+        [Fact]
+        public void TestGetIList()
+        {
+            var r = api.GetIList();
+            Assert.Equal("Peter Parker", r[1].Name);
+        }
+
+        [Fact]
+        public void TestGetList()
+        {
+            var r = api.GetList();
+            Assert.Equal("Peter Parker", r[1].Name);
+        }
+
+        [Fact]
+        public void TestGetIReadOnlyCollection()
+        {
+            var r = api.GetIReadOnlyCollection();
+            Assert.Equal("Peter Parker", r[1].Name);
+        }
+
+        [Fact]
+        public void TestGetIReadOnlyList()
+        {
+            var r = api.GetIReadOnlyList();
+            Assert.Equal("Peter Parker", r[1].Name);
+        }
+
+
+        static Person[] GetPersonList()
+        {
+            return new Person[] {
+                new Person()
+                {
+                    Name= "Tony Stark",
+                    Surname="Stark",
+                    GivenName="Tony"
+                },
+
+                new Person() {
+                    Name="Peter Parker",
+                    Addresses= new Address[] { new Address() {
+                            City="New York"
+
+                        } },
+                }
+
+            };
+        }
+
+
+        [Fact]
+        public void TestPostICollection()
+        {
+            Assert.Equal(2, api.PostICollection(GetPersonList()));
+        }
+
+        [Fact]
+        public void TestPostIList()
+        {
+            Assert.Equal(2, api.PostIList(GetPersonList()));
+        }
+
+        [Fact]
+        public void TestPostCollection()
+        {
+            Assert.Equal(2, api.PostCollection(GetPersonList()));
+        }
+
+        [Fact]
+        public void TestPostList()
+        {
+            Assert.Equal(2, api.PostList(GetPersonList()));
+        }
+
+        [Fact]
+        public void TestPostIReadOnlyCollection()
+        {
+            Assert.Equal(2, api.PostIReadOnlyCollection(GetPersonList()));
+        }
+
+        [Fact]
+        public void TestPostIReadOnlyList()
+        {
+            Assert.Equal(2, api.PostIReadOnlyList(GetPersonList()));
         }
 
     }

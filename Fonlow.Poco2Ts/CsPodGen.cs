@@ -12,7 +12,7 @@ namespace Fonlow.Poco2Client
     /// <summary>
     /// POCO to C# client data types generator
     /// </summary>
-    public class Poco2CsGen
+    public class Poco2CsGen : IPoco2Client
     {
         CodeCompileUnit targetUnit;
 
@@ -34,50 +34,46 @@ namespace Fonlow.Poco2Client
         }
 
 
-        ///// <summary>
-        ///// Save TypeScript codes generated into a file.
-        ///// </summary>
-        ///// <param name="fileName"></param>
-        //public void SaveCsCodeToFile(string fileName)
-        //{
-        //    if (String.IsNullOrEmpty(fileName))
-        //        throw new ArgumentException("A valid fileName is not defined.", "fileName");
+        /// <summary>
+        /// Save TypeScript codes generated into a file.
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void SaveCodeToFile(string fileName)
+        {
+            if (String.IsNullOrEmpty(fileName))
+                throw new ArgumentException("A valid fileName is not defined.", "fileName");
 
-        //    try
-        //    {
-        //        using (StreamWriter writer = new StreamWriter(fileName))
-        //        {
-        //            WriteCode(writer);
-        //        }
-        //    }
-        //    catch (IOException e)
-        //    {
-        //        Trace.TraceWarning(e.Message);
-        //    }
-        //    catch (UnauthorizedAccessException e)
-        //    {
-        //        Trace.TraceWarning(e.Message);
-        //    }
-        //    catch (System.Security.SecurityException e)
-        //    {
-        //        Trace.TraceWarning(e.Message);
-        //    }
-        //}
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(fileName))
+                {
+                    WriteCode(writer);
+                }
+            }
+            catch (IOException e)
+            {
+                Trace.TraceWarning(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Trace.TraceWarning(e.Message);
+            }
+            catch (System.Security.SecurityException e)
+            {
+                Trace.TraceWarning(e.Message);
+            }
+        }
 
-        ///// <summary>
-        ///// Save TypeScript codes generated into a TextWriter.
-        ///// </summary>
-        ///// <param name="writer"></param>
-        //public void WriteCode(TextWriter writer)
-        //{
-        //    if (writer == null)
-        //        throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
+        public void WriteCode(TextWriter writer)
+        {
+            if (writer == null)
+                throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-        //    CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-        //    CodeGeneratorOptions options = new CodeGeneratorOptions();
+            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+            CodeGeneratorOptions options = new CodeGeneratorOptions();
 
-        //    provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
-        //}
+            provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+        }
 
         public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods)
         {
@@ -150,7 +146,7 @@ namespace Fonlow.Poco2Client
                             var clientProperty = new CodeMemberProperty()
                             {
                                 Name = tsPropertyName,
-                                Type = TranslateToTypeReference(propertyInfo.PropertyType),
+                                Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
                                 Attributes= MemberAttributes.Public | MemberAttributes.Final,
                                 //todo: add some attributes
                                 
@@ -160,7 +156,7 @@ namespace Fonlow.Poco2Client
                             typeDeclaration.Members.Add(new CodeMemberField()
                             {
                                 Name = privateFieldName,
-                                Type = TranslateToTypeReference(propertyInfo.PropertyType),
+                                Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
                             });
 
                             clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
@@ -184,7 +180,7 @@ namespace Fonlow.Poco2Client
                             var clientProperty = new CodeMemberProperty()
                             {
                                 Name = tsPropertyName,
-                                Type = TranslateToTypeReference(fieldInfo.FieldType),
+                                Type = TranslateToClientTypeReference(fieldInfo.FieldType),
                                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                                 //todo: add some attributes
 
@@ -194,7 +190,7 @@ namespace Fonlow.Poco2Client
                             typeDeclaration.Members.Add(new CodeMemberField()
                             {
                                 Name = privateFieldName,
-                                Type = TranslateToTypeReference(fieldInfo.FieldType),
+                                Type = TranslateToClientTypeReference(fieldInfo.FieldType),
                             });
 
                             clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
@@ -241,7 +237,7 @@ namespace Fonlow.Poco2Client
         }
 
 
-        public CodeTypeReference TranslateToTypeReference(Type type)
+        public CodeTypeReference TranslateToClientTypeReference(Type type)
         {
             if (type == null)
                 return null;// new CodeTypeReference("void");
@@ -282,19 +278,10 @@ namespace Fonlow.Poco2Client
                 return new CodeTypeReference(type);
             }
 
-            //if (IsTuple(genericTypeDefinition))
-            //{
-            //    return new CodeTypeReference(type);
-            //}
-
             Type[] genericArguments = type.GetGenericArguments();
             if (genericArguments.Length == 1)
             {
-                if (genericTypeDefinition == typeof(IList<>) ||
-                    genericTypeDefinition == typeof(IEnumerable<>) ||
-                    genericTypeDefinition == typeof(ICollection<>) ||
-                    genericTypeDefinition == typeof(IQueryable<>)
-                    )
+                if (TypeHelper.IsArrayType(genericTypeDefinition))
                 {
                     Debug.Assert(type.GenericTypeArguments.Length == 1);
                     var elementType = type.GenericTypeArguments[0];
@@ -306,7 +293,7 @@ namespace Fonlow.Poco2Client
                 //{
                 //    return GenerateCollection(type, collectionSize, createdObjectReferences);
                 //}
-                return null;
+                return new CodeTypeReference(typeof(Object));
             }
 
             if (genericArguments.Length == 2)
@@ -314,26 +301,26 @@ namespace Fonlow.Poco2Client
                 if (genericTypeDefinition == typeof(IDictionary<,>))
                 {
                     return new CodeTypeReference(typeof(Dictionary<,>).FullName, 
-                        TranslateToTypeReference(genericArguments[0]), TranslateToTypeReference( genericArguments[1]));
+                        TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference( genericArguments[1]));
                 }
 
                 Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
                 if (closedDictionaryType.IsAssignableFrom(type))
                 {
                     return new CodeTypeReference(typeof(Dictionary<,>).FullName,
-                        TranslateToTypeReference(genericArguments[0]), TranslateToTypeReference(genericArguments[1]));
+                        TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
                 }
 
                 if (genericTypeDefinition == typeof(KeyValuePair<,>))
                 {
                     return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
-                        TranslateToTypeReference(genericArguments[0]), TranslateToTypeReference(genericArguments[1]));
+                        TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
                 }
 
 
             }
 
-            return new CodeTypeReference("any");
+            return new CodeTypeReference(typeof(Object));
 
         }
 
@@ -366,7 +353,7 @@ namespace Fonlow.Poco2Client
 
             var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
             {
-                ArrayElementType = TranslateToTypeReference(elementType),
+                ArrayElementType = TranslateToClientTypeReference(elementType),
             };
             return otherArrayType;
         }

@@ -30,7 +30,7 @@ namespace Fonlow.CodeDom.Web.Cs
             poco2CsGen = new Poco2CsGen(targetUnit);
         }
 
-        Poco2CsGen poco2CsGen;
+        IPoco2Client poco2CsGen;
 
         /// <summary>
         /// Save C# codes into a file.

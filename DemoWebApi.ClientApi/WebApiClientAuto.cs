@@ -556,6 +556,88 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
+        /// GET api/SuperDemo/DateTimeOffset
+        /// </summary>
+        public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/DateTimeOffset");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.DateTimeOffset>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/DateTimeOffset
+        /// </summary>
+        public System.DateTimeOffset GetDateTimeOffset()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/DateTimeOffset");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.DateTimeOffset>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/DateTimeOffset
+        /// </summary>
+        public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), d);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/DateTimeOffset
+        /// </summary>
+        public bool PostDateTimeOffset(System.DateTimeOffset d)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), d).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/DateTimeOffsetNullable
+        /// </summary>
+        public async Task<bool> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), d);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/DateTimeOffsetNullable
+        /// </summary>
+        public bool PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), d).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
         /// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
         /// </summary>
         public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue)
@@ -1520,6 +1602,342 @@ namespace DemoWebApi.Controllers.Client
             responseMessage.EnsureSuccessStatusCode();
             var text = responseMessage.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ICollection
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetICollectionAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ICollection");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ICollection
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person[] GetICollection()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/ICollection");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/IList
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetIListAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/IList");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/IList
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person[] GetIList()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/IList");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/IReadOnlyList
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyListAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/IReadOnlyList");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/IReadOnlyList
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyList()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/IReadOnlyList");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/IReadOnlyCollection
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyCollectionAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/IReadOnlyCollection");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/IReadOnlyCollection
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyCollection()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/IReadOnlyCollection");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/List
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetListAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/List");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/List
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person[] GetList()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/List");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/Collection
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetCollectionAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/Collection");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/Collection
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person[] GetCollection()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/Collection");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person[]>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/ICollection
+        /// </summary>
+        public async Task<int> PostICollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/ICollection");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), list);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/ICollection
+        /// </summary>
+        public int PostICollection(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/ICollection");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), list).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/IList
+        /// </summary>
+        public async Task<int> PostIListAsync(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/IList");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), list);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/IList
+        /// </summary>
+        public int PostIList(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/IList");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), list).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/IReadOnlyList
+        /// </summary>
+        public async Task<int> PostIReadOnlyListAsync(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), list);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/IReadOnlyList
+        /// </summary>
+        public int PostIReadOnlyList(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), list).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/IReadOnlyCollection
+        /// </summary>
+        public async Task<int> PostIReadOnlyCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), list);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/IReadOnlyCollection
+        /// </summary>
+        public int PostIReadOnlyCollection(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), list).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/List
+        /// </summary>
+        public async Task<int> PostListAsync(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/List");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), list);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/List
+        /// </summary>
+        public int PostList(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/List");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), list).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/Collection
+        /// </summary>
+        public async Task<int> PostCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/Collection");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), list);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/Collection
+        /// </summary>
+        public int PostCollection(DemoWebApi.DemoData.Client.Person[] list)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/SuperDemo/Collection");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), list).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
         }
     }
     

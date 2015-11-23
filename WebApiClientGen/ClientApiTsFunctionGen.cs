@@ -23,9 +23,9 @@ namespace Fonlow.CodeDom.Web.Ts
         string methodName;
         Type returnType;
         CodeMemberMethod method;
-        readonly Poco2TsGen poco2TsGen;
+        readonly Fonlow.Poco2Client.IPoco2Client poco2TsGen;
 
-        public ClientApiTsFunctionGen(ApiDescription description, Poco2TsGen poco2TsGen)
+        public ClientApiTsFunctionGen(ApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {
             this.description = description;
          //   this.sharedContext = sharedContext;
@@ -41,7 +41,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
         static readonly Type typeOfString = typeof(string);
 
-        public static CodeMemberMethod Create(ApiDescription description, Poco2TsGen poco2TsGen)
+        public static CodeMemberMethod Create(ApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {
             var gen = new ClientApiTsFunctionGen(description, poco2TsGen);
             return gen.CreateApiFunction();
@@ -77,12 +77,12 @@ namespace Fonlow.CodeDom.Web.Ts
             builder.AppendLine(description.HttpMethod.Method + " " + description.RelativePath);
             foreach (var item in description.ParameterDescriptions)
             {
-                var tsParameterType = poco2TsGen.TranslateToTsTypeReference(item.ParameterDescriptor.ParameterType);
+                var tsParameterType = poco2TsGen.TranslateToClientTypeReference(item.ParameterDescriptor.ParameterType);
                 builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {item.Documentation}");
             }
 
             Type responseType = description.ResponseDescription.ResponseType ?? description.ResponseDescription.DeclaredType;
-            var tsResponseType = poco2TsGen.TranslateToTsTypeReference(responseType);
+            var tsResponseType = poco2TsGen.TranslateToClientTypeReference(responseType);
             var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
             builder.AppendLine($"@return {{{returnTypeOfResponse}}} {description.ResponseDescription.Documentation}");
             method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
@@ -111,11 +111,11 @@ namespace Fonlow.CodeDom.Web.Ts
             {
                 Name = d.Name,
                 Type = IsFromBodySimpleType(d) ? CreateCodeTypeReferenceForFromBodySimpleType(d.ParameterDescriptor.ParameterType)
-                    : poco2TsGen.TranslateToTsTypeReference(d.ParameterDescriptor.ParameterType),
+                    : poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
 
             }).ToList();
 
-            var parameterType = poco2TsGen.TranslateToTsTypeReference(returnType);
+            var parameterType = poco2TsGen.TranslateToClientTypeReference(returnType);
             var callbackTypeText = $"(data : {TypeMapper.MapCodeTypeReferenceToTsText(parameterType)}) => any";
             parameters.Add(new CodeParameterDeclarationExpression()
             {

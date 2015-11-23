@@ -46,6 +46,32 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpGet]
+        [Route("DateTimeOffset")]
+        public DateTimeOffset GetDateTimeOffset()
+        {
+            return DateTimeOffset.Now;
+        }
+
+        /// <summary>
+        /// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("DateTimeOffset")]
+        public bool PostDateTimeOffset([FromBody] DateTimeOffset d)
+        {
+            return  (DateTimeOffset.Now- d)< TimeSpan.FromSeconds(2);
+        }
+
+        [HttpPost]
+        [Route("DateTimeOffsetNullable")]
+        public bool PostDateTimeOffsetNullable([FromBody] DateTimeOffset? d)
+        {
+            return d.HasValue;
+        }
+
+        [HttpGet]
         [Route("NullableDecimal")]
         public async Task<Decimal?> GetNullableDecimal(bool hasValue)
         {
@@ -373,6 +399,117 @@ namespace DemoWebApi.Controllers
                     ),
             });
         }
+
+        static List<DemoData.Person> GetPersonList()
+        {
+            return new List<DemoData.Person>(new DemoData.Person[] {
+                new DemoData.Person()
+                {
+                    Name= "Tony Stark",
+                    Surname="Stark",
+                    GivenName="Tony"
+                },
+
+                new DemoData.Person() {
+                    Name="Peter Parker",
+                    Addresses= new List<DemoData.Address>(
+                        new DemoData.Address[] { new DemoData.Address() {
+                            City="New York"
+
+                        } }
+                    ),
+                }
+
+            });
+        }
+
+        [HttpGet]
+        [Route("ICollection")]
+        public ICollection<DemoData.Person> GetICollection()
+        {
+            return GetPersonList();
+        }
+
+        [HttpGet]
+        [Route("IList")]
+        public IList<DemoData.Person> GetIList()
+        {
+            return GetPersonList();
+        }
+
+        [HttpGet]
+        [Route("IReadOnlyList")]
+        public IReadOnlyList<DemoData.Person> GetIReadOnlyList()
+        {
+            return GetPersonList();
+        }
+
+        [HttpGet]
+        [Route("IReadOnlyCollection")]
+        public IReadOnlyCollection<DemoData.Person> GetIReadOnlyCollection()
+        {
+            return GetPersonList();
+        }
+
+        [HttpGet]
+        [Route("List")]
+        public List<DemoData.Person> GetList()
+        {
+            return GetPersonList();
+        }
+
+        [HttpGet]
+        [Route("Collection")]
+        public System.Collections.ObjectModel.Collection<DemoData.Person> GetCollection()
+        {
+            return new System.Collections.ObjectModel.Collection<DemoData.Person>(GetList());
+        }
+
+
+        [HttpPost]
+        [Route("ICollection")]
+        public int PostICollection(ICollection<DemoData.Person> list)
+        {
+            return list.Count;
+        }
+
+        [HttpPost]
+        [Route("IList")]
+        public int PostIList(IList<DemoData.Person> list)
+        {
+            return list.Count;
+        }
+
+        [HttpPost]
+        [Route("IReadOnlyList")]
+        public int PostIReadOnlyList(IReadOnlyList<DemoData.Person> list)
+        {
+            return list.Count;
+        }
+
+        [HttpPost]
+        [Route("IReadOnlyCollection")]
+        public int PostIReadOnlyCollection(IReadOnlyCollection<DemoData.Person> list)
+        {
+            return list.Count;
+        }
+
+
+        [HttpPost]
+        [Route("List")]
+        public int PostList(List<DemoData.Person> list)
+        {
+            return list.Count;
+        }
+
+        [HttpPost]
+        [Route("Collection")]
+        public int PostCollection(System.Collections.ObjectModel.Collection<DemoData.Person> list)
+        {
+            return list.Count;
+        }
+
+
 
     }
 }

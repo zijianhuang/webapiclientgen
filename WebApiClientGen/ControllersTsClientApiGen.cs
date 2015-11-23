@@ -31,7 +31,7 @@ namespace Fonlow.CodeDom.Web.Ts
             poco2TsGen = new Poco2TsGen(targetUnit);
         }
 
-        Poco2TsGen poco2TsGen;
+        IPoco2Client poco2TsGen;
 
         /// <summary>
         /// Save C# codes into a file.
@@ -112,7 +112,7 @@ namespace Fonlow.CodeDom.Web.Ts
             var cherryPickingMethods = codeGenParameters.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
             foreach (var assembly in assemblies)
             {
-                poco2TsGen.CreateTsCodeDom(assembly, cherryPickingMethods);
+                poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods);
             }
         }
 

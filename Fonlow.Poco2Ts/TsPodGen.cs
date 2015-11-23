@@ -14,7 +14,7 @@ namespace Fonlow.Poco2Ts
     /// <summary>
     /// POCO to TypeScript interfaces generator. Create CodeDOM and output TS codes
     /// </summary>
-    public class Poco2TsGen
+    public class Poco2TsGen : IPoco2Client
     {
         CodeCompileUnit targetUnit;
 
@@ -40,7 +40,7 @@ namespace Fonlow.Poco2Ts
         /// Save TypeScript codes generated into a file.
         /// </summary>
         /// <param name="fileName"></param>
-        public void SaveTsCodeToFile(string fileName)
+        public void SaveCodeToFile(string fileName)
         {
             if (String.IsNullOrEmpty(fileName))
                 throw new ArgumentException("A valid fileName is not defined.", "fileName");
@@ -49,7 +49,7 @@ namespace Fonlow.Poco2Ts
             {
                 using (StreamWriter writer = new StreamWriter(fileName))
                 {
-                    WriteTsCode(writer);
+                    WriteCode(writer);
                 }
             }
             catch (IOException e)
@@ -70,7 +70,7 @@ namespace Fonlow.Poco2Ts
         /// Save TypeScript codes generated into a TextWriter.
         /// </summary>
         /// <param name="writer"></param>
-        public void WriteTsCode(TextWriter writer)
+        public void WriteCode(TextWriter writer)
         {
             if (writer == null)
                 throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
@@ -85,10 +85,10 @@ namespace Fonlow.Poco2Ts
             provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
         }
 
-        public void CreateTsCodeDom(Assembly assembly, CherryPickingMethods methods)
+        public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods)
         {
             var cherryTypes = GetCherryTypes(assembly, methods);
-            CreateTsCodeDom(cherryTypes, methods);
+            CreateCodeDom(cherryTypes, methods);
         }
 
 
@@ -97,7 +97,7 @@ namespace Fonlow.Poco2Ts
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
         /// <param name="types">POCO types.</param>
-        public void CreateTsCodeDom(Type[] types, CherryPickingMethods methods)
+        public void CreateCodeDom(Type[] types, CherryPickingMethods methods)
         {
             if (types == null)
                 throw new ArgumentNullException("types", "types is not defined.");
@@ -149,7 +149,7 @@ namespace Fonlow.Poco2Ts
                             var clientField = new CodeMemberField()
                             {
                                 Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-                                Type = TranslateToTsTypeReference(propertyInfo.PropertyType),
+                                Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
                                 //                     Attributes = MemberAttributes.Public,
 
                             };
@@ -172,7 +172,7 @@ namespace Fonlow.Poco2Ts
                             var clientField = new CodeMemberField()
                             {
                                 Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-                                Type = TranslateToTsTypeReference(fieldInfo.FieldType),
+                                Type = TranslateToClientTypeReference(fieldInfo.FieldType),
                                 //         Attributes = MemberAttributes.Public,
                             };
 
@@ -218,7 +218,12 @@ namespace Fonlow.Poco2Ts
 
         }
 
-        public CodeTypeReference TranslateToTsTypeReference(Type type)
+        /// <summary>
+        /// Translate a service type into a CodeTypeReference for client.
+        /// </summary>
+        /// <param name="type">CLR type of the service</param>
+        /// <returns></returns>
+        public CodeTypeReference TranslateToClientTypeReference(Type type)
         {
             if (type == null)
                 return new CodeTypeReference("void");
@@ -265,16 +270,12 @@ namespace Fonlow.Poco2Ts
             {
                 if (genericTypeDefinition == typeof(Nullable<>))
                 {
-                    var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
+                    var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
                     Debug.Assert(genericTypeReferences.Length == 1);
                     return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
                 }
 
-                if (genericTypeDefinition == typeof(IList<>) ||
-                    genericTypeDefinition == typeof(IEnumerable<>) ||
-                    genericTypeDefinition == typeof(ICollection<>) ||
-                    genericTypeDefinition == typeof(IQueryable<>)
-                    )
+                if (TypeHelper.IsArrayType(genericTypeDefinition))
                 {
                     Debug.Assert(type.GenericTypeArguments.Length == 1);
                     var elementType = type.GenericTypeArguments[0];
@@ -294,20 +295,20 @@ namespace Fonlow.Poco2Ts
                 if (genericTypeDefinition == typeof(IDictionary<,>))
                 {
                     return new CodeTypeReference(typeof(Dictionary<,>).FullName,
-                        TranslateToTsTypeReference(genericArguments[0]), TranslateToTsTypeReference(genericArguments[1]));
+                        TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
                 }
 
                 Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
                 if (closedDictionaryType.IsAssignableFrom(type))
                 {
                     return new CodeTypeReference(typeof(Dictionary<,>).FullName,
-                        TranslateToTsTypeReference(genericArguments[0]), TranslateToTsTypeReference(genericArguments[1]));
+                        TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
                 }
 
                 if (genericTypeDefinition == typeof(KeyValuePair<,>))
                 {
                     return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
-                        TranslateToTsTypeReference(genericArguments[0]), TranslateToTsTypeReference(genericArguments[1]));
+                        TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
                 }
 
             }
@@ -340,7 +341,7 @@ namespace Fonlow.Poco2Ts
 
             var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
             {
-                ArrayElementType = TranslateToTsTypeReference(elementType),
+                ArrayElementType = TranslateToClientTypeReference(elementType),
             };
             return otherArrayType;
         }

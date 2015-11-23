@@ -89,6 +89,32 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/SuperDemo/DateTimeOffset
+         * @return {Date} 
+         */
+        GetDateTimeOffset(callback: (data : Date) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffset'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/DateTimeOffset
+         * @param {Date} d 
+         * @return {boolean} 
+         */
+        PostDateTimeOffset(d: Date, callback: (data : boolean) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffset'), d, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/DateTimeOffsetNullable
+         * @param {Date} d 
+         * @return {boolean} 
+         */
+        PostDateTimeOffsetNullable(d: Date, callback: (data : boolean) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable'), d, callback, this.error, this.statusCode);
+        }
+
+        /** 
          * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
          * @param {boolean} hasValue 
          * @return {number} 
@@ -356,6 +382,108 @@ namespace DemoWebApi_Controllers_Client {
          */
         GetKeyhValuePair(callback: (data : {Key: string, Value: DemoWebApi_DemoData_Client.Person }) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/KeyValuePair'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/ICollection
+         * @return {Array<DemoWebApi_DemoData_Client.Person>} 
+         */
+        GetICollection(callback: (data : Array<DemoWebApi_DemoData_Client.Person>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ICollection'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/IList
+         * @return {Array<DemoWebApi_DemoData_Client.Person>} 
+         */
+        GetIList(callback: (data : Array<DemoWebApi_DemoData_Client.Person>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/IList'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/IReadOnlyList
+         * @return {Array<DemoWebApi_DemoData_Client.Person>} 
+         */
+        GetIReadOnlyList(callback: (data : Array<DemoWebApi_DemoData_Client.Person>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyList'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/IReadOnlyCollection
+         * @return {Array<DemoWebApi_DemoData_Client.Person>} 
+         */
+        GetIReadOnlyCollection(callback: (data : Array<DemoWebApi_DemoData_Client.Person>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyCollection'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/List
+         * @return {Array<DemoWebApi_DemoData_Client.Person>} 
+         */
+        GetList(callback: (data : Array<DemoWebApi_DemoData_Client.Person>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/List'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/Collection
+         * @return {Array<DemoWebApi_DemoData_Client.Person>} 
+         */
+        GetCollection(callback: (data : Array<DemoWebApi_DemoData_Client.Person>) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Collection'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/ICollection
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list 
+         * @return {number} 
+         */
+        PostICollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/ICollection'), list, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/IList
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list 
+         * @return {number} 
+         */
+        PostIList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/IList'), list, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/IReadOnlyList
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list 
+         * @return {number} 
+         */
+        PostIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyList'), list, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/IReadOnlyCollection
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list 
+         * @return {number} 
+         */
+        PostIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyCollection'), list, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/List
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list 
+         * @return {number} 
+         */
+        PostList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/List'), list, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/Collection
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list 
+         * @return {number} 
+         */
+        PostCollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/Collection'), list, callback, this.error, this.statusCode);
         }
     }
 

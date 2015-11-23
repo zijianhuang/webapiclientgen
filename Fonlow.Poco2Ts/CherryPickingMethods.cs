@@ -65,17 +65,17 @@ namespace Fonlow.Poco2Client
 
             if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
             {
-                r1= PropertyHelper.ReadAttribute<DataContractAttribute>(type) != null;
+                r1= TypeHelper.ReadAttribute<DataContractAttribute>(type) != null;
             }
 
             if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
             {
-                r2= PropertyHelper.AttributeExists(type, "Newtonsoft.Json.JsonObjectAttribute") !=null;
+                r2= TypeHelper.AttributeExists(type, "Newtonsoft.Json.JsonObjectAttribute") !=null;
             }
 
             if ((methods & CherryPickingMethods.Serializable) == CherryPickingMethods.Serializable)
             {
-                r3= PropertyHelper.ReadAttribute<SerializableAttribute>(type) != null;
+                r3= TypeHelper.ReadAttribute<SerializableAttribute>(type) != null;
             }
 
             if ((methods & CherryPickingMethods.AspNet) == CherryPickingMethods.AspNet)//Asp.net does not seem to define good data annotation for cherry picking types
@@ -97,7 +97,7 @@ namespace Fonlow.Poco2Client
 
             if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
             {
-                var a = PropertyHelper.ReadAttribute<DataMemberAttribute>(memberInfo);
+                var a = TypeHelper.ReadAttribute<DataMemberAttribute>(memberInfo);
                 if (a == null)
                     r[1]= CherryType.None;
                 else
@@ -107,23 +107,23 @@ namespace Fonlow.Poco2Client
 
             if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
             {
-                var a =PropertyHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonPropertyAttribute");
+                var a =TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonPropertyAttribute");
                 if (a == null)
                 {
                     r[2] = CherryType.None;
                 }
                 else
                 {
-                    r[2]= !PropertyHelper.GetRequired(a, "Required", "Default") ? CherryType.BigCherry : CherryType.Cherry;
+                    r[2]= !TypeHelper.GetRequired(a, "Required", "Default") ? CherryType.BigCherry : CherryType.Cherry;
                 }
             }
 
             if ((methods & CherryPickingMethods.Serializable) == CherryPickingMethods.Serializable)
             {
-                var a= PropertyHelper.ReadAttribute<NonSerializedAttribute>(memberInfo);
+                var a= TypeHelper.ReadAttribute<NonSerializedAttribute>(memberInfo);
                 if (a==null)
                 {
-                    var a2 = PropertyHelper.ReadAttribute<RequiredAttribute>(memberInfo);
+                    var a2 = TypeHelper.ReadAttribute<RequiredAttribute>(memberInfo);
                     r[3]=  a2 == null ? CherryType.Cherry : CherryType.BigCherry;
                 }
                 else
@@ -134,7 +134,7 @@ namespace Fonlow.Poco2Client
 
             if ((methods & CherryPickingMethods.AspNet) == CherryPickingMethods.AspNet)
             {
-                var a = PropertyHelper.ReadAttribute<RequiredAttribute>(memberInfo);
+                var a = TypeHelper.ReadAttribute<RequiredAttribute>(memberInfo);
                 r[4]= a == null ? CherryType.Cherry : CherryType.BigCherry;
             }
 

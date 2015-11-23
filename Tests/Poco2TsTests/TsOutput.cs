@@ -13,35 +13,15 @@ using System.IO;
 
 namespace Poco2TsTests
 {
-    public class Poco2TsFixture
-    {
-        public Poco2TsFixture()
-        {
-            AppDomain appDomain = AppDomain.CurrentDomain;
-            DemoWebApi.DemoData.AddressType k = DemoWebApi.DemoData.AddressType.Postal;
-            System.Diagnostics.Debug.Write(k);
-            var myDataAssembly = appDomain.GetAssemblies().FirstOrDefault(d => d.FullName.Contains("DemoData"));
-            if (myDataAssembly == null)
-                throw new InvalidOperationException("Hey, how can you miss DemoWebApi.DemoData");
-
-            Gen = new Poco2TsGen();
-            //          Gen.CreateTsCodeDom(myDataAssembly, CherryPickingMethods.DataContract);
-
-        }
-
-        public Poco2TsGen Gen { get; private set; }
-    }
-
-
     public class TsOutput
     {
         static void Verify(Type type, string expected)
         {
-            Poco2TsGen gen = new Poco2TsGen();
-            gen.CreateTsCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
+            var gen = new Poco2TsGen();
+            gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
             using (var writer = new StringWriter())
             {
-                gen.WriteTsCode(writer);
+                gen.WriteCode(writer);
                 var s = writer.ToString();
                 Assert.Equal(expected, s);
             }

@@ -2,10 +2,11 @@
 using System.Reflection;
 using System.ComponentModel;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Fonlow.Poco2Client
 {
-    internal static class PropertyHelper
+    internal static class TypeHelper
     {
         internal static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
         {
@@ -71,6 +72,18 @@ namespace Fonlow.Poco2Client
                 return false;
 
             return propertyValue.ToString() == expectedValue;
+        }
+
+        internal static bool IsArrayType(Type type)
+        {
+            return type == typeof(IEnumerable<>) ||
+                   type == typeof(IList<>) ||
+                   type == typeof(ICollection<>) ||
+                   type == typeof(IQueryable<>) ||
+                   type == typeof(IReadOnlyList<>) ||
+                   type == typeof(List<>) ||
+                   type == typeof(System.Collections.ObjectModel.Collection<>) ||
+                   type == typeof(IReadOnlyCollection<>);
         }
 
 

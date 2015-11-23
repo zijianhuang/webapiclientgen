@@ -24,8 +24,8 @@ namespace Fonlow.Poco2Ts
                 return;
 
             var gen = new Poco2TsGen();
-            gen.CreateTsCodeDom(assembly, methods);
-            gen.SaveTsCodeToFile(tsFilePath);
+            gen.CreateCodeDom(assembly, methods);
+            gen.SaveCodeToFile(tsFilePath);
             Trace.WriteLine($"{tsFilePath} is generated.");
         }
 

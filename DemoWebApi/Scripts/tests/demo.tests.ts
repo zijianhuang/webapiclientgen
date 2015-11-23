@@ -362,6 +362,51 @@ test("PostInt2dJaggedExpectedFalse", function (assert) {
     });
 });
 
+test("GetDictionaryOfPeople", function (assert) {
+    var done = assert.async();
+    superDemoApi.GetDictionaryOfPeople((data) => {
+        assert.equal(data["Spider Man"].Name, "Peter Parker");
+        assert.equal(data["Spider Man"].Addresses[0].City, "New York");
+        done();
+    });
+});
+
+test("PostDictionaryOfPeople", function (assert) {
+    var done = assert.async();
+    superDemoApi.PostDictionary({
+        "Iron Man": {
+            "Surname": "Stark",
+            "GivenName": "Tony",
+            "BirthDate": null,
+            "Id": "00000000-0000-0000-0000-000000000000",
+            "Name": "Tony Stark",
+            "Addresses": []
+        },
+        "Spider Man": {
+            "Name": "Peter Parker",
+            "Addresses": [
+                {
+                    "Location": {
+                        "X": 0,
+                        "Y": 0
+                    },
+                    "Id": "00000000-0000-0000-0000-000000000000",
+                    "Street1": null,
+                    "Street2": null,
+                    "City": "New York",
+                    "State": null,
+                    "PostalCode": null,
+                    "Country": null,
+                    "Type": 0
+                }
+            ]
+        }
+    },(data) => {
+        assert.equal(data, 2);
+        done();
+    });
+});
+
 
 
 QUnit.module("ValuesTests");

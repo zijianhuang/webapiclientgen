@@ -39,4 +39,3 @@ var MyApp;
     MyApp.First = First;
 })(MyApp || (MyApp = {}));
 var first = new MyApp.First();
-//# sourceMappingURL=MyApp.js.map

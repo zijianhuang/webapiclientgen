@@ -16,24 +16,26 @@ namespace Fonlow.CodeDom.Web.Cs
     {
         SharedContext sharedContext;
         ApiDescription description;
-    //    string relativePath;
+        //    string relativePath;
         //  string route;
-      //  Collection<ApiParameterDescription> parameterDescriptions;
-     //   string controllerName;
+        //  Collection<ApiParameterDescription> parameterDescriptions;
+        //   string controllerName;
         string methodName;
         Type returnType;
         CodeMemberMethod method;
+        readonly Fonlow.Poco2Client.Poco2CsGen poco2CsGen;
 
         bool forAsync;
 
-        public ClientApiFunctionGen(SharedContext sharedContext, ApiDescription description)
+        public ClientApiFunctionGen(SharedContext sharedContext, ApiDescription description, Fonlow.Poco2Client.Poco2CsGen poco2CsGen)
         {
             this.description = description;
             this.sharedContext = sharedContext;
+            this.poco2CsGen = poco2CsGen;
 
-         //   relativePath = description.RelativePath;
-         //   parameterDescriptions = description.ParameterDescriptions;
-         //   controllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName;
+            //   relativePath = description.RelativePath;
+            //   parameterDescriptions = description.ParameterDescriptions;
+            //   controllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName;
 
 
             methodName = description.ActionDescriptor.ActionName;
@@ -48,9 +50,9 @@ namespace Fonlow.CodeDom.Web.Cs
         static readonly Type typeOfChar = typeof(char);
         static readonly Type typeOfObject = typeof(Object);
 
-        public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description, bool forAsync = false)
+        public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description, Fonlow.Poco2Client.Poco2CsGen poco2CsGen, bool forAsync = false)
         {
-            var gen = new ClientApiFunctionGen(sharedContext, description);
+            var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen);
             return gen.CreateApiFunction(forAsync);
         }
 
@@ -112,19 +114,19 @@ namespace Fonlow.CodeDom.Web.Cs
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                 Name = methodName,
-                ReturnType = returnType == null ? null : new CodeTypeReference(TranslateCustomTypeToClientType(returnType)),
+                ReturnType = poco2CsGen.TranslateToTypeReference(returnType),
             };
         }
 
         CodeMemberMethod CreateMethodBasicForAsync()
         {
-           // Debug.Assert(!methodName.Contains("Anonymous"));
+            // Debug.Assert(!methodName.Contains("Anonymous"));
             return new CodeMemberMethod()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                 Name = methodName + "Async",
                 ReturnType = returnType == null ? new CodeTypeReference("async Task")
-                : new CodeTypeReference(String.Format("async Task<{0}>", returnType.IsGenericType ? GetGenericTypeFriendlyName(returnType) : TranslateCustomTypeToClientType(returnType))),
+                : new CodeTypeReference("async Task", poco2CsGen.TranslateToTypeReference(returnType)),
             };
         }
 
@@ -157,28 +159,28 @@ namespace Fonlow.CodeDom.Web.Cs
             CreateDocComment("returns", description.ResponseDescription.Documentation);
         }
 
-        string GetGenericTypeFriendlyName(Type r)
-        {
-            var separatorPosition = r.Name.IndexOf("`");
-            var genericTypeName = r.Name.Substring(0, separatorPosition);
-            var typeNameList = r.GenericTypeArguments.Select(d => TranslateCustomTypeToClientType(d));//support only 1 level of generic. This should be good enough. If more needed, recursive algorithm will help
-            var typesLiteral = String.Join(", ", typeNameList);
-            return String.Format("{0}<{1}>", genericTypeName, typesLiteral);
-        }
+        //string GetGenericTypeFriendlyName(Type r)
+        //{
+        //    var separatorPosition = r.Name.IndexOf("`");
+        //    var genericTypeName = r.Name.Substring(0, separatorPosition);
+        //    var typeNameList = r.GenericTypeArguments.Select(d => TranslateCustomTypeToClientType(d));//support only 1 level of generic. This should be good enough. If more needed, recursive algorithm will help
+        //    var typesLiteral = String.Join(", ", typeNameList);
+        //    return String.Format("{0}<{1}>", genericTypeName, typesLiteral);
+        //}
 
-        string TranslateCustomTypeToClientType(Type t)
-        {
-            if (t == typeOfHttpActionResult)
-                return "System.Net.Http.HttpResponseMessage";
+        //string TranslateCustomTypeToClientType(Type t)
+        //{
+        //    if (t == typeOfHttpActionResult)
+        //        return "System.Net.Http.HttpResponseMessage";
 
-            if (t == typeOfObject && (t.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-                return "Newtonsoft.Json.Linq.JObject";
+        //    if (t == typeOfObject && (t.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+        //        return "Newtonsoft.Json.Linq.JObject";
 
-            if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
-                return t.Namespace + ".Client." + t.Name;
+        //    if (sharedContext.prefixesOfCustomNamespaces.Any(d => t.Namespace.StartsWith(d)))
+        //        return t.Namespace + ".Client." + t.Name;
 
-            return t.FullName;
-        }
+        //    return t.FullName;
+        //}
 
 
         void RenderGetOrDeleteImplementation(CodeExpression httpMethodInvokeExpression)
@@ -187,7 +189,7 @@ namespace Fonlow.CodeDom.Web.Cs
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
             {
                 Name = d.Name,
-                Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
+                Type = poco2CsGen.TranslateToTypeReference(d.ParameterDescriptor.ParameterType),
 
             }).ToArray();
 
@@ -262,17 +264,15 @@ namespace Fonlow.CodeDom.Web.Cs
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(text)", returnType.FullName))));
             }
-            else if (returnType.IsGenericType)
+            else if (returnType.IsGenericType || IsComplexType(returnType))
             {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("JsonConvert.DeserializeObject<{0}>(text)", GetGenericTypeFriendlyName(returnType)))));
-            }
-            else if (IsComplexType(returnType))
-            {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("JsonConvert.DeserializeObject<{0}>(text)", TranslateCustomTypeToClientType(returnType)))));
+                method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+                    new CodeMethodReferenceExpression( new CodeVariableReferenceExpression("JsonConvert"), "DeserializeObject", poco2CsGen.TranslateToTypeReference(returnType)),
+                        new CodeSnippetExpression("text"))));
             }
             else
             {
-                Trace.TraceWarning("This typ is not yet supported: {0}", returnType.FullName);
+                Trace.TraceWarning("This type is not yet supported: {0}", returnType.FullName);
             }
 
         }
@@ -299,7 +299,7 @@ namespace Fonlow.CodeDom.Web.Cs
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
             {
                 Name = d.Name,
-                Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
+                Type = poco2CsGen.TranslateToTypeReference(d.ParameterDescriptor.ParameterType),
 
             }).ToArray();
             method.Parameters.AddRange(parameters);
@@ -311,7 +311,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 ).Select(d => new CodeParameterDeclarationExpression()
                 {
                     Name = d.Name,
-                    Type = new CodeTypeReference(TranslateCustomTypeToClientType(d.ParameterDescriptor.ParameterType)),
+                    Type = poco2CsGen.TranslateToTypeReference(d.ParameterDescriptor.ParameterType),
                 }).ToArray();
 
             var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute

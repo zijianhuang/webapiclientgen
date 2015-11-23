@@ -297,19 +297,15 @@ namespace Fonlow.Poco2Ts
             {
                 if (genericTypeDefinition == typeof(IDictionary<,>))
                 {
-                    return new CodeTypeReference(new CodeTypeReference(), 1)
-                    {
-                        ArrayElementType = CreateKeyValuePairTypeReference(genericArguments[0], genericArguments[1])
-                    };
+                    return new CodeTypeReference(typeof(Dictionary<,>).FullName,
+                        TranslateToTsTypeReference(genericArguments[0]), TranslateToTsTypeReference(genericArguments[1]));
                 }
 
                 Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
                 if (closedDictionaryType.IsAssignableFrom(type))
                 {
-                    return new CodeTypeReference(new CodeTypeReference(), 1)
-                    {
-                        ArrayElementType = CreateKeyValuePairTypeReference(genericArguments[0], genericArguments[1])
-                    };
+                    return new CodeTypeReference(typeof(Dictionary<,>).FullName,
+                        TranslateToTsTypeReference(genericArguments[0]), TranslateToTsTypeReference(genericArguments[1]));
                 }
             }
 

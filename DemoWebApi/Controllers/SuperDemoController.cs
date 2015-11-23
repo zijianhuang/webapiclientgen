@@ -295,37 +295,39 @@ namespace DemoWebApi.Controllers
             return obj;
         }
 
-        //[HttpGet]
-        //public IDictionary<string, string> GetDictionary()
-        //{
-        //    return new Dictionary<string, string>()
-        //{
-        //    {typeof(int).FullName, "number"},
-        //    {typeof(uint).FullName, "number"},
-        //    {typeof(long).FullName, "number"},
-        //    {typeof(ulong).FullName, "number"},
-        //    {typeof(short).FullName, "number"},
-        //    {typeof(ushort).FullName, "number"},
-        //    {typeof(float).FullName, "number"},
-        //    {typeof(double).FullName, "number"},
-        //    {typeof(decimal).FullName, "number"},
-        //    {typeof(byte).FullName, "number"},
-        //    {typeof(sbyte).FullName, "number"},
-        //    {typeof(string).FullName, "string"},
-        //    {typeof(char).FullName, "string"},
-        //    {typeof(Guid).FullName, "string"},
-        //    {typeof(bool).FullName, "boolean"},
-        //    {typeof(void).FullName, "void"},
-        //    {typeof(object).FullName, "any"},
-        //    {typeof(DateTime).FullName, "Date"},
-        //    {typeof(DateTimeOffset).FullName, "Date"},
-        //    {"System.Collections.IEnumerable", "Array"},
-        //    {"System.Array", "Array"},
+        [HttpGet]
+        [Route("StringStringDic")]
+        public IDictionary<string, string> GetDictionary()
+        {
+            return new Dictionary<string, string>()
+        {
+            {typeof(int).FullName, "number"},
+            {typeof(uint).FullName, "number"},
+            {typeof(long).FullName, "number"},
+            {typeof(ulong).FullName, "number"},
+            {typeof(short).FullName, "number"},
+            {typeof(ushort).FullName, "number"},
+            {typeof(float).FullName, "number"},
+            {typeof(double).FullName, "number"},
+            {typeof(decimal).FullName, "number"},
+            {typeof(byte).FullName, "number"},
+            {typeof(sbyte).FullName, "number"},
+            {typeof(string).FullName, "string"},
+            {typeof(char).FullName, "string"},
+            {typeof(Guid).FullName, "string"},
+            {typeof(bool).FullName, "boolean"},
+            {typeof(void).FullName, "void"},
+            {typeof(object).FullName, "any"},
+            {typeof(DateTime).FullName, "Date"},
+            {typeof(DateTimeOffset).FullName, "Date"},
+            {"System.Collections.IEnumerable", "Array"},
+            {"System.Array", "Array"},
 
-        //};
-        //}
+        };
+        }
 
         [HttpGet]
+        [Route("StringPersonDic")]
         public IDictionary<string, DemoData.Person> GetDictionaryOfPeople()
         {
             return new Dictionary<string, DemoData.Person>()
@@ -349,5 +351,12 @@ namespace DemoWebApi.Controllers
             };
         }
 
+        [HttpPost]
+        [Route("StringPersonDic")]
+        public int PostDictionary(IDictionary<string, DemoData.Person> dic)
+        {
+            return dic.Count;
+        }
+
     }
-    }
+}

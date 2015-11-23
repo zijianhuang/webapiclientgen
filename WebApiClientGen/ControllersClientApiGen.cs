@@ -112,11 +112,11 @@ namespace Fonlow.CodeDom.Web.Cs
                 var existingClientClass = LookupExistingClass(controllerNamespace, controllerName);
                 System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-                var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, true);
+                var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, true);
                 existingClientClass.Members.Add(apiFunction);
                 if (ForBothAsyncAndSync)
                 {
-                    existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, false));
+                    existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, false));
                 }
             }
 

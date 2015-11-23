@@ -123,12 +123,20 @@ namespace Fonlow.TypeScriptCodeDom
                 return MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);// + "?"; in javascript all is optional anyway.
             }
 
-            if (IsKeyValuePairType(codeTypeReference.BaseType))
+            //if (IsKeyValuePairType(codeTypeReference.BaseType))
+            //{
+            //    System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
+            //    var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
+            //    var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
+            //    return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText}; }}";
+            //}
+
+            if (codeTypeReference.BaseType.Contains("System.Collections.Generic.Dictionary"))
             {
                 System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
                 var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
                 var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
-                return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText}; }}";
+                return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
             }
 
             if (codeTypeReference.TypeArguments.Count > 0)

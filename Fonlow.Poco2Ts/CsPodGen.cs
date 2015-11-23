@@ -244,13 +244,13 @@ namespace Fonlow.Poco2Client
         public CodeTypeReference TranslateToTypeReference(Type type)
         {
             if (type == null)
-                return new CodeTypeReference("void");
+                return null;// new CodeTypeReference("void");
 
             if (pendingTypes.Contains(type))
                 return new CodeTypeReference(RefineCustomComplexTypeText(type));
             else if (type.IsGenericType)
             {
-                return TranslateGenericToTsTypeReference(type);
+                return TranslateGenericToTypeReference(type);
             }
             else if (type.IsArray)
             {
@@ -259,20 +259,27 @@ namespace Fonlow.Poco2Client
                 var arrayRank = type.GetArrayRank();
                 return CreateArrayTypeReference(elementType, arrayRank);
             }
+            else
+            {
+                if (type.FullName == "System.Web.Http.IHttpActionResult")
+                    return new CodeTypeReference( "System.Net.Http.HttpResponseMessage");
+
+                if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+                    return new CodeTypeReference( "Newtonsoft.Json.Linq.JObject");
+
+            }
 
 
             return new CodeTypeReference(type);
 
         }
 
-        CodeTypeReference TranslateGenericToTsTypeReference(Type type)
+        CodeTypeReference TranslateGenericToTypeReference(Type type)
         {
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
             if (genericTypeDefinition == typeof(Nullable<>))
             {
-                var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToTypeReference(d)).ToArray();
-                Debug.Assert(genericTypeReferences.Length == 1);
-                return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
+                return new CodeTypeReference(type);
             }
 
             if (genericTypeDefinition == typeof(KeyValuePair<,>))
@@ -311,15 +318,15 @@ namespace Fonlow.Poco2Client
             {
                 if (genericTypeDefinition == typeof(IDictionary<,>))
                 {
-                    return new CodeTypeReference(typeof(IEnumerable<>).MakeGenericType(
-                        typeof(KeyValuePair<,>).MakeGenericType(genericArguments[0], genericArguments[1])));
+                    return new CodeTypeReference(typeof(Dictionary<,>).FullName, 
+                        TranslateToTypeReference(genericArguments[0]), TranslateToTypeReference( genericArguments[1]));
                 }
 
                 Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
                 if (closedDictionaryType.IsAssignableFrom(type))
                 {
-                    return new CodeTypeReference(typeof(IEnumerable<>).MakeGenericType(
-                        typeof(KeyValuePair<,>).MakeGenericType(genericArguments[0], genericArguments[1])));
+                    return new CodeTypeReference(typeof(Dictionary<,>).FullName,
+                        TranslateToTypeReference(genericArguments[0]), TranslateToTypeReference(genericArguments[1]));
                 }
             }
 
@@ -327,7 +334,10 @@ namespace Fonlow.Poco2Client
 
         }
 
-
+        //CodeTypeReference CreateKeyValuePairTypeReference(Type t1, Type t2)
+        //{
+        //    return new CodeTypeReference(typeof(KeyValuePair<,>).FullName, TranslateToTypeReference(t1), TranslateToTypeReference(t2));
+        //}
 
         static string RefineCustomComplexTypeText(Type t)
         {

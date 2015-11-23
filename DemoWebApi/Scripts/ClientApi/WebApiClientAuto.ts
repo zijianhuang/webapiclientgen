@@ -39,9 +39,9 @@ namespace DemoWebApi_DemoData_Client {
     }
 
     export interface MyPeopleDic {
-        Dic?: Array<{[id: string]: DemoWebApi_DemoData_Client.Person; }>;
-        AnotherDic?: Array<{[id: string]: string; }>;
-        IntDic?: Array<{[id: number]: string; }>;
+        Dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
+        AnotherDic?: {[id: string]: string };
+        IntDic?: {[id: number]: string };
     }
 
 }
@@ -326,11 +326,28 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/SuperDemo
-         * @return {Array<{[id: string]: DemoWebApi_DemoData_Client.Person; }>} 
+         * GET api/SuperDemo/StringStringDic
+         * @return {{[id: string]: string }} 
          */
-        GetDictionaryOfPeople(callback: (data : Array<{[id: string]: DemoWebApi_DemoData_Client.Person; }>) => any){
-            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo'), callback, this.error, this.statusCode);
+        GetDictionary(callback: (data : {[id: string]: string }) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/StringStringDic'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/StringPersonDic
+         * @return {{[id: string]: DemoWebApi_DemoData_Client.Person }} 
+         */
+        GetDictionaryOfPeople(callback: (data : {[id: string]: DemoWebApi_DemoData_Client.Person }) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/StringPersonDic'), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/StringPersonDic
+         * @param {{[id: string]: DemoWebApi_DemoData_Client.Person }} dic 
+         * @return {number} 
+         */
+        PostDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }, callback: (data : number) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/StringPersonDic'), dic, callback, this.error, this.statusCode);
         }
     }
 

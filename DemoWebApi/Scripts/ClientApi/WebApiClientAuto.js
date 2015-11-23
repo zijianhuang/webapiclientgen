@@ -261,11 +261,26 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject'), obj, callback, this.error, this.statusCode);
         };
         /**
-         * GET api/SuperDemo
-         * @return {Array<string>}
+         * GET api/SuperDemo/StringStringDic
+         * @return {{[id: string]: string }}
+         */
+        SuperDemo.prototype.GetDictionary = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/StringStringDic'), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/StringPersonDic
+         * @return {{[id: string]: DemoWebApi_DemoData_Client.Person }}
          */
         SuperDemo.prototype.GetDictionaryOfPeople = function (callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo'), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/StringPersonDic'), callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/StringPersonDic
+         * @param {{[id: string]: DemoWebApi_DemoData_Client.Person }} dic
+         * @return {number}
+         */
+        SuperDemo.prototype.PostDictionary = function (dic, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/StringPersonDic'), dic, callback, this.error, this.statusCode);
         };
         return SuperDemo;
     })();
@@ -375,4 +390,3 @@ var DemoWebApi_Controllers_Client;
     })();
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
-//# sourceMappingURL=WebApiClientAuto.js.map

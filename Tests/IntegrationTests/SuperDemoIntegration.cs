@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using DemoWebApi.DemoData.Client;
 
 namespace IntegrationTests
 {
@@ -315,6 +316,45 @@ namespace IntegrationTests
             Assert.Equal("123451", r["Id"].ToString());
             Assert.Equal("Something1", r["Name"].ToString());
 
+        }
+
+        [Fact]
+        public void TestGetDictionaryOfPeople()
+        {
+            var dic = api.GetDictionaryOfPeople();
+            Assert.Equal("Tony Stark", dic["Iron Man"].Name);
+            Assert.Equal("New York", dic["Spider Man"].Addresses[0].City);
+        }
+
+        [Fact]
+        public void TestGetDictionary()
+        {
+            var dic = api.GetDictionary();
+            Assert.Equal("number", dic["System.Int64"]);
+        }
+
+        [Fact]
+        public void TestPostDic()
+        {
+            var r = api.PostDictionary(new Dictionary<string, Person>()
+            {
+                {"Iron Man", new Person()
+                {
+                    Name= "Tony Stark",
+                    Surname="Stark",
+                    GivenName="Tony"
+                } },
+
+                {"Spider Man", new Person() {
+                    Name="Peter Parker",
+                    Addresses= new Address[] { new Address() {
+                            City="New York"
+                        } 
+                    },
+                } },
+            });
+
+            Assert.Equal(2, r);
         }
 
     }

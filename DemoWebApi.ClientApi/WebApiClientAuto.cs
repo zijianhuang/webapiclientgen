@@ -1491,6 +1491,36 @@ namespace DemoWebApi.Controllers.Client
             var text = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Int32.Parse(text);
         }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/KeyValuePair
+        /// </summary>
+        public async Task<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>> GetKeyhValuePairAsync()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/KeyValuePair");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/KeyValuePair
+        /// </summary>
+        public System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person> GetKeyhValuePair()
+        {
+            var template = new System.UriTemplate("api/SuperDemo/KeyValuePair");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>>(text);
+        }
     }
     
     public partial class Entities

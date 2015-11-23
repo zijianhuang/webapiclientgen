@@ -349,6 +349,14 @@ namespace DemoWebApi_Controllers_Client {
         PostDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }, callback: (data : number) => any){
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/StringPersonDic'), dic, callback, this.error, this.statusCode);
         }
+
+        /** 
+         * GET api/SuperDemo/KeyValuePair
+         * @return {{Key: string, Value: DemoWebApi_DemoData_Client.Person }} 
+         */
+        GetKeyhValuePair(callback: (data : {Key: string, Value: DemoWebApi_DemoData_Client.Person }) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/KeyValuePair'), callback, this.error, this.statusCode);
+        }
     }
 
     export class Entities {

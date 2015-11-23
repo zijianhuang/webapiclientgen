@@ -282,11 +282,6 @@ namespace Fonlow.Poco2Client
                 return new CodeTypeReference(type);
             }
 
-            if (genericTypeDefinition == typeof(KeyValuePair<,>))
-            {
-                return new CodeTypeReference(type);
-            }
-
             //if (IsTuple(genericTypeDefinition))
             //{
             //    return new CodeTypeReference(type);
@@ -328,6 +323,14 @@ namespace Fonlow.Poco2Client
                     return new CodeTypeReference(typeof(Dictionary<,>).FullName,
                         TranslateToTypeReference(genericArguments[0]), TranslateToTypeReference(genericArguments[1]));
                 }
+
+                if (genericTypeDefinition == typeof(KeyValuePair<,>))
+                {
+                    return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
+                        TranslateToTypeReference(genericArguments[0]), TranslateToTypeReference(genericArguments[1]));
+                }
+
+
             }
 
             return new CodeTypeReference("any");

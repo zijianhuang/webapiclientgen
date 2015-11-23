@@ -345,6 +345,14 @@ test("PostDictionaryOfPeople", function (assert) {
         done();
     });
 });
+//test("GetKeyValuePair", function (assert) {//this little fella refuses to finish even if the service had returned the right data. This happens only in the Chupaz runner. In browsers the script is OK.
+//    var done = assert.async();
+//    superDemoApi.GetKeyhValuePair((data) => {
+//        assert.equal(data.Key, "Peter Parker");
+//        assert.equal(data.Value.Addresses[0].City, "New York");
+//        done();
+//    });
+//});
 QUnit.module("ValuesTests");
 test("Get", function (assert) {
     var done = assert.async();

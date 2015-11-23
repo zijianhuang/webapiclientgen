@@ -18,6 +18,10 @@ var MyApp;
             var api = new DemoWebApi_Controllers_Client.SuperDemo();
             api.PostAnonymousObject({ Id: '12345', Name: 'Something' }, function (data) { $('#nameTag').html("<pre>" + data.Name + "</pre>"); });
         };
+        First.prototype.getKeyValue = function () {
+            var api = new DemoWebApi_Controllers_Client.SuperDemo();
+            api.GetKeyhValuePair(function (data) { $('#nameTag').html("<pre>" + data.Value.Name + "</pre>"); });
+        };
         First.prototype.addPerson = function () {
             var api = new DemoWebApi_Controllers_Client.Entities();
             api.CreatePerson({

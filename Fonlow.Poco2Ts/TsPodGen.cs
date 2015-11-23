@@ -254,17 +254,6 @@ namespace Fonlow.Poco2Ts
         CodeTypeReference TranslateGenericToTsTypeReference(Type type)
         {
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
-            if (genericTypeDefinition == typeof(Nullable<>))
-            {
-                var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
-                Debug.Assert(genericTypeReferences.Length == 1);
-                return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
-            }
-
-            if (genericTypeDefinition == typeof(KeyValuePair<,>))
-            {
-                return new CodeTypeReference(type);
-            }
 
             //if (IsTuple(genericTypeDefinition))
             //{
@@ -274,6 +263,13 @@ namespace Fonlow.Poco2Ts
             Type[] genericArguments = type.GetGenericArguments();
             if (genericArguments.Length == 1)
             {
+                if (genericTypeDefinition == typeof(Nullable<>))
+                {
+                    var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToTsTypeReference(d)).ToArray();
+                    Debug.Assert(genericTypeReferences.Length == 1);
+                    return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
+                }
+
                 if (genericTypeDefinition == typeof(IList<>) ||
                     genericTypeDefinition == typeof(IEnumerable<>) ||
                     genericTypeDefinition == typeof(ICollection<>) ||
@@ -307,15 +303,17 @@ namespace Fonlow.Poco2Ts
                     return new CodeTypeReference(typeof(Dictionary<,>).FullName,
                         TranslateToTsTypeReference(genericArguments[0]), TranslateToTsTypeReference(genericArguments[1]));
                 }
+
+                if (genericTypeDefinition == typeof(KeyValuePair<,>))
+                {
+                    return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
+                        TranslateToTsTypeReference(genericArguments[0]), TranslateToTsTypeReference(genericArguments[1]));
+                }
+
             }
 
             return new CodeTypeReference("any");
 
-        }
-
-        CodeTypeReference CreateKeyValuePairTypeReference(Type keyType, Type valueType)
-        {
-            return new CodeTypeReference( typeof(KeyValuePair<,>).FullName, TranslateToTsTypeReference(keyType), TranslateToTsTypeReference(valueType));
         }
 
         static string RefineCustomComplexTypeText(Type t)

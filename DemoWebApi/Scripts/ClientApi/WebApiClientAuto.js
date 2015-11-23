@@ -282,6 +282,13 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.PostDictionary = function (dic, callback) {
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/StringPersonDic'), dic, callback, this.error, this.statusCode);
         };
+        /**
+         * GET api/SuperDemo/KeyValuePair
+         * @return {{Key: string, Value: DemoWebApi_DemoData_Client.Person }}
+         */
+        SuperDemo.prototype.GetKeyhValuePair = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/KeyValuePair'), callback, this.error, this.statusCode);
+        };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;

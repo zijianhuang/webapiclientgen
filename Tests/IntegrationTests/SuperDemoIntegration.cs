@@ -357,5 +357,13 @@ namespace IntegrationTests
             Assert.Equal(2, r);
         }
 
+        [Fact]
+        public void GetKeyValuePair()
+        {
+            var r = api.GetKeyhValuePair();
+            Assert.Equal("Spider Man", r.Key);
+            Assert.Equal("Peter Parker", r.Value.Name);
+        }
+
     }
 }

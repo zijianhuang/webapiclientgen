@@ -358,5 +358,21 @@ namespace DemoWebApi.Controllers
             return dic.Count;
         }
 
+        [HttpGet]
+        [Route("KeyValuePair")]
+        public KeyValuePair<string, DemoData.Person> GetKeyhValuePair()
+        {
+            return new KeyValuePair<string, DemoData.Person>("Spider Man", new DemoData.Person()
+            {
+                Name = "Peter Parker",
+                Addresses = new List<DemoData.Address>(
+                        new DemoData.Address[] { new DemoData.Address() {
+                            City="New York"
+
+                        } }
+                    ),
+            });
+        }
+
     }
 }

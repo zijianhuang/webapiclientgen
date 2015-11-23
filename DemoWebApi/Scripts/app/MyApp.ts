@@ -19,6 +19,11 @@ namespace MyApp {
             api.PostAnonymousObject({ Id: '12345', Name: 'Something' }, (data) => { $('#nameTag').html("<pre>" + data.Name + "</pre>"); });
         }
 
+        getKeyValue() {
+            var api = new DemoWebApi_Controllers_Client.SuperDemo();
+            api.GetKeyhValuePair((data) => { $('#nameTag').html("<pre>" + data.Value.Name + "</pre>"); });
+        }
+
         addPerson() {
             var api = new DemoWebApi_Controllers_Client.Entities();
             api.CreatePerson({

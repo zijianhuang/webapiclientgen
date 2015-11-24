@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace DemoWebApi.Controllers
 {
+    [RoutePrefix("api/SuperDemo")]
     public class EntitiesController : ApiController
     {
         /// <summary>
@@ -42,6 +43,13 @@ namespace DemoWebApi.Controllers
         public void UpdatePerson(Person person)
         {
             Debug.WriteLine("Update " + person);
+        }
+
+        [HttpPut]
+        [Route("link")]
+        public bool LinkPerson(long id, string relationship, [FromBody] Person person)
+        {
+            return person != null && !String.IsNullOrEmpty(relationship);
         }
 
         [HttpDelete]

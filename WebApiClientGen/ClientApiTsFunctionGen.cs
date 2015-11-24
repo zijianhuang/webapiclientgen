@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Text;
 using Fonlow.TypeScriptCodeDom;
 using Fonlow.Poco2Ts;
+using Fonlow.Reflection;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -99,24 +100,18 @@ namespace Fonlow.CodeDom.Web.Ts
         }
 
 
-        //static bool IsClassOrStruct(Type type)
-        //{
-        //    return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
-        //}
-
         void RenderImplementation()
         {
             var httpMethod = description.HttpMethod.Method.ToLower(); //Method is always uppercase.
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
             {
                 Name = d.Name,
-                Type = IsFromBodySimpleType(d) ? CreateCodeTypeReferenceForFromBodySimpleType(d.ParameterDescriptor.ParameterType)
-                    : poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
+                Type = poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
 
             }).ToList();
 
-            var parameterType = poco2TsGen.TranslateToClientTypeReference(returnType);
-            var callbackTypeText = $"(data : {TypeMapper.MapCodeTypeReferenceToTsText(parameterType)}) => any";
+            var returnTypeReference = poco2TsGen.TranslateToClientTypeReference(returnType);
+            var callbackTypeText = $"(data : {TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}) => any";
             parameters.Add(new CodeParameterDeclarationExpression()
             {
                 Name = "callback",
@@ -138,7 +133,7 @@ namespace Fonlow.CodeDom.Web.Ts
             if (httpMethod == "post" || httpMethod == "put")
             {
                 var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
-                    || (IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
+                    || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
                     || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
                 if (fromBodyParameterDescriptions.Length > 1)
                 {
@@ -159,11 +154,6 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             var typeText = TypeMapper.MapToTsBasicType(t);
             return new CodeTypeReference(typeText);
-        }
-
-        static bool IsFromBodySimpleType(ApiParameterDescription d)
-        {
-            return IsSimpleType(d.ParameterDescriptor.ParameterType) && (d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute);
         }
 
         static string RemoveTrialEmptyString(string s)
@@ -199,16 +189,6 @@ namespace Fonlow.CodeDom.Web.Ts
             }
 
             return newUriText;
-        }
-
-        static bool IsSimpleType(Type type)
-        {
-            return type.IsPrimitive || type.Equals(typeOfString);
-        }
-
-        static bool IsComplexType(Type type)
-        {
-            return !IsSimpleType(type);
         }
 
 

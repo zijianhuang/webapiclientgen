@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Fonlow.Poco2Client
+namespace Fonlow.Reflection
 {
-    internal static class TypeHelper
+    public static class TypeHelper
     {
-        internal static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
+        public static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
         {
             if (memberInfo == null)
             {
@@ -23,7 +23,7 @@ namespace Fonlow.Poco2Client
             return null;
         }
 
-        internal static T ReadAttribute<T>(Type type) where T : Attribute
+        public static T ReadAttribute<T>(Type type) where T : Attribute
         {
             if (type == null)
             {
@@ -38,7 +38,7 @@ namespace Fonlow.Poco2Client
             return null;
         }
 
-        internal static Attribute AttributeExists(Type type, string attributeTypeText)
+        public static Attribute AttributeExists(Type type, string attributeTypeText)
         {
             if (type == null)
             {
@@ -48,7 +48,7 @@ namespace Fonlow.Poco2Client
             return type.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;
         }
 
-        internal static Attribute AttributeExists(MemberInfo memberInfo, string attributeTypeText)
+        public static Attribute AttributeExists(MemberInfo memberInfo, string attributeTypeText)
         {
             if (memberInfo == null)
             {
@@ -59,7 +59,7 @@ namespace Fonlow.Poco2Client
 
         }
 
-        internal static bool GetRequired(Attribute a, string propertyName, string expectedValue)
+        public static bool GetRequired(Attribute a, string propertyName, string expectedValue)
         {
             var type = a.GetType();
             var publicProperties= type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
@@ -74,7 +74,7 @@ namespace Fonlow.Poco2Client
             return propertyValue.ToString() == expectedValue;
         }
 
-        internal static bool IsArrayType(Type type)
+        public static bool IsArrayType(Type type)
         {
             return type == typeof(IEnumerable<>) ||
                    type == typeof(IList<>) ||
@@ -84,6 +84,24 @@ namespace Fonlow.Poco2Client
                    type == typeof(List<>) ||
                    type == typeof(System.Collections.ObjectModel.Collection<>) ||
                    type == typeof(IReadOnlyCollection<>);
+        }
+
+
+        static readonly Type typeOfString = typeof(string);
+
+        public static bool IsSimpleType(Type type)
+        {
+            return type.IsPrimitive || type.Equals(typeOfString);
+        }
+
+        public static bool IsComplexType(Type type)
+        {
+            return !IsSimpleType(type);
+        }
+
+        public static bool IsStringType(Type type)
+        {
+            return type.Equals(typeOfString);
         }
 
 

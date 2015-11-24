@@ -6,6 +6,7 @@ using System.Linq;
 using System.Diagnostics;
 using System;
 using System.Collections.Generic;
+using Fonlow.Reflection;
 
 namespace Fonlow.Poco2Client
 {

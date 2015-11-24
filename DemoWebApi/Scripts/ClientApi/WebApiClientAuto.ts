@@ -495,12 +495,23 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET Company?id={id}
+         * PUT api/SuperDemo/link?id={id}&relationship={relationship}
+         * @param {number} id 
+         * @param {string} relationship 
+         * @param {DemoWebApi_DemoData_Client.Person} person 
+         * @return {boolean} 
+         */
+        LinkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person, callback: (data : boolean) => any){
+            this.httpClient.put(encodeURI(this.baseUri + 'api/SuperDemo/link?id='+id+'&relationship='+relationship), person, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/Company?id={id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Company} 
          */
         GetCompany(id: number, callback: (data : DemoWebApi_DemoData_Client.Company) => any){
-            this.httpClient.get(encodeURI(this.baseUri + 'Company?id='+id), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Company?id='+id), callback, this.error, this.statusCode);
         }
 
         /** 

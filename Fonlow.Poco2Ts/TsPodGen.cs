@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System;
 using Fonlow.Poco2Client;
+using Fonlow.Reflection;
 
 namespace Fonlow.Poco2Ts
 {
@@ -228,7 +229,12 @@ namespace Fonlow.Poco2Ts
             if (type == null)
                 return new CodeTypeReference("void");
 
-            if (pendingTypes.Contains(type))
+            if (TypeHelper.IsSimpleType(type))
+            {
+                var typeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
+                return new CodeTypeReference(typeText);
+            }
+            else if (pendingTypes.Contains(type))
                 return new CodeTypeReference(RefineCustomComplexTypeText(type));
             else if (type.IsGenericType)
             {

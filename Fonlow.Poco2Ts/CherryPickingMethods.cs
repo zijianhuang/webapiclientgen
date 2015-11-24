@@ -3,6 +3,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
+using Fonlow.Reflection;
+
 
 namespace Fonlow.Poco2Client
 {

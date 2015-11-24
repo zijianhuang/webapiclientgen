@@ -1962,11 +1962,45 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET Company?id={id}
+        /// PUT api/SuperDemo/link?id={id}&relationship={relationship}
+        /// </summary>
+        public async Task<bool> LinkPersonAsync(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
+        {
+            var template = new System.UriTemplate("api/SuperDemo/link?id={id}&relationship={relationship}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("id", id.ToString());
+            uriParameters.Add("relationship", relationship);
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.PutAsJsonAsync(requestUri.ToString(), person);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// PUT api/SuperDemo/link?id={id}&relationship={relationship}
+        /// </summary>
+        public bool LinkPerson(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
+        {
+            var template = new System.UriTemplate("api/SuperDemo/link?id={id}&relationship={relationship}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("id", id.ToString());
+            uriParameters.Add("relationship", relationship);
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.PutAsJsonAsync(requestUri.ToString(), person).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Boolean.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/Company?id={id}
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Company> GetCompanyAsync(long id)
         {
-            var template = new System.UriTemplate("Company?id={id}");
+            var template = new System.UriTemplate("api/SuperDemo/Company?id={id}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("id", id.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);
@@ -1978,11 +2012,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET Company?id={id}
+        /// GET api/SuperDemo/Company?id={id}
         /// </summary>
         public DemoWebApi.DemoData.Client.Company GetCompany(long id)
         {
-            var template = new System.UriTemplate("Company?id={id}");
+            var template = new System.UriTemplate("api/SuperDemo/Company?id={id}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("id", id.ToString());
             var requestUri = template.BindByName(this.baseUri, uriParameters);

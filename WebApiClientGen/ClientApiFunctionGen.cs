@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Diagnostics;
+using Fonlow.Reflection;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -228,7 +229,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 new CodeTypeReference("var"), "text",
                 new CodeSnippetExpression(forAsync ? "await responseMessage.Content.ReadAsStringAsync()" : "responseMessage.Content.ReadAsStringAsync().Result")));
 
-            if (IsStringType(returnType))
+            if (TypeHelper.IsStringType(returnType))
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("JsonConvert.DeserializeObject<string>(text)")));
             }
@@ -240,7 +241,7 @@ namespace Fonlow.CodeDom.Web.Cs
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(text)", returnType.FullName))));
             }
-            else if (returnType.IsGenericType || IsComplexType(returnType))
+            else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType))
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
                     new CodeMethodReferenceExpression( new CodeVariableReferenceExpression("JsonConvert"), "DeserializeObject", poco2CsGen.TranslateToClientTypeReference(returnType)),
@@ -251,22 +252,6 @@ namespace Fonlow.CodeDom.Web.Cs
                 Trace.TraceWarning("This type is not yet supported: {0}", returnType.FullName);
             }
 
-        }
-
-        Type typeOfString = typeof(string);
-        bool IsSimpleType(Type type)
-        {
-            return type.IsPrimitive || type.Equals(typeOfString);
-        }
-
-        bool IsComplexType(Type type)
-        {
-            return !IsSimpleType(type);
-        }
-
-        bool IsStringType(Type type)
-        {
-            return type.Equals(typeOfString);
         }
 
         void RenderPostOrPutImplementation(bool isPost)
@@ -281,8 +266,8 @@ namespace Fonlow.CodeDom.Web.Cs
             method.Parameters.AddRange(parameters);
 
             var uriQueryParameters = description.ParameterDescriptions.Where(d =>
-                (!(d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute) && IsSimpleType(d.ParameterDescriptor.ParameterType))
-                || (IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
+                (!(d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute) && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
+                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
                 || (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
                 ).Select(d => new CodeParameterDeclarationExpression()
                 {
@@ -291,7 +276,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 }).ToArray();
 
             var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
-                || (IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute) || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
+                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute) || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
             if (fromBodyParameterDescriptions.Length > 1)
             {
                 throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));

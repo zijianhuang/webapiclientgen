@@ -22,7 +22,7 @@ var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     var SuperDemo = (function () {
         function SuperDemo(baseUri, error, statusCode) {
-            if (baseUri === void 0) { baseUri = ''; }
+            if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
@@ -51,6 +51,30 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.GetDateTime = function (hasValue, callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue=' + hasValue), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/DateTimeOffset
+         * @return {Date}
+         */
+        SuperDemo.prototype.GetDateTimeOffset = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffset'), callback, this.error, this.statusCode);
+        };
+        /**
+         * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
+         * POST api/SuperDemo/DateTimeOffset
+         * @param {Date} d
+         * @return {boolean}
+         */
+        SuperDemo.prototype.PostDateTimeOffset = function (d, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffset'), d, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/DateTimeOffsetNullable
+         * @param {Date} d
+         * @return {boolean}
+         */
+        SuperDemo.prototype.PostDateTimeOffsetNullable = function (d, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable'), d, callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
@@ -289,12 +313,102 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.GetKeyhValuePair = function (callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/KeyValuePair'), callback, this.error, this.statusCode);
         };
+        /**
+         * GET api/SuperDemo/ICollection
+         * @return {Array<DemoWebApi_DemoData_Client.Person>}
+         */
+        SuperDemo.prototype.GetICollection = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/ICollection'), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/IList
+         * @return {Array<DemoWebApi_DemoData_Client.Person>}
+         */
+        SuperDemo.prototype.GetIList = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/IList'), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/IReadOnlyList
+         * @return {Array<DemoWebApi_DemoData_Client.Person>}
+         */
+        SuperDemo.prototype.GetIReadOnlyList = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyList'), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/IReadOnlyCollection
+         * @return {Array<DemoWebApi_DemoData_Client.Person>}
+         */
+        SuperDemo.prototype.GetIReadOnlyCollection = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyCollection'), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/List
+         * @return {Array<DemoWebApi_DemoData_Client.Person>}
+         */
+        SuperDemo.prototype.GetList = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/List'), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/Collection
+         * @return {Array<DemoWebApi_DemoData_Client.Person>}
+         */
+        SuperDemo.prototype.GetCollection = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Collection'), callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/ICollection
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list
+         * @return {number}
+         */
+        SuperDemo.prototype.PostICollection = function (list, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/ICollection'), list, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/IList
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list
+         * @return {number}
+         */
+        SuperDemo.prototype.PostIList = function (list, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/IList'), list, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/IReadOnlyList
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list
+         * @return {number}
+         */
+        SuperDemo.prototype.PostIReadOnlyList = function (list, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyList'), list, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/IReadOnlyCollection
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list
+         * @return {number}
+         */
+        SuperDemo.prototype.PostIReadOnlyCollection = function (list, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyCollection'), list, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/List
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list
+         * @return {number}
+         */
+        SuperDemo.prototype.PostList = function (list, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/List'), list, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/Collection
+         * @param {Array<DemoWebApi_DemoData_Client.Person>} list
+         * @return {number}
+         */
+        SuperDemo.prototype.PostCollection = function (list, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/Collection'), list, callback, this.error, this.statusCode);
+        };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
         function Entities(baseUri, error, statusCode) {
-            if (baseUri === void 0) { baseUri = ''; }
+            if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
@@ -346,7 +460,7 @@ var DemoWebApi_Controllers_Client;
     DemoWebApi_Controllers_Client.Entities = Entities;
     var Values = (function () {
         function Values(baseUri, error, statusCode) {
-            if (baseUri === void 0) { baseUri = ''; }
+            if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             this.baseUri = baseUri;
             this.error = error;
             this.statusCode = statusCode;
@@ -367,6 +481,14 @@ var DemoWebApi_Controllers_Client;
          */
         Values.prototype.GetByIdAndName = function (id, name, callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/Values/' + id + '?name=' + name), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Values?name={name}
+         * @param {string} name
+         * @return {string}
+         */
+        Values.prototype.GetByName = function (name, callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Values?name=' + name), callback, this.error, this.statusCode);
         };
         /**
          * POST api/Values

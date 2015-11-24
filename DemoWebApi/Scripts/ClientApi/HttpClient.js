@@ -38,5 +38,9 @@ var HttpClient = (function () {
             }
         });
     };
+    /**
+      location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
+    **/
+    HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return HttpClient;
 })();

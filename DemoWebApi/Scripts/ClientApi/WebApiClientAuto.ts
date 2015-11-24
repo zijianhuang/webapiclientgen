@@ -57,7 +57,7 @@ namespace DemoWebApi_DemoData_Another_Client {
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
         httpClient: HttpClient;
-        constructor(public baseUri: string = '', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string = HttpClient.locationOrigin, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -97,6 +97,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
          * POST api/SuperDemo/DateTimeOffset
          * @param {Date} d 
          * @return {boolean} 
@@ -489,7 +490,7 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Entities {
         httpClient: HttpClient;
-        constructor(public baseUri: string = '', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string = HttpClient.locationOrigin, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -542,7 +543,7 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Values {
         httpClient: HttpClient;
-        constructor(public baseUri: string = '', public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(public baseUri: string = HttpClient.locationOrigin, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -562,6 +563,15 @@ namespace DemoWebApi_Controllers_Client {
          */
         GetByIdAndName(id: number, name: string, callback: (data : string) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/Values/'+id+'?name='+name), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/Values?name={name}
+         * @param {string} name 
+         * @return {string} 
+         */
+        GetByName(name: string, callback: (data : string) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Values?name='+name), callback, this.error, this.statusCode);
         }
 
         /** 

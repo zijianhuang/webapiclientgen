@@ -11,7 +11,7 @@
     <iconUrl>https://webapiclientgen.codeplex.com</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>TypeScript CodeDOM has TypeScriptCodeProvider implementing ICodeGenerator which has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</description>
-    <releaseNotes>More CodeDOM features</releaseNotes>
+    <releaseNotes>Support Dictionary and KeyValuePair</releaseNotes>
     <copyright>Copyright © Fonlow 2015</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</tags>
   </metadata>

@@ -2,6 +2,11 @@
 
 class HttpClient {
     /**
+      location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
+    **/
+    public static locationOrigin: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
+
+    /**
     **/
     get(url: string,
         callback: (data: any) => any,

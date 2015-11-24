@@ -21,6 +21,11 @@ namespace DemoWebApi.Controllers
             return name + id.ToString();
         }
 
+        public string Get(string name)
+        {
+            return name.ToUpper();
+        }
+
         [HttpPost]
         public string Post([FromBody]string value)
         {

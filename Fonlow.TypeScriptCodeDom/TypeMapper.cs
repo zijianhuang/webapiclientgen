@@ -111,6 +111,12 @@ namespace Fonlow.TypeScriptCodeDom
                 return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
             }
 
+            if (codeTypeReference.TypeArguments.Count>0)
+            {
+                var genericTypeName = codeTypeReference.BaseType.Substring(0, codeTypeReference.BaseType.IndexOf('`'));
+                return $"{genericTypeName}<{MapCodeTypeReferenceCollectionToTsText(codeTypeReference.TypeArguments)}>";
+            }
+
             System.Diagnostics.Trace.TraceWarning($"{codeTypeReference.BaseType} is mapped to any.");
             return "any";
         }

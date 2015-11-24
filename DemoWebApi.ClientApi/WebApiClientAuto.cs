@@ -585,7 +585,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
         /// POST api/SuperDemo/DateTimeOffset
         /// </summary>
         public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d)
@@ -598,7 +598,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
         /// POST api/SuperDemo/DateTimeOffset
         /// </summary>
         public bool PostDateTimeOffset(System.DateTimeOffset d)
@@ -2180,6 +2180,38 @@ namespace DemoWebApi.Controllers.Client
             var template = new System.UriTemplate("api/Values/{id}?name={name}");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("id", id.ToString());
+            uriParameters.Add("name", name);
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<string>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Values?name={name}
+        /// </summary>
+        public async Task<string> GetAsync(string name)
+        {
+            var template = new System.UriTemplate("api/Values?name={name}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("name", name);
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<string>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Values?name={name}
+        /// </summary>
+        public string Get(string name)
+        {
+            var template = new System.UriTemplate("api/Values?name={name}");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
             uriParameters.Add("name", name);
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;

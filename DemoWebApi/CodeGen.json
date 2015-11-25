@@ -1,8 +1,5 @@
 ﻿{
     "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
-    "PrefixesOfCustomNamespaces": [
-        "DemoWebApi"
-    ],
     "ExcludedControllerNames": [
         "DemoWebApi.Controllers.Account"
     ],

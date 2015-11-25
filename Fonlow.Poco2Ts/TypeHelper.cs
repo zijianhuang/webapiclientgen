@@ -104,6 +104,11 @@ namespace Fonlow.Reflection
             return type.Equals(typeOfString);
         }
 
+        public static bool IsClassOrStruct(Type type)
+        {
+            return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
+        }
+
 
     }
 

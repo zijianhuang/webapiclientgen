@@ -119,7 +119,7 @@ namespace Fonlow.Poco2Ts
                     Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);
 
                     CodeTypeDeclaration typeDeclaration;
-                    if (IsClassOrStruct(type))
+                    if (TypeHelper.IsClassOrStruct(type))
                     {
                         typeDeclaration = CreatePodClientInterface(clientNamespace, tsName);
 
@@ -255,11 +255,6 @@ namespace Fonlow.Poco2Ts
             return new CodeTypeReference("any");
         }
 
-        static bool IsClassOrStruct(Type type)
-        {
-            return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
-        }
-
         Type[] pendingTypes;
 
         CodeTypeReference TranslateGenericToTsTypeReference(Type type)
@@ -378,7 +373,7 @@ namespace Fonlow.Poco2Ts
         {
             try
             {
-                return assembly.GetTypes().Where(type => (IsClassOrStruct(type) || type.IsEnum)
+                return assembly.GetTypes().Where(type => (TypeHelper.IsClassOrStruct(type) || type.IsEnum)
                 && CherryPicking.IsCherryType(type, methods) && type.IsPublic).ToArray();
             }
             catch (ReflectionTypeLoadException e)

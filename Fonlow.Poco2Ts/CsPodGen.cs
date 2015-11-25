@@ -83,10 +83,6 @@ namespace Fonlow.Poco2Client
         }
 
 
-        static bool IsClassOrStruct(Type type)
-        {
-            return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
-        }
 
         Type[] pendingTypes;
         /// <summary>
@@ -115,7 +111,7 @@ namespace Fonlow.Poco2Client
                     Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
 
                     CodeTypeDeclaration typeDeclaration;
-                    if (IsClassOrStruct(type))
+                    if (TypeHelper.IsClassOrStruct(type))
                     {
                         typeDeclaration = CreatePodClientClass(clientNamespace, tsName);
 
@@ -385,7 +381,7 @@ namespace Fonlow.Poco2Client
         {
             try
             {
-                return assembly.GetTypes().Where(type => (IsClassOrStruct(type) || type.IsEnum)
+                return assembly.GetTypes().Where(type => (TypeHelper.IsClassOrStruct(type) || type.IsEnum)
                 && CherryPicking.IsCherryType(type, methods)).ToArray();
             }
             catch (ReflectionTypeLoadException e)

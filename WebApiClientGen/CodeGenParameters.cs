@@ -16,8 +16,6 @@ namespace Fonlow.CodeDom.Web
         /// </summary>
         public string ClientLibraryProjectFolderName { get; set; }
 
-        public string[] PrefixesOfCustomNamespaces { get; set; }
-
         public string[] ExcludedControllerNames { get; set; }
 
         /// <summary>
@@ -47,29 +45,4 @@ namespace Fonlow.CodeDom.Web
         /// </summary>
         public int? CherryPickingMethods { get; set; }
     }
-    // everytime the json gets updated, make a copy in CodeGenController
-    /*
-    json object to post with content-type application/json
-
-    
-     {
-        "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
-        "PrefixesOfCustomNamespaces": [
-          "DemoWebApi"
-        ],
-        "ExcludedControllerNames": [
-          "DemoWebApi.Controllers.Account"
-        ],
-        "GenerateBothAsyncAndSync": true,
-
-        "TypeScriptFolder" : "ClientApi",
-        "TypeScriptDataModelNamespaces" : [
-           "DemoWebApi_DemoData_Client"
-        ],
-        "DataModelAssemblyNames" : [
-           "DemoWebApi.DemoData"
-        ],
-        "CherryPickingMethods" : 1,
-      }
-    */
 }

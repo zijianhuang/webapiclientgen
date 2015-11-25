@@ -29,12 +29,6 @@ namespace Fonlow.CodeDom.Web
         public string TypeScriptFolder { get; set; }
 
         /// <summary>
-        /// TypeScript uses import which only partially simulate namespaces in .NET
-        /// </summary>
-        public string[] TypeScriptDataModelNamespaces
-        { get; set; }
-
-        /// <summary>
         /// Assembly name without file extension
         /// </summary>
         public string[] DataModelAssemblyNames

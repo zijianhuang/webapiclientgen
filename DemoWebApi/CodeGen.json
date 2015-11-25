@@ -5,9 +5,6 @@
     ],
     "GenerateBothAsyncAndSync": true,
     "TypeScriptFolder": "ClientApi",
-    "TypeScriptDataModelNamespaces": [
-        "DemoWebApi_DemoData_Client"
-    ],
     "DataModelAssemblyNames": [
         "DemoWebApi.DemoData"
     ],

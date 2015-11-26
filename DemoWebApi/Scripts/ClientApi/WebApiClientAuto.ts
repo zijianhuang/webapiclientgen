@@ -54,6 +54,14 @@ namespace DemoWebApi_DemoData_Another_Client {
 
 }
 
+namespace DemoWebApi_Models_Client {
+    export interface Handy {
+        Id?: number;
+        Name?: string;
+    }
+
+}
+
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
         httpClient: HttpClient;
@@ -485,6 +493,15 @@ namespace DemoWebApi_Controllers_Client {
          */
         PostCollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any){
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/Collection'), list, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/Handy
+         * @param {DemoWebApi_Models_Client.Handy} handy 
+         * @return {DemoWebApi_Models_Client.Handy} 
+         */
+        GetHandy(handy: DemoWebApi_Models_Client.Handy, callback: (data : DemoWebApi_Models_Client.Handy) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Handy'), callback, this.error, this.statusCode);
         }
     }
 

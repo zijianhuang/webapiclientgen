@@ -25,6 +25,7 @@ namespace Fonlow.Poco2Ts
         public Poco2TsGen()
         {
             targetUnit = new CodeCompileUnit();
+            pendingTypes = new List<Type>();
         }
 
         /// <summary>
@@ -34,6 +35,7 @@ namespace Fonlow.Poco2Ts
         public Poco2TsGen(CodeCompileUnit codeCompileUnit)
         {
             targetUnit = codeCompileUnit;
+            pendingTypes = new List<Type>();
         }
 
 
@@ -103,7 +105,7 @@ namespace Fonlow.Poco2Ts
             if (types == null)
                 throw new ArgumentNullException("types", "types is not defined.");
 
-            this.pendingTypes = types;
+            this.pendingTypes.AddRange(types);
             var typeGroupedByNamespace = types.GroupBy(d => d.Namespace);
             var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
             foreach (var groupedTypes in typeGroupedByNamespace)
@@ -255,7 +257,7 @@ namespace Fonlow.Poco2Ts
             return new CodeTypeReference("any");
         }
 
-        Type[] pendingTypes;
+        List<Type> pendingTypes;
 
         CodeTypeReference TranslateGenericToTsTypeReference(Type type)
         {

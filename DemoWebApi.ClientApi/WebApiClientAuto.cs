@@ -430,6 +430,42 @@ namespace DemoWebApi.DemoData.Another.Client
         }
     }
 }
+namespace DemoWebApi.Models.Client
+{
+    
+    
+    public class Handy : object
+    {
+        
+        private long _Id;
+        
+        private string _Name;
+        
+        public long Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                _Name = value;
+            }
+        }
+    }
+}
 namespace DemoWebApi.Controllers.Client
 {
     using System;
@@ -1938,6 +1974,38 @@ namespace DemoWebApi.Controllers.Client
             responseMessage.EnsureSuccessStatusCode();
             var text = responseMessage.Content.ReadAsStringAsync().Result;
             return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/Handy
+        /// </summary>
+        public async Task<DemoWebApi.Models.Client.Handy> GetHandyAsync(DemoWebApi.Models.Client.Handy handy)
+        {
+            var template = new System.UriTemplate("api/SuperDemo/Handy");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("handy", handy.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.Models.Client.Handy>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/Handy
+        /// </summary>
+        public DemoWebApi.Models.Client.Handy GetHandy(DemoWebApi.Models.Client.Handy handy)
+        {
+            var template = new System.UriTemplate("api/SuperDemo/Handy");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            uriParameters.Add("handy", handy.ToString());
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.Models.Client.Handy>(text);
         }
     }
     

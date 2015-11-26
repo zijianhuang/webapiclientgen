@@ -23,6 +23,7 @@ namespace Fonlow.Poco2Client
         public Poco2CsGen()
         {
             targetUnit = new CodeCompileUnit();
+            pendingTypes = new List<Type>();
         }
 
         /// <summary>
@@ -32,6 +33,7 @@ namespace Fonlow.Poco2Client
         public Poco2CsGen(CodeCompileUnit codeCompileUnit)
         {
             targetUnit = codeCompileUnit;
+            pendingTypes = new List<Type>();
         }
 
 
@@ -84,7 +86,7 @@ namespace Fonlow.Poco2Client
 
 
 
-        Type[] pendingTypes;
+        List<Type> pendingTypes;
         /// <summary>
         /// Create TypeScript CodeDOM for POCO types. 
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
@@ -95,7 +97,7 @@ namespace Fonlow.Poco2Client
             if (types == null)
                 throw new ArgumentNullException("types", "types is not defined.");
 
-            this.pendingTypes = types;
+            this.pendingTypes.AddRange(types);
             var typeGroupedByNamespace = types.GroupBy(d => d.Namespace);
             var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
             foreach (var groupedTypes in typeGroupedByNamespace)

@@ -509,7 +509,16 @@ namespace DemoWebApi.Controllers
             return list.Count;
         }
 
-
+        [HttpGet]
+        [Route("Handy")]
+        public DemoWebApi.Models.Handy GetHandy(DemoWebApi.Models.Handy handy)
+        {
+            return new Models.Handy()
+            {
+                Id = 1000,
+                Name = "Handy Man",
+            };
+        }
 
     }
 }

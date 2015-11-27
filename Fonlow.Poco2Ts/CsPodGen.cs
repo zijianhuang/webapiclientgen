@@ -84,9 +84,8 @@ namespace Fonlow.Poco2Client
             CreateCodeDom(cherryTypes, methods);
         }
 
-
-
         List<Type> pendingTypes;
+
         /// <summary>
         /// Create TypeScript CodeDOM for POCO types. 
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
@@ -287,11 +286,6 @@ namespace Fonlow.Poco2Client
                     return CreateArrayTypeReference(elementType, 1);
                 }
 
-                //Type closedCollectionType = typeof(ICollection<>).MakeGenericType(genericArguments[0]);
-                //if (closedCollectionType.IsAssignableFrom(type))
-                //{
-                //    return GenerateCollection(type, collectionSize, createdObjectReferences);
-                //}
                 return new CodeTypeReference(typeof(Object));
             }
 
@@ -322,11 +316,6 @@ namespace Fonlow.Poco2Client
             return new CodeTypeReference(typeof(Object));
 
         }
-
-        //CodeTypeReference CreateKeyValuePairTypeReference(Type t1, Type t2)
-        //{
-        //    return new CodeTypeReference(typeof(KeyValuePair<,>).FullName, TranslateToTypeReference(t1), TranslateToTypeReference(t2));
-        //}
 
         static string RefineCustomComplexTypeText(Type t)
         {

@@ -263,11 +263,6 @@ namespace Fonlow.Poco2Ts
         {
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
 
-            //if (IsTuple(genericTypeDefinition))
-            //{
-            //    return new CodeTypeReference(type);
-            //}
-
             Type[] genericArguments = type.GetGenericArguments();
             if (genericArguments.Length == 1)
             {
@@ -285,11 +280,6 @@ namespace Fonlow.Poco2Ts
                     return CreateArrayTypeReference(elementType, 1);
                 }
 
-                //Type closedCollectionType = typeof(ICollection<>).MakeGenericType(genericArguments[0]);
-                //if (closedCollectionType.IsAssignableFrom(type))
-                //{
-                //    return GenerateCollection(type, collectionSize, createdObjectReferences);
-                //}
                 return null;
             }
 

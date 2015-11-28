@@ -19,7 +19,6 @@ namespace Fonlow.CodeDom.Web.Ts
     /// </summary>
     internal class ClientApiTsFunctionGen
     {
-   //     SharedContext sharedContext;
         ApiDescription description;
         string methodName;
         Type returnType;
@@ -29,7 +28,6 @@ namespace Fonlow.CodeDom.Web.Ts
         public ClientApiTsFunctionGen(ApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {
             this.description = description;
-         //   this.sharedContext = sharedContext;
             this.poco2TsGen = poco2TsGen;
 
             methodName = description.ActionDescriptor.ActionName;

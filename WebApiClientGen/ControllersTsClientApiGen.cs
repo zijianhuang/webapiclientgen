@@ -16,16 +16,26 @@ namespace Fonlow.CodeDom.Web.Ts
     /// <summary>
     /// Generate .NET codes of the client API of the controllers
     /// </summary>
-    public class ControllersTsClientApiGen : ControllersClientApiGenBase
+    public class ControllersTsClientApiGen 
     {
+        CodeCompileUnit targetUnit { get; set; }
+        Dictionary<string, object> apiClassesDic { get; set; }
+        CodeTypeDeclaration[] newClassesCreated { get; set; }
+        CodeGenParameters codeGenParameters { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
         public ControllersTsClientApiGen(CodeGenParameters codeGenParameters)
-            : base(codeGenParameters)
         {
+            if (codeGenParameters == null)
+                throw new System.ArgumentNullException("codeGenParameters");
+
+            this.codeGenParameters = codeGenParameters;
+            targetUnit = new CodeCompileUnit();
+            apiClassesDic = new Dictionary<string, object>();
             poco2TsGen = new Poco2TsGen(targetUnit);
         }
 
@@ -35,7 +45,7 @@ namespace Fonlow.CodeDom.Web.Ts
         /// Save C# codes into a file.
         /// </summary>
         /// <param name="fileName"></param>
-        public override void Save(string fileName)
+        public void Save(string fileName)
         {
             var provider = new TypeScriptCodeProvider();
             //   var provider = CodeDomProvider.CreateProvider("CSharp");
@@ -55,7 +65,7 @@ namespace Fonlow.CodeDom.Web.Ts
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public override void CreateCodeDom(Collection<ApiDescription> descriptions)
+        public void CreateCodeDom(Collection<ApiDescription> descriptions)
         {
             AddBasicReferences();
 

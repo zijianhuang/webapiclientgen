@@ -6,26 +6,46 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Http.Description;
-using Fonlow.CodeDom.Web;
-using Fonlow.Poco2Ts;
 using System;
 using Fonlow.Poco2Client;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
     /// <summary>
+    /// Store CodeDom references shared by all functions of the client API class.
+    /// </summary>
+    internal class SharedContext
+    {
+        internal CodeFieldReferenceExpression clientReference { get; set; }
+        internal CodeFieldReferenceExpression baseUriReference { get; set; }
+    }
+
+
+    /// <summary>
     /// Generate .NET codes of the client API of the controllers
     /// </summary>
-    public class ControllersClientApiGen : ControllersClientApiGenBase
+    public class ControllersClientApiGen
     {
+        CodeCompileUnit targetUnit { get; set; }
+        Dictionary<string, object> apiClassesDic { get; set; }
+        CodeTypeDeclaration[] newClassesCreated { get; set; }
+        SharedContext sharedContext { get; set; }
+        CodeGenParameters codeGenParameters { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
         public ControllersClientApiGen(CodeGenParameters codeGenParameters)
-            :base(codeGenParameters)
         {
+            if (codeGenParameters == null)
+                throw new System.ArgumentNullException("codeGenParameters");
+
+            this.codeGenParameters = codeGenParameters;
+            targetUnit = new CodeCompileUnit();
+            apiClassesDic = new Dictionary<string, object>();
+            sharedContext = new SharedContext();
             poco2CsGen = new Poco2CsGen(targetUnit);
         }
 
@@ -35,7 +55,7 @@ namespace Fonlow.CodeDom.Web.Cs
         /// Save C# codes into a file.
         /// </summary>
         /// <param name="fileName"></param>
-        public override void Save(string fileName)
+        public void Save(string fileName)
         {
             CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
             CodeGeneratorOptions options = new CodeGeneratorOptions();
@@ -68,7 +88,7 @@ namespace Fonlow.CodeDom.Web.Cs
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public override  void CreateCodeDom(Collection<ApiDescription> descriptions)
+        public void CreateCodeDom(Collection<ApiDescription> descriptions)
         {
             GenerateCsFromPoco();
             //controllers of ApiDescriptions (functions) grouped by namespace

@@ -90,7 +90,7 @@ namespace Fonlow.Poco2Ts
 
         public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods)
         {
-            var cherryTypes = GetCherryTypes(assembly, methods);
+            var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
             CreateCodeDom(cherryTypes, methods);
         }
 
@@ -123,7 +123,7 @@ namespace Fonlow.Poco2Ts
                     CodeTypeDeclaration typeDeclaration;
                     if (TypeHelper.IsClassOrStruct(type))
                     {
-                        typeDeclaration = CreatePodClientInterface(clientNamespace, tsName);
+                        typeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, tsName);
 
                         if (!type.IsValueType)
                         {
@@ -185,7 +185,7 @@ namespace Fonlow.Poco2Ts
                     }
                     else if (type.IsEnum)
                     {
-                        typeDeclaration = CreatePodClientEnum(clientNamespace, tsName);
+                        typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
 
                         int k = 0;
                         foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
@@ -339,49 +339,6 @@ namespace Fonlow.Poco2Ts
             return otherArrayType;
         }
 
-        static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
-        {
-            var targetClass = new CodeTypeDeclaration(className)
-            {
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
-            };
-
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
-
-        static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
-        {
-            var targetClass = new CodeTypeDeclaration(className)
-            {
-                IsEnum = true,
-            };
-
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
-
-        static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
-        {
-            try
-            {
-                return assembly.GetTypes().Where(type => (TypeHelper.IsClassOrStruct(type) || type.IsEnum)
-                && CherryPicking.IsCherryType(type, methods) && type.IsPublic).ToArray();
-            }
-            catch (ReflectionTypeLoadException e)
-            {
-                foreach (Exception ex in e.LoaderExceptions)
-                {
-                    Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, ex.Message));
-                }
-            }
-            catch (TargetInvocationException e)
-            {
-                Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, e.Message + "~~" + e.InnerException.Message));
-            }
-
-            return null;
-        }
 
     }
 

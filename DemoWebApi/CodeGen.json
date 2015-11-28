@@ -6,7 +6,7 @@
     "GenerateBothAsyncAndSync": true,
     "TypeScriptFolder": "ClientApi",
     "DataModelAssemblyNames": [
-        "DemoWebApi.DemoData"
+        "DemoWebApi.DemoData", "DemoWebApi"
     ],
     "CherryPickingMethods": 1
 }

@@ -80,7 +80,7 @@ namespace Fonlow.Poco2Client
 
         public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods)
         {
-            var cherryTypes = GetCherryTypes(assembly, methods);
+            var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
             CreateCodeDom(cherryTypes, methods);
         }
 
@@ -115,7 +115,7 @@ namespace Fonlow.Poco2Client
                     CodeTypeDeclaration typeDeclaration;
                     if (TypeHelper.IsClassOrStruct(type))
                     {
-                        typeDeclaration = CreatePodClientClass(clientNamespace, tsName);
+                        typeDeclaration = PodGenHelper.CreatePodClientClass(clientNamespace, tsName);
 
                         if (!type.IsValueType)
                         {
@@ -199,7 +199,7 @@ namespace Fonlow.Poco2Client
                     }
                     else if (type.IsEnum)
                     {
-                        typeDeclaration = CreatePodClientEnum(clientNamespace, tsName);
+                        typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
 
                         int k = 0;
                         foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
@@ -323,24 +323,9 @@ namespace Fonlow.Poco2Client
 
         }
 
-        //CodeTypeReference CreateKeyValuePairTypeReference(Type t1, Type t2)
-        //{
-        //    return new CodeTypeReference(typeof(KeyValuePair<,>).FullName, TranslateToTypeReference(t1), TranslateToTypeReference(t2));
-        //}
-
         static string RefineCustomComplexTypeText(Type t)
         {
             return t.Namespace + ".Client." + t.Name;
-        }
-
-        static CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
-        {
-            var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
-            var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
-            {
-                ArrayElementType = elementTypeReference,
-            };
-            return typeReference;
         }
 
         CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
@@ -357,48 +342,14 @@ namespace Fonlow.Poco2Client
             return otherArrayType;
         }
 
-        static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)
+        static CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
         {
-            var targetClass = new CodeTypeDeclaration(className)
+            var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
+            var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
             {
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
+                ArrayElementType = elementTypeReference,
             };
-
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
-
-        static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
-        {
-            var targetClass = new CodeTypeDeclaration(className)
-            {
-                IsEnum = true,
-            };
-
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
-
-        static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
-        {
-            try
-            {
-                return assembly.GetTypes().Where(type => (TypeHelper.IsClassOrStruct(type) || type.IsEnum)
-                && CherryPicking.IsCherryType(type, methods)).ToArray();
-            }
-            catch (ReflectionTypeLoadException e)
-            {
-                foreach (Exception ex in e.LoaderExceptions)
-                {
-                    Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, ex.Message));
-                }
-            }
-            catch (TargetInvocationException e)
-            {
-                Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, e.Message + "~~" + e.InnerException.Message));
-            }
-
-            return null;
+            return typeReference;
         }
 
     }

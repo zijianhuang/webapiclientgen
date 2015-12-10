@@ -4,13 +4,12 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
-using System.Web.Http;
-using System.Web.Http.Description;
 using System.Diagnostics;
 using System.Text;
 using Fonlow.TypeScriptCodeDom;
 using Fonlow.Poco2Ts;
 using Fonlow.Reflection;
+using Fonlow.Web.Meta;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -19,13 +18,14 @@ namespace Fonlow.CodeDom.Web.Ts
     /// </summary>
     internal class ClientApiTsFunctionGen
     {
-        ApiDescription description;
+        WebApiDescription description;
         string methodName;
         Type returnType;
         CodeMemberMethod method;
         readonly Fonlow.Poco2Client.IPoco2Client poco2TsGen;
 
-        public ClientApiTsFunctionGen(ApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
+
+        public ClientApiTsFunctionGen(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {
             this.description = description;
             this.poco2TsGen = poco2TsGen;
@@ -40,7 +40,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
         static readonly Type typeOfString = typeof(string);
 
-        public static CodeMemberMethod Create(ApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
+        public static CodeMemberMethod Create(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {
             var gen = new ClientApiTsFunctionGen(description, poco2TsGen);
             return gen.CreateApiFunction();
@@ -53,7 +53,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             CreateDocComments();
 
-            switch (description.HttpMethod.Method)
+            switch (description.HttpMethod)
             {
                 case "GET":
                 case "DELETE":
@@ -62,7 +62,7 @@ namespace Fonlow.CodeDom.Web.Ts
                     RenderImplementation();
                     break;
                 default:
-                    Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod.Method);
+                    Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
                     break;
             }
 
@@ -73,7 +73,7 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             StringBuilder builder = new StringBuilder();
             builder.AppendLine(description.Documentation);
-            builder.AppendLine(description.HttpMethod.Method + " " + description.RelativePath);
+            builder.AppendLine(description.HttpMethod + " " + description.RelativePath);
             foreach (var item in description.ParameterDescriptions)
             {
                 var tsParameterType = poco2TsGen.TranslateToClientTypeReference(item.ParameterDescriptor.ParameterType);
@@ -100,7 +100,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
         void RenderImplementation()
         {
-            var httpMethod = description.HttpMethod.Method.ToLower(); //Method is always uppercase.
+            var httpMethod = description.HttpMethod.ToLower(); //Method is always uppercase.
             var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
             {
                 Name = d.Name,
@@ -130,9 +130,9 @@ namespace Fonlow.CodeDom.Web.Ts
 
             if (httpMethod == "post" || httpMethod == "put")
             {
-                var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
-                    || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
-                    || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
+                var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromBody 
+                    || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromUri)
+                    || (d.ParameterDescriptor.ParameterBinder== ParameterBinder.None)))).ToArray();
                 if (fromBodyParameterDescriptions.Length > 1)
                 {
                     throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
@@ -161,7 +161,7 @@ namespace Fonlow.CodeDom.Web.Ts
         }
 
 
-        static string CreateUriQuery(string uriText, Collection<ApiParameterDescription> parameterDescriptions)
+        static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
         {
             var template = new UriTemplate(uriText);
 

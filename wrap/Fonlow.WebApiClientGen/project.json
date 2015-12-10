@@ -12,7 +12,8 @@
         "Microsoft.AspNet.WebApi.Core": "5.2.3",
         "Newtonsoft.Json": "7.0.1",
         "Fonlow.Poco2Ts": "1.0.0-*",
-        "Fonlow.TypeScriptCodeDom": "1.0.0-*"
+        "Fonlow.TypeScriptCodeDom": "1.0.0-*",
+        "Fonlow.Web.Meta": "1.0.0-*"
       }
     }
   }

@@ -1,15 +1,16 @@
-﻿using System.Reflection;
-using System.IO;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Web.Http.Description;
+﻿using Fonlow.Poco2Client;
+using Fonlow.Poco2Ts;
 using Fonlow.TypeScriptCodeDom;
 using System;
-using Fonlow.Poco2Ts;
-using Fonlow.Poco2Client;
+using System.CodeDom;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Web.Http.Description;
+using Fonlow.Web.Meta;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -31,7 +32,7 @@ namespace Fonlow.CodeDom.Web.Ts
         public ControllersTsClientApiGen(CodeGenParameters codeGenParameters)
         {
             if (codeGenParameters == null)
-                throw new System.ArgumentNullException("codeGenParameters");
+                throw new ArgumentNullException("codeGenParameters");
 
             this.codeGenParameters = codeGenParameters;
             targetUnit = new CodeCompileUnit();
@@ -65,7 +66,7 @@ namespace Fonlow.CodeDom.Web.Ts
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public void CreateCodeDom(Collection<ApiDescription> descriptions)
+        public void CreateCodeDom(WebApiDescription[] descriptions)
         {
             AddBasicReferences();
 

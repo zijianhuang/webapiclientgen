@@ -1,13 +1,5 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="HttpClient.ts" />
-namespace DemoWebApi_Models_Client {
-    export interface Handy {
-        Id?: number;
-        Name?: string;
-    }
-
-}
-
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
@@ -58,6 +50,14 @@ namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
         X?: number;
         Y?: number;
+    }
+
+}
+
+namespace DemoWebApi_Models_Client {
+    export interface Handy {
+        Id?: number;
+        Name?: string;
     }
 
 }

@@ -8,6 +8,42 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace DemoWebApi.Models.Client
+{
+    
+    
+    public class Handy : object
+    {
+        
+        private long _Id;
+        
+        private string _Name;
+        
+        public long Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                _Name = value;
+            }
+        }
+    }
+}
 namespace DemoWebApi.DemoData.Client
 {
     
@@ -426,42 +462,6 @@ namespace DemoWebApi.DemoData.Another.Client
             set
             {
                 _Y = value;
-            }
-        }
-    }
-}
-namespace DemoWebApi.Models.Client
-{
-    
-    
-    public class Handy : object
-    {
-        
-        private long _Id;
-        
-        private string _Name;
-        
-        public long Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                _Id = value;
-            }
-        }
-        
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                _Name = value;
             }
         }
     }

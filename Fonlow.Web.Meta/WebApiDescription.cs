@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Fonlow.Web.Meta
 {
+    /// <summary>
+    /// POCO for the data structure of ApiDescription
+    /// </summary>
     public class WebApiDescription
     {
         public string Documentation { get; set; }
@@ -44,6 +47,20 @@ namespace Fonlow.Web.Meta
         public string ControllerName { get; set; }
 
         public Type ControllerType { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var a = obj as ControllerDescriptor;
+            if (a == null)
+                return false;
+
+            return a.ControllerName == ControllerName && a.ControllerType == ControllerType;
+        }
+
+        public override int GetHashCode()
+        {
+            return (ControllerType + ControllerType.FullName).GetHashCode();//important for Distinct() of Linq.
+        }
     }
 
     public class ParameterDescription

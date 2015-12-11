@@ -5,7 +5,7 @@ using System.CodeDom.Compiler;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Web.Http.Description;
+using Fonlow.Web.Meta;
 using System;
 using Fonlow.Poco2Client;
 
@@ -88,7 +88,7 @@ namespace Fonlow.CodeDom.Web.Cs
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public void CreateCodeDom(Collection<ApiDescription> descriptions)
+        public void CreateCodeDom(WebApiDescription[] descriptions)
         {
             GenerateCsFromPoco();
             //controllers of ApiDescriptions (functions) grouped by namespace

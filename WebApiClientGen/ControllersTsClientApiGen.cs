@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web.Http.Description;
 using Fonlow.Web.Meta;
 
 namespace Fonlow.CodeDom.Web.Ts
@@ -90,7 +89,7 @@ namespace Fonlow.CodeDom.Web.Ts
                         return null;
 
                     return CreateControllerClientClass(clientNamespace, d.ControllerName);
-                }).ToArray();//add classes into the namespace
+                }).Where(d=>d!= null).ToArray();//add classes into the namespace
             }
 
             foreach (var d in descriptions)

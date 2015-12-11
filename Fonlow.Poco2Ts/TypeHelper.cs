@@ -8,6 +8,21 @@ namespace Fonlow.Reflection
 {
     public static class TypeHelper
     {
+        static readonly System.Collections.Generic.HashSet<string> arrayTypeNames = new System.Collections.Generic.HashSet<string>(
+  new string[] {typeof(IEnumerable<>).FullName,
+typeof(IList<>).FullName,typeof(ICollection<>).FullName,typeof(IQueryable<>).FullName,
+typeof(IReadOnlyList<>).FullName,typeof(List<>).FullName,typeof(System.Collections.ObjectModel.Collection<>).FullName,
+typeof(IReadOnlyCollection<>).FullName
+  }
+       );
+
+//        static readonly System.Collections.Generic.HashSet<string> primitiveTypeNames = new System.Collections.Generic.HashSet<string>(
+//            new string[] {
+//"System.Boolean", "System.Byte", "System.SByte", "System.Int16", "System.UInt16", "System.Int32", "System.UInt32", "System.Int64",
+//"System.UInt64", "System.IntPtr", "System.UIntPtr", "System.Char", "System.Double", "System.Single"
+//            }
+//        );
+
         public static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
         {
             if (memberInfo == null)
@@ -76,14 +91,7 @@ namespace Fonlow.Reflection
 
         public static bool IsArrayType(Type type)
         {
-            return type == typeof(IEnumerable<>) ||
-                   type == typeof(IList<>) ||
-                   type == typeof(ICollection<>) ||
-                   type == typeof(IQueryable<>) ||
-                   type == typeof(IReadOnlyList<>) ||
-                   type == typeof(List<>) ||
-                   type == typeof(System.Collections.ObjectModel.Collection<>) ||
-                   type == typeof(IReadOnlyCollection<>);
+            return arrayTypeNames.Contains(type.FullName);
         }
 
 

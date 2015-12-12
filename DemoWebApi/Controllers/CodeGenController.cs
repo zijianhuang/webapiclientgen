@@ -76,6 +76,7 @@ namespace Fonlow.WebApiClientGen
                 tsGen.CreateCodeDom(apiDescriptions);
                 tsGen.Save(tsPath);
             }
+
             return "OK";
         }
     }

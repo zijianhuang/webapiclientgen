@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fonlow.Web.Meta
 {
     /// <summary>
     /// POCO for the data structure of ApiDescription
     /// </summary>
+    [Serializable]
     public class WebApiDescription
     {
         public string Documentation { get; set; }
@@ -31,6 +28,7 @@ namespace Fonlow.Web.Meta
         }
     }
 
+    [Serializable]
     public class ActionDescriptor
     {
         public string ActionName { get; set; }
@@ -42,6 +40,7 @@ namespace Fonlow.Web.Meta
 
     }
 
+    [Serializable]
     public class ControllerDescriptor
     {
         public string ControllerName { get; set; }
@@ -63,6 +62,7 @@ namespace Fonlow.Web.Meta
         }
     }
 
+    [Serializable]
     public class ParameterDescription
     {
         public string Documentation { get; set; }
@@ -72,6 +72,7 @@ namespace Fonlow.Web.Meta
         public ParameterDescriptor ParameterDescriptor { get; set; }
     }
 
+    [Serializable]
     public class ParameterDescriptor
     {
         public bool IsOptional { get; set; }
@@ -85,6 +86,7 @@ namespace Fonlow.Web.Meta
         public ParameterBinder ParameterBinder { get; set; }
     }
 
+    [Serializable]
     public class ResponseDescription
     {
         public Type DeclaredType { get; set; }
@@ -94,6 +96,7 @@ namespace Fonlow.Web.Meta
 
 
 
+    [Serializable]
     public enum ParameterBinder
     {
         None,

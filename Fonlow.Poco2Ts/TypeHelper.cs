@@ -74,7 +74,7 @@ typeof(IReadOnlyCollection<>).FullName
 
         }
 
-        public static bool GetRequired(Attribute a, string propertyName, string expectedValue)
+        internal static bool GetRequired(Attribute a, string propertyName, string expectedValue)
         {
             var type = a.GetType();
             var publicProperties= type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
@@ -89,7 +89,7 @@ typeof(IReadOnlyCollection<>).FullName
             return propertyValue.ToString() == expectedValue;
         }
 
-        public static bool IsArrayType(Type type)
+        internal static bool IsArrayType(Type type)
         {
             return arrayTypeNames.Contains(type.FullName);
         }

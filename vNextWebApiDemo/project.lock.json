@@ -3,33 +3,6 @@
   "version": 2,
   "targets": {
     "DNX,Version=v4.5.1": {
-      "Fonlow.Poco2Ts/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Fonlow.TypeScriptCodeDom": "1.0.0"
-        }
-      },
-      "Fonlow.TypeScriptCodeDom/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5"
-      },
-      "Fonlow.Web.Meta/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5"
-      },
-      "Fonlow.WebApiClientGen/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Fonlow.Poco2Ts": "1.0.0",
-          "Fonlow.TypeScriptCodeDom": "1.0.0",
-          "Fonlow.Web.Meta": "1.0.0",
-          "Microsoft.AspNet.WebApi.Client": "5.2.3",
-          "Microsoft.AspNet.WebApi.Core": "5.2.3",
-          "Newtonsoft.Json": "7.0.1"
-        }
-      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -799,33 +772,6 @@
           "lib/net451/Microsoft.AspNet.StaticFiles.dll": {}
         }
       },
-      "Microsoft.AspNet.WebApi.Client/5.2.3": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "6.0.4"
-        },
-        "frameworkAssemblies": [
-          "System.Net.Http"
-        ],
-        "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        }
-      },
-      "Microsoft.AspNet.WebApi.Core/5.2.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.Client": "5.2.3"
-        },
-        "compile": {
-          "lib/net45/System.Web.Http.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Web.Http.dll": {}
-        }
-      },
       "Microsoft.AspNet.WebUtilities/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -1393,7 +1339,7 @@
           "lib/net451/Microsoft.Net.Http.Headers.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/6.0.6": {
         "type": "package",
         "compile": {
           "lib/net45/Newtonsoft.Json.dll": {}
@@ -1615,9 +1561,6 @@
       }
     },
     "DNXCore,Version=v5.0": {
-      "Fonlow.WebApiClientGen/1.0.0": {
-        "type": "project"
-      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -3734,33 +3677,6 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x86": {
-      "Fonlow.Poco2Ts/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Fonlow.TypeScriptCodeDom": "1.0.0"
-        }
-      },
-      "Fonlow.TypeScriptCodeDom/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5"
-      },
-      "Fonlow.Web.Meta/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5"
-      },
-      "Fonlow.WebApiClientGen/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Fonlow.Poco2Ts": "1.0.0",
-          "Fonlow.TypeScriptCodeDom": "1.0.0",
-          "Fonlow.Web.Meta": "1.0.0",
-          "Microsoft.AspNet.WebApi.Client": "5.2.3",
-          "Microsoft.AspNet.WebApi.Core": "5.2.3",
-          "Newtonsoft.Json": "7.0.1"
-        }
-      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -4533,33 +4449,6 @@
           "lib/net451/Microsoft.AspNet.StaticFiles.dll": {}
         }
       },
-      "Microsoft.AspNet.WebApi.Client/5.2.3": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "6.0.4"
-        },
-        "frameworkAssemblies": [
-          "System.Net.Http"
-        ],
-        "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        }
-      },
-      "Microsoft.AspNet.WebApi.Core/5.2.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.Client": "5.2.3"
-        },
-        "compile": {
-          "lib/net45/System.Web.Http.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Web.Http.dll": {}
-        }
-      },
       "Microsoft.AspNet.WebUtilities/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -5127,7 +5016,7 @@
           "lib/net451/Microsoft.Net.Http.Headers.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/6.0.6": {
         "type": "package",
         "compile": {
           "lib/net45/Newtonsoft.Json.dll": {}
@@ -5349,33 +5238,6 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x64": {
-      "Fonlow.Poco2Ts/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Fonlow.TypeScriptCodeDom": "1.0.0"
-        }
-      },
-      "Fonlow.TypeScriptCodeDom/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5"
-      },
-      "Fonlow.Web.Meta/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5"
-      },
-      "Fonlow.WebApiClientGen/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5",
-        "dependencies": {
-          "Fonlow.Poco2Ts": "1.0.0",
-          "Fonlow.TypeScriptCodeDom": "1.0.0",
-          "Fonlow.Web.Meta": "1.0.0",
-          "Microsoft.AspNet.WebApi.Client": "5.2.3",
-          "Microsoft.AspNet.WebApi.Core": "5.2.3",
-          "Newtonsoft.Json": "7.0.1"
-        }
-      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -6148,33 +6010,6 @@
           "lib/net451/Microsoft.AspNet.StaticFiles.dll": {}
         }
       },
-      "Microsoft.AspNet.WebApi.Client/5.2.3": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "6.0.4"
-        },
-        "frameworkAssemblies": [
-          "System.Net.Http"
-        ],
-        "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        }
-      },
-      "Microsoft.AspNet.WebApi.Core/5.2.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.Client": "5.2.3"
-        },
-        "compile": {
-          "lib/net45/System.Web.Http.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Web.Http.dll": {}
-        }
-      },
       "Microsoft.AspNet.WebUtilities/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -6742,7 +6577,7 @@
           "lib/net451/Microsoft.Net.Http.Headers.dll": {}
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/6.0.6": {
         "type": "package",
         "compile": {
           "lib/net45/Newtonsoft.Json.dll": {}
@@ -6964,9 +6799,6 @@
       }
     },
     "DNXCore,Version=v5.0/win7-x86": {
-      "Fonlow.WebApiClientGen/1.0.0": {
-        "type": "project"
-      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -9492,9 +9324,6 @@
       }
     },
     "DNXCore,Version=v5.0/win7-x64": {
-      "Fonlow.WebApiClientGen/1.0.0": {
-        "type": "project"
-      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -12021,22 +11850,6 @@
     }
   },
   "libraries": {
-    "Fonlow.Poco2Ts/1.0.0": {
-      "type": "project",
-      "path": "../wrap/Fonlow.Poco2Ts/project.json"
-    },
-    "Fonlow.TypeScriptCodeDom/1.0.0": {
-      "type": "project",
-      "path": "../wrap/Fonlow.TypeScriptCodeDom/project.json"
-    },
-    "Fonlow.Web.Meta/1.0.0": {
-      "type": "project",
-      "path": "../wrap/Fonlow.Web.Meta/project.json"
-    },
-    "Fonlow.WebApiClientGen/1.0.0": {
-      "type": "project",
-      "path": "../wrap/Fonlow.WebApiClientGen/project.json"
-    },
     "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
       "type": "package",
       "serviceable": true,
@@ -12579,33 +12392,6 @@
         "Microsoft.AspNet.StaticFiles.1.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.StaticFiles.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.StaticFiles.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.WebApi.Client/5.2.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "3kiI8peSXbXHDDrRuo+QaX0iCEVRe0nvn2dBDRw656uPX32UalbBlSIDUDlJxu05eau4tnuhsikiUuugvvoUoQ==",
-      "files": [
-        "lib/net45/System.Net.Http.Formatting.dll",
-        "lib/net45/System.Net.Http.Formatting.xml",
-        "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.dll",
-        "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.xml",
-        "Microsoft.AspNet.WebApi.Client.5.2.3.nupkg",
-        "Microsoft.AspNet.WebApi.Client.5.2.3.nupkg.sha512",
-        "Microsoft.AspNet.WebApi.Client.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.WebApi.Core/5.2.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "o90QYlRV8VKR1S7+EcJw9w8WSyVFLl+IIzN8ILZ+n2t6rsc/KS8kBxRzA7wCFPRUHhebCfLqilBk39phvanx3g==",
-      "files": [
-        "Content/web.config.transform",
-        "lib/net45/System.Web.Http.dll",
-        "lib/net45/System.Web.Http.xml",
-        "Microsoft.AspNet.WebApi.Core.5.2.3.nupkg",
-        "Microsoft.AspNet.WebApi.Core.5.2.3.nupkg.sha512",
-        "Microsoft.AspNet.WebApi.Core.nuspec"
       ]
     },
     "Microsoft.AspNet.WebUtilities/1.0.0-rc1-final": {
@@ -13234,28 +13020,6 @@
         "lib/portable-net45+wp80+win8+wpa81+aspnetcore50/Newtonsoft.Json.xml",
         "Newtonsoft.Json.6.0.6.nupkg",
         "Newtonsoft.Json.6.0.6.nupkg.sha512",
-        "Newtonsoft.Json.nuspec",
-        "tools/install.ps1"
-      ]
-    },
-    "Newtonsoft.Json/7.0.1": {
-      "type": "package",
-      "sha512": "q3V4KLetMLnt1gpAVWgtXnHjKs0UG/RalBc29u2ZKxd5t5Ze4JBL5WiiYIklJyK/5CRiIiNwigVQUo0FgbsuWA==",
-      "files": [
-        "lib/net20/Newtonsoft.Json.dll",
-        "lib/net20/Newtonsoft.Json.xml",
-        "lib/net35/Newtonsoft.Json.dll",
-        "lib/net35/Newtonsoft.Json.xml",
-        "lib/net40/Newtonsoft.Json.dll",
-        "lib/net40/Newtonsoft.Json.xml",
-        "lib/net45/Newtonsoft.Json.dll",
-        "lib/net45/Newtonsoft.Json.xml",
-        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
-        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
-        "Newtonsoft.Json.7.0.1.nupkg",
-        "Newtonsoft.Json.7.0.1.nupkg.sha512",
         "Newtonsoft.Json.nuspec",
         "tools/install.ps1"
       ]
@@ -16950,7 +16714,6 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Fonlow.WebApiClientGen >= 1.4.0.3",
       "Microsoft.AspNet.IISPlatformHandler >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Mvc >= 6.0.0-rc1-final",
       "Microsoft.AspNet.Server.Kestrel >= 1.0.0-rc1-final",

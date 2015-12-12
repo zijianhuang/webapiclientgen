@@ -148,12 +148,6 @@ namespace Fonlow.CodeDom.Web.Ts
             Debug.Assert(false, "How come?");
         }
 
-        static CodeTypeReference CreateCodeTypeReferenceForFromBodySimpleType(Type t)
-        {
-            var typeText = TypeMapper.MapToTsBasicType(t);
-            return new CodeTypeReference(typeText);
-        }
-
         static string RemoveTrialEmptyString(string s)
         {
             var p = s.IndexOf("+''");

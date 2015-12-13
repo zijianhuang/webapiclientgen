@@ -38,8 +38,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
         }
 
-        static readonly Type typeOfString = typeof(string);
-
         public static CodeMemberMethod Create(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {
             var gen = new ClientApiTsFunctionGen(description, poco2TsGen);

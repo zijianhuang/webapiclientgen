@@ -19,8 +19,6 @@ namespace Fonlow.CodeDom.Web.Ts
     public class ControllersTsClientApiGen 
     {
         CodeCompileUnit targetUnit { get; set; }
-        Dictionary<string, object> apiClassesDic { get; set; }
-        CodeTypeDeclaration[] newClassesCreated { get; set; }
         CodeGenParameters codeGenParameters { get; set; }
 
         /// <summary>
@@ -35,7 +33,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
             this.codeGenParameters = codeGenParameters;
             targetUnit = new CodeCompileUnit();
-            apiClassesDic = new Dictionary<string, object>();
             poco2TsGen = new Poco2TsGen(targetUnit);
         }
 
@@ -67,6 +64,11 @@ namespace Fonlow.CodeDom.Web.Ts
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
         public void CreateCodeDom(WebApiDescription[] descriptions)
         {
+            if (descriptions==null)
+            {
+                throw new ArgumentNullException("descriptions");
+            }
+
             AddBasicReferences();
 
             GenerateTsFromPoco();
@@ -82,7 +84,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
-                newClassesCreated = grouppedControllerDescriptions.Select(d =>
+                var newClassesCreated = grouppedControllerDescriptions.Select(d =>
                 {
                     var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
                     if (codeGenParameters.ExcludedControllerNames != null && codeGenParameters.ExcludedControllerNames.Contains(controllerFullName))

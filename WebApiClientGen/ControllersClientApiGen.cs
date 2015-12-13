@@ -27,8 +27,6 @@ namespace Fonlow.CodeDom.Web.Cs
     public class ControllersClientApiGen
     {
         CodeCompileUnit targetUnit { get; set; }
-        Dictionary<string, object> apiClassesDic { get; set; }
-        CodeTypeDeclaration[] newClassesCreated { get; set; }
         SharedContext sharedContext { get; set; }
         CodeGenParameters codeGenParameters { get; set; }
 
@@ -44,7 +42,6 @@ namespace Fonlow.CodeDom.Web.Cs
 
             this.codeGenParameters = codeGenParameters;
             targetUnit = new CodeCompileUnit();
-            apiClassesDic = new Dictionary<string, object>();
             sharedContext = new SharedContext();
             poco2CsGen = new Poco2CsGen(targetUnit);
         }
@@ -90,6 +87,11 @@ namespace Fonlow.CodeDom.Web.Cs
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
         public void CreateCodeDom(WebApiDescription[] descriptions)
         {
+            if (descriptions==null)
+            {
+                throw new ArgumentNullException("descriptions");
+            }
+
             GenerateCsFromPoco();
             //controllers of ApiDescriptions (functions) grouped by namespace
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
@@ -109,7 +111,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 new CodeNamespaceImport("Newtonsoft.Json"),
                 });
 
-                newClassesCreated = grouppedControllerDescriptions.Select(d =>
+                var newClassesCreated = grouppedControllerDescriptions.Select(d =>
                 {
                     var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
                     if (codeGenParameters.ExcludedControllerNames != null && codeGenParameters.ExcludedControllerNames.Contains(controllerFullName))

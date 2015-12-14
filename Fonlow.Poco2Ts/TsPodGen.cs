@@ -176,7 +176,6 @@ namespace Fonlow.Poco2Ts
                             {
                                 Name = tsPropertyName + (isRequired ? String.Empty : "?"),
                                 Type = TranslateToClientTypeReference(fieldInfo.FieldType),
-                                //         Attributes = MemberAttributes.Public,
                             };
 
                             typeDeclaration.Members.Add(clientField);

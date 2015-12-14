@@ -254,6 +254,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\qunit.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -280,7 +281,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -305,7 +305,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -340,6 +342,14 @@
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
       <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
       <Name>Fonlow.TypeScriptCodeDom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fonlow.Web.MetaTransform\Fonlow.Web.MetaTransform.csproj">
+      <Project>{cae5cb60-4704-40ca-a7f7-a1b7b1a596f6}</Project>
+      <Name>Fonlow.Web.MetaTransform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fonlow.Web.Meta\Fonlow.Web.Meta.csproj">
+      <Project>{4d7f5b3e-b38d-4083-88fc-dd4908649bd4}</Project>
+      <Name>Fonlow.Web.Meta</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebApiClientGen\WebApiClientGen.csproj">
       <Project>{1673d7d1-16be-48a0-901a-9706087293d4}</Project>

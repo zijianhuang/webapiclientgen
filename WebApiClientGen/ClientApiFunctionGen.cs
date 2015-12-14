@@ -1,10 +1,9 @@
 ﻿using System;
 using System.CodeDom;
 using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Description;
 using System.Diagnostics;
 using Fonlow.Reflection;
+using Fonlow.Web.Meta;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -14,7 +13,7 @@ namespace Fonlow.CodeDom.Web.Cs
     internal class ClientApiFunctionGen
     {
         SharedContext sharedContext;
-        ApiDescription description;
+        WebApiDescription description;
         //    string relativePath;
         //  string route;
         //  Collection<ApiParameterDescription> parameterDescriptions;
@@ -26,7 +25,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
         bool forAsync;
 
-        public ClientApiFunctionGen(SharedContext sharedContext, ApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen)
+        public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen)
         {
             this.description = description;
             this.sharedContext = sharedContext;
@@ -45,11 +44,10 @@ namespace Fonlow.CodeDom.Web.Cs
 
         }
 
-        static readonly Type typeOfHttpActionResult = typeof(System.Web.Http.IHttpActionResult);
+        static readonly string typeOfHttpActionResult = "System.Web.Http.IHttpActionResult";
         static readonly Type typeOfChar = typeof(char);
-        static readonly Type typeOfObject = typeof(Object);
 
-        public static CodeMemberMethod Create(SharedContext sharedContext, ApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool forAsync = false)
+        public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool forAsync = false)
         {
             var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen);
             return gen.CreateApiFunction(forAsync);
@@ -63,7 +61,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
             CreateDocComments();
 
-            switch (description.HttpMethod.Method)
+            switch (description.HttpMethod)
             {
                 case "GET":
                     if (forAsync)
@@ -100,7 +98,7 @@ namespace Fonlow.CodeDom.Web.Cs
                     break;
 
                 default:
-                    Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod.Method);
+                    Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
                     break;
             }
 
@@ -149,7 +147,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
             method.Comments.Add(new CodeCommentStatement("<summary>", true));
             method.Comments.Add(new CodeCommentStatement(description.Documentation, true));
-            method.Comments.Add(new CodeCommentStatement(description.HttpMethod.Method + " " + description.RelativePath, true));
+            method.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
             method.Comments.Add(new CodeCommentStatement("</summary>", true));
             foreach (var item in description.ParameterDescriptions)
             {
@@ -213,11 +211,11 @@ namespace Fonlow.CodeDom.Web.Cs
 
         }
 
-        static readonly Type typeOfHttpResponseMessage = typeof(System.Net.Http.HttpResponseMessage);
+        static readonly string typeOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
 
         void AddReturnStatement()
         {
-            if ((returnType == typeOfHttpResponseMessage) || (returnType == typeOfHttpActionResult))
+            if ((returnType.FullName == typeOfHttpResponseMessage) || (returnType.FullName == typeOfHttpActionResult))
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
                 return;
@@ -264,17 +262,17 @@ namespace Fonlow.CodeDom.Web.Cs
             method.Parameters.AddRange(parameters);
 
             var uriQueryParameters = description.ParameterDescriptions.Where(d =>
-                (!(d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute) && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
-                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
-                || (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute)
+                (!(d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromBody) && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
+                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromUri)
+                || (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromUri)
                 ).Select(d => new CodeParameterDeclarationExpression()
                 {
                     Name = d.Name,
                     Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
                 }).ToArray();
 
-            var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinderAttribute is FromBodyAttribute
-                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinderAttribute is FromUriAttribute) || (d.ParameterDescriptor.ParameterBinderAttribute == null)))).ToArray();
+            var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromBody
+                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder== ParameterBinder.None)))).ToArray();
             if (fromBodyParameterDescriptions.Length > 1)
             {
                 throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));

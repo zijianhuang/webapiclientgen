@@ -1,15 +1,15 @@
-﻿using System.Reflection;
-using System.IO;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Web.Http.Description;
+﻿using Fonlow.Poco2Client;
+using Fonlow.Poco2Ts;
 using Fonlow.TypeScriptCodeDom;
 using System;
-using Fonlow.Poco2Ts;
-using Fonlow.Poco2Client;
+using System.CodeDom;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Fonlow.Web.Meta;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -19,8 +19,6 @@ namespace Fonlow.CodeDom.Web.Ts
     public class ControllersTsClientApiGen 
     {
         CodeCompileUnit targetUnit { get; set; }
-        Dictionary<string, object> apiClassesDic { get; set; }
-        CodeTypeDeclaration[] newClassesCreated { get; set; }
         CodeGenParameters codeGenParameters { get; set; }
 
         /// <summary>
@@ -31,11 +29,10 @@ namespace Fonlow.CodeDom.Web.Ts
         public ControllersTsClientApiGen(CodeGenParameters codeGenParameters)
         {
             if (codeGenParameters == null)
-                throw new System.ArgumentNullException("codeGenParameters");
+                throw new ArgumentNullException("codeGenParameters");
 
             this.codeGenParameters = codeGenParameters;
             targetUnit = new CodeCompileUnit();
-            apiClassesDic = new Dictionary<string, object>();
             poco2TsGen = new Poco2TsGen(targetUnit);
         }
 
@@ -65,8 +62,13 @@ namespace Fonlow.CodeDom.Web.Ts
         /// Generate CodeDom of the client API for ApiDescriptions.
         /// </summary>
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public void CreateCodeDom(Collection<ApiDescription> descriptions)
+        public void CreateCodeDom(WebApiDescription[] descriptions)
         {
+            if (descriptions==null)
+            {
+                throw new ArgumentNullException("descriptions");
+            }
+
             AddBasicReferences();
 
             GenerateTsFromPoco();
@@ -82,14 +84,14 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
-                newClassesCreated = grouppedControllerDescriptions.Select(d =>
+                var newClassesCreated = grouppedControllerDescriptions.Select(d =>
                 {
                     var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
                     if (codeGenParameters.ExcludedControllerNames != null && codeGenParameters.ExcludedControllerNames.Contains(controllerFullName))
                         return null;
 
                     return CreateControllerClientClass(clientNamespace, d.ControllerName);
-                }).ToArray();//add classes into the namespace
+                }).Where(d=>d!= null).ToArray();//add classes into the namespace
             }
 
             foreach (var d in descriptions)

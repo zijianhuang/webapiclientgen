@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Fonlow.CodeDom.Web;
+using System.Linq;
 
 namespace Fonlow.WebApiClientGen
 {
@@ -22,10 +23,10 @@ namespace Fonlow.WebApiClientGen
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "parametersNull" });
 
             string webRootPath = System.Web.Hosting.HostingEnvironment.MapPath("~");
-            System.Collections.ObjectModel.Collection<System.Web.Http.Description.ApiDescription> apiDescriptions;
+            Fonlow.Web.Meta.WebApiDescription[] apiDescriptions;
             try
             {
-                apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions;
+                apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).ToArray();
 
             }
             catch (System.InvalidOperationException e)
@@ -75,6 +76,7 @@ namespace Fonlow.WebApiClientGen
                 tsGen.CreateCodeDom(apiDescriptions);
                 tsGen.Save(tsPath);
             }
+
             return "OK";
         }
     }

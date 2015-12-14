@@ -8,6 +8,26 @@ namespace Fonlow.Reflection
 {
     public static class TypeHelper
     {
+        static readonly System.Collections.Generic.HashSet<string> arrayTypeNames = new System.Collections.Generic.HashSet<string>(
+        new string[] {
+            typeof(IEnumerable<>).FullName,
+            typeof(IList<>).FullName,
+            typeof(ICollection<>).FullName,
+            typeof(IQueryable<>).FullName,
+            typeof(IReadOnlyList<>).FullName,
+            typeof(List<>).FullName,
+            typeof(System.Collections.ObjectModel.Collection<>).FullName,
+            typeof(IReadOnlyCollection<>).FullName
+       }
+       );
+
+        //        static readonly System.Collections.Generic.HashSet<string> primitiveTypeNames = new System.Collections.Generic.HashSet<string>(
+        //            new string[] {
+        //"System.Boolean", "System.Byte", "System.SByte", "System.Int16", "System.UInt16", "System.Int32", "System.UInt32", "System.Int64",
+        //"System.UInt64", "System.IntPtr", "System.UIntPtr", "System.Char", "System.Double", "System.Single"
+        //            }
+        //        );
+
         public static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
         {
             if (memberInfo == null)
@@ -59,10 +79,10 @@ namespace Fonlow.Reflection
 
         }
 
-        public static bool GetRequired(Attribute a, string propertyName, string expectedValue)
+        internal static bool GetRequired(Attribute a, string propertyName, string expectedValue)
         {
             var type = a.GetType();
-            var publicProperties= type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
+            var publicProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
             var expectedProperty = publicProperties.FirstOrDefault(d => d.Name == propertyName);
             if (expectedProperty == null)
                 throw new InvalidOperationException($"Expected property {propertyName} does not exist in {a.GetType().FullName}");
@@ -74,16 +94,9 @@ namespace Fonlow.Reflection
             return propertyValue.ToString() == expectedValue;
         }
 
-        public static bool IsArrayType(Type type)
+        internal static bool IsArrayType(Type type)
         {
-            return type == typeof(IEnumerable<>) ||
-                   type == typeof(IList<>) ||
-                   type == typeof(ICollection<>) ||
-                   type == typeof(IQueryable<>) ||
-                   type == typeof(IReadOnlyList<>) ||
-                   type == typeof(List<>) ||
-                   type == typeof(System.Collections.ObjectModel.Collection<>) ||
-                   type == typeof(IReadOnlyCollection<>);
+            return arrayTypeNames.Contains(type.FullName);
         }
 
 

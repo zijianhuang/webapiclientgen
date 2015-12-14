@@ -1,26 +1,63 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Fonlow.Web.Meta
 {
+    public class Constants
+    {
+        public const string NS = "http://fonlow.com/Web/Meta/201509";
+    }
+
+    [Serializable]
+    [DataContract(Namespace = Constants.NS)]
+    public class WebApiDescriptions
+    {
+        [DataMember]
+        public WebApiDescription[] Descriptions
+        { get; set; }
+
+        /// <summary>
+        /// Schema sets done through XmlScehma.Write().
+        /// </summary>
+        [DataMember]
+        public string[] Schemas
+        { get; set; }
+    }
+
     /// <summary>
     /// POCO for the data structure of ApiDescription
     /// </summary>
     [Serializable]
+    [DataContract(Namespace = Constants.NS)]
     public class WebApiDescription
     {
-        public string Documentation { get; set; }
+        [DataMember]
+        public string Documentation
+        { get; set; }
 
-        public string ID { get; private set; }
+        [DataMember]
+        public string ID
+        { get; private set; }
 
-        public ActionDescriptor ActionDescriptor { get; set; }
+        [DataMember]
+        public ActionDescriptor ActionDescriptor
+        { get; set; }
 
-        public string HttpMethod { get; set; }
+        [DataMember]
+        public string HttpMethod
+        { get; set; }
 
-        public ParameterDescription[] ParameterDescriptions { get; set; }
+        [DataMember]
+        public ParameterDescription[] ParameterDescriptions
+        { get; set; }
 
-        public string RelativePath { get; set; }
+        [DataMember]
+        public string RelativePath
+        { get; set; }
 
-        public ResponseDescription ResponseDescription { get; set; }
+        [DataMember]
+        public ResponseDescription ResponseDescription
+        { get; set; }
 
         public WebApiDescription(string id)
         {
@@ -29,23 +66,57 @@ namespace Fonlow.Web.Meta
     }
 
     [Serializable]
+    [DataContract(Namespace = Constants.NS)]
     public class ActionDescriptor
     {
-        public string ActionName { get; set; }
+        [DataMember]
+        public string ActionName
+        { get; set; }
 
-        public Type ReturnType { get; set; }
+        public Type ReturnType
+        { get; set; }
 
 
-        public ControllerDescriptor ControllerDescriptor { get; set; }
+        public string ReturnTypeName
+        {
+            get
+            {
+                if (ReturnType == null)
+                    return null;
+
+                return ReturnType.FullName;
+            }
+
+            set { }
+        }
+        public ControllerDescriptor ControllerDescriptor
+        { get; set; }
 
     }
 
     [Serializable]
+    [DataContract(Namespace = Constants.NS)]
     public class ControllerDescriptor
     {
-        public string ControllerName { get; set; }
+        [DataMember]
+        public string ControllerName
+        { get; set; }
 
-        public Type ControllerType { get; set; }
+        public Type ControllerType
+        { get; set; }
+
+        [DataMember]
+        public string ControllerTypeName
+        {
+            get
+            {
+                if (ControllerType == null)
+                    return null;
+
+                return ControllerType.FullName;
+            }
+            set { }
+        }
 
         public override bool Equals(object obj)
         {
@@ -63,44 +134,99 @@ namespace Fonlow.Web.Meta
     }
 
     [Serializable]
+    [DataContract(Namespace = Constants.NS)]
     public class ParameterDescription
     {
-        public string Documentation { get; set; }
+        [DataMember]
+        public string Documentation
+        { get; set; }
 
-        public string Name { get; set; }
+        [DataMember]
+        public string Name
+        { get; set; }
 
-        public ParameterDescriptor ParameterDescriptor { get; set; }
+        [DataMember]
+        public ParameterDescriptor ParameterDescriptor
+        { get; set; }
     }
 
     [Serializable]
+    [DataContract(Namespace = Constants.NS)]
     public class ParameterDescriptor
     {
-        public bool IsOptional { get; set; }
+        [DataMember]
+        public bool IsOptional
+        { get; set; }
 
-        public string ParameterName { get; set; }
+        [DataMember]
+        public string ParameterName
+        { get; set; }
 
-        public Type ParameterType { get; set; }
+        [DataMember]
+        public Type ParameterType
+        { get; set; }
 
-        public string Prefix { get; set; }
+        [DataMember]
+        public string Prefix
+        { get; set; }
 
-        public ParameterBinder ParameterBinder { get; set; }
+        [DataMember]
+        public ParameterBinder ParameterBinder
+        { get; set; }
     }
 
     [Serializable]
+    [DataContract(Namespace = Constants.NS)]
     public class ResponseDescription
     {
-        public Type DeclaredType { get; set; }
-        public string Documentation { get; set; }
-        public Type ResponseType { get; set; }
+        public Type DeclaredType
+        { get; set; }
+
+        [DataMember]
+        public string DeclaredTypeName
+        {
+            get
+            {
+                if (DeclaredType == null)
+                    return null;
+
+                return DeclaredType.FullName;
+            }
+            set { }
+        }
+
+        [DataMember]
+        public string Documentation
+        { get; set; }
+
+        public Type ResponseType
+        { get; set; }
+
+        [DataMember]
+        public string ResponseTypeName
+        {
+            get
+            {
+                if (ResponseType == null)
+                    return null;
+
+                return ResponseType.FullName;
+            }
+            set { }
+        }
     }
 
 
 
     [Serializable]
+    [DataContract(Namespace = Constants.NS)]
     public enum ParameterBinder
     {
+        [EnumMember]
         None,
+        [EnumMember]
         FromUri,
+        [EnumMember]
         FromBody
     }
 }

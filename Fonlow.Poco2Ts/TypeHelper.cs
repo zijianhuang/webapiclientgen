@@ -21,6 +21,20 @@ namespace Fonlow.Reflection
        }
        );
 
+        internal static readonly List<string> TupleTypeNames = new List<string>(
+            new string[]
+            {
+                typeof(Tuple<>).FullName,
+                typeof(Tuple<,>).FullName,
+                typeof(Tuple<,,>).FullName,
+                typeof(Tuple<,,,>).FullName,
+                typeof(Tuple<,,,,>).FullName,
+                typeof(Tuple<,,,,,>).FullName,
+                typeof(Tuple<,,,,,,>).FullName,
+                typeof(Tuple<,,,,,,,>).FullName,
+            });
+
+
         //        static readonly System.Collections.Generic.HashSet<string> primitiveTypeNames = new System.Collections.Generic.HashSet<string>(
         //            new string[] {
         //"System.Boolean", "System.Byte", "System.SByte", "System.Int16", "System.UInt16", "System.Int32", "System.UInt32", "System.Int64",
@@ -99,6 +113,10 @@ namespace Fonlow.Reflection
             return arrayTypeNames.Contains(type.FullName);
         }
 
+        internal static int IsTuple(Type type)
+        {
+            return TupleTypeNames.IndexOf(type.FullName);
+        }
 
         static readonly Type typeOfString = typeof(string);
 

@@ -137,7 +137,7 @@ namespace Fonlow.Poco2Client
                             string tsPropertyName;
 
 
-                     //todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
+                            //todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
                             tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
 
@@ -145,9 +145,9 @@ namespace Fonlow.Poco2Client
                             {
                                 Name = tsPropertyName,
                                 Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
-                                Attributes= MemberAttributes.Public | MemberAttributes.Final,
+                                Attributes = MemberAttributes.Public | MemberAttributes.Final,
                                 //todo: add some attributes
-                                
+
                             };
                             var privateFieldName = "_" + tsPropertyName;
 
@@ -170,7 +170,7 @@ namespace Fonlow.Poco2Client
                             string tsPropertyName;
 
 
-                          //  var isRequired = cherryType == CherryType.BigCherry;
+                            //  var isRequired = cherryType == CherryType.BigCherry;
 
 
                             tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
@@ -256,10 +256,10 @@ namespace Fonlow.Poco2Client
             else
             {
                 if (type.FullName == "System.Web.Http.IHttpActionResult")
-                    return new CodeTypeReference( "System.Net.Http.HttpResponseMessage");
+                    return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
 
                 if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-                    return new CodeTypeReference( "Newtonsoft.Json.Linq.JObject");
+                    return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
 
             }
 
@@ -276,25 +276,62 @@ namespace Fonlow.Poco2Client
                 return new CodeTypeReference(type);
             }
 
-            Type[] genericArguments = type.GetGenericArguments();
-            if (genericArguments.Length == 1)
+            //Handle array types
+            if (TypeHelper.IsArrayType(genericTypeDefinition))
             {
-                if (TypeHelper.IsArrayType(genericTypeDefinition))
-                {
-                    Debug.Assert(type.GenericTypeArguments.Length == 1);
-                    var elementType = type.GenericTypeArguments[0];
-                    return CreateArrayTypeReference(elementType, 1);
-                }
-
-                return new CodeTypeReference(typeof(Object));
+                Debug.Assert(type.GenericTypeArguments.Length == 1);
+                var elementType = type.GenericTypeArguments[0];
+                return CreateArrayTypeReference(elementType, 1);
             }
+
+
+            Type[] genericArguments = type.GetGenericArguments();
+
+            var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
+            if (tupleTypeIndex>=0)
+            {
+                switch (tupleTypeIndex)
+                {
+                    case 0:
+                        Debug.Assert(genericArguments.Length == 1);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[0], TranslateToClientTypeReference(genericArguments[0]));
+                    case 1:
+                        Debug.Assert(genericArguments.Length == 2);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[1], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
+                    case 2:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[2], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            ,TranslateToClientTypeReference(genericArguments[2]));
+                    case 3:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[3], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]));
+                    case 4:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[4], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]), TranslateToClientTypeReference(genericArguments[4]));
+                    case 5:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[5], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]), TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5]));
+                    case 6:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[5], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]), TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5]), TranslateToClientTypeReference(genericArguments[6]));
+                    case 7:
+                        Debug.Assert(genericArguments.Length == 8);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[5], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]), TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5]), TranslateToClientTypeReference(genericArguments[6]), TranslateToClientTypeReference(genericArguments[7]));
+                    default:
+                        throw new InvalidOperationException("Hey, what Tuple");
+                }
+            }
+
 
             if (genericArguments.Length == 2)
             {
                 if (genericTypeDefinition == typeof(IDictionary<,>))
                 {
-                    return new CodeTypeReference(typeof(Dictionary<,>).FullName, 
-                        TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference( genericArguments[1]));
+                    return new CodeTypeReference(typeof(Dictionary<,>).FullName,
+                        TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
                 }
 
                 Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);

@@ -1,3 +1,4 @@
+var _this = this;
 /// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="HttpClient.ts" />
 var DemoWebApi_DemoData_Client;
@@ -403,6 +404,14 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.PostCollection = function (list, callback) {
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/Collection'), list, callback, this.error, this.statusCode);
         };
+        /**
+         * GET api/SuperDemo/Handy
+         * @param {DemoWebApi_Models_Client.Handy} handy
+         * @return {DemoWebApi_Models_Client.Handy}
+         */
+        SuperDemo.prototype.GetHandy = function (handy, callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Handy'), callback, this.error, this.statusCode);
+        };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
@@ -415,12 +424,22 @@ var DemoWebApi_Controllers_Client;
             this.httpClient = new HttpClient();
         }
         /**
-         * GET Company?id={id}
+         * PUT api/SuperDemo/link?id={id}&relationship={relationship}
+         * @param {number} id
+         * @param {string} relationship
+         * @param {DemoWebApi_DemoData_Client.Person} person
+         * @return {boolean}
+         */
+        Entities.prototype.LinkPerson = function (id, relationship, person, callback) {
+            this.httpClient.put(encodeURI(this.baseUri + 'api/SuperDemo/link?id=' + id + '&relationship=' + relationship), person, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/Company?id={id}
          * @param {number} id
          * @return {DemoWebApi_DemoData_Client.Company}
          */
         Entities.prototype.GetCompany = function (id, callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'Company?id=' + id), callback, this.error, this.statusCode);
+            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Company?id=' + id), callback, this.error, this.statusCode);
         };
         /**
          * Get a person
@@ -458,8 +477,8 @@ var DemoWebApi_Controllers_Client;
         return Entities;
     })();
     DemoWebApi_Controllers_Client.Entities = Entities;
-    var Values = (function () {
-        function Values(baseUri, error, statusCode) {
+    var Tuple = (function () {
+        function Tuple(baseUri, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             this.baseUri = baseUri;
             this.error = error;
@@ -467,55 +486,238 @@ var DemoWebApi_Controllers_Client;
             this.httpClient = new HttpClient();
         }
         /**
-         * GET api/Values
-         * @return {Array<string>}
+         * POST api/Tuple/PersonCompany1
+         * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
          */
-        Values.prototype.Get = function (callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'api/Values'), callback, this.error, this.statusCode);
+        Tuple.prototype.LinkPersonCompany1 = function (peopleAndCompany, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PersonCompany1'), peopleAndCompany, callback, this.error, this.statusCode);
         };
         /**
-         * GET api/Values/{id}?name={name}
-         * @param {number} id
-         * @param {string} name
-         * @return {string}
+         * POST api/Tuple/PeopleCompany2
+         * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
          */
-        Values.prototype.GetByIdAndName = function (id, name, callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'api/Values/' + id + '?name=' + name), callback, this.error, this.statusCode);
+        Tuple.prototype.LinkPeopleCompany2 = function (peopleAndCompany, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany2'), peopleAndCompany, callback, this.error, this.statusCode);
         };
         /**
-         * GET api/Values?name={name}
-         * @param {string} name
-         * @return {string}
+         * POST api/Tuple/PeopleCompany3
+         * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
          */
-        Values.prototype.GetByName = function (name, callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'api/Values?name=' + name), callback, this.error, this.statusCode);
+        Tuple.prototype.LinkPeopleCompany3 = function (peopleAndCompany, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany3'), peopleAndCompany, callback, this.error, this.statusCode);
         };
         /**
-         * POST api/Values
-         * @param {string} value
-         * @return {string}
+         * POST api/Tuple/PeopleCompany4
+         * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
          */
-        Values.prototype.Post = function (value, callback) {
-            this.httpClient.post(encodeURI(this.baseUri + 'api/Values'), value, callback, this.error, this.statusCode);
+        Tuple.prototype.LinkPeopleCompany4 = function (peopleAndCompany, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany4'), peopleAndCompany, callback, this.error, this.statusCode);
         };
         /**
-         * PUT api/Values/{id}
-         * @param {number} id
-         * @param {string} value
-         * @return {void}
+         * POST api/Tuple/PeopleCompany5
+         * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
          */
-        Values.prototype.Put = function (id, value, callback) {
-            this.httpClient.put(encodeURI(this.baseUri + 'api/Values/' + id), value, callback, this.error, this.statusCode);
+        Tuple.prototype.LinkPeopleCompany5 = function (peopleAndCompany, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany5'), peopleAndCompany, callback, this.error, this.statusCode);
         };
         /**
-         * DELETE api/Values/{id}
-         * @param {number} id
-         * @return {void}
+         * POST api/Tuple/PeopleCompany6
+         * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
          */
-        Values.prototype.Delete = function (id, callback) {
-            this.httpClient.delete(encodeURI(this.baseUri + 'api/Values/' + id), callback, this.error, this.statusCode);
+        Tuple.prototype.LinkPeopleCompany6 = function (peopleAndCompany, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany6'), peopleAndCompany, callback, this.error, this.statusCode);
         };
-        return Values;
+        /**
+         * POST api/Tuple/PeopleCompany7
+         * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.LinkPeopleCompany7 = function (peopleAndCompany, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany7'), peopleAndCompany, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Tuple/PeopleCompany8
+         * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.LinkPeopleCompany8 = function (peopleAndCompany, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany8'), peopleAndCompany, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Tuple/Tuple1
+         * @return {[number]}
+         */
+        Tuple.prototype.GetTuple1 = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple1'), callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Tuple/Tuple1
+         * @param {[number]} tuple
+         * @return {number}
+         */
+        Tuple.prototype.PostTuple1 = function (tuple, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple1'), tuple, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Tuple/Tuple2
+         * @return {[string, number]}
+         */
+        Tuple.prototype.GetTuple2 = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple2'), callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Tuple/Tuple2
+         * @param {[string, number]} tuple
+         * @return {number}
+         */
+        Tuple.prototype.PostTuple2 = function (tuple, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple2'), tuple, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Tuple/Tuple3
+         * @return {[string, string, number]}
+         */
+        Tuple.prototype.GetTuple3 = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple3'), callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Tuple/Tuple3
+         * @param {[string, string, number]} tuple
+         * @return {number}
+         */
+        Tuple.prototype.PostTuple3 = function (tuple, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple3'), tuple, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Tuple/Tuple4
+         * @return {[string, string, string, number]}
+         */
+        Tuple.prototype.GetTuple4 = function (callback) {
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple4'), callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Tuple/Tuple4
+         * @param {[string, string, string, number]} tuple
+         * @return {number}
+         */
+        Tuple.prototype.PostTuple4 = function (tuple, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple4'), tuple, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Tuple/Tuple5
+         * @param {[string, string, string, string, number]} tuple
+         * @return {number}
+         */
+        Tuple.prototype.PostTuple5 = function (tuple, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple5'), tuple, callback, this.error, this.statusCode);
+        };
+        return Tuple;
     })();
-    DemoWebApi_Controllers_Client.Values = Values;
+    DemoWebApi_Controllers_Client.Tuple = Tuple;
+    this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple6'), callback, this.error, this.statusCode);
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
+/**
+ * POST api/Tuple/Tuple6
+ * @param {[string, string, string, string, string, number]} tuple
+ * @return {number}
+ */
+PostTuple6(tuple, [string, string, string, string, string, number], callback, function (data) { return any; });
+{
+    this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple6'), tuple, callback, this.error, this.statusCode);
+}
+/**
+ * GET api/Tuple/Tuple7
+ * @return {[string, string, string, string, string, string, number]}
+ */
+GetTuple7(callback, function (data) {
+    _this.httpClient.get(encodeURI(_this.baseUri + 'api/Tuple/Tuple7'), callback, _this.error, _this.statusCode);
+}, 
+/**
+ * POST api/Tuple/Tuple7
+ * @param {[string, string, string, string, string, string, number]} tuple
+ * @return {number}
+ */
+PostTuple7(tuple, [string, string, string, string, string, string, number], callback, function (data) { return any; }), {
+    this: .httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple7'), tuple, callback, this.error, this.statusCode)
+}, 
+/**
+ * GET api/Tuple/Tuple8
+ * @return {[string, string, string, string, string, string, string, number]}
+ */
+GetTuple8(callback, function (data) {
+    _this.httpClient.get(encodeURI(_this.baseUri + 'api/Tuple/Tuple8'), callback, _this.error, _this.statusCode);
+}, 
+/**
+ * POST api/Tuple/Tuple8
+ * @param {[string, string, string, string, string, string, string, number]} tuple
+ * @return {number}
+ */
+PostTuple8(tuple, [string, string, string, string, string, string, string, number], callback, function (data) { return any; }), {
+    this: .httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple8'), tuple, callback, this.error, this.statusCode)
+}));
+var Values = (function () {
+    function Values(baseUri, error, statusCode) {
+        if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
+        this.baseUri = baseUri;
+        this.error = error;
+        this.statusCode = statusCode;
+        this.httpClient = new HttpClient();
+    }
+    /**
+     * GET api/Values
+     * @return {Array<string>}
+     */
+    Values.prototype.Get = function (callback) {
+        this.httpClient.get(encodeURI(this.baseUri + 'api/Values'), callback, this.error, this.statusCode);
+    };
+    /**
+     * GET api/Values/{id}?name={name}
+     * @param {number} id
+     * @param {string} name
+     * @return {string}
+     */
+    Values.prototype.GetByIdAndName = function (id, name, callback) {
+        this.httpClient.get(encodeURI(this.baseUri + 'api/Values/' + id + '?name=' + name), callback, this.error, this.statusCode);
+    };
+    /**
+     * GET api/Values?name={name}
+     * @param {string} name
+     * @return {string}
+     */
+    Values.prototype.GetByName = function (name, callback) {
+        this.httpClient.get(encodeURI(this.baseUri + 'api/Values?name=' + name), callback, this.error, this.statusCode);
+    };
+    /**
+     * POST api/Values
+     * @param {string} value
+     * @return {string}
+     */
+    Values.prototype.Post = function (value, callback) {
+        this.httpClient.post(encodeURI(this.baseUri + 'api/Values'), value, callback, this.error, this.statusCode);
+    };
+    /**
+     * PUT api/Values/{id}
+     * @param {number} id
+     * @param {string} value
+     * @return {void}
+     */
+    Values.prototype.Put = function (id, value, callback) {
+        this.httpClient.put(encodeURI(this.baseUri + 'api/Values/' + id), value, callback, this.error, this.statusCode);
+    };
+    /**
+     * DELETE api/Values/{id}
+     * @param {number} id
+     * @return {void}
+     */
+    Values.prototype.Delete = function (id, callback) {
+        this.httpClient.delete(encodeURI(this.baseUri + 'api/Values/' + id), callback, this.error, this.statusCode);
+    };
+    return Values;
+})();
+exports.Values = Values;

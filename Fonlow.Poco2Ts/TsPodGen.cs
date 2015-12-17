@@ -262,24 +262,58 @@ namespace Fonlow.Poco2Ts
         {
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
 
-            Type[] genericArguments = type.GetGenericArguments();
-            if (genericArguments.Length == 1)
+            if (genericTypeDefinition == typeof(Nullable<>))
             {
-                if (genericTypeDefinition == typeof(Nullable<>))
-                {
-                    var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
-                    Debug.Assert(genericTypeReferences.Length == 1);
-                    return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
-                }
+                var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
+                Debug.Assert(genericTypeReferences.Length == 1);
+                return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
+            }
 
-                if (TypeHelper.IsArrayType(genericTypeDefinition))
-                {
-                    Debug.Assert(type.GenericTypeArguments.Length == 1);
-                    var elementType = type.GenericTypeArguments[0];
-                    return CreateArrayTypeReference(elementType, 1);
-                }
+            if (TypeHelper.IsArrayType(genericTypeDefinition))
+            {
+                Debug.Assert(type.GenericTypeArguments.Length == 1);
+                var elementType = type.GenericTypeArguments[0];
+                return CreateArrayTypeReference(elementType, 1);
+            }
 
-                return null;
+            Type[] genericArguments = type.GetGenericArguments();
+
+            var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
+            if (tupleTypeIndex >= 0)
+            {
+                switch (tupleTypeIndex)
+                {
+                    case 0:
+                        Debug.Assert(genericArguments.Length == 1);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[0], TranslateToClientTypeReference(genericArguments[0]));
+                    case 1:
+                        Debug.Assert(genericArguments.Length == 2);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[1], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
+                    case 2:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[2], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]));
+                    case 3:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[3], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]));
+                    case 4:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[4], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]), TranslateToClientTypeReference(genericArguments[4]));
+                    case 5:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[5], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]), TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5]));
+                    case 6:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[5], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]), TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5]), TranslateToClientTypeReference(genericArguments[6]));
+                    case 7:
+                        Debug.Assert(genericArguments.Length == 8);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[5], TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]), TranslateToClientTypeReference(genericArguments[3]), TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5]), TranslateToClientTypeReference(genericArguments[6]), TranslateToClientTypeReference(genericArguments[7]));
+                    default:
+                        throw new InvalidOperationException("Hey, what Tuple");
+                }
             }
 
             if (genericArguments.Length == 2)

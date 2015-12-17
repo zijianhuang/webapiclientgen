@@ -2207,6 +2207,682 @@ namespace DemoWebApi.Controllers.Client
         }
     }
     
+    public partial class Tuple
+    {
+        
+        private System.Net.Http.HttpClient client;
+        
+        private System.Uri baseUri;
+        
+        public Tuple(System.Net.Http.HttpClient client, System.Uri baseUri)
+        {
+            if (client == null)
+                throw new ArgumentNullException("client", "Null HttpClient.");
+
+            if (baseUri == null)
+                throw new ArgumentNullException("baseUri", "Null baseUri");
+
+            this.client = client;
+            this.baseUri = baseUri;
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PersonCompany1
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPersonCompany1Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PersonCompany1");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PersonCompany1
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person LinkPersonCompany1(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PersonCompany1");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany2
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany2Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany2");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany2
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany2(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany2");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany3
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany3Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany3");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany3
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany3(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany3");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany4
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany4Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany4");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany4
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany4(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany4");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany5
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany5Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany5");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany5
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany5(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany5");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany6
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany6Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany6");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany6
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany6(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany6");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany7
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany7");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany7
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany7");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany8
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany8Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany8");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/PeopleCompany8
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany8(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person> peopleAndCompany)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/PeopleCompany8");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), peopleAndCompany).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<DemoWebApi.DemoData.Client.Person>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple1
+        /// </summary>
+        public async Task<System.Tuple<int>> GetTuple1Async()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple1");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Tuple<int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple1
+        /// </summary>
+        public System.Tuple<int> GetTuple1()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple1");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Tuple<int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple1
+        /// </summary>
+        public async Task<int> PostTuple1Async(System.Tuple<int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple1");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple1
+        /// </summary>
+        public int PostTuple1(System.Tuple<int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple1");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple2
+        /// </summary>
+        public async Task<System.Tuple<string, int>> GetTuple2Async()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple2");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Tuple<string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple2
+        /// </summary>
+        public System.Tuple<string, int> GetTuple2()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple2");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Tuple<string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple2
+        /// </summary>
+        public async Task<int> PostTuple2Async(System.Tuple<string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple2");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple2
+        /// </summary>
+        public int PostTuple2(System.Tuple<string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple2");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple3
+        /// </summary>
+        public async Task<System.Tuple<string, string, int>> GetTuple3Async()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple3");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple3
+        /// </summary>
+        public System.Tuple<string, string, int> GetTuple3()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple3");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple3
+        /// </summary>
+        public async Task<int> PostTuple3Async(System.Tuple<string, string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple3");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple3
+        /// </summary>
+        public int PostTuple3(System.Tuple<string, string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple3");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple4
+        /// </summary>
+        public async Task<System.Tuple<string, string, string, int>> GetTuple4Async()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple4");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple4
+        /// </summary>
+        public System.Tuple<string, string, string, int> GetTuple4()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple4");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple4
+        /// </summary>
+        public async Task<int> PostTuple4Async(System.Tuple<string, string, string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple4");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple4
+        /// </summary>
+        public int PostTuple4(System.Tuple<string, string, string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple4");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple5
+        /// </summary>
+        public async Task<System.Tuple<string, string, string, string, int>> GetTuple5Async()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple5");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple5
+        /// </summary>
+        public System.Tuple<string, string, string, string, int> GetTuple5()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple5");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple5
+        /// </summary>
+        public async Task<int> PostTuple5Async(System.Tuple<string, string, string, string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple5");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple5
+        /// </summary>
+        public int PostTuple5(System.Tuple<string, string, string, string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple5");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple6
+        /// </summary>
+        public async Task<System.Tuple<string, string, string, string, string, int>> GetTuple6Async()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple6");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, string, string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple6
+        /// </summary>
+        public System.Tuple<string, string, string, string, string, int> GetTuple6()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple6");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, string, string, int>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple6
+        /// </summary>
+        public async Task<int> PostTuple6Async(System.Tuple<string, string, string, string, string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple6");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple6
+        /// </summary>
+        public int PostTuple6(System.Tuple<string, string, string, string, string, int> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple6");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple7
+        /// </summary>
+        public async Task<System.Tuple<string, string, string, string, string, string>> GetTuple7Async()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple7");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, string, string, string>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple7
+        /// </summary>
+        public System.Tuple<string, string, string, string, string, string> GetTuple7()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple7");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, string, string, string>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple7
+        /// </summary>
+        public async Task<int> PostTuple7Async(System.Tuple<string, string, string, string, string, string> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple7");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple7
+        /// </summary>
+        public int PostTuple7(System.Tuple<string, string, string, string, string, string> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple7");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple8
+        /// </summary>
+        public async Task<System.Tuple<string, string, string, string, string, string>> GetTuple8Async()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple8");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = await client.GetAsync(requestUri.ToString());
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, string, string, string>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Tuple/Tuple8
+        /// </summary>
+        public System.Tuple<string, string, string, string, string, string> GetTuple8()
+        {
+            var template = new System.UriTemplate("api/Tuple/Tuple8");
+            var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            var requestUri = template.BindByName(this.baseUri, uriParameters);
+            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<System.Tuple<string, string, string, string, string, string>>(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple8
+        /// </summary>
+        public async Task<int> PostTuple8Async(System.Tuple<string, string, string, string, string, string> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple8");
+            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
+            responseMessage.EnsureSuccessStatusCode();
+            var text = await responseMessage.Content.ReadAsStringAsync();
+            return System.Int32.Parse(text);
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/Tuple/Tuple8
+        /// </summary>
+        public int PostTuple8(System.Tuple<string, string, string, string, string, string> tuple)
+        {
+            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple8");
+            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var text = responseMessage.Content.ReadAsStringAsync().Result;
+            return System.Int32.Parse(text);
+        }
+    }
+    
     public partial class Values
     {
         

@@ -79,7 +79,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (IsArrayType(codeTypeReference))
             {
                 var rank = codeTypeReference.ArrayRank;
-                if (rank>1)
+                if (rank > 1)
                 {
                     return codeTypeReference.BaseType + new System.Text.StringBuilder().Insert(0, "[]", rank).ToString();
                 }
@@ -111,7 +111,12 @@ namespace Fonlow.TypeScriptCodeDom
                 return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
             }
 
-            if (codeTypeReference.TypeArguments.Count>0)
+            if (codeTypeReference.BaseType.Contains("System.Tuple"))
+            {
+                return $"[{MapCodeTypeReferenceCollectionToTsText(codeTypeReference.TypeArguments)}]";
+            }
+
+            if (codeTypeReference.TypeArguments.Count > 0)
             {
                 var genericTypeName = codeTypeReference.BaseType.Substring(0, codeTypeReference.BaseType.IndexOf('`'));
                 return $"{genericTypeName}<{MapCodeTypeReferenceCollectionToTsText(codeTypeReference.TypeArguments)}>";
@@ -126,10 +131,14 @@ namespace Fonlow.TypeScriptCodeDom
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        public static string MapCodeTypeReferenceCollectionToTsText(CodeTypeReferenceCollection collection)
+        internal static string MapCodeTypeReferenceCollectionToTsText(CodeTypeReferenceCollection collection)
         {
-            var arguments = collection.OfType<CodeTypeReference>().Select(d => MapCodeTypeReferenceToTsText(d));
-            return String.Join(", ", arguments);
+            string[] ss = new string[collection.Count];
+            for (int i = 0; i < collection.Count; i++)
+            {
+                ss[i] = MapCodeTypeReferenceToTsText(collection[i]);
+            }
+            return String.Join(", ", ss);
         }
 
     }

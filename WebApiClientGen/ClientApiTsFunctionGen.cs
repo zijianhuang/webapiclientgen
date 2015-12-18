@@ -109,12 +109,8 @@ namespace Fonlow.CodeDom.Web.Ts
             var returnTypeReference = poco2TsGen.TranslateToClientTypeReference(returnType);
             var callbackTypeText = String.Format("(data : {0}) => any", TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference));
 
-            Debug.Assert(!returnType.FullName.Contains("System.Tuple"));
-            parameters.Add(new CodeParameterDeclarationExpression()
-            {
-                Name = "callback",
-                Type = new CodeTypeReference(callbackTypeText),
-            });
+            Debug.WriteLine("callback: " + callbackTypeText);
+            parameters.Add(new CodeParameterDeclarationExpression(callbackTypeText, "callback"));
 
             method.Parameters.AddRange(parameters.ToArray());
 

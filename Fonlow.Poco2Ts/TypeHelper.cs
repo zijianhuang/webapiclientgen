@@ -31,7 +31,7 @@ namespace Fonlow.Reflection
                 typeof(Tuple<,,,,>).FullName,
                 typeof(Tuple<,,,,,>).FullName,
                 typeof(Tuple<,,,,,,>).FullName,
-                typeof(Tuple<,,,,,,,>).FullName,
+                typeof(Tuple<,,,,,,,>).FullName
             });
 
 

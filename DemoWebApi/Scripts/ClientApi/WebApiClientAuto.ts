@@ -612,12 +612,28 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/Tuple/PeopleCompany4
+         * @return {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} 
+         */
+        GetPeopleCompany4(callback: (data : [DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]) => any){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany4'), callback, this.error, this.statusCode);
+        }
+
+        /** 
          * POST api/Tuple/PeopleCompany5
          * @param {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} peopleAndCompany 
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         LinkPeopleCompany5(peopleAndCompany: [DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company], callback: (data : DemoWebApi_DemoData_Client.Person) => any){
             this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany5'), peopleAndCompany, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/Tuple/PeopleCompany5
+         * @return {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} 
+         */
+        GetPeopleCompany5(callback: (data : [DemoWebApi_DemoData_Client.Person){
+            this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany5'), callback, this.error, this.statusCode);
         }
 
         /** 

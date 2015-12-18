@@ -41,11 +41,25 @@ namespace DemoWebApi.Controllers
             return peopleAndCompany.Item1;
         }
 
+        [HttpGet]
+        [Route("PeopleCompany4")]
+        public Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> GetPeopleCompany4()
+        {
+            return null;
+        }
+
         [HttpPost]
         [Route("PeopleCompany5")]
         public DemoData.Person LinkPeopleCompany5(Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
+        }
+
+        [HttpGet]
+        [Route("PeopleCompany5")]
+        public Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> GetPeopleCompany5()
+        {
+            return null;
         }
 
         [HttpPost]

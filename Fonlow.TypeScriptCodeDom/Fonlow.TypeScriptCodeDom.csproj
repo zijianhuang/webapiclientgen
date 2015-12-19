@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeObjectHelper.cs" />
+    <Compile Include="CodeSnipetTypeReference.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="KeywordHandler.cs" />
     <Compile Include="TsCodeGenerator.cs" />

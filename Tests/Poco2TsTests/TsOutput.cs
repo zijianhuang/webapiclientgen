@@ -66,7 +66,42 @@ namespace Poco2TsTests
 ");
         }
 
+        [Fact]
+        public void TestTuple4Callback()
+        {
+            var callbackTypeText = "(data : [string, string, string, number]) => any";
+            var parameterDeclarationExpression = new CodeParameterDeclarationExpression(callbackTypeText, "callback");
+            var s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
+            Assert.Equal(callbackTypeText, s);
+        }
+
+        [Fact]
+        public void TestTuple5CallbackAboutPossibleBugOfCodeDom()
+        {
+            //CodeTypeReference seems to have a bug which could not read such callbackType properly with 5 or more Tuple parameters.
+            //I tried provide callbackTypeText in constructors of CodeTypeReference and CodeParrameterDeclarationExpression, as well as property assignment.
+            //all end up with (string , corrupted.
+            var callbackTypeText = "(data : [string, string, string, string, number]) => any";
+            var codeTypeReference = new CodeTypeReference()
+            {
+                BaseType = callbackTypeText
+            };
+            var parameterDeclarationExpression = new CodeParameterDeclarationExpression(codeTypeReference, "callback");
+            var s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
+            Assert.NotEqual(callbackTypeText, s);
+        }
+
+        [Fact]
+        public void TestTupleCallbackSnipet()
+        {
+            var callbackTypeText = "(data : [string, string, string, string, string, number]) => any";
+            var callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);
+            var parameterDeclarationExpression = new CodeParameterDeclarationExpression(callbackTypeReference, "callback");
+            var s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
+            Assert.Equal(callbackTypeText, s);
+        }
 
 
     }
+
 }

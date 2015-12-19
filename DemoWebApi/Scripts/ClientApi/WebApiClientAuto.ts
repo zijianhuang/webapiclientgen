@@ -632,7 +632,7 @@ namespace DemoWebApi_Controllers_Client {
          * GET api/Tuple/PeopleCompany5
          * @return {[DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]} 
          */
-        GetPeopleCompany5(callback: (data : [DemoWebApi_DemoData_Client.Person){
+        GetPeopleCompany5(callback: (data : [DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Person, DemoWebApi_DemoData_Client.Company]) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany5'), callback, this.error, this.statusCode);
         }
 
@@ -735,7 +735,7 @@ namespace DemoWebApi_Controllers_Client {
          * GET api/Tuple/Tuple5
          * @return {[string, string, string, string, number]} 
          */
-        GetTuple5(callback: (data : [string){
+        GetTuple5(callback: (data : [string, string, string, string, number]) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple5'), callback, this.error, this.statusCode);
         }
 
@@ -752,7 +752,7 @@ namespace DemoWebApi_Controllers_Client {
          * GET api/Tuple/Tuple6
          * @return {[string, string, string, string, string, number]} 
          */
-        GetTuple6(callback: (data : [string, string){
+        GetTuple6(callback: (data : [string, string, string, string, string, number]) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple6'), callback, this.error, this.statusCode);
         }
 
@@ -769,7 +769,7 @@ namespace DemoWebApi_Controllers_Client {
          * GET api/Tuple/Tuple7
          * @return {[string, string, string, string, string, string, number]} 
          */
-        GetTuple7(callback: (data : [string, string, string){
+        GetTuple7(callback: (data : [string, string, string, string, string, string, number]) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple7'), callback, this.error, this.statusCode);
         }
 
@@ -786,7 +786,7 @@ namespace DemoWebApi_Controllers_Client {
          * GET api/Tuple/Tuple8
          * @return {[string, string, string, string, string, string, string, number]} 
          */
-        GetTuple8(callback: (data : [string, string, string, string){
+        GetTuple8(callback: (data : [string, string, string, string, string, string, string, number]) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple8'), callback, this.error, this.statusCode);
         }
 

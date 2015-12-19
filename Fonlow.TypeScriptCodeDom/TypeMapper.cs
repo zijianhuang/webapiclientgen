@@ -74,7 +74,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (codeTypeReference == null)
                 return null;
 
-            System.Diagnostics.Debug.WriteLine("type.BaseType: " + codeTypeReference.BaseType);
+            System.Diagnostics.Debug.WriteLine($"parameter.type.BaseType: {codeTypeReference.BaseType}  ArgumentCount: {codeTypeReference.TypeArguments.Count}, ArrayRank: {codeTypeReference.ArrayRank}");
             System.Diagnostics.Debug.WriteLineIf(codeTypeReference.BaseType == "System.Void", "For this void type :" + codeTypeReference.ToString());
             if (IsArrayType(codeTypeReference))
             {
@@ -93,7 +93,15 @@ namespace Fonlow.TypeScriptCodeDom
 
 
             if (codeTypeReference.TypeArguments.Count == 0)
+            {
+                var codeSnipetTypeReference = codeTypeReference as CodeSnipetTypeReference;
+                if (codeSnipetTypeReference!=null)
+                {
+                    return codeSnipetTypeReference.BaseType;
+                }
+
                 return codeTypeReference.BaseType;
+            }
 
             if (IsKeyValuePairType(codeTypeReference.BaseType))
             {
@@ -142,4 +150,6 @@ namespace Fonlow.TypeScriptCodeDom
         }
 
     }
+
+    
 }

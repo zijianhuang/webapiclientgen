@@ -197,6 +197,14 @@ namespace DemoWebApi.Controllers
             return 8;
         }
 
+        [HttpGet]
+        [Route("TupleNested")]
+        public Tuple<string, string, string, string, string, string,  int, Tuple<string, string, string>> GetTupleNested()
+        {
+            return Tuple<string, string, string, string, string, string, int, Tuple<string, string, string>>("One", "Two", "Three", "Four", "Five", "Six", 7
+                , new Tuple<string, string, string>("nine", "ten", "eleven"));
+        }
+
 
     }
 }

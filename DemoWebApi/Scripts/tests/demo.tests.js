@@ -5,6 +5,7 @@ QUnit.config.testTimeout = 30000;
 var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/');
 var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:9024/");
 var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:9024/");
+var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:9024/");
 QUnit.module("Entities");
 QUnit.test("data compare", function (assert) {
     var person = {
@@ -405,6 +406,23 @@ test("Delete", function (assert) {
         done();
     });
     api.Delete(1, function (data) {
+        done();
+    });
+});
+QUnit.module("TupleTests");
+test("GetTuple2", function (assert) {
+    var done = assert.async();
+    tupleApi.GetTuple2(function (data) {
+        assert.equal(data["Item1"], "Two");
+        assert.equal(data["Item2"], 2);
+        done();
+    });
+});
+//Visual Studio IDE may give some 
+test("PostTuple2", function (assert) {
+    var done = assert.async();
+    tupleApi.PostTuple2({ Item1: "One", Item2: 2 }, function (data) {
+        assert.equal(data, "One");
         done();
     });
 });

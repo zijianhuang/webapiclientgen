@@ -79,6 +79,7 @@
     <Compile Include="IisExpressCollection.cs" />
     <Compile Include="EntitiesApiIntegration.cs" />
     <Compile Include="SuperDemoIntegration.cs" />
+    <Compile Include="TupleApiIntegration.cs" />
     <Compile Include="ValuesApiIntegration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -121,7 +121,7 @@ namespace Fonlow.TypeScriptCodeDom
 
             if (codeTypeReference.BaseType.Contains("System.Tuple"))
             {
-                return $"[{MapCodeTypeReferenceCollectionToTsText(codeTypeReference.TypeArguments)}]";
+                return $"{{{MapCodeTypeReferenceCollectionToTupleTsText(codeTypeReference.TypeArguments)}}}";
             }
 
             if (codeTypeReference.TypeArguments.Count > 0)
@@ -149,7 +149,21 @@ namespace Fonlow.TypeScriptCodeDom
             return String.Join(", ", ss);
         }
 
+        internal static string MapCodeTypeReferenceCollectionToTupleTsText(CodeTypeReferenceCollection collection)
+        {
+            if (collection.Count > 8)
+                throw new ArgumentException("Current supports only up to 8 members for tuple.", "collection");
+            string[] ss = new string[collection.Count];
+            for (int i = 0; i < collection.Count; i++)
+            {
+                var typeName = MapCodeTypeReferenceToTsText(collection[i]);
+                var propertyName = (i < 7) ? "Item" + (i + 1).ToString() : "Rest";
+                ss[i] = propertyName + ":" + typeName;
+            }
+            return String.Join(", ", ss);
+        }
+
     }
 
-    
+
 }

@@ -96,7 +96,7 @@ namespace DemoWebApi.Controllers
         [Route("Tuple1")]
         public int PostTuple1(Tuple<int> tuple)
         {
-            return 1;
+            return tuple.Item1;
         }
 
         [HttpGet]
@@ -110,6 +110,7 @@ namespace DemoWebApi.Controllers
         [Route("Tuple2")]
         public string PostTuple2(Tuple<string, int> tuple)
         {
+            System.Diagnostics.Debug.WriteLine("Item1 is : "+tuple.Item1);
             return tuple.Item1;
         }
 
@@ -117,7 +118,7 @@ namespace DemoWebApi.Controllers
         [Route("Tuple3")]
         public Tuple<string, string, int> GetTuple3()
         {
-            return new Tuple<string, string, int>("One", "Two", 3);
+            return new Tuple<string, string, int>("Three", "Two", 3);
         }
 
         [HttpPost]
@@ -131,7 +132,7 @@ namespace DemoWebApi.Controllers
         [Route("Tuple4")]
         public Tuple<string, string, string, int> GetTuple4()
         {
-            return new Tuple<string, string, string, int>("One", "Two", "Three", 4);
+            return new Tuple<string, string, string, int>("Four", "Two", "Three", 4);
         }
 
         [HttpPost]
@@ -145,7 +146,7 @@ namespace DemoWebApi.Controllers
         [Route("Tuple5")]
         public Tuple<string, string, string, string, int> GetTuple5()
         {
-            return new Tuple<string, string, string, string, int>("One", "Two", "Three", "Four", 5);
+            return new Tuple<string, string, string, string, int>("Five", "Two", "Three", "Four", 5);
         }
 
         [HttpPost]
@@ -159,7 +160,7 @@ namespace DemoWebApi.Controllers
         [Route("Tuple6")]
         public Tuple<string, string, string, string, string, int> GetTuple6()
         {
-            return new Tuple<string, string, string, string, string, int>("One", "Two", "Three", "Four", "Five", 6);
+            return new Tuple<string, string, string, string, string, int>("Six", "Two", "Three", "Four", "Five", 6);
         }
 
         [HttpPost]
@@ -173,7 +174,7 @@ namespace DemoWebApi.Controllers
         [Route("Tuple7")]
         public Tuple<string, string, string, string, string, string, int> GetTuple7()
         {
-            return new Tuple<string, string, string, string, string, string, int>("One", "Two", "Three", "Four", "Five", "Six", 7);
+            return new Tuple<string, string, string, string, string, string, int>("Seven", "Two", "Three", "Four", "Five", "Six", 7);
         }
 
         [HttpPost]
@@ -187,7 +188,7 @@ namespace DemoWebApi.Controllers
         [Route("Tuple8")]
         public Tuple<string, string, string, string, string, string, string, int> GetTuple8()
         {
-            return new Tuple<string, string, string, string, string, string, string, int>("One", "Two", "Three", "Four", "Five", "Six", "Seven", 8);
+            return new Tuple<string, string, string, string, string, string, string, int>("Eight", "Two", "Three", "Four", "Five", "Six", "Seven", 8);
         }
 
         [HttpPost]
@@ -201,7 +202,7 @@ namespace DemoWebApi.Controllers
         [Route("TupleNested")]
         public Tuple<string, string, string, string, string, string,  int, Tuple<string, string, string>> GetTupleNested()
         {
-            return new Tuple<string, string, string, string, string, string, int, Tuple<string, string, string>>("One", "Two", "Three", "Four", "Five", "Six", 7
+            return new Tuple<string, string, string, string, string, string, int, Tuple<string, string, string>>("Nested", "Two", "Three", "Four", "Five", "Six", 7
                 , new Tuple<string, string, string>("nine", "ten", "elevan"));
         }
 

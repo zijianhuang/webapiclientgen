@@ -2224,6 +2224,8 @@ namespace DemoWebApi.Controllers.Client
 
             this.client = client;
             this.baseUri = baseUri;
+
+            client.DefaultRequestHeaders
         }
         
         /// <summary>
@@ -2576,8 +2578,13 @@ namespace DemoWebApi.Controllers.Client
             var requestUri = template.BindByName(this.baseUri, uriParameters);
             var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
             responseMessage.EnsureSuccessStatusCode();
-            var text = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<System.Tuple<string, int>>(text);
+            using (var stream = responseMessage.Content.ReadAsStreamAsync().Result)
+            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+            using (JsonReader jsonReader = new JsonTextReader(reader))
+            {
+                var serializer = new JsonSerializer();
+                return serializer.Deserialize<System.Tuple<string, int>>(jsonReader);
+            }
         }
         
         /// <summary>
@@ -2586,11 +2593,24 @@ namespace DemoWebApi.Controllers.Client
         /// </summary>
         public async Task<string> PostTuple2Async(System.Tuple<string, int> tuple)
         {
-            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple2");
-            var responseMessage = await client.PostAsJsonAsync(requestUri.ToString(), tuple);
-            responseMessage.EnsureSuccessStatusCode();
-            var text = await responseMessage.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<string>(text);
+            using (var requestStream = new System.IO.MemoryStream())
+            using (var requestWriter = new System.IO.StreamWriter(requestStream))
+            {
+                var requestSerializer = JsonSerializer.Create();
+                requestSerializer.Serialize(requestWriter, tuple);
+                var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple2");
+                var responseMessage = await client.PostAsync(requestUri.ToString(), new StreamContent(requestStream));
+                responseMessage.EnsureSuccessStatusCode();
+                using (var stream = await responseMessage.Content.ReadAsStreamAsync())
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+                using (JsonReader jsonReader = new JsonTextReader(reader))
+                {
+                    var serializer = new JsonSerializer();
+                    return serializer.Deserialize<string>(jsonReader);
+                }
+            }
+
+
         }
         
         /// <summary>
@@ -2599,13 +2619,26 @@ namespace DemoWebApi.Controllers.Client
         /// </summary>
         public string PostTuple2(System.Tuple<string, int> tuple)
         {
-            var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple2");
-            var responseMessage = this.client.PostAsJsonAsync(requestUri.ToString(), tuple).Result;
-            responseMessage.EnsureSuccessStatusCode();
-            var text = responseMessage.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<string>(text);
+  //          using (var requestStream = new System.IO.MemoryStream())
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+                var requestSerializer = JsonSerializer.Create();
+                requestSerializer.Serialize(requestWriter, tuple);
+                var requestUri = new System.Uri(this.baseUri, "api/Tuple/Tuple2");
+                var s = requestWriter.ToString();
+                var responseMessage = client.PostAsJsonAsync(requestUri.ToString(), new StringContent(s) ).Result;
+                responseMessage.EnsureSuccessStatusCode();
+                using (var stream = responseMessage.Content.ReadAsStreamAsync().Result)
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+                using (JsonReader jsonReader = new JsonTextReader(reader))
+                {
+                    var serializer = new JsonSerializer();
+                    return serializer.Deserialize<string>(jsonReader);
+                }
+            }
+
         }
-        
+
         /// <summary>
         /// 
         /// GET api/Tuple/Tuple3

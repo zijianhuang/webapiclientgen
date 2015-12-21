@@ -12,6 +12,11 @@ namespace Fonlow.TypeScriptCodeDom
     /// all end up with "(string ", corrupted.
     /// So this class is a hack against the possible bug of CodeTypeReference in dealing with Tuple
     /// </summary>
+    /// <remarks>
+    /// CodeTypeReference will fail at these 2 forms of Tuple
+    /// callback: (data : {Item1:string, Item2:string, Item3:string, Item4:string, Item5:number}
+    /// callback: (data : [string, string, string, string, number])
+    /// </remarks>
     public class CodeSnipetTypeReference : System.CodeDom.CodeTypeReference
     {
         public CodeSnipetTypeReference(string typeName)

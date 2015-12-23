@@ -221,32 +221,41 @@ namespace Fonlow.CodeDom.Web.Cs
                 return;
             }
 
+            method.Statements.Add(new CodeSnippetStatement(forAsync ?
+                "            using (var stream = await responseMessage.Content.ReadAsStreamAsync())"
+                :"            using (var stream = responseMessage.Content.ReadAsStreamAsync().Result)"));
+            method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
+            method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(reader))"));
+            method.Statements.Add(new CodeSnippetStatement("            {"));
+
             method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "text",
-                new CodeSnippetExpression(forAsync ? "await responseMessage.Content.ReadAsStringAsync()" : "responseMessage.Content.ReadAsStringAsync().Result")));
+                new CodeTypeReference("var"), "serializer",  new CodeSnippetExpression("new JsonSerializer()")));
 
             if (TypeHelper.IsStringType(returnType))
             {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("JsonConvert.DeserializeObject<string>(text)")));
+                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<string>(jsonReader)")));
             }
             else if (returnType == typeOfChar)
             {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("JsonConvert.DeserializeObject<char>(text)")));
+                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
             }
             else if (returnType.IsPrimitive)
             {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(text)", returnType.FullName))));
+                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
             }
             else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType))
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-                    new CodeMethodReferenceExpression( new CodeVariableReferenceExpression("JsonConvert"), "DeserializeObject", poco2CsGen.TranslateToClientTypeReference(returnType)),
-                        new CodeSnippetExpression("text"))));
+                    new CodeMethodReferenceExpression( new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+                        new CodeSnippetExpression("jsonReader"))));
             }
             else
             {
                 Trace.TraceWarning("This type is not yet supported: {0}", returnType.FullName);
             }
+
+            method.Statements.Add(new CodeSnippetStatement("            }"));
+
 
         }
 
@@ -323,6 +332,16 @@ namespace Fonlow.CodeDom.Web.Cs
 
             };
 
+            method.Statements.Add(new CodeSnippetStatement(
+@"            using (var requestWriter = new System.IO.StringWriter())
+            {
+                var requestSerializer = JsonSerializer.Create();
+"
+));
+            method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
+                new CodeSnippetExpression("requestWriter"),
+                new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
+
 
             if (uriQueryParameters.Length > 0)
             {
@@ -333,19 +352,26 @@ namespace Fonlow.CodeDom.Web.Cs
                 AddRequestUriAssignmentStatement();
             }
 
+            method.Statements.Add(new CodeSnippetStatement(
+@"                var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");
+"
+                ));
+
             if (singleFromBodyParameterDescription != null)
             {
                 if (forAsync)
                 {
                     AddPostStatement(
-                    new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ? "PostAsJsonAsync" : "PutAsJsonAsync", new CodeSnippetExpression("requestUri.ToString()")
-              , new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
+                    new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ? 
+                    "PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri.ToString()")
+              , new CodeSnippetExpression("content")));
                 }
                 else
                 {
                     AddPostStatement(new CodePropertyReferenceExpression(
-                    new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? "PostAsJsonAsync" : "PutAsJsonAsync", new CodeSnippetExpression("requestUri.ToString()")
-              , new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName))
+                    new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? 
+                    "PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri.ToString()")
+              , new CodeSnippetExpression("content"))
                     , "Result"));
                 }
             }
@@ -383,6 +409,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 AddReturnStatement();
             }
 
+            method.Statements.Add(new CodeSnippetStatement("            }"));
         }
 
     }

@@ -784,27 +784,19 @@ namespace DemoWebApi_Controllers_Client {
 
         /** 
          * GET api/Tuple/Tuple8
-         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:number}} 
+         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number, Rest:{Item1:string, Item2:string, Item3:string}}} 
          */
-        GetTuple8(callback: (data : {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:number}) => any){
+        GetTuple8(callback: (data : {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number, Rest:{Item1:string, Item2:string, Item3:string}}) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple8'), callback, this.error, this.statusCode);
         }
 
         /** 
          * POST api/Tuple/Tuple8
-         * @param {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:number}} tuple 
+         * @param {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:{Item1:string, Item2:string, Item3:string}}} tuple 
          * @return {string} 
          */
-        PostTuple8(tuple: {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:number}, callback: (data : string) => any){
+        PostTuple8(tuple: {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:{Item1:string, Item2:string, Item3:string}}, callback: (data : string) => any){
             this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple8'), tuple, callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * GET api/Tuple/TupleNested
-         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number, Rest:{Item1:string, Item2:string, Item3:string}}} 
-         */
-        GetTupleNested(callback: (data : {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number, Rest:{Item1:string, Item2:string, Item3:string}}) => any){
-            this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/TupleNested'), callback, this.error, this.statusCode);
         }
     }
 

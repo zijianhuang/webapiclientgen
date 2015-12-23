@@ -150,8 +150,24 @@ namespace IntegrationTests
         [Fact]
         public void TestPostTuple7()
         {
-            var r = api.PostTuple7(new Tuple<string, string, string, string, string, string, int>("some", "", "", "", "", "hhhh", 3));
+            var r = api.PostTuple7(new Tuple<string, string, string, string, string, long, int>("some", "", "", "", "", 333, 3));
             Assert.Equal("some", r);
+        }
+
+        [Fact]
+        public void TestTuple8()
+        {
+            var r = api.GetTuple8();
+            Assert.Equal("Nested", r.Item1);
+            Assert.Equal("nine", r.Rest.Item1);
+        }
+
+        [Fact]
+        public void TestPostTuple8()
+        {
+            var r = api.PostTuple8(new Tuple<string, string, string, string, string, string, string, Tuple<string, string, string>>(
+                "abc", "", "","", "", "", "", new Tuple<string, string, string>("ok", "yes", "no")));
+            Assert.Equal("ok", r);
         }
 
 

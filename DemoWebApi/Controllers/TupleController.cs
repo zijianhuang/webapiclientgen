@@ -186,25 +186,19 @@ namespace DemoWebApi.Controllers
 
         [HttpGet]
         [Route("Tuple8")]
-        public Tuple<string, string, string, string, string, string, string, int> GetTuple8()
-        {
-            return new Tuple<string, string, string, string, string, string, string, int>("Eight", "Two", "Three", "Four", "Five", "Six", "Seven", 8);
-        }
-
-        [HttpPost]
-        [Route("Tuple8")]
-        public string PostTuple8(Tuple<string, string, string, string, string, string, string, int> tuple)
-        {
-            return tuple.Item1;
-        }
-
-        [HttpGet]
-        [Route("TupleNested")]
-        public Tuple<string, string, string, string, string, string,  int, Tuple<string, string, string>> GetTupleNested()
+        public Tuple<string, string, string, string, string, string, int, Tuple<string, string, string>> GetTuple8()
         {
             return new Tuple<string, string, string, string, string, string, int, Tuple<string, string, string>>("Nested", "Two", "Three", "Four", "Five", "Six", 7
                 , new Tuple<string, string, string>("nine", "ten", "elevan"));
         }
+
+        [HttpPost]
+        [Route("Tuple8")]
+        public string PostTuple8(Tuple<string, string, string, string, string, string, string, Tuple<string, string, string>> tuple)
+        {
+            return tuple.Rest.Item1;
+        }
+
 
 
     }

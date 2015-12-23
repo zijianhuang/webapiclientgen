@@ -3330,7 +3330,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Tuple/PeopleCompany7
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             using (var requestWriter = new System.IO.StringWriter())
             {
@@ -3354,7 +3354,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Tuple/PeopleCompany7
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             using (var requestWriter = new System.IO.StringWriter())
             {
@@ -3378,7 +3378,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Tuple/PeopleCompany8
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany8Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany8Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             using (var requestWriter = new System.IO.StringWriter())
             {
@@ -3402,7 +3402,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Tuple/PeopleCompany8
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany8(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany8(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             using (var requestWriter = new System.IO.StringWriter())
             {
@@ -3954,7 +3954,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// GET api/Tuple/Tuple7
         /// </summary>
-        public async Task<System.Tuple<string, string, string, string, string, long>> GetTuple7Async()
+        public async Task<System.Tuple<string, string, string, string, string, long, int>> GetTuple7Async()
         {
             var template = new System.UriTemplate("api/Tuple/Tuple7");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
@@ -3966,7 +3966,7 @@ namespace DemoWebApi.Controllers.Client
             using (JsonReader jsonReader = new JsonTextReader(reader))
             {
             var serializer = new JsonSerializer();
-            return serializer.Deserialize<System.Tuple<string, string, string, string, string, long>>(jsonReader);
+            return serializer.Deserialize<System.Tuple<string, string, string, string, string, long, int>>(jsonReader);
             }
         }
         
@@ -3974,7 +3974,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// GET api/Tuple/Tuple7
         /// </summary>
-        public System.Tuple<string, string, string, string, string, long> GetTuple7()
+        public System.Tuple<string, string, string, string, string, long, int> GetTuple7()
         {
             var template = new System.UriTemplate("api/Tuple/Tuple7");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
@@ -3986,7 +3986,7 @@ namespace DemoWebApi.Controllers.Client
             using (JsonReader jsonReader = new JsonTextReader(reader))
             {
             var serializer = new JsonSerializer();
-            return serializer.Deserialize<System.Tuple<string, string, string, string, string, long>>(jsonReader);
+            return serializer.Deserialize<System.Tuple<string, string, string, string, string, long, int>>(jsonReader);
             }
         }
         
@@ -3994,7 +3994,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Tuple/Tuple7
         /// </summary>
-        public async Task<string> PostTuple7Async(System.Tuple<string, string, string, string, string, long> tuple)
+        public async Task<string> PostTuple7Async(System.Tuple<string, string, string, string, string, long, int> tuple)
         {
             using (var requestWriter = new System.IO.StringWriter())
             {
@@ -4018,7 +4018,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Tuple/Tuple7
         /// </summary>
-        public string PostTuple7(System.Tuple<string, string, string, string, string, long> tuple)
+        public string PostTuple7(System.Tuple<string, string, string, string, string, long, int> tuple)
         {
             using (var requestWriter = new System.IO.StringWriter())
             {
@@ -4042,7 +4042,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// GET api/Tuple/Tuple8
         /// </summary>
-        public async Task<System.Tuple<string, string, string, string, string, string>> GetTuple8Async()
+        public async Task<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>> GetTuple8Async()
         {
             var template = new System.UriTemplate("api/Tuple/Tuple8");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
@@ -4054,7 +4054,7 @@ namespace DemoWebApi.Controllers.Client
             using (JsonReader jsonReader = new JsonTextReader(reader))
             {
             var serializer = new JsonSerializer();
-            return serializer.Deserialize<System.Tuple<string, string, string, string, string, string>>(jsonReader);
+            return serializer.Deserialize<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>>(jsonReader);
             }
         }
         
@@ -4062,7 +4062,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// GET api/Tuple/Tuple8
         /// </summary>
-        public System.Tuple<string, string, string, string, string, string> GetTuple8()
+        public System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>> GetTuple8()
         {
             var template = new System.UriTemplate("api/Tuple/Tuple8");
             var uriParameters = new System.Collections.Specialized.NameValueCollection();
@@ -4074,7 +4074,7 @@ namespace DemoWebApi.Controllers.Client
             using (JsonReader jsonReader = new JsonTextReader(reader))
             {
             var serializer = new JsonSerializer();
-            return serializer.Deserialize<System.Tuple<string, string, string, string, string, string>>(jsonReader);
+            return serializer.Deserialize<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>>(jsonReader);
             }
         }
         
@@ -4082,7 +4082,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Tuple/Tuple8
         /// </summary>
-        public async Task<string> PostTuple8Async(System.Tuple<string, string, string, string, string, string> tuple)
+        public async Task<string> PostTuple8Async(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
         {
             using (var requestWriter = new System.IO.StringWriter())
             {
@@ -4106,7 +4106,7 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Tuple/Tuple8
         /// </summary>
-        public string PostTuple8(System.Tuple<string, string, string, string, string, string> tuple)
+        public string PostTuple8(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
         {
             using (var requestWriter = new System.IO.StringWriter())
             {
@@ -4123,46 +4123,6 @@ namespace DemoWebApi.Controllers.Client
             var serializer = new JsonSerializer();
             return serializer.Deserialize<string>(jsonReader);
             }
-            }
-        }
-        
-        /// <summary>
-        /// 
-        /// GET api/Tuple/TupleNested
-        /// </summary>
-        public async Task<System.Tuple<string, string, string, string, string, string>> GetTupleNestedAsync()
-        {
-            var template = new System.UriTemplate("api/Tuple/TupleNested");
-            var uriParameters = new System.Collections.Specialized.NameValueCollection();
-            var requestUri = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage = await client.GetAsync(requestUri.ToString());
-            responseMessage.EnsureSuccessStatusCode();
-            using (var stream = await responseMessage.Content.ReadAsStreamAsync())
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
-            using (JsonReader jsonReader = new JsonTextReader(reader))
-            {
-            var serializer = new JsonSerializer();
-            return serializer.Deserialize<System.Tuple<string, string, string, string, string, string>>(jsonReader);
-            }
-        }
-        
-        /// <summary>
-        /// 
-        /// GET api/Tuple/TupleNested
-        /// </summary>
-        public System.Tuple<string, string, string, string, string, string> GetTupleNested()
-        {
-            var template = new System.UriTemplate("api/Tuple/TupleNested");
-            var uriParameters = new System.Collections.Specialized.NameValueCollection();
-            var requestUri = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
-            using (var stream = responseMessage.Content.ReadAsStreamAsync().Result)
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
-            using (JsonReader jsonReader = new JsonTextReader(reader))
-            {
-            var serializer = new JsonSerializer();
-            return serializer.Deserialize<System.Tuple<string, string, string, string, string, string>>(jsonReader);
             }
         }
     }

@@ -335,8 +335,7 @@ namespace Fonlow.CodeDom.Web.Cs
             method.Statements.Add(new CodeSnippetStatement(
 @"            using (var requestWriter = new System.IO.StringWriter())
             {
-                var requestSerializer = JsonSerializer.Create();
-"
+            var requestSerializer = JsonSerializer.Create();"
 ));
             method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
                 new CodeSnippetExpression("requestWriter"),
@@ -353,8 +352,7 @@ namespace Fonlow.CodeDom.Web.Cs
             }
 
             method.Statements.Add(new CodeSnippetStatement(
-@"                var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");
-"
+@"            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
                 ));
 
             if (singleFromBodyParameterDescription != null)

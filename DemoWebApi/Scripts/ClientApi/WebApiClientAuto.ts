@@ -767,18 +767,18 @@ namespace DemoWebApi_Controllers_Client {
 
         /** 
          * GET api/Tuple/Tuple7
-         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number}} 
+         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:number, Item7:number}} 
          */
-        GetTuple7(callback: (data : {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number}) => any){
+        GetTuple7(callback: (data : {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:number, Item7:number}) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple7'), callback, this.error, this.statusCode);
         }
 
         /** 
          * POST api/Tuple/Tuple7
-         * @param {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number}} tuple 
+         * @param {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:number, Item7:number}} tuple 
          * @return {string} 
          */
-        PostTuple7(tuple: {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number}, callback: (data : string) => any){
+        PostTuple7(tuple: {Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:number, Item7:number}, callback: (data : string) => any){
             this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple7'), tuple, callback, this.error, this.statusCode);
         }
 

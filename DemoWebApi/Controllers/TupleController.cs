@@ -172,14 +172,14 @@ namespace DemoWebApi.Controllers
 
         [HttpGet]
         [Route("Tuple7")]
-        public Tuple<string, string, string, string, string, string, int> GetTuple7()
+        public Tuple<string, string, string, string, string, long, int> GetTuple7()
         {
-            return new Tuple<string, string, string, string, string, string, int>("Seven", "Two", "Three", "Four", "Five", "Six", 7);
+            return new Tuple<string, string, string, string, string, long, int>("Seven", "Two", "Three", "Four", "Five", 1000, 7);
         }
 
         [HttpPost]
         [Route("Tuple7")]
-        public string PostTuple7(Tuple<string, string, string, string, string, string, int> tuple)
+        public string PostTuple7(Tuple<string, string, string, string, string, long, int> tuple)
         {
             return tuple.Item1;
         }

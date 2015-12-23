@@ -503,3 +503,42 @@ test("PostTuple2", function (assert) {
         done();
     });
 });
+
+test("GetTuple7", function (assert) {
+    var done = assert.async();
+    tupleApi.GetTuple7((data) => {
+        assert.equal(data["Item1"], "Seven");
+        assert.equal(data["Item7"], 7);
+        done();
+    });
+});
+
+//Visual Studio IDE may give some 
+test("PostTuple7", function (assert) {
+    var done = assert.async();
+    tupleApi.PostTuple7({ Item1: "One", Item2: "", Item3: "", Item4: "", Item5: "", Item6: 33333, Item7: 9 }, (data) => {
+        assert.equal(data, "One");
+        done();
+    });
+});
+
+
+test("GetTuple8", function (assert) {
+    var done = assert.async();
+    tupleApi.GetTuple8((data) => {
+        assert.equal(data["Item1"], "Nested");
+        assert.equal(data["Rest"].Item1, "nine");
+        done();
+    });
+});
+
+//Visual Studio IDE may give some 
+test("PostTuple8", function (assert) {
+    var done = assert.async();
+    tupleApi.PostTuple8({Item1: "One", Item2: "", Item3: "", Item4: "", Item5: "", Item6: "", Item7: "", Rest: { Item1: "a", Item2: "b", Item3:"c"} }, (data) => {
+        assert.equal(data, "a");
+        done();
+    });
+});
+
+

@@ -654,14 +654,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple7
-         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number}}
+         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:number, Item7:number}}
          */
         Tuple.prototype.GetTuple7 = function (callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple7'), callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple7
-         * @param {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number}} tuple
+         * @param {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:number, Item7:number}} tuple
          * @return {string}
          */
         Tuple.prototype.PostTuple7 = function (tuple, callback) {
@@ -669,25 +669,18 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple8
-         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:number}}
+         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number, Rest:{Item1:string, Item2:string, Item3:string}}}
          */
         Tuple.prototype.GetTuple8 = function (callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/Tuple8'), callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple8
-         * @param {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:number}} tuple
+         * @param {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:string, Rest:{Item1:string, Item2:string, Item3:string}}} tuple
          * @return {string}
          */
         Tuple.prototype.PostTuple8 = function (tuple, callback) {
             this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple8'), tuple, callback, this.error, this.statusCode);
-        };
-        /**
-         * GET api/Tuple/TupleNested
-         * @return {{Item1:string, Item2:string, Item3:string, Item4:string, Item5:string, Item6:string, Item7:number, Rest:{Item1:string, Item2:string, Item3:string}}}
-         */
-        Tuple.prototype.GetTupleNested = function (callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'api/Tuple/TupleNested'), callback, this.error, this.statusCode);
         };
         return Tuple;
     })();

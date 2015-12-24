@@ -495,7 +495,6 @@ test("GetTuple2", function (assert) {
     });
 });
 
-//Visual Studio IDE may give some 
 test("PostTuple2", function (assert) {
     var done = assert.async();
     tupleApi.PostTuple2({ Item1: "One", Item2: 2 }, (data) => {
@@ -541,4 +540,23 @@ test("PostTuple8", function (assert) {
     });
 });
 
+
+test("LinkPersonCompany", function (assert) {
+    var done = assert.async();
+    tupleApi.LinkPersonCompany1({
+        Item1: {
+            Name: "someone",
+            Surname: "my",
+            GivenName: "something",
+        },
+
+        Item2: {
+            Name: "Super",
+            Addresses: [{ City: "New York", Street1: "Somewhere st" }]
+        }
+    }, (data) => {
+        assert.equal(data.Name, "someone");
+        done();
+    });
+});
 

@@ -222,14 +222,14 @@ namespace Fonlow.CodeDom.Web.Cs
             }
 
             method.Statements.Add(new CodeSnippetStatement(forAsync ?
-                "            using (var stream = await responseMessage.Content.ReadAsStreamAsync())"
-                :"            using (var stream = responseMessage.Content.ReadAsStreamAsync().Result)"));
-            method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
-            method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(reader))"));
+                "            var stream = await responseMessage.Content.ReadAsStreamAsync();"
+                : "            var stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
+            //  method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
+            method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
             method.Statements.Add(new CodeSnippetStatement("            {"));
 
             method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "serializer",  new CodeSnippetExpression("new JsonSerializer()")));
+                new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
 
             if (TypeHelper.IsStringType(returnType))
             {
@@ -246,7 +246,7 @@ namespace Fonlow.CodeDom.Web.Cs
             else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType))
             {
                 method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-                    new CodeMethodReferenceExpression( new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+                    new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
                         new CodeSnippetExpression("jsonReader"))));
             }
             else
@@ -271,17 +271,17 @@ namespace Fonlow.CodeDom.Web.Cs
             method.Parameters.AddRange(parameters);
 
             var uriQueryParameters = description.ParameterDescriptions.Where(d =>
-                (!(d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromBody) && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
-                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromUri)
-                || (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromUri)
+                (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody) && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
+                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+                || (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
                 ).Select(d => new CodeParameterDeclarationExpression()
                 {
                     Name = d.Name,
                     Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
                 }).ToArray();
 
-            var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromBody
-                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder== ParameterBinder.None)))).ToArray();
+            var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+                || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
             if (fromBodyParameterDescriptions.Length > 1)
             {
                 throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
@@ -332,15 +332,6 @@ namespace Fonlow.CodeDom.Web.Cs
 
             };
 
-            method.Statements.Add(new CodeSnippetStatement(
-@"            using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();"
-));
-            method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
-                new CodeSnippetExpression("requestWriter"),
-                new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
-
 
             if (uriQueryParameters.Length > 0)
             {
@@ -351,23 +342,33 @@ namespace Fonlow.CodeDom.Web.Cs
                 AddRequestUriAssignmentStatement();
             }
 
-            method.Statements.Add(new CodeSnippetStatement(
-@"            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
-                ));
-
             if (singleFromBodyParameterDescription != null)
             {
+                method.Statements.Add(new CodeSnippetStatement(
+@"            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();"
+));
+                method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
+                    new CodeSnippetExpression("requestWriter"),
+                    new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
+
+
+                method.Statements.Add(new CodeSnippetStatement(
+    @"            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
+                    ));
+
                 if (forAsync)
                 {
                     AddPostStatement(
-                    new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ? 
+                    new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ?
                     "PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri.ToString()")
               , new CodeSnippetExpression("content")));
                 }
                 else
                 {
                     AddPostStatement(new CodePropertyReferenceExpression(
-                    new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? 
+                    new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ?
                     "PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri.ToString()")
               , new CodeSnippetExpression("content"))
                     , "Result"));
@@ -407,7 +408,8 @@ namespace Fonlow.CodeDom.Web.Cs
                 AddReturnStatement();
             }
 
-            method.Statements.Add(new CodeSnippetStatement("            }"));
+            if (singleFromBodyParameterDescription != null)
+                method.Statements.Add(new CodeSnippetStatement("            }"));
         }
 
     }

@@ -339,6 +339,17 @@ test("PostIntArray", function (assert) {
     });
 });
 
+
+test("PostWithQueryButEmptyBody", function (assert) {
+    var done = assert.async();
+    superDemoApi.PostWithQueryButEmptyBody("abc", 123, (data) => {
+        assert.equal(data.Item1, "abc");
+        assert.equal(data.Item2, 123);
+        done();
+    });
+});
+
+
 //test("GetIntArray", function (assert) {//this little fella refuses to finish even if the service had returned the right data. This happens only in the Chupaz runner. In browsers the script is OK.
 //    var done = assert.async();
 //    superDemoApi.GetIntArray((data) => {
@@ -442,6 +453,7 @@ test("GetByName", function (assert) {
         done();
     });
 });
+
 
 test("PostValue", function (assert) {
 

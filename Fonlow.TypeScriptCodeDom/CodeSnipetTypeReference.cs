@@ -17,7 +17,7 @@ namespace Fonlow.TypeScriptCodeDom
     /// callback: (data : {Item1:string, Item2:string, Item3:string, Item4:string, Item5:number}
     /// callback: (data : [string, string, string, string, number])
     /// </remarks>
-    public class CodeSnipetTypeReference : System.CodeDom.CodeTypeReference
+    public sealed class CodeSnipetTypeReference : System.CodeDom.CodeTypeReference
     {
         public CodeSnipetTypeReference(string typeName)
         {

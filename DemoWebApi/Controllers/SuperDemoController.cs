@@ -520,5 +520,12 @@ namespace DemoWebApi.Controllers
             };
         }
 
+        [HttpPost]
+        [Route("PostEmpty")]
+        public Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
+        {
+            return new Tuple<string, int>(s, i);
+        }
+
     }
 }

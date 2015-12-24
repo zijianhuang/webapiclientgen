@@ -494,5 +494,12 @@ namespace IntegrationTests
             Assert.Equal(2, api.PostIReadOnlyList(GetPersonList()));
         }
 
+        [Fact]
+        public void TestPostWithQueryButEmptyBody()
+        {
+            var r = api.PostWithQueryButEmptyBody("abc", 123);
+            Assert.Equal("abc", r.Item1);
+            Assert.Equal(123, r.Item2);
+        }
     }
 }

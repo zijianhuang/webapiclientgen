@@ -503,6 +503,16 @@ namespace DemoWebApi_Controllers_Client {
         GetHandy(handy: DemoWebApi_Models_Client.Handy, callback: (data : DemoWebApi_Models_Client.Handy) => any){
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Handy'), callback, this.error, this.statusCode);
         }
+
+        /** 
+         * POST api/SuperDemo/PostEmpty?s={s}&i={i}
+         * @param {string} s 
+         * @param {number} i 
+         * @return {{Item1:string, Item2:number}} 
+         */
+        PostWithQueryButEmptyBody(s: string, i: number, callback: (data : {Item1:string, Item2:number}) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/PostEmpty?s='+s+'&i='+i), null, callback, this.error, this.statusCode);
+        }
     }
 
     export class Entities {

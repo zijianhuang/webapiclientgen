@@ -411,6 +411,15 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.GetHandy = function (handy, callback) {
             this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Handy'), callback, this.error, this.statusCode);
         };
+        /**
+         * POST api/SuperDemo/PostEmpty?s={s}&i={i}
+         * @param {string} s
+         * @param {number} i
+         * @return {{Item1:string, Item2:number}}
+         */
+        SuperDemo.prototype.PostWithQueryButEmptyBody = function (s, i, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + s + '&i=' + i), null, callback, this.error, this.statusCode);
+        };
         return SuperDemo;
     })();
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;

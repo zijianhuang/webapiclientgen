@@ -52,6 +52,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CherryPicking.cs" />
     <Compile Include="CherryPickingMethods.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IPoco2Client.cs" />

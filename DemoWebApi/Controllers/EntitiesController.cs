@@ -30,12 +30,22 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpPost]
-        public long CreatePerson(Person person)
+        public long CreatePerson(Person p)
         {
-            if (person.Name == "Exception")
+            Debug.WriteLine("CreatePerson: " + p.Name);
+            if (!ModelState.IsValid)
+            {
+                Debug.WriteLine("error count: " + ModelState.Values.Count);
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                var errorMessages = errors.Select(d => d.Exception.Message);
+                Trace.TraceError(String.Join(Environment.NewLine, errorMessages));
+                throw new ArgumentException("Bad argument");
+            }
+
+            if (p.Name == "Exception")
                 throw new InvalidOperationException("It is exception");
 
-            Debug.WriteLine("Create " + person);
+            Debug.WriteLine("Create " + p);
             return 1000;
         }
 

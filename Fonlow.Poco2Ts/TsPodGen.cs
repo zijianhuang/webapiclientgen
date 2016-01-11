@@ -168,8 +168,6 @@ namespace Fonlow.Poco2Ts
 
 
                             var isRequired = cherryType == CherryType.BigCherry;
-
-
                             tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
                             var clientField = new CodeMemberField()

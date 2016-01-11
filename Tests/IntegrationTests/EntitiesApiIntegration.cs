@@ -56,7 +56,7 @@ namespace IntegrationTests
 
         DemoWebApi.Controllers.Client.Entities api;
 
-         [Fact]
+        [Fact]
         public void TestCreatePerson()
         {
             Person person = new Person()
@@ -73,7 +73,33 @@ namespace IntegrationTests
                     PostalCode="4000",
                     Country="Australia",
                     Type= AddressType.Postal,
+                    Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
                 }},
+            };
+
+            var id = api.CreatePerson(person);
+            Assert.True(id > 0);
+        }
+
+        [Fact]
+        public void TestCreatePersonWithEmptyName()
+        {
+            Person person = new Person()
+            {
+              //  Name = "Some One",
+                Surname = "One",
+                GivenName = "Some",
+                BirthDate = DateTime.Now.AddYears(-20),
+                Addresses = new Address[]{new Address(){
+                    City="Brisbane",
+                    State="QLD",
+                    Street1="Somewhere",
+                    Street2="Over the rainbow",
+                    PostalCode="4000",
+                    Country="Australia",
+                    Type= AddressType.Postal,
+                    Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+              }},
             };
 
             var id = api.CreatePerson(person);
@@ -135,7 +161,8 @@ namespace IntegrationTests
                     PostalCode="4000",
                     Country="Australia",
                     Type= AddressType.Postal,
-                }},
+                    Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+               }},
             };
 
 

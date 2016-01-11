@@ -149,6 +149,13 @@ namespace Fonlow.Poco2Client
                                 //todo: add some attributes
 
                             };
+
+                            var isRequired = cherryType == CherryType.BigCherry;
+                            if (isRequired)
+                            {
+                                clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+                            }
+
                             var privateFieldName = "_" + tsPropertyName;
 
                             typeDeclaration.Members.Add(new CodeMemberField()
@@ -170,9 +177,6 @@ namespace Fonlow.Poco2Client
                             string tsPropertyName;
 
 
-                            //  var isRequired = cherryType == CherryType.BigCherry;
-
-
                             tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
                             var clientProperty = new CodeMemberProperty()
@@ -180,9 +184,15 @@ namespace Fonlow.Poco2Client
                                 Name = tsPropertyName,
                                 Type = TranslateToClientTypeReference(fieldInfo.FieldType),
                                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
-                                //todo: add some attributes
-
+                                //todo: add some attributes                               
                             };
+
+                            var isRequired = cherryType == CherryType.BigCherry;
+                            if (isRequired)
+                            {
+                                clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+                            }
+
                             var privateFieldName = "_" + tsPropertyName;
 
                             typeDeclaration.Members.Add(new CodeMemberField()

@@ -12,12 +12,24 @@ namespace DemoWebApi.DemoData.Client
 {
     
     
+    public class Constants : object
+    {
+    }
+    
     public enum AddressType
     {
         
         Postal,
         
         Residential,
+    }
+    
+    public enum MyEnumType
+    {
+        
+        First = 1,
+        
+        Two = 2,
     }
     
     public enum Days
@@ -42,6 +54,10 @@ namespace DemoWebApi.DemoData.Client
     {
         
         private System.Guid _Id;
+        
+        private DemoWebApi.DemoData.Client.Entity _Entity;
+        
+        private System.Guid _EntityId;
         
         private string _Street1;
         
@@ -68,6 +84,30 @@ namespace DemoWebApi.DemoData.Client
             set
             {
                 _Id = value;
+            }
+        }
+        
+        public DemoWebApi.DemoData.Client.Entity Entity
+        {
+            get
+            {
+                return _Entity;
+            }
+            set
+            {
+                _Entity = value;
+            }
+        }
+        
+        public System.Guid EntityId
+        {
+            get
+            {
+                return _EntityId;
+            }
+            set
+            {
+                _EntityId = value;
             }
         }
         
@@ -189,6 +229,7 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
         public string Name
         {
             get
@@ -434,24 +475,215 @@ namespace DemoWebApi.Models.Client
 {
     
     
-    public class Handy : object
+    public class AddExternalLoginBindingModel : object
     {
         
-        private long _Id;
+        private string _ExternalAccessToken;
         
-        private string _Name;
-        
-        public long Id
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string ExternalAccessToken
         {
             get
             {
-                return _Id;
+                return _ExternalAccessToken;
             }
             set
             {
-                _Id = value;
+                _ExternalAccessToken = value;
             }
         }
+    }
+    
+    public class ChangePasswordBindingModel : object
+    {
+        
+        private string _OldPassword;
+        
+        private string _NewPassword;
+        
+        private string _ConfirmPassword;
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string OldPassword
+        {
+            get
+            {
+                return _OldPassword;
+            }
+            set
+            {
+                _OldPassword = value;
+            }
+        }
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string NewPassword
+        {
+            get
+            {
+                return _NewPassword;
+            }
+            set
+            {
+                _NewPassword = value;
+            }
+        }
+        
+        public string ConfirmPassword
+        {
+            get
+            {
+                return _ConfirmPassword;
+            }
+            set
+            {
+                _ConfirmPassword = value;
+            }
+        }
+    }
+    
+    public class RegisterBindingModel : object
+    {
+        
+        private string _Email;
+        
+        private string _Password;
+        
+        private string _ConfirmPassword;
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
+            }
+        }
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string Password
+        {
+            get
+            {
+                return _Password;
+            }
+            set
+            {
+                _Password = value;
+            }
+        }
+        
+        public string ConfirmPassword
+        {
+            get
+            {
+                return _ConfirmPassword;
+            }
+            set
+            {
+                _ConfirmPassword = value;
+            }
+        }
+    }
+    
+    public class RegisterExternalBindingModel : object
+    {
+        
+        private string _Email;
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
+            }
+        }
+    }
+    
+    public class RemoveLoginBindingModel : object
+    {
+        
+        private string _LoginProvider;
+        
+        private string _ProviderKey;
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string LoginProvider
+        {
+            get
+            {
+                return _LoginProvider;
+            }
+            set
+            {
+                _LoginProvider = value;
+            }
+        }
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string ProviderKey
+        {
+            get
+            {
+                return _ProviderKey;
+            }
+            set
+            {
+                _ProviderKey = value;
+            }
+        }
+    }
+    
+    public class SetPasswordBindingModel : object
+    {
+        
+        private string _NewPassword;
+        
+        private string _ConfirmPassword;
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string NewPassword
+        {
+            get
+            {
+                return _NewPassword;
+            }
+            set
+            {
+                _NewPassword = value;
+            }
+        }
+        
+        public string ConfirmPassword
+        {
+            get
+            {
+                return _ConfirmPassword;
+            }
+            set
+            {
+                _ConfirmPassword = value;
+            }
+        }
+    }
+    
+    public class ExternalLoginViewModel : object
+    {
+        
+        private string _Name;
+        
+        private string _Url;
+        
+        private string _State;
         
         public string Name
         {
@@ -462,6 +694,196 @@ namespace DemoWebApi.Models.Client
             set
             {
                 _Name = value;
+            }
+        }
+        
+        public string Url
+        {
+            get
+            {
+                return _Url;
+            }
+            set
+            {
+                _Url = value;
+            }
+        }
+        
+        public string State
+        {
+            get
+            {
+                return _State;
+            }
+            set
+            {
+                _State = value;
+            }
+        }
+    }
+    
+    public class ManageInfoViewModel : object
+    {
+        
+        private string _LocalLoginProvider;
+        
+        private string _Email;
+        
+        private DemoWebApi.Models.Client.UserLoginInfoViewModel[] _Logins;
+        
+        private DemoWebApi.Models.Client.ExternalLoginViewModel[] _ExternalLoginProviders;
+        
+        public string LocalLoginProvider
+        {
+            get
+            {
+                return _LocalLoginProvider;
+            }
+            set
+            {
+                _LocalLoginProvider = value;
+            }
+        }
+        
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
+            }
+        }
+        
+        public DemoWebApi.Models.Client.UserLoginInfoViewModel[] Logins
+        {
+            get
+            {
+                return _Logins;
+            }
+            set
+            {
+                _Logins = value;
+            }
+        }
+        
+        public DemoWebApi.Models.Client.ExternalLoginViewModel[] ExternalLoginProviders
+        {
+            get
+            {
+                return _ExternalLoginProviders;
+            }
+            set
+            {
+                _ExternalLoginProviders = value;
+            }
+        }
+    }
+    
+    public class UserInfoViewModel : object
+    {
+        
+        private string _Email;
+        
+        private bool _HasRegistered;
+        
+        private string _LoginProvider;
+        
+        private string _Dummy1;
+        
+        private string _Dumy2;
+        
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
+            }
+        }
+        
+        public bool HasRegistered
+        {
+            get
+            {
+                return _HasRegistered;
+            }
+            set
+            {
+                _HasRegistered = value;
+            }
+        }
+        
+        public string LoginProvider
+        {
+            get
+            {
+                return _LoginProvider;
+            }
+            set
+            {
+                _LoginProvider = value;
+            }
+        }
+        
+        public string Dummy1
+        {
+            get
+            {
+                return _Dummy1;
+            }
+            set
+            {
+                _Dummy1 = value;
+            }
+        }
+        
+        public string Dumy2
+        {
+            get
+            {
+                return _Dumy2;
+            }
+            set
+            {
+                _Dumy2 = value;
+            }
+        }
+    }
+    
+    public class UserLoginInfoViewModel : object
+    {
+        
+        private string _LoginProvider;
+        
+        private string _ProviderKey;
+        
+        public string LoginProvider
+        {
+            get
+            {
+                return _LoginProvider;
+            }
+            set
+            {
+                _LoginProvider = value;
+            }
+        }
+        
+        public string ProviderKey
+        {
+            get
+            {
+                return _ProviderKey;
+            }
+            set
+            {
+                _ProviderKey = value;
             }
         }
     }
@@ -2526,46 +2948,6 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
-        /// GET api/SuperDemo/Handy
-        /// </summary>
-        public async Task<DemoWebApi.Models.Client.Handy> GetHandyAsync(DemoWebApi.Models.Client.Handy handy)
-        {
-            var template = new System.UriTemplate("api/SuperDemo/Handy");
-            var uriParameters = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("handy", handy.ToString());
-            var requestUri = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage = await client.GetAsync(requestUri.ToString());
-            responseMessage.EnsureSuccessStatusCode();
-            var stream = await responseMessage.Content.ReadAsStreamAsync();
-            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-            {
-            var serializer = new JsonSerializer();
-            return serializer.Deserialize<DemoWebApi.Models.Client.Handy>(jsonReader);
-            }
-        }
-        
-        /// <summary>
-        /// 
-        /// GET api/SuperDemo/Handy
-        /// </summary>
-        public DemoWebApi.Models.Client.Handy GetHandy(DemoWebApi.Models.Client.Handy handy)
-        {
-            var template = new System.UriTemplate("api/SuperDemo/Handy");
-            var uriParameters = new System.Collections.Specialized.NameValueCollection();
-            uriParameters.Add("handy", handy.ToString());
-            var requestUri = template.BindByName(this.baseUri, uriParameters);
-            var responseMessage = this.client.GetAsync(requestUri.ToString()).Result;
-            responseMessage.EnsureSuccessStatusCode();
-            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-            {
-            var serializer = new JsonSerializer();
-            return serializer.Deserialize<DemoWebApi.Models.Client.Handy>(jsonReader);
-            }
-        }
-        
-        /// <summary>
-        /// 
         /// POST api/SuperDemo/PostEmpty?s={s}&i={i}
         /// </summary>
         public async Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync(string s, int i)
@@ -2768,13 +3150,13 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Entities
         /// </summary>
-        public async Task<long> CreatePersonAsync(DemoWebApi.DemoData.Client.Person person)
+        public async Task<long> CreatePersonAsync(DemoWebApi.DemoData.Client.Person p)
         {
             var requestUri = new System.Uri(this.baseUri, "api/Entities");
             using (var requestWriter = new System.IO.StringWriter())
             {
             var requestSerializer = JsonSerializer.Create();
-            requestSerializer.Serialize(requestWriter, person);
+            requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri.ToString(), content);
             responseMessage.EnsureSuccessStatusCode();
@@ -2791,13 +3173,13 @@ namespace DemoWebApi.Controllers.Client
         /// 
         /// POST api/Entities
         /// </summary>
-        public long CreatePerson(DemoWebApi.DemoData.Client.Person person)
+        public long CreatePerson(DemoWebApi.DemoData.Client.Person p)
         {
             var requestUri = new System.Uri(this.baseUri, "api/Entities");
             using (var requestWriter = new System.IO.StringWriter())
             {
             var requestSerializer = JsonSerializer.Create();
-            requestSerializer.Serialize(requestWriter, person);
+            requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri.ToString(), content).Result;
             responseMessage.EnsureSuccessStatusCode();

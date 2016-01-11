@@ -1,12 +1,19 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="HttpClient.ts" />
 namespace DemoWebApi_DemoData_Client {
+    export interface Constants {
+    }
+
     export enum AddressType {Postal, Residential}
+
+    export enum MyEnumType {First=1, Two=2}
 
     export enum Days {Sat=1, Sun=2, Mon=3, Tue=4, Wed=5, Thu=6, Fri=7}
 
     export interface Address {
         Id?: string;
+        Entity?: DemoWebApi_DemoData_Client.Entity;
+        EntityId?: string;
         Street1?: string;
         Street2?: string;
         City?: string;
@@ -55,9 +62,60 @@ namespace DemoWebApi_DemoData_Another_Client {
 }
 
 namespace DemoWebApi_Models_Client {
-    export interface Handy {
-        Id?: number;
+    export interface AddExternalLoginBindingModel {
+        ExternalAccessToken: string;
+    }
+
+    export interface ChangePasswordBindingModel {
+        OldPassword: string;
+        NewPassword: string;
+        ConfirmPassword?: string;
+    }
+
+    export interface RegisterBindingModel {
+        Email: string;
+        Password: string;
+        ConfirmPassword?: string;
+    }
+
+    export interface RegisterExternalBindingModel {
+        Email: string;
+    }
+
+    export interface RemoveLoginBindingModel {
+        LoginProvider: string;
+        ProviderKey: string;
+    }
+
+    export interface SetPasswordBindingModel {
+        NewPassword: string;
+        ConfirmPassword?: string;
+    }
+
+    export interface ExternalLoginViewModel {
         Name?: string;
+        Url?: string;
+        State?: string;
+    }
+
+    export interface ManageInfoViewModel {
+        LocalLoginProvider?: string;
+        Email?: string;
+        Logins?: Array<DemoWebApi_Models_Client.UserLoginInfoViewModel>;
+        ExternalLoginProviders?: Array<DemoWebApi_Models_Client.ExternalLoginViewModel>;
+    }
+
+    export interface UserInfoViewModel {
+        Email?: string;
+        HasRegistered?: boolean;
+        LoginProvider?: string;
+        Dummy1?: string;
+        Dumy2?: string;
+    }
+
+    export interface UserLoginInfoViewModel {
+        LoginProvider?: string;
+        ProviderKey?: string;
     }
 
 }
@@ -496,15 +554,6 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/SuperDemo/Handy
-         * @param {DemoWebApi_Models_Client.Handy} handy 
-         * @return {DemoWebApi_Models_Client.Handy} 
-         */
-        GetHandy(handy: DemoWebApi_Models_Client.Handy, callback: (data : DemoWebApi_Models_Client.Handy) => any){
-            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Handy'), callback, this.error, this.statusCode);
-        }
-
-        /** 
          * POST api/SuperDemo/PostEmpty?s={s}&i={i}
          * @param {string} s 
          * @param {number} i 
@@ -553,11 +602,11 @@ namespace DemoWebApi_Controllers_Client {
 
         /** 
          * POST api/Entities
-         * @param {DemoWebApi_DemoData_Client.Person} person 
+         * @param {DemoWebApi_DemoData_Client.Person} p 
          * @return {number} 
          */
-        CreatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any){
-            this.httpClient.post(encodeURI(this.baseUri + 'api/Entities'), person, callback, this.error, this.statusCode);
+        CreatePerson(p: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any){
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Entities'), p, callback, this.error, this.statusCode);
         }
 
         /** 

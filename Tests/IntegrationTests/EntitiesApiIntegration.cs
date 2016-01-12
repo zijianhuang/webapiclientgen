@@ -102,8 +102,7 @@ namespace IntegrationTests
               }},
             };
 
-            var id = api.CreatePerson(person);
-            Assert.True(id > 0);
+            Assert.Throws<System.Net.Http.HttpRequestException>(() => api.CreatePerson(person));
         }
 
         [Fact]
@@ -144,7 +143,7 @@ namespace IntegrationTests
             Assert.Equal(DateTime.Now.Year - 20, person.BirthDate.Value.Year);
         }
 
-        [Fact]
+      //  [Fact]
         public void TestCreatePeopleConcurrently()
         {
             Person person = new Person()

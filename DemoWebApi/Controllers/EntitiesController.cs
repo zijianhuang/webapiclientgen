@@ -33,14 +33,6 @@ namespace DemoWebApi.Controllers
         public long CreatePerson(Person p)
         {
             Debug.WriteLine("CreatePerson: " + p.Name);
-            if (!ModelState.IsValid)
-            {
-                Debug.WriteLine("error count: " + ModelState.Values.Count);
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                var errorMessages = errors.Select(d => d.Exception.Message);
-                Trace.TraceError(String.Join(Environment.NewLine, errorMessages));
-                throw new ArgumentException("Bad argument");
-            }
 
             if (p.Name == "Exception")
                 throw new InvalidOperationException("It is exception");

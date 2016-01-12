@@ -114,7 +114,7 @@ namespace Fonlow.Poco2Client
                     CodeTypeDeclaration typeDeclaration;
                     if (TypeHelper.IsClassOrStruct(type))
                     {
-                        typeDeclaration = PodGenHelper.CreatePodClientClass(clientNamespace, tsName);
+                        typeDeclaration = type.IsClass ? PodGenHelper.CreatePodClientClass(clientNamespace, tsName): PodGenHelper.CreatePodClientStruct(clientNamespace, tsName);
 
                         if (!type.IsValueType)
                         {
@@ -141,6 +141,7 @@ namespace Fonlow.Poco2Client
                             tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
 
+                            
                             var clientProperty = new CodeMemberProperty()
                             {
                                 Name = tsPropertyName,
@@ -179,31 +180,48 @@ namespace Fonlow.Poco2Client
 
                             tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
-                            var clientProperty = new CodeMemberProperty()
-                            {
-                                Name = tsPropertyName,
-                                Type = TranslateToClientTypeReference(fieldInfo.FieldType),
-                                Attributes = MemberAttributes.Public | MemberAttributes.Final,
-                                //todo: add some attributes                               
-                            };
 
-                            var isRequired = cherryType == CherryType.BigCherry;
-                            if (isRequired)
+                            //public fields of a class will be translated into properties
+                            if (type.IsClass)
                             {
-                                clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+                                var clientProperty = new CodeMemberProperty()
+                                {
+                                    Name = tsPropertyName,
+                                    Type = TranslateToClientTypeReference(fieldInfo.FieldType),
+                                    Attributes = MemberAttributes.Public | MemberAttributes.Final,
+                                    //todo: add some attributes                               
+                                };
+
+                                var isRequired = cherryType == CherryType.BigCherry;
+                                if (isRequired)
+                                {
+                                    clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+                                }
+
+                                var privateFieldName = "_" + tsPropertyName;
+
+                                typeDeclaration.Members.Add(new CodeMemberField()
+                                {
+                                    Name = privateFieldName,
+                                    Type = TranslateToClientTypeReference(fieldInfo.FieldType),
+                                });
+
+                                clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
+                                clientProperty.SetStatements.Add(new CodeSnippetStatement($"                {privateFieldName} = value;"));
+                                typeDeclaration.Members.Add(clientProperty);
                             }
-
-                            var privateFieldName = "_" + tsPropertyName;
-
-                            typeDeclaration.Members.Add(new CodeMemberField()
+                            else //public fields of struct
                             {
-                                Name = privateFieldName,
-                                Type = TranslateToClientTypeReference(fieldInfo.FieldType),
-                            });
+                                var clientProperty = new CodeMemberField()
+                                {
+                                    Name = tsPropertyName,
+                                    Type = TranslateToClientTypeReference(fieldInfo.FieldType),
+                                    Attributes = MemberAttributes.Public | MemberAttributes.Final,
+                                    //todo: add some attributes                               
+                                };
 
-                            clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
-                            clientProperty.SetStatements.Add(new CodeSnippetStatement($"                {privateFieldName} = value;"));
-                            typeDeclaration.Members.Add(clientProperty);
+                                typeDeclaration.Members.Add(clientProperty);
+                            }
                         }
                     }
                     else if (type.IsEnum)

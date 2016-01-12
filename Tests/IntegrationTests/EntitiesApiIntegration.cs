@@ -143,7 +143,7 @@ namespace IntegrationTests
             Assert.Equal(DateTime.Now.Year - 20, person.BirthDate.Value.Year);
         }
 
-      //  [Fact]
+      //  [Fact(Skip ="No need to run everytime")]
         public void TestCreatePeopleConcurrently()
         {
             Person person = new Person()

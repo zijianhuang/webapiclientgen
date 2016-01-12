@@ -140,6 +140,11 @@ namespace Fonlow.Reflection
             return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
         }
 
+        public static bool IsStruct(Type type)
+        {
+            return (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
+        }
+
 
     }
 

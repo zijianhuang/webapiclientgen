@@ -37,7 +37,7 @@ QUnit.test("AddPerson", function (assert) {
         Addresses: [{
                 City: "Brisbane",
                 State: "QLD",
-                Type: DemoWebApi_DemoData_Client.AddressType.Residential
+                Type: DemoWebApi_DemoData_Client.AddressType.Residential,
             }]
     }, function (data) {
         assert.ok(data > 0);
@@ -334,18 +334,13 @@ test("PostDictionaryOfPeople", function (assert) {
             "Name": "Peter Parker",
             "Addresses": [
                 {
-                    "Location": {
-                        "X": 0,
-                        "Y": 0
-                    },
                     "Id": "00000000-0000-0000-0000-000000000000",
-                    "Street1": null,
-                    "Street2": null,
                     "City": "New York",
-                    "State": null,
+                    State: "Somewhere",
                     "PostalCode": null,
                     "Country": null,
-                    "Type": 0
+                    "Type": 0,
+                    Location: { X: 100, Y: 200 }
                 }
             ]
         }

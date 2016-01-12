@@ -59,6 +59,18 @@ namespace Fonlow.Poco2Client
             return targetClass;
         }
 
+        internal static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
+        {
+            var targetClass = new CodeTypeDeclaration(className)
+            {
+                TypeAttributes = TypeAttributes.Public, 
+                IsStruct=true
+            };
+
+            ns.Types.Add(targetClass);
+            return targetClass;
+        }
+
         internal static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
         {
             var targetClass = new CodeTypeDeclaration(className)

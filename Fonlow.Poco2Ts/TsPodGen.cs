@@ -167,9 +167,10 @@ namespace Fonlow.Poco2Ts
                             string tsPropertyName;
 
 
-                            var isRequired = cherryType == CherryType.BigCherry;
+                            var isRequired = (cherryType == CherryType.BigCherry) || !type.IsClass;//public fields in struct should all be value types, so required
                             tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
+
                             var clientField = new CodeMemberField()
                             {
                                 Name = tsPropertyName + (isRequired ? String.Empty : "?"),

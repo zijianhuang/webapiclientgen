@@ -7,6 +7,11 @@ var DemoWebApi_DemoData_Client;
         AddressType[AddressType["Residential"] = 1] = "Residential";
     })(DemoWebApi_DemoData_Client.AddressType || (DemoWebApi_DemoData_Client.AddressType = {}));
     var AddressType = DemoWebApi_DemoData_Client.AddressType;
+    (function (MyEnumType) {
+        MyEnumType[MyEnumType["First"] = 1] = "First";
+        MyEnumType[MyEnumType["Two"] = 2] = "Two";
+    })(DemoWebApi_DemoData_Client.MyEnumType || (DemoWebApi_DemoData_Client.MyEnumType = {}));
+    var MyEnumType = DemoWebApi_DemoData_Client.MyEnumType;
     (function (Days) {
         Days[Days["Sat"] = 1] = "Sat";
         Days[Days["Sun"] = 2] = "Sun";
@@ -404,14 +409,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/Collection'), list, callback, this.error, this.statusCode);
         };
         /**
-         * GET api/SuperDemo/Handy
-         * @param {DemoWebApi_Models_Client.Handy} handy
-         * @return {DemoWebApi_Models_Client.Handy}
-         */
-        SuperDemo.prototype.GetHandy = function (handy, callback) {
-            this.httpClient.get(encodeURI(this.baseUri + 'api/SuperDemo/Handy'), callback, this.error, this.statusCode);
-        };
-        /**
          * POST api/SuperDemo/PostEmpty?s={s}&i={i}
          * @param {string} s
          * @param {number} i
@@ -460,11 +457,11 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * POST api/Entities
-         * @param {DemoWebApi_DemoData_Client.Person} person
+         * @param {DemoWebApi_DemoData_Client.Person} p
          * @return {number}
          */
-        Entities.prototype.CreatePerson = function (person, callback) {
-            this.httpClient.post(encodeURI(this.baseUri + 'api/Entities'), person, callback, this.error, this.statusCode);
+        Entities.prototype.CreatePerson = function (p, callback) {
+            this.httpClient.post(encodeURI(this.baseUri + 'api/Entities'), p, callback, this.error, this.statusCode);
         };
         /**
          * PUT api/Entities

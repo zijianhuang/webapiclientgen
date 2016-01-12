@@ -60,6 +60,7 @@
     <None Include="..\WebApiClientGen.snk">
       <Link>Properties\WebApiClientGen.snk</Link>
     </None>
+    <None Include="Fonlow.TypeScriptCodeDom.nuspec" />
     <None Include="PackNupkg.bat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

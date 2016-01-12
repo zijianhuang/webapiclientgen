@@ -55,8 +55,8 @@ namespace DemoWebApi_DemoData_Client {
 
 namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
-        X?: number;
-        Y?: number;
+        X: number;
+        Y: number;
     }
 
 }

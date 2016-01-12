@@ -86,7 +86,7 @@ namespace IntegrationTests
         {
             Person person = new Person()
             {
-              //  Name = "Some One",
+                Name = null,
                 Surname = "One",
                 GivenName = "Some",
                 BirthDate = DateTime.Now.AddYears(-20),

@@ -99,6 +99,7 @@ namespace DemoWebApi.DemoData
         [DataMember]
         public Guid Id { get; set; }
 
+        
         [DataMember(IsRequired =true)]
         public string Name { get; set; }
 

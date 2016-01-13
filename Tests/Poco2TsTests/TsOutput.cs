@@ -57,8 +57,8 @@ namespace Poco2TsTests
             Verify(typeof(DemoWebApi.DemoData.Another.MyPoint),
 @"namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
-        X?: number;
-        Y?: number;
+        X: number;
+        Y: number;
     }
 
 }

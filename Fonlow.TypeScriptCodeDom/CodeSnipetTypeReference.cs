@@ -1,9 +1,4 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fonlow.TypeScriptCodeDom
+﻿namespace Fonlow.TypeScriptCodeDom
 {
     /// <summary>
     /// Support code snipet as BaseType.

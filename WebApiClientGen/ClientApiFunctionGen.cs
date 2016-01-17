@@ -14,10 +14,6 @@ namespace Fonlow.CodeDom.Web.Cs
     {
         SharedContext sharedContext;
         WebApiDescription description;
-        //    string relativePath;
-        //  string route;
-        //  Collection<ApiParameterDescription> parameterDescriptions;
-        //   string controllerName;
         string methodName;
         Type returnType;
         CodeMemberMethod method;
@@ -30,11 +26,6 @@ namespace Fonlow.CodeDom.Web.Cs
             this.description = description;
             this.sharedContext = sharedContext;
             this.poco2CsGen = poco2CsGen;
-
-            //   relativePath = description.RelativePath;
-            //   parameterDescriptions = description.ParameterDescriptions;
-            //   controllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName;
-
 
             methodName = description.ActionDescriptor.ActionName;
             if (methodName.EndsWith("Async"))
@@ -117,7 +108,6 @@ namespace Fonlow.CodeDom.Web.Cs
 
         CodeMemberMethod CreateMethodBasicForAsync()
         {
-            // Debug.Assert(!methodName.Contains("Anonymous"));
             return new CodeMemberMethod()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,

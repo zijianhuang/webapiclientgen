@@ -30,13 +30,19 @@ namespace Fonlow.CodeDom.Web.Ts
             this.description = description;
             this.poco2TsGen = poco2TsGen;
 
-            methodName = description.ActionDescriptor.ActionName;
+            methodName = TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
             if (methodName.EndsWith("Async"))
                 methodName = methodName.Substring(0, methodName.Length - 5);//HTTP does not care about the server side async.
 
             returnType = description.ActionDescriptor.ReturnType;
 
         }
+
+        static string SetCamelCase(string s)
+        {
+            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
+        }
+
 
         public static CodeMemberMethod Create(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {

@@ -38,5 +38,7 @@ namespace Fonlow.CodeDom.Web
         /// Cherry picking methods of POCO classes
         /// </summary>
         public int? CherryPickingMethods { get; set; }
+
+        public bool? CamelCase { get; set; }
     }
 }

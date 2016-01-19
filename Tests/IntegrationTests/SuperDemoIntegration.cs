@@ -322,16 +322,16 @@ namespace IntegrationTests
         public void TestGetAnonymousDynamic()
         {
             var d = api.GetAnonymousDynamic();
-            Assert.Equal("12345", d["Id"].ToString());
-            Assert.Equal("Something", d["Name"].ToString());
+            Assert.Equal("12345", d["id"].ToString());
+            Assert.Equal("Something", d["name"].ToString());
         }
 
         [Fact]
         public void TestGetAnonymousObject()
         {
             var d = api.GetAnonymousObject();
-            Assert.Equal("12345", d["Id"].ToString());
-            Assert.Equal("Something", d["Name"].ToString());
+            Assert.Equal("12345", d["id"].ToString());
+            Assert.Equal("Something", d["name"].ToString());
         }
 
         [Fact]
@@ -350,15 +350,15 @@ namespace IntegrationTests
         public void TestGetDictionaryOfPeople()
         {
             var dic = api.GetDictionaryOfPeople();
-            Assert.Equal("Tony Stark", dic["Iron Man"].Name);
-            Assert.Equal("New York", dic["Spider Man"].Addresses[0].City);
+            Assert.Equal("Tony Stark", dic["iron Man"].Name);
+            Assert.Equal("New York", dic["spider Man"].Addresses[0].City);
         }
 
         [Fact]
         public void TestGetDictionary()
         {
             var dic = api.GetDictionary();
-            Assert.Equal("number", dic["System.Int64"]);
+            Assert.Equal("number", dic["system.Int64"]);
         }
 
         [Fact]

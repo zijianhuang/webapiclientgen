@@ -8,5 +8,6 @@
     "DataModelAssemblyNames": [
         "DemoWebApi.DemoData", "DemoWebApi"
     ],
-    "CherryPickingMethods": 1
+    "CherryPickingMethods": 1,
+    "CamelCase" :  true
 }

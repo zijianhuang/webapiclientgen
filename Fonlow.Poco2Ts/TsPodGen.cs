@@ -5,7 +5,6 @@ using System.CodeDom.Compiler;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 using System;
 using Fonlow.Poco2Client;
 using Fonlow.Reflection;
@@ -79,11 +78,9 @@ namespace Fonlow.Poco2Ts
                 throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
             var provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider();
-            CodeGeneratorOptions options = new CodeGeneratorOptions()
-            {
-                BracingStyle = "JS",//not really used
-                IndentString = "    ",
-            };
+            CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
+            options.BracingStyle = "JS";
+            options.IndentString = "    ";
 
             provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
         }
@@ -94,6 +91,15 @@ namespace Fonlow.Poco2Ts
             CreateCodeDom(cherryTypes, methods);
         }
 
+        /// <summary>
+        /// Assuming s is in Pascal case
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        static string SetCamelCase(string s)
+        {
+            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
+        }
 
         /// <summary>
         /// Create TypeScript CodeDOM for POCO types. 
@@ -147,7 +153,7 @@ namespace Fonlow.Poco2Ts
 
 
                             var isRequired = cherryType == CherryType.BigCherry;
-                            tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( propertyInfo.Name) : propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
                             var clientField = new CodeMemberField()
                             {
@@ -168,7 +174,7 @@ namespace Fonlow.Poco2Ts
 
 
                             var isRequired = (cherryType == CherryType.BigCherry) || !type.IsClass;//public fields in struct should all be value types, so required
-                            tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( fieldInfo.Name): fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
 
                             var clientField = new CodeMemberField()

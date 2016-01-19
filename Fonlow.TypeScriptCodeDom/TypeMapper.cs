@@ -108,7 +108,9 @@ namespace Fonlow.TypeScriptCodeDom
                 System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
                 var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
                 var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
-                return $"{{Key: {keyTypeReferenceText}, Value: {valueTypeReferenceText} }}";
+                return TsCodeGenerationOptions.Instance.CamelCase ? 
+                    $"{{key: {keyTypeReferenceText}, value: {valueTypeReferenceText} }}" 
+                    : $"{{Key: {keyTypeReferenceText}, Value: {valueTypeReferenceText} }}";
             }
 
             if (codeTypeReference.BaseType.Contains("System.Collections.Generic.Dictionary"))
@@ -116,7 +118,9 @@ namespace Fonlow.TypeScriptCodeDom
                 System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
                 var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
                 var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
-                return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
+                return TsCodeGenerationOptions.Instance.CamelCase ?
+                    $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}"
+                    : $"{{[Id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
             }
 
             if (codeTypeReference.BaseType.Contains("System.Tuple"))
@@ -158,9 +162,20 @@ namespace Fonlow.TypeScriptCodeDom
             {
                 var typeName = MapCodeTypeReferenceToTsText(collection[i]);
                 var propertyName = (i < 7) ? "Item" + (i + 1).ToString() : "Rest";
-                ss[i] = propertyName + ":" + typeName;
+                ss[i] = (TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( propertyName) : propertyName) 
+                    + ":" + typeName;
             }
             return String.Join(", ", ss);
+        }
+
+        /// <summary>
+        /// Assuming s is in Pascal case
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        static string SetCamelCase(string s)
+        {
+            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
         }
 
     }

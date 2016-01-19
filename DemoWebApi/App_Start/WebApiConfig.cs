@@ -34,7 +34,13 @@ namespace DemoWebApi
             config.Filters.Add(new ValidateModelAttribute());
 
             config.Services.RemoveAll(typeof(System.Web.Http.Validation.ModelValidatorProvider), (provider) => provider is System.Web.Http.Validation.Providers.InvalidModelValidatorProvider);
-          //  GlobalConfiguration.Configuration.Services.Add(typeof(System.Web.Http.Validation.ModelValidatorProvider), new System.Web.Http.Validation.Providers.RequiredMemberModelValidatorProvider());
+            //  GlobalConfiguration.Configuration.Services.Add(typeof(System.Web.Http.Validation.ModelValidatorProvider), new System.Web.Http.Validation.Providers.RequiredMemberModelValidatorProvider());
+
+            var formatters = GlobalConfiguration.Configuration.Formatters;
+            var jsonFormatter = formatters.JsonFormatter;
+            var settings = jsonFormatter.SerializerSettings;
+            settings.Formatting = Newtonsoft.Json.Formatting.Indented;
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

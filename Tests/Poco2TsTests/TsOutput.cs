@@ -54,11 +54,12 @@ namespace Poco2TsTests
         [Fact]
         public void TestStrutMyPoint()
         {
+            Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = true;
             Verify(typeof(DemoWebApi.DemoData.Another.MyPoint),
 @"namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
-        X: number;
-        Y: number;
+        x: number;
+        y: number;
     }
 
 }

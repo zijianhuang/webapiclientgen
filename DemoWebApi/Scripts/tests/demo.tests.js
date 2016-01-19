@@ -9,35 +9,35 @@ var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:9024/")
 QUnit.module("Entities");
 QUnit.test("data compare", function (assert) {
     var person = {
-        Name: "someone",
-        Surname: "my",
-        GivenName: "something",
+        name: "someone",
+        surname: "my",
+        givenName: "something",
     };
     var person2 = {
-        Name: "someone",
-        Surname: "my",
-        GivenName: "something",
+        name: "someone",
+        surname: "my",
+        givenName: "something",
     };
     assert.equal(JSON.stringify(person), JSON.stringify(person2));
 });
 QUnit.test("GetPerson", function (assert) {
     var done = assert.async();
-    entitiesApi.GetPerson(100, function (data) {
-        assert.equal(data.Name, "Z Huang");
+    entitiesApi.getPerson(100, function (data) {
+        assert.equal(data.name, "Z Huang");
         done();
     });
 });
 QUnit.test("AddPerson", function (assert) {
     var done = assert.async();
-    entitiesApi.CreatePerson({
-        Name: "some body",
-        GivenName: "some",
-        Surname: "body",
-        BirthDate: new Date("1977-08-18"),
-        Addresses: [{
-                City: "Brisbane",
-                State: "QLD",
-                Type: DemoWebApi_DemoData_Client.AddressType.Residential,
+    entitiesApi.createPerson({
+        name: "some body",
+        givenName: "some",
+        surname: "body",
+        birthDate: new Date("1977-08-18"),
+        addresses: [{
+                city: "Brisbane",
+                state: "QLD",
+                type: DemoWebApi_DemoData_Client.AddressType.Residential,
             }]
     }, function (data) {
         assert.ok(data > 0);
@@ -51,10 +51,10 @@ QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
         console.log(xhr.responseText);
         done();
     });
-    api.CreatePerson({
-        Name: "Exception",
-        GivenName: "some",
-        Surname: "body",
+    api.createPerson({
+        name: "Exception",
+        givenName: "some",
+        surname: "body",
     }, function (data) {
         assert.ok(data > 0);
         // done();
@@ -66,177 +66,177 @@ test("JsZeroNotGood", function (assert) {
 });
 test("JsZeroNotGoodWithFloat", function (assert) {
     var done = assert.async();
-    superDemoApi.GetFloatZero(function (data) {
+    superDemoApi.getFloatZero(function (data) {
         assert.notEqual(data, 0);
         done();
     });
 });
 test("JsZeroNotGoodWithDouble", function (assert) {
     var done = assert.async();
-    superDemoApi.GetDoubleZero(function (data) {
+    superDemoApi.getDoubleZero(function (data) {
         assert.notEqual(data, 0);
         done();
     });
 });
 test("JsZeroGoodWithDecimal", function (assert) {
     var done = assert.async();
-    superDemoApi.GetDecimalZero(function (data) {
+    superDemoApi.getDecimalZero(function (data) {
         assert.equal(data, 0);
         done();
     });
 });
 test("GetIntSquare", function (assert) {
     var done = assert.async();
-    superDemoApi.GetIntSquare(100, function (data) {
+    superDemoApi.getIntSquare(100, function (data) {
         assert.equal(data, 10000);
         done();
     });
 });
 test("GetDecimalSquare", function (assert) {
     var done = assert.async();
-    superDemoApi.GetDecimalSquare(100, function (data) {
+    superDemoApi.getDecimalSquare(100, function (data) {
         assert.equal(data, 10000);
         done();
     });
 });
 test("GetDateTime", function (assert) {
     var done = assert.async();
-    superDemoApi.GetDateTime(true, function (data) {
+    superDemoApi.getDateTime(true, function (data) {
         assert.ok(data);
         done();
     });
 });
 test("GetDateTimeNull", function (assert) {
     var done = assert.async();
-    superDemoApi.GetDateTime(false, function (data) {
+    superDemoApi.getDateTime(false, function (data) {
         assert.ok(data == undefined);
         done();
     });
 });
 test("GetNullableDecimal", function (assert) {
     var done = assert.async();
-    superDemoApi.GetNullableDecimal(true, function (data) {
+    superDemoApi.getNullableDecimal(true, function (data) {
         assert.ok(data > 10);
         done();
     });
 });
 test("GetNullableDecimalNull", function (assert) {
     var done = assert.async();
-    superDemoApi.GetNullableDecimal(false, function (data) {
+    superDemoApi.getNullableDecimal(false, function (data) {
         assert.ok(data == undefined);
         done();
     });
 });
 test("GetNullString", function (assert) {
     var done = assert.async();
-    superDemoApi.GetNullString(function (data) {
+    superDemoApi.getNullString(function (data) {
         assert.ok(data == null);
         done();
     });
 });
 test("GetNullPerson", function (assert) {
     var done = assert.async();
-    superDemoApi.GetNullPerson(function (data) {
+    superDemoApi.getNullPerson(function (data) {
         assert.ok(data == null);
         done();
     });
 });
 test("GetByteArray", function (assert) {
     var done = assert.async();
-    superDemoApi.GetByteArray(function (data) {
+    superDemoApi.getByteArray(function (data) {
         assert.ok(data.length > 0);
         done();
     });
 });
 test("GetTextStream", function (assert) {
     var done = assert.async();
-    superDemoApi.GetTextStream(function (data) {
+    superDemoApi.getTextStream(function (data) {
         assert.ok(data);
         done();
     });
 });
 test("GetActionResult", function (assert) {
     var done = assert.async();
-    superDemoApi.GetActionResult(function (data) {
+    superDemoApi.getActionResult(function (data) {
         assert.ok(data);
         done();
     });
 });
 test("Getbyte", function (assert) {
     var done = assert.async();
-    superDemoApi.Getbyte(function (data) {
+    superDemoApi.getbyte(function (data) {
         assert.equal(data, 255);
         done();
     });
 });
 test("GetBool", function (assert) {
     var done = assert.async();
-    superDemoApi.GetBool(function (data) {
+    superDemoApi.getBool(function (data) {
         assert.equal(data, true);
         done();
     });
 });
 test("Getsbyte", function (assert) {
     var done = assert.async();
-    superDemoApi.Getsbyte(function (data) {
+    superDemoApi.getsbyte(function (data) {
         assert.equal(data, -127);
         done();
     });
 });
 test("GetChar", function (assert) {
     var done = assert.async();
-    superDemoApi.GetChar(function (data) {
+    superDemoApi.getChar(function (data) {
         assert.equal(data, "A");
         done();
     });
 });
 test("GetDecimal", function (assert) {
     var done = assert.async();
-    superDemoApi.GetDecimal(function (data) {
+    superDemoApi.getDecimal(function (data) {
         assert.equal(data, 79228162514264337593543950335);
         done();
     });
 });
 test("Getdouble", function (assert) {
     var done = assert.async();
-    superDemoApi.Getdouble(function (data) {
+    superDemoApi.getdouble(function (data) {
         assert.equal(data, -1.7976931348623e308);
         done();
     });
 });
 test("GetUint", function (assert) {
     var done = assert.async();
-    superDemoApi.GetUint(function (data) {
+    superDemoApi.getUint(function (data) {
         assert.equal(data, 4294967295);
         done();
     });
 });
 test("Getulong", function (assert) {
     var done = assert.async();
-    superDemoApi.Getulong(function (data) {
+    superDemoApi.getulong(function (data) {
         assert.equal(data, 18446744073709551615);
         done();
     });
 });
 test("GetAnonymousDynamic", function (assert) {
     var done = assert.async();
-    superDemoApi.GetAnonymousDynamic(function (data) {
-        assert.equal(data.Id, 12345);
-        assert.equal(data.Name, "Something");
+    superDemoApi.getAnonymousDynamic(function (data) {
+        assert.equal(data.id, 12345);
+        assert.equal(data.name, "Something");
         done();
     });
 });
 test("GetAnonymousObject", function (assert) {
     var done = assert.async();
-    superDemoApi.GetAnonymousObject(function (data) {
-        assert.equal(data.Id, 12345);
-        assert.equal(data.Name, "Something");
+    superDemoApi.getAnonymousObject(function (data) {
+        assert.equal(data.id, 12345);
+        assert.equal(data.name, "Something");
         done();
     });
 });
 test("PostAnonymousObject", function (assert) {
     var done = assert.async();
-    superDemoApi.PostAnonymousObject({ "Id": "12345", "Name": "Something" }, function (data) {
+    superDemoApi.postAnonymousObject({ "Id": "12345", "Name": "Something" }, function (data) {
         assert.equal(data.Id, "123451");
         assert.equal(data.Name, "Something1");
         done();
@@ -244,7 +244,7 @@ test("PostAnonymousObject", function (assert) {
 });
 test("GetInt2d", function (assert) {
     var done = assert.async();
-    superDemoApi.GetInt2D(function (data) {
+    superDemoApi.getInt2D(function (data) {
         assert.equal(data[0][0], 1);
         assert.equal(data[0][3], 4);
         assert.equal(data[1][0], 5);
@@ -254,7 +254,7 @@ test("GetInt2d", function (assert) {
 });
 test("GetInt2dJagged", function (assert) {
     var done = assert.async();
-    superDemoApi.GetInt2DJagged(function (data) {
+    superDemoApi.getInt2DJagged(function (data) {
         assert.equal(data[0][0], 1);
         assert.equal(data[0][3], 4);
         assert.equal(data[1][0], 5);
@@ -264,83 +264,83 @@ test("GetInt2dJagged", function (assert) {
 });
 test("PostInt2d", function (assert) {
     var done = assert.async();
-    superDemoApi.PostInt2D([[1, 2, 3, 4], [5, 6, 7, 8]], function (data) {
+    superDemoApi.postInt2D([[1, 2, 3, 4], [5, 6, 7, 8]], function (data) {
         assert.ok(data);
         done();
     });
 });
 test("PostInt2dExpectedFalse", function (assert) {
     var done = assert.async();
-    superDemoApi.PostInt2D([[1, 2, 3, 4], [5, 6, 7, 9]], function (data) {
+    superDemoApi.postInt2D([[1, 2, 3, 4], [5, 6, 7, 9]], function (data) {
         assert.ok(data == false);
         done();
     });
 });
 test("PostIntArray", function (assert) {
     var done = assert.async();
-    superDemoApi.PostIntArray([1, 2, 3, 4, 5, 6, 7, 8], function (data) {
+    superDemoApi.postIntArray([1, 2, 3, 4, 5, 6, 7, 8], function (data) {
         assert.ok(data);
         done();
     });
 });
 test("PostWithQueryButEmptyBody", function (assert) {
     var done = assert.async();
-    superDemoApi.PostWithQueryButEmptyBody("abc", 123, function (data) {
-        assert.equal(data.Item1, "abc");
-        assert.equal(data.Item2, 123);
+    superDemoApi.postWithQueryButEmptyBody("abc", 123, function (data) {
+        assert.equal(data.item1, "abc");
+        assert.equal(data.item2, 123);
         done();
     });
 });
 //test("GetIntArray", function (assert) {//this little fella refuses to finish even if the service had returned the right data. This happens only in the Chupaz runner. In browsers the script is OK.
 //    var done = assert.async();
-//    superDemoApi.GetIntArray((data) => {
+//    superDemoApi.getIntArray((data) => {
 //        assert.equal(data[7], 8);
 //    });
 //});
 test("PostInt2dJagged", function (assert) {
     var done = assert.async();
-    superDemoApi.PostInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 8]], function (data) {
+    superDemoApi.postInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 8]], function (data) {
         assert.ok(data);
         done();
     });
 });
 test("PostInt2dJaggedExpectedFalse", function (assert) {
     var done = assert.async();
-    superDemoApi.PostInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 9]], function (data) {
+    superDemoApi.postInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 9]], function (data) {
         assert.ok(data == false);
         done();
     });
 });
 test("GetDictionaryOfPeople", function (assert) {
     var done = assert.async();
-    superDemoApi.GetDictionaryOfPeople(function (data) {
-        assert.equal(data["Spider Man"].Name, "Peter Parker");
-        assert.equal(data["Spider Man"].Addresses[0].City, "New York");
+    superDemoApi.getDictionaryOfPeople(function (data) {
+        assert.equal(data["spider Man"].name, "Peter Parker");
+        assert.equal(data["spider Man"].addresses[0].city, "New York");
         done();
     });
 });
 test("PostDictionaryOfPeople", function (assert) {
     var done = assert.async();
-    superDemoApi.PostDictionary({
+    superDemoApi.postDictionary({
         "Iron Man": {
-            "Surname": "Stark",
-            "GivenName": "Tony",
-            "BirthDate": null,
-            "Id": "00000000-0000-0000-0000-000000000000",
-            "Name": "Tony Stark",
-            "Addresses": []
+            "surname": "Stark",
+            "givenName": "Tony",
+            "birthDate": null,
+            "id": "00000000-0000-0000-0000-000000000000",
+            "name": "Tony Stark",
+            "addresses": []
         },
         "Spider Man": {
-            "Name": "Peter Parker",
-            "Addresses": [
+            "name": "Peter Parker",
+            "addresses": [
                 {
-                    "Id": "00000000-0000-0000-0000-000000000000",
-                    "City": "New York",
-                    State: "Somewhere",
-                    "PostalCode": null,
-                    "Country": null,
-                    "Type": 0,
-                    Location: { X: 100, Y: 200 }
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "city": "New York",
+                    state: "Somewhere",
+                    "postalCode": null,
+                    "country": null,
+                    "type": 0,
+                    location: { x: 100, y: 200 }
                 }
             ]
         }
@@ -351,30 +351,30 @@ test("PostDictionaryOfPeople", function (assert) {
 });
 test("GetKeyValuePair", function (assert) {
     var done = assert.async();
-    superDemoApi.GetKeyhValuePair(function (data) {
-        assert.equal(data.Key, "Spider Man");
-        assert.equal(data.Value.Addresses[0].City, "New York");
+    superDemoApi.getKeyhValuePair(function (data) {
+        assert.equal(data.key, "Spider Man");
+        assert.equal(data.value.addresses[0].city, "New York");
         done();
     });
 });
 QUnit.module("ValuesTests");
 test("Get", function (assert) {
     var done = assert.async();
-    valuesApi.Get(function (data) {
+    valuesApi.get(function (data) {
         assert.equal(data[1], "value2");
         done();
     });
 });
 test("GetByIdAndName", function (assert) {
     var done = assert.async();
-    valuesApi.GetByIdAndName(1, "something", function (data) {
+    valuesApi.getByIdAndName(1, "something", function (data) {
         assert.equal(data, "something1");
         done();
     });
 });
 test("GetByName", function (assert) {
     var done = assert.async();
-    valuesApi.GetByName("something", function (data) {
+    valuesApi.getByName("something", function (data) {
         assert.equal(data, "SOMETHING");
         done();
     });
@@ -385,7 +385,7 @@ test("PostValue", function (assert) {
         console.log(xhr.responseText);
         done();
     });
-    api.Post('value', function (data) {
+    api.post('value', function (data) {
         assert.equal(data, "VALUE");
         done();
     });
@@ -397,7 +397,7 @@ test("Put", function (assert) {
         console.log(xhr.responseText);
         done();
     });
-    api.Put(1, 'value', function (data) {
+    api.put(1, 'value', function (data) {
         done();
     });
 });
@@ -408,72 +408,72 @@ test("Delete", function (assert) {
         console.log(xhr.responseText);
         done();
     });
-    api.Delete(1, function (data) {
+    api.delete(1, function (data) {
         done();
     });
 });
 QUnit.module("TupleTests");
 test("GetTuple2", function (assert) {
     var done = assert.async();
-    tupleApi.GetTuple2(function (data) {
-        assert.equal(data["Item1"], "Two");
-        assert.equal(data["Item2"], 2);
+    tupleApi.getTuple2(function (data) {
+        assert.equal(data["item1"], "Two");
+        assert.equal(data["item2"], 2);
         done();
     });
 });
 test("PostTuple2", function (assert) {
     var done = assert.async();
-    tupleApi.PostTuple2({ Item1: "One", Item2: 2 }, function (data) {
+    tupleApi.postTuple2({ item1: "One", item2: 2 }, function (data) {
         assert.equal(data, "One");
         done();
     });
 });
 test("GetTuple7", function (assert) {
     var done = assert.async();
-    tupleApi.GetTuple7(function (data) {
-        assert.equal(data["Item1"], "Seven");
-        assert.equal(data["Item7"], 7);
+    tupleApi.getTuple7(function (data) {
+        assert.equal(data["item1"], "Seven");
+        assert.equal(data["item7"], 7);
         done();
     });
 });
 //Visual Studio IDE may give some 
 test("PostTuple7", function (assert) {
     var done = assert.async();
-    tupleApi.PostTuple7({ Item1: "One", Item2: "", Item3: "", Item4: "", Item5: "", Item6: 33333, Item7: 9 }, function (data) {
+    tupleApi.postTuple7({ item1: "One", item2: "", item3: "", item4: "", item5: "", item6: 33333, item7: 9 }, function (data) {
         assert.equal(data, "One");
         done();
     });
 });
 test("GetTuple8", function (assert) {
     var done = assert.async();
-    tupleApi.GetTuple8(function (data) {
-        assert.equal(data["Item1"], "Nested");
-        assert.equal(data["Rest"].Item1, "nine");
+    tupleApi.getTuple8(function (data) {
+        assert.equal(data["item1"], "Nested");
+        assert.equal(data["rest"].item1, "nine");
         done();
     });
 });
 //Visual Studio IDE may give some 
 test("PostTuple8", function (assert) {
     var done = assert.async();
-    tupleApi.PostTuple8({ Item1: "One", Item2: "", Item3: "", Item4: "", Item5: "", Item6: "", Item7: "", Rest: { Item1: "a", Item2: "b", Item3: "c" } }, function (data) {
+    tupleApi.postTuple8({ item1: "One", item2: "", item3: "", item4: "", item5: "", item6: "", item7: "", rest: { item1: "a", item2: "b", item3: "c" } }, function (data) {
         assert.equal(data, "a");
         done();
     });
 });
 test("LinkPersonCompany", function (assert) {
     var done = assert.async();
-    tupleApi.LinkPersonCompany1({
-        Item1: {
-            Name: "someone",
-            Surname: "my",
-            GivenName: "something",
+    tupleApi.linkPersonCompany1({
+        item1: {
+            name: "someone",
+            surname: "my",
+            givenName: "something",
         },
-        Item2: {
-            Name: "Super",
-            Addresses: [{ City: "New York", Street1: "Somewhere st" }]
+        item2: {
+            name: "Super",
+            addresses: [{ city: "New York", street1: "Somewhere st" }]
         }
     }, function (data) {
-        assert.equal(data.Name, "someone");
+        assert.equal(data.name, "someone");
         done();
     });
 });

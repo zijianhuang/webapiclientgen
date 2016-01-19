@@ -34,6 +34,12 @@ namespace Fonlow.CodeDom.Web.Ts
             this.codeGenParameters = codeGenParameters;
             targetUnit = new CodeCompileUnit();
             poco2TsGen = new Poco2TsGen(targetUnit);
+
+            TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
+            options.BracingStyle = "JS";
+            options.IndentString = "    ";
+            options.CamelCase = codeGenParameters.CamelCase.HasValue? codeGenParameters.CamelCase.Value : false;
+
         }
 
         IPoco2Client poco2TsGen;
@@ -45,16 +51,12 @@ namespace Fonlow.CodeDom.Web.Ts
         public void Save(string fileName)
         {
             var provider = new TypeScriptCodeProvider();
-            //   var provider = CodeDomProvider.CreateProvider("CSharp");
-            CodeGeneratorOptions options = new CodeGeneratorOptions()
-            {
-                BracingStyle = "JS",
-                IndentString = "    ",
-            };
+            //   var provider = CodeDomProvider.CreateProvider("CSharp");           
+
 
             using (StreamWriter writer = new StreamWriter(fileName))
             {
-                provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+                provider.GenerateCodeFromCompileUnit(targetUnit, writer, TsCodeGenerationOptions.Instance);
             }
         }
 

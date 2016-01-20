@@ -28,19 +28,13 @@ namespace DemoWebApi
             );
 
             //http://forums.asp.net/t/1821729.aspx?JsonMediaTypeFormatter+does+not+work+with+Tuple+int+List+string+
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();//   new DefaultContractResolver();
             //this will support Tuple serialization in JSON
 
             config.Filters.Add(new ValidateModelAttribute());
 
             config.Services.RemoveAll(typeof(System.Web.Http.Validation.ModelValidatorProvider), (provider) => provider is System.Web.Http.Validation.Providers.InvalidModelValidatorProvider);
             //  GlobalConfiguration.Configuration.Services.Add(typeof(System.Web.Http.Validation.ModelValidatorProvider), new System.Web.Http.Validation.Providers.RequiredMemberModelValidatorProvider());
-
-            var formatters = GlobalConfiguration.Configuration.Formatters;
-            var jsonFormatter = formatters.JsonFormatter;
-            var settings = jsonFormatter.SerializerSettings;
-            settings.Formatting = Newtonsoft.Json.Formatting.Indented;
-            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

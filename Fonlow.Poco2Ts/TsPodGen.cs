@@ -94,7 +94,6 @@ namespace Fonlow.Poco2Ts
         /// <summary>
         /// Assuming s is in Pascal case
         /// </summary>
-        /// <param name=""></param>
         /// <returns></returns>
         static string SetCamelCase(string s)
         {

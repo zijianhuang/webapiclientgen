@@ -8,11 +8,8 @@ using System.Resources;
 [assembly: AssemblyTitle("WebApiClientGen")]
 [assembly: AssemblyDescription("Generate strongly typed client API in C# or TypeScript for ASP.NET Web API")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Fonlow")]
 [assembly: AssemblyProduct("WebApiClientGen")]
-[assembly: AssemblyCopyright("Copyright © Fonlow 2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -32,8 +29,8 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.6.0")]
-[assembly: AssemblyFileVersion("1.6.0.0")]
+[assembly: AssemblyVersion("1.7.0")]
+[assembly: AssemblyFileVersion("1.7.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
 
 [assembly: System.CLSCompliantAttribute(true)]

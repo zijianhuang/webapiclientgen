@@ -52,6 +52,9 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="CherryPicking.cs" />
     <Compile Include="CherryPickingMethods.cs" />
     <Compile Include="GlobalSuppressions.cs" />

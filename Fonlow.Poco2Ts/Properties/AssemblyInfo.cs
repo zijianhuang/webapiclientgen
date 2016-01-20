@@ -9,11 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("POCO to TypeScript")]
 [assembly: AssemblyDescription("Generate TypeScript interfaces from POCO classes")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Fonlow")]
 [assembly: AssemblyProduct("Fonlow.Poco2Ts")]
-[assembly: AssemblyCopyright("Copyright © Fonlow 2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -33,8 +29,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.5.0.0")]
-[assembly: AssemblyFileVersion("1.5.0.0")]
+[assembly: AssemblyVersion("1.6.0.0")]
+[assembly: AssemblyFileVersion("1.6.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
 
 [assembly:System.CLSCompliant(true)]

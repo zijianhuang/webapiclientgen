@@ -58,26 +58,26 @@ namespace Fonlow.CodeDom.Web.Cs
                     if (forAsync)
                     {
                         RenderGetOrDeleteImplementation(
-                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "GetAsync", new CodeSnippetExpression("requestUri.ToString()")));
+                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "GetAsync", new CodeSnippetExpression("System.Net.WebUtility.UrlEncode(requestUri)")));
                     }
                     else
                     {
                         RenderGetOrDeleteImplementation(
                             new CodePropertyReferenceExpression(
-                            new CodeMethodInvokeExpression(sharedContext.clientReference, "GetAsync", new CodeSnippetExpression("requestUri.ToString()")), "Result"));
+                            new CodeMethodInvokeExpression(sharedContext.clientReference, "GetAsync", new CodeSnippetExpression("System.Net.WebUtility.UrlEncode(requestUri)")), "Result"));
                     }
                     break;
                 case "DELETE":
                     if (forAsync)
                     {
                         RenderGetOrDeleteImplementation(
-                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "DeleteAsync", new CodeSnippetExpression("requestUri.ToString()")));
+                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "DeleteAsync", new CodeSnippetExpression("System.Net.WebUtility.UrlEncode(requestUri)")));
                     }
                     else
                     {
                         RenderGetOrDeleteImplementation(
                             new CodePropertyReferenceExpression(
-                            new CodeMethodInvokeExpression(sharedContext.clientReference, "DeleteAsync", new CodeSnippetExpression("requestUri.ToString()"))
+                            new CodeMethodInvokeExpression(sharedContext.clientReference, "DeleteAsync", new CodeSnippetExpression("System.Net.WebUtility.UrlEncode(requestUri)"))
                             , "Result"));
                     }
                     break;
@@ -158,28 +158,36 @@ namespace Fonlow.CodeDom.Web.Cs
 
             method.Parameters.AddRange(parameters);
 
-            method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "template",
-                new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
-            ));
+            var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+            var uriText = jsUriQuery == null ? $"this.baseUri + \"{description.RelativePath}\"" :
+                RemoveTrialEmptyString($"this.baseUri + \"{jsUriQuery}\"");
 
-            //Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
-            method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "uriParameters",
-                new CodeObjectCreateExpression("System.Collections.Specialized.NameValueCollection")
-            ));
-            var uriParametersReference = new CodeVariableReferenceExpression("uriParameters");
-            foreach (var p in parameters)
-            {
-                //Statement:             template.Add("id", id);
-                method.Statements.Add(new CodeMethodInvokeExpression(uriParametersReference, "Add"
-                    , new CodePrimitiveExpression(p.Name), new CodeSnippetExpression(p.Type.BaseType == "System.String" ? p.Name : p.Name + ".ToString()")));
-            }
 
-            //Statement: var requestUri = template.BindByName(this.baseUri, uriParameters);
+            //method.Statements.Add(new CodeVariableDeclarationStatement(
+            //    new CodeTypeReference("var"), "template",
+            //    new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
+            //));
+
+            ////Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
+            //method.Statements.Add(new CodeVariableDeclarationStatement(
+            //    new CodeTypeReference("var"), "uriParameters",
+            //    new CodeObjectCreateExpression("System.Collections.Specialized.NameValueCollection")
+            //));
+            //var uriParametersReference = new CodeVariableReferenceExpression("uriParameters");
+            //foreach (var p in parameters)
+            //{
+            //    //Statement:             template.Add("id", id);
+            //    method.Statements.Add(new CodeMethodInvokeExpression(uriParametersReference, "Add"
+            //        , new CodePrimitiveExpression(p.Name), new CodeSnippetExpression(p.Type.BaseType == "System.String" ? p.Name : p.Name + ".ToString()")));
+            //}
+
+            ////Statement: var requestUri = template.BindByName(this.baseUri, uriParameters);
+            //method.Statements.Add(new CodeVariableDeclarationStatement(
+            //    new CodeTypeReference("var"), "requestUri",
+            //    new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("template"), "BindByName", sharedContext.baseUriReference, new CodeSnippetExpression("uriParameters"))));
             method.Statements.Add(new CodeVariableDeclarationStatement(
                 new CodeTypeReference("var"), "requestUri",
-                new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("template"), "BindByName", sharedContext.baseUriReference, new CodeSnippetExpression("uriParameters"))));
+                new CodeSnippetExpression(uriText)));
 
             //Statement: var result = this.client.GetAsync(requestUri.ToString()).Result;
             method.Statements.Add(new CodeVariableDeclarationStatement(
@@ -281,36 +289,51 @@ namespace Fonlow.CodeDom.Web.Cs
             Action AddRequestUriWithQueryAssignmentStatement = () =>
             {
 
-                //Statement: ar template = new System.UriTemplate("api/UserManagement/Account");
-                method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "template",
-                    new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
-                ));
+                var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+                var uriText = jsUriQuery == null ? $"this.baseUri + \"{description.RelativePath}\"" :
+                    RemoveTrialEmptyString($"this.baseUri + \"{jsUriQuery}\"");
 
-                //Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
-                method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "uriParameters",
-                    new CodeObjectCreateExpression("System.Collections.Specialized.NameValueCollection")
-                ));
-                var uriParametersReference = new CodeVariableReferenceExpression("uriParameters");
-                foreach (var p in uriQueryParameters)
-                {
-                    //Statement:             template.Add("id", id);
-                    method.Statements.Add(new CodeMethodInvokeExpression(uriParametersReference, "Add",
-                        new CodePrimitiveExpression(p.Name), new CodeSnippetExpression(p.Type.BaseType == "System.String" ? p.Name : p.Name + ".ToString()")));
-                }
+                ////Statement: ar template = new System.UriTemplate("api/UserManagement/Account");
+                //method.Statements.Add(new CodeVariableDeclarationStatement(
+                //    new CodeTypeReference("var"), "template",
+                //    new CodeObjectCreateExpression("System.UriTemplate", new CodePrimitiveExpression(description.RelativePath))
+                //));
 
-                //Statement: var requestUri = template.BindByName(this.baseUri, uriParameters);
+                ////Statement: var uriParameters = new System.Collections.Specialized.NameValueCollection();
+                //method.Statements.Add(new CodeVariableDeclarationStatement(
+                //    new CodeTypeReference("var"), "uriParameters",
+                //    new CodeObjectCreateExpression("System.Collections.Specialized.NameValueCollection")
+                //));
+                //var uriParametersReference = new CodeVariableReferenceExpression("uriParameters");
+                //foreach (var p in uriQueryParameters)
+                //{
+                //    //Statement:             template.Add("id", id);
+                //    method.Statements.Add(new CodeMethodInvokeExpression(uriParametersReference, "Add",
+                //        new CodePrimitiveExpression(p.Name), new CodeSnippetExpression(p.Type.BaseType == "System.String" ? p.Name : p.Name + ".ToString()")));
+                //}
+
+                ////Statement: var requestUri = template.BindByName(this.baseUri, uriParameters);
+                //method.Statements.Add(new CodeVariableDeclarationStatement(
+                //    new CodeTypeReference("var"), "requestUri",
+                //    new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("template"), "BindByName", sharedContext.baseUriReference, new CodeSnippetExpression("uriParameters"))));
                 method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "requestUri",
-                    new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("template"), "BindByName", sharedContext.baseUriReference, new CodeSnippetExpression("uriParameters"))));
+                    new CodeTypeReference("var"), "requestUri", 
+                    new CodeSnippetExpression(uriText)));
             };
 
             Action AddRequestUriAssignmentStatement = () =>
             {
+                var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+                var uriText = jsUriQuery == null ? $"this.baseUri + \"{description.RelativePath}\"" :
+                    RemoveTrialEmptyString($"this.baseUri + \"{jsUriQuery}\"");
+
                 method.Statements.Add(new CodeVariableDeclarationStatement(
-                    new CodeTypeReference("var"), "requestUri",
-                    new CodeObjectCreateExpression("System.Uri", sharedContext.baseUriReference, new CodePrimitiveExpression(description.RelativePath))));
+    new CodeTypeReference("var"), "requestUri",
+    new CodeSnippetExpression(uriText)));
+
+                //method.Statements.Add(new CodeVariableDeclarationStatement(
+                //    new CodeTypeReference("var"), "requestUri",
+                //    new CodeObjectCreateExpression("System.Uri", sharedContext.baseUriReference, new CodePrimitiveExpression(description.RelativePath))));
 
             };
 
@@ -352,14 +375,14 @@ namespace Fonlow.CodeDom.Web.Cs
                 {
                     AddPostStatement(
                     new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ?
-                    "PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri.ToString()")
+                    "PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri")
               , new CodeSnippetExpression("content")));
                 }
                 else
                 {
                     AddPostStatement(new CodePropertyReferenceExpression(
                     new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ?
-                    "PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri.ToString()")
+                    "PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri")
               , new CodeSnippetExpression("content"))
                     , "Result"));
                 }
@@ -370,14 +393,14 @@ namespace Fonlow.CodeDom.Web.Cs
                 {
                     AddPostStatement(
                         new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ? "PostAsync" : "PutAsync"
-                        , new CodeSnippetExpression("requestUri.ToString()")
+                        , new CodeSnippetExpression("requestUri")
                         , new CodeSnippetExpression("new StringContent(String.Empty)")));
                 }
                 else
                 {
                     AddPostStatement(new CodePropertyReferenceExpression(
                         new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? "PostAsync" : "PutAsync"
-                        , new CodeSnippetExpression("requestUri.ToString()")
+                        , new CodeSnippetExpression("requestUri")
                         , new CodeSnippetExpression("new StringContent(String.Empty)"))
                         , "Result"));
                 }
@@ -401,6 +424,43 @@ namespace Fonlow.CodeDom.Web.Cs
             if (singleFromBodyParameterDescription != null)
                 method.Statements.Add(new CodeSnippetStatement("            }"));
         }
+
+        static string RemoveTrialEmptyString(string s)
+        {
+            var p = s.IndexOf("+\"");
+            return s.Remove(p, 3);
+        }
+
+
+        static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
+        {
+            var template = new UriTemplate(uriText);
+
+            if (template.QueryValueVariableNames.Count == 0 && template.PathSegmentVariableNames.Count == 0)
+                return null;
+
+            string newUriText = uriText;
+
+            for (int i = 0; i < template.PathSegmentVariableNames.Count; i++)
+            {
+                var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
+                var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+                Debug.Assert(d != null);
+                newUriText = newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}+\"");
+            }
+
+            for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
+            {
+                var name = template.QueryValueVariableNames[i];
+                var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+                Debug.Assert(d != null);
+                newUriText = newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}+\"");
+            }
+
+            return newUriText;
+        }
+
+
 
     }
 

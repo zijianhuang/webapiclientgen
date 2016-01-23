@@ -77,10 +77,6 @@ namespace Fonlow.WebApiClientGen
                     var camelCase = GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
                     parameters.CamelCase = camelCase;
                 }
-                else
-                {
-                    parameters.CamelCase = false;
-                }
 
                 var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(parameters);
                 tsGen.CreateCodeDom(apiDescriptions);

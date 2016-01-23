@@ -58,26 +58,26 @@ namespace Fonlow.CodeDom.Web.Cs
                     if (forAsync)
                     {
                         RenderGetOrDeleteImplementation(
-                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "GetAsync", new CodeSnippetExpression("System.Net.WebUtility.UrlEncode(requestUri)")));
+                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "GetAsync", new CodeSnippetExpression("Uri.EscapeUriString(requestUri)")));
                     }
                     else
                     {
                         RenderGetOrDeleteImplementation(
                             new CodePropertyReferenceExpression(
-                            new CodeMethodInvokeExpression(sharedContext.clientReference, "GetAsync", new CodeSnippetExpression("System.Net.WebUtility.UrlEncode(requestUri)")), "Result"));
+                            new CodeMethodInvokeExpression(sharedContext.clientReference, "GetAsync", new CodeSnippetExpression("Uri.EscapeUriString(requestUri)")), "Result"));
                     }
                     break;
                 case "DELETE":
                     if (forAsync)
                     {
                         RenderGetOrDeleteImplementation(
-                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "DeleteAsync", new CodeSnippetExpression("System.Net.WebUtility.UrlEncode(requestUri)")));
+                            new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "DeleteAsync", new CodeSnippetExpression("Uri.EscapeUriString(requestUri)")));
                     }
                     else
                     {
                         RenderGetOrDeleteImplementation(
                             new CodePropertyReferenceExpression(
-                            new CodeMethodInvokeExpression(sharedContext.clientReference, "DeleteAsync", new CodeSnippetExpression("System.Net.WebUtility.UrlEncode(requestUri)"))
+                            new CodeMethodInvokeExpression(sharedContext.clientReference, "DeleteAsync", new CodeSnippetExpression("Uri.EscapeUriString(requestUri)"))
                             , "Result"));
                     }
                     break;
@@ -427,7 +427,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
         static string RemoveTrialEmptyString(string s)
         {
-            var p = s.IndexOf("+\"");
+            var p = s.IndexOf("+\"\"");
             return s.Remove(p, 3);
         }
 

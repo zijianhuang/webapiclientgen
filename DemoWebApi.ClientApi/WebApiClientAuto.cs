@@ -189,7 +189,6 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
-        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
         public string Name
         {
             get

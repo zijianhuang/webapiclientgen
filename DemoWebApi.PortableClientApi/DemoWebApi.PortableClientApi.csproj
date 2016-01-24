@@ -37,7 +37,6 @@
     <Compile Include="..\DemoWebApi.ClientApi\WebApiClientAuto.cs">
       <Link>WebApiClientAuto.cs</Link>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

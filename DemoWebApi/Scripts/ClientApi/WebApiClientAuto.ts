@@ -7,7 +7,7 @@ namespace DemoWebApi_DemoData_Client {
 
     export interface Address {
         id?: string;
-        street1?: string; 
+        street1?: string;
         street2?: string;
         city?: string;
         state?: string;

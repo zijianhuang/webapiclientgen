@@ -1,15 +1,18 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WebApiClientGen")]
-[assembly: AssemblyDescription("Generate strongly typed client API in C# or TypeScript for ASP.NET Web API")]
+[assembly: AssemblyTitle("DemoWebApi.iOSClientApi")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("WebApiClientGen")]
-
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("DemoWebApi.iOSClientApi")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -17,7 +20,7 @@ using System.Resources;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5e10daca-2ee5-4fc6-bedd-2b49292f767b")]
+[assembly: Guid("941fd9b3-88b3-4199-a23c-f36a50dfcb23")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,8 +32,5 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.8.0")]
-[assembly: AssemblyFileVersion("1.8.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("en")]
-
-[assembly: System.CLSCompliantAttribute(true)]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

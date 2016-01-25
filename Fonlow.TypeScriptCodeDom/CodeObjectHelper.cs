@@ -562,7 +562,12 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
         {
-            var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>().Select(d => $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}");
+            var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>()
+                .Select(d => {
+                    var s= $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}";
+                    Debug.WriteLine("vvvv " + s);
+                    return s;
+                    });
             w.Write(String.Join(", ", pairs));
         }
 

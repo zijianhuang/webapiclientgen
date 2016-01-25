@@ -38,5 +38,12 @@ namespace Fonlow.CodeDom.Web
         /// Cherry picking methods of POCO classes
         /// </summary>
         public int? CherryPickingMethods { get; set; }
+
+        /// <summary>
+        /// Whether to conform to the camel casing convention of javascript and JSON.
+        /// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
+        /// If CamelCasePropertyNamesContractResolver is presented, camelCasing will be used. If not, no camelCasing transformation will be used.
+        /// </summary>
+        public bool? CamelCase { get; set; }
     }
 }

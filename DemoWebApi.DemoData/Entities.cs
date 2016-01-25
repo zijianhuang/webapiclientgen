@@ -99,7 +99,9 @@ namespace DemoWebApi.DemoData
         [DataMember]
         public Guid Id { get; set; }
 
-        [DataMember(IsRequired =true)]
+        
+        [DataMember(IsRequired =true)]//MVC and Web API does not care
+        [System.ComponentModel.DataAnnotations.Required]//MVC and Web API care about only this
         public string Name { get; set; }
 
         [DataMember]

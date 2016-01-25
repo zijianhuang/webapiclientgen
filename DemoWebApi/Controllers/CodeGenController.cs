@@ -72,6 +72,12 @@ namespace Fonlow.WebApiClientGen
                 }
                 string tsPath = System.IO.Path.Combine(theFolder, "WebApiClientAuto.ts");
 
+                if (!parameters.CamelCase.HasValue)
+                {
+                    var camelCase = GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
+                    parameters.CamelCase = camelCase;
+                }
+
                 var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(parameters);
                 tsGen.CreateCodeDom(apiDescriptions);
                 tsGen.Save(tsPath);

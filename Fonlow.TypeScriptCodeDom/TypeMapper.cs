@@ -74,12 +74,12 @@ namespace Fonlow.TypeScriptCodeDom
             if (codeTypeReference == null)
                 return null;
 
-            System.Diagnostics.Debug.WriteLine("type.BaseType: " + codeTypeReference.BaseType);
+            System.Diagnostics.Debug.WriteLine($"parameter.type.BaseType: {codeTypeReference.BaseType}  ArgumentCount: {codeTypeReference.TypeArguments.Count}, ArrayRank: {codeTypeReference.ArrayRank}");
             System.Diagnostics.Debug.WriteLineIf(codeTypeReference.BaseType == "System.Void", "For this void type :" + codeTypeReference.ToString());
             if (IsArrayType(codeTypeReference))
             {
                 var rank = codeTypeReference.ArrayRank;
-                if (rank>1)
+                if (rank > 1)
                 {
                     return codeTypeReference.BaseType + new System.Text.StringBuilder().Insert(0, "[]", rank).ToString();
                 }
@@ -93,14 +93,24 @@ namespace Fonlow.TypeScriptCodeDom
 
 
             if (codeTypeReference.TypeArguments.Count == 0)
+            {
+                var codeSnipetTypeReference = codeTypeReference as CodeSnipetTypeReference;
+                if (codeSnipetTypeReference!=null)
+                {
+                    return codeSnipetTypeReference.BaseType;
+                }
+
                 return codeTypeReference.BaseType;
+            }
 
             if (IsKeyValuePairType(codeTypeReference.BaseType))
             {
                 System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
                 var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
                 var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
-                return $"{{Key: {keyTypeReferenceText}, Value: {valueTypeReferenceText} }}";
+                return TsCodeGenerationOptions.Instance.CamelCase ? 
+                    $"{{key: {keyTypeReferenceText}, value: {valueTypeReferenceText} }}" 
+                    : $"{{Key: {keyTypeReferenceText}, Value: {valueTypeReferenceText} }}";
             }
 
             if (codeTypeReference.BaseType.Contains("System.Collections.Generic.Dictionary"))
@@ -108,10 +118,17 @@ namespace Fonlow.TypeScriptCodeDom
                 System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
                 var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
                 var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
-                return $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
+                return TsCodeGenerationOptions.Instance.CamelCase ?
+                    $"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}"
+                    : $"{{[Id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
             }
 
-            if (codeTypeReference.TypeArguments.Count>0)
+            if (codeTypeReference.BaseType.Contains("System.Tuple"))
+            {
+                return $"{{{MapCodeTypeReferenceCollectionToTupleTsText(codeTypeReference.TypeArguments)}}}";
+            }
+
+            if (codeTypeReference.TypeArguments.Count > 0)
             {
                 var genericTypeName = codeTypeReference.BaseType.Substring(0, codeTypeReference.BaseType.IndexOf('`'));
                 return $"{genericTypeName}<{MapCodeTypeReferenceCollectionToTsText(codeTypeReference.TypeArguments)}>";
@@ -126,11 +143,41 @@ namespace Fonlow.TypeScriptCodeDom
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        public static string MapCodeTypeReferenceCollectionToTsText(CodeTypeReferenceCollection collection)
+        internal static string MapCodeTypeReferenceCollectionToTsText(CodeTypeReferenceCollection collection)
         {
-            var arguments = collection.OfType<CodeTypeReference>().Select(d => MapCodeTypeReferenceToTsText(d));
-            return String.Join(", ", arguments);
+            string[] ss = new string[collection.Count];
+            for (int i = 0; i < collection.Count; i++)
+            {
+                ss[i] = MapCodeTypeReferenceToTsText(collection[i]);
+            }
+            return String.Join(", ", ss);
+        }
+
+        internal static string MapCodeTypeReferenceCollectionToTupleTsText(CodeTypeReferenceCollection collection)
+        {
+            if (collection.Count > 8)
+                throw new ArgumentException("Current supports only up to 8 members for tuple.", "collection");
+            string[] ss = new string[collection.Count];
+            for (int i = 0; i < collection.Count; i++)
+            {
+                var typeName = MapCodeTypeReferenceToTsText(collection[i]);
+                var propertyName = (i < 7) ? "Item" + (i + 1).ToString() : "Rest";
+                ss[i] = (TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( propertyName) : propertyName) 
+                    + ":" + typeName;
+            }
+            return String.Join(", ", ss);
+        }
+
+        /// <summary>
+        /// Assuming s is in Pascal case
+        /// </summary>
+        /// <returns></returns>
+        static string SetCamelCase(string s)
+        {
+            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
         }
 
     }
+
+
 }

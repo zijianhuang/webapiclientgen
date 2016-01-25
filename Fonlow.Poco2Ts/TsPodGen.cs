@@ -5,7 +5,6 @@ using System.CodeDom.Compiler;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 using System;
 using Fonlow.Poco2Client;
 using Fonlow.Reflection;
@@ -79,11 +78,9 @@ namespace Fonlow.Poco2Ts
                 throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
             var provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider();
-            CodeGeneratorOptions options = new CodeGeneratorOptions()
-            {
-                BracingStyle = "JS",//not really used
-                IndentString = "    ",
-            };
+            CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
+            options.BracingStyle = "JS";
+            options.IndentString = "    ";
 
             provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
         }
@@ -94,6 +91,14 @@ namespace Fonlow.Poco2Ts
             CreateCodeDom(cherryTypes, methods);
         }
 
+        /// <summary>
+        /// Assuming s is in Pascal case
+        /// </summary>
+        /// <returns></returns>
+        static string SetCamelCase(string s)
+        {
+            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
+        }
 
         /// <summary>
         /// Create TypeScript CodeDOM for POCO types. 
@@ -147,7 +152,7 @@ namespace Fonlow.Poco2Ts
 
 
                             var isRequired = cherryType == CherryType.BigCherry;
-                            tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( propertyInfo.Name) : propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
                             var clientField = new CodeMemberField()
                             {
@@ -167,11 +172,10 @@ namespace Fonlow.Poco2Ts
                             string tsPropertyName;
 
 
-                            var isRequired = cherryType == CherryType.BigCherry;
-
-
-                            tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            var isRequired = (cherryType == CherryType.BigCherry) || !type.IsClass;//public fields in struct should all be value types, so required
+                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( fieldInfo.Name): fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
+
                             var clientField = new CodeMemberField()
                             {
                                 Name = tsPropertyName + (isRequired ? String.Empty : "?"),
@@ -262,24 +266,85 @@ namespace Fonlow.Poco2Ts
         {
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
 
-            Type[] genericArguments = type.GetGenericArguments();
-            if (genericArguments.Length == 1)
+            if (genericTypeDefinition == typeof(Nullable<>))
             {
-                if (genericTypeDefinition == typeof(Nullable<>))
-                {
-                    var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
-                    Debug.Assert(genericTypeReferences.Length == 1);
-                    return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
-                }
+                var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
+                Debug.Assert(genericTypeReferences.Length == 1);
+                return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
+            }
 
-                if (TypeHelper.IsArrayType(genericTypeDefinition))
-                {
-                    Debug.Assert(type.GenericTypeArguments.Length == 1);
-                    var elementType = type.GenericTypeArguments[0];
-                    return CreateArrayTypeReference(elementType, 1);
-                }
+            if (TypeHelper.IsArrayType(genericTypeDefinition))
+            {
+                Debug.Assert(type.GenericTypeArguments.Length == 1);
+                var elementType = type.GenericTypeArguments[0];
+                return CreateArrayTypeReference(elementType, 1);
+            }
 
-                return null;
+            Type[] genericArguments = type.GetGenericArguments();
+
+            var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
+            if (tupleTypeIndex >= 0)
+            {
+                switch (tupleTypeIndex)
+                {
+                    case 0:
+                        Debug.Assert(genericArguments.Length == 1);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[0]
+                            , TranslateToClientTypeReference(genericArguments[0]));
+                    case 1:
+                        Debug.Assert(genericArguments.Length == 2);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[1]
+                            , TranslateToClientTypeReference(genericArguments[0])
+                            , TranslateToClientTypeReference(genericArguments[1]));
+                    case 2:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[2]
+                            , TranslateToClientTypeReference(genericArguments[0])
+                            , TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2]));
+                    case 3:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[3]
+                            , TranslateToClientTypeReference(genericArguments[0])
+                            , TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2])
+                            , TranslateToClientTypeReference(genericArguments[3]));
+                    case 4:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[4]
+                            , TranslateToClientTypeReference(genericArguments[0])
+                            , TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2])
+                            , TranslateToClientTypeReference(genericArguments[3])
+                            , TranslateToClientTypeReference(genericArguments[4]));
+                    case 5:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[5]
+                            , TranslateToClientTypeReference(genericArguments[0])
+                            , TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2])
+                            , TranslateToClientTypeReference(genericArguments[3])
+                            , TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5]));
+                    case 6:
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[6]
+                            , TranslateToClientTypeReference(genericArguments[0])
+                            , TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2])
+                            , TranslateToClientTypeReference(genericArguments[3])
+                            , TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5])
+                            , TranslateToClientTypeReference(genericArguments[6]));
+                    case 7:
+                        Debug.Assert(genericArguments.Length == 8);
+                        return new CodeTypeReference(TypeHelper.TupleTypeNames[7]
+                            , TranslateToClientTypeReference(genericArguments[0])
+                            , TranslateToClientTypeReference(genericArguments[1])
+                            , TranslateToClientTypeReference(genericArguments[2])
+                            , TranslateToClientTypeReference(genericArguments[3])
+                            , TranslateToClientTypeReference(genericArguments[4])
+                            , TranslateToClientTypeReference(genericArguments[5])
+                            , TranslateToClientTypeReference(genericArguments[6])
+                            , TranslateToClientTypeReference(genericArguments[7]));
+                    default:
+                        throw new InvalidOperationException("Hey, what Tuple");
+                }
             }
 
             if (genericArguments.Length == 2)

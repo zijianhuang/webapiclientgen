@@ -47,6 +47,9 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="ClientApiTsFunctionGen.cs" />
     <Compile Include="ClientApiFunctionGen.cs" />
     <Compile Include="CodeGenParameters.cs" />
@@ -61,6 +64,7 @@
     </None>
     <None Include="app.config" />
     <None Include="PackNupkg.bat" />
+    <None Include="WebApiClientGen.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj">

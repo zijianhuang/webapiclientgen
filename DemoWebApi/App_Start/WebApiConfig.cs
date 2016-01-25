@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using DemoWebApi.Models;
 
 namespace DemoWebApi
 {
@@ -25,6 +26,15 @@ namespace DemoWebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //http://forums.asp.net/t/1821729.aspx?JsonMediaTypeFormatter+does+not+work+with+Tuple+int+List+string+
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();//   new DefaultContractResolver();
+            //this will support Tuple serialization in JSON
+
+            config.Filters.Add(new ValidateModelAttribute());
+
+            config.Services.RemoveAll(typeof(System.Web.Http.Validation.ModelValidatorProvider), (provider) => provider is System.Web.Http.Validation.Providers.InvalidModelValidatorProvider);
+            //  GlobalConfiguration.Configuration.Services.Add(typeof(System.Web.Http.Validation.ModelValidatorProvider), new System.Web.Http.Validation.Providers.RequiredMemberModelValidatorProvider());
         }
     }
 }

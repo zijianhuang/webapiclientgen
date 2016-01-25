@@ -509,15 +509,22 @@ namespace DemoWebApi.Controllers
             return list.Count;
         }
 
-        [HttpGet]
-        [Route("Handy")]
-        public DemoWebApi.Models.Handy GetHandy(DemoWebApi.Models.Handy handy)
+        //[HttpGet]
+        //[Route("Handy")]
+        //public DemoWebApi.Models.Handy GetHandy(DemoWebApi.Models.Handy handy)
+        //{
+        //    return new Models.Handy()
+        //    {
+        //        Id = 1000,
+        //        Name = "Handy Man",
+        //    };
+        //}
+
+        [HttpPost]
+        [Route("PostEmpty")]
+        public Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
         {
-            return new Models.Handy()
-            {
-                Id = 1000,
-                Name = "Handy Man",
-            };
+            return new Tuple<string, int>(s, i);
         }
 
     }

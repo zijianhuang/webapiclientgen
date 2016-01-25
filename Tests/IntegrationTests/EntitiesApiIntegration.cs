@@ -56,7 +56,7 @@ namespace IntegrationTests
 
         DemoWebApi.Controllers.Client.Entities api;
 
-         [Fact]
+        [Fact]
         public void TestCreatePerson()
         {
             Person person = new Person()
@@ -73,11 +73,36 @@ namespace IntegrationTests
                     PostalCode="4000",
                     Country="Australia",
                     Type= AddressType.Postal,
+                    Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
                 }},
             };
 
             var id = api.CreatePerson(person);
             Assert.True(id > 0);
+        }
+
+        [Fact]
+        public void TestCreatePersonWithEmptyName()
+        {
+            Person person = new Person()
+            {
+                Name = null,
+                Surname = "One",
+                GivenName = "Some",
+                BirthDate = DateTime.Now.AddYears(-20),
+                Addresses = new Address[]{new Address(){
+                    City="Brisbane",
+                    State="QLD",
+                    Street1="Somewhere",
+                    Street2="Over the rainbow",
+                    PostalCode="4000",
+                    Country="Australia",
+                    Type= AddressType.Postal,
+                    Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+              }},
+            };
+
+            Assert.Throws<System.Net.Http.HttpRequestException>(() => api.CreatePerson(person));
         }
 
         [Fact]
@@ -118,7 +143,7 @@ namespace IntegrationTests
             Assert.Equal(DateTime.Now.Year - 20, person.BirthDate.Value.Year);
         }
 
-        [Fact]
+      //  [Fact(Skip ="No need to run everytime")]
         public void TestCreatePeopleConcurrently()
         {
             Person person = new Person()
@@ -135,7 +160,8 @@ namespace IntegrationTests
                     PostalCode="4000",
                     Country="Australia",
                     Type= AddressType.Postal,
-                }},
+                    Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+               }},
             };
 
 

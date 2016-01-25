@@ -30,12 +30,14 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpPost]
-        public long CreatePerson(Person person)
+        public long CreatePerson(Person p)
         {
-            if (person.Name == "Exception")
+            Debug.WriteLine("CreatePerson: " + p.Name);
+
+            if (p.Name == "Exception")
                 throw new InvalidOperationException("It is exception");
 
-            Debug.WriteLine("Create " + person);
+            Debug.WriteLine("Create " + p);
             return 1000;
         }
 

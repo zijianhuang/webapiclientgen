@@ -21,6 +21,20 @@ namespace Fonlow.Reflection
        }
        );
 
+        internal static readonly List<string> TupleTypeNames = new List<string>(
+            new string[]
+            {
+                typeof(Tuple<>).FullName,
+                typeof(Tuple<,>).FullName,
+                typeof(Tuple<,,>).FullName,
+                typeof(Tuple<,,,>).FullName,
+                typeof(Tuple<,,,,>).FullName,
+                typeof(Tuple<,,,,,>).FullName,
+                typeof(Tuple<,,,,,,>).FullName,
+                typeof(Tuple<,,,,,,,>).FullName //Tuple<T1, T2, T3, T4, T5, T6, T7, TRest>
+            });
+
+
         //        static readonly System.Collections.Generic.HashSet<string> primitiveTypeNames = new System.Collections.Generic.HashSet<string>(
         //            new string[] {
         //"System.Boolean", "System.Byte", "System.SByte", "System.Int16", "System.UInt16", "System.Int32", "System.UInt32", "System.Int64",
@@ -99,6 +113,10 @@ namespace Fonlow.Reflection
             return arrayTypeNames.Contains(type.FullName);
         }
 
+        internal static int IsTuple(Type type)
+        {
+            return TupleTypeNames.IndexOf(type.FullName);
+        }
 
         static readonly Type typeOfString = typeof(string);
 
@@ -120,6 +138,11 @@ namespace Fonlow.Reflection
         public static bool IsClassOrStruct(Type type)
         {
             return type.IsClass || (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
+        }
+
+        public static bool IsStruct(Type type)
+        {
+            return (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
         }
 
 

@@ -30,13 +30,19 @@ namespace Fonlow.CodeDom.Web.Ts
             this.description = description;
             this.poco2TsGen = poco2TsGen;
 
-            methodName = description.ActionDescriptor.ActionName;
+            methodName = TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
             if (methodName.EndsWith("Async"))
                 methodName = methodName.Substring(0, methodName.Length - 5);//HTTP does not care about the server side async.
 
             returnType = description.ActionDescriptor.ReturnType;
 
         }
+
+        static string SetCamelCase(string s)
+        {
+            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
+        }
+
 
         public static CodeMemberMethod Create(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {
@@ -99,20 +105,16 @@ namespace Fonlow.CodeDom.Web.Ts
         void RenderImplementation()
         {
             var httpMethod = description.HttpMethod.ToLower(); //Method is always uppercase.
-            var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
-            {
-                Name = d.Name,
-                Type = poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
-
-            }).ToList();
+            //deal with parameters
+            var parameters = description.ParameterDescriptions.Select(d =>
+                 new CodeParameterDeclarationExpression(poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
+            ).ToList();
 
             var returnTypeReference = poco2TsGen.TranslateToClientTypeReference(returnType);
-            var callbackTypeText = $"(data : {TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}) => any";
-            parameters.Add(new CodeParameterDeclarationExpression()
-            {
-                Name = "callback",
-                Type = new CodeTypeReference(callbackTypeText),
-            });
+            var callbackTypeText =  String.Format("(data : {0}) => any", TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference));
+            Debug.WriteLine("callback: " + callbackTypeText);
+            var callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);
+            parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
 
             method.Parameters.AddRange(parameters.ToArray());
 
@@ -128,9 +130,9 @@ namespace Fonlow.CodeDom.Web.Ts
 
             if (httpMethod == "post" || httpMethod == "put")
             {
-                var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromBody 
-                    || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromUri)
-                    || (d.ParameterDescriptor.ParameterBinder== ParameterBinder.None)))).ToArray();
+                var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+                    || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+                    || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
                 if (fromBodyParameterDescriptions.Length > 1)
                 {
                     throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));

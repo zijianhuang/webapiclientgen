@@ -9,11 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Poco2Ts")]
 [assembly: AssemblyDescription("Generate TypeScript interfaces from POCO classes")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Fonlow")]
 [assembly: AssemblyProduct("Poco2Ts")]
-[assembly: AssemblyCopyright("Copyright © Fonlow 2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

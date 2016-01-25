@@ -52,6 +52,10 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="CherryPicking.cs" />
     <Compile Include="CherryPickingMethods.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IPoco2Client.cs" />
@@ -67,6 +71,7 @@
       <Link>Properties\WebApiClientGen.snk</Link>
     </None>
     <None Include="App.config" />
+    <None Include="Fonlow.Poco2Ts.nuspec" />
     <None Include="PackNupkg.bat" />
   </ItemGroup>
   <ItemGroup>

@@ -11,30 +11,30 @@ namespace MyApp {
 
         getArrayLastMember() {
             var api = new DemoWebApi_Controllers_Client.SuperDemo(window.location.origin+'/');
-            api.GetIntArray((data) => { $('#nameTag').html("<pre>" + data[7] + "</pre>"); });
+            api.getIntArray((data) => { $('#nameTag').html("<pre>" + data[7] + "</pre>"); });
         }
 
         postObject() {
             var api = new DemoWebApi_Controllers_Client.SuperDemo();
-            api.PostAnonymousObject({ Id: '12345', Name: 'Something' }, (data) => { $('#nameTag').html("<pre>" + data.Name + "</pre>"); });
+            api.postAnonymousObject({ Id: '12345', Name: 'Something' }, (data) => { $('#nameTag').html("<pre>" + data.Name + "</pre>"); });
         }
 
         getKeyValue() {
             var api = new DemoWebApi_Controllers_Client.SuperDemo();
-            api.GetKeyhValuePair((data) => { $('#nameTag').html("<pre>" + data.Value.Name + "</pre>"); });
+            api.getKeyhValuePair((data) => { $('#nameTag').html("<pre>" + data.value.name + "</pre>"); });
         }
 
         addPerson() {
             var api = new DemoWebApi_Controllers_Client.Entities();
-            api.CreatePerson({
-                Name: "some body",
-                GivenName: "some",
-                Surname: "body",
-                BirthDate: new Date("1977-08-18"),
-                Addresses: [{
-                    City: "Brisbane",
-                    State: "QLD",
-                    Type: DemoWebApi_DemoData_Client.AddressType.Residential
+            api.createPerson({
+                name: "some body",
+                givenName: "some",
+                surname: "body",
+                birthDate: new Date("1977-08-18"),
+                addresses: [{
+                    city: "Brisbane",
+                    state: "QLD",
+                    type: DemoWebApi_DemoData_Client.AddressType.Residential
                 }]
             }, (data) => {
                 alert(data);

@@ -45,7 +45,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="CodeObjectHelper.cs" />
+    <Compile Include="CodeSnipetTypeReference.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="KeywordHandler.cs" />
     <Compile Include="TsCodeGenerator.cs" />
@@ -59,6 +63,7 @@
     <None Include="..\WebApiClientGen.snk">
       <Link>Properties\WebApiClientGen.snk</Link>
     </None>
+    <None Include="Fonlow.TypeScriptCodeDom.nuspec" />
     <None Include="PackNupkg.bat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

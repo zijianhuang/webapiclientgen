@@ -43,4 +43,4 @@ var HttpClient = (function () {
     **/
     HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return HttpClient;
-})();
+}());

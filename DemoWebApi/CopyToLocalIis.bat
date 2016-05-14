@@ -2,6 +2,7 @@
 set target=C:\inetpub\wwwroot\DemoWebApi\
 robocopy bin\ %target%bin\ /MIR
 robocopy Views\ %target%Views\ /MIR
+robocopy Areas\ %target%Areas\ /MIR
 robocopy Scripts\ %target%Scripts\ /MIR
 robocopy Content\ %target%Content\ /MIR
 robocopy fonts\ %target%fonts\ /MIR

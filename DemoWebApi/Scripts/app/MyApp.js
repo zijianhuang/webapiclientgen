@@ -39,7 +39,7 @@ var MyApp;
             });
         };
         return First;
-    })();
+    }());
     MyApp.First = First;
 })(MyApp || (MyApp = {}));
 var first = new MyApp.First();

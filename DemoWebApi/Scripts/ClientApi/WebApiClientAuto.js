@@ -413,7 +413,7 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(encodeURI(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + s + '&i=' + i), null, callback, this.error, this.statusCode);
         };
         return SuperDemo;
-    })();
+    }());
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
         function Entities(baseUri, error, statusCode) {
@@ -475,7 +475,7 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.delete(encodeURI(this.baseUri + 'api/Entities/' + id), callback, this.error, this.statusCode);
         };
         return Entities;
-    })();
+    }());
     DemoWebApi_Controllers_Client.Entities = Entities;
     var Tuple = (function () {
         function Tuple(baseUri, error, statusCode) {
@@ -684,7 +684,7 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(encodeURI(this.baseUri + 'api/Tuple/Tuple8'), tuple, callback, this.error, this.statusCode);
         };
         return Tuple;
-    })();
+    }());
     DemoWebApi_Controllers_Client.Tuple = Tuple;
     var Values = (function () {
         function Values(baseUri, error, statusCode) {
@@ -744,6 +744,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.delete(encodeURI(this.baseUri + 'api/Values/' + id), callback, this.error, this.statusCode);
         };
         return Values;
-    })();
+    }());
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));

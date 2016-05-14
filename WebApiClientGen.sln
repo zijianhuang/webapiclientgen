@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClientGen", "WebApiClientGen\WebApiClientGen.csproj", "{1673D7D1-16BE-48A0-901A-9706087293D4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -32,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{571408D0-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A209BA4-555C-45E6-979B-05F702889260}"
 	ProjectSection(SolutionItems) = preProject
+		CreateClientApi.ps1 = CreateClientApi.ps1
 		Fonlow.ruleset = Fonlow.ruleset
 		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection

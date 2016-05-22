@@ -124,20 +124,20 @@ namespace IntegrationTests
             Assert.False(d.HasValue);
         }
 
-        //[Fact]
-        //public void TestZeroWithFloatDoubleAndDecimal() broken in VS 2015 update 2
-        //{
-        //    Assert.NotEqual(0f, 0.1f + 0.2f - 0.3f);
-        //    Assert.NotEqual(0d, 0.1d + 0.2d - 0.3d);
-        //    Assert.Equal(0m, 0.1m + 0.2m - 0.3m);
-
-        //    Assert.NotEqual(0, api.GetFloatZero());
-        //    Assert.NotEqual(0, api.GetDoubleZero());
-        //    Assert.Equal(0, api.GetDecimalZero());
-
-        //}
-
         [Fact]
+        public void TestZeroWithFloatDoubleAndDecimal() 
+        {
+            Assert.NotEqual(0f, 0.1f + 0.2f - 0.3f);
+            Assert.NotEqual(0d, 0.1d + 0.2d - 0.3d);
+            Assert.Equal(0m, 0.1m + 0.2m - 0.3m);
+
+            Assert.NotEqual(0, api.GetFloatZero());
+            Assert.NotEqual(0, api.GetDoubleZero());
+            Assert.Equal(0, api.GetDecimalZero());
+
+        }
+
+    [Fact]
         public void TestGetNullString()
         {
             Assert.Equal(null, api.GetNullString());

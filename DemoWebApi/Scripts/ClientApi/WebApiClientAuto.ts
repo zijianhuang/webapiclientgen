@@ -57,7 +57,7 @@ namespace DemoWebApi_DemoData_Another_Client {
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
         httpClient: HttpClient;
-        constructor(public baseUri: string = HttpClient.locationOrigin, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -500,7 +500,7 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Entities {
         httpClient: HttpClient;
-        constructor(public baseUri: string = HttpClient.locationOrigin, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -564,7 +564,7 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Tuple {
         httpClient: HttpClient;
-        constructor(public baseUri: string = HttpClient.locationOrigin, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 
@@ -795,7 +795,7 @@ namespace DemoWebApi_Controllers_Client {
 
     export class Values {
         httpClient: HttpClient;
-        constructor(public baseUri: string = HttpClient.locationOrigin, public error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, public statusCode?: { [key: string]: any; }){
+        constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
             this.httpClient = new HttpClient();
         }
 

@@ -91,7 +91,11 @@ namespace DemoWebApi.Controllers
         [Route("FloatZero")]
         public float GetFloatZero()
         {
-            return 0.1f + 0.2f - 0.3f;
+            var a = 0.1f;
+            var b = 0.2f;
+            var c = 0.3f;
+            return a + b - c;
+          //  return 0.1f + 0.2f - 0.3f;//broken in VS 2015 update 2
         }
 
         [HttpGet]

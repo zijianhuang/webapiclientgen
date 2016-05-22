@@ -245,10 +245,10 @@ namespace Fonlow.CodeDom.Web.Ts
 
             // Add parameters.
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "string = HttpClient.locationOrigin", "public baseUri"));
+                "string = HttpClient.locationOrigin", "private baseUri"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "(xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "public error?"));
-            constructor.Parameters.Add(new CodeParameterDeclarationExpression("{ [key: string]: any; }", "public statusCode?"));
+                "(xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "private error?"));
+            constructor.Parameters.Add(new CodeParameterDeclarationExpression("{ [key: string]: any; }", "private statusCode?"));
 
             constructor.Statements.Add(new CodeSnippetStatement(@"this.httpClient = new HttpClient();"));
 

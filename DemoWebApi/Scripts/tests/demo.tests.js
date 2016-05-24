@@ -3,10 +3,11 @@
 /// <reference path="../ClientApi/WebApiClientAuto.ts"/>
 //Make sure chutzpah.json is updated with reference to the jQuery lib when the lib is upgraded.
 QUnit.config.testTimeout = 30000;
-var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/');
-var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:9024/");
-var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:9024/");
-var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:9024/");
+//To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
+var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/');
+var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
+var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/");
+var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
 QUnit.module("Entities");
 QUnit.test("data compare", function (assert) {
     var person = {
@@ -65,13 +66,15 @@ QUnit.module("SuperDemoTests");
 test("JsZeroNotGood", function (assert) {
     assert.notEqual(0.1 + 0.2 - 0.3, 0, "Zero, Zero; equal succeeds");
 });
-//test("JsZeroNotGoodWithFloat", function (assert) { broken in VS 2015 Update 2 in the service.
-//    var done = assert.async();
-//    superDemoApi.getFloatZero((data) => {
-//        assert.notEqual(data, 0);
-//        done();
-//    });
-//});
+//if the WebAPI built with VS 2015 update 2 is hosted in IIS 10, this test pass.
+//If the WebAPI built with VS 2015 update 2 is hosted in IIS 7.5, the test will failed.
+test("JsZeroNotGoodWithFloat", function (assert) {
+    var done = assert.async();
+    superDemoApi.getFloatZero(function (data) {
+        assert.notEqual(data, 0);
+        done();
+    });
+});
 test("JsZeroNotGoodWithDouble", function (assert) {
     var done = assert.async();
     superDemoApi.getDoubleZero(function (data) {
@@ -478,3 +481,4 @@ test("LinkPersonCompany", function (assert) {
         done();
     });
 });
+//# sourceMappingURL=demo.tests.js.map

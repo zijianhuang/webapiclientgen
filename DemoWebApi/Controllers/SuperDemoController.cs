@@ -94,8 +94,8 @@ namespace DemoWebApi.Controllers
             var a = 0.1f;
             var b = 0.2f;
             var c = 0.3f;
-            return a + b - c;
-          //  return 0.1f + 0.2f - 0.3f;//broken in VS 2015 update 2
+            return a + b - c;//in all version update to VS 2015, this is a non-zero result done by the runtime.
+          //  return 0.1f + 0.2f - 0.3f;//in VS 2015 update 2. this is a zero result done by the compiler in IL code.
         }
 
         [HttpGet]

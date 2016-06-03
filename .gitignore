@@ -19,6 +19,7 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+*.map
 [Bb]in
 [Dd]ebug*/
 *.lib
@@ -29,3 +30,4 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 /Fonlow.Oc.WebApi/App_Data
 .vs
+/DemoAngularJs2/node_modules

@@ -14,6 +14,7 @@
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.config.js"></script>
+    <!--2.5 Import package app which is defined in systemjs.config.js, which is pointing to main.js. Thus main is where to tell Angular to launch the application.-->
     <script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>

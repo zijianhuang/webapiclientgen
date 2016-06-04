@@ -11,11 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var AppComponent = (function () {
     function AppComponent() {
+        this.title = 'AngularJS 2 Demo';
+        this.start();
     }
+    AppComponent.prototype.start = function () {
+        var _this = this;
+        this.timerToken = setInterval(function () { return _this.timeText = new Date().toUTCString(); }, 500);
+    };
+    AppComponent.prototype.stop = function () {
+        clearTimeout(this.timerToken);
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: '<h1>My First Angular 2 App</h1>'
+            template: "<h1>{{title}}</h1><h2>{{timeText}}\n  <button (click)=\"start()\">Start</button>\n  <button (click)=\"stop()\">Stop</button>\n"
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

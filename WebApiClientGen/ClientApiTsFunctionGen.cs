@@ -16,83 +16,15 @@ namespace Fonlow.CodeDom.Web.Ts
     /// <summary>
     /// Generate a client function upon ApiDescription
     /// </summary>
-    internal class ClientApiTsFunctionGen
+    public class ClientApiTsFunctionGen : ClientApiTsFunctionGenBase
     {
-        WebApiDescription description;
-        string methodName;
-        Type returnType;
-        CodeMemberMethod method;
-        readonly Fonlow.Poco2Client.IPoco2Client poco2TsGen;
 
-
-        public ClientApiTsFunctionGen(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
+        public ClientApiTsFunctionGen() : base()
         {
-            this.description = description;
-            this.poco2TsGen = poco2TsGen;
-
-            methodName = TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
-            if (methodName.EndsWith("Async"))
-                methodName = methodName.Substring(0, methodName.Length - 5);//HTTP does not care about the server side async.
-
-            returnType = description.ActionDescriptor.ReturnType;
-
+            
         }
 
-        static string SetCamelCase(string s)
-        {
-            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
-        }
-
-
-        public static CodeMemberMethod Create(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
-        {
-            var gen = new ClientApiTsFunctionGen(description, poco2TsGen);
-            return gen.CreateApiFunction();
-        }
-
-        public CodeMemberMethod CreateApiFunction()
-        {
-            //create method
-            method = CreateJQueryMethodName();
-
-            CreateDocComments();
-
-            switch (description.HttpMethod)
-            {
-                case "GET":
-                case "DELETE":
-                case "POST":
-                case "PUT":
-                    RenderJQueryImplementation();
-                    break;
-                default:
-                    Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
-                    break;
-            }
-
-            return method;
-        }
-
-        void CreateDocComments()
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.AppendLine(description.Documentation);
-            builder.AppendLine(description.HttpMethod + " " + description.RelativePath);
-            foreach (var item in description.ParameterDescriptions)
-            {
-                var tsParameterType = poco2TsGen.TranslateToClientTypeReference(item.ParameterDescriptor.ParameterType);
-                builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {item.Documentation}");
-            }
-
-            Type responseType = description.ResponseDescription.ResponseType ?? description.ResponseDescription.DeclaredType;
-            var tsResponseType = poco2TsGen.TranslateToClientTypeReference(responseType);
-            var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
-            builder.AppendLine($"@return {{{returnTypeOfResponse}}} {description.ResponseDescription.Documentation}");
-            method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
-        }
-
-
-        CodeMemberMethod CreateJQueryMethodName()
+        protected override CodeMemberMethod CreateMethodName()
         {
             return new CodeMemberMethod()
             {
@@ -101,23 +33,23 @@ namespace Fonlow.CodeDom.Web.Ts
             };
         }
 
-        CodeMemberMethod CreateNG2MethodName()
-        {
-            var returnTypeReference = poco2TsGen.TranslateToClientTypeReference(returnType);
-            var callbackTypeText = $"Promise<{TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}>";
-            Debug.WriteLine("callback: " + callbackTypeText);
-            var returnTypeReferenceWithPromise = new CodeSnipetTypeReference(callbackTypeText);
+        //protected override   CodeMemberMethod CreateNG2MethodName()
+        //{
+        //    var returnTypeReference = poco2TsGen.TranslateToClientTypeReference(returnType);
+        //    var callbackTypeText = $"Promise<{TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}>";
+        //    Debug.WriteLine("callback: " + callbackTypeText);
+        //    var returnTypeReferenceWithPromise = new CodeSnipetTypeReference(callbackTypeText);
 
-            return new CodeMemberMethod()
-            {
-                Attributes = MemberAttributes.Public | MemberAttributes.Final,
-                Name = methodName,
-                ReturnType= returnTypeReferenceWithPromise,
-            };
-        }
+        //    return new CodeMemberMethod()
+        //    {
+        //        Attributes = MemberAttributes.Public | MemberAttributes.Final,
+        //        Name = methodName,
+        //        ReturnType= returnTypeReferenceWithPromise,
+        //    };
+        //}
 
 
-        void RenderJQueryImplementation()
+        protected override void RenderImplementation()
         {
             var httpMethod = description.HttpMethod.ToLower(); //Method is always uppercase.
             //deal with parameters
@@ -163,83 +95,47 @@ namespace Fonlow.CodeDom.Web.Ts
             Debug.Assert(false, "How come?");
         }
 
-        void RenderNG2Implementation()
-        {
-            var httpMethod = description.HttpMethod.ToLower(); //Method is always uppercase.
-            //deal with parameters
-            var parameters = description.ParameterDescriptions.Select(d =>
-                 new CodeParameterDeclarationExpression(poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
-            ).ToList();
+        //void RenderNG2Implementation()
+        //{
+        //    var httpMethod = description.HttpMethod.ToLower(); //Method is always uppercase.
+        //    //deal with parameters
+        //    var parameters = description.ParameterDescriptions.Select(d =>
+        //         new CodeParameterDeclarationExpression(poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
+        //    ).ToList();
 
-            //parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
+        //    //parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
 
-            method.Parameters.AddRange(parameters.ToArray());
+        //    method.Parameters.AddRange(parameters.ToArray());
 
-            var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-            var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{description.RelativePath}')" :
-                RemoveTrialEmptyString($"encodeURI(this.baseUri + '{jsUriQuery}')");
+        //    var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+        //    var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{description.RelativePath}')" :
+        //        RemoveTrialEmptyString($"encodeURI(this.baseUri + '{jsUriQuery}')");
 
-            if (httpMethod == "get" || httpMethod == "delete")
-            {
-                method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).toPromise().then(response=>response.json()).catch(this.handleError);"));
-                return;
-            }
+        //    if (httpMethod == "get" || httpMethod == "delete")
+        //    {
+        //        method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).toPromise().then(response=>response.json()).catch(this.handleError);"));
+        //        return;
+        //    }
 
-            if (httpMethod == "post" || httpMethod == "put")
-            {
-                var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-                    || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-                    || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-                if (fromBodyParameterDescriptions.Length > 1)
-                {
-                    throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
-                }
-                var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+        //    if (httpMethod == "post" || httpMethod == "put")
+        //    {
+        //        var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+        //            || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+        //            || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+        //        if (fromBodyParameterDescriptions.Length > 1)
+        //        {
+        //            throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
+        //        }
+        //        var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-                var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+        //        var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-                method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), callback, {{'Content-Type': 'application/json'}}).toPromise().then(response=>response.json()).catch(this.handleError);"));
-                return;
-            }
+        //        method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), callback, {{'Content-Type': 'application/json'}}).toPromise().then(response=>response.json()).catch(this.handleError);"));
+        //        return;
+        //    }
 
-            Debug.Assert(false, "How come?");
-        }
-
-        static string RemoveTrialEmptyString(string s)
-        {
-            var p = s.IndexOf("+''");
-            return s.Remove(p, 3);
-        }
-
-
-        static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
-        {
-            var template = new UriTemplate(uriText);
-
-            if (template.QueryValueVariableNames.Count == 0 && template.PathSegmentVariableNames.Count == 0)
-                return null;
-
-            string newUriText = uriText;
-
-            for (int i = 0; i < template.PathSegmentVariableNames.Count; i++)
-            {
-                var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
-                var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-                Debug.Assert(d != null);
-                newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
-            }
-
-            for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
-            {
-                var name = template.QueryValueVariableNames[i];
-                var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-                Debug.Assert(d != null);
-                newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
-            }
-
-            return newUriText;
-        }
-
+        //    Debug.Assert(false, "How come?");
+        //}
 
     }
 

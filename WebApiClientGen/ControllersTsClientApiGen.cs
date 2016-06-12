@@ -25,7 +25,7 @@ namespace Fonlow.CodeDom.Web.Ts
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
         public ControllersTsClientApiGen(JSOutput jsOutput) : base(jsOutput)
         {
-
+            apiFunctionGen = new ClientApiTsFunctionGen();
         }
 
         protected override void AddBasicReferences()

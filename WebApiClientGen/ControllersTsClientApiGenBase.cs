@@ -23,6 +23,10 @@ namespace Fonlow.CodeDom.Web.Ts
         CodeGenConfig apiSelections;
         JSOutput jsOutput;
 
+        /// <summary>
+        /// Must be initialized in ctor of derived classes
+        /// </summary>
+        protected ClientApiTsFunctionGenBase apiFunctionGen;
 
         /// <summary>
         /// 
@@ -107,7 +111,7 @@ namespace Fonlow.CodeDom.Web.Ts
                 var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, controllerName);
                 System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-                var apiFunction = ClientApiTsFunctionGen.Create(d, poco2TsGen);
+                var apiFunction = apiFunctionGen.CreateApiFunction(d, poco2TsGen);
                 existingClientClass.Members.Add(apiFunction);
             }
 

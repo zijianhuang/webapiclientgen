@@ -15,7 +15,7 @@ namespace Fonlow.CodeDom.Web.Cs
         SharedContext sharedContext;
         WebApiDescription description;
         string methodName;
-        Type returnType;
+        protected  Type returnType;
         CodeMemberMethod method;
         readonly Fonlow.Poco2Client.IPoco2Client poco2CsGen;
 

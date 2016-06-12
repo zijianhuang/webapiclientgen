@@ -51,6 +51,8 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="ClientApiTsNg2FunctionGen.cs" />
+    <Compile Include="ClientApiTsFunctionGenBase.cs" />
     <Compile Include="ClientApiTsFunctionGen.cs" />
     <Compile Include="ClientApiFunctionGen.cs" />
     <Compile Include="CodeGenParameters.cs" />

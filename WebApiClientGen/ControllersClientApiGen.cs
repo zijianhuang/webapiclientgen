@@ -28,14 +28,14 @@ namespace Fonlow.CodeDom.Web.Cs
     {
         CodeCompileUnit targetUnit { get; set; }
         SharedContext sharedContext { get; set; }
-        CodeGenParameters codeGenParameters { get; set; }
+        CodeGenSettings codeGenParameters { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-        public ControllersClientApiGen(CodeGenParameters codeGenParameters)
+        public ControllersClientApiGen(CodeGenSettings codeGenParameters)
         {
             if (codeGenParameters == null)
                 throw new System.ArgumentNullException("codeGenParameters");
@@ -68,12 +68,12 @@ namespace Fonlow.CodeDom.Web.Cs
 
         void GenerateCsFromPoco()
         {
-            if (codeGenParameters.DataModelAssemblyNames == null)
+            if (codeGenParameters.ApiSelections.DataModelAssemblyNames == null)
                 return;
 
             var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var assemblies = allAssemblies.Where(d => codeGenParameters.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
-            var cherryPickingMethods = codeGenParameters.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+            var assemblies = allAssemblies.Where(d => codeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
+            var cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
             foreach (var assembly in assemblies)
             {
                 poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods);
@@ -114,7 +114,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 var newClassesCreated = grouppedControllerDescriptions.Select(d =>
                 {
                     var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
-                    if (codeGenParameters.ExcludedControllerNames != null && codeGenParameters.ExcludedControllerNames.Contains(controllerFullName))
+                    if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
                         return null;
 
                     return CreateControllerClientClass(clientNamespace, d.ControllerName);
@@ -127,7 +127,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
                 var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
                 var controllerFullName = controllerNamespace + "." + controllerName;
-                if (codeGenParameters.ExcludedControllerNames != null && codeGenParameters.ExcludedControllerNames.Contains(controllerFullName))
+                if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
                     continue;
 
                 var existingClientClass = LookupExistingClass(controllerNamespace, controllerName);

@@ -1,13 +1,22 @@
 ﻿{
-    "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
-    "ExcludedControllerNames": [
-        "DemoWebApi.Controllers.Account"
-    ],
-    "GenerateBothAsyncAndSync": true,
-    "TypeScriptFolder": "ClientApi",
-    "DataModelAssemblyNames": [
-        "DemoWebApi.DemoData", "DemoWebApi"
-    ],
-    "CherryPickingMethods": 1,
-    "CamelCase" :  true
+    "ApiSelections": {
+        "ExcludedControllerNames": [
+            "DemoWebApi.Controllers.Account"
+        ],
+
+        "DataModelAssemblyNames": [
+            "DemoWebApi.DemoData",
+            "DemoWebApi"
+        ],
+        "CherryPickingMethods": 1
+    },
+
+    "ClientApiOutputs": {
+        "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
+        "GenerateBothAsyncAndSync": true,
+
+        "CamelCase": true,
+        "TypeScriptFolder": "ClientApi"
+
+    }
 }

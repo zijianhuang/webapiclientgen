@@ -511,12 +511,12 @@
             additionally trace the exception before passing the exception to the default handler.
             </summary>
         </member>
-        <member name="M:Fonlow.WebApiClientGen.CodeGenController.TriggerCodeGen(Fonlow.CodeDom.Web.CodeGenParameters)">
+        <member name="M:Fonlow.WebApiClientGen.CodeGenController.TriggerCodeGen(Fonlow.CodeDom.Web.CodeGenSettings)">
             <summary>
             Trigger the API to generate WebApiClientAuto.cs for an established client API project.
             POST to  http://localhost:10965/api/CodeGen with json object CodeGenParameters
             </summary>
-            <param name="parameters"></param>
+            <param name="settings"></param>
             <returns>OK if OK</returns>
         </member>
     </members>

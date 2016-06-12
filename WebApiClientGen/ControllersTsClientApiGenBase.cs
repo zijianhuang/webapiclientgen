@@ -16,9 +16,10 @@ namespace Fonlow.CodeDom.Web.Ts
     /// <summary>
     /// Generate TypeScript codes of the client API of the controllers
     /// </summary>
-    public class ControllersTsClientApiGenBase
+    public abstract class ControllersTsClientApiGenBase
     {
-        CodeCompileUnit targetUnit;
+        protected CodeCompileUnit targetUnit;
+
         CodeGenConfig apiSelections;
         JSOutput jsOutput;
 
@@ -127,12 +128,6 @@ namespace Fonlow.CodeDom.Web.Ts
             }
         }
 
-        void AddBasicReferences()
-        {
-            targetUnit.ReferencedAssemblies.Add("<reference path=\"../typings/jquery/jquery.d.ts\" />");
-            targetUnit.ReferencedAssemblies.Add("<reference path=\"HttpClient.ts\" />");
-        }
-
         /// <summary>
         /// Lookup existing CodeTypeDeclaration created.
         /// </summary>
@@ -210,7 +205,7 @@ namespace Fonlow.CodeDom.Web.Ts
             }
         }
 
-        static CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
+        CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
         {
             var targetClass = new CodeTypeDeclaration(className)
             {
@@ -227,32 +222,11 @@ namespace Fonlow.CodeDom.Web.Ts
         }
 
 
-        static void AddLocalFields(CodeTypeDeclaration targetClass)
-        {
-            CodeMemberField clientField = new CodeMemberField();
-            clientField.Attributes = MemberAttributes.Private;
-            clientField.Name = "httpClient";
-            clientField.Type = new CodeTypeReference("HttpClient");
-            targetClass.Members.Add(clientField);
-        }
+        abstract protected void AddBasicReferences();
 
-        static void AddConstructor(CodeTypeDeclaration targetClass)
-        {
-            CodeConstructor constructor = new CodeConstructor();
-            constructor.Attributes =
-                MemberAttributes.Public | MemberAttributes.Final;
+        abstract protected void AddLocalFields(CodeTypeDeclaration targetClass);
 
-            // Add parameters.
-            constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "string = HttpClient.locationOrigin", "private baseUri"));
-            constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "(xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "private error?"));
-            constructor.Parameters.Add(new CodeParameterDeclarationExpression("{ [key: string]: any; }", "private statusCode?"));
-
-            constructor.Statements.Add(new CodeSnippetStatement(@"this.httpClient = new HttpClient();"));
-
-            targetClass.Members.Add(constructor);
-        }
+        abstract protected void AddConstructor(CodeTypeDeclaration targetClass);
 
     }
 

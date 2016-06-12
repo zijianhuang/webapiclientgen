@@ -16,218 +16,26 @@ namespace Fonlow.CodeDom.Web.Ts
     /// <summary>
     /// Generate TypeScript codes of the client API of the controllers
     /// </summary>
-    public class ControllersTsClientApiGen
+    public class ControllersTsClientApiGen : ControllersTsClientApiGenBase
     {
-        CodeCompileUnit targetUnit;
-        CodeGenConfig apiSelections;
-        JSOutput jsOutput;
-       
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-        public ControllersTsClientApiGen(JSOutput jsOutput)
+        public ControllersTsClientApiGen(JSOutput jsOutput) : base(jsOutput)
         {
-            if (jsOutput == null)
-                throw new ArgumentNullException("codeGenParameters");
-
-            this.jsOutput = jsOutput;
-            apiSelections = jsOutput.ApiSelections;
-            targetUnit = new CodeCompileUnit();
-            poco2TsGen = new Poco2TsGen(targetUnit);
-
-            TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
-            options.BracingStyle = "JS";
-            options.IndentString = "    ";
-            options.CamelCase = jsOutput.CamelCase.HasValue ? jsOutput.CamelCase.Value : false;
 
         }
 
-        IPoco2Client poco2TsGen;
-
-        /// <summary>
-        /// Save C# codes into a file.
-        /// </summary>
-        public void Save()
-        {
-            var provider = new TypeScriptCodeProvider();
-            using (StreamWriter writer = new StreamWriter(jsOutput.JSPath))
-            {
-                provider.GenerateCodeFromCompileUnit(targetUnit, writer, TsCodeGenerationOptions.Instance);
-            }
-        }
-
-        /// <summary>
-        /// Generate CodeDom of the client API for ApiDescriptions.
-        /// </summary>
-        /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-        public void CreateCodeDom(WebApiDescription[] descriptions)
-        {
-            if (descriptions == null)
-            {
-                throw new ArgumentNullException("descriptions");
-            }
-
-            AddBasicReferences();
-
-            GenerateTsFromPoco();
-
-            //controllers of ApiDescriptions (functions) grouped by namespace
-            var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
-
-            //Create client classes mapping to controller classes
-            foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
-            {
-                var clientNamespaceText = (grouppedControllerDescriptions.Key + ".Client").Replace('.', '_');
-                var clientNamespace = new CodeNamespace(clientNamespaceText);
-
-                targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
-
-                var newClassesCreated = grouppedControllerDescriptions.Select(d =>
-                {
-                    var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
-                    if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
-                        return null;
-
-                    return CreateControllerClientClass(clientNamespace, d.ControllerName);
-                }).Where(d => d != null).ToArray();//add classes into the namespace
-            }
-
-            foreach (var d in descriptions)
-            {
-                var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
-                var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
-                var controllerFullName = controllerNamespace + "." + controllerName;
-                if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
-                    continue;
-
-                var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, controllerName);
-                System.Diagnostics.Trace.Assert(existingClientClass != null);
-
-                var apiFunction = ClientApiTsFunctionGen.Create(d, poco2TsGen);
-                existingClientClass.Members.Add(apiFunction);
-            }
-
-            RefineOverloadingFunctions();
-        }
-
-        void GenerateTsFromPoco()
-        {
-            if (apiSelections.DataModelAssemblyNames == null)
-                return;
-
-            var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
-            var cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-            foreach (var assembly in assemblies)
-            {
-                poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods);
-            }
-        }
-
-        void AddBasicReferences()
+        protected override void AddBasicReferences()
         {
             targetUnit.ReferencedAssemblies.Add("<reference path=\"../typings/jquery/jquery.d.ts\" />");
             targetUnit.ReferencedAssemblies.Add("<reference path=\"HttpClient.ts\" />");
         }
 
-        /// <summary>
-        /// Lookup existing CodeTypeDeclaration created.
-        /// </summary>
-        /// <param name="clrNamespaceText"></param>
-        /// <param name="controllerName"></param>
-        /// <returns></returns>
-        CodeTypeDeclaration LookupExistingClassInCodeDom(string clrNamespaceText, string controllerName)
-        {
-            var refined = (clrNamespaceText + ".Client").Replace('.', '_');
-            for (int i = 0; i < targetUnit.Namespaces.Count; i++)
-            {
-                var ns = targetUnit.Namespaces[i];
-                if (ns.Name == refined)
-                {
-                    for (int k = 0; k < ns.Types.Count; k++)
-                    {
-                        var c = ns.Types[k];
-                        if (c.Name == controllerName)
-                            return c;
-                    }
-                }
-            }
 
-            return null;
-        }
-
-        void RefineOverloadingFunctions()
-        {
-            for (int i = 0; i < targetUnit.Namespaces.Count; i++)
-            {
-                var ns = targetUnit.Namespaces[i];
-                for (int k = 0; k < ns.Types.Count; k++)
-                {
-                    var c = ns.Types[k];
-                    List<CodeMemberMethod> methods = new List<CodeMemberMethod>();
-                    for (int m = 0; m < c.Members.Count; m++)
-                    {
-                        var method = c.Members[m] as CodeMemberMethod;
-                        if (method != null)
-                        {
-                            methods.Add(method);
-                        }
-                    }
-
-                    if (methods.Count > 1)//worth of checking overloading
-                    {
-                        var candidates = from m in methods group m by m.Name into grp where grp.Count() > 1 select grp.Key;
-                        foreach (var candidateName in candidates)
-                        {
-                            var overloadingMethods = methods.Where(d => d.Name == candidateName).ToArray();
-                            System.Diagnostics.Debug.Assert(overloadingMethods.Length > 1);
-                            foreach (var item in overloadingMethods) //Wow, 5 nested loops, plus 2 linq expressions
-                            {
-                                RenameCodeMemberMethodWithParameterNames(item);
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-
-        static string ToTitleCase(string s)
-        {
-            return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s);
-        }
-
-        static void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)
-        {
-            var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Select(d => ToTitleCase(d.Name)).ToList();
-            parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
-            if (parameterNamesInTitleCase.Count > 0)
-            {
-                method.Name += $"By{String.Join("And", parameterNamesInTitleCase)}";
-            }
-        }
-
-        static CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
-        {
-            var targetClass = new CodeTypeDeclaration(className)
-            {
-                IsClass = true,
-                IsPartial = true,
-                TypeAttributes = TypeAttributes.Public,
-            };
-
-            ns.Types.Add(targetClass);
-            AddLocalFields(targetClass);
-            AddConstructor(targetClass);
-
-            return targetClass;
-        }
-
-
-        static void AddLocalFields(CodeTypeDeclaration targetClass)
+        protected override void AddLocalFields(CodeTypeDeclaration targetClass)
         {
             CodeMemberField clientField = new CodeMemberField();
             clientField.Attributes = MemberAttributes.Private;
@@ -236,7 +44,7 @@ namespace Fonlow.CodeDom.Web.Ts
             targetClass.Members.Add(clientField);
         }
 
-        static void AddConstructor(CodeTypeDeclaration targetClass)
+        protected override void AddConstructor(CodeTypeDeclaration targetClass)
         {
             CodeConstructor constructor = new CodeConstructor();
             constructor.Attributes =

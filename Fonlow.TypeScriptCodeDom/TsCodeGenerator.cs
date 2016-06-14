@@ -21,7 +21,7 @@ namespace Fonlow.TypeScriptCodeDom
         {
             for (int i = 0; i < e.ReferencedAssemblies.Count; i++)
             {
-                w.WriteLine("/// "+e.ReferencedAssemblies[i]);
+                w.WriteLine(e.ReferencedAssemblies[i]);
             }
 
             for (int i = 0; i < e.Namespaces.Count; i++)

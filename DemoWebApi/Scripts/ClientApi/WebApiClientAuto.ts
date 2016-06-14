@@ -1,5 +1,5 @@
-/// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="HttpClient.ts" />
+///<reference path="../typings/jquery/jquery.d.ts" />
+///<reference path="HttpClient.ts" />
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 

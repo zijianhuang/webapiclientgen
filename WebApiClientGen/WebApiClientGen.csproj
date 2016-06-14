@@ -56,6 +56,7 @@
     <Compile Include="ClientApiTsFunctionGen.cs" />
     <Compile Include="ClientApiFunctionGen.cs" />
     <Compile Include="CodeGenParameters.cs" />
+    <Compile Include="ControllersTsNG2ClientApiGen.cs" />
     <Compile Include="ControllersTsClientApiGenBase.cs" />
     <Compile Include="ControllersTsClientApiGen.cs" />
     <Compile Include="ControllersClientApiGen.cs" />

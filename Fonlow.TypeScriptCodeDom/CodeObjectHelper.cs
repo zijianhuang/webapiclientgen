@@ -41,6 +41,8 @@ namespace Fonlow.TypeScriptCodeDom
         {
             WriteCodeCommentStatementCollection(e.Comments, w, o);
 
+            GenerateCodeFromAttributeDeclarationCollection(e.CustomAttributes, w, o);
+
             var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
             var typeOfType = CodeObjectHelper.GetTypeOfType(e);
             var name = e.Name;
@@ -48,6 +50,27 @@ namespace Fonlow.TypeScriptCodeDom
             var baseTypesExpression = CodeObjectHelper.GetBaseTypeExpression(e);
             w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}{typeParametersExpression}{baseTypesExpression} {{");
             WriteTypeMembersAndCloseBracing(e, w, o);
+        }
+
+        static void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (e.Arguments.Count> 0)
+            {
+                throw new NotImplementedException("Not yet support decorator with arguments");
+            }
+
+            w.WriteLine($"@{e.Name}");
+        }
+
+        static void GenerateCodeFromAttributeDeclarationCollection(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
+        {
+            if (e.Count == 0)
+                return;
+
+            for (int i = 0; i < e.Count; i++)
+            {
+                GenerateCodeFromAttributeDeclaration(e[i], w, o);
+            }
         }
 
         internal static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
@@ -813,6 +836,11 @@ namespace Fonlow.TypeScriptCodeDom
             return ss;
         }
 
+        /// <summary>
+        /// return enum, interface or class
+        /// </summary>
+        /// <param name="typeDeclaration"></param>
+        /// <returns></returns>
         static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
         {
             return typeDeclaration.IsEnum

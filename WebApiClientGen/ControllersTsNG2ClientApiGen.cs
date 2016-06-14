@@ -25,7 +25,7 @@ namespace Fonlow.CodeDom.Web.Ts
         /// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
         public ControllersTsNG2ClientApiGen(JSOutput jsOutput) : base(jsOutput)
         {
-            apiFunctionGen = new ClientApiTsFunctionGen();
+            apiFunctionGen = new ClientApiTsNG2FunctionGen();
         }
 
         protected override void AddBasicReferences()
@@ -38,11 +38,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected override void AddLocalFields(CodeTypeDeclaration targetClass)
         {
-            CodeMemberField clientField = new CodeMemberField();
-            clientField.Attributes = MemberAttributes.Private;
-            clientField.Name = "httpClient";
-            clientField.Type = new CodeTypeReference("HttpClient");
-            targetClass.Members.Add(clientField);
+            //do nothing
         }
 
         protected override void AddConstructor(CodeTypeDeclaration targetClass)
@@ -53,16 +49,31 @@ namespace Fonlow.CodeDom.Web.Ts
 
             // Add parameters.
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "string = HttpClient.locationOrigin", "private baseUri"));
+                "string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'", "private baseUri"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "(xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "private error?"));
-            constructor.Parameters.Add(new CodeParameterDeclarationExpression("{ [key: string]: any; }", "private statusCode?"));
-
-            constructor.Statements.Add(new CodeSnippetStatement(@"this.httpClient = new HttpClient();"));
+                "Http", "private http"));
 
             targetClass.Members.Add(constructor);
         }
 
+        protected override CodeAttributeDeclarationCollection CreateClassCustomAttributes()
+        {
+            return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration("Injectable") });
+        }
+
+        protected override void AddHelperFunctionsInClass(CodeTypeDeclaration c)
+        {
+            var handleErrorMethod = new CodeMemberMethod()
+            {
+                Attributes = MemberAttributes.Private | MemberAttributes.Final,
+                Name = "handleError",
+               // ReturnType = new CodeSnipetTypeReference("Promise<void>"),
+            };
+
+            handleErrorMethod.Parameters.Add(new CodeParameterDeclarationExpression("any", "error"));
+            handleErrorMethod.Statements.Add(new CodeSnippetStatement("return Promise.reject(error.message || error)"));
+            c.Members.Add(handleErrorMethod);
+        }
     }
 
 

@@ -59,7 +59,7 @@ namespace Fonlow.TypeScriptCodeDom
                 throw new NotImplementedException("Not yet support decorator with arguments");
             }
 
-            w.WriteLine($"@{e.Name}");
+            w.WriteLine($"{o.IndentString}@{e.Name}()");
         }
 
         static void GenerateCodeFromAttributeDeclarationCollection(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)

@@ -33,22 +33,6 @@ namespace Fonlow.CodeDom.Web.Ts
             };
         }
 
-        //protected override   CodeMemberMethod CreateNG2MethodName()
-        //{
-        //    var returnTypeReference = poco2TsGen.TranslateToClientTypeReference(returnType);
-        //    var callbackTypeText = $"Promise<{TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}>";
-        //    Debug.WriteLine("callback: " + callbackTypeText);
-        //    var returnTypeReferenceWithPromise = new CodeSnipetTypeReference(callbackTypeText);
-
-        //    return new CodeMemberMethod()
-        //    {
-        //        Attributes = MemberAttributes.Public | MemberAttributes.Final,
-        //        Name = methodName,
-        //        ReturnType= returnTypeReferenceWithPromise,
-        //    };
-        //}
-
-
         protected override void RenderImplementation()
         {
             var httpMethod = description.HttpMethod.ToLower(); //Method is always uppercase.

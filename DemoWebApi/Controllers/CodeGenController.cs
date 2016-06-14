@@ -99,9 +99,9 @@ namespace Fonlow.WebApiClientGen
             if (!String.IsNullOrEmpty(ng2Path))
             {
                 var ng2Output = new JSOutput(settings, ng2Path);
-                //    var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(jQueryOutput);
-                //    tsGen.CreateCodeDom(apiDescriptions);
-                //    tsGen.Save();
+                var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsNG2ClientApiGen(ng2Output);
+                tsGen.CreateCodeDom(apiDescriptions);
+                tsGen.Save();
 
             }
 

@@ -83,6 +83,7 @@ namespace Fonlow.CodeDom.Web.Ts
             var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
 
             //Create client classes mapping to controller classes
+            CodeTypeDeclaration[] newControllerClassesCreated = null;
             foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
             {
                 var clientNamespaceText = (grouppedControllerDescriptions.Key + ".Client").Replace('.', '_');
@@ -90,7 +91,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
-                var newClassesCreated = grouppedControllerDescriptions.Select(d =>
+                newControllerClassesCreated = grouppedControllerDescriptions.Select(d =>
                 {
                     var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
                     if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
@@ -116,6 +117,11 @@ namespace Fonlow.CodeDom.Web.Ts
             }
 
             RefineOverloadingFunctions();
+
+            foreach (var c in newControllerClassesCreated)
+            {
+                AddHelperFunctionsInClass(c);
+            }
         }
 
         void GenerateTsFromPoco()
@@ -201,6 +207,9 @@ namespace Fonlow.CodeDom.Web.Ts
 
         static void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)
         {
+            if (method.Parameters.Count == 0)
+                return;
+
             var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Select(d => ToTitleCase(d.Name)).ToList();
             parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
             if (parameterNamesInTitleCase.Count > 0)
@@ -216,6 +225,7 @@ namespace Fonlow.CodeDom.Web.Ts
                 IsClass = true,
                 IsPartial = true,
                 TypeAttributes = TypeAttributes.Public,
+                CustomAttributes = CreateClassCustomAttributes(),
             };
 
             ns.Types.Add(targetClass);
@@ -232,6 +242,15 @@ namespace Fonlow.CodeDom.Web.Ts
 
         abstract protected void AddConstructor(CodeTypeDeclaration targetClass);
 
+        protected virtual CodeAttributeDeclarationCollection CreateClassCustomAttributes()
+        {
+            return null;
+        }
+
+        protected virtual void AddHelperFunctionsInClass(CodeTypeDeclaration c)
+        {
+            //do nothing.
+        }
     }
 
 

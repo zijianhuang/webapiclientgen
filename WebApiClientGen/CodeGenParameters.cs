@@ -65,12 +65,12 @@ namespace Fonlow.CodeDom.Web
         public bool? CamelCase { get; set; }
 
         /// <summary>
-        /// Absolute path or relative path under the Scripts folder of current Web API project.
+        /// Absolute path or relative path to the Web API project.
         /// </summary>
         public string TypeScriptJQFolder { get; set; }
 
         /// <summary>
-        /// Absolute path or relative path under the Scripts folder of current Web API project.
+        /// Absolute path or relative path to the Web API project.
         /// </summary>
         public string TypeScriptNG2Folder { get; set; }
 
@@ -118,41 +118,5 @@ namespace Fonlow.CodeDom.Web
 
     }
 
-    //public class JQueryOutput : JSOutput
-    //{
-    //    /// <summary>
-    //    /// Absolute path or relative path under the Scripts folder of current Web API project.
-    //    /// </summary>
-    //    public string TypeScriptJQFolder { get; set; }
 
-
-    //    public JQueryOutput(CodeGenSettings settings) : base(settings)
-    //    {
-    //        this.TypeScriptJQFolder = settings.ClientApiOutputs.TypeScriptJQFolder;
-    //    }
-
-    //}
-
-    //public class NG2Output : JSOutput
-    //{
-    //    /// <summary>
-    //    /// Absolute path or relative path under the Scripts folder of current Web API project.
-    //    /// </summary>
-    //    public string TypeScriptNG2Folder { get; set; }
-
-    //    public NG2Output(CodeGenSettings settings) : base(settings)
-    //    {
-    //        this.TypeScriptNG2Folder = settings.ClientApiOutputs.TypeScriptNG2Folder;
-    //    }
-    //}
-
-
-    //public class CodeGenParametersEx
-    //{
-    //    public CodeGenSettings Parameters { get; set; }
-
-    //    public string TsPath { get; set; }
-
-    //    public string TsNg2Path { get; set; }
-    //}
 }

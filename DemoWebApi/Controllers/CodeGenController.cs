@@ -66,7 +66,7 @@ namespace Fonlow.WebApiClientGen
                     try
                     {
                         theFolder = System.IO.Path.IsPathRooted(folder) ?
-                            folder : System.IO.Path.Combine(webRootPath, "Scripts", folder);
+                            folder : System.IO.Path.Combine(webRootPath, folder);
 
                     }
                     catch (System.ArgumentException e)

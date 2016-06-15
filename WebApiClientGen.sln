@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.iOSClientApi", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientApi", "ClientApi", "{A2F5FCEF-26A1-4D28-8C94-C01756502CFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAngularJs2", "DemoAngularJs2\DemoAngularJs2.csproj", "{BC51C7BD-BC44-4EF4-8D71-0E9C68E22BFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAngular2", "DemoAngular2\DemoAngular2.csproj", "{BC51C7BD-BC44-4EF4-8D71-0E9C68E22BFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

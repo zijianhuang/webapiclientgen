@@ -1,6 +1,6 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
-namespace DemoWebApi_DemoData_Client {
+export namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
     export enum Days {Sat=1, Sun=2, Mon=3, Tue=4, Wed=5, Thu=6, Fri=7}
@@ -46,7 +46,7 @@ namespace DemoWebApi_DemoData_Client {
 
 }
 
-namespace DemoWebApi_DemoData_Another_Client {
+export namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
         x: number;
         y: number;
@@ -54,7 +54,7 @@ namespace DemoWebApi_DemoData_Another_Client {
 
 }
 
-namespace DemoWebApi_Controllers_Client {
+export namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
         httpClient: HttpClient;
         constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){

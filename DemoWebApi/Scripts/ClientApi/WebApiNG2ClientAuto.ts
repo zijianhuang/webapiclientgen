@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core'
 import { Http, Headers } from '@angular/http'
 import 'rxjs/add/operator/toPromise'
-namespace DemoWebApi_DemoData_Client {
+export namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
     export enum Days {Sat=1, Sun=2, Mon=3, Tue=4, Wed=5, Thu=6, Fri=7}
@@ -47,7 +47,7 @@ namespace DemoWebApi_DemoData_Client {
 
 }
 
-namespace DemoWebApi_DemoData_Another_Client {
+export namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
         x: number;
         y: number;
@@ -55,7 +55,7 @@ namespace DemoWebApi_DemoData_Another_Client {
 
 }
 
-namespace DemoWebApi_Controllers_Client {
+export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class SuperDemo {
         constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: Http){
@@ -819,7 +819,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {string} name 
          * @return {string} 
          */
-        getById(id: number, name: string): Promise<string>{
+        getByIdAndName(id: number, name: string): Promise<string>{
             return this.http.get(encodeURI(this.baseUri + 'api/Values/'+id+'?name='+name)).toPromise().then(response=>response.json()).catch(this.handleError);
         }
 
@@ -828,7 +828,7 @@ namespace DemoWebApi_Controllers_Client {
          * @param {string} name 
          * @return {string} 
          */
-        get(name: string): Promise<string>{
+        getByName(name: string): Promise<string>{
             return this.http.get(encodeURI(this.baseUri + 'api/Values?name='+name)).toPromise().then(response=>response.json()).catch(this.handleError);
         }
 

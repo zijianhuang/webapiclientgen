@@ -60,7 +60,7 @@
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\my-tests.ts" />
     <TypeScriptCompile Include="app\my-uppercase.pipe.ts" />
-    <TypeScriptCompile Include="clientapi\WebApiClientDataAuto.ts" />
+    <TypeScriptCompile Include="clientapi\WebApiNG2ClientAuto.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.json" />

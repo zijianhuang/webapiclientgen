@@ -18,7 +18,7 @@ namespace Fonlow.TypeScriptCodeDom
             WriteCodeCommentStatementCollection(e.Comments, w, o);
 
             var refinedNamespaceText = e.Name.Replace('.', '_');
-            w.WriteLine($"namespace {refinedNamespaceText} {{");
+            w.WriteLine($"export namespace {refinedNamespaceText} {{");
 
             for (int i = 0; i < e.Imports.Count; i++)
             {

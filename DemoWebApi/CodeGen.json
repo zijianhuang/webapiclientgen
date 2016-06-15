@@ -16,7 +16,7 @@
         "GenerateBothAsyncAndSync": true,
 
         "CamelCase": true,
-        "TypeScriptFolder": "ClientApi",
+        "TypeScriptJQFolder": "ClientApi",
         "TypeScriptNG2Folder":  "ClientApi"
 
 

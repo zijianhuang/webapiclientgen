@@ -14,6 +14,7 @@ var dashboard_component_1 = require('./dashboard.component');
 var heroes_component_1 = require('./heroes.component');
 var hero_detail_component_1 = require('./hero-detail.component');
 var hero_service_1 = require('./hero.service');
+var WebApiNG2ClientAuto_1 = require('../clientapi/WebApiNG2ClientAuto');
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Tour of Heroes';
@@ -27,6 +28,7 @@ var AppComponent = (function () {
             providers: [
                 router_deprecated_1.ROUTER_PROVIDERS,
                 hero_service_1.HeroService,
+                WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Values
             ]
         }),
         router_deprecated_1.RouteConfig([

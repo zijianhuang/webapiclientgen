@@ -211,7 +211,12 @@ namespace Fonlow.CodeDom.Web.Ts
                 return;
 
             var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Select(d => ToTitleCase(d.Name)).ToList();
-            parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
+            var lastParameter = parameterNamesInTitleCase[parameterNamesInTitleCase.Count - 1];
+            if ("callback".Equals(lastParameter, StringComparison.CurrentCultureIgnoreCase))//for JQ output
+            {
+                 parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
+            }
+
             if (parameterNamesInTitleCase.Count > 0)
             {
                 method.Name += $"By{String.Join("And", parameterNamesInTitleCase)}";

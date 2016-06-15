@@ -65,8 +65,8 @@ namespace Fonlow.WebApiClientGen
                     string theFolder;
                     try
                     {
-                        theFolder = System.IO.Path.IsPathRooted(settings.ClientApiOutputs.TypeScriptFolder) ?
-                            settings.ClientApiOutputs.TypeScriptFolder : System.IO.Path.Combine(webRootPath, "Scripts", settings.ClientApiOutputs.TypeScriptFolder);
+                        theFolder = System.IO.Path.IsPathRooted(folder) ?
+                            folder : System.IO.Path.Combine(webRootPath, "Scripts", folder);
 
                     }
                     catch (System.ArgumentException e)
@@ -86,7 +86,7 @@ namespace Fonlow.WebApiClientGen
             };
 
 
-            var jQueryPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptFolder, "WebApiClientAuto.ts");
+            var jQueryPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptJQFolder, "WebApiClientAuto.ts");
             if (!String.IsNullOrEmpty(jQueryPath))
             {
                 var jQueryOutput = new JSOutput(settings, jQueryPath);

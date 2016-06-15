@@ -67,7 +67,7 @@ namespace Fonlow.CodeDom.Web
         /// <summary>
         /// Absolute path or relative path under the Scripts folder of current Web API project.
         /// </summary>
-        public string TypeScriptFolder { get; set; }
+        public string TypeScriptJQFolder { get; set; }
 
         /// <summary>
         /// Absolute path or relative path under the Scripts folder of current Web API project.
@@ -123,12 +123,12 @@ namespace Fonlow.CodeDom.Web
     //    /// <summary>
     //    /// Absolute path or relative path under the Scripts folder of current Web API project.
     //    /// </summary>
-    //    public string TypeScriptFolder { get; set; }
+    //    public string TypeScriptJQFolder { get; set; }
 
 
     //    public JQueryOutput(CodeGenSettings settings) : base(settings)
     //    {
-    //        this.TypeScriptFolder = settings.ClientApiOutputs.TypeScriptFolder;
+    //        this.TypeScriptJQFolder = settings.ClientApiOutputs.TypeScriptJQFolder;
     //    }
 
     //}

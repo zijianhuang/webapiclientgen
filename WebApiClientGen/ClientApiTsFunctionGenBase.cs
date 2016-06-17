@@ -25,7 +25,7 @@ namespace Fonlow.CodeDom.Web.Ts
         protected Fonlow.Poco2Client.IPoco2Client poco2TsGen;
 
 
-        public ClientApiTsFunctionGenBase()
+        protected ClientApiTsFunctionGenBase()
         {
 
         }

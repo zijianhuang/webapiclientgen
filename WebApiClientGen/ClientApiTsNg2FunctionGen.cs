@@ -27,15 +27,15 @@ namespace Fonlow.CodeDom.Web.Ts
         protected override CodeMemberMethod CreateMethodName()
         {
             var returnTypeReference = poco2TsGen.TranslateToClientTypeReference(returnType);
-            var callbackTypeText = $"Promise<{TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}>";
+            var callbackTypeText = $"Observable<{TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}>";
             Debug.WriteLine("callback: " + callbackTypeText);
-            var returnTypeReferenceWithPromise = new CodeSnipetTypeReference(callbackTypeText);
+            var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
 
             return new CodeMemberMethod()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                 Name = methodName,
-                ReturnType = returnTypeReferenceWithPromise,
+                ReturnType = returnTypeReferenceWithObservable,
             };
         }
 
@@ -58,7 +58,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             if (httpMethod == "get" || httpMethod == "delete")
             {
-                method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).toPromise().then(response=>response.json()).catch(this.handleError);"));
+                method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).map(response=> response.json() || {{}}).catch(this.handleError);"));
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-                method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': 'application/json' }}) }}).toPromise().then(response=>response.json()).catch(this.handleError);"));
+                method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': 'application/json' }}) }}).map(response=>response.json() || {{}}).catch(this.handleError);"));
                 return;
             }
 

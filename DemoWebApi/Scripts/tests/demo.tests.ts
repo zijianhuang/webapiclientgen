@@ -1,7 +1,7 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts"/>
 /// <reference path="../typings/qunit/qunit.d.ts"/>
-/// <reference path="../ClientApi/WebApiClientAuto.ts"/>
 
+import {DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Another_Client} from '../ClientApi/WebApiClientAuto';
 //Make sure chutzpah.json is updated with reference to the jQuery lib when the lib is upgraded.
 
 QUnit.config.testTimeout = 30000;

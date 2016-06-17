@@ -1,15 +1,4 @@
-﻿using Fonlow.Poco2Client;
-using Fonlow.Poco2Ts;
-using Fonlow.TypeScriptCodeDom;
-using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Fonlow.Web.Meta;
+﻿using System.CodeDom;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -30,9 +19,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected override void AddBasicReferences()
         {
-            targetUnit.ReferencedAssemblies.Add("import { Injectable }    from '@angular/core'");
+            targetUnit.ReferencedAssemblies.Add("import { Injectable } from '@angular/core'");
             targetUnit.ReferencedAssemblies.Add("import { Http, Headers } from '@angular/http'");
-            targetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/toPromise'");
+            targetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/map'");
+            targetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/catch'");
+            targetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs/Observable'");
         }
 
 
@@ -67,11 +58,11 @@ namespace Fonlow.CodeDom.Web.Ts
             {
                 Attributes = MemberAttributes.Private | MemberAttributes.Final,
                 Name = "handleError",
-               // ReturnType = new CodeSnipetTypeReference("Promise<void>"),
+               // ReturnType = new CodeSnipetTypeReference("ErrorObservable"),
             };
 
             handleErrorMethod.Parameters.Add(new CodeParameterDeclarationExpression("any", "error"));
-            handleErrorMethod.Statements.Add(new CodeSnippetStatement("return Promise.reject(error.message || error)"));
+            handleErrorMethod.Statements.Add(new CodeSnippetStatement("return Observable.throw(error.message || error)"));
             c.Members.Add(handleErrorMethod);
         }
     }

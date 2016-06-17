@@ -18,11 +18,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected override void AddBasicReferences()
         {
-            targetUnit.ReferencedAssemblies.Add("import { Injectable } from '@angular/core'");
-            targetUnit.ReferencedAssemblies.Add("import { Http, Headers } from '@angular/http'");
-            targetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/map'");
-            targetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/catch'");
-            targetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs/Observable'");
+            TargetUnit.ReferencedAssemblies.Add("import { Injectable } from '@angular/core'");
+            TargetUnit.ReferencedAssemblies.Add("import { Http, Headers } from '@angular/http'");
+            TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/map'");
+            TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/catch'");
+            TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs/Observable'");
         }
 
 

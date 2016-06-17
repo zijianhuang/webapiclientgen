@@ -1,14 +1,10 @@
 ﻿using System;
 using System.CodeDom;
 using System.Linq;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
 
 using System.Diagnostics;
 using System.Text;
 using Fonlow.TypeScriptCodeDom;
-using Fonlow.Poco2Ts;
-using Fonlow.Reflection;
 using Fonlow.Web.Meta;
 
 namespace Fonlow.CodeDom.Web.Ts
@@ -19,9 +15,9 @@ namespace Fonlow.CodeDom.Web.Ts
     public abstract class ClientApiTsFunctionGenBase
     {
         protected WebApiDescription Description { get; private set; }
-        protected string methodName;
-        protected Type returnType;
-        protected CodeMemberMethod method;
+        protected string NethodName { get; private set; }
+        protected Type ReturnType { get; private set; }
+        protected CodeMemberMethod Method { get; private set; }
         protected Fonlow.Poco2Client.IPoco2Client Poco2TsGen { get; private set; }
 
 
@@ -41,14 +37,14 @@ namespace Fonlow.CodeDom.Web.Ts
             this.Description = description;
             this.Poco2TsGen = poco2TsGen;
 
-            methodName = TsCodeGenerationOptions.Instance.CamelCase ? SetCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
-            if (methodName.EndsWith("Async"))
-                methodName = methodName.Substring(0, methodName.Length - 5);//HTTP does not care about the server side async.
+            NethodName = TsCodeGenerationOptions.Instance.CamelCase ? SetCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
+            if (NethodName.EndsWith("Async"))
+                NethodName = NethodName.Substring(0, NethodName.Length - 5);//HTTP does not care about the server side async.
 
-            returnType = description.ActionDescriptor.ReturnType;
+            ReturnType = description.ActionDescriptor.ReturnType;
 
             //create method
-            method = CreateMethodName();
+            Method = CreateMethodName();
 
             CreateDocComments();
 
@@ -65,7 +61,7 @@ namespace Fonlow.CodeDom.Web.Ts
                     break;
             }
 
-            return method;
+            return Method;
         }
 
         void CreateDocComments()
@@ -83,7 +79,7 @@ namespace Fonlow.CodeDom.Web.Ts
             var tsResponseType = Poco2TsGen.TranslateToClientTypeReference(responseType);
             var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
             builder.AppendLine($"@return {{{returnTypeOfResponse}}} {Description.ResponseDescription.Documentation}");
-            method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
+            Method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
         }
 
         protected static string RemoveTrialEmptyString(string s)
@@ -124,11 +120,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected abstract CodeMemberMethod CreateMethodName();
 
-
         protected abstract void RenderImplementation();
-
-
-
     }
 
 }

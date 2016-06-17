@@ -18,15 +18,12 @@ namespace Fonlow.CodeDom.Web.Ts
     /// </summary>
     public abstract class ControllersTsClientApiGenBase
     {
-        protected CodeCompileUnit targetUnit;
+        protected CodeCompileUnit TargetUnit { get; private set; }
 
         CodeGenConfig apiSelections;
         JSOutput jsOutput;
 
-        /// <summary>
-        /// Must be initialized in ctor of derived classes
-        /// </summary>
-        ClientApiTsFunctionGenBase apiFunctionGen;
+        ClientApiTsFunctionGenBase apiFunctionGen; //to be injected in ctor of derived class.
 
         /// <summary>
         /// 
@@ -41,8 +38,8 @@ namespace Fonlow.CodeDom.Web.Ts
             this.jsOutput = jsOutput;
             this.apiFunctionGen = apiFunctionGen;
             this.apiSelections = jsOutput.ApiSelections;
-            targetUnit = new CodeCompileUnit();
-            poco2TsGen = new Poco2TsGen(targetUnit);
+            TargetUnit = new CodeCompileUnit();
+            poco2TsGen = new Poco2TsGen(TargetUnit);
 
             TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
             options.BracingStyle = "JS";
@@ -61,7 +58,7 @@ namespace Fonlow.CodeDom.Web.Ts
             var provider = new TypeScriptCodeProvider();
             using (StreamWriter writer = new StreamWriter(jsOutput.JSPath))
             {
-                provider.GenerateCodeFromCompileUnit(targetUnit, writer, TsCodeGenerationOptions.Instance);
+                provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
             }
         }
 
@@ -90,7 +87,7 @@ namespace Fonlow.CodeDom.Web.Ts
                 var clientNamespaceText = (grouppedControllerDescriptions.Key + ".Client").Replace('.', '_');
                 var clientNamespace = new CodeNamespace(clientNamespaceText);
 
-                targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+                TargetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
                 newControllerClassesCreated = grouppedControllerDescriptions.Select(d =>
                 {
@@ -148,9 +145,9 @@ namespace Fonlow.CodeDom.Web.Ts
         CodeTypeDeclaration LookupExistingClassInCodeDom(string clrNamespaceText, string controllerName)
         {
             var refined = (clrNamespaceText + ".Client").Replace('.', '_');
-            for (int i = 0; i < targetUnit.Namespaces.Count; i++)
+            for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
             {
-                var ns = targetUnit.Namespaces[i];
+                var ns = TargetUnit.Namespaces[i];
                 if (ns.Name == refined)
                 {
                     for (int k = 0; k < ns.Types.Count; k++)
@@ -167,9 +164,9 @@ namespace Fonlow.CodeDom.Web.Ts
 
         void RefineOverloadingFunctions()
         {
-            for (int i = 0; i < targetUnit.Namespaces.Count; i++)
+            for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
             {
-                var ns = targetUnit.Namespaces[i];
+                var ns = TargetUnit.Namespaces[i];
                 for (int k = 0; k < ns.Types.Count; k++)
                 {
                     var c = ns.Types[k];
@@ -215,7 +212,7 @@ namespace Fonlow.CodeDom.Web.Ts
             var lastParameter = parameterNamesInTitleCase[parameterNamesInTitleCase.Count - 1];
             if ("callback".Equals(lastParameter, StringComparison.CurrentCultureIgnoreCase))//for JQ output
             {
-                 parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
+                parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
             }
 
             if (parameterNamesInTitleCase.Count > 0)

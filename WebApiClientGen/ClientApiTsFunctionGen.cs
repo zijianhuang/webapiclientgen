@@ -29,7 +29,7 @@ namespace Fonlow.CodeDom.Web.Ts
             return new CodeMemberMethod()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
-                Name = methodName,
+                Name = NethodName,
             };
         }
 
@@ -41,13 +41,13 @@ namespace Fonlow.CodeDom.Web.Ts
                  new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
             ).ToList();
 
-            var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(returnType);
+            var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
             var callbackTypeText = String.Format("(data : {0}) => any", TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference));
             Debug.WriteLine("callback: " + callbackTypeText);
             var callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);
             parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
 
-            method.Parameters.AddRange(parameters.ToArray());
+            Method.Parameters.AddRange(parameters.ToArray());
 
             var jsUriQuery = CreateUriQuery(Description.RelativePath, Description.ParameterDescriptions);
             var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{Description.RelativePath}')" :
@@ -55,7 +55,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             if (httpMethod == "get" || httpMethod == "delete")
             {
-                method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethod}({uriText}, callback, this.error, this.statusCode);"));
+                Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethod}({uriText}, callback, this.error, this.statusCode);"));
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-                method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethod}({uriText}, {dataToPost}, callback, this.error, this.statusCode);"));
+                Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethod}({uriText}, {dataToPost}, callback, this.error, this.statusCode);"));
                 return;
             }
 

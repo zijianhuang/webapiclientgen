@@ -26,7 +26,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected override CodeMemberMethod CreateMethodName()
         {
-            var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(returnType);
+            var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
             var callbackTypeText = $"Observable<{TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}>";
             Debug.WriteLine("callback: " + callbackTypeText);
             var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
@@ -34,7 +34,7 @@ namespace Fonlow.CodeDom.Web.Ts
             return new CodeMemberMethod()
             {
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
-                Name = methodName,
+                Name = NethodName,
                 ReturnType = returnTypeReferenceWithObservable,
             };
         }
@@ -50,7 +50,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             //parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
 
-            method.Parameters.AddRange(parameters.ToArray());
+            Method.Parameters.AddRange(parameters.ToArray());
 
             var jsUriQuery = CreateUriQuery(Description.RelativePath, Description.ParameterDescriptions);
             var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{Description.RelativePath}')" :
@@ -58,7 +58,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             if (httpMethod == "get" || httpMethod == "delete")
             {
-                method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).map(response=> response.json() || {{}}).catch(this.handleError);"));
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).map(response=> response.json() || {{}}).catch(this.handleError);"));
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-                method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': 'application/json' }}) }}).map(response=>response.json() || {{}}).catch(this.handleError);"));
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': 'application/json' }}) }}).map(response=>response.json() || {{}}).catch(this.handleError);"));
                 return;
             }
 

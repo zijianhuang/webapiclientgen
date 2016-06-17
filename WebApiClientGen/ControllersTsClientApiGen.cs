@@ -29,8 +29,8 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected override void AddBasicReferences()
         {
-            targetUnit.ReferencedAssemblies.Add("///<reference path=\"../typings/jquery/jquery.d.ts\" />");
-            targetUnit.ReferencedAssemblies.Add("///<reference path=\"HttpClient.ts\" />");
+            TargetUnit.ReferencedAssemblies.Add("///<reference path=\"../typings/jquery/jquery.d.ts\" />");
+            TargetUnit.ReferencedAssemblies.Add("///<reference path=\"HttpClient.ts\" />");
         }
 
 

@@ -35,13 +35,13 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected override void RenderImplementation()
         {
-            var httpMethod = description.HttpMethod.ToLower(); //Method is always uppercase.
+            var httpMethod = Description.HttpMethod.ToLower(); //Method is always uppercase.
             //deal with parameters
-            var parameters = description.ParameterDescriptions.Select(d =>
-                 new CodeParameterDeclarationExpression(poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
+            var parameters = Description.ParameterDescriptions.Select(d =>
+                 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
             ).ToList();
 
-            var returnTypeReference = poco2TsGen.TranslateToClientTypeReference(returnType);
+            var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(returnType);
             var callbackTypeText = String.Format("(data : {0}) => any", TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference));
             Debug.WriteLine("callback: " + callbackTypeText);
             var callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);
@@ -49,8 +49,8 @@ namespace Fonlow.CodeDom.Web.Ts
 
             method.Parameters.AddRange(parameters.ToArray());
 
-            var jsUriQuery = CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-            var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{description.RelativePath}')" :
+            var jsUriQuery = CreateUriQuery(Description.RelativePath, Description.ParameterDescriptions);
+            var uriText = jsUriQuery == null ? $"encodeURI(this.baseUri + '{Description.RelativePath}')" :
                 RemoveTrialEmptyString($"encodeURI(this.baseUri + '{jsUriQuery}')");
 
             if (httpMethod == "get" || httpMethod == "delete")
@@ -61,12 +61,12 @@ namespace Fonlow.CodeDom.Web.Ts
 
             if (httpMethod == "post" || httpMethod == "put")
             {
-                var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+                var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
                     || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
                     || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
                 if (fromBodyParameterDescriptions.Length > 1)
                 {
-                    throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
+                    throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
                 }
                 var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 

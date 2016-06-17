@@ -18,11 +18,11 @@ namespace Fonlow.CodeDom.Web.Ts
     /// </summary>
     public abstract class ClientApiTsFunctionGenBase
     {
-        protected WebApiDescription description;
+        protected WebApiDescription Description { get; private set; }
         protected string methodName;
         protected Type returnType;
         protected CodeMemberMethod method;
-        protected Fonlow.Poco2Client.IPoco2Client poco2TsGen;
+        protected Fonlow.Poco2Client.IPoco2Client Poco2TsGen { get; private set; }
 
 
         protected ClientApiTsFunctionGenBase()
@@ -38,8 +38,8 @@ namespace Fonlow.CodeDom.Web.Ts
 
         public CodeMemberMethod CreateApiFunction(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen)
         {
-            this.description = description;
-            this.poco2TsGen = poco2TsGen;
+            this.Description = description;
+            this.Poco2TsGen = poco2TsGen;
 
             methodName = TsCodeGenerationOptions.Instance.CamelCase ? SetCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
             if (methodName.EndsWith("Async"))
@@ -71,18 +71,18 @@ namespace Fonlow.CodeDom.Web.Ts
         void CreateDocComments()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine(description.Documentation);
-            builder.AppendLine(description.HttpMethod + " " + description.RelativePath);
-            foreach (var item in description.ParameterDescriptions)
+            builder.AppendLine(Description.Documentation);
+            builder.AppendLine(Description.HttpMethod + " " + Description.RelativePath);
+            foreach (var item in Description.ParameterDescriptions)
             {
-                var tsParameterType = poco2TsGen.TranslateToClientTypeReference(item.ParameterDescriptor.ParameterType);
+                var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(item.ParameterDescriptor.ParameterType);
                 builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {item.Documentation}");
             }
 
-            Type responseType = description.ResponseDescription.ResponseType ?? description.ResponseDescription.DeclaredType;
-            var tsResponseType = poco2TsGen.TranslateToClientTypeReference(responseType);
+            Type responseType = Description.ResponseDescription.ResponseType ?? Description.ResponseDescription.DeclaredType;
+            var tsResponseType = Poco2TsGen.TranslateToClientTypeReference(responseType);
             var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
-            builder.AppendLine($"@return {{{returnTypeOfResponse}}} {description.ResponseDescription.Documentation}");
+            builder.AppendLine($"@return {{{returnTypeOfResponse}}} {Description.ResponseDescription.Documentation}");
             method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
         }
 

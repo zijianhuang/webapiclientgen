@@ -34,7 +34,7 @@ var AppComponent = (function () {
                 WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Values,
                 WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.SuperDemo,
                 WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Entities,
-                { provide: 'baseUri', useValue: 'http://localhost:1234' },
+                { provide: 'baseUri', useValue: 'http://localhost:9024/' },
             ]
         }),
         router_deprecated_1.RouteConfig([

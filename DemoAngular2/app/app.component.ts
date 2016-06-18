@@ -28,7 +28,7 @@ export let TESTURL = new OpaqueToken(
         DemoWebApi_Controllers_Client.Values,
         DemoWebApi_Controllers_Client.SuperDemo,
         DemoWebApi_Controllers_Client.Entities,
-        { provide: 'baseUri', useValue: 'http://localhost:1234' },
+        { provide: 'baseUri', useValue: 'http://localhost:9024/' },
         
         
 

@@ -13,6 +13,10 @@ namespace DemoWebApi
     {
         public static void Register(HttpConfiguration config)
         {
+            //http://www.asp.net/web-api/overview/security/enabling-cross-origin-requests-in-web-api
+            var cors = new System.Web.Http.Cors.EnableCorsAttribute("*", "*", "*"); //better to set urls in production
+            config.EnableCors(cors);
+
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();

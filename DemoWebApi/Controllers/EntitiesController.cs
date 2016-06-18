@@ -6,9 +6,11 @@ using System.Net.Http;
 using System.Web.Http;
 using DemoWebApi.DemoData;
 using System.Diagnostics;
+using System.Web.Http.Cors;
 
 namespace DemoWebApi.Controllers
 {
+   // [EnableCors(origins: "*", headers:"*", methods:"*")] set globally in WebApiConfig.cs
     [RoutePrefix("api/SuperDemo")]
     public class EntitiesController : ApiController
     {

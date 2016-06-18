@@ -18,7 +18,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected override void AddBasicReferences()
         {
-            TargetUnit.ReferencedAssemblies.Add("import { Injectable } from '@angular/core'");
+            TargetUnit.ReferencedAssemblies.Add("import { Injectable, Inject } from '@angular/core'");
             TargetUnit.ReferencedAssemblies.Add("import { Http, Headers } from '@angular/http'");
             TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/map'");
             TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/catch'");
@@ -39,7 +39,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
             // Add parameters.
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'", "private baseUri"));
+                "string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'", "@Inject('baseUri') private baseUri"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
                 "Http", "private http"));
 
@@ -51,19 +51,19 @@ namespace Fonlow.CodeDom.Web.Ts
             return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration("Injectable") });
         }
 
-        protected override void AddHelperFunctionsInClass(CodeTypeDeclaration c)
-        {
-            var handleErrorMethod = new CodeMemberMethod()
-            {
-                Attributes = MemberAttributes.Private | MemberAttributes.Final,
-                Name = "handleError",
-               // ReturnType = new CodeSnipetTypeReference("ErrorObservable"),
-            };
+        //protected override void AddHelperFunctionsInClass(CodeTypeDeclaration c)
+        //{
+        //    var handleErrorMethod = new CodeMemberMethod()
+        //    {
+        //        Attributes = MemberAttributes.Private | MemberAttributes.Final,
+        //        Name = "handleError",
+        //        // ReturnType = new CodeSnipetTypeReference("ErrorObservable"),
+        //    };
 
-            handleErrorMethod.Parameters.Add(new CodeParameterDeclarationExpression("any", "error"));
-            handleErrorMethod.Statements.Add(new CodeSnippetStatement("return Observable.throw(error.message || error)"));
-            c.Members.Add(handleErrorMethod);
-        }
+        //    handleErrorMethod.Parameters.Add(new CodeParameterDeclarationExpression("any", "error"));
+        //    handleErrorMethod.Statements.Add(new CodeSnippetStatement("return Observable.throw(error.message || error)"));
+        //    c.Members.Add(handleErrorMethod);
+        //}
     }
 
 

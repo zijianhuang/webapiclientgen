@@ -16,9 +16,8 @@
         "GenerateBothAsyncAndSync": true,
 
         "CamelCase": true,
-        "TypeScriptJQFolder": "ClientApi",
-        "TypeScriptNG2Folder":  "ClientApi"
-
+        "TypeScriptJQFolder": "Scripts\\ClientApi",
+        "TypeScriptNG2Folder": "..\\DemoAngular2\\ClientApi"
 
     }
 }

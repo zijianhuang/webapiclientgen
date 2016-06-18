@@ -42,6 +42,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\dashboard.component.html" />
+    <Content Include="app\hero-detail.component.html" />
+    <Content Include="app\heroes.component.html" />
     <Content Include="unit-tests.html" />
     <Content Include="index.html" />
     <Content Include="style.css" />

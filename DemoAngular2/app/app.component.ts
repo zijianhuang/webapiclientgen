@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OpaqueToken } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Http, Headers, HTTP_PROVIDERS } from '@angular/http'
+
 import { DashboardComponent }  from './dashboard.component';
 import { HeroesComponent }     from './heroes.component';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroService }         from './hero.service';
 import {  DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Another_Client, DemoWebApi_Controllers_Client  } from '../clientapi/WebApiNG2ClientAuto';
 
+export let TESTURL = new OpaqueToken(
 @Component({
     selector: 'my-app',
     template: `
@@ -20,9 +23,15 @@ import {  DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Another_Client, DemoWe
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS,
+        HTTP_PROVIDERS,
         HeroService,
-        DemoWebApi_Controllers_Client.Values
+        DemoWebApi_Controllers_Client.Values,
+        DemoWebApi_Controllers_Client.SuperDemo,
+        DemoWebApi_Controllers_Client.Entities,
+        { provide: 'baseUri', useValue: 'http://localhost:1234' },
         
+        
+
     ]
 })
 @RouteConfig([

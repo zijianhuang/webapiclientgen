@@ -10,11 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
+var http_1 = require('@angular/http');
 var dashboard_component_1 = require('./dashboard.component');
 var heroes_component_1 = require('./heroes.component');
 var hero_detail_component_1 = require('./hero-detail.component');
 var hero_service_1 = require('./hero.service');
 var WebApiNG2ClientAuto_1 = require('../clientapi/WebApiNG2ClientAuto');
+exports.TESTURL = new core_1.OpaqueToken();
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Tour of Heroes';
@@ -27,8 +29,12 @@ var AppComponent = (function () {
             directives: [router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [
                 router_deprecated_1.ROUTER_PROVIDERS,
+                http_1.HTTP_PROVIDERS,
                 hero_service_1.HeroService,
-                WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Values
+                WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Values,
+                WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.SuperDemo,
+                WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Entities,
+                { provide: 'baseUri', useValue: 'http://localhost:1234' },
             ]
         }),
         router_deprecated_1.RouteConfig([

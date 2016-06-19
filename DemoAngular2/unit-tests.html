@@ -7,7 +7,6 @@
   <script src="node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
   <script src="node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
   <script src="node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
-
 </head>
 <body>
     <!-- #1. add the system.js and angular libraries -->
@@ -19,7 +18,7 @@
     <script>
   // #2. Import the spec files explicitly
   Promise.all([
-    System.import('app/my-tests')
+    System.import('app/my-tests.spec')
   ])
 
     // #3. wait for all imports to load ...

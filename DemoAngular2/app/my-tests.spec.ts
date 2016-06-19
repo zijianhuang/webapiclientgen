@@ -1,9 +1,11 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import { TestComponentBuilder} from '@angular/compiler/testing';
-import {describe, expect, it, xit, inject, beforeEachProviders} from '@angular/core/testing'; 
+import {describe, expect, it, xit, inject, injectAsync, beforeEachProviders, async} from '@angular/core/testing'; 
 
 
-
+import { Component, OpaqueToken } from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Http, Headers, HTTP_PROVIDERS } from '@angular/http'
 import { XHRBackend } from '@angular/http';
 
 import { InMemoryBackendService, SEED_DATA } from 'angular2-in-memory-web-api';
@@ -11,7 +13,6 @@ import { InMemoryBackendService, SEED_DATA } from 'angular2-in-memory-web-api';
 
 // The usual bootstrapping imports
 import { bootstrap }      from '@angular/platform-browser-dynamic';
-import { HTTP_PROVIDERS, Http } from '@angular/http';
 
 import { By }             from '@angular/platform-browser';
 import { provide }        from '@angular/core';
@@ -22,7 +23,9 @@ import {Hero} from './hero';
 import {HeroService} from './hero.service';
 import {InMemoryDataService} from './in-memory-data.service';
 import { MyUppercasePipe } from './my-uppercase.pipe';
- 
+
+import {  DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Another_Client, DemoWebApi_Controllers_Client  } from '../clientapi/WebApiNG2ClientAuto';
+
  
 describe('dummy tests', () => {
     it('true is true', function () { expect(true).toEqual(true); });
@@ -32,29 +35,37 @@ describe('dummy tests', () => {
     );
 });
 //test   
-//describe('heroes tests', () => {
+describe('heroes tests', () => {
+    
 
-//    beforeEach(() => {
 
-//    });
+    beforeEach(() => {
 
-//    beforeEachProviders(() => [
-//        HTTP_PROVIDERS,
-//        provide(Http, { useClass: InMemoryBackendService }), // in-mem server
-//        provide(XHRBackend, { useClass: InMemoryBackendService }), // in-mem server
-//        provide(SEED_DATA, { useClass: InMemoryDataService }) ,    // in-mem server data
-//        HeroService,
-//    ]);
-   
-//    it('check hero', () => {
-//        var hero: Hero = { id: 1, name: 'super man' };
-//        expect(hero.name).toEqual('super man');
-//    });
-//    it('heroes not empty', inject([HeroService], (heroService: HeroService) => {
-//        let heroes = heroService.getHeroes();
-//        heroes.then(response => expect(response.length).toBeGreaterThan(0));
-//        }));
-//});
+    });
+    
+    beforeEachProviders(() => [
+        ROUTER_PROVIDERS,
+        HTTP_PROVIDERS,
+        HeroService,
+        DemoWebApi_Controllers_Client.Values,
+        DemoWebApi_Controllers_Client.SuperDemo,
+        DemoWebApi_Controllers_Client.Entities,
+        { provide: 'baseUri', useValue: 'http://localhost:9024/' },
+    ]);
+    
+    it('check hero', () => {
+        var hero: Hero = { id: 1, name: 'super man' };
+        expect(hero.name).toEqual('super man');
+    });
+    it('Entities get person', async( inject([DemoWebApi_Controllers_Client.Entities], (myService: DemoWebApi_Controllers_Client.Entities) => {
+        myService.getPerson(100).subscribe(val => { expect(val.name).toEqual('Z Huang'); });
+    })));
+
+    //it('heroes not empty', inject([HeroService], (heroService: HeroService) => {
+    //    let heroes = heroService.getHeroes();
+    //    heroes.then(response => expect(response.length).toBeGreaterThan(0));
+    //}));
+});
 
 //describe('pipe tests', () => {
 //    let pipe: MyUppercasePipe;

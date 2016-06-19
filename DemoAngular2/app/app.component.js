@@ -16,7 +16,6 @@ var heroes_component_1 = require('./heroes.component');
 var hero_detail_component_1 = require('./hero-detail.component');
 var hero_service_1 = require('./hero.service');
 var WebApiNG2ClientAuto_1 = require('../clientapi/WebApiNG2ClientAuto');
-exports.TESTURL = new core_1.OpaqueToken();
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Tour of Heroes';

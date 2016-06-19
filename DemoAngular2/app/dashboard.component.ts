@@ -13,6 +13,7 @@ import {  DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client  } from '../
 export class DashboardComponent implements OnInit {
     heroes: Hero[] = [];
     myName: string;
+    array2d: number[][];
     constructor(
         private router: Router,
         private heroService: HeroService, private entitiesService: DemoWebApi_Controllers_Client.Entities) {
@@ -20,8 +21,8 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
         //this.heroService.getHeroes()
         //    .then(heroes => this.heroes = heroes.slice(1, 5));
-
         this.entitiesService.getPerson(100).subscribe(d => this.myName = d.name);
+        
     }
     gotoDetail(hero: Hero) {
         let link = ['HeroDetail', { id: hero.id }];

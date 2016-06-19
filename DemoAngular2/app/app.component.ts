@@ -8,7 +8,6 @@ import { HeroDetailComponent } from './hero-detail.component';
 import { HeroService }         from './hero.service';
 import {  DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Another_Client, DemoWebApi_Controllers_Client  } from '../clientapi/WebApiNG2ClientAuto';
 
-export let TESTURL = new OpaqueToken(
 @Component({
     selector: 'my-app',
     template: `

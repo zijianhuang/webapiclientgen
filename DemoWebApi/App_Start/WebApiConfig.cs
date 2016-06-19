@@ -14,6 +14,7 @@ namespace DemoWebApi
         public static void Register(HttpConfiguration config)
         {
             //http://www.asp.net/web-api/overview/security/enabling-cross-origin-requests-in-web-api
+            //https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
             var cors = new System.Web.Http.Cors.EnableCorsAttribute("*", "*", "*"); //better to set urls in production
             config.EnableCors(cors);
 

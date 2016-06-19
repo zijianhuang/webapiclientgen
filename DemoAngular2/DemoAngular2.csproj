@@ -61,7 +61,7 @@
     <TypeScriptCompile Include="app\heroes.component.ts" />
     <TypeScriptCompile Include="app\in-memory-data.service.ts" />
     <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\my-tests.ts" />
+    <TypeScriptCompile Include="app\my-tests.spec.ts" />
     <TypeScriptCompile Include="app\my-uppercase.pipe.ts" />
     <TypeScriptCompile Include="clientapi\WebApiNG2ClientAuto.ts" />
   </ItemGroup>
@@ -75,6 +75,12 @@
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>

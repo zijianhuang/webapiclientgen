@@ -16,16 +16,10 @@ export class DashboardComponent implements OnInit {
     array2d: number[][];
     constructor(
         private router: Router,
-        private heroService: HeroService, private entitiesService: DemoWebApi_Controllers_Client.Entities) {
+        private entitiesService: DemoWebApi_Controllers_Client.Entities) {
     }
     ngOnInit() {
-        //this.heroService.getHeroes()
-        //    .then(heroes => this.heroes = heroes.slice(1, 5));
         this.entitiesService.getPerson(100).subscribe(d => this.myName = d.name);
         
-    }
-    gotoDetail(hero: Hero) {
-        let link = ['HeroDetail', { id: hero.id }];
-        this.router.navigate(link);
     }
 }

@@ -1,31 +1,35 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import { TestComponentBuilder} from '@angular/compiler/testing';
-import {describe, expect, it, xit, inject, injectAsync, beforeEachProviders, async} from '@angular/core/testing'; 
+import {Injectable} from '@angular/core';
+//import { TestComponentBuilder} from '@angular/compiler/testing';
+import {describe, expect, it, xit, inject, injectAsync, beforeEachProviders, async, fakeAsync} from '@angular/core/testing'; 
 
 
-import { Component, OpaqueToken } from '@angular/core';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import { Http, Headers, HTTP_PROVIDERS } from '@angular/http'
-import { XHRBackend } from '@angular/http';
+//import { Component, OpaqueToken } from '@angular/core';
+//import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Http, Headers, HTTP_PROVIDERS, BrowserXhr } from '@angular/http'
+import {BROWSER_PROVIDERS, BROWSER_PLATFORM_PROVIDERS} from '@angular/platform-browser';
 
-import { InMemoryBackendService, SEED_DATA } from 'angular2-in-memory-web-api';
+//// The usual bootstrapping imports
+//import { bootstrap }      from '@angular/platform-browser-dynamic';
 
-
-// The usual bootstrapping imports
-import { bootstrap }      from '@angular/platform-browser-dynamic';
-
-import { By }             from '@angular/platform-browser';
+//import { By }             from '@angular/platform-browser';
 import { provide }        from '@angular/core';
-import { ViewMetadata }   from '@angular/core';
-import { PromiseWrapper } from '@angular/core/src/facade/promise';
+//import { ViewMetadata }   from '@angular/core';
+//import { PromiseWrapper } from '@angular/core/src/facade/promise';
 
 import {Hero} from './hero';
-import {HeroService} from './hero.service';
-import {InMemoryDataService} from './in-memory-data.service';
-import { MyUppercasePipe } from './my-uppercase.pipe';
+//import {HeroService} from './hero.service';
+//import { MyUppercasePipe } from './my-uppercase.pipe';
 
 import {  DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Another_Client, DemoWebApi_Controllers_Client  } from '../clientapi/WebApiNG2ClientAuto';
 
+@Injectable()
+export class CustomBrowserXhr extends BrowserXhr {
+    build(): any {
+        let xhr = super.build();
+        xhr.withCredentials = true;
+        return <any>(xhr);
+    }
+}
  
 describe('dummy tests', () => {
     it('true is true', function () { expect(true).toEqual(true); });
@@ -44,22 +48,23 @@ describe('heroes tests', () => {
     });
     
     beforeEachProviders(() => [
-        ROUTER_PROVIDERS,
+        //ROUTER_PROVIDERS,
         HTTP_PROVIDERS,
-        HeroService,
+        //HeroService,
         DemoWebApi_Controllers_Client.Values,
         DemoWebApi_Controllers_Client.SuperDemo,
         DemoWebApi_Controllers_Client.Entities,
         { provide: 'baseUri', useValue: 'http://localhost:9024/' },
+        provide(BrowserXhr, { useClass: CustomBrowserXhr })
     ]);
     
     it('check hero', () => {
         var hero: Hero = { id: 1, name: 'super man' };
         expect(hero.name).toEqual('super man');
     });
-    it('Entities get person', async( inject([DemoWebApi_Controllers_Client.Entities], (myService: DemoWebApi_Controllers_Client.Entities) => {
-        myService.getPerson(100).subscribe(val => { expect(val.name).toEqual('Z Huang'); });
-    })));
+    it('Entities get person', inject([DemoWebApi_Controllers_Client.Entities], (myService: DemoWebApi_Controllers_Client.Entities) => {
+        myService.getPerson(100); }));
+ 
 
     //it('heroes not empty', inject([HeroService], (heroService: HeroService) => {
     //    let heroes = heroService.getHeroes();

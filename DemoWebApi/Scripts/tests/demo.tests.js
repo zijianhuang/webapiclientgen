@@ -1,14 +1,13 @@
 /// <reference path="../typings/jquery/jquery.d.ts"/>
 /// <reference path="../typings/qunit/qunit.d.ts"/>
-"use strict";
-var WebApiClientAuto_1 = require('../ClientApi/WebApiClientAuto');
+/// <reference path="../ClientApi/WebApiClientAuto.ts"/>
 //Make sure chutzpah.json is updated with reference to the jQuery lib when the lib is upgraded.
 QUnit.config.testTimeout = 30000;
 //To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
-var entitiesApi = new WebApiClientAuto_1.DemoWebApi_Controllers_Client.Entities('http://localhost:10965/');
-var superDemoApi = new WebApiClientAuto_1.DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
-var valuesApi = new WebApiClientAuto_1.DemoWebApi_Controllers_Client.Values("http://localhost:10965/");
-var tupleApi = new WebApiClientAuto_1.DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
+var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/');
+var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
+var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/");
+var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
 QUnit.module("Entities");
 QUnit.test("data compare", function (assert) {
     var person = {
@@ -40,7 +39,7 @@ QUnit.test("AddPerson", function (assert) {
         addresses: [{
                 city: "Brisbane",
                 state: "QLD",
-                type: WebApiClientAuto_1.DemoWebApi_DemoData_Client.AddressType.Residential,
+                type: DemoWebApi_DemoData_Client.AddressType.Residential,
             }]
     }, function (data) {
         assert.ok(data > 0);
@@ -50,7 +49,7 @@ QUnit.test("AddPerson", function (assert) {
 QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
     assert.expect(0);
     var done = assert.async();
-    var api = new WebApiClientAuto_1.DemoWebApi_Controllers_Client.Entities('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+    var api = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
         console.log(xhr.responseText);
         done();
     });
@@ -386,7 +385,7 @@ test("GetByName", function (assert) {
 });
 test("PostValue", function (assert) {
     var done = assert.async();
-    var api = new WebApiClientAuto_1.DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
         console.log(xhr.responseText);
         done();
     });
@@ -398,7 +397,7 @@ test("PostValue", function (assert) {
 test("Put", function (assert) {
     assert.expect(0);
     var done = assert.async();
-    var api = new WebApiClientAuto_1.DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
         console.log(xhr.responseText);
         done();
     });
@@ -409,7 +408,7 @@ test("Put", function (assert) {
 test("Delete", function (assert) {
     assert.expect(0);
     var done = assert.async();
-    var api = new WebApiClientAuto_1.DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
+    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
         console.log(xhr.responseText);
         done();
     });

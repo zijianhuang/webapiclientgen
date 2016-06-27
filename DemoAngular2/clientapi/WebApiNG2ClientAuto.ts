@@ -49,7 +49,6 @@ export namespace DemoWebApi_DemoData_Client {
 
 }
 
-//just test
 export namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
         x: number;

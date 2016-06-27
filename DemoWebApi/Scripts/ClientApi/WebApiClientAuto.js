@@ -1,5 +1,5 @@
-/// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="HttpClient.ts" />
+///<reference path="../typings/jquery/jquery.d.ts" />
+///<reference path="HttpClient.ts" />
 var DemoWebApi_DemoData_Client;
 (function (DemoWebApi_DemoData_Client) {
     (function (AddressType) {

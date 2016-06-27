@@ -13,12 +13,13 @@ namespace Fonlow.TypeScriptCodeDom
 
         #region public GenerateCodeFromXXX
 
-        internal static void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+        internal static void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o, bool asModule)
         {
             WriteCodeCommentStatementCollection(e.Comments, w, o);
 
             var refinedNamespaceText = e.Name.Replace('.', '_');
-            w.WriteLine($"export namespace {refinedNamespaceText} {{");
+            var namespaceOrModule = asModule ? "export namespace" : "namespace";
+            w.WriteLine($"{namespaceOrModule} {refinedNamespaceText} {{");
 
             for (int i = 0; i < e.Imports.Count; i++)
             {

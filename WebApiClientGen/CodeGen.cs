@@ -57,7 +57,7 @@ namespace Fonlow.CodeDom.Web
             var jQueryPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptJQFolder, "WebApiClientAuto.ts");
             if (!String.IsNullOrEmpty(jQueryPath))
             {
-                var jQueryOutput = new JSOutput(settings, jQueryPath);
+                var jQueryOutput = new JSOutput(settings, jQueryPath, false);
                 var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(jQueryOutput);
                 tsGen.CreateCodeDom(apiDescriptions);
                 tsGen.Save();
@@ -66,7 +66,7 @@ namespace Fonlow.CodeDom.Web
             var ng2Path = CreateTsPath(settings.ClientApiOutputs.TypeScriptNG2Folder, "WebApiNG2ClientAuto.ts");
             if (!String.IsNullOrEmpty(ng2Path))
             {
-                var ng2Output = new JSOutput(settings, ng2Path);
+                var ng2Output = new JSOutput(settings, ng2Path, true);
                 var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsNG2ClientApiGen(ng2Output);
                 tsGen.CreateCodeDom(apiDescriptions);
                 tsGen.Save();

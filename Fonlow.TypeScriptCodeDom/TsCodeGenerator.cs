@@ -7,6 +7,13 @@ namespace Fonlow.TypeScriptCodeDom
 {
     internal class TsCodeGenerator : ICodeGenerator
     {
+        internal TsCodeGenerator(bool asModule)
+        {
+            this.asModule = asModule;
+        }
+
+        bool asModule;
+
         string ICodeGenerator.CreateEscapedIdentifier(string value)
         {
             return KeywordHandler.CreateEscapedIdentifier(value);
@@ -38,7 +45,7 @@ namespace Fonlow.TypeScriptCodeDom
 
         void ICodeGenerator.GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
         {
-            CodeObjectHelper.GenerateCodeFromNamespace(e, w, o);
+            CodeObjectHelper.GenerateCodeFromNamespace(e, w, o, asModule);
         }
 
         void ICodeGenerator.GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)

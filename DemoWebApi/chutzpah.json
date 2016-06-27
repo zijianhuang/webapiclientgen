@@ -7,7 +7,9 @@
     },
     "Framework": "qunit",
     "References": [
-        { "Path": "Scripts/jquery-2.2.3.min.js" }//when upgrading jQuery, update this version number as well.
+        { "Path": "Scripts/jquery-3.0.0.min.js" },
+        { "Path": "Scripts/require.js" },
+        { "Path": "Scripts/ClientApi/WebApiClientAuto.js"}
     ],
     "RootReferencePathMode": "SettingsFileDirectory"
 }

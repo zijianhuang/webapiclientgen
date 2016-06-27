@@ -1,7 +1,8 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts"/>
 /// <reference path="../typings/qunit/qunit.d.ts"/>
+/// <reference path="../ClientApi/WebApiClientAuto.ts"/>
 
-import {DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Another_Client} from '../ClientApi/WebApiClientAuto';
+
 //Make sure chutzpah.json is updated with reference to the jQuery lib when the lib is upgraded.
 
 QUnit.config.testTimeout = 30000;
@@ -12,7 +13,6 @@ var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost
 var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/");
 var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
 QUnit.module("Entities");
-
 
 
 QUnit.test("data compare", function (assert) {

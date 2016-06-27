@@ -109,11 +109,14 @@ namespace Fonlow.CodeDom.Web
 
         public string JSPath { get; private set; }
 
-        public JSOutput(CodeGenSettings settings, string jsPath)
+        public bool AsModule { get; private set; }
+
+        public JSOutput(CodeGenSettings settings, string jsPath, bool asModule)
         {
             this.ApiSelections = settings.ApiSelections;
             this.CamelCase = settings.ClientApiOutputs.CamelCase;
             this.JSPath = jsPath;
+            this.AsModule = asModule;
         }
 
     }

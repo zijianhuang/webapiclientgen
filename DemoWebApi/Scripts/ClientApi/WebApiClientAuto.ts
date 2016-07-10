@@ -55,6 +55,14 @@ namespace DemoWebApi_DemoData_Another_Client {
 }
 
 namespace DemoWebApi_Controllers_Client {
+    export interface FileResult {
+        fileNames?: Array<string>;
+        submitter?: string;
+    }
+
+}
+
+namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
         httpClient: HttpClient;
         constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){

@@ -19,13 +19,16 @@ var testing_1 = require('@angular/core/testing');
 //import { Component, OpaqueToken } from '@angular/core';
 //import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 var http_1 = require('@angular/http');
-//// The usual bootstrapping imports
-//import { bootstrap }      from '@angular/platform-browser-dynamic';
-//import { By }             from '@angular/platform-browser';
-var core_2 = require('@angular/core');
 //import {HeroService} from './hero.service';
 //import { MyUppercasePipe } from './my-uppercase.pipe';
 var WebApiNG2ClientAuto_1 = require('../clientapi/WebApiNG2ClientAuto');
+//class FakeXSRFStrategy implements XSRFStrategy {
+//    public configureRequest(req: Request) { /* */ }
+//}
+//const XRSF_MOCK = provide(XSRFStrategy, { useValue: new FakeXSRFStrategy() })
+//ReflectiveInjector.resolveAndCreate([...HTTP_PROVIDERS, XRSF_MOCK, DemoWebApi_Controllers_Client.Entities])
+//    .get(DemoWebApi_Controllers_Client.Entities)
+//    .check();
 var CustomBrowserXhr = (function (_super) {
     __extends(CustomBrowserXhr, _super);
     function CustomBrowserXhr() {
@@ -59,16 +62,15 @@ testing_1.describe('heroes tests', function () {
         WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Values,
         WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.SuperDemo,
         WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Entities,
-        { provide: 'baseUri', useValue: 'http://localhost:9024/' },
-        core_2.provide(http_1.BrowserXhr, { useClass: CustomBrowserXhr })
+        { provide: 'baseUri', useValue: 'http://localhost:9024/' }
     ]; });
     testing_1.it('check hero', function () {
         var hero = { id: 1, name: 'super man' };
         testing_1.expect(hero.name).toEqual('super man');
     });
-    testing_1.it('Entities get person', testing_1.inject([WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Entities], function (myService) {
+    testing_1.it('Entities get person', testing_1.async(testing_1.inject([WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Entities], function (myService) {
         myService.getPerson(100);
-    }));
+    })));
     //it('heroes not empty', inject([HeroService], (heroService: HeroService) => {
     //    let heroes = heroService.getHeroes();
     //    heroes.then(response => expect(response.length).toBeGreaterThan(0));

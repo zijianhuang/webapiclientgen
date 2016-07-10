@@ -481,6 +481,32 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:DemoWebApi.Controllers.FileUploadController">
+            <summary>
+            This sample controller reads the contents of an HTML file upload asynchronously and writes one or more body parts to a local file.
+            </summary>
+        </member>
+        <member name="T:DemoWebApi.Controllers.FileResult">
+            <summary>
+            This class is used to carry the result of various file uploads.
+            </summary>
+        </member>
+        <member name="P:DemoWebApi.Controllers.FileResult.FileNames">
+            <summary>
+            Gets or sets the local path of the file saved on the server.
+            </summary>
+            <value>
+            The local path.
+            </value> 
+        </member>
+        <member name="P:DemoWebApi.Controllers.FileResult.Submitter">
+            <summary>
+            Gets or sets the submitter as indicated in the HTML form used to upload the data.
+            </summary>
+            <value>
+            The submitter.
+            </value>
+        </member>
         <member name="T:DemoWebApi.Controllers.SuperDemoController">
             <summary>
             For testing different commbinations of parameters and returns

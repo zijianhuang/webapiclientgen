@@ -58,6 +58,14 @@ export namespace DemoWebApi_DemoData_Another_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
+    export interface FileResult {
+        fileNames?: Array<string>;
+        submitter?: string;
+    }
+
+}
+
+export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class SuperDemo {
         constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: Http){

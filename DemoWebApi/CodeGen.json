@@ -1,7 +1,8 @@
 ﻿{
     "ApiSelections": {
         "ExcludedControllerNames": [
-            "DemoWebApi.Controllers.Account"
+            "DemoWebApi.Controllers.Account",
+            "DemoWebApi.Controllers.FileUpload"
         ],
 
         "DataModelAssemblyNames": [

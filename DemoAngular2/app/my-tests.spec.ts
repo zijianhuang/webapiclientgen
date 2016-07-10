@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ReflectiveInjector} from '@angular/core';
 //import { TestComponentBuilder} from '@angular/compiler/testing';
-import {describe, expect, it, xit, inject, injectAsync, beforeEachProviders, async, fakeAsync} from '@angular/core/testing'; 
+import {describe, expect, it, xit, inject, beforeEachProviders, async, fakeAsync} from '@angular/core/testing'; 
 
 
 //import { Component, OpaqueToken } from '@angular/core';
 //import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import { Http, Headers, HTTP_PROVIDERS, BrowserXhr } from '@angular/http'
-import {BROWSER_PROVIDERS, BROWSER_PLATFORM_PROVIDERS} from '@angular/platform-browser';
+import { Http, Headers, HTTP_PROVIDERS, BrowserXhr, Request, XSRFStrategy } from '@angular/http'
+import {BROWSER_APP_PROVIDERS, BROWSER_PLATFORM_PROVIDERS} from '@angular/platform-browser';
 
 //// The usual bootstrapping imports
 //import { bootstrap }      from '@angular/platform-browser-dynamic';
@@ -21,6 +21,16 @@ import {Hero} from './hero';
 //import { MyUppercasePipe } from './my-uppercase.pipe';
 
 import {  DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Another_Client, DemoWebApi_Controllers_Client  } from '../clientapi/WebApiNG2ClientAuto';
+
+//class FakeXSRFStrategy implements XSRFStrategy {
+//    public configureRequest(req: Request) { /* */ }
+//}
+
+//const XRSF_MOCK = provide(XSRFStrategy, { useValue: new FakeXSRFStrategy() })
+
+//ReflectiveInjector.resolveAndCreate([...HTTP_PROVIDERS, XRSF_MOCK, DemoWebApi_Controllers_Client.Entities])
+//    .get(DemoWebApi_Controllers_Client.Entities)
+//    .check();
 
 @Injectable()
 export class CustomBrowserXhr extends BrowserXhr {
@@ -40,8 +50,6 @@ describe('dummy tests', () => {
 });
 //test   
 describe('heroes tests', () => {
-    
-
 
     beforeEach(() => {
 
@@ -54,16 +62,16 @@ describe('heroes tests', () => {
         DemoWebApi_Controllers_Client.Values,
         DemoWebApi_Controllers_Client.SuperDemo,
         DemoWebApi_Controllers_Client.Entities,
-        { provide: 'baseUri', useValue: 'http://localhost:9024/' },
-        provide(BrowserXhr, { useClass: CustomBrowserXhr })
+        { provide: 'baseUri', useValue: 'http://localhost:9024/' }
+       // provide(BrowserXhr, { useClass: CustomBrowserXhr })
     ]);
     
     it('check hero', () => {
         var hero: Hero = { id: 1, name: 'super man' };
         expect(hero.name).toEqual('super man');
     });
-    it('Entities get person', inject([DemoWebApi_Controllers_Client.Entities], (myService: DemoWebApi_Controllers_Client.Entities) => {
-        myService.getPerson(100); }));
+    it('Entities get person', async(inject([DemoWebApi_Controllers_Client.Entities], (myService: DemoWebApi_Controllers_Client.Entities) => {
+        myService.getPerson(100); })));
  
 
     //it('heroes not empty', inject([HeroService], (heroService: HeroService) => {

@@ -40,6 +40,8 @@ namespace DemoWebApi
 
             config.Services.RemoveAll(typeof(System.Web.Http.Validation.ModelValidatorProvider), (provider) => provider is System.Web.Http.Validation.Providers.InvalidModelValidatorProvider);
             //  GlobalConfiguration.Configuration.Services.Add(typeof(System.Web.Http.Validation.ModelValidatorProvider), new System.Web.Http.Validation.Providers.RequiredMemberModelValidatorProvider());
+
+            config.Services.Replace(typeof(System.Web.Http.Hosting.IHostBufferPolicySelector), new NoBufferPolicySelector());
         }
     }
 }

@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Essential.Diagnostics">
+      <HintPath>..\..\3rdParty\EssentialDiagnostics\Essential.Diagnostics.dll</HintPath>
+    </Reference>
     <Reference Include="Fonlow.Testing, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FonlowxUnit.1.0.2.0\lib\net45\Fonlow.Testing.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicHealthIntegration.cs" />
+    <Compile Include="FileUploadIntegration.cs" />
     <Compile Include="IisExpressCollection.cs" />
     <Compile Include="EntitiesApiIntegration.cs" />
     <Compile Include="SuperDemoIntegration.cs" />

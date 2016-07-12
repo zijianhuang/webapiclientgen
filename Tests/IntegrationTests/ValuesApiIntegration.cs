@@ -76,8 +76,8 @@ namespace IntegrationTests
             //var task = authorizedClient.GetStringAsync(builder.ToString());
             //var text = task.Result;
             //var jObject = JValue.Parse(text);
-            var r = api.Get(1, "something to say");
-            Assert.Equal("something to say1", r);
+            var r = api.Get(1,  "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"");
+            Assert.Equal("something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1", r);
         }
 
 

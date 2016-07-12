@@ -443,8 +443,8 @@ test("Get", function (assert) {
 
 test("GetByIdAndName", function (assert) {
     var done = assert.async();
-    valuesApi.getByIdAndName(1, "something", (data) => {
-        assert.equal(data, "something1");
+    valuesApi.getByIdAndName(1, "something中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", (data) => {
+        assert.equal(data, "something中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
         done();
     });
 });

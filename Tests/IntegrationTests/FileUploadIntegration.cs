@@ -60,14 +60,14 @@ namespace IntegrationTests
         const int BufferSize = 1024000;
 
         //      static readonly string _filename = @"C:\Windows\Media\chimes.wav";
-        static readonly string _filename = @"C:\Users\AndySuperCo\Downloads\Imperialcity.rar";
+        static readonly string _filename = @"C:\Users\AndySuperCo\Downloads\Nursery Rhymes Vol 11 - Thirty Rhymes with Karaoke [Full HD,1080p].mp4";
 
         public FileUploadIntegration()
         {
 
         }
 
-        [Fact]
+        //[Fact]
         public void TestUpload()
         {
             var stopWatch = new Stopwatch();

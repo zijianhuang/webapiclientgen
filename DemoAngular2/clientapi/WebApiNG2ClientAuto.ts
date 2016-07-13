@@ -77,7 +77,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getIntSquare(d: number): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/int?d='+d)).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/int?d='+d).map(response=> response.json() || {});
         }
 
         /** 
@@ -86,7 +86,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getDecimalSquare(d: number): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/decimal?d='+d)).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/decimal?d='+d).map(response=> response.json() || {});
         }
 
         /** 
@@ -95,7 +95,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getDateTime(hasValue: boolean): Observable<Date>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue='+hasValue)).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue='+hasValue).map(response=> response.json() || {});
         }
 
         /** 
@@ -103,7 +103,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getDateTimeOffset(): Observable<Date>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffset')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/DateTimeOffset').map(response=> response.json() || {});
         }
 
         /** 
@@ -113,7 +113,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffset(d: Date): Observable<boolean>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffset'), JSON.stringify(d), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -122,7 +122,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffsetNullable(d: Date): Observable<boolean>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable'), JSON.stringify(d), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -131,7 +131,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getNullableDecimal(hasValue: boolean): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/NullableDecimal?hasValue='+hasValue)).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/NullableDecimal?hasValue='+hasValue).map(response=> response.json() || {});
         }
 
         /** 
@@ -139,7 +139,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getFloatZero(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/FloatZero')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/FloatZero').map(response=> response.json() || {});
         }
 
         /** 
@@ -147,7 +147,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getDoubleZero(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/DoubleZero')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/DoubleZero').map(response=> response.json() || {});
         }
 
         /** 
@@ -155,7 +155,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getDecimalZero(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/DecimalZero')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/DecimalZero').map(response=> response.json() || {});
         }
 
         /** 
@@ -163,7 +163,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getNullString(): Observable<string>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/NullString')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/NullString').map(response=> response.json() || {});
         }
 
         /** 
@@ -171,7 +171,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getEmptyString(): Observable<string>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/EmptyString')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/EmptyString').map(response=> response.json() || {});
         }
 
         /** 
@@ -179,7 +179,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getNullPerson(): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/NullObject')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/NullObject').map(response=> response.json() || {});
         }
 
         /** 
@@ -187,7 +187,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         getTextStream(): Observable<any>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/TextStream')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/TextStream').map(response=> response.json() || {});
         }
 
         /** 
@@ -195,7 +195,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<number>} 
          */
         getByteArray(): Observable<Array<number>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/ByteArray')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/ByteArray').map(response=> response.json() || {});
         }
 
         /** 
@@ -203,7 +203,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         getActionResult(): Observable<any>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/ActionResult')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult').map(response=> response.json() || {});
         }
 
         /** 
@@ -211,7 +211,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getbyte(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/byte')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/byte').map(response=> response.json() || {});
         }
 
         /** 
@@ -219,7 +219,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getsbyte(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/sbyte')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/sbyte').map(response=> response.json() || {});
         }
 
         /** 
@@ -227,7 +227,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getShort(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/short')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/short').map(response=> response.json() || {});
         }
 
         /** 
@@ -235,7 +235,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getUShort(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/ushort')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/ushort').map(response=> response.json() || {});
         }
 
         /** 
@@ -243,7 +243,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getUint(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/uint')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/uint').map(response=> response.json() || {});
         }
 
         /** 
@@ -251,7 +251,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getulong(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/ulong')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/ulong').map(response=> response.json() || {});
         }
 
         /** 
@@ -259,7 +259,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getdouble(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/doulbe')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/doulbe').map(response=> response.json() || {});
         }
 
         /** 
@@ -267,7 +267,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getDecimal(): Observable<number>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/decimal')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/decimal').map(response=> response.json() || {});
         }
 
         /** 
@@ -275,7 +275,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getChar(): Observable<string>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/char')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/char').map(response=> response.json() || {});
         }
 
         /** 
@@ -283,7 +283,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         getBool(): Observable<boolean>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/bool')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/bool').map(response=> response.json() || {});
         }
 
         /** 
@@ -291,7 +291,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number[][]} 
          */
         getInt2D(): Observable<number[][]>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/int2d')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/int2d').map(response=> response.json() || {});
         }
 
         /** 
@@ -299,7 +299,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<Array<number>>} 
          */
         getInt2DJagged(): Observable<Array<Array<number>>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/int2dJagged')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/int2dJagged').map(response=> response.json() || {});
         }
 
         /** 
@@ -308,7 +308,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postInt2D(a: number[][]): Observable<boolean>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/int2d'), JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -317,7 +317,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postInt2DJagged(a: Array<Array<number>>): Observable<boolean>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/int2djagged'), JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -326,7 +326,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postIntArray(a: Array<number>): Observable<boolean>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/intArray'), JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -334,7 +334,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<number>} 
          */
         getIntArray(): Observable<Array<number>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/intArray')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/intArray').map(response=> response.json() || {});
         }
 
         /** 
@@ -342,7 +342,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         getAnonymousDynamic(): Observable<any>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousDynamic')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousDynamic').map(response=> response.json() || {});
         }
 
         /** 
@@ -350,7 +350,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         getAnonymousObject(): Observable<any>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousObject').map(response=> response.json() || {});
         }
 
         /** 
@@ -359,7 +359,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         postAnonymousObject(obj: any): Observable<any>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/AnonymousObject'), JSON.stringify(obj), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -367,7 +367,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{[id: string]: string }} 
          */
         getDictionary(): Observable<{[id: string]: string }>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/StringStringDic')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/StringStringDic').map(response=> response.json() || {});
         }
 
         /** 
@@ -375,7 +375,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{[id: string]: DemoWebApi_DemoData_Client.Person }} 
          */
         getDictionaryOfPeople(): Observable<{[id: string]: DemoWebApi_DemoData_Client.Person }>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/StringPersonDic')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/StringPersonDic').map(response=> response.json() || {});
         }
 
         /** 
@@ -384,7 +384,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/StringPersonDic'), JSON.stringify(dic), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -392,7 +392,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{key: string, value: DemoWebApi_DemoData_Client.Person }} 
          */
         getKeyhValuePair(): Observable<{key: string, value: DemoWebApi_DemoData_Client.Person }>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/KeyValuePair')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/KeyValuePair').map(response=> response.json() || {});
         }
 
         /** 
@@ -400,7 +400,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getICollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/ICollection')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/ICollection').map(response=> response.json() || {});
         }
 
         /** 
@@ -408,7 +408,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getIList(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/IList')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/IList').map(response=> response.json() || {});
         }
 
         /** 
@@ -416,7 +416,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getIReadOnlyList(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyList')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/IReadOnlyList').map(response=> response.json() || {});
         }
 
         /** 
@@ -424,7 +424,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getIReadOnlyCollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyCollection')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/IReadOnlyCollection').map(response=> response.json() || {});
         }
 
         /** 
@@ -432,7 +432,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getList(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/List')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/List').map(response=> response.json() || {});
         }
 
         /** 
@@ -440,7 +440,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getCollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/Collection')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/Collection').map(response=> response.json() || {});
         }
 
         /** 
@@ -449,7 +449,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postICollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/ICollection'), JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -458,7 +458,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/IList'), JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -467,7 +467,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyList'), JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -476,7 +476,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/IReadOnlyCollection'), JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -485,7 +485,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/List'), JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -494,7 +494,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/Collection'), JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -504,7 +504,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:number}} 
          */
         postWithQueryButEmptyBody(s: string, i: number): Observable<{item1:string, item2:number}>{
-            return this.http.post(encodeURI(this.baseUri + 'api/SuperDemo/PostEmpty?s='+s+'&i='+i), JSON.stringify(null), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/PostEmpty?s='+encodeURIComponent(s)+'&i='+i, JSON.stringify(null), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
     }
 
@@ -521,7 +521,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Observable<boolean>{
-            return this.http.put(encodeURI(this.baseUri + 'api/SuperDemo/link?id='+id+'&relationship='+relationship), JSON.stringify(person), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.put(this.baseUri + 'api/SuperDemo/link?id='+id+'&relationship='+encodeURIComponent(relationship), JSON.stringify(person), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -530,7 +530,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Company} 
          */
         getCompany(id: number): Observable<DemoWebApi_DemoData_Client.Company>{
-            return this.http.get(encodeURI(this.baseUri + 'api/SuperDemo/Company?id='+id)).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/SuperDemo/Company?id='+id).map(response=> response.json() || {});
         }
 
         /** 
@@ -540,7 +540,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Entities/'+id)).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Entities/'+id).map(response=> response.json() || {});
         }
 
         /** 
@@ -549,7 +549,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Entities'), JSON.stringify(p), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Entities', JSON.stringify(p), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -558,7 +558,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<void>{
-            return this.http.put(encodeURI(this.baseUri + 'api/Entities'), JSON.stringify(person), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.put(this.baseUri + 'api/Entities', JSON.stringify(person), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -567,7 +567,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         delete(id: number): Observable<void>{
-            return this.http.delete(encodeURI(this.baseUri + 'api/Entities/'+id)).map(response=> response.json() || {});
+            return this.http.delete(this.baseUri + 'api/Entities/'+id).map(response=> response.json() || {});
         }
     }
 
@@ -582,7 +582,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPersonCompany1(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/PersonCompany1'), JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -591,7 +591,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany2(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany2'), JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -600,7 +600,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany3(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany3'), JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -609,7 +609,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany4(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany4'), JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -617,7 +617,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}} 
          */
         getPeopleCompany4(): Observable<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany4')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/PeopleCompany4').map(response=> response.json() || {});
         }
 
         /** 
@@ -626,7 +626,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany5(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany5'), JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -634,7 +634,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}} 
          */
         getPeopleCompany5(): Observable<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany5')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/PeopleCompany5').map(response=> response.json() || {});
         }
 
         /** 
@@ -643,7 +643,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany6(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany6'), JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -652,7 +652,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany7(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany7'), JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -661,7 +661,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany8(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Person, rest:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/PeopleCompany8'), JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -669,7 +669,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:number}} 
          */
         getTuple1(): Observable<{item1:number}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/Tuple1')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple1').map(response=> response.json() || {});
         }
 
         /** 
@@ -678,7 +678,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postTuple1(tuple: {item1:number}): Observable<number>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/Tuple1'), JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -686,7 +686,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:number}} 
          */
         getTuple2(): Observable<{item1:string, item2:number}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/Tuple2')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple2').map(response=> response.json() || {});
         }
 
         /** 
@@ -695,7 +695,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple2(tuple: {item1:string, item2:number}): Observable<string>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/Tuple2'), JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -703,7 +703,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:number}} 
          */
         getTuple3(): Observable<{item1:string, item2:string, item3:number}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/Tuple3')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple3').map(response=> response.json() || {});
         }
 
         /** 
@@ -712,7 +712,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple3(tuple: {item1:string, item2:string, item3:number}): Observable<string>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/Tuple3'), JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -720,7 +720,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:number}} 
          */
         getTuple4(): Observable<{item1:string, item2:string, item3:string, item4:number}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/Tuple4')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple4').map(response=> response.json() || {});
         }
 
         /** 
@@ -729,7 +729,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple4(tuple: {item1:string, item2:string, item3:string, item4:number}): Observable<string>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/Tuple4'), JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -737,7 +737,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:string, item5:number}} 
          */
         getTuple5(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:number}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/Tuple5')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple5').map(response=> response.json() || {});
         }
 
         /** 
@@ -746,7 +746,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple5(tuple: {item1:string, item2:string, item3:string, item4:string, item5:number}): Observable<string>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/Tuple5'), JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -754,7 +754,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}} 
          */
         getTuple6(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/Tuple6')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple6').map(response=> response.json() || {});
         }
 
         /** 
@@ -763,7 +763,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple6(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}): Observable<string>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/Tuple6'), JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -771,7 +771,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}} 
          */
         getTuple7(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/Tuple7')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple7').map(response=> response.json() || {});
         }
 
         /** 
@@ -780,7 +780,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple7(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}): Observable<string>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/Tuple7'), JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -788,7 +788,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}} 
          */
         getTuple8(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Tuple/Tuple8')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple8').map(response=> response.json() || {});
         }
 
         /** 
@@ -797,7 +797,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}): Observable<string>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Tuple/Tuple8'), JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
     }
 
@@ -811,7 +811,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<string>} 
          */
         get(): Observable<Array<string>>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Values')).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Values').map(response=> response.json() || {});
         }
 
         /** 
@@ -821,7 +821,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getByIdAndName(id: number, name: string): Observable<string>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Values/'+id+'?name='+name)).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Values/'+id+'?name='+encodeURIComponent(name)).map(response=> response.json() || {});
         }
 
         /** 
@@ -830,7 +830,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getByName(name: string): Observable<string>{
-            return this.http.get(encodeURI(this.baseUri + 'api/Values?name='+name)).map(response=> response.json() || {});
+            return this.http.get(this.baseUri + 'api/Values?name='+encodeURIComponent(name)).map(response=> response.json() || {});
         }
 
         /** 
@@ -839,7 +839,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         post(value: string): Observable<string>{
-            return this.http.post(encodeURI(this.baseUri + 'api/Values'), JSON.stringify(value), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -849,7 +849,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         put(id: number, value: string): Observable<void>{
-            return this.http.put(encodeURI(this.baseUri + 'api/Values/'+id), JSON.stringify(value), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.put(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
 
         /** 
@@ -858,7 +858,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         delete(id: number): Observable<void>{
-            return this.http.delete(encodeURI(this.baseUri + 'api/Values/'+id)).map(response=> response.json() || {});
+            return this.http.delete(this.baseUri + 'api/Values/'+id).map(response=> response.json() || {});
         }
     }
 

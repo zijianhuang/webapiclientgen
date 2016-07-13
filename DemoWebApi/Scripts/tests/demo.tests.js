@@ -371,8 +371,8 @@ test("Get", function (assert) {
 });
 test("GetByIdAndName", function (assert) {
     var done = assert.async();
-    valuesApi.getByIdAndName(1, "something中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", function (data) {
-        assert.equal(data, "something中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
+    valuesApi.getByIdAndName(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", function (data) {
+        assert.equal(data, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
         done();
     });
 });

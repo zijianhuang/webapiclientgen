@@ -85,9 +85,11 @@ namespace Fonlow.CodeDom.Web.Ts
         protected static string RemoveTrialEmptyString(string s)
         {
             var p = s.IndexOf("+''");
+            Debug.Assert(p > -1);
             return s.Remove(p, 3);
         }
 
+        static readonly Type typeofString = typeof(string);
 
         protected static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
         {
@@ -103,7 +105,9 @@ namespace Fonlow.CodeDom.Web.Ts
                 var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
                 var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
                 Debug.Assert(d != null);
-                newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
+                newUriText = (d.ParameterDescriptor.ParameterType == typeofString) ?
+                    newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'")
+                    : newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
             }
 
             for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
@@ -111,7 +115,9 @@ namespace Fonlow.CodeDom.Web.Ts
                 var name = template.QueryValueVariableNames[i];
                 var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
                 Debug.Assert(d != null);
-                newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
+                newUriText = (d.ParameterDescriptor.ParameterType == typeofString) ?
+                    newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'")
+                    : newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
             }
 
             return newUriText;

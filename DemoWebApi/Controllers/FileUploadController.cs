@@ -31,7 +31,7 @@ namespace DemoWebApi.Controllers
 
             // Create a stream provider for setting up output streams
             MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
-
+            
             // Read the MIME multipart asynchronously content using the stream provider we just created.
             try
             {

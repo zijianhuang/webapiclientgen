@@ -3,6 +3,14 @@ import { Http, Headers } from '@angular/http'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 import { Observable } from 'rxjs/Observable'
+export namespace DemoWebApi_Controllers_Client {
+    export interface FileResult {
+        fileNames?: Array<string>;
+        submitter?: string;
+    }
+
+}
+
 export namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
@@ -53,14 +61,6 @@ export namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
         x: number;
         y: number;
-    }
-
-}
-
-export namespace DemoWebApi_Controllers_Client {
-    export interface FileResult {
-        fileNames?: Array<string>;
-        submitter?: string;
     }
 
 }

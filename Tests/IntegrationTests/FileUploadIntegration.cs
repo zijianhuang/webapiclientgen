@@ -67,7 +67,7 @@ namespace IntegrationTests
 
         }
 
-        //[Fact]
+        [Fact]
         public void TestUpload()
         {
             var stopWatch = new Stopwatch();

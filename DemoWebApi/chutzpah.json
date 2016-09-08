@@ -7,7 +7,7 @@
     },
     "Framework": "qunit",
     "References": [
-        { "Path": "Scripts/jquery-2.2.4.min.js" },
+        { "Path": "Scripts/jquery-3.1.0.min.js" },
         { "Path": "Scripts/require.js" },
         { "Path": "Scripts/ClientApi/WebApiClientAuto.js"}
     ],

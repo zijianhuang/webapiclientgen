@@ -99,7 +99,7 @@ function Delete-ProjectItem($item) {
 
 # Extract the version number from the jquery file in the package's content\scripts folder
 $packageScriptsFolder = Join-Path $installPath Content\Scripts
-$jqueryFileName = Join-Path $packageScriptsFolder "jquery-*.js" | Get-ChildItem -Exclude "*.min.js","*-vsdoc.js" | Split-Path -Leaf
+$jqueryFileName = Join-Path $packageScriptsFolder "jquery-*.js" | Get-ChildItem -Exclude "*.min.js","*-vsdoc.js","*.slim.js" | Split-Path -Leaf
 $jqueryFileNameRegEx = "jquery-((?:\d+\.)?(?:\d+\.)?(?:\d+\.)?(?:\d+)).js"
 $jqueryFileName -match $jqueryFileNameRegEx
 $ver = $matches[1]

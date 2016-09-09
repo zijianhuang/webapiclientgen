@@ -166,6 +166,13 @@ test("GetActionResult", function (assert) {
         done();
     });
 });
+test("GetActionStringResult", function (assert) {
+    var done = assert.async();
+    superDemoApi.getActionResult(function (data) {
+        assert.equal(data, "abcdefg");
+        done();
+    });
+});
 test("Getbyte", function (assert) {
     var done = assert.async();
     superDemoApi.getbyte(function (data) {

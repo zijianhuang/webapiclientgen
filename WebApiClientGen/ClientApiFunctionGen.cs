@@ -31,7 +31,7 @@ namespace Fonlow.CodeDom.Web.Cs
             if (methodName.EndsWith("Async"))
                 methodName = methodName.Substring(0, methodName.Length - 5);
 
-            returnType = description.ActionDescriptor.ReturnType;
+            returnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
 
         }
 

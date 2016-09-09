@@ -148,6 +148,13 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
         };
         /**
+         * GET api/SuperDemo/ActionStringResult
+         * @return {string}
+         */
+        SuperDemo.prototype.getActionStringResult = function (callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode);
+        };
+        /**
          * GET api/SuperDemo/byte
          * @return {number}
          */

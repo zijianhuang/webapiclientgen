@@ -162,6 +162,14 @@ namespace DemoWebApi.Controllers
             return Ok("abcdefg");
         }
 
+        [HttpGet]
+        [Route("ActionStringResult")]
+        [System.Web.Http.Description.ResponseType(typeof(string))]
+        public IHttpActionResult GetActionStringResult()
+        {
+            return Ok("abcdefg");
+        }
+
 
         [HttpGet]
         [Route("byte")]

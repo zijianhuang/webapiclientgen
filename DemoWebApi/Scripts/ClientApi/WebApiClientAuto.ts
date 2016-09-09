@@ -1,13 +1,5 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
-namespace DemoWebApi_Controllers_Client {
-    export interface FileResult {
-        fileNames?: Array<string>;
-        submitter?: string;
-    }
-
-}
-
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
@@ -58,6 +50,14 @@ namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
         x: number;
         y: number;
+    }
+
+}
+
+namespace DemoWebApi_Controllers_Client {
+    export interface FileResult {
+        fileNames?: Array<string>;
+        submitter?: string;
     }
 
 }
@@ -202,6 +202,14 @@ namespace DemoWebApi_Controllers_Client {
          */
         getActionResult(callback: (data : any) => any){
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/SuperDemo/ActionStringResult
+         * @return {string} 
+         */
+        getActionStringResult(callback: (data : string) => any){
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode);
         }
 
         /** 

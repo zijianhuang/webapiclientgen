@@ -161,6 +161,13 @@ var DemoWebApi_Controllers_Client;
             return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult').map(function (response) { return response.json() || {}; });
         };
         /**
+         * GET api/SuperDemo/ActionStringResult
+         * @return {string}
+         */
+        SuperDemo.prototype.getActionStringResult = function () {
+            return this.http.get(this.baseUri + 'api/SuperDemo/ActionStringResult').map(function (response) { return response.json() || {}; });
+        };
+        /**
          * GET api/SuperDemo/byte
          * @return {number}
          */

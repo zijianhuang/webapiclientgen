@@ -41,7 +41,7 @@ namespace Fonlow.CodeDom.Web.Ts
             if (NethodName.EndsWith("Async"))
                 NethodName = NethodName.Substring(0, NethodName.Length - 5);//HTTP does not care about the server side async.
 
-            ReturnType = description.ActionDescriptor.ReturnType;
+            ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
 
             //create method
             Method = CreateMethodName();

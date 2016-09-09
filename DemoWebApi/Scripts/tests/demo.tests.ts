@@ -205,6 +205,14 @@ test("GetActionResult", function (assert) {
     });
 });
 
+test("GetActionStringResult", function (assert) {
+    var done = assert.async();
+    superDemoApi.getActionResult((data) => {
+        assert.equal(data, "abcdefg");
+        done();
+    });
+});
+
 test("Getbyte", function (assert) {
     var done = assert.async();
     superDemoApi.getbyte((data) => {

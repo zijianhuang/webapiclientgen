@@ -8,42 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DemoWebApi.Controllers.Client
-{
-    
-    
-    public class FileResult : object
-    {
-        
-        private string[] _FileNames;
-        
-        private string _Submitter;
-        
-        public string[] FileNames
-        {
-            get
-            {
-                return _FileNames;
-            }
-            set
-            {
-                _FileNames = value;
-            }
-        }
-        
-        public string Submitter
-        {
-            get
-            {
-                return _Submitter;
-            }
-            set
-            {
-                _Submitter = value;
-            }
-        }
-    }
-}
 namespace DemoWebApi.DemoData.Client
 {
     
@@ -441,6 +405,42 @@ namespace DemoWebApi.DemoData.Another.Client
         public double X;
         
         public double Y;
+    }
+}
+namespace DemoWebApi.Controllers.Client
+{
+    
+    
+    public class FileResult : object
+    {
+        
+        private string[] _FileNames;
+        
+        private string _Submitter;
+        
+        public string[] FileNames
+        {
+            get
+            {
+                return _FileNames;
+            }
+            set
+            {
+                _FileNames = value;
+            }
+        }
+        
+        public string Submitter
+        {
+            get
+            {
+                return _Submitter;
+            }
+            set
+            {
+                _Submitter = value;
+            }
+        }
     }
 }
 namespace DemoWebApi.Controllers.Client
@@ -1017,6 +1017,40 @@ namespace DemoWebApi.Controllers.Client
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             return responseMessage;
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ActionStringResult
+        /// </summary>
+        public async Task<string> GetActionStringResultAsync()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionStringResult");
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<string>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/ActionStringResult
+        /// </summary>
+        public string GetActionStringResult()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionStringResult");
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<string>(jsonReader);
+            }
         }
         
         /// <summary>

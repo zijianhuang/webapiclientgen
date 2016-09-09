@@ -190,6 +190,12 @@ namespace IntegrationTests
         }
 
         [Fact]
+        public void TestGetActionStringResult()
+        {
+            Assert.Equal("abcdefg",  api.GetActionStringResult());
+        }
+
+        [Fact]
         public void TestGetBool()
         {
             Assert.Equal(true, api.GetBool());

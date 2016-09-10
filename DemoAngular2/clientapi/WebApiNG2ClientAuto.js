@@ -465,6 +465,22 @@ var DemoWebApi_Controllers_Client;
             return this.http.get(this.baseUri + 'api/SuperDemo/Company?id=' + id).map(function (response) { return response.json() || {}; });
         };
         /**
+         * GET api/SuperDemo/PersonNotFound?id={id}
+         * @param {number} id
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Entities.prototype.getPersonNotFound = function (id) {
+            return this.http.get(this.baseUri + 'api/SuperDemo/PersonNotFound?id=' + id).map(function (response) { return response.json() || {}; });
+        };
+        /**
+         * GET api/SuperDemo/PersonActionNotFound?id={id}
+         * @param {number} id
+         * @return {any}
+         */
+        Entities.prototype.getPersonActionNotFound = function (id) {
+            return this.http.get(this.baseUri + 'api/SuperDemo/PersonActionNotFound?id=' + id).map(function (response) { return response.json() || {}; });
+        };
+        /**
          * Get a person
          * GET api/Entities/{id}
          * @param {number} id unique id of that guy

@@ -192,5 +192,28 @@ namespace IntegrationTests
             Assert.Equal(8, c.Int2DJagged[1][3]);
 
         }
+
+        [Fact]
+        public void TestGetNotFound()
+        {
+            var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+            {
+                var person = api.GetPersonNotFound(100);
+            });
+
+            Assert.Contains("404", ex.Message);
+        }
+
+        [Fact]
+        public void TestGetActionNotFound()
+        {
+            var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+            {
+                var person = api.GetPersonActionNotFound(100);
+            });
+
+            Assert.Contains("404", ex.Message);
+        }
+
     }
 }

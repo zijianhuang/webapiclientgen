@@ -542,6 +542,24 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/SuperDemo/PersonNotFound?id={id}
+         * @param {number} id 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        getPersonNotFound(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.get(this.baseUri + 'api/SuperDemo/PersonNotFound?id='+id).map(response=> response.json() || {});
+        }
+
+        /** 
+         * GET api/SuperDemo/PersonActionNotFound?id={id}
+         * @param {number} id 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        getPersonActionNotFound(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.get(this.baseUri + 'api/SuperDemo/PersonActionNotFound?id='+id).map(response=> response.json() || {});
+        }
+
+        /** 
          * Get a person
          * GET api/Entities/{id}
          * @param {number} id unique id of that guy

@@ -102,5 +102,22 @@ namespace DemoWebApi.Controllers
         }
 
 
+        [HttpGet]
+        [Route("PersonNotFound")]
+        public Person GetPersonNotFound(long id)
+        {
+            throw new HttpResponseException(HttpStatusCode.NotFound);
+        }
+
+        [HttpGet]
+        [Route("PersonActionNotFound")]
+        [System.Web.Http.Description.ResponseType(typeof(Person))]
+        public IHttpActionResult GetPersonActionNotFound(long id)
+        {
+            return NotFound();
+        }
+
+
+
     }
 }

@@ -34,7 +34,7 @@ namespace Fonlow.Web.Meta
                 ActionDescriptor = new ActionDescriptor()
                 {
                     ActionName = description.ActionDescriptor.ActionName,
-                    ReturnType = description.ActionDescriptor.ReturnType,
+                    ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType,//for complex types
                     ControllerDescriptor = new ControllerDescriptor()
                     {
                         ControllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName,

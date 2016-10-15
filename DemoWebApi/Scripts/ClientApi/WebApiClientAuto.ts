@@ -5,6 +5,13 @@ namespace DemoWebApi_DemoData_Client {
 
     export enum Days {Sat=1, Sun=2, Mon=3, Tue=4, Wed=5, Thu=6, Fri=7}
 
+    export interface PhoneNumber {
+        fullNumber?: string;
+        phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+    }
+
+    export enum PhoneType {Tel, Mobile, Skype, Fax}
+
     export interface Address {
         id?: string;
         street1?: string;
@@ -21,6 +28,7 @@ namespace DemoWebApi_DemoData_Client {
         id?: string;
         name: string;
         addresses?: Array<DemoWebApi_DemoData_Client.Address>;
+        phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
     }
 
     export interface Person extends DemoWebApi_DemoData_Client.Entity {

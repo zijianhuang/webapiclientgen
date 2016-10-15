@@ -65,9 +65,10 @@ var HeroesComponent = (function () {
             styleUrls: ['app/heroes.component.css'],
             directives: [hero_detail_component_1.HeroDetailComponent]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, hero_service_1.HeroService])
+        __metadata('design:paramtypes', [(typeof (_a = typeof router_deprecated_1.Router !== 'undefined' && router_deprecated_1.Router) === 'function' && _a) || Object, hero_service_1.HeroService])
     ], HeroesComponent);
     return HeroesComponent;
+    var _a;
 }());
 exports.HeroesComponent = HeroesComponent;
 //# sourceMappingURL=heroes.component.js.map

@@ -475,7 +475,7 @@ var DemoWebApi_Controllers_Client;
         /**
          * GET api/SuperDemo/PersonActionNotFound?id={id}
          * @param {number} id
-         * @return {any}
+         * @return {DemoWebApi_DemoData_Client.Person}
          */
         Entities.prototype.getPersonActionNotFound = function (id) {
             return this.http.get(this.baseUri + 'api/SuperDemo/PersonActionNotFound?id=' + id).map(function (response) { return response.json() || {}; });

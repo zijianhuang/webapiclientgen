@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.Collections.ObjectModel;
 
 namespace DemoWebApi.DemoData
 {
@@ -48,6 +49,38 @@ namespace DemoWebApi.DemoData
         Fri
     };
 
+    [DataContract(Namespace = Constants.DataNamespace)]
+    public class PhoneNumber
+    {
+        public PhoneNumber()
+        {
+
+        }
+
+        public Guid Id { get; set; }
+
+
+        [DataMember]
+        public string FullNumber { get; set; }
+
+        [DataMember]
+        public PhoneType PhoneType { get; set; }
+
+        public Guid EntityId { get; set; }
+    }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    public enum PhoneType
+    {//No need to have undefined
+        [EnumMember]
+        Tel = 0,
+        [EnumMember]
+        Mobile = 1,
+        [EnumMember]
+        Skype = 2,
+        [EnumMember]
+        Fax = 3,
+    }
 
     [DataContract(Namespace = Constants.DataNamespace)]
     public class Address
@@ -106,6 +139,10 @@ namespace DemoWebApi.DemoData
 
         [DataMember]
         public IList<Address> Addresses { get; set; }
+
+
+        [DataMember]
+        public virtual ObservableCollection<PhoneNumber> PhoneNumbers { get; set; }
 
         public override string ToString()
         {

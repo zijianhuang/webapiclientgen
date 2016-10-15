@@ -38,6 +38,50 @@ namespace DemoWebApi.DemoData.Client
         Fri = 7,
     }
     
+    public class PhoneNumber : object
+    {
+        
+        private string _FullNumber;
+        
+        private DemoWebApi.DemoData.Client.PhoneType _PhoneType;
+        
+        public string FullNumber
+        {
+            get
+            {
+                return _FullNumber;
+            }
+            set
+            {
+                _FullNumber = value;
+            }
+        }
+        
+        public DemoWebApi.DemoData.Client.PhoneType PhoneType
+        {
+            get
+            {
+                return _PhoneType;
+            }
+            set
+            {
+                _PhoneType = value;
+            }
+        }
+    }
+    
+    public enum PhoneType
+    {
+        
+        Tel,
+        
+        Mobile,
+        
+        Skype,
+        
+        Fax,
+    }
+    
     public class Address : object
     {
         
@@ -177,6 +221,8 @@ namespace DemoWebApi.DemoData.Client
         
         private DemoWebApi.DemoData.Client.Address[] _Addresses;
         
+        private DemoWebApi.DemoData.Client.PhoneNumber[] _PhoneNumbers;
+        
         public System.Guid Id
         {
             get
@@ -211,6 +257,18 @@ namespace DemoWebApi.DemoData.Client
             set
             {
                 _Addresses = value;
+            }
+        }
+        
+        public DemoWebApi.DemoData.Client.PhoneNumber[] PhoneNumbers
+        {
+            get
+            {
+                return _PhoneNumbers;
+            }
+            set
+            {
+                _PhoneNumbers = value;
             }
         }
     }

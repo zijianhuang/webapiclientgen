@@ -17,7 +17,8 @@ namespace Fonlow.Reflection
             typeof(IReadOnlyList<>).FullName,
             typeof(List<>).FullName,
             typeof(System.Collections.ObjectModel.Collection<>).FullName,
-            typeof(IReadOnlyCollection<>).FullName
+            typeof(IReadOnlyCollection<>).FullName, 
+            typeof(System.Collections.ObjectModel.ObservableCollection<>).FullName,
        }
        );
 
@@ -110,7 +111,7 @@ namespace Fonlow.Reflection
 
         internal static bool IsArrayType(Type type)
         {
-            return arrayTypeNames.Contains(type.FullName);
+            return arrayTypeNames.Contains(type.FullName);//Could be using IsAssignableFrom() if many people need this.
         }
 
         internal static int IsTuple(Type type)

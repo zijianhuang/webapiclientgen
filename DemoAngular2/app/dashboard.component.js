@@ -26,9 +26,10 @@ var DashboardComponent = (function () {
             selector: 'my-dashboard',
             templateUrl: 'app/dashboard.component.html',
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Entities])
+        __metadata('design:paramtypes', [(typeof (_a = typeof router_deprecated_1.Router !== 'undefined' && router_deprecated_1.Router) === 'function' && _a) || Object, WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Entities])
     ], DashboardComponent);
     return DashboardComponent;
+    var _a;
 }());
 exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map

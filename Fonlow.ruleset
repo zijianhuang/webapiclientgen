@@ -3,11 +3,14 @@
   <Include Path="basicdesignguidelinerules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1021" Action="Warning" />
+    <Rule Id="CA1024" Action="None" />
+    <Rule Id="CA1026" Action="None" />
     <Rule Id="CA1040" Action="Warning" />
     <Rule Id="CA1045" Action="Warning" />
     <Rule Id="CA1051" Action="None" />
+    <Rule Id="CA1054" Action="None" />
     <Rule Id="CA1055" Action="None" />
-    <Rule Id="CA1062" Action="Warning" />
+    <Rule Id="CA1056" Action="None" />
     <Rule Id="CA1501" Action="Warning" />
     <Rule Id="CA1502" Action="None" />
     <Rule Id="CA1504" Action="Warning" />
@@ -30,6 +33,6 @@
     <Rule Id="CA1722" Action="Warning" />
     <Rule Id="CA1724" Action="Warning" />
     <Rule Id="CA1725" Action="Warning" />
-    <Rule Id="CA1726" Action="Warning" />
+    <Rule Id="CA2234" Action="None" />
   </Rules>
 </RuleSet>

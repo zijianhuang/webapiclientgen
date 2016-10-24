@@ -46,6 +46,20 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpGet]
+        [Route("NextYear")]
+        public DateTime GetNextYear(DateTime dt)
+        {
+            return dt.AddYears(1);
+        }
+
+        [HttpPost]
+        [Route("NextYear")]
+        public DateTime PostNextYear([FromBody] DateTime dt)
+        {
+            return dt.AddYears(1);
+        }
+
+        [HttpGet]
         [Route("DateTimeOffset")]
         public DateTimeOffset GetDateTimeOffset()
         {

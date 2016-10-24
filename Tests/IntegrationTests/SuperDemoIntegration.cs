@@ -65,14 +65,28 @@ namespace IntegrationTests
         [Fact]
         public void TestGetDecimalSquare()
         {
-            Assert.Equal(10000, api.GetDecimalSquare(100));
+            Assert.Equal(10158.6241m, api.GetDecimalSquare(100.79m));
         }
 
         [Fact]
         public void TestGetDateTime()
         {
             var dt = api.GetDateTime(true);
-            Assert.True( (DateTime.Now- dt.Value)< TimeSpan.FromSeconds(2));
+            Assert.True((DateTime.Now - dt.Value) < TimeSpan.FromSeconds(2));
+        }
+
+        [Fact]
+        public void TestGetNextYear()
+        {
+            var dtNow = DateTime.Now;
+            Assert.Equal(dtNow.AddYears(1), api.GetNextYear(dtNow));
+        }
+
+        [Fact]
+        public void TestPostNextYear()
+        {
+            var dtNow = DateTime.Now;
+            Assert.Equal(dtNow.AddYears(1), api.PostNextYear(dtNow));
         }
 
         [Fact]

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using DemoWebApi.Models;
+using Newtonsoft.Json.Converters;
+using System.Linq;
 
 namespace DemoWebApi
 {
@@ -43,6 +41,11 @@ namespace DemoWebApi
             //  GlobalConfiguration.Configuration.Services.Add(typeof(System.Web.Http.Validation.ModelValidatorProvider), new System.Web.Http.Validation.Providers.RequiredMemberModelValidatorProvider());
 
             config.Services.Replace(typeof(System.Web.Http.Hosting.IHostBufferPolicySelector), new NoBufferPolicySelector());
+
+            var jsonFormatter = config.Formatters.OfType<System.Net.Http.Formatting.JsonMediaTypeFormatter>().First();
+
+            var settings = jsonFormatter.SerializerSettings;
+            settings.Converters.Add(new IsoDateTimeConverter());
         }
     }
 }

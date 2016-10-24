@@ -633,6 +633,86 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
+        /// GET api/SuperDemo/NextYear?dt={dt}
+        /// </summary>
+        public async Task<System.DateTime> GetNextYearAsync(System.DateTime dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTime>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/NextYear?dt={dt}
+        /// </summary>
+        public System.DateTime GetNextYear(System.DateTime dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTime>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/NextYear
+        /// </summary>
+        public async Task<System.DateTime> PostNextYearAsync(System.DateTime dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, dt);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTime>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// POST api/SuperDemo/NextYear
+        /// </summary>
+        public System.DateTime PostNextYear(System.DateTime dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, dt);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTime>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// 
         /// GET api/SuperDemo/DateTimeOffset
         /// </summary>
         public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync()

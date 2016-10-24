@@ -107,6 +107,24 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/SuperDemo/NextYear?dt={dt}
+         * @param {Date} dt 
+         * @return {Date} 
+         */
+        getNextYear(dt: Date): Observable<Date>{
+            return this.http.get(this.baseUri + 'api/SuperDemo/NextYear?dt='+dt).map(response=> response.json() || {});
+        }
+
+        /** 
+         * POST api/SuperDemo/NextYear
+         * @param {Date} dt 
+         * @return {Date} 
+         */
+        postNextYear(dt: Date): Observable<Date>{
+            return this.http.post(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+        }
+
+        /** 
          * GET api/SuperDemo/DateTimeOffset
          * @return {Date} 
          */

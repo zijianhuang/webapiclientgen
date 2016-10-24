@@ -105,6 +105,24 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/SuperDemo/NextYear?dt={dt}
+         * @param {Date} dt 
+         * @return {Date} 
+         */
+        getNextYear(dt: Date, callback: (data : Date) => any){
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt='+dt, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/SuperDemo/NextYear
+         * @param {Date} dt 
+         * @return {Date} 
+         */
+        postNextYear(dt: Date, callback: (data : Date) => any){
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/NextYear', dt, callback, this.error, this.statusCode);
+        }
+
+        /** 
          * GET api/SuperDemo/DateTimeOffset
          * @return {Date} 
          */

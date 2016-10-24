@@ -38,6 +38,7 @@ namespace Fonlow.CodeDom.Web.Cs
         static readonly string typeOfHttpActionResult = "System.Web.Http.IHttpActionResult";
         static readonly Type typeOfChar = typeof(char);
         static readonly Type typeofString = typeof(string);
+        static readonly Type typeOfDateTime = typeof(DateTime);
 
         public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool forAsync = false)
         {
@@ -387,15 +388,29 @@ namespace Fonlow.CodeDom.Web.Cs
 
             string newUriText = uriText;
 
+            Func<ParameterDescription, string> GetUriText = (d) =>
+             {
+                 if (d.ParameterDescriptor.ParameterType == typeofString)
+                 {
+                     return newUriText.Replace($"{{{d.Name}}}", $"\"+Uri.EscapeDataString({d.Name})+\"");
+                 }
+                 else if (d.ParameterDescriptor.ParameterType==typeOfDateTime)
+                 {
+                     return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\")+\"");
+                 }
+                 else
+                 {
+                     return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}+\"");
+                 }
+             };
+
             for (int i = 0; i < template.PathSegmentVariableNames.Count; i++)
             {
                 var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
                 var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
                 Debug.Assert(d != null);
-                 
-                newUriText = (d.ParameterDescriptor.ParameterType == typeofString)?
-                    newUriText.Replace($"{{{d.Name}}}", $"\"+Uri.EscapeDataString({d.Name})+\"")
-                    : newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}+\"");
+
+                newUriText = GetUriText(d);
             }
 
             for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
@@ -403,9 +418,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 var name = template.QueryValueVariableNames[i];
                 var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
                 Debug.Assert(d != null);
-                newUriText = (d.ParameterDescriptor.ParameterType == typeofString) ?
-                    newUriText.Replace($"{{{d.Name}}}", $"\"+Uri.EscapeDataString({d.Name})+\"")
-                    : newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}+\"");
+                newUriText = GetUriText(d);
             }
 
             return newUriText;

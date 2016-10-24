@@ -667,6 +667,40 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// 
+        /// GET api/SuperDemo/NextHour?dt={dt}
+        /// </summary>
+        public async Task<System.DateTimeOffset> GetNextHourAsync(System.DateTimeOffset dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/SuperDemo/NextHour?dt={dt}
+        /// </summary>
+        public System.DateTimeOffset GetNextHour(System.DateTimeOffset dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// 
         /// POST api/SuperDemo/NextYear
         /// </summary>
         public async Task<System.DateTime> PostNextYearAsync(System.DateTime dt)

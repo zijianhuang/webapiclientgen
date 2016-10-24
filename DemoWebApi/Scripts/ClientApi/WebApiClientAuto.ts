@@ -114,6 +114,15 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/SuperDemo/NextHour?dt={dt}
+         * @param {Date} dt 
+         * @return {Date} 
+         */
+        getNextHour(dt: Date, callback: (data : Date) => any){
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt='+dt, callback, this.error, this.statusCode);
+        }
+
+        /** 
          * POST api/SuperDemo/NextYear
          * @param {Date} dt 
          * @return {Date} 

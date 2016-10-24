@@ -39,6 +39,7 @@ namespace Fonlow.CodeDom.Web.Cs
         static readonly Type typeOfChar = typeof(char);
         static readonly Type typeofString = typeof(string);
         static readonly Type typeOfDateTime = typeof(DateTime);
+        static readonly Type typeOfDateTimeOffset = typeof(DateTimeOffset);
 
         public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool forAsync = false)
         {
@@ -394,7 +395,7 @@ namespace Fonlow.CodeDom.Web.Cs
                  {
                      return newUriText.Replace($"{{{d.Name}}}", $"\"+Uri.EscapeDataString({d.Name})+\"");
                  }
-                 else if (d.ParameterDescriptor.ParameterType==typeOfDateTime)
+                 else if ((d.ParameterDescriptor.ParameterType == typeOfDateTime) || (d.ParameterDescriptor.ParameterType == typeOfDateTimeOffset))
                  {
                      return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\")+\"");
                  }

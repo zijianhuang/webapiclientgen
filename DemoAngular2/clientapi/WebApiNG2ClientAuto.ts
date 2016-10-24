@@ -116,6 +116,15 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/SuperDemo/NextHour?dt={dt}
+         * @param {Date} dt 
+         * @return {Date} 
+         */
+        getNextHour(dt: Date): Observable<Date>{
+            return this.http.get(this.baseUri + 'api/SuperDemo/NextHour?dt='+dt).map(response=> response.json() || {});
+        }
+
+        /** 
          * POST api/SuperDemo/NextYear
          * @param {Date} dt 
          * @return {Date} 

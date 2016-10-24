@@ -83,6 +83,13 @@ namespace IntegrationTests
         }
 
         [Fact]
+        public void TestGetNextHour()
+        {
+            var dtNow = DateTimeOffset.Now;
+            Assert.Equal(dtNow.AddHours(1), api.GetNextHour(dtNow));
+        }
+
+        [Fact]
         public void TestPostNextYear()
         {
             var dtNow = DateTime.Now;

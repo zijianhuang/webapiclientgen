@@ -1,7 +1,7 @@
 /// <reference path="../typings/jquery/jquery.d.ts"/>
 /// <reference path="../typings/qunit/qunit.d.ts"/>
 /// <reference path="../ClientApi/WebApiClientAuto.ts"/>
-//Make sure chutzpah.json is updated with reference to the jQuery lib when the lib is upgraded.
+//Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
 QUnit.config.testTimeout = 30000;
 //To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
 var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/');

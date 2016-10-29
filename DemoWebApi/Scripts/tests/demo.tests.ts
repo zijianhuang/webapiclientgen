@@ -3,7 +3,7 @@
 /// <reference path="../ClientApi/WebApiClientAuto.ts"/>
 
 
-//Make sure chutzpah.json is updated with reference to the jQuery lib when the lib is upgraded.
+//Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
 
 QUnit.config.testTimeout = 30000;
 

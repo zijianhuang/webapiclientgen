@@ -25,7 +25,7 @@
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
-    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.0</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

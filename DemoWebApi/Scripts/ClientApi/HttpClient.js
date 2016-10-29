@@ -34,7 +34,7 @@ var HttpClient = (function () {
             statusCode: statusCodeCallback,
             contentType: 'application/json; charset=UTF-8',
             headers: {
-                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
+                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8'
             }
         });
     };
@@ -44,4 +44,3 @@ var HttpClient = (function () {
     HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return HttpClient;
 }());
-//# sourceMappingURL=HttpClient.js.map

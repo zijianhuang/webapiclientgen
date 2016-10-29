@@ -13,12 +13,12 @@ QUnit.test("data compare", function (assert) {
     var person = {
         name: "someone",
         surname: "my",
-        givenName: "something",
+        givenName: "something"
     };
     var person2 = {
         name: "someone",
         surname: "my",
-        givenName: "something",
+        givenName: "something"
     };
     assert.equal(JSON.stringify(person), JSON.stringify(person2));
 });
@@ -39,7 +39,7 @@ QUnit.test("AddPerson", function (assert) {
         addresses: [{
                 city: "Brisbane",
                 state: "QLD",
-                type: DemoWebApi_DemoData_Client.AddressType.Residential,
+                type: DemoWebApi_DemoData_Client.AddressType.Residential
             }]
     }, function (data) {
         assert.ok(data > 0);
@@ -56,7 +56,7 @@ QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
     api.createPerson({
         name: "Exception",
         givenName: "some",
-        surname: "body",
+        surname: "body"
     }, function (data) {
         assert.ok(data > 0);
         // done();
@@ -477,7 +477,7 @@ test("LinkPersonCompany", function (assert) {
         item1: {
             name: "someone",
             surname: "my",
-            givenName: "something",
+            givenName: "something"
         },
         item2: {
             name: "Super",
@@ -488,4 +488,3 @@ test("LinkPersonCompany", function (assert) {
         done();
     });
 });
-//# sourceMappingURL=demo.tests.js.map

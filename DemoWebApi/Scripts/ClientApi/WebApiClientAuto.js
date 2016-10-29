@@ -17,6 +17,13 @@ var DemoWebApi_DemoData_Client;
         Days[Days["Fri"] = 7] = "Fri";
     })(DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
     var Days = DemoWebApi_DemoData_Client.Days;
+    (function (PhoneType) {
+        PhoneType[PhoneType["Tel"] = 0] = "Tel";
+        PhoneType[PhoneType["Mobile"] = 1] = "Mobile";
+        PhoneType[PhoneType["Skype"] = 2] = "Skype";
+        PhoneType[PhoneType["Fax"] = 3] = "Fax";
+    })(DemoWebApi_DemoData_Client.PhoneType || (DemoWebApi_DemoData_Client.PhoneType = {}));
+    var PhoneType = DemoWebApi_DemoData_Client.PhoneType;
 })(DemoWebApi_DemoData_Client || (DemoWebApi_DemoData_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
@@ -51,6 +58,30 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.getDateTime = function (hasValue, callback) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue=' + hasValue, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/NextYear?dt={dt}
+         * @param {Date} dt
+         * @return {Date}
+         */
+        SuperDemo.prototype.getNextYear = function (dt, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/NextHour?dt={dt}
+         * @param {Date} dt
+         * @return {Date}
+         */
+        SuperDemo.prototype.getNextHour = function (dt, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/SuperDemo/NextYear
+         * @param {Date} dt
+         * @return {Date}
+         */
+        SuperDemo.prototype.postNextYear = function (dt, callback) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/NextYear', dt, callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/DateTimeOffset
@@ -449,6 +480,22 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/Company?id=' + id, callback, this.error, this.statusCode);
         };
         /**
+         * GET api/SuperDemo/PersonNotFound?id={id}
+         * @param {number} id
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Entities.prototype.getPersonNotFound = function (id, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/PersonNotFound?id=' + id, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/PersonActionNotFound?id={id}
+         * @param {number} id
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Entities.prototype.getPersonActionNotFound = function (id, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/PersonActionNotFound?id=' + id, callback, this.error, this.statusCode);
+        };
+        /**
          * Get a person
          * GET api/Entities/{id}
          * @param {number} id unique id of that guy
@@ -754,4 +801,3 @@ var DemoWebApi_Controllers_Client;
     }());
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
-//# sourceMappingURL=WebApiClientAuto.js.map

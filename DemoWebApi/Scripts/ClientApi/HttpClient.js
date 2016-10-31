@@ -86,6 +86,9 @@ var AuthHttpClient = (function () {
             }
         });
     };
+    /**
+    * Get oAuth token through username and password. The token will be saved in sessionStorage.
+    */
     AuthHttpClient.prototype.getToken = function (url, username, password, callback, errorCallback, statusCodeCallback) {
         $.ajax(url + 'token', {
             data: {
@@ -109,7 +112,7 @@ var AuthHttpClient = (function () {
                 }
             },
             statusCode: statusCodeCallback,
-            contentType: 'application/json; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             headers: {
                 Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8'
             }

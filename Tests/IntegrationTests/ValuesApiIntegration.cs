@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Fonlow.Testing;
 
 namespace IntegrationTests
 {
-    public class ValuesFixture : IDisposable
+    public class ValuesFixture : HttpClientWithUsername
     {
         public ValuesFixture()
+               : base(new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"])
+            , System.Configuration.ConfigurationManager.AppSettings["Testing_Username"], System.Configuration.ConfigurationManager.AppSettings["Testing_Password"])
         {
-            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-            httpClient = new System.Net.Http.HttpClient();
-            Api = new DemoWebApi.Controllers.Client.Values(httpClient, baseUri);
+            Api = new DemoWebApi.Controllers.Client.Values(this.AuthorizedClient, this.BaseUri);
         }
 
         public DemoWebApi.Controllers.Client.Values Api { get; private set; }

@@ -32,3 +32,5 @@ _ReSharper*/
 .vs
 /DemoAngularJs2/node_modules
 /DemoAngular2/node_modules
+/DemoWebApi/App_Data/*.ldf
+/DemoWebApi/App_Data/*.mdf

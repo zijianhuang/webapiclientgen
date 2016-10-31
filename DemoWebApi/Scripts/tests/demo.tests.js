@@ -2,13 +2,18 @@
 /// <reference path="../typings/qunit/qunit.d.ts"/>
 /// <reference path="../ClientApi/WebApiClientAuto.ts"/>
 //Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
+var authHttpClient = new AuthHttpClient();
 QUnit.config.testTimeout = 30000;
-//To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
-var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/');
+QUnit.config.autostart = false;
+QUnit.begin(function (total) {
+    authHttpClient.getToken('http://localhost:10965/', 'testapi@test.com', 'Tttttttt_8', null, null, null);
+});
 var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
-var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/");
 var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
-QUnit.module("Entities");
+//To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
+var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/', authHttpClient);
+var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient);
+//This should always work since it is a simple unit test.
 QUnit.test("data compare", function (assert) {
     var person = {
         name: "someone",
@@ -22,44 +27,49 @@ QUnit.test("data compare", function (assert) {
     };
     assert.equal(JSON.stringify(person), JSON.stringify(person2));
 });
-QUnit.test("GetPerson", function (assert) {
-    var done = assert.async();
-    entitiesApi.getPerson(100, function (data) {
-        assert.equal(data.name, "Z Huang");
-        done();
+QUnit.module("Entities", function () {
+    //The first test will get oauth token first before running the test
+    QUnit.test("GetPerson", function (assert) {
+        var done = assert.async();
+        authHttpClient.getToken('http://localhost:10965/', 'testapi@test.com', 'Tttttttt_8', function (data) {
+            entitiesApi.getPerson(100, function (data) {
+                assert.equal(data.name, "Z Huang");
+                done();
+            });
+        }, null, null);
     });
-});
-QUnit.test("AddPerson", function (assert) {
-    var done = assert.async();
-    entitiesApi.createPerson({
-        name: "some body",
-        givenName: "some",
-        surname: "body",
-        birthDate: new Date("1977-08-18"),
-        addresses: [{
-                city: "Brisbane",
-                state: "QLD",
-                type: DemoWebApi_DemoData_Client.AddressType.Residential
-            }]
-    }, function (data) {
-        assert.ok(data > 0);
-        done();
+    QUnit.test("AddPerson", function (assert) {
+        var done = assert.async();
+        entitiesApi.createPerson({
+            name: "some body",
+            givenName: "some",
+            surname: "body",
+            birthDate: new Date("1977-08-18"),
+            addresses: [{
+                    city: "Brisbane",
+                    state: "QLD",
+                    type: DemoWebApi_DemoData_Client.AddressType.Residential
+                }]
+        }, function (data) {
+            assert.ok(data > 0);
+            done();
+        });
     });
-});
-QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
-    assert.expect(0);
-    var done = assert.async();
-    var api = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.responseText);
-        done();
-    });
-    api.createPerson({
-        name: "Exception",
-        givenName: "some",
-        surname: "body"
-    }, function (data) {
-        assert.ok(data > 0);
-        // done();
+    QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
+        assert.expect(0);
+        var done = assert.async();
+        var api = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            done();
+        });
+        api.createPerson({
+            name: "Exception",
+            givenName: "some",
+            surname: "body"
+        }, function (data) {
+            assert.ok(data > 0);
+            // done();
+        });
     });
 });
 QUnit.module("SuperDemoTests");
@@ -302,12 +312,13 @@ test("PostWithQueryButEmptyBody", function (assert) {
         done();
     });
 });
-//test("GetIntArray", function (assert) {//this little fella refuses to finish even if the service had returned the right data. This happens only in the Chupaz runner. In browsers the script is OK.
-//    var done = assert.async();
-//    superDemoApi.getIntArray((data) => {
-//        assert.equal(data[7], 8);
-//    });
-//});
+test("GetIntArray", function (assert) {
+    var done = assert.async();
+    superDemoApi.getIntArray(function (data) {
+        assert.equal(data[7], 8);
+        done();
+    });
+});
 test("PostInt2dJagged", function (assert) {
     var done = assert.async();
     superDemoApi.postInt2DJagged([[1, 2, 3, 4], [5, 6, 7, 8]], function (data) {
@@ -368,59 +379,60 @@ test("GetKeyValuePair", function (assert) {
         done();
     });
 });
-QUnit.module("ValuesTests");
-test("Get", function (assert) {
-    var done = assert.async();
-    valuesApi.get(function (data) {
-        assert.equal(data[1], "value2");
-        done();
+QUnit.module("ValuesTests", function () {
+    test("Get", function (assert) {
+        var done = assert.async();
+        valuesApi.get(function (data) {
+            assert.equal(data[1], "value2");
+            done();
+        });
     });
-});
-test("GetByIdAndName", function (assert) {
-    var done = assert.async();
-    valuesApi.getByIdAndName(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", function (data) {
-        assert.equal(data, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
-        done();
+    test("GetByIdAndName", function (assert) {
+        var done = assert.async();
+        valuesApi.getByIdAndName(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", function (data) {
+            assert.equal(data, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
+            done();
+        });
     });
-});
-test("GetByName", function (assert) {
-    var done = assert.async();
-    valuesApi.getByName("something", function (data) {
-        assert.equal(data, "SOMETHING");
-        done();
+    test("GetByName", function (assert) {
+        var done = assert.async();
+        valuesApi.getByName("something", function (data) {
+            assert.equal(data, "SOMETHING");
+            done();
+        });
     });
-});
-test("PostValue", function (assert) {
-    var done = assert.async();
-    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.responseText);
-        done();
+    test("PostValue", function (assert) {
+        var done = assert.async();
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            done();
+        });
+        api.post('value', function (data) {
+            assert.equal(data, "VALUE");
+            done();
+        });
     });
-    api.post('value', function (data) {
-        assert.equal(data, "VALUE");
-        done();
+    test("Put", function (assert) {
+        assert.expect(0);
+        var done = assert.async();
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            done();
+        });
+        api.put(1, 'value', function (data) {
+            done();
+        });
     });
-});
-test("Put", function (assert) {
-    assert.expect(0);
-    var done = assert.async();
-    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.responseText);
-        done();
-    });
-    api.put(1, 'value', function (data) {
-        done();
-    });
-});
-test("Delete", function (assert) {
-    assert.expect(0);
-    var done = assert.async();
-    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.responseText);
-        done();
-    });
-    api.delete(1, function (data) {
-        done();
+    test("Delete", function (assert) {
+        assert.expect(0);
+        var done = assert.async();
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            done();
+        });
+        api.delete(1, function (data) {
+            done();
+        });
     });
 });
 QUnit.module("TupleTests");

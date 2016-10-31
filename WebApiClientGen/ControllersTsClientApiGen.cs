@@ -36,11 +36,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
         protected override void AddLocalFields(CodeTypeDeclaration targetClass)
         {
-            CodeMemberField clientField = new CodeMemberField();
-            clientField.Attributes = MemberAttributes.Private;
-            clientField.Name = "httpClient";
-            clientField.Type = new CodeTypeReference("HttpClient");
-            targetClass.Members.Add(clientField);
+            //CodeMemberField clientField = new CodeMemberField();
+            //clientField.Attributes = MemberAttributes.Private;
+            //clientField.Name = "httpClient";
+            //clientField.Type = new CodeTypeReference("HttpClient");
+            //targetClass.Members.Add(clientField);
         }
 
         protected override void AddConstructor(CodeTypeDeclaration targetClass)
@@ -53,10 +53,10 @@ namespace Fonlow.CodeDom.Web.Ts
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
                 "string = HttpClient.locationOrigin", "private baseUri"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
+                "HttpClientBase = new HttpClient()", "private httpClient"));
+            constructor.Parameters.Add(new CodeParameterDeclarationExpression(
                 "(xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any", "private error?"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression("{ [key: string]: any; }", "private statusCode?"));
-
-            constructor.Statements.Add(new CodeSnippetStatement(@"this.httpClient = new HttpClient();"));
 
             targetClass.Members.Add(constructor);
         }

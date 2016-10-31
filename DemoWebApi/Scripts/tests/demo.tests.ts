@@ -5,16 +5,24 @@
 
 //Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
 
+var authHttpClient = new AuthHttpClient();
+
+
 QUnit.config.testTimeout = 30000;
+QUnit.config.autostart = false;
+
+QUnit.begin((total) => {
+    authHttpClient.getToken('http://localhost:10965/', 'testapi@test.com', 'Tttttttt_8', null, null, null);
+});
+var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
+var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
+
 
 //To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
-var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/');
-var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
-var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/");
-var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
-QUnit.module("Entities");
+var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/', authHttpClient);
+var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient);
 
-
+//This should always work since it is a simple unit test.
 QUnit.test("data compare", function (assert) {
 
     var person: DemoWebApi_DemoData_Client.Person = {
@@ -22,7 +30,7 @@ QUnit.test("data compare", function (assert) {
         surname: "my",
         givenName: "something",
     };
-    
+
     var person2: DemoWebApi_DemoData_Client.Person = {
         name: "someone",
         surname: "my",
@@ -34,51 +42,63 @@ QUnit.test("data compare", function (assert) {
 });
 
 
-QUnit.test("GetPerson", function (assert) {
-    var done = assert.async();
-    entitiesApi.getPerson(100, (data) => {
-        assert.equal(data.name, "Z Huang");
-        done();
-    });
+QUnit.module("Entities",
+    function () {
+        //The first test will get oauth token first before running the test
+        QUnit.test("GetPerson", function (assert) {
+            var done = assert.async();
+            authHttpClient.getToken('http://localhost:10965/', 'testapi@test.com', 'Tttttttt_8', (data) => {
 
-});
+                entitiesApi.getPerson(100, (data) => {
+                    assert.equal(data.name, "Z Huang");
+                    done();
+                });
 
-QUnit.test("AddPerson", function (assert) {
-    var done = assert.async();
-    entitiesApi.createPerson({
-        name: "some body",
-        givenName: "some",
-        surname: "body",
-        birthDate: new Date("1977-08-18"),
-        addresses: [{
-            city: "Brisbane",
-            state: "QLD",
-            type: DemoWebApi_DemoData_Client.AddressType.Residential,
-        }]
-       
-    }, (data) => {
-        assert.ok(data > 0);
-        done();
-    });
-});
+            }, null, null);
 
-QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
-    assert.expect(0);
-    var done = assert.async();
-    var api = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.responseText);
-        done();
-    });
-    api.createPerson({
-        name: "Exception",
-        givenName: "some",
-        surname: "body",
+        });
 
-    }, (data) => {
-        assert.ok(data > 0);
-        // done();
-    });
-});
+
+        QUnit.test("AddPerson", function (assert) {
+            var done = assert.async();
+            entitiesApi.createPerson({
+                name: "some body",
+                givenName: "some",
+                surname: "body",
+                birthDate: new Date("1977-08-18"),
+                addresses: [{
+                    city: "Brisbane",
+                    state: "QLD",
+                    type: DemoWebApi_DemoData_Client.AddressType.Residential,
+                }]
+
+            }, (data) => {
+                assert.ok(data > 0);
+                done();
+            });
+        });
+
+        QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
+            assert.expect(0);
+            var done = assert.async();
+            var api = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.responseText);
+                done();
+            });
+            api.createPerson({
+                name: "Exception",
+                givenName: "some",
+                surname: "body",
+
+            }, (data) => {
+                assert.ok(data > 0);
+                // done();
+            });
+        });
+    }
+);
+
+
 
 QUnit.module("SuperDemoTests");
 
@@ -89,7 +109,7 @@ test("JsZeroNotGood", function (assert) {
 
 //if the WebAPI built with VS 2015 update 2 is hosted in IIS 10, this test pass.
 //If the WebAPI built with VS 2015 update 2 is hosted in IIS 7.5, the test will failed.
-test("JsZeroNotGoodWithFloat", function (assert) { 
+test("JsZeroNotGoodWithFloat", function (assert) {
     var done = assert.async();
     superDemoApi.getFloatZero((data) => {
         assert.notEqual(data, 0);
@@ -306,13 +326,13 @@ test("PostAnonymousObject", function (assert) {
 
 
 
-test("GetInt2d", function (assert) { 
+test("GetInt2d", function (assert) {
     var done = assert.async();
     superDemoApi.getInt2D((data) => {
-        assert.equal(data[0][ 0], 1);
-        assert.equal(data[0] [3], 4);
-        assert.equal(data[1][ 0], 5);
-        assert.equal(data[1][ 3], 8);
+        assert.equal(data[0][0], 1);
+        assert.equal(data[0][3], 4);
+        assert.equal(data[1][0], 5);
+        assert.equal(data[1][3], 8);
         done();
     });
 });
@@ -347,7 +367,7 @@ test("PostInt2dExpectedFalse", function (assert) {
 
 test("PostIntArray", function (assert) {
     var done = assert.async();
-    superDemoApi.postIntArray([1, 2, 3, 4,5, 6, 7, 8], (data) => {
+    superDemoApi.postIntArray([1, 2, 3, 4, 5, 6, 7, 8], (data) => {
         assert.ok(data);
         done();
     });
@@ -364,12 +384,13 @@ test("PostWithQueryButEmptyBody", function (assert) {
 });
 
 
-//test("GetIntArray", function (assert) {//this little fella refuses to finish even if the service had returned the right data. This happens only in the Chupaz runner. In browsers the script is OK.
-//    var done = assert.async();
-//    superDemoApi.getIntArray((data) => {
-//        assert.equal(data[7], 8);
-//    });
-//});
+test("GetIntArray", function (assert) {
+    var done = assert.async();
+    superDemoApi.getIntArray((data) => {
+        assert.equal(data[7], 8);
+        done();
+    });
+});
 
 test("PostInt2dJagged", function (assert) {
     var done = assert.async();
@@ -411,19 +432,19 @@ test("PostDictionaryOfPeople", function (assert) {
             "name": "Peter Parker",
             "addresses": [
                 {
-                    
+
                     "id": "00000000-0000-0000-0000-000000000000",
                     "city": "New York",
-                    state : "Somewhere",
+                    state: "Somewhere",
                     "postalCode": null,
                     "country": null,
                     "type": 0,
                     location: { x: 100, y: 200 }
-                    
+
                 }
             ]
         }
-    },(data) => {
+    }, (data) => {
         assert.equal(data, 2);
         done();
     });
@@ -439,73 +460,77 @@ test("GetKeyValuePair", function (assert) {
 });
 
 
-QUnit.module("ValuesTests");
-
-test("Get", function (assert) {
-    var done = assert.async();
-    valuesApi.get((data) => {
-        assert.equal(data[1], "value2");
-        done();
-    });
-});
-
-test("GetByIdAndName", function (assert) {
-    var done = assert.async();
-    valuesApi.getByIdAndName(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", (data) => {
-        assert.equal(data, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
-        done();
-    });
-});
-
-
-test("GetByName", function (assert) {
-    var done = assert.async();
-    valuesApi.getByName( "something", (data) => {
-        assert.equal(data, "SOMETHING");
-        done();
-    });
-});
-
-
-test("PostValue", function (assert) {
-
-    var done = assert.async();
-    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.responseText);
-        done();
+QUnit.module("ValuesTests", function () {
+    test("Get", function (assert) {
+        var done = assert.async();
+        valuesApi.get((data) => {
+            assert.equal(data[1], "value2");
+            done();
+        });
     });
 
-    api.post('value', (data) => {
-        assert.equal(data, "VALUE");
-        done();
-    });
-});
-
-test("Put", function (assert) {
-    assert.expect(0);
-    var done = assert.async();
-    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.responseText);
-        done();
+    test("GetByIdAndName", function (assert) {
+        var done = assert.async();
+        valuesApi.getByIdAndName(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", (data) => {
+            assert.equal(data, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
+            done();
+        });
     });
 
-    api.put(1, 'value', (data) => {
-        done();
-    });
-});
 
-test("Delete", function (assert) {
-    assert.expect(0);
-    var done = assert.async();
-    var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.responseText);
-        done();
+    test("GetByName", function (assert) {
+        var done = assert.async();
+        valuesApi.getByName("something", (data) => {
+            assert.equal(data, "SOMETHING");
+            done();
+        });
     });
 
-    api.delete(1, (data) => {
-        done();
+
+    test("PostValue", function (assert) {
+
+        var done = assert.async();
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            done();
+        });
+
+        api.post('value', (data) => {
+            assert.equal(data, "VALUE");
+            done();
+        });
     });
-});
+
+    test("Put", function (assert) {
+        assert.expect(0);
+        var done = assert.async();
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            done();
+        });
+
+        api.put(1, 'value', (data) => {
+            done();
+        });
+    });
+
+    test("Delete", function (assert) {
+        assert.expect(0);
+        var done = assert.async();
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            done();
+        });
+
+        api.delete(1, (data) => {
+            done();
+        });
+    });
+
+
+
+}
+);
 
 
 QUnit.module("TupleTests");
@@ -558,7 +583,7 @@ test("GetTuple8", function (assert) {
 //Visual Studio IDE may give some 
 test("PostTuple8", function (assert) {
     var done = assert.async();
-    tupleApi.postTuple8({item1: "One", item2: "", item3: "", item4: "", item5: "", item6: "", item7: "", rest: { item1: "a", item2: "b", item3:"c"} }, (data) => {
+    tupleApi.postTuple8({ item1: "One", item2: "", item3: "", item4: "", item5: "", item6: "", item7: "", rest: { item1: "a", item2: "b", item3: "c" } }, (data) => {
         assert.equal(data, "a");
         done();
     });
@@ -583,4 +608,5 @@ test("LinkPersonCompany", function (assert) {
         done();
     });
 });
+
 

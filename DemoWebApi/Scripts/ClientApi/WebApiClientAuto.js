@@ -28,12 +28,13 @@ var DemoWebApi_DemoData_Client;
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     var SuperDemo = (function () {
-        function SuperDemo(baseUri, error, statusCode) {
+        function SuperDemo(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
+            if (httpClient === void 0) { httpClient = new HttpClient(); }
             this.baseUri = baseUri;
+            this.httpClient = httpClient;
             this.error = error;
             this.statusCode = statusCode;
-            this.httpClient = new HttpClient();
         }
         /**
          * GET api/SuperDemo/int?d={d}
@@ -454,12 +455,13 @@ var DemoWebApi_Controllers_Client;
     }());
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
-        function Entities(baseUri, error, statusCode) {
+        function Entities(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
+            if (httpClient === void 0) { httpClient = new HttpClient(); }
             this.baseUri = baseUri;
+            this.httpClient = httpClient;
             this.error = error;
             this.statusCode = statusCode;
-            this.httpClient = new HttpClient();
         }
         /**
          * PUT api/SuperDemo/link?id={id}&relationship={relationship}
@@ -532,12 +534,13 @@ var DemoWebApi_Controllers_Client;
     }());
     DemoWebApi_Controllers_Client.Entities = Entities;
     var Tuple = (function () {
-        function Tuple(baseUri, error, statusCode) {
+        function Tuple(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
+            if (httpClient === void 0) { httpClient = new HttpClient(); }
             this.baseUri = baseUri;
+            this.httpClient = httpClient;
             this.error = error;
             this.statusCode = statusCode;
-            this.httpClient = new HttpClient();
         }
         /**
          * POST api/Tuple/PersonCompany1
@@ -741,12 +744,13 @@ var DemoWebApi_Controllers_Client;
     }());
     DemoWebApi_Controllers_Client.Tuple = Tuple;
     var Values = (function () {
-        function Values(baseUri, error, statusCode) {
+        function Values(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
+            if (httpClient === void 0) { httpClient = new HttpClient(); }
             this.baseUri = baseUri;
+            this.httpClient = httpClient;
             this.error = error;
             this.statusCode = statusCode;
-            this.httpClient = new HttpClient();
         }
         /**
          * GET api/Values

@@ -72,9 +72,7 @@ namespace DemoWebApi_Controllers_Client {
 
 namespace DemoWebApi_Controllers_Client {
     export class SuperDemo {
-        httpClient: HttpClient;
-        constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
-            this.httpClient = new HttpClient();
+        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
         }
 
         /** 
@@ -550,9 +548,7 @@ namespace DemoWebApi_Controllers_Client {
     }
 
     export class Entities {
-        httpClient: HttpClient;
-        constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
-            this.httpClient = new HttpClient();
+        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
         }
 
         /** 
@@ -632,9 +628,7 @@ namespace DemoWebApi_Controllers_Client {
     }
 
     export class Tuple {
-        httpClient: HttpClient;
-        constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
-            this.httpClient = new HttpClient();
+        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
         }
 
         /** 
@@ -863,9 +857,7 @@ namespace DemoWebApi_Controllers_Client {
     }
 
     export class Values {
-        httpClient: HttpClient;
-        constructor(private baseUri: string = HttpClient.locationOrigin, private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
-            this.httpClient = new HttpClient();
+        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
         }
 
         /** 

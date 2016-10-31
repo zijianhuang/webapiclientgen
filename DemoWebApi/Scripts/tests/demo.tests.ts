@@ -5,22 +5,30 @@
 
 //Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
 
-var authHttpClient = new AuthHttpClient();
+//To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
 
+/*
+And make sure the testApi credential exists through
+POST to http://localhost:10965/api/Account/Register
+Content-Type: application/json
+
+{
+Email: 'testapi@test.com',
+Password: 'Tttttttt_8',
+ConfirmPassword:  'Tttttttt_8'
+}
+
+*/
 
 QUnit.config.testTimeout = 30000;
-QUnit.config.autostart = false;
 
-QUnit.begin((total) => {
-    authHttpClient.getToken('http://localhost:10965/', 'testapi@test.com', 'Tttttttt_8', null, null, null);
-});
-var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
-var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
-
-
-//To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
+var authHttpClient = new AuthHttpClient();
 var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/', authHttpClient);
 var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient);
+
+
+var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
+var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
 
 //This should always work since it is a simple unit test.
 QUnit.test("data compare", function (assert) {

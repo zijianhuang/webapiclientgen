@@ -89,7 +89,7 @@ QUnit.module("Entities",
         QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
             assert.expect(0);
             var done = assert.async();
-            var api = new DemoWebApi_Controllers_Client.Entities('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+            var api = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.responseText);
                 done();
             });
@@ -498,7 +498,7 @@ QUnit.module("ValuesTests", function () {
     test("PostValue", function (assert) {
 
         var done = assert.async();
-        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:10965/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
             done();
         });
@@ -512,7 +512,7 @@ QUnit.module("ValuesTests", function () {
     test("Put", function (assert) {
         assert.expect(0);
         var done = assert.async();
-        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:10965/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
             done();
         });
@@ -525,7 +525,7 @@ QUnit.module("ValuesTests", function () {
     test("Delete", function (assert) {
         assert.expect(0);
         var done = assert.async();
-        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:9024/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
+        var api = new DemoWebApi_Controllers_Client.Values('http://localhost:10965/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
             done();
         });

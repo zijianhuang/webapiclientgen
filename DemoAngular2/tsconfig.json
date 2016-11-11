@@ -1,5 +1,4 @@
 {
-    "compileOnSave": true,
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
@@ -9,13 +8,15 @@
         "experimentalDecorators": true,
         "removeComments": false,
         "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true
+        "suppressImplicitAnyIndexErrors": true,
+        "typeRoots": [
+            "./node_modules/@types/"
+        ]
     },
+  "compileOnSave": true,
     "exclude": [
-        "typings/browser.d.ts",
-        "typings/browser",
-        "typings/main",
-        "typings/main.d.ts",
-        "node_modules"
+        "node_modules/*",
+        "typings/*",
+        "**/*-aot.ts"
     ]
 }

@@ -9,27 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_deprecated_1 = require('@angular/router-deprecated');
-var WebApiNG2ClientAuto_1 = require('../clientapi/WebApiNG2ClientAuto');
+var hero_service_1 = require('./hero.service');
 var DashboardComponent = (function () {
-    function DashboardComponent(router, entitiesService) {
-        this.router = router;
-        this.entitiesService = entitiesService;
+    function DashboardComponent(heroService) {
+        this.heroService = heroService;
         this.heroes = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.entitiesService.getPerson(100).subscribe(function (d) { return _this.myName = d.name; });
+        this.heroService.getHeroes()
+            .then(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
     };
     DashboardComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'my-dashboard',
-            templateUrl: 'app/dashboard.component.html',
+            templateUrl: 'dashboard.component.html',
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof router_deprecated_1.Router !== 'undefined' && router_deprecated_1.Router) === 'function' && _a) || Object, WebApiNG2ClientAuto_1.DemoWebApi_Controllers_Client.Entities])
+        __metadata('design:paramtypes', [hero_service_1.HeroService])
     ], DashboardComponent);
     return DashboardComponent;
-    var _a;
 }());
 exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map

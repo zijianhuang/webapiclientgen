@@ -12,13 +12,38 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var hero_service_1 = require('./hero.service');
 var HeroesComponent = (function () {
-    function HeroesComponent(router, heroService) {
-        this.router = router;
+    function HeroesComponent(heroService, router) {
         this.heroService = heroService;
+        this.router = router;
     }
     HeroesComponent.prototype.getHeroes = function () {
         var _this = this;
-        this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
+        this.heroService
+            .getHeroes()
+            .then(function (heroes) { return _this.heroes = heroes; });
+    };
+    HeroesComponent.prototype.add = function (name) {
+        var _this = this;
+        name = name.trim();
+        if (!name) {
+            return;
+        }
+        this.heroService.create(name)
+            .then(function (hero) {
+            _this.heroes.push(hero);
+            _this.selectedHero = null;
+        });
+    };
+    HeroesComponent.prototype.delete = function (hero) {
+        var _this = this;
+        this.heroService
+            .delete(hero.id)
+            .then(function () {
+            _this.heroes = _this.heroes.filter(function (h) { return h !== hero; });
+            if (_this.selectedHero === hero) {
+                _this.selectedHero = null;
+            }
+        });
     };
     HeroesComponent.prototype.ngOnInit = function () {
         this.getHeroes();
@@ -36,7 +61,7 @@ var HeroesComponent = (function () {
             templateUrl: 'heroes.component.html',
             styleUrls: ['heroes.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
+        __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.Router])
     ], HeroesComponent);
     return HeroesComponent;
 }());

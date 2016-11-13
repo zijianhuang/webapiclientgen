@@ -21,14 +21,16 @@ ConfirmPassword:  'Tttttttt_8'
 */
 
 QUnit.config.testTimeout = 30000;
+const baseUri = 'http://localhost:10965/';
 
 var authHttpClient = new AuthHttpClient();
-var entitiesApi = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/', authHttpClient);
-var valuesApi = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient);
+var entitiesApi = new DemoWebApi_Controllers_Client.Entities(baseUri, authHttpClient);
+var valuesApi = new DemoWebApi_Controllers_Client.Values(baseUri, authHttpClient);
 
 
-var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/");
-var tupleApi = new DemoWebApi_Controllers_Client.Tuple("http://localhost:10965/");
+var superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo(baseUri);
+var tupleApi = new DemoWebApi_Controllers_Client.Tuple(baseUri);
+var heroesApi = new DemoWebApi_Controllers_Client.Heroes(baseUri);
 
 //This should always work since it is a simple unit test.
 QUnit.test("data compare", function (assert) {
@@ -106,6 +108,37 @@ QUnit.module("Entities",
     }
 );
 
+
+QUnit.module("Heroes",
+    function () {
+        QUnit.test("GetAll", function (assert) {
+            var done = assert.async();
+            heroesApi.get(data => {
+                assert.ok(data.length > 0);
+                done();
+            });
+        });
+
+        QUnit.test("Get", function (assert) {
+            var done = assert.async();
+            heroesApi.getById(20, data => {
+                assert.equal(data.name, "Tornado");
+                done();
+            });
+        });
+
+        QUnit.test("Add", function (assert) {
+            var done = assert.async();
+            heroesApi.post("somebody", data => {
+                assert.equal(data.name, "somebody");
+                assert.equal(data.id, 21);
+                done();
+            });
+        });
+
+
+    }
+);
 
 
 QUnit.module("SuperDemoTests");

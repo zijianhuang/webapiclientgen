@@ -71,6 +71,11 @@ export namespace DemoWebApi_Controllers_Client {
         submitter?: string;
     }
 
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
 }
 
 export namespace DemoWebApi_Controllers_Client {
@@ -859,6 +864,56 @@ export namespace DemoWebApi_Controllers_Client {
          */
         postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}): Observable<string>{
             return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+        }
+    }
+
+    @Injectable()
+    export class Heroes {
+        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: Http){
+        }
+
+        /** 
+         * GET api/Heroes
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         */
+        get(): Observable<Array<DemoWebApi_Controllers_Client.Hero>>{
+            return this.http.get(this.baseUri + 'api/Heroes').map(response=> response.json() || {});
+        }
+
+        /** 
+         * GET api/Heroes/{id}
+         * @param {number} id 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        getById(id: number): Observable<DemoWebApi_Controllers_Client.Hero>{
+            return this.http.get(this.baseUri + 'api/Heroes/'+id).map(response=> response.json() || {});
+        }
+
+        /** 
+         * DELETE api/Heroes/{id}
+         * @param {number} id 
+         * @return {void} 
+         */
+        delete(id: number): Observable<void>{
+            return this.http.delete(this.baseUri + 'api/Heroes/'+id).map(response=> response.json() || {});
+        }
+
+        /** 
+         * POST api/Heroes?name={name}
+         * @param {string} name 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        post(name: string): Observable<DemoWebApi_Controllers_Client.Hero>{
+            return this.http.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), JSON.stringify(null), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+        }
+
+        /** 
+         * PUT api/Heroes
+         * @param {DemoWebApi_Controllers_Client.Hero} hero 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        put(hero: DemoWebApi_Controllers_Client.Hero): Observable<DemoWebApi_Controllers_Client.Hero>{
+            return this.http.put(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
     }
 

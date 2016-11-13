@@ -68,6 +68,11 @@ namespace DemoWebApi_Controllers_Client {
         submitter?: string;
     }
 
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
 }
 
 namespace DemoWebApi_Controllers_Client {
@@ -853,6 +858,55 @@ namespace DemoWebApi_Controllers_Client {
          */
         postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}, callback: (data : string) => any){
             this.httpClient.post(this.baseUri + 'api/Tuple/Tuple8', tuple, callback, this.error, this.statusCode);
+        }
+    }
+
+    export class Heroes {
+        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
+        }
+
+        /** 
+         * GET api/Heroes
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         */
+        get(callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any){
+            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/Heroes/{id}
+         * @param {number} id 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        getById(id: number, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
+            this.httpClient.get(this.baseUri + 'api/Heroes/'+id, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * DELETE api/Heroes/{id}
+         * @param {number} id 
+         * @return {void} 
+         */
+        delete(id: number, callback: (data : void) => any){
+            this.httpClient.delete(this.baseUri + 'api/Heroes/'+id, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/Heroes?name={name}
+         * @param {string} name 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        post(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
+            this.httpClient.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), null, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * PUT api/Heroes
+         * @param {DemoWebApi_Controllers_Client.Hero} hero 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        put(hero: DemoWebApi_Controllers_Client.Hero, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
+            this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
         }
     }
 

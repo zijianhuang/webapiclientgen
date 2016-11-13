@@ -105,6 +105,13 @@ QUnit.module("Heroes", function () {
             done();
         });
     });
+    QUnit.test("Search", function (assert) {
+        var done = assert.async();
+        heroesApi.search("Torn", function (data) {
+            assert.equal(data[0].name, "Tornado");
+            done();
+        });
+    });
 });
 QUnit.module("SuperDemoTests");
 test("JsZeroNotGood", function (assert) {

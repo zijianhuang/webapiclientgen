@@ -791,6 +791,14 @@ var DemoWebApi_Controllers_Client;
         Heroes.prototype.put = function (hero, callback) {
             this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
         };
+        /**
+         * GET api/Heroes?name={name}
+         * @param {string} name
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
+         */
+        Heroes.prototype.search = function (name, callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+        };
         return Heroes;
     }());
     DemoWebApi_Controllers_Client.Heroes = Heroes;

@@ -915,6 +915,15 @@ export namespace DemoWebApi_Controllers_Client {
         put(hero: DemoWebApi_Controllers_Client.Hero): Observable<DemoWebApi_Controllers_Client.Hero>{
             return this.http.put(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
         }
+
+        /** 
+         * GET api/Heroes?name={name}
+         * @param {string} name 
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         */
+        search(name: string): Observable<Array<DemoWebApi_Controllers_Client.Hero>>{
+            return this.http.get(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name)).map(response=> response.json() || {});
+        }
     }
 
     @Injectable()

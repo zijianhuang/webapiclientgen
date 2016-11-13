@@ -4206,6 +4206,40 @@ namespace DemoWebApi.Controllers.Client
             }
             }
         }
+        
+        /// <summary>
+        /// 
+        /// GET api/Heroes?name={name}
+        /// </summary>
+        public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// GET api/Heroes?name={name}
+        /// </summary>
+        public DemoWebApi.Controllers.Client.Hero[] Search(string name)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+            }
+        }
     }
     
     public partial class Values

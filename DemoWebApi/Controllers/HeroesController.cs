@@ -46,6 +46,12 @@ namespace DemoWebApi.Controllers
             HeroesData.Instance.Dic[hero.Id] = hero;
             return hero;
         }
+
+        [HttpGet]
+        public Hero[] Search(string name)
+        {
+            return HeroesData.Instance.Dic.Values.Where(d => d.Name.Contains(name)).ToArray();
+        }
           
     }
 

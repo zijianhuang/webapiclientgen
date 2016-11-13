@@ -908,6 +908,15 @@ namespace DemoWebApi_Controllers_Client {
         put(hero: DemoWebApi_Controllers_Client.Hero, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
             this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
         }
+
+        /** 
+         * GET api/Heroes?name={name}
+         * @param {string} name 
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         */
+        search(name: string, callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any){
+            this.httpClient.get(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), callback, this.error, this.statusCode);
+        }
     }
 
     export class Values {

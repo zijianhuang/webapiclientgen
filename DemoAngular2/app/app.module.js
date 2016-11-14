@@ -15,8 +15,8 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_routing_module_1 = require('./app-routing.module');
 // Imports for loading & configuring the in-memory web api
-var angular_in_memory_web_api_1 = require('angular-in-memory-web-api');
-var in_memory_data_service_1 = require('./in-memory-data.service');
+//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { InMemoryDataService } from './in-memory-data.service';
 var app_component_1 = require('./app.component');
 var dashboard_component_1 = require('./dashboard.component');
 var heroes_component_1 = require('./heroes.component');
@@ -32,7 +32,7 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
-                angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService),
+                //   InMemoryWebApiModule.forRoot(InMemoryDataService),
                 app_routing_module_1.AppRoutingModule
             ],
             declarations: [

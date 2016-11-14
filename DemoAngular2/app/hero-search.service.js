@@ -10,14 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var model = require('../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var HeroSearchService = (function () {
     function HeroSearchService(http) {
         this.http = http;
+        this.baseUri = 'http://localhost:10965/';
+        this.heroesApi = new DemoWebApi_Controllers_Client.Heroes(this.baseUri, http);
     }
     HeroSearchService.prototype.search = function (term) {
-        return this.http
-            .get("app/heroes/?name=" + term)
-            .map(function (r) { return r.json().data; });
+        return this.heroesApi.search(term);
+        //return this.http
+        //    .get(`app/heroes/?name=${term}`)
+        //    .map((r: Response) => r.json().data as DemoWebApi_Controllers_Client.Hero[]);
     };
     HeroSearchService = __decorate([
         core_1.Injectable(), 

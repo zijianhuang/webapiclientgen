@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { Hero } from './hero';
+import * as model from '../clientapi/WebApiNG2ClientAuto';
+import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 import { HeroService } from './hero.service';
 @Component({
     moduleId: module.id,
@@ -10,7 +11,7 @@ import { HeroService } from './hero.service';
     styleUrls: ['hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-    hero: Hero;
+    hero: DemoWebApi_Controllers_Client.Hero;
     constructor(
         private heroService: HeroService,
         private route: ActivatedRoute,

@@ -76,7 +76,6 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\hero-detail.component.ts" />
     <TypeScriptCompile Include="app\hero.service.ts" />
-    <TypeScriptCompile Include="app\hero.ts" />
     <TypeScriptCompile Include="app\in-memory-data.service.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\rxjs-extensions.ts" />
@@ -106,6 +105,7 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>

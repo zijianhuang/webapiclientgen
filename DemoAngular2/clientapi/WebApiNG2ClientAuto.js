@@ -42,67 +42,6 @@ var DemoWebApi_DemoData_Client;
 })(DemoWebApi_DemoData_Client = exports.DemoWebApi_DemoData_Client || (exports.DemoWebApi_DemoData_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
-    var Heroes = (function () {
-        function Heroes(baseUri, http) {
-            if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
-            this.baseUri = baseUri;
-            this.http = http;
-        }
-        /**
-         * GET api/SuperDemo/GetByName?name={name}
-         * @param {string} name
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
-         */
-        Heroes.prototype.search = function (name) {
-            return this.http.get(this.baseUri + 'api/SuperDemo/GetByName?name=' + encodeURIComponent(name)).map(function (response) { return response.json() || {}; });
-        };
-        /**
-         * GET api/Heroes
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
-         */
-        Heroes.prototype.get = function () {
-            return this.http.get(this.baseUri + 'api/Heroes').map(function (response) { return response.json() || {}; });
-        };
-        /**
-         * GET api/Heroes/{id}
-         * @param {number} id
-         * @return {DemoWebApi_Controllers_Client.Hero}
-         */
-        Heroes.prototype.getById = function (id) {
-            return this.http.get(this.baseUri + 'api/Heroes/' + id).map(function (response) { return response.json() || {}; });
-        };
-        /**
-         * DELETE api/Heroes/{id}
-         * @param {number} id
-         * @return {void}
-         */
-        Heroes.prototype.delete = function (id) {
-            return this.http.delete(this.baseUri + 'api/Heroes/' + id).map(function (response) { return response.json() || {}; });
-        };
-        /**
-         * POST api/Heroes?name={name}
-         * @param {string} name
-         * @return {DemoWebApi_Controllers_Client.Hero}
-         */
-        Heroes.prototype.post = function (name) {
-            return this.http.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), JSON.stringify(null), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
-        };
-        /**
-         * PUT api/Heroes
-         * @param {DemoWebApi_Controllers_Client.Hero} hero
-         * @return {DemoWebApi_Controllers_Client.Hero}
-         */
-        Heroes.prototype.put = function (hero) {
-            return this.http.put(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
-        };
-        Heroes = __decorate([
-            core_1.Injectable(),
-            __param(0, core_1.Inject('baseUri')), 
-            __metadata('design:paramtypes', [String, http_1.Http])
-        ], Heroes);
-        return Heroes;
-    }());
-    DemoWebApi_Controllers_Client.Heroes = Heroes;
     var SuperDemo = (function () {
         function SuperDemo(baseUri, http) {
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
@@ -825,6 +764,67 @@ var DemoWebApi_Controllers_Client;
         return Tuple;
     }());
     DemoWebApi_Controllers_Client.Tuple = Tuple;
+    var Heroes = (function () {
+        function Heroes(baseUri, http) {
+            if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
+            this.baseUri = baseUri;
+            this.http = http;
+        }
+        /**
+         * GET api/Heroes
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
+         */
+        Heroes.prototype.get = function () {
+            return this.http.get(this.baseUri + 'api/Heroes').map(function (response) { return response.json() || {}; });
+        };
+        /**
+         * GET api/Heroes/{id}
+         * @param {number} id
+         * @return {DemoWebApi_Controllers_Client.Hero}
+         */
+        Heroes.prototype.getById = function (id) {
+            return this.http.get(this.baseUri + 'api/Heroes/' + id).map(function (response) { return response.json() || {}; });
+        };
+        /**
+         * DELETE api/Heroes/{id}
+         * @param {number} id
+         * @return {void}
+         */
+        Heroes.prototype.delete = function (id) {
+            return this.http.delete(this.baseUri + 'api/Heroes/' + id).map(function (response) { return response.json() || {}; });
+        };
+        /**
+         * POST api/Heroes?name={name}
+         * @param {string} name
+         * @return {DemoWebApi_Controllers_Client.Hero}
+         */
+        Heroes.prototype.post = function (name) {
+            return this.http.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), JSON.stringify(null), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+        };
+        /**
+         * PUT api/Heroes
+         * @param {DemoWebApi_Controllers_Client.Hero} hero
+         * @return {DemoWebApi_Controllers_Client.Hero}
+         */
+        Heroes.prototype.put = function (hero) {
+            return this.http.put(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+        };
+        /**
+         * GET api/Heroes?name={name}
+         * @param {string} name
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
+         */
+        Heroes.prototype.search = function (name) {
+            return this.http.get(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name)).map(function (response) { return response.json() || {}; });
+        };
+        Heroes = __decorate([
+            core_1.Injectable(),
+            __param(0, core_1.Inject('baseUri')), 
+            __metadata('design:paramtypes', [String, http_1.Http])
+        ], Heroes);
+        return Heroes;
+    }());
+    DemoWebApi_Controllers_Client.Heroes = Heroes;
     var Values = (function () {
         function Values(baseUri, http) {
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }

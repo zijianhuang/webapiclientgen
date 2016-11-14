@@ -2,8 +2,10 @@
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import * as model from '../clientapi/WebApiNG2ClientAuto';
+import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
+
 import { HeroSearchService } from './hero-search.service';
-import { Hero } from './hero';
 @Component({
     moduleId: module.id,
     selector: 'hero-search',
@@ -12,7 +14,7 @@ import { Hero } from './hero';
     providers: [HeroSearchService]
 })
 export class HeroSearchComponent implements OnInit {
-    heroes: Observable<Hero[]>;
+    heroes: Observable<DemoWebApi_Controllers_Client.Hero[]>;
     private searchTerms = new Subject<string>();
     constructor(
         private heroSearchService: HeroSearchService,
@@ -29,14 +31,14 @@ export class HeroSearchComponent implements OnInit {
                 // return the http search observable
                 ? this.heroSearchService.search(term)
                 // or the observable of empty heroes if no search term
-                : Observable.of<Hero[]>([]))
+                : Observable.of<DemoWebApi_Controllers_Client.Hero[]>([]))
             .catch(error => {
                 // TODO: real error handling
                 console.log(error);
-                return Observable.of<Hero[]>([]);
+                return Observable.of<DemoWebApi_Controllers_Client.Hero[]>([]);
             });
     }
-    gotoDetail(hero: Hero): void {
+    gotoDetail(hero: DemoWebApi_Controllers_Client.Hero): void {
         let link = ['/detail', hero.id];
         this.router.navigate(link);
     }

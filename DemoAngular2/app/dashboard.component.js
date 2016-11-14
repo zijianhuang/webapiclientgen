@@ -9,6 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/catch');
 var hero_service_1 = require('./hero.service');
 var DashboardComponent = (function () {
     function DashboardComponent(heroService) {

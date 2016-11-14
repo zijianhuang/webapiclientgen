@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Hero } from './hero';
+import * as model from '../clientapi/WebApiNG2ClientAuto';
+import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 import { HeroService } from './hero.service';
 @Component({
     moduleId: module.id,
@@ -9,8 +10,8 @@ import { HeroService } from './hero.service';
     styleUrls: ['heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-    heroes: Hero[];
-    selectedHero: Hero;
+    heroes: DemoWebApi_Controllers_Client.Hero[];
+    selectedHero: DemoWebApi_Controllers_Client.Hero;
     constructor(
         private heroService: HeroService,
         private router: Router) { }
@@ -28,7 +29,7 @@ export class HeroesComponent implements OnInit {
                 this.selectedHero = null;
             });
     }
-    delete(hero: Hero): void {
+    delete(hero: DemoWebApi_Controllers_Client.Hero): void {
         this.heroService
             .delete(hero.id)
             .then(() => {
@@ -39,7 +40,7 @@ export class HeroesComponent implements OnInit {
     ngOnInit(): void {
         this.getHeroes();
     }
-    onSelect(hero: Hero): void {
+    onSelect(hero: DemoWebApi_Controllers_Client.Hero): void {
         this.selectedHero = hero;
     }
     gotoDetail(): void {

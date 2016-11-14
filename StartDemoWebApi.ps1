@@ -4,3 +4,5 @@ $arguments = "/site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:$PSScriptR
 echo $arguments
 $processInfo = New-Object System.Diagnostics.ProcessStartInfo("C:\Program Files (x86)\IIS Express\iisexpress.exe", $arguments)
 $process = [System.Diagnostics.Process]::Start($processInfo)
+
+Invoke-RestMethod http://localhost:10965/ -Method GET

@@ -1,6 +1,10 @@
 ﻿{
-    "compileOnSave": true,
-    "compilerOptions": {
-        "module": "commonjs"
-    }
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "commonjs"
+  },
+
+  "exclude": [
+    "scripts/typing/qunit/qunit-1.16.d.ts"
+  ]
 }

@@ -12,7 +12,7 @@ using System.Collections.Concurrent;
 
 namespace DemoWebApi.Controllers
 {
-    [RoutePrefix("api/SuperDemo")]
+    [RoutePrefix("api/Heroes")]
     public class HeroesController : ApiController
     {
         public Hero[] Get()

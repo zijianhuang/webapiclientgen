@@ -10,7 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var hero_service_1 = require('./hero.service');
+var model = require('../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var HeroesComponent = (function () {
     function HeroesComponent(heroService, router) {
         this.heroService = heroService;
@@ -19,8 +20,8 @@ var HeroesComponent = (function () {
     HeroesComponent.prototype.getHeroes = function () {
         var _this = this;
         this.heroService
-            .getHeroes()
-            .then(function (heroes) { return _this.heroes = heroes; });
+            .get()
+            .subscribe(function (heroes) { return _this.heroes = heroes; });
     };
     HeroesComponent.prototype.add = function (name) {
         var _this = this;
@@ -28,8 +29,8 @@ var HeroesComponent = (function () {
         if (!name) {
             return;
         }
-        this.heroService.create(name)
-            .then(function (hero) {
+        this.heroService.post(name)
+            .subscribe(function (hero) {
             _this.heroes.push(hero);
             _this.selectedHero = null;
         });
@@ -38,7 +39,7 @@ var HeroesComponent = (function () {
         var _this = this;
         this.heroService
             .delete(hero.id)
-            .then(function () {
+            .subscribe(function () {
             _this.heroes = _this.heroes.filter(function (h) { return h !== hero; });
             if (_this.selectedHero === hero) {
                 _this.selectedHero = null;
@@ -61,7 +62,7 @@ var HeroesComponent = (function () {
             templateUrl: 'heroes.component.html',
             styleUrls: ['heroes.component.css']
         }), 
-        __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.Router])
+        __metadata('design:paramtypes', [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
     ], HeroesComponent);
     return HeroesComponent;
 }());

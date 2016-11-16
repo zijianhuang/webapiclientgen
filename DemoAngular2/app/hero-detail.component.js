@@ -11,7 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require('@angular/common');
-var hero_service_1 = require('./hero.service');
+var model = require('../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var HeroDetailComponent = (function () {
     function HeroDetailComponent(heroService, route, location) {
         this.heroService = heroService;
@@ -22,14 +23,14 @@ var HeroDetailComponent = (function () {
         var _this = this;
         this.route.params.forEach(function (params) {
             var id = +params['id'];
-            _this.heroService.getHero(id)
-                .then(function (hero) { return _this.hero = hero; });
+            _this.heroService.getById(id)
+                .subscribe(function (hero) { return _this.hero = hero; });
         });
     };
     HeroDetailComponent.prototype.save = function () {
         var _this = this;
-        this.heroService.update(this.hero)
-            .then(function () { return _this.goBack(); });
+        this.heroService.put(this.hero)
+            .subscribe(function () { return _this.goBack(); });
     };
     HeroDetailComponent.prototype.goBack = function () {
         this.location.back();
@@ -41,7 +42,7 @@ var HeroDetailComponent = (function () {
             templateUrl: 'hero-detail.component.html',
             styleUrls: ['hero-detail.component.css']
         }), 
-        __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.ActivatedRoute, common_1.Location])
+        __metadata('design:paramtypes', [DemoWebApi_Controllers_Client.Heroes, router_1.ActivatedRoute, common_1.Location])
     ], HeroDetailComponent);
     return HeroDetailComponent;
 }());

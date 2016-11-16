@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as model from '../clientapi/WebApiNG2ClientAuto';
 import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
-import { HeroService } from './hero.service';
+
 @Component({
     moduleId: module.id,
     selector: 'my-heroes',
@@ -13,18 +13,18 @@ export class HeroesComponent implements OnInit {
     heroes: DemoWebApi_Controllers_Client.Hero[];
     selectedHero: DemoWebApi_Controllers_Client.Hero;
     constructor(
-        private heroService: HeroService,
+        private heroService: DemoWebApi_Controllers_Client.Heroes,
         private router: Router) { }
     getHeroes(): void {
         this.heroService
-            .getHeroes()
-            .then(heroes => this.heroes = heroes);
+            .get()
+            .subscribe(heroes => this.heroes = heroes);
     }
     add(name: string): void {
         name = name.trim();
         if (!name) { return; }
-        this.heroService.create(name)
-            .then(hero => {
+        this.heroService.post(name)
+            .subscribe(hero => {
                 this.heroes.push(hero);
                 this.selectedHero = null;
             });
@@ -32,7 +32,7 @@ export class HeroesComponent implements OnInit {
     delete(hero: DemoWebApi_Controllers_Client.Hero): void {
         this.heroService
             .delete(hero.id)
-            .then(() => {
+            .subscribe(() => {
                 this.heroes = this.heroes.filter(h => h !== hero);
                 if (this.selectedHero === hero) { this.selectedHero = null; }
             });

@@ -11,7 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
-var hero_service_1 = require('./hero.service');
+var model = require('../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var DashboardComponent = (function () {
     function DashboardComponent(heroService) {
         this.heroService = heroService;
@@ -19,8 +20,8 @@ var DashboardComponent = (function () {
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.heroService.getHeroes()
-            .then(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
+        this.heroService.get()
+            .subscribe(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
     };
     DashboardComponent = __decorate([
         core_1.Component({
@@ -29,7 +30,7 @@ var DashboardComponent = (function () {
             templateUrl: 'dashboard.component.html',
             styleUrls: ['dashboard.component.css']
         }), 
-        __metadata('design:paramtypes', [hero_service_1.HeroService])
+        __metadata('design:paramtypes', [DemoWebApi_Controllers_Client.Heroes])
     ], DashboardComponent);
     return DashboardComponent;
 }());

@@ -14,15 +14,13 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_routing_module_1 = require('./app-routing.module');
-// Imports for loading & configuring the in-memory web api
-//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-//import { InMemoryDataService } from './in-memory-data.service';
 var app_component_1 = require('./app.component');
 var dashboard_component_1 = require('./dashboard.component');
 var heroes_component_1 = require('./heroes.component');
 var hero_detail_component_1 = require('./hero-detail.component');
-var hero_service_1 = require('./hero.service');
 var hero_search_component_1 = require('./hero-search.component');
+var model = require('../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -42,7 +40,22 @@ var AppModule = (function () {
                 heroes_component_1.HeroesComponent,
                 hero_search_component_1.HeroSearchComponent
             ],
-            providers: [hero_service_1.HeroService],
+            providers: [
+                {
+                    provide: http_1.Http,
+                    useFactory: function (backend, options) {
+                        return new http_1.Http(backend, options);
+                    },
+                    deps: [http_1.XHRBackend, http_1.RequestOptions]
+                },
+                {
+                    provide: DemoWebApi_Controllers_Client.Heroes,
+                    useFactory: function (http) {
+                        return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
+                    },
+                    deps: [http_1.Http],
+                },
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

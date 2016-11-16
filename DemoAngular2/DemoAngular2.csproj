@@ -71,12 +71,9 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\dashboard.component.ts" />
     <TypeScriptCompile Include="app\hero-search.component.ts" />
-    <TypeScriptCompile Include="app\hero-search.service.ts" />
     <TypeScriptCompile Include="app\heroes.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\hero-detail.component.ts" />
-    <TypeScriptCompile Include="app\hero.service.ts" />
-    <TypeScriptCompile Include="app\in-memory-data.service.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\rxjs-extensions.ts" />
     <TypeScriptCompile Include="clientapi\WebApiNG2ClientAuto.ts" />

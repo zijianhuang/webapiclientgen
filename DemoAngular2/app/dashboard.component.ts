@@ -1,12 +1,11 @@
 ﻿import { Component, OnInit, Injectable, Inject } from '@angular/core';
-import { Http, Headers } from '@angular/http'
+import { Http, XHRBackend, Headers, RequestOptions, Response, RequestOptionsArgs } from '@angular/http';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
 
 import * as model from '../clientapi/WebApiNG2ClientAuto';
 import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
-import { HeroService } from './hero.service';
 
 @Component({
     moduleId: module.id,
@@ -17,10 +16,10 @@ import { HeroService } from './hero.service';
 export class DashboardComponent implements OnInit {
     heroes: DemoWebApi_Controllers_Client.Hero[] = [];
 
-    constructor(private heroService: HeroService) { }
+    constructor(private heroService: DemoWebApi_Controllers_Client.Heroes) { }
 
     ngOnInit(): void {
-        this.heroService.getHeroes()
-            .then(heroes => this.heroes = heroes.slice(1, 5));
+        this.heroService.get()
+            .subscribe(heroes => this.heroes = heroes.slice(1, 5));
     }
 }

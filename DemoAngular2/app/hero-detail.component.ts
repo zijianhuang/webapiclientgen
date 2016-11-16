@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import * as model from '../clientapi/WebApiNG2ClientAuto';
 import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
-import { HeroService } from './hero.service';
 @Component({
     moduleId: module.id,
     selector: 'my-hero-detail',
@@ -13,20 +12,20 @@ import { HeroService } from './hero.service';
 export class HeroDetailComponent implements OnInit {
     hero: DemoWebApi_Controllers_Client.Hero;
     constructor(
-        private heroService: HeroService,
+        private heroService: DemoWebApi_Controllers_Client.Heroes,
         private route: ActivatedRoute,
         private location: Location
     ) { }
     ngOnInit(): void {
         this.route.params.forEach((params: Params) => {
             let id = +params['id'];
-            this.heroService.getHero(id)
-                .then(hero => this.hero = hero);
+            this.heroService.getById(id)
+                .subscribe(hero => this.hero = hero);
         });
     }
     save(): void {
-        this.heroService.update(this.hero)
-            .then(() => this.goBack());
+        this.heroService.put(this.hero)
+            .subscribe(() => this.goBack());
     }
     goBack(): void {
         this.location.back();

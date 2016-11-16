@@ -12,7 +12,8 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var Observable_1 = require('rxjs/Observable');
 var Subject_1 = require('rxjs/Subject');
-var hero_search_service_1 = require('./hero-search.service');
+var model = require('../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var HeroSearchComponent = (function () {
     function HeroSearchComponent(heroSearchService, router) {
         this.heroSearchService = heroSearchService;
@@ -47,9 +48,8 @@ var HeroSearchComponent = (function () {
             selector: 'hero-search',
             templateUrl: 'hero-search.component.html',
             styleUrls: ['hero-search.component.css'],
-            providers: [hero_search_service_1.HeroSearchService]
         }), 
-        __metadata('design:paramtypes', [hero_search_service_1.HeroSearchService, router_1.Router])
+        __metadata('design:paramtypes', [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
     ], HeroSearchComponent);
     return HeroSearchComponent;
 }());

@@ -5,19 +5,17 @@ import { Subject } from 'rxjs/Subject';
 import * as model from '../clientapi/WebApiNG2ClientAuto';
 import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 
-import { HeroSearchService } from './hero-search.service';
 @Component({
     moduleId: module.id,
     selector: 'hero-search',
     templateUrl: 'hero-search.component.html',
     styleUrls: ['hero-search.component.css'],
-    providers: [HeroSearchService]
 })
 export class HeroSearchComponent implements OnInit {
     heroes: Observable<DemoWebApi_Controllers_Client.Hero[]>;
     private searchTerms = new Subject<string>();
     constructor(
-        private heroSearchService: HeroSearchService,
+        private heroSearchService: DemoWebApi_Controllers_Client.Heroes,
         private router: Router) { }
     // Push a search term into the observable stream.
     search(term: string): void {

@@ -1,21 +1,8 @@
-import { Injectable, Inject } from '@angular/core'
-import { Http, Headers } from '@angular/http'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/catch'
-import { Observable } from 'rxjs/Observable'
-export namespace DemoWebApi_Controllers_Client {
-    export interface FileResult {
-        fileNames?: Array<string>;
-        submitter?: string;
-    }
-
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
+import { Injectable, Inject } from '@angular/core';
+import { Http, Headers, Response } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
 export namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
@@ -79,6 +66,19 @@ export namespace DemoWebApi_DemoData_Another_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
+    export interface FileResult {
+        fileNames?: Array<string>;
+        submitter?: string;
+    }
+
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
+export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class SuperDemo {
         constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: Http){
@@ -135,7 +135,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         postNextYear(dt: Date): Observable<Date>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -153,7 +153,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffset(d: Date): Observable<boolean>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -162,7 +162,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffsetNullable(d: Date): Observable<boolean>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -226,8 +226,8 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/TextStream
          * @return {any} 
          */
-        getTextStream(): Observable<any>{
-            return this.http.get(this.baseUri + 'api/SuperDemo/TextStream').map(response=> response.json() || {});
+        getTextStream(): Observable<Response>{
+            return this.http.get(this.baseUri + 'api/SuperDemo/TextStream');
         }
 
         /** 
@@ -242,8 +242,8 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/ActionResult
          * @return {any} 
          */
-        getActionResult(): Observable<any>{
-            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult').map(response=> response.json() || {});
+        getActionResult(): Observable<Response>{
+            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult');
         }
 
         /** 
@@ -356,7 +356,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postInt2D(a: number[][]): Observable<boolean>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -365,7 +365,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postInt2DJagged(a: Array<Array<number>>): Observable<boolean>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -374,7 +374,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postIntArray(a: Array<number>): Observable<boolean>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -389,16 +389,16 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/AnonymousDynamic
          * @return {any} 
          */
-        getAnonymousDynamic(): Observable<any>{
-            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousDynamic').map(response=> response.json() || {});
+        getAnonymousDynamic(): Observable<Response>{
+            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousDynamic');
         }
 
         /** 
          * GET api/SuperDemo/AnonymousObject
          * @return {any} 
          */
-        getAnonymousObject(): Observable<any>{
-            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousObject').map(response=> response.json() || {});
+        getAnonymousObject(): Observable<Response>{
+            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousObject');
         }
 
         /** 
@@ -406,8 +406,8 @@ export namespace DemoWebApi_Controllers_Client {
          * @param {any} obj 
          * @return {any} 
          */
-        postAnonymousObject(obj: any): Observable<any>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+        postAnonymousObject(obj: any): Observable<Response>{
+            return this.http.post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new Headers({ 'Content-Type': 'application/json' }) });
         }
 
         /** 
@@ -432,7 +432,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }): Observable<number>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -497,7 +497,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postICollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -506,7 +506,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -515,7 +515,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -524,7 +524,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -533,7 +533,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -542,7 +542,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -552,7 +552,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:number}} 
          */
         postWithQueryButEmptyBody(s: string, i: number): Observable<{item1:string, item2:number}>{
-            return this.http.post(this.baseUri + 'api/SuperDemo/PostEmpty?s='+encodeURIComponent(s)+'&i='+i, JSON.stringify(null), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/SuperDemo/PostEmpty?s='+encodeURIComponent(s)+'&i='+i, JSON.stringify(null), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
     }
 
@@ -569,7 +569,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Observable<boolean>{
-            return this.http.put(this.baseUri + 'api/SuperDemo/link?id='+id+'&relationship='+encodeURIComponent(relationship), JSON.stringify(person), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.put(this.baseUri + 'api/SuperDemo/link?id='+id+'&relationship='+encodeURIComponent(relationship), JSON.stringify(person), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -615,7 +615,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number>{
-            return this.http.post(this.baseUri + 'api/Entities', JSON.stringify(p), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Entities', JSON.stringify(p), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -623,8 +623,8 @@ export namespace DemoWebApi_Controllers_Client {
          * @param {DemoWebApi_DemoData_Client.Person} person 
          * @return {void} 
          */
-        updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<void>{
-            return this.http.put(this.baseUri + 'api/Entities', JSON.stringify(person), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+        updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<Response>{
+            return this.http.put(this.baseUri + 'api/Entities', JSON.stringify(person), { headers: new Headers({ 'Content-Type': 'application/json' }) });
         }
 
         /** 
@@ -632,8 +632,8 @@ export namespace DemoWebApi_Controllers_Client {
          * @param {number} id 
          * @return {void} 
          */
-        delete(id: number): Observable<void>{
-            return this.http.delete(this.baseUri + 'api/Entities/'+id).map(response=> response.json() || {});
+        delete(id: number): Observable<Response>{
+            return this.http.delete(this.baseUri + 'api/Entities/'+id);
         }
     }
 
@@ -648,7 +648,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPersonCompany1(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -657,7 +657,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany2(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -666,7 +666,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany3(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -675,7 +675,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany4(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -692,7 +692,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany5(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -709,7 +709,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany6(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -718,7 +718,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany7(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -727,7 +727,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany8(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Person, rest:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -744,7 +744,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postTuple1(tuple: {item1:number}): Observable<number>{
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -761,7 +761,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple2(tuple: {item1:string, item2:number}): Observable<string>{
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -778,7 +778,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple3(tuple: {item1:string, item2:string, item3:number}): Observable<string>{
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -795,7 +795,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple4(tuple: {item1:string, item2:string, item3:string, item4:number}): Observable<string>{
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -812,7 +812,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple5(tuple: {item1:string, item2:string, item3:string, item4:string, item5:number}): Observable<string>{
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -829,7 +829,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple6(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}): Observable<string>{
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -846,7 +846,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple7(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}): Observable<string>{
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -863,7 +863,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}): Observable<string>{
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
     }
 
@@ -894,8 +894,8 @@ export namespace DemoWebApi_Controllers_Client {
          * @param {number} id 
          * @return {void} 
          */
-        delete(id: number): Observable<void>{
-            return this.http.delete(this.baseUri + 'api/Heroes/'+id).map(response=> response.json() || {});
+        delete(id: number): Observable<Response>{
+            return this.http.delete(this.baseUri + 'api/Heroes/'+id);
         }
 
         /** 
@@ -904,7 +904,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         post(name: string): Observable<DemoWebApi_Controllers_Client.Hero>{
-            return this.http.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), JSON.stringify(null), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), JSON.stringify(null), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -913,7 +913,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         put(hero: DemoWebApi_Controllers_Client.Hero): Observable<DemoWebApi_Controllers_Client.Hero>{
-            return this.http.put(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.put(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -964,7 +964,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         post(value: string): Observable<string>{
-            return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+            return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=> response.json() || {});
         }
 
         /** 
@@ -973,8 +973,8 @@ export namespace DemoWebApi_Controllers_Client {
          * @param {string} value 
          * @return {void} 
          */
-        put(id: number, value: string): Observable<void>{
-            return this.http.put(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new Headers({ 'Content-Type': 'application/json' }) }).map(response=>response.json() || {});
+        put(id: number, value: string): Observable<Response>{
+            return this.http.put(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new Headers({ 'Content-Type': 'application/json' }) });
         }
 
         /** 
@@ -982,8 +982,8 @@ export namespace DemoWebApi_Controllers_Client {
          * @param {number} id 
          * @return {void} 
          */
-        delete(id: number): Observable<void>{
-            return this.http.delete(this.baseUri + 'api/Values/'+id).map(response=> response.json() || {});
+        delete(id: number): Observable<Response>{
+            return this.http.delete(this.baseUri + 'api/Values/'+id);
         }
     }
 

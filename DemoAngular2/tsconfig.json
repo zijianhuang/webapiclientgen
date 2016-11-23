@@ -13,7 +13,12 @@
             "./node_modules/@types/"
         ]
     },
-  "compileOnSave": true,
+    "compileOnSave": true,
+
+    "include": [
+        "app/*"
+    ],
+
     "exclude": [
         "node_modules/*",
         "typings/*",

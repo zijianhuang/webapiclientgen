@@ -175,7 +175,7 @@ var DemoWebApi_Controllers_Client;
          * @return {any}
          */
         SuperDemo.prototype.getTextStream = function () {
-            return this.http.get(this.baseUri + 'api/SuperDemo/TextStream').map(function (response) { return response.json() || {}; });
+            return this.http.get(this.baseUri + 'api/SuperDemo/TextStream');
         };
         /**
          * GET api/SuperDemo/ByteArray
@@ -189,7 +189,7 @@ var DemoWebApi_Controllers_Client;
          * @return {any}
          */
         SuperDemo.prototype.getActionResult = function () {
-            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult').map(function (response) { return response.json() || {}; });
+            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult');
         };
         /**
          * GET api/SuperDemo/ActionStringResult
@@ -318,14 +318,14 @@ var DemoWebApi_Controllers_Client;
          * @return {any}
          */
         SuperDemo.prototype.getAnonymousDynamic = function () {
-            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousDynamic').map(function (response) { return response.json() || {}; });
+            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousDynamic');
         };
         /**
          * GET api/SuperDemo/AnonymousObject
          * @return {any}
          */
         SuperDemo.prototype.getAnonymousObject = function () {
-            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousObject').map(function (response) { return response.json() || {}; });
+            return this.http.get(this.baseUri + 'api/SuperDemo/AnonymousObject');
         };
         /**
          * POST api/SuperDemo/AnonymousObject
@@ -333,7 +333,7 @@ var DemoWebApi_Controllers_Client;
          * @return {any}
          */
         SuperDemo.prototype.postAnonymousObject = function (obj) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) });
         };
         /**
          * GET api/SuperDemo/StringStringDic
@@ -534,7 +534,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Entities.prototype.updatePerson = function (person) {
-            return this.http.put(this.baseUri + 'api/Entities', JSON.stringify(person), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.put(this.baseUri + 'api/Entities', JSON.stringify(person), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) });
         };
         /**
          * DELETE api/Entities/{id}
@@ -542,7 +542,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Entities.prototype.delete = function (id) {
-            return this.http.delete(this.baseUri + 'api/Entities/' + id).map(function (response) { return response.json() || {}; });
+            return this.http.delete(this.baseUri + 'api/Entities/' + id);
         };
         Entities = __decorate([
             core_1.Injectable(),
@@ -791,7 +791,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Heroes.prototype.delete = function (id) {
-            return this.http.delete(this.baseUri + 'api/Heroes/' + id).map(function (response) { return response.json() || {}; });
+            return this.http.delete(this.baseUri + 'api/Heroes/' + id);
         };
         /**
          * POST api/Heroes?name={name}
@@ -870,7 +870,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Values.prototype.put = function (id, value) {
-            return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) });
         };
         /**
          * DELETE api/Values/{id}
@@ -878,7 +878,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Values.prototype.delete = function (id) {
-            return this.http.delete(this.baseUri + 'api/Values/' + id).map(function (response) { return response.json() || {}; });
+            return this.http.delete(this.baseUri + 'api/Values/' + id);
         };
         Values = __decorate([
             core_1.Injectable(),

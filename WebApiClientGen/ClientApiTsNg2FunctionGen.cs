@@ -18,6 +18,8 @@ namespace Fonlow.CodeDom.Web.Ts
     /// </summary>
     public class ClientApiTsNG2FunctionGen : ClientApiTsFunctionGenBase
     {
+        const string NG2HttpResponse = "Response";
+        string returnTypeText = null;
 
         public ClientApiTsNG2FunctionGen() : base()
         {
@@ -27,7 +29,10 @@ namespace Fonlow.CodeDom.Web.Ts
         protected override CodeMemberMethod CreateMethodName()
         {
             var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
-            var callbackTypeText = $"Observable<{TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference)}>";
+            returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
+            if (returnTypeText == "any" || returnTypeText=="void")
+                returnTypeText = NG2HttpResponse;
+            var callbackTypeText = $"Observable<{returnTypeText}>";
             Debug.WriteLine("callback: " + callbackTypeText);
             var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
 
@@ -56,9 +61,10 @@ namespace Fonlow.CodeDom.Web.Ts
             var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
                 RemoveTrialEmptyString($"this.baseUri + '{jsUriQuery}'");
 
+            var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json() || {})";
             if (httpMethod == "get" || httpMethod == "delete")
             {
-                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).map(response=> response.json() || {{}});"));
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}){mapFunction};"));
                 return;
             }
 
@@ -75,7 +81,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': 'application/json' }}) }}).map(response=>response.json() || {{}});"));
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': 'application/json' }}) }}){mapFunction};"));
                 return;
             }
 

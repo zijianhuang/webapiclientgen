@@ -74,29 +74,32 @@ namespace Fonlow.CodeDom.Web
         /// </summary>
         public string TypeScriptNG2Folder { get; set; }
 
-
+        /// <summary>
+        /// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
+        /// </summary>
+        public string ContentType { get; set; }
     }
 
-    public class CSharpOutput : CodeGenSettingsBase
-    {
-        /// <summary>
-        /// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
-        /// </summary>
-        public string ClientLibraryProjectFolderName { get; set; }
+    //public class CSharpOutput : CodeGenSettingsBase
+    //{
+    //    /// <summary>
+    //    /// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
+    //    /// </summary>
+    //    public string ClientLibraryProjectFolderName { get; set; }
 
-        /// <summary>
-        /// For .NET client, generate both async and sync functions for each Web API function
-        /// </summary>
-        public bool GenerateBothAsyncAndSync { get; set; }
+    //    /// <summary>
+    //    /// For .NET client, generate both async and sync functions for each Web API function
+    //    /// </summary>
+    //    public bool GenerateBothAsyncAndSync { get; set; }
 
 
-        public CSharpOutput(CodeGenSettings settings)
-        {
-            this.ApiSelections = settings.ApiSelections;
-            this.ClientLibraryProjectFolderName = settings.ClientApiOutputs.ClientLibraryProjectFolderName;
-            this.GenerateBothAsyncAndSync = settings.ClientApiOutputs.GenerateBothAsyncAndSync;
-        }
-    }
+    //    public CSharpOutput(CodeGenSettings settings)
+    //    {
+    //        this.ApiSelections = settings.ApiSelections;
+    //        this.ClientLibraryProjectFolderName = settings.ClientApiOutputs.ClientLibraryProjectFolderName;
+    //        this.GenerateBothAsyncAndSync = settings.ClientApiOutputs.GenerateBothAsyncAndSync;
+    //    }
+    //}
 
     public class JSOutput : CodeGenSettingsBase
     {
@@ -111,12 +114,15 @@ namespace Fonlow.CodeDom.Web
 
         public bool AsModule { get; private set; }
 
+        public string ContentType { get; private set; }
+
         public JSOutput(CodeGenSettings settings, string jsPath, bool asModule)
         {
             this.ApiSelections = settings.ApiSelections;
             this.CamelCase = settings.ClientApiOutputs.CamelCase;
             this.JSPath = jsPath;
             this.AsModule = asModule;
+            this.ContentType = settings.ClientApiOutputs.ContentType;
         }
 
     }

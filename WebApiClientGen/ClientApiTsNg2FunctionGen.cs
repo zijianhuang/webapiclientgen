@@ -20,17 +20,18 @@ namespace Fonlow.CodeDom.Web.Ts
     {
         const string NG2HttpResponse = "Response";
         string returnTypeText = null;
+        string contentType;
 
-        public ClientApiTsNG2FunctionGen() : base()
+        public ClientApiTsNG2FunctionGen(string contentType) : base()
         {
-            
+            this.contentType = contentType;
         }
 
         protected override CodeMemberMethod CreateMethodName()
         {
             var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
             returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
-            if (returnTypeText == "any" || returnTypeText=="void")
+            if (returnTypeText == "any" || returnTypeText == "void")
                 returnTypeText = NG2HttpResponse;
             var callbackTypeText = $"Observable<{returnTypeText}>";
             Debug.WriteLine("callback: " + callbackTypeText);
@@ -81,7 +82,13 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': 'application/json' }}) }}){mapFunction};"));
+                if (String.IsNullOrEmpty(contentType))
+                {
+                    contentType = "application/json;charset=UTF-8";
+                }
+
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': '{contentType}' }}) }}){mapFunction};"));
+
                 return;
             }
 

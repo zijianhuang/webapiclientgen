@@ -94,7 +94,7 @@ var DemoWebApi_Controllers_Client;
          * @return {Date}
          */
         SuperDemo.prototype.postNextYear = function (dt) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/SuperDemo/DateTimeOffset
@@ -110,7 +110,7 @@ var DemoWebApi_Controllers_Client;
          * @return {boolean}
          */
         SuperDemo.prototype.postDateTimeOffset = function (d) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/DateTimeOffsetNullable
@@ -118,7 +118,7 @@ var DemoWebApi_Controllers_Client;
          * @return {boolean}
          */
         SuperDemo.prototype.postDateTimeOffsetNullable = function (d) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
@@ -288,7 +288,7 @@ var DemoWebApi_Controllers_Client;
          * @return {boolean}
          */
         SuperDemo.prototype.postInt2D = function (a) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/int2djagged
@@ -296,7 +296,7 @@ var DemoWebApi_Controllers_Client;
          * @return {boolean}
          */
         SuperDemo.prototype.postInt2DJagged = function (a) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/intArray
@@ -304,7 +304,7 @@ var DemoWebApi_Controllers_Client;
          * @return {boolean}
          */
         SuperDemo.prototype.postIntArray = function (a) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/SuperDemo/intArray
@@ -333,7 +333,7 @@ var DemoWebApi_Controllers_Client;
          * @return {any}
          */
         SuperDemo.prototype.postAnonymousObject = function (obj) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) });
+            return this.http.post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
         };
         /**
          * GET api/SuperDemo/StringStringDic
@@ -355,7 +355,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.postDictionary = function (dic) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/SuperDemo/KeyValuePair
@@ -412,7 +412,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.postICollection = function (list) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/IList
@@ -420,7 +420,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.postIList = function (list) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/IReadOnlyList
@@ -428,7 +428,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.postIReadOnlyList = function (list) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/IReadOnlyCollection
@@ -436,7 +436,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.postIReadOnlyCollection = function (list) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/List
@@ -444,7 +444,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.postList = function (list) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/Collection
@@ -452,7 +452,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         SuperDemo.prototype.postCollection = function (list) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/SuperDemo/PostEmpty?s={s}&i={i}
@@ -461,7 +461,7 @@ var DemoWebApi_Controllers_Client;
          * @return {{item1:string, item2:number}}
          */
         SuperDemo.prototype.postWithQueryButEmptyBody = function (s, i) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, JSON.stringify(null), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, JSON.stringify(null), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         SuperDemo = __decorate([
             core_1.Injectable(),
@@ -485,7 +485,7 @@ var DemoWebApi_Controllers_Client;
          * @return {boolean}
          */
         Entities.prototype.linkPerson = function (id, relationship, person) {
-            return this.http.put(this.baseUri + 'api/SuperDemo/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.put(this.baseUri + 'api/SuperDemo/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/SuperDemo/Company?id={id}
@@ -526,7 +526,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         Entities.prototype.createPerson = function (p) {
-            return this.http.post(this.baseUri + 'api/Entities', JSON.stringify(p), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Entities', JSON.stringify(p), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * PUT api/Entities
@@ -534,7 +534,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Entities.prototype.updatePerson = function (person) {
-            return this.http.put(this.baseUri + 'api/Entities', JSON.stringify(person), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) });
+            return this.http.put(this.baseUri + 'api/Entities', JSON.stringify(person), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
         };
         /**
          * DELETE api/Entities/{id}
@@ -564,7 +564,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPersonCompany1 = function (peopleAndCompany) {
-            return this.http.post(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/Tuple/PeopleCompany2
@@ -572,7 +572,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany2 = function (peopleAndCompany) {
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/Tuple/PeopleCompany3
@@ -580,7 +580,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany3 = function (peopleAndCompany) {
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/Tuple/PeopleCompany4
@@ -588,7 +588,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany4 = function (peopleAndCompany) {
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/PeopleCompany4
@@ -603,7 +603,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany5 = function (peopleAndCompany) {
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/PeopleCompany5
@@ -618,7 +618,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany6 = function (peopleAndCompany) {
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/Tuple/PeopleCompany7
@@ -626,7 +626,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany7 = function (peopleAndCompany) {
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * POST api/Tuple/PeopleCompany8
@@ -634,7 +634,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany8 = function (peopleAndCompany) {
-            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/Tuple1
@@ -649,7 +649,7 @@ var DemoWebApi_Controllers_Client;
          * @return {number}
          */
         Tuple.prototype.postTuple1 = function (tuple) {
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/Tuple2
@@ -664,7 +664,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Tuple.prototype.postTuple2 = function (tuple) {
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/Tuple3
@@ -679,7 +679,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Tuple.prototype.postTuple3 = function (tuple) {
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/Tuple4
@@ -694,7 +694,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Tuple.prototype.postTuple4 = function (tuple) {
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/Tuple5
@@ -709,7 +709,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Tuple.prototype.postTuple5 = function (tuple) {
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/Tuple6
@@ -724,7 +724,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Tuple.prototype.postTuple6 = function (tuple) {
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/Tuple7
@@ -739,7 +739,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Tuple.prototype.postTuple7 = function (tuple) {
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Tuple/Tuple8
@@ -754,7 +754,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Tuple.prototype.postTuple8 = function (tuple) {
-            return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         Tuple = __decorate([
             core_1.Injectable(),
@@ -799,7 +799,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_Controllers_Client.Hero}
          */
         Heroes.prototype.post = function (name) {
-            return this.http.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), JSON.stringify(null), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), JSON.stringify(null), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * PUT api/Heroes
@@ -807,7 +807,7 @@ var DemoWebApi_Controllers_Client;
          * @return {DemoWebApi_Controllers_Client.Hero}
          */
         Heroes.prototype.put = function (hero) {
-            return this.http.put(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.put(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * GET api/Heroes?name={name}
@@ -861,7 +861,7 @@ var DemoWebApi_Controllers_Client;
          * @return {string}
          */
         Values.prototype.post = function (value) {
-            return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) }).map(function (response) { return response.json() || {}; });
+            return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json() || {}; });
         };
         /**
          * PUT api/Values/{id}
@@ -870,7 +870,7 @@ var DemoWebApi_Controllers_Client;
          * @return {void}
          */
         Values.prototype.put = function (id, value) {
-            return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: new http_1.Headers({ 'Content-Type': 'application/json' }) });
+            return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
         };
         /**
          * DELETE api/Values/{id}

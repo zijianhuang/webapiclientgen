@@ -31,31 +31,6 @@ namespace IntegrationTests
         }
 
         public DemoWebApi.Controllers.Client.Entities Api { get; private set; }
-
-        System.Net.Http.HttpClient httpClient;
-
-        #region IDisposable pattern
-        bool disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    httpClient.Dispose();
-                }
-
-                disposed = true;
-            }
-        }
-        #endregion
     }
 
 

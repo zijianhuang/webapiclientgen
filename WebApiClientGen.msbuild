@@ -4,7 +4,7 @@
     <Configuration>Release</Configuration>
     <Platform>Any CPU</Platform>
 
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <!--<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>-->
 
 
     <TPath>C:\Program Files (x86)\MSBuild\ExtensionPack\4.0\MSBuild.ExtensionPack.tasks</TPath>
@@ -24,7 +24,7 @@
 
   <Target Name="Build" Outputs="@(CollectedBuildOutput)">
     <MSBuild Projects="@(SolutionFile)" Targets="Rebuild" BuildInParallel="True"
-             Properties="BuildingSolutionFile=true; Configuration=$(Configuration); Platform=$(Platform); TargetFrameworkVersion=$(TargetFrameworkVersion); WarningLevel=3"
+             Properties="BuildingSolutionFile=true; Configuration=$(Configuration); Platform=$(Platform); WarningLevel=3"
              SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)">
       <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput"/>
 

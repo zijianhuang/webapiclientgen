@@ -11,7 +11,7 @@
     <iconUrl>https://webapiclientgen.codeplex.com</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</description>
-    <releaseNotes>Support camelCase for TypeScript codes</releaseNotes>
+    <releaseNotes>Better camelCasing for TypeScript codes</releaseNotes>
     <copyright>Copyright © Fonlow 2015</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</tags>
     <dependencies>

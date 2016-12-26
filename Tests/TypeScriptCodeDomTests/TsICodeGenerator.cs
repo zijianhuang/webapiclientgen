@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using Xunit;
 using Fonlow.TypeScriptCodeDom;
+using Fonlow.Text;
 
 namespace TypeScriptCodeDomTests
 {
@@ -35,6 +36,16 @@ namespace TypeScriptCodeDomTests
             var provider = new TypeScriptCodeProvider();
             Assert.False(provider.Supports(GeneratorSupport.GotoStatements));
             Assert.True(provider.Supports(GeneratorSupport.GenericTypeDeclaration));
+        }
+
+        [Fact]
+        public void TestCamelCase()
+        {
+            Assert.Equal("dob", "DOB".ToCamelCase());
+            Assert.Equal(null, StringExtensions.ToCamelCase(null));
+            Assert.Equal("birthDate", StringExtensions.ToCamelCase("BirthDate"));
+            Assert.Equal("birthDate", StringExtensions.ToCamelCase("birthDate"));
+            Assert.Equal("dbEngine", StringExtensions.ToCamelCase("DBEngine"));
         }
     }
 }

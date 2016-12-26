@@ -92,15 +92,6 @@ namespace Fonlow.Poco2Ts
         }
 
         /// <summary>
-        /// Assuming s is in Pascal case
-        /// </summary>
-        /// <returns></returns>
-        static string SetCamelCase(string s)
-        {
-            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
-        }
-
-        /// <summary>
         /// Create TypeScript CodeDOM for POCO types. 
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
@@ -152,7 +143,7 @@ namespace Fonlow.Poco2Ts
 
 
                             var isRequired = cherryType == CherryType.BigCherry;
-                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( propertyInfo.Name) : propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? Fonlow.Text.StringExtensions.ToCamelCase( propertyInfo.Name) : propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
                             var clientField = new CodeMemberField()
                             {
@@ -173,7 +164,7 @@ namespace Fonlow.Poco2Ts
 
 
                             var isRequired = (cherryType == CherryType.BigCherry) || !type.IsClass;//public fields in struct should all be value types, so required
-                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( fieldInfo.Name): fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? Fonlow.Text.StringExtensions.ToCamelCase( fieldInfo.Name): fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
 
                             var clientField = new CodeMemberField()

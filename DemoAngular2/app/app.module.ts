@@ -44,10 +44,11 @@ import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
             useFactory: (http: Http) => {
                 return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
             },
-            deps: [Http],//this provider has better to be in the same scope with provider of AuthHttp.
+            deps: [Http],
 
         },
     ],
+
     bootstrap: [AppComponent]
 })
 export class AppModule { }

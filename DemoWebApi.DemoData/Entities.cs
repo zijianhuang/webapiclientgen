@@ -158,7 +158,7 @@ namespace DemoWebApi.DemoData
         [DataMember]
         public string GivenName { get; set; }
         [DataMember]
-        public DateTime? BirthDate { get; set; }
+        public DateTime? DOB { get; set; }
 
         public override string ToString()
         {

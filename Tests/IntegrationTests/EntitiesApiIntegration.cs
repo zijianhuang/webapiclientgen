@@ -77,7 +77,7 @@ namespace IntegrationTests
                 Name = "Some One",
                 Surname = "One",
                 GivenName = "Some",
-                BirthDate = DateTime.Now.AddYears(-20),
+                DOB = DateTime.Now.AddYears(-20),
                 Addresses = new Address[]{new Address(){
                     City="Brisbane",
                     State="QLD",
@@ -102,7 +102,7 @@ namespace IntegrationTests
                 Name = null,
                 Surname = "One",
                 GivenName = "Some",
-                BirthDate = DateTime.Now.AddYears(-20),
+                DOB = DateTime.Now.AddYears(-20),
                 Addresses = new Address[]{new Address(){
                     City="Brisbane",
                     State="QLD",
@@ -132,7 +132,7 @@ namespace IntegrationTests
                 Name = "Some One",
                 Surname = "One",
                 GivenName = "Some",
-                BirthDate = DateTime.Now.AddYears(-20),
+                DOB = DateTime.Now.AddYears(-20),
                 Addresses = new Address[]{new Address(){
                     City="Brisbane",
                     State="QLD",
@@ -152,8 +152,8 @@ namespace IntegrationTests
             var person = api.GetPerson(100);
             Assert.NotNull(person);
             Assert.Equal("Huang", person.Surname);
-            Assert.True(person.BirthDate.HasValue);
-            Assert.Equal(DateTime.Now.Year - 20, person.BirthDate.Value.Year);
+            Assert.True(person.DOB.HasValue);
+            Assert.Equal(DateTime.Now.Year - 20, person.DOB.Value.Year);
         }
 
       //  [Fact(Skip ="No need to run everytime")]
@@ -164,7 +164,7 @@ namespace IntegrationTests
                 Name = "Some One",
                 Surname = "One",
                 GivenName = "Some",
-                BirthDate = DateTime.Now.AddYears(-20),
+                DOB = DateTime.Now.AddYears(-20),
                 Addresses = new Address[]{new Address(){
                     City="Brisbane",
                     State="QLD",

@@ -28,7 +28,7 @@ namespace DemoWebApi.Controllers
                 Surname = "Huang",
                 GivenName = "Z",
                 Name = "Z Huang",
-                BirthDate = DateTime.Now.AddYears(-20),
+                DOB = DateTime.Now.AddYears(-20),
             };
         }
 

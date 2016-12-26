@@ -162,20 +162,12 @@ namespace Fonlow.TypeScriptCodeDom
             {
                 var typeName = MapCodeTypeReferenceToTsText(collection[i]);
                 var propertyName = (i < 7) ? "Item" + (i + 1).ToString() : "Rest";
-                ss[i] = (TsCodeGenerationOptions.Instance.CamelCase? SetCamelCase( propertyName) : propertyName) 
+                ss[i] = (TsCodeGenerationOptions.Instance.CamelCase? Fonlow.Text.StringExtensions.ToCamelCase( propertyName) : propertyName) 
                     + ":" + typeName;
             }
             return String.Join(", ", ss);
         }
 
-        /// <summary>
-        /// Assuming s is in Pascal case
-        /// </summary>
-        /// <returns></returns>
-        static string SetCamelCase(string s)
-        {
-            return Char.ToLower(s[0]) + s.Substring(1, s.Length - 1);
-        }
 
     }
 

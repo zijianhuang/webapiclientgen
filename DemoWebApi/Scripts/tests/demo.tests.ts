@@ -75,7 +75,7 @@ QUnit.module("Entities",
                 name: "some body",
                 givenName: "some",
                 surname: "body",
-                birthDate: new Date("1977-08-18"),
+                dob: new Date("1977-08-18"),
                 addresses: [{
                     city: "Brisbane",
                     state: "QLD",
@@ -472,7 +472,7 @@ test("PostDictionaryOfPeople", function (assert) {
         "Iron Man": {
             "surname": "Stark",
             "givenName": "Tony",
-            "birthDate": null,
+            "dob": null,
             "id": "00000000-0000-0000-0000-000000000000",
             "name": "Tony Stark",
             "addresses": []

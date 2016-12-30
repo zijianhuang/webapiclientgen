@@ -8,59 +8,59 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-require('./rxjs-extensions');
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var forms_1 = require('@angular/forms');
-var http_1 = require('@angular/http');
-var app_routing_module_1 = require('./app-routing.module');
-var app_component_1 = require('./app.component');
-var dashboard_component_1 = require('./dashboard.component');
-var heroes_component_1 = require('./heroes.component');
-var hero_detail_component_1 = require('./hero-detail.component');
-var hero_search_component_1 = require('./hero-search.component');
-var model = require('../clientapi/WebApiNG2ClientAuto');
+require("./rxjs-extensions");
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
+var app_routing_module_1 = require("./app-routing.module");
+var app_component_1 = require("./app.component");
+var dashboard_component_1 = require("./dashboard.component");
+var heroes_component_1 = require("./heroes.component");
+var hero_detail_component_1 = require("./hero-detail.component");
+var hero_search_component_1 = require("./hero-search.component");
+var model = require("../clientapi/WebApiNG2ClientAuto");
 var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var AppModule = (function () {
     function AppModule() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                platform_browser_1.BrowserModule,
-                forms_1.FormsModule,
-                http_1.HttpModule,
-                //   InMemoryWebApiModule.forRoot(InMemoryDataService),
-                app_routing_module_1.AppRoutingModule
-            ],
-            declarations: [
-                app_component_1.AppComponent,
-                dashboard_component_1.DashboardComponent,
-                hero_detail_component_1.HeroDetailComponent,
-                heroes_component_1.HeroesComponent,
-                hero_search_component_1.HeroSearchComponent
-            ],
-            providers: [
-                {
-                    provide: http_1.Http,
-                    useFactory: function (backend, options) {
-                        return new http_1.Http(backend, options);
-                    },
-                    deps: [http_1.XHRBackend, http_1.RequestOptions]
-                },
-                {
-                    provide: DemoWebApi_Controllers_Client.Heroes,
-                    useFactory: function (http) {
-                        return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
-                    },
-                    deps: [http_1.Http],
-                },
-            ],
-            bootstrap: [app_component_1.AppComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
     return AppModule;
 }());
+AppModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            http_1.HttpModule,
+            //   InMemoryWebApiModule.forRoot(InMemoryDataService),
+            app_routing_module_1.AppRoutingModule
+        ],
+        declarations: [
+            app_component_1.AppComponent,
+            dashboard_component_1.DashboardComponent,
+            hero_detail_component_1.HeroDetailComponent,
+            heroes_component_1.HeroesComponent,
+            hero_search_component_1.HeroSearchComponent
+        ],
+        providers: [
+            {
+                provide: http_1.Http,
+                useFactory: function (backend, options) {
+                    return new http_1.Http(backend, options);
+                },
+                deps: [http_1.XHRBackend, http_1.RequestOptions]
+            },
+            {
+                provide: DemoWebApi_Controllers_Client.Heroes,
+                useFactory: function (http) {
+                    return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
+                },
+                deps: [http_1.Http],
+            },
+        ],
+        bootstrap: [app_component_1.AppComponent]
+    }),
+    __metadata("design:paramtypes", [])
+], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

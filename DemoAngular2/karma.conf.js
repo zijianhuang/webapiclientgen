@@ -28,7 +28,7 @@ module.exports = function(config) {
 
       // paths to support debugging with source maps in dev tools
       { pattern: 'temp/**/*.js.map', included: false, watched: false },
-      'app/my-tests.spec.js'
+      'app/tests/clientApi.spec.js'
     ],
 
     preprocessors: {'temp/**/*.js': ['sourcemap']},

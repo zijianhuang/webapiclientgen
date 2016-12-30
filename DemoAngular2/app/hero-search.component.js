@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var Observable_1 = require('rxjs/Observable');
-var Subject_1 = require('rxjs/Subject');
-var model = require('../clientapi/WebApiNG2ClientAuto');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var Observable_1 = require("rxjs/Observable");
+var Subject_1 = require("rxjs/Subject");
+var model = require("../clientapi/WebApiNG2ClientAuto");
 var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var HeroSearchComponent = (function () {
     function HeroSearchComponent(heroSearchService, router) {
@@ -42,16 +42,16 @@ var HeroSearchComponent = (function () {
         var link = ['/detail', hero.id];
         this.router.navigate(link);
     };
-    HeroSearchComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'hero-search',
-            templateUrl: 'hero-search.component.html',
-            styleUrls: ['hero-search.component.css'],
-        }), 
-        __metadata('design:paramtypes', [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
-    ], HeroSearchComponent);
     return HeroSearchComponent;
 }());
+HeroSearchComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'hero-search',
+        templateUrl: 'hero-search.component.html',
+        styleUrls: ['hero-search.component.css'],
+    }),
+    __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
+], HeroSearchComponent);
 exports.HeroSearchComponent = HeroSearchComponent;
 //# sourceMappingURL=hero-search.component.js.map

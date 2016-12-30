@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/catch');
-var model = require('../clientapi/WebApiNG2ClientAuto');
+var core_1 = require("@angular/core");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
+var model = require("../clientapi/WebApiNG2ClientAuto");
 var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 var DashboardComponent = (function () {
     function DashboardComponent(heroService) {
@@ -23,16 +23,16 @@ var DashboardComponent = (function () {
         this.heroService.get()
             .subscribe(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
     };
-    DashboardComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-dashboard',
-            templateUrl: 'dashboard.component.html',
-            styleUrls: ['dashboard.component.css']
-        }), 
-        __metadata('design:paramtypes', [DemoWebApi_Controllers_Client.Heroes])
-    ], DashboardComponent);
     return DashboardComponent;
 }());
+DashboardComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'my-dashboard',
+        templateUrl: 'dashboard.component.html',
+        styleUrls: ['dashboard.component.css']
+    }),
+    __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes])
+], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map

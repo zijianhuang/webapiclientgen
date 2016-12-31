@@ -16,7 +16,8 @@
     "compileOnSave": true,
 
     "include": [
-        "app/*"
+        "app/*",
+        "app/tests/*"
     ],
 
     "exclude": [

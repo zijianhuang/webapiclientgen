@@ -55,6 +55,7 @@
     <Content Include="Content\jasmine\jasmine.css" />
     <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="browser-test-shim.js" />
+    <Content Include="karma-test-shim.js" />
     <Content Include="karma.conf.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\console.js" />
@@ -79,6 +80,7 @@
     <TypeScriptCompile Include="app\hero-detail.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\rxjs-extensions.ts" />
+    <TypeScriptCompile Include="app\tests\1st.spec.ts" />
     <TypeScriptCompile Include="app\tests\clientApi.spec.ts" />
     <TypeScriptCompile Include="clientapi\WebApiNG2ClientAuto.ts" />
   </ItemGroup>

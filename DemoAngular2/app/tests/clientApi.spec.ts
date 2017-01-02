@@ -9,31 +9,6 @@ import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 
 describe('heroes tests', () => {
     let clientApi: DemoWebApi_Controllers_Client.Heroes;
-    //beforeAll(() => { this does not work, and I have to put the content to beforeEach.
-    //    console.debug("beforeAll() running...");
-    //    TestBed.configureTestingModule({
-    //        imports: [HttpModule],
-    //        providers: [
-    //            {
-    //                provide: Http,
-    //                useFactory: (backend: XHRBackend, options: RequestOptions) => {
-    //                    return new Http(backend, options);
-    //                },
-    //                deps: [XHRBackend, RequestOptions]
-    //            },
-
-    //            {
-    //                provide: DemoWebApi_Controllers_Client.Heroes,
-    //                useFactory: (http: Http) => {
-    //                    return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
-    //                },
-    //                deps: [Http],
-
-    //            },
-    //        ]
-    //    });
-    //});
-
 
     beforeAll(() => {
         TestBed.configureTestingModule({
@@ -62,7 +37,6 @@ describe('heroes tests', () => {
     });
 
     beforeAll(inject([DemoWebApi_Controllers_Client.Heroes], (userService: DemoWebApi_Controllers_Client.Heroes) => {
-        console.debug('before Each running');
         clientApi = userService;
     }));
 
@@ -99,3 +73,64 @@ describe('heroes tests', () => {
     });
 
 });
+
+
+describe('superDemo tests', () => {
+    let clientApi: DemoWebApi_Controllers_Client.SuperDemo;
+
+    beforeAll(() => {
+        TestBed.configureTestingModule({
+            imports: [HttpModule],
+            providers: [
+                {
+                    provide: Http,
+                    useFactory: (backend: XHRBackend, options: RequestOptions) => {
+                        console.debug("Http service created.");
+                        return new Http(backend, options);
+                    },
+                    deps: [XHRBackend, RequestOptions]
+                },
+
+                {
+                    provide: DemoWebApi_Controllers_Client.SuperDemo,
+                    useFactory: (http: Http) => {
+                        console.debug('SuperDemo service created.');
+                        return new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/", http);
+                    },
+                    deps: [Http],
+
+                },
+            ]
+        });
+    });
+
+    beforeAll(inject([DemoWebApi_Controllers_Client.SuperDemo], (userService: DemoWebApi_Controllers_Client.SuperDemo) => {
+        clientApi = userService;
+    }));
+
+
+    it('JsZeroNotGoodWithFloat', (done) => {
+        clientApi.getFloatZero()
+            .subscribe(data => {
+                expect(data).not.toEqual(0)
+                done();
+            }
+            );
+
+    }
+    );
+
+    it('JsZeroNotGoodWithDouble', (done) => {
+        clientApi.getDoubleZero()
+            .subscribe(data => {
+                expect(data).not.toEqual(0)
+                done();
+            }
+            );
+
+    }
+    );
+
+});
+
+

@@ -6,28 +6,6 @@ var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 //"npm test" has to be terminated through ctrl+C since Jasmine test won't quit by itself, as of v1.3, as documented in many threads like http://stackoverflow.com/questions/35203680/karma-singlerun-not-quitting-automatically
 describe('heroes tests', function () {
     var clientApi;
-    //beforeAll(() => { this does not work, and I have to put the content to beforeEach.
-    //    console.debug("beforeAll() running...");
-    //    TestBed.configureTestingModule({
-    //        imports: [HttpModule],
-    //        providers: [
-    //            {
-    //                provide: Http,
-    //                useFactory: (backend: XHRBackend, options: RequestOptions) => {
-    //                    return new Http(backend, options);
-    //                },
-    //                deps: [XHRBackend, RequestOptions]
-    //            },
-    //            {
-    //                provide: DemoWebApi_Controllers_Client.Heroes,
-    //                useFactory: (http: Http) => {
-    //                    return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
-    //                },
-    //                deps: [Http],
-    //            },
-    //        ]
-    //    });
-    //});
     beforeAll(function () {
         testing_1.TestBed.configureTestingModule({
             imports: [http_1.HttpModule],
@@ -52,7 +30,6 @@ describe('heroes tests', function () {
         });
     });
     beforeAll(testing_1.inject([DemoWebApi_Controllers_Client.Heroes], function (userService) {
-        console.debug('before Each running');
         clientApi = userService;
     }));
     it('Heroes getAll', function (done) {
@@ -75,6 +52,49 @@ describe('heroes tests', function () {
         clientApi.post(n)
             .subscribe(function (data) {
             expect(data.name).toEqual(n);
+            done();
+        });
+    });
+});
+describe('superDemo tests', function () {
+    var clientApi;
+    beforeAll(function () {
+        testing_1.TestBed.configureTestingModule({
+            imports: [http_1.HttpModule],
+            providers: [
+                {
+                    provide: http_1.Http,
+                    useFactory: function (backend, options) {
+                        console.debug("Http service created.");
+                        return new http_1.Http(backend, options);
+                    },
+                    deps: [http_1.XHRBackend, http_1.RequestOptions]
+                },
+                {
+                    provide: DemoWebApi_Controllers_Client.SuperDemo,
+                    useFactory: function (http) {
+                        console.debug('SuperDemo service created.');
+                        return new DemoWebApi_Controllers_Client.SuperDemo("http://localhost:10965/", http);
+                    },
+                    deps: [http_1.Http],
+                },
+            ]
+        });
+    });
+    beforeAll(testing_1.inject([DemoWebApi_Controllers_Client.SuperDemo], function (userService) {
+        clientApi = userService;
+    }));
+    it('JsZeroNotGoodWithFloat', function (done) {
+        clientApi.getFloatZero()
+            .subscribe(function (data) {
+            expect(data).not.toEqual(0);
+            done();
+        });
+    });
+    it('JsZeroNotGoodWithDouble', function (done) {
+        clientApi.getDoubleZero()
+            .subscribe(function (data) {
+            expect(data).not.toEqual(0);
             done();
         });
     });

@@ -5,9 +5,11 @@ import { inject, TestBed } from '@angular/core/testing';
 import * as model from '../../clientapi/WebApiNG2ClientAuto';
 import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
 
-describe('clientApi tests', () => {
-    let valuesApi: DemoWebApi_Controllers_Client.Values;
-    //beforeAll(() => {
+//"npm test" has to be terminated through ctrl+C since Jasmine test won't quit by itself, as of v1.3, as documented in many threads like http://stackoverflow.com/questions/35203680/karma-singlerun-not-quitting-automatically
+
+describe('heroes tests', () => {
+    let clientApi: DemoWebApi_Controllers_Client.Heroes;
+    //beforeAll(() => { this does not work, and I have to put the content to beforeEach.
     //    console.debug("beforeAll() running...");
     //    TestBed.configureTestingModule({
     //        imports: [HttpModule],
@@ -21,9 +23,9 @@ describe('clientApi tests', () => {
     //            },
 
     //            {
-    //                provide: DemoWebApi_Controllers_Client.Values,
+    //                provide: DemoWebApi_Controllers_Client.Heroes,
     //                useFactory: (http: Http) => {
-    //                    return new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", http);
+    //                    return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
     //                },
     //                deps: [Http],
 
@@ -34,6 +36,7 @@ describe('clientApi tests', () => {
 
 
     beforeEach(() => {
+        console.debug("before Each for setting up providers.");
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
@@ -47,10 +50,10 @@ describe('clientApi tests', () => {
                 },
 
                 {
-                    provide: DemoWebApi_Controllers_Client.Values,
+                    provide: DemoWebApi_Controllers_Client.Heroes,
                     useFactory: (http: Http) => {
-                        console.debug('Values created.');
-                        return new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", http);
+                        console.debug('Heroes created.');
+                        return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
                     },
                     deps: [Http],
 
@@ -59,29 +62,41 @@ describe('clientApi tests', () => {
         });
     });
 
-    beforeEach(inject([DemoWebApi_Controllers_Client.Values], (userService: DemoWebApi_Controllers_Client.Values) => {
+    beforeEach(inject([DemoWebApi_Controllers_Client.Heroes], (userService: DemoWebApi_Controllers_Client.Heroes) => {
         console.debug('before Each running');
-        valuesApi = userService;
+        clientApi = userService;
     }));
 
 
     it('true is true', () => expect(true).toBe(true));
 
-    it('Values get',(done) => {
-        expect(true).toBe(true);
-        valuesApi.get()
+    it('Heroes getAll', (done) => {
+        clientApi.get()
             .subscribe(data => {
                 expect(data.length).toBeGreaterThan(1);
                 done();
-                console.debug("Values call done.");
-            },
-            error => {
-                console.warn(error);
+                console.debug("Heroes getAll done.");
             }
+
 
             );
 
     }
     );
+
+    it('get', (done) => {
+        clientApi.getById(20)
+            .subscribe(data => {
+                expect(data.name).toEqual('Tornado');
+                done();
+            });
+    });
+
+    it('add', (done) => {
+        clientApi.post('somebody')
+            .subscribe(data => {
+                expect(data.name).toEqual('somebody');
+            });
+    });
 
 });

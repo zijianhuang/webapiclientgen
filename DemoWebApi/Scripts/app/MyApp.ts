@@ -30,7 +30,7 @@ namespace MyApp {
                 name: "some body",
                 givenName: "some",
                 surname: "body",
-                birthDate: new Date("1977-08-18"),
+                dob: new Date("1977-08-18"),
                 addresses: [{
                     city: "Brisbane",
                     state: "QLD",

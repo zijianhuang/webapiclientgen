@@ -65,9 +65,7 @@ module.exports = function (config) {
           { pattern: appBase + '**/*.js.map', included: false, watched: false },
 
 
-          {pattern : 'clientapi/*.js', included : false},
-
-         // 'clientapi/WebApiNG2ClientAuto.js',
+          {pattern : 'clientapi/*.js', included : false}, //without this, there will be 404. And included should be false. As of current version of Karma, the framework is not smart enough to locate dependencies referenced in app codes.
 
         ],
 
@@ -92,11 +90,11 @@ module.exports = function (config) {
             subPageTitle: __dirname
         },
 
-        port: 9876,
+        port: 3033,
         colors: true,
         logLevel: config.LOG_INFO,
-        autoWatch: true,
+        autoWatch: false,
         browsers: ['Chrome'],
-        singleRun: false
+        singleRun: true
     })
 }

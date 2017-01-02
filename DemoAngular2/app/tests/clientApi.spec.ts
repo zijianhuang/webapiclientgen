@@ -35,15 +35,14 @@ describe('heroes tests', () => {
     //});
 
 
-    beforeEach(() => {
-        console.debug("before Each for setting up providers.");
+    beforeAll(() => {
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
                 {
                     provide: Http,
                     useFactory: (backend: XHRBackend, options: RequestOptions) => {
-                        console.debug("Http Created.");
+                        console.debug("Http service created.");
                         return new Http(backend, options);
                     },
                     deps: [XHRBackend, RequestOptions]
@@ -52,7 +51,7 @@ describe('heroes tests', () => {
                 {
                     provide: DemoWebApi_Controllers_Client.Heroes,
                     useFactory: (http: Http) => {
-                        console.debug('Heroes created.');
+                        console.debug('Heroes service created.');
                         return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
                     },
                     deps: [Http],
@@ -62,13 +61,11 @@ describe('heroes tests', () => {
         });
     });
 
-    beforeEach(inject([DemoWebApi_Controllers_Client.Heroes], (userService: DemoWebApi_Controllers_Client.Heroes) => {
+    beforeAll(inject([DemoWebApi_Controllers_Client.Heroes], (userService: DemoWebApi_Controllers_Client.Heroes) => {
         console.debug('before Each running');
         clientApi = userService;
     }));
 
-
-    it('true is true', () => expect(true).toBe(true));
 
     it('Heroes getAll', (done) => {
         clientApi.get()
@@ -93,9 +90,11 @@ describe('heroes tests', () => {
     });
 
     it('add', (done) => {
-        clientApi.post('somebody')
+        let n = 'somebody' + Date.now().toLocaleString();
+        clientApi.post(n)
             .subscribe(data => {
-                expect(data.name).toEqual('somebody');
+                expect(data.name).toEqual(n);
+                done();
             });
     });
 

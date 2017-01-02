@@ -28,15 +28,14 @@ describe('heroes tests', function () {
     //        ]
     //    });
     //});
-    beforeEach(function () {
-        console.debug("before Each for setting up providers.");
+    beforeAll(function () {
         testing_1.TestBed.configureTestingModule({
             imports: [http_1.HttpModule],
             providers: [
                 {
                     provide: http_1.Http,
                     useFactory: function (backend, options) {
-                        console.debug("Http Created.");
+                        console.debug("Http service created.");
                         return new http_1.Http(backend, options);
                     },
                     deps: [http_1.XHRBackend, http_1.RequestOptions]
@@ -44,7 +43,7 @@ describe('heroes tests', function () {
                 {
                     provide: DemoWebApi_Controllers_Client.Heroes,
                     useFactory: function (http) {
-                        console.debug('Heroes created.');
+                        console.debug('Heroes service created.');
                         return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
                     },
                     deps: [http_1.Http],
@@ -52,11 +51,10 @@ describe('heroes tests', function () {
             ]
         });
     });
-    beforeEach(testing_1.inject([DemoWebApi_Controllers_Client.Heroes], function (userService) {
+    beforeAll(testing_1.inject([DemoWebApi_Controllers_Client.Heroes], function (userService) {
         console.debug('before Each running');
         clientApi = userService;
     }));
-    it('true is true', function () { return expect(true).toBe(true); });
     it('Heroes getAll', function (done) {
         clientApi.get()
             .subscribe(function (data) {
@@ -73,9 +71,11 @@ describe('heroes tests', function () {
         });
     });
     it('add', function (done) {
-        clientApi.post('somebody')
+        var n = 'somebody' + Date.now().toLocaleString();
+        clientApi.post(n)
             .subscribe(function (data) {
-            expect(data.name).toEqual('somebody');
+            expect(data.name).toEqual(n);
+            done();
         });
     });
 });

@@ -64,6 +64,11 @@ module.exports = function (config) {
           { pattern: appSrcBase + '**/*.ts', included: false, watched: false },
           { pattern: appBase + '**/*.js.map', included: false, watched: false },
 
+
+          {pattern : 'clientapi/*.js', included : false},
+
+         // 'clientapi/WebApiNG2ClientAuto.js',
+
         ],
 
         // Proxied base paths for loading assets
@@ -75,7 +80,7 @@ module.exports = function (config) {
         exclude: [],
         preprocessors: {},
         // disabled HtmlReporter; suddenly crashing w/ strange socket error
-        reporters: ['progress', 'html'],//'html'],
+        reporters: ['progress'],//'html'],
 
         // HtmlReporter configuration
         htmlReporter: {

@@ -20,9 +20,10 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             TargetUnit.ReferencedAssemblies.Add("import { Injectable, Inject } from '@angular/core';");
             TargetUnit.ReferencedAssemblies.Add("import { Http, Headers, Response } from '@angular/http';");
+            TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs/Observable';");
             TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/map';");
             TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/catch';");
-            TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs/Observable';");
+            TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/observable/throw';");
         }
 
 

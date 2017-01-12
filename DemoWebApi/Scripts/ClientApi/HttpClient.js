@@ -124,4 +124,3 @@ var AuthHttpClient = (function () {
     AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return AuthHttpClient;
 }());
-//# sourceMappingURL=HttpClient.js.map

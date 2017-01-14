@@ -507,6 +507,50 @@
             The submitter.
             </value>
         </member>
+        <member name="T:DemoWebApi.Controllers.HeroesController">
+            <summary>
+            Heroes operations
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Get">
+            <summary>
+            Get all heroes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Get(System.Int64)">
+            <summary>
+            Get a hero.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Post(System.String)">
+            <summary>
+            Add a hero
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Put(DemoWebApi.Controllers.Hero)">
+            <summary>
+            Update hero.
+            </summary>
+            <param name="hero"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Search(System.String)">
+            <summary>
+            Search heroes
+            </summary>
+            <param name="name">keyword contained in hero name.</param>
+            <returns>Hero array matching the keyword.</returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.Hero">
+            <summary>
+            Complex hero type
+            </summary>
+        </member>
         <member name="T:DemoWebApi.Controllers.SuperDemoController">
             <summary>
             For testing different commbinations of parameters and returns

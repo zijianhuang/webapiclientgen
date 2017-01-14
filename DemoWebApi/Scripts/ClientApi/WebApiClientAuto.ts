@@ -866,6 +866,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Get all heroes.
          * GET api/Heroes
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
          */
@@ -874,6 +875,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Get a hero.
          * GET api/Heroes/{id}
          * @param {number} id 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -892,6 +894,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Add a hero
          * POST api/Heroes?name={name}
          * @param {string} name 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -901,6 +904,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Update hero.
          * PUT api/Heroes
          * @param {DemoWebApi_Controllers_Client.Hero} hero 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -910,9 +914,10 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Search heroes
          * GET api/Heroes?name={name}
-         * @param {string} name 
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         * @param {string} name keyword contained in hero name.
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name: string, callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any){
             this.httpClient.get(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), callback, this.error, this.statusCode);

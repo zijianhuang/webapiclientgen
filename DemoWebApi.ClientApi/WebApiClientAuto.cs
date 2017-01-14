@@ -4038,7 +4038,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Get all heroes.
         /// GET api/Heroes
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero[]> GetAsync()
@@ -4055,7 +4055,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Get all heroes.
         /// GET api/Heroes
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero[] Get()
@@ -4072,7 +4072,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Get a hero.
         /// GET api/Heroes/{id}
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> GetAsync(long id)
@@ -4089,7 +4089,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Get a hero.
         /// GET api/Heroes/{id}
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Get(long id)
@@ -4128,7 +4128,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Add a hero
         /// POST api/Heroes?name={name}
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
@@ -4145,7 +4145,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Add a hero
         /// POST api/Heroes?name={name}
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Post(string name)
@@ -4162,7 +4162,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Update hero.
         /// PUT api/Heroes
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> PutAsync(DemoWebApi.Controllers.Client.Hero hero)
@@ -4185,7 +4185,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Update hero.
         /// PUT api/Heroes
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Put(DemoWebApi.Controllers.Client.Hero hero)
@@ -4208,9 +4208,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Search heroes
         /// GET api/Heroes?name={name}
         /// </summary>
+        /// <param name="name">keyword contained in hero name.</param>
+        /// <returns>Hero array matching the keyword.</returns>
         public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));
@@ -4225,9 +4227,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
+        /// Search heroes
         /// GET api/Heroes?name={name}
         /// </summary>
+        /// <param name="name">keyword contained in hero name.</param>
+        /// <returns>Hero array matching the keyword.</returns>
         public DemoWebApi.Controllers.Client.Hero[] Search(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));

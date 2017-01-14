@@ -7,14 +7,26 @@ using System.Collections.Concurrent;
 
 namespace DemoWebApi.Controllers
 {
+    /// <summary>
+    /// Heroes operations
+    /// </summary>
     [RoutePrefix("api/Heroes")]
     public class HeroesController : ApiController
     {
+        /// <summary>
+        /// Get all heroes.
+        /// </summary>
+        /// <returns></returns>
         public Hero[] Get()
         {
             return HeroesData.Instance.Dic.Values.ToArray();
         }
 
+        /// <summary>
+        /// Get a hero.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Hero Get(long id)
         {
             Hero r;
@@ -28,6 +40,11 @@ namespace DemoWebApi.Controllers
             HeroesData.Instance.Dic.TryRemove(id, out r);
         }
 
+        /// <summary>
+        /// Add a hero
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public Hero Post(string name)
         {
             var max = HeroesData.Instance.Dic.Keys.Max();
@@ -36,12 +53,22 @@ namespace DemoWebApi.Controllers
             return hero;
         }
 
+        /// <summary>
+        /// Update hero.
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <returns></returns>
         public Hero Put(Hero hero)
         {
             HeroesData.Instance.Dic[hero.Id] = hero;
             return hero;
         }
 
+        /// <summary>
+        /// Search heroes
+        /// </summary>
+        /// <param name="name">keyword contained in hero name.</param>
+        /// <returns>Hero array matching the keyword.</returns>
         [HttpGet]
         public Hero[] Search(string name)
         {
@@ -50,7 +77,9 @@ namespace DemoWebApi.Controllers
           
     }
 
-
+    /// <summary>
+    /// Complex hero type
+    /// </summary>
     [DataContract(Namespace = DemoWebApi.DemoData.Constants.DataNamespace)]
     public class Hero
     {

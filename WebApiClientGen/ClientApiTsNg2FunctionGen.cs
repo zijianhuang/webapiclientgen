@@ -62,7 +62,7 @@ namespace Fonlow.CodeDom.Web.Ts
             var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
                 RemoveTrialEmptyString($"this.baseUri + '{jsUriQuery}'");
 
-            var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json() || {})";
+            var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
             if (httpMethod == "get" || httpMethod == "delete")
             {
                 Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}){mapFunction};"));

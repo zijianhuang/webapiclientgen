@@ -2,8 +2,8 @@
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { inject, TestBed } from '@angular/core/testing';
 
-import * as model from '../../clientapi/WebApiNG2ClientAuto';
-import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
+import * as namespaces from '../../clientapi/WebApiNG2ClientAuto';
+import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 //"npm test" has to be terminated through ctrl+C since Jasmine test won't quit by itself, as of v1.3, as documented in many threads like http://stackoverflow.com/questions/35203680/karma-singlerun-not-quitting-automatically
 

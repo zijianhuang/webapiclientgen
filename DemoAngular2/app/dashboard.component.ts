@@ -4,8 +4,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
 
-import * as model from '../clientapi/WebApiNG2ClientAuto';
-import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
+import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
+import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 @Component({
     moduleId: module.id,

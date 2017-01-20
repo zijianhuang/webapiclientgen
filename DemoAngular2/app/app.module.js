@@ -19,8 +19,8 @@ var dashboard_component_1 = require('./dashboard.component');
 var heroes_component_1 = require('./heroes.component');
 var hero_detail_component_1 = require('./hero-detail.component');
 var hero_search_component_1 = require('./hero-search.component');
-var model = require('../clientapi/WebApiNG2ClientAuto');
-var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
+var namespaces = require('../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 var AppModule = (function () {
     function AppModule() {
     }

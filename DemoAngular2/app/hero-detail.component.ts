@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import * as model from '../clientapi/WebApiNG2ClientAuto';
-import DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
+import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
+import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 @Component({
     moduleId: module.id,
     selector: 'my-hero-detail',

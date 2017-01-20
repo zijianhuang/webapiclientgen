@@ -1,8 +1,8 @@
 "use strict";
 var http_1 = require('@angular/http');
 var testing_1 = require('@angular/core/testing');
-var model = require('../../clientapi/WebApiNG2ClientAuto');
-var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
+var namespaces = require('../../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 //"npm test" has to be terminated through ctrl+C since Jasmine test won't quit by itself, as of v1.3, as documented in many threads like http://stackoverflow.com/questions/35203680/karma-singlerun-not-quitting-automatically
 describe('heroes tests', function () {
     var clientApi;

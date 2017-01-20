@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var model = require('../clientapi/WebApiNG2ClientAuto');
-var DemoWebApi_Controllers_Client = model.DemoWebApi_Controllers_Client;
+var namespaces = require('../clientapi/WebApiNG2ClientAuto');
+var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 var HeroesComponent = (function () {
     function HeroesComponent(heroService, router) {
         this.heroService = heroService;

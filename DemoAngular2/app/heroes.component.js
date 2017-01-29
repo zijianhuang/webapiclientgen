@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var namespaces = require('../clientapi/WebApiNG2ClientAuto');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var namespaces = require("../clientapi/WebApiNG2ClientAuto");
 var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 var HeroesComponent = (function () {
     function HeroesComponent(heroService, router) {
@@ -55,16 +55,16 @@ var HeroesComponent = (function () {
     HeroesComponent.prototype.gotoDetail = function () {
         this.router.navigate(['/detail', this.selectedHero.id]);
     };
-    HeroesComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-heroes',
-            templateUrl: 'heroes.component.html',
-            styleUrls: ['heroes.component.css']
-        }), 
-        __metadata('design:paramtypes', [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
-    ], HeroesComponent);
     return HeroesComponent;
 }());
+HeroesComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'my-heroes',
+        templateUrl: 'heroes.component.html',
+        styleUrls: ['heroes.component.css']
+    }),
+    __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
+], HeroesComponent);
 exports.HeroesComponent = HeroesComponent;
 //# sourceMappingURL=heroes.component.js.map

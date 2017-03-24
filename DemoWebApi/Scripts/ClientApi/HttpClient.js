@@ -13,7 +13,7 @@ var HttpClient = (function () {
     HttpClient.prototype.put = function (url, dataToSave, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback);
     };
-    HttpClient.prototype.delete = function (url, callback, errorCalback, statusCodeCallback) {
+    HttpClient.prototype["delete"] = function (url, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback);
     };
     HttpClient.prototype.executeAjax = function (url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback) {
@@ -38,12 +38,12 @@ var HttpClient = (function () {
             }
         });
     };
-    /**
-      location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
-    **/
-    HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return HttpClient;
 }());
+/**
+  location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
+**/
+HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
 var AuthHttpClient = (function () {
     function AuthHttpClient() {
     }
@@ -58,7 +58,7 @@ var AuthHttpClient = (function () {
     AuthHttpClient.prototype.put = function (url, dataToSave, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback);
     };
-    AuthHttpClient.prototype.delete = function (url, callback, errorCalback, statusCodeCallback) {
+    AuthHttpClient.prototype["delete"] = function (url, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback);
     };
     AuthHttpClient.prototype.executeAjax = function (url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback) {
@@ -118,9 +118,9 @@ var AuthHttpClient = (function () {
             }
         });
     };
-    /**
-      location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
-    **/
-    AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return AuthHttpClient;
 }());
+/**
+  location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
+**/
+AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';

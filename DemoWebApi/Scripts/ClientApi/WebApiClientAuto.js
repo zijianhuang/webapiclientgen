@@ -2,11 +2,12 @@
 ///<reference path="HttpClient.ts" />
 var DemoWebApi_DemoData_Client;
 (function (DemoWebApi_DemoData_Client) {
+    var AddressType;
     (function (AddressType) {
         AddressType[AddressType["Postal"] = 0] = "Postal";
         AddressType[AddressType["Residential"] = 1] = "Residential";
-    })(DemoWebApi_DemoData_Client.AddressType || (DemoWebApi_DemoData_Client.AddressType = {}));
-    var AddressType = DemoWebApi_DemoData_Client.AddressType;
+    })(AddressType = DemoWebApi_DemoData_Client.AddressType || (DemoWebApi_DemoData_Client.AddressType = {}));
+    var Days;
     (function (Days) {
         Days[Days["Sat"] = 1] = "Sat";
         Days[Days["Sun"] = 2] = "Sun";
@@ -15,15 +16,14 @@ var DemoWebApi_DemoData_Client;
         Days[Days["Wed"] = 5] = "Wed";
         Days[Days["Thu"] = 6] = "Thu";
         Days[Days["Fri"] = 7] = "Fri";
-    })(DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
-    var Days = DemoWebApi_DemoData_Client.Days;
+    })(Days = DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
+    var PhoneType;
     (function (PhoneType) {
         PhoneType[PhoneType["Tel"] = 0] = "Tel";
         PhoneType[PhoneType["Mobile"] = 1] = "Mobile";
         PhoneType[PhoneType["Skype"] = 2] = "Skype";
         PhoneType[PhoneType["Fax"] = 3] = "Fax";
-    })(DemoWebApi_DemoData_Client.PhoneType || (DemoWebApi_DemoData_Client.PhoneType = {}));
-    var PhoneType = DemoWebApi_DemoData_Client.PhoneType;
+    })(PhoneType = DemoWebApi_DemoData_Client.PhoneType || (DemoWebApi_DemoData_Client.PhoneType = {}));
 })(DemoWebApi_DemoData_Client || (DemoWebApi_DemoData_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
@@ -527,8 +527,8 @@ var DemoWebApi_Controllers_Client;
          * @param {number} id
          * @return {void}
          */
-        Entities.prototype.delete = function (id, callback) {
-            this.httpClient.delete(this.baseUri + 'api/Entities/' + id, callback, this.error, this.statusCode);
+        Entities.prototype["delete"] = function (id, callback) {
+            this.httpClient["delete"](this.baseUri + 'api/Entities/' + id, callback, this.error, this.statusCode);
         };
         return Entities;
     }());
@@ -774,8 +774,8 @@ var DemoWebApi_Controllers_Client;
          * @param {number} id
          * @return {void}
          */
-        Heroes.prototype.delete = function (id, callback) {
-            this.httpClient.delete(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
+        Heroes.prototype["delete"] = function (id, callback) {
+            this.httpClient["delete"](this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
         };
         /**
          * Add a hero
@@ -862,8 +862,8 @@ var DemoWebApi_Controllers_Client;
          * @param {number} id
          * @return {void}
          */
-        Values.prototype.delete = function (id, callback) {
-            this.httpClient.delete(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode);
+        Values.prototype["delete"] = function (id, callback) {
+            this.httpClient["delete"](this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode);
         };
         return Values;
     }());

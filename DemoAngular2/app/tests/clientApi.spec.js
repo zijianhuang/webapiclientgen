@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = require("@angular/http");
 var testing_1 = require("@angular/core/testing");
 var namespaces = require("../../clientapi/WebApiNG2ClientAuto");

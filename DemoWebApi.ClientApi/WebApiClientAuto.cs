@@ -8,6 +8,74 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace DemoWebApi.Controllers.Client
+{
+    
+    
+    public class FileResult : object
+    {
+        
+        private string[] _FileNames;
+        
+        private string _Submitter;
+        
+        public string[] FileNames
+        {
+            get
+            {
+                return _FileNames;
+            }
+            set
+            {
+                _FileNames = value;
+            }
+        }
+        
+        public string Submitter
+        {
+            get
+            {
+                return _Submitter;
+            }
+            set
+            {
+                _Submitter = value;
+            }
+        }
+    }
+    
+    public class Hero : object
+    {
+        
+        private long _Id;
+        
+        private string _Name;
+        
+        public long Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                _Name = value;
+            }
+        }
+    }
+}
 namespace DemoWebApi.DemoData.Client
 {
     
@@ -463,74 +531,6 @@ namespace DemoWebApi.DemoData.Another.Client
         public double X;
         
         public double Y;
-    }
-}
-namespace DemoWebApi.Controllers.Client
-{
-    
-    
-    public class FileResult : object
-    {
-        
-        private string[] _FileNames;
-        
-        private string _Submitter;
-        
-        public string[] FileNames
-        {
-            get
-            {
-                return _FileNames;
-            }
-            set
-            {
-                _FileNames = value;
-            }
-        }
-        
-        public string Submitter
-        {
-            get
-            {
-                return _Submitter;
-            }
-            set
-            {
-                _Submitter = value;
-            }
-        }
-    }
-    
-    public class Hero : object
-    {
-        
-        private long _Id;
-        
-        private string _Name;
-        
-        public long Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                _Id = value;
-            }
-        }
-        
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                _Name = value;
-            }
-        }
     }
 }
 namespace DemoWebApi.Controllers.Client

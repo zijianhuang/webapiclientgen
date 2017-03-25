@@ -1,32 +1,23 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
-namespace DemoWebApi_Controllers_Client {
-    export interface FileResult {
-        fileNames?: Array<string>;
-        submitter?: string;
-    }
-
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
     export enum Days {Sat=1, Sun=2, Mon=3, Tue=4, Wed=5, Thu=6, Fri=7}
 
     export interface PhoneNumber {
+        id?: string;
         fullNumber?: string;
         phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+        entityId?: string;
     }
 
     export enum PhoneType {Tel, Mobile, Skype, Fax}
 
     export interface Address {
         id?: string;
+        entity?: DemoWebApi_DemoData_Client.Entity;
+        entityId?: string;
         street1?: string;
         street2?: string;
         city?: string;
@@ -71,6 +62,52 @@ namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
         x: number;
         y: number;
+    }
+
+}
+
+namespace DemoWebApi_Models_Client {
+    export interface AddExternalLoginBindingModel {
+        externalAccessToken?: string;
+    }
+
+    export interface ChangePasswordBindingModel {
+        OldPwd: string;
+        newPassword?: string;
+        confirmPassword?: string;
+    }
+
+    export interface RegisterBindingModel {
+        email?: string;
+        password?: string;
+        confirmPassword?: string;
+    }
+
+    export interface RegisterExternalBindingModel {
+        email?: string;
+    }
+
+    export interface RemoveLoginBindingModel {
+        loginProvider?: string;
+        providerKey?: string;
+    }
+
+    export interface SetPasswordBindingModel {
+        newPassword?: string;
+        confirmPassword?: string;
+    }
+
+}
+
+namespace DemoWebApi_Controllers_Client {
+    export interface FileResult {
+        fileNames?: Array<string>;
+        submitter?: string;
+    }
+
+    export interface Hero {
+        id?: number;
+        name?: string;
     }
 
 }

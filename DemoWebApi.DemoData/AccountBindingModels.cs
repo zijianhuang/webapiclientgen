@@ -6,6 +6,7 @@ namespace DemoWebApi.Models
 {
     // Models used as parameters to AccountController actions.
 
+    [JsonObject]
     public class AddExternalLoginBindingModel
     {
         [Required]
@@ -16,7 +17,7 @@ namespace DemoWebApi.Models
     [JsonObject]
     public class ChangePasswordBindingModel
     {
-        [JsonProperty]
+        [JsonProperty(PropertyName ="OldPwd")]
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
@@ -35,6 +36,7 @@ namespace DemoWebApi.Models
         public string ConfirmPassword { get; set; }
     }
 
+    [JsonObject]
     public class RegisterBindingModel
     {
         [Required]
@@ -53,6 +55,7 @@ namespace DemoWebApi.Models
         public string ConfirmPassword { get; set; }
     }
 
+    [JsonObject]
     public class RegisterExternalBindingModel
     {
         [Required]
@@ -60,6 +63,7 @@ namespace DemoWebApi.Models
         public string Email { get; set; }
     }
 
+    [JsonObject]
     public class RemoveLoginBindingModel
     {
         [Required]
@@ -71,6 +75,7 @@ namespace DemoWebApi.Models
         public string ProviderKey { get; set; }
     }
 
+    [JsonObject]
     public class SetPasswordBindingModel
     {
         [Required]

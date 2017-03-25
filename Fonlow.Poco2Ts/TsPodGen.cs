@@ -143,7 +143,16 @@ namespace Fonlow.Poco2Ts
 
 
                             var isRequired = cherryType == CherryType.BigCherry;
-                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? Fonlow.Text.StringExtensions.ToCamelCase( propertyInfo.Name) : propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            var customName = CherryPicking.GetFieldCustomName(propertyInfo, methods);
+                            if (String.IsNullOrEmpty(customName))
+                            {
+                                tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(propertyInfo.Name) : propertyInfo.Name;
+                            }
+                            else
+                            {
+                                tsPropertyName = customName;
+                            }
+
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
                             var clientField = new CodeMemberField()
                             {
@@ -164,7 +173,16 @@ namespace Fonlow.Poco2Ts
 
 
                             var isRequired = (cherryType == CherryType.BigCherry) || !type.IsClass;//public fields in struct should all be value types, so required
-                            tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase? Fonlow.Text.StringExtensions.ToCamelCase( fieldInfo.Name): fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+                            var customName = CherryPicking.GetFieldCustomName(fieldInfo, methods);
+                            if (String.IsNullOrEmpty(customName))
+                            {
+                                tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(fieldInfo.Name) : fieldInfo.Name;
+                            }
+                            else
+                            {
+                                tsPropertyName = customName;
+                            }
+
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
 
                             var clientField = new CodeMemberField()

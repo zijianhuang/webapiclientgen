@@ -9,7 +9,7 @@
             "DemoWebApi.DemoData",
             "DemoWebApi"
         ],
-        "CherryPickingMethods": 1
+        "CherryPickingMethods": 3
     },
 
     "ClientApiOutputs": {

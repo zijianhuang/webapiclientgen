@@ -8,74 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DemoWebApi.Controllers.Client
-{
-    
-    
-    public class FileResult : object
-    {
-        
-        private string[] _FileNames;
-        
-        private string _Submitter;
-        
-        public string[] FileNames
-        {
-            get
-            {
-                return _FileNames;
-            }
-            set
-            {
-                _FileNames = value;
-            }
-        }
-        
-        public string Submitter
-        {
-            get
-            {
-                return _Submitter;
-            }
-            set
-            {
-                _Submitter = value;
-            }
-        }
-    }
-    
-    public class Hero : object
-    {
-        
-        private long _Id;
-        
-        private string _Name;
-        
-        public long Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                _Id = value;
-            }
-        }
-        
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                _Name = value;
-            }
-        }
-    }
-}
 namespace DemoWebApi.DemoData.Client
 {
     
@@ -109,9 +41,25 @@ namespace DemoWebApi.DemoData.Client
     public class PhoneNumber : object
     {
         
+        private System.Guid _Id;
+        
         private string _FullNumber;
         
         private DemoWebApi.DemoData.Client.PhoneType _PhoneType;
+        
+        private System.Guid _EntityId;
+        
+        public System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
         
         public string FullNumber
         {
@@ -136,6 +84,18 @@ namespace DemoWebApi.DemoData.Client
                 _PhoneType = value;
             }
         }
+        
+        public System.Guid EntityId
+        {
+            get
+            {
+                return _EntityId;
+            }
+            set
+            {
+                _EntityId = value;
+            }
+        }
     }
     
     public enum PhoneType
@@ -154,6 +114,10 @@ namespace DemoWebApi.DemoData.Client
     {
         
         private System.Guid _Id;
+        
+        private DemoWebApi.DemoData.Client.Entity _Entity;
+        
+        private System.Guid _EntityId;
         
         private string _Street1;
         
@@ -180,6 +144,30 @@ namespace DemoWebApi.DemoData.Client
             set
             {
                 _Id = value;
+            }
+        }
+        
+        public DemoWebApi.DemoData.Client.Entity Entity
+        {
+            get
+            {
+                return _Entity;
+            }
+            set
+            {
+                _Entity = value;
+            }
+        }
+        
+        public System.Guid EntityId
+        {
+            get
+            {
+                return _EntityId;
+            }
+            set
+            {
+                _EntityId = value;
             }
         }
         
@@ -531,6 +519,271 @@ namespace DemoWebApi.DemoData.Another.Client
         public double X;
         
         public double Y;
+    }
+}
+namespace DemoWebApi.Models.Client
+{
+    
+    
+    public class AddExternalLoginBindingModel : object
+    {
+        
+        private string _ExternalAccessToken;
+        
+        public string ExternalAccessToken
+        {
+            get
+            {
+                return _ExternalAccessToken;
+            }
+            set
+            {
+                _ExternalAccessToken = value;
+            }
+        }
+    }
+    
+    public class ChangePasswordBindingModel : object
+    {
+        
+        private string _OldPassword;
+        
+        private string _NewPassword;
+        
+        private string _ConfirmPassword;
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string OldPassword
+        {
+            get
+            {
+                return _OldPassword;
+            }
+            set
+            {
+                _OldPassword = value;
+            }
+        }
+        
+        public string NewPassword
+        {
+            get
+            {
+                return _NewPassword;
+            }
+            set
+            {
+                _NewPassword = value;
+            }
+        }
+        
+        public string ConfirmPassword
+        {
+            get
+            {
+                return _ConfirmPassword;
+            }
+            set
+            {
+                _ConfirmPassword = value;
+            }
+        }
+    }
+    
+    public class RegisterBindingModel : object
+    {
+        
+        private string _Email;
+        
+        private string _Password;
+        
+        private string _ConfirmPassword;
+        
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
+            }
+        }
+        
+        public string Password
+        {
+            get
+            {
+                return _Password;
+            }
+            set
+            {
+                _Password = value;
+            }
+        }
+        
+        public string ConfirmPassword
+        {
+            get
+            {
+                return _ConfirmPassword;
+            }
+            set
+            {
+                _ConfirmPassword = value;
+            }
+        }
+    }
+    
+    public class RegisterExternalBindingModel : object
+    {
+        
+        private string _Email;
+        
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
+            }
+        }
+    }
+    
+    public class RemoveLoginBindingModel : object
+    {
+        
+        private string _LoginProvider;
+        
+        private string _ProviderKey;
+        
+        public string LoginProvider
+        {
+            get
+            {
+                return _LoginProvider;
+            }
+            set
+            {
+                _LoginProvider = value;
+            }
+        }
+        
+        public string ProviderKey
+        {
+            get
+            {
+                return _ProviderKey;
+            }
+            set
+            {
+                _ProviderKey = value;
+            }
+        }
+    }
+    
+    public class SetPasswordBindingModel : object
+    {
+        
+        private string _NewPassword;
+        
+        private string _ConfirmPassword;
+        
+        public string NewPassword
+        {
+            get
+            {
+                return _NewPassword;
+            }
+            set
+            {
+                _NewPassword = value;
+            }
+        }
+        
+        public string ConfirmPassword
+        {
+            get
+            {
+                return _ConfirmPassword;
+            }
+            set
+            {
+                _ConfirmPassword = value;
+            }
+        }
+    }
+}
+namespace DemoWebApi.Controllers.Client
+{
+    
+    
+    public class FileResult : object
+    {
+        
+        private string[] _FileNames;
+        
+        private string _Submitter;
+        
+        public string[] FileNames
+        {
+            get
+            {
+                return _FileNames;
+            }
+            set
+            {
+                _FileNames = value;
+            }
+        }
+        
+        public string Submitter
+        {
+            get
+            {
+                return _Submitter;
+            }
+            set
+            {
+                _Submitter = value;
+            }
+        }
+    }
+    
+    public class Hero : object
+    {
+        
+        private long _Id;
+        
+        private string _Name;
+        
+        public long Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                _Name = value;
+            }
+        }
     }
 }
 namespace DemoWebApi.Controllers.Client

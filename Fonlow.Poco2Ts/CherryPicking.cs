@@ -70,8 +70,15 @@ namespace Fonlow.Poco2Client
                 var a =TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonIgnoreAttribute");
                 if (a == null)
                 {
-                    var a2 = TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonPropertyAttribute");
-                    r[2] = TypeHelper.GetRequired(a2, "Required", "Default") ? CherryType.BigCherry : CherryType.Cherry;
+                    var a2 = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonPropertyAttribute>(memberInfo);
+                    if (a2 != null)
+                    {
+                        r[2] = TypeHelper.GetRequired(a2, "Required", "Default") ? CherryType.BigCherry : CherryType.Cherry;
+                    }
+                    else
+                    {
+                        r[2] = CherryType.Cherry;
+                    }
                 }
                 else
                 {
@@ -110,6 +117,45 @@ namespace Fonlow.Poco2Client
             return r.Max();
 
         }
+
+        /// <summary>
+        /// Get custom property name if decorated by DataMemberAttribute or JsonPropertyAttribute. If not defined, return null.
+        /// </summary>
+        /// <param name="memberInfo"></param>
+        /// <param name="methods"></param>
+        /// <returns></returns>
+        public static string GetFieldCustomName(MemberInfo memberInfo, CherryPickingMethods methods)
+        {
+            //opt-in for DataContract through DataMemberAttribute , and the type may or may not be decorated by DataContractAttribute.
+            // Enum will have all member fields being picked, regardless of the EnumMemberAttribute.
+            if ((methods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract)
+            {
+                var a = TypeHelper.ReadAttribute<DataMemberAttribute>(memberInfo);
+                if (a!=null)
+                {
+                    return a.Name;
+                }
+
+            }
+
+            //opt-in for NewtonsoftJson through JsonPropertyAttribute,  , and the type may or may not be decorated by JsonObjectAttribute.
+            if ((methods & CherryPickingMethods.NewtonsoftJson) == CherryPickingMethods.NewtonsoftJson)
+            {
+                //       var a =TypeHelper.AttributeExists(memberInfo, "Newtonsoft.Json.JsonIgnoreAttribute");
+                var a = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonIgnoreAttribute>(memberInfo);
+                if (a == null)
+                {
+                    var njAttribute = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonPropertyAttribute>(memberInfo);
+                    if (njAttribute != null && !String.IsNullOrEmpty(njAttribute.PropertyName))
+                    {
+                        return njAttribute.PropertyName;
+                    }
+                }
+            }
+
+            return null;
+        }
+
 
 
     }

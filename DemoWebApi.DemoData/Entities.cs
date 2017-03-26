@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace DemoWebApi.DemoData
 {
@@ -170,7 +171,7 @@ namespace DemoWebApi.DemoData
     [DataContract(Namespace = Constants.DataNamespace)]
     public class Company : Entity
     {
-        [DataMember]
+        [DataMember(Name ="BusinessNum")]
         public string BusinessNumber { get; set; }
 
         [DataMember]
@@ -208,12 +209,10 @@ namespace DemoWebApi.DemoData
 
 namespace DemoWebApi.DemoData.Another
 {
-    [DataContract(Namespace = Constants.DataNamespace)]
+    [JsonObject]
     public struct MyPoint
     {
-        [DataMember]
         public double X;
-        [DataMember]
         public double Y;
     }
 }

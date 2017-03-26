@@ -46,7 +46,7 @@ export namespace DemoWebApi_DemoData_Client {
     }
 
     export interface Company extends DemoWebApi_DemoData_Client.Entity {
-        businessNumber?: string;
+        BusinessNum?: string;
         businessNumberType?: string;
         textMatrix?: Array<Array<string>>;
         int2DJagged?: Array<Array<number>>;

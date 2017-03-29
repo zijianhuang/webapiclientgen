@@ -27,6 +27,18 @@ namespace Poco2TsTests
             }
         }
 
+        static void VerifyJson(Type type, string expected)
+        {
+            var gen = new Poco2TsGen();
+            gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson);
+            using (var writer = new StringWriter())
+            {
+                gen.WriteCode(writer);
+                var s = writer.ToString();
+                Assert.Equal(expected, s);
+            }
+        }
+
         [Fact]
         public void TestEnumAddressType()
         {
@@ -55,7 +67,7 @@ namespace Poco2TsTests
         public void TestStrutMyPoint()
         {
             Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = true;
-            Verify(typeof(DemoWebApi.DemoData.Another.MyPoint),
+            VerifyJson(typeof(DemoWebApi.DemoData.Another.MyPoint),
 @"namespace DemoWebApi_DemoData_Another_Client {
     export interface MyPoint {
         x: number;

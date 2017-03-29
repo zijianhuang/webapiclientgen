@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocCommentTests.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Poco2TsHouseKeeping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +69,10 @@
     <ProjectReference Include="..\..\DemoWebApi.DemoData\DemoWebApi.DemoData.csproj">
       <Project>{389e24f3-74ee-46f0-8bbb-cc91c006004c}</Project>
       <Name>DemoWebApi.DemoData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fonlow.DocComment\Fonlow.DocComment.csproj">
+      <Project>{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}</Project>
+      <Name>Fonlow.DocComment</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj">
       <Project>{70caa10c-642a-454b-9dec-9ab391eb9c99}</Project>

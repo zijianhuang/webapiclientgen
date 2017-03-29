@@ -121,7 +121,9 @@ namespace DemoWebApi.DemoData
         public DemoWebApi.DemoData.Another.MyPoint Location;
     }
 
-
+    /// <summary>
+    /// Base class of company and person
+    /// </summary>
     [DataContract(Namespace = Constants.DataNamespace)]
     public class Entity
     {
@@ -133,7 +135,9 @@ namespace DemoWebApi.DemoData
         [DataMember]
         public Guid Id { get; set; }
 
-        
+        /// <summary>
+        /// Name of the entity.
+        /// </summary>
         [DataMember(IsRequired =true)]//MVC and Web API does not care
         [System.ComponentModel.DataAnnotations.Required]//MVC and Web API care about only this
         public string Name { get; set; }
@@ -209,10 +213,20 @@ namespace DemoWebApi.DemoData
 
 namespace DemoWebApi.DemoData.Another
 {
+    /// <summary>
+    /// 2D position
+    /// </summary>
     [JsonObject]
     public struct MyPoint
     {
+        /// <summary>
+        /// X
+        /// </summary>
         public double X;
+
+        /// <summary>
+        /// Y
+        /// </summary>
         public double Y;
     }
 }

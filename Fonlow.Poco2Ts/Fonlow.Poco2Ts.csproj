@@ -80,6 +80,10 @@
     <None Include="PackNupkg.bat" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fonlow.DocComment\Fonlow.DocComment.csproj">
+      <Project>{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}</Project>
+      <Name>Fonlow.DocComment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
       <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
       <Name>Fonlow.TypeScriptCodeDom</Name>

@@ -78,7 +78,7 @@ namespace Fonlow.Poco2Client
             provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
         }
 
-        public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods)
+        public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, Fonlow.DocComment.DocCommentLookup docLookup)
         {
             var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
             CreateCodeDom(cherryTypes, methods);

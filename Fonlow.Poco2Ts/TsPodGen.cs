@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System;
 using Fonlow.Poco2Client;
 using Fonlow.Reflection;
+using Fonlow.DocComment;
 
 namespace Fonlow.Poco2Ts
 {
@@ -85,10 +86,63 @@ namespace Fonlow.Poco2Ts
             provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
         }
 
-        public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods)
+        public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup)
         {
+            this.docLookup = docLookup;
             var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
             CreateCodeDom(cherryTypes, methods);
+        }
+
+        DocCommentLookup docLookup;
+
+        void CreateTypeDocComment(Type type, CodeTypeDeclaration typeDeclaration)
+        {
+            if (docLookup != null)
+            {
+                if (type.FullName.Contains("MyPoint"))
+                {
+                    Debug.WriteLine("Mypoint");
+                }
+                var docComment = docLookup.GetMember("T:" + type.FullName);
+                if (docComment != null)
+                {
+                    typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text) , true));
+                }
+            }
+        }
+
+        static string TrimIndent(string s)
+        {
+            var ss = s.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            var noIndent = ss.Select(d => d.Trim()).ToArray();
+            if (noIndent.Length == 1)
+            {
+                return noIndent[0];
+            }
+
+            return String.Join(Environment.NewLine, noIndent);
+        }
+
+        void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeMemberField codeField)
+        {
+            if (docLookup != null)
+            {
+                var propertyFullName = propertyInfo.PropertyType.FullName + "."+propertyInfo.Name;
+                var docComment = docLookup.GetMember("P:" + propertyFullName);
+                if (docComment != null)
+                    codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
+            }
+        }
+
+        void CreateFieldDocComment(FieldInfo fieldInfo, CodeMemberField codeField)
+        {
+            if (docLookup != null)
+            {
+                var propertyFullName = fieldInfo.FieldType.FullName+"."+ fieldInfo.Name;
+                var docComment = docLookup.GetMember("F:" + propertyFullName);
+                if (docComment != null)
+                    codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
+            }
         }
 
         /// <summary>
@@ -133,6 +187,7 @@ namespace Fonlow.Poco2Ts
                             }
                         }
 
+                        CreateTypeDocComment(type, typeDeclaration);
 
                         foreach (var propertyInfo in type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
                         {
@@ -161,6 +216,9 @@ namespace Fonlow.Poco2Ts
                                 //                     Attributes = MemberAttributes.Public,
 
                             };
+
+                            CreatePropertyDocComment(propertyInfo, clientField);
+
                             typeDeclaration.Members.Add(clientField);
                         }
 
@@ -191,13 +249,16 @@ namespace Fonlow.Poco2Ts
                                 Type = TranslateToClientTypeReference(fieldInfo.FieldType),
                             };
 
-                            typeDeclaration.Members.Add(clientField);
+                            CreateFieldDocComment(fieldInfo, clientField);
 
+                            typeDeclaration.Members.Add(clientField);
                         }
                     }
                     else if (type.IsEnum)
                     {
                         typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
+
+                        CreateTypeDocComment(type, typeDeclaration);
 
                         int k = 0;
                         foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
@@ -213,6 +274,8 @@ namespace Fonlow.Poco2Ts
                                 Type = new CodeTypeReference(fieldInfo.FieldType),
                                 InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
                             };
+
+                            CreateFieldDocComment(fieldInfo, clientField);
 
                             typeDeclaration.Members.Add(clientField);
                             k++;

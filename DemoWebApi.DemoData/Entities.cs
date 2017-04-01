@@ -44,6 +44,9 @@ namespace DemoWebApi.DemoData
         Tue,
         [EnumMember]
         Wed,
+        /// <summary>
+        /// Thursday
+        /// </summary>
         [EnumMember]
         Thu,
         [EnumMember]
@@ -70,13 +73,27 @@ namespace DemoWebApi.DemoData
         public Guid EntityId { get; set; }
     }
 
+
+    /// <summary>
+    /// Phone type
+    /// Tel, Mobile, Skyp and Fax
+    /// 
+    /// </summary>
     [DataContract(Namespace = Constants.DataNamespace)]
     public enum PhoneType
-    {//No need to have undefined
+    {
+        /// <summary>
+        /// Land line
+        /// </summary>
         [EnumMember]
         Tel = 0,
+
+        /// <summary>
+        /// Mobile phoe
+        /// </summary>
         [EnumMember]
         Mobile = 1,
+
         [EnumMember]
         Skype = 2,
         [EnumMember]
@@ -142,6 +159,9 @@ namespace DemoWebApi.DemoData
         [System.ComponentModel.DataAnnotations.Required]//MVC and Web API care about only this
         public string Name { get; set; }
 
+        /// <summary>
+        /// Multiple addresses
+        /// </summary>
         [DataMember]
         public IList<Address> Addresses { get; set; }
 
@@ -162,6 +182,11 @@ namespace DemoWebApi.DemoData
         public string Surname { get; set; }
         [DataMember]
         public string GivenName { get; set; }
+
+        /// <summary>
+        /// Date of Birth.
+        /// This is optional.
+        /// </summary>
         [DataMember]
         public DateTime? DOB { get; set; }
 
@@ -215,6 +240,8 @@ namespace DemoWebApi.DemoData.Another
 {
     /// <summary>
     /// 2D position
+    ///         with X and Y
+    /// for Demo
     /// </summary>
     [JsonObject]
     public struct MyPoint

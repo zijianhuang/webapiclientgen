@@ -12,6 +12,11 @@ namespace DemoWebApi_DemoData_Client {
         entityId?: string;
     }
 
+
+    /** 
+     * Phone type
+     * Tel, Mobile, Skyp and Fax
+     */
     export enum PhoneType {Tel, Mobile, Skype, Fax}
 
     export interface Address {
@@ -28,6 +33,10 @@ namespace DemoWebApi_DemoData_Client {
         location?: DemoWebApi_DemoData_Another_Client.MyPoint;
     }
 
+
+    /** 
+     * Base class of company and person
+     */
     export interface Entity {
         id?: string;
         name: string;
@@ -59,6 +68,12 @@ namespace DemoWebApi_DemoData_Client {
 }
 
 namespace DemoWebApi_DemoData_Another_Client {
+
+    /** 
+     * 2D position
+     * with X and Y
+     * for Demo
+     */
     export interface MyPoint {
         x: number;
         y: number;

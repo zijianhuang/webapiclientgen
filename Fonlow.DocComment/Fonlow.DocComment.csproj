@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="DocCommentLookup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringFunctions.cs" />
     <Compile Include="xmldocument.cs">
       <DependentUpon>XmlDocument.xsd</DependentUpon>
     </Compile>

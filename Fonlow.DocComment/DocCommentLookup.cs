@@ -8,16 +8,36 @@ using System.Diagnostics;
 
 namespace Fonlow.DocComment
 {
+    /// <summary>
+    /// Lookup doc comment stored in an XML file.
+    /// </summary>
     public class DocCommentLookup
     {
-        public DocCommentLookup()
+        private DocCommentLookup()
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath">XML file of doc comment.</param>
+        /// <returns></returns>
+        public static DocCommentLookup Create(string filePath)
+        {
+            var lookup = new DocCommentLookup();
+            var r = lookup.Load(filePath);
+            if (r)
+            {
+                return lookup;
+            }
+
+            return null;
+        }
+
         public doc XmlDoc { get; private set; }
 
-        public bool Load(string filePath)
+        bool Load(string filePath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(doc));
             try
@@ -37,6 +57,11 @@ namespace Fonlow.DocComment
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">Fully qualified member name of doc comment XML. Like T:DemoWebApi.Areas.HelpPage.HelpPageSampleKey</param>
+        /// <returns></returns>
         public docMember GetMember(string name)
         {
             return XmlDoc.members.SingleOrDefault(d => d.name == name);

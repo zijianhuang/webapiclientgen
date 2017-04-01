@@ -73,6 +73,10 @@
     <None Include="WebApiClientGen.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fonlow.DocComment\Fonlow.DocComment.csproj">
+      <Project>{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}</Project>
+      <Name>Fonlow.DocComment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj">
       <Project>{70caa10c-642a-454b-9dec-9ab391eb9c99}</Project>
       <Name>Fonlow.Poco2Ts</Name>

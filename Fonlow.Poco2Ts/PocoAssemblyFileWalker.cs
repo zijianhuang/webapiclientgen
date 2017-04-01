@@ -23,18 +23,24 @@ namespace Fonlow.Poco2Ts
             if (assembly == null)
                 return;
 
+            var lookup = Fonlow.DocComment.DocCommentLookup.Create(GetXmlPath(assemblyFilePath));
             var gen = new Poco2TsGen();
-            gen.CreateCodeDom(assembly, methods);
+            gen.CreateCodeDom(assembly, methods, lookup);
             gen.SaveCodeToFile(tsFilePath);
             Trace.WriteLine($"{tsFilePath} is generated.");
         }
 
+        static string GetXmlPath(string assemblyFilePath)
+        {
+            var fileName = System.IO.Path.GetFileNameWithoutExtension(assemblyFilePath);
+            return fileName + ".xml";
+        }
 
         static Assembly LoadAssembly(string assemblyFileName)
         {
             try
             {
-                 return Assembly.LoadFile(assemblyFileName);
+                return Assembly.LoadFile(assemblyFileName);
             }
             catch (System.IO.FileLoadException e)
             {

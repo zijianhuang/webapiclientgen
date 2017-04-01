@@ -31,6 +31,10 @@ var DemoWebApi_DemoData_Client;
         Days[Days["Thu"] = 6] = "Thu";
         Days[Days["Fri"] = 7] = "Fri";
     })(Days = DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
+    /**
+     * Phone type
+     * Tel, Mobile, Skyp and Fax
+     */
     var PhoneType;
     (function (PhoneType) {
         PhoneType[PhoneType["Tel"] = 0] = "Tel";

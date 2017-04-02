@@ -7,7 +7,17 @@ import 'rxjs/add/observable/throw';
 export namespace DemoWebApi_DemoData_Client {
     export enum AddressType {Postal, Residential}
 
-    export enum Days {Sat=1, Sun=2, Mon=3, Tue=4, Wed=5, Thu=6, Fri=7}
+    export enum Days {    Sat=1,
+    Sun=2,
+    Mon=3,
+    Tue=4,
+    Wed=5,
+    
+    /** 
+     * Thursday
+     */
+    Thu=6,
+    Fri=7}
 
     export interface PhoneNumber {
         id?: string;
@@ -21,11 +31,26 @@ export namespace DemoWebApi_DemoData_Client {
      * Phone type
      * Tel, Mobile, Skyp and Fax
      */
-    export enum PhoneType {Tel, Mobile, Skype, Fax}
+    export enum PhoneType {    
+    /** 
+     * Land line
+     */
+    Tel,
+    
+    /** 
+     * Mobile phoe
+     */
+    Mobile,
+    Skype,
+    Fax}
 
     export interface Address {
         id?: string;
         entity?: DemoWebApi_DemoData_Client.Entity;
+
+        /** 
+         * Foreign key to Entity
+         */
         entityId?: string;
         street1?: string;
         street2?: string;
@@ -43,7 +68,15 @@ export namespace DemoWebApi_DemoData_Client {
      */
     export interface Entity {
         id?: string;
+
+        /** 
+         * Name of the entity.
+         */
         name: string;
+
+        /** 
+         * Multiple addresses
+         */
         addresses?: Array<DemoWebApi_DemoData_Client.Address>;
         phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
     }
@@ -51,6 +84,11 @@ export namespace DemoWebApi_DemoData_Client {
     export interface Person extends DemoWebApi_DemoData_Client.Entity {
         surname?: string;
         givenName?: string;
+
+        /** 
+         * Date of Birth.
+         * This is optional.
+         */
         dob?: Date;
     }
 
@@ -79,7 +117,15 @@ export namespace DemoWebApi_DemoData_Another_Client {
      * for Demo
      */
     export interface MyPoint {
+
+        /** 
+         * X
+         */
         x: number;
+
+        /** 
+         * Y
+         */
         y: number;
     }
 

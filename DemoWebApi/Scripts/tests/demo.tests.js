@@ -471,7 +471,7 @@ QUnit.module("ValuesTests", function () {
             console.log(xhr.responseText);
             done();
         });
-        api.delete(1, function (data) {
+        api["delete"](1, function (data) {
             done();
         });
     });

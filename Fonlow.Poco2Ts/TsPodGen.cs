@@ -127,7 +127,7 @@ namespace Fonlow.Poco2Ts
         {
             if (docLookup != null)
             {
-                var propertyFullName = propertyInfo.PropertyType.FullName + "."+propertyInfo.Name;
+                var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
                 var docComment = docLookup.GetMember("P:" + propertyFullName);
                 if (docComment != null)
                     codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
@@ -138,7 +138,7 @@ namespace Fonlow.Poco2Ts
         {
             if (docLookup != null)
             {
-                var propertyFullName = fieldInfo.FieldType.FullName+"."+ fieldInfo.Name;
+                var propertyFullName = fieldInfo.DeclaringType.FullName+"."+ fieldInfo.Name;
                 var docComment = docLookup.GetMember("F:" + propertyFullName);
                 if (docComment != null)
                     codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
@@ -209,7 +209,7 @@ namespace Fonlow.Poco2Ts
                             }
 
                             Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
-                            var clientField = new CodeMemberField()
+                            var clientField = new CodeMemberField()//Yes, clr property translated to ts field
                             {
                                 Name = tsPropertyName + (isRequired ? String.Empty : "?"),
                                 Type = TranslateToClientTypeReference(propertyInfo.PropertyType),

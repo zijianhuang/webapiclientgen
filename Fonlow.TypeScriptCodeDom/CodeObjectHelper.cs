@@ -506,21 +506,54 @@ namespace Fonlow.TypeScriptCodeDom
         {
             if (typeDeclaration.IsEnum)
             {
-                var enumMembers = typeDeclaration.Members.OfType<CodeTypeMember>().Select(ctm =>
-                 {
-                     var codeMemberField = ctm as CodeMemberField;//todo: codeMemberField.Comments is ignored here. Not sure anyone would write codegen that emit comments for enum members?
-                     System.Diagnostics.Trace.Assert(codeMemberField != null);
-                     var enumMember = GetEnumMember(codeMemberField);
-                     System.Diagnostics.Trace.Assert(!String.IsNullOrEmpty(enumMember));
-                     return enumMember;
-                 }).ToArray();
-                w.Write(String.Join(", ", enumMembers));
+                var enumMembers = typeDeclaration.Members.OfType<CodeTypeMember>().ToList();
+                bool anyMemberDocComment = enumMembers.Any(d => d.Comments.Count > 0);
+                if (anyMemberDocComment)
+                {
+                    var i = 0;
+                    enumMembers.ForEach(ctm =>
+                    {
+                        if (i > 0)
+                        {
+                            w.WriteLine(",");
+                        }
+
+                        w.Write(o.IndentString);
+                        var codeMemberField = ctm as CodeMemberField;
+                        System.Diagnostics.Trace.Assert(codeMemberField != null);
+                        if (WriteCodeCommentStatementCollection(ctm.Comments, w, o))
+                        {
+                            w.Write(o.IndentString);
+                        }
+
+                        var enumMemberText = GetEnumMember(codeMemberField);
+                        w.Write(enumMemberText);
+                        i++;
+                    });
+                }
+                else
+                {
+                    var i = 0;
+                    enumMembers.ForEach(ctm =>
+                    {
+                        if (i > 0)
+                        {
+                            w.Write(", ");
+                        }
+
+                        var codeMemberField = ctm as CodeMemberField;
+                        System.Diagnostics.Trace.Assert(codeMemberField != null);
+                        var enumMemberText = GetEnumMember(codeMemberField);
+                        w.Write(enumMemberText);
+                        i++;
+                    });
+                }
+
                 w.WriteLine("}");
                 return;
             }
 
             w.WriteLine();
-
             var currentIndent = o.IndentString;
             o.IndentString += BasicIndent;
 
@@ -595,15 +628,19 @@ namespace Fonlow.TypeScriptCodeDom
             w.Write(String.Join(", ", pairs));
         }
 
-        static void WriteCodeCommentStatementCollection(CodeCommentStatementCollection comments, TextWriter w, CodeGeneratorOptions  o)
+        static bool WriteCodeCommentStatementCollection(CodeCommentStatementCollection comments, TextWriter w, CodeGeneratorOptions  o)
         {
-            if (comments.Count>0)
-                w.WriteLine();
+            if (comments.Count == 0)
+                return false;
+
+            w.WriteLine();
 
             for (int i = 0; i < comments.Count; i++)
             {
                 WriteCodeCommentStatement(comments[i], w, o);
             }
+
+            return true;
         }
 
         static void WriteCodeMethodReferenceExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)

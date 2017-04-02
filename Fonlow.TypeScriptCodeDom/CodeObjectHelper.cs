@@ -55,7 +55,7 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
         {
-            if (e.Arguments.Count> 0)
+            if (e.Arguments.Count > 0)
             {
                 throw new NotImplementedException("Not yet support decorator with arguments");
             }
@@ -78,7 +78,7 @@ namespace Fonlow.TypeScriptCodeDom
         {
             if (e == null)
                 return;
-           
+
             var argumentReferenceExpression = e as CodeArgumentReferenceExpression;
             if (argumentReferenceExpression != null)
             {
@@ -242,9 +242,9 @@ namespace Fonlow.TypeScriptCodeDom
         static bool WriteCodeFieldReferenceExpression(CodeFieldReferenceExpression fieldReferenceExpression, TextWriter w, CodeGeneratorOptions o)
         {
             if (fieldReferenceExpression == null)
-                return false; 
+                return false;
 
-             GenerateCodeFromExpression(fieldReferenceExpression.TargetObject, w, o);
+            GenerateCodeFromExpression(fieldReferenceExpression.TargetObject, w, o);
             w.Write(".");
             w.Write(fieldReferenceExpression.FieldName);
             return true;
@@ -504,65 +504,80 @@ namespace Fonlow.TypeScriptCodeDom
 
         static void WriteTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
         {
+
             if (typeDeclaration.IsEnum)
             {
-                var enumMembers = typeDeclaration.Members.OfType<CodeTypeMember>().ToList();
-                bool anyMemberDocComment = enumMembers.Any(d => d.Comments.Count > 0);
-                if (anyMemberDocComment)
-                {
-                    var i = 0;
-                    enumMembers.ForEach(ctm =>
-                    {
-                        if (i > 0)
-                        {
-                            w.WriteLine(",");
-                        }
-
-                        w.Write(o.IndentString);
-                        var codeMemberField = ctm as CodeMemberField;
-                        System.Diagnostics.Trace.Assert(codeMemberField != null);
-                        if (WriteCodeCommentStatementCollection(ctm.Comments, w, o))
-                        {
-                            w.Write(o.IndentString);
-                        }
-
-                        var enumMemberText = GetEnumMember(codeMemberField);
-                        w.Write(enumMemberText);
-                        i++;
-                    });
-                }
-                else
-                {
-                    var i = 0;
-                    enumMembers.ForEach(ctm =>
-                    {
-                        if (i > 0)
-                        {
-                            w.Write(", ");
-                        }
-
-                        var codeMemberField = ctm as CodeMemberField;
-                        System.Diagnostics.Trace.Assert(codeMemberField != null);
-                        var enumMemberText = GetEnumMember(codeMemberField);
-                        w.Write(enumMemberText);
-                        i++;
-                    });
-                }
-
-                w.WriteLine("}");
-                return;
+                WriteEnumMembersAndCloseBracing(typeDeclaration, w, o);
             }
+            else
+            {
+                var currentIndent = o.IndentString;
+                o.IndentString += BasicIndent;
+                w.WriteLine();
+                for (int i = 0; i < typeDeclaration.Members.Count; i++)
+                {
+                    WriteCodeTypeMember(typeDeclaration.Members[i], w, o);
+                };
+                w.WriteLine(currentIndent + "}");
+                o.IndentString = currentIndent;
+            }
+        }
 
-            w.WriteLine();
+        static void WriteEnumMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
+        {
             var currentIndent = o.IndentString;
             o.IndentString += BasicIndent;
 
-            for (int i = 0; i < typeDeclaration.Members.Count; i++)
+            var enumMembers = typeDeclaration.Members.OfType<CodeTypeMember>().ToList();
+            bool anyMemberDocComment = enumMembers.Any(d => d.Comments.Count > 0);
+            if (anyMemberDocComment)
             {
-                WriteCodeTypeMember(typeDeclaration.Members[i], w, o);
-            };
+                var i = 0;
+                w.WriteLine();
+                enumMembers.ForEach(ctm =>
+                {
+                    if (i > 0)
+                    {
+                        w.WriteLine(",");
+                    }
 
-            w.WriteLine(currentIndent + "}");
+                    w.Write(o.IndentString);
+                    var codeMemberField = ctm as CodeMemberField;
+                    System.Diagnostics.Trace.Assert(codeMemberField != null);
+                    if (WriteCodeCommentStatementCollection(ctm.Comments, w, o))
+                    {
+                        w.Write(o.IndentString);
+                    }
+
+                    var enumMemberText = GetEnumMember(codeMemberField);
+                    w.Write(enumMemberText);
+                    i++;
+                });
+
+                w.WriteLine();
+                w.WriteLine(currentIndent + "}");
+            }
+            else
+            {
+                var i = 0;
+                w.Write(" ");
+                enumMembers.ForEach(ctm =>
+                {
+                    if (i > 0)
+                    {
+                        w.Write(", ");
+                    }
+
+                    var codeMemberField = ctm as CodeMemberField;
+                    System.Diagnostics.Trace.Assert(codeMemberField != null);
+                    var enumMemberText = GetEnumMember(codeMemberField);
+                    w.Write(enumMemberText);
+                    i++;
+                });
+
+                w.WriteLine(" }");
+            }
+
             o.IndentString = currentIndent;
         }
 
@@ -620,15 +635,16 @@ namespace Fonlow.TypeScriptCodeDom
         static void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
         {
             var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>()
-                .Select(d => {
-                    var s= $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}";
+                .Select(d =>
+                {
+                    var s = $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}";
                     Debug.WriteLine("vvvv " + s);
                     return s;
-                    });
+                });
             w.Write(String.Join(", ", pairs));
         }
 
-        static bool WriteCodeCommentStatementCollection(CodeCommentStatementCollection comments, TextWriter w, CodeGeneratorOptions  o)
+        static bool WriteCodeCommentStatementCollection(CodeCommentStatementCollection comments, TextWriter w, CodeGeneratorOptions o)
         {
             if (comments.Count == 0)
                 return false;
@@ -928,7 +944,7 @@ namespace Fonlow.TypeScriptCodeDom
         static string GetEnumMember(CodeMemberField member)
         {
             var initExpression = member.InitExpression as CodePrimitiveExpression;
-            return (initExpression == null) ? $"{member.Name}" : $"{member.Name}={initExpression.Value}";
+            return (initExpression == null) ? $"{member.Name}" : $"{member.Name} = {initExpression.Value}";
         }
 
         static string GetCodeMemberFieldText(CodeMemberField codeMemberField)

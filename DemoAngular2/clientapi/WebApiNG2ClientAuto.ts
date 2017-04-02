@@ -5,19 +5,21 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 export namespace DemoWebApi_DemoData_Client {
-    export enum AddressType {Postal, Residential}
+    export enum AddressType { Postal, Residential }
 
-    export enum Days {    Sat=1,
-    Sun=2,
-    Mon=3,
-    Tue=4,
-    Wed=5,
-    
-    /** 
-     * Thursday
-     */
-    Thu=6,
-    Fri=7}
+    export enum Days {
+        Sat = 1,
+        Sun = 2,
+        Mon = 3,
+        Tue = 4,
+        Wed = 5,
+        
+        /** 
+         * Thursday
+         */
+        Thu = 6,
+        Fri = 7
+    }
 
     export interface PhoneNumber {
         id?: string;
@@ -31,18 +33,20 @@ export namespace DemoWebApi_DemoData_Client {
      * Phone type
      * Tel, Mobile, Skyp and Fax
      */
-    export enum PhoneType {    
-    /** 
-     * Land line
-     */
-    Tel,
-    
-    /** 
-     * Mobile phoe
-     */
-    Mobile,
-    Skype,
-    Fax}
+    export enum PhoneType {
+        
+        /** 
+         * Land line
+         */
+        Tel,
+        
+        /** 
+         * Mobile phoe
+         */
+        Mobile,
+        Skype,
+        Fax
+    }
 
     export interface Address {
         id?: string;

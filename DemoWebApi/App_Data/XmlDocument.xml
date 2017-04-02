@@ -566,6 +566,7 @@
         <member name="M:DemoWebApi.Controllers.EntitiesController.GetPerson(System.Int64)">
             <summary>
             Get a person
+            so to know the person
             </summary>
             <param name="id">unique id of that guy</param>
             <returns>person in db</returns>

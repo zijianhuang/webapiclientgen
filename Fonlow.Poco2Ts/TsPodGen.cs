@@ -99,28 +99,12 @@ namespace Fonlow.Poco2Ts
         {
             if (docLookup != null)
             {
-                if (type.FullName.Contains("MyPoint"))
-                {
-                    Debug.WriteLine("Mypoint");
-                }
                 var docComment = docLookup.GetMember("T:" + type.FullName);
                 if (docComment != null)
                 {
                     typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text) , true));
                 }
             }
-        }
-
-        static string TrimIndent(string s)
-        {
-            var ss = s.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-            var noIndent = ss.Select(d => d.Trim()).ToArray();
-            if (noIndent.Length == 1)
-            {
-                return noIndent[0];
-            }
-
-            return String.Join(Environment.NewLine, noIndent);
         }
 
         void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeMemberField codeField)

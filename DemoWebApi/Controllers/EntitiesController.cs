@@ -17,6 +17,7 @@ namespace DemoWebApi.Controllers
     {
         /// <summary>
         /// Get a person
+        /// so to know the person
         /// </summary>
         /// <param name="id">unique id of that guy</param>
         /// <returns>person in db</returns>

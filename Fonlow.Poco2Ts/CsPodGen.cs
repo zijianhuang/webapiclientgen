@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System;
 using System.Collections.Generic;
 using Fonlow.Reflection;
+using Fonlow.DocComment;
 
 namespace Fonlow.Poco2Client
 {
@@ -78,10 +79,57 @@ namespace Fonlow.Poco2Client
             provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
         }
 
-        public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, Fonlow.DocComment.DocCommentLookup docLookup)
+        public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup)
         {
+            this.docLookup = docLookup;
             var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
             CreateCodeDom(cherryTypes, methods);
+        }
+
+        DocCommentLookup docLookup;
+
+        void CreateTypeDocComment(Type type, CodeTypeDeclaration typeDeclaration)
+        {
+            if (docLookup != null)
+            {
+                var docComment = docLookup.GetMember("T:" + type.FullName);
+                if (docComment != null)
+                {
+                    typeDeclaration.Comments.Add(new CodeCommentStatement("<summary>", true));
+                    typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
+                    typeDeclaration.Comments.Add(new CodeCommentStatement("</summary>", true));
+                }
+            }
+        }
+
+        void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeMemberProperty codeField)
+        {
+            if (docLookup != null)
+            {
+                var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
+                var docComment = docLookup.GetMember("P:" + propertyFullName);
+                if (docComment != null)
+                {
+                    codeField.Comments.Add(new CodeCommentStatement("<summary>", true));
+                    codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
+                    codeField.Comments.Add(new CodeCommentStatement("</summary>", true));
+                }
+            }
+        }
+
+        void CreateFieldDocComment(FieldInfo fieldInfo, CodeTypeMember codeField)
+        {
+            if (docLookup != null)
+            {
+                var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
+                var docComment = docLookup.GetMember("F:" + propertyFullName);
+                if (docComment != null)
+                {
+                    codeField.Comments.Add(new CodeCommentStatement("<summary>", true));
+                    codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
+                    codeField.Comments.Add(new CodeCommentStatement("</summary>", true));
+                }
+            }
         }
 
         List<Type> pendingTypes;
@@ -128,6 +176,7 @@ namespace Fonlow.Poco2Client
                             }
                         }
 
+                        CreateTypeDocComment(type, typeDeclaration);
 
                         foreach (var propertyInfo in type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
                         {
@@ -167,6 +216,9 @@ namespace Fonlow.Poco2Client
 
                             clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
                             clientProperty.SetStatements.Add(new CodeSnippetStatement($"                {privateFieldName} = value;"));
+
+                            CreatePropertyDocComment(propertyInfo, clientProperty);
+
                             typeDeclaration.Members.Add(clientProperty);
                         }
 
@@ -208,11 +260,14 @@ namespace Fonlow.Poco2Client
 
                                 clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
                                 clientProperty.SetStatements.Add(new CodeSnippetStatement($"                {privateFieldName} = value;"));
+
+                                CreateFieldDocComment(fieldInfo, clientProperty);
+
                                 typeDeclaration.Members.Add(clientProperty);
                             }
                             else //public fields of struct
                             {
-                                var clientProperty = new CodeMemberField()
+                                var clientField = new CodeMemberField()
                                 {
                                     Name = tsPropertyName,
                                     Type = TranslateToClientTypeReference(fieldInfo.FieldType),
@@ -220,13 +275,17 @@ namespace Fonlow.Poco2Client
                                     //todo: add some attributes                               
                                 };
 
-                                typeDeclaration.Members.Add(clientProperty);
+                                CreateFieldDocComment(fieldInfo, clientField);
+
+                                typeDeclaration.Members.Add(clientField);
                             }
                         }
                     }
                     else if (type.IsEnum)
                     {
                         typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
+
+                        CreateTypeDocComment(type, typeDeclaration);
 
                         int k = 0;
                         foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
@@ -242,6 +301,8 @@ namespace Fonlow.Poco2Client
                                 Type = new CodeTypeReference(fieldInfo.FieldType),
                                 InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
                             };
+
+                            CreateFieldDocComment(fieldInfo, clientField);
 
                             typeDeclaration.Members.Add(clientField);
                             k++;

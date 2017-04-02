@@ -76,18 +76,11 @@ namespace Fonlow.CodeDom.Web.Cs
             var cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
             foreach (var assembly in assemblies)
             {
-                var xmlDocFileName = GetXmlPath(assembly.GetName().Name);
+                var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
                 var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
                 poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup);
             }
         }
-
-        static string GetXmlPath(string assemblyFilePath)
-        {
-            var fileName = System.IO.Path.GetFileNameWithoutExtension(assemblyFilePath);
-            return fileName + ".xml";
-        }
-
 
         /// <summary>
         /// Generate CodeDom of the client API for ApiDescriptions.

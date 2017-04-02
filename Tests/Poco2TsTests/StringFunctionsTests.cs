@@ -19,13 +19,12 @@ namespace Poco2TsTests
 ";
             const string expected = @"abc
 efg hijk
-lmn
-";
+lmn";
             Assert.Equal(expected, StringFunctions.TrimIndent(s));
         }
 
         [Fact]
-        public void TestRemoveIndentInStringWithTrialNewLine()
+        public void TestRemoveIndentInStringWithoutTrialNewLine()
         {
             const string s = @"    abc
       efg hijk       
@@ -93,5 +92,24 @@ lmn";
         {
             Assert.Equal(String.Empty, StringFunctions.TrimIndentsOfArray(new string[] { String.Empty})[0]);
         }
+
+
+        [Fact]
+        public void TestRemoveIndentInStringWithTrialNewLine()
+        {
+            const string s = @"
+    abc
+      efg hijk       
+      lmn
+
+";
+
+            const string expected = @"abc
+efg hijk
+lmn";
+            Assert.Equal(expected, StringFunctions.TrimIndent(s));
+        }
+
+
     }
 }

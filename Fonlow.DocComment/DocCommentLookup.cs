@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 
 namespace Fonlow.DocComment
 {
@@ -66,5 +68,22 @@ namespace Fonlow.DocComment
         {
             return XmlDoc.members.SingleOrDefault(d => d.name == name);
         }
+
+        public static string GetXmlPath(Assembly assembly)
+        {
+            var assemblyName = assembly.GetName().Name;
+            var dirName = GetAssemblyDirectory(assembly);
+            return Path.Combine(dirName, assemblyName + ".xml");
+        }
+
+        static string GetAssemblyDirectory(Assembly assembly)
+        {
+            string codeBase = assembly.CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            return Path.GetDirectoryName(path);
+        }
+
+
     }
 }

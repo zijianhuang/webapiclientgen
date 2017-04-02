@@ -14,9 +14,7 @@ var DemoWebApi_DemoData_Client;
         Days[Days["Mon"] = 3] = "Mon";
         Days[Days["Tue"] = 4] = "Tue";
         Days[Days["Wed"] = 5] = "Wed";
-        /**
-         * Thursday
-         */
+        /** Thursday */
         Days[Days["Thu"] = 6] = "Thu";
         Days[Days["Fri"] = 7] = "Fri";
     })(Days = DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
@@ -26,13 +24,9 @@ var DemoWebApi_DemoData_Client;
      */
     var PhoneType;
     (function (PhoneType) {
-        /**
-         * Land line
-         */
+        /** Land line */
         PhoneType[PhoneType["Tel"] = 0] = "Tel";
-        /**
-         * Mobile phoe
-         */
+        /** Mobile phoe */
         PhoneType[PhoneType["Mobile"] = 1] = "Mobile";
         PhoneType[PhoneType["Skype"] = 2] = "Skype";
         PhoneType[PhoneType["Fax"] = 3] = "Fax";
@@ -512,6 +506,7 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * Get a person
+         *             so to know the person
          * GET api/Entities/{id}
          * @param {number} id unique id of that guy
          * @return {DemoWebApi_DemoData_Client.Person} person in db
@@ -882,4 +877,3 @@ var DemoWebApi_Controllers_Client;
     }());
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
-//# sourceMappingURL=WebApiClientAuto.js.map

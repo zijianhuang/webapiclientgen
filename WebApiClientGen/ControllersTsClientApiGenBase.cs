@@ -132,25 +132,10 @@ namespace Fonlow.CodeDom.Web.Ts
             var cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
             foreach (var assembly in assemblies)
             {
-                var xmlDocFileName = GetXmlPath(assembly);
+                var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
                 var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
                 poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup);
             }
-        }
-        //todo: move to another class.
-        static string GetXmlPath(Assembly assembly)
-        {
-            var assemblyName = assembly.GetName().Name;
-            var dirName = GetAssemblyDirectory(assembly);
-            return Path.Combine(dirName, assemblyName + ".xml");
-        }
-
-        static string GetAssemblyDirectory(Assembly assembly)
-        {
-            string codeBase = assembly.CodeBase;
-            UriBuilder uri = new UriBuilder(codeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
-            return Path.GetDirectoryName(path);
         }
 
         /// <summary>

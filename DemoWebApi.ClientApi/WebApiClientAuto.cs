@@ -33,6 +33,9 @@ namespace DemoWebApi.DemoData.Client
         
         Wed = 5,
         
+        /// <summary>
+        /// Thursday
+        /// </summary>
         Thu = 6,
         
         Fri = 7,
@@ -98,11 +101,21 @@ namespace DemoWebApi.DemoData.Client
         }
     }
     
+    /// <summary>
+    /// Phone type
+    ///Tel, Mobile, Skyp and Fax
+    /// </summary>
     public enum PhoneType
     {
         
+        /// <summary>
+        /// Land line
+        /// </summary>
         Tel,
         
+        /// <summary>
+        /// Mobile phoe
+        /// </summary>
         Mobile,
         
         Skype,
@@ -159,6 +172,9 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// Foreign key to Entity
+        /// </summary>
         public System.Guid EntityId
         {
             get
@@ -268,6 +284,9 @@ namespace DemoWebApi.DemoData.Client
         }
     }
     
+    /// <summary>
+    /// Base class of company and person
+    /// </summary>
     public class Entity : object
     {
         
@@ -291,6 +310,9 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// Name of the entity.
+        /// </summary>
         [System.ComponentModel.DataAnnotations.RequiredAttribute()]
         public string Name
         {
@@ -304,6 +326,9 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// Multiple addresses
+        /// </summary>
         public DemoWebApi.DemoData.Client.Address[] Addresses
         {
             get
@@ -362,6 +387,10 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// Date of Birth.
+        ///This is optional.
+        /// </summary>
         public System.Nullable<System.DateTime> DOB
         {
             get
@@ -513,11 +542,22 @@ namespace DemoWebApi.DemoData.Another.Client
 {
     
     
+    /// <summary>
+    /// 2D position
+    ///with X and Y
+    ///for Demo
+    /// </summary>
     public struct MyPoint
     {
         
+        /// <summary>
+        /// X
+        /// </summary>
         public double X;
         
+        /// <summary>
+        /// Y
+        /// </summary>
         public double Y;
     }
 }
@@ -3036,6 +3076,7 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// Get a person
+        ///            so to know the person
         /// GET api/Entities/{id}
         /// </summary>
         /// <param name="id">unique id of that guy</param>
@@ -3055,6 +3096,7 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// Get a person
+        ///            so to know the person
         /// GET api/Entities/{id}
         /// </summary>
         /// <param name="id">unique id of that guy</param>

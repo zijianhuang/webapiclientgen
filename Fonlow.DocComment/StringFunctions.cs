@@ -23,7 +23,7 @@ namespace Fonlow.DocComment
                 return noIndent[0];
             }
 
-            return String.Join(Environment.NewLine, noIndent);
+            return String.Join(Environment.NewLine, noIndent).Trim('\r', '\n');
         }
 
         public static string[] TrimIndentsOfArray(IEnumerable<string> ss)

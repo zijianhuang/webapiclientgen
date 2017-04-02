@@ -124,4 +124,3 @@ var AuthHttpClient = (function () {
   location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
 **/
 AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
-//# sourceMappingURL=HttpClient.js.map

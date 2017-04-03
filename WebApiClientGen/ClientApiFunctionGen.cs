@@ -139,7 +139,15 @@ namespace Fonlow.CodeDom.Web.Cs
             };
 
             method.Comments.Add(new CodeCommentStatement("<summary>", true));
-            method.Comments.Add(new CodeCommentStatement(description.Documentation, true));
+            var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(description.Documentation);
+            if (noIndent != null)
+            {
+                foreach (var item in noIndent)
+                {
+                    method.Comments.Add(new CodeCommentStatement(item, true));
+                }
+            }
+
             method.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
             method.Comments.Add(new CodeCommentStatement("</summary>", true));
             foreach (var item in description.ParameterDescriptions)

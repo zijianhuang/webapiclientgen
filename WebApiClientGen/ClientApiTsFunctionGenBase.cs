@@ -61,7 +61,15 @@ namespace Fonlow.CodeDom.Web.Ts
         void CreateDocComments()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine(Description.Documentation);
+            var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Description.Documentation);
+            if (noIndent != null)
+            {
+                foreach (var item in noIndent)
+                {
+                    builder.AppendLine(item);
+                }
+            }
+
             builder.AppendLine(Description.HttpMethod + " " + Description.RelativePath);
             foreach (var item in Description.ParameterDescriptions)
             {

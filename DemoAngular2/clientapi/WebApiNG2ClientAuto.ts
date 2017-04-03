@@ -14,7 +14,9 @@ export namespace DemoWebApi_DemoData_Client {
         Tue = 4,
         Wed = 5,
         
-        /** Thursday */
+        /** 
+         * Thursday
+         */
         Thu = 6,
         Fri = 7
     }
@@ -33,10 +35,14 @@ export namespace DemoWebApi_DemoData_Client {
      */
     export enum PhoneType {
         
-        /** Land line */
+        /** 
+         * Land line
+         */
         Tel,
         
-        /** Mobile phoe */
+        /** 
+         * Mobile phoe
+         */
         Mobile,
         Skype,
         Fax
@@ -46,7 +52,9 @@ export namespace DemoWebApi_DemoData_Client {
         id?: string;
         entity?: DemoWebApi_DemoData_Client.Entity;
 
-        /** Foreign key to Entity */
+        /** 
+         * Foreign key to Entity
+         */
         entityId?: string;
         street1?: string;
         street2?: string;
@@ -59,14 +67,20 @@ export namespace DemoWebApi_DemoData_Client {
     }
 
 
-    /** Base class of company and person */
+    /** 
+     * Base class of company and person
+     */
     export interface Entity {
         id?: string;
 
-        /** Name of the entity. */
+        /** 
+         * Name of the entity.
+         */
         name: string;
 
-        /** Multiple addresses */
+        /** 
+         * Multiple addresses
+         */
         addresses?: Array<DemoWebApi_DemoData_Client.Address>;
         phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
     }
@@ -108,10 +122,14 @@ export namespace DemoWebApi_DemoData_Another_Client {
      */
     export interface MyPoint {
 
-        /** X */
+        /** 
+         * X
+         */
         x: number;
 
-        /** Y */
+        /** 
+         * Y
+         */
         y: number;
     }
 
@@ -686,7 +704,7 @@ export namespace DemoWebApi_Controllers_Client {
 
         /** 
          * Get a person
-         *             so to know the person
+         * so to know the person
          * GET api/Entities/{id}
          * @param {number} id unique id of that guy
          * @return {DemoWebApi_DemoData_Client.Person} person in db

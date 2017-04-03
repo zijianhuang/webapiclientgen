@@ -20,7 +20,7 @@ namespace Poco2TsTests
             const string expected = @"abc
 efg hijk
 lmn";
-            Assert.Equal(expected, StringFunctions.TrimIndent(s));
+            Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s));
         }
 
         [Fact]
@@ -32,25 +32,25 @@ lmn";
             const string expected = @"abc
 efg hijk
 lmn";
-            Assert.Equal(expected, StringFunctions.TrimIndent(s));
+            Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s));
         }
 
         [Fact]
         public void TestRemoveIndentInOneLine()
         {
-            Assert.Equal("abc efg", StringFunctions.TrimIndent("abc efg"));
+            Assert.Equal("abc efg", StringFunctions.TrimIndentsOfMultiLineText("abc efg"));
         }
 
         [Fact]
         public void TestRemoveIndentOfNull()
         {
-            Assert.Null(StringFunctions.TrimIndent(null));
+            Assert.Null(StringFunctions.TrimIndentsOfMultiLineText(null));
         }
 
         [Fact]
         public void TestRemoveIndentOfEmpty()
         {
-            Assert.Equal(String.Empty, StringFunctions.TrimIndent("    "));
+            Assert.Null(StringFunctions.TrimIndentsOfMultiLineText("    "));
         }
 
         [Fact]
@@ -79,18 +79,14 @@ lmn";
       lmn"
         };
 
-            const string expected = @"abc
-efg hijk
-lmn";
-
             var refined = StringFunctions.TrimIndentsOfArray(s);
-            Assert.Equal(expected, refined[0]);
+            Assert.Equal("abc", refined[0]);
         }
 
         [Fact]
         public void TestRemoveIndentsOrArrayEmpty()
         {
-            Assert.Equal(String.Empty, StringFunctions.TrimIndentsOfArray(new string[] { String.Empty})[0]);
+            Assert.Equal(0, StringFunctions.TrimIndentsOfArray(new string[] { String.Empty }).Count);
         }
 
 
@@ -107,7 +103,7 @@ lmn";
             const string expected = @"abc
 efg hijk
 lmn";
-            Assert.Equal(expected, StringFunctions.TrimIndent(s));
+            Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s));
         }
 
 

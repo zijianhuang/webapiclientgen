@@ -92,13 +92,8 @@ namespace Fonlow.Poco2Client
         {
             if (docLookup != null)
             {
-                var docComment = docLookup.GetMember("T:" + type.FullName);
-                if (docComment != null)
-                {
-                    typeDeclaration.Comments.Add(new CodeCommentStatement("<summary>", true));
-                    typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
-                    typeDeclaration.Comments.Add(new CodeCommentStatement("</summary>", true));
-                }
+                var dm = docLookup.GetMember("T:" + type.FullName);
+                AddDocComments(dm, typeDeclaration.Comments);
             }
         }
 
@@ -107,13 +102,8 @@ namespace Fonlow.Poco2Client
             if (docLookup != null)
             {
                 var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
-                var docComment = docLookup.GetMember("P:" + propertyFullName);
-                if (docComment != null)
-                {
-                    codeField.Comments.Add(new CodeCommentStatement("<summary>", true));
-                    codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
-                    codeField.Comments.Add(new CodeCommentStatement("</summary>", true));
-                }
+                var dm = docLookup.GetMember("P:" + propertyFullName);
+                AddDocComments(dm, codeField.Comments);
             }
         }
 
@@ -122,12 +112,24 @@ namespace Fonlow.Poco2Client
             if (docLookup != null)
             {
                 var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
-                var docComment = docLookup.GetMember("F:" + propertyFullName);
-                if (docComment != null)
+                var dm = docLookup.GetMember("F:" + propertyFullName);
+                AddDocComments(dm, codeField.Comments);
+            }
+        }
+
+        static void AddDocComments(docMember member, CodeCommentStatementCollection comments)
+        {
+            if (member != null)
+            {
+                if (member.summary != null)
                 {
-                    codeField.Comments.Add(new CodeCommentStatement("<summary>", true));
-                    codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
-                    codeField.Comments.Add(new CodeCommentStatement("</summary>", true));
+                    comments.Add(new CodeCommentStatement("<summary>", true));
+                    var noIndent = StringFunctions.TrimTrimIndentsOfArray(member.summary.Text);
+                    foreach (var item in noIndent)
+                    {
+                        comments.Add(new CodeCommentStatement(item, true));
+                    }
+                    comments.Add(new CodeCommentStatement("</summary>", true));
                 }
             }
         }

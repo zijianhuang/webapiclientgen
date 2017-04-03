@@ -103,7 +103,8 @@ namespace DemoWebApi.DemoData.Client
     
     /// <summary>
     /// Phone type
-    ///Tel, Mobile, Skyp and Fax
+    /// Tel, Mobile, Skyp and Fax
+    /// 
     /// </summary>
     public enum PhoneType
     {
@@ -389,7 +390,7 @@ namespace DemoWebApi.DemoData.Client
         
         /// <summary>
         /// Date of Birth.
-        ///This is optional.
+        /// This is optional.
         /// </summary>
         public System.Nullable<System.DateTime> DOB
         {
@@ -544,8 +545,8 @@ namespace DemoWebApi.DemoData.Another.Client
     
     /// <summary>
     /// 2D position
-    ///with X and Y
-    ///for Demo
+    /// with X and Y
+    /// for Demo
     /// </summary>
     public struct MyPoint
     {
@@ -855,7 +856,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/int?d={d}
         /// </summary>
         public async Task<int> GetIntSquareAsync(int d)
@@ -872,7 +872,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/int?d={d}
         /// </summary>
         public int GetIntSquare(int d)
@@ -889,7 +888,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/decimal?d={d}
         /// </summary>
         public async Task<decimal> GetDecimalSquareAsync(decimal d)
@@ -906,7 +904,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/decimal?d={d}
         /// </summary>
         public decimal GetDecimalSquare(decimal d)
@@ -923,7 +920,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
         /// </summary>
         public async Task<System.Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue)
@@ -940,7 +936,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
         /// </summary>
         public System.Nullable<System.DateTime> GetDateTime(bool hasValue)
@@ -957,7 +952,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NextYear?dt={dt}
         /// </summary>
         public async Task<System.DateTime> GetNextYearAsync(System.DateTime dt)
@@ -974,7 +968,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NextYear?dt={dt}
         /// </summary>
         public System.DateTime GetNextYear(System.DateTime dt)
@@ -991,7 +984,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NextHour?dt={dt}
         /// </summary>
         public async Task<System.DateTimeOffset> GetNextHourAsync(System.DateTimeOffset dt)
@@ -1008,7 +1000,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NextHour?dt={dt}
         /// </summary>
         public System.DateTimeOffset GetNextHour(System.DateTimeOffset dt)
@@ -1025,7 +1016,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/NextYear
         /// </summary>
         public async Task<System.DateTime> PostNextYearAsync(System.DateTime dt)
@@ -1048,7 +1038,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/NextYear
         /// </summary>
         public System.DateTime PostNextYear(System.DateTime dt)
@@ -1071,7 +1060,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/DateTimeOffset
         /// </summary>
         public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync()
@@ -1088,7 +1076,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/DateTimeOffset
         /// </summary>
         public System.DateTimeOffset GetDateTimeOffset()
@@ -1151,7 +1138,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/DateTimeOffsetNullable
         /// </summary>
         public async Task<bool> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d)
@@ -1174,7 +1160,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/DateTimeOffsetNullable
         /// </summary>
         public bool PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d)
@@ -1197,7 +1182,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
         /// </summary>
         public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue)
@@ -1214,7 +1198,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
         /// </summary>
         public System.Nullable<decimal> GetNullableDecimal(bool hasValue)
@@ -1231,7 +1214,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/FloatZero
         /// </summary>
         public async Task<float> GetFloatZeroAsync()
@@ -1248,7 +1230,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/FloatZero
         /// </summary>
         public float GetFloatZero()
@@ -1265,7 +1246,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/DoubleZero
         /// </summary>
         public async Task<double> GetDoubleZeroAsync()
@@ -1282,7 +1262,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/DoubleZero
         /// </summary>
         public double GetDoubleZero()
@@ -1299,7 +1278,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/DecimalZero
         /// </summary>
         public async Task<decimal> GetDecimalZeroAsync()
@@ -1316,7 +1294,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/DecimalZero
         /// </summary>
         public decimal GetDecimalZero()
@@ -1333,7 +1310,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NullString
         /// </summary>
         public async Task<string> GetNullStringAsync()
@@ -1350,7 +1326,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NullString
         /// </summary>
         public string GetNullString()
@@ -1367,7 +1342,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/EmptyString
         /// </summary>
         public async Task<string> GetEmptyStringAsync()
@@ -1384,7 +1358,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/EmptyString
         /// </summary>
         public string GetEmptyString()
@@ -1401,7 +1374,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NullObject
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync()
@@ -1418,7 +1390,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/NullObject
         /// </summary>
         public DemoWebApi.DemoData.Client.Person GetNullPerson()
@@ -1435,7 +1406,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/TextStream
         /// </summary>
         public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync()
@@ -1447,7 +1417,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/TextStream
         /// </summary>
         public System.Net.Http.HttpResponseMessage GetTextStream()
@@ -1459,7 +1428,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ByteArray
         /// </summary>
         public async Task<byte[]> GetByteArrayAsync()
@@ -1476,7 +1444,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ByteArray
         /// </summary>
         public byte[] GetByteArray()
@@ -1493,7 +1460,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ActionResult
         /// </summary>
         public async Task<System.Net.Http.HttpResponseMessage> GetActionResultAsync()
@@ -1505,7 +1471,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ActionResult
         /// </summary>
         public System.Net.Http.HttpResponseMessage GetActionResult()
@@ -1517,7 +1482,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ActionStringResult
         /// </summary>
         public async Task<string> GetActionStringResultAsync()
@@ -1534,7 +1498,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ActionStringResult
         /// </summary>
         public string GetActionStringResult()
@@ -1551,7 +1514,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/byte
         /// </summary>
         public async Task<byte> GetbyteAsync()
@@ -1568,7 +1530,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/byte
         /// </summary>
         public byte Getbyte()
@@ -1585,7 +1546,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/sbyte
         /// </summary>
         public async Task<sbyte> GetsbyteAsync()
@@ -1602,7 +1562,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/sbyte
         /// </summary>
         public sbyte Getsbyte()
@@ -1619,7 +1578,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/short
         /// </summary>
         public async Task<short> GetShortAsync()
@@ -1636,7 +1594,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/short
         /// </summary>
         public short GetShort()
@@ -1653,7 +1610,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ushort
         /// </summary>
         public async Task<ushort> GetUShortAsync()
@@ -1670,7 +1626,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ushort
         /// </summary>
         public ushort GetUShort()
@@ -1687,7 +1642,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/uint
         /// </summary>
         public async Task<uint> GetUintAsync()
@@ -1704,7 +1658,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/uint
         /// </summary>
         public uint GetUint()
@@ -1721,7 +1674,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ulong
         /// </summary>
         public async Task<ulong> GetulongAsync()
@@ -1738,7 +1690,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ulong
         /// </summary>
         public ulong Getulong()
@@ -1755,7 +1706,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/doulbe
         /// </summary>
         public async Task<double> GetdoubleAsync()
@@ -1772,7 +1722,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/doulbe
         /// </summary>
         public double Getdouble()
@@ -1789,7 +1738,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/decimal
         /// </summary>
         public async Task<decimal> GetDecimalAsync()
@@ -1806,7 +1754,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/decimal
         /// </summary>
         public decimal GetDecimal()
@@ -1823,7 +1770,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/char
         /// </summary>
         public async Task<char> GetCharAsync()
@@ -1840,7 +1786,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/char
         /// </summary>
         public char GetChar()
@@ -1857,7 +1802,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/bool
         /// </summary>
         public async Task<bool> GetBoolAsync()
@@ -1874,7 +1818,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/bool
         /// </summary>
         public bool GetBool()
@@ -1891,7 +1834,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/int2d
         /// </summary>
         public async Task<int[,]> GetInt2DAsync()
@@ -1908,7 +1850,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/int2d
         /// </summary>
         public int[,] GetInt2D()
@@ -1925,7 +1866,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/int2dJagged
         /// </summary>
         public async Task<int[][]> GetInt2DJaggedAsync()
@@ -1942,7 +1882,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/int2dJagged
         /// </summary>
         public int[][] GetInt2DJagged()
@@ -1959,7 +1898,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/int2d
         /// </summary>
         public async Task<bool> PostInt2DAsync(int[,] a)
@@ -1982,7 +1920,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/int2d
         /// </summary>
         public bool PostInt2D(int[,] a)
@@ -2005,7 +1942,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/int2djagged
         /// </summary>
         public async Task<bool> PostInt2DJaggedAsync(int[][] a)
@@ -2028,7 +1964,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/int2djagged
         /// </summary>
         public bool PostInt2DJagged(int[][] a)
@@ -2051,7 +1986,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/intArray
         /// </summary>
         public async Task<bool> PostIntArrayAsync(int[] a)
@@ -2074,7 +2008,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/intArray
         /// </summary>
         public bool PostIntArray(int[] a)
@@ -2097,7 +2030,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/intArray
         /// </summary>
         public async Task<int[]> GetIntArrayAsync()
@@ -2114,7 +2046,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/intArray
         /// </summary>
         public int[] GetIntArray()
@@ -2131,7 +2062,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/AnonymousDynamic
         /// </summary>
         public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamicAsync()
@@ -2148,7 +2078,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/AnonymousDynamic
         /// </summary>
         public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic()
@@ -2165,7 +2094,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/AnonymousObject
         /// </summary>
         public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObjectAsync()
@@ -2182,7 +2110,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/AnonymousObject
         /// </summary>
         public Newtonsoft.Json.Linq.JObject GetAnonymousObject()
@@ -2199,7 +2126,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/AnonymousObject
         /// </summary>
         public async Task<Newtonsoft.Json.Linq.JObject> PostAnonymousObjectAsync(Newtonsoft.Json.Linq.JObject obj)
@@ -2222,7 +2148,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/AnonymousObject
         /// </summary>
         public Newtonsoft.Json.Linq.JObject PostAnonymousObject(Newtonsoft.Json.Linq.JObject obj)
@@ -2245,7 +2170,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/StringStringDic
         /// </summary>
         public async Task<System.Collections.Generic.Dictionary<string, string>> GetDictionaryAsync()
@@ -2262,7 +2186,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/StringStringDic
         /// </summary>
         public System.Collections.Generic.Dictionary<string, string> GetDictionary()
@@ -2279,7 +2202,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/StringPersonDic
         /// </summary>
         public async Task<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>> GetDictionaryOfPeopleAsync()
@@ -2296,7 +2218,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/StringPersonDic
         /// </summary>
         public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> GetDictionaryOfPeople()
@@ -2313,7 +2234,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/StringPersonDic
         /// </summary>
         public async Task<int> PostDictionaryAsync(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
@@ -2336,7 +2256,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/StringPersonDic
         /// </summary>
         public int PostDictionary(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
@@ -2359,7 +2278,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/KeyValuePair
         /// </summary>
         public async Task<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>> GetKeyhValuePairAsync()
@@ -2376,7 +2294,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/KeyValuePair
         /// </summary>
         public System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person> GetKeyhValuePair()
@@ -2393,7 +2310,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ICollection
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person[]> GetICollectionAsync()
@@ -2410,7 +2326,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/ICollection
         /// </summary>
         public DemoWebApi.DemoData.Client.Person[] GetICollection()
@@ -2427,7 +2342,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/IList
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person[]> GetIListAsync()
@@ -2444,7 +2358,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/IList
         /// </summary>
         public DemoWebApi.DemoData.Client.Person[] GetIList()
@@ -2461,7 +2374,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/IReadOnlyList
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyListAsync()
@@ -2478,7 +2390,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/IReadOnlyList
         /// </summary>
         public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyList()
@@ -2495,7 +2406,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/IReadOnlyCollection
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyCollectionAsync()
@@ -2512,7 +2422,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/IReadOnlyCollection
         /// </summary>
         public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyCollection()
@@ -2529,7 +2438,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/List
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person[]> GetListAsync()
@@ -2546,7 +2454,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/List
         /// </summary>
         public DemoWebApi.DemoData.Client.Person[] GetList()
@@ -2563,7 +2470,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/Collection
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person[]> GetCollectionAsync()
@@ -2580,7 +2486,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/Collection
         /// </summary>
         public DemoWebApi.DemoData.Client.Person[] GetCollection()
@@ -2597,7 +2502,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/ICollection
         /// </summary>
         public async Task<int> PostICollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
@@ -2620,7 +2524,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/ICollection
         /// </summary>
         public int PostICollection(DemoWebApi.DemoData.Client.Person[] list)
@@ -2643,7 +2546,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/IList
         /// </summary>
         public async Task<int> PostIListAsync(DemoWebApi.DemoData.Client.Person[] list)
@@ -2666,7 +2568,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/IList
         /// </summary>
         public int PostIList(DemoWebApi.DemoData.Client.Person[] list)
@@ -2689,7 +2590,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/IReadOnlyList
         /// </summary>
         public async Task<int> PostIReadOnlyListAsync(DemoWebApi.DemoData.Client.Person[] list)
@@ -2712,7 +2612,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/IReadOnlyList
         /// </summary>
         public int PostIReadOnlyList(DemoWebApi.DemoData.Client.Person[] list)
@@ -2735,7 +2634,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/IReadOnlyCollection
         /// </summary>
         public async Task<int> PostIReadOnlyCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
@@ -2758,7 +2656,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/IReadOnlyCollection
         /// </summary>
         public int PostIReadOnlyCollection(DemoWebApi.DemoData.Client.Person[] list)
@@ -2781,7 +2678,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/List
         /// </summary>
         public async Task<int> PostListAsync(DemoWebApi.DemoData.Client.Person[] list)
@@ -2804,7 +2700,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/List
         /// </summary>
         public int PostList(DemoWebApi.DemoData.Client.Person[] list)
@@ -2827,7 +2722,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/Collection
         /// </summary>
         public async Task<int> PostCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
@@ -2850,7 +2744,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/Collection
         /// </summary>
         public int PostCollection(DemoWebApi.DemoData.Client.Person[] list)
@@ -2873,7 +2766,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/PostEmpty?s={s}&i={i}
         /// </summary>
         public async Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync(string s, int i)
@@ -2890,7 +2782,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/SuperDemo/PostEmpty?s={s}&i={i}
         /// </summary>
         public System.Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
@@ -2927,7 +2818,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// PUT api/SuperDemo/link?id={id}&relationship={relationship}
         /// </summary>
         public async Task<bool> LinkPersonAsync(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
@@ -2950,7 +2840,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// PUT api/SuperDemo/link?id={id}&relationship={relationship}
         /// </summary>
         public bool LinkPerson(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
@@ -2973,7 +2862,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/Company?id={id}
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Company> GetCompanyAsync(long id)
@@ -2990,7 +2878,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/Company?id={id}
         /// </summary>
         public DemoWebApi.DemoData.Client.Company GetCompany(long id)
@@ -3007,7 +2894,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/PersonNotFound?id={id}
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> GetPersonNotFoundAsync(long id)
@@ -3024,7 +2910,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/PersonNotFound?id={id}
         /// </summary>
         public DemoWebApi.DemoData.Client.Person GetPersonNotFound(long id)
@@ -3041,7 +2926,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/PersonActionNotFound?id={id}
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> GetPersonActionNotFoundAsync(long id)
@@ -3058,7 +2942,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/SuperDemo/PersonActionNotFound?id={id}
         /// </summary>
         public DemoWebApi.DemoData.Client.Person GetPersonActionNotFound(long id)
@@ -3076,7 +2959,7 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// Get a person
-        ///            so to know the person
+        /// so to know the person
         /// GET api/Entities/{id}
         /// </summary>
         /// <param name="id">unique id of that guy</param>
@@ -3096,7 +2979,7 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// Get a person
-        ///            so to know the person
+        /// so to know the person
         /// GET api/Entities/{id}
         /// </summary>
         /// <param name="id">unique id of that guy</param>
@@ -3115,7 +2998,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Entities
         /// </summary>
         public async Task<long> CreatePersonAsync(DemoWebApi.DemoData.Client.Person p)
@@ -3138,7 +3020,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Entities
         /// </summary>
         public long CreatePerson(DemoWebApi.DemoData.Client.Person p)
@@ -3161,7 +3042,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// PUT api/Entities
         /// </summary>
         public async Task UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person)
@@ -3178,7 +3058,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// PUT api/Entities
         /// </summary>
         public void UpdatePerson(DemoWebApi.DemoData.Client.Person person)
@@ -3195,7 +3074,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// DELETE api/Entities/{id}
         /// </summary>
         public async Task DeleteAsync(long id)
@@ -3206,7 +3084,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// DELETE api/Entities/{id}
         /// </summary>
         public void Delete(long id)
@@ -3237,7 +3114,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PersonCompany1
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> LinkPersonCompany1Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3260,7 +3136,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PersonCompany1
         /// </summary>
         public DemoWebApi.DemoData.Client.Person LinkPersonCompany1(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3283,7 +3158,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany2
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany2Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3306,7 +3180,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany2
         /// </summary>
         public DemoWebApi.DemoData.Client.Person LinkPeopleCompany2(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3329,7 +3202,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany3
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany3Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3352,7 +3224,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany3
         /// </summary>
         public DemoWebApi.DemoData.Client.Person LinkPeopleCompany3(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3375,7 +3246,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany4
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany4Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3398,7 +3268,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany4
         /// </summary>
         public DemoWebApi.DemoData.Client.Person LinkPeopleCompany4(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3421,7 +3290,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/PeopleCompany4
         /// </summary>
         public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async()
@@ -3438,7 +3306,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/PeopleCompany4
         /// </summary>
         public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4()
@@ -3455,7 +3322,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany5
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany5Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3478,7 +3344,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany5
         /// </summary>
         public DemoWebApi.DemoData.Client.Person LinkPeopleCompany5(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3501,7 +3366,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/PeopleCompany5
         /// </summary>
         public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async()
@@ -3518,7 +3382,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/PeopleCompany5
         /// </summary>
         public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5()
@@ -3535,7 +3398,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany6
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany6Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3558,7 +3420,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany6
         /// </summary>
         public DemoWebApi.DemoData.Client.Person LinkPeopleCompany6(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3581,7 +3442,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany7
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3604,7 +3464,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany7
         /// </summary>
         public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3627,7 +3486,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany8
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany8Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3650,7 +3508,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/PeopleCompany8
         /// </summary>
         public DemoWebApi.DemoData.Client.Person LinkPeopleCompany8(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
@@ -3673,7 +3530,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple1
         /// </summary>
         public async Task<System.Tuple<int>> GetTuple1Async()
@@ -3690,7 +3546,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple1
         /// </summary>
         public System.Tuple<int> GetTuple1()
@@ -3707,7 +3562,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple1
         /// </summary>
         public async Task<int> PostTuple1Async(System.Tuple<int> tuple)
@@ -3730,7 +3584,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple1
         /// </summary>
         public int PostTuple1(System.Tuple<int> tuple)
@@ -3753,7 +3606,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple2
         /// </summary>
         public async Task<System.Tuple<string, int>> GetTuple2Async()
@@ -3770,7 +3622,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple2
         /// </summary>
         public System.Tuple<string, int> GetTuple2()
@@ -3787,7 +3638,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple2
         /// </summary>
         public async Task<string> PostTuple2Async(System.Tuple<string, int> tuple)
@@ -3810,7 +3660,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple2
         /// </summary>
         public string PostTuple2(System.Tuple<string, int> tuple)
@@ -3833,7 +3682,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple3
         /// </summary>
         public async Task<System.Tuple<string, string, int>> GetTuple3Async()
@@ -3850,7 +3698,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple3
         /// </summary>
         public System.Tuple<string, string, int> GetTuple3()
@@ -3867,7 +3714,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple3
         /// </summary>
         public async Task<string> PostTuple3Async(System.Tuple<string, string, int> tuple)
@@ -3890,7 +3736,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple3
         /// </summary>
         public string PostTuple3(System.Tuple<string, string, int> tuple)
@@ -3913,7 +3758,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple4
         /// </summary>
         public async Task<System.Tuple<string, string, string, int>> GetTuple4Async()
@@ -3930,7 +3774,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple4
         /// </summary>
         public System.Tuple<string, string, string, int> GetTuple4()
@@ -3947,7 +3790,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple4
         /// </summary>
         public async Task<string> PostTuple4Async(System.Tuple<string, string, string, int> tuple)
@@ -3970,7 +3812,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple4
         /// </summary>
         public string PostTuple4(System.Tuple<string, string, string, int> tuple)
@@ -3993,7 +3834,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple5
         /// </summary>
         public async Task<System.Tuple<string, string, string, string, int>> GetTuple5Async()
@@ -4010,7 +3850,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple5
         /// </summary>
         public System.Tuple<string, string, string, string, int> GetTuple5()
@@ -4027,7 +3866,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple5
         /// </summary>
         public async Task<string> PostTuple5Async(System.Tuple<string, string, string, string, int> tuple)
@@ -4050,7 +3888,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple5
         /// </summary>
         public string PostTuple5(System.Tuple<string, string, string, string, int> tuple)
@@ -4073,7 +3910,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple6
         /// </summary>
         public async Task<System.Tuple<string, string, string, string, string, int>> GetTuple6Async()
@@ -4090,7 +3926,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple6
         /// </summary>
         public System.Tuple<string, string, string, string, string, int> GetTuple6()
@@ -4107,7 +3942,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple6
         /// </summary>
         public async Task<string> PostTuple6Async(System.Tuple<string, string, string, string, string, int> tuple)
@@ -4130,7 +3964,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple6
         /// </summary>
         public string PostTuple6(System.Tuple<string, string, string, string, string, int> tuple)
@@ -4153,7 +3986,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple7
         /// </summary>
         public async Task<System.Tuple<string, string, string, string, string, long, int>> GetTuple7Async()
@@ -4170,7 +4002,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple7
         /// </summary>
         public System.Tuple<string, string, string, string, string, long, int> GetTuple7()
@@ -4187,7 +4018,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple7
         /// </summary>
         public async Task<string> PostTuple7Async(System.Tuple<string, string, string, string, string, long, int> tuple)
@@ -4210,7 +4040,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple7
         /// </summary>
         public string PostTuple7(System.Tuple<string, string, string, string, string, long, int> tuple)
@@ -4233,7 +4062,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple8
         /// </summary>
         public async Task<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>> GetTuple8Async()
@@ -4250,7 +4078,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Tuple/Tuple8
         /// </summary>
         public System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>> GetTuple8()
@@ -4267,7 +4094,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple8
         /// </summary>
         public async Task<string> PostTuple8Async(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
@@ -4290,7 +4116,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Tuple/Tuple8
         /// </summary>
         public string PostTuple8(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
@@ -4401,7 +4226,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// DELETE api/Heroes/{id}
         /// </summary>
         public async Task DeleteAsync(long id)
@@ -4412,7 +4236,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// DELETE api/Heroes/{id}
         /// </summary>
         public void Delete(long id)
@@ -4561,7 +4384,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Values
         /// </summary>
         public async Task<string[]> GetAsync()
@@ -4578,7 +4400,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Values
         /// </summary>
         public string[] Get()
@@ -4595,7 +4416,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Values/{id}?name={name}
         /// </summary>
         public async Task<string> GetAsync(int id, string name)
@@ -4612,7 +4432,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Values/{id}?name={name}
         /// </summary>
         public string Get(int id, string name)
@@ -4629,7 +4448,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Values?name={name}
         /// </summary>
         public async Task<string> GetAsync(string name)
@@ -4646,7 +4464,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// GET api/Values?name={name}
         /// </summary>
         public string Get(string name)
@@ -4663,7 +4480,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Values
         /// </summary>
         public async Task<string> PostAsync(string value)
@@ -4686,7 +4502,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// POST api/Values
         /// </summary>
         public string Post(string value)
@@ -4709,7 +4524,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// PUT api/Values/{id}
         /// </summary>
         public async Task PutAsync(int id, string value)
@@ -4726,7 +4540,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// PUT api/Values/{id}
         /// </summary>
         public void Put(int id, string value)
@@ -4743,7 +4556,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// DELETE api/Values/{id}
         /// </summary>
         public async Task DeleteAsync(int id)
@@ -4754,7 +4566,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// 
         /// DELETE api/Values/{id}
         /// </summary>
         public void Delete(int id)

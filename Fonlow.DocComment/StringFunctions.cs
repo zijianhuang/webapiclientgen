@@ -54,6 +54,9 @@ namespace Fonlow.DocComment
         public static IList<string> TrimTrimIndentsOfArray(IEnumerable<string> ss)
         {
             var list = TrimIndentsOfArray(ss);
+            if (list == null)
+                return null;
+
             if (list[0] == String.Empty)
                 list.RemoveAt(0);
 

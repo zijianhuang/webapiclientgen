@@ -119,16 +119,20 @@ namespace Fonlow.Poco2Client
 
         static void AddDocComments(docMember member, CodeCommentStatementCollection comments)
         {
-            if (member != null)
+            if (member != null && comments !=null)
             {
                 if (member.summary != null)
                 {
                     comments.Add(new CodeCommentStatement("<summary>", true));
                     var noIndent = StringFunctions.TrimTrimIndentsOfArray(member.summary.Text);
-                    foreach (var item in noIndent)
+                    if (noIndent != null)
                     {
-                        comments.Add(new CodeCommentStatement(item, true));
+                        foreach (var item in noIndent)
+                        {
+                            comments.Add(new CodeCommentStatement(item, true));
+                        }
                     }
+
                     comments.Add(new CodeCommentStatement("</summary>", true));
                 }
             }

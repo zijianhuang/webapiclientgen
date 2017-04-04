@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Fonlow.Poco2Ts</id>
-    <version>$version$</version>
+    <version>1.7.1</version>
     <title>Generate data models in TypsScript from POCO classes</title>
     <authors>Zijian Huang</authors>
     <owners>Zijian Huang</owners>
@@ -20,4 +20,7 @@
       </group>
     </dependencies>  
   </metadata>
+  <files>
+    <file src="bin\Release\Fonlow.DocComment.dll" target="lib\net45" />
+  </files>
 </package>

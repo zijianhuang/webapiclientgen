@@ -3,7 +3,7 @@
   <metadata>
     <id>Fonlow.WebApiClientGen</id>
     <!--<version>$version$</version>-->
-    <version>2.1.0</version>
+    <version>2.1.1</version>
     <title>WebApiClientGen</title>
     <authors>Zijian Huang</authors>
     <owners>Zijian Huang</owners>
@@ -32,5 +32,6 @@
     <file src="..\DemoWebApi\Scripts\ClientApi\HttpClient.ts" target="content\Scripts\ClientApi\HttpClient.ts"/>
     <file src="bin\Release\Fonlow.Web.Meta.dll" target="lib\net45" />
     <file src="..\Fonlow.Web.MetaTransform\bin\Release\Fonlow.Web.MetaTransform.dll" target="lib\net45" />
+    <file src="bin\Release\Fonlow.DocComment.dll" target="lib\net45" />
   </files>
 </package>

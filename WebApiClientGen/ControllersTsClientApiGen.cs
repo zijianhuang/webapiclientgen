@@ -1,15 +1,4 @@
-﻿using Fonlow.Poco2Client;
-using Fonlow.Poco2Ts;
-using Fonlow.TypeScriptCodeDom;
-using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Fonlow.Web.Meta;
+﻿using System.CodeDom;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -31,16 +20,6 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             TargetUnit.ReferencedAssemblies.Add("///<reference path=\"../typings/jquery/jquery.d.ts\" />");
             TargetUnit.ReferencedAssemblies.Add("///<reference path=\"HttpClient.ts\" />");
-        }
-
-
-        protected override void AddLocalFields(CodeTypeDeclaration targetClass)
-        {
-            //CodeMemberField clientField = new CodeMemberField();
-            //clientField.Attributes = MemberAttributes.Private;
-            //clientField.Name = "httpClient";
-            //clientField.Type = new CodeTypeReference("HttpClient");
-            //targetClass.Members.Add(clientField);
         }
 
         protected override void AddConstructor(CodeTypeDeclaration targetClass)

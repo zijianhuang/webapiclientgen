@@ -3,9 +3,7 @@ using Fonlow.Poco2Ts;
 using Fonlow.TypeScriptCodeDom;
 using System;
 using System.CodeDom;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -234,7 +232,6 @@ namespace Fonlow.CodeDom.Web.Ts
             };
 
             ns.Types.Add(targetClass);
-            AddLocalFields(targetClass);
             AddConstructor(targetClass);
 
             return targetClass;
@@ -242,8 +239,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 
         abstract protected void AddBasicReferences();
-
-        abstract protected void AddLocalFields(CodeTypeDeclaration targetClass);
 
         abstract protected void AddConstructor(CodeTypeDeclaration targetClass);
 

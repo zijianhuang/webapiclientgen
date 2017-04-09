@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-
-namespace Fonlow.CodeDom.Web
+﻿namespace Fonlow.CodeDom.Web
 {
     public class CodeGenSettingsBase
     {
@@ -79,27 +71,6 @@ namespace Fonlow.CodeDom.Web
         /// </summary>
         public string ContentType { get; set; }
     }
-
-    //public class CSharpOutput : CodeGenSettingsBase
-    //{
-    //    /// <summary>
-    //    /// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
-    //    /// </summary>
-    //    public string ClientLibraryProjectFolderName { get; set; }
-
-    //    /// <summary>
-    //    /// For .NET client, generate both async and sync functions for each Web API function
-    //    /// </summary>
-    //    public bool GenerateBothAsyncAndSync { get; set; }
-
-
-    //    public CSharpOutput(CodeGenSettings settings)
-    //    {
-    //        this.ApiSelections = settings.ApiSelections;
-    //        this.ClientLibraryProjectFolderName = settings.ClientApiOutputs.ClientLibraryProjectFolderName;
-    //        this.GenerateBothAsyncAndSync = settings.ClientApiOutputs.GenerateBothAsyncAndSync;
-    //    }
-    //}
 
     public class JSOutput : CodeGenSettingsBase
     {

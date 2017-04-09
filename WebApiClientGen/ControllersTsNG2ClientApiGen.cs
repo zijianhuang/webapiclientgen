@@ -27,11 +27,6 @@ namespace Fonlow.CodeDom.Web.Ts
         }
 
 
-        protected override void AddLocalFields(CodeTypeDeclaration targetClass)
-        {
-            //do nothing
-        }
-
         protected override void AddConstructor(CodeTypeDeclaration targetClass)
         {
             CodeConstructor constructor = new CodeConstructor();
@@ -51,20 +46,6 @@ namespace Fonlow.CodeDom.Web.Ts
         {
             return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration("Injectable") });
         }
-
-        //protected override void AddHelperFunctionsInClass(CodeTypeDeclaration c)
-        //{
-        //    var handleErrorMethod = new CodeMemberMethod()
-        //    {
-        //        Attributes = MemberAttributes.Private | MemberAttributes.Final,
-        //        Name = "handleError",
-        //        // ReturnType = new CodeSnipetTypeReference("ErrorObservable"),
-        //    };
-
-        //    handleErrorMethod.Parameters.Add(new CodeParameterDeclarationExpression("any", "error"));
-        //    handleErrorMethod.Statements.Add(new CodeSnippetStatement("return Observable.throw(error.message || error)"));
-        //    c.Members.Add(handleErrorMethod);
-        //}
     }
 
 

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
@@ -89,7 +86,7 @@ namespace DemoWebApi.DemoData
         Tel = 0,
 
         /// <summary>
-        /// Mobile phoe
+        /// Mobile phone
         /// </summary>
         [EnumMember]
         Mobile = 1,
@@ -200,6 +197,9 @@ namespace DemoWebApi.DemoData
     [DataContract(Namespace = Constants.DataNamespace)]
     public class Company : Entity
     {
+        /// <summary>
+        /// BusinessNumber to be serialized as BusinessNum
+        /// </summary>
         [DataMember(Name ="BusinessNum")]
         public string BusinessNumber { get; set; }
 

@@ -115,7 +115,7 @@ namespace DemoWebApi.DemoData.Client
         Tel,
         
         /// <summary>
-        /// Mobile phoe
+        /// Mobile phone
         /// </summary>
         Mobile,
         
@@ -420,6 +420,9 @@ namespace DemoWebApi.DemoData.Client
         
         private string[] _Lines;
         
+        /// <summary>
+        /// BusinessNumber to be serialized as BusinessNum
+        /// </summary>
         public string BusinessNumber
         {
             get

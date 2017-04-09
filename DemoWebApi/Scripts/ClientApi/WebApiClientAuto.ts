@@ -37,7 +37,7 @@ namespace DemoWebApi_DemoData_Client {
         Tel,
         
         /** 
-         * Mobile phoe
+         * Mobile phone
          */
         Mobile,
         Skype,
@@ -93,6 +93,10 @@ namespace DemoWebApi_DemoData_Client {
     }
 
     export interface Company extends DemoWebApi_DemoData_Client.Entity {
+
+        /** 
+         * BusinessNumber to be serialized as BusinessNum
+         */
         BusinessNum?: string;
         businessNumberType?: string;
         textMatrix?: Array<Array<string>>;

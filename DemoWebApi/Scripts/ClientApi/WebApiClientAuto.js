@@ -31,7 +31,7 @@ var DemoWebApi_DemoData_Client;
          */
         PhoneType[PhoneType["Tel"] = 0] = "Tel";
         /**
-         * Mobile phoe
+         * Mobile phone
          */
         PhoneType[PhoneType["Mobile"] = 1] = "Mobile";
         PhoneType[PhoneType["Skype"] = 2] = "Skype";

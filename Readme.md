@@ -7,6 +7,20 @@ This project delivers these products:
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypsScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypsScript interfaces from POCO classes
 
+# Key Features
+1. Client API codes generated are directly mapped from the Web API controller methods, .NET primitive types and POCO classes. This is similar to what svcutil.exe in WCF has offered.
+1. Doc comments of controller methods and POCO classes are copied. 
+
+# Key Benefits
+
+1. WebApiClientGen is seamlessly integrated with ASP.NET Web API with very little steps/overheads to setup, maintain and synchronize between Web API and client APIs, during RAD or Agile Software Development.
+1. Support all .NET primitive types including decimal.
+1. Support DataTime, DataTimeOffset, Array, Tuple, Dynamic Object, Dictionary and KeyValuePair
+1. Strongly typed generated codes are subject to design time type checking and compile time type checking.
+1. Provide high level of abstraction, shielding application developers from repetitive technical details of RESTful practices and traditional AJAX calls.  
+1. Rich meta info including doc comments make IDE intellisense more helpful, so application developers have less need of reading separated API documents.
+
+
 # Examples
 
 1. [POCO classes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.DemoData/Entities.cs)

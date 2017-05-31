@@ -57,15 +57,15 @@ For all classes, properties and fields
                     return null;
 
                 assembly = System.Reflection.Assembly.Load(args.Name);
-                System.Diagnostics.Trace.TraceInformation("Load {0} that {1} depends on.", args.Name, args.RequestingAssembly.FullName);
+                Console.WriteLine("Load {0} that {1} depends on.", args.Name, args.RequestingAssembly.FullName);
                 return assembly;
             }
             catch (System.IO.FileNotFoundException e)
             {
-                System.Diagnostics.Debug.WriteLine(e.ToString());
+                Console.WriteLine(e.ToString());
                 var dirOfRequestingAssembly = System.IO.Path.GetDirectoryName(args.RequestingAssembly.Location);
                 var assemblyShortName = args.Name.Substring(0, args.Name.IndexOf(','));
-                var assemblyFullPath = System.IO.Path.Combine(dirOfRequestingAssembly, assemblyShortName + ".dll");//hopefully nobody would use exe.
+                var assemblyFullPath = System.IO.Path.Combine(dirOfRequestingAssembly, assemblyShortName + ".dll");//hopefully nobody would use exe for the dependency.
                 assembly = System.Reflection.Assembly.LoadFrom(assemblyFullPath);
                 return assembly;
             }

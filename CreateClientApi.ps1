@@ -1,4 +1,4 @@
-﻿#Launch WebApi Website and POST a request for generating client APIs
+﻿#Launch WebApi Website and POST a request for generating client APIs. This only works with the DEBUG build of the Web service.
 cd $PSScriptRoot
 $arguments = "/site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:$PSScriptRoot\.vs\config\applicationhost.config"
 echo $arguments

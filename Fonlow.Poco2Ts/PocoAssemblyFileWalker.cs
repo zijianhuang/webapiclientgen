@@ -27,7 +27,9 @@ namespace Fonlow.Poco2Ts
             var gen = new Poco2TsGen();
             gen.CreateCodeDom(assembly, methods, lookup);
             gen.SaveCodeToFile(tsFilePath);
-            Trace.WriteLine($"{tsFilePath} is generated.");
+            var msg = $"{tsFilePath} is generated.";
+            Console.WriteLine(msg);
+            Trace.WriteLine(msg);
         }
 
         static Assembly LoadAssembly(string assemblyFileName)
@@ -36,28 +38,13 @@ namespace Fonlow.Poco2Ts
             {
                 return Assembly.LoadFile(assemblyFileName);
             }
-            catch (System.IO.FileLoadException e)
+            catch (Exception ex) when (ex is System.IO.FileLoadException || ex is BadImageFormatException || ex is System.IO.FileNotFoundException || ex is ArgumentException )
             {
-                Trace.TraceWarning(String.Format("When loading {0}, errors occur: {1}", assemblyFileName, e.Message));
+                var msg = String.Format("When loading {0}, errors occur: {1}", assemblyFileName, ex.Message);
+                Console.WriteLine(msg);
+                Trace.TraceWarning(msg);
                 return null;
             }
-            catch (BadImageFormatException e)
-            {
-                Trace.TraceWarning(String.Format("When loading {0}, errors occur: {1}", assemblyFileName, e.Message));
-                //when file is a win32 dll.
-                return null;
-            }
-            catch (System.IO.FileNotFoundException e)
-            {
-                Trace.TraceWarning(String.Format("When loading {0}, errors occur: {1}", assemblyFileName, e.Message));
-                return null;
-            }
-            catch (ArgumentException e)
-            {
-                Trace.TraceWarning(String.Format("When loading {0}, errors occur: {1}", assemblyFileName, e.Message));
-                return null;
-            }
-
         }
 
 

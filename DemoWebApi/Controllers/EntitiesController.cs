@@ -11,7 +11,7 @@ using System.Web.Http.Cors;
 namespace DemoWebApi.Controllers
 {
    // [EnableCors(origins: "*", headers:"*", methods:"*")] set globally in WebApiConfig.cs
-    [Authorize]
+ //   [Authorize]
     [RoutePrefix("api/SuperDemo")]
     public class EntitiesController : ApiController
     {

@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace DemoWebApi.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class ValuesController : ApiController
     {
         // GET api/values

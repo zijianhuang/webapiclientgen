@@ -106,6 +106,14 @@ lmn";
             Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s));
         }
 
+        [Fact]
+        public void TestIssue8()
+        {
+            var s = "this.baseUri+'/api/admin/order/{id}/history+''";
+            var p = s.IndexOf("+''");
+            Assert.True(p > -1);
+          //  return s.Remove(p, 3);
+        }
 
     }
 }

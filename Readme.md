@@ -25,7 +25,7 @@ This project delivers these products:
 
 1. [POCO classes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.DemoData/Entities.cs)
 1. [Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Controllers/EntitiesController.cs)
-1. [Generated client API C1. codes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.ClientApi/WebApiClientAuto.cs)
+1. [Generated client API C# codes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.ClientApi/WebApiClientAuto.cs)
 1. [Client codes using the generated library in C#](https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTests/EntitiesApiIntegration.cs)
 1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/WebApiClientAuto.ts) and [for Angular 2](https://github.com/zijianhuang/webapiclientgen/tree/master/DemoAngular2/clientapi/WebApiNG2ClientAuto.ts)
 1. [Client codes using the generated library in TypeScript](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/tests/demo.tests.ts)

@@ -52,62 +52,6 @@ QUnit.test("data compare", function (assert) {
 });
 
 
-QUnit.module("Entities",
-    function () {
-        //The first test will get oauth token first before running the test
-        QUnit.test("GetPerson", function (assert) {
-            var done = assert.async();
-            authHttpClient.getToken('http://localhost:10965/', 'testapi@test.com', 'Tttttttt_8', (data) => {
-
-                entitiesApi.getPerson(100, (data) => {
-                    assert.equal(data.name, "Z Huang");
-                    done();
-                });
-
-            }, null, null);
-
-        });
-
-
-        QUnit.test("AddPerson", function (assert) {
-            var done = assert.async();
-            entitiesApi.createPerson({
-                name: "some body",
-                givenName: "some",
-                surname: "body",
-                dob: new Date("1977-08-18"),
-                addresses: [{
-                    city: "Brisbane",
-                    state: "QLD",
-                    type: DemoWebApi_DemoData_Client.AddressType.Residential,
-                }]
-
-            }, (data) => {
-                assert.ok(data > 0);
-                done();
-            });
-        });
-
-        QUnit.test("AddPersonExceptionInvokeErrorHandler", function (assert) {
-            assert.expect(0);
-            var done = assert.async();
-            var api = new DemoWebApi_Controllers_Client.Entities('http://localhost:10965/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.responseText);
-                done();
-            });
-            api.createPerson({
-                name: "Exception",
-                givenName: "some",
-                surname: "body",
-
-            }, (data) => {
-                assert.ok(data > 0);
-                // done();
-            });
-        });
-    }
-);
-
 
 QUnit.module("Heroes",
     function () {

@@ -19,7 +19,7 @@ namespace TypeScriptCodeDomTests
             var o = new CodeGeneratorOptions() { IndentString = "    " };
             using (var w = new StringWriter(builder))
             {
-                var provider = new TypeScriptCodeProvider();
+                var provider = new TypeScriptCodeProvider(false);
                 provider.GenerateCodeFromExpression(e, w, o);
             }
             Assert.Equal("myParameterName", builder.ToString());
@@ -31,7 +31,7 @@ namespace TypeScriptCodeDomTests
             var o = new CodeGeneratorOptions() { IndentString = "    " };
             using (var w = new StringWriter(builder))
             {
-                var provider = new TypeScriptCodeProvider();
+                var provider = new TypeScriptCodeProvider(false);
                 provider.GenerateCodeFromExpression(e, w, o);
             }
             var s = builder.ToString();

@@ -14,7 +14,7 @@ namespace TypeScriptCodeDomTests
         [Fact]
         public void TestIsValidIdentifier()
         {
-            var provider = new TypeScriptCodeProvider();
+            var provider = new TypeScriptCodeProvider(false);
             Assert.True(provider.IsValidIdentifier("abcde"));
             Assert.False(provider.IsValidIdentifier("if"));
             Assert.True(provider.IsValidIdentifier("IF"));
@@ -23,7 +23,7 @@ namespace TypeScriptCodeDomTests
         [Fact]
         public void TestValidateIdentifier()
         {
-            var provider = new TypeScriptCodeProvider();
+            var provider = new TypeScriptCodeProvider(false);
             Assert.Throws<ArgumentException>(() => provider.ValidateIdentifier("for"));
 
 
@@ -33,7 +33,7 @@ namespace TypeScriptCodeDomTests
         [Fact]
         public void TestSupports()
         {
-            var provider = new TypeScriptCodeProvider();
+            var provider = new TypeScriptCodeProvider(false);
             Assert.False(provider.Supports(GeneratorSupport.GotoStatements));
             Assert.True(provider.Supports(GeneratorSupport.GenericTypeDeclaration));
         }

@@ -170,6 +170,9 @@ namespace DemoWebApi.DemoData
         {
             return Name;
         }
+
+        [DataMember]
+        public Uri Web { get; set; }
     }
 
     [DataContract(Namespace = Constants.DataNamespace)]

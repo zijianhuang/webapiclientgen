@@ -31,6 +31,7 @@ namespace Fonlow.TypeScriptCodeDom
             {typeof(object).FullName, "any"},
             {typeof(DateTime).FullName, "Date"},
             {typeof(DateTimeOffset).FullName, "Date"},
+            {typeof(Uri).FullName, "string"},
             //TimeSpan is not so supported in Javascript
         };
 

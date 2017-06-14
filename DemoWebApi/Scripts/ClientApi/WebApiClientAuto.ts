@@ -79,6 +79,7 @@ namespace DemoWebApi_DemoData_Client {
          */
         addresses?: Array<DemoWebApi_DemoData_Client.Address>;
         phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+        web?: string;
     }
 
     export interface Person extends DemoWebApi_DemoData_Client.Entity {

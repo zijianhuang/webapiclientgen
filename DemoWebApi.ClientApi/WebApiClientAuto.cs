@@ -299,6 +299,8 @@ namespace DemoWebApi.DemoData.Client
         
         private DemoWebApi.DemoData.Client.PhoneNumber[] _PhoneNumbers;
         
+        private System.Uri _Web;
+        
         public System.Guid Id
         {
             get
@@ -351,6 +353,18 @@ namespace DemoWebApi.DemoData.Client
             set
             {
                 _PhoneNumbers = value;
+            }
+        }
+        
+        public System.Uri Web
+        {
+            get
+            {
+                return _Web;
+            }
+            set
+            {
+                _Web = value;
             }
         }
     }

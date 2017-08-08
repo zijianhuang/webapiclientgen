@@ -24,16 +24,16 @@ var DashboardComponent = (function () {
         this.heroService.get()
             .subscribe(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
     };
+    DashboardComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'my-dashboard',
+            templateUrl: 'dashboard.component.html',
+            styleUrls: ['dashboard.component.css']
+        }),
+        __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes])
+    ], DashboardComponent);
     return DashboardComponent;
 }());
-DashboardComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'my-dashboard',
-        templateUrl: 'dashboard.component.html',
-        styleUrls: ['dashboard.component.css']
-    }),
-    __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes])
-], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map

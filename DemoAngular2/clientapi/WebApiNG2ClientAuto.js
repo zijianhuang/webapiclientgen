@@ -478,13 +478,13 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.postWithQueryButEmptyBody = function (s, i) {
             return this.http.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, JSON.stringify(null), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json(); });
         };
+        SuperDemo = __decorate([
+            core_1.Injectable(),
+            __param(0, core_1.Inject('baseUri')),
+            __metadata("design:paramtypes", [String, http_1.Http])
+        ], SuperDemo);
         return SuperDemo;
     }());
-    SuperDemo = __decorate([
-        core_1.Injectable(),
-        __param(0, core_1.Inject('baseUri')),
-        __metadata("design:paramtypes", [String, http_1.Http])
-    ], SuperDemo);
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     var Entities = (function () {
         function Entities(baseUri, http) {
@@ -560,13 +560,13 @@ var DemoWebApi_Controllers_Client;
         Entities.prototype.delete = function (id) {
             return this.http.delete(this.baseUri + 'api/Entities/' + id);
         };
+        Entities = __decorate([
+            core_1.Injectable(),
+            __param(0, core_1.Inject('baseUri')),
+            __metadata("design:paramtypes", [String, http_1.Http])
+        ], Entities);
         return Entities;
     }());
-    Entities = __decorate([
-        core_1.Injectable(),
-        __param(0, core_1.Inject('baseUri')),
-        __metadata("design:paramtypes", [String, http_1.Http])
-    ], Entities);
     DemoWebApi_Controllers_Client.Entities = Entities;
     var Tuple = (function () {
         function Tuple(baseUri, http) {
@@ -772,13 +772,13 @@ var DemoWebApi_Controllers_Client;
         Tuple.prototype.postTuple8 = function (tuple) {
             return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) }).map(function (response) { return response.json(); });
         };
+        Tuple = __decorate([
+            core_1.Injectable(),
+            __param(0, core_1.Inject('baseUri')),
+            __metadata("design:paramtypes", [String, http_1.Http])
+        ], Tuple);
         return Tuple;
     }());
-    Tuple = __decorate([
-        core_1.Injectable(),
-        __param(0, core_1.Inject('baseUri')),
-        __metadata("design:paramtypes", [String, http_1.Http])
-    ], Tuple);
     DemoWebApi_Controllers_Client.Tuple = Tuple;
     var Heroes = (function () {
         function Heroes(baseUri, http) {
@@ -838,13 +838,13 @@ var DemoWebApi_Controllers_Client;
         Heroes.prototype.search = function (name) {
             return this.http.get(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name)).map(function (response) { return response.json(); });
         };
+        Heroes = __decorate([
+            core_1.Injectable(),
+            __param(0, core_1.Inject('baseUri')),
+            __metadata("design:paramtypes", [String, http_1.Http])
+        ], Heroes);
         return Heroes;
     }());
-    Heroes = __decorate([
-        core_1.Injectable(),
-        __param(0, core_1.Inject('baseUri')),
-        __metadata("design:paramtypes", [String, http_1.Http])
-    ], Heroes);
     DemoWebApi_Controllers_Client.Heroes = Heroes;
     var Values = (function () {
         function Values(baseUri, http) {
@@ -901,13 +901,13 @@ var DemoWebApi_Controllers_Client;
         Values.prototype.delete = function (id) {
             return this.http.delete(this.baseUri + 'api/Values/' + id);
         };
+        Values = __decorate([
+            core_1.Injectable(),
+            __param(0, core_1.Inject('baseUri')),
+            __metadata("design:paramtypes", [String, http_1.Http])
+        ], Values);
         return Values;
     }());
-    Values = __decorate([
-        core_1.Injectable(),
-        __param(0, core_1.Inject('baseUri')),
-        __metadata("design:paramtypes", [String, http_1.Http])
-    ], Values);
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client = exports.DemoWebApi_Controllers_Client || (exports.DemoWebApi_Controllers_Client = {}));
 //# sourceMappingURL=WebApiNG2ClientAuto.js.map

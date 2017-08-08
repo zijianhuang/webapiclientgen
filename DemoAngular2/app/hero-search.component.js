@@ -43,16 +43,16 @@ var HeroSearchComponent = (function () {
         var link = ['/detail', hero.id];
         this.router.navigate(link);
     };
+    HeroSearchComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'hero-search',
+            templateUrl: 'hero-search.component.html',
+            styleUrls: ['hero-search.component.css'],
+        }),
+        __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
+    ], HeroSearchComponent);
     return HeroSearchComponent;
 }());
-HeroSearchComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'hero-search',
-        templateUrl: 'hero-search.component.html',
-        styleUrls: ['hero-search.component.css'],
-    }),
-    __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
-], HeroSearchComponent);
 exports.HeroSearchComponent = HeroSearchComponent;
 //# sourceMappingURL=hero-search.component.js.map

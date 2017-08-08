@@ -62,9 +62,19 @@
         public string TypeScriptJQFolder { get; set; }
 
         /// <summary>
+        /// File name to be saved in TypeScriptJQFolder. If not defined, it will be WebApiClientAuto.ts.
+        /// </summary>
+        public string TypeScriptJQFile { get; set; } = "WebApiClientAuto.ts";
+
+        /// <summary>
         /// Absolute path or relative path to the Web API project.
         /// </summary>
         public string TypeScriptNG2Folder { get; set; }
+
+        /// <summary>
+        /// File name to be saved in TypeScriptNG2Folder. If not defined, it will be WebApiNG2ClientAuto.ts.
+        /// </summary>
+        public string TypeScriptNG2File { get; set; } = "WebApiNG2ClientAuto.ts";
 
         /// <summary>
         /// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.

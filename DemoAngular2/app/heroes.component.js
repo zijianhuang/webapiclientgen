@@ -56,16 +56,16 @@ var HeroesComponent = (function () {
     HeroesComponent.prototype.gotoDetail = function () {
         this.router.navigate(['/detail', this.selectedHero.id]);
     };
+    HeroesComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'my-heroes',
+            templateUrl: 'heroes.component.html',
+            styleUrls: ['heroes.component.css']
+        }),
+        __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
+    ], HeroesComponent);
     return HeroesComponent;
 }());
-HeroesComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'my-heroes',
-        templateUrl: 'heroes.component.html',
-        styleUrls: ['heroes.component.css']
-    }),
-    __metadata("design:paramtypes", [DemoWebApi_Controllers_Client.Heroes, router_1.Router])
-], HeroesComponent);
 exports.HeroesComponent = HeroesComponent;
 //# sourceMappingURL=heroes.component.js.map

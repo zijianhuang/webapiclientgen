@@ -22,42 +22,42 @@ var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 var AppModule = (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                //   InMemoryWebApiModule.forRoot(InMemoryDataService),
+                app_routing_module_1.AppRoutingModule
+            ],
+            declarations: [
+                app_component_1.AppComponent,
+                dashboard_component_1.DashboardComponent,
+                hero_detail_component_1.HeroDetailComponent,
+                heroes_component_1.HeroesComponent,
+                hero_search_component_1.HeroSearchComponent
+            ],
+            providers: [
+                {
+                    provide: http_1.Http,
+                    useFactory: function (backend, options) {
+                        return new http_1.Http(backend, options);
+                    },
+                    deps: [http_1.XHRBackend, http_1.RequestOptions]
+                },
+                {
+                    provide: DemoWebApi_Controllers_Client.Heroes,
+                    useFactory: function (http) {
+                        return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
+                    },
+                    deps: [http_1.Http],
+                },
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [
-            platform_browser_1.BrowserModule,
-            forms_1.FormsModule,
-            http_1.HttpModule,
-            //   InMemoryWebApiModule.forRoot(InMemoryDataService),
-            app_routing_module_1.AppRoutingModule
-        ],
-        declarations: [
-            app_component_1.AppComponent,
-            dashboard_component_1.DashboardComponent,
-            hero_detail_component_1.HeroDetailComponent,
-            heroes_component_1.HeroesComponent,
-            hero_search_component_1.HeroSearchComponent
-        ],
-        providers: [
-            {
-                provide: http_1.Http,
-                useFactory: function (backend, options) {
-                    return new http_1.Http(backend, options);
-                },
-                deps: [http_1.XHRBackend, http_1.RequestOptions]
-            },
-            {
-                provide: DemoWebApi_Controllers_Client.Heroes,
-                useFactory: function (http) {
-                    return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
-                },
-                deps: [http_1.Http],
-            },
-        ],
-        bootstrap: [app_component_1.AppComponent]
-    })
-], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

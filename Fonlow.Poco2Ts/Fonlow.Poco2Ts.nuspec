@@ -16,11 +16,11 @@
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</tags>
     <dependencies>
       <group>
-        <dependency id="Fonlow.TypeScriptCodeDOM" version="1.8.0" />
+        <dependency id="Fonlow.TypeScriptCodeDOM" version="1.8.1" />
       </group>
     </dependencies>  
   </metadata>
   <files>
-    <file src="bin\Release\Fonlow.DocComment.dll" target="lib\net45" />
+    <file src="bin\Release\Fonlow.DocComment.dll" target="lib\net452" />
   </files>
 </package>

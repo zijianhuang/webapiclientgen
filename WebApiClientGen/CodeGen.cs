@@ -50,7 +50,7 @@ namespace Fonlow.CodeDom.Web
             };
 
 
-            var jQueryPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptJQFolder, "WebApiClientAuto.ts");
+            var jQueryPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptJQFolder, settings.ClientApiOutputs.TypeScriptJQFile);
             if (!String.IsNullOrEmpty(jQueryPath))
             {
                 var jQueryOutput = new JSOutput(settings, jQueryPath, false);
@@ -59,7 +59,7 @@ namespace Fonlow.CodeDom.Web
                 tsGen.Save();
             }
 
-            var ng2Path = CreateTsPath(settings.ClientApiOutputs.TypeScriptNG2Folder, "WebApiNG2ClientAuto.ts");
+            var ng2Path = CreateTsPath(settings.ClientApiOutputs.TypeScriptNG2Folder, settings.ClientApiOutputs.TypeScriptNG2File);
             if (!String.IsNullOrEmpty(ng2Path))
             {
                 var ng2Output = new JSOutput(settings, ng2Path, true);

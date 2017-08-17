@@ -268,8 +268,12 @@ namespace Fonlow.CodeDom.Web.Cs
                 || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
             if (fromBodyParameterDescriptions.Length > 1)
             {
-                throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName));
+                throw new CodeGenException("BadApiDef")
+                {
+                    Description = String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName)
+                };
             }
+
             var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
             Action AddRequestUriWithQueryAssignmentStatement = () =>

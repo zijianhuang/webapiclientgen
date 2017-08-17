@@ -45,6 +45,13 @@ namespace DemoWebApi.Controllers
             });
         }
 
+        [HttpPost]
+        [Route("kkk")]
+        public void PostSomethingWrong(DemoData.Company x, DemoData.Person y)
+        {
+            //do nothing.
+        }
+
         [HttpGet]
         [Route("NextYear")]
         public DateTime GetNextYear(DateTime dt)

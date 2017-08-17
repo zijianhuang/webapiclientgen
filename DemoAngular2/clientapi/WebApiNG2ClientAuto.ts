@@ -236,6 +236,16 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * POST api/SuperDemo/kkk?x={x}
+         * @param {string} x 
+         * @param {DemoWebApi_DemoData_Client.Person} y 
+         * @return {void} 
+         */
+        postSomethingWrong(x: string, y: DemoWebApi_DemoData_Client.Person): Observable<Response>{
+            return this.http.post(this.baseUri + 'api/SuperDemo/kkk?x='+encodeURIComponent(x), JSON.stringify(y), { headers: new Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
          * GET api/SuperDemo/NextYear?dt={dt}
          * @param {Date} dt 
          * @return {Date} 

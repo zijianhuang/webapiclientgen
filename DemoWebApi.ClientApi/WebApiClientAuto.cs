@@ -981,6 +981,38 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// POST api/SuperDemo/kkk?x={x}
+        /// </summary>
+        public async Task PostSomethingWrongAsync(string x, DemoWebApi.DemoData.Client.Person y)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/kkk?x="+Uri.EscapeDataString(x));
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, y);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            }
+        }
+        
+        /// <summary>
+        /// POST api/SuperDemo/kkk?x={x}
+        /// </summary>
+        public void PostSomethingWrong(string x, DemoWebApi.DemoData.Client.Person y)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/kkk?x="+Uri.EscapeDataString(x));
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, y);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            }
+        }
+        
+        /// <summary>
         /// GET api/SuperDemo/NextYear?dt={dt}
         /// </summary>
         public async Task<System.DateTime> GetNextYearAsync(System.DateTime dt)

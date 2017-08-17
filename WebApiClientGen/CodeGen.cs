@@ -12,7 +12,10 @@ namespace Fonlow.CodeDom.Web
             {
                 string clientProjectDir = System.IO.Path.Combine(webRootPath, "..", settings.ClientApiOutputs.ClientLibraryProjectFolderName);
                 if (!System.IO.Directory.Exists(clientProjectDir))
-                    throw new CodeGenException("ClientLibraryProjectFolderNotExist");                  
+                    throw new CodeGenException("ClientLibraryProjectFolderNotExist")
+                    {
+                        Description= $"{clientProjectDir} not exist."
+                    };                  
 
                 var path = System.IO.Path.Combine(clientProjectDir, "WebApiClientAuto.cs");
                 var gen = new Fonlow.CodeDom.Web.Cs.ControllersClientApiGen(settings);
@@ -36,12 +39,18 @@ namespace Fonlow.CodeDom.Web
                     catch (System.ArgumentException e)
                     {
                         System.Diagnostics.Trace.TraceWarning(e.Message);
-                        throw new CodeGenException("InvalidTypeScriptFolder");
+                        throw new CodeGenException("InvalidTypeScriptFolder")
+                        {
+                            Description = $"Invalid TypeScriptFolder {folder}"
+                        };
                     }
 
                     if (!System.IO.Directory.Exists(theFolder))
                     {
-                        throw new CodeGenException("TypeScriptFolderNotExist");
+                        throw new CodeGenException("TypeScriptFolderNotExist")
+                        {
+                            Description = $"TypeScriptFolder {theFolder} not exist."
+                        };
                     }
                     return System.IO.Path.Combine(theFolder, fileName);
                 };

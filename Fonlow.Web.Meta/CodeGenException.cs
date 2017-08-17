@@ -13,5 +13,7 @@ namespace Fonlow.Web.Meta
         public CodeGenException(string message) : base(message) { }
 
         public CodeGenException(string message, Exception innerException) : base(message, innerException) { }
+
+        public string Description { get; set; }
     }
 }

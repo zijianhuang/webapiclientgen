@@ -52,7 +52,7 @@ namespace Fonlow.DocComment
             }
             catch (Exception ex) when (ex is ArgumentException || ex is System.IO.IOException || ex is System.Security.SecurityException)
             {
-                Trace.TraceError(ex.ToString());
+                Trace.TraceError("Cannot locate the doc xml of the assembly: "+ ex.ToString());
                 return false;
             }
         }
@@ -67,6 +67,11 @@ namespace Fonlow.DocComment
             return XmlDoc.members.SingleOrDefault(d => d.name == name);
         }
 
+        /// <summary>
+        /// Get doc comment xml of the assembly
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
         public static string GetXmlPath(Assembly assembly)
         {
             var assemblyName = assembly.GetName().Name;

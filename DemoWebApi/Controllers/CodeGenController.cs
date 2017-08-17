@@ -48,7 +48,12 @@ namespace Fonlow.WebApiClientGen
             }
             catch (Fonlow.Web.Meta.CodeGenException e)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = e.Message });
+                System.Diagnostics.Trace.TraceError(e.Message + " : "+ e.Description);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    ReasonPhrase = e.Message,
+                    Content = String.IsNullOrEmpty(e.Description) ? null : new StringContent(e.Description, System.Text.Encoding.UTF8, "text/plain"),
+                });
             }
 
             return "OK";

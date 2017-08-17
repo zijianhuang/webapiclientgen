@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClientGen", "WebApiClientGen\WebApiClientGen.csproj", "{1673D7D1-16BE-48A0-901A-9706087293D4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -361,5 +361,8 @@ Global
 		{941FD9B3-88B3-4199-A23C-F36A50DFCB23} = {A2F5FCEF-26A1-4D28-8C94-C01756502CFD}
 		{A2F5FCEF-26A1-4D28-8C94-C01756502CFD} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
 		{BC51C7BD-BC44-4EF4-8D71-0E9C68E22BFB} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18214E93-9A86-4818-9CB5-C5F2917B153A}
 	EndGlobalSection
 EndGlobal

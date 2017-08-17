@@ -88,15 +88,6 @@ var DemoWebApi_Controllers_Client;
             return this.http.get(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue=' + hasValue).map(function (response) { return response.json(); });
         };
         /**
-         * POST api/SuperDemo/kkk?x={x}
-         * @param {string} x
-         * @param {DemoWebApi_DemoData_Client.Person} y
-         * @return {void}
-         */
-        SuperDemo.prototype.postSomethingWrong = function (x, y) {
-            return this.http.post(this.baseUri + 'api/SuperDemo/kkk?x=' + encodeURIComponent(x), JSON.stringify(y), { headers: new http_1.Headers({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
-        };
-        /**
          * GET api/SuperDemo/NextYear?dt={dt}
          * @param {Date} dt
          * @return {Date}

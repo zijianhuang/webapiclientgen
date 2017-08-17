@@ -34,3 +34,4 @@ _ReSharper*/
 /DemoAngular2/node_modules
 /DemoWebApi/App_Data/*.ldf
 /DemoWebApi/App_Data/*.mdf
+/packages

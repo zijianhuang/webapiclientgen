@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2015 Pivotal Labs
+Copyright (c) 2008-2017 Pivotal Labs
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -43,6 +43,7 @@ jasmineRequire.HtmlReporter = function(j$) {
       onThrowExpectationsClick = options.onThrowExpectationsClick || function() {},
       onRandomClick = options.onRandomClick || function() {},
       addToExistingQueryString = options.addToExistingQueryString || defaultQueryString,
+      filterSpecs = options.filterSpecs,
       timer = options.timer || noopTimer,
       results = [],
       specsExecuted = 0,
@@ -209,9 +210,10 @@ jasmineRequire.HtmlReporter = function(j$) {
 
       if (specsExecuted < totalSpecsDefined) {
         var skippedMessage = 'Ran ' + specsExecuted + ' of ' + totalSpecsDefined + ' specs - run all';
+        var skippedLink = order && order.random ? '?random=true' : '?';
         alert.appendChild(
           createDom('span', {className: 'jasmine-bar jasmine-skipped'},
-            createDom('a', {href: '?', title: 'Run all specs'}, skippedMessage)
+            createDom('a', {href: skippedLink, title: 'Run all specs'}, skippedMessage)
           )
         );
       }
@@ -237,13 +239,20 @@ jasmineRequire.HtmlReporter = function(j$) {
 
       alert.appendChild(createDom('span', {className: statusBarClassName}, statusBarMessage, seedBar));
 
-      for(i = 0; i < failedSuites.length; i++) {
+      var errorBarClassName = 'jasmine-bar jasmine-errored';
+      var errorBarMessagePrefix = 'AfterAll ';
+
+      for(var i = 0; i < failedSuites.length; i++) {
         var failedSuite = failedSuites[i];
         for(var j = 0; j < failedSuite.failedExpectations.length; j++) {
-          var errorBarMessage = 'AfterAll ' + failedSuite.failedExpectations[j].message;
-          var errorBarClassName = 'jasmine-bar jasmine-errored';
-          alert.appendChild(createDom('span', {className: errorBarClassName}, errorBarMessage));
+          alert.appendChild(createDom('span', {className: errorBarClassName}, errorBarMessagePrefix + failedSuite.failedExpectations[j].message));
         }
+      }
+
+      var globalFailures = (doneResult && doneResult.failedExpectations) || [];
+      for(i = 0; i < globalFailures.length; i++) {
+        var failure = globalFailures[i];
+        alert.appendChild(createDom('span', {className: errorBarClassName}, errorBarMessagePrefix + failure.message));
       }
 
       var results = find('.jasmine-results');
@@ -255,6 +264,9 @@ jasmineRequire.HtmlReporter = function(j$) {
         var specListNode;
         for (var i = 0; i < resultsTree.children.length; i++) {
           var resultNode = resultsTree.children[i];
+          if (filterSpecs && !hasActiveSpec(resultNode)) {
+            continue;
+          }
           if (resultNode.type == 'suite') {
             var suiteListNode = createDom('ul', {className: 'jasmine-suite', id: 'suite-' + resultNode.result.id},
               createDom('li', {className: 'jasmine-suite-detail'},
@@ -309,7 +321,7 @@ jasmineRequire.HtmlReporter = function(j$) {
         setMenuModeTo('jasmine-failure-list');
 
         var failureNode = find('.jasmine-failures');
-        for (var i = 0; i < failures.length; i++) {
+        for (i = 0; i < failures.length; i++) {
           failureNode.appendChild(failures[i]);
         }
       }
@@ -381,6 +393,20 @@ jasmineRequire.HtmlReporter = function(j$) {
     function noExpectations(result) {
       return (result.failedExpectations.length + result.passedExpectations.length) === 0 &&
         result.status === 'passed';
+    }
+
+    function hasActiveSpec(resultNode) {
+      if (resultNode.type == 'spec' && resultNode.result.status != 'disabled') {
+        return true;
+      }
+
+      if (resultNode.type == 'suite') {
+        for (var i = 0, j = resultNode.children.length; i < j; i++) {
+          if (hasActiveSpec(resultNode.children[i])) {
+            return true;
+          }
+        }
+      }
     }
   }
 

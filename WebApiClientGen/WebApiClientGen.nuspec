@@ -31,6 +31,7 @@
     <file src="..\DemoWebApi\Scripts\ClientApi\Dummy.ts" target="content\Scripts\ClientApi\WebApiClientAuto.ts"/>
     <file src="..\DemoWebApi\Scripts\ClientApi\HttpClient.ts" target="content\Scripts\ClientApi\HttpClient.ts"/>
     <file src="bin\Release\Fonlow.Web.Meta.dll" target="lib\net452"/>
+    <file src="bin\Release\Fonlow.DocComment.dll" target="lib\net452"/>
     <file src="..\Fonlow.Web.MetaTransform\bin\Release\Fonlow.Web.MetaTransform.dll" target="lib\net452"/>
   </files>
 </package>

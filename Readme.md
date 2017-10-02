@@ -8,7 +8,7 @@ This project delivers these products:
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypsScript interfaces from POCO classes.
 
 
-![Packages](/doc/WebApiClientGen.PNG)
+![Packages](/Doc/WebApiClientGen.PNG)
 
 **Hints:**
 

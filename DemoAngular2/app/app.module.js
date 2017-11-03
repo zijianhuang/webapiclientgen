@@ -10,7 +10,8 @@ require("./rxjs-extensions");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
-var http_1 = require("@angular/http");
+//import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+var http_1 = require("@angular/common/http");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var dashboard_component_1 = require("./dashboard.component");
@@ -27,7 +28,7 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
-                http_1.HttpModule,
+                http_1.HttpClientModule,
                 //   InMemoryWebApiModule.forRoot(InMemoryDataService),
                 app_routing_module_1.AppRoutingModule
             ],
@@ -40,18 +41,17 @@ var AppModule = (function () {
             ],
             providers: [
                 {
-                    provide: http_1.Http,
-                    useFactory: function (backend, options) {
-                        return new http_1.Http(backend, options);
+                    provide: http_1.HttpClient,
+                    useFactory: function (backend) {
+                        return new http_1.HttpClient(backend);
                     },
-                    deps: [http_1.XHRBackend, http_1.RequestOptions]
                 },
                 {
                     provide: DemoWebApi_Controllers_Client.Heroes,
                     useFactory: function (http) {
                         return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
                     },
-                    deps: [http_1.Http],
+                    deps: [http_1.HttpClient],
                 },
             ],
             bootstrap: [app_component_1.AppComponent]

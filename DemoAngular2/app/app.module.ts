@@ -2,7 +2,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+//import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { HttpClientModule, HttpClient, HttpBackend, HttpXhrBackend, HttpRequest } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -19,7 +20,7 @@ import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         //   InMemoryWebApiModule.forRoot(InMemoryDataService),
         AppRoutingModule
     ],
@@ -32,19 +33,19 @@ import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
     ],
     providers: [
         {
-            provide: Http,
-            useFactory: (backend: XHRBackend, options: RequestOptions) => {
-                return new Http(backend, options);
+            provide: HttpClient,
+            useFactory: (backend: HttpBackend) => {
+                return new HttpClient(backend);
             },
-            deps: [XHRBackend, RequestOptions]
+          //  deps: [XHRBackend, RequestOptions]
         },
 
         {
             provide: DemoWebApi_Controllers_Client.Heroes,
-            useFactory: (http: Http) => {
+            useFactory: (http: HttpClient) => {
                 return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
             },
-            deps: [Http],
+            deps: [HttpClient],
 
         },
     ],

@@ -62,10 +62,10 @@ namespace Fonlow.CodeDom.Web.Ts
             var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
                 RemoveTrialEmptyString($"this.baseUri + '{jsUriQuery}'");
 
-            var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
+           // var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
             if (httpMethod == "get" || httpMethod == "delete")
             {
-                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}){mapFunction};"));
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText});"));
                 return;
             }
 
@@ -87,7 +87,7 @@ namespace Fonlow.CodeDom.Web.Ts
                     contentType = "application/json;charset=UTF-8";
                 }
 
-                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: new Headers({{ 'Content-Type': '{contentType}' }}) }}){mapFunction};"));
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, JSON.stringify({dataToPost}), {{ headers: new HttpHeaders({{ 'Content-Type': '{contentType}' }}) }});"));
 
                 return;
             }

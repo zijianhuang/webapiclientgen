@@ -19,7 +19,7 @@ namespace Fonlow.CodeDom.Web.Ts
         protected override void AddBasicReferences()
         {
             TargetUnit.ReferencedAssemblies.Add("import { Injectable, Inject } from '@angular/core';");
-            TargetUnit.ReferencedAssemblies.Add("import { Http, Headers, Response } from '@angular/http';");
+            TargetUnit.ReferencedAssemblies.Add("import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';");
             TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs/Observable';");
             TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/map';");
             TargetUnit.ReferencedAssemblies.Add("import 'rxjs/add/operator/catch';");
@@ -37,7 +37,7 @@ namespace Fonlow.CodeDom.Web.Ts
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
                 "string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'", "@Inject('baseUri') private baseUri"));
             constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-                "Http", "private http"));
+                "HttpClient", "private http"));
 
             targetClass.Members.Add(constructor);
         }

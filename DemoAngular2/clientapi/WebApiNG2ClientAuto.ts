@@ -4,6 +4,35 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+export namespace DemoWebApi_Controllers_Client {
+
+    /** 
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
+
+        /** 
+         * Gets or sets the local path of the file saved on the server.
+         */
+        fileNames?: Array<string>;
+
+        /** 
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+         */
+        submitter?: string;
+    }
+
+
+    /** 
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
 export namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -174,35 +203,6 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
-
-    /** 
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /** 
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /** 
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /** 
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
-export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class SuperDemo {
         constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient){
@@ -213,8 +213,8 @@ export namespace DemoWebApi_Controllers_Client {
          * @param {number} d 
          * @return {number} 
          */
-        getIntSquare(d: number): Observable<number> {
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/int?d=' + d);
+        getIntSquare(d: number): Observable<number>{
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/int?d='+d);
         }
 
         /** 
@@ -286,7 +286,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffsetNullable(d: Date): Observable<boolean>{
-            return this.http.post <boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
         }
 
         /** 
@@ -762,6 +762,235 @@ export namespace DemoWebApi_Controllers_Client {
         }
     }
 
+    @Injectable()
+    export class Tuple {
+        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient){
+        }
+
+        /** 
+         * POST api/Tuple/PersonCompany1
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}} peopleAndCompany 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        linkPersonCompany1(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * POST api/Tuple/PeopleCompany2
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}} peopleAndCompany 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        linkPeopleCompany2(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * POST api/Tuple/PeopleCompany3
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Company}} peopleAndCompany 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        linkPeopleCompany3(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * POST api/Tuple/PeopleCompany4
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}} peopleAndCompany 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        linkPeopleCompany4(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/PeopleCompany4
+         * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}} 
+         */
+        getPeopleCompany4(): Observable<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}>{
+            return this.http.get<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany4');
+        }
+
+        /** 
+         * POST api/Tuple/PeopleCompany5
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}} peopleAndCompany 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        linkPeopleCompany5(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/PeopleCompany5
+         * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}} 
+         */
+        getPeopleCompany5(): Observable<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}>{
+            return this.http.get<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany5');
+        }
+
+        /** 
+         * POST api/Tuple/PeopleCompany6
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Company}} peopleAndCompany 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        linkPeopleCompany6(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * POST api/Tuple/PeopleCompany7
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Company}} peopleAndCompany 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        linkPeopleCompany7(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * POST api/Tuple/PeopleCompany8
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Person, rest:DemoWebApi_DemoData_Client.Company}} peopleAndCompany 
+         * @return {DemoWebApi_DemoData_Client.Person} 
+         */
+        linkPeopleCompany8(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Person, rest:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/Tuple1
+         * @return {{item1:number}} 
+         */
+        getTuple1(): Observable<{item1:number}>{
+            return this.http.get<{item1:number}>(this.baseUri + 'api/Tuple/Tuple1');
+        }
+
+        /** 
+         * POST api/Tuple/Tuple1
+         * @param {{item1:number}} tuple 
+         * @return {number} 
+         */
+        postTuple1(tuple: {item1:number}): Observable<number>{
+            return this.http.post<number>(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/Tuple2
+         * @return {{item1:string, item2:number}} 
+         */
+        getTuple2(): Observable<{item1:string, item2:number}>{
+            return this.http.get<{item1:string, item2:number}>(this.baseUri + 'api/Tuple/Tuple2');
+        }
+
+        /** 
+         * POST api/Tuple/Tuple2
+         * @param {{item1:string, item2:number}} tuple 
+         * @return {string} 
+         */
+        postTuple2(tuple: {item1:string, item2:number}): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/Tuple3
+         * @return {{item1:string, item2:string, item3:number}} 
+         */
+        getTuple3(): Observable<{item1:string, item2:string, item3:number}>{
+            return this.http.get<{item1:string, item2:string, item3:number}>(this.baseUri + 'api/Tuple/Tuple3');
+        }
+
+        /** 
+         * POST api/Tuple/Tuple3
+         * @param {{item1:string, item2:string, item3:number}} tuple 
+         * @return {string} 
+         */
+        postTuple3(tuple: {item1:string, item2:string, item3:number}): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/Tuple4
+         * @return {{item1:string, item2:string, item3:string, item4:number}} 
+         */
+        getTuple4(): Observable<{item1:string, item2:string, item3:string, item4:number}>{
+            return this.http.get<{item1:string, item2:string, item3:string, item4:number}>(this.baseUri + 'api/Tuple/Tuple4');
+        }
+
+        /** 
+         * POST api/Tuple/Tuple4
+         * @param {{item1:string, item2:string, item3:string, item4:number}} tuple 
+         * @return {string} 
+         */
+        postTuple4(tuple: {item1:string, item2:string, item3:string, item4:number}): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/Tuple5
+         * @return {{item1:string, item2:string, item3:string, item4:string, item5:number}} 
+         */
+        getTuple5(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:number}>{
+            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:number}>(this.baseUri + 'api/Tuple/Tuple5');
+        }
+
+        /** 
+         * POST api/Tuple/Tuple5
+         * @param {{item1:string, item2:string, item3:string, item4:string, item5:number}} tuple 
+         * @return {string} 
+         */
+        postTuple5(tuple: {item1:string, item2:string, item3:string, item4:string, item5:number}): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/Tuple6
+         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}} 
+         */
+        getTuple6(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}>{
+            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}>(this.baseUri + 'api/Tuple/Tuple6');
+        }
+
+        /** 
+         * POST api/Tuple/Tuple6
+         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}} tuple 
+         * @return {string} 
+         */
+        postTuple6(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/Tuple7
+         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}} 
+         */
+        getTuple7(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}>{
+            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}>(this.baseUri + 'api/Tuple/Tuple7');
+        }
+
+        /** 
+         * POST api/Tuple/Tuple7
+         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}} tuple 
+         * @return {string} 
+         */
+        postTuple7(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * GET api/Tuple/Tuple8
+         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}} 
+         */
+        getTuple8(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}>{
+            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}>(this.baseUri + 'api/Tuple/Tuple8');
+        }
+
+        /** 
+         * POST api/Tuple/Tuple8
+         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}} tuple 
+         * @return {string} 
+         */
+        postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+    }
 
     @Injectable()
     export class Heroes {
@@ -803,7 +1032,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         post(name: string): Observable<DemoWebApi_Controllers_Client.Hero>{
-            return this.http.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), JSON.stringify(null), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), JSON.stringify(null), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
         }
 
         /** 
@@ -827,6 +1056,66 @@ export namespace DemoWebApi_Controllers_Client {
         }
     }
 
+    @Injectable()
+    export class Values {
+        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient){
+        }
+
+        /** 
+         * GET api/Values
+         * @return {Array<string>} 
+         */
+        get(): Observable<Array<string>>{
+            return this.http.get<Array<string>>(this.baseUri + 'api/Values');
+        }
+
+        /** 
+         * GET api/Values/{id}?name={name}
+         * @param {number} id 
+         * @param {string} name 
+         * @return {string} 
+         */
+        getByIdAndName(id: number, name: string): Observable<string>{
+            return this.http.get<string>(this.baseUri + 'api/Values/'+id+'?name='+encodeURIComponent(name));
+        }
+
+        /** 
+         * GET api/Values?name={name}
+         * @param {string} name 
+         * @return {string} 
+         */
+        getByName(name: string): Observable<string>{
+            return this.http.get<string>(this.baseUri + 'api/Values?name='+encodeURIComponent(name));
+        }
+
+        /** 
+         * POST api/Values
+         * @param {string} value 
+         * @return {string} 
+         */
+        post(value: string): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * PUT api/Values/{id}
+         * @param {number} id 
+         * @param {string} value 
+         * @return {void} 
+         */
+        put(id: number, value: string): Observable<Response>{
+            return this.http.put<Response>(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        }
+
+        /** 
+         * DELETE api/Values/{id}
+         * @param {number} id 
+         * @return {void} 
+         */
+        delete(id: number): Observable<Response>{
+            return this.http.delete<Response>(this.baseUri + 'api/Values/'+id);
+        }
+    }
 
 }
 

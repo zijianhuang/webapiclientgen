@@ -568,6 +568,218 @@ var DemoWebApi_Controllers_Client;
         return Entities;
     }());
     DemoWebApi_Controllers_Client.Entities = Entities;
+    var Tuple = (function () {
+        function Tuple(baseUri, http) {
+            if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
+            this.baseUri = baseUri;
+            this.http = http;
+        }
+        /**
+         * POST api/Tuple/PersonCompany1
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.linkPersonCompany1 = function (peopleAndCompany) {
+            return this.http.post(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * POST api/Tuple/PeopleCompany2
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.linkPeopleCompany2 = function (peopleAndCompany) {
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * POST api/Tuple/PeopleCompany3
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.linkPeopleCompany3 = function (peopleAndCompany) {
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * POST api/Tuple/PeopleCompany4
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.linkPeopleCompany4 = function (peopleAndCompany) {
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/PeopleCompany4
+         * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}}
+         */
+        Tuple.prototype.getPeopleCompany4 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/PeopleCompany4');
+        };
+        /**
+         * POST api/Tuple/PeopleCompany5
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.linkPeopleCompany5 = function (peopleAndCompany) {
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/PeopleCompany5
+         * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}}
+         */
+        Tuple.prototype.getPeopleCompany5 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/PeopleCompany5');
+        };
+        /**
+         * POST api/Tuple/PeopleCompany6
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.linkPeopleCompany6 = function (peopleAndCompany) {
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * POST api/Tuple/PeopleCompany7
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.linkPeopleCompany7 = function (peopleAndCompany) {
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * POST api/Tuple/PeopleCompany8
+         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Person, rest:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @return {DemoWebApi_DemoData_Client.Person}
+         */
+        Tuple.prototype.linkPeopleCompany8 = function (peopleAndCompany) {
+            return this.http.post(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/Tuple1
+         * @return {{item1:number}}
+         */
+        Tuple.prototype.getTuple1 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple1');
+        };
+        /**
+         * POST api/Tuple/Tuple1
+         * @param {{item1:number}} tuple
+         * @return {number}
+         */
+        Tuple.prototype.postTuple1 = function (tuple) {
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/Tuple2
+         * @return {{item1:string, item2:number}}
+         */
+        Tuple.prototype.getTuple2 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple2');
+        };
+        /**
+         * POST api/Tuple/Tuple2
+         * @param {{item1:string, item2:number}} tuple
+         * @return {string}
+         */
+        Tuple.prototype.postTuple2 = function (tuple) {
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/Tuple3
+         * @return {{item1:string, item2:string, item3:number}}
+         */
+        Tuple.prototype.getTuple3 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple3');
+        };
+        /**
+         * POST api/Tuple/Tuple3
+         * @param {{item1:string, item2:string, item3:number}} tuple
+         * @return {string}
+         */
+        Tuple.prototype.postTuple3 = function (tuple) {
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/Tuple4
+         * @return {{item1:string, item2:string, item3:string, item4:number}}
+         */
+        Tuple.prototype.getTuple4 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple4');
+        };
+        /**
+         * POST api/Tuple/Tuple4
+         * @param {{item1:string, item2:string, item3:string, item4:number}} tuple
+         * @return {string}
+         */
+        Tuple.prototype.postTuple4 = function (tuple) {
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/Tuple5
+         * @return {{item1:string, item2:string, item3:string, item4:string, item5:number}}
+         */
+        Tuple.prototype.getTuple5 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple5');
+        };
+        /**
+         * POST api/Tuple/Tuple5
+         * @param {{item1:string, item2:string, item3:string, item4:string, item5:number}} tuple
+         * @return {string}
+         */
+        Tuple.prototype.postTuple5 = function (tuple) {
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/Tuple6
+         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}}
+         */
+        Tuple.prototype.getTuple6 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple6');
+        };
+        /**
+         * POST api/Tuple/Tuple6
+         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}} tuple
+         * @return {string}
+         */
+        Tuple.prototype.postTuple6 = function (tuple) {
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/Tuple7
+         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}}
+         */
+        Tuple.prototype.getTuple7 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple7');
+        };
+        /**
+         * POST api/Tuple/Tuple7
+         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}} tuple
+         * @return {string}
+         */
+        Tuple.prototype.postTuple7 = function (tuple) {
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * GET api/Tuple/Tuple8
+         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}}
+         */
+        Tuple.prototype.getTuple8 = function () {
+            return this.http.get(this.baseUri + 'api/Tuple/Tuple8');
+        };
+        /**
+         * POST api/Tuple/Tuple8
+         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}} tuple
+         * @return {string}
+         */
+        Tuple.prototype.postTuple8 = function (tuple) {
+            return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        Tuple = __decorate([
+            core_1.Injectable(),
+            __param(0, core_1.Inject('baseUri')),
+            __metadata("design:paramtypes", [String, http_1.HttpClient])
+        ], Tuple);
+        return Tuple;
+    }());
+    DemoWebApi_Controllers_Client.Tuple = Tuple;
     var Heroes = (function () {
         function Heroes(baseUri, http) {
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
@@ -634,5 +846,68 @@ var DemoWebApi_Controllers_Client;
         return Heroes;
     }());
     DemoWebApi_Controllers_Client.Heroes = Heroes;
+    var Values = (function () {
+        function Values(baseUri, http) {
+            if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
+            this.baseUri = baseUri;
+            this.http = http;
+        }
+        /**
+         * GET api/Values
+         * @return {Array<string>}
+         */
+        Values.prototype.get = function () {
+            return this.http.get(this.baseUri + 'api/Values');
+        };
+        /**
+         * GET api/Values/{id}?name={name}
+         * @param {number} id
+         * @param {string} name
+         * @return {string}
+         */
+        Values.prototype.getByIdAndName = function (id, name) {
+            return this.http.get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name));
+        };
+        /**
+         * GET api/Values?name={name}
+         * @param {string} name
+         * @return {string}
+         */
+        Values.prototype.getByName = function (name) {
+            return this.http.get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name));
+        };
+        /**
+         * POST api/Values
+         * @param {string} value
+         * @return {string}
+         */
+        Values.prototype.post = function (value) {
+            return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * PUT api/Values/{id}
+         * @param {number} id
+         * @param {string} value
+         * @return {void}
+         */
+        Values.prototype.put = function (id, value) {
+            return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: new http_1.HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+        };
+        /**
+         * DELETE api/Values/{id}
+         * @param {number} id
+         * @return {void}
+         */
+        Values.prototype.delete = function (id) {
+            return this.http.delete(this.baseUri + 'api/Values/' + id);
+        };
+        Values = __decorate([
+            core_1.Injectable(),
+            __param(0, core_1.Inject('baseUri')),
+            __metadata("design:paramtypes", [String, http_1.HttpClient])
+        ], Values);
+        return Values;
+    }());
+    DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client = exports.DemoWebApi_Controllers_Client || (exports.DemoWebApi_Controllers_Client = {}));
 //# sourceMappingURL=WebApiNG2ClientAuto.js.map

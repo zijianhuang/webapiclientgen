@@ -40,7 +40,7 @@ var DemoWebApi_DemoData_Client;
 })(DemoWebApi_DemoData_Client || (DemoWebApi_DemoData_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
-    var SuperDemo = (function () {
+    var SuperDemo = /** @class */ (function () {
         function SuperDemo(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             if (httpClient === void 0) { httpClient = new HttpClient(); }
@@ -467,7 +467,7 @@ var DemoWebApi_Controllers_Client;
         return SuperDemo;
     }());
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
-    var Entities = (function () {
+    var Entities = /** @class */ (function () {
         function Entities(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             if (httpClient === void 0) { httpClient = new HttpClient(); }
@@ -547,7 +547,7 @@ var DemoWebApi_Controllers_Client;
         return Entities;
     }());
     DemoWebApi_Controllers_Client.Entities = Entities;
-    var Tuple = (function () {
+    var Tuple = /** @class */ (function () {
         function Tuple(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             if (httpClient === void 0) { httpClient = new HttpClient(); }
@@ -757,7 +757,7 @@ var DemoWebApi_Controllers_Client;
         return Tuple;
     }());
     DemoWebApi_Controllers_Client.Tuple = Tuple;
-    var Heroes = (function () {
+    var Heroes = /** @class */ (function () {
         function Heroes(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             if (httpClient === void 0) { httpClient = new HttpClient(); }
@@ -821,7 +821,7 @@ var DemoWebApi_Controllers_Client;
         return Heroes;
     }());
     DemoWebApi_Controllers_Client.Heroes = Heroes;
-    var Values = (function () {
+    var Values = /** @class */ (function () {
         function Values(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
             if (httpClient === void 0) { httpClient = new HttpClient(); }

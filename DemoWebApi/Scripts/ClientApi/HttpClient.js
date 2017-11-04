@@ -1,5 +1,5 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
-var HttpClient = (function () {
+var HttpClient = /** @class */ (function () {
     function HttpClient() {
     }
     /**
@@ -38,13 +38,13 @@ var HttpClient = (function () {
             }
         });
     };
+    /**
+      location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
+    **/
+    HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return HttpClient;
 }());
-/**
-  location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
-**/
-HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
-var AuthHttpClient = (function () {
+var AuthHttpClient = /** @class */ (function () {
     function AuthHttpClient() {
     }
     /**
@@ -118,9 +118,9 @@ var AuthHttpClient = (function () {
             }
         });
     };
+    /**
+      location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
+    **/
+    AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return AuthHttpClient;
 }());
-/**
-  location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
-**/
-AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';

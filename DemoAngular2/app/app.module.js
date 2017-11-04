@@ -45,6 +45,7 @@ var AppModule = (function () {
                     useFactory: function (backend) {
                         return new http_1.HttpClient(backend);
                     },
+                    deps: [http_1.HttpBackend]
                 },
                 {
                     provide: DemoWebApi_Controllers_Client.Heroes,

@@ -37,7 +37,7 @@ import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
             useFactory: (backend: HttpBackend) => {
                 return new HttpClient(backend);
             },
-          //  deps: [XHRBackend, RequestOptions]
+            deps: [HttpBackend]
         },
 
         {

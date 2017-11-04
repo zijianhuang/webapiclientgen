@@ -21,7 +21,7 @@
             '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
             '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
             '@angular/flex-layout': 'npm:@angular/flex-layout/bundles/flex-layout.umd.js',
-            '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
+            '@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             //  '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
@@ -45,6 +45,7 @@
             '@angular/cdk/stepper': 'npm:@angular/cdk/bundles/cdk-stepper.umd.js',
             '@angular/cdk/table': 'npm:@angular/cdk/bundles/cdk-table.umd.js',
 
+            'tslib': 'npm:tslib/tslib.js',
             // other libraries
             'rxjs': 'npm:rxjs',
             //temp fix according to https://github.com/ReactiveX/rxjs/issues/2971

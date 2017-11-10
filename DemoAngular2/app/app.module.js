@@ -40,13 +40,6 @@ var AppModule = (function () {
             ],
             providers: [
                 {
-                    provide: http_1.HttpClient,
-                    useFactory: function (backend) {
-                        return new http_1.HttpClient(backend);
-                    },
-                    deps: [http_1.HttpBackend]
-                },
-                {
                     provide: DemoWebApi_Controllers_Client.Heroes,
                     useFactory: function (http) {
                         return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);

@@ -32,14 +32,6 @@ import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
     ],
     providers: [
         {
-            provide: HttpClient,
-            useFactory: (backend: HttpBackend) => {
-                return new HttpClient(backend);
-            },
-            deps: [HttpBackend]
-        },
-
-        {
             provide: DemoWebApi_Controllers_Client.Heroes,
             useFactory: (http: HttpClient) => {
                 return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);

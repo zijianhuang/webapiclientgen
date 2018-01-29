@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, Injectable, Inject } from '@angular/core';
-import { Http, XHRBackend, Headers, RequestOptions, Response, RequestOptionsArgs } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 

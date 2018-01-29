@@ -54,14 +54,8 @@
     <Content Include="app\heroes.component.css" />
     <Content Include="app\heroes.component.html" />
     <Content Include="browser-test-shim.js" />
-    <Content Include="Content\jasmine\jasmine.css" />
-    <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="karma-test-shim.js" />
     <Content Include="karma.conf.js" />
-    <Content Include="Scripts\jasmine\boot.js" />
-    <Content Include="Scripts\jasmine\console.js" />
-    <Content Include="Scripts\jasmine\jasmine-html.js" />
-    <Content Include="Scripts\jasmine\jasmine.js" />
     <Content Include="styles.css" />
     <Content Include="unit-tests.html" />
     <Content Include="index.html" />
@@ -87,7 +81,6 @@
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
-    <None Include="packages.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

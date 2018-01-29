@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClientGen", "WebApiClientGen\WebApiClientGen.csproj", "{1673D7D1-16BE-48A0-901A-9706087293D4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -57,6 +57,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAngular2", "DemoAngular2\DemoAngular2.csproj", "{BC51C7BD-BC44-4EF4-8D71-0E9C68E22BFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.DocComment", "Fonlow.DocComment\Fonlow.DocComment.csproj", "{AE803561-2EE8-4BE9-B53F-4C782CBE2FF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNGCli", "DemoNGCli\DemoNGCli.csproj", "{231ED5C6-EC39-455C-8F1F-30B69520F67B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -342,6 +344,22 @@ Global
 		{AE803561-2EE8-4BE9-B53F-4C782CBE2FF3}.Release|x64.Build.0 = Release|Any CPU
 		{AE803561-2EE8-4BE9-B53F-4C782CBE2FF3}.Release|x86.ActiveCfg = Release|Any CPU
 		{AE803561-2EE8-4BE9-B53F-4C782CBE2FF3}.Release|x86.Build.0 = Release|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Debug|ARM.Build.0 = Debug|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Debug|x64.Build.0 = Debug|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Debug|x86.Build.0 = Debug|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Release|ARM.Build.0 = Release|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Release|x64.ActiveCfg = Release|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Release|x64.Build.0 = Release|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Release|x86.ActiveCfg = Release|Any CPU
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -361,6 +379,7 @@ Global
 		{941FD9B3-88B3-4199-A23C-F36A50DFCB23} = {A2F5FCEF-26A1-4D28-8C94-C01756502CFD}
 		{A2F5FCEF-26A1-4D28-8C94-C01756502CFD} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
 		{BC51C7BD-BC44-4EF4-8D71-0E9C68E22BFB} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
+		{231ED5C6-EC39-455C-8F1F-30B69520F67B} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18214E93-9A86-4818-9CB5-C5F2917B153A}

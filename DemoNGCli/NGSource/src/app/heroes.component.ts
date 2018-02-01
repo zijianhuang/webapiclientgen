@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
 import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
@@ -13,7 +13,7 @@ export class HeroesComponent implements OnInit {
     heroes: DemoWebApi_Controllers_Client.Hero[];
     selectedHero: DemoWebApi_Controllers_Client.Hero;
     constructor(
-        private heroService: DemoWebApi_Controllers_Client.Heroes,
+        @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes)  private heroService: DemoWebApi_Controllers_Client.Heroes,
         private router: Router) { }
     getHeroes(): void {
         this.heroService

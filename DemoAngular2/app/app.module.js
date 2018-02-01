@@ -6,7 +6,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("./rxjs-extensions");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
@@ -19,7 +18,11 @@ var hero_detail_component_1 = require("./hero-detail.component");
 var hero_search_component_1 = require("./hero-search.component");
 var namespaces = require("../clientapi/WebApiNG2ClientAuto");
 var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-var AppModule = (function () {
+function clientFactory(http) {
+    return new DemoWebApi_Controllers_Client.Heroes('http://localhost:10965/', http);
+}
+exports.clientFactory = clientFactory;
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -40,10 +43,12 @@ var AppModule = (function () {
             ],
             providers: [
                 {
+                    provide: http_1.HttpClient,
+                    useClass: http_1.HttpClient
+                },
+                {
                     provide: DemoWebApi_Controllers_Client.Heroes,
-                    useFactory: function (http) {
-                        return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
-                    },
+                    useFactory: clientFactory,
                     deps: [http_1.HttpClient],
                 },
             ],

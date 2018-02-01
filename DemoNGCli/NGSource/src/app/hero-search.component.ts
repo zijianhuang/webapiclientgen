@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -15,7 +15,7 @@ export class HeroSearchComponent implements OnInit {
     heroes: Observable<DemoWebApi_Controllers_Client.Hero[]>;
     private searchTerms = new Subject<string>();
     constructor(
-        private heroSearchService: DemoWebApi_Controllers_Client.Heroes,
+        @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroSearchService: DemoWebApi_Controllers_Client.Heroes,
         private router: Router) { }
     // Push a search term into the observable stream.
     search(term: string): void {

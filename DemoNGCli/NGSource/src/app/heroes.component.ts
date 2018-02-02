@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
-import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 @Component({
     moduleId: module.id,
@@ -10,10 +9,10 @@ import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
     styleUrls: ['heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-    heroes: DemoWebApi_Controllers_Client.Hero[];
-    selectedHero: DemoWebApi_Controllers_Client.Hero;
+    heroes: namespaces.DemoWebApi_Controllers_Client.Hero[];
+    selectedHero: namespaces.DemoWebApi_Controllers_Client.Hero;
     constructor(
-        @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes)  private heroService: DemoWebApi_Controllers_Client.Heroes,
+        @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
         private router: Router) { }
     getHeroes(): void {
         this.heroService
@@ -29,7 +28,7 @@ export class HeroesComponent implements OnInit {
                 this.selectedHero = null;
             });
     }
-    delete(hero: DemoWebApi_Controllers_Client.Hero): void {
+    delete(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
         this.heroService
             .delete(hero.id)
             .subscribe(() => {
@@ -40,7 +39,7 @@ export class HeroesComponent implements OnInit {
     ngOnInit(): void {
         this.getHeroes();
     }
-    onSelect(hero: DemoWebApi_Controllers_Client.Hero): void {
+    onSelect(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
         this.selectedHero = hero;
     }
     gotoDetail(): void {

@@ -12,10 +12,9 @@ import { HeroDetailComponent } from './hero-detail.component';
 import { HeroSearchComponent } from './hero-search.component';
 
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
-const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 export function clientFactory(http: HttpClient) {
-    return new DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
+    return new namespaces.DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
 }
 
 @NgModule({
@@ -34,7 +33,7 @@ export function clientFactory(http: HttpClient) {
     ],
     providers: [
         {
-            provide: DemoWebApi_Controllers_Client.Heroes,
+            provide: namespaces.DemoWebApi_Controllers_Client.Heroes,
             useFactory: clientFactory,
             deps: [HttpClient],
 

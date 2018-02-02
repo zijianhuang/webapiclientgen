@@ -112,7 +112,6 @@
     <TypeScriptCompile Include="NGSource\src\app\hero-detail.component.ts" />
     <TypeScriptCompile Include="NGSource\src\app\hero-search.component.ts" />
     <TypeScriptCompile Include="NGSource\src\app\heroes.component.ts" />
-    <TypeScriptCompile Include="NGSource\src\app\main.ts" />
     <TypeScriptCompile Include="NGSource\src\app\rxjs-extensions.ts" />
     <TypeScriptCompile Include="NGSource\src\clientapi\WebApiNG2ClientAuto.ts" />
     <TypeScriptCompile Include="NGSource\src\environments\environment.prod.ts" />

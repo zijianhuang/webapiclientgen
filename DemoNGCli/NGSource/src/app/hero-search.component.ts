@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
-import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 @Component({
     moduleId: module.id,
@@ -12,10 +11,10 @@ import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
     styleUrls: ['hero-search.component.css'],
 })
 export class HeroSearchComponent implements OnInit {
-    heroes: Observable<DemoWebApi_Controllers_Client.Hero[]>;
+    heroes: Observable<namespaces.DemoWebApi_Controllers_Client.Hero[]>;
     private searchTerms = new Subject<string>();
     constructor(
-        @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroSearchService: DemoWebApi_Controllers_Client.Heroes,
+        @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroSearchService: namespaces.DemoWebApi_Controllers_Client.Heroes,
         private router: Router) { }
     // Push a search term into the observable stream.
     search(term: string): void {
@@ -29,14 +28,14 @@ export class HeroSearchComponent implements OnInit {
                 // return the http search observable
                 ? this.heroSearchService.search(term)
                 // or the observable of empty heroes if no search term
-                : Observable.of<DemoWebApi_Controllers_Client.Hero[]>([]))
+                : Observable.of<namespaces.DemoWebApi_Controllers_Client.Hero[]>([]))
             .catch(error => {
                 // TODO: real error handling
                 console.log(error);
-                return Observable.of<DemoWebApi_Controllers_Client.Hero[]>([]);
+                return Observable.of<namespaces.DemoWebApi_Controllers_Client.Hero[]>([]);
             });
     }
-    gotoDetail(hero: DemoWebApi_Controllers_Client.Hero): void {
+    gotoDetail(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
         let link = ['/detail', hero.id];
         this.router.navigate(link);
     }

@@ -2,7 +2,7 @@ import { Component, OnInit , Inject} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
-import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
+
 @Component({
     moduleId: module.id,
     selector: 'my-hero-detail',
@@ -10,9 +10,9 @@ import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
     styleUrls: ['hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-    hero: DemoWebApi_Controllers_Client.Hero;
+    hero: namespaces.DemoWebApi_Controllers_Client.Hero;
     constructor(
-        @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes)  private heroService: DemoWebApi_Controllers_Client.Heroes,
+        @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
         private route: ActivatedRoute,
         private location: Location
     ) { }

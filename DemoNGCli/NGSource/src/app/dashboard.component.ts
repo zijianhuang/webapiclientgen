@@ -1,7 +1,6 @@
 import { Component, OnInit, Injectable, Inject } from '@angular/core';
 
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
-//import DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 @Component({
     selector: 'my-dashboard',

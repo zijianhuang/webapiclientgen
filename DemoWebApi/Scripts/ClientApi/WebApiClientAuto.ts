@@ -680,70 +680,70 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * PUT api/SuperDemo/link?id={id}&relationship={relationship}
+         * Get a person
+         * so to know the person
+         * GET api/Entities/getPerson?id={id}
+         * @param {number} id unique id of that guy
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         */
+        getPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
+            this.httpClient.get(this.baseUri + 'api/Entities/getPerson?id='+id, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/Entities/createPerson
+         * @param {DemoWebApi_DemoData_Client.Person} p 
+         * @return {number} 
+         */
+        createPerson(p: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any){
+            this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * PUT api/Entities/updatePerson
+         * @param {DemoWebApi_DemoData_Client.Person} person 
+         * @return {void} 
+         */
+        updatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : void) => any){
+            this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * PUT api/Entities/link?id={id}&relationship={relationship}
          * @param {number} id 
          * @param {string} relationship 
          * @param {DemoWebApi_DemoData_Client.Person} person 
          * @return {boolean} 
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person, callback: (data : boolean) => any){
-            this.httpClient.put(this.baseUri + 'api/SuperDemo/link?id='+id+'&relationship='+encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
+            this.httpClient.put(this.baseUri + 'api/Entities/link?id='+id+'&relationship='+encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
         }
 
         /** 
-         * GET api/SuperDemo/Company?id={id}
+         * GET api/Entities/Company?id={id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Company} 
          */
         getCompany(id: number, callback: (data : DemoWebApi_DemoData_Client.Company) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/Company?id='+id, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Entities/Company?id='+id, callback, this.error, this.statusCode);
         }
 
         /** 
-         * GET api/SuperDemo/PersonNotFound?id={id}
+         * GET api/Entities/PersonNotFound?id={id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getPersonNotFound(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/PersonNotFound?id='+id, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Entities/PersonNotFound?id='+id, callback, this.error, this.statusCode);
         }
 
         /** 
-         * GET api/SuperDemo/PersonActionNotFound?id={id}
+         * GET api/Entities/PersonActionNotFound?id={id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getPersonActionNotFound(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/PersonActionNotFound?id='+id, callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * Get a person
-         * so to know the person
-         * GET api/Entities/{id}
-         * @param {number} id unique id of that guy
-         * @return {DemoWebApi_DemoData_Client.Person} person in db
-         */
-        getPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
-            this.httpClient.get(this.baseUri + 'api/Entities/'+id, callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * POST api/Entities
-         * @param {DemoWebApi_DemoData_Client.Person} p 
-         * @return {number} 
-         */
-        createPerson(p: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any){
-            this.httpClient.post(this.baseUri + 'api/Entities', p, callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * PUT api/Entities
-         * @param {DemoWebApi_DemoData_Client.Person} person 
-         * @return {void} 
-         */
-        updatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : void) => any){
-            this.httpClient.put(this.baseUri + 'api/Entities', person, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Entities/PersonActionNotFound?id='+id, callback, this.error, this.statusCode);
         }
 
         /** 

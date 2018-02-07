@@ -12,7 +12,7 @@ namespace DemoWebApi.Controllers
 {
    // [EnableCors(origins: "*", headers:"*", methods:"*")] set globally in WebApiConfig.cs
  //   [Authorize]
-    [RoutePrefix("api/SuperDemo")]
+    [RoutePrefix("api/Entities")]
     public class EntitiesController : ApiController
     {
         /// <summary>
@@ -22,6 +22,7 @@ namespace DemoWebApi.Controllers
         /// <param name="id">unique id of that guy</param>
         /// <returns>person in db</returns>
         [HttpGet]
+        [Route("getPerson")]
         public Person GetPerson(long id)
         {
             return new Person()
@@ -34,6 +35,7 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpPost]
+        [Route("createPerson")]
         public long CreatePerson(Person p)
         {
             Debug.WriteLine("CreatePerson: " + p.Name);
@@ -46,6 +48,7 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpPut]
+        [Route("updatePerson")]
         public void UpdatePerson(Person person)
         {
             Debug.WriteLine("Update " + person);

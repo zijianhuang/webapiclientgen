@@ -259,7 +259,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         postNextYear(dt: Date): Observable<Date>{
-            return this.http.post<Date>(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<Date>(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -277,7 +277,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffset(d: Date): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -286,7 +286,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffsetNullable(d: Date): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -480,7 +480,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postInt2D(a: number[][]): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -489,7 +489,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postInt2DJagged(a: Array<Array<number>>): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -498,7 +498,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postIntArray(a: Array<number>): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -531,7 +531,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         postAnonymousObject(obj: any): Observable<Response>{
-            return this.http.post<Response>(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<Response>(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -556,7 +556,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -621,7 +621,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postICollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -630,7 +630,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -639,7 +639,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -648,7 +648,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -657,7 +657,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -666,7 +666,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -676,7 +676,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:number}} 
          */
         postWithQueryButEmptyBody(s: string, i: number): Observable<{item1:string, item2:number}>{
-            return this.http.post<{item1:string, item2:number}>(this.baseUri + 'api/SuperDemo/PostEmpty?s='+encodeURIComponent(s)+'&i='+i, JSON.stringify(null), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<{item1:string, item2:number}>(this.baseUri + 'api/SuperDemo/PostEmpty?s='+encodeURIComponent(s)+'&i='+i, JSON.stringify(null), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
     }
 
@@ -686,70 +686,70 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * PUT api/SuperDemo/link?id={id}&relationship={relationship}
+         * Get a person
+         * so to know the person
+         * GET api/Entities/getPerson?id={id}
+         * @param {number} id unique id of that guy
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         */
+        getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson?id='+id);
+        }
+
+        /** 
+         * POST api/Entities/createPerson
+         * @param {DemoWebApi_DemoData_Client.Person} p 
+         * @return {number} 
+         */
+        createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number>{
+            return this.http.post<number>(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        }
+
+        /** 
+         * PUT api/Entities/updatePerson
+         * @param {DemoWebApi_DemoData_Client.Person} person 
+         * @return {void} 
+         */
+        updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<Response>{
+            return this.http.put<Response>(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        }
+
+        /** 
+         * PUT api/Entities/link?id={id}&relationship={relationship}
          * @param {number} id 
          * @param {string} relationship 
          * @param {DemoWebApi_DemoData_Client.Person} person 
          * @return {boolean} 
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Observable<boolean>{
-            return this.http.put<boolean>(this.baseUri + 'api/SuperDemo/link?id='+id+'&relationship='+encodeURIComponent(relationship), JSON.stringify(person), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id='+id+'&relationship='+encodeURIComponent(relationship), JSON.stringify(person), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
-         * GET api/SuperDemo/Company?id={id}
+         * GET api/Entities/Company?id={id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Company} 
          */
         getCompany(id: number): Observable<DemoWebApi_DemoData_Client.Company>{
-            return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/SuperDemo/Company?id='+id);
+            return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company?id='+id);
         }
 
         /** 
-         * GET api/SuperDemo/PersonNotFound?id={id}
+         * GET api/Entities/PersonNotFound?id={id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getPersonNotFound(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/SuperDemo/PersonNotFound?id='+id);
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/PersonNotFound?id='+id);
         }
 
         /** 
-         * GET api/SuperDemo/PersonActionNotFound?id={id}
+         * GET api/Entities/PersonActionNotFound?id={id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getPersonActionNotFound(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/SuperDemo/PersonActionNotFound?id='+id);
-        }
-
-        /** 
-         * Get a person
-         * so to know the person
-         * GET api/Entities/{id}
-         * @param {number} id unique id of that guy
-         * @return {DemoWebApi_DemoData_Client.Person} person in db
-         */
-        getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/'+id);
-        }
-
-        /** 
-         * POST api/Entities
-         * @param {DemoWebApi_DemoData_Client.Person} p 
-         * @return {number} 
-         */
-        createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/Entities', JSON.stringify(p), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
-        }
-
-        /** 
-         * PUT api/Entities
-         * @param {DemoWebApi_DemoData_Client.Person} person 
-         * @return {void} 
-         */
-        updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<Response>{
-            return this.http.put<Response>(this.baseUri + 'api/Entities', JSON.stringify(person), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/PersonActionNotFound?id='+id);
         }
 
         /** 
@@ -773,7 +773,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPersonCompany1(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -782,7 +782,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany2(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -791,7 +791,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany3(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -800,7 +800,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany4(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -817,7 +817,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany5(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -834,7 +834,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany6(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -843,7 +843,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany7(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -852,7 +852,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany8(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Person, rest:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -869,7 +869,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postTuple1(tuple: {item1:number}): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -886,7 +886,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple2(tuple: {item1:string, item2:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -903,7 +903,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple3(tuple: {item1:string, item2:string, item3:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -920,7 +920,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple4(tuple: {item1:string, item2:string, item3:string, item4:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -937,7 +937,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple5(tuple: {item1:string, item2:string, item3:string, item4:string, item5:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -954,7 +954,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple6(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -971,7 +971,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple7(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -988,7 +988,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
     }
 
@@ -1032,7 +1032,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         post(name: string): Observable<DemoWebApi_Controllers_Client.Hero>{
-            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), JSON.stringify(null), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), JSON.stringify(null), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -1042,7 +1042,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         put(hero: DemoWebApi_Controllers_Client.Hero): Observable<DemoWebApi_Controllers_Client.Hero>{
-            return this.http.put<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.put<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -1094,7 +1094,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         post(value: string): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -1104,7 +1104,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         put(id: number, value: string): Observable<Response>{
-            return this.http.put<Response>(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8' }) });
+            return this.http.put<Response>(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 

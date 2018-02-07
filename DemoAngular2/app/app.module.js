@@ -22,7 +22,7 @@ function clientFactory(http) {
     return new DemoWebApi_Controllers_Client.Heroes('http://localhost:10965/', http);
 }
 exports.clientFactory = clientFactory;
-var AppModule = /** @class */ (function () {
+var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([

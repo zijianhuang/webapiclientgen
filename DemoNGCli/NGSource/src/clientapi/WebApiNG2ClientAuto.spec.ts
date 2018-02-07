@@ -51,7 +51,6 @@ export function errorResponseToString(error: HttpErrorResponse | any, ): string 
 }
 
 
-//https://stackoverflow.com/questions/42046855/how-to-combine-a-done-callback-with-injection-angular-2-unittest/46027549#46027549
 describe('Values API', () => {
     let service: namespaces.DemoWebApi_Controllers_Client.Values;
 
@@ -76,27 +75,28 @@ describe('Values API', () => {
     afterEach(function () {
     });
 
-    it('get', async((done) => {
+    it('get', (done) => {
         service.get().subscribe(
             data => {
                 console.debug(data.length);
                 expect(data.length).toBeGreaterThan(0);
+                done();
             },
-            error => fail(errorResponseToString(error))
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
         );
 
-    })
+    }
     );
-
-    it('something', () => {
-        expect(true).toBe(true);
-    });
-
 
 })
 
 
 describe('Heroes API', () => {
+    let service: namespaces.DemoWebApi_Controllers_Client.Heroes;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientModule],
@@ -110,32 +110,46 @@ describe('Heroes API', () => {
 
             ]
         })
-            .compileComponents();
+
+        service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Heroes);
     }));
 
-    it('getAll', async(inject([DemoWebApi_Controllers_Client.Heroes], (client: namespaces.DemoWebApi_Controllers_Client.Heroes) => {
-        client.get().subscribe(
+    it('getAll', (done) => {
+        service.get().subscribe(
             data => {
                 console.debug(data.length);
                 expect(data.length).toBeGreaterThan(0);
+                done();
             },
-            error => fail(errorResponseToString(error))
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
         );
 
-    }))
-
+    }
     );
 
-    it('something', () => {
-        expect(true).toBe(true);
-    });
+    it('Add', (done) => {
+        service.post('somebody').subscribe(
+            data => {
+                expect(data.name).toBe('somebody');
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+
+    }
+    );
 
 
 })
 
 describe('entities API', () => {
-    let httpClient: HttpClient;
-    let httpTestingController: HttpTestingController;
+    let client: namespaces.DemoWebApi_Controllers_Client.Entities;
 
     beforeEach(async(() => {
 
@@ -146,37 +160,53 @@ describe('entities API', () => {
                     provide: namespaces.DemoWebApi_Controllers_Client.Entities,
                     useFactory: entitiesClientFactory,
                     deps: [HttpClient],
-
                 },
 
             ]
         });
+
+        client = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Entities);
     }));
 
-    afterEach(function () {
-    });
-
-
-    it('getPersonNotFound', async(inject([DemoWebApi_Controllers_Client.Entities], (client: namespaces.DemoWebApi_Controllers_Client.Entities) => {
+    it('getPersonNotFound', (done) => {
         client.getPersonNotFound(123)
             .subscribe(
             data => {
-                fail('That is bad.');
+                fail('That is bad. Should be 404.');
+                done();
             },
-            error => { console.info(errorResponseToString(error)); expect(true).toBe(true); }
-         //   error => { fail(errorResponseToString(error)); }
-
+            error => {
+                expect(errorResponseToString(error)).toContain('404');
+                done();
+            }
             );
-
-    }))
+    }
     );
 
-    it('something', () => {
-        expect(true).toBe(true);
-    });
+    it('add', (done) => {
+        let id: number;
+        let newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
+            name: 'John Smith' + Date.now().toString(),
+            givenName: 'John',
+            surname: 'Smith',
+            dob: new Date('1977-12-28')
+        };
+
+        client.createPerson(newPerson)
+            .subscribe(
+            data => {
+                id = data;
+                expect(data).toBeTruthy();
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+            );
+
+    }
+    );
 
 
 })
-
-
-

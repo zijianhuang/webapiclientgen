@@ -1,17 +1,7 @@
-import { async, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { async, inject, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/toPromise';
-import "rxjs/add/operator/takeWhile";
 
 import * as namespaces from './WebApiNG2ClientAuto';
-const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-const DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
 
 const apiBaseUri = 'http://localhost:10965/';
 

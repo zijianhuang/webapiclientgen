@@ -3,7 +3,7 @@
 /// <reference path="../ClientApi/HttpClient.ts" />
 var MyApp;
 (function (MyApp) {
-    var First = (function () {
+    var First = /** @class */ (function () {
         function First() {
         }
         First.prototype.getPerson = function () {

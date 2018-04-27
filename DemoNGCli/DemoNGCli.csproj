@@ -77,6 +77,7 @@
     <Content Include="NGSource\README.md" />
     <Content Include="NGSource\tsconfig.json" />
     <Content Include="NGSource\tslint.json" />
+    <Content Include="buildIISExpress.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -58,16 +58,7 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-    <Compile Include="CherryPicking.cs" />
-    <Compile Include="CherryPickingMethods.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IPoco2Client.cs" />
-    <Compile Include="PocoAssemblyFileWalker.cs" />
-    <Compile Include="PodGenHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeHelper.cs" />
-    <Compile Include="TsPodGen.cs" />
-    <Compile Include="CsPodGen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\WebApiClientGen.snk">
@@ -75,7 +66,6 @@
     </None>
     <None Include="App.config" />
     <None Include="Fonlow.Poco2Ts.nuspec" />
-    <None Include="packages.config" />
     <None Include="PackNupkg.bat" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +78,7 @@
       <Name>Fonlow.TypeScriptCodeDom</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

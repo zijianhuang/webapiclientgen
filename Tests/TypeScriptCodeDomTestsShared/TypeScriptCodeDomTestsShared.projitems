@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>f54af91a-678b-4f48-ab6f-5327b276c0fc</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>TypeScriptCodeDomTestsShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)TsCodeExpression.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TsCodeStatement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TsICodeGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TsTypes.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>3ca753f3-b771-4bce-9406-1708b44f907b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DemoWebApi.DemoDataShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AccountBindingModels.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AccountViewModels.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities.cs" />
+  </ItemGroup>
+</Project>

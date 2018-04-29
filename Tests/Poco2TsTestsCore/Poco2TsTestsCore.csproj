@@ -14,10 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
-    <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
+    <ProjectReference Include="..\..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
+    <ProjectReference Include="..\..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
+    <ProjectReference Include="..\..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
   </ItemGroup>
 
-  <Import Project="..\Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.projitems" Label="Shared" />
+  <Import Project="..\Poco2TsTestsShared\Poco2TsTestsShared.projitems" Label="Shared" />
 
 </Project>

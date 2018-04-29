@@ -84,10 +84,15 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DemoWebApi.DemoDataShared",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.DemoDataCore", "DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj", "{33C271FF-E057-4FFA-AC85-B92EC4878189}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Poco2TsTestsShared", "Tests\Poco2TsTestsShared\Poco2TsTestsShared.shproj", "{1635485E-6519-427B-AF3F-829CFB105E53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poco2TsTestsCore", "Tests\Poco2TsTestsCore\Poco2TsTestsCore.csproj", "{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems*{0dc57b30-7487-455c-8c75-1b814686049c}*SharedItemsImports = 4
 		Fonlow.DocCommentShared\Fonlow.DocCommentShared.projitems*{102dc29c-52db-4005-94fb-e251b822fde3}*SharedItemsImports = 13
+		Tests\Poco2TsTestsShared\Poco2TsTestsShared.projitems*{1635485e-6519-427b-af3f-829cfb105e53}*SharedItemsImports = 13
 		DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.projitems*{389e24f3-74ee-46f0-8bbb-cc91c006004c}*SharedItemsImports = 4
 		DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.projitems*{3ca753f3-b771-4bce-9406-1708b44f907b}*SharedItemsImports = 13
 		Poco2TsShared\Poco2TsShared.projitems*{582c3a1c-0af7-4265-8603-ef206bae832d}*SharedItemsImports = 13
@@ -97,6 +102,7 @@ Global
 		Fonlow.DocCommentShared\Fonlow.DocCommentShared.projitems*{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}*SharedItemsImports = 4
 		Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems*{be7d561b-0116-4d1b-96db-26df121bcfff}*SharedItemsImports = 13
 		Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.projitems*{ce5522a1-10ab-4941-bd74-2fcf5ac7823f}*SharedItemsImports = 4
+		Tests\Poco2TsTestsShared\Poco2TsTestsShared.projitems*{f347e898-0979-40b9-9cb2-676f81903caf}*SharedItemsImports = 4
 		Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.projitems*{f54af91a-678b-4f48-ab6f-5327b276c0fc}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -494,6 +500,22 @@ Global
 		{33C271FF-E057-4FFA-AC85-B92EC4878189}.Release|x64.Build.0 = Release|Any CPU
 		{33C271FF-E057-4FFA-AC85-B92EC4878189}.Release|x86.ActiveCfg = Release|Any CPU
 		{33C271FF-E057-4FFA-AC85-B92EC4878189}.Release|x86.Build.0 = Release|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Debug|x64.Build.0 = Debug|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Debug|x86.Build.0 = Debug|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|ARM.Build.0 = Release|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|x64.ActiveCfg = Release|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|x64.Build.0 = Release|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|x86.ActiveCfg = Release|Any CPU
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -524,6 +546,8 @@ Global
 		{EB11ECD8-2F76-4A94-9C1C-D3387392723C} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 		{3CA753F3-B771-4BCE-9406-1708B44F907B} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
 		{33C271FF-E057-4FFA-AC85-B92EC4878189} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
+		{1635485E-6519-427B-AF3F-829CFB105E53} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
+		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18214E93-9A86-4818-9CB5-C5F2917B153A}

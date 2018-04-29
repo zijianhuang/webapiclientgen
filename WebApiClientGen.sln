@@ -78,15 +78,19 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Poco2TsShared", "Poco2TsSha
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeScriptCodeDomTestsShared", "Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.shproj", "{F54AF91A-678B-4F48-AB6F-5327B276C0FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptCodeDomTestsCore", "TypeScriptCodeDomTestsCore\TypeScriptCodeDomTestsCore.csproj", "{EB11ECD8-2F76-4A94-9C1C-D3387392723C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeScriptCodeDomTestsCore", "TypeScriptCodeDomTestsCore\TypeScriptCodeDomTestsCore.csproj", "{EB11ECD8-2F76-4A94-9C1C-D3387392723C}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DemoWebApi.DemoDataShared", "DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.shproj", "{3CA753F3-B771-4BCE-9406-1708B44F907B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.DemoDataCore", "DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj", "{33C271FF-E057-4FFA-AC85-B92EC4878189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWebApi.DemoDataCore", "DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj", "{33C271FF-E057-4FFA-AC85-B92EC4878189}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Poco2TsTestsShared", "Tests\Poco2TsTestsShared\Poco2TsTestsShared.shproj", "{1635485E-6519-427B-AF3F-829CFB105E53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poco2TsTestsCore", "Tests\Poco2TsTestsCore\Poco2TsTestsCore.csproj", "{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco2TsTestsCore", "Tests\Poco2TsTestsCore\Poco2TsTestsCore.csproj", "{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Fonlow.Web.MetaShared", "Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.shproj", "{6BCAF276-923F-413A-A9C9-8B84F6592911}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.Web.MetaCore", "Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj", "{290B9F28-D0AE-4732-8576-4F186B81FE43}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -95,7 +99,9 @@ Global
 		Tests\Poco2TsTestsShared\Poco2TsTestsShared.projitems*{1635485e-6519-427b-af3f-829cfb105e53}*SharedItemsImports = 13
 		DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.projitems*{389e24f3-74ee-46f0-8bbb-cc91c006004c}*SharedItemsImports = 4
 		DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.projitems*{3ca753f3-b771-4bce-9406-1708b44f907b}*SharedItemsImports = 13
+		Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems*{4d7f5b3e-b38d-4083-88fc-dd4908649bd4}*SharedItemsImports = 4
 		Poco2TsShared\Poco2TsShared.projitems*{582c3a1c-0af7-4265-8603-ef206bae832d}*SharedItemsImports = 13
+		Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems*{6bcaf276-923f-413a-a9c9-8b84f6592911}*SharedItemsImports = 13
 		Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems*{70caa10c-642a-454b-9dec-9ab391eb9c99}*SharedItemsImports = 4
 		Poco2TsShared\Poco2TsShared.projitems*{72613d4b-c775-4f43-af7e-4c570f14fcfc}*SharedItemsImports = 4
 		Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems*{7b0e02b0-e517-4d55-bd96-ef4ee4e5ab48}*SharedItemsImports = 13
@@ -516,6 +522,22 @@ Global
 		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|x64.Build.0 = Release|Any CPU
 		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|x86.ActiveCfg = Release|Any CPU
 		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}.Release|x86.Build.0 = Release|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Debug|ARM.Build.0 = Debug|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Debug|x64.Build.0 = Debug|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Debug|x86.Build.0 = Debug|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|ARM.ActiveCfg = Release|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|ARM.Build.0 = Release|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|x64.ActiveCfg = Release|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|x64.Build.0 = Release|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|x86.ActiveCfg = Release|Any CPU
+		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

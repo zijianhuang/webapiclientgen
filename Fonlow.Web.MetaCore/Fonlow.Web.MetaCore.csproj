@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="..\Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems" Label="Shared" />
+
+</Project>

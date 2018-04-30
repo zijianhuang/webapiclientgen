@@ -90,7 +90,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco2TsTestsCore", "Tests\P
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Fonlow.Web.MetaShared", "Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.shproj", "{6BCAF276-923F-413A-A9C9-8B84F6592911}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.Web.MetaCore", "Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj", "{290B9F28-D0AE-4732-8576-4F186B81FE43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.Web.MetaCore", "Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj", "{290B9F28-D0AE-4732-8576-4F186B81FE43}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.Web.MetaTransformCore", "Fonlow.Web.MetaTransformCore\Fonlow.Web.MetaTransformCore.csproj", "{8659B294-5C1F-4831-8DCB-096FA46627C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoCoreWeb", "DemoCoreWeb\DemoCoreWeb.csproj", "{FF2C1A74-2993-4B88-8995-809BB997AD7A}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -538,6 +542,38 @@ Global
 		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|x64.Build.0 = Release|Any CPU
 		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|x86.ActiveCfg = Release|Any CPU
 		{290B9F28-D0AE-4732-8576-4F186B81FE43}.Release|x86.Build.0 = Release|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Debug|x64.Build.0 = Debug|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Debug|x86.Build.0 = Debug|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Release|ARM.Build.0 = Release|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Release|x64.ActiveCfg = Release|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Release|x64.Build.0 = Release|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Release|x86.ActiveCfg = Release|Any CPU
+		{8659B294-5C1F-4831-8DCB-096FA46627C0}.Release|x86.Build.0 = Release|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Debug|x64.Build.0 = Debug|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Debug|x86.Build.0 = Debug|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Release|ARM.Build.0 = Release|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Release|x64.ActiveCfg = Release|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Release|x64.Build.0 = Release|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Release|x86.ActiveCfg = Release|Any CPU
+		{FF2C1A74-2993-4B88-8995-809BB997AD7A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -51,16 +51,6 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-    <Compile Include="ClientApiTsNg2FunctionGen.cs" />
-    <Compile Include="ClientApiTsFunctionGenBase.cs" />
-    <Compile Include="ClientApiTsFunctionGen.cs" />
-    <Compile Include="ClientApiFunctionGen.cs" />
-    <Compile Include="CodeGen.cs" />
-    <Compile Include="CodeGenParameters.cs" />
-    <Compile Include="ControllersTsNG2ClientApiGen.cs" />
-    <Compile Include="ControllersTsClientApiGenBase.cs" />
-    <Compile Include="ControllersTsClientApiGen.cs" />
-    <Compile Include="ControllersClientApiGen.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,6 +80,7 @@
       <Name>Fonlow.Web.Meta</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\WebApiClientGenShared\WebApiClientGenShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

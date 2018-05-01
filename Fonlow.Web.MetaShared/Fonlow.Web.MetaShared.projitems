@@ -9,6 +9,7 @@
     <Import_RootNamespace>Fonlow.Web.MetaShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CodeGenException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebApiDescription.cs" />
   </ItemGroup>
 </Project>

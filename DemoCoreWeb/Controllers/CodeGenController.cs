@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
 using Fonlow.CodeDom.Web;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using System.Diagnostics;
 
 namespace Fonlow.WebApiClientGen
 {
@@ -18,28 +20,34 @@ namespace Fonlow.WebApiClientGen
         /// <param name="settings"></param>
         /// <returns>OK if OK</returns>
         [HttpPost]
-        public string TriggerCodeGen(CodeGenSettings settings)
+        public ActionResult TriggerCodeGen(CodeGenSettings settings)
         {
-            if (settings == null)
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "parametersNull" });
+			if (settings == null)
+				return new BadRequestResult();
+			//   throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "parametersNull" });
 
-            string webRootPath = System.Web.Hosting.HostingEnvironment.MapPath("~");
+			string webRootPath = Request.Host.Host; //  System.Web.Hosting.HostingEnvironment.MapPath("~");
             Fonlow.Web.Meta.WebApiDescription[] apiDescriptions;
             try
             {
-                apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).ToArray();
+				var descriptors = ApiExplorerHelper.GetDescriptors(System.Reflection.Assembly.GetExecutingAssembly());
+				var providerContext = new ApiDescriptionProviderContext(descriptors);
+				var descriptions = providerContext.Results;
+				Debug.Assert(descriptors.Length == descriptions.Count);
+				apiDescriptions = descriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).ToArray();
 
             }
             catch (System.InvalidOperationException e)
             {
                 System.Diagnostics.Trace.TraceWarning(e.Message);
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable) { ReasonPhrase = "CodeGenNotReady" });
+				return StatusCode((int)HttpStatusCode.ServiceUnavailable);
+               // throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable) { ReasonPhrase = "CodeGenNotReady" });
             }
-
+			
             if (!settings.ClientApiOutputs.CamelCase.HasValue)
             {
-                var camelCase = GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
-                settings.ClientApiOutputs.CamelCase = camelCase;
+                //todo: chekc this later var camelCase = GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
+				settings.ClientApiOutputs.CamelCase = true;// camelCase;
             }
 
             try
@@ -49,14 +57,15 @@ namespace Fonlow.WebApiClientGen
             catch (Fonlow.Web.Meta.CodeGenException e)
             {
                 System.Diagnostics.Trace.TraceError(e.Message + " : "+ e.Description);
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    ReasonPhrase = e.Message,
-                    Content = String.IsNullOrEmpty(e.Description) ? null : new StringContent(e.Description, System.Text.Encoding.UTF8, "text/plain"),
-                });
+				return BadRequest();
+                //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
+                //{
+                //    ReasonPhrase = e.Message,
+                //    Content = String.IsNullOrEmpty(e.Description) ? null : new StringContent(e.Description, System.Text.Encoding.UTF8, "text/plain"),
+                //});
             }
-
-            return "OK";
+			
+			return Ok();
 
         }
     }

@@ -1,19 +1,16 @@
-﻿using System.Reflection;
-using System.IO;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Linq;
-using System.Diagnostics;
+﻿using Fonlow.Reflection;
 using System;
-using System.Collections.Generic;
-using Fonlow.Reflection;
+using System.CodeDom;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 
 namespace Fonlow.Poco2Client
 {
-    /// <summary>
-    /// Some shared functions used by CsPodgen and TsPodGen
-    /// </summary>
-    internal class PodGenHelper
+	/// <summary>
+	/// Some shared functions used by CsPodgen and TsPodGen
+	/// </summary>
+	internal class PodGenHelper
     {
         internal static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
         {

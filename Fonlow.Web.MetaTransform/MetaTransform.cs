@@ -55,7 +55,6 @@ namespace Fonlow.Web.Meta
                     Name = d.Name,
                     ParameterDescriptor = new ParameterDescriptor()
                     {
-                        IsOptional = d.ParameterDescriptor.IsOptional,
                         ParameterName = d.ParameterDescriptor.ParameterName,
                         ParameterType = d.ParameterDescriptor.ParameterType,
                         ParameterBinder = GetParameterBinder(d.ParameterDescriptor.ParameterBinderAttribute),

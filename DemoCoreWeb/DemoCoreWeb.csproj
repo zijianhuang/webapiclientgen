@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
     <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
     <ProjectReference Include="..\Fonlow.Web.MetaTransformCore\Fonlow.Web.MetaTransformCore.csproj" />
+    <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,14 +12,13 @@
     "CherryPickingMethods": 3
   },
 
-  "ClientApiOutputs": {
-    "ClientLibraryProjectFolderName": "DemoCoreWeb.ClientApi",
-    "GenerateBothAsyncAndSync": true,
+	"ClientApiOutputs": {
+		"ClientLibraryProjectFolderName": "..\\DemoCoreWeb.ClientApi",
+		"GenerateBothAsyncAndSync": true,
 
-    "CamelCase": true,
-    "ContentType": "application/json;charset=UTF-8",
-    "TypeScriptJQFolder": "Scripts\\ClientApi",
-    "TypeScriptNG2Folder": "..\\DemoNGCli\\NGSource\\src\\ClientApi"
-
-  }
+		"CamelCase": true,
+		"ContentType": "application/json;charset=UTF-8",
+		"TypeScriptJQFolder": "..\\Scripts\\ClientApi",
+		"TypeScriptNG2Folder": "..\\..\\DemoNGCli\\NGSource\\src\\ClientApi"
+	}
 }

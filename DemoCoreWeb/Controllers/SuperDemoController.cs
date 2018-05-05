@@ -16,21 +16,21 @@ namespace DemoWebApi.Controllers
 	public class SuperDemoController : Controller
     {
         [HttpGet]
-        [Route("int")]
+        [Route("int/{d}")]
         public async Task<int> GetIntSquareAsync(int d)//some shops might have strict style guid to name async function with Async suffix always.
         {
             return await Task.Run(() => d * d);
         }
 
-        [HttpGet]
-        [Route("decimal")]
+        [HttpGet("decimal/{d}")]
+    //    [Route("decimal/{d}")]
         public async Task<decimal> GetDecimalSquare(decimal d)
         {
             return await Task.Run(() => d * d);
         }
 
         [HttpGet]
-        [Route("NullableDatetime")]
+        [Route("NullableDatetime/{hasValue}")]
         public async Task<DateTime?> GetDateTime(bool hasValue)
         {
             return await Task.Run(() =>
@@ -53,14 +53,14 @@ namespace DemoWebApi.Controllers
         //}
 
         [HttpGet]
-        [Route("NextYear")]
+        [Route("NextYear/{dt}")]
         public DateTime GetNextYear(DateTime dt)
         {
             return dt.AddYears(1);
         }
 
         [HttpGet]
-        [Route("NextHour")]
+        [Route("NextHour/{dt}")]
         public DateTimeOffset GetNextHour(DateTimeOffset dt)
         {
             return dt.AddHours(1);
@@ -100,7 +100,7 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpGet]
-        [Route("NullableDecimal")]
+        [Route("NullableDecimal/{hasValue}")]
         public async Task<Decimal?> GetNullableDecimal(bool hasValue)
         {
             return await Task.Run(() =>
@@ -561,7 +561,7 @@ namespace DemoWebApi.Controllers
         //}
 
         [HttpPost]
-        [Route("PostEmpty")]
+        [Route("PostEmpty/{i}")]
         public Tuple<string, int> PostWithQueryButEmptyBody([FromBody] string s, int i)
         {
             return new Tuple<string, int>(s, i);

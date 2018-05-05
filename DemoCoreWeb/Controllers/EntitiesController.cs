@@ -21,7 +21,7 @@ namespace DemoWebApi.Controllers
         /// <param name="id">unique id of that guy</param>
         /// <returns>person in db</returns>
         [HttpGet]
-        [Route("getPerson")]
+        [Route("getPerson/{id}")]
         public Person GetPerson(long id)
         {
             return new Person()
@@ -55,18 +55,18 @@ namespace DemoWebApi.Controllers
 
         [HttpPut]
         [Route("link")]
-        public bool LinkPerson(long id, string relationship, [FromBody] Person person)
+        public bool LinkPerson([FromQuery] long id, [FromQuery] string relationship, [FromBody] Person person)
         {
             return person != null && !String.IsNullOrEmpty(relationship);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public void Delete(long id)
         {
             Debug.WriteLine("Delete " + id);
         }
 
-        [Route("Company")]
+        [Route("Company/{id}")]
         [HttpGet]
         public Company GetCompany(long id)
         {
@@ -106,22 +106,15 @@ namespace DemoWebApi.Controllers
         }
 
 
-        //[HttpGet]
-        //[Route("PersonNotFound")]
-        //public Person GetPersonNotFound(long id)
-        //{
-        //    throw new HttpResponseException(HttpStatusCode.NotFound);
-        //}
-
-        //[HttpGet]
-        //[Route("PersonActionNotFound")]
-        //[System.Web.Http.Description.ResponseType(typeof(Person))]
-        //public IHttpActionResult GetPersonActionNotFound(long id)
-        //{
-        //    return NotFound();
-        //}
+		//[HttpGet]
+		//[Route("PersonNotFound")]
+		//public Person GetPersonNotFound(long id)
+		//{
+		//    throw new HttpResponseException(HttpStatusCode.NotFound);
+		//}
 
 
 
-    }
+
+	}
 }

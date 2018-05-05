@@ -114,12 +114,12 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/Entities/getPerson
+         * GET api/Entities/getPerson/{id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
-            this.httpClient.get(this.baseUri + 'api/Entities/getPerson', callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Entities/getPerson/'+id, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -152,21 +152,21 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * DELETE api/Entities
+         * DELETE api/Entities/{id}
          * @param {number} id 
          * @return {void} 
          */
         delete(id: number, callback: (data : void) => any){
-            this.httpClient.delete(this.baseUri + 'api/Entities', callback, this.error, this.statusCode);
+            this.httpClient.delete(this.baseUri + 'api/Entities/'+id, callback, this.error, this.statusCode);
         }
 
         /** 
-         * GET api/Entities/Company
+         * GET api/Entities/Company/{id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Company} 
          */
         getCompany(id: number, callback: (data : DemoWebApi_DemoData_Client.Company) => any){
-            this.httpClient.get(this.baseUri + 'api/Entities/Company', callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Entities/Company/'+id, callback, this.error, this.statusCode);
         }
     }
 
@@ -246,48 +246,48 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/SuperDemo/int
+         * GET api/SuperDemo/int/{d}
          * @param {number} d 
          * @return {number} 
          */
         getIntSquare(d: number, callback: (data : number) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/int', callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/int/'+d, callback, this.error, this.statusCode);
         }
 
         /** 
-         * GET api/SuperDemo/decimal
+         * GET api/SuperDemo/decimal/{d}
          * @param {number} d 
          * @return {number} 
          */
         getDecimalSquare(d: number, callback: (data : number) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimal', callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimal/'+d, callback, this.error, this.statusCode);
         }
 
         /** 
-         * GET api/SuperDemo/NullableDatetime
+         * GET api/SuperDemo/NullableDatetime/{hasValue}
          * @param {boolean} hasValue 
          * @return {Date} 
          */
         getDateTime(hasValue: boolean, callback: (data : Date) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDatetime', callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDatetime/'+hasValue, callback, this.error, this.statusCode);
         }
 
         /** 
-         * GET api/SuperDemo/NextYear
+         * GET api/SuperDemo/NextYear/{dt}
          * @param {Date} dt 
          * @return {Date} 
          */
         getNextYear(dt: Date, callback: (data : Date) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear', callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear/'+dt, callback, this.error, this.statusCode);
         }
 
         /** 
-         * GET api/SuperDemo/NextHour
+         * GET api/SuperDemo/NextHour/{dt}
          * @param {Date} dt 
          * @return {Date} 
          */
         getNextHour(dt: Date, callback: (data : Date) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour', callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour/'+dt, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -326,12 +326,12 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/SuperDemo/NullableDecimal
+         * GET api/SuperDemo/NullableDecimal/{hasValue}
          * @param {boolean} hasValue 
          * @return {number} 
          */
         getNullableDecimal(hasValue: boolean, callback: (data : number) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDecimal', callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDecimal/'+hasValue, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -698,13 +698,13 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * POST api/SuperDemo/PostEmpty
+         * POST api/SuperDemo/PostEmpty/{i}
          * @param {string} s 
          * @param {number} i 
          * @return {{item1:string, item2:number}} 
          */
         postWithQueryButEmptyBody(s: string, i: number, callback: (data : {item1:string, item2:number}) => any){
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty', s, callback, this.error, this.statusCode);
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty/'+i, s, callback, this.error, this.statusCode);
         }
     }
 

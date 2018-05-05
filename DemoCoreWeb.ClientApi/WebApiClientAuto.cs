@@ -797,11 +797,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/Entities/getPerson
+        /// GET api/Entities/getPerson/{id}
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
         {
-            var requestUri = new Uri(this.baseUri, "api/Entities/getPerson");
+            var requestUri = new Uri(this.baseUri, "api/Entities/getPerson/"+id);
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -813,11 +813,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/Entities/getPerson
+        /// GET api/Entities/getPerson/{id}
         /// </summary>
         public DemoWebApi.DemoData.Client.Person GetPerson(long id)
         {
-            var requestUri = new Uri(this.baseUri, "api/Entities/getPerson");
+            var requestUri = new Uri(this.baseUri, "api/Entities/getPerson/"+id);
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -961,11 +961,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// DELETE api/Entities
+        /// DELETE api/Entities/{id}
         /// </summary>
         public async Task<void> DeleteAsync(long id)
         {
-            var requestUri = new Uri(this.baseUri, "api/Entities");
+            var requestUri = new Uri(this.baseUri, "api/Entities/"+id);
             var responseMessage = await client.DeleteAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -977,11 +977,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// DELETE api/Entities
+        /// DELETE api/Entities/{id}
         /// </summary>
         public void Delete(long id)
         {
-            var requestUri = new Uri(this.baseUri, "api/Entities");
+            var requestUri = new Uri(this.baseUri, "api/Entities/"+id);
             var responseMessage = this.client.DeleteAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -993,11 +993,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/Entities/Company
+        /// GET api/Entities/Company/{id}
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Company> GetCompanyAsync(long id)
         {
-            var requestUri = new Uri(this.baseUri, "api/Entities/Company");
+            var requestUri = new Uri(this.baseUri, "api/Entities/Company/"+id);
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1009,11 +1009,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/Entities/Company
+        /// GET api/Entities/Company/{id}
         /// </summary>
         public DemoWebApi.DemoData.Client.Company GetCompany(long id)
         {
-            var requestUri = new Uri(this.baseUri, "api/Entities/Company");
+            var requestUri = new Uri(this.baseUri, "api/Entities/Company/"+id);
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -1321,11 +1321,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/int
+        /// GET api/SuperDemo/int/{d}
         /// </summary>
         public async Task<int> GetIntSquareAsync(int d)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/int");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/int/"+d);
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1337,11 +1337,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/int
+        /// GET api/SuperDemo/int/{d}
         /// </summary>
         public int GetIntSquare(int d)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/int");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/int/"+d);
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -1353,11 +1353,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/decimal
+        /// GET api/SuperDemo/decimal/{d}
         /// </summary>
         public async Task<decimal> GetDecimalSquareAsync(decimal d)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal/"+d);
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1369,11 +1369,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/decimal
+        /// GET api/SuperDemo/decimal/{d}
         /// </summary>
         public decimal GetDecimalSquare(decimal d)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal/"+d);
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -1385,11 +1385,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/NullableDatetime
+        /// GET api/SuperDemo/NullableDatetime/{hasValue}
         /// </summary>
         public async Task<System.Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime/"+hasValue);
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1401,11 +1401,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/NullableDatetime
+        /// GET api/SuperDemo/NullableDatetime/{hasValue}
         /// </summary>
         public System.Nullable<System.DateTime> GetDateTime(bool hasValue)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime/"+hasValue);
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -1417,11 +1417,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/NextYear
+        /// GET api/SuperDemo/NextYear/{dt}
         /// </summary>
         public async Task<System.DateTime> GetNextYearAsync(System.DateTime dt)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1433,11 +1433,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/NextYear
+        /// GET api/SuperDemo/NextYear/{dt}
         /// </summary>
         public System.DateTime GetNextYear(System.DateTime dt)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -1449,11 +1449,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/NextHour
+        /// GET api/SuperDemo/NextHour/{dt}
         /// </summary>
         public async Task<System.DateTimeOffset> GetNextHourAsync(System.DateTimeOffset dt)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1465,11 +1465,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/NextHour
+        /// GET api/SuperDemo/NextHour/{dt}
         /// </summary>
         public System.DateTimeOffset GetNextHour(System.DateTimeOffset dt)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -1645,11 +1645,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/NullableDecimal
+        /// GET api/SuperDemo/NullableDecimal/{hasValue}
         /// </summary>
         public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal/"+hasValue);
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1661,11 +1661,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo/NullableDecimal
+        /// GET api/SuperDemo/NullableDecimal/{hasValue}
         /// </summary>
         public System.Nullable<decimal> GetNullableDecimal(bool hasValue)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal/"+hasValue);
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -3159,11 +3159,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// POST api/SuperDemo/PostEmpty
+        /// POST api/SuperDemo/PostEmpty/{i}
         /// </summary>
         public async Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync(string s, int i)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty/"+i);
             using (var requestWriter = new System.IO.StringWriter())
             {
             var requestSerializer = JsonSerializer.Create();
@@ -3181,11 +3181,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// POST api/SuperDemo/PostEmpty
+        /// POST api/SuperDemo/PostEmpty/{i}
         /// </summary>
         public System.Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty");
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty/"+i);
             using (var requestWriter = new System.IO.StringWriter())
             {
             var requestSerializer = JsonSerializer.Create();

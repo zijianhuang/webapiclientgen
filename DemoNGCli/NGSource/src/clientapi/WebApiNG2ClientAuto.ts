@@ -119,12 +119,12 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/Entities/getPerson
+         * GET api/Entities/getPerson/{id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson');
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson/'+id);
         }
 
         /** 
@@ -157,21 +157,21 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * DELETE api/Entities
+         * DELETE api/Entities/{id}
          * @param {number} id 
          * @return {void} 
          */
         delete(id: number): Observable<Response>{
-            return this.http.delete<Response>(this.baseUri + 'api/Entities');
+            return this.http.delete<Response>(this.baseUri + 'api/Entities/'+id);
         }
 
         /** 
-         * GET api/Entities/Company
+         * GET api/Entities/Company/{id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Company} 
          */
         getCompany(id: number): Observable<DemoWebApi_DemoData_Client.Company>{
-            return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company');
+            return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company/'+id);
         }
     }
 
@@ -254,48 +254,48 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/SuperDemo/int
+         * GET api/SuperDemo/int/{d}
          * @param {number} d 
          * @return {number} 
          */
         getIntSquare(d: number): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/int');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/int/'+d);
         }
 
         /** 
-         * GET api/SuperDemo/decimal
+         * GET api/SuperDemo/decimal/{d}
          * @param {number} d 
          * @return {number} 
          */
         getDecimalSquare(d: number): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal/'+d);
         }
 
         /** 
-         * GET api/SuperDemo/NullableDatetime
+         * GET api/SuperDemo/NullableDatetime/{hasValue}
          * @param {boolean} hasValue 
          * @return {Date} 
          */
         getDateTime(hasValue: boolean): Observable<Date>{
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime');
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime/'+hasValue);
         }
 
         /** 
-         * GET api/SuperDemo/NextYear
+         * GET api/SuperDemo/NextYear/{dt}
          * @param {Date} dt 
          * @return {Date} 
          */
         getNextYear(dt: Date): Observable<Date>{
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear');
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear/'+dt);
         }
 
         /** 
-         * GET api/SuperDemo/NextHour
+         * GET api/SuperDemo/NextHour/{dt}
          * @param {Date} dt 
          * @return {Date} 
          */
         getNextHour(dt: Date): Observable<Date>{
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour');
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour/'+dt);
         }
 
         /** 
@@ -334,12 +334,12 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * GET api/SuperDemo/NullableDecimal
+         * GET api/SuperDemo/NullableDecimal/{hasValue}
          * @param {boolean} hasValue 
          * @return {number} 
          */
         getNullableDecimal(hasValue: boolean): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/NullableDecimal');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/NullableDecimal/'+hasValue);
         }
 
         /** 
@@ -706,13 +706,13 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * POST api/SuperDemo/PostEmpty
+         * POST api/SuperDemo/PostEmpty/{i}
          * @param {string} s 
          * @param {number} i 
          * @return {{item1:string, item2:number}} 
          */
         postWithQueryButEmptyBody(s: string, i: number): Observable<{item1:string, item2:number}>{
-            return this.http.post<{item1:string, item2:number}>(this.baseUri + 'api/SuperDemo/PostEmpty', JSON.stringify(s), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<{item1:string, item2:number}>(this.baseUri + 'api/SuperDemo/PostEmpty/'+i, JSON.stringify(s), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
     }
 

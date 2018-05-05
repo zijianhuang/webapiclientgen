@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Fonlow.Web.Meta
 {
@@ -13,64 +14,82 @@ namespace Fonlow.Web.Meta
     /// </summary>
     public static class MetaTransform
     {
-		static ParameterBinder GetParameterBinder(BindingSource a)
+		static ParameterBinder GetParameterBinder(BindingInfo bindingInfo)
 		{
-			if (a == null)
+			if (bindingInfo == null)
+				return ParameterBinder.None;
+
+			var bindingSource = bindingInfo.BindingSource;
+			if (bindingSource == null)
 				return ParameterBinder.None;
 			
-			if (BindingSource.Query.CanAcceptDataFrom(a))
+			if (BindingSource.Query.CanAcceptDataFrom(bindingSource))
 				return ParameterBinder.FromUri;
 
-			if (BindingSource.Body.CanAcceptDataFrom(a))
+			if (BindingSource.Body.CanAcceptDataFrom(bindingSource))
 				return ParameterBinder.FromBody;
 
-			throw new ArgumentException($"How can it be with this ParameterBindingAttribute {a.ToString()}", "a");
+			throw new ArgumentException($"How can it be with this ParameterBindingAttribute {bindingSource.ToString()}", "a");
 		}
 
 		public static WebApiDescription GetWebApiDescription(ApiDescription description)
-        {
+		{
 			var controllerActionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
-			Debug.Assert(controllerActionDescriptor != null);
-			
-			return new WebApiDescription(description.ActionDescriptor.Id)
-            {
-                ActionDescriptor = new ActionDescriptor()
-                {
-                    ActionName = description.ActionDescriptor.DisplayName,
-                    ReturnType = description.SupportedResponseTypes[0].Type,//for complex types
-					ControllerDescriptor = new ControllerDescriptor()
+			if (controllerActionDescriptor == null)
+			{
+				return null;
+			}
+
+			try
+			{
+				var responseType = description.SupportedResponseTypes.Count > 0 ? description.SupportedResponseTypes[0].Type : null;
+				var dr = new WebApiDescription(description.ActionDescriptor.Id)
+				{
+					ActionDescriptor = new ActionDescriptor()
 					{
-						ControllerName = controllerActionDescriptor.ControllerName,
-						ControllerType = controllerActionDescriptor.ControllerTypeInfo.AsType()
-					}
-				},
+						ActionName = description.ActionDescriptor.DisplayName,
+						ReturnType = responseType,
+						ControllerDescriptor = new ControllerDescriptor()
+						{
+							ControllerName = controllerActionDescriptor.ControllerName,
+							ControllerType = controllerActionDescriptor.ControllerTypeInfo.AsType()
+						}
+					},
 
-                HttpMethod = description.HttpMethod,
-              //  Documentation = description.Documentation,
-                RelativePath = description.RelativePath,
-                ResponseDescription = new ResponseDescription()
-                {
-                //    Documentation = description.ResponseDescription.Documentation,
-                    ResponseType = description.SupportedResponseTypes[0].Type,
-                   // DeclaredType = description.ResponseDescription.DeclaredType,
-                },
+					HttpMethod = description.HttpMethod,
+					//  Documentation = description.Documentation,
+					RelativePath = description.RelativePath,
+					ResponseDescription = new ResponseDescription()
+					{
+						//    Documentation = description.ResponseDescription.Documentation,
+						ResponseType = responseType,
+						// DeclaredType = description.ResponseDescription.DeclaredType,
+					},
 
-                ParameterDescriptions = description.ParameterDescriptions.Select(d => new ParameterDescription()
-                {
-                  //  Documentation = d.Documentation,
-                    Name = d.Name,
-                    ParameterDescriptor = new ParameterDescriptor()
-                    {
-                        ParameterName = d.ParameterDescriptor.Name,
-                        ParameterType = d.ParameterDescriptor.ParameterType,
-                        ParameterBinder = GetParameterBinder(d.ParameterDescriptor.BindingInfo.BindingSource),//.ParameterBinderAttribute),
+					ParameterDescriptions = description.ParameterDescriptions.Select(d => new ParameterDescription()
+					{
+						//  Documentation = d.Documentation,
+						Name = d.Name,
+						ParameterDescriptor = new ParameterDescriptor()
+						{
+							ParameterName = d.ParameterDescriptor.Name,
+							ParameterType = d.ParameterDescriptor.ParameterType,
+							ParameterBinder = GetParameterBinder(d.ParameterDescriptor.BindingInfo),//.ParameterBinderAttribute),
 
-                    }
-                }).ToArray(),
+						}
+					}).ToArray(),
 
-            };
-        }
+				};
 
-    }
+				return dr;
+			}
+			catch (Exception ex)
+			{
+				Trace.TraceError(ex.ToString());
+				throw;
+			}
+		}
+
+	}
 
 }

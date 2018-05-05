@@ -293,14 +293,14 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("int2d")]
-        public bool PostInt2D(int[,] a)
+        public bool PostInt2D([FromBody] int[,] a)
         {
             return a[1, 3] == 8;
         }
 
         [HttpPost]
         [Route("int2djagged")]
-        public bool PostInt2DJagged(int[][] a)
+        public bool PostInt2DJagged([FromBody] int[][] a)
         {
             return a[1][3] == 8;
         }
@@ -308,7 +308,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("intArray")]
-        public bool PostIntArray(int[] a)
+        public bool PostIntArray([FromBody] int[] a)
         {
             return a[7] == 8;
         }
@@ -419,7 +419,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("StringPersonDic")]
-        public int PostDictionary(IDictionary<string, DemoData.Person> dic)
+        public int PostDictionary([FromBody] IDictionary<string, DemoData.Person> dic)
         {
             return dic.Count;
         }
@@ -508,28 +508,28 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("ICollection")]
-        public int PostICollection(ICollection<DemoData.Person> list)
+        public int PostICollection([FromBody] ICollection<DemoData.Person> list)
         {
             return list.Count;
         }
 
         [HttpPost]
         [Route("IList")]
-        public int PostIList(IList<DemoData.Person> list)
+        public int PostIList([FromBody] IList<DemoData.Person> list)
         {
             return list.Count;
         }
 
         [HttpPost]
         [Route("IReadOnlyList")]
-        public int PostIReadOnlyList(IReadOnlyList<DemoData.Person> list)
+        public int PostIReadOnlyList([FromBody] IReadOnlyList<DemoData.Person> list)
         {
             return list.Count;
         }
 
         [HttpPost]
         [Route("IReadOnlyCollection")]
-        public int PostIReadOnlyCollection(IReadOnlyCollection<DemoData.Person> list)
+        public int PostIReadOnlyCollection([FromBody] IReadOnlyCollection<DemoData.Person> list)
         {
             return list.Count;
         }
@@ -537,14 +537,14 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("List")]
-        public int PostList(List<DemoData.Person> list)
+        public int PostList([FromBody] List<DemoData.Person> list)
         {
             return list.Count;
         }
 
         [HttpPost]
         [Route("Collection")]
-        public int PostCollection(System.Collections.ObjectModel.Collection<DemoData.Person> list)
+        public int PostCollection([FromBody] System.Collections.ObjectModel.Collection<DemoData.Person> list)
         {
             return list.Count;
         }
@@ -562,7 +562,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("PostEmpty")]
-        public Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
+        public Tuple<string, int> PostWithQueryButEmptyBody([FromBody] string s, int i)
         {
             return new Tuple<string, int>(s, i);
         }

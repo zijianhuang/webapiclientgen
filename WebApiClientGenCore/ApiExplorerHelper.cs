@@ -2,41 +2,31 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Fonlow.CodeDom.Web
 {
     public static class ApiExplorerHelper
     {
-		public static ControllerBase[] GetApiControllers(Assembly assembly)
+		public static ApiDescription[] GetApiDescriptions(IApiDescriptionGroupCollectionProvider explorer)
 		{
-			try
+			var list = new List<ApiDescription>();
+			foreach (var group in explorer.ApiDescriptionGroups.Items)
 			{
-				return assembly.GetTypes().OfType<ControllerBase>().ToArray();
-			}
-			catch (ReflectionTypeLoadException e)
-			{
-				foreach (Exception ex in e.LoaderExceptions)
+				Debug.WriteLine(group.GroupName);
+				foreach (var d in group.Items)
 				{
-					Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, ex.Message));
+					list.Add(d);
 				}
 			}
-			catch (TargetInvocationException e)
-			{
-				Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, e.Message + "~~" + e.InnerException.Message));
-			}
 
-			return null;
+			return list.ToArray();
 		}
 
-		public static Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor[] GetDescriptors(Assembly assembly)
-		{
-			var controllers = GetApiControllers(assembly);
-			return controllers.Select(c => c.ControllerContext.ActionDescriptor).ToArray();
-		}
 	}
 
 

@@ -4,35 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-export namespace DemoWebApi_Controllers_Client {
-
-    /** 
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /** 
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /** 
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /** 
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
 export namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -203,6 +174,35 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
+
+    /** 
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
+
+        /** 
+         * Gets or sets the local path of the file saved on the server.
+         */
+        fileNames?: Array<string>;
+
+        /** 
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+         */
+        submitter?: string;
+    }
+
+
+    /** 
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
+export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class SuperDemo {
         constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient){
@@ -271,7 +271,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
          * POST api/SuperDemo/DateTimeOffset
          * @param {Date} d 
          * @return {boolean} 
@@ -686,11 +685,9 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * Get a person
-         * so to know the person
          * GET api/Entities/getPerson?id={id}
-         * @param {number} id unique id of that guy
-         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         * @param {number} id 
+         * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
             return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson?id='+id);
@@ -998,7 +995,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * Get all heroes.
          * GET api/Heroes
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
          */
@@ -1007,7 +1003,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * Get a hero.
          * GET api/Heroes/{id}
          * @param {number} id 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -1026,7 +1021,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * Add a hero
          * POST api/Heroes?name={name}
          * @param {string} name 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -1036,7 +1030,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * Update hero.
          * PUT api/Heroes
          * @param {DemoWebApi_Controllers_Client.Hero} hero 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -1046,10 +1039,9 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * Search heroes
          * GET api/Heroes?name={name}
-         * @param {string} name keyword contained in hero name.
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
+         * @param {string} name 
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
          */
         search(name: string): Observable<Array<DemoWebApi_Controllers_Client.Hero>>{
             return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name));

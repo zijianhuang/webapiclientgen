@@ -8,86 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DemoWebApi.Controllers.Client
-{
-    
-    
-    /// <summary>
-    /// This class is used to carry the result of various file uploads.
-    /// </summary>
-    public class FileResult : object
-    {
-        
-        private string[] _FileNames;
-        
-        private string _Submitter;
-        
-        /// <summary>
-        /// Gets or sets the local path of the file saved on the server.
-        /// </summary>
-        public string[] FileNames
-        {
-            get
-            {
-                return _FileNames;
-            }
-            set
-            {
-                _FileNames = value;
-            }
-        }
-        
-        /// <summary>
-        /// Gets or sets the submitter as indicated in the HTML form used to upload the data.
-        /// </summary>
-        public string Submitter
-        {
-            get
-            {
-                return _Submitter;
-            }
-            set
-            {
-                _Submitter = value;
-            }
-        }
-    }
-    
-    /// <summary>
-    /// Complex hero type
-    /// </summary>
-    public class Hero : object
-    {
-        
-        private long _Id;
-        
-        private string _Name;
-        
-        public long Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                _Id = value;
-            }
-        }
-        
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                _Name = value;
-            }
-        }
-    }
-}
 namespace DemoWebApi.DemoData.Client
 {
     
@@ -858,6 +778,86 @@ namespace DemoWebApi.Models.Client
 }
 namespace DemoWebApi.Controllers.Client
 {
+    
+    
+    /// <summary>
+    /// This class is used to carry the result of various file uploads.
+    /// </summary>
+    public class FileResult : object
+    {
+        
+        private string[] _FileNames;
+        
+        private string _Submitter;
+        
+        /// <summary>
+        /// Gets or sets the local path of the file saved on the server.
+        /// </summary>
+        public string[] FileNames
+        {
+            get
+            {
+                return _FileNames;
+            }
+            set
+            {
+                _FileNames = value;
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+        /// </summary>
+        public string Submitter
+        {
+            get
+            {
+                return _Submitter;
+            }
+            set
+            {
+                _Submitter = value;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Complex hero type
+    /// </summary>
+    public class Hero : object
+    {
+        
+        private long _Id;
+        
+        private string _Name;
+        
+        public long Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                _Name = value;
+            }
+        }
+    }
+}
+namespace DemoWebApi.Controllers.Client
+{
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -1121,7 +1121,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
         /// POST api/SuperDemo/DateTimeOffset
         /// </summary>
         public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d)
@@ -1144,7 +1143,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
         /// POST api/SuperDemo/DateTimeOffset
         /// </summary>
         public bool PostDateTimeOffset(System.DateTimeOffset d)
@@ -2847,12 +2845,8 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Get a person
-        /// so to know the person
         /// GET api/Entities/getPerson?id={id}
         /// </summary>
-        /// <param name="id">unique id of that guy</param>
-        /// <returns>person in db</returns>
         public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/getPerson?id="+id);
@@ -2867,12 +2861,8 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Get a person
-        /// so to know the person
         /// GET api/Entities/getPerson?id={id}
         /// </summary>
-        /// <param name="id">unique id of that guy</param>
-        /// <returns>person in db</returns>
         public DemoWebApi.DemoData.Client.Person GetPerson(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/getPerson?id="+id);
@@ -4187,7 +4177,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Get all heroes.
         /// GET api/Heroes
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero[]> GetAsync()
@@ -4204,7 +4193,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Get all heroes.
         /// GET api/Heroes
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero[] Get()
@@ -4221,7 +4209,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Get a hero.
         /// GET api/Heroes/{id}
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> GetAsync(long id)
@@ -4238,7 +4225,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Get a hero.
         /// GET api/Heroes/{id}
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Get(long id)
@@ -4275,7 +4261,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Add a hero
         /// POST api/Heroes?name={name}
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
@@ -4292,7 +4277,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Add a hero
         /// POST api/Heroes?name={name}
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Post(string name)
@@ -4309,7 +4293,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Update hero.
         /// PUT api/Heroes
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> PutAsync(DemoWebApi.Controllers.Client.Hero hero)
@@ -4332,7 +4315,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Update hero.
         /// PUT api/Heroes
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Put(DemoWebApi.Controllers.Client.Hero hero)
@@ -4355,11 +4337,8 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Search heroes
         /// GET api/Heroes?name={name}
         /// </summary>
-        /// <param name="name">keyword contained in hero name.</param>
-        /// <returns>Hero array matching the keyword.</returns>
         public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));
@@ -4374,11 +4353,8 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Search heroes
         /// GET api/Heroes?name={name}
         /// </summary>
-        /// <param name="name">keyword contained in hero name.</param>
-        /// <returns>Hero array matching the keyword.</returns>
         public DemoWebApi.Controllers.Client.Hero[] Search(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));

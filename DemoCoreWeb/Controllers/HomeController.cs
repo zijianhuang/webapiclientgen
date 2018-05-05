@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DemoWebApi.Controllers
 {
-    public class HomeController : Controller
+	[Route("api/[controller]")]
+	public class HomeController : Controller
     {
+		[HttpGet]
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";

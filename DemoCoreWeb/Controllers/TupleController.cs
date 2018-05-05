@@ -15,28 +15,28 @@ namespace DemoWebApi.Controllers
     {
         [HttpPost]
         [Route("PersonCompany1")]
-        public DemoData.Person LinkPersonCompany1(Tuple<DemoData.Person, DemoData.Company> peopleAndCompany)
+        public DemoData.Person LinkPersonCompany1([FromBody] Tuple<DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
         }
 
         [HttpPost]
         [Route("PeopleCompany2")]
-        public DemoData.Person LinkPeopleCompany2(Tuple<DemoData.Person, DemoData.Company> peopleAndCompany)
+        public DemoData.Person LinkPeopleCompany2([FromBody] Tuple<DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
         }
 
         [HttpPost]
         [Route("PeopleCompany3")]
-        public DemoData.Person LinkPeopleCompany3(Tuple<DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
+        public DemoData.Person LinkPeopleCompany3([FromBody] Tuple<DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
         }
 
         [HttpPost]
         [Route("PeopleCompany4")]
-        public DemoData.Person LinkPeopleCompany4(Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
+        public DemoData.Person LinkPeopleCompany4([FromBody] Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
         }
@@ -50,7 +50,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("PeopleCompany5")]
-        public DemoData.Person LinkPeopleCompany5(Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
+        public DemoData.Person LinkPeopleCompany5([FromBody] Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
         }
@@ -64,21 +64,21 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("PeopleCompany6")]
-        public DemoData.Person LinkPeopleCompany6(Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
+        public DemoData.Person LinkPeopleCompany6([FromBody] Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
         }
 
         [HttpPost]
         [Route("PeopleCompany7")]
-        public DemoData.Person LinkPeopleCompany7(Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
+        public DemoData.Person LinkPeopleCompany7([FromBody] Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
         }
 
         [HttpPost]
         [Route("PeopleCompany8")]
-        public DemoData.Person LinkPeopleCompany8(Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
+        public DemoData.Person LinkPeopleCompany8([FromBody] Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)
         {
             return peopleAndCompany.Item1;
         }
@@ -94,7 +94,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("Tuple1")]
-        public int PostTuple1(Tuple<int> tuple)
+        public int PostTuple1([FromBody] Tuple<int> tuple)
         {
             return tuple.Item1;
         }
@@ -108,7 +108,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("Tuple2")]
-        public string PostTuple2(Tuple<string, int> tuple)
+        public string PostTuple2([FromBody] Tuple<string, int> tuple)
         {
             System.Diagnostics.Debug.WriteLine("Item1 is : "+tuple.Item1);
             return tuple.Item1;
@@ -123,7 +123,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("Tuple3")]
-        public string PostTuple3(Tuple<string, string, int> tuple)
+        public string PostTuple3([FromBody] Tuple<string, string, int> tuple)
         {
             return tuple.Item1;
         }
@@ -137,7 +137,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("Tuple4")]
-        public string PostTuple4(Tuple<string, string, string, int> tuple)
+        public string PostTuple4([FromBody] Tuple<string, string, string, int> tuple)
         {
             return tuple.Item1;
         }
@@ -151,7 +151,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("Tuple5")]
-        public string PostTuple5(Tuple<string, string, string, string, int> tuple)
+        public string PostTuple5([FromBody] Tuple<string, string, string, string, int> tuple)
         {
             return tuple.Item1;
         }
@@ -165,7 +165,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("Tuple6")]
-        public string PostTuple6(Tuple<string, string, string, string, string, int> tuple)
+        public string PostTuple6([FromBody] Tuple<string, string, string, string, string, int> tuple)
         {
             return tuple.Item1;
         }
@@ -179,7 +179,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("Tuple7")]
-        public string PostTuple7(Tuple<string, string, string, string, string, long, int> tuple)
+        public string PostTuple7([FromBody] Tuple<string, string, string, string, string, long, int> tuple)
         {
             return tuple.Item1;
         }
@@ -194,7 +194,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("Tuple8")]
-        public string PostTuple8(Tuple<string, string, string, string, string, string, string, Tuple<string, string, string>> tuple)
+        public string PostTuple8([FromBody] Tuple<string, string, string, string, string, string, string, Tuple<string, string, string>> tuple)
         {
             return tuple.Rest.Item1;
         }

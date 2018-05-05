@@ -35,7 +35,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPost]
         [Route("createPerson")]
-        public long CreatePerson(Person p)
+        public long CreatePerson([FromBody] Person p)
         {
             Debug.WriteLine("CreatePerson: " + p.Name);
 
@@ -48,7 +48,7 @@ namespace DemoWebApi.Controllers
 
         [HttpPut]
         [Route("updatePerson")]
-        public void UpdatePerson(Person person)
+        public void UpdatePerson([FromBody] Person person)
         {
             Debug.WriteLine("Update " + person);
         }

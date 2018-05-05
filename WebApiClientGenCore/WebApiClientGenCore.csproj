@@ -2,11 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>Fonlow.CodeDom.Web</RootNamespace>
   </PropertyGroup>
 
   <Import Project="..\WebApiClientGenShared\WebApiClientGenShared.projitems" Label="Shared" />
 
   <ItemGroup>
+    <PackageReference Include="MyTested.AspNetCore.Mvc.ViewFeatures" Version="1.1.0" />
     <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
   </ItemGroup>
 

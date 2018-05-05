@@ -17,24 +17,27 @@ namespace DemoWebApi.Controllers
         /// Get all heroes.
         /// </summary>
         /// <returns></returns>
+		[HttpGet]
         public Hero[] Get()
         {
             return HeroesData.Instance.Dic.Values.ToArray();
         }
 
-        /// <summary>
-        /// Get a hero.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Hero Get(long id)
+		/// <summary>
+		/// Get a hero.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		[HttpGet("{id}")]
+		public Hero Get(long id)
         {
             Hero r;
             HeroesData.Instance.Dic.TryGetValue(id, out r);
             return r;
         }
 
-        public void Delete(long id)
+		[HttpDelete("{id}")]
+		public void Delete(long id)
         {
             Hero r;
             HeroesData.Instance.Dic.TryRemove(id, out r);
@@ -45,7 +48,8 @@ namespace DemoWebApi.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Hero Post(string name)
+		[HttpPost]
+        public Hero Post([FromBody] string name)
         {
             var max = HeroesData.Instance.Dic.Keys.Max();
             var hero = new Hero { Id = max + 1, Name = name };
@@ -53,12 +57,13 @@ namespace DemoWebApi.Controllers
             return hero;
         }
 
-        /// <summary>
-        /// Update hero.
-        /// </summary>
-        /// <param name="hero"></param>
-        /// <returns></returns>
-        public Hero Put(Hero hero)
+		/// <summary>
+		/// Update hero.
+		/// </summary>
+		/// <param name="hero"></param>
+		/// <returns></returns>
+		[HttpPut]
+		public Hero Put([FromBody] Hero hero)
         {
             HeroesData.Instance.Dic[hero.Id] = hero;
             return hero;
@@ -70,7 +75,8 @@ namespace DemoWebApi.Controllers
         /// <param name="name">keyword contained in hero name.</param>
         /// <returns>Hero array matching the keyword.</returns>
         [HttpGet]
-        public Hero[] Search(string name)
+		[HttpGet("{name}")]
+		public Hero[] Search(string name)
         {
             return HeroesData.Instance.Dic.Values.Where(d => d.Name.Contains(name)).ToArray();
         }

@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\EntitiesController.cs" />
+    <Compile Remove="Controllers\FileUploadController.cs" />
+    <Compile Remove="Controllers\HeroesController.cs" />
+    <Compile Remove="Controllers\HomeController.cs" />
+    <Compile Remove="Controllers\SuperDemoController.cs" />
+    <Compile Remove="Controllers\TupleController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Scripts\ClientApi\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>

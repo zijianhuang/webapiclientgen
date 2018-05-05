@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Fonlow.Web.Meta
 {
-    /// <summary>
-    /// Transform the runtime info of Web API into POCO meta data.
-    /// </summary>
-    public static class MetaTransform
-    {
+	/// <summary>
+	/// Transform the runtime info of Web API into POCO meta data.
+	/// </summary>
+	public static class MetaTransform
+	{
 		static ParameterBinder GetParameterBinder(BindingInfo bindingInfo)
 		{
 			if (bindingInfo == null)
@@ -22,7 +22,7 @@ namespace Fonlow.Web.Meta
 			var bindingSource = bindingInfo.BindingSource;
 			if (bindingSource == null)
 				return ParameterBinder.None;
-			
+
 			if (BindingSource.Query.CanAcceptDataFrom(bindingSource))
 				return ParameterBinder.FromUri;
 
@@ -42,7 +42,27 @@ namespace Fonlow.Web.Meta
 
 			try
 			{
-				var responseType = description.SupportedResponseTypes.Count > 0 ? description.SupportedResponseTypes[0].Type : null;
+				Type responseType;
+				if (description.SupportedResponseTypes.Count > 0)
+				{
+					if (description.SupportedResponseTypes[0].Type.Equals(typeof(void)))
+					{
+						responseType = null;
+					}
+					else
+					{
+						responseType = description.SupportedResponseTypes[0].Type;
+					}
+				}
+				else
+				{
+					responseType = null;
+				}
+				//if (responseType == null)
+				//{
+				//	Debug.WriteLine("It is " + description.ActionDescriptor.DisplayName);
+				//}
+
 				var dr = new WebApiDescription(description.ActionDescriptor.Id)
 				{
 					ActionDescriptor = new ActionDescriptor()

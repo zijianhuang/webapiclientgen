@@ -593,4 +593,4 @@ interface QUnit {
 }
 
 /* QUnit */
-declare const QUnit: QUnit;
+//declare const QUnit: QUnit;

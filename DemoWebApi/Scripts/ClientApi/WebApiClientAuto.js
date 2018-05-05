@@ -105,7 +105,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/DateTimeOffset', callback, this.error, this.statusCode);
         };
         /**
-         * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
          * POST api/SuperDemo/DateTimeOffset
          * @param {Date} d
          * @return {boolean}
@@ -477,11 +476,9 @@ var DemoWebApi_Controllers_Client;
             this.statusCode = statusCode;
         }
         /**
-         * Get a person
-         * so to know the person
          * GET api/Entities/getPerson?id={id}
-         * @param {number} id unique id of that guy
-         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         * @param {number} id
+         * @return {DemoWebApi_DemoData_Client.Person}
          */
         Entities.prototype.getPerson = function (id, callback) {
             this.httpClient.get(this.baseUri + 'api/Entities/getPerson?id=' + id, callback, this.error, this.statusCode);
@@ -767,7 +764,6 @@ var DemoWebApi_Controllers_Client;
             this.statusCode = statusCode;
         }
         /**
-         * Get all heroes.
          * GET api/Heroes
          * @return {Array<DemoWebApi_Controllers_Client.Hero>}
          */
@@ -775,7 +771,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
         };
         /**
-         * Get a hero.
          * GET api/Heroes/{id}
          * @param {number} id
          * @return {DemoWebApi_Controllers_Client.Hero}
@@ -792,7 +787,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient["delete"](this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
         };
         /**
-         * Add a hero
          * POST api/Heroes?name={name}
          * @param {string} name
          * @return {DemoWebApi_Controllers_Client.Hero}
@@ -801,7 +795,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), null, callback, this.error, this.statusCode);
         };
         /**
-         * Update hero.
          * PUT api/Heroes
          * @param {DemoWebApi_Controllers_Client.Hero} hero
          * @return {DemoWebApi_Controllers_Client.Hero}
@@ -810,10 +803,9 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
         };
         /**
-         * Search heroes
          * GET api/Heroes?name={name}
-         * @param {string} name keyword contained in hero name.
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
+         * @param {string} name
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
          */
         Heroes.prototype.search = function (name, callback) {
             this.httpClient.get(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);

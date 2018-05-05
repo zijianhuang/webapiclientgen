@@ -799,7 +799,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// GET api/Values
         /// </summary>
-        public async Task<string[]> DemoCoreWeb.Controllers.ValuesController.Get (DemoCoreWeb)Async()
+        public async Task<string[]> GetAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/Values");
             var responseMessage = await client.GetAsync(requestUri);
@@ -815,7 +815,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// GET api/Values
         /// </summary>
-        public string[] DemoCoreWeb.Controllers.ValuesController.Get (DemoCoreWeb)()
+        public string[] Get()
         {
             var requestUri = new Uri(this.baseUri, "api/Values");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -831,7 +831,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// GET api/Values/{id}
         /// </summary>
-        public async Task<string> DemoCoreWeb.Controllers.ValuesController.Get (DemoCoreWeb)Async(int id)
+        public async Task<string> GetAsync(int id)
         {
             var requestUri = new Uri(this.baseUri, "api/Values/"+id);
             var responseMessage = await client.GetAsync(requestUri);
@@ -847,7 +847,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// GET api/Values/{id}
         /// </summary>
-        public string DemoCoreWeb.Controllers.ValuesController.Get (DemoCoreWeb)(int id)
+        public string Get(int id)
         {
             var requestUri = new Uri(this.baseUri, "api/Values/"+id);
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -863,7 +863,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// POST api/Values
         /// </summary>
-        public async Task<void> DemoCoreWeb.Controllers.ValuesController.Post (DemoCoreWeb)Async(string value)
+        public async Task<void> PostAsync(string value)
         {
             var requestUri = new Uri(this.baseUri, "api/Values");
             using (var requestWriter = new System.IO.StringWriter())
@@ -885,7 +885,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// POST api/Values
         /// </summary>
-        public void DemoCoreWeb.Controllers.ValuesController.Post (DemoCoreWeb)(string value)
+        public void Post(string value)
         {
             var requestUri = new Uri(this.baseUri, "api/Values");
             using (var requestWriter = new System.IO.StringWriter())
@@ -907,7 +907,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// PUT api/Values/{id}
         /// </summary>
-        public async Task<void> DemoCoreWeb.Controllers.ValuesController.Put (DemoCoreWeb)Async(int id, string value)
+        public async Task<void> PutAsync(int id, string value)
         {
             var requestUri = new Uri(this.baseUri, "api/Values/"+id);
             using (var requestWriter = new System.IO.StringWriter())
@@ -929,7 +929,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// PUT api/Values/{id}
         /// </summary>
-        public void DemoCoreWeb.Controllers.ValuesController.Put (DemoCoreWeb)(int id, string value)
+        public void Put(int id, string value)
         {
             var requestUri = new Uri(this.baseUri, "api/Values/"+id);
             using (var requestWriter = new System.IO.StringWriter())
@@ -951,7 +951,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// DELETE api/Values/{id}
         /// </summary>
-        public async Task<void> DemoCoreWeb.Controllers.ValuesController.Delete (DemoCoreWeb)Async(int id)
+        public async Task<void> DeleteAsync(int id)
         {
             var requestUri = new Uri(this.baseUri, "api/Values/"+id);
             var responseMessage = await client.DeleteAsync(requestUri);
@@ -967,7 +967,7 @@ namespace DemoCoreWeb.Controllers.Client
         /// <summary>
         /// DELETE api/Values/{id}
         /// </summary>
-        public void DemoCoreWeb.Controllers.ValuesController.Delete (DemoCoreWeb)(int id)
+        public void Delete(int id)
         {
             var requestUri = new Uri(this.baseUri, "api/Values/"+id);
             var responseMessage = this.client.DeleteAsync(requestUri).Result;
@@ -1012,7 +1012,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Entities/getPerson
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.EntitiesController.GetPerson (DemoCoreWeb)Async(long id)
+        public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/getPerson");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1028,7 +1028,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Entities/getPerson
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.EntitiesController.GetPerson (DemoCoreWeb)(long id)
+        public DemoWebApi.DemoData.Client.Person GetPerson(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/getPerson");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1044,7 +1044,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Entities/createPerson
         /// </summary>
-        public async Task<long> DemoWebApi.Controllers.EntitiesController.CreatePerson (DemoCoreWeb)Async(DemoWebApi.DemoData.Client.Person p)
+        public async Task<long> CreatePersonAsync(DemoWebApi.DemoData.Client.Person p)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/createPerson");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1066,7 +1066,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Entities/createPerson
         /// </summary>
-        public long DemoWebApi.Controllers.EntitiesController.CreatePerson (DemoCoreWeb)(DemoWebApi.DemoData.Client.Person p)
+        public long CreatePerson(DemoWebApi.DemoData.Client.Person p)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/createPerson");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1088,7 +1088,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// PUT api/Entities/updatePerson
         /// </summary>
-        public async Task<void> DemoWebApi.Controllers.EntitiesController.UpdatePerson (DemoCoreWeb)Async(DemoWebApi.DemoData.Client.Person person)
+        public async Task<void> UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1110,7 +1110,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// PUT api/Entities/updatePerson
         /// </summary>
-        public void DemoWebApi.Controllers.EntitiesController.UpdatePerson (DemoCoreWeb)(DemoWebApi.DemoData.Client.Person person)
+        public void UpdatePerson(DemoWebApi.DemoData.Client.Person person)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1132,7 +1132,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// PUT api/Entities/link
         /// </summary>
-        public async Task<bool> DemoWebApi.Controllers.EntitiesController.LinkPerson (DemoCoreWeb)Async(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
+        public async Task<bool> LinkPersonAsync(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/link");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1154,7 +1154,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// PUT api/Entities/link
         /// </summary>
-        public bool DemoWebApi.Controllers.EntitiesController.LinkPerson (DemoCoreWeb)(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
+        public bool LinkPerson(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/link");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1176,7 +1176,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// DELETE api/Entities
         /// </summary>
-        public async Task<void> DemoWebApi.Controllers.EntitiesController.Delete (DemoCoreWeb)Async(long id)
+        public async Task<void> DeleteAsync(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities");
             var responseMessage = await client.DeleteAsync(requestUri);
@@ -1192,7 +1192,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// DELETE api/Entities
         /// </summary>
-        public void DemoWebApi.Controllers.EntitiesController.Delete (DemoCoreWeb)(long id)
+        public void Delete(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities");
             var responseMessage = this.client.DeleteAsync(requestUri).Result;
@@ -1208,7 +1208,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Entities/Company
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Company> DemoWebApi.Controllers.EntitiesController.GetCompany (DemoCoreWeb)Async(long id)
+        public async Task<DemoWebApi.DemoData.Client.Company> GetCompanyAsync(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/Company");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1224,7 +1224,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Entities/Company
         /// </summary>
-        public DemoWebApi.DemoData.Client.Company DemoWebApi.Controllers.EntitiesController.GetCompany (DemoCoreWeb)(long id)
+        public DemoWebApi.DemoData.Client.Company GetCompany(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/Company");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1260,7 +1260,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Heroes
         /// </summary>
-        public async Task<DemoWebApi.Controllers.Client.Hero[]> DemoWebApi.Controllers.HeroesController.Get (DemoCoreWeb)Async()
+        public async Task<DemoWebApi.Controllers.Client.Hero[]> GetAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1276,7 +1276,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Heroes
         /// </summary>
-        public DemoWebApi.Controllers.Client.Hero[] DemoWebApi.Controllers.HeroesController.Get (DemoCoreWeb)()
+        public DemoWebApi.Controllers.Client.Hero[] Get()
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1292,7 +1292,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Heroes/{id}
         /// </summary>
-        public async Task<DemoWebApi.Controllers.Client.Hero> DemoWebApi.Controllers.HeroesController.Get (DemoCoreWeb)Async(long id)
+        public async Task<DemoWebApi.Controllers.Client.Hero> GetAsync(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
             var responseMessage = await client.GetAsync(requestUri);
@@ -1308,7 +1308,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Heroes/{id}
         /// </summary>
-        public DemoWebApi.Controllers.Client.Hero DemoWebApi.Controllers.HeroesController.Get (DemoCoreWeb)(long id)
+        public DemoWebApi.Controllers.Client.Hero Get(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1324,7 +1324,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// DELETE api/Heroes/{id}
         /// </summary>
-        public async Task<void> DemoWebApi.Controllers.HeroesController.Delete (DemoCoreWeb)Async(long id)
+        public async Task<void> DeleteAsync(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
             var responseMessage = await client.DeleteAsync(requestUri);
@@ -1340,7 +1340,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// DELETE api/Heroes/{id}
         /// </summary>
-        public void DemoWebApi.Controllers.HeroesController.Delete (DemoCoreWeb)(long id)
+        public void Delete(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
             var responseMessage = this.client.DeleteAsync(requestUri).Result;
@@ -1356,7 +1356,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Heroes
         /// </summary>
-        public async Task<DemoWebApi.Controllers.Client.Hero> DemoWebApi.Controllers.HeroesController.Post (DemoCoreWeb)Async(string name)
+        public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1378,7 +1378,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Heroes
         /// </summary>
-        public DemoWebApi.Controllers.Client.Hero DemoWebApi.Controllers.HeroesController.Post (DemoCoreWeb)(string name)
+        public DemoWebApi.Controllers.Client.Hero Post(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1400,7 +1400,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// PUT api/Heroes
         /// </summary>
-        public async Task<DemoWebApi.Controllers.Client.Hero> DemoWebApi.Controllers.HeroesController.Put (DemoCoreWeb)Async(DemoWebApi.Controllers.Client.Hero hero)
+        public async Task<DemoWebApi.Controllers.Client.Hero> PutAsync(DemoWebApi.Controllers.Client.Hero hero)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1422,7 +1422,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// PUT api/Heroes
         /// </summary>
-        public DemoWebApi.Controllers.Client.Hero DemoWebApi.Controllers.HeroesController.Put (DemoCoreWeb)(DemoWebApi.Controllers.Client.Hero hero)
+        public DemoWebApi.Controllers.Client.Hero Put(DemoWebApi.Controllers.Client.Hero hero)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1444,7 +1444,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Heroes/{name}
         /// </summary>
-        public async Task<DemoWebApi.Controllers.Client.Hero[]> DemoWebApi.Controllers.HeroesController.Search (DemoCoreWeb)Async(string name)
+        public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes/"+Uri.EscapeDataString(name));
             var responseMessage = await client.GetAsync(requestUri);
@@ -1460,41 +1460,9 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Heroes/{name}
         /// </summary>
-        public DemoWebApi.Controllers.Client.Hero[] DemoWebApi.Controllers.HeroesController.Search (DemoCoreWeb)(string name)
+        public DemoWebApi.Controllers.Client.Hero[] Search(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes/"+Uri.EscapeDataString(name));
-            var responseMessage = this.client.GetAsync(requestUri).Result;
-            responseMessage.EnsureSuccessStatusCode();
-            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-            {
-            var serializer = new JsonSerializer();
-            return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
-            }
-        }
-        
-        /// <summary>
-        /// GET api/Heroes
-        /// </summary>
-        public async Task<DemoWebApi.Controllers.Client.Hero[]> DemoWebApi.Controllers.HeroesController.Search (DemoCoreWeb)Async(string name)
-        {
-            var requestUri = new Uri(this.baseUri, "api/Heroes");
-            var responseMessage = await client.GetAsync(requestUri);
-            responseMessage.EnsureSuccessStatusCode();
-            var stream = await responseMessage.Content.ReadAsStreamAsync();
-            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-            {
-            var serializer = new JsonSerializer();
-            return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
-            }
-        }
-        
-        /// <summary>
-        /// GET api/Heroes
-        /// </summary>
-        public DemoWebApi.Controllers.Client.Hero[] DemoWebApi.Controllers.HeroesController.Search (DemoCoreWeb)(string name)
-        {
-            var requestUri = new Uri(this.baseUri, "api/Heroes");
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -1528,7 +1496,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Home
         /// </summary>
-        public async Task DemoWebApi.Controllers.HomeController.Index (DemoCoreWeb)Async()
+        public async Task IndexAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/Home");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1538,7 +1506,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Home
         /// </summary>
-        public void DemoWebApi.Controllers.HomeController.Index (DemoCoreWeb)()
+        public void Index()
         {
             var requestUri = new Uri(this.baseUri, "api/Home");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1568,7 +1536,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/int
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.SuperDemoController.GetIntSquareAsync (DemoCoreWeb)Async(int d)
+        public async Task<int> GetIntSquareAsync(int d)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1584,7 +1552,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/int
         /// </summary>
-        public int DemoWebApi.Controllers.SuperDemoController.GetIntSquareAsync (DemoCoreWeb)(int d)
+        public int GetIntSquare(int d)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1600,7 +1568,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/decimal
         /// </summary>
-        public async Task<decimal> DemoWebApi.Controllers.SuperDemoController.GetDecimalSquare (DemoCoreWeb)Async(decimal d)
+        public async Task<decimal> GetDecimalSquareAsync(decimal d)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1616,7 +1584,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/decimal
         /// </summary>
-        public decimal DemoWebApi.Controllers.SuperDemoController.GetDecimalSquare (DemoCoreWeb)(decimal d)
+        public decimal GetDecimalSquare(decimal d)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1632,7 +1600,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NullableDatetime
         /// </summary>
-        public async Task<System.Nullable<System.DateTime>> DemoWebApi.Controllers.SuperDemoController.GetDateTime (DemoCoreWeb)Async(bool hasValue)
+        public async Task<System.Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1648,7 +1616,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NullableDatetime
         /// </summary>
-        public System.Nullable<System.DateTime> DemoWebApi.Controllers.SuperDemoController.GetDateTime (DemoCoreWeb)(bool hasValue)
+        public System.Nullable<System.DateTime> GetDateTime(bool hasValue)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1664,7 +1632,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NextYear
         /// </summary>
-        public async Task<System.DateTime> DemoWebApi.Controllers.SuperDemoController.GetNextYear (DemoCoreWeb)Async(System.DateTime dt)
+        public async Task<System.DateTime> GetNextYearAsync(System.DateTime dt)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1680,7 +1648,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NextYear
         /// </summary>
-        public System.DateTime DemoWebApi.Controllers.SuperDemoController.GetNextYear (DemoCoreWeb)(System.DateTime dt)
+        public System.DateTime GetNextYear(System.DateTime dt)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1696,7 +1664,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NextHour
         /// </summary>
-        public async Task<System.DateTimeOffset> DemoWebApi.Controllers.SuperDemoController.GetNextHour (DemoCoreWeb)Async(System.DateTimeOffset dt)
+        public async Task<System.DateTimeOffset> GetNextHourAsync(System.DateTimeOffset dt)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1712,7 +1680,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NextHour
         /// </summary>
-        public System.DateTimeOffset DemoWebApi.Controllers.SuperDemoController.GetNextHour (DemoCoreWeb)(System.DateTimeOffset dt)
+        public System.DateTimeOffset GetNextHour(System.DateTimeOffset dt)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1728,7 +1696,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/NextYear
         /// </summary>
-        public async Task<System.DateTime> DemoWebApi.Controllers.SuperDemoController.PostNextYear (DemoCoreWeb)Async(System.DateTime dt)
+        public async Task<System.DateTime> PostNextYearAsync(System.DateTime dt)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1750,7 +1718,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/NextYear
         /// </summary>
-        public System.DateTime DemoWebApi.Controllers.SuperDemoController.PostNextYear (DemoCoreWeb)(System.DateTime dt)
+        public System.DateTime PostNextYear(System.DateTime dt)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1772,7 +1740,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/DateTimeOffset
         /// </summary>
-        public async Task<System.DateTimeOffset> DemoWebApi.Controllers.SuperDemoController.GetDateTimeOffset (DemoCoreWeb)Async()
+        public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1788,7 +1756,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/DateTimeOffset
         /// </summary>
-        public System.DateTimeOffset DemoWebApi.Controllers.SuperDemoController.GetDateTimeOffset (DemoCoreWeb)()
+        public System.DateTimeOffset GetDateTimeOffset()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1804,7 +1772,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/DateTimeOffset
         /// </summary>
-        public async Task<bool> DemoWebApi.Controllers.SuperDemoController.PostDateTimeOffset (DemoCoreWeb)Async(System.DateTimeOffset d)
+        public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1826,7 +1794,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/DateTimeOffset
         /// </summary>
-        public bool DemoWebApi.Controllers.SuperDemoController.PostDateTimeOffset (DemoCoreWeb)(System.DateTimeOffset d)
+        public bool PostDateTimeOffset(System.DateTimeOffset d)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1848,7 +1816,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/DateTimeOffsetNullable
         /// </summary>
-        public async Task<bool> DemoWebApi.Controllers.SuperDemoController.PostDateTimeOffsetNullable (DemoCoreWeb)Async(System.Nullable<System.DateTimeOffset> d)
+        public async Task<bool> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1870,7 +1838,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/DateTimeOffsetNullable
         /// </summary>
-        public bool DemoWebApi.Controllers.SuperDemoController.PostDateTimeOffsetNullable (DemoCoreWeb)(System.Nullable<System.DateTimeOffset> d)
+        public bool PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
             using (var requestWriter = new System.IO.StringWriter())
@@ -1892,7 +1860,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NullableDecimal
         /// </summary>
-        public async Task<System.Nullable<decimal>> DemoWebApi.Controllers.SuperDemoController.GetNullableDecimal (DemoCoreWeb)Async(bool hasValue)
+        public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1908,7 +1876,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NullableDecimal
         /// </summary>
-        public System.Nullable<decimal> DemoWebApi.Controllers.SuperDemoController.GetNullableDecimal (DemoCoreWeb)(bool hasValue)
+        public System.Nullable<decimal> GetNullableDecimal(bool hasValue)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1924,7 +1892,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/FloatZero
         /// </summary>
-        public async Task<float> DemoWebApi.Controllers.SuperDemoController.GetFloatZero (DemoCoreWeb)Async()
+        public async Task<float> GetFloatZeroAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/FloatZero");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1940,7 +1908,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/FloatZero
         /// </summary>
-        public float DemoWebApi.Controllers.SuperDemoController.GetFloatZero (DemoCoreWeb)()
+        public float GetFloatZero()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/FloatZero");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1956,7 +1924,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/DoubleZero
         /// </summary>
-        public async Task<double> DemoWebApi.Controllers.SuperDemoController.GetDoubleZero (DemoCoreWeb)Async()
+        public async Task<double> GetDoubleZeroAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleZero");
             var responseMessage = await client.GetAsync(requestUri);
@@ -1972,7 +1940,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/DoubleZero
         /// </summary>
-        public double DemoWebApi.Controllers.SuperDemoController.GetDoubleZero (DemoCoreWeb)()
+        public double GetDoubleZero()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleZero");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1988,7 +1956,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/DecimalZero
         /// </summary>
-        public async Task<decimal> DemoWebApi.Controllers.SuperDemoController.GetDecimalZero (DemoCoreWeb)Async()
+        public async Task<decimal> GetDecimalZeroAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DecimalZero");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2004,7 +1972,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/DecimalZero
         /// </summary>
-        public decimal DemoWebApi.Controllers.SuperDemoController.GetDecimalZero (DemoCoreWeb)()
+        public decimal GetDecimalZero()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DecimalZero");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2020,7 +1988,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NullString
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.SuperDemoController.GetNullString (DemoCoreWeb)Async()
+        public async Task<string> GetNullStringAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullString");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2036,7 +2004,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NullString
         /// </summary>
-        public string DemoWebApi.Controllers.SuperDemoController.GetNullString (DemoCoreWeb)()
+        public string GetNullString()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullString");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2052,7 +2020,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/EmptyString
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.SuperDemoController.GetEmptyString (DemoCoreWeb)Async()
+        public async Task<string> GetEmptyStringAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/EmptyString");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2068,7 +2036,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/EmptyString
         /// </summary>
-        public string DemoWebApi.Controllers.SuperDemoController.GetEmptyString (DemoCoreWeb)()
+        public string GetEmptyString()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/EmptyString");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2084,7 +2052,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NullObject
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.SuperDemoController.GetNullPerson (DemoCoreWeb)Async()
+        public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullObject");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2100,7 +2068,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/NullObject
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.SuperDemoController.GetNullPerson (DemoCoreWeb)()
+        public DemoWebApi.DemoData.Client.Person GetNullPerson()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullObject");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2116,7 +2084,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/TextStream
         /// </summary>
-        public async Task<System.Net.Http.HttpResponseMessage> DemoWebApi.Controllers.SuperDemoController.GetTextStream (DemoCoreWeb)Async()
+        public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2127,7 +2095,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/TextStream
         /// </summary>
-        public System.Net.Http.HttpResponseMessage DemoWebApi.Controllers.SuperDemoController.GetTextStream (DemoCoreWeb)()
+        public System.Net.Http.HttpResponseMessage GetTextStream()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2138,7 +2106,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ByteArray
         /// </summary>
-        public async Task<byte[]> DemoWebApi.Controllers.SuperDemoController.GetByteArray (DemoCoreWeb)Async()
+        public async Task<byte[]> GetByteArrayAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ByteArray");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2154,7 +2122,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ByteArray
         /// </summary>
-        public byte[] DemoWebApi.Controllers.SuperDemoController.GetByteArray (DemoCoreWeb)()
+        public byte[] GetByteArray()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ByteArray");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2170,7 +2138,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ActionResult
         /// </summary>
-        public async Task DemoWebApi.Controllers.SuperDemoController.GetActionResult (DemoCoreWeb)Async()
+        public async Task GetActionResultAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2180,7 +2148,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ActionResult
         /// </summary>
-        public void DemoWebApi.Controllers.SuperDemoController.GetActionResult (DemoCoreWeb)()
+        public void GetActionResult()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2190,7 +2158,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/byte
         /// </summary>
-        public async Task<byte> DemoWebApi.Controllers.SuperDemoController.Getbyte (DemoCoreWeb)Async()
+        public async Task<byte> GetbyteAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/byte");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2206,7 +2174,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/byte
         /// </summary>
-        public byte DemoWebApi.Controllers.SuperDemoController.Getbyte (DemoCoreWeb)()
+        public byte Getbyte()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/byte");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2222,7 +2190,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/sbyte
         /// </summary>
-        public async Task<sbyte> DemoWebApi.Controllers.SuperDemoController.Getsbyte (DemoCoreWeb)Async()
+        public async Task<sbyte> GetsbyteAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/sbyte");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2238,7 +2206,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/sbyte
         /// </summary>
-        public sbyte DemoWebApi.Controllers.SuperDemoController.Getsbyte (DemoCoreWeb)()
+        public sbyte Getsbyte()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/sbyte");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2254,7 +2222,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/short
         /// </summary>
-        public async Task<short> DemoWebApi.Controllers.SuperDemoController.GetShort (DemoCoreWeb)Async()
+        public async Task<short> GetShortAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/short");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2270,7 +2238,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/short
         /// </summary>
-        public short DemoWebApi.Controllers.SuperDemoController.GetShort (DemoCoreWeb)()
+        public short GetShort()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/short");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2286,7 +2254,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ushort
         /// </summary>
-        public async Task<ushort> DemoWebApi.Controllers.SuperDemoController.GetUShort (DemoCoreWeb)Async()
+        public async Task<ushort> GetUShortAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ushort");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2302,7 +2270,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ushort
         /// </summary>
-        public ushort DemoWebApi.Controllers.SuperDemoController.GetUShort (DemoCoreWeb)()
+        public ushort GetUShort()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ushort");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2318,7 +2286,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/uint
         /// </summary>
-        public async Task<uint> DemoWebApi.Controllers.SuperDemoController.GetUint (DemoCoreWeb)Async()
+        public async Task<uint> GetUintAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/uint");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2334,7 +2302,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/uint
         /// </summary>
-        public uint DemoWebApi.Controllers.SuperDemoController.GetUint (DemoCoreWeb)()
+        public uint GetUint()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/uint");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2350,7 +2318,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ulong
         /// </summary>
-        public async Task<ulong> DemoWebApi.Controllers.SuperDemoController.Getulong (DemoCoreWeb)Async()
+        public async Task<ulong> GetulongAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ulong");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2366,7 +2334,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ulong
         /// </summary>
-        public ulong DemoWebApi.Controllers.SuperDemoController.Getulong (DemoCoreWeb)()
+        public ulong Getulong()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ulong");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2382,7 +2350,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/doulbe
         /// </summary>
-        public async Task<double> DemoWebApi.Controllers.SuperDemoController.Getdouble (DemoCoreWeb)Async()
+        public async Task<double> GetdoubleAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/doulbe");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2398,7 +2366,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/doulbe
         /// </summary>
-        public double DemoWebApi.Controllers.SuperDemoController.Getdouble (DemoCoreWeb)()
+        public double Getdouble()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/doulbe");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2414,7 +2382,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/decimal
         /// </summary>
-        public async Task<decimal> DemoWebApi.Controllers.SuperDemoController.GetDecimal (DemoCoreWeb)Async()
+        public async Task<decimal> GetDecimalAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2430,7 +2398,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/decimal
         /// </summary>
-        public decimal DemoWebApi.Controllers.SuperDemoController.GetDecimal (DemoCoreWeb)()
+        public decimal GetDecimal()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2446,7 +2414,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/char
         /// </summary>
-        public async Task<char> DemoWebApi.Controllers.SuperDemoController.GetChar (DemoCoreWeb)Async()
+        public async Task<char> GetCharAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/char");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2462,7 +2430,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/char
         /// </summary>
-        public char DemoWebApi.Controllers.SuperDemoController.GetChar (DemoCoreWeb)()
+        public char GetChar()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/char");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2478,7 +2446,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/bool
         /// </summary>
-        public async Task<bool> DemoWebApi.Controllers.SuperDemoController.GetBool (DemoCoreWeb)Async()
+        public async Task<bool> GetBoolAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/bool");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2494,7 +2462,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/bool
         /// </summary>
-        public bool DemoWebApi.Controllers.SuperDemoController.GetBool (DemoCoreWeb)()
+        public bool GetBool()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/bool");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2510,7 +2478,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/int2d
         /// </summary>
-        public async Task<int[,]> DemoWebApi.Controllers.SuperDemoController.GetInt2D (DemoCoreWeb)Async()
+        public async Task<int[,]> GetInt2DAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2526,7 +2494,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/int2d
         /// </summary>
-        public int[,] DemoWebApi.Controllers.SuperDemoController.GetInt2D (DemoCoreWeb)()
+        public int[,] GetInt2D()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2542,7 +2510,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/int2dJagged
         /// </summary>
-        public async Task<int[][]> DemoWebApi.Controllers.SuperDemoController.GetInt2DJagged (DemoCoreWeb)Async()
+        public async Task<int[][]> GetInt2DJaggedAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2dJagged");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2558,7 +2526,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/int2dJagged
         /// </summary>
-        public int[][] DemoWebApi.Controllers.SuperDemoController.GetInt2DJagged (DemoCoreWeb)()
+        public int[][] GetInt2DJagged()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2dJagged");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2574,7 +2542,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/int2d
         /// </summary>
-        public async Task<bool> DemoWebApi.Controllers.SuperDemoController.PostInt2D (DemoCoreWeb)Async(int[,] a)
+        public async Task<bool> PostInt2DAsync(int[,] a)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2596,7 +2564,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/int2d
         /// </summary>
-        public bool DemoWebApi.Controllers.SuperDemoController.PostInt2D (DemoCoreWeb)(int[,] a)
+        public bool PostInt2D(int[,] a)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2618,7 +2586,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/int2djagged
         /// </summary>
-        public async Task<bool> DemoWebApi.Controllers.SuperDemoController.PostInt2DJagged (DemoCoreWeb)Async(int[][] a)
+        public async Task<bool> PostInt2DJaggedAsync(int[][] a)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2djagged");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2640,7 +2608,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/int2djagged
         /// </summary>
-        public bool DemoWebApi.Controllers.SuperDemoController.PostInt2DJagged (DemoCoreWeb)(int[][] a)
+        public bool PostInt2DJagged(int[][] a)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2djagged");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2662,7 +2630,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/intArray
         /// </summary>
-        public async Task<bool> DemoWebApi.Controllers.SuperDemoController.PostIntArray (DemoCoreWeb)Async(int[] a)
+        public async Task<bool> PostIntArrayAsync(int[] a)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2684,7 +2652,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/intArray
         /// </summary>
-        public bool DemoWebApi.Controllers.SuperDemoController.PostIntArray (DemoCoreWeb)(int[] a)
+        public bool PostIntArray(int[] a)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2706,7 +2674,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/intArray
         /// </summary>
-        public async Task<int[]> DemoWebApi.Controllers.SuperDemoController.GetIntArray (DemoCoreWeb)Async()
+        public async Task<int[]> GetIntArrayAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2722,7 +2690,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/intArray
         /// </summary>
-        public int[] DemoWebApi.Controllers.SuperDemoController.GetIntArray (DemoCoreWeb)()
+        public int[] GetIntArray()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2738,7 +2706,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/AnonymousDynamic
         /// </summary>
-        public async Task DemoWebApi.Controllers.SuperDemoController.GetAnonymousDynamic (DemoCoreWeb)Async()
+        public async Task GetAnonymousDynamicAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousDynamic");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2748,7 +2716,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/AnonymousDynamic
         /// </summary>
-        public void DemoWebApi.Controllers.SuperDemoController.GetAnonymousDynamic (DemoCoreWeb)()
+        public void GetAnonymousDynamic()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousDynamic");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2758,7 +2726,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/AnonymousObject
         /// </summary>
-        public async Task DemoWebApi.Controllers.SuperDemoController.GetAnonymousObject (DemoCoreWeb)Async()
+        public async Task GetAnonymousObjectAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2768,7 +2736,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/AnonymousObject
         /// </summary>
-        public void DemoWebApi.Controllers.SuperDemoController.GetAnonymousObject (DemoCoreWeb)()
+        public void GetAnonymousObject()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2778,7 +2746,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/AnonymousObject
         /// </summary>
-        public async Task DemoWebApi.Controllers.SuperDemoController.PostAnonymousObject (DemoCoreWeb)Async(Newtonsoft.Json.Linq.JObject obj)
+        public async Task PostAnonymousObjectAsync(Newtonsoft.Json.Linq.JObject obj)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2794,7 +2762,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/AnonymousObject
         /// </summary>
-        public void DemoWebApi.Controllers.SuperDemoController.PostAnonymousObject (DemoCoreWeb)(Newtonsoft.Json.Linq.JObject obj)
+        public void PostAnonymousObject(Newtonsoft.Json.Linq.JObject obj)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2810,7 +2778,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/StringStringDic
         /// </summary>
-        public async Task<System.Collections.Generic.Dictionary<string, string>> DemoWebApi.Controllers.SuperDemoController.GetDictionary (DemoCoreWeb)Async()
+        public async Task<System.Collections.Generic.Dictionary<string, string>> GetDictionaryAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringStringDic");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2826,7 +2794,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/StringStringDic
         /// </summary>
-        public System.Collections.Generic.Dictionary<string, string> DemoWebApi.Controllers.SuperDemoController.GetDictionary (DemoCoreWeb)()
+        public System.Collections.Generic.Dictionary<string, string> GetDictionary()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringStringDic");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2842,7 +2810,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/StringPersonDic
         /// </summary>
-        public async Task<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>> DemoWebApi.Controllers.SuperDemoController.GetDictionaryOfPeople (DemoCoreWeb)Async()
+        public async Task<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>> GetDictionaryOfPeopleAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2858,7 +2826,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/StringPersonDic
         /// </summary>
-        public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.SuperDemoController.GetDictionaryOfPeople (DemoCoreWeb)()
+        public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> GetDictionaryOfPeople()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2874,7 +2842,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/StringPersonDic
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.SuperDemoController.PostDictionary (DemoCoreWeb)Async(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
+        public async Task<int> PostDictionaryAsync(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2896,7 +2864,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/StringPersonDic
         /// </summary>
-        public int DemoWebApi.Controllers.SuperDemoController.PostDictionary (DemoCoreWeb)(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
+        public int PostDictionary(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
             using (var requestWriter = new System.IO.StringWriter())
@@ -2918,7 +2886,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/KeyValuePair
         /// </summary>
-        public async Task<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>> DemoWebApi.Controllers.SuperDemoController.GetKeyhValuePair (DemoCoreWeb)Async()
+        public async Task<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>> GetKeyhValuePairAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/KeyValuePair");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2934,7 +2902,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/KeyValuePair
         /// </summary>
-        public System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.SuperDemoController.GetKeyhValuePair (DemoCoreWeb)()
+        public System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person> GetKeyhValuePair()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/KeyValuePair");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2950,7 +2918,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ICollection
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person[]> DemoWebApi.Controllers.SuperDemoController.GetICollection (DemoCoreWeb)Async()
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetICollectionAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2966,7 +2934,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ICollection
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person[] DemoWebApi.Controllers.SuperDemoController.GetICollection (DemoCoreWeb)()
+        public DemoWebApi.DemoData.Client.Person[] GetICollection()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -2982,7 +2950,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/IList
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person[]> DemoWebApi.Controllers.SuperDemoController.GetIList (DemoCoreWeb)Async()
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetIListAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
             var responseMessage = await client.GetAsync(requestUri);
@@ -2998,7 +2966,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/IList
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person[] DemoWebApi.Controllers.SuperDemoController.GetIList (DemoCoreWeb)()
+        public DemoWebApi.DemoData.Client.Person[] GetIList()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3014,7 +2982,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/IReadOnlyList
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person[]> DemoWebApi.Controllers.SuperDemoController.GetIReadOnlyList (DemoCoreWeb)Async()
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyListAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
             var responseMessage = await client.GetAsync(requestUri);
@@ -3030,7 +2998,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/IReadOnlyList
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person[] DemoWebApi.Controllers.SuperDemoController.GetIReadOnlyList (DemoCoreWeb)()
+        public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyList()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3046,7 +3014,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/IReadOnlyCollection
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person[]> DemoWebApi.Controllers.SuperDemoController.GetIReadOnlyCollection (DemoCoreWeb)Async()
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyCollectionAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
             var responseMessage = await client.GetAsync(requestUri);
@@ -3062,7 +3030,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/IReadOnlyCollection
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person[] DemoWebApi.Controllers.SuperDemoController.GetIReadOnlyCollection (DemoCoreWeb)()
+        public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyCollection()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3078,7 +3046,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/List
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person[]> DemoWebApi.Controllers.SuperDemoController.GetList (DemoCoreWeb)Async()
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetListAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
             var responseMessage = await client.GetAsync(requestUri);
@@ -3094,7 +3062,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/List
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person[] DemoWebApi.Controllers.SuperDemoController.GetList (DemoCoreWeb)()
+        public DemoWebApi.DemoData.Client.Person[] GetList()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3110,7 +3078,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/Collection
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person[]> DemoWebApi.Controllers.SuperDemoController.GetCollection (DemoCoreWeb)Async()
+        public async Task<DemoWebApi.DemoData.Client.Person[]> GetCollectionAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
             var responseMessage = await client.GetAsync(requestUri);
@@ -3126,7 +3094,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/Collection
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person[] DemoWebApi.Controllers.SuperDemoController.GetCollection (DemoCoreWeb)()
+        public DemoWebApi.DemoData.Client.Person[] GetCollection()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3142,7 +3110,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/ICollection
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.SuperDemoController.PostICollection (DemoCoreWeb)Async(DemoWebApi.DemoData.Client.Person[] list)
+        public async Task<int> PostICollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3164,7 +3132,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/ICollection
         /// </summary>
-        public int DemoWebApi.Controllers.SuperDemoController.PostICollection (DemoCoreWeb)(DemoWebApi.DemoData.Client.Person[] list)
+        public int PostICollection(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3186,7 +3154,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/IList
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.SuperDemoController.PostIList (DemoCoreWeb)Async(DemoWebApi.DemoData.Client.Person[] list)
+        public async Task<int> PostIListAsync(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3208,7 +3176,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/IList
         /// </summary>
-        public int DemoWebApi.Controllers.SuperDemoController.PostIList (DemoCoreWeb)(DemoWebApi.DemoData.Client.Person[] list)
+        public int PostIList(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3230,7 +3198,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/IReadOnlyList
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.SuperDemoController.PostIReadOnlyList (DemoCoreWeb)Async(DemoWebApi.DemoData.Client.Person[] list)
+        public async Task<int> PostIReadOnlyListAsync(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3252,7 +3220,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/IReadOnlyList
         /// </summary>
-        public int DemoWebApi.Controllers.SuperDemoController.PostIReadOnlyList (DemoCoreWeb)(DemoWebApi.DemoData.Client.Person[] list)
+        public int PostIReadOnlyList(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3274,7 +3242,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/IReadOnlyCollection
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.SuperDemoController.PostIReadOnlyCollection (DemoCoreWeb)Async(DemoWebApi.DemoData.Client.Person[] list)
+        public async Task<int> PostIReadOnlyCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3296,7 +3264,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/IReadOnlyCollection
         /// </summary>
-        public int DemoWebApi.Controllers.SuperDemoController.PostIReadOnlyCollection (DemoCoreWeb)(DemoWebApi.DemoData.Client.Person[] list)
+        public int PostIReadOnlyCollection(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3318,7 +3286,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/List
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.SuperDemoController.PostList (DemoCoreWeb)Async(DemoWebApi.DemoData.Client.Person[] list)
+        public async Task<int> PostListAsync(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3340,7 +3308,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/List
         /// </summary>
-        public int DemoWebApi.Controllers.SuperDemoController.PostList (DemoCoreWeb)(DemoWebApi.DemoData.Client.Person[] list)
+        public int PostList(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3362,7 +3330,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/Collection
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.SuperDemoController.PostCollection (DemoCoreWeb)Async(DemoWebApi.DemoData.Client.Person[] list)
+        public async Task<int> PostCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3384,7 +3352,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/Collection
         /// </summary>
-        public int DemoWebApi.Controllers.SuperDemoController.PostCollection (DemoCoreWeb)(DemoWebApi.DemoData.Client.Person[] list)
+        public int PostCollection(DemoWebApi.DemoData.Client.Person[] list)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3406,7 +3374,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/PostEmpty
         /// </summary>
-        public async Task<System.Tuple<string, int>> DemoWebApi.Controllers.SuperDemoController.PostWithQueryButEmptyBody (DemoCoreWeb)Async(string s, int i)
+        public async Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync(string s, int i)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3428,7 +3396,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/SuperDemo/PostEmpty
         /// </summary>
-        public System.Tuple<string, int> DemoWebApi.Controllers.SuperDemoController.PostWithQueryButEmptyBody (DemoCoreWeb)(string s, int i)
+        public System.Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3470,7 +3438,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PersonCompany1
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.TupleController.LinkPersonCompany1 (DemoCoreWeb)Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPersonCompany1Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PersonCompany1");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3492,7 +3460,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PersonCompany1
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.TupleController.LinkPersonCompany1 (DemoCoreWeb)(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPersonCompany1(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PersonCompany1");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3514,7 +3482,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany2
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.TupleController.LinkPeopleCompany2 (DemoCoreWeb)Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany2Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany2");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3536,7 +3504,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany2
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.TupleController.LinkPeopleCompany2 (DemoCoreWeb)(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany2(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany2");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3558,7 +3526,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany3
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.TupleController.LinkPeopleCompany3 (DemoCoreWeb)Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany3Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany3");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3580,7 +3548,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany3
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.TupleController.LinkPeopleCompany3 (DemoCoreWeb)(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany3(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany3");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3602,7 +3570,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany4
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.TupleController.LinkPeopleCompany4 (DemoCoreWeb)Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany4Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3624,7 +3592,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany4
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.TupleController.LinkPeopleCompany4 (DemoCoreWeb)(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany4(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3646,7 +3614,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/PeopleCompany4
         /// </summary>
-        public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> DemoWebApi.Controllers.TupleController.GetPeopleCompany4 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
             var responseMessage = await client.GetAsync(requestUri);
@@ -3662,7 +3630,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/PeopleCompany4
         /// </summary>
-        public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> DemoWebApi.Controllers.TupleController.GetPeopleCompany4 (DemoCoreWeb)()
+        public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3678,7 +3646,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany5
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.TupleController.LinkPeopleCompany5 (DemoCoreWeb)Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany5Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3700,7 +3668,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany5
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.TupleController.LinkPeopleCompany5 (DemoCoreWeb)(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany5(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3722,7 +3690,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/PeopleCompany5
         /// </summary>
-        public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> DemoWebApi.Controllers.TupleController.GetPeopleCompany5 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
             var responseMessage = await client.GetAsync(requestUri);
@@ -3738,7 +3706,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/PeopleCompany5
         /// </summary>
-        public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> DemoWebApi.Controllers.TupleController.GetPeopleCompany5 (DemoCoreWeb)()
+        public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3754,7 +3722,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany6
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.TupleController.LinkPeopleCompany6 (DemoCoreWeb)Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany6Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany6");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3776,7 +3744,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany6
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.TupleController.LinkPeopleCompany6 (DemoCoreWeb)(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany6(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany6");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3798,7 +3766,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany7
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.TupleController.LinkPeopleCompany7 (DemoCoreWeb)Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany7");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3820,7 +3788,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany7
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.TupleController.LinkPeopleCompany7 (DemoCoreWeb)(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany7");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3842,7 +3810,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany8
         /// </summary>
-        public async Task<DemoWebApi.DemoData.Client.Person> DemoWebApi.Controllers.TupleController.LinkPeopleCompany8 (DemoCoreWeb)Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany8Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany8");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3864,7 +3832,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/PeopleCompany8
         /// </summary>
-        public DemoWebApi.DemoData.Client.Person DemoWebApi.Controllers.TupleController.LinkPeopleCompany8 (DemoCoreWeb)(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+        public DemoWebApi.DemoData.Client.Person LinkPeopleCompany8(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany8");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3886,7 +3854,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple1
         /// </summary>
-        public async Task<System.Tuple<int>> DemoWebApi.Controllers.TupleController.GetTuple1 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<int>> GetTuple1Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
             var responseMessage = await client.GetAsync(requestUri);
@@ -3902,7 +3870,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple1
         /// </summary>
-        public System.Tuple<int> DemoWebApi.Controllers.TupleController.GetTuple1 (DemoCoreWeb)()
+        public System.Tuple<int> GetTuple1()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3918,7 +3886,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple1
         /// </summary>
-        public async Task<int> DemoWebApi.Controllers.TupleController.PostTuple1 (DemoCoreWeb)Async(System.Tuple<int> tuple)
+        public async Task<int> PostTuple1Async(System.Tuple<int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3940,7 +3908,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple1
         /// </summary>
-        public int DemoWebApi.Controllers.TupleController.PostTuple1 (DemoCoreWeb)(System.Tuple<int> tuple)
+        public int PostTuple1(System.Tuple<int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
             using (var requestWriter = new System.IO.StringWriter())
@@ -3962,7 +3930,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple2
         /// </summary>
-        public async Task<System.Tuple<string, int>> DemoWebApi.Controllers.TupleController.GetTuple2 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<string, int>> GetTuple2Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
             var responseMessage = await client.GetAsync(requestUri);
@@ -3978,7 +3946,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple2
         /// </summary>
-        public System.Tuple<string, int> DemoWebApi.Controllers.TupleController.GetTuple2 (DemoCoreWeb)()
+        public System.Tuple<string, int> GetTuple2()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -3994,7 +3962,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple2
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.TupleController.PostTuple2 (DemoCoreWeb)Async(System.Tuple<string, int> tuple)
+        public async Task<string> PostTuple2Async(System.Tuple<string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4016,7 +3984,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple2
         /// </summary>
-        public string DemoWebApi.Controllers.TupleController.PostTuple2 (DemoCoreWeb)(System.Tuple<string, int> tuple)
+        public string PostTuple2(System.Tuple<string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4038,7 +4006,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple3
         /// </summary>
-        public async Task<System.Tuple<string, string, int>> DemoWebApi.Controllers.TupleController.GetTuple3 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<string, string, int>> GetTuple3Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
             var responseMessage = await client.GetAsync(requestUri);
@@ -4054,7 +4022,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple3
         /// </summary>
-        public System.Tuple<string, string, int> DemoWebApi.Controllers.TupleController.GetTuple3 (DemoCoreWeb)()
+        public System.Tuple<string, string, int> GetTuple3()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -4070,7 +4038,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple3
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.TupleController.PostTuple3 (DemoCoreWeb)Async(System.Tuple<string, string, int> tuple)
+        public async Task<string> PostTuple3Async(System.Tuple<string, string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4092,7 +4060,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple3
         /// </summary>
-        public string DemoWebApi.Controllers.TupleController.PostTuple3 (DemoCoreWeb)(System.Tuple<string, string, int> tuple)
+        public string PostTuple3(System.Tuple<string, string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4114,7 +4082,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple4
         /// </summary>
-        public async Task<System.Tuple<string, string, string, int>> DemoWebApi.Controllers.TupleController.GetTuple4 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<string, string, string, int>> GetTuple4Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
             var responseMessage = await client.GetAsync(requestUri);
@@ -4130,7 +4098,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple4
         /// </summary>
-        public System.Tuple<string, string, string, int> DemoWebApi.Controllers.TupleController.GetTuple4 (DemoCoreWeb)()
+        public System.Tuple<string, string, string, int> GetTuple4()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -4146,7 +4114,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple4
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.TupleController.PostTuple4 (DemoCoreWeb)Async(System.Tuple<string, string, string, int> tuple)
+        public async Task<string> PostTuple4Async(System.Tuple<string, string, string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4168,7 +4136,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple4
         /// </summary>
-        public string DemoWebApi.Controllers.TupleController.PostTuple4 (DemoCoreWeb)(System.Tuple<string, string, string, int> tuple)
+        public string PostTuple4(System.Tuple<string, string, string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4190,7 +4158,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple5
         /// </summary>
-        public async Task<System.Tuple<string, string, string, string, int>> DemoWebApi.Controllers.TupleController.GetTuple5 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<string, string, string, string, int>> GetTuple5Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
             var responseMessage = await client.GetAsync(requestUri);
@@ -4206,7 +4174,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple5
         /// </summary>
-        public System.Tuple<string, string, string, string, int> DemoWebApi.Controllers.TupleController.GetTuple5 (DemoCoreWeb)()
+        public System.Tuple<string, string, string, string, int> GetTuple5()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -4222,7 +4190,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple5
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.TupleController.PostTuple5 (DemoCoreWeb)Async(System.Tuple<string, string, string, string, int> tuple)
+        public async Task<string> PostTuple5Async(System.Tuple<string, string, string, string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4244,7 +4212,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple5
         /// </summary>
-        public string DemoWebApi.Controllers.TupleController.PostTuple5 (DemoCoreWeb)(System.Tuple<string, string, string, string, int> tuple)
+        public string PostTuple5(System.Tuple<string, string, string, string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4266,7 +4234,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple6
         /// </summary>
-        public async Task<System.Tuple<string, string, string, string, string, int>> DemoWebApi.Controllers.TupleController.GetTuple6 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<string, string, string, string, string, int>> GetTuple6Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
             var responseMessage = await client.GetAsync(requestUri);
@@ -4282,7 +4250,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple6
         /// </summary>
-        public System.Tuple<string, string, string, string, string, int> DemoWebApi.Controllers.TupleController.GetTuple6 (DemoCoreWeb)()
+        public System.Tuple<string, string, string, string, string, int> GetTuple6()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -4298,7 +4266,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple6
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.TupleController.PostTuple6 (DemoCoreWeb)Async(System.Tuple<string, string, string, string, string, int> tuple)
+        public async Task<string> PostTuple6Async(System.Tuple<string, string, string, string, string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4320,7 +4288,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple6
         /// </summary>
-        public string DemoWebApi.Controllers.TupleController.PostTuple6 (DemoCoreWeb)(System.Tuple<string, string, string, string, string, int> tuple)
+        public string PostTuple6(System.Tuple<string, string, string, string, string, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4342,7 +4310,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple7
         /// </summary>
-        public async Task<System.Tuple<string, string, string, string, string, long, int>> DemoWebApi.Controllers.TupleController.GetTuple7 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<string, string, string, string, string, long, int>> GetTuple7Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
             var responseMessage = await client.GetAsync(requestUri);
@@ -4358,7 +4326,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple7
         /// </summary>
-        public System.Tuple<string, string, string, string, string, long, int> DemoWebApi.Controllers.TupleController.GetTuple7 (DemoCoreWeb)()
+        public System.Tuple<string, string, string, string, string, long, int> GetTuple7()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -4374,7 +4342,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple7
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.TupleController.PostTuple7 (DemoCoreWeb)Async(System.Tuple<string, string, string, string, string, long, int> tuple)
+        public async Task<string> PostTuple7Async(System.Tuple<string, string, string, string, string, long, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4396,7 +4364,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple7
         /// </summary>
-        public string DemoWebApi.Controllers.TupleController.PostTuple7 (DemoCoreWeb)(System.Tuple<string, string, string, string, string, long, int> tuple)
+        public string PostTuple7(System.Tuple<string, string, string, string, string, long, int> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4418,7 +4386,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple8
         /// </summary>
-        public async Task<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>> DemoWebApi.Controllers.TupleController.GetTuple8 (DemoCoreWeb)Async()
+        public async Task<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>> GetTuple8Async()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
             var responseMessage = await client.GetAsync(requestUri);
@@ -4434,7 +4402,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/Tuple/Tuple8
         /// </summary>
-        public System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>> DemoWebApi.Controllers.TupleController.GetTuple8 (DemoCoreWeb)()
+        public System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>> GetTuple8()
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
             var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -4450,7 +4418,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple8
         /// </summary>
-        public async Task<string> DemoWebApi.Controllers.TupleController.PostTuple8 (DemoCoreWeb)Async(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
+        public async Task<string> PostTuple8Async(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
             using (var requestWriter = new System.IO.StringWriter())
@@ -4472,7 +4440,7 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// POST api/Tuple/Tuple8
         /// </summary>
-        public string DemoWebApi.Controllers.TupleController.PostTuple8 (DemoCoreWeb)(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
+        public string PostTuple8(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
             using (var requestWriter = new System.IO.StringWriter())

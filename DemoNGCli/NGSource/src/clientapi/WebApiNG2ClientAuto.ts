@@ -112,60 +112,6 @@ export namespace DemoWebApi_Models_Client {
 
 }
 
-export namespace DemoCoreWeb_Controllers_Client {
-    @Injectable()
-    export class Values {
-        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient){
-        }
-
-        /** 
-         * GET api/Values
-         * @return {Array<string>} 
-         */
-        get(): Observable<Array<string>>{
-            return this.http.get<Array<string>>(this.baseUri + 'api/Values');
-        }
-
-        /** 
-         * GET api/Values/{id}
-         * @param {number} id 
-         * @return {string} 
-         */
-        getById(id: number): Observable<string>{
-            return this.http.get<string>(this.baseUri + 'api/Values/'+id);
-        }
-
-        /** 
-         * POST api/Values
-         * @param {string} value 
-         * @return {void} 
-         */
-        post(value: string): Observable<Response>{
-            return this.http.post<Response>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-        }
-
-        /** 
-         * PUT api/Values/{id}
-         * @param {number} id 
-         * @param {string} value 
-         * @return {void} 
-         */
-        put(id: number, value: string): Observable<Response>{
-            return this.http.put<Response>(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-        }
-
-        /** 
-         * DELETE api/Values/{id}
-         * @param {number} id 
-         * @return {void} 
-         */
-        delete(id: number): Observable<Response>{
-            return this.http.delete<Response>(this.baseUri + 'api/Values/'+id);
-        }
-    }
-
-}
-
 export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class Entities {
@@ -997,6 +943,57 @@ export namespace DemoWebApi_Controllers_Client {
          */
         postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}): Observable<string>{
             return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        }
+    }
+
+    @Injectable()
+    export class Values {
+        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient){
+        }
+
+        /** 
+         * GET api/Values
+         * @return {Array<string>} 
+         */
+        get(): Observable<Array<string>>{
+            return this.http.get<Array<string>>(this.baseUri + 'api/Values');
+        }
+
+        /** 
+         * GET api/Values/{id}
+         * @param {number} id 
+         * @return {string} 
+         */
+        getById(id: number): Observable<string>{
+            return this.http.get<string>(this.baseUri + 'api/Values/'+id);
+        }
+
+        /** 
+         * POST api/Values
+         * @param {string} value 
+         * @return {void} 
+         */
+        post(value: string): Observable<Response>{
+            return this.http.post<Response>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        }
+
+        /** 
+         * PUT api/Values/{id}
+         * @param {number} id 
+         * @param {string} value 
+         * @return {void} 
+         */
+        put(id: number, value: string): Observable<Response>{
+            return this.http.put<Response>(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        }
+
+        /** 
+         * DELETE api/Values/{id}
+         * @param {number} id 
+         * @return {void} 
+         */
+        delete(id: number): Observable<Response>{
+            return this.http.delete<Response>(this.baseUri + 'api/Values/'+id);
         }
     }
 

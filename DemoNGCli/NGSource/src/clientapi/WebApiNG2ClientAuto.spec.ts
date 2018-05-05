@@ -158,20 +158,20 @@ describe('entities API', () => {
         client = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Entities);
     }));
 
-    it('getPersonNotFound', (done) => {
-        client.getPersonNotFound(123)
-            .subscribe(
-            data => {
-                fail('That is bad. Should be 404.');
-                done();
-            },
-            error => {
-                expect(errorResponseToString(error)).toContain('404');
-                done();
-            }
-            );
-    }
-    );
+    //it('getPersonNotFound', (done) => {
+    //    client.getPersonNotFound(123)
+    //        .subscribe(
+    //        data => {
+    //            fail('That is bad. Should be 404.');
+    //            done();
+    //        },
+    //        error => {
+    //            expect(errorResponseToString(error)).toContain('404');
+    //            done();
+    //        }
+    //        );
+    //}
+    //);
 
     it('add', (done) => {
         let id: number;

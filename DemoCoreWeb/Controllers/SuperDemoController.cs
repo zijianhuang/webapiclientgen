@@ -321,47 +321,6 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpGet]
-        [Route("AnonymousDynamic")]
-        public dynamic GetAnonymousDynamic()
-        {
-            return new
-            {
-                Id = 12345,
-                Name = "Something",
-            };
-        }
-
-        [HttpGet]
-        [Route("AnonymousObject")]
-        public object GetAnonymousObject()
-        {
-            return new
-            {
-                Id = 12345,
-                Name = "Something",
-            };
-        }
-
-        [HttpPost]
-        [Route("AnonymousObject")]
-        public object PostAnonymousObject([FromBody] dynamic obj)
-        {
-            if (obj == null)
-            {
-                System.Diagnostics.Debug.WriteLine("dynamic null");
-                return new
-                {
-                    Id = 12345,
-                    Name = "Something",
-                };
-
-            }
-            obj.Id = obj.Id + "1";
-            obj.Name = obj.Name + "1";
-            return obj;
-        }
-
-        [HttpGet]
         [Route("StringStringDic")]
         public IDictionary<string, string> GetDictionary()
         {

@@ -80,13 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicHealthIntegration.cs" />
-    <Compile Include="FileUploadIntegration.cs" />
-    <Compile Include="IisExpressCollection.cs" />
-    <Compile Include="EntitiesApiIntegration.cs" />
-    <Compile Include="SuperDemoIntegration.cs" />
-    <Compile Include="TupleApiIntegration.cs" />
-    <Compile Include="ValuesApiIntegration.cs" />
+    <Compile Include="SpecialTypesIntegration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +99,7 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\xunit.analyzers.0.8.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
+  <Import Project="..\IntegrationTestsShared\IntegrationTestsShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

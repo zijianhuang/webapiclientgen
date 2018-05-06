@@ -141,14 +141,14 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * PUT api/Entities/link
+         * PUT api/Entities/link?id={id}&relationship={relationship}
          * @param {number} id 
          * @param {string} relationship 
          * @param {DemoWebApi_DemoData_Client.Person} person 
          * @return {boolean} 
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person, callback: (data : boolean) => any){
-            this.httpClient.put(this.baseUri + 'api/Entities/link', person, callback, this.error, this.statusCode);
+            this.httpClient.put(this.baseUri + 'api/Entities/link?id='+id+'&relationship='+encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -925,6 +925,25 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/Values/{id}?name={name}
+         * @param {number} id 
+         * @param {string} name 
+         * @return {string} 
+         */
+        getByIdAndName(id: number, name: string, callback: (data : string) => any){
+            this.httpClient.get(this.baseUri + 'api/Values/'+id+'?name='+encodeURIComponent(name), callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/Values?name={name}
+         * @param {string} name 
+         * @return {string} 
+         */
+        getByName(name: string, callback: (data : string) => any){
+            this.httpClient.get(this.baseUri + 'api/Values?name='+encodeURIComponent(name), callback, this.error, this.statusCode);
+        }
+
+        /** 
          * GET api/Values/{id}
          * @param {number} id 
          * @return {string} 
@@ -936,9 +955,9 @@ namespace DemoWebApi_Controllers_Client {
         /** 
          * POST api/Values
          * @param {string} value 
-         * @return {void} 
+         * @return {string} 
          */
-        post(value: string, callback: (data : void) => any){
+        post(value: string, callback: (data : string) => any){
             this.httpClient.post(this.baseUri + 'api/Values', value, callback, this.error, this.statusCode);
         }
 

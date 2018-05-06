@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using System.Diagnostics;
@@ -14,14 +15,13 @@ namespace Fonlow.Web.Meta
 	/// </summary>
 	public static class MetaTransform
 	{
-		static ParameterBinder GetParameterBinder(BindingInfo bindingInfo)
+		static ParameterBinder GetParameterBinder(BindingSource bindingSource)
 		{
-			if (bindingInfo == null)
-				return ParameterBinder.None;
-
-			var bindingSource = bindingInfo.BindingSource;
 			if (bindingSource == null)
 				return ParameterBinder.None;
+
+			if (BindingSource.Path.CanAcceptDataFrom(bindingSource))
+				return ParameterBinder.FromUri;
 
 			if (BindingSource.Query.CanAcceptDataFrom(bindingSource))
 				return ParameterBinder.FromUri;
@@ -78,7 +78,7 @@ namespace Fonlow.Web.Meta
 
 					HttpMethod = description.HttpMethod,
 					//  Documentation = description.Documentation,
-					RelativePath = description.RelativePath,
+					RelativePath = description.RelativePath + BuildQuery(description.ParameterDescriptions),
 					ResponseDescription = new ResponseDescription()
 					{
 						//    Documentation = description.ResponseDescription.Documentation,
@@ -94,7 +94,7 @@ namespace Fonlow.Web.Meta
 						{
 							ParameterName = d.ParameterDescriptor.Name,
 							ParameterType = d.ParameterDescriptor.ParameterType,
-							ParameterBinder = GetParameterBinder(d.ParameterDescriptor.BindingInfo),//.ParameterBinderAttribute),
+							ParameterBinder = GetParameterBinder(d.Source),//.ParameterBinderAttribute),
 
 						}
 					}).ToArray(),
@@ -108,6 +108,17 @@ namespace Fonlow.Web.Meta
 				Trace.TraceError(ex.ToString());
 				throw;
 			}
+		}
+
+		static string BuildQuery(IList<ApiParameterDescription> ds)
+		{
+			var qs = ds.Where(d => BindingSource.Query.CanAcceptDataFrom(d.Source)).Select(k=> String.Format("{0}={{{0}}}", k.Name)).ToArray();
+			if (qs.Length == 0)
+			{
+				return String.Empty;
+			}
+
+			return "?"+ qs.Aggregate((c, n) => c + "&" + n); ;
 		}
 
 	}

@@ -1072,6 +1072,15 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/Values/{id}
+         * @param {number} id 
+         * @return {string} 
+         */
+        getById(id: number, callback: (data : string) => any){
+            this.httpClient.get(this.baseUri + 'api/Values/'+id, callback, this.error, this.statusCode);
+        }
+
+        /** 
          * POST api/Values
          * @param {string} value 
          * @return {string} 

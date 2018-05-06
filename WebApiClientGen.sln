@@ -102,7 +102,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClientGenCore", "WebA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{09419770-F282-4257-B14B-BC907EF7F858}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCoreWeb.ClientApi", "DemoCoreWeb.ClientApi\DemoCoreWeb.ClientApi.csproj", "{7380B7A5-0179-48C6-9FB4-0910F40C6D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoCoreWeb.ClientApi", "DemoCoreWeb.ClientApi\DemoCoreWeb.ClientApi.csproj", "{7380B7A5-0179-48C6-9FB4-0910F40C6D01}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IntegrationTestsShared", "Tests\IntegrationTestsShared\IntegrationTestsShared.shproj", "{EB9EE874-F621-4A9F-AB17-7E29E392F26A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTestsCore", "Tests\IntegrationTestsCore\IntegrationTestsCore.csproj", "{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -120,8 +124,10 @@ Global
 		Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems*{7b0e02b0-e517-4d55-bd96-ef4ee4e5ab48}*SharedItemsImports = 13
 		Fonlow.DocCommentShared\Fonlow.DocCommentShared.projitems*{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}*SharedItemsImports = 4
 		WebApiClientGenShared\WebApiClientGenShared.projitems*{bbe56b7d-2cc9-47a7-af3b-f3cb4f070f61}*SharedItemsImports = 13
+		Tests\IntegrationTestsShared\IntegrationTestsShared.projitems*{bc9ce351-c442-44ba-b7a1-438c22c150ca}*SharedItemsImports = 4
 		Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems*{be7d561b-0116-4d1b-96db-26df121bcfff}*SharedItemsImports = 13
 		Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.projitems*{ce5522a1-10ab-4941-bd74-2fcf5ac7823f}*SharedItemsImports = 4
+		Tests\IntegrationTestsShared\IntegrationTestsShared.projitems*{eb9ee874-f621-4a9f-ab17-7e29e392f26a}*SharedItemsImports = 13
 		Tests\Poco2TsTestsShared\Poco2TsTestsShared.projitems*{f347e898-0979-40b9-9cb2-676f81903caf}*SharedItemsImports = 4
 		Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.projitems*{f54af91a-678b-4f48-ab6f-5327b276c0fc}*SharedItemsImports = 13
 	EndGlobalSection
@@ -616,6 +622,22 @@ Global
 		{7380B7A5-0179-48C6-9FB4-0910F40C6D01}.Release|x64.Build.0 = Release|Any CPU
 		{7380B7A5-0179-48C6-9FB4-0910F40C6D01}.Release|x86.ActiveCfg = Release|Any CPU
 		{7380B7A5-0179-48C6-9FB4-0910F40C6D01}.Release|x86.Build.0 = Release|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Debug|x64.Build.0 = Debug|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Debug|x86.Build.0 = Debug|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Release|ARM.Build.0 = Release|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Release|x64.ActiveCfg = Release|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Release|x64.Build.0 = Release|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Release|x86.ActiveCfg = Release|Any CPU
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -653,6 +675,8 @@ Global
 		{FF2C1A74-2993-4B88-8995-809BB997AD7A} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
 		{BBE56B7D-2CC9-47A7-AF3B-F3CB4F070F61} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{7380B7A5-0179-48C6-9FB4-0910F40C6D01} = {A2F5FCEF-26A1-4D28-8C94-C01756502CFD}
+		{EB9EE874-F621-4A9F-AB17-7E29E392F26A} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
+		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18214E93-9A86-4818-9CB5-C5F2917B153A}

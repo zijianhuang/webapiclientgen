@@ -166,9 +166,9 @@ namespace Fonlow.Web.Meta
         public Type ParameterType
         { get; set; }
 
-        [DataMember]
-        public string Prefix
-        { get; set; }
+        //[DataMember]
+        //public string Prefix
+        //{ get; set; }
 
         [DataMember]
         public ParameterBinder ParameterBinder
@@ -227,6 +227,9 @@ namespace Fonlow.Web.Meta
         [EnumMember]
         FromUri,
         [EnumMember]
-        FromBody
+        FromBody,
+		[EnumMember]
+		FromQuery
+
     }
 }

@@ -146,14 +146,14 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
-         * PUT api/Entities/link
+         * PUT api/Entities/link?id={id}&relationship={relationship}
          * @param {number} id 
          * @param {string} relationship 
          * @param {DemoWebApi_DemoData_Client.Person} person 
          * @return {boolean} 
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Observable<boolean>{
-            return this.http.put<boolean>(this.baseUri + 'api/Entities/link', JSON.stringify(person), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id='+id+'&relationship='+encodeURIComponent(relationship), JSON.stringify(person), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 
@@ -935,6 +935,25 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * GET api/Values/{id}?name={name}
+         * @param {number} id 
+         * @param {string} name 
+         * @return {string} 
+         */
+        getByIdAndName(id: number, name: string): Observable<string>{
+            return this.http.get<string>(this.baseUri + 'api/Values/'+id+'?name='+encodeURIComponent(name));
+        }
+
+        /** 
+         * GET api/Values?name={name}
+         * @param {string} name 
+         * @return {string} 
+         */
+        getByName(name: string): Observable<string>{
+            return this.http.get<string>(this.baseUri + 'api/Values?name='+encodeURIComponent(name));
+        }
+
+        /** 
          * GET api/Values/{id}
          * @param {number} id 
          * @return {string} 
@@ -946,10 +965,10 @@ export namespace DemoWebApi_Controllers_Client {
         /** 
          * POST api/Values
          * @param {string} value 
-         * @return {void} 
+         * @return {string} 
          */
-        post(value: string): Observable<Response>{
-            return this.http.post<Response>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        post(value: string): Observable<string>{
+            return this.http.post<string>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
         }
 
         /** 

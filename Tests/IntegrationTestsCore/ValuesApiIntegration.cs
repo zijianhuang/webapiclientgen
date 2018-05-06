@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Fonlow.Testing;
+
 
 namespace IntegrationTests
 {
@@ -12,7 +12,7 @@ namespace IntegrationTests
     {
         public ValuesFixture()
         {
-            var baseUri = new Uri("http://localhost:10965/");
+            var baseUri = new Uri("http://localhost:56321/");
 
 			httpClient = new System.Net.Http.HttpClient();
             Api = new DemoWebApi.Controllers.Client.Values(httpClient, baseUri);

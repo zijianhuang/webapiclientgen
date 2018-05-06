@@ -12,7 +12,7 @@ namespace IntegrationTests
     {
         public SuperDemoFixture()
         {
-            var baseUri = new Uri("http://localhost:10965/");
+            var baseUri = new Uri("http://localhost:56321/");
 
 			httpClient = new System.Net.Http.HttpClient();
             Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, baseUri);

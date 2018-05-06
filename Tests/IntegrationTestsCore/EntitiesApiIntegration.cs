@@ -24,7 +24,7 @@ namespace IntegrationTests
     {
         public EntitiesFixture()
         {
-            var baseUri = new Uri("http://localhost:10965/");
+            var baseUri = new Uri("http://localhost:56321/");
 
 			httpClient = new System.Net.Http.HttpClient();
             Api = new DemoWebApi.Controllers.Client.Entities(httpClient, baseUri);

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using Fonlow.DocComment;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Fonlow.DocComment;
-using System.Reflection;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Fonlow.Web.Meta
 {
@@ -34,6 +30,11 @@ namespace Fonlow.Web.Meta
 			throw new ArgumentException($"How can it be with this ParameterBindingAttribute {bindingSource.ToString()}", "a");
 		}
 
+		/// <summary>
+		/// Translate ApiDescription of the Framework to my own WebApiDescription
+		/// </summary>
+		/// <param name="description"></param>
+		/// <returns></returns>
 		public static WebApiDescription GetWebApiDescription(ApiDescription description)
 		{
 			var controllerActionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
@@ -60,10 +61,6 @@ namespace Fonlow.Web.Meta
 				{
 					responseType = null;
 				}
-				//if (responseType == null)
-				//{
-				//	Debug.WriteLine("It is " + description.ActionDescriptor.DisplayName);
-				//}
 
 				var xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(controllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
 				var docLookup = DocCommentLookup.Create(xmlFilePath);

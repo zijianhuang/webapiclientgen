@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Fonlow.CodeDom.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Fonlow.CodeDom.Web;
 
 namespace DemoCoreWeb
 {
@@ -27,7 +21,9 @@ namespace DemoCoreWeb
 			services.AddMvc(
 				options =>
 				{
-					options.Conventions.Add(new ApiExplorerVisibilityEnabledConvention());
+#if DEBUG
+					options.Conventions.Add(new ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
+#endif
 				}
 				);
 
@@ -45,10 +41,6 @@ namespace DemoCoreWeb
 			}
 
 			app.UseMvc();
-			//app.UseMvc(routes =>
-			//{
-			//	routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-			//});
 		}
 	}
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Diagnostics;
 using Fonlow.Reflection;
 using Fonlow.Web.Meta;
-using Tavis.UriTemplates;
+using Tavis.UriTemplates;//.net core 2.0 does not have UriTemplate.
 
 namespace Fonlow.CodeDom.Web.Cs
 {

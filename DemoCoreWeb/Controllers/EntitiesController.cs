@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using DemoWebApi.DemoData;
 using Microsoft.AspNetCore.Mvc;
-using DemoWebApi.DemoData;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace DemoWebApi.Controllers

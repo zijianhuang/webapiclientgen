@@ -1,13 +1,10 @@
 ﻿#if DEBUG  //This controller is not needed in production release, since the client API should be generated during development of the Web Api.
-using System.Net;
-using System.Net.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System;
 using Fonlow.CodeDom.Web;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using System.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using System.Linq;
+using System.Net;
 
 namespace Fonlow.WebApiClientGen
 {
@@ -17,6 +14,12 @@ namespace Fonlow.WebApiClientGen
 	{
 		private readonly IApiDescriptionGroupCollectionProvider apiExplorer;
 		private readonly IHostingEnvironment hostingEnvironment;
+
+		/// <summary>
+		/// For injecting some environment config by the run time.
+		/// </summary>
+		/// <param name="apiExplorer"></param>
+		/// <param name="hostingEnvironment"></param>
 		public CodeGenController(IApiDescriptionGroupCollectionProvider apiExplorer, IHostingEnvironment hostingEnvironment)
 		{
 			this.apiExplorer = apiExplorer;

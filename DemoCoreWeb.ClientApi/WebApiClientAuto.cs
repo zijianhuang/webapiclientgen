@@ -848,6 +848,8 @@ namespace DemoWebApi.Controllers.Client
         /// so to know the person
         /// GET api/Entities/getPerson/{id}
         /// </summary>
+        /// <param name="id">unique id of that guy</param>
+        /// <returns>person in db</returns>
         public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/getPerson/"+id);
@@ -866,6 +868,8 @@ namespace DemoWebApi.Controllers.Client
         /// so to know the person
         /// GET api/Entities/getPerson/{id}
         /// </summary>
+        /// <param name="id">unique id of that guy</param>
+        /// <returns>person in db</returns>
         public DemoWebApi.DemoData.Client.Person GetPerson(long id)
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/getPerson/"+id);
@@ -1255,6 +1259,8 @@ namespace DemoWebApi.Controllers.Client
         /// Search heroes
         /// GET api/Heroes/{name}
         /// </summary>
+        /// <param name="name">keyword contained in hero name.</param>
+        /// <returns>Hero array matching the keyword.</returns>
         public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes/"+Uri.EscapeDataString(name));
@@ -1272,6 +1278,8 @@ namespace DemoWebApi.Controllers.Client
         /// Search heroes
         /// GET api/Heroes/{name}
         /// </summary>
+        /// <param name="name">keyword contained in hero name.</param>
+        /// <returns>Hero array matching the keyword.</returns>
         public DemoWebApi.Controllers.Client.Hero[] Search(string name)
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes/"+Uri.EscapeDataString(name));

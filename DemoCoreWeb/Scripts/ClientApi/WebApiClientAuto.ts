@@ -190,8 +190,8 @@ namespace DemoWebApi_Controllers_Client {
          * Get a person
          * so to know the person
          * GET api/Entities/getPerson/{id}
-         * @param {number} id 
-         * @return {DemoWebApi_DemoData_Client.Person} 
+         * @param {number} id unique id of that guy
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         getPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any){
             this.httpClient.get(this.baseUri + 'api/Entities/getPerson/'+id, callback, this.error, this.statusCode);
@@ -300,8 +300,8 @@ namespace DemoWebApi_Controllers_Client {
         /** 
          * Search heroes
          * GET api/Heroes/{name}
-         * @param {string} name 
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         * @param {string} name keyword contained in hero name.
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name: string, callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any){
             this.httpClient.get(this.baseUri + 'api/Heroes/'+encodeURIComponent(name), callback, this.error, this.statusCode);

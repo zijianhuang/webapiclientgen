@@ -195,8 +195,8 @@ export namespace DemoWebApi_Controllers_Client {
          * Get a person
          * so to know the person
          * GET api/Entities/getPerson/{id}
-         * @param {number} id 
-         * @return {DemoWebApi_DemoData_Client.Person} 
+         * @param {number} id unique id of that guy
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
             return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson/'+id);
@@ -306,8 +306,8 @@ export namespace DemoWebApi_Controllers_Client {
         /** 
          * Search heroes
          * GET api/Heroes/{name}
-         * @param {string} name 
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         * @param {string} name keyword contained in hero name.
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name: string): Observable<Array<DemoWebApi_Controllers_Client.Hero>>{
             return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/'+encodeURIComponent(name));

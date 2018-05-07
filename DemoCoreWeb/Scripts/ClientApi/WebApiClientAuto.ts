@@ -1,6 +1,10 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
 namespace DemoWebApi_Controllers_Client {
+
+    /** 
+     * Complex hero type
+     */
     export interface Hero {
         id?: number;
         name?: string;
@@ -11,7 +15,19 @@ namespace DemoWebApi_Controllers_Client {
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
-    export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
+    export enum Days {
+        Sat = 1,
+        Sun = 2,
+        Mon = 3,
+        Tue = 4,
+        Wed = 5,
+        
+        /** 
+         * Thursday
+         */
+        Thu = 6,
+        Fri = 7
+    }
 
     export interface PhoneNumber {
         id?: string;
@@ -20,11 +36,33 @@ namespace DemoWebApi_DemoData_Client {
         entityId?: string;
     }
 
-    export enum PhoneType { Tel, Mobile, Skype, Fax }
+
+    /** 
+     * Phone type
+     * Tel, Mobile, Skyp and Fax
+     */
+    export enum PhoneType {
+        
+        /** 
+         * Land line
+         */
+        Tel,
+        
+        /** 
+         * Mobile phone
+         */
+        Mobile,
+        Skype,
+        Fax
+    }
 
     export interface Address {
         id?: string;
         entity?: DemoWebApi_DemoData_Client.Entity;
+
+        /** 
+         * Foreign key to Entity
+         */
         entityId?: string;
         street1?: string;
         street2?: string;
@@ -36,9 +74,21 @@ namespace DemoWebApi_DemoData_Client {
         location?: DemoWebApi_DemoData_Another_Client.MyPoint;
     }
 
+
+    /** 
+     * Base class of company and person
+     */
     export interface Entity {
         id?: string;
+
+        /** 
+         * Name of the entity.
+         */
         name: string;
+
+        /** 
+         * Multiple addresses
+         */
         addresses?: Array<DemoWebApi_DemoData_Client.Address>;
         phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
         web?: string;
@@ -47,10 +97,19 @@ namespace DemoWebApi_DemoData_Client {
     export interface Person extends DemoWebApi_DemoData_Client.Entity {
         surname?: string;
         givenName?: string;
+
+        /** 
+         * Date of Birth.
+         * This is optional.
+         */
         dob?: Date;
     }
 
     export interface Company extends DemoWebApi_DemoData_Client.Entity {
+
+        /** 
+         * BusinessNumber to be serialized as BusinessNum
+         */
         BusinessNum?: string;
         businessNumberType?: string;
         textMatrix?: Array<Array<string>>;
@@ -68,8 +127,22 @@ namespace DemoWebApi_DemoData_Client {
 }
 
 namespace DemoWebApi_DemoData_Another_Client {
+
+    /** 
+     * 2D position
+     * with X and Y
+     * for Demo
+     */
     export interface MyPoint {
+
+        /** 
+         * X
+         */
         x: number;
+
+        /** 
+         * Y
+         */
         y: number;
     }
 
@@ -114,6 +187,8 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Get a person
+         * so to know the person
          * GET api/Entities/getPerson/{id}
          * @param {number} id 
          * @return {DemoWebApi_DemoData_Client.Person} 
@@ -175,6 +250,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Get all heroes.
          * GET api/Heroes
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
          */
@@ -183,6 +259,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Get a hero.
          * GET api/Heroes/{id}
          * @param {number} id 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -201,6 +278,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Add a hero
          * POST api/Heroes
          * @param {string} name 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -210,6 +288,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Update hero.
          * PUT api/Heroes
          * @param {DemoWebApi_Controllers_Client.Hero} hero 
          * @return {DemoWebApi_Controllers_Client.Hero} 
@@ -219,6 +298,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Search heroes
          * GET api/Heroes/{name}
          * @param {string} name 
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
@@ -308,6 +388,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
          * POST api/SuperDemo/DateTimeOffset
          * @param {Date} d 
          * @return {boolean} 
@@ -917,6 +998,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Get a list of value
          * GET api/Values
          * @return {Array<string>} 
          */
@@ -925,6 +1007,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Get by both Id and name
          * GET api/Values/{id}?name={name}
          * @param {number} id 
          * @param {string} name 
@@ -962,6 +1045,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /** 
+         * Update with valjue
          * PUT api/Values/{id}
          * @param {number} id 
          * @param {string} value 

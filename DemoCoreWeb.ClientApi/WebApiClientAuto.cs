@@ -12,6 +12,9 @@ namespace DemoWebApi.Controllers.Client
 {
     
     
+    /// <summary>
+    /// Complex hero type
+    /// </summary>
     public class Hero : object
     {
         
@@ -69,6 +72,9 @@ namespace DemoWebApi.DemoData.Client
         
         Wed = 5,
         
+        /// <summary>
+        /// Thursday
+        /// </summary>
         Thu = 6,
         
         Fri = 7,
@@ -134,11 +140,22 @@ namespace DemoWebApi.DemoData.Client
         }
     }
     
+    /// <summary>
+    /// Phone type
+    /// Tel, Mobile, Skyp and Fax
+    /// 
+    /// </summary>
     public enum PhoneType
     {
         
+        /// <summary>
+        /// Land line
+        /// </summary>
         Tel,
         
+        /// <summary>
+        /// Mobile phone
+        /// </summary>
         Mobile,
         
         Skype,
@@ -195,6 +212,9 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// Foreign key to Entity
+        /// </summary>
         public System.Guid EntityId
         {
             get
@@ -304,6 +324,9 @@ namespace DemoWebApi.DemoData.Client
         }
     }
     
+    /// <summary>
+    /// Base class of company and person
+    /// </summary>
     public class Entity : object
     {
         
@@ -329,6 +352,9 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// Name of the entity.
+        /// </summary>
         [System.ComponentModel.DataAnnotations.RequiredAttribute()]
         public string Name
         {
@@ -342,6 +368,9 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// Multiple addresses
+        /// </summary>
         public DemoWebApi.DemoData.Client.Address[] Addresses
         {
             get
@@ -412,6 +441,10 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// Date of Birth.
+        /// This is optional.
+        /// </summary>
         public System.Nullable<System.DateTime> DOB
         {
             get
@@ -440,6 +473,9 @@ namespace DemoWebApi.DemoData.Client
         
         private string[] _Lines;
         
+        /// <summary>
+        /// BusinessNumber to be serialized as BusinessNum
+        /// </summary>
         public string BusinessNumber
         {
             get
@@ -563,11 +599,22 @@ namespace DemoWebApi.DemoData.Another.Client
 {
     
     
+    /// <summary>
+    /// 2D position
+    /// with X and Y
+    /// for Demo
+    /// </summary>
     public struct MyPoint
     {
         
+        /// <summary>
+        /// X
+        /// </summary>
         public double X;
         
+        /// <summary>
+        /// Y
+        /// </summary>
         public double Y;
     }
 }
@@ -797,6 +844,8 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get a person
+        /// so to know the person
         /// GET api/Entities/getPerson/{id}
         /// </summary>
         public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
@@ -813,6 +862,8 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get a person
+        /// so to know the person
         /// GET api/Entities/getPerson/{id}
         /// </summary>
         public DemoWebApi.DemoData.Client.Person GetPerson(long id)
@@ -1021,6 +1072,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get all heroes.
         /// GET api/Heroes
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero[]> GetAsync()
@@ -1037,6 +1089,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get all heroes.
         /// GET api/Heroes
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero[] Get()
@@ -1053,6 +1106,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get a hero.
         /// GET api/Heroes/{id}
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> GetAsync(long id)
@@ -1069,6 +1123,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get a hero.
         /// GET api/Heroes/{id}
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Get(long id)
@@ -1105,6 +1160,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Add a hero
         /// POST api/Heroes
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
@@ -1127,6 +1183,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Add a hero
         /// POST api/Heroes
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Post(string name)
@@ -1149,6 +1206,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Update hero.
         /// PUT api/Heroes
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> PutAsync(DemoWebApi.Controllers.Client.Hero hero)
@@ -1171,6 +1229,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Update hero.
         /// PUT api/Heroes
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Put(DemoWebApi.Controllers.Client.Hero hero)
@@ -1193,6 +1252,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Search heroes
         /// GET api/Heroes/{name}
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
@@ -1209,6 +1269,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Search heroes
         /// GET api/Heroes/{name}
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero[] Search(string name)
@@ -1521,6 +1582,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
         /// POST api/SuperDemo/DateTimeOffset
         /// </summary>
         public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d)
@@ -1543,6 +1605,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
         /// POST api/SuperDemo/DateTimeOffset
         /// </summary>
         public bool PostDateTimeOffset(System.DateTimeOffset d)
@@ -4159,6 +4222,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get a list of value
         /// GET api/Values
         /// </summary>
         public async Task<string[]> GetAsync()
@@ -4175,6 +4239,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get a list of value
         /// GET api/Values
         /// </summary>
         public string[] Get()
@@ -4191,6 +4256,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get by both Id and name
         /// GET api/Values/{id}?name={name}
         /// </summary>
         public async Task<string> GetAsync(int id, string name)
@@ -4207,6 +4273,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Get by both Id and name
         /// GET api/Values/{id}?name={name}
         /// </summary>
         public string Get(int id, string name)
@@ -4331,6 +4398,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Update with valjue
         /// PUT api/Values/{id}
         /// </summary>
         public async Task PutAsync(int id, string value)
@@ -4347,6 +4415,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Update with valjue
         /// PUT api/Values/{id}
         /// </summary>
         public void Put(int id, string value)

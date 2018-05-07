@@ -10,13 +10,22 @@ namespace DemoWebApi.Controllers
 	[Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
+        /// <summary>
+		/// Get a list of value
+		/// </summary>
+		/// <returns></returns>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
+		/// <summary>
+		/// Get by both Id and name
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="name"></param>
+		/// <returns></returns>
 		[HttpGet("{id}")]
 		public string Get(int id, [RequiredFromQuery] string name)
 		{
@@ -43,7 +52,11 @@ namespace DemoWebApi.Controllers
 			return value.ToUpper();
 		}
 
-		// PUT api/values/5
+		/// <summary>
+		/// Update with valjue
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="value"></param>
 		[HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {

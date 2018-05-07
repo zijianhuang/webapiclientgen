@@ -7,6 +7,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Fonlow.DocComment;
+using System.Reflection;
 
 namespace Fonlow.Web.Meta
 {
@@ -63,6 +65,9 @@ namespace Fonlow.Web.Meta
 				//	Debug.WriteLine("It is " + description.ActionDescriptor.DisplayName);
 				//}
 
+				var xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(controllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
+				var docLookup = DocCommentLookup.Create(xmlFilePath);
+
 				var dr = new WebApiDescription(description.ActionDescriptor.Id)
 				{
 					ActionDescriptor = new ActionDescriptor()
@@ -77,7 +82,7 @@ namespace Fonlow.Web.Meta
 					},
 
 					HttpMethod = description.HttpMethod,
-					//  Documentation = description.Documentation,
+					Documentation = GetSummary(GetMethodDocComment(docLookup, controllerActionDescriptor)),
 					RelativePath = description.RelativePath + BuildQuery(description.ParameterDescriptions),
 					ResponseDescription = new ResponseDescription()
 					{
@@ -112,13 +117,36 @@ namespace Fonlow.Web.Meta
 
 		static string BuildQuery(IList<ApiParameterDescription> ds)
 		{
-			var qs = ds.Where(d => BindingSource.Query.CanAcceptDataFrom(d.Source)).Select(k=> String.Format("{0}={{{0}}}", k.Name)).ToArray();
+			var qs = ds.Where(d => BindingSource.Query.CanAcceptDataFrom(d.Source)).Select(k => String.Format("{0}={{{0}}}", k.Name)).ToArray();
 			if (qs.Length == 0)
 			{
 				return String.Empty;
 			}
 
-			return "?"+ qs.Aggregate((c, n) => c + "&" + n); ;
+			return "?" + qs.Aggregate((c, n) => c + "&" + n); ;
+		}
+
+		static docMember GetMethodDocComment(DocCommentLookup lookup, Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor descriptor)
+		{
+			var methodInfo = descriptor.MethodInfo;
+			var methodFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+			if (descriptor.Parameters.Count > 0)
+			{
+				methodFullName += "(" + descriptor.Parameters.Select(d => d.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
+			}
+
+			return lookup.GetMember("M:" + methodFullName);
+		}
+
+		static string GetSummary(docMember m)
+		{
+			if (m == null)
+			{
+				return null;
+			}
+
+			var noIndent = StringFunctions.TrimTrimIndentsOfArray(m.summary.Text);
+			return String.Join(Environment.NewLine, noIndent);
 		}
 
 	}

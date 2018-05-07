@@ -2,11 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-  </PropertyGroup>
-
-<PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-</PropertyGroup>
+  </PropertyGroup>
 
   <Import Project="..\Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems" Label="Shared" />
 

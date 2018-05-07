@@ -365,9 +365,37 @@ namespace IntegrationTests
             var dic = api.GetDictionaryOfPeople();
             Assert.Equal("Tony Stark", dic["iron Man"].Name);
             Assert.Equal("New York", dic["spider Man"].Addresses[0].City);
+			Assert.Throws<KeyNotFoundException>(()=> dic["Iron Man"].Name); //the camelCase filter is in play in the web api
         }
 
-        [Fact]
+		[Fact]
+		public void TestDictionary()
+		{
+			var dic = new Dictionary<string, Person>()
+			{
+				{"Iron Man", new Person()
+				{
+					Name= "Tony Stark",
+					Surname="Stark",
+					GivenName="Tony"
+				} },
+
+				{"Spider Man", new Person() {
+					Name="Peter Parker",
+					Addresses=
+						new Address[] { new Address() {
+							City="New York"
+
+						} },
+				} },
+			};
+
+			Assert.Throws<KeyNotFoundException>(()=> dic["iron Man"].Name);
+			Assert.Equal("New York", dic["Spider Man"].Addresses[0].City);
+		}
+
+
+		[Fact]
         public void TestGetDictionary()
         {
             var dic = api.GetDictionary();

@@ -115,7 +115,8 @@ namespace IntegrationTests
               }},
             };
 
-            Assert.Throws<System.Net.Http.HttpRequestException>(() => api.CreatePerson(person));
+            var ex =  Assert.Throws<System.Net.Http.HttpRequestException>(() => api.CreatePerson(person));
+			System.Diagnostics.Debug.WriteLine(ex.ToString());
         }
 
         [Fact]

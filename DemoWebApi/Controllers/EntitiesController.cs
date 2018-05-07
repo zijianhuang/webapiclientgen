@@ -38,8 +38,6 @@ namespace DemoWebApi.Controllers
         [Route("createPerson")]
         public long CreatePerson(Person p)
         {
-            Debug.WriteLine("CreatePerson: " + p.Name);
-
             if (p.Name == "Exception")
                 throw new InvalidOperationException("It is exception");
 

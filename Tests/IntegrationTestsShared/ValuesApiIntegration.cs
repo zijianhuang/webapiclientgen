@@ -12,7 +12,7 @@ namespace IntegrationTests
     {
         public ValuesFixture()
         {
-            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
+			var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
             httpClient = new System.Net.Http.HttpClient();
             Api = new DemoWebApi.Controllers.Client.Values(httpClient, baseUri);
         }
@@ -82,7 +82,13 @@ namespace IntegrationTests
         }
 
 
-        [Fact]
+		[Fact]
+		public void TestGetName()
+		{
+			Assert.Equal("ABC", api.Get("Abc"));
+		}
+
+		[Fact]
         public void TestValuesPost()
         {
             //var t = authorizedClient.PostAsync(new Uri(baseUri, "api/Values")

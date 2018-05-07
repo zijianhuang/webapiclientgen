@@ -168,8 +168,8 @@ namespace DemoWebApi.Controllers
             var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg"));
             {
                 var content = new StreamContent(stream);
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                return new HttpResponseMessage(HttpStatusCode.OK)
+                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");//todo: .net core 2.0 does not seem to support stream content well.
+				return new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = content
                 };

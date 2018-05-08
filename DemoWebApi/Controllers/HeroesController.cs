@@ -45,6 +45,7 @@ namespace DemoWebApi.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
+		[HttpPost]
         public Hero Post(string name)
         {
             var max = HeroesData.Instance.Dic.Keys.Max();

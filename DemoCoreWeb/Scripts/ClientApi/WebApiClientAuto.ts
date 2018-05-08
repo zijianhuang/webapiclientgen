@@ -279,12 +279,12 @@ namespace DemoWebApi_Controllers_Client {
 
         /** 
          * Add a hero
-         * POST api/Heroes
+         * POST api/Heroes?name={name}
          * @param {string} name 
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         post(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
-            this.httpClient.post(this.baseUri + 'api/Heroes', name, callback, this.error, this.statusCode);
+            this.httpClient.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), null, callback, this.error, this.statusCode);
         }
 
         /** 

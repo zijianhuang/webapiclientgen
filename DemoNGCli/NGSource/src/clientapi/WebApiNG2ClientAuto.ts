@@ -199,7 +199,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson/'+id);
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson/'+id, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -208,7 +208,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -217,7 +217,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<Response>{
-            return this.http.put<Response>(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.put<Response>(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -228,7 +228,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Observable<boolean>{
-            return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id='+id+'&relationship='+encodeURIComponent(relationship), JSON.stringify(person), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id='+id+'&relationship='+encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -237,7 +237,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         delete(id: number): Observable<Response>{
-            return this.http.delete<Response>(this.baseUri + 'api/Entities/'+id);
+            return this.http.delete<Response>(this.baseUri + 'api/Entities/'+id, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -246,7 +246,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Company} 
          */
         getCompany(id: number): Observable<DemoWebApi_DemoData_Client.Company>{
-            return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company/'+id);
+            return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company/'+id, { headers: { 'Accept': 'application/json' } });
         }
     }
 
@@ -261,7 +261,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
          */
         get(): Observable<Array<DemoWebApi_Controllers_Client.Hero>>{
-            return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes');
+            return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -271,7 +271,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         getById(id: number): Observable<DemoWebApi_Controllers_Client.Hero>{
-            return this.http.get<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/'+id);
+            return this.http.get<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/'+id, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -280,17 +280,17 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         delete(id: number): Observable<Response>{
-            return this.http.delete<Response>(this.baseUri + 'api/Heroes/'+id);
+            return this.http.delete<Response>(this.baseUri + 'api/Heroes/'+id, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
          * Add a hero
-         * POST api/Heroes
+         * POST api/Heroes?name={name}
          * @param {string} name 
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         post(name: string): Observable<DemoWebApi_Controllers_Client.Hero>{
-            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(name), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), JSON.stringify(null), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -300,7 +300,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         put(hero: DemoWebApi_Controllers_Client.Hero): Observable<DemoWebApi_Controllers_Client.Hero>{
-            return this.http.put<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.put<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -310,7 +310,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name: string): Observable<Array<DemoWebApi_Controllers_Client.Hero>>{
-            return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/'+encodeURIComponent(name));
+            return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/'+encodeURIComponent(name), { headers: { 'Accept': 'application/json' } });
         }
     }
 
@@ -324,7 +324,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         index(): Observable<Response>{
-            return this.http.get<Response>(this.baseUri + 'api/Home');
+            return this.http.get<Response>(this.baseUri + 'api/Home', { headers: { 'Accept': 'application/json' } });
         }
     }
 
@@ -339,7 +339,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getIntSquare(d: number): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/int/'+d);
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/int/'+d, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -348,7 +348,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getDecimalSquare(d: number): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal/'+d);
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal/'+d, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -357,7 +357,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getDateTime(hasValue: boolean): Observable<Date>{
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime/'+hasValue);
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime/'+hasValue, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -366,7 +366,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getNextYear(dt: Date): Observable<Date>{
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear/'+dt);
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear/'+dt, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -375,7 +375,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getNextHour(dt: Date): Observable<Date>{
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour/'+dt);
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour/'+dt, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -384,7 +384,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         postNextYear(dt: Date): Observable<Date>{
-            return this.http.post<Date>(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<Date>(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -392,7 +392,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getDateTimeOffset(): Observable<Date>{
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffset');
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffset', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -402,7 +402,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffset(d: Date): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -411,7 +411,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postDateTimeOffsetNullable(d: Date): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -420,7 +420,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getNullableDecimal(hasValue: boolean): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/NullableDecimal/'+hasValue);
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/NullableDecimal/'+hasValue, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -428,7 +428,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getFloatZero(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/FloatZero');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/FloatZero', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -436,7 +436,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getDoubleZero(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/DoubleZero');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/DoubleZero', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -444,7 +444,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getDecimalZero(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/DecimalZero');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/DecimalZero', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -452,7 +452,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getNullString(): Observable<string>{
-            return this.http.get<string>(this.baseUri + 'api/SuperDemo/NullString');
+            return this.http.get<string>(this.baseUri + 'api/SuperDemo/NullString', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -460,7 +460,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getEmptyString(): Observable<string>{
-            return this.http.get<string>(this.baseUri + 'api/SuperDemo/EmptyString');
+            return this.http.get<string>(this.baseUri + 'api/SuperDemo/EmptyString', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -468,7 +468,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         getNullPerson(): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/SuperDemo/NullObject');
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/SuperDemo/NullObject', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -476,7 +476,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {any} 
          */
         getTextStream(): Observable<Response>{
-            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/TextStream');
+            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/TextStream', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -484,7 +484,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<number>} 
          */
         getByteArray(): Observable<Array<number>>{
-            return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/ByteArray');
+            return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/ByteArray', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -492,7 +492,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         getActionResult(): Observable<Response>{
-            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/ActionResult');
+            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/ActionResult', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -500,7 +500,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getbyte(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/byte');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/byte', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -508,7 +508,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getsbyte(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/sbyte');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/sbyte', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -516,7 +516,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getShort(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/short');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/short', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -524,7 +524,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getUShort(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/ushort');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/ushort', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -532,7 +532,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getUint(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/uint');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/uint', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -540,7 +540,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getulong(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/ulong');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/ulong', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -548,7 +548,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getdouble(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/doulbe');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/doulbe', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -556,7 +556,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         getDecimal(): Observable<number>{
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal');
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -564,7 +564,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getChar(): Observable<string>{
-            return this.http.get<string>(this.baseUri + 'api/SuperDemo/char');
+            return this.http.get<string>(this.baseUri + 'api/SuperDemo/char', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -572,7 +572,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         getBool(): Observable<boolean>{
-            return this.http.get<boolean>(this.baseUri + 'api/SuperDemo/bool');
+            return this.http.get<boolean>(this.baseUri + 'api/SuperDemo/bool', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -580,7 +580,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number[][]} 
          */
         getInt2D(): Observable<number[][]>{
-            return this.http.get<number[][]>(this.baseUri + 'api/SuperDemo/int2d');
+            return this.http.get<number[][]>(this.baseUri + 'api/SuperDemo/int2d', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -588,7 +588,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<Array<number>>} 
          */
         getInt2DJagged(): Observable<Array<Array<number>>>{
-            return this.http.get<Array<Array<number>>>(this.baseUri + 'api/SuperDemo/int2dJagged');
+            return this.http.get<Array<Array<number>>>(this.baseUri + 'api/SuperDemo/int2dJagged', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -597,7 +597,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postInt2D(a: number[][]): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -606,7 +606,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postInt2DJagged(a: Array<Array<number>>): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -615,7 +615,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {boolean} 
          */
         postIntArray(a: Array<number>): Observable<boolean>{
-            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -623,7 +623,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<number>} 
          */
         getIntArray(): Observable<Array<number>>{
-            return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArray');
+            return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArray', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -631,7 +631,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{[id: string]: string }} 
          */
         getDictionary(): Observable<{[id: string]: string }>{
-            return this.http.get<{[id: string]: string }>(this.baseUri + 'api/SuperDemo/StringStringDic');
+            return this.http.get<{[id: string]: string }>(this.baseUri + 'api/SuperDemo/StringStringDic', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -639,7 +639,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{[id: string]: DemoWebApi_DemoData_Client.Person }} 
          */
         getDictionaryOfPeople(): Observable<{[id: string]: DemoWebApi_DemoData_Client.Person }>{
-            return this.http.get<{[id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic');
+            return this.http.get<{[id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -648,7 +648,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -656,7 +656,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{key: string, value: DemoWebApi_DemoData_Client.Person }} 
          */
         getKeyhValuePair(): Observable<{key: string, value: DemoWebApi_DemoData_Client.Person }>{
-            return this.http.get<{key: string, value: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/KeyValuePair');
+            return this.http.get<{key: string, value: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/KeyValuePair', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -664,7 +664,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getICollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/ICollection');
+            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/ICollection', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -672,7 +672,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getIList(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IList');
+            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IList', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -680,7 +680,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getIReadOnlyList(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IReadOnlyList');
+            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IReadOnlyList', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -688,7 +688,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getIReadOnlyCollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection');
+            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -696,7 +696,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getList(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/List');
+            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/List', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -704,7 +704,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<DemoWebApi_DemoData_Client.Person>} 
          */
         getCollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>>{
-            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/Collection');
+            return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/Collection', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -713,7 +713,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postICollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -722,7 +722,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -731,7 +731,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -740,7 +740,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -749,7 +749,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -758,7 +758,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -768,7 +768,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:number}} 
          */
         postWithQueryButEmptyBody(s: string, i: number): Observable<{item1:string, item2:number}>{
-            return this.http.post<{item1:string, item2:number}>(this.baseUri + 'api/SuperDemo/PostEmpty/'+i, JSON.stringify(s), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<{item1:string, item2:number}>(this.baseUri + 'api/SuperDemo/PostEmpty/'+i, JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
     }
 
@@ -783,7 +783,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPersonCompany1(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -792,7 +792,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany2(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -801,7 +801,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany3(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -810,7 +810,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany4(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -818,7 +818,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}} 
          */
         getPeopleCompany4(): Observable<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}>{
-            return this.http.get<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany4');
+            return this.http.get<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany4', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -827,7 +827,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany5(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -835,7 +835,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}} 
          */
         getPeopleCompany5(): Observable<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}>{
-            return this.http.get<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany5');
+            return this.http.get<{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany5', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -844,7 +844,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany6(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -853,7 +853,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany7(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -862,7 +862,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {DemoWebApi_DemoData_Client.Person} 
          */
         linkPeopleCompany8(peopleAndCompany: {item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Person, rest:DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person>{
-            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -870,7 +870,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:number}} 
          */
         getTuple1(): Observable<{item1:number}>{
-            return this.http.get<{item1:number}>(this.baseUri + 'api/Tuple/Tuple1');
+            return this.http.get<{item1:number}>(this.baseUri + 'api/Tuple/Tuple1', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -879,7 +879,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {number} 
          */
         postTuple1(tuple: {item1:number}): Observable<number>{
-            return this.http.post<number>(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<number>(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -887,7 +887,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:number}} 
          */
         getTuple2(): Observable<{item1:string, item2:number}>{
-            return this.http.get<{item1:string, item2:number}>(this.baseUri + 'api/Tuple/Tuple2');
+            return this.http.get<{item1:string, item2:number}>(this.baseUri + 'api/Tuple/Tuple2', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -896,7 +896,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple2(tuple: {item1:string, item2:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -904,7 +904,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:number}} 
          */
         getTuple3(): Observable<{item1:string, item2:string, item3:number}>{
-            return this.http.get<{item1:string, item2:string, item3:number}>(this.baseUri + 'api/Tuple/Tuple3');
+            return this.http.get<{item1:string, item2:string, item3:number}>(this.baseUri + 'api/Tuple/Tuple3', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -913,7 +913,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple3(tuple: {item1:string, item2:string, item3:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -921,7 +921,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:number}} 
          */
         getTuple4(): Observable<{item1:string, item2:string, item3:string, item4:number}>{
-            return this.http.get<{item1:string, item2:string, item3:string, item4:number}>(this.baseUri + 'api/Tuple/Tuple4');
+            return this.http.get<{item1:string, item2:string, item3:string, item4:number}>(this.baseUri + 'api/Tuple/Tuple4', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -930,7 +930,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple4(tuple: {item1:string, item2:string, item3:string, item4:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -938,7 +938,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:string, item5:number}} 
          */
         getTuple5(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:number}>{
-            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:number}>(this.baseUri + 'api/Tuple/Tuple5');
+            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:number}>(this.baseUri + 'api/Tuple/Tuple5', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -947,7 +947,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple5(tuple: {item1:string, item2:string, item3:string, item4:string, item5:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -955,7 +955,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}} 
          */
         getTuple6(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}>{
-            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}>(this.baseUri + 'api/Tuple/Tuple6');
+            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}>(this.baseUri + 'api/Tuple/Tuple6', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -964,7 +964,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple6(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -972,7 +972,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}} 
          */
         getTuple7(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}>{
-            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}>(this.baseUri + 'api/Tuple/Tuple7');
+            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}>(this.baseUri + 'api/Tuple/Tuple7', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -981,7 +981,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple7(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -989,7 +989,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}} 
          */
         getTuple8(): Observable<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}>{
-            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}>(this.baseUri + 'api/Tuple/Tuple8');
+            return this.http.get<{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}>(this.baseUri + 'api/Tuple/Tuple8', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -998,7 +998,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
     }
 
@@ -1013,7 +1013,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {Array<string>} 
          */
         get(): Observable<Array<string>>{
-            return this.http.get<Array<string>>(this.baseUri + 'api/Values');
+            return this.http.get<Array<string>>(this.baseUri + 'api/Values', { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -1024,7 +1024,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getByIdAndName(id: number, name: string): Observable<string>{
-            return this.http.get<string>(this.baseUri + 'api/Values/'+id+'?name='+encodeURIComponent(name));
+            return this.http.get<string>(this.baseUri + 'api/Values/'+id+'?name='+encodeURIComponent(name), { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -1033,7 +1033,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getByName(name: string): Observable<string>{
-            return this.http.get<string>(this.baseUri + 'api/Values?name='+encodeURIComponent(name));
+            return this.http.get<string>(this.baseUri + 'api/Values?name='+encodeURIComponent(name), { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -1042,7 +1042,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         getById(id: number): Observable<string>{
-            return this.http.get<string>(this.baseUri + 'api/Values/'+id);
+            return this.http.get<string>(this.baseUri + 'api/Values/'+id, { headers: { 'Accept': 'application/json' } });
         }
 
         /** 
@@ -1051,7 +1051,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {string} 
          */
         post(value: string): Observable<string>{
-            return this.http.post<string>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.post<string>(this.baseUri + 'api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -1062,7 +1062,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         put(id: number, value: string): Observable<Response>{
-            return this.http.put<Response>(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            return this.http.put<Response>(this.baseUri + 'api/Values/'+id, JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
         }
 
         /** 
@@ -1071,7 +1071,7 @@ export namespace DemoWebApi_Controllers_Client {
          * @return {void} 
          */
         delete(id: number): Observable<Response>{
-            return this.http.delete<Response>(this.baseUri + 'api/Values/'+id);
+            return this.http.delete<Response>(this.baseUri + 'api/Values/'+id, { headers: { 'Accept': 'application/json' } });
         }
     }
 

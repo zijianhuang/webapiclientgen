@@ -847,6 +847,14 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
         };
         /**
+         * GET api/Values/{id}
+         * @param {number} id
+         * @return {string}
+         */
+        Values.prototype.getById = function (id, callback) {
+            this.httpClient.get(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode);
+        };
+        /**
          * POST api/Values
          * @param {string} value
          * @return {string}

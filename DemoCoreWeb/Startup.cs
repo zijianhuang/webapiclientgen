@@ -30,6 +30,7 @@ namespace DemoCoreWeb
 			//https://stackoverflow.com/questions/28435734/get-list-of-all-routes
 
 			services.AddRouting();
+			services.AddCors();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +41,9 @@ namespace DemoCoreWeb
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseCors(builder => builder.AllowAnyOrigin()
+				.AllowAnyHeader().AllowAnyMethod()
+				);
 			app.UseMvc();
 		}
 	}

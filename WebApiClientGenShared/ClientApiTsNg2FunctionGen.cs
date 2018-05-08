@@ -65,7 +65,7 @@ namespace Fonlow.CodeDom.Web.Ts
            // var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
             if (httpMethod == "get" || httpMethod == "delete")
             {
-                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText});"));
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, {{ headers: {{ 'Accept': 'application/json' }} }});"));
                 return;
             }
 
@@ -87,7 +87,7 @@ namespace Fonlow.CodeDom.Web.Ts
                     contentType = "application/json;charset=UTF-8";
                 }
 
-                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, JSON.stringify({dataToPost}), {{ headers: new HttpHeaders({{ 'Content-Type': '{contentType}' }}) }});"));
+                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}', 'Accept': 'application/json' }} }});"));
 
                 return;
             }

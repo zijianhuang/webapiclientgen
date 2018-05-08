@@ -14,32 +14,34 @@ import { HeroSearchComponent } from './hero-search.component';
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
 
 export function clientFactory(http: HttpClient) {
-    return new namespaces.DemoWebApi_Controllers_Client.Heroes("http://localhost:10965/", http);
+//  const baseUri = "http://localhost:10965/";
+  const baseUri = "http://localhost:56321/";
+  return new namespaces.DemoWebApi_Controllers_Client.Heroes(baseUri, http);
 }
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        AppRoutingModule
-    ],
-    declarations: [
-        AppComponent,
-        DashboardComponent,
-        HeroDetailComponent,
-        HeroesComponent,
-        HeroSearchComponent
-    ],
-    providers: [
-        {
-            provide: namespaces.DemoWebApi_Controllers_Client.Heroes,
-            useFactory: clientFactory,
-            deps: [HttpClient],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule
+  ],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    HeroDetailComponent,
+    HeroesComponent,
+    HeroSearchComponent
+  ],
+  providers: [
+    {
+      provide: namespaces.DemoWebApi_Controllers_Client.Heroes,
+      useFactory: clientFactory,
+      deps: [HttpClient],
 
-        },
-    ],
+    },
+  ],
 
-    bootstrap: [AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

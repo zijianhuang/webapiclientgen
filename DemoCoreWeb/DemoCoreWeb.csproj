@@ -10,12 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Scripts\ClientApi\" />
+    <None Remove="Scripts\ClientApi\Dummy.ts" />
+    <None Remove="Scripts\ClientApi\HttpClient.ts" />
+    <None Remove="Scripts\typings\jquery\jquery.d.ts" />
+    <None Remove="Scripts\typings\qunit\qunit.d.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
   </ItemGroup>
 
@@ -30,6 +37,13 @@
     <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
     <ProjectReference Include="..\Fonlow.Web.MetaTransformCore\Fonlow.Web.MetaTransformCore.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\ClientApi\Dummy.ts" />
+    <TypeScriptCompile Include="Scripts\ClientApi\HttpClient.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
   </ItemGroup>
 
 </Project>

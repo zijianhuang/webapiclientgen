@@ -22,6 +22,7 @@ ConfirmPassword:  'Tttttttt_8'
 
 QUnit.config.testTimeout = 30000;
 const baseUri = 'http://localhost:10965/';
+//const baseUri = 'http://localhost:56321/';
 
 var authHttpClient = new AuthHttpClient();
 var entitiesApi = new DemoWebApi_Controllers_Client.Entities(baseUri, authHttpClient);
@@ -75,7 +76,6 @@ QUnit.module("Heroes",
             var done = assert.async();
             heroesApi.post("somebody", data => {
                 assert.equal(data.name, "somebody");
-                assert.equal(data.id, 21);
                 done();
             });
         });

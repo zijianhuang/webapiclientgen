@@ -3,8 +3,8 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 
 import * as namespaces from './WebApiNG2ClientAuto';
 
-const apiBaseUri = 'http://localhost:10965/';//for DemoWebApi
-//const apiBaseUri = 'http://localhost:56321/'; //for DemoCoreWeb
+//const apiBaseUri = 'http://localhost:10965/';//for DemoWebApi
+const apiBaseUri = 'http://localhost:56321/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -17,6 +17,11 @@ export function heroesClientFactory(http: HttpClient) {
 export function entitiesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Entities(apiBaseUri, http);
 }
+
+export function superDemoClientFactory(http: HttpClient) {
+  return new namespaces.DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri, http);
+}
+
 
 export function errorResponseToString(error: HttpErrorResponse | any, ): string {
   let errMsg: string;
@@ -197,6 +202,21 @@ describe('Heroes API', () => {
   }
   );
 
+  it('PostWithQuery', (done) => {
+    service.postWithQuery('somebodyqqq').subscribe(
+      data => {
+        expect(data.name).toBe('somebodyqqq');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
 
 })
 
@@ -256,6 +276,98 @@ describe('entities API', () => {
         done();
       }
       );
+
+  }
+  );
+
+
+})
+
+describe('SuperDemo API', () => {
+  let service: namespaces.DemoWebApi_Controllers_Client.SuperDemo;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [
+        {
+          provide: namespaces.DemoWebApi_Controllers_Client.SuperDemo,
+          useFactory: superDemoClientFactory,
+          deps: [HttpClient],
+
+        },
+
+      ]
+    })
+
+    service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.SuperDemo);
+  }));
+
+  it('getBool', (done) => {
+    service.getBool().subscribe(
+      data => {
+        expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('GetNextHour', (done) => {
+    var dt = new Date(Date.now());
+    var h = dt.getHours();
+    service.getNextHour(dt).subscribe(
+      data => {
+        let dd = new Date(data);
+        expect(dd.getHours()).toBe(h + 1);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('GetNextYear', (done) => {
+    var dt = new Date(Date.now());
+    var h = dt.getFullYear();
+    service.getNextYear(dt).subscribe(
+      data => {
+        let dd = new Date(data);
+        expect(dd.getFullYear()).toBe(h + 1);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('PostNextYear', (done) => {
+    var dt = new Date(Date.now());
+    var h = dt.getFullYear();
+    service.postNextYear(dt).subscribe(
+      data => {
+        let dd = new Date(data);
+        expect(dd.getFullYear()).toBe(h + 1);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
 
   }
   );

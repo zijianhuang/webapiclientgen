@@ -1165,11 +1165,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// Add a hero
-        /// POST api/Heroes?name={name}
+        /// POST api/Heroes/q?name={name}
         /// </summary>
-        public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
+        public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name)
         {
-            var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));
+            var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+Uri.EscapeDataString(name));
             var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1182,11 +1182,11 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// Add a hero
-        /// POST api/Heroes?name={name}
+        /// POST api/Heroes/q?name={name}
         /// </summary>
-        public DemoWebApi.Controllers.Client.Hero Post(string name)
+        public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name)
         {
-            var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));
+            var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+Uri.EscapeDataString(name));
             var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;
@@ -1194,6 +1194,50 @@ namespace DemoWebApi.Controllers.Client
             {
             var serializer = new JsonSerializer();
             return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Heroes
+        /// </summary>
+        public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Heroes");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, name);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Heroes
+        /// </summary>
+        public DemoWebApi.Controllers.Client.Hero Post(string name)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Heroes");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, name);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+            }
             }
         }
         

@@ -91,9 +91,11 @@ namespace Fonlow.CodeDom.Web.Ts
             return s.Remove(p, 3);
         }
 
-        static readonly Type typeofString = typeof(string);
+		static readonly Type typeofString = typeof(string);
+		static readonly Type typeofDateTime = typeof(DateTime);
+		static readonly Type typeofDateTimeOffset = typeof(DateTimeOffset);
 
-        protected static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
+		protected static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
         {
             var template = new UriTemplate(uriText);
 			var parameterNames = template.GetParameterNames().ToArray();
@@ -107,22 +109,31 @@ namespace Fonlow.CodeDom.Web.Ts
                 var name = parameterNames[i];//PathSegmentVariableNames[i] always give uppercase
                 var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
                 Debug.Assert(d != null);
-                newUriText = (d.ParameterDescriptor.ParameterType == typeofString) ?
-                    newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'")
-                    : newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
-            }
+				if (d.ParameterDescriptor.ParameterType == typeofString)
+				{
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'");
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
+				{
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}.toISOString()+'");
+				}
+				else
+				{
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
+				}
+			}
 
-            //for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
-            //{
-            //    var name = template.QueryValueVariableNames[i];
-            //    var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-            //    Debug.Assert(d != null);
-            //    newUriText = (d.ParameterDescriptor.ParameterType == typeofString) ?
-            //        newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'")
-            //        : newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
-            //}
+			//for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
+			//{
+			//    var name = template.QueryValueVariableNames[i];
+			//    var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+			//    Debug.Assert(d != null);
+			//    newUriText = (d.ParameterDescriptor.ParameterType == typeofString) ?
+			//        newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'")
+			//        : newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
+			//}
 
-            return newUriText;
+			return newUriText;
         }
 
 

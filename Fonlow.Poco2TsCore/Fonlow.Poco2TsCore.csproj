@@ -10,7 +10,7 @@
     <Company />
     <Copyright>Copyright © Zijian Huang 2018</Copyright>
     <Product>Fonlow POCO to TypeScript for .NET Core</Product>
-    <Description>Simple build of Fonlow.Poco2Ts for .NET Core</Description>
+    <Description>Simple build of Fonlow.Poco2Ts for .NET Core. Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</Description>
     <PackageLicenseUrl>https://github.com/zijianhuang/webapiclientgen/blob/master/license.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>

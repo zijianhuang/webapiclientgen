@@ -40,26 +40,36 @@ namespace DemoWebApi.Controllers
             HeroesData.Instance.Dic.TryRemove(id, out r);
         }
 
-        /// <summary>
-        /// Add a hero
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// Add a hero
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
 		[HttpPost]
-        public Hero Post(string name)
-        {
-            var max = HeroesData.Instance.Dic.Keys.Max();
-            var hero = new Hero { Id = max + 1, Name = name };
-            HeroesData.Instance.Dic.TryAdd(max + 1, hero);
-            return hero;
-        }
+		[Route("q")]
+		public Hero PostWithQuery(string name)
+		{
+			var max = HeroesData.Instance.Dic.Keys.Max();
+			var hero = new Hero { Id = max + 1, Name = name };
+			HeroesData.Instance.Dic.TryAdd(max + 1, hero);
+			return hero;
+		}
 
-        /// <summary>
-        /// Update hero.
-        /// </summary>
-        /// <param name="hero"></param>
-        /// <returns></returns>
-        public Hero Put(Hero hero)
+		[HttpPost]
+		public Hero Post(string name)
+		{
+			var max = HeroesData.Instance.Dic.Keys.Max();
+			var hero = new Hero { Id = max + 1, Name = name };
+			HeroesData.Instance.Dic.TryAdd(max + 1, hero);
+			return hero;
+		}
+
+		/// <summary>
+		/// Update hero.
+		/// </summary>
+		/// <param name="hero"></param>
+		/// <returns></returns>
+		public Hero Put(Hero hero)
         {
             HeroesData.Instance.Dic[hero.Id] = hero;
             return hero;

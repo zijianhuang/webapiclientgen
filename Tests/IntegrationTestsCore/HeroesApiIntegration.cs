@@ -77,5 +77,12 @@ namespace IntegrationTests
 			Assert.Equal("Abc", hero.Name);
 		}
 
+		[Fact]
+		public void TestPostWithQuery()
+		{
+			var hero = api.PostWithQuery("Xyz");
+			Assert.Equal("Xyz", hero.Name);
+		}
+
 	}
 }

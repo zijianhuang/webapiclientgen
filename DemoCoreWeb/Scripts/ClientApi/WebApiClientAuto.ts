@@ -279,12 +279,21 @@ namespace DemoWebApi_Controllers_Client {
 
         /** 
          * Add a hero
-         * POST api/Heroes?name={name}
+         * POST api/Heroes/q?name={name}
+         * @param {string} name 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        postWithQuery(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
+            this.httpClient.post(this.baseUri + 'api/Heroes/q?name='+encodeURIComponent(name), null, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/Heroes
          * @param {string} name 
          * @return {DemoWebApi_Controllers_Client.Hero} 
          */
         post(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
-            this.httpClient.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), null, callback, this.error, this.statusCode);
+            this.httpClient.post(this.baseUri + 'api/Heroes', name, callback, this.error, this.statusCode);
         }
 
         /** 
@@ -358,7 +367,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getNextYear(dt: Date, callback: (data : Date) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear/'+dt, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear/'+dt.toISOString(), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -367,7 +376,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getNextHour(dt: Date, callback: (data : Date) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour/'+dt, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour/'+dt.toISOString(), callback, this.error, this.statusCode);
         }
 
         /** 

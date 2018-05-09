@@ -95,6 +95,15 @@ test("JsZeroGoodWithDecimal", function (assert) {
         done();
     });
 });
+//test("GetNextHour", function (assert) { the runner of chutzpah apparently intepret toISOString() as toString()
+//	var done = assert.async();
+//	var dt = new Date(Date.now());
+//	var h = dt.getHours();
+//	superDemoApi.getNextHour(dt, (data) => {
+//		assert.equal(data.getHours(), h + 1);
+//		done();
+//	});
+//});
 test("GetIntSquare", function (assert) {
     var done = assert.async();
     superDemoApi.getIntSquare(100, function (data) {

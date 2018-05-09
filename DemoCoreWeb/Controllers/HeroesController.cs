@@ -48,14 +48,23 @@ namespace DemoWebApi.Controllers
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
+		[HttpPost("q")]
+		public Hero PostWithQuery([FromQuery] string name)//.net core requires explicit decorattion. Also the path can not be identical to any existing one.
+		{
+			var max = HeroesData.Instance.Dic.Keys.Max();
+			var hero = new Hero { Id = max + 1, Name = name };
+			HeroesData.Instance.Dic.TryAdd(max + 1, hero);
+			return hero;
+		}
+
 		[HttpPost]
-        public Hero Post(string name)
-        {
-            var max = HeroesData.Instance.Dic.Keys.Max();
-            var hero = new Hero { Id = max + 1, Name = name };
-            HeroesData.Instance.Dic.TryAdd(max + 1, hero);
-            return hero;
-        }
+		public Hero Post([FromBody] string name)//.net core requires explicit decorattion
+		{
+			var max = HeroesData.Instance.Dic.Keys.Max();
+			var hero = new Hero { Id = max + 1, Name = name };
+			HeroesData.Instance.Dic.TryAdd(max + 1, hero);
+			return hero;
+		}
 
 		/// <summary>
 		/// Update hero.

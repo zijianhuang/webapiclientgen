@@ -27,7 +27,7 @@ namespace Fonlow.Web.Meta
 			if (BindingSource.Body.CanAcceptDataFrom(bindingSource))
 				return ParameterBinder.FromBody;
 
-			throw new ArgumentException($"How can it be with this ParameterBindingAttribute: {bindingSource.ToString()}", "a");
+			throw new ArgumentException($"How can it be with this ParameterBindingAttribute: {bindingSource.DisplayName}", "bindingSource");
 		}
 
 		/// <summary>

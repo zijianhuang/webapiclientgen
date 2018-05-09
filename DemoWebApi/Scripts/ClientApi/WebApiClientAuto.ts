@@ -199,6 +199,73 @@ namespace DemoWebApi_Controllers_Client {
 }
 
 namespace DemoWebApi_Controllers_Client {
+    export class Heroes {
+        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
+        }
+
+        /** 
+         * POST api/Heroes/q?name={name}
+         * @param {string} name 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        postWithQuery(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
+            this.httpClient.post(this.baseUri + 'api/Heroes/q?name='+encodeURIComponent(name), null, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/Heroes
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         */
+        get(callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any){
+            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/Heroes/{id}
+         * @param {number} id 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        getById(id: number, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
+            this.httpClient.get(this.baseUri + 'api/Heroes/'+id, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * DELETE api/Heroes/{id}
+         * @param {number} id 
+         * @return {void} 
+         */
+        delete(id: number, callback: (data : void) => any){
+            this.httpClient.delete(this.baseUri + 'api/Heroes/'+id, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * POST api/Heroes?name={name}
+         * @param {string} name 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        post(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
+            this.httpClient.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), null, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * PUT api/Heroes
+         * @param {DemoWebApi_Controllers_Client.Hero} hero 
+         * @return {DemoWebApi_Controllers_Client.Hero} 
+         */
+        put(hero: DemoWebApi_Controllers_Client.Hero, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
+            this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
+        }
+
+        /** 
+         * GET api/Heroes?name={name}
+         * @param {string} name 
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
+         */
+        search(name: string, callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any){
+            this.httpClient.get(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), callback, this.error, this.statusCode);
+        }
+    }
+
     export class SuperDemo {
         constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
         }
@@ -236,7 +303,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getNextYear(dt: Date, callback: (data : Date) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt='+dt, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt='+dt.toISOString(), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -245,7 +312,7 @@ namespace DemoWebApi_Controllers_Client {
          * @return {Date} 
          */
         getNextHour(dt: Date, callback: (data : Date) => any){
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt='+dt, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt='+dt.toISOString(), callback, this.error, this.statusCode);
         }
 
         /** 
@@ -979,64 +1046,6 @@ namespace DemoWebApi_Controllers_Client {
          */
         postTuple8(tuple: {item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}, callback: (data : string) => any){
             this.httpClient.post(this.baseUri + 'api/Tuple/Tuple8', tuple, callback, this.error, this.statusCode);
-        }
-    }
-
-    export class Heroes {
-        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }){
-        }
-
-        /** 
-         * GET api/Heroes
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
-         */
-        get(callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any){
-            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * GET api/Heroes/{id}
-         * @param {number} id 
-         * @return {DemoWebApi_Controllers_Client.Hero} 
-         */
-        getById(id: number, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
-            this.httpClient.get(this.baseUri + 'api/Heroes/'+id, callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * DELETE api/Heroes/{id}
-         * @param {number} id 
-         * @return {void} 
-         */
-        delete(id: number, callback: (data : void) => any){
-            this.httpClient.delete(this.baseUri + 'api/Heroes/'+id, callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * POST api/Heroes?name={name}
-         * @param {string} name 
-         * @return {DemoWebApi_Controllers_Client.Hero} 
-         */
-        post(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
-            this.httpClient.post(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), null, callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * PUT api/Heroes
-         * @param {DemoWebApi_Controllers_Client.Hero} hero 
-         * @return {DemoWebApi_Controllers_Client.Hero} 
-         */
-        put(hero: DemoWebApi_Controllers_Client.Hero, callback: (data : DemoWebApi_Controllers_Client.Hero) => any){
-            this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
-        }
-
-        /** 
-         * GET api/Heroes?name={name}
-         * @param {string} name 
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>} 
-         */
-        search(name: string, callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any){
-            this.httpClient.get(this.baseUri + 'api/Heroes?name='+encodeURIComponent(name), callback, this.error, this.statusCode);
         }
     }
 

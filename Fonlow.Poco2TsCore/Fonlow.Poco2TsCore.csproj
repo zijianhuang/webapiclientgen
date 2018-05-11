@@ -15,6 +15,7 @@
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
     <PackageReleaseNotes>The first release for .NET Core</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

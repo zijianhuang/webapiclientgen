@@ -10,7 +10,7 @@ namespace Fonlow.WebApiClientGen
 {
 	[ApiExplorerSettings(IgnoreApi = true)]//this controller is a dev backdoor during development, no need to be visible in ApiExplorer.
 	[Route("api/[controller]")]
-	public class CodeGenController : Controller
+	public class CodeGenController : ControllerBase
 	{
 		private readonly IApiDescriptionGroupCollectionProvider apiExplorer;
 		private readonly IHostingEnvironment hostingEnvironment;
@@ -28,21 +28,20 @@ namespace Fonlow.WebApiClientGen
 
 		/// <summary>
 		/// Trigger the API to generate WebApiClientAuto.cs for an established client API project.
-		/// POST to  http://localhost:10965/api/CodeGen with json object CodeGenParameters
+		/// POST to  http://localhost:56321/api/CodeGen with json object CodeGenParameters
 		/// </summary>
 		/// <param name="settings"></param>
 		/// <returns>OK if OK</returns>
 		[HttpPost]
 		public ActionResult TriggerCodeGen([FromBody] CodeGenSettings settings)
 		{
-			if (settings == null || settings.ClientApiOutputs==null)
+			if (settings == null || settings.ClientApiOutputs == null)
 				return new BadRequestResult();
-			//   throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "parametersNull" });
 
 			string webRootPath = hostingEnvironment.WebRootPath;
 			Fonlow.Web.Meta.WebApiDescription[] apiDescriptions;
 			try
-			{   
+			{
 				var descriptions = ApiExplorerHelper.GetApiDescriptions(apiExplorer);
 				apiDescriptions = descriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).ToArray();
 
@@ -51,13 +50,11 @@ namespace Fonlow.WebApiClientGen
 			{
 				System.Diagnostics.Trace.TraceWarning(e.Message);
 				return StatusCode((int)HttpStatusCode.ServiceUnavailable);
-				// throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable) { ReasonPhrase = "CodeGenNotReady" });
 			}
 
 			if (!settings.ClientApiOutputs.CamelCase.HasValue)
 			{
-				//todo: chekc this later var camelCase = GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
-				settings.ClientApiOutputs.CamelCase = true;// camelCase;
+				settings.ClientApiOutputs.CamelCase = true;
 			}
 
 			try
@@ -67,16 +64,9 @@ namespace Fonlow.WebApiClientGen
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{
 				System.Diagnostics.Trace.TraceError(e.Message + " : " + e.Description);
-				return BadRequest();
-				//throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
-				//{
-				//    ReasonPhrase = e.Message,
-				//    Content = String.IsNullOrEmpty(e.Description) ? null : new StringContent(e.Description, System.Text.Encoding.UTF8, "text/plain"),
-				//});
 			}
 
 			return Ok();
-
 		}
 	}
 

@@ -40,6 +40,73 @@ var DemoWebApi_DemoData_Client;
 })(DemoWebApi_DemoData_Client || (DemoWebApi_DemoData_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
+    var Heroes = /** @class */ (function () {
+        function Heroes(baseUri, httpClient, error, statusCode) {
+            if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
+            if (httpClient === void 0) { httpClient = new HttpClient(); }
+            this.baseUri = baseUri;
+            this.httpClient = httpClient;
+            this.error = error;
+            this.statusCode = statusCode;
+        }
+        /**
+         * POST api/Heroes/q?name={name}
+         * @param {string} name
+         * @return {DemoWebApi_Controllers_Client.Hero}
+         */
+        Heroes.prototype.postWithQuery = function (name, callback) {
+            this.httpClient.post(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), null, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Heroes
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
+         */
+        Heroes.prototype.get = function (callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Heroes/{id}
+         * @param {number} id
+         * @return {DemoWebApi_Controllers_Client.Hero}
+         */
+        Heroes.prototype.getById = function (id, callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
+        };
+        /**
+         * DELETE api/Heroes/{id}
+         * @param {number} id
+         * @return {void}
+         */
+        Heroes.prototype["delete"] = function (id, callback) {
+            this.httpClient["delete"](this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Heroes?name={name}
+         * @param {string} name
+         * @return {DemoWebApi_Controllers_Client.Hero}
+         */
+        Heroes.prototype.post = function (name, callback) {
+            this.httpClient.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), null, callback, this.error, this.statusCode);
+        };
+        /**
+         * PUT api/Heroes
+         * @param {DemoWebApi_Controllers_Client.Hero} hero
+         * @return {DemoWebApi_Controllers_Client.Hero}
+         */
+        Heroes.prototype.put = function (hero, callback) {
+            this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Heroes?name={name}
+         * @param {string} name
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
+         */
+        Heroes.prototype.search = function (name, callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+        };
+        return Heroes;
+    }());
+    DemoWebApi_Controllers_Client.Heroes = Heroes;
     var SuperDemo = /** @class */ (function () {
         function SuperDemo(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
@@ -79,7 +146,7 @@ var DemoWebApi_Controllers_Client;
          * @return {Date}
          */
         SuperDemo.prototype.getNextYear = function (dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NextHour?dt={dt}
@@ -87,7 +154,7 @@ var DemoWebApi_Controllers_Client;
          * @return {Date}
          */
         SuperDemo.prototype.getNextHour = function (dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
         };
         /**
          * POST api/SuperDemo/NextYear
@@ -754,65 +821,6 @@ var DemoWebApi_Controllers_Client;
         return Tuple;
     }());
     DemoWebApi_Controllers_Client.Tuple = Tuple;
-    var Heroes = /** @class */ (function () {
-        function Heroes(baseUri, httpClient, error, statusCode) {
-            if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
-            if (httpClient === void 0) { httpClient = new HttpClient(); }
-            this.baseUri = baseUri;
-            this.httpClient = httpClient;
-            this.error = error;
-            this.statusCode = statusCode;
-        }
-        /**
-         * GET api/Heroes
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
-         */
-        Heroes.prototype.get = function (callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
-        };
-        /**
-         * GET api/Heroes/{id}
-         * @param {number} id
-         * @return {DemoWebApi_Controllers_Client.Hero}
-         */
-        Heroes.prototype.getById = function (id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
-        };
-        /**
-         * DELETE api/Heroes/{id}
-         * @param {number} id
-         * @return {void}
-         */
-        Heroes.prototype["delete"] = function (id, callback) {
-            this.httpClient["delete"](this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
-        };
-        /**
-         * POST api/Heroes?name={name}
-         * @param {string} name
-         * @return {DemoWebApi_Controllers_Client.Hero}
-         */
-        Heroes.prototype.post = function (name, callback) {
-            this.httpClient.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), null, callback, this.error, this.statusCode);
-        };
-        /**
-         * PUT api/Heroes
-         * @param {DemoWebApi_Controllers_Client.Hero} hero
-         * @return {DemoWebApi_Controllers_Client.Hero}
-         */
-        Heroes.prototype.put = function (hero, callback) {
-            this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
-        };
-        /**
-         * GET api/Heroes?name={name}
-         * @param {string} name
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>}
-         */
-        Heroes.prototype.search = function (name, callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
-        };
-        return Heroes;
-    }());
-    DemoWebApi_Controllers_Client.Heroes = Heroes;
     var Values = /** @class */ (function () {
         function Values(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }

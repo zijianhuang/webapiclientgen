@@ -13,7 +13,7 @@ var HttpClient = /** @class */ (function () {
     HttpClient.prototype.put = function (url, dataToSave, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback);
     };
-    HttpClient.prototype.delete = function (url, callback, errorCalback, statusCodeCallback) {
+    HttpClient.prototype["delete"] = function (url, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback);
     };
     HttpClient.prototype.executeAjax = function (url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback) {
@@ -34,7 +34,7 @@ var HttpClient = /** @class */ (function () {
             statusCode: statusCodeCallback,
             contentType: 'application/json; charset=UTF-8',
             headers: {
-                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
+                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8'
             }
         });
     };
@@ -58,7 +58,7 @@ var AuthHttpClient = /** @class */ (function () {
     AuthHttpClient.prototype.put = function (url, dataToSave, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback);
     };
-    AuthHttpClient.prototype.delete = function (url, callback, errorCalback, statusCodeCallback) {
+    AuthHttpClient.prototype["delete"] = function (url, callback, errorCalback, statusCodeCallback) {
         this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback);
     };
     AuthHttpClient.prototype.executeAjax = function (url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback) {
@@ -79,7 +79,7 @@ var AuthHttpClient = /** @class */ (function () {
             statusCode: statusCodeCallback,
             contentType: 'application/json; charset=UTF-8',
             headers: {
-                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
+                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8'
             },
             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('access_token'));
@@ -114,7 +114,7 @@ var AuthHttpClient = /** @class */ (function () {
             statusCode: statusCodeCallback,
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             headers: {
-                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
+                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8'
             }
         });
     };
@@ -124,4 +124,3 @@ var AuthHttpClient = /** @class */ (function () {
     AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     return AuthHttpClient;
 }());
-//# sourceMappingURL=HttpClient.js.map

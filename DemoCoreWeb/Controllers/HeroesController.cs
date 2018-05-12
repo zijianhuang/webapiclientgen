@@ -11,7 +11,7 @@ namespace DemoWebApi.Controllers
 	/// Heroes operations
 	/// </summary>
 	[Route("api/[controller]")]
-	public class HeroesController : Controller
+	public class HeroesController : ControllerBase
     {
 		/// <summary>
 		/// Get all heroes.

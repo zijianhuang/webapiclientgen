@@ -1,25 +1,25 @@
 ﻿{
-  "ApiSelections": {
-    "ExcludedControllerNames": [
-      "DemoWebApi.Controllers.Account",
-      "DemoWebApi.Controllers.FileUpload"
-    ],
+	"ApiSelections": {
+		"ExcludedControllerNames": [
+			"DemoWebApi.Controllers.Account",
+			"DemoWebApi.Controllers.FileUpload"
+		],
 
-    "DataModelAssemblyNames": [
-      "DemoWebApi.DemoData",
-      "DemoWebApi"
-    ],
-    "CherryPickingMethods": 3
-  },
+		"DataModelAssemblyNames": [
+			"DemoWebApi.DemoDataCore",
+			"DemoCoreWeb"
+		],
+		"CherryPickingMethods": 3
+	},
 
-  "ClientApiOutputs": {
-    "ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
-    "GenerateBothAsyncAndSync": true,
+	"ClientApiOutputs": {
+		"ClientLibraryProjectFolderName": "..\\DemoCoreWeb.ClientApi",
+		"GenerateBothAsyncAndSync": true,
 
-    "CamelCase": true,
-    "ContentType": "application/json;charset=UTF-8",
-    "TypeScriptJQFolder": "Scripts\\ClientApi",
-    "TypeScriptNG2Folder": "..\\DemoNGCli\\NGSource\\src\\ClientApi"
+		"CamelCase": true,
+		"ContentType": "application/json;charset=UTF-8",
+		"TypeScriptJQFolder": "..\\Scripts\\ClientApi",
+		"TypeScriptNG2Folder": "..\\..\\DemoNGCli\\NGSource\\src\\ClientApi"
 
-  }
+	}
 }

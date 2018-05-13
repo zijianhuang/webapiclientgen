@@ -8,7 +8,7 @@ using System.Net;
 
 namespace Fonlow.WebApiClientGen
 {
-	[ApiExplorerSettings(IgnoreApi = true)]//this controller is a dev backdoor during development, no need to be visible in ApiExplorer.
+	[ApiExplorerSettings(IgnoreApi = true)]
 	[Route("api/[controller]")]
 	public class CodeGenController : ControllerBase
 	{

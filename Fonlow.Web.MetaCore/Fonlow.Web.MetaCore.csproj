@@ -3,6 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/zijianhuang/webapiclientgen/blob/master/license.md</PackageLicenseUrl>
+    <Copyright>Copyright © Zijian Huang 2018</Copyright>
+    <Authors>Copyright © Zijian Huang 2018</Authors>
+    <Company>Copyright © Zijian Huang 2018</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>The first release for .NET Core.</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <Import Project="..\Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems" Label="Shared" />

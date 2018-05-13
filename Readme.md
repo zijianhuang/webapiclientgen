@@ -51,12 +51,12 @@ This project delivers these products:
 # Prerequisites
 
 **Server side:**
-1. .NET Framework 4.5
-1. ASP.NET Web API 2.2
+1. .NET Framework 4.5.2, or .NET Core 2.0
+1. ASP.NET Web API 2.2, or ASP.NET Core 2.0
 
 
 **.NET client side:**
-1. .NET Framework 4.5, or Universal Windows, or Mono.Android, or Xamarin.iOS
+1. .NET Framework 4.5.2, or Universal Windows, or Mono.Android, or Xamarin.iOS, or .NET Core 2.0
 1. ASP.NET Web API 2.2 Client Libraries
 1. Json.NET of Newtonsoft [for Content-Type application/json](http://www.asp.net/web-api/overview/formats-and-model-binding/content-negotiation)
 1. Microsoft Build Tools 2015
@@ -64,7 +64,7 @@ This project delivers these products:
 **TypeScript client side:**
 1. TypeScript compiler
 1. jQuery
-1. Angular 2/4 and its dependencies in node_modules supported by Node.js and npm.
+1. Angular 2/4/5 and its dependencies in node_modules supported by Node.js and npm.
 
 
 

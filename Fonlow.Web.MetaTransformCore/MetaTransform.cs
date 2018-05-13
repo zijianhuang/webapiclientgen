@@ -64,7 +64,7 @@ namespace Fonlow.Web.Meta
 
 				var xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(controllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
 				var docLookup = DocCommentLookup.Create(xmlFilePath);
-				var methodComments = GetMethodDocComment(docLookup, controllerActionDescriptor);
+				var methodComments = docLookup==null ? null : GetMethodDocComment(docLookup, controllerActionDescriptor);
 
 				var dr = new WebApiDescription(description.ActionDescriptor.Id)
 				{

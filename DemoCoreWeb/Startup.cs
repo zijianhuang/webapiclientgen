@@ -1,5 +1,4 @@
-﻿using Fonlow.CodeDom.Web;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +20,7 @@ namespace DemoCoreWeb
 				options =>
 				{
 #if DEBUG
-					options.Conventions.Add(new ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
+					options.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
 #endif
 				}
 				);

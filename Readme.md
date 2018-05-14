@@ -38,10 +38,17 @@ This project delivers these products:
 1. [Client codes using the generated library in TypeScript](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/tests/demo.tests.ts)
 
 # Downloads
+
+## For .NET Framework
 1. [Strongly Typed Client API Generators for ASP.NET Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGen/).
 1. [TypeScript CodeDOM](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOM)
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.zip)
 1. [Fonlow.Poco2TS](https://www.nuget.org/packages/Fonlow.Poco2Ts) 
+
+## For .NET Core
+1. [Strongly Typed Client API Generators for ASP.NET Core Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/).
+1. [TypeScript CodeDOM](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore)
+1. [Fonlow.Poco2TS](https://www.nuget.org/packages/Fonlow.Poco2TsCore) 
 
 # Concepts
 1. Web API vendors / developers should provide client API libraries to developers of client programs, as Google and Amazon etc. would do in order to make the RESTful Web API reach wider consumers (internal and external) efficiently.
@@ -72,3 +79,4 @@ For more details, please check [WIKI](https://github.com/zijianhuang/webapiclien
 1. [Generate C# .NET Client API for ASP.NET Web API](https://www.codeproject.com/Articles/1074039/Generate-Csharp-Client-API-for-ASP-NET-Web-API)
 1. [Generate TypeScript Client API for ASP.NET Web API](https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api)
 1. [ASP.NET Web API, Angular2, TypeScript and WebApiClientGen](https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie)
+1. [Generate C# Client API for ASP.NET Core Web API](https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP)

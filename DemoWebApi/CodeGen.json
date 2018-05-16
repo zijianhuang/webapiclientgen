@@ -6,20 +6,20 @@
 		],
 
 		"DataModelAssemblyNames": [
-			"DemoWebApi.DemoDataCore",
-			"DemoCoreWeb"
+			"DemoWebApi.DemoData",
+			"DemoWebApi"
 		],
 		"CherryPickingMethods": 3
 	},
 
 	"ClientApiOutputs": {
-		"ClientLibraryProjectFolderName": "..\\DemoCoreWeb.ClientApi",
+		"ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
 		"GenerateBothAsyncAndSync": true,
 
 		"CamelCase": true,
 		"ContentType": "application/json;charset=UTF-8",
-		"TypeScriptJQFolder": "..\\Scripts\\ClientApi",
-		"TypeScriptNG2Folder": "..\\..\\DemoNGCli\\NGSource\\src\\ClientApi"
+		"TypeScriptJQFolder": "Scripts\\ClientApi",
+		"TypeScriptNG2Folder": "..\\DemoNGCli\\NGSource\\src\\ClientApi"
 
 	}
 }

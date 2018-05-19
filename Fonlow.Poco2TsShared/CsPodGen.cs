@@ -145,6 +145,7 @@ namespace Fonlow.Poco2Client
         /// For an enum type, all members will be processed regardless of EnumMemberAttribute.
         /// </summary>
         /// <param name="types">POCO types.</param>
+		/// <param name="methods">How to cherry pick data to be exposed to the clients.</param>
         public void CreateCodeDom(Type[] types, CherryPickingMethods methods)
         {
             if (types == null)

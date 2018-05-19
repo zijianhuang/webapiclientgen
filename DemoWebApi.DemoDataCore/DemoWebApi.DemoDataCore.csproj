@@ -5,6 +5,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1705;1591</NoWarn>
+  </PropertyGroup>
+
   <Import Project="..\DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.projitems" Label="Shared" />
 
   <ItemGroup>

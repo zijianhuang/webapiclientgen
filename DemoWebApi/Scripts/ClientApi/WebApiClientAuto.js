@@ -525,7 +525,7 @@ var DemoWebApi_Controllers_Client;
          * POST api/SuperDemo/PostEmpty?s={s}&i={i}
          * @param {string} s
          * @param {number} i
-         * @return {{item1:string, item2:number}}
+         * @return {{item1: string, item2: number}}
          */
         SuperDemo.prototype.postWithQueryButEmptyBody = function (s, i, callback) {
             this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, callback, this.error, this.statusCode);
@@ -622,7 +622,7 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * POST api/Tuple/PersonCompany1
-         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @param {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company}} peopleAndCompany
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPersonCompany1 = function (peopleAndCompany, callback) {
@@ -630,7 +630,7 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * POST api/Tuple/PeopleCompany2
-         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @param {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company}} peopleAndCompany
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany2 = function (peopleAndCompany, callback) {
@@ -638,7 +638,7 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * POST api/Tuple/PeopleCompany3
-         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @param {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Company}} peopleAndCompany
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany3 = function (peopleAndCompany, callback) {
@@ -646,7 +646,7 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * POST api/Tuple/PeopleCompany4
-         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @param {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}} peopleAndCompany
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany4 = function (peopleAndCompany, callback) {
@@ -654,14 +654,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/PeopleCompany4
-         * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Company}}
+         * @return {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}}
          */
         Tuple.prototype.getPeopleCompany4 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/PeopleCompany4', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/PeopleCompany5
-         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @param {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}} peopleAndCompany
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany5 = function (peopleAndCompany, callback) {
@@ -669,14 +669,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/PeopleCompany5
-         * @return {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Company}}
+         * @return {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}}
          */
         Tuple.prototype.getPeopleCompany5 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/PeopleCompany5', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/PeopleCompany6
-         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @param {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Company}} peopleAndCompany
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany6 = function (peopleAndCompany, callback) {
@@ -684,7 +684,7 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * POST api/Tuple/PeopleCompany7
-         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @param {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company}} peopleAndCompany
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany7 = function (peopleAndCompany, callback) {
@@ -692,7 +692,7 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * POST api/Tuple/PeopleCompany8
-         * @param {{item1:DemoWebApi_DemoData_Client.Person, item2:DemoWebApi_DemoData_Client.Person, item3:DemoWebApi_DemoData_Client.Person, item4:DemoWebApi_DemoData_Client.Person, item5:DemoWebApi_DemoData_Client.Person, item6:DemoWebApi_DemoData_Client.Person, item7:DemoWebApi_DemoData_Client.Person, rest:DemoWebApi_DemoData_Client.Company}} peopleAndCompany
+         * @param {{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Person, rest: DemoWebApi_DemoData_Client.Company}} peopleAndCompany
          * @return {DemoWebApi_DemoData_Client.Person}
          */
         Tuple.prototype.linkPeopleCompany8 = function (peopleAndCompany, callback) {
@@ -700,14 +700,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple1
-         * @return {{item1:number}}
+         * @return {{item1: number}}
          */
         Tuple.prototype.getTuple1 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/Tuple1', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple1
-         * @param {{item1:number}} tuple
+         * @param {{item1: number}} tuple
          * @return {number}
          */
         Tuple.prototype.postTuple1 = function (tuple, callback) {
@@ -715,14 +715,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple2
-         * @return {{item1:string, item2:number}}
+         * @return {{item1: string, item2: number}}
          */
         Tuple.prototype.getTuple2 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/Tuple2', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple2
-         * @param {{item1:string, item2:number}} tuple
+         * @param {{item1: string, item2: number}} tuple
          * @return {string}
          */
         Tuple.prototype.postTuple2 = function (tuple, callback) {
@@ -730,14 +730,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple3
-         * @return {{item1:string, item2:string, item3:number}}
+         * @return {{item1: string, item2: string, item3: number}}
          */
         Tuple.prototype.getTuple3 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/Tuple3', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple3
-         * @param {{item1:string, item2:string, item3:number}} tuple
+         * @param {{item1: string, item2: string, item3: number}} tuple
          * @return {string}
          */
         Tuple.prototype.postTuple3 = function (tuple, callback) {
@@ -745,14 +745,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple4
-         * @return {{item1:string, item2:string, item3:string, item4:number}}
+         * @return {{item1: string, item2: string, item3: string, item4: number}}
          */
         Tuple.prototype.getTuple4 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/Tuple4', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple4
-         * @param {{item1:string, item2:string, item3:string, item4:number}} tuple
+         * @param {{item1: string, item2: string, item3: string, item4: number}} tuple
          * @return {string}
          */
         Tuple.prototype.postTuple4 = function (tuple, callback) {
@@ -760,14 +760,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple5
-         * @return {{item1:string, item2:string, item3:string, item4:string, item5:number}}
+         * @return {{item1: string, item2: string, item3: string, item4: string, item5: number}}
          */
         Tuple.prototype.getTuple5 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/Tuple5', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple5
-         * @param {{item1:string, item2:string, item3:string, item4:string, item5:number}} tuple
+         * @param {{item1: string, item2: string, item3: string, item4: string, item5: number}} tuple
          * @return {string}
          */
         Tuple.prototype.postTuple5 = function (tuple, callback) {
@@ -775,14 +775,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple6
-         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}}
+         * @return {{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}}
          */
         Tuple.prototype.getTuple6 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/Tuple6', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple6
-         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number}} tuple
+         * @param {{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}} tuple
          * @return {string}
          */
         Tuple.prototype.postTuple6 = function (tuple, callback) {
@@ -790,14 +790,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple7
-         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}}
+         * @return {{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}}
          */
         Tuple.prototype.getTuple7 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/Tuple7', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple7
-         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:number, item7:number}} tuple
+         * @param {{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}} tuple
          * @return {string}
          */
         Tuple.prototype.postTuple7 = function (tuple, callback) {
@@ -805,14 +805,14 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * GET api/Tuple/Tuple8
-         * @return {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:number, rest:{item1:string, item2:string, item3:string}}}
+         * @return {{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}}
          */
         Tuple.prototype.getTuple8 = function (callback) {
             this.httpClient.get(this.baseUri + 'api/Tuple/Tuple8', callback, this.error, this.statusCode);
         };
         /**
          * POST api/Tuple/Tuple8
-         * @param {{item1:string, item2:string, item3:string, item4:string, item5:string, item6:string, item7:string, rest:{item1:string, item2:string, item3:string}}} tuple
+         * @param {{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}}} tuple
          * @return {string}
          */
         Tuple.prototype.postTuple8 = function (tuple, callback) {

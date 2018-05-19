@@ -50,7 +50,7 @@ namespace TypeScriptCodeDomTests
         public void TestCodeCommentStatementDocCommentLines()
         {
             TestCodeStatement(new CodeCommentStatement("my comment\r\nSecond line", true),
-@"    /** 
+@"    /**
      * my comment
      * Second line
      */

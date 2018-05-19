@@ -13,6 +13,10 @@
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1705;1591</NoWarn>
+  </PropertyGroup>
+
   <Import Project="..\Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems" Label="Shared" />
 
 </Project>

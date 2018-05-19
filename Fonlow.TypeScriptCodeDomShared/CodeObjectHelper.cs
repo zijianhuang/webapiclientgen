@@ -371,7 +371,7 @@ namespace Fonlow.TypeScriptCodeDom
 
             if (commentStatement.Comment.DocComment)
             {
-                w.Write(o.IndentString + "/** ");
+                w.Write(o.IndentString + "/**");
                 if (commentStatement.Comment.Text.Contains('\n'))
                 {
                     w.WriteLine();

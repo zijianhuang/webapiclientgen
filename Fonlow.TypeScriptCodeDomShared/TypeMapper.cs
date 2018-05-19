@@ -164,7 +164,7 @@ namespace Fonlow.TypeScriptCodeDom
                 var typeName = MapCodeTypeReferenceToTsText(collection[i]);
                 var propertyName = (i < 7) ? "Item" + (i + 1).ToString() : "Rest";
                 ss[i] = (TsCodeGenerationOptions.Instance.CamelCase? Fonlow.Text.StringExtensions.ToCamelCase( propertyName) : propertyName) 
-                    + ":" + typeName;
+                    + ": " + typeName;
             }
             return String.Join(", ", ss);
         }

@@ -74,13 +74,20 @@ namespace Fonlow.CodeDom.Web.Ts
 			foreach (var item in Description.ParameterDescriptions)
 			{
 				var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(item.ParameterDescriptor.ParameterType);
-				builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {item.Documentation}");
+				if (!String.IsNullOrEmpty(item.Documentation))
+				{
+					builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {item.Documentation}");
+				}
 			}
 
 			Type responseType = Description.ResponseDescription.ResponseType ?? Description.ResponseDescription.DeclaredType;
 			var tsResponseType = Poco2TsGen.TranslateToClientTypeReference(responseType);
 			var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
-			builder.AppendLine($"@return {{{returnTypeOfResponse}}} {Description.ResponseDescription.Documentation}");
+			if (!String.IsNullOrEmpty(Description.ResponseDescription.Documentation))
+			{
+				builder.AppendLine($"@return {{{returnTypeOfResponse}}} {Description.ResponseDescription.Documentation}");
+			}
+
 			Method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
 		}
 

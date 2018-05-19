@@ -86,9 +86,9 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected static string RemoveTrialEmptyString(string s)
 		{
-			var p = s.IndexOf("+''");
+			var p = s.IndexOf(" + ''");
 			Debug.Assert(p > -1);
-			return s.Remove(p, 3);
+			return s.Remove(p, 5);
 		}
 
 		static readonly Type typeofString = typeof(string);
@@ -111,15 +111,15 @@ namespace Fonlow.CodeDom.Web.Ts
 				Debug.Assert(d != null);
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
 				}
 				else if (d.ParameterDescriptor.ParameterType== typeofDateTime || d.ParameterDescriptor.ParameterType== typeofDateTimeOffset)
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}.toISOString()+'");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}.toISOString() + '");
 				}
 				else
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
 				}
 			}
 
@@ -130,15 +130,15 @@ namespace Fonlow.CodeDom.Web.Ts
 				Debug.Assert(d != null);
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}.toISOString()+'");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}.toISOString() + '");
 				}
 				else
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
 				}
 			}
 

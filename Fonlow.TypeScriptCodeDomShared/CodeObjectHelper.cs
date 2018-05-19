@@ -452,7 +452,7 @@ namespace Fonlow.TypeScriptCodeDom
                 w.Write(": " + returnTypeText);
             }
 
-            w.WriteLine("{");
+            w.WriteLine(" {");
 
 
             WriteCodeStatementCollection(memberMethod.Statements, w, o);

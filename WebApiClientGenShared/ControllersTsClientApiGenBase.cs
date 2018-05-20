@@ -19,7 +19,7 @@ namespace Fonlow.CodeDom.Web.Ts
         protected CodeCompileUnit TargetUnit { get; private set; }
 
         CodeGenConfig apiSelections;
-        JSOutput jsOutput;
+        protected JSOutput jsOutput;
 
         ClientApiTsFunctionGenBase apiFunctionGen; //to be injected in ctor of derived class.
 

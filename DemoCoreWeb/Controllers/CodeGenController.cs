@@ -63,7 +63,9 @@ namespace Fonlow.WebApiClientGen
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{
-				System.Diagnostics.Trace.TraceError(e.Message + " : " + e.Description);
+				var msg = e.Message + " : " + e.Description;
+				System.Diagnostics.Trace.TraceError(msg);
+				return BadRequest(msg);
 			}
 
 			return Ok();

@@ -13,13 +13,13 @@
 	},
 
 	"ClientApiOutputs": {
-		"ClientLibraryProjectFolderName": "..\\DemoCoreWeb.ClientApi",
+		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\DemoCoreWeb.ClientApi",
 		"GenerateBothAsyncAndSync": true,
 
 		"CamelCase": true,
 		"ContentType": "application/json;charset=UTF-8",
-		"TypeScriptJQFolder": "..\\Scripts\\ClientApi",
-		"TypeScriptNG2Folder": "..\\..\\DemoNGCli\\NGSource\\src\\ClientApi"
+		"TypeScriptJQFolder": "..\\..\\..\\Scripts\\ClientApi",
+		"TypeScriptNG2Folder": "..\\..\\..\\..\\DemoNGCli\\NGSource\\src\\ClientApi"
 
 	}
 }

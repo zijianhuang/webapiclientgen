@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import "rxjs/Rx";
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
 
 @Component({

@@ -87,7 +87,14 @@ namespace Fonlow.CodeDom.Web.Ts
                     contentType = "application/json;charset=UTF-8";
                 }
 
-                Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}', 'Accept': 'application/json' }} }});"));
+				if (dataToPost == "null")
+				{
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, '', {{ headers: {{ 'Accept': 'application/json' }} }});"));
+				}
+				else
+				{
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}', 'Accept': 'application/json' }} }});"));
+				}
 
                 return;
             }

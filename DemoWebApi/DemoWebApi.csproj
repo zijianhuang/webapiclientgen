@@ -244,7 +244,6 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\qunit.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="CodeGen.json" />
@@ -311,7 +310,9 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\qunit.js" />
+    <Content Include="Scripts\qunit-2.6.1.css" />
+    <Content Include="Scripts\qunit-2.6.1.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />

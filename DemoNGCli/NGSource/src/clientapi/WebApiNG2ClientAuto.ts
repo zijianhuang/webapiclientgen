@@ -1,35 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-export namespace DemoWebApi_Controllers_Client {
-
-    /**
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /**
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /**
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /**
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
 export namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -200,6 +171,35 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
+
+    /**
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
+
+        /**
+         * Gets or sets the local path of the file saved on the server.
+         */
+        fileNames?: Array<string>;
+
+        /**
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+         */
+        submitter?: string;
+    }
+
+
+    /**
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
+export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class Heroes {
         constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
@@ -209,7 +209,7 @@ export namespace DemoWebApi_Controllers_Client {
          * POST api/Heroes/q?name={name}
          */
         postWithQuery(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
-            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), JSON.stringify(null), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), '', { headers: { 'Accept': 'application/json' } });
         }
 
         /**
@@ -240,7 +240,7 @@ export namespace DemoWebApi_Controllers_Client {
          * POST api/Heroes?name={name}
          */
         post(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
-            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), JSON.stringify(null), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), '', { headers: { 'Accept': 'application/json' } });
         }
 
         /**
@@ -657,7 +657,7 @@ export namespace DemoWebApi_Controllers_Client {
          * POST api/SuperDemo/PostEmpty?s={s}&i={i}
          */
         postWithQueryButEmptyBody(s: string, i: number): Observable<{item1: string, item2: number}> {
-            return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, JSON.stringify(null), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+            return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, '', { headers: { 'Accept': 'application/json' } });
         }
     }
 

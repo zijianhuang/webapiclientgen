@@ -1,15 +1,19 @@
 ﻿{
-    "Compile": {
-        "Mode": "External",
-        "Extensions": [ ".ts" ],
-        "ExtensionsWithNoOutput": [ ".d.ts" ]
+	"Compile": {
+		"Mode": "External",
+		"Extensions": [ ".ts" ],
+		"ExtensionsWithNoOutput": [ ".d.ts" ],
+		"Paths": [
+			{ "OutputPath": "out" }
+		]
 
-    },
-    "Framework": "qunit",
-    "References": [
-        { "Path": "Scripts/jquery-3.3.1.min.js" },
-        { "Path": "Scripts/require.js" },
-        { "Path": "Scripts/ClientApi/WebApiClientAuto.js"}
-    ],
-    "RootReferencePathMode": "SettingsFileDirectory"
+	},
+	"Framework": "qunit",
+	"References": [
+		{ "Path": "Scripts/jquery-3.3.1.min.js" },
+		{ "Path": "Scripts/qunit-2.6.1.js" },
+		{ "Path": "Scripts/require.js" },
+		{ "Path": "Scripts/ClientApi/WebApiClientAuto.js" }
+	],
+	"RootReferencePathMode": "SettingsFileDirectory"
 }

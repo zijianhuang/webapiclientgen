@@ -51,10 +51,9 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-    <Compile Include="ClientApiFunctionGen.cs" />
-    <Compile Include="ClientApiTsFunctionGenBase.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UriQueryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\WebApiClientGen.snk">

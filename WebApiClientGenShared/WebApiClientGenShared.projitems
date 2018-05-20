@@ -9,7 +9,9 @@
     <Import_RootNamespace>WebApiClientGenShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ClientApiFunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsFunctionGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsFunctionGenBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsNg2FunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodeGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodeGenParameters.cs" />

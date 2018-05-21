@@ -1,7 +1,7 @@
 {
 	"ApiSelections": {
 		"ExcludedControllerNames": [
-			"DemoWebApi.Controllers.Account",
+			"DemoWebApi.Controllers.Home",
 			"DemoWebApi.Controllers.FileUpload"
 		],
 
@@ -19,7 +19,7 @@
 		"CamelCase": true,
 		"ContentType": "application/json;charset=UTF-8",
 		"TypeScriptJQFolder": "..\\..\\..\\Scripts\\ClientApi",
-		"TypeScriptNG2Folder": "..\\..\\..\\..\\DemoNGCli\\NGSource\\src\\ClientApi"
-
+		"TypeScriptNG2Folder": "..\\..\\..\\..\\DemoNGCli\\NGSource\\src\\ClientApi",
+		"NGVersion": 5
 	}
 }

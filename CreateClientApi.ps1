@@ -2,14 +2,20 @@
 cd $PSScriptRoot
 $arguments = "/site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:$PSScriptRoot\.vs\config\applicationhost.config"
 echo $arguments
-$processInfo = New-Object System.Diagnostics.ProcessStartInfo("C:\Program Files (x86)\IIS Express\iisexpress.exe", $arguments)
-$process = [System.Diagnostics.Process]::Start($processInfo)
+$procArgs = @{
+    FilePath         = "C:\Program Files (x86)\IIS Express\iisexpress.exe"
+    ArgumentList     = $arguments
+    PassThru         = $true
+}
+$process = Start-Process @procArgs
+
 Invoke-RestMethod http://localhost:10965/api/codegen -Method POST -InFile "$($PSScriptRoot)\DemoWebApi\CodeGen.json" -ContentType "application/json"
 
-$processInfo2 = New-Object System.Diagnostics.ProcessStartInfo("C:\Program Files (x86)\Microsoft SDKs\TypeScript\2.6\tsc.exe", "$PSScriptRoot\DemoWebApi\Scripts\ClientApi\WebApiClientAuto.ts")
-$process2 = [System.Diagnostics.Process]::Start($processInfo2)
+$procTscArgs = @{
+    FilePath         = "C:\Program Files (x86)\Microsoft SDKs\TypeScript\2.6\tsc.exe"
+    ArgumentList     = "$PSScriptRoot\DemoWebApi\Scripts\ClientApi\WebApiClientAuto.ts"
+    PassThru         = $true
+}
+$processTsc = Start-Process @procTscArgs
 
-#$processInfo2 = New-Object System.Diagnostics.ProcessStartInfo("C:\Program Files (x86)\Microsoft SDKs\TypeScript\2.6\tsc.exe", "$PSScriptRoot\DemoAngular2\clientapi\WebApiNG2ClientAuto.ts")
-#$process2 = [System.Diagnostics.Process]::Start($processInfo2)
-
-$process.CloseMainWindow()
+Stop-Process $process

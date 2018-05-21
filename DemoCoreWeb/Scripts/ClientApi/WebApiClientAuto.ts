@@ -294,18 +294,6 @@ namespace DemoWebApi_Controllers_Client {
         }
     }
 
-    export class Home {
-        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
-        }
-
-        /**
-         * GET api/Home
-         */
-        index(callback: (data : void) => any) {
-            this.httpClient.get(this.baseUri + 'api/Home', callback, this.error, this.statusCode);
-        }
-    }
-
     export class SuperDemo {
         constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
         }

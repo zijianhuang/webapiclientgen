@@ -13,7 +13,7 @@
 	},
 
 	"ClientApiOutputs": {
-		"ClientLibraryProjectFolderName": "DemoWebApi.ClientApi",
+		"ClientLibraryProjectFolderName": "..\\DemoWebApi.ClientApi",
 		"GenerateBothAsyncAndSync": true,
 
 		"CamelCase": true,

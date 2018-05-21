@@ -1,18 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-export namespace DemoWebApi_Controllers_Client {
-
-    /**
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
+import { Observable } from 'rxjs/Observable';
 export namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -183,61 +171,45 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
-    @Injectable()
-    export class Entities {
-        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
-        }
+
+    /**
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
 
         /**
-         * Get a person
-         * so to know the person
-         * GET api/Entities/getPerson/{id}
-         * @param {number} id unique id of that guy
-         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         * Gets or sets the local path of the file saved on the server.
          */
-        getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
-            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson/' + id, { headers: { 'Accept': 'application/json' } });
-        }
+        fileNames?: Array<string>;
 
         /**
-         * POST api/Entities/createPerson
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
          */
-        createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number> {
-            return this.http.post<number>(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
-        }
-
-        /**
-         * PUT api/Entities/updatePerson
-         */
-        updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<Response> {
-            return this.http.put<Response>(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
-        }
-
-        /**
-         * PUT api/Entities/link?id={id}&relationship={relationship}
-         */
-        linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Observable<boolean> {
-            return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
-        }
-
-        /**
-         * DELETE api/Entities/{id}
-         */
-        delete(id: number): Observable<Response> {
-            return this.http.delete<Response>(this.baseUri + 'api/Entities/' + id, { headers: { 'Accept': 'application/json' } });
-        }
-
-        /**
-         * GET api/Entities/Company/{id}
-         */
-        getCompany(id: number): Observable<DemoWebApi_DemoData_Client.Company> {
-            return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company/' + id, { headers: { 'Accept': 'application/json' } });
-        }
+        submitter?: string;
     }
 
+
+    /**
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
+export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class Heroes {
         constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+        }
+
+        /**
+         * POST api/Heroes/q?name={name}
+         */
+        postWithQuery(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
+            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), '', { headers: { 'Accept': 'application/json' } });
         }
 
         /**
@@ -265,17 +237,10 @@ export namespace DemoWebApi_Controllers_Client {
 
         /**
          * Add a hero
-         * POST api/Heroes/q?name={name}
-         */
-        postWithQuery(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
-            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), '', { headers: { 'Accept': 'application/json' } });
-        }
-
-        /**
-         * POST api/Heroes
+         * POST api/Heroes?name={name}
          */
         post(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
-            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(name), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+            return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), '', { headers: { 'Accept': 'application/json' } });
         }
 
         /**
@@ -288,25 +253,12 @@ export namespace DemoWebApi_Controllers_Client {
 
         /**
          * Search heroes
-         * GET api/Heroes/{name}
+         * GET api/Heroes?name={name}
          * @param {string} name keyword contained in hero name.
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name: string): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
-            return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/' + encodeURIComponent(name), { headers: { 'Accept': 'application/json' } });
-        }
-    }
-
-    @Injectable()
-    export class Home {
-        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
-        }
-
-        /**
-         * GET api/Home
-         */
-        index(): Observable<Response> {
-            return this.http.get<Response>(this.baseUri + 'api/Home', { headers: { 'Accept': 'application/json' } });
+            return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), { headers: { 'Accept': 'application/json' } });
         }
     }
 
@@ -316,38 +268,38 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/int/{d}
+         * GET api/SuperDemo/int?d={d}
          */
         getIntSquare(d: number): Observable<number> {
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/int/' + d, { headers: { 'Accept': 'application/json' } });
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/int?d=' + d, { headers: { 'Accept': 'application/json' } });
         }
 
         /**
-         * GET api/SuperDemo/decimal/{d}
+         * GET api/SuperDemo/decimal?d={d}
          */
         getDecimalSquare(d: number): Observable<number> {
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal/' + d, { headers: { 'Accept': 'application/json' } });
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal?d=' + d, { headers: { 'Accept': 'application/json' } });
         }
 
         /**
-         * GET api/SuperDemo/NullableDatetime/{hasValue}
+         * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
          */
         getDateTime(hasValue: boolean): Observable<Date> {
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue, { headers: { 'Accept': 'application/json' } });
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue=' + hasValue, { headers: { 'Accept': 'application/json' } });
         }
 
         /**
-         * GET api/SuperDemo/NextYear/{dt}
+         * GET api/SuperDemo/NextYear?dt={dt}
          */
         getNextYear(dt: Date): Observable<Date> {
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString(), { headers: { 'Accept': 'application/json' } });
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt.toISOString(), { headers: { 'Accept': 'application/json' } });
         }
 
         /**
-         * GET api/SuperDemo/NextHour/{dt}
+         * GET api/SuperDemo/NextHour?dt={dt}
          */
         getNextHour(dt: Date): Observable<Date> {
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString(), { headers: { 'Accept': 'application/json' } });
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString(), { headers: { 'Accept': 'application/json' } });
         }
 
         /**
@@ -380,10 +332,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/NullableDecimal/{hasValue}
+         * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
          */
         getNullableDecimal(hasValue: boolean): Observable<number> {
-            return this.http.get<number>(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { headers: { 'Accept': 'application/json' } });
+            return this.http.get<number>(this.baseUri + 'api/SuperDemo/NullableDecimal?hasValue=' + hasValue, { headers: { 'Accept': 'application/json' } });
         }
 
         /**
@@ -447,6 +399,13 @@ export namespace DemoWebApi_Controllers_Client {
          */
         getActionResult(): Observable<Response> {
             return this.http.get<Response>(this.baseUri + 'api/SuperDemo/ActionResult', { headers: { 'Accept': 'application/json' } });
+        }
+
+        /**
+         * GET api/SuperDemo/ActionStringResult
+         */
+        getActionStringResult(): Observable<string> {
+            return this.http.get<string>(this.baseUri + 'api/SuperDemo/ActionStringResult', { headers: { 'Accept': 'application/json' } });
         }
 
         /**
@@ -562,6 +521,27 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * GET api/SuperDemo/AnonymousDynamic
+         */
+        getAnonymousDynamic(): Observable<Response> {
+            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/AnonymousDynamic', { headers: { 'Accept': 'application/json' } });
+        }
+
+        /**
+         * GET api/SuperDemo/AnonymousObject
+         */
+        getAnonymousObject(): Observable<Response> {
+            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/AnonymousObject', { headers: { 'Accept': 'application/json' } });
+        }
+
+        /**
+         * POST api/SuperDemo/AnonymousObject
+         */
+        postAnonymousObject(obj: any): Observable<Response> {
+            return this.http.post<Response>(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+        }
+
+        /**
          * GET api/SuperDemo/StringStringDic
          */
         getDictionary(): Observable<{[id: string]: string }> {
@@ -674,10 +654,76 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * POST api/SuperDemo/PostEmpty/{i}
+         * POST api/SuperDemo/PostEmpty?s={s}&i={i}
          */
         postWithQueryButEmptyBody(s: string, i: number): Observable<{item1: string, item2: number}> {
-            return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+            return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, '', { headers: { 'Accept': 'application/json' } });
+        }
+    }
+
+    @Injectable()
+    export class Entities {
+        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+        }
+
+        /**
+         * Get a person
+         * so to know the person
+         * GET api/Entities/getPerson?id={id}
+         * @param {number} id unique id of that guy
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         */
+        getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson?id=' + id, { headers: { 'Accept': 'application/json' } });
+        }
+
+        /**
+         * POST api/Entities/createPerson
+         */
+        createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number> {
+            return this.http.post<number>(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+        }
+
+        /**
+         * PUT api/Entities/updatePerson
+         */
+        updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<Response> {
+            return this.http.put<Response>(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+        }
+
+        /**
+         * PUT api/Entities/link?id={id}&relationship={relationship}
+         */
+        linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Observable<boolean> {
+            return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' } });
+        }
+
+        /**
+         * GET api/Entities/Company?id={id}
+         */
+        getCompany(id: number): Observable<DemoWebApi_DemoData_Client.Company> {
+            return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company?id=' + id, { headers: { 'Accept': 'application/json' } });
+        }
+
+        /**
+         * GET api/Entities/PersonNotFound?id={id}
+         */
+        getPersonNotFound(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/PersonNotFound?id=' + id, { headers: { 'Accept': 'application/json' } });
+        }
+
+        /**
+         * GET api/Entities/PersonActionNotFound?id={id}
+         */
+        getPersonActionNotFound(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
+            return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id, { headers: { 'Accept': 'application/json' } });
+        }
+
+        /**
+         * DELETE api/Entities/{id}
+         */
+        delete(id: number): Observable<Response> {
+            return this.http.delete<Response>(this.baseUri + 'api/Entities/' + id, { headers: { 'Accept': 'application/json' } });
         }
     }
 
@@ -875,7 +921,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * Get a list of value
          * GET api/Values
          */
         get(): Observable<Array<string>> {
@@ -883,7 +928,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * Get by both Id and name
          * GET api/Values/{id}?name={name}
          */
         getByIdAndName(id: number, name: string): Observable<string> {
@@ -912,7 +956,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * Update with valjue
          * PUT api/Values/{id}
          */
         put(id: number, value: string): Observable<Response> {

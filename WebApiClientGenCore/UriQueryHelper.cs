@@ -1,11 +1,7 @@
-﻿using System;
-using System.CodeDom;
-using System.Linq;
-
+﻿using Fonlow.Web.Meta;
+using System;
 using System.Diagnostics;
-using System.Text;
-using Fonlow.TypeScriptCodeDom;
-using Fonlow.Web.Meta;
+using System.Linq;
 using Tavis.UriTemplates;
 
 namespace Fonlow.CodeDom.Web
@@ -53,14 +49,6 @@ namespace Fonlow.CodeDom.Web
 				newUriText = GetUriText(d);
 			}
 
-			//for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
-			//{
-			//    var name = template.QueryValueVariableNames[i];
-			//    var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-			//    Debug.Assert(d != null);
-			//    newUriText = GetUriText(d);
-			//}
-
 			return newUriText;
 		}
 
@@ -91,16 +79,6 @@ namespace Fonlow.CodeDom.Web
 					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
 				}
 			}
-
-			//for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
-			//{
-			//    var name = template.QueryValueVariableNames[i];
-			//    var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-			//    Debug.Assert(d != null);
-			//    newUriText = (d.ParameterDescriptor.ParameterType == typeofString) ?
-			//        newUriText.Replace($"{{{d.Name}}}", $"'+encodeURIComponent({d.Name})+'")
-			//        : newUriText.Replace($"{{{d.Name}}}", $"'+{d.Name}+'");
-			//}
 
 			return newUriText;
 		}

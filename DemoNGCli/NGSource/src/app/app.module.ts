@@ -12,10 +12,12 @@ import { HeroSearchComponent } from './hero-search.component';
 
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
 
+import { SiteConfigConstants } from '../environments/environment';
+
 export function clientFactory(http: HttpClient) {
-  const baseUri = "http://localhost:10965/";
-//  const baseUri = "http://localhost:56321/";
-  return new namespaces.DemoWebApi_Controllers_Client.Heroes(baseUri, http);
+//  const baseUri = "http://localhost:10965/";
+  //  const baseUri = "http://localhost:56321/";
+  return new namespaces.DemoWebApi_Controllers_Client.Heroes(SiteConfigConstants.apiBaseuri, http);
 }
 
 @NgModule({

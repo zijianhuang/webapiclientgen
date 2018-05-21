@@ -52,6 +52,7 @@
     <Content Include="NGSource\karma.conf.js" />
     <Content Include="NGSource\protractor.conf.js" />
     <Content Include="NGSource\src\assets\.gitkeep" />
+    <Content Include="NGSource\src\siteconfig.js" />
     <Content Include="NGSource\src\tsconfig.app.json" />
     <Content Include="NGSource\src\tsconfig.spec.json" />
     <Content Include="NGSource\.angular-cli.json" />

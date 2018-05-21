@@ -162,7 +162,7 @@ namespace IntegrationTests
         [Fact]
         public void TestZeroWithFloatDoubleAndDecimal() 
         {
-            Assert.Equal(0f, 0.1f + 0.2f - 0.3f);//In VS 2015 update 2, compiler makes it zeror. .net core and .net have different behaviors.
+            Assert.Equal(0f, 0.1f + 0.2f - 0.3f);//.net core difference: In VS 2015 update 2, compiler makes it zeror. .net core and .net have different behaviors.
             Assert.NotEqual(0d, 0.1d + 0.2d - 0.3d);
             Assert.Equal(0m, 0.1m + 0.2m - 0.3m);
 

@@ -9,6 +9,7 @@
     <Import_RootNamespace>Fonlow.DocCommentShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DocCommentHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocCommentLookup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringFunctions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)xmldocument.cs">

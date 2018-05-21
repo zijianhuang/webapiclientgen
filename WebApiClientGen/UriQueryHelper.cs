@@ -1,18 +1,14 @@
-﻿using System;
-using System.CodeDom;
-using System.Linq;
-
+﻿using Fonlow.Web.Meta;
+using System;
 using System.Diagnostics;
-using System.Text;
-using Fonlow.TypeScriptCodeDom;
-using Fonlow.Web.Meta;
+using System.Linq;
 
 namespace Fonlow.CodeDom.Web
 {
 	/// <summary>
 	/// Generate a client function upon ApiDescription
 	/// </summary>
-	public static class UriQueryHelper
+	public static class UriQueryHelper //though this class could actually be replaced by the implementation of the .NET Core one, however, Tavis.UriTemplates does not have a strong named release.
 	{
 		static readonly Type typeofString = typeof(string);
 		static readonly Type typeofDateTime = typeof(DateTime);

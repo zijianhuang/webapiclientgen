@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Fonlow.DocComment;
 
 namespace Fonlow.Web.Meta
 {
@@ -26,7 +27,11 @@ namespace Fonlow.Web.Meta
 
         public static WebApiDescription GetWebApiDescription(ApiDescription description)
         {
-            return new WebApiDescription(description.ID)
+			var xmlFilePath = DocCommentLookup.GetXmlPath(description.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly);
+			var docLookup = DocCommentLookup.Create(xmlFilePath);
+			var methodComments = docLookup == null ? null : GetMethodDocComment(docLookup, description.ActionDescriptor);
+			
+			return new WebApiDescription(description.ID)
             {
                 ActionDescriptor = new ActionDescriptor()
                 {
@@ -40,19 +45,19 @@ namespace Fonlow.Web.Meta
                 },
 
                 HttpMethod = description.HttpMethod.Method,
-                Documentation = description.Documentation,
-                RelativePath = description.RelativePath,
+                Documentation = DocCommentHelper.GetSummary(methodComments),
+				RelativePath = description.RelativePath,
                 ResponseDescription = new ResponseDescription()
                 {
-                    Documentation = description.ResponseDescription.Documentation,
-                    ResponseType = description.ResponseDescription.ResponseType,
+                    Documentation = DocCommentHelper.GetReturnComment(methodComments),
+					ResponseType = description.ResponseDescription.ResponseType,
                     DeclaredType = description.ResponseDescription.DeclaredType,
                 },
 
                 ParameterDescriptions = description.ParameterDescriptions.Select(d => new ParameterDescription()
                 {
-                    Documentation = d.Documentation,
-                    Name = d.Name,
+                    Documentation = DocCommentHelper.GetParameterComment(methodComments, d.Name),
+					Name = d.Name,
                     ParameterDescriptor = new ParameterDescriptor()
                     {
                         ParameterName = d.ParameterDescriptor.ParameterName,
@@ -65,6 +70,17 @@ namespace Fonlow.Web.Meta
             };
         }
 
-    }
+		static docMember GetMethodDocComment(DocCommentLookup lookup, System.Web.Http.Controllers.HttpActionDescriptor descriptor)
+		{
+			var methodFullName = descriptor.ControllerDescriptor.ControllerType.FullName + "." + descriptor.ActionName;
+			var parameters = descriptor.GetParameters();
+			if (parameters.Count > 0)
+			{
+				methodFullName += "(" + parameters.Select(d => d.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
+			}
+
+			return lookup.GetMember("M:" + methodFullName);
+		}
+	}
 
 }

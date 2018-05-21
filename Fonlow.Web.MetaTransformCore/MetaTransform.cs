@@ -80,18 +80,18 @@ namespace Fonlow.Web.Meta
 					},
 
 					HttpMethod = description.HttpMethod,
-					Documentation = GetSummary(methodComments),
+					Documentation = DocCommentHelper.GetSummary(methodComments),
 					RelativePath = description.RelativePath + BuildQuery(description.ParameterDescriptions),
 					ResponseDescription = new ResponseDescription()
 					{
-						Documentation = GetReturnComment(methodComments),
+						Documentation = DocCommentHelper.GetReturnComment(methodComments),
 						ResponseType = responseType,
 						// DeclaredType = description.ResponseDescription.DeclaredType,
 					},
 
 					ParameterDescriptions = description.ParameterDescriptions.Select(d => new ParameterDescription()
 					{
-						Documentation = GetParameterComment(methodComments, d.Name),
+						Documentation = DocCommentHelper.GetParameterComment(methodComments, d.Name),
 						Name = d.Name,
 						ParameterDescriptor = new ParameterDescriptor()
 						{
@@ -134,45 +134,6 @@ namespace Fonlow.Web.Meta
 			}
 
 			return lookup.GetMember("M:" + methodFullName);
-		}
-
-		static string GetSummary(docMember m)
-		{
-			if (m == null || m.summary==null || m.summary.Text==null || m.summary.Text.Length==0)
-			{
-				return null;
-			}
-
-			var noIndent = StringFunctions.TrimTrimIndentsOfArray(m.summary.Text);
-			return String.Join(Environment.NewLine, noIndent);
-		}
-
-		static string GetReturnComment(docMember m)
-		{
-			if (m == null || m.returns == null || m.returns.Text==null || m.returns.Text.Length==0)
-			{
-				return null;
-			}
-
-			var noIndent = StringFunctions.TrimTrimIndentsOfArray(m.returns.Text);
-			return String.Join(Environment.NewLine, noIndent);
-		}
-
-		static string GetParameterComment(docMember m, string name)
-		{
-			if (m == null || m.param==null)
-			{
-				return null;
-			}
-
-			var mc = m.param.SingleOrDefault(d => d.name == name);
-			if (mc==null || mc.Text==null || mc.Text.Length == 0)
-			{
-				return null;
-			}
-
-			var noIndent = StringFunctions.TrimTrimIndentsOfArray(mc.Text);
-			return String.Join(Environment.NewLine, noIndent);
 		}
 
 	}

@@ -206,6 +206,7 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * Add a hero
          * POST api/Heroes/q?name={name}
          */
         postWithQuery(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
@@ -236,7 +237,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * Add a hero
          * POST api/Heroes?name={name}
          */
         post(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {

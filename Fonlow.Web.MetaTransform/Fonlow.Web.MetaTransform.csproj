@@ -58,6 +58,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fonlow.DocComment\Fonlow.DocComment.csproj">
+      <Project>{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}</Project>
+      <Name>Fonlow.DocComment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fonlow.Web.Meta\Fonlow.Web.Meta.csproj">
       <Project>{4d7f5b3e-b38d-4083-88fc-dd4908649bd4}</Project>
       <Name>Fonlow.Web.Meta</Name>

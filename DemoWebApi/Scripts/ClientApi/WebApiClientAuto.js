@@ -50,6 +50,7 @@ var DemoWebApi_Controllers_Client;
             this.statusCode = statusCode;
         }
         /**
+         * Add a hero
          * POST api/Heroes/q?name={name}
          */
         Heroes.prototype.postWithQuery = function (name, callback) {
@@ -76,7 +77,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient["delete"](this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
         };
         /**
-         * Add a hero
          * POST api/Heroes?name={name}
          */
         Heroes.prototype.post = function (name, callback) {

@@ -885,6 +885,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Add a hero
         /// POST api/Heroes/q?name={name}
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name)
@@ -901,6 +902,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Add a hero
         /// POST api/Heroes/q?name={name}
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name)
@@ -1005,7 +1007,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Add a hero
         /// POST api/Heroes?name={name}
         /// </summary>
         public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
@@ -1022,7 +1023,6 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// Add a hero
         /// POST api/Heroes?name={name}
         /// </summary>
         public DemoWebApi.Controllers.Client.Hero Post(string name)

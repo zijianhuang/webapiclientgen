@@ -204,6 +204,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * Add a hero
          * POST api/Heroes/q?name={name}
          */
         postWithQuery(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any) {
@@ -234,7 +235,6 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * Add a hero
          * POST api/Heroes?name={name}
          */
         post(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any) {

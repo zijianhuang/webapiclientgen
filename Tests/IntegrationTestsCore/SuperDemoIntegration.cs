@@ -12,7 +12,7 @@ namespace IntegrationTests
     {
         public SuperDemoFixture()
         {
-            var baseUri = new Uri("http://localhost:56321/");
+            var baseUri = new Uri("http://localhost:5000/");
 
 			httpClient = new System.Net.Http.HttpClient();
             Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, baseUri);
@@ -190,8 +190,7 @@ namespace IntegrationTests
         [Fact]
         public void TestGetEmptyString()
         {
-			//     Assert.Equal(String.Empty, api.GetEmptyString());//todo: .net core returns a null. Apparently this is a bug of .net core
-			Assert.Null(api.GetEmptyString());
+			Assert.Equal(String.Empty, api.GetEmptyString());
         }
 
         [Fact]

@@ -12,7 +12,7 @@ namespace IntegrationTests
 	{
 		public HeroesFixture()
 		{
-			var baseUri = new Uri("http://localhost:56321/");
+			var baseUri = new Uri("http://localhost:5000/");
 
 			httpClient = new System.Net.Http.HttpClient();
 			httpClient.DefaultRequestHeaders

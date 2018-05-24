@@ -46,6 +46,8 @@ namespace DemoWebApi
 
             var settings = jsonFormatter.SerializerSettings;
             settings.Converters.Add(new IsoDateTimeConverter());
+
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/plain"));
         }
     }
 }

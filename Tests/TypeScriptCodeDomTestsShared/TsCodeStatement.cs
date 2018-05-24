@@ -38,13 +38,6 @@ namespace TypeScriptCodeDomTests
 
         }
 
-        [Fact]
-        public void TestCodeCommentStatementDocComment()
-        {
-            TestCodeStatement(new CodeCommentStatement("my comment", true),
-                "    /** my comment */\r\n");
-
-        }
 
         [Fact]
         public void TestCodeCommentStatementDocCommentLines()

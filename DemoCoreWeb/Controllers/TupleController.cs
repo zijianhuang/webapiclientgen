@@ -7,7 +7,7 @@ namespace DemoWebApi.Controllers
 	/// https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
 	/// </summary>
 	[Route("api/[controller]")]
-	public class TupleController : Controller
+	public class TupleController : ControllerBase
     {
         [HttpPost]
         [Route("PersonCompany1")]

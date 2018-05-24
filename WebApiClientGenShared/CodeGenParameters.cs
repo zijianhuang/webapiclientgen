@@ -48,7 +48,10 @@
 		/// </summary>
 		public bool GenerateBothAsyncAndSync { get; set; }
 
-
+		/// <summary>
+		/// Whether the Web API return string as string, rather than JSON object which is a double quoted string.
+		/// </summary>
+		public bool ReadAsString { get; set; }
 		/// <summary>
 		/// Whether to conform to the camel casing convention of javascript and JSON.
 		/// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;

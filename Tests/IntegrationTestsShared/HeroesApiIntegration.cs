@@ -15,9 +15,9 @@ namespace IntegrationTests
 			var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
 
 			httpClient = new System.Net.Http.HttpClient();
-			httpClient.DefaultRequestHeaders
-			  .Accept
-			  .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+			//httpClient.DefaultRequestHeaders
+			//  .Accept
+			//  .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
 			Api = new DemoWebApi.Controllers.Client.Heroes(httpClient, baseUri);
 		}

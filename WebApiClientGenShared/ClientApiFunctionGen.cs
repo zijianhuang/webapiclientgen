@@ -20,12 +20,15 @@ namespace Fonlow.CodeDom.Web.Cs
         readonly Fonlow.Poco2Client.IPoco2Client poco2CsGen;
 
         bool forAsync;
+		bool readAsString;
 
-        public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen)
+        public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool readAsString, bool forAsync = false)
         {
             this.description = description;
             this.sharedContext = sharedContext;
             this.poco2CsGen = poco2CsGen;
+			this.forAsync = forAsync;
+			this.readAsString = readAsString;
 
             methodName = description.ActionDescriptor.ActionName;
             if (methodName.EndsWith("Async"))
@@ -38,9 +41,9 @@ namespace Fonlow.CodeDom.Web.Cs
         static readonly string typeOfHttpActionResult = "System.Web.Http.IHttpActionResult";
         static readonly Type typeOfChar = typeof(char);
 
-        public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool forAsync = false)
+        public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool readAsString, bool forAsync)
         {
-            var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen);
+            var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, readAsString, forAsync);
             return gen.CreateApiFunction(forAsync);
         }
 
@@ -206,27 +209,43 @@ namespace Fonlow.CodeDom.Web.Cs
                 "            var stream = await responseMessage.Content.ReadAsStreamAsync();"
                 : "            var stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
             //  method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
-            method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-            method.Statements.Add(new CodeSnippetStatement("            {"));
-
-            method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
 
             if (TypeHelper.IsStringType(returnType))
-            {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<string>(jsonReader)")));
-            }
+			{
+				if (this.readAsString)
+				{
+					method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
+					method.Statements.Add(new CodeSnippetStatement("            {"));
+					method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
+				}
+				else
+				{
+					method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+					method.Statements.Add(new CodeSnippetStatement("            {"));
+					method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
+				}
+			}
             else if (returnType == typeOfChar)
             {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
+				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				method.Statements.Add(new CodeSnippetStatement("            {"));
+				method.Statements.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
             }
             else if (returnType.IsPrimitive)
             {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
+				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				method.Statements.Add(new CodeSnippetStatement("            {"));
+				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
             }
             else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType))
             {
-                method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				method.Statements.Add(new CodeSnippetStatement("            {"));
+				method.Statements.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+				method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
                     new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
                         new CodeSnippetExpression("jsonReader"))));
             }

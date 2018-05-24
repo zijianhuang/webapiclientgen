@@ -101,6 +101,70 @@ var DemoWebApi_Controllers_Client;
         return Heroes;
     }());
     DemoWebApi_Controllers_Client.Heroes = Heroes;
+    var Entities = /** @class */ (function () {
+        function Entities(baseUri, httpClient, error, statusCode) {
+            if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
+            if (httpClient === void 0) { httpClient = new HttpClient(); }
+            this.baseUri = baseUri;
+            this.httpClient = httpClient;
+            this.error = error;
+            this.statusCode = statusCode;
+        }
+        /**
+         * Get a person
+         * so to know the person
+         * GET api/Entities/getPerson?id={id}
+         * @param {number} id unique id of that guy
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         */
+        Entities.prototype.getPerson = function (id, callback) {
+            this.httpClient.get(this.baseUri + 'api/Entities/getPerson?id=' + id, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Entities/createPerson
+         */
+        Entities.prototype.createPerson = function (p, callback) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode);
+        };
+        /**
+         * PUT api/Entities/updatePerson
+         */
+        Entities.prototype.updatePerson = function (person, callback) {
+            this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode);
+        };
+        /**
+         * PUT api/Entities/link?id={id}&relationship={relationship}
+         */
+        Entities.prototype.linkPerson = function (id, relationship, person, callback) {
+            this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Entities/Company?id={id}
+         */
+        Entities.prototype.getCompany = function (id, callback) {
+            this.httpClient.get(this.baseUri + 'api/Entities/Company?id=' + id, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Entities/PersonNotFound?id={id}
+         */
+        Entities.prototype.getPersonNotFound = function (id, callback) {
+            this.httpClient.get(this.baseUri + 'api/Entities/PersonNotFound?id=' + id, callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/Entities/PersonActionNotFound?id={id}
+         */
+        Entities.prototype.getPersonActionNotFound = function (id, callback) {
+            this.httpClient.get(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id, callback, this.error, this.statusCode);
+        };
+        /**
+         * DELETE api/Entities/{id}
+         */
+        Entities.prototype["delete"] = function (id, callback) {
+            this.httpClient["delete"](this.baseUri + 'api/Entities/' + id, callback, this.error, this.statusCode);
+        };
+        return Entities;
+    }());
+    DemoWebApi_Controllers_Client.Entities = Entities;
     var SuperDemo = /** @class */ (function () {
         function SuperDemo(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
@@ -450,70 +514,6 @@ var DemoWebApi_Controllers_Client;
         return SuperDemo;
     }());
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
-    var Entities = /** @class */ (function () {
-        function Entities(baseUri, httpClient, error, statusCode) {
-            if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }
-            if (httpClient === void 0) { httpClient = new HttpClient(); }
-            this.baseUri = baseUri;
-            this.httpClient = httpClient;
-            this.error = error;
-            this.statusCode = statusCode;
-        }
-        /**
-         * Get a person
-         * so to know the person
-         * GET api/Entities/getPerson?id={id}
-         * @param {number} id unique id of that guy
-         * @return {DemoWebApi_DemoData_Client.Person} person in db
-         */
-        Entities.prototype.getPerson = function (id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Entities/getPerson?id=' + id, callback, this.error, this.statusCode);
-        };
-        /**
-         * POST api/Entities/createPerson
-         */
-        Entities.prototype.createPerson = function (p, callback) {
-            this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode);
-        };
-        /**
-         * PUT api/Entities/updatePerson
-         */
-        Entities.prototype.updatePerson = function (person, callback) {
-            this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode);
-        };
-        /**
-         * PUT api/Entities/link?id={id}&relationship={relationship}
-         */
-        Entities.prototype.linkPerson = function (id, relationship, person, callback) {
-            this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
-        };
-        /**
-         * GET api/Entities/Company?id={id}
-         */
-        Entities.prototype.getCompany = function (id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Entities/Company?id=' + id, callback, this.error, this.statusCode);
-        };
-        /**
-         * GET api/Entities/PersonNotFound?id={id}
-         */
-        Entities.prototype.getPersonNotFound = function (id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Entities/PersonNotFound?id=' + id, callback, this.error, this.statusCode);
-        };
-        /**
-         * GET api/Entities/PersonActionNotFound?id={id}
-         */
-        Entities.prototype.getPersonActionNotFound = function (id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id, callback, this.error, this.statusCode);
-        };
-        /**
-         * DELETE api/Entities/{id}
-         */
-        Entities.prototype["delete"] = function (id, callback) {
-            this.httpClient["delete"](this.baseUri + 'api/Entities/' + id, callback, this.error, this.statusCode);
-        };
-        return Entities;
-    }());
-    DemoWebApi_Controllers_Client.Entities = Entities;
     var Tuple = /** @class */ (function () {
         function Tuple(baseUri, httpClient, error, statusCode) {
             if (baseUri === void 0) { baseUri = HttpClient.locationOrigin; }

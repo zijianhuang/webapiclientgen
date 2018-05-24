@@ -1,34 +1,5 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
-namespace DemoWebApi_Controllers_Client {
-
-    /**
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /**
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /**
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /**
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -199,6 +170,35 @@ namespace DemoWebApi_Models_Client {
 }
 
 namespace DemoWebApi_Controllers_Client {
+
+    /**
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
+
+        /**
+         * Gets or sets the local path of the file saved on the server.
+         */
+        fileNames?: Array<string>;
+
+        /**
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+         */
+        submitter?: string;
+    }
+
+
+    /**
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
+namespace DemoWebApi_Controllers_Client {
     export class Heroes {
         constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
         }
@@ -257,6 +257,71 @@ namespace DemoWebApi_Controllers_Client {
          */
         search(name: string, callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any) {
             this.httpClient.get(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+        }
+    }
+
+    export class Entities {
+        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
+        }
+
+        /**
+         * Get a person
+         * so to know the person
+         * GET api/Entities/getPerson?id={id}
+         * @param {number} id unique id of that guy
+         * @return {DemoWebApi_DemoData_Client.Person} person in db
+         */
+        getPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
+            this.httpClient.get(this.baseUri + 'api/Entities/getPerson?id=' + id, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/Entities/createPerson
+         */
+        createPerson(p: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * PUT api/Entities/updatePerson
+         */
+        updatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : void) => any) {
+            this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * PUT api/Entities/link?id={id}&relationship={relationship}
+         */
+        linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person, callback: (data : boolean) => any) {
+            this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * GET api/Entities/Company?id={id}
+         */
+        getCompany(id: number, callback: (data : DemoWebApi_DemoData_Client.Company) => any) {
+            this.httpClient.get(this.baseUri + 'api/Entities/Company?id=' + id, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * GET api/Entities/PersonNotFound?id={id}
+         */
+        getPersonNotFound(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
+            this.httpClient.get(this.baseUri + 'api/Entities/PersonNotFound?id=' + id, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * GET api/Entities/PersonActionNotFound?id={id}
+         */
+        getPersonActionNotFound(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
+            this.httpClient.get(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * DELETE api/Entities/{id}
+         */
+        delete(id: number, callback: (data : void) => any) {
+            this.httpClient.delete(this.baseUri + 'api/Entities/' + id, callback, this.error, this.statusCode);
         }
     }
 
@@ -655,71 +720,6 @@ namespace DemoWebApi_Controllers_Client {
          */
         postWithQueryButEmptyBody(s: string, i: number, callback: (data : {item1: string, item2: number}) => any) {
             this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, callback, this.error, this.statusCode);
-        }
-    }
-
-    export class Entities {
-        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
-        }
-
-        /**
-         * Get a person
-         * so to know the person
-         * GET api/Entities/getPerson?id={id}
-         * @param {number} id unique id of that guy
-         * @return {DemoWebApi_DemoData_Client.Person} person in db
-         */
-        getPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
-            this.httpClient.get(this.baseUri + 'api/Entities/getPerson?id=' + id, callback, this.error, this.statusCode);
-        }
-
-        /**
-         * POST api/Entities/createPerson
-         */
-        createPerson(p: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any) {
-            this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode);
-        }
-
-        /**
-         * PUT api/Entities/updatePerson
-         */
-        updatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : void) => any) {
-            this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode);
-        }
-
-        /**
-         * PUT api/Entities/link?id={id}&relationship={relationship}
-         */
-        linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person, callback: (data : boolean) => any) {
-            this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
-        }
-
-        /**
-         * GET api/Entities/Company?id={id}
-         */
-        getCompany(id: number, callback: (data : DemoWebApi_DemoData_Client.Company) => any) {
-            this.httpClient.get(this.baseUri + 'api/Entities/Company?id=' + id, callback, this.error, this.statusCode);
-        }
-
-        /**
-         * GET api/Entities/PersonNotFound?id={id}
-         */
-        getPersonNotFound(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
-            this.httpClient.get(this.baseUri + 'api/Entities/PersonNotFound?id=' + id, callback, this.error, this.statusCode);
-        }
-
-        /**
-         * GET api/Entities/PersonActionNotFound?id={id}
-         */
-        getPersonActionNotFound(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
-            this.httpClient.get(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id, callback, this.error, this.statusCode);
-        }
-
-        /**
-         * DELETE api/Entities/{id}
-         */
-        delete(id: number, callback: (data : void) => any) {
-            this.httpClient.delete(this.baseUri + 'api/Entities/' + id, callback, this.error, this.statusCode);
         }
     }
 

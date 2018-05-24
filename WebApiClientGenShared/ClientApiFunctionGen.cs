@@ -20,15 +20,15 @@ namespace Fonlow.CodeDom.Web.Cs
         readonly Fonlow.Poco2Client.IPoco2Client poco2CsGen;
 
         bool forAsync;
-		bool readAsString;
+		bool stringAsString;
 
-        public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool readAsString, bool forAsync = false)
+        public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync = false)
         {
             this.description = description;
             this.sharedContext = sharedContext;
             this.poco2CsGen = poco2CsGen;
 			this.forAsync = forAsync;
-			this.readAsString = readAsString;
+			this.stringAsString = stringAsString;
 
             methodName = description.ActionDescriptor.ActionName;
             if (methodName.EndsWith("Async"))
@@ -41,15 +41,14 @@ namespace Fonlow.CodeDom.Web.Cs
         static readonly string typeOfHttpActionResult = "System.Web.Http.IHttpActionResult";
         static readonly Type typeOfChar = typeof(char);
 
-        public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool readAsString, bool forAsync)
+        public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync)
         {
-            var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, readAsString, forAsync);
-            return gen.CreateApiFunction(forAsync);
+            var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync);
+            return gen.CreateApiFunction();
         }
 
-        public CodeMemberMethod CreateApiFunction(bool createAsync = false)
+        public CodeMemberMethod CreateApiFunction()
         {
-            this.forAsync = createAsync;
             //create method
             method = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 
@@ -212,7 +211,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
             if (TypeHelper.IsStringType(returnType))
 			{
-				if (this.readAsString)
+				if (this.stringAsString)
 				{
 					method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
 					method.Statements.Add(new CodeSnippetStatement("            {"));

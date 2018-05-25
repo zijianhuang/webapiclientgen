@@ -285,12 +285,12 @@ namespace DemoWebApi_Controllers_Client {
 
         /**
          * Search heroes
-         * GET api/Heroes/{name}
+         * GET api/Heroes/search/{name}
          * @param {string} name keyword contained in hero name.
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name: string, callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any) {
-            this.httpClient.get(this.baseUri + 'api/Heroes/' + encodeURIComponent(name), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Heroes/search/' + encodeURIComponent(name), callback, this.error, this.statusCode);
         }
     }
 

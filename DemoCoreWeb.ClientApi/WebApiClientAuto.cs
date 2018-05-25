@@ -1285,13 +1285,13 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// Search heroes
-        /// GET api/Heroes/{name}
+        /// GET api/Heroes/search/{name}
         /// </summary>
         /// <param name="name">keyword contained in hero name.</param>
         /// <returns>Hero array matching the keyword.</returns>
         public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
         {
-            var requestUri = new Uri(this.baseUri, "api/Heroes/"+Uri.EscapeDataString(name));
+            var requestUri = new Uri(this.baseUri, "api/Heroes/search/"+Uri.EscapeDataString(name));
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -1304,13 +1304,13 @@ namespace DemoWebApi.Controllers.Client
         
         /// <summary>
         /// Search heroes
-        /// GET api/Heroes/{name}
+        /// GET api/Heroes/search/{name}
         /// </summary>
         /// <param name="name">keyword contained in hero name.</param>
         /// <returns>Hero array matching the keyword.</returns>
         public DemoWebApi.Controllers.Client.Hero[] Search(string name)
         {
-            var requestUri = new Uri(this.baseUri, "api/Heroes/"+Uri.EscapeDataString(name));
+            var requestUri = new Uri(this.baseUri, "api/Heroes/search/"+Uri.EscapeDataString(name));
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;

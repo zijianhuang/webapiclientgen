@@ -83,7 +83,7 @@ namespace DemoWebApi.Controllers
 		/// </summary>
 		/// <param name="name">keyword contained in hero name.</param>
 		/// <returns>Hero array matching the keyword.</returns>
-		[HttpGet("{name}")]
+		[HttpGet("search/{name}")]
 		public Hero[] Search(string name)
 		{
 			return HeroesData.Instance.Dic.Values.Where(d => d.Name.Contains(name)).ToArray();

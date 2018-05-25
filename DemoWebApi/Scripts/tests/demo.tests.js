@@ -2,8 +2,9 @@
 /// <chutzpah_reference path="../qunit-2.6.1.js" />
 /// <reference path="../typings/qunit/qunit.d.ts"/>
 /// <reference path="../ClientApi/WebApiClientAuto.ts"/>
-//Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
-//To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
+// Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
+// Sometimes the test cases are not appearing in Test Explorer, then claring %temp% may help.
+// To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
 /*
 And make sure the testApi credential exists through
 POST to http://localhost:10965/api/Account/Register
@@ -17,8 +18,8 @@ ConfirmPassword:  'Tttttttt_8'
 
 */
 QUnit.config.testTimeout = 30000;
-var baseUri = 'http://localhost:10965/';
-//const baseUri = 'http://localhost:56321/';
+//const baseUri = 'http://localhost:10965/';
+var baseUri = 'http://localhost:5000/';
 var authHttpClient = new AuthHttpClient();
 var entitiesApi = new DemoWebApi_Controllers_Client.Entities(baseUri, authHttpClient);
 var valuesApi = new DemoWebApi_Controllers_Client.Values(baseUri, authHttpClient);
@@ -64,6 +65,7 @@ QUnit.module("Heroes", function () {
     QUnit.test("Search", function (assert) {
         var done = assert.async();
         heroesApi.search("Torn", function (data) {
+            assert.equal(data.length, 1);
             assert.equal(data[0].name, "Tornado");
             done();
         });
@@ -75,10 +77,11 @@ test("JsZeroNotGood", function (assert) {
 });
 //if the WebAPI built with VS 2015 update 2 is hosted in IIS 10, this test pass.
 //If the WebAPI built with VS 2015 update 2 is hosted in IIS 7.5, the test will failed.
+// with .net core, equal is OK again.
 test("JsZeroNotGoodWithFloat", function (assert) {
     var done = assert.async();
     superDemoApi.getFloatZero(function (data) {
-        assert.notEqual(data, 0);
+        assert.equal(data, 0);
         done();
     });
 });

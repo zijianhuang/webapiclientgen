@@ -3,8 +3,8 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 
 import * as namespaces from './WebApiNG2ClientAuto';
 
-const apiBaseUri = 'http://localhost:10965/';//for DemoWebApi
-//const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
+//const apiBaseUri = 'http://localhost:10965/';//for DemoWebApi
+const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -217,6 +217,22 @@ describe('Heroes API', () => {
   }
   );
 
+  it('search', (done) => {
+    service.search('Torna').subscribe(
+      data => {
+        console.debug(data.length);
+        expect(data.length).toBe(1);
+        expect(data[0].name).toBe('Tornado');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
 
 })
 

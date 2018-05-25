@@ -84,5 +84,13 @@ namespace IntegrationTests
 			Assert.Equal("Xyz", hero.Name);
 		}
 
+		[Fact]
+		public void TestSearch()
+		{
+			var heroes = api.Search("Torna");
+			Assert.Single(heroes);
+			Assert.Equal("Tornado", heroes[0].Name);
+		}
+
 	}
 }

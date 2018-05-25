@@ -4,7 +4,7 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 import * as namespaces from './WebApiNG2ClientAuto';
 
 const apiBaseUri = 'http://localhost:10965/';//for DemoWebApi
-//const apiBaseUri = 'http://localhost:56321/'; //for DemoCoreWeb
+//const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);

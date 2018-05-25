@@ -107,6 +107,8 @@
 
 		public decimal NGVersion { get; private set; }
 
+		public bool StringAsString { get; set; }
+
 		public JSOutput(CodeGenSettings settings, string jsPath, bool asModule)
 		{
 			this.ApiSelections = settings.ApiSelections;
@@ -115,6 +117,7 @@
 			this.AsModule = asModule;
 			this.ContentType = string.IsNullOrEmpty(settings.ClientApiOutputs.ContentType) ? "application/json" : settings.ClientApiOutputs.ContentType;
 			this.NGVersion = settings.ClientApiOutputs.NGVersion.HasValue ? settings.ClientApiOutputs.NGVersion.Value : 6;
+			this.StringAsString = settings.ClientApiOutputs.StringAsString;
 		}
 
 	}

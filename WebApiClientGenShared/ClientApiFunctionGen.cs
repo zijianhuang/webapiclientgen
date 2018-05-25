@@ -209,7 +209,7 @@ namespace Fonlow.CodeDom.Web.Cs
                 : "            var stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
             //  method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
 
-            if (TypeHelper.IsStringType(returnType))
+            if (returnType!=null && TypeHelper.IsStringType(returnType))
 			{
 				if (this.stringAsString)
 				{

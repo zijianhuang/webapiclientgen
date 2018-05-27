@@ -10,10 +10,17 @@
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
+
   <ItemGroup>
     <None Remove="Scripts\ClientApi\HttpClient.ts" />
-    <None Remove="Scripts\typings\jquery\jquery.d.ts" />
-    <None Remove="Scripts\typings\qunit\qunit.d.ts" />
+    <None Remove="Scripts\tests\demo.tests.ts" />
+    <None Remove="tests.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="tests.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -41,8 +48,23 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\ClientApi\HttpClient.ts" />
-    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
+    <TypeScriptCompile Include="Scripts\tests\demo.tests.ts" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Scripts\ClientApi\HttpClient.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\ClientApi\WebApiClientAuto.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\tests\demo.tests.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy scripts\*.js wwwroot\scripts\ /s /d /y&#xD;&#xA;xcopy tests.html wwwroot\ /d /y&#xD;&#xA;xcopy wwwroot\*.* $(OutDir)wwwroot\ /s /d /y" />
+  </Target>
 
 </Project>

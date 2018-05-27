@@ -247,7 +247,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="CodeGen.json" />
-    <Content Include="chutzpah.json" />
     <Content Include="CopyToLocalIis.bat" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -321,6 +320,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="tests.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -388,6 +388,7 @@
     <TypeScriptCompile Include="Scripts\ClientApi\WebApiClientAuto.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="Scripts\tests\demo.tests.ts" />
+    <TypeScriptCompile Include="Scripts\tests\special.tests.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
   </ItemGroup>

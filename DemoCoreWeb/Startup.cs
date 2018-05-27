@@ -43,6 +43,9 @@ namespace DemoCoreWeb
 				.AllowAnyHeader().AllowAnyMethod()
 				);
 			app.UseMvc();
+#if DEBUG  // This is for running the QUnit cases with tests.html
+			app.UseStaticFiles();
+#endif
 		}
 	}
 }

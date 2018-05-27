@@ -11,7 +11,7 @@
     <PackageLicenseUrl>https://github.com/zijianhuang/webapiclientgen/blob/master/license.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore</PackageTags>
-    <PackageReleaseNotes>NG2 output changed from import { Observable } from 'rxjs/observable'; to import { Observable } from 'rxjs';  For NG 5.x, you need to defined NGVersion=5 in order to generate  import { Observable } from 'rxjs/observable'; Better codes for empty post/put body.</PackageReleaseNotes>
+    <PackageReleaseNotes>StringAsString for returning string as text/plain rather than JSON object; shorter generated codes</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion>2.4.1.0</AssemblyVersion>

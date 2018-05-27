@@ -36,3 +36,4 @@ _ReSharper*/
 /DemoWebApi/App_Data/*.mdf
 /packages
 /DemoNGCli/NG
+/DemoCoreWeb/wwwroot

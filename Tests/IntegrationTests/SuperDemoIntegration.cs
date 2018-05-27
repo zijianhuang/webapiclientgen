@@ -7,8 +7,7 @@ namespace IntegrationTests
 	{
 		public SuperDemoFixture()
 		{
-			var baseUri = new Uri("http://localhost:5000/");
-
+			var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
 			httpClient = new System.Net.Http.HttpClient();
 			Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, baseUri);
 		}
@@ -42,6 +41,7 @@ namespace IntegrationTests
 	}
 
 
+	[Collection(TestConstants.IisExpressAndInit)]
 	public partial class SuperDemoApiIntegration : IClassFixture<SuperDemoFixture>
 	{
 		public SuperDemoApiIntegration(SuperDemoFixture fixture)

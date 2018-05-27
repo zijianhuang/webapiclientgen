@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DemoWebApi.Controllers.Client;
+using System;
 using Xunit;
-using DemoWebApi.Controllers.Client;
 
 namespace IntegrationTests
 {
-    public class BasicHealthIntegration
+	public class BasicHealthIntegration
     {
         [Fact]
         public void TestNullHttpClientThrows()

@@ -19,9 +19,8 @@ namespace IntegrationTests
     {
         public EntitiesFixture()
         {
-            var baseUri = new Uri("http://localhost:5000/");
-
-			httpClient = new System.Net.Http.HttpClient();
+            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
+            httpClient = new System.Net.Http.HttpClient();
             Api = new DemoWebApi.Controllers.Client.Entities(httpClient, baseUri);
         }
 
@@ -54,14 +53,37 @@ namespace IntegrationTests
     }
 
 
+    [Collection(TestConstants.IisExpressAndInit)]
     public partial class EntitiesApiIntegration : IClassFixture<EntitiesFixture>
-    {
-        public EntitiesApiIntegration(EntitiesFixture fixture)
-        {
-            api = fixture.Api;
-        }
+	{
+		public EntitiesApiIntegration(EntitiesFixture fixture)
+		{
+			api = fixture.Api;
+		}
 
-        DemoWebApi.Controllers.Client.Entities api;
+		DemoWebApi.Controllers.Client.Entities api;
 
-    }
+
+		[Fact]
+		public void TestGetNotFound()
+		{
+			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+			{
+				var person = api.GetPersonNotFound(100);
+			});
+
+			Assert.Contains("404", ex.Message);
+		}
+
+		[Fact]
+		public void TestGetActionNotFound()
+		{
+			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+			{
+				var person = api.GetPersonActionNotFound(100);
+			});
+
+			Assert.Contains("404", ex.Message);
+		}
+	}
 }

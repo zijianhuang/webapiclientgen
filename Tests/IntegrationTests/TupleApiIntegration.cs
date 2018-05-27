@@ -7,14 +7,9 @@ namespace IntegrationTests
     {
         public TupleFixture()
         {
-            var baseUri = new Uri("http://localhost:5000/");
-
-			httpClient = new System.Net.Http.HttpClient();
-			//httpClient.DefaultRequestHeaders
-			//  .Accept
-			//  .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//.net core has different behavior as described at https://github.com/zijianhuang/webapiclientgen/issues/26
-
-			Api = new DemoWebApi.Controllers.Client.Tuple(httpClient, baseUri);
+            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
+            httpClient = new System.Net.Http.HttpClient();
+            Api = new DemoWebApi.Controllers.Client.Tuple(httpClient, baseUri);
         }
 
         public DemoWebApi.Controllers.Client.Tuple Api { get; private set; }
@@ -45,6 +40,7 @@ namespace IntegrationTests
         #endregion
     }
 
+    [Collection(TestConstants.IisExpressAndInit)]
     public partial class TupleApiIntegration : IClassFixture<TupleFixture>
     {
         public TupleApiIntegration(TupleFixture fixture)
@@ -53,6 +49,8 @@ namespace IntegrationTests
         }
 
         DemoWebApi.Controllers.Client.Tuple api;
+
+
 
     }
 }

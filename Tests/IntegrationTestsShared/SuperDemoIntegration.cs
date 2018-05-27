@@ -1,61 +1,13 @@
-﻿using System;
+﻿using DemoWebApi.DemoData.Client;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
-using DemoWebApi.DemoData.Client;
 
 namespace IntegrationTests
 {
-    public class SuperDemoFixture : IDisposable
+
+	public partial class SuperDemoApiIntegration 
     {
-        public SuperDemoFixture()
-        {
-            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-            httpClient = new System.Net.Http.HttpClient();
-            Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, baseUri);
-        }
-
-        public DemoWebApi.Controllers.Client.SuperDemo Api { get; private set; }
-
-        System.Net.Http.HttpClient httpClient;
-
-        #region IDisposable pattern
-        bool disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    httpClient.Dispose();
-                }
-
-                disposed = true;
-            }
-        }
-        #endregion
-    }
-
-
-    [Collection(TestConstants.IisExpressAndInit)]
-    public class SuperDemoApiIntegration : IClassFixture<SuperDemoFixture>
-    {
-        public SuperDemoApiIntegration(SuperDemoFixture fixture)
-        {
-            api = fixture.Api;
-        }
-
-        DemoWebApi.Controllers.Client.SuperDemo api;
-
         [Fact]
         public void TestGetIntSquare()
         {
@@ -160,34 +112,9 @@ namespace IntegrationTests
         }
 
         [Fact]
-        public void TestZeroWithFloatDoubleAndDecimal() 
-        {
-           // Assert.NotEqual(0f, 0.1f + 0.2f - 0.3f);//In VS 2015 update 2, compiler makes it zeror.
-            Assert.NotEqual(0d, 0.1d + 0.2d - 0.3d);
-            Assert.Equal(0m, 0.1m + 0.2m - 0.3m);
-
-            Assert.NotEqual(0, api.GetFloatZero());
-            Assert.NotEqual(0, api.GetDoubleZero());
-            Assert.Equal(0, api.GetDecimalZero());
-
-        }
-
-    [Fact]
-        public void TestGetNullString()
-        {
-            Assert.Equal(null, api.GetNullString());
-        }
-
-        [Fact]
         public void TestGetNullPerson()
         {
             Assert.Equal(null, api.GetNullPerson());
-        }
-
-        [Fact]
-        public void TestGetEmptyString()
-        {
-            Assert.Equal(String.Empty, api.GetEmptyString());
         }
 
         [Fact]
@@ -196,38 +123,6 @@ namespace IntegrationTests
             var array = api.GetByteArray();
             var s = System.Text.Encoding.UTF8.GetString(array);
             Assert.Equal("abcdefg", s);
-        }
-
-        [Fact]
-        public void TestGetTextStream()
-        {
-            var response = api.GetTextStream();
-            var stream = response.Content.ReadAsStreamAsync().Result;
-            using (var reader = new System.IO.StreamReader(stream))
-            {
-                var s = reader.ReadToEnd();
-                Assert.Equal("abcdefg", s);
-            }
-
-        }
-
-        [Fact]
-        public void TestGetActionResult()
-        {
-            var response = api.GetActionResult();
-            var stream = response.Content.ReadAsStreamAsync().Result;
-            using (var reader = new System.IO.StreamReader(stream))
-            {
-                var s = reader.ReadToEnd();
-                Assert.Equal("\"abcdefg\"", s);
-            }
-
-        }
-
-        [Fact]
-        public void TestGetActionStringResult()
-        {
-            Assert.Equal("abcdefg",  api.GetActionStringResult());
         }
 
         [Fact]
@@ -359,15 +254,6 @@ namespace IntegrationTests
             Assert.False(d);
         }
 
-        [Fact]
-        public void TestGetDictionaryOfPeople()
-        {
-            var dic = api.GetDictionaryOfPeople();
-            Assert.Equal("Tony Stark", dic["iron Man"].Name);
-            Assert.Equal("New York", dic["spider Man"].Addresses[0].City);
-			Assert.Throws<KeyNotFoundException>(()=> dic["Iron Man"].Name); //the camelCase filter is in play in the web api
-        }
-
 		[Fact]
 		public void TestDictionary()
 		{
@@ -393,14 +279,6 @@ namespace IntegrationTests
 			Assert.Throws<KeyNotFoundException>(()=> dic["iron Man"].Name);
 			Assert.Equal("New York", dic["Spider Man"].Addresses[0].City);
 		}
-
-
-		[Fact]
-        public void TestGetDictionary()
-        {
-            var dic = api.GetDictionary();
-            Assert.Equal("number", dic["system.Int64"]);
-        }
 
         [Fact]
         public void TestPostDic()

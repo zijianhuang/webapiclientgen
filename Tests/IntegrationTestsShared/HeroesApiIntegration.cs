@@ -1,64 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Xunit;
 
 
 namespace IntegrationTests
 {
-	public class HeroesFixture : IDisposable
+	public partial class HeroesApiIntegration 
 	{
-		public HeroesFixture()
-		{
-			var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-
-			httpClient = new System.Net.Http.HttpClient();
-			//httpClient.DefaultRequestHeaders
-			//  .Accept
-			//  .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-			Api = new DemoWebApi.Controllers.Client.Heroes(httpClient, baseUri);
-		}
-
-		public DemoWebApi.Controllers.Client.Heroes Api { get; private set; }
-
-		System.Net.Http.HttpClient httpClient;
-
-		#region IDisposable pattern
-		bool disposed;
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposed)
-			{
-				if (disposing)
-				{
-					httpClient.Dispose();
-				}
-
-				disposed = true;
-			}
-		}
-		#endregion
-	}
-
-
-	public class HeroesApiIntegration : IClassFixture<HeroesFixture>
-	{
-		public HeroesApiIntegration(HeroesFixture fixture)
-		{
-			api = fixture.Api;
-		}
-
-		DemoWebApi.Controllers.Client.Heroes api;
 
 		[Fact]
 		public void TestGet()

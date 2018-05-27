@@ -11,9 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BasicHealthIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntitiesApiIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FileUploadIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeroesApiIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IisExpressCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuperDemoIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TupleApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValuesApiIntegration.cs" />

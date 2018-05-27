@@ -1,61 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System;
 using Xunit;
-using DemoWebApi.DemoData.Client;
-using Newtonsoft.Json;
 
 namespace IntegrationTests
 {
-    public class TupleFixture : IDisposable
+
+	public partial class TupleApiIntegration 
     {
-        public TupleFixture()
-        {
-            var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-            httpClient = new System.Net.Http.HttpClient();
-            Api = new DemoWebApi.Controllers.Client.Tuple(httpClient, baseUri);
-        }
-
-        public DemoWebApi.Controllers.Client.Tuple Api { get; private set; }
-
-        System.Net.Http.HttpClient httpClient;
-
-        #region IDisposable pattern
-        bool disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    httpClient.Dispose();
-                }
-
-                disposed = true;
-            }
-        }
-        #endregion
-    }
-
-    [Collection(TestConstants.IisExpressAndInit)]
-    public class TupleApiIntegration : IClassFixture<TupleFixture>
-    {
-        public TupleApiIntegration(TupleFixture fixture)
-        {
-            api = fixture.Api;
-        }
-
-        DemoWebApi.Controllers.Client.Tuple api;
-
         [Fact]
         public void TestTuple1()
         {

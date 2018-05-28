@@ -29,6 +29,11 @@ namespace DemoWebApi.Controllers
             return await Task.Run(() => d * d);
         }
 
+		/// <summary>
+		/// True to return now, false to return null
+		/// </summary>
+		/// <param name="hasValue"></param>
+		/// <returns></returns>
         [HttpGet]
         [Route("NullableDatetime")]
         public async Task<DateTime?> GetDateTime(bool hasValue)
@@ -99,6 +104,11 @@ namespace DemoWebApi.Controllers
             return d.HasValue;
         }
 
+		/// <summary>
+		/// True to return 100, and false to return null
+		/// </summary>
+		/// <param name="hasValue"></param>
+		/// <returns></returns>
         [HttpGet]
         [Route("NullableDecimal")]
         public async Task<Decimal?> GetNullableDecimal(bool hasValue)

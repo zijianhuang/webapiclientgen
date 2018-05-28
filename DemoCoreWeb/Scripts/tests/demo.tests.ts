@@ -7,6 +7,7 @@
 // Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
 // Sometimes the test cases are not appearing in Test Explorer, then claring %temp% may help.
 // To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>"C:\Program Files (x86)\IIS Express\iisexpress.exe" /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
+// The post build events will copy the JS file of this test to wwwroot and bin\debug\...\wwwroot\
 
 /*
 And make sure the testApi credential exists through
@@ -24,7 +25,7 @@ ConfirmPassword:  'Tttttttt_8'
 module CommonCases {
 	QUnit.config.testTimeout = 30000;
 	const baseUri = HttpClient.locationOrigin;
-	
+
 	let authHttpClient = new AuthHttpClient();
 	let entitiesApi = new DemoWebApi_Controllers_Client.Entities(baseUri, authHttpClient);
 	let valuesApi = new DemoWebApi_Controllers_Client.Values(baseUri, authHttpClient);
@@ -517,6 +518,7 @@ module CommonCases {
 
 
 		QUnit.module("ValuesTests", function () {
+
 			QUnit.test("Get", function (assert) {
 				let done = assert.async();
 				valuesApi.get((data) => {
@@ -544,41 +546,25 @@ module CommonCases {
 
 
 			QUnit.test("PostValue", function (assert) {
-
 				let done = assert.async();
-				let api = new DemoWebApi_Controllers_Client.Values('http://localhost:10965/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
-					console.log(xhr.responseText);
-					done();
-				});
-
-				api.post('value', (data) => {
+				valuesApi.post('value', (data) => {
 					assert.equal(data, "VALUE");
 					done();
 				});
 			});
 
 			QUnit.test("Put", function (assert) {
-				assert.expect(0);
 				let done = assert.async();
-				let api = new DemoWebApi_Controllers_Client.Values('http://localhost:10965/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
-					console.log(xhr.responseText);
-					done();
-				});
-
-				api.put(1, 'value', (data) => {
+				valuesApi.put(1, 'value', (data) => {
+					assert.expect(0);
 					done();
 				});
 			});
 
 			QUnit.test("Delete", function (assert) {
-				assert.expect(0);
 				let done = assert.async();
-				let api = new DemoWebApi_Controllers_Client.Values('http://localhost:10965/', authHttpClient, function (xhr, ajaxOptions, thrownError) {
-					console.log(xhr.responseText);
-					done();
-				});
-
-				api.delete(1, (data) => {
+				valuesApi.delete(1, (data) => {
+					assert.expect(0);
 					done();
 				});
 			});

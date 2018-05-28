@@ -3,8 +3,8 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 
 import * as namespaces from './WebApiNG2ClientAuto';
 
-//const apiBaseUri = 'http://localhost:10965/';//for DemoWebApi
-const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
+const apiBaseUri = 'http://localhost:10965/';//for DemoWebApi
+//const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -387,6 +387,159 @@ describe('SuperDemo API', () => {
 
   }
   );
+
+
+  it('getFloatZero', (done) => {
+    service.getFloatZero().subscribe(
+      data => {
+        expect(data).toBeLessThan(0.000001);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getDoubleZero', (done) => {
+    service.getDoubleZero().subscribe(
+      data => {
+        expect(data).not.toBe(0);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getDecimalZero', (done) => {
+    service.getDecimalZero().subscribe(
+      data => {
+        expect(data).toBe(0);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getIntSquare', (done) => {
+    service.getIntSquare(100).subscribe(
+      data => {
+        expect(data).toBe(10000)
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getDecimalSquare', (done) => {
+    service.getDecimalSquare(100).subscribe(
+      data => {
+        expect(data).toBe(10000)
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getDateTime', (done) => {
+    service.getDateTime(true).subscribe(
+      data => {
+        expect(data).toBeDefined();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getDateTimeNull', (done) => {
+    service.getDateTime(false).subscribe(
+      data => {
+        expect(data).toBeNull();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNullableDecimal', (done) => {
+    service.getNullableDecimal(true).subscribe(
+      data => {
+        expect(data).toBeGreaterThan(10);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNullableDecimalNull', (done) => {
+    service.getNullableDecimal(false).subscribe(
+      data => {
+        expect(data).toBeNull();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getBool', (done) => {
+    service.getBool().subscribe(
+      data => {
+        expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+
 
 
 })

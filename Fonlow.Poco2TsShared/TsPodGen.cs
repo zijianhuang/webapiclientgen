@@ -290,7 +290,7 @@ namespace Fonlow.Poco2Ts
             if (type == null)
                 return new CodeTypeReference("void");
 
-            if (TypeHelper.IsSimpleType(type))
+			if (TypeHelper.IsSimpleType(type))
             {
                 var typeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
                 return new CodeTypeReference(typeText);
@@ -312,6 +312,11 @@ namespace Fonlow.Poco2Ts
             var tsBasicTypeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
             if (tsBasicTypeText != null)
                 return new CodeTypeReference(tsBasicTypeText);
+
+			if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult"))
+			{
+				return new CodeTypeReference("response");
+			}
 
             return new CodeTypeReference("any");
         }

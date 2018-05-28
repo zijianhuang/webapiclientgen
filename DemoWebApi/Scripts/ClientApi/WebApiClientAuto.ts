@@ -344,6 +344,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * True to return now, false to return null
          * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
          */
         getDateTime(hasValue: boolean, callback: (data : Date) => any) {
@@ -394,6 +395,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * True to return 100, and false to return null
          * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
          */
         getNullableDecimal(hasValue: boolean, callback: (data : number) => any) {
@@ -445,7 +447,7 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/TextStream
          */
-        getTextStream(callback: (data : any) => any) {
+        getTextStream(callback: (data : HttpResponse<Blob>) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/TextStream', callback, this.error, this.statusCode);
         }
 
@@ -459,7 +461,7 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/ActionResult
          */
-        getActionResult(callback: (data : any) => any) {
+        getActionResult(callback: (data : HttpResponse<Blob>) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
         }
 

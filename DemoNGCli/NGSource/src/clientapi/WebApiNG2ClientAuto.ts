@@ -348,6 +348,7 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * True to return now, false to return null
          * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
          */
         getDateTime(hasValue: boolean): Observable<Date> {
@@ -398,6 +399,7 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * True to return 100, and false to return null
          * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
          */
         getNullableDecimal(hasValue: boolean): Observable<number> {
@@ -449,8 +451,8 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/TextStream
          */
-      getTextStream(): Observable<HttpResponse<Blob>> {
-        return this.http.get(this.baseUri + 'api/SuperDemo/TextStream', { observe: 'response', responseType: 'blob' });
+        getTextStream(): Observable<HttpResponse<Blob>> {
+            return this.http.get(this.baseUri + 'api/SuperDemo/TextStream', { observe: 'response', responseType: 'blob' });
         }
 
         /**
@@ -463,8 +465,8 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/ActionResult
          */
-      getActionResult(): Observable<HttpResponse<Blob>> {
-          return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'blob' });
+        getActionResult(): Observable<HttpResponse<Blob>> {
+            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'blob' });
         }
 
         /**

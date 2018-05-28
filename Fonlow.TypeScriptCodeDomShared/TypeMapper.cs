@@ -88,7 +88,12 @@ namespace Fonlow.TypeScriptCodeDom
                 return $"Array<{elementTypeName}>";
             }
 
-            string tsTypeName;
+			if (codeTypeReference.BaseType.Equals("response")) //This must be before the next one
+			{
+				return "HttpResponse<Blob>";
+			}
+
+			string tsTypeName;
             if (typeMap.TryGetValue(codeTypeReference.BaseType, out tsTypeName))
                 return tsTypeName;
 

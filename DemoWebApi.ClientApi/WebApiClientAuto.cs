@@ -1497,6 +1497,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// True to return now, false to return null
         /// GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
         /// </summary>
         public async Task<System.Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue)
@@ -1513,6 +1514,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// True to return now, false to return null
         /// GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
         /// </summary>
         public System.Nullable<System.DateTime> GetDateTime(bool hasValue)
@@ -1755,6 +1757,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// True to return 100, and false to return null
         /// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
         /// </summary>
         public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue)
@@ -1771,6 +1774,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// True to return 100, and false to return null
         /// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
         /// </summary>
         public System.Nullable<decimal> GetNullableDecimal(bool hasValue)

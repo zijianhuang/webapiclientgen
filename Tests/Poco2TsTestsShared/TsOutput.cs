@@ -114,7 +114,14 @@ namespace Poco2TsTests
             Assert.Equal(callbackTypeText, s);
         }
 
+		[Fact]
+		public void TestResponse()
+		{
+			var s = TypeMapper.MapCodeTypeReferenceToTsText(new CodeTypeReference("response"));
+			Assert.Equal("HttpResponse<Blob>", s);
 
-    }
+		}
+
+	}
 
 }

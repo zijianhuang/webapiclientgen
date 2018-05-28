@@ -3,7 +3,7 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 
 import * as namespaces from './WebApiNG2ClientAuto';
 
-const apiBaseUri = 'http://localhost:10965/';//for DemoWebApi
+const apiBaseUri = 'http://localhost:10965/'; //for DemoWebApi
 //const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
@@ -22,18 +22,20 @@ export function superDemoClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri, http);
 }
 
+export function tupleClientFactory(http: HttpClient) {
+  return new namespaces.DemoWebApi_Controllers_Client.Tuple(apiBaseUri, http);
+}
+
 
 export function errorResponseToString(error: HttpErrorResponse | any, ): string {
   let errMsg: string;
   if (error instanceof HttpErrorResponse) {
     if (error.status === 0) {
       errMsg = 'No response from backend. Connection is unavailable.';
-    }
-    else {
+    } else {
       if (error.message) {
         errMsg = `${error.status} - ${error.statusText}: ${error.message}`;
-      }
-      else {
+      } else {
         errMsg = `${error.status} - ${error.statusText}`;
       }
     }
@@ -148,7 +150,7 @@ describe('Values API', () => {
 
 
 
-})
+});
 
 
 describe('Heroes API', () => {
@@ -166,7 +168,7 @@ describe('Heroes API', () => {
         },
 
       ]
-    })
+    });
 
     service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Heroes);
   }));
@@ -234,7 +236,8 @@ describe('Heroes API', () => {
   }
   );
 
-})
+});
+
 
 describe('entities API', () => {
   let client: namespaces.DemoWebApi_Controllers_Client.Entities;
@@ -273,7 +276,7 @@ describe('entities API', () => {
 
   it('add', (done) => {
     let id: number;
-    let newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
+    const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
       name: 'John Smith' + Date.now().toString(),
       givenName: 'John',
       surname: 'Smith',
@@ -297,7 +300,8 @@ describe('entities API', () => {
   );
 
 
-})
+});
+
 
 describe('SuperDemo API', () => {
   let service: namespaces.DemoWebApi_Controllers_Client.SuperDemo;
@@ -314,7 +318,7 @@ describe('SuperDemo API', () => {
         },
 
       ]
-    })
+    });
 
     service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.SuperDemo);
   }));
@@ -335,11 +339,11 @@ describe('SuperDemo API', () => {
   );
 
   it('GetNextHour', (done) => {
-    var dt = new Date(Date.now());
-    var h = dt.getHours();
+    const dt = new Date(Date.now());
+    const h = dt.getHours();
     service.getNextHour(dt).subscribe(
       data => {
-        let dd = new Date(data);
+        const dd = new Date(data);
         expect(dd.getHours()).toBe(h + 1);
         done();
       },
@@ -353,11 +357,11 @@ describe('SuperDemo API', () => {
   );
 
   it('GetNextYear', (done) => {
-    var dt = new Date(Date.now());
-    var h = dt.getFullYear();
+    const dt = new Date(Date.now());
+    const h = dt.getFullYear();
     service.getNextYear(dt).subscribe(
       data => {
-        let dd = new Date(data);
+        const dd = new Date(data);
         expect(dd.getFullYear()).toBe(h + 1);
         done();
       },
@@ -371,11 +375,11 @@ describe('SuperDemo API', () => {
   );
 
   it('PostNextYear', (done) => {
-    var dt = new Date(Date.now());
-    var h = dt.getFullYear();
+    const dt = new Date(Date.now());
+    const h = dt.getFullYear();
     service.postNextYear(dt).subscribe(
       data => {
-        let dd = new Date(data);
+        const dd = new Date(data);
         expect(dd.getFullYear()).toBe(h + 1);
         done();
       },
@@ -437,7 +441,7 @@ describe('SuperDemo API', () => {
   it('getIntSquare', (done) => {
     service.getIntSquare(100).subscribe(
       data => {
-        expect(data).toBe(10000)
+        expect(data).toBe(10000);
         done();
       },
       error => {
@@ -452,7 +456,7 @@ describe('SuperDemo API', () => {
   it('getDecimalSquare', (done) => {
     service.getDecimalSquare(100).subscribe(
       data => {
-        expect(data).toBe(10000)
+        expect(data).toBe(10000);
         done();
       },
       error => {
@@ -524,6 +528,374 @@ describe('SuperDemo API', () => {
   }
   );
 
+  it('getNullString', (done) => {
+    service.getNullString().subscribe(
+      data => {
+        expect(data).toBeNull();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNullPerson', (done) => {
+    service.getNullPerson().subscribe(
+      data => {
+        expect(data).toBeNull();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getByteArray', (done) => {
+    service.getByteArray().subscribe(
+      data => {
+        expect(data.length).toBeGreaterThan(0);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getTextStream', (done) => {
+    service.getTextStream().subscribe(
+      data => {
+        expect(data.body.size).toBe(7);
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          expect(reader.result).toBe('abcdefg');
+        };
+        reader.readAsText(data.body);
+
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getActionResult', (done) => {
+    service.getActionResult().subscribe(
+      data => {
+        expect(data.body.size).toBe(9);
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          expect(reader.result).toBe('"abcdefg"');
+        };
+        reader.readAsText(data.body);
+
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getbyte', (done) => {
+    service.getbyte().subscribe(
+      data => {
+        expect(data).toEqual(255);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getActionStringResult', (done) => {
+    service.getActionStringResult().subscribe(
+      data => {
+        expect(data).toBe('abcdefg');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('getChar', (done) => {
+    service.getChar().subscribe(
+      data => {
+        expect(data).toBe('A');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('getDecimal', (done) => {
+    service.getDecimal().subscribe(
+      data => {
+        expect(data).toBe(79228162514264337593543950335);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('getdouble', (done) => {
+    service.getdouble().subscribe(
+      data => {
+        expect(data).toBe(-1.7976931348623e308);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getUint', (done) => {
+    service.getUint().subscribe(
+      data => {
+        expect(data).toBe(4294967295);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getulong', (done) => {
+    service.getulong().subscribe(
+      data => {
+        expect(data).toBe(18446744073709551615);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getInt2D', (done) => {
+    service.getInt2D().subscribe(
+      data => {
+        expect(data[0][0]).toBe(1);
+        expect(data[0][3]).toBe(4);
+        expect(data[1][0]).toBe(5);
+        expect(data[1][3]).toBe(8);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('getInt2DJagged', (done) => {
+    service.getInt2DJagged().subscribe(
+      data => {
+        expect(data[0][0]).toBe(1);
+        expect(data[0][3]).toBe(4);
+        expect(data[1][0]).toBe(5);
+        expect(data[1][3]).toBe(8);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('postInt2D', (done) => {
+    service.postInt2D([[1, 2, 3, 4], [5, 6, 7, 8]]).subscribe(
+      data => {
+        expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postIntArray', (done) => {
+    service.postIntArray([1, 2, 3, 4, 5, 6, 7, 8]).subscribe(
+      data => {
+        expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postWithQueryButEmptyBody', (done) => {
+    service.postWithQueryButEmptyBody('abc', 123).subscribe(
+      data => {
+        expect(data.item1).toBe('abc');
+        expect(data.item2).toBe(123);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getDictionaryOfPeople', (done) => {
+    service.getDictionaryOfPeople().subscribe(
+      data => {
+        expect(data['spider Man'].name).toBe('Peter Parker');
+        expect(data['spider Man'].addresses[0].city).toBe('New York');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('PostDictionaryOfPeople', (done) => {
+    service.postDictionary({
+      'Iron Man': {
+        'surname': 'Stark',
+        'givenName': 'Tony',
+        'dob': null,
+        'id': '00000000-0000-0000-0000-000000000000',
+        'name': 'Tony Stark',
+        'addresses': []
+      },
+      'Spider Man': {
+        'name': 'Peter Parker',
+        'addresses': [
+          {
+
+            'id': '00000000-0000-0000-0000-000000000000',
+            'city': 'New York',
+            state: 'Somewhere',
+            'postalCode': null,
+            'country': null,
+            'type': 0,
+            location: { x: 100, y: 200 }
+
+          }
+        ]
+      }
+    }).subscribe(
+      data => {
+        expect(data).toBe(2);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+      );
+
+  }
+  );
+
+  it('getKeyhValuePair', (done) => {
+    service.getKeyhValuePair().subscribe(
+      data => {
+        expect(data.key).toBe('Spider Man');
+        expect(data.value.addresses[0].city).toBe('New York');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getBool', (done) => {
+    service.getBool().subscribe(
+      data => {
+        expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
   it('getBool', (done) => {
     service.getBool().subscribe(
       data => {
@@ -542,4 +914,161 @@ describe('SuperDemo API', () => {
 
 
 
-})
+});
+
+describe('Tuple API', () => {
+  let service: namespaces.DemoWebApi_Controllers_Client.Tuple;
+
+  beforeEach(async(() => {
+
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [
+        {
+          provide: namespaces.DemoWebApi_Controllers_Client.Tuple,
+          useFactory: tupleClientFactory,
+          deps: [HttpClient],
+
+        },
+
+      ]
+    });
+
+    service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Tuple);
+  }));
+
+  afterEach(function () {
+  });
+
+  it('getTuple2', (done) => {
+    service.getTuple2().subscribe(
+      data => {
+        expect(data.item1).toBe('Two');
+        expect(data.item2).toBe(2);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+  }
+  );
+
+  it('postTuple2', (done) => {
+    service.postTuple2({ item1: "One", item2: 2 }).subscribe(
+      data => {
+        expect(data).toBe('One');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+  }
+  );
+
+  it('getTuple7', (done) => {
+    service.getTuple7().subscribe(
+      data => {
+        expect(data.item1).toBe('Seven');
+        expect(data.item7).toBe(7);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+  }
+  );
+
+  it('getTuple2', (done) => {
+    service.getTuple2().subscribe(
+      data => {
+        expect(data.item1).toBe('Two');
+        expect(data.item2).toBe(2);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+  }
+  );
+
+  it('postTuple7', (done) => {
+    service.postTuple7({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: 33333, item7: 9 }).subscribe(
+      data => {
+        expect(data).toBe('One');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+  }
+  );
+
+  it('getTuple8', (done) => {
+    service.getTuple8().subscribe(
+      data => {
+        expect(data.item1).toBe('Nested');
+        expect(data.rest.item1).toBe('nine');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+  }
+  );
+
+  it('postTuple8', (done) => {
+    service.postTuple8({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '', item7: '', rest: { item1: 'a', item2: 'b', item3: 'c' } }).subscribe(
+      data => {
+        expect(data).toBe('a');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+  }
+  );
+
+  it('linkPersonCompany1', (done) => {
+    service.linkPersonCompany1({
+      item1: {
+        name: 'someone',
+        surname: 'my',
+        givenName: 'something',
+      },
+
+      item2: {
+        name: 'Super',
+        addresses: [{ city: 'New York', street1: 'Somewhere st' }]
+      }
+    }).subscribe(
+      data => {
+        expect(data.name).toBe('someone');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+      );
+  }
+  );
+
+
+
+
+});
+

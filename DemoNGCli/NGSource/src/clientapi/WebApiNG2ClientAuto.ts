@@ -449,8 +449,8 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/TextStream
          */
-        getTextStream(): Observable<Response> {
-            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/TextStream');
+      getTextStream(): Observable<HttpResponse<Blob>> {
+        return this.http.get(this.baseUri + 'api/SuperDemo/TextStream', { observe: 'response', responseType: 'blob' });
         }
 
         /**
@@ -463,8 +463,8 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/ActionResult
          */
-        getActionResult(): Observable<Response> {
-            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/ActionResult');
+      getActionResult(): Observable<HttpResponse<Blob>> {
+          return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'blob' });
         }
 
         /**

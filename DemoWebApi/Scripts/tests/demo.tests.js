@@ -38,7 +38,7 @@ var CommonCases;
             surname: "my",
             givenName: "something",
         };
-        assert.equal(JSON.stringify(person), JSON.stringify(person2));
+        assert.strictEqual(JSON.stringify(person), JSON.stringify(person2));
     });
     QUnit.module("Heroes", function () {
         QUnit.test("GetAll", function (assert) {
@@ -51,22 +51,22 @@ var CommonCases;
         QUnit.test("Get", function (assert) {
             let done = assert.async();
             heroesApi.getById(20, data => {
-                assert.equal(data.name, "Tornado");
+                assert.strictEqual(data.name, "Tornado");
                 done();
             });
         });
         QUnit.test("Add", function (assert) {
             let done = assert.async();
             heroesApi.post("somebody", data => {
-                assert.equal(data.name, "somebody");
+                assert.strictEqual(data.name, "somebody");
                 done();
             });
         });
         QUnit.test("Search", function (assert) {
             let done = assert.async();
             heroesApi.search("Torn", data => {
-                assert.equal(data.length, 1);
-                assert.equal(data[0].name, "Tornado");
+                assert.strictEqual(data.length, 1);
+                assert.strictEqual(data[0].name, "Tornado");
                 done();
             });
         });
@@ -75,23 +75,23 @@ var CommonCases;
         QUnit.test("GetTuple2", function (assert) {
             let done = assert.async();
             tupleApi.getTuple2((data) => {
-                assert.equal(data.item1, "Two");
-                assert.equal(data.item2, 2);
+                assert.strictEqual(data.item1, "Two");
+                assert.strictEqual(data.item2, 2);
                 done();
             });
         });
         QUnit.test("PostTuple2", function (assert) {
             let done = assert.async();
             tupleApi.postTuple2({ item1: "One", item2: 2 }, (data) => {
-                assert.equal(data, "One");
+                assert.strictEqual(data, "One");
                 done();
             });
         });
         QUnit.test("GetTuple7", function (assert) {
             let done = assert.async();
             tupleApi.getTuple7((data) => {
-                assert.equal(data.item1, "Seven");
-                assert.equal(data.item7, 7);
+                assert.strictEqual(data.item1, "Seven");
+                assert.strictEqual(data.item7, 7);
                 done();
             });
         });
@@ -99,15 +99,15 @@ var CommonCases;
         QUnit.test("PostTuple7", function (assert) {
             let done = assert.async();
             tupleApi.postTuple7({ item1: "One", item2: "", item3: "", item4: "", item5: "", item6: 33333, item7: 9 }, (data) => {
-                assert.equal(data, "One");
+                assert.strictEqual(data, "One");
                 done();
             });
         });
         QUnit.test("GetTuple8", function (assert) {
             let done = assert.async();
             tupleApi.getTuple8((data) => {
-                assert.equal(data.item1, "Nested");
-                assert.equal(data.rest.item1, "nine");
+                assert.strictEqual(data.item1, "Nested");
+                assert.strictEqual(data.rest.item1, "nine");
                 done();
             });
         });
@@ -115,7 +115,7 @@ var CommonCases;
         QUnit.test("PostTuple8", function (assert) {
             let done = assert.async();
             tupleApi.postTuple8({ item1: "One", item2: "", item3: "", item4: "", item5: "", item6: "", item7: "", rest: { item1: "a", item2: "b", item3: "c" } }, (data) => {
-                assert.equal(data, "a");
+                assert.strictEqual(data, "a");
                 done();
             });
         });
@@ -132,7 +132,7 @@ var CommonCases;
                     addresses: [{ city: "New York", street1: "Somewhere st" }]
                 }
             }, (data) => {
-                assert.equal(data.name, "someone");
+                assert.strictEqual(data.name, "someone");
                 done();
             });
         });
@@ -147,7 +147,7 @@ var CommonCases;
         QUnit.test("JsZeroNotGoodWithFloat", function (assert) {
             let done = assert.async();
             superDemoApi.getFloatZero((data) => {
-                //			assert.equal(data, 0);
+                //			assert.strictEqual(data, 0);
                 assert.ok(data < 0.0000001);
                 done();
             });
@@ -162,7 +162,7 @@ var CommonCases;
         QUnit.test("JsZeroGoodWithDecimal", function (assert) {
             let done = assert.async();
             superDemoApi.getDecimalZero((data) => {
-                assert.equal(data, 0);
+                assert.strictEqual(data, 0);
                 done();
             });
         });
@@ -171,21 +171,21 @@ var CommonCases;
         //	let dt = new Date(Date.now());
         //	let h = dt.getHours();
         //	superDemoApi.getNextHour(dt, (data) => {
-        //		assert.equal(data.getHours(), h + 1);
+        //		assert.strictEqual(data.getHours(), h + 1);
         //		done();
         //	});
         //});
         QUnit.test("GetIntSquare", function (assert) {
             let done = assert.async();
             superDemoApi.getIntSquare(100, (data) => {
-                assert.equal(data, 10000);
+                assert.strictEqual(data, 10000);
                 done();
             });
         });
         QUnit.test("GetDecimalSquare", function (assert) {
             let done = assert.async();
             superDemoApi.getDecimalSquare(100, (data) => {
-                assert.equal(data, 10000);
+                assert.strictEqual(data, 10000);
                 done();
             });
         });
@@ -254,84 +254,84 @@ var CommonCases;
         });
         QUnit.test("GetActionStringResult", function (assert) {
             let done = assert.async();
-            superDemoApi.getActionResult((data) => {
-                assert.equal(data, "abcdefg");
+            superDemoApi.getActionStringResult((data) => {
+                assert.strictEqual(data, "abcdefg");
                 done();
             });
         });
         QUnit.test("Getbyte", function (assert) {
             let done = assert.async();
             superDemoApi.getbyte((data) => {
-                assert.equal(data, 255);
+                assert.strictEqual(data, 255);
                 done();
             });
         });
         QUnit.test("GetBool", function (assert) {
             let done = assert.async();
             superDemoApi.getBool((data) => {
-                assert.equal(data, true);
+                assert.strictEqual(data, true);
                 done();
             });
         });
         QUnit.test("Getsbyte", function (assert) {
             let done = assert.async();
             superDemoApi.getsbyte((data) => {
-                assert.equal(data, -127);
+                assert.strictEqual(data, -127);
                 done();
             });
         });
         QUnit.test("GetChar", function (assert) {
             let done = assert.async();
             superDemoApi.getChar((data) => {
-                assert.equal(data, "A");
+                assert.strictEqual(data, "A");
                 done();
             });
         });
         QUnit.test("GetDecimal", function (assert) {
             let done = assert.async();
             superDemoApi.getDecimal((data) => {
-                assert.equal(data, 79228162514264337593543950335);
+                assert.strictEqual(data, 79228162514264337593543950335);
                 done();
             });
         });
         QUnit.test("Getdouble", function (assert) {
             let done = assert.async();
             superDemoApi.getdouble((data) => {
-                assert.equal(data, -1.7976931348623e308);
+                assert.strictEqual(data, -1.7976931348623e308);
                 done();
             });
         });
         QUnit.test("GetUint", function (assert) {
             let done = assert.async();
             superDemoApi.getUint((data) => {
-                assert.equal(data, 4294967295);
+                assert.strictEqual(data, 4294967295);
                 done();
             });
         });
         QUnit.test("Getulong", function (assert) {
             let done = assert.async();
             superDemoApi.getulong((data) => {
-                assert.equal(data, 18446744073709551615);
+                assert.strictEqual(data, 18446744073709551615);
                 done();
             });
         });
         QUnit.test("GetInt2d", function (assert) {
             let done = assert.async();
             superDemoApi.getInt2D((data) => {
-                assert.equal(data[0][0], 1);
-                assert.equal(data[0][3], 4);
-                assert.equal(data[1][0], 5);
-                assert.equal(data[1][3], 8);
+                assert.strictEqual(data[0][0], 1);
+                assert.strictEqual(data[0][3], 4);
+                assert.strictEqual(data[1][0], 5);
+                assert.strictEqual(data[1][3], 8);
                 done();
             });
         });
         QUnit.test("GetInt2dJagged", function (assert) {
             let done = assert.async();
             superDemoApi.getInt2DJagged((data) => {
-                assert.equal(data[0][0], 1);
-                assert.equal(data[0][3], 4);
-                assert.equal(data[1][0], 5);
-                assert.equal(data[1][3], 8);
+                assert.strictEqual(data[0][0], 1);
+                assert.strictEqual(data[0][3], 4);
+                assert.strictEqual(data[1][0], 5);
+                assert.strictEqual(data[1][3], 8);
                 done();
             });
         });
@@ -359,15 +359,15 @@ var CommonCases;
         QUnit.test("PostWithQueryButEmptyBody", function (assert) {
             let done = assert.async();
             superDemoApi.postWithQueryButEmptyBody("abc", 123, (data) => {
-                assert.equal(data.item1, "abc");
-                assert.equal(data.item2, 123);
+                assert.strictEqual(data.item1, "abc");
+                assert.strictEqual(data.item2, 123);
                 done();
             });
         });
         QUnit.test("GetIntArray", function (assert) {
             let done = assert.async();
             superDemoApi.getIntArray((data) => {
-                assert.equal(data[7], 8);
+                assert.strictEqual(data[7], 8);
                 done();
             });
         });
@@ -388,8 +388,8 @@ var CommonCases;
         QUnit.test("GetDictionaryOfPeople", function (assert) {
             let done = assert.async();
             superDemoApi.getDictionaryOfPeople((data) => {
-                assert.equal(data["spider Man"].name, "Peter Parker");
-                assert.equal(data["spider Man"].addresses[0].city, "New York");
+                assert.strictEqual(data["spider Man"].name, "Peter Parker");
+                assert.strictEqual(data["spider Man"].addresses[0].city, "New York");
                 done();
             });
         });
@@ -419,72 +419,72 @@ var CommonCases;
                     ]
                 }
             }, (data) => {
-                assert.equal(data, 2);
+                assert.strictEqual(data, 2);
                 done();
             });
         });
         QUnit.test("GetKeyValuePair", function (assert) {
             let done = assert.async();
             superDemoApi.getKeyhValuePair((data) => {
-                assert.equal(data.key, "Spider Man");
-                assert.equal(data.value.addresses[0].city, "New York");
+                assert.strictEqual(data.key, "Spider Man");
+                assert.strictEqual(data.value.addresses[0].city, "New York");
                 done();
             });
         });
-        QUnit.module("ValuesTests", function () {
-            QUnit.test("Get", function (assert) {
-                let done = assert.async();
-                valuesApi.get((data) => {
-                    assert.equal(data[1], "value2");
-                    done();
-                });
+    });
+    QUnit.module("ValuesTests", function () {
+        QUnit.test("Get", function (assert) {
+            let done = assert.async();
+            valuesApi.get((data) => {
+                assert.strictEqual(data[1], "value2");
+                done();
             });
-            QUnit.test("GetByIdAndName", function (assert) {
-                let done = assert.async();
-                valuesApi.getByIdAndName(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", (data) => {
-                    assert.equal(data, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
-                    done();
-                });
+        });
+        QUnit.test("GetByIdAndName", function (assert) {
+            let done = assert.async();
+            valuesApi.getByIdAndName(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", (data) => {
+                assert.strictEqual(data, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
+                done();
             });
-            QUnit.test("GetByName", function (assert) {
-                let done = assert.async();
-                valuesApi.getByName("something", (data) => {
-                    assert.equal(data, "SOMETHING");
-                    done();
-                });
+        });
+        QUnit.test("GetByName", function (assert) {
+            let done = assert.async();
+            valuesApi.getByName("something", (data) => {
+                assert.strictEqual(data, "SOMETHING");
+                done();
             });
-            QUnit.test("PostValue", function (assert) {
-                let done = assert.async();
-                let api = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient, function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.responseText);
-                    done();
-                });
-                api.post("value", (data) => {
-                    assert.equal(data, "VALUE");
-                    done();
-                });
+        });
+        QUnit.test("PostValue", function (assert) {
+            let done = assert.async();
+            let api = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient, function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.responseText);
+                done();
             });
-            QUnit.test("Put", function (assert) {
-                assert.expect(0);
-                let done = assert.async();
-                let api = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient, function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.responseText);
-                    done();
-                });
-                api.put(1, "value", (data) => {
-                    done();
-                });
+            api.post("value", (data) => {
+                assert.strictEqual(data, "VALUE");
+                done();
             });
-            QUnit.test("Delete", function (assert) {
-                assert.expect(0);
-                let done = assert.async();
-                let api = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient, function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.responseText);
-                    done();
-                });
-                api.delete(1, (data) => {
-                    done();
-                });
+        });
+        QUnit.test("Put", function (assert) {
+            assert.expect(0);
+            let done = assert.async();
+            let api = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient, function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.responseText);
+                done();
+            });
+            api.put(1, "value", (data) => {
+                done();
+            });
+        });
+        QUnit.test("Delete", function (assert) {
+            assert.expect(0);
+            let done = assert.async();
+            let api = new DemoWebApi_Controllers_Client.Values("http://localhost:10965/", authHttpClient, function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.responseText);
+                done();
+            });
+            api.delete(1, (data) => {
+                done();
             });
         });
     });

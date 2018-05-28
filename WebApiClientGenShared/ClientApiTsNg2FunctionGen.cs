@@ -19,13 +19,13 @@ namespace Fonlow.CodeDom.Web.Ts
 	public class ClientApiTsNG2FunctionGen : ClientApiTsFunctionGenBase
 	{
 		const string NG2HttpResponse = "Response";
+		const string NG2HttpBlobResponse = "HttpResponse<Blob>";
 		string returnTypeText = null;
 		string contentType;
 
 		public ClientApiTsNG2FunctionGen(string contentType) : base()
 		{
 			this.contentType = contentType;
-			//	this.string
 		}
 
 		protected override CodeMemberMethod CreateMethodName()
@@ -33,7 +33,14 @@ namespace Fonlow.CodeDom.Web.Ts
 			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
+			{
 				returnTypeText = NG2HttpResponse;
+			}
+			else if (returnTypeText == "response")
+			{
+				returnTypeText = NG2HttpBlobResponse;
+			}
+
 			var callbackTypeText = $"Observable<{returnTypeText}>";
 			Debug.WriteLine("callback: " + callbackTypeText);
 			var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
@@ -104,7 +111,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 			}
-			else if (returnTypeText=="HttpResponse<Blob>")
+			else if (returnTypeText=="response")
 			{
 				const string optionForStream = "{ observe: 'response', responseType: 'blob' }";
 				var  optionForStreamInPost = $"{{headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}";

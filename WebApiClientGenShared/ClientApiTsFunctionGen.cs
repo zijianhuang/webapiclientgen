@@ -38,6 +38,11 @@ namespace Fonlow.CodeDom.Web.Ts
             ).ToList();
 
             var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
+			if (returnTypeReference.BaseType == "response")//response is for NG2 with better built-in support for typing, and get translated to HttpResponse<Blob>
+			{
+				returnTypeReference.BaseType = "any";
+			}
+
             var callbackTypeText = String.Format("(data : {0}) => any", TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference));
             Debug.WriteLine("callback: " + callbackTypeText);
             var callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);

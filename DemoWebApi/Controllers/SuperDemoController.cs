@@ -50,28 +50,54 @@ namespace DemoWebApi.Controllers
             });
         }
 
-        //[HttpPost]
-        //[Route("kkk")]
-        //public void PostSomethingWrong(DemoData.Company x, DemoData.Person y)
-        //{
-        //    //do nothing.
-        //}
+		//[HttpPost]
+		//[Route("kkk")]
+		//public void PostSomethingWrong(DemoData.Company x, DemoData.Person y)
+		//{
+		//    //do nothing.
+		//}
 
-        [HttpGet]
-        [Route("NextYear")]
-        public DateTime GetNextYear(DateTime dt)
-        {
-            return dt.AddYears(1);
-        }
+		[HttpGet]
+		[Route("NextYear")]
+		public DateTime GetNextYear(DateTime dt)
+		{
+			return dt.AddYears(1);
+		}
 
-        [HttpGet]
-        [Route("NextHour")]
-        public DateTimeOffset GetNextHour(DateTimeOffset dt)
-        {
-            return dt.AddHours(1);
-        }
+		[HttpGet]
+		[Route("NextHour")]
+		public DateTimeOffset GetNextHour(DateTimeOffset dt)
+		{
+			return dt.AddHours(1);
+		}
 
-        [HttpPost]
+		/// <summary>
+		/// If Dt is not defined, add a year from now
+		/// </summary>
+		/// <param name="n"></param>
+		/// <param name="dt"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("NextYearNullable")]
+		public DateTime GetNextYearNullable(int n, DateTime? dt=null)//must have default value set to null to make it optional so the runtime could locate this controller
+		{
+			return dt.HasValue ? dt.Value.AddYears(n) : DateTime.Now.AddYears(n);
+		}
+
+		/// <summary>
+		/// If Dt is not defined, add a hour from now
+		/// </summary>
+		/// <param name="n"></param>
+		/// <param name="dt"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("NextHourNullable")]
+		public DateTimeOffset GetNextHourNullable(int n, DateTimeOffset? dt=null)//must have default value set to null to make it optional so the runtime could locate this controller
+		{
+			return dt.HasValue ? dt.Value.AddHours(n) : DateTime.Now.AddHours(n);
+		}
+
+		[HttpPost]
         [Route("NextYear")]
         public DateTime PostNextYear([FromBody] DateTime dt)
         {

@@ -48,7 +48,37 @@ namespace IntegrationTests
             Assert.Equal(dtNow.AddHours(1), api.GetNextHour(dtNow));
         }
 
-        [Fact]
+		[Fact]
+		public void TestGetNextYearNullable()
+		{
+			var dtNow = DateTime.Now;
+			Assert.Equal(dtNow.AddYears(2), api.GetNextYearNullable(2, dtNow));
+		}
+
+
+		[Fact]
+		public void TestGetNextHourNullable()
+		{
+			var dtNow = DateTimeOffset.Now;
+			Assert.Equal(dtNow.AddHours(2), api.GetNextHourNullable(2, dtNow));
+		}
+
+		[Fact]
+		public void TestGetNextYearNullable2()
+		{
+			var dtNow = DateTime.Now;
+			Assert.Equal(dtNow.AddYears(2).Year, api.GetNextYearNullable(2, null).Year);
+		}
+
+
+		[Fact]
+		public void TestGetNextHourNullable2()
+		{
+			var dtNow = DateTimeOffset.Now;
+			Assert.Equal(dtNow.AddHours(2).Hour, api.GetNextHourNullable(2, null).Hour);
+		}
+
+		[Fact]
         public void TestGetUtcNowNextHour()
         {
             var dtNow = DateTimeOffset.UtcNow;

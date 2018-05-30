@@ -1,35 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-export namespace DemoWebApi_Controllers_Client {
-
-    /**
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /**
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /**
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /**
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
 export namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -200,6 +171,35 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
+
+    /**
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
+
+        /**
+         * Gets or sets the local path of the file saved on the server.
+         */
+        fileNames?: Array<string>;
+
+        /**
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+         */
+        submitter?: string;
+    }
+
+
+    /**
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
+export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class Heroes {
         constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
@@ -359,14 +359,28 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/NextYear?dt={dt}
          */
         getNextYear(dt: Date): Observable<Date> {
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt.toISOString());
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear?dt=' +dt?dt.toISOString():null);
         }
 
         /**
          * GET api/SuperDemo/NextHour?dt={dt}
          */
         getNextHour(dt: Date): Observable<Date> {
-            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString());
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour?dt=' +dt?dt.toISOString():null);
+        }
+
+        /**
+         * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
+         */
+        getNextYearNullable(n: number, dt: Date): Observable<Date> {
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + '&dt=' +dt?dt.toISOString():null);
+        }
+
+        /**
+         * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
+         */
+        getNextHourNullable(n: number, dt: Date): Observable<Date> {
+            return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + '&dt=' +dt?dt.toISOString():null);
         }
 
         /**
@@ -452,7 +466,7 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/TextStream
          */
         getTextStream(): Observable<HttpResponse<Blob>> {
-            return this.http.get(this.baseUri + 'api/SuperDemo/TextStream', { observe: 'response', responseType: 'blob' });
+            return this.http.get<HttpResponse<Blob>>(this.baseUri + 'api/SuperDemo/TextStream');
         }
 
         /**
@@ -466,7 +480,7 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/ActionResult
          */
         getActionResult(): Observable<HttpResponse<Blob>> {
-            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'blob' });
+            return this.http.get<HttpResponse<Blob>>(this.baseUri + 'api/SuperDemo/ActionResult');
         }
 
         /**

@@ -13,7 +13,9 @@ namespace Fonlow.CodeDom.Web
 	{
 		static readonly Type typeofString = typeof(string);
 		static readonly Type typeofDateTime = typeof(DateTime);
+		static readonly Type typeofDateTimeNullable = typeof(DateTime?);
 		static readonly Type typeofDateTimeOffset = typeof(DateTimeOffset);
+		static readonly Type typeofDateTimeOffsetNullable = typeof(DateTimeOffset?);
 
 		public static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
 		{
@@ -70,9 +72,9 @@ namespace Fonlow.CodeDom.Web
 				{
 					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
 				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset || d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}.toISOString() + '");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}?{d.Name}.toISOString():null + '");
 				}
 				else
 				{

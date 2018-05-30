@@ -1,34 +1,5 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
-namespace DemoWebApi_Controllers_Client {
-
-    /**
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /**
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /**
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /**
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -199,6 +170,35 @@ namespace DemoWebApi_Models_Client {
 }
 
 namespace DemoWebApi_Controllers_Client {
+
+    /**
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
+
+        /**
+         * Gets or sets the local path of the file saved on the server.
+         */
+        fileNames?: Array<string>;
+
+        /**
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+         */
+        submitter?: string;
+    }
+
+
+    /**
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
+namespace DemoWebApi_Controllers_Client {
     export class Heroes {
         constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
         }
@@ -355,14 +355,28 @@ namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/NextYear?dt={dt}
          */
         getNextYear(dt: Date, callback: (data : Date) => any) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' +dt?dt.toISOString():null, callback, this.error, this.statusCode);
         }
 
         /**
          * GET api/SuperDemo/NextHour?dt={dt}
          */
         getNextHour(dt: Date, callback: (data : Date) => any) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' +dt?dt.toISOString():null, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
+         */
+        getNextYearNullable(n: number, dt: Date, callback: (data : Date) => any) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + '&dt=' +dt?dt.toISOString():null, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
+         */
+        getNextHourNullable(n: number, dt: Date, callback: (data : Date) => any) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + '&dt=' +dt?dt.toISOString():null, callback, this.error, this.statusCode);
         }
 
         /**
@@ -447,7 +461,7 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/TextStream
          */
-        getTextStream(callback: (data : HttpResponse<Blob>) => any) {
+        getTextStream(callback: (data : any) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/TextStream', callback, this.error, this.statusCode);
         }
 
@@ -461,7 +475,7 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/ActionResult
          */
-        getActionResult(callback: (data : HttpResponse<Blob>) => any) {
+        getActionResult(callback: (data : any) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
         }
 

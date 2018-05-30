@@ -896,6 +896,74 @@ describe('SuperDemo API', () => {
   }
   );
 
+  it('getNextYearNullable', (done) => {
+    let now = new Date(Date.now());
+    service.getNextYearNullable(2, now).subscribe(
+      data => {
+        let dt = new Date(data);//data is actually string, NG HttpClient does not translate it to Date
+        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNextHourNullable', (done) => {
+    let now = new Date(Date.now());
+    service.getNextHourNullable(2, now).subscribe(
+      data => {
+        let dt = new Date(data);
+        expect(dt.getHours()).toEqual(now.getHours()+2)
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNextYearNullable2', (done) => {
+    let now = new Date(Date.now());
+    service.getNextYearNullable(2, undefined).subscribe(
+      data => {
+        let dt = new Date(data);
+        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNextHourNullable2', (done) => {
+    let now = new Date(Date.now());
+    service.getNextHourNullable(2, null).subscribe(
+      data => {
+        let dt = new Date(data);
+       expect(dt.getHours()).toEqual(now.getHours() + 2)
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
   it('getBool', (done) => {
     service.getBool().subscribe(
       data => {

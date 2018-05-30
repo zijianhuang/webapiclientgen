@@ -197,25 +197,25 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/NextYear?dt={dt}
          */
         SuperDemo.prototype.getNextYear = function (dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt ? dt.toISOString() : null, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NextHour?dt={dt}
          */
         SuperDemo.prototype.getNextHour = function (dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt ? dt.toISOString() : null, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
          */
         SuperDemo.prototype.getNextYearNullable = function (n, dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + '&dt=' + dt ? dt.toISOString() : null, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
          */
         SuperDemo.prototype.getNextHourNullable = function (n, dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + '&dt=' + dt ? dt.toISOString() : null, callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
         };
         /**
          * POST api/SuperDemo/NextYear

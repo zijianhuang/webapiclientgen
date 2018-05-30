@@ -83,10 +83,13 @@ namespace Fonlow.CodeDom.Web
 				{
 					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
 				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset
-					|| d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}?{d.Name}.toISOString():null + '");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}.toISOString() + '");
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
+				{
+					newUriText = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
 				}
 				else
 				{
@@ -103,10 +106,13 @@ namespace Fonlow.CodeDom.Web
 				{
 					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
 				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset
-					|| d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' +{d.Name}?{d.Name}.toISOString():null + '");
+					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' +{d.Name}.toISOString() + '");
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
+				{
+					newUriText = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
 				}
 				else
 				{

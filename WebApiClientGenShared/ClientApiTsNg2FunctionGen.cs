@@ -111,7 +111,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 			}
-			else if (returnTypeText=="response")
+			else if (returnTypeText== "HttpResponse<Blob>")//translated from response to this
 			{
 				const string optionForStream = "{ observe: 'response', responseType: 'blob' }";
 				var  optionForStreamInPost = $"{{headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}";

@@ -218,6 +218,12 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
         };
         /**
+         * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
+         */
+        SuperDemo.prototype.searchDateRange = function (startDate, endDate, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode);
+        };
+        /**
          * POST api/SuperDemo/NextYear
          */
         SuperDemo.prototype.postNextYear = function (dt, callback) {

@@ -79,6 +79,46 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestSearcDateRange()
+		{
+			var dtStart = DateTime.Today;
+			var dtEnd = dtStart.AddDays(5);
+			var t = api.SearchDateRange(dtStart, dtEnd);
+			Assert.Equal(dtStart, t.Item1);
+			Assert.Equal(dtEnd, t.Item2);
+		}
+
+		[Fact]
+		public void TestSearcDateRangeWithStartDateNullThrow()
+		{
+			var dtStart = DateTime.Today;
+			var dtEnd = dtStart.AddDays(5);
+			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+			 api.SearchDateRange(null, dtEnd));
+			ex.Message.Contains("400");
+		}
+
+		[Fact]
+		public void TestSearcDateRangeWithEndDateNull()
+		{
+			var dtStart = DateTime.Today;
+			var dtEnd = dtStart.AddDays(5);
+			var t = api.SearchDateRange(dtStart, null);
+			Assert.Equal(dtStart, t.Item1);
+			Assert.False(t.Item2.HasValue);
+		}
+
+		[Fact]
+		public void TestSearcDateRangeWithBothNull()
+		{
+			var dtStart = DateTime.Today;
+			var dtEnd = dtStart.AddDays(5);
+			var t = api.SearchDateRange(null, null);
+			Assert.False(t.Item1.HasValue);
+			Assert.False(t.Item2.HasValue);
+		}
+
+		[Fact]
         public void TestGetUtcNowNextHour()
         {
             var dtNow = DateTimeOffset.UtcNow;

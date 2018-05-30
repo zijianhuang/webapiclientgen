@@ -97,6 +97,19 @@ namespace DemoWebApi.Controllers
 			return dt.HasValue ? dt.Value.AddHours(n) : DateTime.Now.AddHours(n);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="startDate"></param>
+		/// <param name="endDate"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("SearchDateRange")]
+		public Tuple<DateTime?, DateTime?> SearchDateRange(DateTime? startDate = null, DateTime? endDate = null)
+		{
+			return new Tuple<DateTime?, DateTime?>(startDate, endDate);
+		}
+
 		[HttpPost]
         [Route("NextYear")]
         public DateTime PostNextYear([FromBody] DateTime dt)

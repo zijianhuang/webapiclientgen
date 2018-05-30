@@ -952,7 +952,7 @@ describe('SuperDemo API', () => {
     service.getNextHourNullable(2, null).subscribe(
       data => {
         let dt = new Date(data);
-       expect(dt.getHours()).toEqual(now.getHours() + 2)
+        expect(dt.getHours()).toEqual(now.getHours() + 2)
         done();
       },
       error => {
@@ -964,10 +964,14 @@ describe('SuperDemo API', () => {
   }
   );
 
-  it('getBool', (done) => {
-    service.getBool().subscribe(
+
+  it('searchDateRange', (done) => {
+    let startDt = new Date(Date.now());
+    let endDt = new Date(Date.now() + 100000);
+    service.searchDateRange(startDt, endDt).subscribe(
       data => {
-        expect(data).toBeTruthy();
+        expect(new Date(data.item1)).toEqual(startDt);
+        expect(new Date(data.item2)).toEqual(endDt);
         done();
       },
       error => {
@@ -978,6 +982,72 @@ describe('SuperDemo API', () => {
 
   }
   );
+
+
+  it('searchDateRangeEndUndefined', (done) => {
+    let startDt = new Date(Date.now());
+    let endDt = new Date(Date.now() + 100000);
+    service.searchDateRange(startDt, undefined).subscribe(
+      data => {
+        expect(new Date(data.item1)).toEqual(startDt);
+        expect(data.item2).toBeNull(); //OK with null rather than undefined
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('searchDateRangeStartUndefined', (done) => {
+    let startDt = new Date(Date.now());
+    let endDt = new Date(Date.now() + 100000);
+    service.searchDateRange(undefined, endDt).subscribe(
+      data => {
+        fail('The API should return http 400 error.');
+        //expect(data.item1).toBeUndefined();
+        //expect(new Date(data.item2)).toEqual(endDt);
+        done();
+      },
+      error => {
+        let errorText = errorResponseToString(error);
+        if (errorText.indexOf('400') < 0) {
+          fail(errorText);
+        }
+        expect(true).toBeTruthy();
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('searchDateRangeBotNull', (done) => {
+    let startDt = new Date(Date.now());
+    let endDt = new Date(Date.now() + 100000);
+    service.searchDateRange(null, undefined).subscribe(
+      data => {
+        expect(data.item1).toBeNull();
+        expect(data.item1).toBeNull();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+
+
+
 
 
 

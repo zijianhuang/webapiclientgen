@@ -203,6 +203,42 @@ var CommonCases;
                 done();
             });
         });
+        QUnit.test('getNextHourNullable', function (assert) {
+            let done = assert.async();
+            let now = new Date(Date.now());
+            superDemoApi.getNextHourNullable(2, now, (data) => {
+                let dt = new Date(data);
+                assert.equal(dt.getHours(), now.getHours() + 2);
+                done();
+            });
+        });
+        QUnit.test('getNextYearNullable', function (assert) {
+            let done = assert.async();
+            let now = new Date(Date.now());
+            superDemoApi.getNextYearNullable(2, now, (data) => {
+                let dt = new Date(data);
+                assert.equal(dt.getFullYear(), now.getFullYear() + 2);
+                done();
+            });
+        });
+        QUnit.test('getNextHourNullableWithNull', function (assert) {
+            let done = assert.async();
+            let now = new Date(Date.now());
+            superDemoApi.getNextHourNullable(2, null, (data) => {
+                let dt = new Date(data);
+                assert.equal(dt.getHours(), now.getHours() + 2);
+                done();
+            });
+        });
+        QUnit.test('getNextYearNullableWitNull', function (assert) {
+            let done = assert.async();
+            let now = new Date(Date.now());
+            superDemoApi.getNextYearNullable(2, undefined, (data) => {
+                let dt = new Date(data);
+                assert.equal(dt.getFullYear(), now.getFullYear() + 2);
+                done();
+            });
+        });
         QUnit.test('GetNullableDecimal', function (assert) {
             let done = assert.async();
             superDemoApi.getNullableDecimal(true, (data) => {

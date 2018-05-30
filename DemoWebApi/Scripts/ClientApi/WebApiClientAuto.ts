@@ -1,34 +1,5 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
-namespace DemoWebApi_Controllers_Client {
-
-    /**
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /**
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /**
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /**
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -194,6 +165,35 @@ namespace DemoWebApi_Models_Client {
     export interface SetPasswordBindingModel {
         newPassword?: string;
         confirmPassword?: string;
+    }
+
+}
+
+namespace DemoWebApi_Controllers_Client {
+
+    /**
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
+
+        /**
+         * Gets or sets the local path of the file saved on the server.
+         */
+        fileNames?: Array<string>;
+
+        /**
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+         */
+        submitter?: string;
+    }
+
+
+    /**
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
     }
 
 }
@@ -377,6 +377,13 @@ namespace DemoWebApi_Controllers_Client {
          */
         getNextHourNullable(n: number, dt: Date, callback: (data : Date) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt?'&dt='+dt.toISOString():''), callback, this.error, this.statusCode);
+        }
+
+        /**
+         * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
+         */
+        searchDateRange(startDate: Date, endDate: Date, callback: (data : {item1: Date, item2: Date}) => any) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?'+(startDate?'startDate='+startDate.toISOString():'') + (endDate?'&endDate='+endDate.toISOString():''), callback, this.error, this.statusCode);
         }
 
         /**

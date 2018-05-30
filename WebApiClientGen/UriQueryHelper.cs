@@ -18,6 +18,7 @@ namespace Fonlow.CodeDom.Web
 
 		public static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
 		{
+			Debug.WriteLine("UriText=" + uriText);
 			var template = new UriTemplate(uriText);
 
 			if (template.QueryValueVariableNames.Count == 0 && template.PathSegmentVariableNames.Count == 0)
@@ -25,7 +26,7 @@ namespace Fonlow.CodeDom.Web
 
 			string newUriText = uriText;
 
-			Func<ParameterDescription, string> GetUriText = (d) =>
+			Func<ParameterDescription, string> ReplaceTemplatePlaceHolderWithValue = (d) =>
 			{
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
@@ -37,7 +38,13 @@ namespace Fonlow.CodeDom.Web
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
 				{
-					return newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
+					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
+					}
+
+					return replaced;
 				}
 				else
 				{
@@ -51,7 +58,7 @@ namespace Fonlow.CodeDom.Web
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
 				Debug.Assert(d != null);
 
-				newUriText = GetUriText(d);
+				newUriText = ReplaceTemplatePlaceHolderWithValue(d);
 			}
 
 			for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
@@ -59,7 +66,7 @@ namespace Fonlow.CodeDom.Web
 				var name = template.QueryValueVariableNames[i];
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
 				Debug.Assert(d != null);
-				newUriText = GetUriText(d);
+				newUriText = ReplaceTemplatePlaceHolderWithValue(d);
 			}
 
 			return newUriText;
@@ -89,7 +96,13 @@ namespace Fonlow.CodeDom.Web
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
 				{
-					newUriText = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
+					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toISOString():'') + '");
+					}
+
+					newUriText = replaced;
 				}
 				else
 				{
@@ -112,7 +125,13 @@ namespace Fonlow.CodeDom.Web
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
 				{
-					newUriText = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
+					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toISOString():'') + '");
+					}
+
+					newUriText = replaced;
 				}
 				else
 				{

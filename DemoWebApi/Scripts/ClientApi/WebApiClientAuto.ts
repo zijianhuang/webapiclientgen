@@ -355,14 +355,14 @@ namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/NextYear?dt={dt}
          */
         getNextYear(dt: Date, callback: (data : Date) => any) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' +dt.toISOString(), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
         }
 
         /**
          * GET api/SuperDemo/NextHour?dt={dt}
          */
         getNextHour(dt: Date, callback: (data : Date) => any) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' +dt.toISOString(), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
         }
 
         /**

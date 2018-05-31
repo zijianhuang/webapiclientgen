@@ -27,49 +27,13 @@ namespace Fonlow.CodeDom.Web
 
 			string newUriText = uriText;
 
-			Func<ParameterDescription, string> ReplaceTemplatePlaceHolderWithValue = (d) =>
-			{
-				if (d.ParameterDescriptor.ParameterType == typeofString)
-				{
-					return newUriText.Replace($"{{{d.Name}}}", $"\"+Uri.EscapeDataString({d.Name})+\"");
-				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
-				{
-					return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\")+\"");
-				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
-				{
-					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
-					if (replaced == newUriText)
-					{
-						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
-					}
-
-					return replaced;
-				}
-				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
-				{
-					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
-					if (replaced == newUriText)
-					{
-						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
-					}
-
-					return replaced;
-				}
-				else
-				{
-					return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}+\"");
-				}
-			};
-
 			for (int i = 0; i < template.PathSegmentVariableNames.Count; i++)
 			{
 				var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
 				Debug.Assert(d != null);
 
-				newUriText = ReplaceTemplatePlaceHolderWithValue(d);
+				newUriText = UriTemplateTransform.Transform(newUriText, d);
 			}
 
 			for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
@@ -77,7 +41,7 @@ namespace Fonlow.CodeDom.Web
 				var name = template.QueryValueVariableNames[i];
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
 				Debug.Assert(d != null);
-				newUriText = ReplaceTemplatePlaceHolderWithValue(d);
+				newUriText = UriTemplateTransform.Transform(newUriText, d);
 			}
 
 			return newUriText;
@@ -97,38 +61,7 @@ namespace Fonlow.CodeDom.Web
 				var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
 				Debug.Assert(d != null);
-				if (d.ParameterDescriptor.ParameterType == typeofString)
-				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
-				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
-				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}.toISOString() + '");
-				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
-				{
-					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
-					if (replaced == newUriText)
-					{
-						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toISOString():'') + '");
-					}
-
-					newUriText = replaced;
-				}
-				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
-				{
-					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toString():'') + '");
-					if (replaced == newUriText)
-					{
-						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toString():'') + '");
-					}
-
-					newUriText = replaced;
-				}
-				else
-				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
-				}
+				newUriText = UriTemplateTransform.TransformForTs(newUriText, d);
 			}
 
 			for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
@@ -136,38 +69,7 @@ namespace Fonlow.CodeDom.Web
 				var name = template.QueryValueVariableNames[i];
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
 				Debug.Assert(d != null);
-				if (d.ParameterDescriptor.ParameterType == typeofString)
-				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
-				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
-				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' +{d.Name}.toISOString() + '");
-				}
-				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
-				{
-					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
-					if (replaced == newUriText)
-					{
-						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toISOString():'') + '");
-					}
-
-					newUriText = replaced;
-				}
-				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
-				{
-					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toString():'') + '");
-					if (replaced == newUriText)
-					{
-						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toString():'') + '");
-					}
-
-					newUriText = replaced;
-				}
-				else
-				{
-					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
-				}
+				newUriText = UriTemplateTransform.TransformForTs(newUriText, d);
 			}
 
 			return newUriText;

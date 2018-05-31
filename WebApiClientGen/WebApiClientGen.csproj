@@ -54,6 +54,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UriQueryHelper.cs" />
+    <Compile Include="UriTemplateTransform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\WebApiClientGen.snk">

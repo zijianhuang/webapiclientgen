@@ -118,8 +118,65 @@ namespace Poco2TsTests
 		public void TestResponse()
 		{
 			var s = TypeMapper.MapCodeTypeReferenceToTsText(new CodeTypeReference("response"));
-			Assert.Equal("HttpResponse<Blob>", s);
+			Assert.Equal("response", s);
 
+		}
+
+		[Fact]
+		public void TestNullableDateTime()
+		{
+			var t = typeof(DateTime?);
+			Assert.True(t.IsGenericType);
+			Assert.False(t.IsGenericTypeDefinition);
+			var nullableType = typeof(Nullable<>);
+			Assert.True(t.IsGenericType);
+			Assert.False(t.IsGenericTypeDefinition);
+			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
+			Assert.Equal(typeof(DateTime), t.GetGenericArguments()[0]);
+			Assert.True(IsNullablePremitive(t));
+
+		}
+
+		[Fact]
+		public void TestNullableDouble()
+		{
+			var t = typeof(double?);
+			Assert.True(t.IsGenericType);
+			Assert.False(t.IsGenericTypeDefinition);
+			var nullableType = typeof(Nullable<>);
+			Assert.True(t.IsGenericType);
+			Assert.False(t.IsGenericTypeDefinition);
+			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
+			Assert.Equal(typeof(double), t.GetGenericArguments()[0]);
+			Assert.True(IsNullablePremitive(t));
+
+		}
+
+		[Fact]
+		public void TestNullableDecimal()
+		{
+			var t = typeof(decimal?);
+			Assert.True(t.IsGenericType);
+			Assert.False(t.IsGenericTypeDefinition);
+			var nullableType = typeof(Nullable<>);
+			Assert.True(t.IsGenericType);
+			Assert.False(t.IsGenericTypeDefinition);
+			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
+			Assert.Equal(typeof(decimal), t.GetGenericArguments()[0]);
+		 	Assert.True(IsNullablePremitive(t));
+		}
+
+
+		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
+
+		/// <summary>
+		/// DateTime is not premitive type. Decimal is premitive VB.net but not in C#.NET
+		/// </summary>
+		/// <param name="t"></param>
+		/// <returns></returns>
+		static bool IsNullablePremitive(Type t)
+		{
+			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
 		}
 
 	}

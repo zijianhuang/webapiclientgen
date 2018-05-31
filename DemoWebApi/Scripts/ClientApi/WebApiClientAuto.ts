@@ -744,6 +744,20 @@ namespace DemoWebApi_Controllers_Client {
         postWithQueryButEmptyBody(s: string, i: number, callback: (data : {item1: string, item2: number}) => any) {
             this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, callback, this.error, this.statusCode);
         }
+
+        /**
+         * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
+         */
+        getPrimitiveNullable(location: string, dd: number, de: number, callback: (data : {item1: string, item2: number, item3: number}) => any) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + encodeURIComponent(location) + (dd?'&dd='+dd.toString():'') + (de?'&de='+de.toString():''), callback, this.error, this.statusCode);
+        }
+
+        /**
+         * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
+         */
+        getPrimitiveNullable2(dd: number, de: number, callback: (data : {item1: number, item2: number}) => any) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable2?'+(dd?'dd='+dd.toString():'') + (de?'&de='+de.toString():''), callback, this.error, this.statusCode);
+        }
     }
 
     export class Tuple {

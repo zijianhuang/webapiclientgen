@@ -119,6 +119,43 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestNullablePrimitive()
+		{
+			double dou = 1234.567;
+			decimal de = 1234.567m;
+			var t = api.GetPrimitiveNullable("abc", dou, de);
+			Assert.Equal(dou, t.Item2);
+			Assert.Equal(de, t.Item3);
+		}
+
+		[Fact]
+		public void TestNullablePrimitiveWithFirstNull()
+		{
+			double dou = 1234.567;
+			decimal de = 1234.567m;
+			var t = api.GetPrimitiveNullable("abc", null, de);
+			Assert.Null(t.Item2);
+			Assert.Equal(de, t.Item3);
+		}
+
+		[Fact]
+		public void TestNullablePrimitiveWithBothNulll()
+		{
+			var t = api.GetPrimitiveNullable("abc", null, null);
+			Assert.Null(t.Item2);
+			Assert.Null(t.Item3);
+		}
+
+		[Fact]
+		public void TestNullablePrimitiveWithSecondNull()
+		{
+			double dou = 1234.567;
+			var t = api.GetPrimitiveNullable("abc", dou, null);
+			Assert.Equal(dou, t.Item2);
+			Assert.Null(t.Item3);
+		}
+
+		[Fact]
         public void TestGetUtcNowNextHour()
         {
             var dtNow = DateTimeOffset.UtcNow;

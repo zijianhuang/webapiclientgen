@@ -15,6 +15,7 @@ namespace Fonlow.CodeDom.Web
 		static readonly Type typeofDateTimeNullable = typeof(DateTime?);
 		static readonly Type typeofDateTimeOffset = typeof(DateTimeOffset);
 		static readonly Type typeofDateTimeOffsetNullable = typeof(DateTimeOffset?);
+		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
 		public static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
 		{
@@ -42,6 +43,16 @@ namespace Fonlow.CodeDom.Web
 					if (replaced == newUriText)
 					{
 						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
+					}
+
+					return replaced;
+				}
+				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				{
+					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
 					}
 
 					return replaced;
@@ -104,6 +115,16 @@ namespace Fonlow.CodeDom.Web
 
 					newUriText = replaced;
 				}
+				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				{
+					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toString():'') + '");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toString():'') + '");
+					}
+
+					newUriText = replaced;
+				}
 				else
 				{
 					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
@@ -133,6 +154,16 @@ namespace Fonlow.CodeDom.Web
 
 					newUriText = replaced;
 				}
+				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				{
+					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toString():'') + '");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toString():'') + '");
+					}
+
+					newUriText = replaced;
+				}
 				else
 				{
 					newUriText = newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
@@ -140,6 +171,17 @@ namespace Fonlow.CodeDom.Web
 			}
 
 			return newUriText;
+		}
+
+		/// <summary>
+		/// DateTime is not premitive type. Decimal is premitive VB.net but not in C#.NET
+		/// https://stackoverflow.com/questions/13471941/why-is-decimal-not-a-primitive-type
+		/// </summary>
+		/// <param name="t"></param>
+		/// <returns></returns>
+		static bool IsNullablePremitive(Type t)
+		{
+			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
 		}
 
 	}

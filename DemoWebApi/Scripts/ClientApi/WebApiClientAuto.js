@@ -531,6 +531,18 @@ var DemoWebApi_Controllers_Client;
         SuperDemo.prototype.postWithQueryButEmptyBody = function (s, i, callback) {
             this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, callback, this.error, this.statusCode);
         };
+        /**
+         * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
+         */
+        SuperDemo.prototype.getPrimitiveNullable = function (location, dd, de, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + encodeURIComponent(location) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
+         */
+        SuperDemo.prototype.getPrimitiveNullable2 = function (dd, de, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd ? 'dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
+        };
         return SuperDemo;
     }());
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;

@@ -616,5 +616,19 @@ namespace DemoWebApi.Controllers
             return new Tuple<string, int>(s, i);
         }
 
-    }
+		[HttpGet]
+		[Route("DoubleNullable")]
+		public Tuple<string, double?, decimal?> GetPrimitiveNullable(string location, double? dd=null, decimal? de=null)
+		{
+			return new Tuple<string, double?, decimal?>(location, dd, de);
+		}
+
+		[HttpGet]
+		[Route("DoubleNullable2")]
+		public Tuple<double?, decimal?> GetPrimitiveNullable2(double? dd=null, decimal? de=null)
+		{
+			return new Tuple<double?, decimal?>(dd, de);
+		}
+
+	}
 }

@@ -19,5 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsClientApiGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsClientApiGenBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsNG2ClientApiGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UriTemplateTransform.cs" />
   </ItemGroup>
 </Project>

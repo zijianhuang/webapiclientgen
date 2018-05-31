@@ -10,13 +10,6 @@ namespace Fonlow.CodeDom.Web
 	/// </summary>
 	public static class UriQueryHelper //though this class could actually be replaced by the implementation of the .NET Core one, however, Tavis.UriTemplates does not have a strong named release.
 	{
-		static readonly Type typeofString = typeof(string);
-		static readonly Type typeofDateTime = typeof(DateTime);
-		static readonly Type typeofDateTimeNullable = typeof(DateTime?);
-		static readonly Type typeofDateTimeOffset = typeof(DateTimeOffset);
-		static readonly Type typeofDateTimeOffsetNullable = typeof(DateTimeOffset?);
-		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
-
 		public static string CreateUriQuery(string uriText, ParameterDescription[] parameterDescriptions)
 		{
 			Debug.WriteLine("UriText=" + uriText);
@@ -73,17 +66,6 @@ namespace Fonlow.CodeDom.Web
 			}
 
 			return newUriText;
-		}
-
-		/// <summary>
-		/// DateTime is not premitive type. Decimal is premitive VB.net but not in C#.NET
-		/// https://stackoverflow.com/questions/13471941/why-is-decimal-not-a-primitive-type
-		/// </summary>
-		/// <param name="t"></param>
-		/// <returns></returns>
-		static bool IsNullablePremitive(Type t)
-		{
-			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
 		}
 
 	}

@@ -71,45 +71,6 @@ namespace DemoWebApi.Controllers
 			return dt.AddHours(1);
 		}
 
-		/// <summary>
-		/// If Dt is not defined, add a year from now
-		/// </summary>
-		/// <param name="n"></param>
-		/// <param name="dt"></param>
-		/// <returns></returns>
-		[HttpGet]
-		[Route("NextYearNullable")]
-		public DateTime GetNextYearNullable(int n, DateTime? dt=null)//must have default value set to null to make it optional so the runtime could locate this controller
-		{
-			return dt.HasValue ? dt.Value.AddYears(n) : DateTime.Now.AddYears(n);
-		}
-
-		/// <summary>
-		/// If Dt is not defined, add a hour from now
-		/// </summary>
-		/// <param name="n"></param>
-		/// <param name="dt"></param>
-		/// <returns></returns>
-		[HttpGet]
-		[Route("NextHourNullable")]
-		public DateTimeOffset GetNextHourNullable(int n, DateTimeOffset? dt=null)//must have default value set to null to make it optional so the runtime could locate this controller
-		{
-			return dt.HasValue ? dt.Value.AddHours(n) : DateTime.Now.AddHours(n);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="startDate"></param>
-		/// <param name="endDate"></param>
-		/// <returns></returns>
-		[HttpGet]
-		[Route("SearchDateRange")]
-		public Tuple<DateTime?, DateTime?> SearchDateRange(DateTime? startDate = null, DateTime? endDate = null)
-		{
-			return new Tuple<DateTime?, DateTime?>(startDate, endDate);
-		}
-
 		[HttpPost]
         [Route("NextYear")]
         public DateTime PostNextYear([FromBody] DateTime dt)
@@ -175,7 +136,11 @@ namespace DemoWebApi.Controllers
           //  return 0.1f + 0.2f - 0.3f;//in VS 2015 update 2. this is a zero result done by the compiler in IL code.
         }
 
-        [HttpGet]
+		/// <summary>
+		/// Result of 0.1d + 0.2d - 0.3d
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
         [Route("DoubleZero")]
         public double GetDoubleZero()
         {
@@ -629,6 +594,48 @@ namespace DemoWebApi.Controllers
 		{
 			return new Tuple<double?, decimal?>(dd, de);
 		}
+
+
+		/// <summary>
+		/// If Dt is not defined, add a year from now
+		/// </summary>
+		/// <param name="n"></param>
+		/// <param name="dt"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("NextYearNullable")]
+		public DateTime GetNextYearNullable(int n, DateTime? dt = null)//must have default value set to null to make it optional so the runtime could locate this controller
+		{
+			return dt.HasValue ? dt.Value.AddYears(n) : DateTime.Now.AddYears(n);
+		}
+
+		/// <summary>
+		/// If Dt is not defined, add a hour from now
+		/// </summary>
+		/// <param name="n"></param>
+		/// <param name="dt"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("NextHourNullable")]
+		public DateTimeOffset GetNextHourNullable(int n, DateTimeOffset? dt = null)//must have default value set to null to make it optional so the runtime could locate this controller
+		{
+			return dt.HasValue ? dt.Value.AddHours(n) : DateTime.Now.AddHours(n);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="startDate"></param>
+		/// <param name="endDate"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("SearchDateRange")]
+		public Tuple<DateTime?, DateTime?> SearchDateRange(DateTime? startDate = null, DateTime? endDate = null)
+		{
+			return new Tuple<DateTime?, DateTime?>(startDate, endDate);
+		}
+
+
 
 	}
 }

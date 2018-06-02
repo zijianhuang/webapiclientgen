@@ -918,7 +918,7 @@ describe('SuperDemo API', () => {
     service.getNextHourNullable(2, now).subscribe(
       data => {
         let dt = new Date(data);
-        expect(dt.getHours()).toEqual(now.getHours()+2)
+        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
         done();
       },
       error => {
@@ -952,7 +952,7 @@ describe('SuperDemo API', () => {
     service.getNextHourNullable(2, null).subscribe(
       data => {
         let dt = new Date(data);
-        expect(dt.getHours()).toEqual(now.getHours() + 2)
+        expect(dt.getHours()%24).toEqual((now.getHours() + 2)%24)
         done();
       },
       error => {

@@ -127,7 +127,11 @@ namespace DemoWebApi.Controllers
           //  return 0.1f + 0.2f - 0.3f;//in VS 2015 update 2. this is a zero result done by the compiler in IL code.
         }
 
-        [HttpGet]
+		/// <summary>
+		/// Result of 0.1d + 0.2d - 0.3d
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
         [Route("DoubleZero")]
         public double GetDoubleZero()
         {
@@ -164,16 +168,12 @@ namespace DemoWebApi.Controllers
 
         [HttpGet]
         [Route("TextStream")]
-        public HttpResponseMessage GetTextStream()
+        public IActionResult GetTextStream()
         {
             var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg"));
             {
                 var content = new StreamContent(stream);
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");//todo: .net core 2.0 does not seem to support stream content well.
-				return new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = content
-                };
+				return new FileStreamResult(stream, new Microsoft.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream"));
             }
         }
 
@@ -520,12 +520,60 @@ namespace DemoWebApi.Controllers
         //    };
         //}
 
-        [HttpPost]
-        [Route("PostEmpty/{i}")]
+        [HttpPost("PostEmpty/{i}")]
         public Tuple<string, int> PostWithQueryButEmptyBody([FromBody] string s, int i)
         {
             return new Tuple<string, int>(s, i);
         }
 
-    }
+		[HttpGet("DoubleNullable")]
+		public Tuple<string, double?, decimal?> GetPrimitiveNullable([FromQuery] string location, [FromQuery] double? dd = null, [FromQuery] decimal? de = null)
+		{
+			return new Tuple<string, double?, decimal?>(location, dd, de);
+		}
+
+		[HttpGet("DoubleNullable2")]
+		public Tuple<double?, decimal?> GetPrimitiveNullable2([FromQuery] double? dd = null, [FromQuery] decimal? de = null)
+		{
+			return new Tuple<double?, decimal?>(dd, de);
+		}
+
+
+		/// <summary>
+		/// If Dt is not defined, add a year from now
+		/// </summary>
+		/// <param name="n"></param>
+		/// <param name="dt"></param>
+		/// <returns></returns>
+		[HttpGet("NextYearNullable")]
+		public DateTime GetNextYearNullable([FromQuery] int n, [FromQuery] DateTime? dt = null)//must have default value set to null to make it optional so the runtime could locate this controller
+		{
+			return dt.HasValue ? dt.Value.AddYears(n) : DateTime.Now.AddYears(n);
+		}
+
+		/// <summary>
+		/// If Dt is not defined, add a hour from now
+		/// </summary>
+		/// <param name="n"></param>
+		/// <param name="dt"></param>
+		/// <returns></returns>
+		[HttpGet("NextHourNullable")]
+		public DateTimeOffset GetNextHourNullable([FromQuery] int n, [FromQuery] DateTimeOffset? dt = null)//must have default value set to null to make it optional so the runtime could locate this controller
+		{
+			return dt.HasValue ? dt.Value.AddHours(n) : DateTime.Now.AddHours(n);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="startDate"></param>
+		/// <param name="endDate"></param>
+		/// <returns></returns>
+		[HttpGet(Name ="SearchDateRAnge")]
+		public Tuple<DateTime?, DateTime?> SearchDateRange([FromQuery] DateTime? startDate = null, [FromQuery] DateTime? endDate = null)
+		{
+			return new Tuple<DateTime?, DateTime?>(startDate, endDate);
+		}
+
+	}
 }

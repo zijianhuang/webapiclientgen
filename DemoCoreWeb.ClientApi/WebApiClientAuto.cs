@@ -3102,6 +3102,166 @@ namespace DemoWebApi.Controllers.Client
             }
             }
         }
+        
+        /// <summary>
+        /// GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
+        /// </summary>
+        public async Task<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullableAsync(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
+        /// </summary>
+        public System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
+        /// </summary>
+        public async Task<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullable2Async(System.Nullable<double> dd, System.Nullable<decimal> de)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
+        /// </summary>
+        public System.Tuple<System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable2(System.Nullable<double> dd, System.Nullable<decimal> de)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
+        /// </summary>
+        public async Task<System.DateTime> GetNextYearNullableAsync(int n, System.Nullable<System.DateTime> dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTime>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
+        /// </summary>
+        public System.DateTime GetNextYearNullable(int n, System.Nullable<System.DateTime> dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTime>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
+        /// </summary>
+        public async Task<System.DateTimeOffset> GetNextHourNullableAsync(int n, System.Nullable<System.DateTimeOffset> dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
+        /// </summary>
+        public System.DateTimeOffset GetNextHourNullable(int n, System.Nullable<System.DateTimeOffset> dt)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo?startDate={startDate}&endDate={endDate}
+        /// </summary>
+        public async Task<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>> SearchDateRangeAsync(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo?startDate={startDate}&endDate={endDate}
+        /// </summary>
+        public System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>> SearchDateRange(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>>(jsonReader);
+            }
+        }
     }
     
     public partial class Tuple

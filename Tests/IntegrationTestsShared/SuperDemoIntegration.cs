@@ -89,16 +89,6 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestSearcDateRangeWithStartDateNullThrow()
-		{
-			var dtStart = DateTime.Today;
-			var dtEnd = dtStart.AddDays(5);
-			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
-			 api.SearchDateRange(null, dtEnd));
-			ex.Message.Contains("400");
-		}
-
-		[Fact]
 		public void TestSearcDateRangeWithEndDateNull()
 		{
 			var dtStart = DateTime.Today;
@@ -360,6 +350,19 @@ namespace IntegrationTests
             });
             Assert.False(d);
         }
+
+		[Fact]
+		public void TestGetTextStream()
+		{
+			var response = api.GetTextStream();
+			var stream = response.Content.ReadAsStreamAsync().Result;
+			using (var reader = new System.IO.StreamReader(stream))
+			{
+				var s = reader.ReadToEnd();
+				Assert.Equal("abcdefg", s);
+			}
+
+		}
 
 		[Fact]
 		public void TestDictionary()

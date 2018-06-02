@@ -41,19 +41,6 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestGetTextStream()
-		{
-			var response = api.GetTextStream();
-			var stream = response.Content.ReadAsStreamAsync().Result;
-			using (var reader = new System.IO.StreamReader(stream))
-			{
-				var s = reader.ReadToEnd();
-				Assert.Equal("abcdefg", s);
-			}
-
-		}
-
-		[Fact]
 		public void TestZeroWithFloatDoubleAndDecimal()
 		{
 			// Assert.NotEqual(0f, 0.1f + 0.2f - 0.3f);//In VS 2015 update 2, compiler makes it zeror.
@@ -61,10 +48,22 @@ namespace IntegrationTests
 			Assert.Equal(0m, 0.1m + 0.2m - 0.3m);
 
 			Assert.Equal(0, api.GetFloatZero());
-			Assert.Equal(0, api.GetDoubleZero());
+			Assert.NotEqual(0, api.GetDoubleZero());//.net core is consistent in both client side and server side.
 			Assert.Equal(0, api.GetDecimalZero());
 
 		}
+
+		[Fact]
+		public void TestSearcDateRangeWithStartDateNull()//asp.net web api won't accept such call.
+		{
+			var dtStart = DateTime.Today;
+			var dtEnd = dtStart.AddDays(5);
+			var r= api.SearchDateRange(null, dtEnd);
+			Assert.Null(r.Item1);
+			Assert.Equal(dtEnd, r.Item2);
+		}
+
+
 
 	}
 }

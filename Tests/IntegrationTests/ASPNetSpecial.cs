@@ -73,19 +73,6 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestGetTextStream()
-		{
-			var response = api.GetTextStream();
-			var stream = response.Content.ReadAsStreamAsync().Result;
-			using (var reader = new System.IO.StreamReader(stream))
-			{
-				var s = reader.ReadToEnd();
-				Assert.Equal("abcdefg", s);
-			}
-
-		}
-
-		[Fact]
 		public void TestGetActionResult()
 		{
 			var response = api.GetActionResult();
@@ -115,6 +102,16 @@ namespace IntegrationTests
 			Assert.NotEqual(0, api.GetDoubleZero());
 			Assert.Equal(0, api.GetDecimalZero());
 
+		}
+
+		[Fact]
+		public void TestSearcDateRangeWithStartDateNullThrow()//however, .net core web api will accept such client call well.
+		{
+			var dtStart = DateTime.Today;
+			var dtEnd = dtStart.AddDays(5);
+			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+			 api.SearchDateRange(null, dtEnd));
+			ex.Message.Contains("400");
 		}
 
 

@@ -206,24 +206,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString(), callback, this.error, this.statusCode);
         };
         /**
-         * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
-         */
-        SuperDemo.prototype.getNextYearNullable = function (n, dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
-        };
-        /**
-         * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
-         */
-        SuperDemo.prototype.getNextHourNullable = function (n, dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
-        };
-        /**
-         * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
-         */
-        SuperDemo.prototype.searchDateRange = function (startDate, endDate, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode);
-        };
-        /**
          * POST api/SuperDemo/NextYear
          */
         SuperDemo.prototype.postNextYear = function (dt, callback) {
@@ -262,6 +244,7 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/FloatZero', callback, this.error, this.statusCode);
         };
         /**
+         * Result of 0.1d + 0.2d - 0.3d
          * GET api/SuperDemo/DoubleZero
          */
         SuperDemo.prototype.getDoubleZero = function (callback) {
@@ -542,6 +525,24 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.getPrimitiveNullable2 = function (dd, de, callback) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd ? 'dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
+         */
+        SuperDemo.prototype.getNextYearNullable = function (n, dt, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
+         */
+        SuperDemo.prototype.getNextHourNullable = function (n, dt, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
+         */
+        SuperDemo.prototype.searchDateRange = function (startDate, endDate, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode);
         };
         return SuperDemo;
     }());

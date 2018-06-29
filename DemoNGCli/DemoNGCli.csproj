@@ -55,7 +55,6 @@
     <Content Include="NGSource\src\siteconfig.js" />
     <Content Include="NGSource\src\tsconfig.app.json" />
     <Content Include="NGSource\src\tsconfig.spec.json" />
-    <Content Include="NGSource\.angular-cli.json" />
     <Content Include="NGSource\.editorconfig" />
     <Content Include="NGSource\.gitignore" />
     <Content Include="NGSource\package-lock.json" />
@@ -64,6 +63,7 @@
     <Content Include="NGSource\tsconfig.json" />
     <Content Include="NGSource\tslint.json" />
     <Content Include="buildIISExpress.bat" />
+    <Content Include="NGSource\angular.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

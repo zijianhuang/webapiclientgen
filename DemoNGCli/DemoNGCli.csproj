@@ -64,6 +64,9 @@
     <Content Include="NGSource\tslint.json" />
     <Content Include="buildIISExpress.bat" />
     <Content Include="NGSource\angular.json" />
+    <Content Include="buildProd.bat" />
+    <Content Include="CopyForLocalIIS.bat" />
+    <Content Include="CopyToIISBase.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

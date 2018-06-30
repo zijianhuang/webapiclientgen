@@ -12,7 +12,8 @@ import { HeroSearchComponent } from './hero-search.component';
 
 import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
 
-import { SiteConfigConstants } from '../environments/environment';
+import { SiteConfigConstants, environment } from '../environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function clientFactory(http: HttpClient) {
 //  const baseUri = "http://localhost:10965/";
@@ -25,7 +26,8 @@ export function clientFactory(http: HttpClient) {
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   declarations: [
     AppComponent,

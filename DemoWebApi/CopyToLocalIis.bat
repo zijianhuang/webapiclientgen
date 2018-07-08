@@ -1,5 +1,5 @@
 ﻿cd %~dp0
-set target=C:\inetpub\wwwroot\DemoWebApi\
+set target=C:\inetpub\wwwroot\heroes\webapi\
 robocopy bin\ %target%bin\ /MIR
 robocopy Views\ %target%Views\ /MIR
 robocopy Areas\ %target%Areas\ /MIR

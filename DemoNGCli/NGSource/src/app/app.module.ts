@@ -16,9 +16,13 @@ import { SiteConfigConstants, environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function clientFactory(http: HttpClient) {
-//  const baseUri = "http://localhost:10965/";
-  //  const baseUri = "http://localhost:56321/";
-  return new namespaces.DemoWebApi_Controllers_Client.Heroes(SiteConfigConstants.apiBaseuri, http);
+  if (SiteConfigConstants.apiBaseuri) {
+    return new namespaces.DemoWebApi_Controllers_Client.Heroes(SiteConfigConstants.apiBaseuri, http);
+  }
+
+  const _baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
+  return new namespaces.DemoWebApi_Controllers_Client.Heroes(_baseUri + 'webapi/', http);
+
 }
 
 @NgModule({

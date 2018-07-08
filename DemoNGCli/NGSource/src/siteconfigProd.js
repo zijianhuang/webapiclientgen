@@ -1,0 +1,2 @@
+const SITE_CONFIG = {
+}

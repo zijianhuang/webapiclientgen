@@ -52,6 +52,7 @@
     <Content Include="NGSource\karma.conf.js" />
     <Content Include="NGSource\protractor.conf.js" />
     <Content Include="NGSource\src\assets\.gitkeep" />
+    <Content Include="NGSource\src\siteconfigProd.js" />
     <Content Include="NGSource\src\siteconfig.js" />
     <Content Include="NGSource\src\tsconfig.app.json" />
     <Content Include="NGSource\src\tsconfig.spec.json" />
@@ -67,6 +68,8 @@
     <Content Include="buildProd.bat" />
     <Content Include="CopyForLocalIIS.bat" />
     <Content Include="CopyToIISBase.bat" />
+    <Content Include="NGSource\src\manifest.json" />
+    <Content Include="NGSource\ngsw-config.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var namespaces = require("../clientapi/WebApiNG2ClientAuto");
 var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-var HeroesComponent = (function () {
+var HeroesComponent = /** @class */ (function () {
     function HeroesComponent(heroService, router) {
         this.heroService = heroService;
         this.router = router;

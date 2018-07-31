@@ -166,15 +166,21 @@ var CommonCases;
                 done();
             });
         });
-        //QUnit.test('GetNextHour', function (assert) { the runner of chutzpah apparently intepret toISOString() as toString()
-        //	let done = assert.async();
-        //	let dt = new Date(Date.now());
-        //	let h = dt.getHours();
-        //	superDemoApi.getNextHour(dt, (data) => {
-        //		assert.strictEqual(data.getHours(), h + 1);
-        //		done();
-        //	});
-        //});
+        QUnit.test('GetNextHour', function (assert) {
+            let done = assert.async();
+            let dt = new Date(Date.now());
+            let h = dt.getHours();
+            superDemoApi.getNextHour(dt, (data) => {
+                const dataDate = new Date(data);
+                if (h === 23) {
+                    assert.strictEqual(dataDate.getHours(), 0);
+                }
+                else {
+                    assert.strictEqual(dataDate.getHours(), h + 1);
+                }
+                done();
+            });
+        });
         QUnit.test('GetIntSquare', function (assert) {
             let done = assert.async();
             superDemoApi.getIntSquare(100, (data) => {
@@ -206,11 +212,22 @@ var CommonCases;
         QUnit.test('getNextHourNullable', function (assert) {
             let done = assert.async();
             let now = new Date(Date.now());
-            superDemoApi.getNextHourNullable(2, now, (data) => {
-                let dt = new Date(data);
-                assert.equal(dt.getHours(), now.getHours() + 2);
-                done();
-            });
+            let nowHour = now.getHours();
+            console.info('nowHour: ' + nowHour);
+            if (nowHour >= 22) {
+                superDemoApi.getNextHourNullable(0, now, (data) => {
+                    let dt = new Date(data);
+                    assert.equal(dt.getHours(), nowHour);
+                    done();
+                });
+            }
+            else {
+                superDemoApi.getNextHourNullable(2, now, (data) => {
+                    let dt = new Date(data);
+                    assert.equal(dt.getHours(), nowHour + 2);
+                    done();
+                });
+            }
         });
         QUnit.test('getNextYearNullable', function (assert) {
             let done = assert.async();
@@ -224,11 +241,22 @@ var CommonCases;
         QUnit.test('getNextHourNullableWithNull', function (assert) {
             let done = assert.async();
             let now = new Date(Date.now());
-            superDemoApi.getNextHourNullable(2, null, (data) => {
-                let dt = new Date(data);
-                assert.equal(dt.getHours(), now.getHours() + 2);
-                done();
-            });
+            let nowHour = now.getHours();
+            console.info('nowHour: ' + nowHour);
+            if (nowHour >= 22) {
+                superDemoApi.getNextHourNullable(0, null, (data) => {
+                    let dt = new Date(data);
+                    assert.equal(dt.getHours(), nowHour);
+                    done();
+                });
+            }
+            else {
+                superDemoApi.getNextHourNullable(2, null, (data) => {
+                    let dt = new Date(data);
+                    assert.equal(dt.getHours(), nowHour + 2);
+                    done();
+                });
+            }
         });
         QUnit.test('getNextYearNullableWitNull', function (assert) {
             let done = assert.async();

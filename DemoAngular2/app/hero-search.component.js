@@ -15,7 +15,7 @@ var Observable_1 = require("rxjs/Observable");
 var Subject_1 = require("rxjs/Subject");
 var namespaces = require("../clientapi/WebApiNG2ClientAuto");
 var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-var HeroSearchComponent = (function () {
+var HeroSearchComponent = /** @class */ (function () {
     function HeroSearchComponent(heroSearchService, router) {
         this.heroSearchService = heroSearchService;
         this.router = router;
@@ -31,7 +31,9 @@ var HeroSearchComponent = (function () {
             .debounceTime(300) // wait for 300ms pause in events
             .distinctUntilChanged() // ignore if next search term is same as previous
             .switchMap(function (term) { return term // switch to new observable each time
+            // return the http search observable
             ? _this.heroSearchService.search(term)
+            // or the observable of empty heroes if no search term
             : Observable_1.Observable.of([]); })
             .catch(function (error) {
             // TODO: real error handling

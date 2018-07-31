@@ -15,6 +15,6 @@
 	},
 
 	"exclude": [
-		"scripts/typing/qunit/qunit-1.16.d.ts"
+		"scripts/typing/qunit/qunit.d.ts"
 	]
 }

@@ -14,7 +14,7 @@ require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
 var namespaces = require("../clientapi/WebApiNG2ClientAuto");
 var DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-var DashboardComponent = (function () {
+var DashboardComponent = /** @class */ (function () {
     function DashboardComponent(heroService) {
         this.heroService = heroService;
         this.heroes = [];

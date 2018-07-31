@@ -57,7 +57,7 @@ var DemoWebApi_DemoData_Client;
 })(DemoWebApi_DemoData_Client = exports.DemoWebApi_DemoData_Client || (exports.DemoWebApi_DemoData_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
-    var SuperDemo = (function () {
+    var SuperDemo = /** @class */ (function () {
         function SuperDemo(baseUri, http) {
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
             this.baseUri = baseUri;
@@ -486,7 +486,7 @@ var DemoWebApi_Controllers_Client;
         return SuperDemo;
     }());
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
-    var Entities = (function () {
+    var Entities = /** @class */ (function () {
         function Entities(baseUri, http) {
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
             this.baseUri = baseUri;
@@ -568,7 +568,7 @@ var DemoWebApi_Controllers_Client;
         return Entities;
     }());
     DemoWebApi_Controllers_Client.Entities = Entities;
-    var Tuple = (function () {
+    var Tuple = /** @class */ (function () {
         function Tuple(baseUri, http) {
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
             this.baseUri = baseUri;
@@ -780,7 +780,7 @@ var DemoWebApi_Controllers_Client;
         return Tuple;
     }());
     DemoWebApi_Controllers_Client.Tuple = Tuple;
-    var Heroes = (function () {
+    var Heroes = /** @class */ (function () {
         function Heroes(baseUri, http) {
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
             this.baseUri = baseUri;
@@ -846,7 +846,7 @@ var DemoWebApi_Controllers_Client;
         return Heroes;
     }());
     DemoWebApi_Controllers_Client.Heroes = Heroes;
-    var Values = (function () {
+    var Values = /** @class */ (function () {
         function Values(baseUri, http) {
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
             this.baseUri = baseUri;

@@ -17,6 +17,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{BC9CE351-C442-44BA-B7A1-438C22C150CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DBC9CAF6-2B63-417C-90E8-A2E7A468697C}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\ReadMe.MD = Tests\ReadMe.MD
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.Poco2Ts", "Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj", "{70CAA10C-642A-454B-9DEC-9AB391EB9C99}"
 EndProject

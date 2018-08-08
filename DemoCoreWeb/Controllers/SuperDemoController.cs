@@ -168,12 +168,16 @@ namespace DemoWebApi.Controllers
 
         [HttpGet]
         [Route("TextStream")]
-        public IActionResult GetTextStream()
+        public HttpResponseMessage GetTextStream()
         {
             var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg"));
             {
                 var content = new StreamContent(stream);
-				return new FileStreamResult(stream, new Microsoft.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream"));
+                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = content
+                };
             }
         }
 

@@ -1724,6 +1724,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Result of 0.1d + 0.2d - 0.3d
         /// GET api/SuperDemo/DoubleZero
         /// </summary>
         public async Task<double> GetDoubleZeroAsync()
@@ -1739,6 +1740,7 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// Result of 0.1d + 0.2d - 0.3d
         /// GET api/SuperDemo/DoubleZero
         /// </summary>
         public double GetDoubleZero()
@@ -1880,23 +1882,21 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/TextStream
         /// </summary>
-        public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync()
+        public async Task GetTextStreamAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
-            return responseMessage;
         }
         
         /// <summary>
         /// GET api/SuperDemo/TextStream
         /// </summary>
-        public System.Net.Http.HttpResponseMessage GetTextStream()
+        public void GetTextStream()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
-            return responseMessage;
         }
         
         /// <summary>

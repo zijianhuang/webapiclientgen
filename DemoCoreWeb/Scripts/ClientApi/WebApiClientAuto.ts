@@ -377,6 +377,7 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * Result of 0.1d + 0.2d - 0.3d
          * GET api/SuperDemo/DoubleZero
          */
         getDoubleZero(callback: (data : number) => any) {
@@ -414,7 +415,7 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/TextStream
          */
-        getTextStream(callback: (data : any) => any) {
+        getTextStream(callback: (data : void) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/TextStream', callback, this.error, this.statusCode);
         }
 

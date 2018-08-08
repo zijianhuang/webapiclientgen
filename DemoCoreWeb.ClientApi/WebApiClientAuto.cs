@@ -1882,21 +1882,23 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/TextStream
         /// </summary>
-        public async Task GetTextStreamAsync()
+        public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
         }
         
         /// <summary>
         /// GET api/SuperDemo/TextStream
         /// </summary>
-        public void GetTextStream()
+        public System.Net.Http.HttpResponseMessage GetTextStream()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
         }
         
         /// <summary>
@@ -1934,21 +1936,23 @@ namespace DemoWebApi.Controllers.Client
         /// <summary>
         /// GET api/SuperDemo/ActionResult
         /// </summary>
-        public async Task GetActionResultAsync()
+        public async Task<System.Net.Http.HttpResponseMessage> GetActionResultAsync()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
         }
         
         /// <summary>
         /// GET api/SuperDemo/ActionResult
         /// </summary>
-        public void GetActionResult()
+        public System.Net.Http.HttpResponseMessage GetActionResult()
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
         }
         
         /// <summary>

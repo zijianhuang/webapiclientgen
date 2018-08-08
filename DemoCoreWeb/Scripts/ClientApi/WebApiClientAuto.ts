@@ -415,7 +415,7 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/TextStream
          */
-        getTextStream(callback: (data : void) => any) {
+        getTextStream(callback: (data : any) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/TextStream', callback, this.error, this.statusCode);
         }
 
@@ -429,7 +429,7 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/ActionResult
          */
-        getActionResult(callback: (data : void) => any) {
+        getActionResult(callback: (data : any) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
         }
 

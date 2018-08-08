@@ -354,9 +354,14 @@ namespace Fonlow.Poco2Client
                 if (type.FullName == "System.Web.Http.IHttpActionResult")
                     return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
 
+                if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult")
+                    return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+                if (type.FullName == "System.Net.Http.HttpResponseMessage")
+                    return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
                 if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
                     return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
-
             }
 
 

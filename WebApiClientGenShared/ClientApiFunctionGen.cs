@@ -39,7 +39,9 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 		static readonly string typeOfHttpActionResult = "System.Web.Http.IHttpActionResult";
-		static readonly Type typeOfChar = typeof(char);
+        static readonly string typeOfActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+
+        static readonly Type typeOfChar = typeof(char);
 
 		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync)
 		{
@@ -198,7 +200,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddReturnStatement()
 		{
-			if ((returnType.FullName == typeOfHttpResponseMessage) || (returnType.FullName == typeOfHttpActionResult))
+			if ((returnType.FullName == typeOfHttpResponseMessage) || (returnType.FullName == typeOfHttpActionResult) || (returnType.FullName == typeOfActionResult))
 			{
 				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
 				return;

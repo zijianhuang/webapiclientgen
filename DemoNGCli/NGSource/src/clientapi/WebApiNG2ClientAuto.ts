@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 export namespace DemoWebApi_Controllers_Client {
 
     /**
@@ -419,8 +419,8 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/TextStream
          */
-        getTextStream(): Observable<Response> {
-            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/TextStream');
+        getTextStream(): Observable<HttpResponse<Blob>> {
+            return this.http.get(this.baseUri + 'api/SuperDemo/TextStream', { observe: 'response', responseType: 'blob' });
         }
 
         /**
@@ -433,8 +433,15 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/ActionResult
          */
-        getActionResult(): Observable<Response> {
-            return this.http.get<Response>(this.baseUri + 'api/SuperDemo/ActionResult');
+        getActionResult(): Observable<HttpResponse<Blob>> {
+            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'blob' });
+        }
+
+        /**
+         * GET api/SuperDemo/ActionStringResult
+         */
+        getActionStringResult(): Observable<string> {
+            return this.http.get(this.baseUri + 'api/SuperDemo/ActionStringResult', { responseType: 'text' });
         }
 
         /**
@@ -697,10 +704,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo?startDate={startDate}&endDate={endDate}
+         * GET api/SuperDemo/SearchDateRAnge?startDate={startDate}&endDate={endDate}
          */
         searchDateRange(startDate: Date, endDate: Date): Observable<{item1: Date, item2: Date}> {
-            return this.http.get<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo?'+(startDate?'startDate='+startDate.toISOString():'') + (endDate?'&endDate='+endDate.toISOString():''));
+            return this.http.get<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo/SearchDateRAnge?'+(startDate?'startDate='+startDate.toISOString():'') + (endDate?'&endDate='+endDate.toISOString():''));
         }
     }
 

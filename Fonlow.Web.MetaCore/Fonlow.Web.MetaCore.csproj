@@ -9,8 +9,10 @@
     <Authors>Copyright © Zijian Huang 2018</Authors>
     <Company>Copyright © Zijian Huang 2018</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>The first release for .NET Core.</PackageReleaseNotes>
+    <PackageReleaseNotes>For .NET Core 2.1</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
+    <Version>1.1</Version>
+    <AssemblyVersion>1.11.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -191,13 +191,13 @@ namespace DemoWebApi.Controllers
             return Ok("abcdefg");
         }
 
-        //[HttpGet]
-        //[Route("ActionStringResult")]
-        //[System.Web.Http.Description.ResponseType(typeof(string))]
-        //public IActionResult GetActionStringResult()
-        //{
-        //    return Ok("abcdefg");
-        //}
+        [HttpGet]
+        [Route("ActionStringResult")]
+        [ProducesResponseType(typeof(string), 200)]
+        public IActionResult GetActionStringResult()
+        {
+            return Ok("abcdefg");
+        }
 
 
         [HttpGet]
@@ -569,7 +569,7 @@ namespace DemoWebApi.Controllers
 		/// <param name="startDate"></param>
 		/// <param name="endDate"></param>
 		/// <returns></returns>
-		[HttpGet(Name ="SearchDateRAnge")]
+		[HttpGet("SearchDateRange")]
 		public Tuple<DateTime?, DateTime?> SearchDateRange([FromQuery] DateTime? startDate = null, [FromQuery] DateTime? endDate = null)
 		{
 			return new Tuple<DateTime?, DateTime?>(startDate, endDate);

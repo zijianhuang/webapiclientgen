@@ -9,10 +9,12 @@
     <Copyright>Copyright © Zijian Huang 2018</Copyright>
     <PackageLicenseUrl>https://github.com/zijianhuang/webapiclientgen/blob/master/license.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <PackageReleaseNotes>The first release for .NET Core.</PackageReleaseNotes>
+    <PackageReleaseNotes>For .NET Core 2.1</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.1</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

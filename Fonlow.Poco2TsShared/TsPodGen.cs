@@ -313,7 +313,7 @@ namespace Fonlow.Poco2Ts
             if (tsBasicTypeText != null)
                 return new CodeTypeReference(tsBasicTypeText);
 
-			if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult"))
+			if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult"))
 			{
 				return new CodeTypeReference("response");
 			}

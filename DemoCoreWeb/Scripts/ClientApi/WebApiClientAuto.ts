@@ -434,6 +434,13 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * GET api/SuperDemo/ActionStringResult
+         */
+        getActionStringResult(callback: (data : string) => any) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode);
+        }
+
+        /**
          * GET api/SuperDemo/byte
          */
         getbyte(callback: (data : number) => any) {
@@ -693,10 +700,10 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo?startDate={startDate}&endDate={endDate}
+         * GET api/SuperDemo/SearchDateRAnge?startDate={startDate}&endDate={endDate}
          */
         searchDateRange(startDate: Date, endDate: Date, callback: (data : {item1: Date, item2: Date}) => any) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo?'+(startDate?'startDate='+startDate.toISOString():'') + (endDate?'&endDate='+endDate.toISOString():''), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRAnge?'+(startDate?'startDate='+startDate.toISOString():'') + (endDate?'&endDate='+endDate.toISOString():''), callback, this.error, this.statusCode);
         }
     }
 

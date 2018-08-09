@@ -3,8 +3,8 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 
 import * as namespaces from './WebApiNG2ClientAuto';
 
-const apiBaseUri = 'http://localhost:10965/'; //for DemoWebApi
-//const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
+//const apiBaseUri = 'http://localhost:10965/'; //for DemoWebApi
+const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -635,7 +635,7 @@ describe('SuperDemo API', () => {
   it('getActionStringResult', (done) => {
     service.getActionStringResult().subscribe(
       data => {
-        expect(data).toBe('abcdefg');
+        expect(data).toBe('"abcdefg"');
         done();
       },
       error => {
@@ -812,8 +812,8 @@ describe('SuperDemo API', () => {
   it('getDictionaryOfPeople', (done) => {
     service.getDictionaryOfPeople().subscribe(
       data => {
-        expect(data['spider Man'].name).toBe('Peter Parker');
-        expect(data['spider Man'].addresses[0].city).toBe('New York');
+        expect(data['Spider Man'].name).toBe('Peter Parker');
+        expect(data['Spider Man'].addresses[0].city).toBe('New York');
         done();
       },
       error => {
@@ -1008,9 +1008,9 @@ describe('SuperDemo API', () => {
     let endDt = new Date(Date.now() + 100000);
     service.searchDateRange(undefined, endDt).subscribe(
       data => {
-        fail('The API should return http 400 error.');
-        //expect(data.item1).toBeUndefined();
-        //expect(new Date(data.item2)).toEqual(endDt);
+        //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
+        expect(data.item1).toBeNull();
+        expect(new Date(data.item2)).toEqual(endDt);
         done();
       },
       error => {

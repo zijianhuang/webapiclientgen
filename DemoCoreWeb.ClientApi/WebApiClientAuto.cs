@@ -1956,6 +1956,36 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// GET api/SuperDemo/ActionStringResult
+        /// </summary>
+        public async Task<string> GetActionStringResultAsync()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionStringResult");
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+            {
+            return streamReader.ReadToEnd();;
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SuperDemo/ActionStringResult
+        /// </summary>
+        public string GetActionStringResult()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionStringResult");
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+            {
+            return streamReader.ReadToEnd();;
+            }
+        }
+        
+        /// <summary>
         /// GET api/SuperDemo/byte
         /// </summary>
         public async Task<byte> GetbyteAsync()
@@ -3236,11 +3266,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo?startDate={startDate}&endDate={endDate}
+        /// GET api/SuperDemo/SearchDateRAnge?startDate={startDate}&endDate={endDate}
         /// </summary>
         public async Task<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>> SearchDateRangeAsync(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/SearchDateRAnge?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
             var responseMessage = await client.GetAsync(requestUri);
             responseMessage.EnsureSuccessStatusCode();
             var stream = await responseMessage.Content.ReadAsStreamAsync();
@@ -3252,11 +3282,11 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
-        /// GET api/SuperDemo?startDate={startDate}&endDate={endDate}
+        /// GET api/SuperDemo/SearchDateRAnge?startDate={startDate}&endDate={endDate}
         /// </summary>
         public System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>> SearchDateRange(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate)
         {
-            var requestUri = new Uri(this.baseUri, "api/SuperDemo?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/SearchDateRAnge?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
             var responseMessage = this.client.GetAsync(requestUri).Result;
             responseMessage.EnsureSuccessStatusCode();
             var stream = responseMessage.Content.ReadAsStreamAsync().Result;

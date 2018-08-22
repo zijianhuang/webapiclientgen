@@ -57,6 +57,15 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), null, callback, this.error, this.statusCode);
         };
         /**
+         * Search heroes
+         * GET api/Heroes/search?name={name}
+         * @param {string} name keyword contained in hero name.
+         * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
+         */
+        Heroes.prototype.search = function (name, callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes/search?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+        };
+        /**
          * Get all heroes.
          * GET api/Heroes
          */
@@ -88,15 +97,6 @@ var DemoWebApi_Controllers_Client;
          */
         Heroes.prototype.put = function (hero, callback) {
             this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
-        };
-        /**
-         * Search heroes
-         * GET api/Heroes?name={name}
-         * @param {string} name keyword contained in hero name.
-         * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
-         */
-        Heroes.prototype.search = function (name, callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
         };
         return Heroes;
     }());

@@ -499,10 +499,10 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
         }
         /**
-         * GET api/SuperDemo/SearchDateRAnge?startDate={startDate}&endDate={endDate}
+         * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
          */
         searchDateRange(startDate, endDate, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRAnge?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode);
         }
     }
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;

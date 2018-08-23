@@ -700,10 +700,10 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/SearchDateRAnge?startDate={startDate}&endDate={endDate}
+         * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
          */
         searchDateRange(startDate: Date, endDate: Date, callback: (data : {item1: Date, item2: Date}) => any) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRAnge?'+(startDate?'startDate='+startDate.toISOString():'') + (endDate?'&endDate='+endDate.toISOString():''), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?'+(startDate?'startDate='+startDate.toISOString():'') + (endDate?'&endDate='+endDate.toISOString():''), callback, this.error, this.statusCode);
         }
     }
 

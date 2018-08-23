@@ -8,6 +8,8 @@ namespace Fonlow.Reflection
 {
     public static class TypeHelper
     {
+        static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
+
         static readonly System.Collections.Generic.HashSet<string> arrayTypeNames = new System.Collections.Generic.HashSet<string>(
         new string[] {
             typeof(IEnumerable<>).FullName,
@@ -121,10 +123,10 @@ namespace Fonlow.Reflection
 
         static readonly Type typeOfString = typeof(string);
 
-        public static bool IsSimpleType(Type type)
-        {
-            return type.IsPrimitive || type.Equals(typeOfString);
-        }
+        //public static bool IsSimpleType(Type type)
+        //{
+        //    return type.IsPrimitive || type.Equals(typeOfString);
+        //}
 
         public static bool IsComplexType(Type type)
         {
@@ -146,7 +148,15 @@ namespace Fonlow.Reflection
             return (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
         }
 
+        public static bool IsSimpleType(Type t)
+        {
+            return t.IsPrimitive || t.Equals(typeOfString) || t.IsEnum || t.Equals(typeof(decimal)) || t.Equals(typeof(DateTime)) || t.Equals(typeof(DateTimeOffset));
+        }
 
+        public static bool IsNullablePremitive(Type t)
+        {
+            return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
+        }
     }
 
 }

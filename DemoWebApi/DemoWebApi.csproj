@@ -366,10 +366,6 @@
       <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
       <Name>Fonlow.TypeScriptCodeDom</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fonlow.Web.MetaTransform\Fonlow.Web.MetaTransform.csproj">
-      <Project>{cae5cb60-4704-40ca-a7f7-a1b7b1a596f6}</Project>
-      <Name>Fonlow.Web.MetaTransform</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fonlow.Web.Meta\Fonlow.Web.Meta.csproj">
       <Project>{4d7f5b3e-b38d-4083-88fc-dd4908649bd4}</Project>
       <Name>Fonlow.Web.Meta</Name>

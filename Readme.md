@@ -63,7 +63,7 @@ This project delivers these products:
 
 
 **.NET client side:**
-1. .NET Framework 4.5.2, or Universal Windows, or Mono.Android, or Xamarin.iOS, or .NET Core 2.0
+1. .NET Framework 4.5.2, or Universal Windows, or Mono.Android, or Xamarin.iOS, or .NET Core 2.0/2.1
 1. ASP.NET Web API 2.2 Client Libraries
 1. Json.NET of Newtonsoft [for Content-Type application/json](http://www.asp.net/web-api/overview/formats-and-model-binding/content-negotiation)
 1. Microsoft Build Tools 2015
@@ -71,7 +71,7 @@ This project delivers these products:
 **TypeScript client side:**
 1. TypeScript compiler
 1. jQuery
-1. Angular 2/4/5 and its dependencies in node_modules supported by Node.js and npm.
+1. Angular 2/4/5/6 and its dependencies in node_modules supported by Node.js and npm.
 
 
 
@@ -80,3 +80,12 @@ For more details, please check [WIKI](https://github.com/zijianhuang/webapiclien
 1. [Generate TypeScript Client API for ASP.NET Web API](https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api)
 1. [ASP.NET Web API, Angular2, TypeScript and WebApiClientGen](https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie)
 1. [Generate C# Client API for ASP.NET Core Web API](https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP)
+
+# Demo Applications
+
+The Demo applications in this repository are mainly for testing WebApiClientGen during development. And there are other demo applications in the following repositories, demostrating how real world applications could utilize WebApiClientGen:
+
+1. [WebApiClientGen Examples](https://github.com/zijianhuang/webapiclientgenexamples)
+2. [.NET Core Demo](https://github.com/zijianhuang/DemoCoreWeb)
+
+These demo applications are actively maintained and kept up-to-date with the latest frameworks. If you are still staying with some older frameworks like Angular 4 or 5 or .NET Core 2.0, you may navigate to respective tags of the repositories and checkout.

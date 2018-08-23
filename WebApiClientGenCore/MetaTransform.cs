@@ -5,12 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Fonlow.Reflection;
 
 namespace Fonlow.Web.Meta
 {
     /// <summary>
     /// Transform the runtime info of Web API into POCO meta data.
     /// </summary>
+    /// <exception cref="ArgumentException">Thrown if the BindingSource is not among Path, Query, Body and ModelBinding.</exception>
     public static class MetaTransform
     {
         static ParameterBinder GetParameterBinder(BindingSource bindingSource)
@@ -95,25 +97,41 @@ namespace Fonlow.Web.Meta
                     {
                         Documentation = DocCommentHelper.GetReturnComment(methodComments),
                         ResponseType = responseType,
-                        // DeclaredType = description.ResponseDescription.DeclaredType,
                     },
 
-                    ParameterDescriptions = description.ParameterDescriptions.Select(d => new ParameterDescription()
+                    ParameterDescriptions = description.ParameterDescriptions.Select(d =>
                     {
-                        Documentation = DocCommentHelper.GetParameterComment(methodComments, d.Name),
-                        Name = d.Name,
-                        ParameterDescriptor = new ParameterDescriptor()
+                        var parameterBinder = GetParameterBinder(d.Source);
+                        var parameterType = d.ParameterDescriptor.ParameterType;
+                        if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsSimpleType(parameterType) && !TypeHelper.IsNullablePremitive(parameterType))
                         {
-                            ParameterName = d.ParameterDescriptor.Name,
-                            ParameterType = d.ParameterDescriptor.ParameterType,
-                            ParameterBinder = GetParameterBinder(d.Source),//.ParameterBinderAttribute),
-
+                            throw new ArgumentException($"Not support ParameterBinder FromQuery or FromUri with a class parameter.");
                         }
+
+                        return new ParameterDescription()
+                        {
+                            Documentation = DocCommentHelper.GetParameterComment(methodComments, d.Name),
+                            Name = d.Name,
+                            ParameterDescriptor = new ParameterDescriptor()
+                            {
+                                ParameterName = d.ParameterDescriptor.Name,
+                                ParameterType = parameterType,
+                                ParameterBinder = parameterBinder,
+
+                            }
+                        };
                     }).ToArray(),
 
                 };
 
                 return dr;
+            }
+            catch (ArgumentException ex)//Expected to be thrown from GetParameterBinder()
+            {
+                var msg = ex.Message;
+                var errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} is defined with invalid parameters: {msg}";
+                Trace.TraceError(errorMsg);
+                throw new ArgumentException(errorMsg);
             }
             catch (Exception ex)
             {
@@ -144,6 +162,7 @@ namespace Fonlow.Web.Meta
 
             return lookup.GetMember("M:" + methodFullName);
         }
+
 
     }
 

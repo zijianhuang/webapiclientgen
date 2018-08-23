@@ -89,7 +89,29 @@ namespace DemoWebApi.Controllers
 			return HeroesData.Instance.Dic.Values.Where(d => d.Name.Contains(name)).ToArray();
 		}
 
-	}
+        ///// <summary>
+        ///// This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
+        ///// </summary>
+        ///// <param name="h"></param>
+        ///// <returns></returns>
+        //[HttpGet("invalid")]
+        //public IActionResult GetSomethingInvalid(DemoWebApi.DemoData.Person h)//Person is considered as ModelMetadata.IsComplexType
+        //{
+        //    return new StatusCodeResult(200);
+        //}
+
+        ///// <summary>
+        ///// This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
+        ///// </summary>
+        ///// <param name="h"></param>
+        ///// <returns></returns>
+        //[HttpGet("invalid")]
+        //public IActionResult GetSomethingInvalid(Hero h) //But Hero is NOT considered as ModelMetadata.IsComplexType
+        //{
+        //    return new StatusCodeResult(200);
+        //}
+
+    }
 
     /// <summary>
     /// Complex hero type

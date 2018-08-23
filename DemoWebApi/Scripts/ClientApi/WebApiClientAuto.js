@@ -66,6 +66,13 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/Heroes/search?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
         };
         /**
+         * This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
+         * GET api/Heroes/invalid
+         */
+        Heroes.prototype.getSomethingInvalid = function (h, callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes/invalid', callback, this.error, this.statusCode);
+        };
+        /**
          * Get all heroes.
          * GET api/Heroes
          */

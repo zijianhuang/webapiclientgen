@@ -35,9 +35,5 @@
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
     <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="readme.txt" pack="true" PackagePath="." />
-  </ItemGroup>
 
 </Project>

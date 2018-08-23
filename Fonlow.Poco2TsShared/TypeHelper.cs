@@ -123,10 +123,10 @@ namespace Fonlow.Reflection
 
         static readonly Type typeOfString = typeof(string);
 
-        //public static bool IsSimpleType(Type type)
-        //{
-        //    return type.IsPrimitive || type.Equals(typeOfString);
-        //}
+        public static bool IsSimpleType(Type type)
+        {
+            return type.IsPrimitive || type.Equals(typeOfString);
+        }
 
         public static bool IsComplexType(Type type)
         {
@@ -148,7 +148,7 @@ namespace Fonlow.Reflection
             return (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
         }
 
-        public static bool IsSimpleType(Type t)
+        public static bool IsValueType(Type t)
         {
             return t.IsPrimitive || t.Equals(typeOfString) || t.IsEnum || t.Equals(typeof(decimal)) || t.Equals(typeof(DateTime)) || t.Equals(typeof(DateTimeOffset));
         }

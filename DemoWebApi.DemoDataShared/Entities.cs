@@ -260,6 +260,23 @@ namespace DemoWebApi.DemoData
         public string Tag { get; set; }
     }
 
+    [DataContract(Namespace = Constants.DataNamespace)]
+    public class MyGeneric<T, K, U>
+    {
+        [DataMember]
+        public T MyT { get; set; }
+
+        [DataMember]
+        public K MyK { get; set; }
+
+        [DataMember]
+        public U MyU { get; set; }
+
+        [DataMember]
+        public string Status { get; set; }
+    }
+
+
 }
 
 namespace DemoWebApi.DemoData.Another

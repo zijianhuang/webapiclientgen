@@ -124,6 +124,13 @@ namespace DemoWebApi_DemoData_Client {
         tag?: string;
     }
 
+    export interface MyGeneric<T, K, U> {
+        myT?: T;
+        myK?: K;
+        myU?: U;
+        status?: string;
+    }
+
 }
 
 namespace DemoWebApi_DemoData_Another_Client {
@@ -338,10 +345,17 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/Entities/Mims
+         * POST api/Entities/Mims
          */
-        getMims(callback: (data : DemoWebApi_DemoData_Client.MimsResult<string>) => any) {
-            this.httpClient.get(this.baseUri + 'api/Entities/Mims', callback, this.error, this.statusCode);
+        getMims(p: DemoWebApi_DemoData_Client.MimsPackage, callback: (data : DemoWebApi_DemoData_Client.MimsResult<string>) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/Mims', p, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/Entities/MyGeneric
+         */
+        getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, number>) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGeneric', s, callback, this.error, this.statusCode);
         }
 
         /**

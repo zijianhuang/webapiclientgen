@@ -10,8 +10,8 @@ using System.Web.Http.Cors;
 
 namespace DemoWebApi.Controllers
 {
-   // [EnableCors(origins: "*", headers:"*", methods:"*")] set globally in WebApiConfig.cs
- //   [Authorize]
+    // [EnableCors(origins: "*", headers:"*", methods:"*")] set globally in WebApiConfig.cs
+    //   [Authorize]
     [RoutePrefix("api/Entities")]
     public class EntitiesController : ApiController
     {
@@ -100,7 +100,7 @@ namespace DemoWebApi.Controllers
                new int[] {5,6,7, 8 }
             },
 
-               
+
             };
         }
 
@@ -120,15 +120,27 @@ namespace DemoWebApi.Controllers
             return NotFound();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Mims")]
-        public MimsResult<string> GetMims()
+        public MimsResult<string> GetMims(MimsPackage p)
         {
             return new MimsResult<string>
             {
                 Success = true,
-                Message="OK message",
-                Result="OK"
+                Message = p.Tag,
+                Result = p.Result.ToString(),
+            };
+        }
+
+        [HttpPost]
+        [Route("MyGeneric")]
+        public MyGeneric<string, decimal, double> GetMyGeneric(MyGeneric<string, decimal, double> s)
+        {
+            return new MyGeneric<string, decimal, double>
+            {
+                MyK = s.MyK,
+                MyT = s.MyT,
+                MyU = s.MyU,
             };
         }
 

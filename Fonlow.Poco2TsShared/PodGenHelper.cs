@@ -61,7 +61,7 @@ namespace Fonlow.Poco2Client
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
             Type[] genericArguments = type.GetGenericArguments();
 
-            var goodGenericClassName = genericTypeDefinition.Name.Replace("`1", String.Empty);
+            var goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
 
             var targetClass = new CodeTypeDeclaration(goodGenericClassName)
             {
@@ -107,7 +107,7 @@ namespace Fonlow.Poco2Client
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
             Type[] genericArguments = type.GetGenericArguments();
 
-            var goodGenericClassName = genericTypeDefinition.Name.Replace("`1", String.Empty);
+            var goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
 
             var targetClass = new CodeTypeDeclaration(goodGenericClassName)
             {
@@ -125,6 +125,10 @@ namespace Fonlow.Poco2Client
             return targetClass;
         }
 
-
+        static string SanitiseGenericClassName(string s)
+        {
+            var index = s.IndexOf('`');
+            return s.Remove(index);
+        }
     }
 }

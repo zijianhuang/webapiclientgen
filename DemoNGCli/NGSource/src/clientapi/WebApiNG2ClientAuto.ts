@@ -125,6 +125,13 @@ export namespace DemoWebApi_DemoData_Client {
         tag?: string;
     }
 
+    export interface MyGeneric<T, K, U> {
+        myT?: T;
+        myK?: K;
+        myU?: U;
+        status?: string;
+    }
+
 }
 
 export namespace DemoWebApi_DemoData_Another_Client {
@@ -341,10 +348,17 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/Entities/Mims
+         * POST api/Entities/Mims
          */
-        getMims(): Observable<DemoWebApi_DemoData_Client.MimsResult<string>> {
-            return this.http.get<DemoWebApi_DemoData_Client.MimsResult<string>>(this.baseUri + 'api/Entities/Mims');
+        getMims(p: DemoWebApi_DemoData_Client.MimsPackage): Observable<DemoWebApi_DemoData_Client.MimsResult<string>> {
+            return this.http.post<DemoWebApi_DemoData_Client.MimsResult<string>>(this.baseUri + 'api/Entities/Mims', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+        }
+
+        /**
+         * POST api/Entities/MyGeneric
+         */
+        getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number>): Observable<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>> {
+            return this.http.post<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>>(this.baseUri + 'api/Entities/MyGeneric', JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
         }
 
         /**

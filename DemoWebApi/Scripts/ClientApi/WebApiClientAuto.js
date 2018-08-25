@@ -164,10 +164,16 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id, callback, this.error, this.statusCode);
         };
         /**
-         * GET api/Entities/Mims
+         * POST api/Entities/Mims
          */
-        Entities.prototype.getMims = function (callback) {
-            this.httpClient.get(this.baseUri + 'api/Entities/Mims', callback, this.error, this.statusCode);
+        Entities.prototype.getMims = function (p, callback) {
+            this.httpClient.post(this.baseUri + 'api/Entities/Mims', p, callback, this.error, this.statusCode);
+        };
+        /**
+         * POST api/Entities/MyGeneric
+         */
+        Entities.prototype.getMyGeneric = function (s, callback) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGeneric', s, callback, this.error, this.statusCode);
         };
         /**
          * DELETE api/Entities/{id}

@@ -555,6 +555,99 @@ namespace DemoWebApi.DemoData.Client
             }
         }
     }
+    
+    public class MimsResult<T> : object
+    
+    {
+        
+        private T _Result;
+        
+        private System.DateTime _GeneratedAt;
+        
+        private bool _Success;
+        
+        private string _Message;
+        
+        public T Result
+        {
+            get
+            {
+                return _Result;
+            }
+            set
+            {
+                _Result = value;
+            }
+        }
+        
+        public System.DateTime GeneratedAt
+        {
+            get
+            {
+                return _GeneratedAt;
+            }
+            set
+            {
+                _GeneratedAt = value;
+            }
+        }
+        
+        public bool Success
+        {
+            get
+            {
+                return _Success;
+            }
+            set
+            {
+                _Success = value;
+            }
+        }
+        
+        public string Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                _Message = value;
+            }
+        }
+    }
+    
+    public class MimsPackage : object
+    {
+        
+        private DemoWebApi.DemoData.Client.MimsResult<decimal> _Result;
+        
+        private string _Tag;
+        
+        public DemoWebApi.DemoData.Client.MimsResult<decimal> Result
+        {
+            get
+            {
+                return _Result;
+            }
+            set
+            {
+                _Result = value;
+            }
+        }
+        
+        public string Tag
+        {
+            get
+            {
+                return _Tag;
+            }
+            set
+            {
+                _Tag = value;
+            }
+        }
+    }
 }
 namespace DemoWebApi.DemoData.Another.Client
 {
@@ -1423,6 +1516,38 @@ namespace DemoWebApi.Controllers.Client
             {
             var serializer = new JsonSerializer();
             return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/Entities/Mims
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.MimsResult<string>> GetMimsAsync()
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/Entities/Mims
+        /// </summary>
+        public DemoWebApi.DemoData.Client.MimsResult<string> GetMims()
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader);
             }
         }
         

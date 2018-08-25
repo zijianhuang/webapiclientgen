@@ -157,7 +157,14 @@ namespace Fonlow.Poco2Ts
                     CodeTypeDeclaration typeDeclaration;
                     if (TypeHelper.IsClassOrStruct(type))
                     {
-                        typeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, tsName);
+                        if (type.IsGenericType)
+                        {
+                            typeDeclaration = PodGenHelper.CreatePodClientGenericInterface(clientNamespace, type);
+                        }
+                        else
+                        {
+                            typeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, tsName);
+                        }
 
                         if (!type.IsValueType)
                         {
@@ -313,7 +320,13 @@ namespace Fonlow.Poco2Ts
             if (tsBasicTypeText != null)
                 return new CodeTypeReference(tsBasicTypeText);
 
-			if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult"))
+            //if (String.IsNullOrEmpty(type.FullName))
+            //{
+            //    Debug.WriteLine("In TsPodGen, The type is an argument of a generic definition: " + type.ToString());
+            //    return new CodeTypeReference(type.ToString());
+            //}
+
+            if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult"))
 			{
 				return new CodeTypeReference("response");
 			}
@@ -431,7 +444,7 @@ namespace Fonlow.Poco2Ts
 
             }
 
-            return new CodeTypeReference("any");
+            return new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray());
 
         }
 

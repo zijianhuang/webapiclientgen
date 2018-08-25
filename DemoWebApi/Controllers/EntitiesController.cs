@@ -120,7 +120,17 @@ namespace DemoWebApi.Controllers
             return NotFound();
         }
 
-
+        [HttpGet]
+        [Route("Mims")]
+        public MimsResult<string> GetMims()
+        {
+            return new MimsResult<string>
+            {
+                Success = true,
+                Message="OK message",
+                Result="OK"
+            };
+        }
 
     }
 }

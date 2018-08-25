@@ -169,7 +169,14 @@ namespace Fonlow.Poco2Client
                     CodeTypeDeclaration typeDeclaration;
                     if (TypeHelper.IsClassOrStruct(type))
                     {
-                        typeDeclaration = type.IsClass ? PodGenHelper.CreatePodClientClass(clientNamespace, tsName): PodGenHelper.CreatePodClientStruct(clientNamespace, tsName);
+                        if (type.IsGenericType)
+                        {
+                            typeDeclaration = PodGenHelper.CreatePodClientGenericClass(clientNamespace, type);
+                        }
+                        else
+                        {
+                            typeDeclaration = type.IsClass ? PodGenHelper.CreatePodClientClass(clientNamespace, tsName) : PodGenHelper.CreatePodClientStruct(clientNamespace, tsName);
+                        }
 
                         if (!type.IsValueType)
                         {
@@ -480,7 +487,7 @@ namespace Fonlow.Poco2Client
 
             }
 
-            return new CodeTypeReference(typeof(Object));
+            return new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t=>TranslateToClientTypeReference(t)).ToArray());
 
         }
 

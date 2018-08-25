@@ -237,6 +237,29 @@ namespace DemoWebApi.DemoData
      
     }
 
+    [DataContract(Namespace = Constants.DataNamespace)]
+    public class MimsResult<T>
+    {
+        [DataMember]
+        public T Result { get; set; }
+        [DataMember]
+        public DateTime GeneratedAt { get; set; }
+        [DataMember]
+        public bool Success { get; set; } = true;
+        [DataMember]
+        public string Message { get; set; }
+    }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    public class MimsPackage
+    {
+        [DataMember]
+        public MimsResult<Decimal> Result { get; set; }
+
+        [DataMember]
+        public string Tag { get; set; }
+    }
+
 }
 
 namespace DemoWebApi.DemoData.Another

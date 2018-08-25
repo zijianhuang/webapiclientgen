@@ -59,6 +59,12 @@ namespace Fonlow.TypeScriptCodeDom
                 throw new ArgumentNullException("type");
             string tsTypeName;
 
+            if (String.IsNullOrEmpty(type.FullName)) //Custom generic type has fullname empty at this point, since it is just a template defined in the assembly.
+            {
+                System.Diagnostics.Debug.WriteLine("In TypeMapper, The type is an argument of a generic definition: " + type.ToString());
+                return type.ToString();
+            }
+
             if (typeMap.TryGetValue(type.FullName, out tsTypeName))
                 return tsTypeName;
 

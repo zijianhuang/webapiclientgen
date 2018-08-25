@@ -113,6 +113,18 @@ export namespace DemoWebApi_DemoData_Client {
         intDic?: {[id: number]: string };
     }
 
+    export interface MimsResult<T> {
+        result?: T;
+        generatedAt?: Date;
+        success?: boolean;
+        message?: string;
+    }
+
+    export interface MimsPackage {
+        result?: DemoWebApi_DemoData_Client.MimsResult<number>;
+        tag?: string;
+    }
+
 }
 
 export namespace DemoWebApi_DemoData_Another_Client {
@@ -326,6 +338,13 @@ export namespace DemoWebApi_Controllers_Client {
          */
         getPersonActionNotFound(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
             return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id);
+        }
+
+        /**
+         * GET api/Entities/Mims
+         */
+        getMims(): Observable<DemoWebApi_DemoData_Client.MimsResult<string>> {
+            return this.http.get<DemoWebApi_DemoData_Client.MimsResult<string>>(this.baseUri + 'api/Entities/Mims');
         }
 
         /**

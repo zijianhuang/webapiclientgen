@@ -56,6 +56,29 @@ namespace Fonlow.Poco2Client
             return targetClass;
         }
 
+        internal static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type)
+        {
+            Type genericTypeDefinition = type.GetGenericTypeDefinition();
+            Type[] genericArguments = type.GetGenericArguments();
+
+            var goodGenericClassName = genericTypeDefinition.Name.Replace("`1", String.Empty);
+
+            var targetClass = new CodeTypeDeclaration(goodGenericClassName)
+            {
+                TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
+            };
+
+            targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
+            {
+                Name = d.ToString(),
+            }).ToArray()
+            );
+
+
+            ns.Types.Add(targetClass);
+            return targetClass;
+        }
+
         internal static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
         {
             var targetClass = new CodeTypeDeclaration(className)
@@ -74,6 +97,29 @@ namespace Fonlow.Poco2Client
             {
                 TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
             };
+
+            ns.Types.Add(targetClass);
+            return targetClass;
+        }
+
+        internal static CodeTypeDeclaration CreatePodClientGenericInterface(CodeNamespace ns, Type type)
+        {
+            Type genericTypeDefinition = type.GetGenericTypeDefinition();
+            Type[] genericArguments = type.GetGenericArguments();
+
+            var goodGenericClassName = genericTypeDefinition.Name.Replace("`1", String.Empty);
+
+            var targetClass = new CodeTypeDeclaration(goodGenericClassName)
+            {
+                TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
+            };
+
+            targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
+            {
+                Name = d.ToString(),
+            }).ToArray()
+            );
+
 
             ns.Types.Add(targetClass);
             return targetClass;

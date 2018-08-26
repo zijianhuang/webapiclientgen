@@ -87,6 +87,24 @@ var DemoWebApi_Controllers_Client;
         getCompany(id, callback) {
             this.httpClient.get(this.baseUri + 'api/Entities/Company/' + id, callback, this.error, this.statusCode);
         }
+        /**
+         * POST api/Entities/Mims
+         */
+        getMims(p, callback) {
+            this.httpClient.post(this.baseUri + 'api/Entities/Mims', p, callback, this.error, this.statusCode);
+        }
+        /**
+         * POST api/Entities/MyGeneric
+         */
+        getMyGeneric(s, callback) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGeneric', s, callback, this.error, this.statusCode);
+        }
+        /**
+         * POST api/Entities/MyGenericPerson
+         */
+        getMyGenericPerson(s, callback) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGenericPerson', s, callback, this.error, this.statusCode);
+        }
     }
     DemoWebApi_Controllers_Client.Entities = Entities;
     class Heroes {

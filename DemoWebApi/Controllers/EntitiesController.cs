@@ -128,7 +128,7 @@ namespace DemoWebApi.Controllers
             {
                 Success = true,
                 Message = p.Tag,
-                Result = p.Result.ToString(),
+                Result = p.Result.Result.ToString()
             };
         }
 
@@ -141,6 +141,20 @@ namespace DemoWebApi.Controllers
                 MyK = s.MyK,
                 MyT = s.MyT,
                 MyU = s.MyU,
+                Status=s.Status,
+            };
+        }
+
+        [HttpPost]
+        [Route("MyGenericPerson")]
+        public MyGeneric<string, decimal, Person> GetMyGenericPerson(MyGeneric<string, decimal, Person> s)
+        {
+            return new MyGeneric<string, decimal, Person>
+            {
+                MyK = s.MyK,
+                MyT = s.MyT,
+                MyU = s.MyU,
+                Status=s.Status,
             };
         }
 

@@ -31,4 +31,4 @@ Stop-Process $process
 
 #Step 4: Test generated codes
 xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiClientAuto.js" "$PSScriptRoot\DemoCoreWeb\wwwroot\Scripts\ClientApi\" /y 
-xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiClientAuto.js" "$PSScriptRoot\DemoCoreWeb\bin\debug\netcoreapp2.0\wwwroot\Scripts\ClientApi\" /y
+xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiClientAuto.js" "$PSScriptRoot\DemoCoreWeb\bin\debug\netcoreapp2.1\wwwroot\Scripts\ClientApi\" /y

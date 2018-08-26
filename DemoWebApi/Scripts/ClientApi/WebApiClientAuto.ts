@@ -359,6 +359,13 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * POST api/Entities/MyGenericPerson
+         */
+        getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGenericPerson', s, callback, this.error, this.statusCode);
+        }
+
+        /**
          * DELETE api/Entities/{id}
          */
         delete(id: number, callback: (data : void) => any) {

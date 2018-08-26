@@ -71,6 +71,42 @@ var CommonCases;
             });
         });
     });
+    QUnit.module('Entities', function () {
+        QUnit.test('GetMimsString', function (assert) {
+            const c = {
+                tag: 'Hello',
+                result: {
+                    result: 123.45
+                }
+            };
+            let done = assert.async();
+            entitiesApi.getMims(c, data => {
+                assert.strictEqual(data.message, 'Hello');
+                assert.equal(data.result, 123.45);
+                done();
+            });
+        });
+        QUnit.test('myGenericPerson', function (assert) {
+            const newPerson = {
+                name: 'John Smith',
+                givenName: 'John',
+                surname: 'Smith',
+                dob: new Date('1977-12-28')
+            };
+            const c = {
+                myK: 123.456,
+                myT: 'abc',
+                myU: newPerson,
+                status: 'OK',
+            };
+            let done = assert.async();
+            entitiesApi.getMyGenericPerson(c, data => {
+                assert.strictEqual(data.status, 'OK');
+                assert.equal(data.myU.name, 'John Smith');
+                done();
+            });
+        });
+    });
     QUnit.module('TupleTests', function () {
         QUnit.test('GetTuple2', function (assert) {
             let done = assert.async();

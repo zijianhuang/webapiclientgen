@@ -594,6 +594,162 @@ namespace DemoWebApi.DemoData.Client
             }
         }
     }
+    
+    public class MimsResult<T> : object
+    
+    {
+        
+        private T _Result;
+        
+        private System.DateTime _GeneratedAt;
+        
+        private bool _Success;
+        
+        private string _Message;
+        
+        public T Result
+        {
+            get
+            {
+                return _Result;
+            }
+            set
+            {
+                _Result = value;
+            }
+        }
+        
+        public System.DateTime GeneratedAt
+        {
+            get
+            {
+                return _GeneratedAt;
+            }
+            set
+            {
+                _GeneratedAt = value;
+            }
+        }
+        
+        public bool Success
+        {
+            get
+            {
+                return _Success;
+            }
+            set
+            {
+                _Success = value;
+            }
+        }
+        
+        public string Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                _Message = value;
+            }
+        }
+    }
+    
+    public class MimsPackage : object
+    {
+        
+        private DemoWebApi.DemoData.Client.MimsResult<decimal> _Result;
+        
+        private string _Tag;
+        
+        public DemoWebApi.DemoData.Client.MimsResult<decimal> Result
+        {
+            get
+            {
+                return _Result;
+            }
+            set
+            {
+                _Result = value;
+            }
+        }
+        
+        public string Tag
+        {
+            get
+            {
+                return _Tag;
+            }
+            set
+            {
+                _Tag = value;
+            }
+        }
+    }
+    
+    public class MyGeneric<T, K, U> : object
+    
+    
+    
+    {
+        
+        private T _MyT;
+        
+        private K _MyK;
+        
+        private U _MyU;
+        
+        private string _Status;
+        
+        public T MyT
+        {
+            get
+            {
+                return _MyT;
+            }
+            set
+            {
+                _MyT = value;
+            }
+        }
+        
+        public K MyK
+        {
+            get
+            {
+                return _MyK;
+            }
+            set
+            {
+                _MyK = value;
+            }
+        }
+        
+        public U MyU
+        {
+            get
+            {
+                return _MyU;
+            }
+            set
+            {
+                _MyU = value;
+            }
+        }
+        
+        public string Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                _Status = value;
+            }
+        }
+    }
 }
 namespace DemoWebApi.DemoData.Another.Client
 {
@@ -1048,6 +1204,138 @@ namespace DemoWebApi.Controllers.Client
             {
             var serializer = new JsonSerializer();
             return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/Mims
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.MimsResult<string>> GetMimsAsync(DemoWebApi.DemoData.Client.MimsPackage p)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, p);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/Mims
+        /// </summary>
+        public DemoWebApi.DemoData.Client.MimsResult<string> GetMims(DemoWebApi.DemoData.Client.MimsPackage p)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, p);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/MyGeneric
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>> GetMyGenericAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/MyGeneric");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, s);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/MyGeneric
+        /// </summary>
+        public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> GetMyGeneric(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/MyGeneric");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, s);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/MyGenericPerson
+        /// </summary>
+        public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>> GetMyGenericPersonAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/MyGenericPerson");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, s);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/MyGenericPerson
+        /// </summary>
+        public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> GetMyGenericPerson(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/MyGenericPerson");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, s);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+            }
             }
         }
     }

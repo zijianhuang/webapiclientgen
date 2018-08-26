@@ -93,6 +93,49 @@ module CommonCases {
 	});
 
 
+	QUnit.module('Entities', function () {
+		QUnit.test('GetMimsString', function (assert) {
+			const c: DemoWebApi_DemoData_Client.MimsPackage = {
+				tag: 'Hello',
+				result: {
+					result: 123.45
+				}
+			};
+
+			let done = assert.async();
+			entitiesApi.getMims(c, data => {
+				assert.strictEqual(data.message, 'Hello');
+				assert.equal(data.result, 123.45);
+				done();
+			});
+		});
+
+		QUnit.test('myGenericPerson', function (assert) {
+			const newPerson: DemoWebApi_DemoData_Client.Person = {
+				name: 'John Smith',
+				givenName: 'John',
+				surname: 'Smith',
+				dob: new Date('1977-12-28')
+			};
+
+			const c: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person> = {
+				myK: 123.456,
+				myT: 'abc',
+				myU: newPerson,
+				status: 'OK',
+			};
+
+			let done = assert.async();
+			entitiesApi.getMyGenericPerson(c, data => {
+				assert.strictEqual(data.status, 'OK');
+				assert.equal(data.myU.name, 'John Smith');
+				done();
+			});
+		});
+
+
+
+	});
 	QUnit.module("TupleTests", function () {
 
 

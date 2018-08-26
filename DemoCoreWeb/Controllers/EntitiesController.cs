@@ -103,17 +103,54 @@ namespace DemoWebApi.Controllers
         }
 
 
-		//[HttpGet]
-		//[Route("PersonActionNotFound")]
-		//[ProducesResponseType(201, Type = typeof(Person))]
-		//public IActionResult GetPersonActionNotFound(long id)
-		//{
-		//	return NotFound();
-		//}
+        //[HttpGet]
+        //[Route("PersonActionNotFound")]
+        //[ProducesResponseType(201, Type = typeof(Person))]
+        //public IActionResult GetPersonActionNotFound(long id)
+        //{
+        //	return NotFound();
+        //}
+
+        [HttpPost]
+        [Route("Mims")]
+        public MimsResult<string> GetMims([FromBody] MimsPackage p)
+        {
+            return new MimsResult<string>
+            {
+                Success = true,
+                Message = p.Tag,
+                Result = p.Result.Result.ToString()
+            };
+        }
+
+        [HttpPost]
+        [Route("MyGeneric")]
+        public MyGeneric<string, decimal, double> GetMyGeneric([FromBody] MyGeneric<string, decimal, double> s)
+        {
+            return new MyGeneric<string, decimal, double>
+            {
+                MyK = s.MyK,
+                MyT = s.MyT,
+                MyU = s.MyU,
+                Status = s.Status,
+            };
+        }
+
+        [HttpPost]
+        [Route("MyGenericPerson")]
+        public MyGeneric<string, decimal, Person> GetMyGenericPerson([FromBody] MyGeneric<string, decimal, Person> s)
+        {
+            return new MyGeneric<string, decimal, Person>
+            {
+                MyK = s.MyK,
+                MyT = s.MyT,
+                MyU = s.MyU,
+                Status = s.Status,
+            };
+        }
 
 
 
 
-
-	}
+    }
 }

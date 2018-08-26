@@ -299,6 +299,62 @@ describe('entities API', () => {
   }
   );
 
+  it('mimsString', (done) => {
+    let id: number;
+    const c: namespaces.DemoWebApi_DemoData_Client.MimsPackage = {
+      tag: 'Hello',
+      result: {
+        result: 123.45
+      }
+    };
+
+    client.getMims(c)
+      .subscribe(
+      data => {
+        expect(data.message).toBe('Hello');
+        expect(data.result).toBeCloseTo(123.45);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+      );
+
+  }
+  );
+
+  it('myGenericPerson', (done) => {
+    const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
+      name: 'John Smith',
+      givenName: 'John',
+      surname: 'Smith',
+      dob: new Date('1977-12-28')
+    };
+
+    const c: namespaces.DemoWebApi_DemoData_Client.MyGeneric<string, number, namespaces.DemoWebApi_DemoData_Client.Person> = {
+      myK:123.456,
+      myT: 'abc',
+      myU: newPerson,
+      status: 'OK',
+    };
+
+    client.getMyGenericPerson(c)
+      .subscribe(
+      data => {
+        expect(data.myU.name).toBe('John Smith');
+        expect(data.status).toBe('OK');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+      );
+
+  }
+  );
+
 
 });
 

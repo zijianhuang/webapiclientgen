@@ -124,6 +124,25 @@ namespace DemoWebApi_DemoData_Client {
         intDic?: {[id: number]: string };
     }
 
+    export interface MimsResult<T> {
+        result?: T;
+        generatedAt?: Date;
+        success?: boolean;
+        message?: string;
+    }
+
+    export interface MimsPackage {
+        result?: DemoWebApi_DemoData_Client.MimsResult<number>;
+        tag?: string;
+    }
+
+    export interface MyGeneric<T, K, U> {
+        myT?: T;
+        myK?: K;
+        myU?: U;
+        status?: string;
+    }
+
 }
 
 namespace DemoWebApi_DemoData_Another_Client {
@@ -230,6 +249,27 @@ namespace DemoWebApi_Controllers_Client {
          */
         getCompany(id: number, callback: (data : DemoWebApi_DemoData_Client.Company) => any) {
             this.httpClient.get(this.baseUri + 'api/Entities/Company/' + id, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/Entities/Mims
+         */
+        getMims(p: DemoWebApi_DemoData_Client.MimsPackage, callback: (data : DemoWebApi_DemoData_Client.MimsResult<string>) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/Mims', p, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/Entities/MyGeneric
+         */
+        getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, number>) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGeneric', s, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/Entities/MyGenericPerson
+         */
+        getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGenericPerson', s, callback, this.error, this.statusCode);
         }
     }
 

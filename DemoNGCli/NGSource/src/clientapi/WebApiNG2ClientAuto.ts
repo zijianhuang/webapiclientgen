@@ -201,6 +201,36 @@ export namespace DemoWebApi_Models_Client {
 
 }
 
+export namespace DemoCoreWeb_Controllers_Client {
+    @Injectable()
+    export class SpecialTypes {
+        constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+        }
+
+        /**
+         * GET api/SpecialTypes/AnonymousDynamic
+         */
+        getAnonymousDynamic(): Observable<Response> {
+            return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousDynamic');
+        }
+
+        /**
+         * GET api/SpecialTypes/AnonymousObject
+         */
+        getAnonymousObject(): Observable<Response> {
+            return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject');
+        }
+
+        /**
+         * POST api/SpecialTypes/AnonymousObject
+         */
+        postAnonymousObject(obj: any): Observable<Response> {
+            return this.http.post<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+        }
+    }
+
+}
+
 export namespace DemoWebApi_Controllers_Client {
     @Injectable()
     export class Entities {

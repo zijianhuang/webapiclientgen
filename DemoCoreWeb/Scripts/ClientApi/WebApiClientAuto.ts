@@ -200,6 +200,35 @@ namespace DemoWebApi_Models_Client {
 
 }
 
+namespace DemoCoreWeb_Controllers_Client {
+    export class SpecialTypes {
+        constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
+        }
+
+        /**
+         * GET api/SpecialTypes/AnonymousDynamic
+         */
+        getAnonymousDynamic(callback: (data : any) => any) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', callback, this.error, this.statusCode);
+        }
+
+        /**
+         * GET api/SpecialTypes/AnonymousObject
+         */
+        getAnonymousObject(callback: (data : any) => any) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/SpecialTypes/AnonymousObject
+         */
+        postAnonymousObject(obj: any, callback: (data : any) => any) {
+            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, callback, this.error, this.statusCode);
+        }
+    }
+
+}
+
 namespace DemoWebApi_Controllers_Client {
     export class Entities {
         constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {

@@ -38,6 +38,36 @@ var DemoWebApi_DemoData_Client;
         PhoneType[PhoneType["Fax"] = 3] = "Fax";
     })(PhoneType = DemoWebApi_DemoData_Client.PhoneType || (DemoWebApi_DemoData_Client.PhoneType = {}));
 })(DemoWebApi_DemoData_Client || (DemoWebApi_DemoData_Client = {}));
+var DemoCoreWeb_Controllers_Client;
+(function (DemoCoreWeb_Controllers_Client) {
+    class SpecialTypes {
+        constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
+            this.baseUri = baseUri;
+            this.httpClient = httpClient;
+            this.error = error;
+            this.statusCode = statusCode;
+        }
+        /**
+         * GET api/SpecialTypes/AnonymousDynamic
+         */
+        getAnonymousDynamic(callback) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', callback, this.error, this.statusCode);
+        }
+        /**
+         * GET api/SpecialTypes/AnonymousObject
+         */
+        getAnonymousObject(callback) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', callback, this.error, this.statusCode);
+        }
+        /**
+         * POST api/SpecialTypes/AnonymousObject
+         */
+        postAnonymousObject(obj, callback) {
+            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, callback, this.error, this.statusCode);
+        }
+    }
+    DemoCoreWeb_Controllers_Client.SpecialTypes = SpecialTypes;
+})(DemoCoreWeb_Controllers_Client || (DemoCoreWeb_Controllers_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     class Entities {

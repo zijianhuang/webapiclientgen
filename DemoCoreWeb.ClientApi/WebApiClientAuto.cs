@@ -971,6 +971,143 @@ namespace DemoWebApi.Models.Client
         }
     }
 }
+namespace DemoCoreWeb.Controllers.Client
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Net.Http;
+    using Newtonsoft.Json;
+    
+    
+    public partial class SpecialTypes
+    {
+        
+        private System.Net.Http.HttpClient client;
+        
+        private System.Uri baseUri;
+        
+        public SpecialTypes(System.Net.Http.HttpClient client, System.Uri baseUri)
+        {
+            if (client == null)
+                throw new ArgumentNullException("client", "Null HttpClient.");
+
+            if (baseUri == null)
+                throw new ArgumentNullException("baseUri", "Null baseUri");
+
+            this.client = client;
+            this.baseUri = baseUri;
+        }
+        
+        /// <summary>
+        /// GET api/SpecialTypes/AnonymousDynamic
+        /// </summary>
+        public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamicAsync()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousDynamic");
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SpecialTypes/AnonymousDynamic
+        /// </summary>
+        public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousDynamic");
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SpecialTypes/AnonymousObject
+        /// </summary>
+        public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObjectAsync()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousObject");
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// GET api/SpecialTypes/AnonymousObject
+        /// </summary>
+        public Newtonsoft.Json.Linq.JObject GetAnonymousObject()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousObject");
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+            }
+        }
+        
+        /// <summary>
+        /// POST api/SpecialTypes/AnonymousObject
+        /// </summary>
+        public async Task<Newtonsoft.Json.Linq.JObject> PostAnonymousObjectAsync(Newtonsoft.Json.Linq.JObject obj)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousObject");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, obj);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/SpecialTypes/AnonymousObject
+        /// </summary>
+        public Newtonsoft.Json.Linq.JObject PostAnonymousObject(Newtonsoft.Json.Linq.JObject obj)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousObject");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, obj);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+            }
+            }
+        }
+    }
+}
 namespace DemoWebApi.Controllers.Client
 {
     using System;

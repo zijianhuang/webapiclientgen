@@ -11,12 +11,12 @@
     <iconUrl>https://webapiclientgen.codeplex.com</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</description>
-    <releaseNotes>Copy doc comments in XML to JsDoc</releaseNotes>
-    <copyright>Copyright © Fonlow 2015-2017</copyright>
+    <releaseNotes>Support custom generic classes</releaseNotes>
+    <copyright>Copyright © Fonlow 2015-2018</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</tags>
     <dependencies>
       <group>
-        <dependency id="Fonlow.TypeScriptCodeDOM" version="1.8.1" />
+        <dependency id="Fonlow.TypeScriptCodeDOM" version="1.8.2" />
       </group>
     </dependencies>  
   </metadata>

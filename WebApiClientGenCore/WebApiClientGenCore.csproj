@@ -11,11 +11,12 @@
     <PackageLicenseUrl>https://github.com/zijianhuang/webapiclientgen/blob/master/license.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore</PackageTags>
-    <PackageReleaseNotes>Support .NET Core 2.1</PackageReleaseNotes>
+    <PackageReleaseNotes>Support custom generic classes</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion>2.5.1.0</AssemblyVersion>
     <FileVersion>2.5.1.0</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

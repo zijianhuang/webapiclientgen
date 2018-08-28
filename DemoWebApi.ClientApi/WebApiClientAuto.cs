@@ -8,6 +8,86 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace DemoWebApi.Controllers.Client
+{
+    
+    
+    /// <summary>
+    /// This class is used to carry the result of various file uploads.
+    /// </summary>
+    public class FileResult : object
+    {
+        
+        private string[] _FileNames;
+        
+        private string _Submitter;
+        
+        /// <summary>
+        /// Gets or sets the local path of the file saved on the server.
+        /// </summary>
+        public string[] FileNames
+        {
+            get
+            {
+                return _FileNames;
+            }
+            set
+            {
+                _FileNames = value;
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+        /// </summary>
+        public string Submitter
+        {
+            get
+            {
+                return _Submitter;
+            }
+            set
+            {
+                _Submitter = value;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Complex hero type
+    /// </summary>
+    public class Hero : object
+    {
+        
+        private long _Id;
+        
+        private string _Name;
+        
+        public long Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                _Name = value;
+            }
+        }
+    }
+}
 namespace DemoWebApi.DemoData.Client
 {
     
@@ -934,86 +1014,6 @@ namespace DemoWebApi.Models.Client
 }
 namespace DemoWebApi.Controllers.Client
 {
-    
-    
-    /// <summary>
-    /// This class is used to carry the result of various file uploads.
-    /// </summary>
-    public class FileResult : object
-    {
-        
-        private string[] _FileNames;
-        
-        private string _Submitter;
-        
-        /// <summary>
-        /// Gets or sets the local path of the file saved on the server.
-        /// </summary>
-        public string[] FileNames
-        {
-            get
-            {
-                return _FileNames;
-            }
-            set
-            {
-                _FileNames = value;
-            }
-        }
-        
-        /// <summary>
-        /// Gets or sets the submitter as indicated in the HTML form used to upload the data.
-        /// </summary>
-        public string Submitter
-        {
-            get
-            {
-                return _Submitter;
-            }
-            set
-            {
-                _Submitter = value;
-            }
-        }
-    }
-    
-    /// <summary>
-    /// Complex hero type
-    /// </summary>
-    public class Hero : object
-    {
-        
-        private long _Id;
-        
-        private string _Name;
-        
-        public long Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                _Id = value;
-            }
-        }
-        
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                _Name = value;
-            }
-        }
-    }
-}
-namespace DemoWebApi.Controllers.Client
-{
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -1710,6 +1710,136 @@ namespace DemoWebApi.Controllers.Client
             {
             var serializer = new JsonSerializer();
             return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/linkLong?id={id}
+        /// </summary>
+        public async Task<long> LinkWithNewLongAsync(long id, DemoWebApi.DemoData.Client.Person p)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/linkLong?id="+id);
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, p);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            return System.Int64.Parse(jsonReader.ReadAsString());
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/linkLong?id={id}
+        /// </summary>
+        public long LinkWithNewLong(long id, DemoWebApi.DemoData.Client.Person p)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/linkLong?id="+id);
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, p);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            return System.Int64.Parse(jsonReader.ReadAsString());
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/linkNewGuid?id={id}
+        /// </summary>
+        public async Task<System.Guid> LinkWithNewGuidAsync(System.Guid id, DemoWebApi.DemoData.Client.Person p)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/linkNewGuid?id="+id);
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, p);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Guid>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/linkNewGuid?id={id}
+        /// </summary>
+        public System.Guid LinkWithNewGuid(System.Guid id, DemoWebApi.DemoData.Client.Person p)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/linkNewGuid?id="+id);
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, p);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Guid>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/linkNewDecimal?id={id}
+        /// </summary>
+        public async Task<System.Guid> LinkWithNewDecimalAsync(decimal id, DemoWebApi.DemoData.Client.Person p)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/linkNewDecimal?id="+id);
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, p);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = await responseMessage.Content.ReadAsStreamAsync();
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Guid>(jsonReader);
+            }
+            }
+        }
+        
+        /// <summary>
+        /// POST api/Entities/linkNewDecimal?id={id}
+        /// </summary>
+        public System.Guid LinkWithNewDecimal(decimal id, DemoWebApi.DemoData.Client.Person p)
+        {
+            var requestUri = new Uri(this.baseUri, "api/Entities/linkNewDecimal?id="+id);
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, p);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+            {
+            var serializer = new JsonSerializer();
+            return serializer.Deserialize<System.Guid>(jsonReader);
             }
             }
         }

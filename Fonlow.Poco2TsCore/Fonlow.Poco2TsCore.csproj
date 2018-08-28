@@ -5,7 +5,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.9.1</Version>
+    <Version>2.0</Version>
     <Authors>Zijian Huang</Authors>
     <Company />
     <Copyright>Copyright © Zijian Huang 2018</Copyright>
@@ -16,7 +16,7 @@
     <PackageTags>TypeScript,Code DOM</PackageTags>
     <PackageReleaseNotes>Support custom generic classes</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>1.9.1.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

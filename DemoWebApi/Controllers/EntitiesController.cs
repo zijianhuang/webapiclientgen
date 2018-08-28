@@ -158,5 +158,26 @@ namespace DemoWebApi.Controllers
             };
         }
 
+        [HttpPost]
+        [Route("linkLong")]
+        public long LinkWithNewLong([FromUri] long id, [FromBody] Person p)
+        {
+            return 1000;
+        }
+
+        [HttpPost]
+        [Route("linkNewGuid")]
+        public Guid LinkWithNewGuid([FromUri] Guid id, [FromBody] Person p)
+        {
+            return Guid.NewGuid();
+        }
+
+        [HttpPost]
+        [Route("linkNewDecimal")]
+        public Guid LinkWithNewDecimal([FromUri] decimal id, [FromBody] Person p)
+        {
+            return Guid.NewGuid();
+        }
+
     }
 }

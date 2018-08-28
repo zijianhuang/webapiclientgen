@@ -31,16 +31,18 @@ namespace Fonlow.Web.Meta
 			var xmlFilePath = DocCommentLookup.GetXmlPath(description.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly);
 			var docLookup = DocCommentLookup.Create(xmlFilePath);
 			var methodComments = docLookup == null ? null : GetMethodDocComment(docLookup, description.ActionDescriptor);
-			
-			return new WebApiDescription(description.ID)
+            var actionName = description.ActionDescriptor.ActionName;
+            var controllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName;
+
+            return new WebApiDescription(description.ID)
             {
                 ActionDescriptor = new ActionDescriptor()
                 {
-                    ActionName = description.ActionDescriptor.ActionName,
+                    ActionName = actionName,
                     ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType,//for complex types
                     ControllerDescriptor = new ControllerDescriptor()
                     {
-                        ControllerName = description.ActionDescriptor.ControllerDescriptor.ControllerName,
+                        ControllerName = controllerName,
                         ControllerType = description.ActionDescriptor.ControllerDescriptor.ControllerType,
                     }
                 },
@@ -59,9 +61,10 @@ namespace Fonlow.Web.Meta
                 {
                     var parameterBinder = GetParameterBinder(d.ParameterDescriptor.ParameterBinderAttribute);
                     var parameterType = d.ParameterDescriptor.ParameterType;
+                    var parameterName = d.ParameterDescriptor.ParameterName;
                     if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsValueType(parameterType) && !TypeHelper.IsNullablePremitive(parameterType))
                     {
-                        throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterType.ToString()}.");
+                        throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterName}:{parameterType.ToString()} in {controllerName}/{actionName}.");
                     }
 
                     return new ParameterDescription()
@@ -70,8 +73,8 @@ namespace Fonlow.Web.Meta
                         Name = d.Name,
                         ParameterDescriptor = new ParameterDescriptor()
                         {
-                            ParameterName = d.ParameterDescriptor.ParameterName,
-                            ParameterType = d.ParameterDescriptor.ParameterType,
+                            ParameterName = parameterName,
+                            ParameterType = parameterType,
                             ParameterBinder = parameterBinder,
 
                         }

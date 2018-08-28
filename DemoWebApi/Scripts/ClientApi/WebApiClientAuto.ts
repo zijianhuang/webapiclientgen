@@ -1,5 +1,34 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
+namespace DemoWebApi_Controllers_Client {
+
+    /**
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
+
+        /**
+         * Gets or sets the local path of the file saved on the server.
+         */
+        fileNames?: Array<string>;
+
+        /**
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+         */
+        submitter?: string;
+    }
+
+
+    /**
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
+    }
+
+}
+
 namespace DemoWebApi_DemoData_Client {
     export enum AddressType { Postal, Residential }
 
@@ -189,35 +218,6 @@ namespace DemoWebApi_Models_Client {
 }
 
 namespace DemoWebApi_Controllers_Client {
-
-    /**
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /**
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /**
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /**
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
-namespace DemoWebApi_Controllers_Client {
     export class Heroes {
         constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
         }
@@ -363,6 +363,27 @@ namespace DemoWebApi_Controllers_Client {
          */
         getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>) => any) {
             this.httpClient.post(this.baseUri + 'api/Entities/MyGenericPerson', s, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/Entities/linkLong?id={id}
+         */
+        linkWithNewLong(id: number, p: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/linkLong?id=' + id, p, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/Entities/linkNewGuid?id={id}
+         */
+        linkWithNewGuid(id: string, p: DemoWebApi_DemoData_Client.Person, callback: (data : string) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/linkNewGuid?id=' + id, p, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/Entities/linkNewDecimal?id={id}
+         */
+        linkWithNewDecimal(id: number, p: DemoWebApi_DemoData_Client.Person, callback: (data : string) => any) {
+            this.httpClient.post(this.baseUri + 'api/Entities/linkNewDecimal?id=' + id, p, callback, this.error, this.statusCode);
         }
 
         /**

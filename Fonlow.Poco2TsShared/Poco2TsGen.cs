@@ -326,12 +326,23 @@ namespace Fonlow.Poco2Ts
             //    return new CodeTypeReference(type.ToString());
             //}
 
-            if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult"))
-			{
-				return new CodeTypeReference("response");
-			}
+            var actionResultTypeReference = TranslateActionResultToClientTypeReference(type);
+            if (actionResultTypeReference != null)
+            {
+                return actionResultTypeReference;
+            }
 
             return new CodeTypeReference("any");
+        }
+
+        virtual protected CodeTypeReference TranslateActionResultToClientTypeReference(Type type)
+        {
+            if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult"))
+            {
+                return new CodeTypeReference("response");
+            }
+
+            return null;
         }
 
         List<Type> pendingTypes;

@@ -10,7 +10,7 @@ using Fonlow.Web.Meta;
 namespace Fonlow.CodeDom.Web.Ts
 {
     /// <summary>
-    /// Generate a client function upon ApiDescription
+    /// Generate a client function upon ApiDescription for jQuery
     /// </summary>
     public class ClientApiTsFunctionGen : ClientApiTsFunctionGenBase
     {

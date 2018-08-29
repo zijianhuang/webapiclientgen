@@ -14,7 +14,7 @@ using Fonlow.Web.Meta;
 namespace Fonlow.CodeDom.Web.Ts
 {
 	/// <summary>
-	/// Generate a client function upon ApiDescription
+	/// Generate a client function upon ApiDescription for Angular
 	/// </summary>
 	public class ClientApiTsNG2FunctionGen : ClientApiTsFunctionGenBase
 	{
@@ -36,12 +36,16 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				returnTypeText = NG2HttpResponse;
 			}
-			else if (returnTypeText == "response")
-			{
-				returnTypeText = NG2HttpBlobResponse;
-			}
+            else if (returnTypeText == "response")
+            {
+                returnTypeText = NG2HttpResponse;
+            }
+            else if (returnTypeText == "blobresponse")
+            {
+                returnTypeText = NG2HttpBlobResponse;
+            }
 
-			var callbackTypeText = $"Observable<{returnTypeText}>";
+            var callbackTypeText = $"Observable<{returnTypeText}>";
 			Debug.WriteLine("callback: " + callbackTypeText);
 			var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
 
@@ -72,7 +76,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			// var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
 
-			if (ReturnType!=null && TypeHelper.IsStringType(ReturnType) && this.stringAsString)
+			if (ReturnType!=null && TypeHelper.IsStringType(ReturnType) && this.stringAsString)//stringAsString is for .NET Core Web API
 			{
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
@@ -135,18 +139,18 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-					if (String.IsNullOrEmpty(contentType))
-					{
-						contentType = "application/json;charset=UTF-8";
-					}
+					//if (String.IsNullOrEmpty(contentType))
+					//{
+					//	contentType = "application/json;charset=UTF-8";
+					//}
 
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {optionForStreamInPost});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {optionForStream});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {optionForStreamInPost});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {optionForStream});"));
 					}
 
 					return;

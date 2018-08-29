@@ -37,7 +37,7 @@ namespace Fonlow.CodeDom.Web.Ts
             this.apiFunctionGen = apiFunctionGen;
             this.apiSelections = jsOutput.ApiSelections;
             TargetUnit = new CodeCompileUnit();
-            poco2TsGen = new Poco2TsGen(TargetUnit);
+            poco2TsGen = CreatePoco2TsGen();
 
             TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
             options.BracingStyle = "JS";
@@ -45,6 +45,12 @@ namespace Fonlow.CodeDom.Web.Ts
             options.CamelCase = jsOutput.CamelCase.HasValue ? jsOutput.CamelCase.Value : false;
 
         }
+
+        /// <summary>
+        /// jQuery and NG@ have slightly different fine grained types for returns
+        /// </summary>
+        /// <returns></returns>
+        abstract protected IPoco2Client CreatePoco2TsGen();
 
         IPoco2Client poco2TsGen;
 

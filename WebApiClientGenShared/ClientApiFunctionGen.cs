@@ -8,7 +8,7 @@ using Fonlow.Web.Meta;
 namespace Fonlow.CodeDom.Web.Cs
 {
 	/// <summary>
-	/// Generate a client function upon ApiDescription
+	/// Generate a client function upon ApiDescription for C#
 	/// </summary>
 	internal class ClientApiFunctionGen
 	{

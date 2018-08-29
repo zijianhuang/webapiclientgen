@@ -15,8 +15,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPoco2Client.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PocoAssemblyFileWalker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PocoToTsNgGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PodGenHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TsPodGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Poco2TsGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TypeHelper.cs" />
   </ItemGroup>
   <ItemGroup>

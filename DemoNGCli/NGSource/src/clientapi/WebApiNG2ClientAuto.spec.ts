@@ -3,8 +3,8 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 
 import * as namespaces from './WebApiNG2ClientAuto';
 
-//const apiBaseUri = 'http://localhost:10965/'; //for DemoWebApi
-const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
+const apiBaseUri = 'http://localhost:10965/'; //for DemoWebApi
+//const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -654,13 +654,15 @@ describe('SuperDemo API', () => {
   it('getActionResult', (done) => {
     service.getActionResult().subscribe(
       data => {
-        expect(data.body.size).toBe(9);
+      //  expect(data.body.size).toBe(9);
+        //const reader = data.r.body.getReader();
+        //reader.read().then(v => expect(v).toBe('abcdefg'));
+        expect(data.status).toBe(200);
 
-        const reader = new FileReader();
-        reader.onload = () => {
-          expect(reader.result).toBe('"abcdefg"');
-        };
-        reader.readAsText(data.body);
+        //reader.onload = () => {
+        //  expect(reader.result).toBe('"abcdefg"');
+        //};
+        //reader.readAsText(data.body);
 
         done();
       },
@@ -691,7 +693,7 @@ describe('SuperDemo API', () => {
   it('getActionStringResult', (done) => {
     service.getActionStringResult().subscribe(
       data => {
-        expect(data).toBe('"abcdefg"');
+        expect(data).toBe('abcdefg');
         done();
       },
       error => {
@@ -868,8 +870,8 @@ describe('SuperDemo API', () => {
   it('getDictionaryOfPeople', (done) => {
     service.getDictionaryOfPeople().subscribe(
       data => {
-        expect(data['Spider Man'].name).toBe('Peter Parker');
-        expect(data['Spider Man'].addresses[0].city).toBe('New York');
+        expect(data['spider Man'].name).toBe('Peter Parker');
+        expect(data['spider Man'].addresses[0].city).toBe('New York');
         done();
       },
       error => {

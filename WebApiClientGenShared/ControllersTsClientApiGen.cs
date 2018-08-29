@@ -1,4 +1,5 @@
 ﻿using System.CodeDom;
+using Fonlow.Poco2Client;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -14,6 +15,11 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
 		public ControllersTsClientApiGen(JSOutput jsOutput) : base(jsOutput, new ClientApiTsFunctionGen())
         {
+        }
+
+        protected override IPoco2Client CreatePoco2TsGen()
+        {
+            return new Fonlow.Poco2Ts.Poco2TsGen(TargetUnit);
         }
 
         protected override void AddBasicReferences()

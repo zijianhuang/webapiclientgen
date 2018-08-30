@@ -654,15 +654,8 @@ describe('SuperDemo API', () => {
   it('getActionResult', (done) => {
     service.getActionResult().subscribe(
       data => {
-      //  expect(data.body.size).toBe(9);
-        //const reader = data.r.body.getReader();
-        //reader.read().then(v => expect(v).toBe('abcdefg'));
         expect(data.status).toBe(200);
-
-        //reader.onload = () => {
-        //  expect(reader.result).toBe('"abcdefg"');
-        //};
-        //reader.readAsText(data.body);
+        expect(data.body).toBe('"abcdefg"');
 
         done();
       },

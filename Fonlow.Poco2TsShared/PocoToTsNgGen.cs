@@ -22,7 +22,7 @@ namespace Fonlow.Poco2Ts
         {
             if (type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult"))
             {
-                return new CodeTypeReference("blobresponse");
+                return new CodeTypeReference("response");
             }
 
             if (type.FullName.Contains("System.Net.Http.HttpResponseMessage"))

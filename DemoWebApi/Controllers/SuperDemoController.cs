@@ -204,6 +204,27 @@ namespace DemoWebApi.Controllers
             return Ok("abcdefg");
         }
 
+        [HttpPost]
+        [Route("ActionResult")]
+        public IHttpActionResult PostActionResult()
+        {
+            return Ok("abcdefg");
+        }
+
+        [HttpPost]
+        [Route("PostActionResult2")]
+        public IHttpActionResult PostActionResult2([FromBody] string s)
+        {
+            return Ok("abcdefg");
+        }
+
+        [HttpPost]
+        [Route("PostActionResult3")]
+        public IHttpActionResult PostActionResult3(DemoWebApi.DemoData.Person person)
+        {
+            return Ok(person.Name);
+        }
+
         [HttpGet]
         [Route("ActionStringResult")]
         [System.Web.Http.Description.ResponseType(typeof(string))]

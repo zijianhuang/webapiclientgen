@@ -2503,6 +2503,96 @@ namespace DemoWebApi.Controllers.Client
         }
         
         /// <summary>
+        /// POST api/SuperDemo/ActionResult
+        /// </summary>
+        public async Task<System.Net.Http.HttpResponseMessage> PostActionResultAsync()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
+            var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// POST api/SuperDemo/ActionResult
+        /// </summary>
+        public System.Net.Http.HttpResponseMessage PostActionResult()
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
+            var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// POST api/SuperDemo/PostActionResult2
+        /// </summary>
+        public async Task<System.Net.Http.HttpResponseMessage> PostActionResult2Async(string s)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult2");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, s);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+            }
+        }
+        
+        /// <summary>
+        /// POST api/SuperDemo/PostActionResult2
+        /// </summary>
+        public System.Net.Http.HttpResponseMessage PostActionResult2(string s)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult2");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, s);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+            }
+        }
+        
+        /// <summary>
+        /// POST api/SuperDemo/PostActionResult3
+        /// </summary>
+        public async Task<System.Net.Http.HttpResponseMessage> PostActionResult3Async(DemoWebApi.DemoData.Client.Person person)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult3");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, person);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(requestUri, content);
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+            }
+        }
+        
+        /// <summary>
+        /// POST api/SuperDemo/PostActionResult3
+        /// </summary>
+        public System.Net.Http.HttpResponseMessage PostActionResult3(DemoWebApi.DemoData.Client.Person person)
+        {
+            var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult3");
+            using (var requestWriter = new System.IO.StringWriter())
+            {
+            var requestSerializer = JsonSerializer.Create();
+            requestSerializer.Serialize(requestWriter, person);
+            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var responseMessage = this.client.PostAsync(requestUri, content).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+            }
+        }
+        
+        /// <summary>
         /// GET api/SuperDemo/ActionStringResult
         /// </summary>
         public async Task<string> GetActionStringResultAsync()

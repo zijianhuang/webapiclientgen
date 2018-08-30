@@ -535,8 +535,29 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/ActionResult
          */
-        getActionResult(): Observable<HttpResponse<Blob>> {
-            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'blob' });
+        getActionResult(): Observable<HttpResponse<string>> {
+            return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'text' });
+        }
+
+        /**
+         * POST api/SuperDemo/ActionResult
+         */
+        postActionResult(): Observable<HttpResponse<string>> {
+            return this.http.post(this.baseUri + 'api/SuperDemo/ActionResult', null, { observe: 'response', responseType: 'text' });
+        }
+
+        /**
+         * POST api/SuperDemo/PostActionResult2
+         */
+        postActionResult2(s: string): Observable<HttpResponse<string>> {
+            return this.http.post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
+        }
+
+        /**
+         * POST api/SuperDemo/PostActionResult3
+         */
+        postActionResult3(person: DemoWebApi_DemoData_Client.Person): Observable<HttpResponse<string>> {
+            return this.http.post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
         }
 
         /**

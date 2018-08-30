@@ -517,7 +517,7 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/TextStream
          */
-        getTextStream(callback: (data : Response) => any) {
+        getTextStream(callback: (data : any) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/TextStream', callback, this.error, this.statusCode);
         }
 
@@ -531,8 +531,29 @@ namespace DemoWebApi_Controllers_Client {
         /**
          * GET api/SuperDemo/ActionResult
          */
-        getActionResult(callback: (data : Response) => any) {
+        getActionResult(callback: (data : any) => any) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/SuperDemo/ActionResult
+         */
+        postActionResult(callback: (data : any) => any) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/ActionResult', null, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/SuperDemo/PostActionResult2
+         */
+        postActionResult2(s: string, callback: (data : any) => any) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostActionResult2', s, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/SuperDemo/PostActionResult3
+         */
+        postActionResult3(person: DemoWebApi_DemoData_Client.Person, callback: (data : any) => any) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostActionResult3', person, callback, this.error, this.statusCode);
         }
 
         /**

@@ -20,7 +20,9 @@ namespace Fonlow.CodeDom.Web.Ts
 	{
 		const string NG2HttpResponse = "Response";
 		const string NG2HttpBlobResponse = "HttpResponse<Blob>";
-		string returnTypeText = null;
+        const string NG2HttpStringResponse = "HttpResponse<string>";
+
+        string returnTypeText = null;
 		string contentType;
 
 		public ClientApiTsNG2FunctionGen(string contentType) : base()
@@ -38,7 +40,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
             else if (returnTypeText == "response")
             {
-                returnTypeText = NG2HttpResponse;
+                returnTypeText = NG2HttpStringResponse;
             }
             else if (returnTypeText == "blobresponse")
             {
@@ -115,50 +117,85 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 			}
-			else if (returnTypeText== "HttpResponse<Blob>")//translated from response to this
-			{
-				const string optionForStream = "{ observe: 'response', responseType: 'blob' }";
-				var  optionForStreamInPost = $"{{headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}";
+            else if (returnTypeText == "HttpResponse<Blob>")//translated from blobresponse to this
+            {
+                const string optionForStream = "{ observe: 'response', responseType: 'blob' }";
 
-				if (httpMethod == "get" || httpMethod == "delete")
-				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {optionForStream});"));
-					return;
-				}
+                if (httpMethod == "get" || httpMethod == "delete")
+                {
+                    Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {optionForStream});"));
+                    return;
+                }
 
-				if (httpMethod == "post" || httpMethod == "put")
-				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+                if (httpMethod == "post" || httpMethod == "put")
+                {
+                    var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+                        || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+                        || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+                    if (fromBodyParameterDescriptions.Length > 1)
+                    {
+                        throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
+                    }
+                    var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+                    var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-					//if (String.IsNullOrEmpty(contentType))
-					//{
-					//	contentType = "application/json;charset=UTF-8";
-					//}
+                    //if (String.IsNullOrEmpty(contentType))
+                    //{
+                    //	contentType = "application/json;charset=UTF-8";
+                    //}
 
-					if (dataToPost == "null")
-					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {optionForStream});"));
-					}
-					else
-					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {optionForStream});"));
-					}
+                    if (dataToPost == "null")
+                    {
+                        Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {optionForStream});"));
+                    }
+                    else
+                    {
+                        Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {optionForStream});"));
+                    }
 
-					return;
-				}
+                    return;
+                }
 
-			}
-			else
-			{
+            }
+            else if (returnTypeText == "HttpResponse<string>")//translated from response to this
+            {
+                const string optionForActionResult = "{ observe: 'response', responseType: 'text' }";
+
+                if (httpMethod == "get" || httpMethod == "delete")
+                {
+                    Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {optionForActionResult});"));
+                    return;
+                }
+
+                if (httpMethod == "post" || httpMethod == "put")
+                {
+                    var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+                        || (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+                        || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+                    if (fromBodyParameterDescriptions.Length > 1)
+                    {
+                        throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
+                    }
+                    var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+
+                    var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+
+                    if (dataToPost == "null")
+                    {
+                        Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {optionForActionResult});"));
+                    }
+                    else
+                    {
+                        Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, observe: 'response', responseType: 'text' }});"));
+                    }
+
+                    return;
+                }
+
+            }
+            else
+            {
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText});"));

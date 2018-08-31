@@ -86,14 +86,17 @@ namespace Fonlow.CodeDom.Web.Cs
         /// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
         public void CreateCodeDom(WebApiDescription[] descriptions)
         {
-            if (descriptions==null)
+            if (descriptions == null)
             {
                 throw new ArgumentNullException("descriptions");
             }
 
             GenerateCsFromPoco();
             //controllers of ApiDescriptions (functions) grouped by namespace
-            var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
+            var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
+                .Distinct()
+                .GroupBy(d => d.ControllerType.Namespace)
+                .OrderBy(g => g.Key);// order by namespace
 
             //Create client classes mapping to controller classes
             foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
@@ -110,15 +113,18 @@ namespace Fonlow.CodeDom.Web.Cs
                 new CodeNamespaceImport("Newtonsoft.Json"),
                 });
 
-                var newClassesCreated = grouppedControllerDescriptions.Select(d =>
-                {
-                    var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
-                    if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
-                        return null;
+                var newClassesCreated = grouppedControllerDescriptions
+                    .OrderBy(d=>d.ControllerName)
+                    .Select(d =>
+                    {
+                        var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
+                        if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+                            return null;
 
-                    return CreateControllerClientClass(clientNamespace, d.ControllerName);
-                }
-                    ).ToArray();//add classes into the namespace
+                        return CreateControllerClientClass(clientNamespace, d.ControllerName);
+                    }
+                    )
+                    .ToArray();//add classes into the namespace
             }
 
             foreach (var d in descriptions)

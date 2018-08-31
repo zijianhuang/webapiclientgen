@@ -82,7 +82,10 @@ namespace Fonlow.CodeDom.Web.Ts
             GenerateTsFromPoco();
 
             //controllers of ApiDescriptions (functions) grouped by namespace
-            var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor).Distinct().GroupBy(d => d.ControllerType.Namespace);
+            var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
+                .Distinct()
+                .GroupBy(d => d.ControllerType.Namespace)
+                .OrderBy(k => k.Key);// order by namespace
 
             //Create client classes mapping to controller classes
             CodeTypeDeclaration[] newControllerClassesCreated = null;
@@ -93,14 +96,16 @@ namespace Fonlow.CodeDom.Web.Ts
 
                 TargetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
-                newControllerClassesCreated = grouppedControllerDescriptions.Select(d =>
-                {
-                    var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
-                    if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
-                        return null;
+                newControllerClassesCreated = grouppedControllerDescriptions
+                    .OrderBy(d => d.ControllerName)
+                    .Select(d =>
+                    {
+                        var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
+                        if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
+                            return null;
 
-                    return CreateControllerClientClass(clientNamespace, d.ControllerName);
-                }).Where(d => d != null).ToArray();//add classes into the namespace
+                        return CreateControllerClientClass(clientNamespace, d.ControllerName);
+                    }).Where(d => d != null).ToArray();//add classes into the namespace
             }
 
             foreach (var d in descriptions)

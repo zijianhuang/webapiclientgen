@@ -27,7 +27,7 @@ namespace Fonlow.WebApiClientGen
             Fonlow.Web.Meta.WebApiDescription[] apiDescriptions;
             try
             {
-                apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).ToArray();
+                apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).OrderBy(d=>d.ActionDescriptor.ActionName).ToArray();
 
             }
             catch (System.InvalidOperationException e)

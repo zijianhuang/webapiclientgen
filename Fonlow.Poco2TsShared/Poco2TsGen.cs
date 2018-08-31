@@ -337,7 +337,7 @@ namespace Fonlow.Poco2Ts
 
         virtual protected CodeTypeReference TranslateActionResultToClientTypeReference(Type type)
         {
-            if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult"))
+            if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.ActionResult"))
             {
                 return new CodeTypeReference("response");
             }

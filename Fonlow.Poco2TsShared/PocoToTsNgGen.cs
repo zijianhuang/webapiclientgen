@@ -25,7 +25,7 @@ namespace Fonlow.Poco2Ts
                 return new CodeTypeReference("response");
             }
 
-            if (type.FullName.Contains("System.Net.Http.HttpResponseMessage"))
+            if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.ActionResult"))
             {
                 return new CodeTypeReference("blobresponse");
             }

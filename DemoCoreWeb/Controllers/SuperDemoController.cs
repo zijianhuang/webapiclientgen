@@ -168,7 +168,7 @@ namespace DemoWebApi.Controllers
 
         [HttpGet]
         [Route("TextStream")]
-        public IActionResult GetTextStream()
+        public ActionResult GetTextStream()
         {
             var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg"));
             {
@@ -189,6 +189,27 @@ namespace DemoWebApi.Controllers
         public IActionResult GetActionResult()
         {
             return Ok("abcdefg");
+        }
+
+        [HttpPost]
+        [Route("ActionResult")]
+        public IActionResult PostActionResult()
+        {
+            return Ok("abcdefg");
+        }
+
+        [HttpPost]
+        [Route("PostActionResult2")]
+        public IActionResult PostActionResult2([FromBody] string s)
+        {
+            return Ok("abcdefg");
+        }
+
+        [HttpPost]
+        [Route("PostActionResult3")]
+        public IActionResult PostActionResult3([FromBody] DemoWebApi.DemoData.Person person)
+        {
+            return Ok(person.Name);
         }
 
         [HttpGet]

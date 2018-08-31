@@ -38,8 +38,9 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		}
 
-		static readonly string typeOfHttpActionResult = "System.Web.Http.IHttpActionResult";
-        static readonly string typeOfActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+		static readonly string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
+        static readonly string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+        static readonly string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
 
         static readonly Type typeOfChar = typeof(char);
 
@@ -200,7 +201,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddReturnStatement()
 		{
-			if ((returnType.FullName == typeOfHttpResponseMessage) || (returnType.FullName == typeOfHttpActionResult) || (returnType.FullName == typeOfActionResult))
+			if ((returnType.FullName == typeOfHttpResponseMessage) || (returnType.FullName == typeOfIHttpActionResult) || (returnType.FullName == typeOfIActionResult) || (returnType.FullName == typeOfActionResult))
 			{
 				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
 				return;

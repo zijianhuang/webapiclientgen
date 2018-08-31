@@ -361,7 +361,7 @@ namespace Fonlow.Poco2Client
                 if (type.FullName == "System.Web.Http.IHttpActionResult")
                     return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
 
-                if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult")
+                if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
                     return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
 
                 if (type.FullName == "System.Net.Http.HttpResponseMessage")

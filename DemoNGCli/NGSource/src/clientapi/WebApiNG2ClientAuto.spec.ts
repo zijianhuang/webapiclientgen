@@ -3,8 +3,8 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 
 import * as namespaces from './WebApiNG2ClientAuto';
 
-const apiBaseUri = 'http://localhost:10965/'; //for DemoWebApi
-//const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
+//const apiBaseUri = 'http://localhost:10965/'; //for DemoWebApi
+const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -686,7 +686,7 @@ describe('SuperDemo API', () => {
   it('getActionStringResult', (done) => {
     service.getActionStringResult().subscribe(
       data => {
-        expect(data).toBe('abcdefg');
+        expect(data).toContain('abcdefg');
         done();
       },
       error => {
@@ -863,8 +863,12 @@ describe('SuperDemo API', () => {
   it('getDictionaryOfPeople', (done) => {
     service.getDictionaryOfPeople().subscribe(
       data => {
-        expect(data['spider Man'].name).toBe('Peter Parker');
-        expect(data['spider Man'].addresses[0].city).toBe('New York');
+        let p = data['spider Man']; //ASP.NET Web API with NewtonSoftJson made it camcel;
+        if (!p) {
+          p = data['Spider Man']; //.NET Core is OK
+        }
+        expect(p.name).toBe('Peter Parker');
+        expect(p.addresses[0].city).toBe('New York');
         done();
       },
       error => {

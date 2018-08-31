@@ -503,6 +503,27 @@ namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * POST api/SuperDemo/ActionResult
+         */
+        postActionResult(callback: (data : any) => any) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/ActionResult', null, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/SuperDemo/PostActionResult2
+         */
+        postActionResult2(s: string, callback: (data : any) => any) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostActionResult2', s, callback, this.error, this.statusCode);
+        }
+
+        /**
+         * POST api/SuperDemo/PostActionResult3
+         */
+        postActionResult3(person: DemoWebApi_DemoData_Client.Person, callback: (data : any) => any) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostActionResult3', person, callback, this.error, this.statusCode);
+        }
+
+        /**
          * GET api/SuperDemo/ActionStringResult
          */
         getActionStringResult(callback: (data : string) => any) {

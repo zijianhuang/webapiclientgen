@@ -51,152 +51,52 @@ namespace DemoWebApi.DemoData.Client
 {
     
     
-    public enum AddressType
-    {
-        
-        Postal,
-        
-        Residential,
-    }
-    
-    public enum Days
-    {
-        
-        Sat = 1,
-        
-        Sun = 2,
-        
-        Mon = 3,
-        
-        Tue = 4,
-        
-        Wed = 5,
-        
-        /// <summary>
-        /// Thursday
-        /// </summary>
-        Thu = 6,
-        
-        Fri = 7,
-    }
-    
-    public class PhoneNumber : object
-    {
-        
-        private System.Guid _Id;
-        
-        private string _FullNumber;
-        
-        private DemoWebApi.DemoData.Client.PhoneType _PhoneType;
-        
-        private System.Guid _EntityId;
-        
-        public System.Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                _Id = value;
-            }
-        }
-        
-        public string FullNumber
-        {
-            get
-            {
-                return _FullNumber;
-            }
-            set
-            {
-                _FullNumber = value;
-            }
-        }
-        
-        public DemoWebApi.DemoData.Client.PhoneType PhoneType
-        {
-            get
-            {
-                return _PhoneType;
-            }
-            set
-            {
-                _PhoneType = value;
-            }
-        }
-        
-        public System.Guid EntityId
-        {
-            get
-            {
-                return _EntityId;
-            }
-            set
-            {
-                _EntityId = value;
-            }
-        }
-    }
-    
-    /// <summary>
-    /// Phone type
-    /// Tel, Mobile, Skyp and Fax
-    /// 
-    /// </summary>
-    public enum PhoneType
-    {
-        
-        /// <summary>
-        /// Land line
-        /// </summary>
-        Tel,
-        
-        /// <summary>
-        /// Mobile phone
-        /// </summary>
-        Mobile,
-        
-        Skype,
-        
-        Fax,
-    }
-    
     public class Address : object
     {
         
-        private System.Guid _Id;
+        private string _City;
+        
+        private string _Country;
         
         private DemoWebApi.DemoData.Client.Entity _Entity;
         
         private System.Guid _EntityId;
         
-        private string _Street1;
-        
-        private string _Street2;
-        
-        private string _City;
-        
-        private string _State;
+        private System.Guid _Id;
         
         private string _PostalCode;
         
-        private string _Country;
+        private string _State;
+        
+        private string _Street1;
+        
+        private string _Street2;
         
         private DemoWebApi.DemoData.Client.AddressType _Type;
         
         private DemoWebApi.DemoData.Another.Client.MyPoint _Location;
         
-        public System.Guid Id
+        public string City
         {
             get
             {
-                return _Id;
+                return _City;
             }
             set
             {
-                _Id = value;
+                _City = value;
+            }
+        }
+        
+        public string Country
+        {
+            get
+            {
+                return _Country;
+            }
+            set
+            {
+                _Country = value;
             }
         }
         
@@ -227,6 +127,42 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        public System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public string PostalCode
+        {
+            get
+            {
+                return _PostalCode;
+            }
+            set
+            {
+                _PostalCode = value;
+            }
+        }
+        
+        public string State
+        {
+            get
+            {
+                return _State;
+            }
+            set
+            {
+                _State = value;
+            }
+        }
+        
         public string Street1
         {
             get
@@ -248,54 +184,6 @@ namespace DemoWebApi.DemoData.Client
             set
             {
                 _Street2 = value;
-            }
-        }
-        
-        public string City
-        {
-            get
-            {
-                return _City;
-            }
-            set
-            {
-                _City = value;
-            }
-        }
-        
-        public string State
-        {
-            get
-            {
-                return _State;
-            }
-            set
-            {
-                _State = value;
-            }
-        }
-        
-        public string PostalCode
-        {
-            get
-            {
-                return _PostalCode;
-            }
-            set
-            {
-                _PostalCode = value;
-            }
-        }
-        
-        public string Country
-        {
-            get
-            {
-                return _Country;
-            }
-            set
-            {
-                _Country = value;
             }
         }
         
@@ -324,138 +212,12 @@ namespace DemoWebApi.DemoData.Client
         }
     }
     
-    /// <summary>
-    /// Base class of company and person
-    /// </summary>
-    public class Entity : object
+    public enum AddressType
     {
         
-        private System.Guid _Id;
+        Postal,
         
-        private string _Name;
-        
-        private DemoWebApi.DemoData.Client.Address[] _Addresses;
-        
-        private DemoWebApi.DemoData.Client.PhoneNumber[] _PhoneNumbers;
-        
-        private System.Uri _Web;
-        
-        public System.Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                _Id = value;
-            }
-        }
-        
-        /// <summary>
-        /// Name of the entity.
-        /// </summary>
-        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                _Name = value;
-            }
-        }
-        
-        /// <summary>
-        /// Multiple addresses
-        /// </summary>
-        public DemoWebApi.DemoData.Client.Address[] Addresses
-        {
-            get
-            {
-                return _Addresses;
-            }
-            set
-            {
-                _Addresses = value;
-            }
-        }
-        
-        public DemoWebApi.DemoData.Client.PhoneNumber[] PhoneNumbers
-        {
-            get
-            {
-                return _PhoneNumbers;
-            }
-            set
-            {
-                _PhoneNumbers = value;
-            }
-        }
-        
-        public System.Uri Web
-        {
-            get
-            {
-                return _Web;
-            }
-            set
-            {
-                _Web = value;
-            }
-        }
-    }
-    
-    public class Person : DemoWebApi.DemoData.Client.Entity
-    {
-        
-        private string _Surname;
-        
-        private string _GivenName;
-        
-        private System.Nullable<System.DateTime> _DOB;
-        
-        public string Surname
-        {
-            get
-            {
-                return _Surname;
-            }
-            set
-            {
-                _Surname = value;
-            }
-        }
-        
-        public string GivenName
-        {
-            get
-            {
-                return _GivenName;
-            }
-            set
-            {
-                _GivenName = value;
-            }
-        }
-        
-        /// <summary>
-        /// Date of Birth.
-        /// This is optional.
-        /// </summary>
-        public System.Nullable<System.DateTime> DOB
-        {
-            get
-            {
-                return _DOB;
-            }
-            set
-            {
-                _DOB = value;
-            }
-        }
+        Residential,
     }
     
     public class Company : DemoWebApi.DemoData.Client.Entity
@@ -467,9 +229,9 @@ namespace DemoWebApi.DemoData.Client
         
         private string[][] _TextMatrix;
         
-        private int[][] _Int2DJagged;
-        
         private int[,] _Int2D;
+        
+        private int[][] _Int2DJagged;
         
         private string[] _Lines;
         
@@ -512,18 +274,6 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
-        public int[][] Int2DJagged
-        {
-            get
-            {
-                return _Int2DJagged;
-            }
-            set
-            {
-                _Int2DJagged = value;
-            }
-        }
-        
         public int[,] Int2D
         {
             get
@@ -533,6 +283,18 @@ namespace DemoWebApi.DemoData.Client
             set
             {
                 _Int2D = value;
+            }
+        }
+        
+        public int[][] Int2DJagged
+        {
+            get
+            {
+                return _Int2DJagged;
+            }
+            set
+            {
+                _Int2DJagged = value;
             }
         }
         
@@ -549,109 +311,107 @@ namespace DemoWebApi.DemoData.Client
         }
     }
     
-    public class MyPeopleDic : object
+    public enum Days
     {
         
-        private System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> _Dic;
+        Sat = 1,
         
-        private System.Collections.Generic.Dictionary<string, string> _AnotherDic;
+        Sun = 2,
         
-        private System.Collections.Generic.Dictionary<int, string> _IntDic;
+        Mon = 3,
         
-        public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> Dic
-        {
-            get
-            {
-                return _Dic;
-            }
-            set
-            {
-                _Dic = value;
-            }
-        }
+        Tue = 4,
         
-        public System.Collections.Generic.Dictionary<string, string> AnotherDic
-        {
-            get
-            {
-                return _AnotherDic;
-            }
-            set
-            {
-                _AnotherDic = value;
-            }
-        }
+        Wed = 5,
         
-        public System.Collections.Generic.Dictionary<int, string> IntDic
-        {
-            get
-            {
-                return _IntDic;
-            }
-            set
-            {
-                _IntDic = value;
-            }
-        }
+        /// <summary>
+        /// Thursday
+        /// </summary>
+        Thu = 6,
+        
+        Fri = 7,
     }
     
-    public class MimsResult<T> : object
-    
+    /// <summary>
+    /// Base class of company and person
+    /// </summary>
+    public class Entity : object
     {
         
-        private T _Result;
+        private DemoWebApi.DemoData.Client.Address[] _Addresses;
         
-        private System.DateTime _GeneratedAt;
+        private System.Guid _Id;
         
-        private bool _Success;
+        private string _Name;
         
-        private string _Message;
+        private DemoWebApi.DemoData.Client.PhoneNumber[] _PhoneNumbers;
         
-        public T Result
+        private System.Uri _Web;
+        
+        /// <summary>
+        /// Multiple addresses
+        /// </summary>
+        public DemoWebApi.DemoData.Client.Address[] Addresses
         {
             get
             {
-                return _Result;
+                return _Addresses;
             }
             set
             {
-                _Result = value;
+                _Addresses = value;
             }
         }
         
-        public System.DateTime GeneratedAt
+        public System.Guid Id
         {
             get
             {
-                return _GeneratedAt;
+                return _Id;
             }
             set
             {
-                _GeneratedAt = value;
+                _Id = value;
             }
         }
         
-        public bool Success
+        /// <summary>
+        /// Name of the entity.
+        /// </summary>
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string Name
         {
             get
             {
-                return _Success;
+                return _Name;
             }
             set
             {
-                _Success = value;
+                _Name = value;
             }
         }
         
-        public string Message
+        public DemoWebApi.DemoData.Client.PhoneNumber[] PhoneNumbers
         {
             get
             {
-                return _Message;
+                return _PhoneNumbers;
             }
             set
             {
-                _Message = value;
+                _PhoneNumbers = value;
+            }
+        }
+        
+        public System.Uri Web
+        {
+            get
+            {
+                return _Web;
+            }
+            set
+            {
+                _Web = value;
             }
         }
     }
@@ -688,31 +448,80 @@ namespace DemoWebApi.DemoData.Client
         }
     }
     
+    public class MimsResult<T> : object
+    
+    {
+        
+        private System.DateTime _GeneratedAt;
+        
+        private string _Message;
+        
+        private T _Result;
+        
+        private bool _Success;
+        
+        public System.DateTime GeneratedAt
+        {
+            get
+            {
+                return _GeneratedAt;
+            }
+            set
+            {
+                _GeneratedAt = value;
+            }
+        }
+        
+        public string Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                _Message = value;
+            }
+        }
+        
+        public T Result
+        {
+            get
+            {
+                return _Result;
+            }
+            set
+            {
+                _Result = value;
+            }
+        }
+        
+        public bool Success
+        {
+            get
+            {
+                return _Success;
+            }
+            set
+            {
+                _Success = value;
+            }
+        }
+    }
+    
     public class MyGeneric<T, K, U> : object
     
     
     
     {
         
-        private T _MyT;
-        
         private K _MyK;
+        
+        private T _MyT;
         
         private U _MyU;
         
         private string _Status;
-        
-        public T MyT
-        {
-            get
-            {
-                return _MyT;
-            }
-            set
-            {
-                _MyT = value;
-            }
-        }
         
         public K MyK
         {
@@ -723,6 +532,18 @@ namespace DemoWebApi.DemoData.Client
             set
             {
                 _MyK = value;
+            }
+        }
+        
+        public T MyT
+        {
+            get
+            {
+                return _MyT;
+            }
+            set
+            {
+                _MyT = value;
             }
         }
         
@@ -749,6 +570,185 @@ namespace DemoWebApi.DemoData.Client
                 _Status = value;
             }
         }
+    }
+    
+    public class MyPeopleDic : object
+    {
+        
+        private System.Collections.Generic.Dictionary<string, string> _AnotherDic;
+        
+        private System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> _Dic;
+        
+        private System.Collections.Generic.Dictionary<int, string> _IntDic;
+        
+        public System.Collections.Generic.Dictionary<string, string> AnotherDic
+        {
+            get
+            {
+                return _AnotherDic;
+            }
+            set
+            {
+                _AnotherDic = value;
+            }
+        }
+        
+        public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> Dic
+        {
+            get
+            {
+                return _Dic;
+            }
+            set
+            {
+                _Dic = value;
+            }
+        }
+        
+        public System.Collections.Generic.Dictionary<int, string> IntDic
+        {
+            get
+            {
+                return _IntDic;
+            }
+            set
+            {
+                _IntDic = value;
+            }
+        }
+    }
+    
+    public class Person : DemoWebApi.DemoData.Client.Entity
+    {
+        
+        private System.Nullable<System.DateTime> _DOB;
+        
+        private string _GivenName;
+        
+        private string _Surname;
+        
+        /// <summary>
+        /// Date of Birth.
+        /// This is optional.
+        /// </summary>
+        public System.Nullable<System.DateTime> DOB
+        {
+            get
+            {
+                return _DOB;
+            }
+            set
+            {
+                _DOB = value;
+            }
+        }
+        
+        public string GivenName
+        {
+            get
+            {
+                return _GivenName;
+            }
+            set
+            {
+                _GivenName = value;
+            }
+        }
+        
+        public string Surname
+        {
+            get
+            {
+                return _Surname;
+            }
+            set
+            {
+                _Surname = value;
+            }
+        }
+    }
+    
+    public class PhoneNumber : object
+    {
+        
+        private System.Guid _EntityId;
+        
+        private string _FullNumber;
+        
+        private System.Guid _Id;
+        
+        private DemoWebApi.DemoData.Client.PhoneType _PhoneType;
+        
+        public System.Guid EntityId
+        {
+            get
+            {
+                return _EntityId;
+            }
+            set
+            {
+                _EntityId = value;
+            }
+        }
+        
+        public string FullNumber
+        {
+            get
+            {
+                return _FullNumber;
+            }
+            set
+            {
+                _FullNumber = value;
+            }
+        }
+        
+        public System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+        
+        public DemoWebApi.DemoData.Client.PhoneType PhoneType
+        {
+            get
+            {
+                return _PhoneType;
+            }
+            set
+            {
+                _PhoneType = value;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Phone type
+    /// Tel, Mobile, Skyp and Fax
+    /// 
+    /// </summary>
+    public enum PhoneType
+    {
+        
+        /// <summary>
+        /// Land line
+        /// </summary>
+        Tel,
+        
+        /// <summary>
+        /// Mobile phone
+        /// </summary>
+        Mobile,
+        
+        Skype,
+        
+        Fax,
     }
 }
 namespace DemoWebApi.DemoData.Another.Client
@@ -799,22 +799,21 @@ namespace DemoWebApi.Models.Client
     public class ChangePasswordBindingModel : object
     {
         
-        private string _OldPassword;
+        private string _ConfirmPassword;
         
         private string _NewPassword;
         
-        private string _ConfirmPassword;
+        private string _OldPassword;
         
-        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
-        public string OldPassword
+        public string ConfirmPassword
         {
             get
             {
-                return _OldPassword;
+                return _ConfirmPassword;
             }
             set
             {
-                _OldPassword = value;
+                _ConfirmPassword = value;
             }
         }
         
@@ -830,6 +829,29 @@ namespace DemoWebApi.Models.Client
             }
         }
         
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        public string OldPassword
+        {
+            get
+            {
+                return _OldPassword;
+            }
+            set
+            {
+                _OldPassword = value;
+            }
+        }
+    }
+    
+    public class RegisterBindingModel : object
+    {
+        
+        private string _ConfirmPassword;
+        
+        private string _Email;
+        
+        private string _Password;
+        
         public string ConfirmPassword
         {
             get
@@ -841,16 +863,6 @@ namespace DemoWebApi.Models.Client
                 _ConfirmPassword = value;
             }
         }
-    }
-    
-    public class RegisterBindingModel : object
-    {
-        
-        private string _Email;
-        
-        private string _Password;
-        
-        private string _ConfirmPassword;
         
         public string Email
         {
@@ -873,18 +885,6 @@ namespace DemoWebApi.Models.Client
             set
             {
                 _Password = value;
-            }
-        }
-        
-        public string ConfirmPassword
-        {
-            get
-            {
-                return _ConfirmPassword;
-            }
-            set
-            {
-                _ConfirmPassword = value;
             }
         }
     }
@@ -942,21 +942,9 @@ namespace DemoWebApi.Models.Client
     public class SetPasswordBindingModel : object
     {
         
-        private string _NewPassword;
-        
         private string _ConfirmPassword;
         
-        public string NewPassword
-        {
-            get
-            {
-                return _NewPassword;
-            }
-            set
-            {
-                _NewPassword = value;
-            }
-        }
+        private string _NewPassword;
         
         public string ConfirmPassword
         {
@@ -967,6 +955,18 @@ namespace DemoWebApi.Models.Client
             set
             {
                 _ConfirmPassword = value;
+            }
+        }
+        
+        public string NewPassword
+        {
+            get
+            {
+                return _NewPassword;
+            }
+            set
+            {
+                _NewPassword = value;
             }
         }
     }

@@ -1,7 +1,38 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
 namespace DemoWebApi_DemoData_Client {
+    export interface Address {
+        city?: string;
+        country?: string;
+        entity?: DemoWebApi_DemoData_Client.Entity;
+
+        /**
+         * Foreign key to Entity
+         */
+        entityId?: string;
+        id?: string;
+        postalCode?: string;
+        state?: string;
+        street1?: string;
+        street2?: string;
+        type?: DemoWebApi_DemoData_Client.AddressType;
+        location?: DemoWebApi_DemoData_Another_Client.MyPoint;
+    }
+
     export enum AddressType { Postal, Residential }
+
+    export interface Company extends DemoWebApi_DemoData_Client.Entity {
+
+        /**
+         * BusinessNumber to be serialized as BusinessNum
+         */
+        BusinessNum?: string;
+        businessNumberType?: string;
+        textMatrix?: Array<Array<string>>;
+        int2D?: number[][];
+        int2DJagged?: Array<Array<number>>;
+        lines?: Array<string>;
+    }
 
     export enum Days {
         Sat = 1,
@@ -17,11 +48,67 @@ namespace DemoWebApi_DemoData_Client {
         Fri = 7
     }
 
-    export interface PhoneNumber {
+
+    /**
+     * Base class of company and person
+     */
+    export interface Entity {
+
+        /**
+         * Multiple addresses
+         */
+        addresses?: Array<DemoWebApi_DemoData_Client.Address>;
         id?: string;
-        fullNumber?: string;
-        phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+
+        /**
+         * Name of the entity.
+         */
+        name: string;
+        phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+        web?: string;
+    }
+
+    export interface MimsPackage {
+        result?: DemoWebApi_DemoData_Client.MimsResult<number>;
+        tag?: string;
+    }
+
+    export interface MimsResult<T> {
+        generatedAt?: Date;
+        message?: string;
+        result?: T;
+        success?: boolean;
+    }
+
+    export interface MyGeneric<T, K, U> {
+        myK?: K;
+        myT?: T;
+        myU?: U;
+        status?: string;
+    }
+
+    export interface MyPeopleDic {
+        anotherDic?: {[id: string]: string };
+        dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
+        intDic?: {[id: number]: string };
+    }
+
+    export interface Person extends DemoWebApi_DemoData_Client.Entity {
+
+        /**
+         * Date of Birth.
+         * This is optional.
+         */
+        dob?: Date;
+        givenName?: string;
+        surname?: string;
+    }
+
+    export interface PhoneNumber {
         entityId?: string;
+        fullNumber?: string;
+        id?: string;
+        phoneType?: DemoWebApi_DemoData_Client.PhoneType;
     }
 
 
@@ -42,93 +129,6 @@ namespace DemoWebApi_DemoData_Client {
         Mobile,
         Skype,
         Fax
-    }
-
-    export interface Address {
-        id?: string;
-        entity?: DemoWebApi_DemoData_Client.Entity;
-
-        /**
-         * Foreign key to Entity
-         */
-        entityId?: string;
-        street1?: string;
-        street2?: string;
-        city?: string;
-        state?: string;
-        postalCode?: string;
-        country?: string;
-        type?: DemoWebApi_DemoData_Client.AddressType;
-        location?: DemoWebApi_DemoData_Another_Client.MyPoint;
-    }
-
-
-    /**
-     * Base class of company and person
-     */
-    export interface Entity {
-        id?: string;
-
-        /**
-         * Name of the entity.
-         */
-        name: string;
-
-        /**
-         * Multiple addresses
-         */
-        addresses?: Array<DemoWebApi_DemoData_Client.Address>;
-        phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
-        web?: string;
-    }
-
-    export interface Person extends DemoWebApi_DemoData_Client.Entity {
-        surname?: string;
-        givenName?: string;
-
-        /**
-         * Date of Birth.
-         * This is optional.
-         */
-        dob?: Date;
-    }
-
-    export interface Company extends DemoWebApi_DemoData_Client.Entity {
-
-        /**
-         * BusinessNumber to be serialized as BusinessNum
-         */
-        BusinessNum?: string;
-        businessNumberType?: string;
-        textMatrix?: Array<Array<string>>;
-        int2DJagged?: Array<Array<number>>;
-        int2D?: number[][];
-        lines?: Array<string>;
-    }
-
-    export interface MyPeopleDic {
-        dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
-        anotherDic?: {[id: string]: string };
-        intDic?: {[id: number]: string };
-    }
-
-    export interface MimsResult<T> {
-        result?: T;
-        generatedAt?: Date;
-        success?: boolean;
-        message?: string;
-    }
-
-    export interface MimsPackage {
-        result?: DemoWebApi_DemoData_Client.MimsResult<number>;
-        tag?: string;
-    }
-
-    export interface MyGeneric<T, K, U> {
-        myT?: T;
-        myK?: K;
-        myU?: U;
-        status?: string;
     }
 
 }
@@ -161,15 +161,15 @@ namespace DemoWebApi_Models_Client {
     }
 
     export interface ChangePasswordBindingModel {
-        OldPwd: string;
-        newPassword?: string;
         confirmPassword?: string;
+        newPassword?: string;
+        OldPwd: string;
     }
 
     export interface RegisterBindingModel {
+        confirmPassword?: string;
         email?: string;
         password?: string;
-        confirmPassword?: string;
     }
 
     export interface RegisterExternalBindingModel {
@@ -182,8 +182,8 @@ namespace DemoWebApi_Models_Client {
     }
 
     export interface SetPasswordBindingModel {
-        newPassword?: string;
         confirmPassword?: string;
+        newPassword?: string;
     }
 
 }

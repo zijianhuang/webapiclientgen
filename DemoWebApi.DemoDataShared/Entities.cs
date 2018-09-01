@@ -131,6 +131,9 @@ namespace DemoWebApi.DemoData
         [DataMember]
         public AddressType Type { get; set; }
 
+        /// <summary>
+        /// It is a field
+        /// </summary>
         [DataMember]
         public DemoWebApi.DemoData.Another.MyPoint Location;
     }

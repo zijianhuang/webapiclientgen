@@ -140,7 +140,9 @@ namespace Fonlow.Poco2Ts
                 throw new ArgumentNullException("types", "types is not defined.");
 
             this.pendingTypes.AddRange(types);
-            var typeGroupedByNamespace = types.GroupBy(d => d.Namespace);
+            var typeGroupedByNamespace = types
+                .GroupBy(d => d.Namespace)
+                .OrderBy(k => k.Key); // order by namespace
             var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
             foreach (var groupedTypes in typeGroupedByNamespace)
             {
@@ -149,7 +151,7 @@ namespace Fonlow.Poco2Ts
                 targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
                 Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
-                groupedTypes.Select(type =>
+                groupedTypes.OrderBy(t => t.Name).Select(type =>
                 {
                     var tsName = type.Name;
                     Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);
@@ -180,7 +182,8 @@ namespace Fonlow.Poco2Ts
 
                         CreateTypeDocComment(type, typeDeclaration);
 
-                        foreach (var propertyInfo in type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
+                        var typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
+                        foreach (var propertyInfo in typeProperties)
                         {
                             var cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods);
                             if (cherryType == CherryType.None)
@@ -213,7 +216,8 @@ namespace Fonlow.Poco2Ts
                             typeDeclaration.Members.Add(clientField);
                         }
 
-                        foreach (var fieldInfo in type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
+                        var typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
+                        foreach (var fieldInfo in typeFields)
                         {
                             var cherryType = CherryPicking.GetMemberCherryType(fieldInfo, methods);
                             if (cherryType == CherryType.None)

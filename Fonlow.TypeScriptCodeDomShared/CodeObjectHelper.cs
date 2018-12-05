@@ -541,13 +541,13 @@ namespace Fonlow.TypeScriptCodeDom
                         w.WriteLine(",");
                     }
 
-                    w.Write(o.IndentString);
+
                     var codeMemberField = ctm as CodeMemberField;
                     System.Diagnostics.Trace.Assert(codeMemberField != null);
-                    if (WriteCodeCommentStatementCollection(ctm.Comments, w, o))
-                    {
-                        w.Write(o.IndentString);
-                    }
+
+                    //Handle the comment of the member
+                    WriteCodeCommentStatementCollection(ctm.Comments, w, o);//This will create a new line first
+                    w.Write(o.IndentString);
 
                     var enumMemberText = GetEnumMember(codeMemberField);
                     w.Write(enumMemberText);

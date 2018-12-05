@@ -160,6 +160,9 @@ namespace DemoWebApi.DemoData.Client
             }
         }
         
+        /// <summary>
+        /// It is a field
+        /// </summary>
         public DemoWebApi.DemoData.Another.Client.MyPoint Location
         {
             get

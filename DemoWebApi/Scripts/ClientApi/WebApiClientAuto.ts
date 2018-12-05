@@ -16,6 +16,10 @@ namespace DemoWebApi_DemoData_Client {
         street1?: string;
         street2?: string;
         type?: DemoWebApi_DemoData_Client.AddressType;
+
+        /**
+         * It is a field
+         */
         location?: DemoWebApi_DemoData_Another_Client.MyPoint;
     }
 
@@ -40,7 +44,7 @@ namespace DemoWebApi_DemoData_Client {
         Mon = 3,
         Tue = 4,
         Wed = 5,
-        
+
         /**
          * Thursday
          */
@@ -117,12 +121,12 @@ namespace DemoWebApi_DemoData_Client {
      * Tel, Mobile, Skyp and Fax
      */
     export enum PhoneType {
-        
+
         /**
          * Land line
          */
         Tel,
-        
+
         /**
          * Mobile phone
          */

@@ -62,20 +62,20 @@ namespace Fonlow.CodeDom.Web
 			}
 			else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
 			{
-				var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toISOString():'') + '");
+				var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toISOString() : '') + '");
 				if (replaced == newUriText)
 				{
-					replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toISOString():'') + '");
+					replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toISOString() : '') + '");
 				}
 
 				return replaced;
 			}
 			else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
 			{
-				var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name}?'&{d.Name}='+{d.Name}.toString():'') + '");
+				var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
 				if (replaced == newUriText)
 				{
-					replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"'+({d.Name}?'{d.Name}='+{d.Name}.toString():'') + '");
+					replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toString() : '') + '");
 				}
 
 				return replaced;

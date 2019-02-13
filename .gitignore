@@ -37,3 +37,4 @@ _ReSharper*/
 /packages
 /DemoNGCli/NG
 /DemoCoreWeb/wwwroot
+/DemoNGCli/NGSource/package-lock.json

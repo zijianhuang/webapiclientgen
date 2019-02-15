@@ -406,6 +406,9 @@ namespace Fonlow.CodeDom.Web.Cs
 		static string RemoveTrialEmptyString(string s)
 		{
 			var p = s.IndexOf("+\"\"");
+			if (p == -1) {
+				return s;
+			}
 			return s.Remove(p, 3);
 		}
 

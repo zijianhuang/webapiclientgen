@@ -27,7 +27,7 @@
   <Import Project="..\Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
   <ItemGroup>

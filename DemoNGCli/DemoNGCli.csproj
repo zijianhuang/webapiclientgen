@@ -56,7 +56,6 @@
     <Content Include="NGSource\src\tsconfig.spec.json" />
     <Content Include="NGSource\.editorconfig" />
     <Content Include="NGSource\.gitignore" />
-    <Content Include="NGSource\package-lock.json" />
     <Content Include="NGSource\package.json" />
     <Content Include="NGSource\README.md" />
     <Content Include="NGSource\tsconfig.json" />

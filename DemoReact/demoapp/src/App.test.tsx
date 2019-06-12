@@ -2,35 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import AXIOS from 'axios';
+import * as DemoWebApi_Controllers_Client from './WebApiReactClientAuto';
 
+//const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 const apiBaseUri = 'http://localhost:5000/';
 
-const locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
-class Values {
-	constructor(private baseUri: string = locationOrigin) {
 
-	}
-
-	delete(id: number) {
-		return AXIOS.delete(this.baseUri + 'api/Values/' + id);
-	}
-
-	get(): Promise<Array<string>> {
-		return AXIOS.get(this.baseUri + 'api/Values').then(d => d.data as Array<string>);
-	}
-
-	getByIdAndName(id: number, name: string): Promise<string> {
-		return AXIOS.get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name)).then(d => d.data as string);
-	}
-
-	post(value: string) {
-		return AXIOS.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
-	}
-
-	put(id: number, value: string) {
-		return AXIOS.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
-	}
-}
 
 it('renders without crashing', () => {
 	const div = document.createElement('div');
@@ -53,7 +30,7 @@ it('simple axios not reachable', async () => {
 });
 
 describe("values api", () => {
-	const valuesApi = new Values(apiBaseUri);
+	const valuesApi = new DemoWebApi_Controllers_Client.Values(apiBaseUri);
 	console.debug('created');
 	it('get', async () => {
 		const data = await AXIOS.get('http://localhost:5000/api/values')

@@ -16,12 +16,12 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 		}
 
-        protected override Fonlow.Poco2Client.IPoco2Client CreatePoco2TsGen()
-        {
-            return new Fonlow.Poco2Ts.PocoToTsNgGen(TargetUnit);
-        }
+		protected override Fonlow.Poco2Client.IPoco2Client CreatePoco2TsGen()
+		{
+			return new Fonlow.Poco2Ts.PocoToTsNgGen(TargetUnit);
+		}
 
-        protected override void AddBasicReferences()
+		protected override void AddBasicReferences()
 		{
 			TargetUnit.ReferencedAssemblies.Add("import { Injectable, Inject } from '@angular/core';");
 			TargetUnit.ReferencedAssemblies.Add("import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';");

@@ -77,6 +77,7 @@
     <TypeScriptCompile Include="demoapp\src\index.tsx" />
     <TypeScriptCompile Include="demoapp\src\react-app-env.d.ts" />
     <TypeScriptCompile Include="demoapp\src\serviceWorker.ts" />
+    <TypeScriptCompile Include="demoapp\src\WebApiReactClientAuto.tsx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

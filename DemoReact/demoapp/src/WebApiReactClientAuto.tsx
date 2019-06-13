@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import ReactDOM from 'react-dom';
 import AXIOS from 'axios';
+import AxiosResponse from 'axios';
 
 export namespace DemoWebApi_Controllers_Client {
 

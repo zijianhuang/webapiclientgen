@@ -74,6 +74,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="demoapp\src\App.test.tsx" />
     <TypeScriptCompile Include="demoapp\src\App.tsx" />
+    <TypeScriptCompile Include="demoapp\src\clientapi\WebApiReactClientAuto.tsx" />
     <TypeScriptCompile Include="demoapp\src\index.tsx" />
     <TypeScriptCompile Include="demoapp\src\react-app-env.d.ts" />
     <TypeScriptCompile Include="demoapp\src\serviceWorker.ts" />
@@ -82,6 +83,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

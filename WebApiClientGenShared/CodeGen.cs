@@ -83,7 +83,15 @@ namespace Fonlow.CodeDom.Web
 				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsNG2ClientApiGen(ng2Output);
 				tsGen.CreateCodeDom(apiDescriptions);
 				tsGen.Save();
+			}
 
+			var reactPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptReactFolder, settings.ClientApiOutputs.TypeScriptReactFile);
+			if (!String.IsNullOrEmpty(reactPath))
+			{
+				var reactOutput = new JSOutput(settings, reactPath, true);
+				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsReactClientApiGen(reactOutput);
+				tsGen.CreateCodeDom(apiDescriptions);
+				tsGen.Save();
 			}
 
 		}

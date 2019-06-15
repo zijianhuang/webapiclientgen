@@ -1,9 +1,7 @@
-﻿import React from 'react';
-import ReactDOM from 'react-dom';
-import AXIOS from 'axios';
+﻿import AXIOS from 'axios';
 import AxiosResponse from 'axios';
 
-export namespace DemoWebApi_Controllers_Client {
+//export namespace DemoWebApi_Controllers_Client {
 
 	export class Values {
 		//const locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
@@ -31,4 +29,4 @@ export namespace DemoWebApi_Controllers_Client {
 			return AXIOS.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
-}
+//}

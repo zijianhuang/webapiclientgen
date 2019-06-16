@@ -20,6 +20,7 @@
 		"CamelCase": true,
 		"ContentType": "application/json;charset=UTF-8",
 		"TypeScriptJQFolder": "..\\..\\..\\..\\Scripts\\ClientApi",
-		"TypeScriptNG2Folder": "..\\..\\..\\..\\..\\DemoNGCli\\NGSource\\src\\ClientApi"
+		"TypeScriptNG2Folder": "..\\..\\..\\..\\..\\DemoNGCli\\NGSource\\src\\ClientApi",
+		"TypeScriptAxiosFolder": "..\\axios\\src\\clientapi"
 	}
 }

@@ -1,8 +1,11 @@
 import { AxiosAdapter, AxiosResponse, AxiosError } from 'axios';
 import * as namespaces from './clientapi/WebApiAxiosClientAuto';
+// JEST provides a few ways of handling async code. This test suite use callbacks, 
+// since it is a simple hack from the test suite initially written for Angular 2.
 
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-const apiBaseUri = 'http://localhost:10965/';
+//const apiBaseUri = 'http://localhost:10965/';
+const apiBaseUri = 'http://localhost:5000/';
 
 function instanceOfAxiosError(obj: any): obj is AxiosError {
 	return 'isAxiosError' in obj;

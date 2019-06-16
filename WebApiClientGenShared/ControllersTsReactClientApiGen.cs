@@ -23,8 +23,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void AddBasicReferences()
 		{
-			TargetUnit.ReferencedAssemblies.Add("import React from 'react';");
-			TargetUnit.ReferencedAssemblies.Add("import ReactDOM from 'react-dom';");
 			TargetUnit.ReferencedAssemblies.Add("import Axios from 'axios';");
 			TargetUnit.ReferencedAssemblies.Add("import { AxiosResponse } from 'axios';");
 		}

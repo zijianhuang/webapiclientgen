@@ -87,7 +87,7 @@
 		/// <summary>
 		/// File name to be saved in TypeScriptReactFolder. If not defined, it will be WebApiReactClientAuto.ts.
 		/// </summary>
-		public string TypeScriptReactFile { get; set; } = "WebApiReactClientAuto.tsx";
+		public string TypeScriptReactFile { get; set; } = "WebApiReactClientAuto.ts";
 
 		/// <summary>
 		/// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.

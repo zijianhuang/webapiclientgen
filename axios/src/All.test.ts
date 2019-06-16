@@ -1,5 +1,5 @@
 import { AxiosAdapter, AxiosResponse, AxiosError } from 'axios';
-import * as namespaces from './clientapi/WebApiReactClientAuto';
+import * as namespaces from './clientapi/WebApiAxiosClientAuto';
 
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 const apiBaseUri = 'http://localhost:10965/';

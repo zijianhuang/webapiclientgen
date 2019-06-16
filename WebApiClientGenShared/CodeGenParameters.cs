@@ -77,7 +77,7 @@
 		/// <summary>
 		/// Absolute path or relative path to the Web API project.
 		/// </summary>
-		public string TypeScriptReactFolder { get; set; }
+		public string TypeScriptAxiosFolder { get; set; }
 
 		/// <summary>
 		/// File name to be saved in TypeScriptNG2Folder. If not defined, it will be WebApiNG2ClientAuto.ts.
@@ -85,9 +85,9 @@
 		public string TypeScriptNG2File { get; set; } = "WebApiNG2ClientAuto.ts";
 
 		/// <summary>
-		/// File name to be saved in TypeScriptReactFolder. If not defined, it will be WebApiReactClientAuto.ts.
+		/// File name to be saved in TypeScriptAxiosFolder. If not defined, it will be WebApiAxiosClientAuto.ts.
 		/// </summary>
-		public string TypeScriptReactFile { get; set; } = "WebApiReactClientAuto.ts";
+		public string TypeScriptAxiosFile { get; set; } = "WebApiAxiosClientAuto.ts";
 
 		/// <summary>
 		/// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.

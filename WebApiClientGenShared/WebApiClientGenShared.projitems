@@ -12,14 +12,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiFunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsFunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsFunctionGenBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsReactFunctionGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsAxiosFunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsNg2FunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodeGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodeGenParameters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersClientApiGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsClientApiGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsClientApiGenBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ControllersTsReactClientApiGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ControllersTsAxiosClientApiGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsNG2ClientApiGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UriTemplateTransform.cs" />
   </ItemGroup>

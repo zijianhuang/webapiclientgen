@@ -85,11 +85,11 @@ namespace Fonlow.CodeDom.Web
 				tsGen.Save();
 			}
 
-			var reactPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptReactFolder, settings.ClientApiOutputs.TypeScriptReactFile);
-			if (!String.IsNullOrEmpty(reactPath))
+			var axiosPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptAxiosFolder, settings.ClientApiOutputs.TypeScriptAxiosFile);
+			if (!String.IsNullOrEmpty(axiosPath))
 			{
-				var reactOutput = new JSOutput(settings, reactPath, true);
-				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsReactClientApiGen(reactOutput);
+				var axiosOutput = new JSOutput(settings, axiosPath, true);
+				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsAxiosClientApiGen(axiosOutput);
 				tsGen.CreateCodeDom(apiDescriptions);
 				tsGen.Save();
 			}

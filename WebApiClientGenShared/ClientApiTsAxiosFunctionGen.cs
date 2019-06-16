@@ -14,18 +14,18 @@ using Fonlow.Web.Meta;
 namespace Fonlow.CodeDom.Web.Ts
 {
 	/// <summary>
-	/// Generate a client function upon ApiDescription for React + AXIOS
+	/// Generate a client function upon ApiDescription for AXIOS
 	/// </summary>
-	public class ClientApiTsReactFunctionGen : ClientApiTsFunctionGenBase
+	public class ClientApiTsAxiosFunctionGen : ClientApiTsFunctionGenBase
 	{
-		const string ReactHttpResponse = "AxiosResponse";
-		const string ReactHttpBlobResponse = "AxiosResponse<Blob>";
-		const string ReactHttpStringResponse = "AxiosResponse<string>";
+		const string AxiosHttpResponse = "AxiosResponse";
+		const string AxiostHttpBlobResponse = "AxiosResponse<Blob>";
+		const string AxiosHttpStringResponse = "AxiosResponse<string>";
 
 		string returnTypeText = null;
 		string contentType;
 
-		public ClientApiTsReactFunctionGen(string contentType) : base()
+		public ClientApiTsAxiosFunctionGen(string contentType) : base()
 		{
 			this.contentType = contentType;
 		}
@@ -36,15 +36,15 @@ namespace Fonlow.CodeDom.Web.Ts
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
 			{
-				returnTypeText = ReactHttpResponse;
+				returnTypeText = AxiosHttpResponse;
 			}
 			else if (returnTypeText == "response")
 			{
-				returnTypeText = ReactHttpStringResponse;
+				returnTypeText = AxiosHttpStringResponse;
 			}
 			else if (returnTypeText == "blobresponse")
 			{
-				returnTypeText = ReactHttpBlobResponse;
+				returnTypeText = AxiostHttpBlobResponse;
 			}
 
 			var callbackTypeText = $"Promise<{returnTypeText}>";
@@ -117,7 +117,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 			}
-			else if (returnTypeText == ReactHttpBlobResponse)//translated from blobresponse to this
+			else if (returnTypeText == AxiostHttpBlobResponse)//translated from blobresponse to this
 			{
 				const string optionForStream = "{ responseType: 'blob' }";
 
@@ -158,7 +158,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 			}
-			else if (returnTypeText == ReactHttpStringResponse)//translated from response to this
+			else if (returnTypeText == AxiosHttpStringResponse)//translated from response to this
 			{
 				const string optionForActionResult = "{ responseType: 'text' }";
 
@@ -194,7 +194,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 			}
-			else if (returnTypeText == ReactHttpResponse) // client should care about only status
+			else if (returnTypeText == AxiosHttpResponse) // client should care about only status
 			{
 				const string optionForActionResult = "{ responseType: 'text' }";
 

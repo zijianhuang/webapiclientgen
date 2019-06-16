@@ -453,7 +453,8 @@ describe('SuperDemo API', () => {
   it('getDateTimeNull', (done) => {
     service.getDateTime(false).then(
       data => {
-        expect(data).toBeNull();
+//        expect(data).toBeNull();
+        expect(data).toBe(''); // axios does not intepret this as null.
         done();
       },
       error => {
@@ -483,7 +484,8 @@ describe('SuperDemo API', () => {
   it('getNullableDecimalNull', (done) => {
     service.getNullableDecimal(false).then(
       data => {
-        expect(data).toBeNull();
+        //expect(data).toBeNull();
+		expect(data).toBe(''); // axios does not intepret NoContent as null. You may use 204. However, not so strongly typed.
         done();
       },
       error => {
@@ -498,7 +500,8 @@ describe('SuperDemo API', () => {
   it('getNullString', (done) => {
     service.getNullString().then(
       data => {
-        expect(data).toBeNull();
+       // expect(data).toBeNull();
+        expect(data).toBe(''); // axios does not intepret NoContent as null. You may use 204. However, not so strongly typed.
         done();
       },
       error => {
@@ -513,7 +516,8 @@ describe('SuperDemo API', () => {
   it('getNullPerson', (done) => {
     service.getNullPerson().then(
       data => {
-        expect(data).toBeNull();
+//        expect(data).toBeNull();
+        expect(data).toBe(''); // axios does not intepret NoContent as null. You may use 204. However, not so strongly typed.
         done();
       },
       error => {
@@ -529,8 +533,7 @@ describe('SuperDemo API', () => {
     service.getByteArray().then(
       data => {
 		expect(data.length).toBeGreaterThan(0);
-		fail('hahahahahah');
-       // done();
+        done();
       },
       error => {
         fail(errorResponseToString(error));

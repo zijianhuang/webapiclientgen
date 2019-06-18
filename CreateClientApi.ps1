@@ -12,10 +12,9 @@ $process = Start-Process @procArgs
 Invoke-RestMethod http://localhost:10965/api/codegen -Method POST -InFile "$($PSScriptRoot)\DemoWebApi\CodeGen.json" -ContentType "application/json"
 
 #Step 3: Compile generated TS codes to JS for jQuery
-# -outFile will cause the js of HttpClient.ts to be merged, so the html does not need to reference to HttpClient.js
 $procTscArgs = @{
     FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoWebApi\Scripts\ClientApi\WebApiClientAuto.ts -outFile $PSScriptRoot\DemoWebApi\Scripts\ClientApi\WebApiClientAuto.js"
+    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoWebApi\Scripts\ClientApi\WebApiClientAuto.ts"
     PassThru         = $true
     
 }

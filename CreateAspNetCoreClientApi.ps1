@@ -20,10 +20,9 @@ $restArgs = @{
 Invoke-RestMethod @restArgs
 
 #Step 3: Compile generated TS codes to JS for jQuery
-# -outFile will cause the js of HttpClient.ts to be merged, so the html does not need to reference to HttpClient.js
 $procTscArgs = @{
     FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreClientAuto.ts -outFile $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreClientAuto.js"
+    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreClientAuto.ts"
     PassThru         = $true
     
 }

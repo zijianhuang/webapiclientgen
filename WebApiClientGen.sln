@@ -108,8 +108,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTestsCore", "Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeScriptCodeDomTestsCore", "Tests\TypeScriptCodeDomTestsCore\TypeScriptCodeDomTestsCore.csproj", "{62CE4EAA-BFBE-4DA5-9722-5844CAD60C3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoReact", "DemoReact\DemoReact.csproj", "{E6E0E26F-00B0-4898-853C-9F81B60F9040}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems*{0dc57b30-7487-455c-8c75-1b814686049c}*SharedItemsImports = 4
@@ -608,22 +606,6 @@ Global
 		{62CE4EAA-BFBE-4DA5-9722-5844CAD60C3C}.Release|x64.Build.0 = Release|Any CPU
 		{62CE4EAA-BFBE-4DA5-9722-5844CAD60C3C}.Release|x86.ActiveCfg = Release|Any CPU
 		{62CE4EAA-BFBE-4DA5-9722-5844CAD60C3C}.Release|x86.Build.0 = Release|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Debug|ARM.Build.0 = Debug|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Debug|x64.Build.0 = Debug|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Debug|x86.Build.0 = Debug|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Release|ARM.ActiveCfg = Release|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Release|ARM.Build.0 = Release|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Release|x64.ActiveCfg = Release|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Release|x64.Build.0 = Release|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Release|x86.ActiveCfg = Release|Any CPU
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -663,7 +645,6 @@ Global
 		{EB9EE874-F621-4A9F-AB17-7E29E392F26A} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 		{62CE4EAA-BFBE-4DA5-9722-5844CAD60C3C} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
-		{E6E0E26F-00B0-4898-853C-9F81B60F9040} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18214E93-9A86-4818-9CB5-C5F2917B153A}

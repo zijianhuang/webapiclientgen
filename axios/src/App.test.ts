@@ -1,5 +1,6 @@
 import AXIOS from 'axios';
 import * as namespaces from './clientapi/WebApiAxiosClientAuto';
+//import * as namespaces from './clientapi/WebApiCoreAxiosClientAuto';
 
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 const apiBaseUri = 'http://localhost:10965/';

@@ -1,11 +1,13 @@
 import { AxiosAdapter, AxiosResponse, AxiosError } from 'axios';
 import * as namespaces from './clientapi/WebApiAxiosClientAuto';
+//import * as namespaces from './clientapi/WebApiCoreAxiosClientAuto';
+
 // JEST provides a few ways of handling async code. This test suite use callbacks, 
 // since it is a simple hack from the test suite initially written for Angular 2.
 
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-//const apiBaseUri = 'http://localhost:10965/';
-const apiBaseUri = 'http://localhost:5000/';
+const apiBaseUri = 'http://localhost:10965/';
+//const apiBaseUri = 'http://localhost:5000/';
 
 function instanceOfAxiosError(obj: any): obj is AxiosError {
 	return 'isAxiosError' in obj;
@@ -453,8 +455,8 @@ describe('SuperDemo API', () => {
   it('getDateTimeNull', (done) => {
     service.getDateTime(false).then(
       data => {
-//        expect(data).toBeNull();
-        expect(data).toBe(''); // axios does not intepret this as null.
+        expect(data).toBeNull();
+		//expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -484,8 +486,8 @@ describe('SuperDemo API', () => {
   it('getNullableDecimalNull', (done) => {
     service.getNullableDecimal(false).then(
       data => {
-        //expect(data).toBeNull();
-		expect(data).toBe(''); // axios does not intepret NoContent as null. You may use 204. However, not so strongly typed.
+        expect(data).toBeNull();
+		//expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -500,9 +502,9 @@ describe('SuperDemo API', () => {
   it('getNullString', (done) => {
     service.getNullString().then(
       data => {
-       // expect(data).toBeNull();
-        expect(data).toBe(''); // axios does not intepret NoContent as null. You may use 204. However, not so strongly typed.
-        done();
+        expect(data).toBeNull();
+        //expect(data).toBe(''); // .net core return 204 nocontent empty body
+            done();
       },
       error => {
         fail(errorResponseToString(error));
@@ -516,8 +518,8 @@ describe('SuperDemo API', () => {
   it('getNullPerson', (done) => {
     service.getNullPerson().then(
       data => {
-//        expect(data).toBeNull();
-        expect(data).toBe(''); // axios does not intepret NoContent as null. You may use 204. However, not so strongly typed.
+        expect(data).toBeNull();
+		//expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {

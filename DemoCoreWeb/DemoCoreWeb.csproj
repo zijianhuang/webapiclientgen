@@ -58,9 +58,6 @@
     <None Update="Scripts\ClientApi\HttpClient.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Update="Scripts\ClientApi\WebApiClientAuto.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <None Update="Scripts\tests\demo.tests.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

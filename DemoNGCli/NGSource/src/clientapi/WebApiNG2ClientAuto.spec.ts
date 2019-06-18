@@ -1,10 +1,11 @@
 import { async, inject, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 
-import * as namespaces from './WebApiNG2ClientAuto';
+//import * as namespaces from './WebApiNG2ClientAuto';
+ import * as namespaces from './WebApiCoreNG2ClientAuto';
 
-//const apiBaseUri = 'http://localhost:10965/'; //for DemoWebApi
-const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
+//const apiBaseUri = 'http://localhost:10965/'; // for DemoWebApi
+ const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -259,7 +260,7 @@ describe('entities API', () => {
     client = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Entities);
   }));
 
-  //it('getPersonNotFound', (done) => {
+  // it('getPersonNotFound', (done) => {
   //    client.getPersonNotFound(123)
   //        .subscribe(
   //        data => {
@@ -271,8 +272,8 @@ describe('entities API', () => {
   //            done();
   //        }
   //        );
-  //}
-  //);
+  // }
+  // );
 
   it('add', (done) => {
     let id: number;
@@ -333,7 +334,7 @@ describe('entities API', () => {
     };
 
     const c: namespaces.DemoWebApi_DemoData_Client.MyGeneric<string, number, namespaces.DemoWebApi_DemoData_Client.Person> = {
-      myK:123.456,
+      myK: 123.456,
       myT: 'abc',
       myU: newPerson,
       status: 'OK',
@@ -863,9 +864,9 @@ describe('SuperDemo API', () => {
   it('getDictionaryOfPeople', (done) => {
     service.getDictionaryOfPeople().subscribe(
       data => {
-        let p = data['spider Man']; //ASP.NET Web API with NewtonSoftJson made it camcel;
+        let p = data['spider Man']; // ASP.NET Web API with NewtonSoftJson made it camcel;
         if (!p) {
-          p = data['Spider Man']; //.NET Core is OK
+          p = data['Spider Man']; // .NET Core is OK
         }
         expect(p.name).toBe('Peter Parker');
         expect(p.addresses[0].city).toBe('New York');
@@ -952,10 +953,10 @@ describe('SuperDemo API', () => {
   );
 
   it('getNextYearNullable', (done) => {
-    let now = new Date(Date.now());
+    const now = new Date(Date.now());
     service.getNextYearNullable(2, now).subscribe(
       data => {
-        let dt = new Date(data);//data is actually string, NG HttpClient does not translate it to Date
+        const dt = new Date(data); // data is actually string, NG HttpClient does not translate it to Date
         expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
         done();
       },
@@ -969,11 +970,11 @@ describe('SuperDemo API', () => {
   );
 
   it('getNextHourNullable', (done) => {
-    let now = new Date(Date.now());
+    const now = new Date(Date.now());
     service.getNextHourNullable(2, now).subscribe(
       data => {
-        let dt = new Date(data);
-        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
+        const dt = new Date(data);
+        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
         done();
       },
       error => {
@@ -986,10 +987,10 @@ describe('SuperDemo API', () => {
   );
 
   it('getNextYearNullable2', (done) => {
-    let now = new Date(Date.now());
+    const now = new Date(Date.now());
     service.getNextYearNullable(2, undefined).subscribe(
       data => {
-        let dt = new Date(data);
+        const dt = new Date(data);
         expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
         done();
       },
@@ -1003,11 +1004,11 @@ describe('SuperDemo API', () => {
   );
 
   it('getNextHourNullable2', (done) => {
-    let now = new Date(Date.now());
+    const now = new Date(Date.now());
     service.getNextHourNullable(2, null).subscribe(
       data => {
-        let dt = new Date(data);
-        expect(dt.getHours()%24).toEqual((now.getHours() + 2)%24)
+        const dt = new Date(data);
+        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
         done();
       },
       error => {
@@ -1021,8 +1022,8 @@ describe('SuperDemo API', () => {
 
 
   it('searchDateRange', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
+    const startDt = new Date(Date.now());
+    const endDt = new Date(Date.now() + 100000);
     service.searchDateRange(startDt, endDt).subscribe(
       data => {
         expect(new Date(data.item1)).toEqual(startDt);
@@ -1040,12 +1041,12 @@ describe('SuperDemo API', () => {
 
 
   it('searchDateRangeEndUndefined', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
+    const startDt = new Date(Date.now());
+    const endDt = new Date(Date.now() + 100000);
     service.searchDateRange(startDt, undefined).subscribe(
       data => {
         expect(new Date(data.item1)).toEqual(startDt);
-        expect(data.item2).toBeNull(); //OK with null rather than undefined
+        expect(data.item2).toBeNull(); // OK with null rather than undefined
         done();
       },
       error => {
@@ -1059,17 +1060,17 @@ describe('SuperDemo API', () => {
 
 
   it('searchDateRangeStartUndefined', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
+    const startDt = new Date(Date.now());
+    const endDt = new Date(Date.now() + 100000);
     service.searchDateRange(undefined, endDt).subscribe(
       data => {
-        //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
+        // fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
         expect(data.item1).toBeNull();
         expect(new Date(data.item2)).toEqual(endDt);
         done();
       },
       error => {
-        let errorText = errorResponseToString(error);
+        const errorText = errorResponseToString(error);
         if (errorText.indexOf('400') < 0) {
           fail(errorText);
         }
@@ -1083,8 +1084,8 @@ describe('SuperDemo API', () => {
 
 
   it('searchDateRangeBotNull', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
+    const startDt = new Date(Date.now());
+    const endDt = new Date(Date.now() + 100000);
     service.searchDateRange(null, undefined).subscribe(
       data => {
         expect(data.item1).toBeNull();
@@ -1149,7 +1150,7 @@ describe('Tuple API', () => {
   );
 
   it('postTuple2', (done) => {
-    service.postTuple2({ item1: "One", item2: 2 }).subscribe(
+    service.postTuple2({ item1: 'One', item2: 2 }).subscribe(
       data => {
         expect(data).toBe('One');
         done();

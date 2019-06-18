@@ -3,23 +3,6 @@ import { AxiosResponse } from 'axios';
 export namespace DemoWebApi_Controllers_Client {
 
     /**
-     * This class is used to carry the result of various file uploads.
-     */
-    export interface FileResult {
-
-        /**
-         * Gets or sets the local path of the file saved on the server.
-         */
-        fileNames?: Array<string>;
-
-        /**
-         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-         */
-        submitter?: string;
-    }
-
-
-    /**
      * Complex hero type
      */
     export interface Hero {
@@ -221,6 +204,35 @@ export namespace DemoWebApi_Models_Client {
 
 }
 
+export namespace DemoCoreWeb_Controllers_Client {
+    export class SpecialTypes {
+        constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
+        }
+
+        /**
+         * GET api/SpecialTypes/AnonymousDynamic
+         */
+        getAnonymousDynamic(): Promise<AxiosResponse> {
+            return Axios.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { responseType: 'text' });
+        }
+
+        /**
+         * GET api/SpecialTypes/AnonymousObject
+         */
+        getAnonymousObject(): Promise<AxiosResponse> {
+            return Axios.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', { responseType: 'text' });
+        }
+
+        /**
+         * POST api/SpecialTypes/AnonymousObject
+         */
+        postAnonymousObject(obj: any): Promise<AxiosResponse> {
+            return Axios.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+        }
+    }
+
+}
+
 export namespace DemoWebApi_Controllers_Client {
     export class Entities {
         constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
@@ -241,10 +253,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/Entities/Company?id={id}
+         * GET api/Entities/Company/{id}
          */
         getCompany(id: number): Promise<DemoWebApi_DemoData_Client.Company> {
-            return Axios.get(this.baseUri + 'api/Entities/Company?id=' + id).then(d => d.data as DemoWebApi_DemoData_Client.Company);
+            return Axios.get(this.baseUri + 'api/Entities/Company/' + id).then(d => d.data as DemoWebApi_DemoData_Client.Company);
         }
 
         /**
@@ -271,26 +283,12 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * Get a person
          * so to know the person
-         * GET api/Entities/getPerson?id={id}
+         * GET api/Entities/getPerson/{id}
          * @param {number} id unique id of that guy
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         getPerson(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
-            return Axios.get(this.baseUri + 'api/Entities/getPerson?id=' + id).then(d => d.data as DemoWebApi_DemoData_Client.Person);
-        }
-
-        /**
-         * GET api/Entities/PersonActionNotFound?id={id}
-         */
-        getPersonActionNotFound(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
-            return Axios.get(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id).then(d => d.data as DemoWebApi_DemoData_Client.Person);
-        }
-
-        /**
-         * GET api/Entities/PersonNotFound?id={id}
-         */
-        getPersonNotFound(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
-            return Axios.get(this.baseUri + 'api/Entities/PersonNotFound?id=' + id).then(d => d.data as DemoWebApi_DemoData_Client.Person);
+            return Axios.get(this.baseUri + 'api/Entities/getPerson/' + id).then(d => d.data as DemoWebApi_DemoData_Client.Person);
         }
 
         /**
@@ -298,27 +296,6 @@ export namespace DemoWebApi_Controllers_Client {
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Promise<boolean> {
             return Axios.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as boolean);
-        }
-
-        /**
-         * POST api/Entities/linkNewDecimal?id={id}
-         */
-        linkWithNewDecimal(id: number, p: DemoWebApi_DemoData_Client.Person): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Entities/linkNewDecimal?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
-        }
-
-        /**
-         * POST api/Entities/linkNewGuid?id={id}
-         */
-        linkWithNewGuid(id: string, p: DemoWebApi_DemoData_Client.Person): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Entities/linkNewGuid?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
-        }
-
-        /**
-         * POST api/Entities/linkLong?id={id}
-         */
-        linkWithNewLong(id: number, p: DemoWebApi_DemoData_Client.Person): Promise<number> {
-            return Axios.post(this.baseUri + 'api/Entities/linkLong?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as number);
         }
 
         /**
@@ -357,18 +334,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
-         * GET api/Heroes/invalid
-         */
-        getSomethingInvalid(h: DemoWebApi_Controllers_Client.Hero): Promise<string> {
-            return Axios.get(this.baseUri + 'api/Heroes/invalid').then(d => d.data as string);
-        }
-
-        /**
-         * POST api/Heroes?name={name}
+         * POST api/Heroes
          */
         post(name: string): Promise<DemoWebApi_Controllers_Client.Hero> {
-            return Axios.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as DemoWebApi_Controllers_Client.Hero);
+            return Axios.post(this.baseUri + 'api/Heroes', JSON.stringify(name), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as DemoWebApi_Controllers_Client.Hero);
         }
 
         /**
@@ -389,12 +358,12 @@ export namespace DemoWebApi_Controllers_Client {
 
         /**
          * Search heroes
-         * GET api/Heroes/search?name={name}
+         * GET api/Heroes/search/{name}
          * @param {string} name keyword contained in hero name.
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name: string): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-            return Axios.get(this.baseUri + 'api/Heroes/search?name=' + encodeURIComponent(name)).then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
+            return Axios.get(this.baseUri + 'api/Heroes/search/' + encodeURIComponent(name)).then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
         }
     }
 
@@ -413,21 +382,7 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/ActionStringResult
          */
         getActionStringResult(): Promise<string> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/ActionStringResult').then(d => d.data as string);
-        }
-
-        /**
-         * GET api/SuperDemo/AnonymousDynamic
-         */
-        getAnonymousDynamic(): Promise<AxiosResponse> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/AnonymousDynamic', { responseType: 'text' });
-        }
-
-        /**
-         * GET api/SuperDemo/AnonymousObject
-         */
-        getAnonymousObject(): Promise<AxiosResponse> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/AnonymousObject', { responseType: 'text' });
+            return Axios.get(this.baseUri + 'api/SuperDemo/ActionStringResult', { responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
@@ -466,11 +421,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * True to return now, false to return null
-         * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
+         * GET api/SuperDemo/NullableDatetime/{hasValue}
          */
         getDateTime(hasValue: boolean): Promise<Date> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue=' + hasValue).then(d => d.data as Date);
+            return Axios.get(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue).then(d => d.data as Date);
         }
 
         /**
@@ -488,10 +442,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/decimal?d={d}
+         * GET api/SuperDemo/decimal/{d}
          */
         getDecimalSquare(d: number): Promise<number> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/decimal?d=' + d).then(d => d.data as number);
+            return Axios.get(this.baseUri + 'api/SuperDemo/decimal/' + d).then(d => d.data as number);
         }
 
         /**
@@ -534,7 +488,7 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/EmptyString
          */
         getEmptyString(): Promise<string> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/EmptyString').then(d => d.data as string);
+            return Axios.get(this.baseUri + 'api/SuperDemo/EmptyString', { responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
@@ -580,10 +534,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/int?d={d}
+         * GET api/SuperDemo/int/{d}
          */
         getIntSquare(d: number): Promise<number> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/int?d=' + d).then(d => d.data as number);
+            return Axios.get(this.baseUri + 'api/SuperDemo/int/' + d).then(d => d.data as number);
         }
 
         /**
@@ -615,10 +569,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/NextHour?dt={dt}
+         * GET api/SuperDemo/NextHour/{dt}
          */
         getNextHour(dt: Date): Promise<Date> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString()).then(d => d.data as Date);
+            return Axios.get(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString()).then(d => d.data as Date);
         }
 
         /**
@@ -629,10 +583,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/NextYear?dt={dt}
+         * GET api/SuperDemo/NextYear/{dt}
          */
         getNextYear(dt: Date): Promise<Date> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt.toISOString()).then(d => d.data as Date);
+            return Axios.get(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString()).then(d => d.data as Date);
         }
 
         /**
@@ -643,11 +597,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * True to return 100, and false to return null
-         * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
+         * GET api/SuperDemo/NullableDecimal/{hasValue}
          */
         getNullableDecimal(hasValue: boolean): Promise<number> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/NullableDecimal?hasValue=' + hasValue).then(d => d.data as number);
+            return Axios.get(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue).then(d => d.data as number);
         }
 
         /**
@@ -661,7 +614,7 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/NullString
          */
         getNullString(): Promise<string> {
-            return Axios.get(this.baseUri + 'api/SuperDemo/NullString').then(d => d.data as string);
+            return Axios.get(this.baseUri + 'api/SuperDemo/NullString', { responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
@@ -739,13 +692,6 @@ export namespace DemoWebApi_Controllers_Client {
          */
         postActionResult3(person: DemoWebApi_DemoData_Client.Person): Promise<AxiosResponse<string>> {
             return Axios.post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as AxiosResponse<string>);
-        }
-
-        /**
-         * POST api/SuperDemo/AnonymousObject
-         */
-        postAnonymousObject(obj: any): Promise<AxiosResponse> {
-            return Axios.post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
         }
 
         /**
@@ -841,10 +787,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * POST api/SuperDemo/PostEmpty?s={s}&i={i}
+         * POST api/SuperDemo/PostEmpty/{i}
          */
         postWithQueryButEmptyBody(s: string, i: number): Promise<{item1: string, item2: number}> {
-            return Axios.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as {item1: string, item2: number});
+            return Axios.post(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as {item1: string, item2: number});
         }
 
         /**
@@ -996,49 +942,49 @@ export namespace DemoWebApi_Controllers_Client {
          * POST api/Tuple/Tuple2
          */
         postTuple2(tuple: {item1: string, item2: number}): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
+            return Axios.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * POST api/Tuple/Tuple3
          */
         postTuple3(tuple: {item1: string, item2: string, item3: number}): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
+            return Axios.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * POST api/Tuple/Tuple4
          */
         postTuple4(tuple: {item1: string, item2: string, item3: string, item4: number}): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
+            return Axios.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * POST api/Tuple/Tuple5
          */
         postTuple5(tuple: {item1: string, item2: string, item3: string, item4: string, item5: number}): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
+            return Axios.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * POST api/Tuple/Tuple6
          */
         postTuple6(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
+            return Axios.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * POST api/Tuple/Tuple7
          */
         postTuple7(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
+            return Axios.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * POST api/Tuple/Tuple8
          */
         postTuple8(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}}): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
+            return Axios.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
         }
     }
 
@@ -1054,6 +1000,7 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * Get a list of value
          * GET api/Values
          */
         get(): Promise<Array<string>> {
@@ -1061,34 +1008,36 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
+         * Get by both Id and name
          * GET api/Values/{id}?name={name}
          */
         getByIdAndName(id: number, name: string): Promise<string> {
-            return Axios.get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name)).then(d => d.data as string);
+            return Axios.get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name), { responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * GET api/Values?name={name}
          */
         getByName(name: string): Promise<string> {
-            return Axios.get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name)).then(d => d.data as string);
+            return Axios.get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name), { responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * GET api/Values/{id}
          */
         getById(id: number): Promise<string> {
-            return Axios.get(this.baseUri + 'api/Values/' + id).then(d => d.data as string);
+            return Axios.get(this.baseUri + 'api/Values/' + id, { responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
          * POST api/Values
          */
         post(value: string): Promise<string> {
-            return Axios.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
+            return Axios.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as string);
         }
 
         /**
+         * Update with valjue
          * PUT api/Values/{id}
          */
         put(id: number, value: string): Promise<AxiosResponse> {

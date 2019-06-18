@@ -20,7 +20,10 @@
 		"CamelCase": true,
 		"ContentType": "application/json;charset=UTF-8",
 		"TypeScriptJQFolder": "..\\..\\..\\..\\Scripts\\ClientApi",
+		"TypeScriptJQFile": "WebApiCoreClientAuto.ts",
 		"TypeScriptNG2Folder": "..\\..\\..\\..\\..\\DemoNGCli\\NGSource\\src\\ClientApi",
-		"TypeScriptAxiosFolder": "..\\..\\..\\..\\..\\axios\\src\\clientapi"
+		"TypeScriptNG2File": "WebApiCoreNg2ClientAuto.ts",
+		"TypeScriptAxiosFolder": "..\\..\\..\\..\\..\\axios\\src\\clientapi",
+		"TypeScriptAxiosFile": "WebApiCoreAxiosClientAuto.ts"
 	}
 }

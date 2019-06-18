@@ -39,35 +39,6 @@ var DemoWebApi_DemoData_Client;
         PhoneType[PhoneType["Fax"] = 3] = "Fax";
     })(PhoneType = DemoWebApi_DemoData_Client.PhoneType || (DemoWebApi_DemoData_Client.PhoneType = {}));
 })(DemoWebApi_DemoData_Client = exports.DemoWebApi_DemoData_Client || (exports.DemoWebApi_DemoData_Client = {}));
-var DemoCoreWeb_Controllers_Client;
-(function (DemoCoreWeb_Controllers_Client) {
-    var SpecialTypes = /** @class */ (function () {
-        function SpecialTypes(baseUri) {
-            if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
-            this.baseUri = baseUri;
-        }
-        /**
-         * GET api/SpecialTypes/AnonymousDynamic
-         */
-        SpecialTypes.prototype.getAnonymousDynamic = function () {
-            return axios_1["default"].get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { responseType: 'text' });
-        };
-        /**
-         * GET api/SpecialTypes/AnonymousObject
-         */
-        SpecialTypes.prototype.getAnonymousObject = function () {
-            return axios_1["default"].get(this.baseUri + 'api/SpecialTypes/AnonymousObject', { responseType: 'text' });
-        };
-        /**
-         * POST api/SpecialTypes/AnonymousObject
-         */
-        SpecialTypes.prototype.postAnonymousObject = function (obj) {
-            return axios_1["default"].post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
-        };
-        return SpecialTypes;
-    }());
-    DemoCoreWeb_Controllers_Client.SpecialTypes = SpecialTypes;
-})(DemoCoreWeb_Controllers_Client = exports.DemoCoreWeb_Controllers_Client || (exports.DemoCoreWeb_Controllers_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     var Entities = /** @class */ (function () {
@@ -88,10 +59,10 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"]["delete"](this.baseUri + 'api/Entities/' + id, { responseType: 'text' });
         };
         /**
-         * GET api/Entities/Company/{id}
+         * GET api/Entities/Company?id={id}
          */
         Entities.prototype.getCompany = function (id) {
-            return axios_1["default"].get(this.baseUri + 'api/Entities/Company/' + id).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Entities/Company?id=' + id).then(function (d) { return d.data; });
         };
         /**
          * POST api/Entities/Mims
@@ -114,18 +85,48 @@ var DemoWebApi_Controllers_Client;
         /**
          * Get a person
          * so to know the person
-         * GET api/Entities/getPerson/{id}
+         * GET api/Entities/getPerson?id={id}
          * @param {number} id unique id of that guy
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         Entities.prototype.getPerson = function (id) {
-            return axios_1["default"].get(this.baseUri + 'api/Entities/getPerson/' + id).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Entities/getPerson?id=' + id).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/Entities/PersonActionNotFound?id={id}
+         */
+        Entities.prototype.getPersonActionNotFound = function (id) {
+            return axios_1["default"].get(this.baseUri + 'api/Entities/PersonActionNotFound?id=' + id).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/Entities/PersonNotFound?id={id}
+         */
+        Entities.prototype.getPersonNotFound = function (id) {
+            return axios_1["default"].get(this.baseUri + 'api/Entities/PersonNotFound?id=' + id).then(function (d) { return d.data; });
         };
         /**
          * PUT api/Entities/link?id={id}&relationship={relationship}
          */
         Entities.prototype.linkPerson = function (id, relationship, person) {
             return axios_1["default"].put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+        };
+        /**
+         * POST api/Entities/linkNewDecimal?id={id}
+         */
+        Entities.prototype.linkWithNewDecimal = function (id, p) {
+            return axios_1["default"].post(this.baseUri + 'api/Entities/linkNewDecimal?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+        };
+        /**
+         * POST api/Entities/linkNewGuid?id={id}
+         */
+        Entities.prototype.linkWithNewGuid = function (id, p) {
+            return axios_1["default"].post(this.baseUri + 'api/Entities/linkNewGuid?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+        };
+        /**
+         * POST api/Entities/linkLong?id={id}
+         */
+        Entities.prototype.linkWithNewLong = function (id, p) {
+            return axios_1["default"].post(this.baseUri + 'api/Entities/linkLong?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * PUT api/Entities/updatePerson
@@ -162,10 +163,17 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/Heroes/' + id).then(function (d) { return d.data; });
         };
         /**
-         * POST api/Heroes
+         * This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
+         * GET api/Heroes/invalid
+         */
+        Heroes.prototype.getSomethingInvalid = function (h) {
+            return axios_1["default"].get(this.baseUri + 'api/Heroes/invalid').then(function (d) { return d.data; });
+        };
+        /**
+         * POST api/Heroes?name={name}
          */
         Heroes.prototype.post = function (name) {
-            return axios_1["default"].post(this.baseUri + 'api/Heroes', JSON.stringify(name), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * Add a hero
@@ -183,12 +191,12 @@ var DemoWebApi_Controllers_Client;
         };
         /**
          * Search heroes
-         * GET api/Heroes/search/{name}
+         * GET api/Heroes/search?name={name}
          * @param {string} name keyword contained in hero name.
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         Heroes.prototype.search = function (name) {
-            return axios_1["default"].get(this.baseUri + 'api/Heroes/search/' + encodeURIComponent(name)).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Heroes/search?name=' + encodeURIComponent(name)).then(function (d) { return d.data; });
         };
         return Heroes;
     }());
@@ -208,7 +216,19 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/ActionStringResult
          */
         SuperDemo.prototype.getActionStringResult = function () {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionStringResult', { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionStringResult').then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/SuperDemo/AnonymousDynamic
+         */
+        SuperDemo.prototype.getAnonymousDynamic = function () {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/AnonymousDynamic', { responseType: 'text' });
+        };
+        /**
+         * GET api/SuperDemo/AnonymousObject
+         */
+        SuperDemo.prototype.getAnonymousObject = function () {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/AnonymousObject', { responseType: 'text' });
         };
         /**
          * GET api/SuperDemo/bool
@@ -241,10 +261,11 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/Collection').then(function (d) { return d.data; });
         };
         /**
-         * GET api/SuperDemo/NullableDatetime/{hasValue}
+         * True to return now, false to return null
+         * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
          */
         SuperDemo.prototype.getDateTime = function (hasValue) {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NullableDatetime?hasValue=' + hasValue).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/DateTimeOffset
@@ -259,10 +280,10 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/decimal').then(function (d) { return d.data; });
         };
         /**
-         * GET api/SuperDemo/decimal/{d}
+         * GET api/SuperDemo/decimal?d={d}
          */
         SuperDemo.prototype.getDecimalSquare = function (d) {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/decimal/' + d).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/decimal?d=' + d).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/DecimalZero
@@ -299,7 +320,7 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/EmptyString
          */
         SuperDemo.prototype.getEmptyString = function () {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/EmptyString', { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/EmptyString').then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/FloatZero
@@ -338,10 +359,10 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/intArray').then(function (d) { return d.data; });
         };
         /**
-         * GET api/SuperDemo/int/{d}
+         * GET api/SuperDemo/int?d={d}
          */
         SuperDemo.prototype.getIntSquare = function (d) {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/int/' + d).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/int?d=' + d).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/IReadOnlyCollection
@@ -368,10 +389,10 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/List').then(function (d) { return d.data; });
         };
         /**
-         * GET api/SuperDemo/NextHour/{dt}
+         * GET api/SuperDemo/NextHour?dt={dt}
          */
         SuperDemo.prototype.getNextHour = function (dt) {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString()).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NextHour?dt=' + dt.toISOString()).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
@@ -380,10 +401,10 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : '')).then(function (d) { return d.data; });
         };
         /**
-         * GET api/SuperDemo/NextYear/{dt}
+         * GET api/SuperDemo/NextYear?dt={dt}
          */
         SuperDemo.prototype.getNextYear = function (dt) {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString()).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NextYear?dt=' + dt.toISOString()).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
@@ -392,10 +413,11 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : '')).then(function (d) { return d.data; });
         };
         /**
-         * GET api/SuperDemo/NullableDecimal/{hasValue}
+         * True to return 100, and false to return null
+         * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
          */
         SuperDemo.prototype.getNullableDecimal = function (hasValue) {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NullableDecimal?hasValue=' + hasValue).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/NullObject
@@ -407,7 +429,7 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/NullString
          */
         SuperDemo.prototype.getNullString = function () {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NullString', { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/NullString').then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
@@ -474,6 +496,12 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.postActionResult3 = function (person) {
             return axios_1["default"].post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+        };
+        /**
+         * POST api/SuperDemo/AnonymousObject
+         */
+        SuperDemo.prototype.postAnonymousObject = function (obj) {
+            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
         };
         /**
          * POST api/SuperDemo/Collection
@@ -555,10 +583,10 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].post(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
-         * POST api/SuperDemo/PostEmpty/{i}
+         * POST api/SuperDemo/PostEmpty?s={s}&i={i}
          */
         SuperDemo.prototype.postWithQueryButEmptyBody = function (s, i) {
-            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
@@ -692,43 +720,43 @@ var DemoWebApi_Controllers_Client;
          * POST api/Tuple/Tuple2
          */
         Tuple.prototype.postTuple2 = function (tuple) {
-            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * POST api/Tuple/Tuple3
          */
         Tuple.prototype.postTuple3 = function (tuple) {
-            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * POST api/Tuple/Tuple4
          */
         Tuple.prototype.postTuple4 = function (tuple) {
-            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * POST api/Tuple/Tuple5
          */
         Tuple.prototype.postTuple5 = function (tuple) {
-            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * POST api/Tuple/Tuple6
          */
         Tuple.prototype.postTuple6 = function (tuple) {
-            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * POST api/Tuple/Tuple7
          */
         Tuple.prototype.postTuple7 = function (tuple) {
-            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * POST api/Tuple/Tuple8
          */
         Tuple.prototype.postTuple8 = function (tuple) {
-            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         return Tuple;
     }());
@@ -745,39 +773,36 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"]["delete"](this.baseUri + 'api/Values/' + id, { responseType: 'text' });
         };
         /**
-         * Get a list of value
          * GET api/Values
          */
         Values.prototype.get = function () {
             return axios_1["default"].get(this.baseUri + 'api/Values').then(function (d) { return d.data; });
         };
         /**
-         * Get by both Id and name
          * GET api/Values/{id}?name={name}
          */
         Values.prototype.getByIdAndName = function (id, name) {
-            return axios_1["default"].get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name), { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name)).then(function (d) { return d.data; });
         };
         /**
          * GET api/Values?name={name}
          */
         Values.prototype.getByName = function (name) {
-            return axios_1["default"].get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name), { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name)).then(function (d) { return d.data; });
         };
         /**
          * GET api/Values/{id}
          */
         Values.prototype.getById = function (id) {
-            return axios_1["default"].get(this.baseUri + 'api/Values/' + id, { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Values/' + id).then(function (d) { return d.data; });
         };
         /**
          * POST api/Values
          */
         Values.prototype.post = function (value) {
-            return axios_1["default"].post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
-         * Update with valjue
          * PUT api/Values/{id}
          */
         Values.prototype.put = function (id, value) {

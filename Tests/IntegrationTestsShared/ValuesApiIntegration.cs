@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace IntegrationTests
 {
@@ -51,7 +52,14 @@ namespace IntegrationTests
             Assert.Equal("VALUE", t);
         }
 
-        [Fact]
+		[Fact]
+		public async Task TestValuesPostAsync()
+		{
+			var t = await api.PostAsync("value");
+			Assert.Equal("VALUE", t);
+		}
+
+		[Fact]
         public void TestValuesPut2()
         {
             //var t = authorizedClient.PutAsync(new Uri(baseUri, "api/Values?id=1"), new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("", "value") }));

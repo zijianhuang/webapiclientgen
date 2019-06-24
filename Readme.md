@@ -37,6 +37,10 @@ This project delivers these products:
 1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/WebApiClientAuto.ts), [for Angular 2](https://github.com/zijianhuang/webapiclientgen/tree/master/DemoAngular2/clientapi/WebApiNG2ClientAuto.ts) and [for Axios](https://github.com/zijianhuang/webapiclientgen/blob/master/axios/src/clientapi/WebApiAxiosClientAuto.ts)
 1. [Client codes using the generated library in TypeScript](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/tests/demo.tests.ts)
 
+**Remarks:**
+1. JavaScript codes compiled from generated TypeScript codes could be used in JS applications, however, obviously no type info will be available, while application programmers may still enjoy intellisense and abstraction from AJAX details.
+1. React and Vue.js applications typically use Axios for HTTP requests. Currently [babel](https://github.com/babel/babel) does not support namespaces. So you may not do React TSX programming with generated TypeScript codes. However, this may be changed in near future because of [this pull request](https://github.com/babel/babel/pull/9785).
+
 # Downloads
 
 ## For .NET Framework

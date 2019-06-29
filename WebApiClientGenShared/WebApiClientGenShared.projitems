@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiFunctionGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsAureliaFunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsFunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsFunctionGenBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsAxiosFunctionGen.cs" />
@@ -17,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CodeGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodeGenParameters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersClientApiGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ControllersTsAureliaClientApiGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsClientApiGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsClientApiGenBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsAxiosClientApiGen.cs" />

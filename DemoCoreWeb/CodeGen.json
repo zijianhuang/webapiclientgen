@@ -24,6 +24,8 @@
 		"TypeScriptNG2Folder": "..\\..\\..\\..\\..\\DemoNGCli\\NGSource\\src\\ClientApi",
 		"TypeScriptNG2File": "WebApiCoreNg2ClientAuto.ts",
 		"TypeScriptAxiosFolder": "..\\..\\..\\..\\..\\axios\\src\\clientapi",
-		"TypeScriptAxiosFile": "WebApiCoreAxiosClientAuto.ts"
+		"TypeScriptAxiosFile": "WebApiCoreAxiosClientAuto.ts",
+		"TypeScriptAureliaFolder": "..\\..\\..\\..\\..\\aurelia\\src\\clientapi",
+		"TypeScriptAureliaFile": "WebApiCoreAureliaClientAuto.ts"
 	}
 }

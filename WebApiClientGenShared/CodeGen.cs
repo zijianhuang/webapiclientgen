@@ -94,6 +94,15 @@ namespace Fonlow.CodeDom.Web
 				tsGen.Save();
 			}
 
+			var aureliaPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptAureliaFolder, settings.ClientApiOutputs.TypeScriptAureliaFile);
+			if (!String.IsNullOrEmpty(aureliaPath))
+			{
+				var aureliaOutput = new JSOutput(settings, aureliaPath, true);
+				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsAureliaClientApiGen(aureliaOutput);
+				tsGen.CreateCodeDom(apiDescriptions);
+				tsGen.Save();
+			}
+
 		}
 	}
 }

@@ -80,6 +80,11 @@
 		public string TypeScriptAxiosFolder { get; set; }
 
 		/// <summary>
+		/// Absolute path or relative path to the Web API project.
+		/// </summary>
+		public string TypeScriptAureliaFolder { get; set; }
+
+		/// <summary>
 		/// File name to be saved in TypeScriptNG2Folder. If not defined, it will be WebApiNG2ClientAuto.ts.
 		/// </summary>
 		public string TypeScriptNG2File { get; set; } = "WebApiNG2ClientAuto.ts";
@@ -88,6 +93,11 @@
 		/// File name to be saved in TypeScriptAxiosFolder. If not defined, it will be WebApiAxiosClientAuto.ts.
 		/// </summary>
 		public string TypeScriptAxiosFile { get; set; } = "WebApiAxiosClientAuto.ts";
+
+		/// <summary>
+		/// File name to be saved in TypeScriptAureliaFolder. If not defined, it will be WebApiAureliaClientAuto.ts.
+		/// </summary>
+		public string TypeScriptAureliaFile { get; set; } = "WebApiAureliaClientAuto.ts";
 
 		/// <summary>
 		/// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.

@@ -20,7 +20,8 @@
 		"ContentType": "application/json;charset=UTF-8",
 		"TypeScriptJQFolder": "Scripts\\ClientApi",
 		"TypeScriptNG2Folder": "..\\DemoNGCli\\NGSource\\src\\ClientApi",
-		"TypeScriptAxiosFolder": "..\\axios\\src\\clientapi"
+		"TypeScriptAxiosFolder": "..\\axios\\src\\clientapi",
+		"TypeScriptAureliaFolder": "..\\aurelia\\src\\clientapi"
 
 	}
 }

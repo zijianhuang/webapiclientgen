@@ -39,3 +39,5 @@ _ReSharper*/
 /DemoCoreWeb/wwwroot
 /DemoNGCli/NGSource/package-lock.json
 /axios/node_modules
+/aurelia/coverage
+/aurelia/node_modules

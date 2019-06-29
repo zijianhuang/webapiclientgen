@@ -42,6 +42,6 @@ Stop-Process $process
 
 #Step 4: Copy files for testing generated codes
 # for launching Website through dotnet.exe 
-xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiClientAuto.js" "$PSScriptRoot\DemoCoreWeb\wwwroot\Scripts\ClientApi\" /y 
+xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreClientAuto.js" "$PSScriptRoot\DemoCoreWeb\wwwroot\Scripts\ClientApi\" /y 
 # for launching Website through IIS Express
-xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiClientAuto.js" "$PSScriptRoot\DemoCoreWeb\bin\debug\netcoreapp2.2\wwwroot\Scripts\ClientApi\" /y
+xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreClientAuto.js" "$PSScriptRoot\DemoCoreWeb\bin\debug\netcoreapp2.2\wwwroot\Scripts\ClientApi\" /y

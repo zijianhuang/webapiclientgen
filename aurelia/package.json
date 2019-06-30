@@ -6,7 +6,8 @@
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "karma-typescript": "^4.1.0"
+    "karma-typescript": "^4.1.0",
+    "reflect-metadata": "^0.1.13"
   },
   "dependencies": {
     "aurelia-bootstrapper": "^2.3.3",

@@ -39,10 +39,10 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 		static readonly string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
-        static readonly string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
-        static readonly string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+		static readonly string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+		static readonly string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
 
-        static readonly Type typeOfChar = typeof(char);
+		static readonly Type typeOfChar = typeof(char);
 
 		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync)
 		{
@@ -340,8 +340,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				method.Statements.Add(new CodeSnippetStatement(
 @"            using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();"
+			{
+			var requestSerializer = JsonSerializer.Create();"
 ));
 				method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
 					new CodeSnippetExpression("requestWriter"),

@@ -1,5 +1,5 @@
-import {HttpClient} from 'aurelia-fetch-client';
-  import {inject} from 'aurelia-framework';
+import Axios from 'axios';
+import { AxiosResponse } from 'axios';
 export namespace DemoWebApi_DemoData_Client {
     export interface Address {
         city?: string;
@@ -223,7 +223,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 export namespace DemoWebApi_Controllers_Client {
     export class Entities {
-        constructor(private http: HttpClient) {
+        constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
         }
 
         /**
@@ -330,7 +330,7 @@ export namespace DemoWebApi_Controllers_Client {
     }
 
     export class Heroes {
-        constructor(private http: HttpClient) {
+        constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
         }
 
         /**
@@ -399,7 +399,7 @@ export namespace DemoWebApi_Controllers_Client {
     }
 
     export class SuperDemo {
-        constructor(private http: HttpClient) {
+        constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
         }
 
         /**
@@ -856,7 +856,7 @@ export namespace DemoWebApi_Controllers_Client {
     }
 
     export class Tuple {
-        constructor(private http: HttpClient) {
+        constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
         }
 
         /**
@@ -1043,7 +1043,7 @@ export namespace DemoWebApi_Controllers_Client {
     }
 
     export class Values {
-        constructor(private http: HttpClient) {
+        constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
         }
 
         /**

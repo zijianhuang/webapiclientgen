@@ -2,6 +2,7 @@ module.exports = function(config) {
     config.set({
         frameworks: ["jasmine", "karma-typescript"],
         files: [
+            { pattern: "node_modules/reflect-metadata/Reflect.js", include: true },
             "src/**/*.ts" // *.tsx for React Jsx
         ],
         preprocessors: {

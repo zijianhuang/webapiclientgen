@@ -1,17 +1,5 @@
 import {HttpClient} from 'aurelia-fetch-client';
 import {autoinject} from 'aurelia-framework';
-export namespace DemoWebApi_Controllers_Client {
-
-    /**
-     * Complex hero type
-     */
-    export interface Hero {
-        id?: number;
-        name?: string;
-    }
-
-}
-
 export namespace DemoWebApi_DemoData_Client {
     export interface Address {
         city?: string;
@@ -204,32 +192,31 @@ export namespace DemoWebApi_Models_Client {
 
 }
 
-export namespace DemoCoreWeb_Controllers_Client {
-    @autoinject()
-    export class SpecialTypes {
-        constructor(private http: HttpClient) {
-        }
+export namespace DemoWebApi_Controllers_Client {
+
+    /**
+     * This class is used to carry the result of various file uploads.
+     */
+    export interface FileResult {
 
         /**
-         * GET api/SpecialTypes/AnonymousDynamic
+         * Gets or sets the local path of the file saved on the server.
          */
-        getAnonymousDynamic(): Promise<Response> {
-            return this.http.get('api/SpecialTypes/AnonymousDynamic');
-        }
+        fileNames?: Array<string>;
 
         /**
-         * GET api/SpecialTypes/AnonymousObject
+         * Gets or sets the submitter as indicated in the HTML form used to upload the data.
          */
-        getAnonymousObject(): Promise<Response> {
-            return this.http.get('api/SpecialTypes/AnonymousObject');
-        }
+        submitter?: string;
+    }
 
-        /**
-         * POST api/SpecialTypes/AnonymousObject
-         */
-        postAnonymousObject(obj: any): Promise<Response> {
-            return this.http.post('api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
-        }
+
+    /**
+     * Complex hero type
+     */
+    export interface Hero {
+        id?: number;
+        name?: string;
     }
 
 }
@@ -255,10 +242,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/Entities/Company/{id}
+         * GET api/Entities/Company?id={id}
          */
         getCompany(id: number): Promise<DemoWebApi_DemoData_Client.Company> {
-            return this.http.get('api/Entities/Company/' + id).then(d => d.json());
+            return this.http.get('api/Entities/Company?id=' + id).then(d => d.json());
         }
 
         /**
@@ -285,12 +272,26 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * Get a person
          * so to know the person
-         * GET api/Entities/getPerson/{id}
+         * GET api/Entities/getPerson?id={id}
          * @param {number} id unique id of that guy
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         getPerson(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
-            return this.http.get('api/Entities/getPerson/' + id).then(d => d.json());
+            return this.http.get('api/Entities/getPerson?id=' + id).then(d => d.json());
+        }
+
+        /**
+         * GET api/Entities/PersonActionNotFound?id={id}
+         */
+        getPersonActionNotFound(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
+            return this.http.get('api/Entities/PersonActionNotFound?id=' + id).then(d => d.json());
+        }
+
+        /**
+         * GET api/Entities/PersonNotFound?id={id}
+         */
+        getPersonNotFound(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
+            return this.http.get('api/Entities/PersonNotFound?id=' + id).then(d => d.json());
         }
 
         /**
@@ -298,6 +299,27 @@ export namespace DemoWebApi_Controllers_Client {
          */
         linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Promise<boolean> {
             return this.http.put('api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+        }
+
+        /**
+         * POST api/Entities/linkNewDecimal?id={id}
+         */
+        linkWithNewDecimal(id: number, p: DemoWebApi_DemoData_Client.Person): Promise<string> {
+            return this.http.post('api/Entities/linkNewDecimal?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+        }
+
+        /**
+         * POST api/Entities/linkNewGuid?id={id}
+         */
+        linkWithNewGuid(id: string, p: DemoWebApi_DemoData_Client.Person): Promise<string> {
+            return this.http.post('api/Entities/linkNewGuid?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+        }
+
+        /**
+         * POST api/Entities/linkLong?id={id}
+         */
+        linkWithNewLong(id: number, p: DemoWebApi_DemoData_Client.Person): Promise<number> {
+            return this.http.post('api/Entities/linkLong?id=' + id, JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
@@ -337,10 +359,18 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * POST api/Heroes
+         * This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
+         * GET api/Heroes/invalid
+         */
+        getSomethingInvalid(h: DemoWebApi_Controllers_Client.Hero): Promise<string> {
+            return this.http.get('api/Heroes/invalid').then(d => d.json());
+        }
+
+        /**
+         * POST api/Heroes?name={name}
          */
         post(name: string): Promise<DemoWebApi_Controllers_Client.Hero> {
-            return this.http.post('api/Heroes', JSON.stringify(name), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+            return this.http.post('api/Heroes?name=' + encodeURIComponent(name), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
@@ -361,12 +391,12 @@ export namespace DemoWebApi_Controllers_Client {
 
         /**
          * Search heroes
-         * GET api/Heroes/search/{name}
+         * GET api/Heroes/search?name={name}
          * @param {string} name keyword contained in hero name.
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name: string): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-            return this.http.get('api/Heroes/search/' + encodeURIComponent(name)).then(d => d.json());
+            return this.http.get('api/Heroes/search?name=' + encodeURIComponent(name)).then(d => d.json());
         }
     }
 
@@ -386,7 +416,21 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/ActionStringResult
          */
         getActionStringResult(): Promise<string> {
-            return this.http.get('api/SuperDemo/ActionStringResult').then(d => d.text());
+            return this.http.get('api/SuperDemo/ActionStringResult').then(d => d.json());
+        }
+
+        /**
+         * GET api/SuperDemo/AnonymousDynamic
+         */
+        getAnonymousDynamic(): Promise<Response> {
+            return this.http.get('api/SuperDemo/AnonymousDynamic');
+        }
+
+        /**
+         * GET api/SuperDemo/AnonymousObject
+         */
+        getAnonymousObject(): Promise<Response> {
+            return this.http.get('api/SuperDemo/AnonymousObject');
         }
 
         /**
@@ -425,10 +469,11 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/NullableDatetime/{hasValue}
+         * True to return now, false to return null
+         * GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
          */
         getDateTime(hasValue: boolean): Promise<Date> {
-            return this.http.get('api/SuperDemo/NullableDatetime/' + hasValue).then(d => d.json());
+            return this.http.get('api/SuperDemo/NullableDatetime?hasValue=' + hasValue).then(d => d.json());
         }
 
         /**
@@ -446,10 +491,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/decimal/{d}
+         * GET api/SuperDemo/decimal?d={d}
          */
         getDecimalSquare(d: number): Promise<number> {
-            return this.http.get('api/SuperDemo/decimal/' + d).then(d => d.json());
+            return this.http.get('api/SuperDemo/decimal?d=' + d).then(d => d.json());
         }
 
         /**
@@ -492,7 +537,7 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/EmptyString
          */
         getEmptyString(): Promise<string> {
-            return this.http.get('api/SuperDemo/EmptyString').then(d => d.text());
+            return this.http.get('api/SuperDemo/EmptyString').then(d => d.json());
         }
 
         /**
@@ -538,10 +583,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/int/{d}
+         * GET api/SuperDemo/int?d={d}
          */
         getIntSquare(d: number): Promise<number> {
-            return this.http.get('api/SuperDemo/int/' + d).then(d => d.json());
+            return this.http.get('api/SuperDemo/int?d=' + d).then(d => d.json());
         }
 
         /**
@@ -573,10 +618,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/NextHour/{dt}
+         * GET api/SuperDemo/NextHour?dt={dt}
          */
         getNextHour(dt: Date): Promise<Date> {
-            return this.http.get('api/SuperDemo/NextHour/' + dt.toISOString()).then(d => d.json());
+            return this.http.get('api/SuperDemo/NextHour?dt=' + dt.toISOString()).then(d => d.json());
         }
 
         /**
@@ -587,10 +632,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/NextYear/{dt}
+         * GET api/SuperDemo/NextYear?dt={dt}
          */
         getNextYear(dt: Date): Promise<Date> {
-            return this.http.get('api/SuperDemo/NextYear/' + dt.toISOString()).then(d => d.json());
+            return this.http.get('api/SuperDemo/NextYear?dt=' + dt.toISOString()).then(d => d.json());
         }
 
         /**
@@ -601,10 +646,11 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * GET api/SuperDemo/NullableDecimal/{hasValue}
+         * True to return 100, and false to return null
+         * GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
          */
         getNullableDecimal(hasValue: boolean): Promise<number> {
-            return this.http.get('api/SuperDemo/NullableDecimal/' + hasValue).then(d => d.json());
+            return this.http.get('api/SuperDemo/NullableDecimal?hasValue=' + hasValue).then(d => d.json());
         }
 
         /**
@@ -618,7 +664,7 @@ export namespace DemoWebApi_Controllers_Client {
          * GET api/SuperDemo/NullString
          */
         getNullString(): Promise<string> {
-            return this.http.get('api/SuperDemo/NullString').then(d => d.text());
+            return this.http.get('api/SuperDemo/NullString').then(d => d.json());
         }
 
         /**
@@ -696,6 +742,13 @@ export namespace DemoWebApi_Controllers_Client {
          */
         postActionResult3(person: DemoWebApi_DemoData_Client.Person): Promise<string> {
             return this.http.post('api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+        }
+
+        /**
+         * POST api/SuperDemo/AnonymousObject
+         */
+        postAnonymousObject(obj: any): Promise<Response> {
+            return this.http.post('api/SuperDemo/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
         }
 
         /**
@@ -791,10 +844,10 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * POST api/SuperDemo/PostEmpty/{i}
+         * POST api/SuperDemo/PostEmpty?s={s}&i={i}
          */
         postWithQueryButEmptyBody(s: string, i: number): Promise<{item1: string, item2: number}> {
-            return this.http.post('api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+            return this.http.post('api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
@@ -947,49 +1000,49 @@ export namespace DemoWebApi_Controllers_Client {
          * POST api/Tuple/Tuple2
          */
         postTuple2(tuple: {item1: string, item2: number}): Promise<string> {
-            return this.http.post('api/Tuple/Tuple2', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
+            return this.http.post('api/Tuple/Tuple2', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
          * POST api/Tuple/Tuple3
          */
         postTuple3(tuple: {item1: string, item2: string, item3: number}): Promise<string> {
-            return this.http.post('api/Tuple/Tuple3', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
+            return this.http.post('api/Tuple/Tuple3', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
          * POST api/Tuple/Tuple4
          */
         postTuple4(tuple: {item1: string, item2: string, item3: string, item4: number}): Promise<string> {
-            return this.http.post('api/Tuple/Tuple4', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
+            return this.http.post('api/Tuple/Tuple4', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
          * POST api/Tuple/Tuple5
          */
         postTuple5(tuple: {item1: string, item2: string, item3: string, item4: string, item5: number}): Promise<string> {
-            return this.http.post('api/Tuple/Tuple5', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
+            return this.http.post('api/Tuple/Tuple5', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
          * POST api/Tuple/Tuple6
          */
         postTuple6(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}): Promise<string> {
-            return this.http.post('api/Tuple/Tuple6', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
+            return this.http.post('api/Tuple/Tuple6', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
          * POST api/Tuple/Tuple7
          */
         postTuple7(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}): Promise<string> {
-            return this.http.post('api/Tuple/Tuple7', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
+            return this.http.post('api/Tuple/Tuple7', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
          * POST api/Tuple/Tuple8
          */
         postTuple8(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}}): Promise<string> {
-            return this.http.post('api/Tuple/Tuple8', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
+            return this.http.post('api/Tuple/Tuple8', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
     }
 
@@ -1006,7 +1059,6 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * Get a list of value
          * GET api/Values
          */
         get(): Promise<Array<string>> {
@@ -1014,36 +1066,34 @@ export namespace DemoWebApi_Controllers_Client {
         }
 
         /**
-         * Get by both Id and name
          * GET api/Values/{id}?name={name}
          */
         getByIdAndName(id: number, name: string): Promise<string> {
-            return this.http.get('api/Values/' + id + '?name=' + encodeURIComponent(name)).then(d => d.text());
+            return this.http.get('api/Values/' + id + '?name=' + encodeURIComponent(name)).then(d => d.json());
         }
 
         /**
          * GET api/Values?name={name}
          */
         getByName(name: string): Promise<string> {
-            return this.http.get('api/Values?name=' + encodeURIComponent(name)).then(d => d.text());
+            return this.http.get('api/Values?name=' + encodeURIComponent(name)).then(d => d.json());
         }
 
         /**
          * GET api/Values/{id}
          */
         getById(id: number): Promise<string> {
-            return this.http.get('api/Values/' + id).then(d => d.text());
+            return this.http.get('api/Values/' + id).then(d => d.json());
         }
 
         /**
          * POST api/Values
          */
         post(value: string): Promise<string> {
-            return this.http.post('api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
+            return this.http.post('api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
         }
 
         /**
-         * Update with valjue
          * PUT api/Values/{id}
          */
         put(id: number, value: string): Promise<Response> {

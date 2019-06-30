@@ -1,6 +1,7 @@
 import { initialize } from 'aurelia-pal-browser';
-import {HttpClient} from 'aurelia-fetch-client';
-import * as namespaces from './clientapi/WebApiCoreAureliaClientAuto';
+import {HttpClient, json} from 'aurelia-fetch-client';
+//import * as namespaces from './clientapi/WebApiCoreAureliaClientAuto';
+import * as namespaces from './clientapi/WebApiAureliaClientAuto';
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 import * as moment from 'moment';
@@ -21,11 +22,12 @@ describe('Basic', ()=>{
 
 });
 
+const forDotNetCore=false;
+const baseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
+const http = new HttpClient();
+http.baseUrl = baseUri;
 
 describe('Values', ()=>{
-  const baseUri = 'http://localhost:5000/';
-  const http = new HttpClient();
-  http.baseUrl = baseUri;
   const api = new DemoWebApi_Controllers_Client.Values(http);
 
   it('getById', (done)=>{
@@ -69,9 +71,6 @@ describe('Values', ()=>{
 });
 
 describe('Heroes API', () => {
-  const baseUri = 'http://localhost:5000/';
-  const http = new HttpClient();
-  http.baseUrl = baseUri;
   const service= new namespaces.DemoWebApi_Controllers_Client.Heroes(http);
 
    it('getAll', (done) => {
@@ -93,6 +92,7 @@ describe('Heroes API', () => {
   it('Add', (done) => {
     service.post('somebody').then(
       data => {
+        console.info('Add hero: '+JSON.stringify(data));
         expect(data.name).toBe('somebody');
         done();
       },
@@ -141,9 +141,6 @@ describe('Heroes API', () => {
 
 
 describe('entities API', () => {
-  const baseUri = 'http://localhost:5000/';
-  const http = new HttpClient();
-  http.baseUrl = baseUri;
   const client = new namespaces.DemoWebApi_Controllers_Client.Entities(http);
 
   //it('getPersonNotFound', (done) => {
@@ -189,9 +186,6 @@ describe('entities API', () => {
 });
 
 describe('Tuple API', () => {
-  const baseUri = 'http://localhost:5000/';
-  const http = new HttpClient();
-  http.baseUrl = baseUri;
   const service= new namespaces.DemoWebApi_Controllers_Client.Tuple(http);
 
  
@@ -327,9 +321,6 @@ describe('Tuple API', () => {
 
 
 describe('SuperDemo API', () => {
-  const baseUri = 'http://localhost:5000/';
-  const http = new HttpClient();
-  http.baseUrl = baseUri;
   const service=new namespaces.DemoWebApi_Controllers_Client.SuperDemo(http);
 
   it('getBool', (done) => {
@@ -546,7 +537,7 @@ describe('SuperDemo API', () => {
   it('getNullString', (done) => {
     service.getNullString().then(
       data => {
-        expect(data).toBe(''); 
+        forDotNetCore? expect(data).toBe(''):expect(data).toBeNull();
             done();
       },
       error => {
@@ -621,7 +612,7 @@ describe('SuperDemo API', () => {
     service.getActionResult().then(
       data => {
 
-        expect(data).toBe('"abcdefg"');
+        expect(data).toBe('abcdefg');
 
         done();
       },
@@ -668,7 +659,7 @@ describe('SuperDemo API', () => {
   it('getChar', (done) => {
     service.getChar().then(
       data => {
-        expect(data).toBe('"A"');
+        expect(data).toBe('A');
         done();
       },
       error => {
@@ -1037,9 +1028,9 @@ describe('SuperDemo API', () => {
     service.searchDateRange(undefined, endDt).then(
       data => {
         //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-        expect(data.item1).toBeNull();
+        forDotNetCore?expect(data.item1).toBeNull():expect(data.item1).toBeUndefined();
         const m = moment(data.item2);
-        expect(m.toDate()).toEqual(endDt);
+        expect(m.toDate().getHours()).toEqual(endDt.getHours());
         done();
       },
       error => {

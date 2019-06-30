@@ -24,7 +24,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected override void AddBasicReferences()
 		{
 			TargetUnit.ReferencedAssemblies.Add("import {HttpClient} from 'aurelia-fetch-client';");
-			TargetUnit.ReferencedAssemblies.Add("import {inject} from 'aurelia-framework';");
+			TargetUnit.ReferencedAssemblies.Add("import {autoinject} from 'aurelia-framework';");
 		}
 
 		protected override void AddConstructor(CodeTypeDeclaration targetClass)
@@ -39,10 +39,10 @@ namespace Fonlow.CodeDom.Web.Ts
 			targetClass.Members.Add(constructor);
 		}
 
-		//protected override CodeAttributeDeclarationCollection CreateClassCustomAttributes()
-		//{
-		//	return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration("inject", new CodeAttributeArgument(new CodePrimitiveExpression("HttpClient"))) });
-		//}
+		protected override CodeAttributeDeclarationCollection CreateClassCustomAttributes()
+		{
+			return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration("autoinject") });
+		}
 	}
 
 

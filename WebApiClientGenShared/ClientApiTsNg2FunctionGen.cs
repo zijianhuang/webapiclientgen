@@ -117,7 +117,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 			}
-			else if (returnTypeText == "HttpResponse<Blob>")//translated from blobresponse to this
+			else if (returnTypeText == NG2HttpBlobResponse)//translated from blobresponse to this
 			{
 				const string optionForStream = "{ observe: 'response', responseType: 'blob' }";
 
@@ -140,11 +140,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-					//if (String.IsNullOrEmpty(contentType))
-					//{
-					//	contentType = "application/json;charset=UTF-8";
-					//}
-
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {optionForStream});"));
@@ -158,7 +153,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 			}
-			else if (returnTypeText == "HttpResponse<string>")//translated from response to this
+			else if (returnTypeText == NG2HttpStringResponse)//translated from response to this
 			{
 				const string optionForActionResult = "{ observe: 'response', responseType: 'text' }";
 

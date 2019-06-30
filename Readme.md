@@ -1,8 +1,8 @@
 Strongly Typed Client API Generators generate strongly typed client API in C# codes and TypeScript codes. You may then provide or publish either the generated source codes or the compiled client API libraries to other developers for developing client programs.
 
 This project delivers these products:
-1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting desktop, Universal Windows, Android and iOS. 
-1. [Code generator for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2 and Axios.
+1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET Framework, .NET Core and Xamarin.Forms. 
+1. [Code generator for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2, Aurelia and Axios.
 1. [TypeScript CodeDOM](https://github.com/zijianhuang/webapiclientgen/wiki/TypeScript-CodeDOM), a CodeDOM component for TypeScript, derived from CodeDOM of .NET Framework.
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.
@@ -34,7 +34,7 @@ This project delivers these products:
 1. [Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Controllers/EntitiesController.cs)
 1. [Generated client API C# codes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.ClientApi/WebApiClientAuto.cs)
 1. [Client codes using the generated library in C#](https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTests/EntitiesApiIntegration.cs)
-1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/WebApiClientAuto.ts), [for Angular 2](https://github.com/zijianhuang/webapiclientgen/tree/master/DemoAngular2/clientapi/WebApiNG2ClientAuto.ts) and [for Axios](https://github.com/zijianhuang/webapiclientgen/blob/master/axios/src/clientapi/WebApiAxiosClientAuto.ts)
+1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/WebApiClientAuto.ts), [for Angular 2](https://github.com/zijianhuang/webapiclientgen/tree/master/DemoAngular2/clientapi/WebApiNG2ClientAuto.ts), [for Aurelia](https://github.com/zijianhuang/webapiclientgen/blob/master/aurelia/src/clientapi/WebApiAureliaClientAuto.ts) and [for Axios](https://github.com/zijianhuang/webapiclientgen/blob/master/axios/src/clientapi/WebApiAxiosClientAuto.ts)
 1. [Client codes using the generated library in TypeScript](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/tests/demo.tests.ts)
 
 **Remarks:**
@@ -75,7 +75,9 @@ This project delivers these products:
 **TypeScript client side:**
 1. TypeScript compiler
 1. jQuery
-1. Angular 2/4/5/6 and its dependencies in node_modules supported by Node.js and npm.
+1. Angular 2-8
+1. Aurelia
+1. Axios 
 
 
 

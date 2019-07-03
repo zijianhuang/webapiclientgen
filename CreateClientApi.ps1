@@ -1,6 +1,6 @@
 ﻿#Launch WebApi Website and POST a request for generating client APIs. This only works with the DEBUG build of the Web service.
 cd $PSScriptRoot
-$arguments = "/site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:$PSScriptRoot\.vs\config\applicationhost.config"
+$arguments = "/site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:$PSScriptRoot\.vs\WebApiClientGen\config\applicationhost.config"
 echo $arguments
 $procArgs = @{
     FilePath         = "C:\Program Files (x86)\IIS Express\iisexpress.exe"

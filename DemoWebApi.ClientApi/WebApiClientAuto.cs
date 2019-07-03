@@ -1050,8 +1050,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/createPerson");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -1071,8 +1071,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/createPerson");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -1144,8 +1144,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -1166,8 +1166,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -1188,8 +1188,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/MyGeneric");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, s);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -1210,8 +1210,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/MyGeneric");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, s);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -1232,8 +1232,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/MyGenericPerson");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, s);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -1254,8 +1254,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/MyGenericPerson");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, s);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -1380,8 +1380,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship));
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, person);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PutAsync(requestUri, content);
@@ -1401,8 +1401,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship));
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, person);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PutAsync(requestUri, content).Result;
@@ -1422,8 +1422,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/linkNewDecimal?id="+id);
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -1444,8 +1444,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/linkNewDecimal?id="+id);
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -1466,8 +1466,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/linkNewGuid?id="+id);
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -1488,8 +1488,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/linkNewGuid?id="+id);
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -1510,8 +1510,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/linkLong?id="+id);
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -1531,8 +1531,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/linkLong?id="+id);
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, p);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -1552,8 +1552,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, person);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PutAsync(requestUri, content);
@@ -1568,8 +1568,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, person);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PutAsync(requestUri, content).Result;
@@ -1791,8 +1791,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, hero);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PutAsync(requestUri, content);
@@ -1814,8 +1814,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Heroes");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, hero);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PutAsync(requestUri, content).Result;
@@ -3314,8 +3314,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult2");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, s);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3331,8 +3331,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult2");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, s);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3348,8 +3348,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult3");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, person);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3365,8 +3365,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult3");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, person);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3382,8 +3382,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, obj);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3404,8 +3404,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, obj);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3426,8 +3426,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3447,8 +3447,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3469,8 +3469,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, d);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3491,8 +3491,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, d);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3512,8 +3512,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, d);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3533,8 +3533,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, d);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3554,8 +3554,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, dic);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3575,8 +3575,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, dic);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3596,8 +3596,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3617,8 +3617,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3638,8 +3638,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3659,8 +3659,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3680,8 +3680,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, a);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3701,8 +3701,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, a);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3722,8 +3722,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2djagged");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, a);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3743,8 +3743,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2djagged");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, a);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3764,8 +3764,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, a);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3785,8 +3785,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, a);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3806,8 +3806,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3827,8 +3827,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3848,8 +3848,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3869,8 +3869,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3890,8 +3890,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3911,8 +3911,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, list);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -3932,8 +3932,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, dt);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -3954,8 +3954,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, dt);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4380,8 +4380,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany2");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4402,8 +4402,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany2");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4424,8 +4424,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany3");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4446,8 +4446,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany3");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4468,8 +4468,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4490,8 +4490,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4512,8 +4512,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4534,8 +4534,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4556,8 +4556,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany6");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4578,8 +4578,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany6");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4600,8 +4600,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany7");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4622,8 +4622,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany7");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4644,8 +4644,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany8");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4666,8 +4666,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany8");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4688,8 +4688,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PersonCompany1");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4710,8 +4710,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/PersonCompany1");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, peopleAndCompany);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4732,8 +4732,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4753,8 +4753,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4774,8 +4774,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4795,8 +4795,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4816,8 +4816,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4837,8 +4837,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4858,8 +4858,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4879,8 +4879,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4900,8 +4900,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4921,8 +4921,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4942,8 +4942,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -4963,8 +4963,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -4984,8 +4984,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -5005,8 +5005,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -5026,8 +5026,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -5047,8 +5047,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, tuple);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -5230,8 +5230,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Values");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, value);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync(requestUri, content);
@@ -5251,8 +5251,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Values");
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, value);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PostAsync(requestUri, content).Result;
@@ -5272,8 +5272,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Values/"+id);
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, value);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = await client.PutAsync(requestUri, content);
@@ -5288,8 +5288,8 @@ namespace DemoWebApi.Controllers.Client
         {
             var requestUri = new Uri(this.baseUri, "api/Values/"+id);
             using (var requestWriter = new System.IO.StringWriter())
-            {
-            var requestSerializer = JsonSerializer.Create();
+			{
+			var requestSerializer = JsonSerializer.Create();
             requestSerializer.Serialize(requestWriter, value);
             var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
             var responseMessage = this.client.PutAsync(requestUri, content).Result;

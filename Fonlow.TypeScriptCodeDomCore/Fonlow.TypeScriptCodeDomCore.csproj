@@ -27,7 +27,7 @@
   <Import Project="..\Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="System.CodeDom" Version="4.5.0" />
+    <PackageReference Include="System.CodeDom" Version="4.6.0" />
   </ItemGroup>
 
 </Project>

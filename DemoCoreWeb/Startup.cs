@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 
 namespace DemoCoreWeb
 {
@@ -23,9 +24,7 @@ namespace DemoCoreWeb
 					options.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
 #endif
 				}
-				);
-
-			//https://stackoverflow.com/questions/28435734/get-list-of-all-routes
+				).AddNewtonsoftJson();
 
 			services.AddRouting();
 			services.AddCors();
@@ -38,12 +37,13 @@ namespace DemoCoreWeb
 			{
 				app.UseDeveloperExceptionPage();
 			}
-			
+
 			app.UseRouting();
 			app.UseCors(builder => builder.AllowAnyOrigin()
 				.AllowAnyHeader().AllowAnyMethod()
 				);
-			app.UseEndpoints(endpoints => {
+			app.UseEndpoints(endpoints =>
+			{
 				endpoints.MapControllers();
 			});
 #if DEBUG  // This is for running the QUnit cases with tests.html. The CodeGenSetting should be "TypeScriptJQFolder": "..\\..\\..\\Scripts\\ClientApi" without StaticFiles

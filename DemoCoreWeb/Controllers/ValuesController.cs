@@ -8,17 +8,17 @@ using Fonlow.CodeDom.Web;
 namespace DemoWebApi.Controllers
 { 
 	[Route("api/[controller]")]
-    public class ValuesController : Controller
-    {
-        /// <summary>
+	public class ValuesController : Controller
+	{
+		/// <summary>
 		/// Get a list of value
 		/// </summary>
 		/// <returns></returns>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+		[HttpGet]
+		public IEnumerable<string> Get()
+		{
+			return new string[] { "value1", "value2" };
+		}
 
 		/// <summary>
 		/// Get by both Id and name
@@ -46,7 +46,7 @@ namespace DemoWebApi.Controllers
 
 		// POST api/values
 		[HttpPost]
-        public string Post([FromBody]string value)
+		public string Post([FromBody]string value)
 		{
 			System.Diagnostics.Debug.WriteLine("received POST value: " + value);
 			return value.ToUpper();
@@ -58,14 +58,14 @@ namespace DemoWebApi.Controllers
 		/// <param name="id"></param>
 		/// <param name="value"></param>
 		[HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		public void Put(int id, [FromBody]string value)
+		{
+		}
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-    }
+		// DELETE api/values/5
+		[HttpDelete("{id}")]
+		public void Delete(int id)
+		{
+		}
+	}
 }

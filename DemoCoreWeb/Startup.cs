@@ -24,7 +24,7 @@ namespace DemoCoreWeb
 					options.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
 #endif
 				}
-				).AddNewtonsoftJson();
+			).AddNewtonsoftJson();
 
 			services.AddRouting();
 			services.AddCors();

@@ -13,17 +13,17 @@ namespace Fonlow.WebApiClientGen
 	public class CodeGenController : ControllerBase
 	{
 		private readonly IApiDescriptionGroupCollectionProvider apiExplorer;
-		private readonly IHostingEnvironment hostingEnvironment;
+		private readonly string webRootPath;
 
 		/// <summary>
 		/// For injecting some environment config by the run time.
 		/// </summary>
 		/// <param name="apiExplorer"></param>
 		/// <param name="hostingEnvironment"></param>
-		public CodeGenController(IApiDescriptionGroupCollectionProvider apiExplorer, IHostingEnvironment hostingEnvironment)
+		public CodeGenController(IApiDescriptionGroupCollectionProvider apiExplorer, IWebHostEnvironment hostingEnvironment)
 		{
 			this.apiExplorer = apiExplorer;
-			this.hostingEnvironment = hostingEnvironment;
+			this.webRootPath = hostingEnvironment.WebRootPath;
 		}
 
 		/// <summary>
@@ -38,7 +38,6 @@ namespace Fonlow.WebApiClientGen
 			if (settings == null || settings.ClientApiOutputs == null)
 				return new BadRequestResult();
 
-			string webRootPath = hostingEnvironment.WebRootPath;
 			Fonlow.Web.Meta.WebApiDescription[] apiDescriptions;
 			try
 			{
@@ -59,7 +58,7 @@ namespace Fonlow.WebApiClientGen
 
 			try
 			{
-				CodeGen.GenerateClientAPIs(webRootPath, settings, apiDescriptions);
+				CodeGen.GenerateClientAPIs(this.webRootPath, settings, apiDescriptions);
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{

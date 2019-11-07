@@ -108,6 +108,22 @@
 		/// NG2 version like 4.3, 5.0, 6.0 etc.
 		/// </summary>
 		public decimal? NGVersion { get; set; }
+
+		public JSPlugin[] Plugins { get; set; }
+	}
+
+	public class JSPlugin
+	{
+		public string PackageName { get; private set; }
+
+		public string TargetDir { get; private set; }
+
+		public string ContentType { get; private set; }
+
+		public bool CamelCase { get; private set; }
+
+		public bool StringAsString { get; private set; }
+
 	}
 
 	public class JSOutput : CodeGenSettingsBase

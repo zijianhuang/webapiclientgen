@@ -11,12 +11,13 @@ namespace Fonlow.Poco2Ts
     public static class PocoAssemblyFileWalker
     {
 
-        /// <summary>
-        /// Walk classes in the assembly decorated by cherry picking data annotation attributes, and save TypeScript codes to the file.
-        /// </summary>
-        /// <param name="assemblyFilePath">Absolute or relative path, including the assembly file extension name dll or exe.</param>
-        /// <param name="tsFilePath"></param>
-        public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods)
+		/// <summary>
+		/// Walk classes in the assembly decorated by cherry picking data annotation attributes, and save TypeScript codes to the file.
+		/// </summary>
+		/// <param name="assemblyFilePath">Absolute or relative path, including the assembly file extension name dll or exe.</param>
+		/// <param name="tsFilePath"></param>
+		/// <param name="methods"></param>
+		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods)
         {
             var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);
             var assembly = LoadAssembly(absolutePath);

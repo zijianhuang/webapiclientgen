@@ -69,7 +69,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetNullString()
 		{
-			Assert.Equal(null, api.GetNullString());
+			Assert.Null(api.GetNullString());
 		}
 
 		[Fact]

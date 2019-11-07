@@ -121,7 +121,6 @@ namespace IntegrationTests
 		[Fact]
 		public void TestNullablePrimitiveWithFirstNull()
 		{
-			double dou = 1234.567;
 			decimal de = 1234.567m;
 			var t = api.GetPrimitiveNullable("abc", null, de);
 			Assert.Null(t.Item2);
@@ -211,7 +210,7 @@ namespace IntegrationTests
         [Fact]
         public void TestGetNullPerson()
         {
-            Assert.Equal(null, api.GetNullPerson());
+            Assert.Null(api.GetNullPerson());
         }
 
         [Fact]
@@ -225,7 +224,7 @@ namespace IntegrationTests
         [Fact]
         public void TestGetBool()
         {
-            Assert.Equal(true, api.GetBool());
+            Assert.True(api.GetBool());
         }
 
         [Fact]

@@ -10,7 +10,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="excludedControllerNames">Excluse some Api Controllers from being exposed to the client API. Each item should be fully qualified class name but without the assembly name.</param>
+		/// <param name="jsOutput"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
 		public ControllersTsNG2ClientApiGen(JSOutput jsOutput) : base(jsOutput, new ClientApiTsNG2FunctionGen(jsOutput.ContentType))
 		{

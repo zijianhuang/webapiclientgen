@@ -78,7 +78,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			// var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
 
-			if (ReturnType!=null && TypeHelper.IsStringType(ReturnType) && this.stringAsString)//stringAsString is for .NET Core Web API
+			if (ReturnType!=null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
 				if (httpMethod == "get" || httpMethod == "delete")
 				{

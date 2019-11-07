@@ -69,7 +69,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			var uriText = jsUriQuery == null ? $"'{Description.RelativePath}'" :
 				RemoveTrialEmptyString($"'{jsUriQuery}'");
 
-			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.stringAsString)//stringAsString is for .NET Core Web API
+			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
 				if (httpMethod == "get" || httpMethod == "delete")
 				{

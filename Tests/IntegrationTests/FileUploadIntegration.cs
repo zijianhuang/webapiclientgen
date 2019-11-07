@@ -60,7 +60,7 @@ namespace IntegrationTests
         const int BufferSize = 1024000;
 
         //      static readonly string _filename = @"C:\Windows\Media\chimes.wav";
-        static readonly string _filename = @"C:\Users\AndySuperCo\Downloads\Nursery Rhymes Vol 11 - Thirty Rhymes with Karaoke [Full HD,1080p].mp4";
+      //  static readonly string _filename = @"C:\Users\AndySuperCo\Downloads\Nursery Rhymes Vol 11 - Thirty Rhymes with Karaoke [Full HD,1080p].mp4";
 
         public FileUploadIntegration()
         {

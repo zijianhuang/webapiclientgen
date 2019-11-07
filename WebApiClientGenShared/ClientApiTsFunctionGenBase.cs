@@ -19,7 +19,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected Type ReturnType { get; private set; }
 		protected CodeMemberMethod Method { get; private set; }
 		protected Fonlow.Poco2Client.IPoco2Client Poco2TsGen { get; private set; }
-		protected bool stringAsString;
+		protected bool StringAsString { get; private set; }
 
 		protected ClientApiTsFunctionGenBase()
 		{
@@ -30,7 +30,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			this.Description = description;
 			this.Poco2TsGen = poco2TsGen;
-			this.stringAsString = stringAsString;
+			this.StringAsString = stringAsString;
 
 			NethodName = TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
 			if (NethodName.EndsWith("Async"))

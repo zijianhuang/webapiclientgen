@@ -42,7 +42,7 @@ namespace TypeScriptCodeDomTests
         public void TestCamelCase()
         {
             Assert.Equal("dob", "DOB".ToCamelCase());
-            Assert.Equal(null, StringExtensions.ToCamelCase(null));
+            Assert.Null(StringExtensions.ToCamelCase(null));
             Assert.Equal("birthDate", StringExtensions.ToCamelCase("BirthDate"));
             Assert.Equal("birthDate", StringExtensions.ToCamelCase("birthDate"));
             Assert.Equal("dbEngine", StringExtensions.ToCamelCase("DBEngine"));

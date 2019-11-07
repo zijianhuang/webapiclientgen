@@ -36,7 +36,7 @@ namespace Poco2TsTests
 
 			Assert.Equal(3, aa.OfType<Base>().Count());
 			Assert.Equal(2, aa.OfType<A>().Count());
-			Assert.Equal(1, aa.OfType<B>().Count());
+			Assert.Single(aa.OfType<B>());
 		}
 
 		[Fact]
@@ -44,9 +44,9 @@ namespace Poco2TsTests
 		{
 			var aa = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
 
-			Assert.Equal(0, aa.OfType<Base>().Count());
-			Assert.Equal(0, aa.OfType<A>().Count());
-			Assert.Equal(0, aa.OfType<B>().Count());
+			Assert.Empty(aa.OfType<Base>());
+			Assert.Empty(aa.OfType<A>());
+			Assert.Empty(aa.OfType<B>());
 		}
 
 		public class Base

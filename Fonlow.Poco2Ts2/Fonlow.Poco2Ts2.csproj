@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Fonlow.Poco2Ts</AssemblyName>
+    <RootNamespace>Fonlow.Poco2Ts</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>C:\VSProjects\webapiclientgen\WebApiClientGen.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\WebApiClientGen.snk" Link="WebApiClientGen.snk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fonlow.DocComment2\Fonlow.DocComment2.csproj" />
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDom2\Fonlow.TypeScriptCodeDom2.csproj" />
+  </ItemGroup>
+
+</Project>

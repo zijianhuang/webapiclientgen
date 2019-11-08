@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Fonlow.DocComment</AssemblyName>
+    <RootNamespace>Fonlow.DocComment</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>C:\VSProjects\webapiclientgen\WebApiClientGen.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\WebApiClientGen.snk" Link="WebApiClientGen.snk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="xmldocument.cs">
+      <DependentUpon>XmlDocument.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

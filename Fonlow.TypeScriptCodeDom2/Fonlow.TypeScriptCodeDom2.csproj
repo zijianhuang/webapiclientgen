@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Fonlow.TypeScriptCodeDom</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>C:\VSProjects\webapiclientgen\WebApiClientGen.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\WebApiClientGen.snk" Link="WebApiClientGen.snk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CodeDom" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="TypeScriptCodeProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

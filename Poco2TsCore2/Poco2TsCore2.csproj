@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>Poco2TsCore</AssemblyName>
+  </PropertyGroup>
+
+  <Import Project="..\Poco2TsShared\Poco2TsShared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fonlow.Poco2Ts2\Fonlow.Poco2Ts2.csproj" />
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDom2\Fonlow.TypeScriptCodeDom2.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Fonlow.Web.Meta</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>C:\VSProjects\webapiclientgen\WebApiClientGen.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <Import Project="..\Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <None Include="..\WebApiClientGen.snk" Link="WebApiClientGen.snk" />
+  </ItemGroup>
+
+</Project>

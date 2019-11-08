@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>WebApiClientGen</AssemblyName>
+  </PropertyGroup>
+
+  <Import Project="..\WebApiClientGenShared\WebApiClientGenShared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.2.0" />
+    <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fonlow.DocComment2\Fonlow.DocComment2.csproj" />
+    <ProjectReference Include="..\Fonlow.Poco2Ts2\Fonlow.Poco2Ts2.csproj" />
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDom2\Fonlow.TypeScriptCodeDom2.csproj" />
+    <ProjectReference Include="..\Fonlow.Web.Meta2\Fonlow.Web.Meta2.csproj" />
+  </ItemGroup>
+
+</Project>

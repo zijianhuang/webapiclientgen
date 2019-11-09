@@ -21,7 +21,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		CodeGenConfig apiSelections;
 		protected JSOutput jsOutput;
 
-		ClientApiTsFunctionGenBase apiFunctionGen; //to be injected in ctor of derived class.
+		ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
 
 		/// <summary>
 		/// 
@@ -29,7 +29,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <param name="jsOutput"></param>
 		/// <param name="apiFunctionGen"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		protected ControllersTsClientApiGenBase(JSOutput jsOutput, ClientApiTsFunctionGenBase apiFunctionGen)
+		protected ControllersTsClientApiGenBase(JSOutput jsOutput, ClientApiTsFunctionGenAbstract apiFunctionGen)
 		{
 			if (jsOutput == null)
 				throw new ArgumentNullException("jsOutput");

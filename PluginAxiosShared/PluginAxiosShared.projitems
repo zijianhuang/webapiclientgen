@@ -3,14 +3,13 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>bbe56b7d-2cc9-47a7-af3b-f3cb4f070f61</SharedGUID>
+    <SharedGUID>67b73a45-b57b-4d33-ad6a-781ea4d472ab</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>WebApiClientGenShared</Import_RootNamespace>
+    <Import_RootNamespace>PluginAxiosShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ClientApiFunctionGen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CodeGen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ControllersClientApiGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsAxiosFunctionGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ControllersTsAxiosClientApiGen.cs" />
   </ItemGroup>
 </Project>

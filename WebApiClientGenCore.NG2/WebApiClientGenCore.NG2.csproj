@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <PackageId>Fonlow.WebApiClientGenCore.NG2</PackageId>
+    <Authors>Zijian Huang</Authors>
+    <Description>Generate client API codes for Angular 2+ apps.</Description>
+    <PackageReleaseNotes>Generate client API codes for Angular 2+ apps.</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <Copyright>Copyright © Zijian Huang 2015-2019</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <Import Project="..\PluginNG2Shared\PluginNG2Shared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
+    <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
+    <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
+    <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
+  </ItemGroup>
+
+</Project>

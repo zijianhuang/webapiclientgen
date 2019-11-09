@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="..\WebApiClientGenAbstractShared\WebApiClientGenAbstractShared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
+    <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
+    <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
+  </ItemGroup>
+
+</Project>

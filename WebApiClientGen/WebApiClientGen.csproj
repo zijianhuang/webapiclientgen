@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fonlow.CodeDom.Web</RootNamespace>
     <AssemblyName>Fonlow.WebApiClientGen</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -64,7 +64,6 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MetaTransform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UriQueryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\WebApiClientGen.snk">
@@ -91,6 +90,26 @@
     <ProjectReference Include="..\Fonlow.Web.Meta\Fonlow.Web.Meta.csproj">
       <Project>{4d7f5b3e-b38d-4083-88fc-dd4908649bd4}</Project>
       <Name>Fonlow.Web.Meta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.Abstract\WebApiClientGen.Abstract.csproj">
+      <Project>{aadcf4f8-2b30-4258-9b7b-6f8b4037f108}</Project>
+      <Name>WebApiClientGen.Abstract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.Aurelia\WebApiClientGen.Aurelia.csproj">
+      <Project>{45a37dc4-6281-4e45-a8d4-475dd43000d8}</Project>
+      <Name>WebApiClientGen.Aurelia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.Axios\WebApiClientGen.Axios.csproj">
+      <Project>{085edc48-7561-45ad-ba31-707bd8f61b1a}</Project>
+      <Name>WebApiClientGen.Axios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.jQuery\WebApiClientGen.jQuery.csproj">
+      <Project>{8fcba063-8176-4cce-a8d7-086516e957ff}</Project>
+      <Name>WebApiClientGen.jQuery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.NG2\WebApiClientGen.NG2.csproj">
+      <Project>{2db1889e-bfb6-408d-b953-bf88a7f28158}</Project>
+      <Name>WebApiClientGen.NG2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\WebApiClientGenShared\WebApiClientGenShared.projitems" Label="Shared" />

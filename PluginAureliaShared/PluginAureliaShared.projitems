@@ -3,14 +3,13 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>bbe56b7d-2cc9-47a7-af3b-f3cb4f070f61</SharedGUID>
+    <SharedGUID>13d3a41c-5f3b-427f-92a3-a4efd9fff5bd</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>WebApiClientGenShared</Import_RootNamespace>
+    <Import_RootNamespace>PluginAureliaShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ClientApiFunctionGen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CodeGen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ControllersClientApiGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsAureliaFunctionGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ControllersTsAureliaClientApiGen.cs" />
   </ItemGroup>
 </Project>

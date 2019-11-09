@@ -12,7 +12,7 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// <summary>
 	/// Generate a client function upon ApiDescription
 	/// </summary>
-	public abstract class ClientApiTsFunctionGenBase
+	public abstract class ClientApiTsFunctionGenAbstract
 	{
 		protected WebApiDescription Description { get; private set; }
 		protected string NethodName { get; private set; }
@@ -21,7 +21,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected Fonlow.Poco2Client.IPoco2Client Poco2TsGen { get; private set; }
 		protected bool StringAsString { get; private set; }
 
-		protected ClientApiTsFunctionGenBase()
+		protected ClientApiTsFunctionGenAbstract()
 		{
 
 		}
@@ -102,6 +102,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected abstract CodeMemberMethod CreateMethodName();
 
 		protected abstract void RenderImplementation();
+
+		protected abstract string CreateUriQueryForTs(string uriText, ParameterDescription[] parameterDescriptions);
 	}
 
 }

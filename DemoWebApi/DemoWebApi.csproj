@@ -361,6 +361,10 @@
       <Project>{389e24f3-74ee-46f0-8bbb-cc91c006004c}</Project>
       <Name>DemoWebApi.DemoData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fonlow.DocComment\Fonlow.DocComment.csproj">
+      <Project>{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}</Project>
+      <Name>Fonlow.DocComment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj">
       <Project>{70caa10c-642a-454b-9dec-9ab391eb9c99}</Project>
       <Name>Fonlow.Poco2Ts</Name>
@@ -372,6 +376,10 @@
     <ProjectReference Include="..\Fonlow.Web.Meta\Fonlow.Web.Meta.csproj">
       <Project>{4d7f5b3e-b38d-4083-88fc-dd4908649bd4}</Project>
       <Name>Fonlow.Web.Meta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.Abstract\WebApiClientGen.Abstract.csproj">
+      <Project>{aadcf4f8-2b30-4258-9b7b-6f8b4037f108}</Project>
+      <Name>WebApiClientGen.Abstract</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebApiClientGen\WebApiClientGen.csproj">
       <Project>{1673d7d1-16be-48a0-901a-9706087293d4}</Project>

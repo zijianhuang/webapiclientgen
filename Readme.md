@@ -69,6 +69,8 @@ This project delivers these products:
 
 * .NET Core 2.x had dependency on Newtonsoft.JSON, while .NET Core 3.0 had been decoupled from Neewtonsoft.JSON and the default serializer is working well in most scenarios except for Tuple, 2D array and anonymous object etc. If you would support these data types or would keep 100% compitability with the serialization of NewtonSoft.JSON, you should explicitly include package `Microsoft.AspNetCore.Mvc.NewtonsoftJson` and add add `AddNewtonsoftJson()` in `Startup.cs`.
 * The edition for .NET Core 2.2 is working well with ASP.NET Core 3.0 Web API. 
+* WebApiClientGen v3.0 supports .NET Framework 4.6.2. If your Web API projects are still with .NET Framework 4.5.2, please use previous releases.
+* WebApiClientGenCore v3.0 supports .NET Core 3.0. If your .NET Core API projects are still with .NET Core 2.0/2.1/2.2, please previous releases.
 
 
 **.NET client side:**

@@ -11,10 +11,4 @@
 
   <Import Project="..\Poco2TsShared\Poco2TsShared.projitems" Label="Shared" />
 
-  <ItemGroup>
-    <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
-    <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
-    <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
-  </ItemGroup>
-
 </Project>

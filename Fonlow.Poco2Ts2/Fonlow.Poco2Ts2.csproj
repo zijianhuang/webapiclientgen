@@ -6,6 +6,14 @@
     <RootNamespace>Fonlow.Poco2Ts</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>C:\VSProjects\webapiclientgen\WebApiClientGen.snk</AssemblyOriginatorKeyFile>
+    <Version>3.0</Version>
+    <Authors>Zijian Huang</Authors>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <Copyright>Copyright © Zijian Huang 2015-2019</Copyright>
+    <PackageReleaseNotes>For .NET Standard 2.0.</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Description>Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</Description>
+    <PackageTags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

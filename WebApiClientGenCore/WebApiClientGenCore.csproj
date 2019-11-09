@@ -31,10 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
-    <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
-    <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
-    <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
+    <ProjectReference Include="..\Fonlow.DocComment2\Fonlow.DocComment2.csproj" />
+    <ProjectReference Include="..\Fonlow.Poco2Ts2\Fonlow.Poco2Ts2.csproj" />
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDom2\Fonlow.TypeScriptCodeDom2.csproj" />
+    <ProjectReference Include="..\Fonlow.Web.Meta2\Fonlow.Web.Meta2.csproj" />
   </ItemGroup>
 
 </Project>

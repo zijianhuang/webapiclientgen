@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fonlow.CodeDom.Web</RootNamespace>
     <AssemblyName>Fonlow.WebApiClientGen</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -46,6 +46,9 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.CodeDom, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.CodeDom.4.6.0\lib\net461\System.CodeDom.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -76,21 +79,21 @@
     <None Include="WebApiClientGen.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fonlow.DocComment\Fonlow.DocComment.csproj">
-      <Project>{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}</Project>
-      <Name>Fonlow.DocComment</Name>
+    <ProjectReference Include="..\Fonlow.DocComment2\Fonlow.DocComment2.csproj">
+      <Project>{fa87cdf1-a840-4c09-8f63-f971499f30bc}</Project>
+      <Name>Fonlow.DocComment2</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fonlow.Poco2Ts\Fonlow.Poco2Ts.csproj">
-      <Project>{70caa10c-642a-454b-9dec-9ab391eb9c99}</Project>
-      <Name>Fonlow.Poco2Ts</Name>
+    <ProjectReference Include="..\Fonlow.Poco2Ts2\Fonlow.Poco2Ts2.csproj">
+      <Project>{4a4b16bb-ffd7-4237-91f7-6e93f760d166}</Project>
+      <Name>Fonlow.Poco2Ts2</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
-      <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
-      <Name>Fonlow.TypeScriptCodeDom</Name>
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDom2\Fonlow.TypeScriptCodeDom2.csproj">
+      <Project>{5fdd23fd-c1e3-4c4f-a489-a8f1b723cd74}</Project>
+      <Name>Fonlow.TypeScriptCodeDom2</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fonlow.Web.Meta\Fonlow.Web.Meta.csproj">
-      <Project>{4d7f5b3e-b38d-4083-88fc-dd4908649bd4}</Project>
-      <Name>Fonlow.Web.Meta</Name>
+    <ProjectReference Include="..\Fonlow.Web.Meta2\Fonlow.Web.Meta2.csproj">
+      <Project>{2a1dc0b1-c491-4644-b0a1-d9a5129e9ddf}</Project>
+      <Name>Fonlow.Web.Meta2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\WebApiClientGenShared\WebApiClientGenShared.projitems" Label="Shared" />

@@ -5,6 +5,17 @@
     <AssemblyName>Fonlow.TypeScriptCodeDom</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>C:\VSProjects\webapiclientgen\WebApiClientGen.snk</AssemblyOriginatorKeyFile>
+    <Copyright>Copyright © Fonlow 2015-2019</Copyright>
+    <Authors>Zijian Huang</Authors>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/zijianhuang/webapiclientgen/master/Doc/icons/TypeScriptCodeDOM64.png</PackageIconUrl>
+    <PackageTags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</PackageTags>
+    <Version>3.0</Version>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>For .NET Standard 2.0.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>

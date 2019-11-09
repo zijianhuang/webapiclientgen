@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.CodeDom, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.CodeDom.4.6.0\lib\net461\System.CodeDom.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -63,9 +66,9 @@
       <Project>{389e24f3-74ee-46f0-8bbb-cc91c006004c}</Project>
       <Name>DemoWebApi.DemoData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fonlow.TypeScriptCodeDom\Fonlow.TypeScriptCodeDom.csproj">
-      <Project>{0dc57b30-7487-455c-8c75-1b814686049c}</Project>
-      <Name>Fonlow.TypeScriptCodeDom</Name>
+    <ProjectReference Include="..\..\Fonlow.TypeScriptCodeDom2\Fonlow.TypeScriptCodeDom2.csproj">
+      <Project>{5fdd23fd-c1e3-4c4f-a489-a8f1b723cd74}</Project>
+      <Name>Fonlow.TypeScriptCodeDom2</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore jquery angular</PackageTags>
-    <PackageReleaseNotes>Support plugin structure for new JavaScript/TypeScript frameworks.</PackageReleaseNotes>
+    <PackageReleaseNotes>Support Plugin structure for new JavaScript/TypeScript frameworks. Supports for jQuery, Angular 2+, AXIOS and Aurelia have been moved to plugins. This update requires changes in the CodeGen.json payload.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts"/>
 /// <chutzpah_reference path="../qunit-2.6.1.js" />
 /// <reference path="../typings/qunit/qunit.d.ts"/>
-/// <reference path="../ClientApi/WebApiClientAuto.ts"/>
+/// <reference path="../ClientApi/WebApiJQClientAuto.ts"/>
 
 
 // Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.

@@ -20,6 +20,7 @@ Thumbs.db
 *.ilk
 *.log
 *.map
+*.js.map
 [Bb]in
 [Dd]ebug*/
 *.lib

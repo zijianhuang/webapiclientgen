@@ -14,7 +14,7 @@ Invoke-RestMethod http://localhost:10965/api/codegen -Method POST -InFile "$($PS
 #Step 3: Compile generated TS codes to JS for jQuery
 $procTscArgs = @{
     FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoWebApi\Scripts\ClientApi\WebApiClientAuto.ts"
+    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoWebApi\Scripts\ClientApi\WebApiJQClientAuto.ts"
     PassThru         = $true
     
 }

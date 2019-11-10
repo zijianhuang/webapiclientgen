@@ -1,6 +1,6 @@
 /// <reference path='../typings/jquery/jquery.d.ts'/>
 /// <reference path='../typings/qunit/qunit.d.ts'/>
-/// <reference path='../ClientApi/WebApiClientAuto.ts'/>
+/// <reference path='../ClientApi/WebApiJQClientAuto.ts'/>
 // Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
 // Sometimes the test cases are not appearing in Test Explorer, then claring %temp% may help.
 // To launch IIS Express, use something like this: C:\VsProjects\webapiclientgen>'C:\Program Files (x86)\IIS Express\iisexpress.exe' /site:DemoWebApi /apppool:Clr4IntegratedAppPool /config:c:\vsprojects\webapiclientgen\.vs\config\applicationhost.config
@@ -250,7 +250,7 @@ var CommonCases;
             let now = new Date(Date.now());
             let nowHour = now.getHours();
             console.info('nowHour: ' + nowHour);
-            if (nowHour >= 22) {
+            if (nowHour >= 22) { //Hey, 22+2 == 0 :)
                 superDemoApi.getNextHourNullable(0, now, (data) => {
                     let dt = new Date(data);
                     assert.equal(dt.getHours(), nowHour);

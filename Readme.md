@@ -44,15 +44,33 @@ This project delivers these products:
 # Downloads
 
 ## For .NET Framework
-1. [Strongly Typed Client API Generators for ASP.NET Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGen/).
+1. [Strongly Typed Client API Generators for ASP.NET Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGen/)
 1. [TypeScript CodeDOM](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOM)
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.zip)
 1. [Fonlow.Poco2TS](https://www.nuget.org/packages/Fonlow.Poco2Ts) 
+
+### Plugins for TypeScript/JavaScript Frameworks/Libraries
+
+1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGen.jQuery/)
+1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGen.NG2/)
+1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Axios/)
+1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Aurelia/)
 
 ## For .NET Core
 1. [Strongly Typed Client API Generators for ASP.NET Core Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/).
 1. [TypeScript CodeDOM](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore)
 1. [Fonlow.Poco2TS](https://www.nuget.org/packages/Fonlow.Poco2TsCore) 
+
+### Plugins for TypeScript/JavaScript Frameworks/Libraries
+
+1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/)
+1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
+1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios/)
+1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia/)
+
+## Migration from WebApiClientGen v2.8 to v3.0
+
+WebApiClientGen v2.8 has built-in supports for jQuery, Angular 2+, AXIOS and Aurelia. V3.0 has the supports being moved to plugins. Please check [WIKI](https://github.com/zijianhuang/webapiclientgen/wiki/Migration-28-30) for more details.
 
 # Concepts
 1. Web API vendors / developers should provide client API libraries to developers of client programs, as Google and Amazon etc. would do in order to make the RESTful Web API reach wider consumers (internal and external) efficiently.

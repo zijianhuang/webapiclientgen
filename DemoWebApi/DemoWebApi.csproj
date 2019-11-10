@@ -406,7 +406,7 @@
     <TypeScriptCompile Include="Scripts\app\MyApp.ts" />
     <TypeScriptCompile Include="Scripts\ClientApi\Dummy.ts" />
     <TypeScriptCompile Include="Scripts\ClientApi\HttpClient.ts" />
-    <TypeScriptCompile Include="Scripts\ClientApi\WebApiClientAuto.ts" />
+    <TypeScriptCompile Include="Scripts\ClientApi\WebApiJQClientAuto.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="Scripts\tests\demo.tests.ts" />
     <TypeScriptCompile Include="Scripts\tests\special.tests.ts" />

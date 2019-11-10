@@ -108,7 +108,7 @@ namespace Fonlow.CodeDom.Web
 			{
 				var jsOutput = new JSOutput
 				{
-					CamelCase=plugin.CamelCase,
+					CamelCase=settings.ClientApiOutputs.CamelCase,
 					JSPath= CreateTsPath(plugin.TargetDir, plugin.TSFile),
 					AsModule=plugin.AsModule,
 					ContentType=plugin.ContentType,

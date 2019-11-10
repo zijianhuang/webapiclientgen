@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>Fonlow.WebApiClientGenCore.Abstract</AssemblyName>
   </PropertyGroup>
 
   <Import Project="..\WebApiClientGenAbstractShared\WebApiClientGenAbstractShared.projitems" Label="Shared" />

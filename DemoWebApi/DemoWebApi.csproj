@@ -381,6 +381,22 @@
       <Project>{aadcf4f8-2b30-4258-9b7b-6f8b4037f108}</Project>
       <Name>WebApiClientGen.Abstract</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.Aurelia\WebApiClientGen.Aurelia.csproj">
+      <Project>{45a37dc4-6281-4e45-a8d4-475dd43000d8}</Project>
+      <Name>WebApiClientGen.Aurelia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.Axios\WebApiClientGen.Axios.csproj">
+      <Project>{085edc48-7561-45ad-ba31-707bd8f61b1a}</Project>
+      <Name>WebApiClientGen.Axios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.jQuery\WebApiClientGen.jQuery.csproj">
+      <Project>{8fcba063-8176-4cce-a8d7-086516e957ff}</Project>
+      <Name>WebApiClientGen.jQuery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.NG2\WebApiClientGen.NG2.csproj">
+      <Project>{2db1889e-bfb6-408d-b953-bf88a7f28158}</Project>
+      <Name>WebApiClientGen.NG2</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebApiClientGen\WebApiClientGen.csproj">
       <Project>{1673d7d1-16be-48a0-901a-9706087293d4}</Project>
       <Name>WebApiClientGen</Name>

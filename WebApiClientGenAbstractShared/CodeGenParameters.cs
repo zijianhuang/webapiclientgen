@@ -59,55 +59,52 @@
 		/// </summary>
 		public bool? CamelCase { get; set; }
 
-		/// <summary>
-		/// Absolute path or relative path to the Web API project.
-		/// </summary>
-		public string TypeScriptJQFolder { get; set; }
+		///// <summary>
+		///// Absolute path or relative path to the Web API project.
+		///// </summary>
+		//public string TypeScriptJQFolder { get; set; }
 
-		/// <summary>
-		/// File name to be saved in TypeScriptJQFolder. If not defined, it will be WebApiClientAuto.ts.
-		/// </summary>
-		public string TypeScriptJQFile { get; set; } = "WebApiClientAuto.ts";
+		///// <summary>
+		///// File name to be saved in TypeScriptJQFolder. If not defined, it will be WebApiClientAuto.ts.
+		///// </summary>
+		//public string TypeScriptJQFile { get; set; } = "WebApiClientAuto.ts";
 
-		/// <summary>
-		/// Absolute path or relative path to the Web API project.
-		/// </summary>
-		public string TypeScriptNG2Folder { get; set; }
+		///// <summary>
+		///// Absolute path or relative path to the Web API project.
+		///// </summary>
+		//public string TypeScriptNG2Folder { get; set; }
 
-		/// <summary>
-		/// Absolute path or relative path to the Web API project.
-		/// </summary>
-		public string TypeScriptAxiosFolder { get; set; }
+		///// <summary>
+		///// Absolute path or relative path to the Web API project.
+		///// </summary>
+		//public string TypeScriptAxiosFolder { get; set; }
 
-		/// <summary>
-		/// Absolute path or relative path to the Web API project.
-		/// </summary>
-		public string TypeScriptAureliaFolder { get; set; }
+		///// <summary>
+		///// Absolute path or relative path to the Web API project.
+		///// </summary>
+		//public string TypeScriptAureliaFolder { get; set; }
 
-		/// <summary>
-		/// File name to be saved in TypeScriptNG2Folder. If not defined, it will be WebApiNG2ClientAuto.ts.
-		/// </summary>
-		public string TypeScriptNG2File { get; set; } = "WebApiNG2ClientAuto.ts";
+		///// <summary>
+		///// File name to be saved in TypeScriptNG2Folder. If not defined, it will be WebApiNG2ClientAuto.ts.
+		///// </summary>
+		//public string TypeScriptNG2File { get; set; } = "WebApiNG2ClientAuto.ts";
 
-		/// <summary>
-		/// File name to be saved in TypeScriptAxiosFolder. If not defined, it will be WebApiAxiosClientAuto.ts.
-		/// </summary>
-		public string TypeScriptAxiosFile { get; set; } = "WebApiAxiosClientAuto.ts";
+		///// <summary>
+		///// File name to be saved in TypeScriptAxiosFolder. If not defined, it will be WebApiAxiosClientAuto.ts.
+		///// </summary>
+		//public string TypeScriptAxiosFile { get; set; } = "WebApiAxiosClientAuto.ts";
 
-		/// <summary>
-		/// File name to be saved in TypeScriptAureliaFolder. If not defined, it will be WebApiAureliaClientAuto.ts.
-		/// </summary>
-		public string TypeScriptAureliaFile { get; set; } = "WebApiAureliaClientAuto.ts";
+		///// <summary>
+		///// File name to be saved in TypeScriptAureliaFolder. If not defined, it will be WebApiAureliaClientAuto.ts.
+		///// </summary>
+		//public string TypeScriptAureliaFile { get; set; } = "WebApiAureliaClientAuto.ts";
 
-		/// <summary>
-		/// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
-		/// </summary>
-		public string ContentType { get; set; }
+		///// <summary>
+		///// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
+		///// </summary>
+		//public string ContentType { get; set; }
 
-		/// <summary>
-		/// NG2 version like 4.3, 5.0, 6.0 etc.
-		/// </summary>
-		public decimal? NGVersion { get; set; }
+		public JSPlugin[] Plugins { get; set; }
 	}
 
 	public class JSOutput : CodeGenSettingsBase
@@ -117,30 +114,45 @@
 		/// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
 		/// If CamelCasePropertyNamesContractResolver is presented, camelCasing will be used. If not, no camelCasing transformation will be used.
 		/// </summary>
-		public bool? CamelCase { get; private set; }
+		public bool? CamelCase { get; set; }
 
-		public string JSPath { get; private set; }
+		public string JSPath { get; set; }
 
-		public bool AsModule { get; private set; }
+		public bool AsModule { get; set; }
 
-		public string ContentType { get; private set; }
-
-		public decimal NGVersion { get; private set; }
+		public string ContentType { get; set; }
 
 		public bool StringAsString { get; set; }
 
-		public JSOutput(CodeGenSettings settings, string jsPath, bool asModule)
-		{
-			this.ApiSelections = settings.ApiSelections;
-			this.CamelCase = settings.ClientApiOutputs.CamelCase;
-			this.JSPath = jsPath;
-			this.AsModule = asModule;
-			this.ContentType = string.IsNullOrEmpty(settings.ClientApiOutputs.ContentType) ? "application/json" : settings.ClientApiOutputs.ContentType;
-			this.NGVersion = settings.ClientApiOutputs.NGVersion.HasValue ? settings.ClientApiOutputs.NGVersion.Value : 6;
-			this.StringAsString = settings.ClientApiOutputs.StringAsString;
-		}
+		//public JSOutput(CodeGenSettings settings, string jsPath, bool asModule)
+		//{
+		//	this.ApiSelections = settings.ApiSelections;
+		//	this.CamelCase = settings.ClientApiOutputs.CamelCase;
+		//	this.JSPath = jsPath;
+		//	this.AsModule = asModule;
+		//	this.ContentType = string.IsNullOrEmpty(JSPlugin.ContentType) ? "application/json" : settings.ClientApiOutputs.ContentType;
+		//	this.StringAsString = settings.ClientApiOutputs.StringAsString;
+		//}
 
+		public JSOutput()
+		{
+
+		}
 	}
 
+	public class JSPlugin
+	{
+		public string AssemblyName { get; set; }
 
+		public string TargetDir { get; set; }
+
+		public string TSFile { get; set; }
+
+		public string ContentType { get; set; }
+
+		public bool CamelCase { get; set; }
+
+		public bool AsModule { get; set; }
+
+	}
 }

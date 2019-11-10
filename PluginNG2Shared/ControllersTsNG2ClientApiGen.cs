@@ -26,14 +26,15 @@ namespace Fonlow.CodeDom.Web.Ts
 			TargetUnit.ReferencedAssemblies.Add("import { Injectable, Inject } from '@angular/core';");
 			TargetUnit.ReferencedAssemblies.Add("import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';");
 
-			if (this.jsOutput.NGVersion >= 6)
-			{
-				TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs';");
-			}
-			else
-			{
-				TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs/Observable';");
-			}
+			TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs';");
+			//if (this.jsOutput.NGVersion >= 6)
+			//{
+			//	TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs';");
+			//}
+			//else
+			//{
+			//	TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs/Observable';");
+			//}
 		}
 
 

@@ -12,6 +12,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyName>Fonlow.WebApiClientGenCore.NG2</AssemblyName>
   </PropertyGroup>
 
   <Import Project="..\PluginNG2Shared\PluginNG2Shared.projitems" Label="Shared" />

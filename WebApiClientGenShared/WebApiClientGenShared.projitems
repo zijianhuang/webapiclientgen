@@ -12,5 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiFunctionGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodeGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersClientApiGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginFactory.cs" />
   </ItemGroup>
 </Project>

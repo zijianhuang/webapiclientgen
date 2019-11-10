@@ -992,10 +992,10 @@ namespace DemoCoreWeb.Controllers.Client
         public SpecialTypes(System.Net.Http.HttpClient client, System.Uri baseUri)
         {
             if (client == null)
-                throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("client", "Null HttpClient.");
 
             if (baseUri == null)
-                throw new ArgumentNullException("baseUri", "Null baseUri");
+				throw new ArgumentNullException("baseUri", "Null baseUri");
 
             this.client = client;
             this.baseUri = baseUri;
@@ -1129,10 +1129,10 @@ namespace DemoWebApi.Controllers.Client
         public Entities(System.Net.Http.HttpClient client, System.Uri baseUri)
         {
             if (client == null)
-                throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("client", "Null HttpClient.");
 
             if (baseUri == null)
-                throw new ArgumentNullException("baseUri", "Null baseUri");
+				throw new ArgumentNullException("baseUri", "Null baseUri");
 
             this.client = client;
             this.baseUri = baseUri;
@@ -1489,10 +1489,10 @@ namespace DemoWebApi.Controllers.Client
         public Heroes(System.Net.Http.HttpClient client, System.Uri baseUri)
         {
             if (client == null)
-                throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("client", "Null HttpClient.");
 
             if (baseUri == null)
-                throw new ArgumentNullException("baseUri", "Null baseUri");
+				throw new ArgumentNullException("baseUri", "Null baseUri");
 
             this.client = client;
             this.baseUri = baseUri;
@@ -1759,10 +1759,10 @@ namespace DemoWebApi.Controllers.Client
         public SuperDemo(System.Net.Http.HttpClient client, System.Uri baseUri)
         {
             if (client == null)
-                throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("client", "Null HttpClient.");
 
             if (baseUri == null)
-                throw new ArgumentNullException("baseUri", "Null baseUri");
+				throw new ArgumentNullException("baseUri", "Null baseUri");
 
             this.client = client;
             this.baseUri = baseUri;
@@ -3825,10 +3825,10 @@ namespace DemoWebApi.Controllers.Client
         public Tuple(System.Net.Http.HttpClient client, System.Uri baseUri)
         {
             if (client == null)
-                throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("client", "Null HttpClient.");
 
             if (baseUri == null)
-                throw new ArgumentNullException("baseUri", "Null baseUri");
+				throw new ArgumentNullException("baseUri", "Null baseUri");
 
             this.client = client;
             this.baseUri = baseUri;
@@ -4853,10 +4853,10 @@ namespace DemoWebApi.Controllers.Client
         public Values(System.Net.Http.HttpClient client, System.Uri baseUri)
         {
             if (client == null)
-                throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("client", "Null HttpClient.");
 
             if (baseUri == null)
-                throw new ArgumentNullException("baseUri", "Null baseUri");
+				throw new ArgumentNullException("baseUri", "Null baseUri");
 
             this.client = client;
             this.baseUri = baseUri;

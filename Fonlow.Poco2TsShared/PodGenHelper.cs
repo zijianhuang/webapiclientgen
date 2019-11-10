@@ -11,124 +11,124 @@ namespace Fonlow.Poco2Client
 	/// Some shared functions used by CsPodgen and TsPodGen
 	/// </summary>
 	internal class PodGenHelper
-    {
-        internal static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
-        {
-            var targetClass = new CodeTypeDeclaration(className)
-            {
-                IsEnum = true,
-            };
+	{
+		internal static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
+		{
+			var targetClass = new CodeTypeDeclaration(className)
+			{
+				IsEnum = true,
+			};
 
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
+			ns.Types.Add(targetClass);
+			return targetClass;
+		}
 
-        internal static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
-        {
-            try
-            {
-                return assembly.GetTypes().Where(type => (TypeHelper.IsClassOrStruct(type) || type.IsEnum)
-                && CherryPicking.IsCherryType(type, methods)).ToArray();
-            }
-            catch (ReflectionTypeLoadException e)
-            {
-                foreach (Exception ex in e.LoaderExceptions)
-                {
-                    Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, ex.Message));
-                }
-            }
-            catch (TargetInvocationException e)
-            {
-                Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, e.Message + "~~" + e.InnerException.Message));
-            }
+		internal static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
+		{
+			try
+			{
+				return assembly.GetTypes().Where(type => (TypeHelper.IsClassOrStruct(type) || type.IsEnum)
+				&& CherryPicking.IsCherryType(type, methods)).ToArray();
+			}
+			catch (ReflectionTypeLoadException e)
+			{
+				foreach (Exception ex in e.LoaderExceptions)
+				{
+					Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, ex.Message));
+				}
+			}
+			catch (TargetInvocationException e)
+			{
+				Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assembly.FullName, e.Message + "~~" + e.InnerException.Message));
+			}
 
-            return null;
-        }
+			return null;
+		}
 
-        internal static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)
-        {
-            var targetClass = new CodeTypeDeclaration(className)
-            {
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
-            };
+		internal static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)
+		{
+			var targetClass = new CodeTypeDeclaration(className)
+			{
+				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
+			};
 
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
+			ns.Types.Add(targetClass);
+			return targetClass;
+		}
 
-        internal static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type)
-        {
-            Type genericTypeDefinition = type.GetGenericTypeDefinition();
-            Type[] genericArguments = type.GetGenericArguments();
+		internal static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type)
+		{
+			Type genericTypeDefinition = type.GetGenericTypeDefinition();
+			Type[] genericArguments = type.GetGenericArguments();
 
-            var goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
+			var goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
 
-            var targetClass = new CodeTypeDeclaration(goodGenericClassName)
-            {
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
-            };
+			var targetClass = new CodeTypeDeclaration(goodGenericClassName)
+			{
+				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
+			};
 
-            targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
-            {
-                Name = d.ToString(),
-            }).ToArray()
-            );
-
-
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
-
-        internal static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
-        {
-            var targetClass = new CodeTypeDeclaration(className)
-            {
-                TypeAttributes = TypeAttributes.Public, 
-                IsStruct=true
-            };
-
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
-
-        internal static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
-        {
-            var targetClass = new CodeTypeDeclaration(className)
-            {
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
-            };
-
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
-
-        internal static CodeTypeDeclaration CreatePodClientGenericInterface(CodeNamespace ns, Type type)
-        {
-            Type genericTypeDefinition = type.GetGenericTypeDefinition();
-            Type[] genericArguments = type.GetGenericArguments();
-
-            var goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
-
-            var targetClass = new CodeTypeDeclaration(goodGenericClassName)
-            {
-                TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
-            };
-
-            targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
-            {
-                Name = d.ToString(),
-            }).ToArray()
-            );
+			targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
+			{
+				Name = d.ToString(),
+			}).ToArray()
+			);
 
 
-            ns.Types.Add(targetClass);
-            return targetClass;
-        }
+			ns.Types.Add(targetClass);
+			return targetClass;
+		}
 
-        static string SanitiseGenericClassName(string s)
-        {
-            var index = s.IndexOf('`');
-            return s.Remove(index);
-        }
-    }
+		internal static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
+		{
+			var targetClass = new CodeTypeDeclaration(className)
+			{
+				TypeAttributes = TypeAttributes.Public, 
+				IsStruct=true
+			};
+
+			ns.Types.Add(targetClass);
+			return targetClass;
+		}
+
+		internal static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
+		{
+			var targetClass = new CodeTypeDeclaration(className)
+			{
+				TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
+			};
+
+			ns.Types.Add(targetClass);
+			return targetClass;
+		}
+
+		internal static CodeTypeDeclaration CreatePodClientGenericInterface(CodeNamespace ns, Type type)
+		{
+			Type genericTypeDefinition = type.GetGenericTypeDefinition();
+			Type[] genericArguments = type.GetGenericArguments();
+
+			var goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
+
+			var targetClass = new CodeTypeDeclaration(goodGenericClassName)
+			{
+				TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
+			};
+
+			targetClass.TypeParameters.AddRange(genericArguments.Select(d => new CodeTypeParameter()
+			{
+				Name = d.ToString(),
+			}).ToArray()
+			);
+
+
+			ns.Types.Add(targetClass);
+			return targetClass;
+		}
+
+		static string SanitiseGenericClassName(string s)
+		{
+			var index = s.IndexOf('`');
+			return s.Remove(index);
+		}
+	}
 }

@@ -12,6 +12,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyName>Fonlow.WebApiClientGenCore.jQuery</AssemblyName>
   </PropertyGroup>
 
   <Import Project="..\PluginJQueryShared\PluginJQueryShared.projitems" Label="Shared" />

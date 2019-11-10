@@ -16,12 +16,45 @@
 		"ClientLibraryProjectFolderName": "..\\DemoWebApi.ClientApi",
 		"GenerateBothAsyncAndSync": true,
 
-		"CamelCase": true,
-		"ContentType": "application/json;charset=UTF-8",
-		"TypeScriptJQFolder": "Scripts\\ClientApi",
-		"TypeScriptNG2Folder": "..\\DemoNGCli\\NGSource\\src\\ClientApi",
-		"TypeScriptAxiosFolder": "..\\axios\\src\\clientapi",
-		"TypeScriptAureliaFolder": "..\\aurelia\\src\\clientapi"
+		"Plugins": [
+			{
+				"AssemblyName": "Fonlow.WebApiClientGen.jQuery",
+				"TargetDir": "Scripts\\ClientApi",
+				"TSFile": "WebApiJQClientAuto.ts",
+				"AsModule": false,
+				"ContentType": "application/json;charset=UTF-8",
+				"CamelCase": true
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGen.NG2",
+				"TargetDir": "..\\DemoNGCli\\NGSource\\src\\ClientApi",
+				"TSFile": "WebApiNG2ClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"CamelCase": true
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGen.Axios",
+				"TargetDir": "..\\axios\\src\\clientapi",
+				"TSFile": "WebApiAxiosClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"CamelCase": true
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGen.Aurelia",
+				"TargetDir": "..\\aurelia\\src\\clientapi",
+				"TSFile": "WebApiAureliaClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"CamelCase": true
+			}
+
+		]
+
 
 	}
 }

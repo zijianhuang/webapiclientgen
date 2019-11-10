@@ -13,6 +13,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyName>Fonlow.WebApiClientGenCore.Aurelia</AssemblyName>
   </PropertyGroup>
 
   <Import Project="..\PluginAureliaShared\PluginAureliaShared.projitems" Label="Shared" />

@@ -1,12 +1,12 @@
 ﻿using System;
 using Fonlow.Web.Meta;
-using Fonlow.CodeDom.Web;
+using Fonlow.CodeDom.Web.Ts;
 
 namespace Fonlow.CodeDom.Web
 {
 	public static class CodeGen
 	{
-		public static void GenerateClientAPIs(string webRootPath, CodeGenSettings settings, Fonlow.Web.Meta.WebApiDescription[] apiDescriptions)
+		public static void GenerateClientAPIs(string webRootPath, CodeGenSettings settings, WebApiDescription[] apiDescriptions)
 		{
 			if (webRootPath == null)//Run the .net core web through dotnet may have IHostingEnvironment.WebRootPath==null
 			{
@@ -27,7 +27,7 @@ namespace Fonlow.CodeDom.Web
 					};
 
 				var path = System.IO.Path.Combine(csharpClientProjectDir, "WebApiClientAuto.cs");
-				var gen = new Fonlow.CodeDom.Web.Cs.ControllersClientApiGen(settings);
+				var gen = new Cs.ControllersClientApiGen(settings);
 				gen.ForBothAsyncAndSync = settings.ClientApiOutputs.GenerateBothAsyncAndSync;
 				gen.CreateCodeDom(apiDescriptions);
 				gen.Save(path);
@@ -45,7 +45,7 @@ namespace Fonlow.CodeDom.Web
 							folder : System.IO.Path.Combine(webRootPath, folder);
 
 					}
-					catch (System.ArgumentException e)
+					catch (ArgumentException e)
 					{
 						System.Diagnostics.Trace.TraceWarning(e.Message);
 						throw new CodeGenException("InvalidTypeScriptFolder")
@@ -68,38 +68,56 @@ namespace Fonlow.CodeDom.Web
 			};
 
 
-			var jQueryPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptJQFolder, settings.ClientApiOutputs.TypeScriptJQFile);
-			if (!String.IsNullOrEmpty(jQueryPath))
-			{
-				var jQueryOutput = new JSOutput(settings, jQueryPath, false);
-				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsClientApiGen(jQueryOutput);
-				tsGen.CreateCodeDom(apiDescriptions);
-				tsGen.Save();
-			}
+			//var jQueryPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptJQFolder, settings.ClientApiOutputs.TypeScriptJQFile);
+			//if (!String.IsNullOrEmpty(jQueryPath))
+			//{
+			//	var jQueryOutput = new JSOutput(settings, jQueryPath, false);
+			//	var tsGen = new ControllersTsClientApiGen(jQueryOutput);
+			//	tsGen.CreateCodeDom(apiDescriptions);
+			//	tsGen.Save();
+			//}
 
-			var ng2Path = CreateTsPath(settings.ClientApiOutputs.TypeScriptNG2Folder, settings.ClientApiOutputs.TypeScriptNG2File);
-			if (!String.IsNullOrEmpty(ng2Path))
-			{
-				var ng2Output = new JSOutput(settings, ng2Path, true);
-				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsNG2ClientApiGen(ng2Output);
-				tsGen.CreateCodeDom(apiDescriptions);
-				tsGen.Save();
-			}
+			//var ng2Path = CreateTsPath(settings.ClientApiOutputs.TypeScriptNG2Folder, settings.ClientApiOutputs.TypeScriptNG2File);
+			//if (!String.IsNullOrEmpty(ng2Path))
+			//{
+			//	var ng2Output = new JSOutput(settings, ng2Path, true);
+			//	var tsGen = new ControllersTsNG2ClientApiGen(ng2Output);
+			//	tsGen.CreateCodeDom(apiDescriptions);
+			//	tsGen.Save();
+			//}
 
-			var axiosPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptAxiosFolder, settings.ClientApiOutputs.TypeScriptAxiosFile);
-			if (!String.IsNullOrEmpty(axiosPath))
-			{
-				var axiosOutput = new JSOutput(settings, axiosPath, true);
-				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsAxiosClientApiGen(axiosOutput);
-				tsGen.CreateCodeDom(apiDescriptions);
-				tsGen.Save();
-			}
+			//var axiosPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptAxiosFolder, settings.ClientApiOutputs.TypeScriptAxiosFile);
+			//if (!String.IsNullOrEmpty(axiosPath))
+			//{
+			//	var axiosOutput = new JSOutput(settings, axiosPath, true);
+			//	var tsGen = new ControllersTsAxiosClientApiGen(axiosOutput);
+			//	tsGen.CreateCodeDom(apiDescriptions);
+			//	tsGen.Save();
+			//}
 
-			var aureliaPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptAureliaFolder, settings.ClientApiOutputs.TypeScriptAureliaFile);
-			if (!String.IsNullOrEmpty(aureliaPath))
+			//var aureliaPath = CreateTsPath(settings.ClientApiOutputs.TypeScriptAureliaFolder, settings.ClientApiOutputs.TypeScriptAureliaFile);
+			//if (!String.IsNullOrEmpty(aureliaPath))
+			//{
+			//	var aureliaOutput = new JSOutput(settings, aureliaPath, true);
+			//	var tsGen = new ControllersTsAureliaClientApiGen(aureliaOutput);
+			//	tsGen.CreateCodeDom(apiDescriptions);
+			//	tsGen.Save();
+			//}
+
+			foreach (var plugin in settings.ClientApiOutputs.Plugins)
 			{
-				var aureliaOutput = new JSOutput(settings, aureliaPath, true);
-				var tsGen = new Fonlow.CodeDom.Web.Ts.ControllersTsAureliaClientApiGen(aureliaOutput);
+				var jsOutput = new JSOutput
+				{
+					CamelCase=plugin.CamelCase,
+					JSPath= CreateTsPath(plugin.TargetDir, plugin.TSFile),
+					AsModule=plugin.AsModule,
+					ContentType=plugin.ContentType,
+					StringAsString=settings.ClientApiOutputs.StringAsString,
+
+					ApiSelections=settings.ApiSelections,
+				};
+
+				var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput);
 				tsGen.CreateCodeDom(apiDescriptions);
 				tsGen.Save();
 			}

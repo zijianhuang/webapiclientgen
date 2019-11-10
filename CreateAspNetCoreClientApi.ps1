@@ -22,7 +22,7 @@ Invoke-RestMethod @restArgs
 #Step 3: Compile generated TS codes to JS for jQuery
 $procTscArgs = @{
     FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreClientAuto.ts"
+    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreJQClientAuto.ts"
     PassThru         = $true
     
 }
@@ -31,7 +31,7 @@ $processTsc = Start-Process @procTscArgs
 # Compile for axios, if the app is coded on JS
 $procTscArgs = @{
     FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\axios\src\clientapi\WebApiAxiosClientAuto.ts"
+    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\axios\src\clientapi\WebApiCoreAxiosClientAuto.ts"
     PassThru         = $false
     
 }
@@ -39,9 +39,3 @@ $processTsc = Start-Process @procTscArgs
 
 
 Stop-Process $process
-
-#Step 4: Copy files for testing generated codes
-# for launching Website through dotnet.exe 
-xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreClientAuto.js" "$PSScriptRoot\DemoCoreWeb\wwwroot\Scripts\ClientApi\" /y 
-# for launching Website through IIS Express
-xcopy "$PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreClientAuto.js" "$PSScriptRoot\DemoCoreWeb\bin\debug\netcoreapp2.2\wwwroot\Scripts\ClientApi\" /y

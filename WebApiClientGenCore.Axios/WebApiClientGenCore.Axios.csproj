@@ -13,6 +13,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyName>Fonlow.WebApiClientGenCore.Axios</AssemblyName>
   </PropertyGroup>
 
   <Import Project="..\PluginAxiosShared\PluginAxiosShared.projitems" Label="Shared" />

@@ -78,6 +78,8 @@
     <None Include="..\WebApiClientGen.snk">
       <Link>Properties\WebApiClientGen.snk</Link>
     </None>
+    <None Include="PackNupkg.bat" />
+    <None Include="WebApiClientGen.Axios.nuspec" />
   </ItemGroup>
   <Import Project="..\PluginAxiosShared\PluginAxiosShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

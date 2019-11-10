@@ -51,7 +51,7 @@ This project delivers these products:
 
 ### Plugins for TypeScript/JavaScript Frameworks/Libraries
 
-1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGen.jQuery/)
+1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGen.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/HttpClient.ts)
 1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGen.NG2/)
 1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Axios/)
 1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Aurelia/)
@@ -63,7 +63,7 @@ This project delivers these products:
 
 ### Plugins for TypeScript/JavaScript Frameworks/Libraries
 
-1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/)
+1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/HttpClient.ts)
 1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
 1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios/)
 1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia/)

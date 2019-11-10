@@ -78,6 +78,8 @@
     <None Include="..\WebApiClientGen.snk">
       <Link>Properties\WebApiClientGen.snk</Link>
     </None>
+    <None Include="WebApiClientGen.jQuery.nuspec" />
+    <None Include="PackNupkg.bat" />
   </ItemGroup>
   <Import Project="..\PluginJQueryShared\PluginJQueryShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

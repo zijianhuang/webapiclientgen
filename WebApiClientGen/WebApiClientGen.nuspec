@@ -25,9 +25,8 @@
   </metadata>
   <files>
     <file src="..\DemoWebApi\Controllers\CodeGenController.cs" target="content\Controllers\CodeGenController.cs"/>
-    <file src="..\DemoWebApi\Scripts\ClientApi\Dummy.ts" target="content\Scripts\ClientApi\WebApiClientAuto.ts"/>
-    <file src="..\DemoWebApi\Scripts\ClientApi\HttpClient.ts" target="content\Scripts\ClientApi\HttpClient.ts"/>
-    <file src="bin\Release\Fonlow.Web.Meta.dll" target="lib\net452"/>
-    <file src="bin\Release\Fonlow.DocComment.dll" target="lib\net452"/>
+    <file src="bin\Release\Fonlow.Web.Meta.dll" target="lib\net462"/>
+    <file src="bin\Release\Fonlow.DocComment.dll" target="lib\net462"/>
+    <file src="bin\Release\Fonlow.WebApiClientGen.Abstract.dll" target="lib\net462"/>
   </files>
 </package>

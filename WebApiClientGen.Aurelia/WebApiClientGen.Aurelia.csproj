@@ -78,6 +78,8 @@
     <None Include="..\WebApiClientGen.snk">
       <Link>Properties\WebApiClientGen.snk</Link>
     </None>
+    <None Include="PackNupkg.bat" />
+    <None Include="WebApiClientGen.Aurelia.nuspec" />
   </ItemGroup>
   <Import Project="..\PluginAureliaShared\PluginAureliaShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

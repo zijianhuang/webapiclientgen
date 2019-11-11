@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <PackageId>Fonlow.WebApiClientGenCore.NG2</PackageId>
     <Authors>Zijian Huang</Authors>
-    <Description>Generate client API codes for Angular 2+ apps.</Description>
-    <PackageReleaseNotes>Generate client API codes for Angular 2+ apps.</PackageReleaseNotes>
+    <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</Description>
+    <PackageReleaseNotes>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <Copyright>Copyright © Zijian Huang 2015-2019</Copyright>

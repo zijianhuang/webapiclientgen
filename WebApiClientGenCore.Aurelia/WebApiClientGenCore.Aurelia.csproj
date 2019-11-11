@@ -5,7 +5,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <PackageId>Fonlow.WebApiClientGenCore.Aurelia</PackageId>
     <Authors>Zijian Huang</Authors>
-    <Description>Generate client API codes for Aurelia apps.</Description>
+    <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Aurelia.</Description>
     <Copyright>Copyright © Zijian Huang 2015-2019</Copyright>
     <PackageTags>aurelia TypeScript</PackageTags>
     <PackageReleaseNotes>Generate client API codes for Aurelia apps.</PackageReleaseNotes>

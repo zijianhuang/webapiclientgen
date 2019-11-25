@@ -363,14 +363,21 @@ namespace Fonlow.Poco2Ts
 				return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
 			}
 
+			Type[] genericArguments = type.GetGenericArguments();
+
+			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
+			{
+				//	var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
+				//	Debug.Assert(genericTypeReferences.Length == 1);
+				return TranslateToClientTypeReference(genericArguments[0]);
+			}
+
 			if (TypeHelper.IsArrayType(genericTypeDefinition))
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
 				var elementType = type.GenericTypeArguments[0];
 				return CreateArrayTypeReference(elementType, 1);
 			}
-
-			Type[] genericArguments = type.GetGenericArguments();
 
 			var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
 			if (tupleTypeIndex >= 0)

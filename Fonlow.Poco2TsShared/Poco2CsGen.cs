@@ -382,19 +382,22 @@ namespace Fonlow.Poco2Client
 
         CodeTypeReference TranslateGenericToTypeReference(Type type)
         {
-            Type genericTypeDefinition = type.GetGenericTypeDefinition();
-            Type[] genericArguments = type.GetGenericArguments();
+			Type genericTypeDefinition = type.GetGenericTypeDefinition();
+			Type[] genericArguments = type.GetGenericArguments();
 
-            if (genericTypeDefinition == typeof(Nullable<>))
-            {
-                var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
-                Debug.Assert(genericTypeReferences.Length == 1);
-                return new CodeTypeReference(typeof(Nullable).FullName
-                    , TranslateToClientTypeReference(genericArguments[0]));
-            }
+			if (genericTypeDefinition == typeof(Nullable<>))
+			{
+				return new CodeTypeReference(typeof(Nullable).FullName
+					, TranslateToClientTypeReference(genericArguments[0]));
+			}
 
-            //Handle array types
-            if (TypeHelper.IsArrayType(genericTypeDefinition))
+			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
+			{
+				return TranslateToClientTypeReference(genericArguments[0]);
+			}
+
+			//Handle array types
+			if (TypeHelper.IsArrayType(genericTypeDefinition))
             {
                 Debug.Assert(type.GenericTypeArguments.Length == 1);
                 var elementType = type.GenericTypeArguments[0];

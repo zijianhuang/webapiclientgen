@@ -1749,6 +1749,48 @@ namespace DemoWebApi.Controllers.Client
         }
     }
     
+    public partial class Home
+    {
+        
+        private System.Net.Http.HttpClient client;
+        
+        private System.Uri baseUri;
+        
+        public Home(System.Net.Http.HttpClient client, System.Uri baseUri)
+        {
+            if (client == null)
+				throw new ArgumentNullException("client", "Null HttpClient.");
+
+            if (baseUri == null)
+				throw new ArgumentNullException("baseUri", "Null baseUri");
+
+            this.client = client;
+            this.baseUri = baseUri;
+        }
+        
+        /// <summary>
+        /// GET api/Home
+        /// </summary>
+        public async Task<System.Net.Http.HttpResponseMessage> IndexAsync()
+        {
+            var requestUri = new Uri(this.baseUri, "api/Home");
+            var responseMessage = await client.GetAsync(requestUri);
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+        
+        /// <summary>
+        /// GET api/Home
+        /// </summary>
+        public System.Net.Http.HttpResponseMessage Index()
+        {
+            var requestUri = new Uri(this.baseUri, "api/Home");
+            var responseMessage = this.client.GetAsync(requestUri).Result;
+            responseMessage.EnsureSuccessStatusCode();
+            return responseMessage;
+        }
+    }
+    
     public partial class SuperDemo
     {
         

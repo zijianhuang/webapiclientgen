@@ -9,161 +9,167 @@ using Fonlow.Reflection;
 
 namespace Fonlow.Web.Meta
 {
-    /// <summary>
-    /// Transform the runtime info of Web API into POCO meta data.
-    /// </summary>
-    /// <exception cref="ArgumentException">Thrown if the BindingSource is not among Path, Query, Body and ModelBinding.</exception>
-    public static class MetaTransform
-    {
-        static ParameterBinder GetParameterBinder(BindingSource bindingSource)
-        {
-            if (bindingSource == null)
-                return ParameterBinder.None;
+	/// <summary>
+	/// Transform the runtime info of Web API into POCO meta data.
+	/// </summary>
+	/// <exception cref="ArgumentException">Thrown if the BindingSource is not among Path, Query, Body and ModelBinding.</exception>
+	public static class MetaTransform
+	{
+		static ParameterBinder GetParameterBinder(BindingSource bindingSource)
+		{
+			if (bindingSource == null)
+				return ParameterBinder.None;
 
-            if (BindingSource.Path.CanAcceptDataFrom(bindingSource))
-                return ParameterBinder.FromUri;
+			if (BindingSource.FormFile.CanAcceptDataFrom(bindingSource))
+				return ParameterBinder.FromForm;
 
-            if (BindingSource.Query.CanAcceptDataFrom(bindingSource))
-                return ParameterBinder.FromUri;
+			if (BindingSource.Form.CanAcceptDataFrom(bindingSource))
+				return ParameterBinder.FromForm;
 
-            if (BindingSource.Body.CanAcceptDataFrom(bindingSource))
-                return ParameterBinder.FromBody;
+			if (BindingSource.Path.CanAcceptDataFrom(bindingSource))
+				return ParameterBinder.FromUri;
 
-            if (BindingSource.ModelBinding.CanAcceptDataFrom(bindingSource))
-                return ParameterBinder.FromUri;
+			if (BindingSource.Query.CanAcceptDataFrom(bindingSource))
+				return ParameterBinder.FromUri;
 
-            throw new ArgumentException($"How can it be with this ParameterBindingAttribute: {bindingSource.DisplayName}", "bindingSource");
-        }
+			if (BindingSource.Body.CanAcceptDataFrom(bindingSource))
+				return ParameterBinder.FromBody;
 
-        /// <summary>
-        /// Translate ApiDescription of the Framework to my own WebApiDescription
-        /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        public static WebApiDescription GetWebApiDescription(ApiDescription description)
-        {
-            var controllerActionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
-            if (controllerActionDescriptor == null)
-            {
-                return null;
-            }
+			if (BindingSource.ModelBinding.CanAcceptDataFrom(bindingSource))
+				return ParameterBinder.FromUri;
 
-            try
-            {
-                Type responseType;
-                if (description.SupportedResponseTypes.Count > 0)
-                {
-                    if (description.SupportedResponseTypes[0].Type.Equals(typeof(void)))
-                    {
-                        responseType = null;
-                    }
-                    else
-                    {
-                        responseType = description.SupportedResponseTypes[0].Type;
-                    }
-                }
-                else
-                {
-                    Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor actionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
-                    Debug.Assert(actionDescriptor != null);
-                    responseType = actionDescriptor.MethodInfo.ReturnType;// in .net core 2.1, IActionResult is not in SupportedResponseTypes anymore, so I have to get it here.
-                    if (responseType.Equals(typeof(void)))
-                    {
-                        responseType = null;
-                    }
-                }
+			throw new ArgumentException($"How can it be with this ParameterBindingAttribute: {bindingSource.DisplayName}", "bindingSource");
+		}
 
-                var xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(controllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
-                var docLookup = DocCommentLookup.Create(xmlFilePath);
-                var methodComments = docLookup == null ? null : GetMethodDocComment(docLookup, controllerActionDescriptor);
+		/// <summary>
+		/// Translate ApiDescription of the Framework to my own WebApiDescription
+		/// </summary>
+		/// <param name="description"></param>
+		/// <returns></returns>
+		public static WebApiDescription GetWebApiDescription(ApiDescription description)
+		{
+			var controllerActionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+			if (controllerActionDescriptor == null)
+			{
+				return null;
+			}
 
-                var dr = new WebApiDescription(description.ActionDescriptor.Id)
-                {
-                    ActionDescriptor = new ActionDescriptor()
-                    {
-                        ActionName = controllerActionDescriptor.ActionName,
-                        ReturnType = responseType,
-                        ControllerDescriptor = new ControllerDescriptor()
-                        {
-                            ControllerName = controllerActionDescriptor.ControllerName,
-                            ControllerType = controllerActionDescriptor.ControllerTypeInfo.AsType()
-                        }
-                    },
+			try
+			{
+				Type responseType;
+				if (description.SupportedResponseTypes.Count > 0)
+				{
+					if (description.SupportedResponseTypes[0].Type.Equals(typeof(void)))
+					{
+						responseType = null;
+					}
+					else
+					{
+						responseType = description.SupportedResponseTypes[0].Type;
+					}
+				}
+				else
+				{
+					Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor actionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+					Debug.Assert(actionDescriptor != null);
+					responseType = actionDescriptor.MethodInfo.ReturnType;// in .net core 2.1, IActionResult is not in SupportedResponseTypes anymore, so I have to get it here.
+					if (responseType.Equals(typeof(void)))
+					{
+						responseType = null;
+					}
+				}
 
-                    HttpMethod = description.HttpMethod,
-                    Documentation = DocCommentHelper.GetSummary(methodComments),
-                    RelativePath = description.RelativePath + BuildQuery(description.ParameterDescriptions),
-                    ResponseDescription = new ResponseDescription()
-                    {
-                        Documentation = DocCommentHelper.GetReturnComment(methodComments),
-                        ResponseType = responseType,
-                    },
+				var xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(controllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
+				var docLookup = DocCommentLookup.Create(xmlFilePath);
+				var methodComments = docLookup == null ? null : GetMethodDocComment(docLookup, controllerActionDescriptor);
 
-                    ParameterDescriptions = description.ParameterDescriptions.Select(d =>
-                    {
-                        var parameterBinder = GetParameterBinder(d.Source);
-                        var parameterType = d.ParameterDescriptor.ParameterType;
-                        if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsValueType(parameterType) && !TypeHelper.IsNullablePremitive(parameterType))
-                        {
-                            throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterType.ToString()}.");
-                        }
+				var dr = new WebApiDescription(description.ActionDescriptor.Id)
+				{
+					ActionDescriptor = new ActionDescriptor()
+					{
+						ActionName = controllerActionDescriptor.ActionName,
+						ReturnType = responseType,
+						ControllerDescriptor = new ControllerDescriptor()
+						{
+							ControllerName = controllerActionDescriptor.ControllerName,
+							ControllerType = controllerActionDescriptor.ControllerTypeInfo.AsType()
+						}
+					},
 
-                        return new ParameterDescription()
-                        {
-                            Documentation = DocCommentHelper.GetParameterComment(methodComments, d.Name),
-                            Name = d.Name,
-                            ParameterDescriptor = new ParameterDescriptor()
-                            {
-                                ParameterName = d.ParameterDescriptor.Name,
-                                ParameterType = parameterType,
-                                ParameterBinder = parameterBinder,
+					HttpMethod = description.HttpMethod,
+					Documentation = DocCommentHelper.GetSummary(methodComments),
+					RelativePath = description.RelativePath + BuildQuery(description.ParameterDescriptions),
+					ResponseDescription = new ResponseDescription()
+					{
+						Documentation = DocCommentHelper.GetReturnComment(methodComments),
+						ResponseType = responseType,
+					},
 
-                            }
-                        };
-                    }).ToArray(),
+					ParameterDescriptions = description.ParameterDescriptions.Select(d =>
+					{
+						var parameterBinder = GetParameterBinder(d.Source);
+						var parameterType = d.ParameterDescriptor.ParameterType;
+						if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsValueType(parameterType) && !TypeHelper.IsNullablePremitive(parameterType))
+						{
+							throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterType.ToString()}.");
+						}
 
-                };
+						return new ParameterDescription()
+						{
+							Documentation = DocCommentHelper.GetParameterComment(methodComments, d.Name),
+							Name = d.Name,
+							ParameterDescriptor = new ParameterDescriptor()
+							{
+								ParameterName = d.ParameterDescriptor.Name,
+								ParameterType = parameterType,
+								ParameterBinder = parameterBinder,
 
-                return dr;
-            }
-            catch (ArgumentException ex)//Expected to be thrown from GetParameterBinder()
-            {
-                var msg = ex.Message;
-                var errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} is defined with invalid parameters: {msg}";
-                Trace.TraceError(errorMsg);
-                throw new ArgumentException(errorMsg);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.ToString());
-                throw;
-            }
-        }
+							}
+						};
+					}).ToArray(),
 
-        static string BuildQuery(IList<ApiParameterDescription> ds)
-        {
-            var qs = ds.Where(d => BindingSource.Query.CanAcceptDataFrom(d.Source)).Select(k => String.Format("{0}={{{0}}}", k.Name)).ToArray();
-            if (qs.Length == 0)
-            {
-                return String.Empty;
-            }
+				};
 
-            return "?" + qs.Aggregate((c, n) => c + "&" + n); ;
-        }
+				return dr;
+			}
+			catch (ArgumentException ex)//Expected to be thrown from GetParameterBinder()
+			{
+				var msg = ex.Message;
+				var errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} is defined with invalid parameters: {msg}";
+				Trace.TraceError(errorMsg);
+				throw new ArgumentException(errorMsg);
+			}
+			catch (Exception ex)
+			{
+				Trace.TraceError(ex.ToString());
+				throw;
+			}
+		}
 
-        static docMember GetMethodDocComment(DocCommentLookup lookup, Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor descriptor)
-        {
-            var methodInfo = descriptor.MethodInfo;
-            var methodFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
-            if (descriptor.Parameters.Count > 0)
-            {
-                methodFullName += "(" + descriptor.Parameters.Select(d => d.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
-            }
+		static string BuildQuery(IList<ApiParameterDescription> ds)
+		{
+			var qs = ds.Where(d => BindingSource.Query.CanAcceptDataFrom(d.Source)).Select(k => String.Format("{0}={{{0}}}", k.Name)).ToArray();
+			if (qs.Length == 0)
+			{
+				return String.Empty;
+			}
 
-            return lookup.GetMember("M:" + methodFullName);
-        }
+			return "?" + qs.Aggregate((c, n) => c + "&" + n); ;
+		}
+
+		static docMember GetMethodDocComment(DocCommentLookup lookup, Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor descriptor)
+		{
+			var methodInfo = descriptor.MethodInfo;
+			var methodFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+			if (descriptor.Parameters.Count > 0)
+			{
+				methodFullName += "(" + descriptor.Parameters.Select(d => d.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
+			}
+
+			return lookup.GetMember("M:" + methodFullName);
+		}
 
 
-    }
+	}
 
 }

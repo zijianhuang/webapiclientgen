@@ -293,7 +293,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			method.Parameters.AddRange(parameters);
 
 			var uriQueryParameters = description.ParameterDescriptions.Where(d =>
-				(!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody) && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
+				(d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromBody && d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromForm && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
 				|| (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
 				).Select(d => new CodeParameterDeclarationExpression()

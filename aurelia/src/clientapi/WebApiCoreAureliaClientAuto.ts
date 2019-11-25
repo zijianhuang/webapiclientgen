@@ -687,8 +687,8 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * POST api/SuperDemo/PostActionResult2
          */
-        postActionResult2(s: string): Promise<string> {
-            return this.http.post('api/SuperDemo/PostActionResult2', JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+        postActionResult2(s: string): Promise<Blob> {
+            return this.http.post('api/SuperDemo/PostActionResult2', JSON.stringify(s)).then(d => d.blob());
         }
 
         /**

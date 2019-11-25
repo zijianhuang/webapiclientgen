@@ -19,7 +19,7 @@
       <group>
         <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.2" />
         <dependency id="Fonlow.TypeScriptCodeDOM" version="2.0.0" />
-        <dependency id="Fonlow.Poco2Ts" version="2.0.0" />
+        <dependency id="Fonlow.Poco2Ts" version="2.1.1" />
       </group>
     </dependencies>
   </metadata>

@@ -43,6 +43,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		static readonly string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
 
 		static readonly Type typeOfChar = typeof(char);
+		static readonly Type typeOfTaskGeneric = typeof(System.Threading.Tasks.Task<>);
 
 		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync)
 		{
@@ -197,14 +198,23 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		}
 
-		static readonly string typeOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
+		static readonly string typeNameOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
 
 		void AddReturnStatement()
 		{
-			if ((returnType.FullName == typeOfHttpResponseMessage) || (returnType.FullName == typeOfIHttpActionResult) || (returnType.FullName == typeOfIActionResult) || (returnType.FullName == typeOfActionResult))
+			if ((returnType.FullName == typeNameOfHttpResponseMessage) || (returnType.FullName == typeOfIHttpActionResult) || (returnType.FullName == typeOfIActionResult) || (returnType.FullName == typeOfActionResult))
 			{
 				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
 				return;
+			}
+			else if (returnType.IsGenericType)
+			{
+				Type genericTypeDefinition = returnType.GetGenericTypeDefinition();
+				if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
+				{
+					method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
+					return;
+				}
 			}
 
 			method.Statements.Add(new CodeSnippetStatement(forAsync ?
@@ -241,7 +251,17 @@ namespace Fonlow.CodeDom.Web.Cs
 				method.Statements.Add(new CodeSnippetStatement("            {"));
 				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
 			}
-			else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType))
+			else if (returnType.IsGenericType)
+			{
+				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				method.Statements.Add(new CodeSnippetStatement("            {"));
+				method.Statements.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+				method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+						new CodeSnippetExpression("jsonReader"))));
+			}
+			else if (TypeHelper.IsComplexType(returnType))
 			{
 				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				method.Statements.Add(new CodeSnippetStatement("            {"));
@@ -406,7 +426,8 @@ namespace Fonlow.CodeDom.Web.Cs
 		static string RemoveTrialEmptyString(string s)
 		{
 			var p = s.IndexOf("+\"\"");
-			if (p == -1) {
+			if (p == -1)
+			{
 				return s;
 			}
 			return s.Remove(p, 3);

@@ -367,8 +367,6 @@ namespace Fonlow.Poco2Ts
 
 			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
 			{
-				//	var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
-				//	Debug.Assert(genericTypeReferences.Length == 1);
 				return TranslateToClientTypeReference(genericArguments[0]);
 			}
 

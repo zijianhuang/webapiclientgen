@@ -683,8 +683,8 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * POST api/SuperDemo/PostActionResult2
          */
-        postActionResult2(s: string): Promise<AxiosResponse<string>> {
-            return Axios.post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data as AxiosResponse<string>);
+        postActionResult2(s: string): Promise<AxiosResponse<Blob>> {
+            return Axios.post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { responseType: 'blob' }).then(d => d.data as AxiosResponse<Blob>);
         }
 
         /**

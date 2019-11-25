@@ -467,7 +467,7 @@ var DemoWebApi_Controllers_Client;
          * POST api/SuperDemo/PostActionResult2
          */
         SuperDemo.prototype.postActionResult2 = function (s) {
-            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { responseType: 'blob' }).then(function (d) { return d.data; });
         };
         /**
          * POST api/SuperDemo/PostActionResult3

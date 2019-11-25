@@ -688,8 +688,8 @@ export namespace DemoWebApi_Controllers_Client {
         /**
          * POST api/SuperDemo/PostActionResult2
          */
-        postActionResult2(s: string): Observable<HttpResponse<string>> {
-            return this.http.post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
+        postActionResult2(s: string): Observable<HttpResponse<Blob>> {
+            return this.http.post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { observe: 'response', responseType: 'blob' });
         }
 
         /**

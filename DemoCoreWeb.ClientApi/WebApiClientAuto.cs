@@ -3106,12 +3106,7 @@ namespace DemoWebApi.Controllers.Client
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
             var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
             responseMessage.EnsureSuccessStatusCode();
-            var stream = await responseMessage.Content.ReadAsStreamAsync();
-            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-            {
-            var serializer = new JsonSerializer();
-            return serializer.Deserialize<System.Net.Http.HttpResponseMessage>(jsonReader);
-            }
+            return responseMessage;
         }
         
         /// <summary>
@@ -3122,12 +3117,7 @@ namespace DemoWebApi.Controllers.Client
             var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
             var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
             responseMessage.EnsureSuccessStatusCode();
-            var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-            {
-            var serializer = new JsonSerializer();
-            return serializer.Deserialize<System.Net.Http.HttpResponseMessage>(jsonReader);
-            }
+            return responseMessage;
         }
         
         /// <summary>

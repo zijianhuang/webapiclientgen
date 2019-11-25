@@ -200,7 +200,7 @@ namespace DemoWebApi.Controllers
 
 		[HttpPost]
 		[Route("PostActionResult2")]
-		public IActionResult PostActionResult2([FromBody] string s)
+		public async Task<ActionResult> PostActionResult2([FromBody] string s)
 		{
 			return Ok("abcdefg");
 		}

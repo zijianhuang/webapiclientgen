@@ -17,7 +17,19 @@ $restArgs = @{
     InFile      = "$PSScriptRoot\DemoCoreWeb\CodeGen.json"
     ContentType = 'application/json'
 }
-Invoke-RestMethod @restArgs
+try {
+        $result = Invoke-RestMethod @restArgs
+        Write-Output $result
+}
+catch {
+        Write-Output $_.Exception.Response.StatusCode
+        $response = $_.Exception.Response.GetResponseStream()
+        $reader = New-Object System.IO.StreamReader($response)
+        $reader.BaseStream.Position = 0
+        $reader.DiscardBufferedData()
+        $responseBody = $reader.ReadToEnd()
+        Write-Output  $responseBody
+}
 
 #Step 3: Compile generated TS codes to JS for jQuery
 $procTscArgs = @{

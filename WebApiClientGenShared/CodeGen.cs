@@ -82,8 +82,17 @@ namespace Fonlow.CodeDom.Web
 					};
 
 					var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput);
-					tsGen.CreateCodeDom(apiDescriptions);
-					tsGen.Save();
+					if (tsGen != null)
+					{
+						tsGen.CreateCodeDom(apiDescriptions);
+						tsGen.Save();
+					}
+					else
+					{
+						var s = $"Cannot instantiate plugin {plugin.AssemblyName}. Please check if the plugin assembly is in place.";
+						System.Diagnostics.Trace.TraceError(s);
+						throw new CodeGenException(s);
+					}
 				}
 			}
 		}

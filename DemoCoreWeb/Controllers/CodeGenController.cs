@@ -35,8 +35,11 @@ namespace Fonlow.WebApiClientGen
 		[HttpPost]
 		public ActionResult TriggerCodeGen([FromBody] CodeGenSettings settings)
 		{
-			if (settings == null || settings.ClientApiOutputs == null)
-				return new BadRequestResult();
+			if (settings == null)
+				return BadRequest("No settings");
+
+			if (settings.ClientApiOutputs == null)
+				return BadRequest("No settings/ClientApiOutputs");
 
 			Fonlow.Web.Meta.WebApiDescription[] apiDescriptions;
 			try
@@ -48,7 +51,7 @@ namespace Fonlow.WebApiClientGen
 			catch (System.InvalidOperationException e)
 			{
 				System.Diagnostics.Trace.TraceWarning(e.Message);
-				return StatusCode((int)HttpStatusCode.ServiceUnavailable);
+				return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
 			}
 
 			if (!settings.ClientApiOutputs.CamelCase.HasValue)
@@ -67,7 +70,7 @@ namespace Fonlow.WebApiClientGen
 				return BadRequest(msg);
 			}
 
-			return Ok();
+			return Ok("Done");
 		}
 	}
 

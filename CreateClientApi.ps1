@@ -9,7 +9,19 @@ $procArgs = @{
 }
 $process = Start-Process @procArgs
 
-Invoke-RestMethod http://localhost:10965/api/codegen -Method POST -InFile "$($PSScriptRoot)\DemoWebApi\CodeGen.json" -ContentType "application/json"
+try {
+        $result = Invoke-RestMethod http://localhost:10965/api/codegen -Method POST -InFile "$($PSScriptRoot)\DemoWebApi\CodeGen.json" -ContentType "application/json"
+        Write-Output $result
+}
+catch {
+        Write-Output $_.Exception.Response.StatusCode
+        $response = $_.Exception.Response.GetResponseStream()
+        $reader = New-Object System.IO.StreamReader($response)
+        $reader.BaseStream.Position = 0
+        $reader.DiscardBufferedData()
+        $responseBody = $reader.ReadToEnd()
+        Write-Output  $responseBody
+}
 
 #Step 3: Compile generated TS codes to JS for jQuery
 $procTscArgs = @{

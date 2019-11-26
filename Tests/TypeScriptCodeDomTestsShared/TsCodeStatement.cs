@@ -13,7 +13,7 @@ namespace TypeScriptCodeDomTests
         static void TestCodeStatement(CodeStatement e, string expected)
         {
             var builder = new StringBuilder();
-            var o = new CodeGeneratorOptions() { IndentString = "    " };
+            var o = new CodeGeneratorOptions() { IndentString = "\t" };
             using (var w = new StringWriter(builder))
             {
                 var provider = new TypeScriptCodeProvider(false);
@@ -27,14 +27,14 @@ namespace TypeScriptCodeDomTests
         public void TestCodeAssignStatement()
         {
             TestCodeStatement(new CodeAssignStatement(new CodeSnippetExpression("s"), new CodePrimitiveExpression("abc")),
-                "    s = \"abc\"");
+                "\ts = \"abc\"");
         }
 
         [Fact]
         public void TestCodeCommentStatement()
         {
             TestCodeStatement(new CodeCommentStatement("my comment"),
-                "    // my comment\r\n");
+                "\t// my comment\r\n");
 
         }
 
@@ -43,10 +43,10 @@ namespace TypeScriptCodeDomTests
         public void TestCodeCommentStatementDocCommentLines()
         {
             TestCodeStatement(new CodeCommentStatement("my comment\r\nSecond line", true),
-@"    /**
-     * my comment
-     * Second line
-     */
+@"	/**
+	 * my comment
+	 * Second line
+	 */
 ");
 
         }
@@ -57,10 +57,10 @@ namespace TypeScriptCodeDomTests
             var statement = new CodeConditionStatement(new CodeSnippetExpression("true"),
                 new CodeAssignStatement(new CodeSnippetExpression("Abc"), new CodePrimitiveExpression(8)), new CodeSnippetStatement("DoSomething2();"));
             TestCodeStatement(statement,
-@"    if (true) {
-        Abc = 8;
-        DoSomething2();
-    }
+@"	if (true) {
+		Abc = 8;
+		DoSomething2();
+	}
 ");
         }
 
@@ -69,10 +69,10 @@ namespace TypeScriptCodeDomTests
         {
             var statement = new CodeConditionStatement(new CodeSnippetExpression("true"), new CodeSnippetStatement("DoSomething1();"), new CodeSnippetStatement("DoSomething2();"));
             TestCodeStatement(statement,
-@"    if (true) {
-        DoSomething1();
-        DoSomething2();
-    }
+@"	if (true) {
+		DoSomething1();
+		DoSomething2();
+	}
 ");
         }
 
@@ -83,14 +83,14 @@ namespace TypeScriptCodeDomTests
                 new CodeStatement[] { new CodeAssignStatement(new CodeSnippetExpression("Abc"), new CodePrimitiveExpression(8)), new CodeSnippetStatement("DoSomething2();") },
                 new CodeStatement[] { new CodeSnippetStatement("DoSomething1();"), new CodeSnippetStatement("DoSomething2();") });
             TestCodeStatement(statement,
-@"    if (true) {
-        Abc = 8;
-        DoSomething2();
-    }
-    else {
-        DoSomething1();
-        DoSomething2();
-    }
+@"	if (true) {
+		Abc = 8;
+		DoSomething2();
+	}
+	else {
+		DoSomething1();
+		DoSomething2();
+	}
 ");
         }
 
@@ -101,12 +101,12 @@ namespace TypeScriptCodeDomTests
                 new CodeStatement[] { },
                 new CodeStatement[] { new CodeSnippetStatement("DoSomething1();"), new CodeSnippetStatement("DoSomething2();") });
             TestCodeStatement(statement,
-@"    if (true) {
-    }
-    else {
-        DoSomething1();
-        DoSomething2();
-    }
+@"	if (true) {
+	}
+	else {
+		DoSomething1();
+		DoSomething2();
+	}
 ");
         }
 
@@ -136,9 +136,9 @@ namespace TypeScriptCodeDomTests
         new CodeVariableReferenceExpression("testInt"), "ToString" ) ) ) });
 
             TestCodeStatement(statement,
-@"    for (testInt = 1; testInt < 10; testInt = testInt + 1) {
-        Console.WriteLine(testInt.ToString());
-    }
+@"	for (testInt = 1; testInt < 10; testInt = testInt + 1) {
+		Console.WriteLine(testInt.ToString());
+	}
 ");
         }
 
@@ -146,14 +146,14 @@ namespace TypeScriptCodeDomTests
         public void TestCodeMethodReturnStatement()
         {
             TestCodeStatement(new CodeMethodReturnStatement(new CodePrimitiveExpression(8)),
-               "    return 8");
+               "\treturn 8");
         }
 
         [Fact]
         public void TestCodeThrowExceptionStatement()
         {
             TestCodeStatement(new CodeThrowExceptionStatement(new CodePrimitiveExpression("abcd")),
-                "    throw \"abcd\"");
+                "\tthrow \"abcd\"");
         }
 
         [Fact]
@@ -169,15 +169,15 @@ namespace TypeScriptCodeDomTests
             try1.FinallyStatements.Add(new CodeCommentStatement("Handle any finally block statements."));
 
             TestCodeStatement(try1,
-@"    try {
-        this.ThrowApplicationException();
-    }
-    catch (ex) {
-        // Handle any System.ApplicationException here.
-    }
-    finally {
-        // Handle any finally block statements.
-    }
+@"	try {
+		this.ThrowApplicationException();
+	}
+	catch (ex) {
+		// Handle any System.ApplicationException here.
+	}
+	finally {
+		// Handle any finally block statements.
+	}
 ");
         }
 
@@ -190,12 +190,12 @@ namespace TypeScriptCodeDomTests
             try1.FinallyStatements.Add(new CodeCommentStatement("Handle any finally block statements."));
 
             TestCodeStatement(try1,
-@"    try {
-        this.ThrowApplicationException();
-    }
-    finally {
-        // Handle any finally block statements.
-    }
+@"	try {
+		this.ThrowApplicationException();
+	}
+	finally {
+		// Handle any finally block statements.
+	}
 ");
         }
 
@@ -210,12 +210,12 @@ namespace TypeScriptCodeDomTests
             try1.CatchClauses.Add(catch1);
 
             TestCodeStatement(try1,
-@"    try {
-        this.ThrowApplicationException();
-    }
-    catch (ex) {
-        // Handle any System.ApplicationException here.
-    }
+@"	try {
+		this.ThrowApplicationException();
+	}
+	catch (ex) {
+		// Handle any System.ApplicationException here.
+	}
 ");
         }
 
@@ -223,14 +223,14 @@ namespace TypeScriptCodeDomTests
         public void TestCodeVariableDeclarationStatement()
         {
             TestCodeStatement(new CodeVariableDeclarationStatement("string", "name"),
-                "    var name: string");
+                "\tvar name: string");
         }
 
         [Fact]
         public void TestCodeVariableDeclarationStatementWithInit()
         {
             TestCodeStatement(new CodeVariableDeclarationStatement("string", "name", new CodePrimitiveExpression("abc 123")),
-                "    var name: string = \"abc 123\"");
+                "\tvar name: string = \"abc 123\"");
         }
     }
 }

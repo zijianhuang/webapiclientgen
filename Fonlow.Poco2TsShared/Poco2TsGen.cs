@@ -81,7 +81,7 @@ namespace Fonlow.Poco2Ts
 			var provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true);
 			CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
 			options.BracingStyle = "JS";
-			options.IndentString = "    ";
+			options.IndentString = "\t";
 
 			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
 		}

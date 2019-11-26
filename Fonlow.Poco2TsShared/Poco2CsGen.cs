@@ -203,9 +203,9 @@ namespace Fonlow.Poco2Client
 							  string tsPropertyName;
 
 
-							//todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
-							tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
-							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
+							  //todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
+							  tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+							  Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
 
 
 							  var clientProperty = new CodeMemberProperty()
@@ -213,9 +213,9 @@ namespace Fonlow.Poco2Client
 								  Name = tsPropertyName,
 								  Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
 								  Attributes = MemberAttributes.Public | MemberAttributes.Final,
-								//todo: add some attributes
+								  //todo: add some attributes
 
-							};
+							  };
 
 							  var isRequired = cherryType == CherryType.BigCherry;
 							  if (isRequired)
@@ -231,8 +231,8 @@ namespace Fonlow.Poco2Client
 								  Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
 							  });
 
-							  clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
-							  clientProperty.SetStatements.Add(new CodeSnippetStatement($"                {privateFieldName} = value;"));
+							  clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
+							  clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
 							  CreatePropertyDocComment(propertyInfo, clientProperty);
 
@@ -249,18 +249,18 @@ namespace Fonlow.Poco2Client
 
 
 							  tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
-							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
+							  Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
 
-							//public fields of a class will be translated into properties
-							if (type.IsClass)
+							  //public fields of a class will be translated into properties
+							  if (type.IsClass)
 							  {
 								  var clientProperty = new CodeMemberProperty()
 								  {
 									  Name = tsPropertyName,
 									  Type = TranslateToClientTypeReference(fieldInfo.FieldType),
 									  Attributes = MemberAttributes.Public | MemberAttributes.Final,
-									//todo: add some attributes                               
-								};
+									  //todo: add some attributes                               
+								  };
 
 								  var isRequired = cherryType == CherryType.BigCherry;
 								  if (isRequired)
@@ -276,22 +276,22 @@ namespace Fonlow.Poco2Client
 									  Type = TranslateToClientTypeReference(fieldInfo.FieldType),
 								  });
 
-								  clientProperty.GetStatements.Add(new CodeSnippetStatement($"                return {privateFieldName};"));
-								  clientProperty.SetStatements.Add(new CodeSnippetStatement($"                {privateFieldName} = value;"));
+								  clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
+								  clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
 								  CreateFieldDocComment(fieldInfo, clientProperty);
 
 								  typeDeclaration.Members.Add(clientProperty);
 							  }
 							  else //public fields of struct
-							{
+							  {
 								  var clientField = new CodeMemberField()
 								  {
 									  Name = tsPropertyName,
 									  Type = TranslateToClientTypeReference(fieldInfo.FieldType),
 									  Attributes = MemberAttributes.Public | MemberAttributes.Final,
-									//todo: add some attributes                               
-								};
+									  //todo: add some attributes                               
+								  };
 
 								  CreateFieldDocComment(fieldInfo, clientField);
 
@@ -307,7 +307,7 @@ namespace Fonlow.Poco2Client
 
 						  int k = 0;
 						  foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))//not to sort
-						{
+						  {
 							  var name = fieldInfo.Name;
 							  var intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
 							  Debug.WriteLine(name + " -- " + intValue);

@@ -218,43 +218,43 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			method.Statements.Add(new CodeSnippetStatement(forAsync ?
-				"            var stream = await responseMessage.Content.ReadAsStreamAsync();"
-				: "            var stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
+				"\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
+				: "\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
 			//  method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
 
 			if (returnType != null && TypeHelper.IsStringType(returnType))
 			{
 				if (this.stringAsString)
 				{
-					method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
-					method.Statements.Add(new CodeSnippetStatement("            {"));
+					method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
+					method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
 					method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
 				}
 				else
 				{
-					method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-					method.Statements.Add(new CodeSnippetStatement("            {"));
+					method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+					method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
 					method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
 				}
 			}
 			else if (returnType == typeOfChar)
 			{
-				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				method.Statements.Add(new CodeSnippetStatement("            {"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
 				method.Statements.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
 				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
 			}
 			else if (returnType.IsPrimitive)
 			{
-				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				method.Statements.Add(new CodeSnippetStatement("            {"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
 				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
 			}
 			else if (returnType.IsGenericType)
 			{
-				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				method.Statements.Add(new CodeSnippetStatement("            {"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
 				method.Statements.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
 				method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
@@ -263,8 +263,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 			else if (TypeHelper.IsComplexType(returnType))
 			{
-				method.Statements.Add(new CodeSnippetStatement("            using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				method.Statements.Add(new CodeSnippetStatement("            {"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
 				method.Statements.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
 				method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
@@ -276,7 +276,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				Trace.TraceWarning("This type is not yet supported: {0}", returnType.FullName);
 			}
 
-			method.Statements.Add(new CodeSnippetStatement("            }"));
+			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 
 
 		}
@@ -359,7 +359,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (singleFromBodyParameterDescription != null)
 			{
 				method.Statements.Add(new CodeSnippetStatement(
-@"            using (var requestWriter = new System.IO.StringWriter())
+@"			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();"
 ));
@@ -369,7 +369,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 
 				method.Statements.Add(new CodeSnippetStatement(
-	@"            var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
+@"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
 					));
 
 				if (forAsync)
@@ -420,7 +420,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			if (singleFromBodyParameterDescription != null)
-				method.Statements.Add(new CodeSnippetStatement("            }"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
 		static string RemoveTrialEmptyString(string s)

@@ -15,7 +15,7 @@ namespace TypeScriptCodeDomTests
         static void AssertCodeTypeDeclaration(CodeTypeDeclaration e, string expected)
         {
             var builder = new StringBuilder();
-            var options = new CodeGeneratorOptions() { IndentString = "    " };
+            var options = new CodeGeneratorOptions() { IndentString = "\t" };
             using (var textWriter = new StringWriter(builder))
             {
                 ICodeGenerator gen = new TypeScriptCodeProvider(false);
@@ -31,8 +31,8 @@ namespace TypeScriptCodeDomTests
             CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType");
             newType.TypeAttributes = System.Reflection.TypeAttributes.NotPublic;
             AssertCodeTypeDeclaration(newType,
-@"    class TestType {
-    }
+@"	class TestType {
+	}
 ");
 
         }
@@ -44,8 +44,8 @@ namespace TypeScriptCodeDomTests
             newType.TypeAttributes = System.Reflection.TypeAttributes.NotPublic;
             newType.BaseTypes.Add("BaseType");
             AssertCodeTypeDeclaration(newType,
-@"    class TestType extends BaseType {
-    }
+@"	class TestType extends BaseType {
+	}
 ");
         }
 
@@ -55,8 +55,8 @@ namespace TypeScriptCodeDomTests
             CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType");
             newType.BaseTypes.Add("BaseType");
             AssertCodeTypeDeclaration(newType,
-@"    export class TestType extends BaseType {
-    }
+@"	export class TestType extends BaseType {
+	}
 ");
         }
 
@@ -67,9 +67,9 @@ namespace TypeScriptCodeDomTests
             newType.TypeAttributes = System.Reflection.TypeAttributes.NotPublic;
             newType.Members.Add(new CodeMemberField("string", "name"));
             AssertCodeTypeDeclaration(newType,
-@"    class TestType {
-        name: string;
-    }
+@"	class TestType {
+		name: string;
+	}
 ");
 
         }  

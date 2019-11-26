@@ -16,7 +16,7 @@ namespace TypeScriptCodeDomTests
         {
             var e = new CodeArgumentReferenceExpression("myParameterName");
             var builder = new StringBuilder();
-            var o = new CodeGeneratorOptions() { IndentString = "    " };
+            var o = new CodeGeneratorOptions() { IndentString = "\t" };
             using (var w = new StringWriter(builder))
             {
                 var provider = new TypeScriptCodeProvider(false);
@@ -28,7 +28,7 @@ namespace TypeScriptCodeDomTests
         static void TestCodeExpression(CodeExpression e, string expected)
         {
             var builder = new StringBuilder();
-            var o = new CodeGeneratorOptions() { IndentString = "    " };
+            var o = new CodeGeneratorOptions() { IndentString = "\t" };
             using (var w = new StringWriter(builder))
             {
                 var provider = new TypeScriptCodeProvider(false);

@@ -44,7 +44,7 @@ namespace Poco2TsTests
         {
             Verify(typeof(DemoWebApi.DemoData.AddressType),
 @"export namespace DemoWebApi_DemoData_Client {
-    export enum AddressType { Postal, Residential }
+	export enum AddressType { Postal, Residential }
 
 }
 
@@ -56,7 +56,7 @@ namespace Poco2TsTests
         {
             Verify(typeof(DemoWebApi.DemoData.Days),
 @"export namespace DemoWebApi_DemoData_Client {
-    export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
+	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
 
 }
 
@@ -69,10 +69,10 @@ namespace Poco2TsTests
             Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = true;
             VerifyJson(typeof(DemoWebApi.DemoData.Another.MyPoint),
 @"export namespace DemoWebApi_DemoData_Another_Client {
-    export interface MyPoint {
-        x: number;
-        y: number;
-    }
+	export interface MyPoint {
+		x: number;
+		y: number;
+	}
 
 }
 

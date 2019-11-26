@@ -10,25 +10,6 @@ namespace Poco2TsTests
 {
 	public class TypeHelperTests
 	{
-		//[Fact]
-		//public void TestUriTemplate()
-		//{
-		//	UriTemplate template = new UriTemplate("weather/{state}/{city}?forecast={day}");
-		//	Uri prefix = new Uri("http://localhost");
-
-		//	foreach (string name in template.PathSegmentVariableNames)
-		//	{
-		//		Console.WriteLine("     {0}", name);
-		//	}
-
-
-		//	Console.WriteLine("QueryValueVariableNames:");
-		//	foreach (string name in template.QueryValueVariableNames)
-		//	{
-		//		System.Diagnostics.Trace.WriteLine("{0}", name);
-		//	}
-
-		//}
 
 		[Fact]
 		public void TestGuid()

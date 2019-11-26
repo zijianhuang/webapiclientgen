@@ -55,6 +55,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
 			CodeGeneratorOptions options = new CodeGeneratorOptions();
 			options.BracingStyle = "C";
+			options.IndentString = "\t";
 			using (StreamWriter writer = new StreamWriter(fileName))
 			{
 				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
@@ -218,10 +219,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Uri", "baseUri"));
 
-			constructor.Statements.Add(new CodeSnippetStatement(@"            if (client == null)
+			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
 				throw new ArgumentNullException(""client"", ""Null HttpClient."");
 "));
-			constructor.Statements.Add(new CodeSnippetStatement(@"            if (baseUri == null)
+			constructor.Statements.Add(new CodeSnippetStatement(@"			if (baseUri == null)
 				throw new ArgumentNullException(""baseUri"", ""Null baseUri"");
 "));
 			// Add field initialization logic

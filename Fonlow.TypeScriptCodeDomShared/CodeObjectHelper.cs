@@ -9,7 +9,7 @@ namespace Fonlow.TypeScriptCodeDom
 {
     public static class CodeObjectHelper
     {
-        const string BasicIndent = "    ";
+        const string BasicIndent = "\t";
 
         #region public GenerateCodeFromXXX
 

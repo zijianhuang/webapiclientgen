@@ -19,6 +19,7 @@ namespace Fonlow.CodeDom.Web
 		/// </summary>
 		/// <param name="assemblyName">The assembly must have a concrete class derived from ICommand, and generally from CommandBase, CommandWithOptions or CommandWithParametersAndOptions;
 		/// and the class must have a constructor without parameter that calls a base constructor with proper options type and parameters type.</param>
+		/// <param name="jsOutput"></param>
 		/// <returns>ICommand object. Null if not found</returns>
 		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput)
 		{

@@ -20,7 +20,7 @@ namespace Fonlow.CodeDom.Web
 					settings.ClientApiOutputs.ClientLibraryProjectFolderName : System.IO.Path.Combine(webRootPath, settings.ClientApiOutputs.ClientLibraryProjectFolderName);
 
 				if (!System.IO.Directory.Exists(csharpClientProjectDir))
-					throw new CodeGenException("ClientLibraryProjectFolderNotExist")
+					throw new CodeGenException("Client Library Project Folder Not Exist")
 					{
 						Description = $"{csharpClientProjectDir} not exist while current directory is {currentDir}"
 					};
@@ -47,7 +47,7 @@ namespace Fonlow.CodeDom.Web
 					catch (ArgumentException e)
 					{
 						System.Diagnostics.Trace.TraceWarning(e.Message);
-						throw new CodeGenException("InvalidTypeScriptFolder")
+						throw new CodeGenException("Invalid TypeScript Folder")
 						{
 							Description = $"Invalid TypeScriptFolder {folder} while current directory is {currentDir}"
 						};
@@ -55,7 +55,7 @@ namespace Fonlow.CodeDom.Web
 
 					if (!System.IO.Directory.Exists(theFolder))
 					{
-						throw new CodeGenException("TypeScriptFolderNotExist")
+						throw new CodeGenException("TypeScript Folder Not Exist")
 						{
 							Description = $"TypeScriptFolder {theFolder} not exist while current directory is {currentDir}"
 						};

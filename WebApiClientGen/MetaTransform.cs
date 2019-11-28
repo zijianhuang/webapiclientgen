@@ -23,11 +23,16 @@ namespace Fonlow.Web.Meta
 			if (a is FromBodyAttribute)
 				return ParameterBinder.FromBody;
 
-			throw new ArgumentException($"How can it be with this ParameterBindingAttribute {a.ToString()}", "a");
+			throw new ArgumentException($"How can it be with this ParameterBindingAttribute {a.ToString()}", nameof(a));
 		}
 
 		public static WebApiDescription GetWebApiDescription(ApiDescription description)
 		{
+			if (description == null)
+			{
+				throw new ArgumentNullException(nameof(description));
+			}
+
 			var xmlFilePath = DocCommentLookup.GetXmlPath(description.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly);
 			var docLookup = DocCommentLookup.Create(xmlFilePath);
 			var methodComments = docLookup == null ? null : GetMethodDocComment(docLookup, description.ActionDescriptor);

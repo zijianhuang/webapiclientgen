@@ -603,6 +603,12 @@ var DemoWebApi_Controllers_Client;
             this.baseUri = baseUri;
         }
         /**
+         * POST api/Tuple/ChangeName
+         */
+        Tuple.prototype.changeName = function (d) {
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+        };
+        /**
          * GET api/Tuple/PeopleCompany4
          */
         Tuple.prototype.getPeopleCompany4 = function () {

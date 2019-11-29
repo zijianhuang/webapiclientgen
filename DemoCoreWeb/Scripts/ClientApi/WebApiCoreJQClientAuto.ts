@@ -806,6 +806,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/Tuple/ChangeName
+		 */
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
+			this.httpClient.post(this.baseUri + 'api/Tuple/ChangeName', d, callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * GET api/Tuple/PeopleCompany4
 		 */
 		getPeopleCompany4(callback: (data : {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}) => any) {

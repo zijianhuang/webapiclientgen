@@ -865,6 +865,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/Tuple/ChangeName
+		 */
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
 		 * GET api/Tuple/PeopleCompany4
 		 */
 		getPeopleCompany4(): Observable<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}> {

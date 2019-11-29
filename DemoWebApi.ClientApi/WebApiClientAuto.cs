@@ -4054,6 +4054,50 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// POST api/Tuple/ChangeName
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Person> ChangeNameAsync(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d)
+		{
+			var requestUri = new Uri(this.baseUri, "api/Tuple/ChangeName");
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, d);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = await client.PostAsync(requestUri, content);
+			responseMessage.EnsureSuccessStatusCode();
+			var stream = await responseMessage.Content.ReadAsStreamAsync();
+			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+			{
+			var serializer = new JsonSerializer();
+			return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Tuple/ChangeName
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Person ChangeName(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d)
+		{
+			var requestUri = new Uri(this.baseUri, "api/Tuple/ChangeName");
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, d);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			responseMessage.EnsureSuccessStatusCode();
+			var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+			{
+			var serializer = new JsonSerializer();
+			return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+			}
+			}
+		}
+		
+		/// <summary>
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
 		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async()

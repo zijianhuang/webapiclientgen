@@ -806,6 +806,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/Tuple/ChangeName
+		 */
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}): Promise<DemoWebApi_DemoData_Client.Person> {
+			return Axios.post(this.baseUri + 'api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as DemoWebApi_DemoData_Client.Person);
+		}
+
+		/**
 		 * GET api/Tuple/PeopleCompany4
 		 */
 		getPeopleCompany4(): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}> {

@@ -132,7 +132,7 @@ var DemoWebApi_Controllers_Client;
          * PUT api/Entities/updatePerson
          */
         Entities.prototype.updatePerson = function (person) {
-            return axios_1["default"].put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+            return axios_1["default"].put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         return Entities;
     }());

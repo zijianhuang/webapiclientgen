@@ -324,7 +324,7 @@ namespace DemoWebApi_Controllers_Client {
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
-		updatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : void) => any) {
+		updatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : string) => any) {
 			this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode);
 		}
 	}

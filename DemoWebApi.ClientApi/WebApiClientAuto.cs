@@ -1548,7 +1548,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// PUT api/Entities/updatePerson
 		/// </summary>
-		public async Task UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person)
+		public async Task<string> UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person)
 		{
 			var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1558,13 +1558,18 @@ namespace DemoWebApi.Controllers.Client
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = await client.PutAsync(requestUri, content);
 			responseMessage.EnsureSuccessStatusCode();
+			var stream = await responseMessage.Content.ReadAsStreamAsync();
+			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+			{
+			return jsonReader.ReadAsString();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// PUT api/Entities/updatePerson
 		/// </summary>
-		public void UpdatePerson(DemoWebApi.DemoData.Client.Person person)
+		public string UpdatePerson(DemoWebApi.DemoData.Client.Person person)
 		{
 			var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1574,6 +1579,11 @@ namespace DemoWebApi.Controllers.Client
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = this.client.PutAsync(requestUri, content).Result;
 			responseMessage.EnsureSuccessStatusCode();
+			var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+			{
+			return jsonReader.ReadAsString();
+			}
 			}
 		}
 	}

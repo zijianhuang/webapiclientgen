@@ -45,9 +45,9 @@ namespace DemoWebApi.Controllers
 
 		[HttpPut]
 		[Route("updatePerson")]
-		public void UpdatePerson([FromBody] Person person)
+		public string UpdatePerson([FromBody] Person person)
 		{
-			Debug.WriteLine("Update " + person);
+			return person.Name;
 		}
 
 		[HttpPut]

@@ -94,7 +94,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestUpdate()
 		{
-			api.UpdatePerson(new Person()
+			var r = api.UpdatePerson(new Person()
 			{
 				Name = "Some One",
 				Surname = "One",
@@ -111,6 +111,8 @@ namespace IntegrationTests
 				}},
 			}
 			);
+
+			Assert.Equal("Some One", r);
 		}
 
 		[Fact]

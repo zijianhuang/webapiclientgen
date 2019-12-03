@@ -12,6 +12,47 @@ namespace DemoWebApi.Controllers.Client
 	
 	
 	/// <summary>
+	/// This class is used to carry the result of various file uploads.
+	/// </summary>
+	public class FileResult : object
+	{
+		
+		private string[] _FileNames;
+		
+		private string _Submitter;
+		
+		/// <summary>
+		/// Gets or sets the local path of the file saved on the server.
+		/// </summary>
+		public string[] FileNames
+		{
+			get
+			{
+				return _FileNames;
+			}
+			set
+			{
+				_FileNames = value;
+			}
+		}
+		
+		/// <summary>
+		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		/// </summary>
+		public string Submitter
+		{
+			get
+			{
+				return _Submitter;
+			}
+			set
+			{
+				_Submitter = value;
+			}
+		}
+	}
+	
+	/// <summary>
 	/// Complex hero type
 	/// </summary>
 	public class Hero : object

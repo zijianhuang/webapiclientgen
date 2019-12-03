@@ -5,43 +5,43 @@ namespace IntegrationTests
 {
 
 	[Collection(TestConstants.IisExpressAndInit)]
-    public class ASPNetSpecial : IClassFixture<SuperDemoFixture>
-    {
-        public ASPNetSpecial(SuperDemoFixture fixture)
-        {
-            api = fixture.Api;
-        }
+	public class ASPNetSpecial : IClassFixture<SuperDemoFixture>
+	{
+		public ASPNetSpecial(SuperDemoFixture fixture)
+		{
+			api = fixture.Api;
+		}
 
-        DemoWebApi.Controllers.Client.SuperDemo api;
+		DemoWebApi.Controllers.Client.SuperDemo api;
 
 
-        [Fact]
-        public void TestGetAnonymousDynamic()
-        {
-            var d = api.GetAnonymousDynamic();
-            Assert.Equal("12345", d["id"].ToString());
-            Assert.Equal("Something", d["name"].ToString());
-        }
+		[Fact]
+		public void TestGetAnonymousDynamic()
+		{
+			var d = api.GetAnonymousDynamic();
+			Assert.Equal("12345", d["id"].ToString());
+			Assert.Equal("Something", d["name"].ToString());
+		}
 
-        [Fact]
-        public void TestGetAnonymousObject()
-        {
-            var d = api.GetAnonymousObject();
-            Assert.Equal("12345", d["id"].ToString());
-            Assert.Equal("Something", d["name"].ToString());
-        }
+		[Fact]
+		public void TestGetAnonymousObject()
+		{
+			var d = api.GetAnonymousObject();
+			Assert.Equal("12345", d["id"].ToString());
+			Assert.Equal("Something", d["name"].ToString());
+		}
 
-        [Fact]
-        public void TestPostAnonymousObject()
-        {
-            var d = new Newtonsoft.Json.Linq.JObject();
-            d["Id"] = "12345";
-            d["Name"] = "Something";
-            var r = api.PostAnonymousObject(d);
-            Assert.Equal("123451", r["Id"].ToString());
-            Assert.Equal("Something1", r["Name"].ToString());
+		[Fact]
+		public void TestPostAnonymousObject()
+		{
+			var d = new Newtonsoft.Json.Linq.JObject();
+			d["Id"] = "12345";
+			d["Name"] = "Something";
+			var r = api.PostAnonymousObject(d);
+			Assert.Equal("123451", r["Id"].ToString());
+			Assert.Equal("Something1", r["Name"].ToString());
 
-        }
+		}
 
 
 		[Fact]

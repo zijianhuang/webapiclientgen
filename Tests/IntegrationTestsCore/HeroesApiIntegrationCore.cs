@@ -47,6 +47,7 @@ namespace IntegrationTests
 	}
 
 
+	[Collection(TestConstants.LaunchWebApiAndInit)]
 	public partial class HeroesApiIntegration : IClassFixture<HeroesFixture>
 	{
 		public HeroesApiIntegration(HeroesFixture fixture)

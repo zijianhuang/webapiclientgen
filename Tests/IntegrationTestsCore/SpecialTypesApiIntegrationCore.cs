@@ -44,6 +44,7 @@ namespace IntegrationTests
 	}
 
 
+	[Collection(TestConstants.LaunchWebApiAndInit)]
 	public partial class SpecialTypesApiIntegration : IClassFixture<SpecialTypesFixture>
 	{
 		public SpecialTypesApiIntegration(SpecialTypesFixture fixture)

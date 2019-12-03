@@ -47,6 +47,7 @@ namespace IntegrationTests
 	}
 
 
+	[Collection(TestConstants.LaunchWebApiAndInit)]
 	public partial class ValuesApiIntegration : IClassFixture<ValuesFixture>
 	{
 		public ValuesApiIntegration(ValuesFixture fixture)

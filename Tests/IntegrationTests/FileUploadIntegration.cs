@@ -18,7 +18,7 @@ namespace IntegrationTests
 		const int BufferSize = 1024000;
 
 		static readonly string _filename = @"C:\Windows\Media\chimes.wav";
-//		static readonly string _filename = @"C:\Users\AndySuperCo\Downloads\Nursery Rhymes Vol 11 - Thirty Rhymes with Karaoke [Full HD,1080p].mp4";
+		//		static readonly string _filename = @"C:\Users\AndySuperCo\Downloads\Nursery Rhymes Vol 11 - Thirty Rhymes with Karaoke [Full HD,1080p].mp4";
 
 		public FileUploadIntegration()
 		{
@@ -58,9 +58,8 @@ namespace IntegrationTests
 
 				// Open the file we want to upload and submit it
 				using (FileStream fileStream = new FileStream(_filename, FileMode.Open, FileAccess.Read, FileShare.Read, BufferSize, useAsync: true))
+				using (StreamContent streamContent = new StreamContent(fileStream, BufferSize))
 				{
-					// Create a stream content for the file
-					StreamContent streamContent = new StreamContent(fileStream, BufferSize);
 
 					// Create Multipart form data content, add our submitter data and our stream content
 					MultipartFormDataContent formData = new MultipartFormDataContent();
@@ -77,9 +76,9 @@ namespace IntegrationTests
 						return serializer.Deserialize<FileResult>(jsonReader);
 					}
 				}
-
-
 			}
+
+
 		}
 
 		static void ProgressEventHandler(object sender, HttpProgressEventArgs eventArgs)

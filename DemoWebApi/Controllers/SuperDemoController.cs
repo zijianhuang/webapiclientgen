@@ -179,7 +179,7 @@ namespace DemoWebApi.Controllers
 		[Route("TextStream")]
 		public HttpResponseMessage GetTextStream()
 		{
-			var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg"));
+			var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg")); // don't dispose this and the following disposable objects
 			{
 				var content = new StreamContent(stream);
 				content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");

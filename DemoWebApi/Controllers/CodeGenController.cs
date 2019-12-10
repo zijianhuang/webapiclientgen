@@ -29,6 +29,12 @@ namespace Fonlow.WebApiClientGen
 				apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).OrderBy(d => d.ActionDescriptor.ActionName).ToArray();
 
 			}
+			catch (Fonlow.Web.Meta.CodeGenException e)
+			{
+				var msg = e.Message + (string.IsNullOrEmpty(e.Description) ? string.Empty : (" : " + e.Description));
+				System.Diagnostics.Trace.TraceError(msg);
+				return BadRequest(msg);
+			}
 			catch (System.InvalidOperationException e)
 			{
 				System.Diagnostics.Trace.TraceWarning(e.Message);

@@ -325,8 +325,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
-		updatePerson(person: DemoWebApi_DemoData_Client.Person): Promise<Response> {
-			return this.http.put('api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		updatePerson(person: DemoWebApi_DemoData_Client.Person): Promise<string> {
+			return this.http.put('api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 	}
 
@@ -861,6 +861,13 @@ export namespace DemoWebApi_Controllers_Client {
 	@autoinject()
 	export class Tuple {
 		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Tuple/ChangeName
+		 */
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}): Promise<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post('api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**

@@ -45,7 +45,8 @@ namespace IntegrationTests
         #endregion
     }
 
-    public partial class TupleApiIntegration : IClassFixture<TupleFixture>
+	[Collection(TestConstants.LaunchWebApiAndInit)]
+	public partial class TupleApiIntegration : IClassFixture<TupleFixture>
     {
         public TupleApiIntegration(TupleFixture fixture)
         {

@@ -10,7 +10,6 @@ namespace Fonlow.WebApiClientGen
 	{
 		/// <summary>
 		/// Trigger the API to generate WebApiClientAuto.cs for an established client API project.
-		/// POST to  http://localhost:10965/api/CodeGen with json object CodeGenParameters
 		/// </summary>
 		/// <param name="settings"></param>
 		/// <returns>OK if OK</returns>
@@ -27,7 +26,7 @@ namespace Fonlow.WebApiClientGen
 			Fonlow.Web.Meta.WebApiDescription[] apiDescriptions;
 			try
 			{
-				apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).OrderBy(d=>d.ActionDescriptor.ActionName).ToArray();
+				apiDescriptions = Configuration.Services.GetApiExplorer().ApiDescriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).OrderBy(d => d.ActionDescriptor.ActionName).ToArray();
 
 			}
 			catch (System.InvalidOperationException e)
@@ -48,13 +47,12 @@ namespace Fonlow.WebApiClientGen
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{
-				var s = e.Message + " : " + e.Description;
-				System.Diagnostics.Trace.TraceError(s);
-				return BadRequest(s);
+				var msg = e.Message + (string.IsNullOrEmpty(e.Description) ? string.Empty : (" : " + e.Description));
+				System.Diagnostics.Trace.TraceError(msg);
+				return BadRequest(msg);
 			}
 
 			return Ok("Done");
-
 		}
 	}
 

@@ -3,6 +3,23 @@
 namespace DemoWebApi_Controllers_Client {
 
 	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string;
+	}
+
+
+	/**
 	 * Complex hero type
 	 */
 	export interface Hero {
@@ -301,7 +318,7 @@ namespace DemoWebApi_Controllers_Client {
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
-		updatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : void) => any) {
+		updatePerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : string) => any) {
 			this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode);
 		}
 	}
@@ -803,6 +820,13 @@ namespace DemoWebApi_Controllers_Client {
 
 	export class Tuple {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
+		}
+
+		/**
+		 * POST api/Tuple/ChangeName
+		 */
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
+			this.httpClient.post(this.baseUri + 'api/Tuple/ChangeName', d, callback, this.error, this.statusCode);
 		}
 
 		/**

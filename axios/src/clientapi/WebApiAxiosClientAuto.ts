@@ -324,8 +324,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
-		updatePerson(person: DemoWebApi_DemoData_Client.Person): Promise<AxiosResponse> {
-			return Axios.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		updatePerson(person: DemoWebApi_DemoData_Client.Person): Promise<string> {
+			return Axios.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as string);
 		}
 	}
 
@@ -857,6 +857,13 @@ export namespace DemoWebApi_Controllers_Client {
 
 	export class Tuple {
 		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
+		}
+
+		/**
+		 * POST api/Tuple/ChangeName
+		 */
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}): Promise<DemoWebApi_DemoData_Client.Person> {
+			return Axios.post(this.baseUri + 'api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as DemoWebApi_DemoData_Client.Person);
 		}
 
 		/**

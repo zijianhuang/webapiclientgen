@@ -3,6 +3,23 @@ import {autoinject} from 'aurelia-framework';
 export namespace DemoWebApi_Controllers_Client {
 
 	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string;
+	}
+
+
+	/**
 	 * Complex hero type
 	 */
 	export interface Hero {
@@ -303,8 +320,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
-		updatePerson(person: DemoWebApi_DemoData_Client.Person): Promise<Response> {
-			return this.http.put('api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		updatePerson(person: DemoWebApi_DemoData_Client.Person): Promise<string> {
+			return this.http.put('api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.text());
 		}
 	}
 
@@ -808,6 +825,13 @@ export namespace DemoWebApi_Controllers_Client {
 	@autoinject()
 	export class Tuple {
 		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Tuple/ChangeName
+		 */
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}): Promise<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post('api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**

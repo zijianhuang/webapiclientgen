@@ -580,6 +580,12 @@ var DemoWebApi_Controllers_Client;
             this.statusCode = statusCode;
         }
         /**
+         * POST api/Tuple/ChangeName
+         */
+        changeName(d, callback) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/ChangeName', d, callback, this.error, this.statusCode);
+        }
+        /**
          * GET api/Tuple/PeopleCompany4
          */
         getPeopleCompany4(callback) {

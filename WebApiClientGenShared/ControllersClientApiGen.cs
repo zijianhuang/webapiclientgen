@@ -36,7 +36,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		public ControllersClientApiGen(CodeGenSettings codeGenParameters)
 		{
 			if (codeGenParameters == null)
-				throw new System.ArgumentNullException("codeGenParameters");
+				throw new System.ArgumentNullException(nameof(codeGenParameters));
 
 			this.codeGenParameters = codeGenParameters;
 			targetUnit = new CodeCompileUnit();
@@ -52,13 +52,15 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <param name="fileName"></param>
 		public void Save(string fileName)
 		{
-			CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-			CodeGeneratorOptions options = new CodeGeneratorOptions();
-			options.BracingStyle = "C";
-			options.IndentString = "\t";
-			using (StreamWriter writer = new StreamWriter(fileName))
+			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
 			{
-				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+				CodeGeneratorOptions options = new CodeGeneratorOptions();
+				options.BracingStyle = "C";
+				options.IndentString = "\t";
+				using (StreamWriter writer = new StreamWriter(fileName))
+				{
+					provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+				}
 			}
 		}
 
@@ -89,7 +91,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			if (descriptions == null)
 			{
-				throw new ArgumentNullException("descriptions");
+				throw new ArgumentNullException(nameof(descriptions));
 			}
 
 			GenerateCsFromPoco();

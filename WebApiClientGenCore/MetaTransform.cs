@@ -108,7 +108,13 @@ namespace Fonlow.Web.Meta
 					ParameterDescriptions = description.ParameterDescriptions.Select(d =>
 					{
 						var parameterBinder = GetParameterBinder(d.Source);
-						var parameterType = d.ParameterDescriptor.ParameterType;
+						var descriptor = d.ParameterDescriptor;
+						if (descriptor == null)
+						{
+							throw new CodeGenException($"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} may have invalid parameters.");
+						}
+
+						var parameterType = descriptor.ParameterType;
 						if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsValueType(parameterType) && !TypeHelper.IsNullablePremitive(parameterType))
 						{
 							throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterType.ToString()}.");
@@ -137,7 +143,14 @@ namespace Fonlow.Web.Meta
 				var msg = ex.Message;
 				var errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} is defined with invalid parameters: {msg}";
 				Trace.TraceError(errorMsg);
-				throw new ArgumentException(errorMsg);
+				throw new CodeGenException(errorMsg, ex);
+			}
+			catch (NullReferenceException ex)
+			{
+				var msg = ex.Message;
+				var errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} has problem: {msg}";
+				Trace.TraceError(errorMsg);
+				throw new CodeGenException(errorMsg, ex);
 			}
 			catch (NullReferenceException ex)
 			{

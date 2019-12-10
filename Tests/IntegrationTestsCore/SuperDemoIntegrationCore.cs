@@ -42,6 +42,7 @@ namespace IntegrationTests
 	}
 
 
+	[Collection(TestConstants.LaunchWebApiAndInit)]
 	public partial class SuperDemoApiIntegration : IClassFixture<SuperDemoFixture>
 	{
 		public SuperDemoApiIntegration(SuperDemoFixture fixture)

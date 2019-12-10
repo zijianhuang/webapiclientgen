@@ -4,6 +4,23 @@ import { Observable } from 'rxjs';
 export namespace DemoWebApi_Controllers_Client {
 
 	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string;
+	}
+
+
+	/**
 	 * Complex hero type
 	 */
 	export interface Hero {
@@ -304,8 +321,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
-		updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<Response> {
-			return this.http.put<Response>(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<string> {
+			return this.http.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
 		}
 	}
 
@@ -809,6 +826,13 @@ export namespace DemoWebApi_Controllers_Client {
 	@Injectable()
 	export class Tuple {
 		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Tuple/ChangeName
+		 */
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**

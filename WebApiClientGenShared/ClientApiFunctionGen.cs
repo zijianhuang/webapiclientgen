@@ -38,12 +38,11 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		}
 
-		static readonly string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
-		static readonly string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
-		static readonly string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
+		const string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+		const string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
 
 		static readonly Type typeOfChar = typeof(char);
-		static readonly Type typeOfTaskGeneric = typeof(System.Threading.Tasks.Task<>);
 
 		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync)
 		{
@@ -198,7 +197,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		}
 
-		static readonly string typeNameOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
+		const string typeNameOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
 
 		void AddReturnStatement()
 		{
@@ -306,7 +305,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
 			if (fromBodyParameterDescriptions.Length > 1)
 			{
-				throw new CodeGenException("BadApiDef")
+				throw new CodeGenException("Bad Api Definition")
 				{
 					Description = String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName)
 				};

@@ -132,7 +132,7 @@ var DemoWebApi_Controllers_Client;
          * PUT api/Entities/updatePerson
          */
         Entities.prototype.updatePerson = function (person) {
-            return axios_1["default"].put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+            return axios_1["default"].put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         return Entities;
     }());
@@ -602,6 +602,12 @@ var DemoWebApi_Controllers_Client;
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
             this.baseUri = baseUri;
         }
+        /**
+         * POST api/Tuple/ChangeName
+         */
+        Tuple.prototype.changeName = function (d) {
+            return axios_1["default"].post(this.baseUri + 'api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+        };
         /**
          * GET api/Tuple/PeopleCompany4
          */

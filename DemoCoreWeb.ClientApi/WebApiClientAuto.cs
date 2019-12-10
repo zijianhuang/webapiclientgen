@@ -12,6 +12,47 @@ namespace DemoWebApi.Controllers.Client
 	
 	
 	/// <summary>
+	/// This class is used to carry the result of various file uploads.
+	/// </summary>
+	public class FileResult : object
+	{
+		
+		private string[] _FileNames;
+		
+		private string _Submitter;
+		
+		/// <summary>
+		/// Gets or sets the local path of the file saved on the server.
+		/// </summary>
+		public string[] FileNames
+		{
+			get
+			{
+				return _FileNames;
+			}
+			set
+			{
+				_FileNames = value;
+			}
+		}
+		
+		/// <summary>
+		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		/// </summary>
+		public string Submitter
+		{
+			get
+			{
+				return _Submitter;
+			}
+			set
+			{
+				_Submitter = value;
+			}
+		}
+	}
+	
+	/// <summary>
 	/// Complex hero type
 	/// </summary>
 	public class Hero : object
@@ -1449,7 +1490,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// PUT api/Entities/updatePerson
 		/// </summary>
-		public async Task UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person)
+		public async Task<string> UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person)
 		{
 			var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1459,13 +1500,18 @@ namespace DemoWebApi.Controllers.Client
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = await client.PutAsync(requestUri, content);
 			responseMessage.EnsureSuccessStatusCode();
+			var stream = await responseMessage.Content.ReadAsStreamAsync();
+			using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+			{
+			return streamReader.ReadToEnd();;
+			}
 			}
 		}
 		
 		/// <summary>
 		/// PUT api/Entities/updatePerson
 		/// </summary>
-		public void UpdatePerson(DemoWebApi.DemoData.Client.Person person)
+		public string UpdatePerson(DemoWebApi.DemoData.Client.Person person)
 		{
 			var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1475,6 +1521,11 @@ namespace DemoWebApi.Controllers.Client
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = this.client.PutAsync(requestUri, content).Result;
 			responseMessage.EnsureSuccessStatusCode();
+			var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+			using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+			{
+			return streamReader.ReadToEnd();;
+			}
 			}
 		}
 	}
@@ -3832,6 +3883,50 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.baseUri = baseUri;
+		}
+		
+		/// <summary>
+		/// POST api/Tuple/ChangeName
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Person> ChangeNameAsync(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d)
+		{
+			var requestUri = new Uri(this.baseUri, "api/Tuple/ChangeName");
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, d);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = await client.PostAsync(requestUri, content);
+			responseMessage.EnsureSuccessStatusCode();
+			var stream = await responseMessage.Content.ReadAsStreamAsync();
+			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+			{
+			var serializer = new JsonSerializer();
+			return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Tuple/ChangeName
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Person ChangeName(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d)
+		{
+			var requestUri = new Uri(this.baseUri, "api/Tuple/ChangeName");
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, d);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			responseMessage.EnsureSuccessStatusCode();
+			var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+			{
+			var serializer = new JsonSerializer();
+			return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+			}
+			}
 		}
 		
 		/// <summary>

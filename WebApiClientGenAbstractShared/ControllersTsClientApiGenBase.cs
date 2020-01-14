@@ -144,7 +144,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 				var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-				poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup);
+				poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix);
 			}
 		}
 

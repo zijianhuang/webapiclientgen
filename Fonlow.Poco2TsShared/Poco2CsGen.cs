@@ -79,11 +79,11 @@ namespace Fonlow.Poco2Client
 			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
 		}
 
-		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup)
+		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, string clientNamespaceSuffix)
 		{
 			this.docLookup = docLookup;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
-			CreateCodeDom(cherryTypes, methods);
+			CreateCodeDom(cherryTypes, methods, clientNamespaceSuffix);
 		}
 
 		DocCommentLookup docLookup;
@@ -146,7 +146,7 @@ namespace Fonlow.Poco2Client
 		/// </summary>
 		/// <param name="types">POCO types.</param>
 		/// <param name="methods">How to cherry pick data to be exposed to the clients.</param>
-		public void CreateCodeDom(Type[] types, CherryPickingMethods methods)
+		public void CreateCodeDom(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
 		{
 			if (types == null)
 				throw new ArgumentNullException("types", "types is not defined.");
@@ -158,7 +158,7 @@ namespace Fonlow.Poco2Client
 			var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
 			foreach (var groupedTypes in typeGroupedByNamespace)
 			{
-				var clientNamespaceText = (groupedTypes.Key + ".Client");
+				var clientNamespaceText = (groupedTypes.Key + clientNamespaceSuffix);
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
 				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 

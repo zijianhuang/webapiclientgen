@@ -60,9 +60,14 @@
 		/// </summary>
 		public bool? CamelCase { get; set; }
 
+		public string CSClientNamespaceSuffix { get; set; } = ".Client";
+
 		public JSPlugin[] Plugins { get; set; }
 	}
 
+	/// <summary>
+	/// A DTO class, not part of the CodeGen.json 
+	/// </summary>
 	public class JSOutput : CodeGenSettingsBase
 	{
 		/// <summary>
@@ -82,6 +87,8 @@
 		public string ContentType { get; set; }
 
 		public bool StringAsString { get; set; }
+
+		public string ClientNamespaceSuffix { get; set; } = ".Client";
 	}
 
 	public class JSPlugin
@@ -102,5 +109,6 @@
 		/// </summary>
 		public bool AsModule { get; set; }
 
+		public string ClientNamespaceSuffix { get; set; } = ".Client";
 	}
 }

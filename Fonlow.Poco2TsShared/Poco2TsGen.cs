@@ -86,9 +86,12 @@ namespace Fonlow.Poco2Ts
 			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
 		}
 
+		string clientNamespaceSuffix;
+
 		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, string clientNamespaceSuffix)
 		{
 			this.docLookup = docLookup;
+			this.clientNamespaceSuffix = clientNamespaceSuffix;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
 			CreateCodeDom(cherryTypes, methods, clientNamespaceSuffix);
 		}
@@ -102,7 +105,7 @@ namespace Fonlow.Poco2Ts
 				var docComment = docLookup.GetMember("T:" + type.FullName);
 				if (docComment != null)
 				{
-					typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text) , true));
+					typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
 				}
 			}
 		}
@@ -122,7 +125,7 @@ namespace Fonlow.Poco2Ts
 		{
 			if (docLookup != null)
 			{
-				var propertyFullName = fieldInfo.DeclaringType.FullName+"."+ fieldInfo.Name;
+				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
 				var docComment = docLookup.GetMember("F:" + propertyFullName);
 				if (docComment != null)
 					codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
@@ -469,12 +472,12 @@ namespace Fonlow.Poco2Ts
 
 		}
 
-		static string RefineCustomComplexTypeText(Type t)
+		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace.Replace('.', '_') + "_Client." + t.Name;
+			return t.Namespace.Replace('.', '_') + clientNamespaceSuffix.Replace('.', '_') + "." + t.Name;
 		}
 
-		static CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
+		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
 		{
 			var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
 			var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)

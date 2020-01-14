@@ -79,9 +79,12 @@ namespace Fonlow.Poco2Client
 			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
 		}
 
+		string clientNamespaceSuffix;
+
 		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, string clientNamespaceSuffix)
 		{
 			this.docLookup = docLookup;
+			this.clientNamespaceSuffix = clientNamespaceSuffix;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
 			CreateCodeDom(cherryTypes, methods, clientNamespaceSuffix);
 		}
@@ -498,9 +501,9 @@ namespace Fonlow.Poco2Client
 
 		}
 
-		static string RefineCustomComplexTypeText(Type t)
+		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace + ".Client." + t.Name;
+			return t.Namespace + this.clientNamespaceSuffix + "." + t.Name;
 		}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
@@ -517,7 +520,7 @@ namespace Fonlow.Poco2Client
 			return otherArrayType;
 		}
 
-		static CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
+		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
 		{
 			var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
 			var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)

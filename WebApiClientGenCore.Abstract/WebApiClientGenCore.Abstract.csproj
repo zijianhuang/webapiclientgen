@@ -9,7 +9,9 @@
     <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
     <Authors>Zijian Huang</Authors>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <Version>1.1</Version>
+    <Version>1.1.1</Version>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
   </PropertyGroup>
 
   <Import Project="..\WebApiClientGenAbstractShared\WebApiClientGenAbstractShared.projitems" Label="Shared" />

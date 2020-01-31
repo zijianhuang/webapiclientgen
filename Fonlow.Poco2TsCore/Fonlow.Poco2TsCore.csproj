@@ -16,8 +16,8 @@
     <PackageTags>TypeScript,Code DOM</PackageTags>
     <PackageReleaseNotes>Allow defining CSClientNamespaceSuffix for C# .NET client and ClientNamespaceSuffix for TS clients.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>2.3.1.0</AssemblyVersion>
-    <FileVersion>2.3.1.0</FileVersion>
+    <AssemblyVersion>2.3.2.0</AssemblyVersion>
+    <FileVersion>2.3.2.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
@@ -28,7 +28,7 @@
   <Import Project="..\Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>

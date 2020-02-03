@@ -79,6 +79,7 @@ namespace Fonlow.CodeDom.Web
 						StringAsString = settings.ClientApiOutputs.StringAsString,
 
 						ApiSelections = settings.ApiSelections,
+						ClientNamespaceSuffix=plugin.ClientNamespaceSuffix,
 					};
 
 					var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput);

@@ -17,7 +17,7 @@ namespace Fonlow.Poco2Ts
 		/// <param name="assemblyFilePath">Absolute or relative path, including the assembly file extension name dll or exe.</param>
 		/// <param name="tsFilePath"></param>
 		/// <param name="methods"></param>
-		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods)
+		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods, string clientNamespaceSuffix)
 		{
 			var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);
 			var assembly = LoadAssembly(absolutePath);
@@ -26,7 +26,7 @@ namespace Fonlow.Poco2Ts
 
 			var lookup = Fonlow.DocComment.DocCommentLookup.Create(DocComment.DocCommentLookup.GetXmlPath(assembly));
 			var gen = new Poco2TsGen();
-			gen.CreateCodeDom(assembly, methods, lookup);
+			gen.CreateCodeDom(assembly, methods, lookup, clientNamespaceSuffix);
 			gen.SaveCodeToFile(tsFilePath);
 			var msg = $"{tsFilePath} is generated.";
 			Console.WriteLine(msg);

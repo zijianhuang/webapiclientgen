@@ -92,7 +92,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			CodeTypeDeclaration[] newControllerClassesCreated = null;
 			foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
-				var clientNamespaceText = (grouppedControllerDescriptions.Key + ".Client").Replace('.', '_');
+				var clientNamespaceText = (grouppedControllerDescriptions.Key + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
 
 				TargetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
@@ -144,7 +144,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 				var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-				poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup);
+				poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix);
 			}
 		}
 
@@ -156,7 +156,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <returns></returns>
 		CodeTypeDeclaration LookupExistingClassInCodeDom(string clrNamespaceText, string controllerName)
 		{
-			var refined = (clrNamespaceText + ".Client").Replace('.', '_');
+			var refined = (clrNamespaceText + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
 			for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
 			{
 				var ns = TargetUnit.Namespaces[i];

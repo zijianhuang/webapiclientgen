@@ -79,7 +79,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 				var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-				poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup);
+				poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix);
 			}
 		}
 
@@ -104,7 +104,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			//Create client classes mapping to controller classes
 			foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
-				var clientNamespaceText = grouppedControllerDescriptions.Key + ".Client";
+				var clientNamespaceText = grouppedControllerDescriptions.Key + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix;
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
 				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
@@ -162,7 +162,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			for (int i = 0; i < targetUnit.Namespaces.Count; i++)
 			{
 				var ns = targetUnit.Namespaces[i];
-				if (ns.Name == namespaceText + ".Client")
+				if (ns.Name == namespaceText + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix)
 				{
 					for (int k = 0; k < ns.Types.Count; k++)
 					{

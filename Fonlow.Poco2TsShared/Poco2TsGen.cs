@@ -86,11 +86,14 @@ namespace Fonlow.Poco2Ts
 			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
 		}
 
-		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup)
+		string clientNamespaceSuffix;
+
+		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, string clientNamespaceSuffix)
 		{
 			this.docLookup = docLookup;
+			this.clientNamespaceSuffix = clientNamespaceSuffix;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
-			CreateCodeDom(cherryTypes, methods);
+			CreateCodeDom(cherryTypes, methods, clientNamespaceSuffix);
 		}
 
 		DocCommentLookup docLookup;
@@ -102,7 +105,7 @@ namespace Fonlow.Poco2Ts
 				var docComment = docLookup.GetMember("T:" + type.FullName);
 				if (docComment != null)
 				{
-					typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text) , true));
+					typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
 				}
 			}
 		}
@@ -122,7 +125,7 @@ namespace Fonlow.Poco2Ts
 		{
 			if (docLookup != null)
 			{
-				var propertyFullName = fieldInfo.DeclaringType.FullName+"."+ fieldInfo.Name;
+				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
 				var docComment = docLookup.GetMember("F:" + propertyFullName);
 				if (docComment != null)
 					codeField.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
@@ -135,7 +138,7 @@ namespace Fonlow.Poco2Ts
 		/// </summary>
 		/// <param name="types">POCO types.</param>
 		/// <param name="methods"></param>
-		public void CreateCodeDom(Type[] types, CherryPickingMethods methods)
+		public void CreateCodeDom(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
 		{
 			if (types == null)
 				throw new ArgumentNullException("types", "types is not defined.");
@@ -147,7 +150,7 @@ namespace Fonlow.Poco2Ts
 			var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
 			foreach (var groupedTypes in typeGroupedByNamespace)
 			{
-				var clientNamespaceText = (groupedTypes.Key + ".Client").Replace('.', '_');
+				var clientNamespaceText = (groupedTypes.Key + clientNamespaceSuffix).Replace('.', '_');
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
 				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
@@ -469,12 +472,12 @@ namespace Fonlow.Poco2Ts
 
 		}
 
-		static string RefineCustomComplexTypeText(Type t)
+		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace.Replace('.', '_') + "_Client." + t.Name;
+			return t.Namespace.Replace('.', '_') + clientNamespaceSuffix.Replace('.', '_') + "." + t.Name;
 		}
 
-		static CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
+		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
 		{
 			var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
 			var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)

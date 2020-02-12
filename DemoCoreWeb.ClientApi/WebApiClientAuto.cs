@@ -1043,8 +1043,10 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Anonymous Dynamic of C#
 		/// GET api/SpecialTypes/AnonymousDynamic
 		/// </summary>
+		/// <returns>dyanmic things</returns>
 		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamicAsync()
 		{
 			var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousDynamic");
@@ -1059,8 +1061,10 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Anonymous Dynamic of C#
 		/// GET api/SpecialTypes/AnonymousDynamic
 		/// </summary>
+		/// <returns>dyanmic things</returns>
 		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic()
 		{
 			var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousDynamic");
@@ -1570,44 +1574,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Get all heroes.
-		/// GET api/Heroes
-		/// </summary>
-		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetAsync()
-		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
-			var responseMessage = await client.GetAsync(requestUri);
-			responseMessage.EnsureSuccessStatusCode();
-			var stream = await responseMessage.Content.ReadAsStreamAsync();
-			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-			{
-			var serializer = new JsonSerializer();
-			return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
-			}
-		}
-		
-		/// <summary>
-		/// Get all heroes.
-		/// GET api/Heroes
-		/// </summary>
-		public DemoWebApi.Controllers.Client.Hero[] Get()
-		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
-			responseMessage.EnsureSuccessStatusCode();
-			var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-			{
-			var serializer = new JsonSerializer();
-			return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
-			}
-		}
-		
-		/// <summary>
 		/// Get a hero.
 		/// GET api/Heroes/{id}
 		/// </summary>
-		public async Task<DemoWebApi.Controllers.Client.Hero> GetAsync(long id)
+		public async Task<DemoWebApi.Controllers.Client.Hero> GetHeroAsync(long id)
 		{
 			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
 			var responseMessage = await client.GetAsync(requestUri);
@@ -1624,7 +1594,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get a hero.
 		/// GET api/Heroes/{id}
 		/// </summary>
-		public DemoWebApi.Controllers.Client.Hero Get(long id)
+		public DemoWebApi.Controllers.Client.Hero GetHero(long id)
 		{
 			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1634,6 +1604,40 @@ namespace DemoWebApi.Controllers.Client
 			{
 			var serializer = new JsonSerializer();
 			return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+			}
+		}
+		
+		/// <summary>
+		/// Get all heroes.
+		/// GET api/Heroes
+		/// </summary>
+		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetHerosAsync()
+		{
+			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var responseMessage = await client.GetAsync(requestUri);
+			responseMessage.EnsureSuccessStatusCode();
+			var stream = await responseMessage.Content.ReadAsStreamAsync();
+			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+			{
+			var serializer = new JsonSerializer();
+			return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+			}
+		}
+		
+		/// <summary>
+		/// Get all heroes.
+		/// GET api/Heroes
+		/// </summary>
+		public DemoWebApi.Controllers.Client.Hero[] GetHeros()
+		{
+			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			responseMessage.EnsureSuccessStatusCode();
+			var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+			using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+			{
+			var serializer = new JsonSerializer();
+			return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
 			}
 		}
 		

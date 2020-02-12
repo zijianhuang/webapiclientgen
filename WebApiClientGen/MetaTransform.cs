@@ -91,7 +91,9 @@ namespace Fonlow.Web.Meta
 
 		static docMember GetMethodDocComment(DocCommentLookup lookup, System.Web.Http.Controllers.HttpActionDescriptor descriptor)
 		{
-			var methodFullName = descriptor.ControllerDescriptor.ControllerType.FullName + "." + descriptor.ActionName;
+			var reflectedDescriptor = descriptor as System.Web.Http.Controllers.ReflectedHttpActionDescriptor;
+			var methodInfo = reflectedDescriptor.MethodInfo;
+			var methodFullName = descriptor.ControllerDescriptor.ControllerType.FullName + "." + methodInfo.Name;
 			var parameters = descriptor.GetParameters();
 			if (parameters.Count > 0)
 			{

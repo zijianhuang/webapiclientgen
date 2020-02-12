@@ -341,19 +341,19 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get all heroes.
-		 * GET api/Heroes
-		 */
-		get(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return Axios.get(this.baseUri + 'api/Heroes').then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
-		}
-
-		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
-		getById(id: number): Promise<DemoWebApi_Controllers_Client.Hero> {
+		getHero(id: number): Promise<DemoWebApi_Controllers_Client.Hero> {
 			return Axios.get(this.baseUri + 'api/Heroes/' + id).then(d => d.data as DemoWebApi_Controllers_Client.Hero);
+		}
+
+		/**
+		 * Get all heroes.
+		 * GET api/Heroes
+		 */
+		getHeros(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return Axios.get(this.baseUri + 'api/Heroes').then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
 		}
 
 		/**

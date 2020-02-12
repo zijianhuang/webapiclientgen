@@ -18,6 +18,7 @@ namespace DemoWebApi.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
+		[ActionName("GetHeros")]
 		public Hero[] Get()
 		{
 			return HeroesData.Instance.Dic.Values.ToArray();
@@ -29,6 +30,7 @@ namespace DemoWebApi.Controllers
 		/// <param name="id"></param>
 		/// <returns></returns>
 		[HttpGet("{id}")]
+		[ActionName("GetHero")]
 		public Hero Get(long id)
 		{
 			Hero r;

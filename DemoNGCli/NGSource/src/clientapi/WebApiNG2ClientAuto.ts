@@ -344,19 +344,19 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get all heroes.
-		 * GET api/Heroes
-		 */
-		get(): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes');
-		}
-
-		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
-		getById(id: number): Observable<DemoWebApi_Controllers_Client.Hero> {
+		getHero(id: number): Observable<DemoWebApi_Controllers_Client.Hero> {
 			return this.http.get<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/' + id);
+		}
+
+		/**
+		 * Get all heroes.
+		 * GET api/Heroes
+		 */
+		getHeros(): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes');
 		}
 
 		/**

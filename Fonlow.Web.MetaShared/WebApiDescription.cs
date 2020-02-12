@@ -69,6 +69,9 @@ namespace Fonlow.Web.Meta
 	[DataContract(Namespace = Constants.NS)]
 	public class ActionDescriptor
 	{
+		/// <summary>
+		/// ActionName is by default the function name of the controller, however, could be overridden by ActionNameAttribute.
+		/// </summary>
 		[DataMember]
 		public string ActionName
 		{ get; set; }
@@ -89,6 +92,7 @@ namespace Fonlow.Web.Meta
 
 			set { }
 		}
+
 		public ControllerDescriptor ControllerDescriptor
 		{ get; set; }
 

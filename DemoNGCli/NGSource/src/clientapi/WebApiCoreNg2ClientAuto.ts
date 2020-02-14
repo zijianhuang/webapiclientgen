@@ -341,6 +341,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Heroes/asyncHeroes
+		 */
+		getAsyncHeroes(): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/asyncHeroes');
+		}
+
+		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */

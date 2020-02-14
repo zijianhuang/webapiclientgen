@@ -340,6 +340,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Heroes/asyncHeroes
+		 */
+		getAsyncHeroes(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get('api/Heroes/asyncHeroes').then(d => d.json());
+		}
+
+		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */

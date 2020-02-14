@@ -337,6 +337,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Heroes/asyncHeroes
+		 */
+		getAsyncHeroes(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return Axios.get(this.baseUri + 'api/Heroes/asyncHeroes').then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
+		}
+
+		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */

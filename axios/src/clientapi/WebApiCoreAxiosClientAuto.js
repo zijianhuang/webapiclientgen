@@ -150,6 +150,12 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"]["delete"](this.baseUri + 'api/Heroes/' + id, { responseType: 'text' });
         };
         /**
+         * GET api/Heroes/asyncHeroes
+         */
+        Heroes.prototype.getAsyncHeroes = function () {
+            return axios_1["default"].get(this.baseUri + 'api/Heroes/asyncHeroes').then(function (d) { return d.data; });
+        };
+        /**
          * Get a hero.
          * GET api/Heroes/{id}
          */

@@ -57,5 +57,14 @@ namespace IntegrationTests
 
 		DemoWebApi.Controllers.Client.Heroes api;
 
+
+		[Fact]
+		public async void TestGetAsyncHeroes()
+		{
+			var array = await api.GetAsyncHeroesAsync();
+			Assert.NotEmpty(array);
+		}
+
+
 	}
 }

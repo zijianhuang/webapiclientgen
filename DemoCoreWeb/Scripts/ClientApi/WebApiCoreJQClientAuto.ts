@@ -337,6 +337,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Heroes/asyncHeroes
+		 */
+		getAsyncHeroes(callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any) {
+			this.httpClient.get(this.baseUri + 'api/Heroes/asyncHeroes', callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */

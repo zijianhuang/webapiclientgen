@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Fonlow.Reflection;
+using System;
 using Xunit;
-using Fonlow.Reflection;
 
 namespace Poco2TsTests
 {
-	public class TypeHelperTests
+	public partial class TypeHelperTests
 	{
 
 		[Fact]

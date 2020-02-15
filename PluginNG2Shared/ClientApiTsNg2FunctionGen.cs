@@ -54,7 +54,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			return new CodeMemberMethod()
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
-				Name = NethodName,
+				Name = MethodName,
 				ReturnType = returnTypeReferenceWithObservable,
 			};
 		}

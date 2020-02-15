@@ -48,6 +48,7 @@
     <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.Aurelia\WebApiClientGenCore.Aurelia.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.Axios\WebApiClientGenCore.Axios.csproj" />
+    <ProjectReference Include="..\WebApiClientGenCore.Fetch\WebApiClientGenCore.Fetch.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.jQuery\WebApiClientGenCore.jQuery.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.NG2\WebApiClientGenCore.NG2.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />

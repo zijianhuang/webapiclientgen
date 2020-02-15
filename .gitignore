@@ -42,3 +42,5 @@ _ReSharper*/
 /axios/node_modules
 /aurelia/coverage
 /aurelia/node_modules
+/fetchapi/node_modules
+/fetchapi/coverage

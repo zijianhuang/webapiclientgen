@@ -1,12 +1,7 @@
-import { initialize } from 'aurelia-pal-browser';
-import {HttpClient, json} from 'aurelia-fetch-client';
-import * as namespaces from './clientapi/WebApiCoreAureliaClientAuto';
+import * as moment from 'moment';
+import * as namespaces from './clientapi/WebApiCoreFetchClientAuto';
 //import * as namespaces from './clientapi/WebApiAureliaClientAuto';
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-
-import * as moment from 'moment';
-
-initialize(); // as described at https://discourse.aurelia.io/t/problem-with-unit-testing-and-mocking-api-call/2405
 
 describe('Basic', ()=>{
   it('simple 1', done=>{
@@ -24,11 +19,9 @@ describe('Basic', ()=>{
 
 const forDotNetCore=true;
 const baseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
-const http = new HttpClient();
-http.baseUrl = baseUri;
 
 describe('Values', ()=>{
-  const api = new DemoWebApi_Controllers_Client.Values(http);
+  const api = new DemoWebApi_Controllers_Client.Values(baseUri);
 
   it('getById', (done)=>{
     api.getById(3).then(
@@ -71,7 +64,7 @@ describe('Values', ()=>{
 });
 
 describe('Heroes API', () => {
-  const service= new namespaces.DemoWebApi_Controllers_Client.Heroes(http);
+  const service= new namespaces.DemoWebApi_Controllers_Client.Heroes(baseUri);
 
    it('getAll', (done) => {
     service.getHeros().then(
@@ -141,7 +134,7 @@ describe('Heroes API', () => {
 
 
 describe('entities API', () => {
-  const client = new namespaces.DemoWebApi_Controllers_Client.Entities(http);
+  const client = new namespaces.DemoWebApi_Controllers_Client.Entities(baseUri);
 
   //it('getPersonNotFound', (done) => {
   //    client.getPersonNotFound(123)
@@ -186,7 +179,7 @@ describe('entities API', () => {
 });
 
 describe('Tuple API', () => {
-  const service= new namespaces.DemoWebApi_Controllers_Client.Tuple(http);
+  const service= new namespaces.DemoWebApi_Controllers_Client.Tuple(baseUri);
 
  
   it('getTuple2', (done) => {
@@ -321,7 +314,7 @@ describe('Tuple API', () => {
 
 
 describe('SuperDemo API', () => {
-  const service=new namespaces.DemoWebApi_Controllers_Client.SuperDemo(http);
+  const service=new namespaces.DemoWebApi_Controllers_Client.SuperDemo(baseUri);
 
   it('getBool', (done) => {
     service.getBool().then(

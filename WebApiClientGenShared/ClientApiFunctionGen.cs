@@ -39,7 +39,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			returnTypeIsStream = returnType!=null && ( (returnType.FullName == typeNameOfHttpResponseMessage) 
 				|| (returnType.FullName == typeOfIHttpActionResult) 
 				|| (returnType.FullName == typeOfIActionResult) 
-				|| (returnType.FullName == typeOfActionResult));
+				|| (returnType.FullName == typeOfActionResult)
+				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult")) // .net core is not translating Task<IActionResult> properly.
+				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult"))
+				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult"))
+				);
 		}
 
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";

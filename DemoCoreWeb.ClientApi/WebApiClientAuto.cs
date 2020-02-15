@@ -2164,15 +2164,8 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult2");
 			var responseMessage = await client.GetAsync(requestUri);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				return responseMessage;
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
+			responseMessage.EnsureSuccessStatusCode();
+			return responseMessage;
 		}
 		
 		/// <summary>
@@ -2182,15 +2175,8 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult2");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				return responseMessage;
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
+			responseMessage.EnsureSuccessStatusCode();
+			return responseMessage;
 		}
 		
 		/// <summary>
@@ -4082,15 +4068,8 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				return responseMessage;
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
+			responseMessage.EnsureSuccessStatusCode();
+			return responseMessage;
 		}
 		
 		/// <summary>
@@ -4100,15 +4079,8 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				return responseMessage;
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
+			responseMessage.EnsureSuccessStatusCode();
+			return responseMessage;
 		}
 		
 		/// <summary>
@@ -4123,15 +4095,8 @@ namespace DemoWebApi.Controllers.Client
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = await client.PostAsync(requestUri, content);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				return responseMessage;
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
+			responseMessage.EnsureSuccessStatusCode();
+			return responseMessage;
 			}
 		}
 		
@@ -4147,15 +4112,8 @@ namespace DemoWebApi.Controllers.Client
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				return responseMessage;
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
+			responseMessage.EnsureSuccessStatusCode();
+			return responseMessage;
 			}
 		}
 		

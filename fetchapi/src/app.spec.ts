@@ -1,6 +1,6 @@
 import * as moment from 'moment';
-import * as namespaces from './clientapi/WebApiCoreFetchClientAuto';
-//import * as namespaces from './clientapi/WebApiAureliaClientAuto';
+//import * as namespaces from './clientapi/WebApiCoreFetchClientAuto';
+import * as namespaces from './clientapi/WebApiFetchClientAuto';
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 describe('Basic', ()=>{
@@ -17,7 +17,7 @@ describe('Basic', ()=>{
 
 });
 
-const forDotNetCore=true;
+const forDotNetCore=false;
 const baseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
 
 describe('Values', ()=>{

@@ -14,4 +14,6 @@
     <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
   </ItemGroup>
 
+  <Import Project="..\PluginFetchShared\PluginFetchShared.projitems" Label="Shared" />
+
 </Project>

@@ -215,8 +215,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EntitiesController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\HeroesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SuperDemoController.cs" />
     <Compile Include="Controllers\CodeGenController.cs" />
+    <Compile Include="Controllers\TupleController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -446,6 +453,10 @@
     <ProjectReference Include="..\WebApiClientGen.Axios\WebApiClientGen.Axios.csproj">
       <Project>{085edc48-7561-45ad-ba31-707bd8f61b1a}</Project>
       <Name>WebApiClientGen.Axios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApiClientGen.Fetch\WebApiClientGen.Fetch.csproj">
+      <Project>{a4eb9fb9-a534-4a49-b898-431db33d8643}</Project>
+      <Name>WebApiClientGen.Fetch</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebApiClientGen.jQuery\WebApiClientGen.jQuery.csproj">
       <Project>{8fcba063-8176-4cce-a8d7-086516e957ff}</Project>

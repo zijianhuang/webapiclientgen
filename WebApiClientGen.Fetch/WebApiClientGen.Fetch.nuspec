@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Fonlow.WebApiClientGen.Fetch</id>
+    <version>$version$</version>
+    <title>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</title>
+    <authors>Zijian Huang</authors>
+    <owners>Zijian Huang</owners>
+    <licenseUrl>https://github.com/zijianhuang/webapiclientgen/blob/master/license.md</licenseUrl>
+    <projectUrl>https://github.com/zijianhuang/webapiclientgen</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</description>
+    <releaseNotes>For Fetch API.</releaseNotes>
+    <copyright>Copyright © Fonlow 2015-2020</copyright>
+    <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi Fetch</tags>
+    <dependencies>
+      <group>
+        <dependency id="Fonlow.TypeScriptCodeDOM" version="2.1.0" />
+        <dependency id="Fonlow.Poco2Ts" version="2.1.0" />
+      </group>
+    </dependencies>  
+  </metadata>
+</package>

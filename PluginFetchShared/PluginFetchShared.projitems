@@ -9,5 +9,7 @@
     <Import_RootNamespace>PluginFetchShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsFetchFunctionGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ControllersTsFetchClientApiGen.cs" />
   </ItemGroup>
 </Project>

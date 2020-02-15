@@ -142,6 +142,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PluginsCore", "PluginsCore"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClientGenCore.Fetch", "WebApiClientGenCore.Fetch\WebApiClientGenCore.Fetch.csproj", "{9CFF2654-7A6C-4AC0-964C-D4F4839C83A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClientGen.Fetch", "WebApiClientGen.Fetch\WebApiClientGen.Fetch.csproj", "{A4EB9FB9-A534-4A49-B898-431DB33D8643}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PluginFetchShared", "PluginFetchShared\PluginFetchShared.shproj", "{83D4A5B0-FEF0-401F-B7F0-33BF5D78074F}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		PluginAxiosShared\PluginAxiosShared.projitems*{085edc48-7561-45ad-ba31-707bd8f61b1a}*SharedItemsImports = 4
@@ -163,7 +167,9 @@ Global
 		Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems*{70caa10c-642a-454b-9dec-9ab391eb9c99}*SharedItemsImports = 4
 		Poco2TsShared\Poco2TsShared.projitems*{72613d4b-c775-4f43-af7e-4c570f14fcfc}*SharedItemsImports = 4
 		Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems*{7b0e02b0-e517-4d55-bd96-ef4ee4e5ab48}*SharedItemsImports = 13
+		PluginFetchShared\PluginFetchShared.projitems*{83d4a5b0-fef0-401f-b7f0-33bf5d78074f}*SharedItemsImports = 13
 		PluginJQueryShared\PluginJQueryShared.projitems*{8fcba063-8176-4cce-a8d7-086516e957ff}*SharedItemsImports = 4
+		PluginFetchShared\PluginFetchShared.projitems*{a4eb9fb9-a534-4a49-b898-431db33d8643}*SharedItemsImports = 4
 		WebApiClientGenAbstractShared\WebApiClientGenAbstractShared.projitems*{aadcf4f8-2b30-4258-9b7b-6f8b4037f108}*SharedItemsImports = 4
 		Fonlow.DocCommentShared\Fonlow.DocCommentShared.projitems*{ae803561-2ee8-4be9-b53f-4c782cbe2ff3}*SharedItemsImports = 4
 		WebApiClientGenShared\WebApiClientGenShared.projitems*{bbe56b7d-2cc9-47a7-af3b-f3cb4f070f61}*SharedItemsImports = 13
@@ -806,6 +812,22 @@ Global
 		{9CFF2654-7A6C-4AC0-964C-D4F4839C83A1}.Release|x64.Build.0 = Release|Any CPU
 		{9CFF2654-7A6C-4AC0-964C-D4F4839C83A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{9CFF2654-7A6C-4AC0-964C-D4F4839C83A1}.Release|x86.Build.0 = Release|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Debug|x64.Build.0 = Debug|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Debug|x86.Build.0 = Debug|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Release|ARM.Build.0 = Release|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Release|x64.ActiveCfg = Release|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Release|x64.Build.0 = Release|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Release|x86.ActiveCfg = Release|Any CPU
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -858,6 +880,8 @@ Global
 		{F31FBC55-F69C-494F-B725-A683D516550D} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{67B73A45-B57B-4D33-AD6A-781EA4D472AB} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{9CFF2654-7A6C-4AC0-964C-D4F4839C83A1} = {614A5235-971F-427D-8B62-F7542B34E12C}
+		{A4EB9FB9-A534-4A49-B898-431DB33D8643} = {ABFC90BE-9324-4069-95C2-F319E1F1D3B0}
+		{83D4A5B0-FEF0-401F-B7F0-33BF5D78074F} = {09419770-F282-4257-B14B-BC907EF7F858}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18214E93-9A86-4818-9CB5-C5F2917B153A}

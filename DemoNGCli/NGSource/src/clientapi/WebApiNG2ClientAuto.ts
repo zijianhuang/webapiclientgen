@@ -1,6 +1,35 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+export namespace DemoWebApi_Controllers_Client {
+
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string;
+	}
+
+
+	/**
+	 * Complex hero type
+	 */
+	export interface Hero {
+		id?: number;
+		name?: string;
+	}
+
+}
+
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 		city?: string;
@@ -194,35 +223,6 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResult {
-
-		/**
-		 * Gets or sets the local path of the file saved on the server.
-		 */
-		fileNames?: Array<string>;
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter?: string;
-	}
-
-
-	/**
-	 * Complex hero type
-	 */
-	export interface Hero {
-		id?: number;
-		name?: string;
-	}
-
-}
-
-export namespace DemoWebApi_Controllers_Client {
 	@Injectable()
 	export class Entities {
 		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
@@ -411,6 +411,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getActionResult(): Observable<HttpResponse<string>> {
 			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult2', { observe: 'response', responseType: 'text' });
 		}
 
 		/**

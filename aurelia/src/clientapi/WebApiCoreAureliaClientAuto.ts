@@ -409,6 +409,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(): Promise<string> {
+			return this.http.get('api/SuperDemo/ActionResult2').then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/ActionStringResult
 		 */
 		getActionStringResult(): Promise<string> {

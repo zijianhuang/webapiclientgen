@@ -405,6 +405,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(): Promise<AxiosResponse<string>> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' }).then(d => d.data as AxiosResponse<string>);
+		}
+
+		/**
 		 * GET api/SuperDemo/ActionStringResult
 		 */
 		getActionStringResult(): Promise<string> {

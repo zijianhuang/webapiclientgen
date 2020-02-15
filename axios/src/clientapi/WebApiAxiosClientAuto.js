@@ -213,6 +213,12 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult', { responseType: 'text' }).then(function (d) { return d.data; });
         };
         /**
+         * GET api/SuperDemo/ActionResult2
+         */
+        SuperDemo.prototype.getActionResult2 = function () {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' }).then(function (d) { return d.data; });
+        };
+        /**
          * GET api/SuperDemo/ActionStringResult
          */
         SuperDemo.prototype.getActionStringResult = function () {

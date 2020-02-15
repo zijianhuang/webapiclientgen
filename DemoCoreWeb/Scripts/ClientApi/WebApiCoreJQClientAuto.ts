@@ -405,6 +405,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(callback: (data : any) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult2', callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * GET api/SuperDemo/ActionStringResult
 		 */
 		getActionStringResult(callback: (data : string) => any) {

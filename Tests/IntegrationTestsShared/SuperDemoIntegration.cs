@@ -538,5 +538,25 @@ namespace IntegrationTests
 			var s = await m.Content.ReadAsStringAsync();
 			Assert.Equal("\"abcdefg\"", s);
 		}
+
+		[Fact]
+		public async void TestGetActionResult()
+		{
+			var m = await api.GetActionResultAsync();
+			Assert.Equal(System.Net.HttpStatusCode.OK, m.StatusCode);
+			var s = await m.Content.ReadAsStringAsync();
+			Assert.Equal("\"abcdefg\"", s);
+
+		}
+
+		[Fact]
+		public async void TestGetActionResult2()
+		{
+			var m = await api.GetActionResult2Async();
+			Assert.Equal(System.Net.HttpStatusCode.OK, m.StatusCode);
+			var s = await m.Content.ReadAsStringAsync();
+			Assert.Equal("\"abcdefg\"", s);
+
+		}
 	}
 }

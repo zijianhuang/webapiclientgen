@@ -16,6 +16,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		WebApiDescription description;
 		string methodName;
 		protected Type returnType;
+		bool returnTypeIsStream;
 		CodeMemberMethod method;
 		readonly Fonlow.Poco2Client.IPoco2Client poco2CsGen;
 
@@ -35,7 +36,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				methodName = methodName.Substring(0, methodName.Length - 5);
 
 			returnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
-
+			returnTypeIsStream = returnType!=null && ( (returnType.FullName == typeNameOfHttpResponseMessage) 
+				|| (returnType.FullName == typeOfIHttpActionResult) 
+				|| (returnType.FullName == typeOfIActionResult) 
+				|| (returnType.FullName == typeOfActionResult));
 		}
 
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
@@ -183,27 +187,43 @@ namespace Fonlow.CodeDom.Web.Cs
 			method.Statements.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "responseMessage", httpMethodInvokeExpression));
 
+
 			////Statement: var result = task.Result;
 			var resultReference = new CodeVariableReferenceExpression("responseMessage");
 
 			//Statement: result.EnsureSuccessStatusCode();
-			method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
-
-			//Statement: return something;
-			if (returnType != null)
+			if (returnTypeIsStream)
 			{
-				AddReturnStatement();
-			}
+				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
 
+				if (returnType != null)
+				{
+					AddReturnStatement(method.Statements);
+				}
+			}
+			else
+			{
+				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
+				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+				method.Statements.Add(try1);
+
+				//Statement: return something;
+				if (returnType != null)
+				{
+					AddReturnStatement(try1.TryStatements);
+				}
+
+				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
+			}
 		}
 
 		const string typeNameOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
 
-		void AddReturnStatement()
+		void AddReturnStatement(CodeStatementCollection statementCollection)
 		{
-			if ((returnType.FullName == typeNameOfHttpResponseMessage) || (returnType.FullName == typeOfIHttpActionResult) || (returnType.FullName == typeOfIActionResult) || (returnType.FullName == typeOfActionResult))
+			if (returnTypeIsStream)
 			{
-				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
+				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
 				return;
 			}
 			else if (returnType.IsGenericType)
@@ -211,62 +231,62 @@ namespace Fonlow.CodeDom.Web.Cs
 				Type genericTypeDefinition = returnType.GetGenericTypeDefinition();
 				if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
 				{
-					method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
 					return;
 				}
 			}
 
-			method.Statements.Add(new CodeSnippetStatement(forAsync ?
+			statementCollection.Add(new CodeSnippetStatement(forAsync ?
 				"\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
 				: "\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
-			//  method.Statements.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
+			//  statementCollection.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
 
 			if (returnType != null && TypeHelper.IsStringType(returnType))
 			{
 				if (this.stringAsString)
 				{
-					method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
-					method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
-					method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
+					statementCollection.Add(new CodeSnippetStatement("\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
+					statementCollection.Add(new CodeSnippetStatement("\t\t\t{"));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
 				}
 				else
 				{
-					method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-					method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
-					method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
+					statementCollection.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+					statementCollection.Add(new CodeSnippetStatement("\t\t\t{"));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
 				}
 			}
 			else if (returnType == typeOfChar)
 			{
-				method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
-				method.Statements.Add(new CodeVariableDeclarationStatement(
+				statementCollection.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t{"));
+				statementCollection.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
-				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
+				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
 			}
 			else if (returnType.IsPrimitive)
 			{
-				method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
-				method.Statements.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t{"));
+				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
 			}
 			else if (returnType.IsGenericType)
 			{
-				method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
-				method.Statements.Add(new CodeVariableDeclarationStatement(
+				statementCollection.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t{"));
+				statementCollection.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
-				method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
 			}
 			else if (TypeHelper.IsComplexType(returnType))
 			{
-				method.Statements.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				method.Statements.Add(new CodeSnippetStatement("\t\t\t{"));
-				method.Statements.Add(new CodeVariableDeclarationStatement(
+				statementCollection.Add(new CodeSnippetStatement("\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t{"));
+				statementCollection.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
-				method.Statements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
 			}
@@ -275,9 +295,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				Trace.TraceWarning("This type is not yet supported: {0}", returnType.FullName);
 			}
 
-			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
-
-
+			statementCollection.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
 		void RenderPostOrPutImplementation(bool isPost)
@@ -409,13 +427,29 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			var resultReference = new CodeVariableReferenceExpression("responseMessage");
 
-			//Statement: result.EnsureSuccessStatusCode();
-			method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
-
-			//Statement: return something;
-			if (returnType != null)
+			if (returnTypeIsStream)
 			{
-				AddReturnStatement();
+				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+
+				//Statement: return something;
+				if (returnType != null)
+				{
+					AddReturnStatement(method.Statements);
+				}
+			}
+			else
+			{
+				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
+				method.Statements.Add(try1);
+				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+
+				//Statement: return something;
+				if (returnType != null)
+				{
+					AddReturnStatement(try1.TryStatements);
+				}
+
+				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
 			}
 
 			if (singleFromBodyParameterDescription != null)

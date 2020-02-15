@@ -410,6 +410,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult2', { observe: 'response', responseType: 'text' });
+		}
+
+		/**
 		 * GET api/SuperDemo/ActionStringResult
 		 */
 		getActionStringResult(): Observable<string> {

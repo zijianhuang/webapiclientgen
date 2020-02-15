@@ -1,5 +1,34 @@
 import {HttpClient} from 'aurelia-fetch-client';
 import {autoinject} from 'aurelia-framework';
+export namespace DemoWebApi_Controllers_Client {
+
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string;
+	}
+
+
+	/**
+	 * Complex hero type
+	 */
+	export interface Hero {
+		id?: number;
+		name?: string;
+	}
+
+}
+
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 		city?: string;
@@ -193,35 +222,6 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResult {
-
-		/**
-		 * Gets or sets the local path of the file saved on the server.
-		 */
-		fileNames?: Array<string>;
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter?: string;
-	}
-
-
-	/**
-	 * Complex hero type
-	 */
-	export interface Hero {
-		id?: number;
-		name?: string;
-	}
-
-}
-
-export namespace DemoWebApi_Controllers_Client {
 	@autoinject()
 	export class Entities {
 		constructor(private http: HttpClient) {
@@ -410,6 +410,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getActionResult(): Promise<string> {
 			return this.http.get('api/SuperDemo/ActionResult').then(d => d.json());
+		}
+
+		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(): Promise<string> {
+			return this.http.get('api/SuperDemo/ActionResult2').then(d => d.json());
 		}
 
 		/**

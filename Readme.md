@@ -78,14 +78,14 @@ This project delivers these products:
 # Prerequisites
 
 **Server side:**
-1. .NET Framework 4.6.2, or .NET Core 3.0
-1. ASP.NET Web API 2.2, or ASP.NET Core 3.0
+1. .NET Framework 4.6.2, or .NET Core 3.1
+1. ASP.NET Web API 2.2, or ASP.NET Core 3.1
 
 **Remarks:** 
 
+* WebApiClientGenCore v3.5 supports .NET Core 3.1. If your .NET Core API projects are still with .NET Core 2.0/2.1/2.2/3.0, please use previous releases.
 * .NET Core 2.x had dependency on Newtonsoft.JSON, while .NET Core 3.0 had been decoupled from Neewtonsoft.JSON and the default serializer is working well in most scenarios except for Tuple, 2D array and anonymous object etc. If you would support these data types or would keep 100% compitability with the serialization of NewtonSoft.JSON, you should explicitly include package `Microsoft.AspNetCore.Mvc.NewtonsoftJson` and add add `AddNewtonsoftJson()` in `Startup.cs`.
 * WebApiClientGen v3.0 supports .NET Framework 4.6.2. If your Web API projects are still with .NET Framework 4.5.2, please use previous releases.
-* WebApiClientGenCore v3.0 supports .NET Core 3.0. If your .NET Core API projects are still with .NET Core 2.0/2.1/2.2, please use previous releases.
 
 
 **.NET client side:**
@@ -97,7 +97,7 @@ This project delivers these products:
 **TypeScript client side:**
 1. TypeScript compiler
 1. jQuery
-1. Angular 2-8
+1. Angular 2-9
 1. Aurelia
 1. Axios
 1. Fetch API

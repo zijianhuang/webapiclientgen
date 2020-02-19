@@ -8,6 +8,38 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace DemoWebApi.Controllers.Client
+{
+	
+	
+	/// <summary>
+	/// This class is used to carry the result of various file uploads.
+	/// </summary>
+	public class FileResult : object
+	{
+		
+		/// <summary>
+		/// Gets or sets the local path of the file saved on the server.
+		/// </summary>
+		public string[] FileNames	{ get; set; }
+		
+		/// <summary>
+		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		/// </summary>
+		public string Submitter	{ get; set; }
+	}
+	
+	/// <summary>
+	/// Complex hero type
+	/// </summary>
+	public class Hero : object
+	{
+		
+		public long Id	{ get; set; }
+		
+		public string Name	{ get; set; }
+	}
+}
 namespace DemoWebApi.DemoData.Client
 {
 	
@@ -15,165 +47,33 @@ namespace DemoWebApi.DemoData.Client
 	public class Address : object
 	{
 		
-		private string _City;
+		public string City	{ get; set; }
 		
-		private string _Country;
+		public string Country	{ get; set; }
 		
-		private DemoWebApi.DemoData.Client.Entity _Entity;
-		
-		private System.Guid _EntityId;
-		
-		private System.Guid _Id;
-		
-		private string _PostalCode;
-		
-		private string _State;
-		
-		private string _Street1;
-		
-		private string _Street2;
-		
-		private DemoWebApi.DemoData.Client.AddressType _Type;
-		
-		private DemoWebApi.DemoData.Another.Client.MyPoint _Location;
-		
-		public string City
-		{
-			get
-			{
-				return _City;
-			}
-			set
-			{
-				_City = value;
-			}
-		}
-		
-		public string Country
-		{
-			get
-			{
-				return _Country;
-			}
-			set
-			{
-				_Country = value;
-			}
-		}
-		
-		public DemoWebApi.DemoData.Client.Entity Entity
-		{
-			get
-			{
-				return _Entity;
-			}
-			set
-			{
-				_Entity = value;
-			}
-		}
+		public DemoWebApi.DemoData.Client.Entity Entity	{ get; set; }
 		
 		/// <summary>
 		/// Foreign key to Entity
 		/// </summary>
-		public System.Guid EntityId
-		{
-			get
-			{
-				return _EntityId;
-			}
-			set
-			{
-				_EntityId = value;
-			}
-		}
+		public System.Guid EntityId	{ get; set; }
 		
-		public System.Guid Id
-		{
-			get
-			{
-				return _Id;
-			}
-			set
-			{
-				_Id = value;
-			}
-		}
+		public System.Guid Id	{ get; set; }
 		
-		public string PostalCode
-		{
-			get
-			{
-				return _PostalCode;
-			}
-			set
-			{
-				_PostalCode = value;
-			}
-		}
+		public string PostalCode	{ get; set; }
 		
-		public string State
-		{
-			get
-			{
-				return _State;
-			}
-			set
-			{
-				_State = value;
-			}
-		}
+		public string State	{ get; set; }
 		
-		public string Street1
-		{
-			get
-			{
-				return _Street1;
-			}
-			set
-			{
-				_Street1 = value;
-			}
-		}
+		public string Street1	{ get; set; }
 		
-		public string Street2
-		{
-			get
-			{
-				return _Street2;
-			}
-			set
-			{
-				_Street2 = value;
-			}
-		}
+		public string Street2	{ get; set; }
 		
-		public DemoWebApi.DemoData.Client.AddressType Type
-		{
-			get
-			{
-				return _Type;
-			}
-			set
-			{
-				_Type = value;
-			}
-		}
+		public DemoWebApi.DemoData.Client.AddressType Type	{ get; set; }
 		
 		/// <summary>
 		/// It is a field
 		/// </summary>
-		public DemoWebApi.DemoData.Another.Client.MyPoint Location
-		{
-			get
-			{
-				return _Location;
-			}
-			set
-			{
-				_Location = value;
-			}
-		}
+		public DemoWebApi.DemoData.Another.Client.MyPoint Location	{ get; set; }
 	}
 	
 	public enum AddressType
@@ -187,92 +87,20 @@ namespace DemoWebApi.DemoData.Client
 	public class Company : DemoWebApi.DemoData.Client.Entity
 	{
 		
-		private string _BusinessNumber;
-		
-		private string _BusinessNumberType;
-		
-		private string[][] _TextMatrix;
-		
-		private int[,] _Int2D;
-		
-		private int[][] _Int2DJagged;
-		
-		private string[] _Lines;
-		
 		/// <summary>
 		/// BusinessNumber to be serialized as BusinessNum
 		/// </summary>
-		public string BusinessNumber
-		{
-			get
-			{
-				return _BusinessNumber;
-			}
-			set
-			{
-				_BusinessNumber = value;
-			}
-		}
+		public string BusinessNumber	{ get; set; }
 		
-		public string BusinessNumberType
-		{
-			get
-			{
-				return _BusinessNumberType;
-			}
-			set
-			{
-				_BusinessNumberType = value;
-			}
-		}
+		public string BusinessNumberType	{ get; set; }
 		
-		public string[][] TextMatrix
-		{
-			get
-			{
-				return _TextMatrix;
-			}
-			set
-			{
-				_TextMatrix = value;
-			}
-		}
+		public string[][] TextMatrix	{ get; set; }
 		
-		public int[,] Int2D
-		{
-			get
-			{
-				return _Int2D;
-			}
-			set
-			{
-				_Int2D = value;
-			}
-		}
+		public int[,] Int2D	{ get; set; }
 		
-		public int[][] Int2DJagged
-		{
-			get
-			{
-				return _Int2DJagged;
-			}
-			set
-			{
-				_Int2DJagged = value;
-			}
-		}
+		public int[][] Int2DJagged	{ get; set; }
 		
-		public string[] Lines
-		{
-			get
-			{
-				return _Lines;
-			}
-			set
-			{
-				_Lines = value;
-			}
-		}
+		public string[] Lines	{ get; set; }
 	}
 	
 	public enum Days
@@ -302,175 +130,43 @@ namespace DemoWebApi.DemoData.Client
 	public class Entity : object
 	{
 		
-		private DemoWebApi.DemoData.Client.Address[] _Addresses;
-		
-		private System.Guid _Id;
-		
-		private string _Name;
-		
-		private DemoWebApi.DemoData.Client.PhoneNumber[] _PhoneNumbers;
-		
-		private System.Uri _Web;
-		
 		/// <summary>
 		/// Multiple addresses
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Address[] Addresses
-		{
-			get
-			{
-				return _Addresses;
-			}
-			set
-			{
-				_Addresses = value;
-			}
-		}
+		public DemoWebApi.DemoData.Client.Address[] Addresses	{ get; set; }
 		
-		public System.Guid Id
-		{
-			get
-			{
-				return _Id;
-			}
-			set
-			{
-				_Id = value;
-			}
-		}
+		public System.Guid Id	{ get; set; }
 		
 		/// <summary>
 		/// Name of the entity.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Name
-		{
-			get
-			{
-				return _Name;
-			}
-			set
-			{
-				_Name = value;
-			}
-		}
+		public string Name	{ get; set; }
 		
-		public DemoWebApi.DemoData.Client.PhoneNumber[] PhoneNumbers
-		{
-			get
-			{
-				return _PhoneNumbers;
-			}
-			set
-			{
-				_PhoneNumbers = value;
-			}
-		}
+		public DemoWebApi.DemoData.Client.PhoneNumber[] PhoneNumbers	{ get; set; }
 		
-		public System.Uri Web
-		{
-			get
-			{
-				return _Web;
-			}
-			set
-			{
-				_Web = value;
-			}
-		}
+		public System.Uri Web	{ get; set; }
 	}
 	
 	public class MimsPackage : object
 	{
 		
-		private DemoWebApi.DemoData.Client.MimsResult<decimal> _Result;
+		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result	{ get; set; }
 		
-		private string _Tag;
-		
-		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result
-		{
-			get
-			{
-				return _Result;
-			}
-			set
-			{
-				_Result = value;
-			}
-		}
-		
-		public string Tag
-		{
-			get
-			{
-				return _Tag;
-			}
-			set
-			{
-				_Tag = value;
-			}
-		}
+		public string Tag	{ get; set; }
 	}
 	
 	public class MimsResult<T> : object
 	
 	{
 		
-		private System.DateTime _GeneratedAt;
+		public System.DateTime GeneratedAt	{ get; set; }
 		
-		private string _Message;
+		public string Message	{ get; set; }
 		
-		private T _Result;
+		public T Result	{ get; set; }
 		
-		private bool _Success;
-		
-		public System.DateTime GeneratedAt
-		{
-			get
-			{
-				return _GeneratedAt;
-			}
-			set
-			{
-				_GeneratedAt = value;
-			}
-		}
-		
-		public string Message
-		{
-			get
-			{
-				return _Message;
-			}
-			set
-			{
-				_Message = value;
-			}
-		}
-		
-		public T Result
-		{
-			get
-			{
-				return _Result;
-			}
-			set
-			{
-				_Result = value;
-			}
-		}
-		
-		public bool Success
-		{
-			get
-			{
-				return _Success;
-			}
-			set
-			{
-				_Success = value;
-			}
-		}
+		public bool Success	{ get; set; }
 	}
 	
 	public class MyGeneric<T, K, U> : object
@@ -479,217 +175,49 @@ namespace DemoWebApi.DemoData.Client
 	
 	{
 		
-		private K _MyK;
+		public K MyK	{ get; set; }
 		
-		private T _MyT;
+		public T MyT	{ get; set; }
 		
-		private U _MyU;
+		public U MyU	{ get; set; }
 		
-		private string _Status;
-		
-		public K MyK
-		{
-			get
-			{
-				return _MyK;
-			}
-			set
-			{
-				_MyK = value;
-			}
-		}
-		
-		public T MyT
-		{
-			get
-			{
-				return _MyT;
-			}
-			set
-			{
-				_MyT = value;
-			}
-		}
-		
-		public U MyU
-		{
-			get
-			{
-				return _MyU;
-			}
-			set
-			{
-				_MyU = value;
-			}
-		}
-		
-		public string Status
-		{
-			get
-			{
-				return _Status;
-			}
-			set
-			{
-				_Status = value;
-			}
-		}
+		public string Status	{ get; set; }
 	}
 	
 	public class MyPeopleDic : object
 	{
 		
-		private System.Collections.Generic.Dictionary<string, string> _AnotherDic;
+		public System.Collections.Generic.Dictionary<string, string> AnotherDic	{ get; set; }
 		
-		private System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> _Dic;
+		public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> Dic	{ get; set; }
 		
-		private System.Collections.Generic.Dictionary<int, string> _IntDic;
-		
-		public System.Collections.Generic.Dictionary<string, string> AnotherDic
-		{
-			get
-			{
-				return _AnotherDic;
-			}
-			set
-			{
-				_AnotherDic = value;
-			}
-		}
-		
-		public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> Dic
-		{
-			get
-			{
-				return _Dic;
-			}
-			set
-			{
-				_Dic = value;
-			}
-		}
-		
-		public System.Collections.Generic.Dictionary<int, string> IntDic
-		{
-			get
-			{
-				return _IntDic;
-			}
-			set
-			{
-				_IntDic = value;
-			}
-		}
+		public System.Collections.Generic.Dictionary<int, string> IntDic	{ get; set; }
 	}
 	
 	public class Person : DemoWebApi.DemoData.Client.Entity
 	{
 		
-		private System.Nullable<System.DateTime> _DOB;
-		
-		private string _GivenName;
-		
-		private string _Surname;
-		
 		/// <summary>
 		/// Date of Birth.
 		/// This is optional.
 		/// </summary>
-		public System.Nullable<System.DateTime> DOB
-		{
-			get
-			{
-				return _DOB;
-			}
-			set
-			{
-				_DOB = value;
-			}
-		}
+		public System.Nullable<System.DateTime> DOB	{ get; set; }
 		
-		public string GivenName
-		{
-			get
-			{
-				return _GivenName;
-			}
-			set
-			{
-				_GivenName = value;
-			}
-		}
+		public string GivenName	{ get; set; }
 		
-		public string Surname
-		{
-			get
-			{
-				return _Surname;
-			}
-			set
-			{
-				_Surname = value;
-			}
-		}
+		public string Surname	{ get; set; }
 	}
 	
 	public class PhoneNumber : object
 	{
 		
-		private System.Guid _EntityId;
+		public System.Guid EntityId	{ get; set; }
 		
-		private string _FullNumber;
+		public string FullNumber	{ get; set; }
 		
-		private System.Guid _Id;
+		public System.Guid Id	{ get; set; }
 		
-		private DemoWebApi.DemoData.Client.PhoneType _PhoneType;
-		
-		public System.Guid EntityId
-		{
-			get
-			{
-				return _EntityId;
-			}
-			set
-			{
-				_EntityId = value;
-			}
-		}
-		
-		public string FullNumber
-		{
-			get
-			{
-				return _FullNumber;
-			}
-			set
-			{
-				_FullNumber = value;
-			}
-		}
-		
-		public System.Guid Id
-		{
-			get
-			{
-				return _Id;
-			}
-			set
-			{
-				_Id = value;
-			}
-		}
-		
-		public DemoWebApi.DemoData.Client.PhoneType PhoneType
-		{
-			get
-			{
-				return _PhoneType;
-			}
-			set
-			{
-				_PhoneType = value;
-			}
-		}
+		public DemoWebApi.DemoData.Client.PhoneType PhoneType	{ get; set; }
 	}
 	
 	/// <summary>
@@ -745,274 +273,50 @@ namespace DemoWebApi.Models.Client
 	public class AddExternalLoginBindingModel : object
 	{
 		
-		private string _ExternalAccessToken;
-		
-		public string ExternalAccessToken
-		{
-			get
-			{
-				return _ExternalAccessToken;
-			}
-			set
-			{
-				_ExternalAccessToken = value;
-			}
-		}
+		public string ExternalAccessToken	{ get; set; }
 	}
 	
 	public class ChangePasswordBindingModel : object
 	{
 		
-		private string _ConfirmPassword;
+		public string ConfirmPassword	{ get; set; }
 		
-		private string _NewPassword;
-		
-		private string _OldPassword;
-		
-		public string ConfirmPassword
-		{
-			get
-			{
-				return _ConfirmPassword;
-			}
-			set
-			{
-				_ConfirmPassword = value;
-			}
-		}
-		
-		public string NewPassword
-		{
-			get
-			{
-				return _NewPassword;
-			}
-			set
-			{
-				_NewPassword = value;
-			}
-		}
+		public string NewPassword	{ get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string OldPassword
-		{
-			get
-			{
-				return _OldPassword;
-			}
-			set
-			{
-				_OldPassword = value;
-			}
-		}
+		public string OldPassword	{ get; set; }
 	}
 	
 	public class RegisterBindingModel : object
 	{
 		
-		private string _ConfirmPassword;
+		public string ConfirmPassword	{ get; set; }
 		
-		private string _Email;
+		public string Email	{ get; set; }
 		
-		private string _Password;
-		
-		public string ConfirmPassword
-		{
-			get
-			{
-				return _ConfirmPassword;
-			}
-			set
-			{
-				_ConfirmPassword = value;
-			}
-		}
-		
-		public string Email
-		{
-			get
-			{
-				return _Email;
-			}
-			set
-			{
-				_Email = value;
-			}
-		}
-		
-		public string Password
-		{
-			get
-			{
-				return _Password;
-			}
-			set
-			{
-				_Password = value;
-			}
-		}
+		public string Password	{ get; set; }
 	}
 	
 	public class RegisterExternalBindingModel : object
 	{
 		
-		private string _Email;
-		
-		public string Email
-		{
-			get
-			{
-				return _Email;
-			}
-			set
-			{
-				_Email = value;
-			}
-		}
+		public string Email	{ get; set; }
 	}
 	
 	public class RemoveLoginBindingModel : object
 	{
 		
-		private string _LoginProvider;
+		public string LoginProvider	{ get; set; }
 		
-		private string _ProviderKey;
-		
-		public string LoginProvider
-		{
-			get
-			{
-				return _LoginProvider;
-			}
-			set
-			{
-				_LoginProvider = value;
-			}
-		}
-		
-		public string ProviderKey
-		{
-			get
-			{
-				return _ProviderKey;
-			}
-			set
-			{
-				_ProviderKey = value;
-			}
-		}
+		public string ProviderKey	{ get; set; }
 	}
 	
 	public class SetPasswordBindingModel : object
 	{
 		
-		private string _ConfirmPassword;
+		public string ConfirmPassword	{ get; set; }
 		
-		private string _NewPassword;
-		
-		public string ConfirmPassword
-		{
-			get
-			{
-				return _ConfirmPassword;
-			}
-			set
-			{
-				_ConfirmPassword = value;
-			}
-		}
-		
-		public string NewPassword
-		{
-			get
-			{
-				return _NewPassword;
-			}
-			set
-			{
-				_NewPassword = value;
-			}
-		}
-	}
-}
-namespace DemoWebApi.Controllers.Client
-{
-	
-	
-	/// <summary>
-	/// This class is used to carry the result of various file uploads.
-	/// </summary>
-	public class FileResult : object
-	{
-		
-		private string[] _FileNames;
-		
-		private string _Submitter;
-		
-		/// <summary>
-		/// Gets or sets the local path of the file saved on the server.
-		/// </summary>
-		public string[] FileNames
-		{
-			get
-			{
-				return _FileNames;
-			}
-			set
-			{
-				_FileNames = value;
-			}
-		}
-		
-		/// <summary>
-		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		/// </summary>
-		public string Submitter
-		{
-			get
-			{
-				return _Submitter;
-			}
-			set
-			{
-				_Submitter = value;
-			}
-		}
-	}
-	
-	/// <summary>
-	/// Complex hero type
-	/// </summary>
-	public class Hero : object
-	{
-		
-		private long _Id;
-		
-		private string _Name;
-		
-		public long Id
-		{
-			get
-			{
-				return _Id;
-			}
-			set
-			{
-				_Id = value;
-			}
-		}
-		
-		public string Name
-		{
-			get
-			{
-				return _Name;
-			}
-			set
-			{
-				_Name = value;
-			}
-		}
+		public string NewPassword	{ get; set; }
 	}
 }
 namespace DemoWebApi.Controllers.Client

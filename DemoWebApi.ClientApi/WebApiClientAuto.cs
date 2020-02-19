@@ -8,38 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DemoWebApi.Controllers.Client
-{
-	
-	
-	/// <summary>
-	/// This class is used to carry the result of various file uploads.
-	/// </summary>
-	public class FileResult : object
-	{
-		
-		/// <summary>
-		/// Gets or sets the local path of the file saved on the server.
-		/// </summary>
-		public string[] FileNames	{ get; set; }
-		
-		/// <summary>
-		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		/// </summary>
-		public string Submitter	{ get; set; }
-	}
-	
-	/// <summary>
-	/// Complex hero type
-	/// </summary>
-	public class Hero : object
-	{
-		
-		public long Id	{ get; set; }
-		
-		public string Name	{ get; set; }
-	}
-}
 namespace DemoWebApi.DemoData.Client
 {
 	
@@ -47,33 +15,33 @@ namespace DemoWebApi.DemoData.Client
 	public class Address : object
 	{
 		
-		public string City	{ get; set; }
+		public string City { get; set; }
 		
-		public string Country	{ get; set; }
+		public string Country { get; set; }
 		
-		public DemoWebApi.DemoData.Client.Entity Entity	{ get; set; }
+		public DemoWebApi.DemoData.Client.Entity Entity { get; set; }
 		
 		/// <summary>
 		/// Foreign key to Entity
 		/// </summary>
-		public System.Guid EntityId	{ get; set; }
+		public System.Guid EntityId { get; set; }
 		
-		public System.Guid Id	{ get; set; }
+		public System.Guid Id { get; set; }
 		
-		public string PostalCode	{ get; set; }
+		public string PostalCode { get; set; }
 		
-		public string State	{ get; set; }
+		public string State { get; set; }
 		
-		public string Street1	{ get; set; }
+		public string Street1 { get; set; }
 		
-		public string Street2	{ get; set; }
+		public string Street2 { get; set; }
 		
-		public DemoWebApi.DemoData.Client.AddressType Type	{ get; set; }
+		public DemoWebApi.DemoData.Client.AddressType Type { get; set; }
 		
 		/// <summary>
 		/// It is a field
 		/// </summary>
-		public DemoWebApi.DemoData.Another.Client.MyPoint Location	{ get; set; }
+		public DemoWebApi.DemoData.Another.Client.MyPoint Location { get; set; }
 	}
 	
 	public enum AddressType
@@ -90,17 +58,17 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// BusinessNumber to be serialized as BusinessNum
 		/// </summary>
-		public string BusinessNumber	{ get; set; }
+		public string BusinessNumber { get; set; }
 		
-		public string BusinessNumberType	{ get; set; }
+		public string BusinessNumberType { get; set; }
 		
-		public string[][] TextMatrix	{ get; set; }
+		public string[][] TextMatrix { get; set; }
 		
-		public int[,] Int2D	{ get; set; }
+		public int[,] Int2D { get; set; }
 		
-		public int[][] Int2DJagged	{ get; set; }
+		public int[][] Int2DJagged { get; set; }
 		
-		public string[] Lines	{ get; set; }
+		public string[] Lines { get; set; }
 	}
 	
 	public enum Days
@@ -133,40 +101,40 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// Multiple addresses
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Address[] Addresses	{ get; set; }
+		public DemoWebApi.DemoData.Client.Address[] Addresses { get; set; }
 		
-		public System.Guid Id	{ get; set; }
+		public System.Guid Id { get; set; }
 		
 		/// <summary>
 		/// Name of the entity.
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Name	{ get; set; }
+		public string Name { get; set; }
 		
-		public DemoWebApi.DemoData.Client.PhoneNumber[] PhoneNumbers	{ get; set; }
+		public DemoWebApi.DemoData.Client.PhoneNumber[] PhoneNumbers { get; set; }
 		
-		public System.Uri Web	{ get; set; }
+		public System.Uri Web { get; set; }
 	}
 	
 	public class MimsPackage : object
 	{
 		
-		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result	{ get; set; }
+		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
 		
-		public string Tag	{ get; set; }
+		public string Tag { get; set; }
 	}
 	
 	public class MimsResult<T> : object
 	
 	{
 		
-		public System.DateTime GeneratedAt	{ get; set; }
+		public System.DateTime GeneratedAt { get; set; }
 		
-		public string Message	{ get; set; }
+		public string Message { get; set; }
 		
-		public T Result	{ get; set; }
+		public T Result { get; set; }
 		
-		public bool Success	{ get; set; }
+		public bool Success { get; set; }
 	}
 	
 	public class MyGeneric<T, K, U> : object
@@ -175,23 +143,23 @@ namespace DemoWebApi.DemoData.Client
 	
 	{
 		
-		public K MyK	{ get; set; }
+		public K MyK { get; set; }
 		
-		public T MyT	{ get; set; }
+		public T MyT { get; set; }
 		
-		public U MyU	{ get; set; }
+		public U MyU { get; set; }
 		
-		public string Status	{ get; set; }
+		public string Status { get; set; }
 	}
 	
 	public class MyPeopleDic : object
 	{
 		
-		public System.Collections.Generic.Dictionary<string, string> AnotherDic	{ get; set; }
+		public System.Collections.Generic.Dictionary<string, string> AnotherDic { get; set; }
 		
-		public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> Dic	{ get; set; }
+		public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> Dic { get; set; }
 		
-		public System.Collections.Generic.Dictionary<int, string> IntDic	{ get; set; }
+		public System.Collections.Generic.Dictionary<int, string> IntDic { get; set; }
 	}
 	
 	public class Person : DemoWebApi.DemoData.Client.Entity
@@ -201,23 +169,23 @@ namespace DemoWebApi.DemoData.Client
 		/// Date of Birth.
 		/// This is optional.
 		/// </summary>
-		public System.Nullable<System.DateTime> DOB	{ get; set; }
+		public System.Nullable<System.DateTime> DOB { get; set; }
 		
-		public string GivenName	{ get; set; }
+		public string GivenName { get; set; }
 		
-		public string Surname	{ get; set; }
+		public string Surname { get; set; }
 	}
 	
 	public class PhoneNumber : object
 	{
 		
-		public System.Guid EntityId	{ get; set; }
+		public System.Guid EntityId { get; set; }
 		
-		public string FullNumber	{ get; set; }
+		public string FullNumber { get; set; }
 		
-		public System.Guid Id	{ get; set; }
+		public System.Guid Id { get; set; }
 		
-		public DemoWebApi.DemoData.Client.PhoneType PhoneType	{ get; set; }
+		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
 	}
 	
 	/// <summary>
@@ -273,50 +241,82 @@ namespace DemoWebApi.Models.Client
 	public class AddExternalLoginBindingModel : object
 	{
 		
-		public string ExternalAccessToken	{ get; set; }
+		public string ExternalAccessToken { get; set; }
 	}
 	
 	public class ChangePasswordBindingModel : object
 	{
 		
-		public string ConfirmPassword	{ get; set; }
+		public string ConfirmPassword { get; set; }
 		
-		public string NewPassword	{ get; set; }
+		public string NewPassword { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string OldPassword	{ get; set; }
+		public string OldPassword { get; set; }
 	}
 	
 	public class RegisterBindingModel : object
 	{
 		
-		public string ConfirmPassword	{ get; set; }
+		public string ConfirmPassword { get; set; }
 		
-		public string Email	{ get; set; }
+		public string Email { get; set; }
 		
-		public string Password	{ get; set; }
+		public string Password { get; set; }
 	}
 	
 	public class RegisterExternalBindingModel : object
 	{
 		
-		public string Email	{ get; set; }
+		public string Email { get; set; }
 	}
 	
 	public class RemoveLoginBindingModel : object
 	{
 		
-		public string LoginProvider	{ get; set; }
+		public string LoginProvider { get; set; }
 		
-		public string ProviderKey	{ get; set; }
+		public string ProviderKey { get; set; }
 	}
 	
 	public class SetPasswordBindingModel : object
 	{
 		
-		public string ConfirmPassword	{ get; set; }
+		public string ConfirmPassword { get; set; }
 		
-		public string NewPassword	{ get; set; }
+		public string NewPassword { get; set; }
+	}
+}
+namespace DemoWebApi.Controllers.Client
+{
+	
+	
+	/// <summary>
+	/// This class is used to carry the result of various file uploads.
+	/// </summary>
+	public class FileResult : object
+	{
+		
+		/// <summary>
+		/// Gets or sets the local path of the file saved on the server.
+		/// </summary>
+		public string[] FileNames { get; set; }
+		
+		/// <summary>
+		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		/// </summary>
+		public string Submitter { get; set; }
+	}
+	
+	/// <summary>
+	/// Complex hero type
+	/// </summary>
+	public class Hero : object
+	{
+		
+		public long Id { get; set; }
+		
+		public string Name { get; set; }
 	}
 }
 namespace DemoWebApi.Controllers.Client

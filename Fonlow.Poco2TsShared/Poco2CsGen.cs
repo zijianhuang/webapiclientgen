@@ -359,7 +359,7 @@ namespace Fonlow.Poco2Client
 			//  we make the getter and setter part of the member name.
 			// This leaves behind a trailing semicolon that we comment out.
 			//  Later, we remove the commented out semicolons.
-			string memberName = name + "\t{ get; set; }//";
+			string memberName = name + " { get; set; }//";
 
 			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(type), Name = memberName };
 			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;

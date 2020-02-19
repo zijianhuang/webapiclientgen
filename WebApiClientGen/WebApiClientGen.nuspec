@@ -16,6 +16,7 @@
       1. Support IAsyncEnumerable in .NET Core.
       2. In C# client codes, explicitly dispose HttpResponseMessage since in .NET Core 3.0 HttpResponseMessage.EnsureSuccessStatusCode does not dispose.
       3. Plugin for Fetch API with packages Fonlow.WebApiClientGen.Fetch and Fonlow.WebApiClientGenCore.Fetch.
+      4. Simplified getter and setter codes for C#.
     </releaseNotes>
     <copyright>Copyright © Fonlow 2015-2020</copyright>
     <tags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient</tags>

@@ -149,18 +149,18 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"]["delete"](this.baseUri + 'api/Heroes/' + id, { responseType: 'text' });
         };
         /**
-         * Get all heroes.
-         * GET api/Heroes
-         */
-        Heroes.prototype.get = function () {
-            return axios_1["default"].get(this.baseUri + 'api/Heroes').then(function (d) { return d.data; });
-        };
-        /**
          * Get a hero.
          * GET api/Heroes/{id}
          */
-        Heroes.prototype.getById = function (id) {
+        Heroes.prototype.getHero = function (id) {
             return axios_1["default"].get(this.baseUri + 'api/Heroes/' + id).then(function (d) { return d.data; });
+        };
+        /**
+         * Get all heroes.
+         * GET api/Heroes
+         */
+        Heroes.prototype.getHeros = function () {
+            return axios_1["default"].get(this.baseUri + 'api/Heroes').then(function (d) { return d.data; });
         };
         /**
          * This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
@@ -211,6 +211,12 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.getActionResult = function () {
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult', { responseType: 'text' }).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/SuperDemo/ActionResult2
+         */
+        SuperDemo.prototype.getActionResult2 = function () {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' }).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/ActionStringResult

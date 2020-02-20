@@ -1,5 +1,4 @@
 ﻿using Fonlow.Poco2Client;
-using Fonlow.Poco2Ts;
 using Fonlow.TypeScriptCodeDom;
 using System;
 using System.CodeDom;

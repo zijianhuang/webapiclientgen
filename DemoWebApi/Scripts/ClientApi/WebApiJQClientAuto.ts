@@ -341,19 +341,19 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get all heroes.
-		 * GET api/Heroes
-		 */
-		get(callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any) {
-			this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
-		}
-
-		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
-		getById(id: number, callback: (data : DemoWebApi_Controllers_Client.Hero) => any) {
+		getHero(id: number, callback: (data : DemoWebApi_Controllers_Client.Hero) => any) {
 			this.httpClient.get(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * Get all heroes.
+		 * GET api/Heroes
+		 */
+		getHeros(callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any) {
+			this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -407,6 +407,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		getActionResult(callback: (data : any) => any) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(callback: (data : any) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult2', callback, this.error, this.statusCode);
 		}
 
 		/**

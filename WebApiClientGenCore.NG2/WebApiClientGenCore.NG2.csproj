@@ -1,18 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>Fonlow.WebApiClientGenCore.NG2</PackageId>
     <Authors>Zijian Huang</Authors>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</Description>
     <PackageReleaseNotes>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <Copyright>Copyright © Zijian Huang 2015-2019</Copyright>
+    <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.NG2</AssemblyName>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1</Version>
   </PropertyGroup>
 
   <Import Project="..\PluginNG2Shared\PluginNG2Shared.projitems" Label="Shared" />

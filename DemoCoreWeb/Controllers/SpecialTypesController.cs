@@ -11,6 +11,10 @@ namespace DemoCoreWeb.Controllers
     [Route("api/SpecialTypes")]
     public class SpecialTypesController : Controller
     {
+        /// <summary>
+        /// Anonymous Dynamic of C#
+        /// </summary>
+        /// <returns>dyanmic things</returns>
         [HttpGet]
         [Route("AnonymousDynamic")]
         public dynamic GetAnonymousDynamic()

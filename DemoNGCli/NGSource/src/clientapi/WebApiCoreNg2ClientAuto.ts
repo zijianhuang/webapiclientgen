@@ -229,7 +229,9 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Anonymous Dynamic of C#
 		 * GET api/SpecialTypes/AnonymousDynamic
+		 * @return {any} dyanmic things
 		 */
 		getAnonymousDynamic(): Observable<Response> {
 			return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousDynamic');
@@ -339,19 +341,26 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get all heroes.
-		 * GET api/Heroes
+		 * GET api/Heroes/asyncHeroes
 		 */
-		get(): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes');
+		getAsyncHeroes(): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/asyncHeroes');
 		}
 
 		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
-		getById(id: number): Observable<DemoWebApi_Controllers_Client.Hero> {
+		getHero(id: number): Observable<DemoWebApi_Controllers_Client.Hero> {
 			return this.http.get<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/' + id);
+		}
+
+		/**
+		 * Get all heroes.
+		 * GET api/Heroes
+		 */
+		getHeros(): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes');
 		}
 
 		/**
@@ -398,6 +407,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getActionResult(): Observable<HttpResponse<string>> {
 			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult2', { observe: 'response', responseType: 'text' });
 		}
 
 		/**

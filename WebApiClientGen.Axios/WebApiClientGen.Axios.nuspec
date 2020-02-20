@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Plugin for WebApiClientGen 3.0+ to generate client API codes with AXIOS.</description>
     <releaseNotes>Released with WebApiClientGen 3.0.</releaseNotes>
-    <copyright>Copyright © Fonlow 2015-2019</copyright>
+    <copyright>Copyright © Fonlow 2015-2020</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi AXIOS</tags>
     <dependencies>
       <group>

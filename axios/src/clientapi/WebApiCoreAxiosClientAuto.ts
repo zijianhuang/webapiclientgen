@@ -227,7 +227,9 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Anonymous Dynamic of C#
 		 * GET api/SpecialTypes/AnonymousDynamic
+		 * @return {any} dyanmic things
 		 */
 		getAnonymousDynamic(): Promise<AxiosResponse> {
 			return Axios.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { responseType: 'text' });
@@ -335,19 +337,26 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get all heroes.
-		 * GET api/Heroes
+		 * GET api/Heroes/asyncHeroes
 		 */
-		get(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return Axios.get(this.baseUri + 'api/Heroes').then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
+		getAsyncHeroes(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return Axios.get(this.baseUri + 'api/Heroes/asyncHeroes').then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
 		}
 
 		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
-		getById(id: number): Promise<DemoWebApi_Controllers_Client.Hero> {
+		getHero(id: number): Promise<DemoWebApi_Controllers_Client.Hero> {
 			return Axios.get(this.baseUri + 'api/Heroes/' + id).then(d => d.data as DemoWebApi_Controllers_Client.Hero);
+		}
+
+		/**
+		 * Get all heroes.
+		 * GET api/Heroes
+		 */
+		getHeros(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return Axios.get(this.baseUri + 'api/Heroes').then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
 		}
 
 		/**
@@ -393,6 +402,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getActionResult(): Promise<AxiosResponse<string>> {
 			return Axios.get(this.baseUri + 'api/SuperDemo/ActionResult', { responseType: 'text' }).then(d => d.data as AxiosResponse<string>);
+		}
+
+		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(): Promise<AxiosResponse<string>> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' }).then(d => d.data as AxiosResponse<string>);
 		}
 
 		/**

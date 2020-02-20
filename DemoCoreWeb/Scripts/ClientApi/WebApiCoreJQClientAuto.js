@@ -48,7 +48,9 @@ var DemoCoreWeb_Controllers_Client;
             this.statusCode = statusCode;
         }
         /**
+         * Anonymous Dynamic of C#
          * GET api/SpecialTypes/AnonymousDynamic
+         * @return {any} dyanmic things
          */
         getAnonymousDynamic(callback) {
             this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', callback, this.error, this.statusCode);
@@ -151,18 +153,24 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.delete(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
         }
         /**
-         * Get all heroes.
-         * GET api/Heroes
+         * GET api/Heroes/asyncHeroes
          */
-        get(callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
+        getAsyncHeroes(callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes/asyncHeroes', callback, this.error, this.statusCode);
         }
         /**
          * Get a hero.
          * GET api/Heroes/{id}
          */
-        getById(id, callback) {
+        getHero(id, callback) {
             this.httpClient.get(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
+        }
+        /**
+         * Get all heroes.
+         * GET api/Heroes
+         */
+        getHeros(callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
         }
         /**
          * POST api/Heroes
@@ -207,6 +215,12 @@ var DemoWebApi_Controllers_Client;
          */
         getActionResult(callback) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
+        }
+        /**
+         * GET api/SuperDemo/ActionResult2
+         */
+        getActionResult2(callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult2', callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/ActionStringResult

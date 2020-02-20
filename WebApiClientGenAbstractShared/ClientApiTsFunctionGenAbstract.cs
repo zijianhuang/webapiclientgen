@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Fonlow.TypeScriptCodeDom;
+using Fonlow.Web.Meta;
+using System;
 using System.CodeDom;
-using System.Linq;
-
 using System.Diagnostics;
 using System.Text;
-using Fonlow.TypeScriptCodeDom;
-using Fonlow.Web.Meta;
+using Fonlow.Poco2Client;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -15,10 +14,10 @@ namespace Fonlow.CodeDom.Web.Ts
 	public abstract class ClientApiTsFunctionGenAbstract
 	{
 		protected WebApiDescription Description { get; private set; }
-		protected string NethodName { get; private set; }
+		protected string MethodName { get; private set; }
 		protected Type ReturnType { get; private set; }
 		protected CodeMemberMethod Method { get; private set; }
-		protected Fonlow.Poco2Client.IPoco2Client Poco2TsGen { get; private set; }
+		protected IPoco2Client Poco2TsGen { get; private set; }
 		protected bool StringAsString { get; private set; }
 
 		protected ClientApiTsFunctionGenAbstract()
@@ -26,15 +25,15 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		}
 
-		public CodeMemberMethod CreateApiFunction(WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2TsGen, bool stringAsString)
+		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, bool stringAsString)
 		{
 			this.Description = description;
 			this.Poco2TsGen = poco2TsGen;
 			this.StringAsString = stringAsString;
 
-			NethodName = TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
-			if (NethodName.EndsWith("Async"))
-				NethodName = NethodName.Substring(0, NethodName.Length - 5);//HTTP does not care about the server side async.
+			MethodName = TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
+			if (MethodName.EndsWith("Async"))
+				MethodName = MethodName.Substring(0, MethodName.Length - 5);//HTTP does not care about the server side async.
 
 			ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
 

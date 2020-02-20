@@ -31,23 +31,23 @@ namespace Fonlow.CodeDom.Web
 			}
 			catch (System.IO.FileLoadException e)
 			{
-				Trace.TraceWarning(String.Format("When loading {0}, errors occur: {1}", assemblyName, e.Message));
+				Trace.TraceWarning(String.Format("When loading plugin {0}, FileLoadException: {1}", assemblyName, e.Message));
 				return null;
 			}
 			catch (BadImageFormatException e)
 			{
-				Trace.TraceWarning(String.Format("When loading {0}, errors occur: {1}", assemblyName, e.Message));
+				Trace.TraceWarning(String.Format("When loading plugin {0}, BadImageFormatException: {1}", assemblyName, e.Message));
 				//when file is a win32 dll.
 				return null;
 			}
 			catch (System.IO.FileNotFoundException e)
 			{
-				Trace.TraceWarning(String.Format("When loading {0}, errors occur: {1}", assemblyName, e.Message));
+				Trace.TraceWarning(String.Format("When loading plugin {0}, FileNotFoundException: {1}", assemblyName, e.Message));
 				return null;
 			}
 			catch (ArgumentException e)
 			{
-				Trace.TraceWarning(String.Format("When loading {0}, errors occur: {1}", assemblyName, e.Message));
+				Trace.TraceWarning(String.Format("When loading plugin {0}, ArgumentException: {1}", assemblyName, e.Message));
 				return null;
 			}
 
@@ -75,12 +75,12 @@ namespace Fonlow.CodeDom.Web
 			{
 				foreach (Exception ex in e.LoaderExceptions)
 				{
-					Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assemblyName, ex.Message));
+					Trace.TraceWarning(String.Format("When loading plugin {0}, GetTypes errors occur: {1}", assemblyName, ex.Message));
 				}
 			}
 			catch (TargetInvocationException e)
 			{
-				Trace.TraceWarning(String.Format("When loading {0}, GetTypes errors occur: {1}", assemblyName, e.Message + "~~" + e.InnerException.Message));
+				Trace.TraceWarning(String.Format("When loading plugin {0}, GetTypes errors occur: {1}", assemblyName, e.Message + "~~" + e.InnerException.Message));
 			}
 
 			return null;

@@ -47,7 +47,9 @@ var DemoCoreWeb_Controllers_Client;
             this.baseUri = baseUri;
         }
         /**
+         * Anonymous Dynamic of C#
          * GET api/SpecialTypes/AnonymousDynamic
+         * @return {any} dyanmic things
          */
         SpecialTypes.prototype.getAnonymousDynamic = function () {
             return axios_1["default"].get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { responseType: 'text' });
@@ -148,18 +150,24 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"]["delete"](this.baseUri + 'api/Heroes/' + id, { responseType: 'text' });
         };
         /**
-         * Get all heroes.
-         * GET api/Heroes
+         * GET api/Heroes/asyncHeroes
          */
-        Heroes.prototype.get = function () {
-            return axios_1["default"].get(this.baseUri + 'api/Heroes').then(function (d) { return d.data; });
+        Heroes.prototype.getAsyncHeroes = function () {
+            return axios_1["default"].get(this.baseUri + 'api/Heroes/asyncHeroes').then(function (d) { return d.data; });
         };
         /**
          * Get a hero.
          * GET api/Heroes/{id}
          */
-        Heroes.prototype.getById = function (id) {
+        Heroes.prototype.getHero = function (id) {
             return axios_1["default"].get(this.baseUri + 'api/Heroes/' + id).then(function (d) { return d.data; });
+        };
+        /**
+         * Get all heroes.
+         * GET api/Heroes
+         */
+        Heroes.prototype.getHeros = function () {
+            return axios_1["default"].get(this.baseUri + 'api/Heroes').then(function (d) { return d.data; });
         };
         /**
          * POST api/Heroes
@@ -203,6 +211,12 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.getActionResult = function () {
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult', { responseType: 'text' }).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/SuperDemo/ActionResult2
+         */
+        SuperDemo.prototype.getActionResult2 = function () {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' }).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/ActionStringResult

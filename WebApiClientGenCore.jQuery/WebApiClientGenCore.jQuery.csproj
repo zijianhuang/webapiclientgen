@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>Fonlow.WebApiClientGenCore.jQuery</PackageId>
     <Authors>Zijian Huang</Authors>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
@@ -13,6 +13,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.jQuery</AssemblyName>
+    <Version>1.1</Version>
   </PropertyGroup>
 
   <Import Project="..\PluginJQueryShared\PluginJQueryShared.projitems" Label="Shared" />

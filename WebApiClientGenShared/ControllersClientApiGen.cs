@@ -50,6 +50,25 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// Save C# codes into a file.
 		/// </summary>
 		/// <param name="fileName"></param>
+		//public void Save(string fileName)
+		//{
+		//	using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
+		//	{
+		//		CodeGeneratorOptions options = new CodeGeneratorOptions();
+		//		options.BracingStyle = "C";
+		//		options.IndentString = "\t";
+		//		using (StreamWriter writer = new StreamWriter(fileName))
+		//		{
+		//			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+		//		}
+		//	}
+		//}
+
+		/// <summary>
+		/// Save C# codes into a file.
+		/// </summary>
+		/// <param name="fileName"></param>
+		// hack inspired by https://csharpcodewhisperer.blogspot.com/2014/10/create-c-class-code-from-datatable.html
 		public void Save(string fileName)
 		{
 			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
@@ -57,9 +76,18 @@ namespace Fonlow.CodeDom.Web.Cs
 				CodeGeneratorOptions options = new CodeGeneratorOptions();
 				options.BracingStyle = "C";
 				options.IndentString = "\t";
-				using (StreamWriter writer = new StreamWriter(fileName))
+				using (var stream = new MemoryStream())
+				using (StreamWriter writer = new StreamWriter(stream))
 				{
 					provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+					writer.Flush();
+					stream.Position = 0;
+					using (var stringReader = new StreamReader(stream))
+					using (var fileWriter = new StreamWriter(fileName))
+					{
+						var s = stringReader.ReadToEnd();
+						fileWriter.Write(s.Replace("//;", ""));
+					}
 				}
 			}
 		}

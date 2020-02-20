@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization;
 using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace DemoWebApi.Controllers
 {
@@ -18,6 +19,7 @@ namespace DemoWebApi.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
+		[ActionName("GetHeros")]
 		public Hero[] Get()
 		{
 			return HeroesData.Instance.Dic.Values.ToArray();
@@ -29,6 +31,7 @@ namespace DemoWebApi.Controllers
 		/// <param name="id"></param>
 		/// <returns></returns>
 		[HttpGet("{id}")]
+		[ActionName("GetHero")]
 		public Hero Get(long id)
 		{
 			Hero r;
@@ -89,6 +92,16 @@ namespace DemoWebApi.Controllers
 			return HeroesData.Instance.Dic.Values
 				.Where(d => 
 				d.Name.Contains(name)).ToArray();
+		}
+
+		[HttpGet("asyncHeroes")]
+		public async IAsyncEnumerable<Hero> GetAsyncHeroes()
+		{
+			foreach (var item in HeroesData.Instance.Dic.Values)
+			{
+				await System.Threading.Tasks.Task.Delay(1);
+				yield return item;
+			}
 		}
 
 		///// <summary>

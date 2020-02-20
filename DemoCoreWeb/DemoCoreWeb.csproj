@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <Version>2.0.0</Version>
   </PropertyGroup>
@@ -48,6 +48,7 @@
     <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.Aurelia\WebApiClientGenCore.Aurelia.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.Axios\WebApiClientGenCore.Axios.csproj" />
+    <ProjectReference Include="..\WebApiClientGenCore.Fetch\WebApiClientGenCore.Fetch.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.jQuery\WebApiClientGenCore.jQuery.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.NG2\WebApiClientGenCore.NG2.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />

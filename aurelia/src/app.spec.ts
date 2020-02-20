@@ -1,7 +1,7 @@
 import { initialize } from 'aurelia-pal-browser';
 import {HttpClient, json} from 'aurelia-fetch-client';
-//import * as namespaces from './clientapi/WebApiCoreAureliaClientAuto';
-import * as namespaces from './clientapi/WebApiAureliaClientAuto';
+import * as namespaces from './clientapi/WebApiCoreAureliaClientAuto';
+//import * as namespaces from './clientapi/WebApiAureliaClientAuto';
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 import * as moment from 'moment';
@@ -22,7 +22,7 @@ describe('Basic', ()=>{
 
 });
 
-const forDotNetCore=false;
+const forDotNetCore=true;
 const baseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
 const http = new HttpClient();
 http.baseUrl = baseUri;
@@ -74,7 +74,7 @@ describe('Heroes API', () => {
   const service= new namespaces.DemoWebApi_Controllers_Client.Heroes(http);
 
    it('getAll', (done) => {
-    service.get().then(
+    service.getHeros().then(
       data => {
         console.debug(data.length);
         expect(data.length).toBeGreaterThan(0);

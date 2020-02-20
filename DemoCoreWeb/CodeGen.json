@@ -52,6 +52,14 @@
 				"TSFile": "WebApiCoreAureliaClientAuto.ts",
 				"AsModule": true,
 				"ContentType": "application/json;charset=UTF-8"
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.Fetch",
+				"TargetDir": "..\\..\\..\\..\\..\\fetchapi\\src\\clientapi",
+				"TSFile": "WebApiCoreFetchClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8"
 			}
 
 		]

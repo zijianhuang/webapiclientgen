@@ -10,10 +10,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGet()
 		{
-			//var task = authorizedClient.GetStringAsync(new Uri(baseUri, "api/Heroes"));
-			//var text = task.Result;
-			//var array = JArray.Parse(text);
-			var array = api.Get().ToArray();
+			var array = api.GetHeros();
 			Assert.NotEmpty(array);
 		}
 

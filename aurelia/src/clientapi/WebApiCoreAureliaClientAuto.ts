@@ -228,7 +228,9 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Anonymous Dynamic of C#
 		 * GET api/SpecialTypes/AnonymousDynamic
+		 * @return {any} dyanmic things
 		 */
 		getAnonymousDynamic(): Promise<Response> {
 			return this.http.get('api/SpecialTypes/AnonymousDynamic');
@@ -338,19 +340,26 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get all heroes.
-		 * GET api/Heroes
+		 * GET api/Heroes/asyncHeroes
 		 */
-		get(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return this.http.get('api/Heroes').then(d => d.json());
+		getAsyncHeroes(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get('api/Heroes/asyncHeroes').then(d => d.json());
 		}
 
 		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
-		getById(id: number): Promise<DemoWebApi_Controllers_Client.Hero> {
+		getHero(id: number): Promise<DemoWebApi_Controllers_Client.Hero> {
 			return this.http.get('api/Heroes/' + id).then(d => d.json());
+		}
+
+		/**
+		 * Get all heroes.
+		 * GET api/Heroes
+		 */
+		getHeros(): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get('api/Heroes').then(d => d.json());
 		}
 
 		/**
@@ -397,6 +406,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getActionResult(): Promise<string> {
 			return this.http.get('api/SuperDemo/ActionResult').then(d => d.json());
+		}
+
+		/**
+		 * GET api/SuperDemo/ActionResult2
+		 */
+		getActionResult2(): Promise<string> {
+			return this.http.get('api/SuperDemo/ActionResult2').then(d => d.json());
 		}
 
 		/**

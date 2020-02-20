@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Fonlow.WebApiClientGenCore.Fetch</RootNamespace>
+    <AssemblyName>Fonlow.WebApiClientGenCore.Fetch</AssemblyName>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <PackageTags>Fetch TypeScript</PackageTags>
+    <PackageReleaseNotes>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API</PackageReleaseNotes>
+    <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</Description>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
+    <Authors>Zijian Huang</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
+    <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
+    <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
+    <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
+    <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\PluginFetchShared\PluginFetchShared.projitems" Label="Shared" />
+
+</Project>

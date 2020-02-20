@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Reflection;
-using System.ComponentModel;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Fonlow.Reflection
 {
@@ -19,8 +18,9 @@ namespace Fonlow.Reflection
             typeof(IReadOnlyList<>).FullName,
             typeof(List<>).FullName,
             typeof(System.Collections.ObjectModel.Collection<>).FullName,
-            typeof(IReadOnlyCollection<>).FullName, 
-            typeof(System.Collections.ObjectModel.ObservableCollection<>).FullName,
+            typeof(IReadOnlyCollection<>).FullName,
+            "System.Collections.Generic.IAsyncEnumerable`1",
+           typeof(System.Collections.ObjectModel.ObservableCollection<>).FullName,
        }
        );
 

@@ -156,18 +156,18 @@ var DemoWebApi_Controllers_Client;
             this.httpClient["delete"](this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
         };
         /**
-         * Get all heroes.
-         * GET api/Heroes
-         */
-        Heroes.prototype.get = function (callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
-        };
-        /**
          * Get a hero.
          * GET api/Heroes/{id}
          */
-        Heroes.prototype.getById = function (id, callback) {
+        Heroes.prototype.getHero = function (id, callback) {
             this.httpClient.get(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
+        };
+        /**
+         * Get all heroes.
+         * GET api/Heroes
+         */
+        Heroes.prototype.getHeros = function (callback) {
+            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
         };
         /**
          * This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
@@ -222,6 +222,12 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.getActionResult = function (callback) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
+        };
+        /**
+         * GET api/SuperDemo/ActionResult2
+         */
+        SuperDemo.prototype.getActionResult2 = function (callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult2', callback, this.error, this.statusCode);
         };
         /**
          * GET api/SuperDemo/ActionStringResult

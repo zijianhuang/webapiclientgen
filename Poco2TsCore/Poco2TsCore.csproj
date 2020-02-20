@@ -2,11 +2,16 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>1.1</Version>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <PackageReleaseNotes>For .NET Core 2.1</PackageReleaseNotes>
+    <Version>1.2</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <PackageReleaseNotes>For .NET Core 3.1</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <FileVersion>1.2.0.0</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <Authors>Zijian Huang</Authors>
   </PropertyGroup>
 
   <Import Project="..\Poco2TsShared\Poco2TsShared.projitems" Label="Shared" />

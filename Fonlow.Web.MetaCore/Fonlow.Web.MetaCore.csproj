@@ -1,19 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/zijianhuang/webapiclientgen/blob/master/license.md</PackageLicenseUrl>
-    <Copyright>Copyright © Zijian Huang 2015-2019</Copyright>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
     <Authors>Zijian Huang</Authors>
     <Company></Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>For .NET Core 3.0</PackageReleaseNotes>
+    <PackageReleaseNotes>For .NET Core 3.1</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.2</Version>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.3</Version>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

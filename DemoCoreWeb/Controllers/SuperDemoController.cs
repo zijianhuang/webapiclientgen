@@ -191,6 +191,13 @@ namespace DemoWebApi.Controllers
 			return Ok("abcdefg");
 		}
 
+		[HttpGet]
+		[Route("ActionResult2")]
+		public async Task<IActionResult> GetActionResult2()
+		{
+			return Ok("abcdefg");
+		}
+
 		[HttpPost]
 		[Route("ActionResult")]
 		public async Task<IActionResult> PostActionResult()

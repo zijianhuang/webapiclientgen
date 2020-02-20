@@ -2,7 +2,7 @@ Strongly Typed Client API Generators generate strongly typed client API in C# co
 
 This project delivers these products:
 1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET Framework, .NET Core and Xamarin.Forms. 
-1. [Code generator for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2, Aurelia and Axios.
+1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2, Aurelia, Axios and Fetch API.
 1. [TypeScript CodeDOM](https://github.com/zijianhuang/webapiclientgen/wiki/TypeScript-CodeDOM), a CodeDOM component for TypeScript, derived from CodeDOM of .NET Framework.
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.
@@ -55,6 +55,7 @@ This project delivers these products:
 1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGen.NG2/)
 1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Axios/)
 1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Aurelia/)
+1. [Fetch API](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Fetch/)
 
 ## For .NET Core
 1. [Strongly Typed Client API Generators for ASP.NET Core Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/).
@@ -67,10 +68,7 @@ This project delivers these products:
 1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
 1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios/)
 1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia/)
-
-## Migration from WebApiClientGen v2.8 to v3.0
-
-WebApiClientGen v2.8 has built-in supports for jQuery, Angular 2+, AXIOS and Aurelia. V3.0 has the supports being moved to plugins. Please check [WIKI](https://github.com/zijianhuang/webapiclientgen/wiki/Migration-28-30) for more details.
+1. [Fetch API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Fetch/)
 
 # Concepts
 1. Web API vendors / developers should provide client API libraries to developers of client programs, as Google and Amazon etc. would do in order to make the RESTful Web API reach wider consumers (internal and external) efficiently.
@@ -80,15 +78,14 @@ WebApiClientGen v2.8 has built-in supports for jQuery, Angular 2+, AXIOS and Aur
 # Prerequisites
 
 **Server side:**
-1. .NET Framework 4.5.2, or .NET Core 2.0/3.0
-1. ASP.NET Web API 2.2, or ASP.NET Core 2.0/3.0
+1. .NET Framework 4.6.2, or .NET Core 3.1
+1. ASP.NET Web API 2.2, or ASP.NET Core 3.1
 
 **Remarks:** 
 
+* WebApiClientGenCore v3.5 supports .NET Core 3.1. If your .NET Core API projects are still with .NET Core 2.0/2.1/2.2/3.0, please use previous releases.
 * .NET Core 2.x had dependency on Newtonsoft.JSON, while .NET Core 3.0 had been decoupled from Neewtonsoft.JSON and the default serializer is working well in most scenarios except for Tuple, 2D array and anonymous object etc. If you would support these data types or would keep 100% compitability with the serialization of NewtonSoft.JSON, you should explicitly include package `Microsoft.AspNetCore.Mvc.NewtonsoftJson` and add add `AddNewtonsoftJson()` in `Startup.cs`.
-* The edition for .NET Core 2.2 is working well with ASP.NET Core 3.0 Web API. 
 * WebApiClientGen v3.0 supports .NET Framework 4.6.2. If your Web API projects are still with .NET Framework 4.5.2, please use previous releases.
-* WebApiClientGenCore v3.0 supports .NET Core 3.0. If your .NET Core API projects are still with .NET Core 2.0/2.1/2.2, please previous releases.
 
 
 **.NET client side:**
@@ -100,9 +97,10 @@ WebApiClientGen v2.8 has built-in supports for jQuery, Angular 2+, AXIOS and Aur
 **TypeScript client side:**
 1. TypeScript compiler
 1. jQuery
-1. Angular 2-8
+1. Angular 2-9
 1. Aurelia
-1. Axios 
+1. Axios
+1. Fetch API
 
 
 
@@ -118,5 +116,6 @@ The Demo applications in this repository are mainly for testing WebApiClientGen 
 
 1. [WebApiClientGen Examples](https://github.com/zijianhuang/webapiclientgenexamples)
 2. [.NET Core Demo](https://github.com/zijianhuang/DemoCoreWeb)
+3. [WebApiClientGen vs Swagger](https://github.com/zijianhuang/DemoCoreWeb/tree/SwaggerDemo)
 
 These demo applications are actively maintained and kept up-to-date with the latest frameworks. If you are still staying with some older frameworks like Angular 4 or 5 or .NET Core 2.0, you may navigate to respective tags of the repositories and checkout.

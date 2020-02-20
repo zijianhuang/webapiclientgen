@@ -152,13 +152,6 @@ namespace Fonlow.Web.Meta
 				Trace.TraceError(errorMsg);
 				throw new CodeGenException(errorMsg, ex);
 			}
-			catch (NullReferenceException ex)
-			{
-				var msg = ex.Message;
-				var errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} is having problem: {msg}";
-				Trace.TraceError(errorMsg);
-				throw new CodeGenException(errorMsg, ex);
-			}
 			catch (Exception ex)
 			{
 				Trace.TraceError(ex.ToString());

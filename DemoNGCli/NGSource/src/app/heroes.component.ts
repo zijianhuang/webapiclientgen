@@ -15,8 +15,8 @@ export class HeroesComponent implements OnInit {
         @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
         private router: Router) { }
     getHeroes(): void {
-        this.heroService
-            .get()
+		this.heroService
+			.getHeros()
             .subscribe(heroes => this.heroes = heroes);
     }
     add(name: string): void {

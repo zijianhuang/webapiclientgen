@@ -56,7 +56,7 @@ module CommonCases {
 	QUnit.module('Heroes', function () {
 		QUnit.test('GetAll', function (assert) {
 			let done = assert.async();
-			heroesApi.get(data => {
+			heroesApi.getHeros(data => {
 				assert.ok(data.length > 0);
 				done();
 			});
@@ -64,7 +64,7 @@ module CommonCases {
 
 		QUnit.test('Get', function (assert) {
 			let done = assert.async();
-			heroesApi.getById(20, data => {
+			heroesApi.getHero(20, data => {
 				assert.strictEqual(data.name, 'Tornado');
 				done();
 			});

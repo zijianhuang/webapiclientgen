@@ -54,6 +54,7 @@ namespace Fonlow.WebApiClientGen.Swag
 					d.HttpMethod = opKV.Key.ToString();
 					d.RelativePath = urlPath;
 					actionDescriptor.ActionName = nameComposer.GetActionName(opKV.Value, opKV.Key.ToString());
+					
 				}
 			}
 			return swagDoc.Paths.Select(p =>
@@ -149,6 +150,47 @@ namespace Fonlow.WebApiClientGen.Swag
 			return String.Join(String.Empty, uriWithPaths.Segments.Select(p => ToTitleCase(p.Replace("/", String.Empty))));
 		}
 
+		public Type GetActionReturnType(OpenApiOperation op)
+		{
+			var goodResponse = op.Responses["200"];
+			var jsonContent = goodResponse.Content["application/json"];
+			var schemaType = jsonContent.Schema.Type;
+			var schemaFormat = jsonContent.Schema.Format;
+			return SwaggerTypeToClrType(schemaType, schemaFormat);
+		}
+
+		readonly Dictionary<string, Type> basicTypeDic = new Dictionary<string, Type>()
+		{
+			{"integer_int32", typeof(int) },
+			{"integer_int64", typeof(long) },
+			{"number_float", typeof(float) },
+			{"number_double", typeof(double) },
+			{"string", typeof(string) },
+			{"boolean", typeof(bool) },
+			{"string_date", typeof(DateTime) },
+			{"string_date-time", typeof(DateTime) },
+		};
+
+		/// <summary>
+		/// https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md
+		/// https://swagger.io/specification/
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="format"></param>
+		/// <returns></returns>
+		public Type SwaggerTypeToClrType(string type, string format)
+		{
+			var key = type + (String.IsNullOrEmpty(format) ? String.Empty : ("_" + format));
+			Type t;
+			if (basicTypeDic.TryGetValue(key, out t))
+			{
+				return t;
+			}
+			else
+			{
+				return typeof(string);
+			}
+		}
 	}
 
 	public enum ActionNameStrategy

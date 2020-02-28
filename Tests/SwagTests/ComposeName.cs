@@ -52,7 +52,6 @@ namespace SwagTests
 		public void TestComposeActionNameWithId()
 		{
 			var pathItem = doc.Paths["/api/Values/{id}"];
-
 			var actionName = composer.ComposeActionName(pathItem.Operations[OperationType.Get], OperationType.Get.ToString());
 			Assert.Equal("ValuesGetById", actionName);
 		}
@@ -61,7 +60,6 @@ namespace SwagTests
 		public void TestComposeActionName()
 		{
 			var pathItem = doc.Paths["/api/Values"];
-
 			var actionName = composer.ComposeActionName(pathItem.Operations[OperationType.Get], OperationType.Get.ToString());
 			Assert.Equal("ValuesGet", actionName);
 		}
@@ -70,7 +68,6 @@ namespace SwagTests
 		public void TestComposeActionNameWithParameters()
 		{
 			var pathItem = doc.Paths["/api/Entities/link"];
-
 			var actionName = composer.ComposeActionName(pathItem.Operations[OperationType.Put], OperationType.Put.ToString());
 			Assert.Equal("EntitiesPutByIdAndRelationship", actionName);
 		}
@@ -79,6 +76,24 @@ namespace SwagTests
 		public void TestUrlToFunctionName()
 		{
 			Assert.Equal("EntitiesPerson", composer.UrlToFunctionName("/api/Entities/person/{id}"));
+		}
+
+		[Fact]
+		public void TestSwaggerTypeToClrType()
+		{
+			Assert.Equal(typeof(long), composer.SwaggerTypeToClrType("integer", "int64"));
+			Assert.Equal(typeof(double), composer.SwaggerTypeToClrType("number", "double"));
+			Assert.Equal(typeof(string), composer.SwaggerTypeToClrType("string", ""));
+			Assert.Equal(typeof(DateTime), composer.SwaggerTypeToClrType("string", "date"));
+			Assert.Equal(typeof(DateTime), composer.SwaggerTypeToClrType("string", "date-time"));
+		}
+
+		[Fact]
+		public void TestReturnType()
+		{
+			var pathItem = doc.Paths["/api/SuperDemo/decimal/{d}"];
+			var t = composer.GetActionReturnType(pathItem.Operations[OperationType.Get]);
+			Assert.Equal(typeof(double), t);
 		}
 
 	}

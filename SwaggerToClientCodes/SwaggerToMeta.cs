@@ -9,6 +9,7 @@ using Fonlow.Web.Meta;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using Tavis.UriTemplates;
 
 namespace Fonlow.WebApiClientGen.Swag
 {
@@ -123,7 +124,29 @@ namespace Fonlow.WebApiClientGen.Swag
 
 		static string ToTitleCase(string s)
 		{
-			return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s);
+			System.Globalization.TextInfo myTI = new System.Globalization.CultureInfo("en-US", false).TextInfo;
+			//return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s);
+			return myTI.ToTitleCase(s);
+		}
+
+		public string UrlToFunctionName(string urlText)
+		{
+			var uri = new Uri("http://dummy.net" + urlText);
+			var localPath = uri.LocalPath;
+			var basketIdx = localPath.IndexOf("{");
+			if (basketIdx >= 0)
+			{
+				localPath= localPath.Remove(basketIdx);
+			}
+
+			if (!String.IsNullOrEmpty(settings.PathPrefixToRemove))
+			{
+				localPath = localPath.Remove(0, settings.PathPrefixToRemove.Length);
+
+			}
+
+			var uriWithPaths = new Uri("http://dummy.net" + localPath);
+			return String.Join(String.Empty, uriWithPaths.Segments.Select(p => ToTitleCase(p.Replace("/", String.Empty))));
 		}
 
 	}
@@ -159,7 +182,7 @@ namespace Fonlow.WebApiClientGen.Swag
 	{
 		public string ClientNamespace { get; set; }
 
-		public string PathToGroupNameRegex { get; set; }
+		public string PathPrefixToRemove { get; set; }
 
 		public ActionNameStrategy ActionNameStrategy { get; set; }
 

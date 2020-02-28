@@ -19,10 +19,16 @@ namespace SwagTests
 			using (var stream = new FileStream("SwagMock\\myswagger.json", FileMode.Open, FileAccess.Read))
 			{
 				Doc = new OpenApiStreamReader().Read(stream, out var diagnostic);
+				Composer= new NameComposer(new Settings
+				{
+					PathPrefixToRemove="/api",
+				});
 			}
 		}
 
 		public OpenApiDocument Doc { get; }
+
+		public NameComposer Composer { get;}
 	}
 
 	public class ComposeName : IClassFixture<DocFixture>
@@ -30,9 +36,11 @@ namespace SwagTests
 		public ComposeName(DocFixture fixture)
 		{
 			doc = fixture.Doc;
+			composer = fixture.Composer;
 		}
 
 		OpenApiDocument doc;
+		NameComposer composer;
 
 		[Fact]
 		public void TestHead()
@@ -45,10 +53,6 @@ namespace SwagTests
 		{
 			var pathItem = doc.Paths["/api/Values/{id}"];
 
-			NameComposer composer = new NameComposer(new Settings
-			{
-
-			});
 			var actionName = composer.ComposeActionName(pathItem.Operations[OperationType.Get], OperationType.Get.ToString());
 			Assert.Equal("ValuesGetById", actionName);
 		}
@@ -58,10 +62,6 @@ namespace SwagTests
 		{
 			var pathItem = doc.Paths["/api/Values"];
 
-			NameComposer composer = new NameComposer(new Settings
-			{
-
-			});
 			var actionName = composer.ComposeActionName(pathItem.Operations[OperationType.Get], OperationType.Get.ToString());
 			Assert.Equal("ValuesGet", actionName);
 		}
@@ -71,12 +71,14 @@ namespace SwagTests
 		{
 			var pathItem = doc.Paths["/api/Entities/link"];
 
-			NameComposer composer = new NameComposer(new Settings
-			{
-
-			});
 			var actionName = composer.ComposeActionName(pathItem.Operations[OperationType.Put], OperationType.Put.ToString());
 			Assert.Equal("EntitiesPutByIdAndRelationship", actionName);
+		}
+
+		[Fact]
+		public void TestUrlToFunctionName()
+		{
+			Assert.Equal("EntitiesPerson", composer.UrlToFunctionName("/api/Entities/person/{id}"));
 		}
 
 	}

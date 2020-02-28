@@ -66,6 +66,7 @@ namespace Fonlow.WebApiClientGen
 			try
 			{
 				CodeGen.GenerateClientAPIs(this.webRootPath, settings, apiDescriptions);
+				System.IO.File.WriteAllText(@"c:\temp\mygen.json", Newtonsoft.Json.JsonConvert.SerializeObject(apiDescriptions, Newtonsoft.Json.Formatting.Indented));
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{

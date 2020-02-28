@@ -76,10 +76,12 @@ namespace Fonlow.Web.Meta
 		public string ActionName
 		{ get; set; }
 
+		[DataMember]
 		public Type ReturnType
 		{ get; set; }
 
 
+		[DataMember]
 		public string ReturnTypeName
 		{
 			get
@@ -93,6 +95,7 @@ namespace Fonlow.Web.Meta
 			set { }
 		}
 
+		[DataMember]
 		public ControllerDescriptor ControllerDescriptor
 		{ get; set; }
 
@@ -106,6 +109,7 @@ namespace Fonlow.Web.Meta
 		public string ControllerName
 		{ get; set; }
 
+		[DataMember]
 		public Type ControllerType
 		{ get; set; }
 

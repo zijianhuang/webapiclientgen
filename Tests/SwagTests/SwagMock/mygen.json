@@ -1,0 +1,3455 @@
+[
+  {
+    "Documentation": null,
+    "ID": "4bc2fc67-429e-4e9c-ac35-4fb50983e056",
+    "ActionDescriptor": {
+      "ActionName": "ChangeName",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "d",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "d",
+          "ParameterType": "System.Tuple`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/ChangeName",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "5b19f040-13a8-4dad-95af-583ae597ec10",
+    "ActionDescriptor": {
+      "ActionName": "CreatePerson",
+      "ReturnType": "System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int64",
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "p",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "p",
+          "ParameterType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/createPerson",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int64"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "cceb93bb-6bb3-4bb4-8ee2-ab4eadaf557c",
+    "ActionDescriptor": {
+      "ActionName": "Delete",
+      "ReturnType": null,
+      "ReturnTypeName": null,
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "DELETE",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/{id}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": null
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e01aaf33-1c09-4b75-a18f-c949ef6107c0",
+    "ActionDescriptor": {
+      "ActionName": "Delete",
+      "ReturnType": null,
+      "ReturnTypeName": null,
+      "ControllerDescriptor": {
+        "ControllerName": "Heroes",
+        "ControllerType": "DemoWebApi.Controllers.HeroesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HeroesController"
+      }
+    },
+    "HttpMethod": "DELETE",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Heroes/{id}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": null
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "03589552-f6a0-41db-974c-863b0a4201a9",
+    "ActionDescriptor": {
+      "ActionName": "Delete",
+      "ReturnType": null,
+      "ReturnTypeName": null,
+      "ControllerDescriptor": {
+        "ControllerName": "Values",
+        "ControllerType": "DemoWebApi.Controllers.ValuesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.ValuesController"
+      }
+    },
+    "HttpMethod": "DELETE",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Values/{id}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": null
+    }
+  },
+  {
+    "Documentation": "Get a list of value",
+    "ID": "c1c46b12-04a0-4d4a-a4c3-5a85f3d755f7",
+    "ActionDescriptor": {
+      "ActionName": "Get",
+      "ReturnType": "System.Collections.Generic.IEnumerable`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.IEnumerable`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Values",
+        "ControllerType": "DemoWebApi.Controllers.ValuesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.ValuesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Values",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.IEnumerable`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": "Get by both Id and name",
+    "ID": "69a43bab-955d-49d8-ade3-11db6ede510b",
+    "ActionDescriptor": {
+      "ActionName": "Get",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Values",
+        "ControllerType": "DemoWebApi.Controllers.ValuesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.ValuesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "name",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "name",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Values/{id}?name={name}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "ed03c7f4-e799-4443-a3b8-d83a628eb8b9",
+    "ActionDescriptor": {
+      "ActionName": "Get",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Values",
+        "ControllerType": "DemoWebApi.Controllers.ValuesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.ValuesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "name",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "name",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Values?name={name}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "3b60b7ed-d019-4ed1-ad16-094cc45269e6",
+    "ActionDescriptor": {
+      "ActionName": "Get",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Values",
+        "ControllerType": "DemoWebApi.Controllers.ValuesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.ValuesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Values/{id}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "9d829d74-cfd7-44b9-a20f-46ae2dc3ace3",
+    "ActionDescriptor": {
+      "ActionName": "GetActionResult",
+      "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult, Microsoft.AspNetCore.Mvc.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60",
+      "ReturnTypeName": "Microsoft.AspNetCore.Mvc.IActionResult",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/ActionResult",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "Microsoft.AspNetCore.Mvc.IActionResult"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "f6e0fb8d-0d11-4e75-9689-0043c3bf5799",
+    "ActionDescriptor": {
+      "ActionName": "GetActionResult2",
+      "ReturnType": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult, Microsoft.AspNetCore.Mvc.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult, Microsoft.AspNetCore.Mvc.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/ActionResult2",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult, Microsoft.AspNetCore.Mvc.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "d29a3660-9474-4853-921d-5a2ef542049d",
+    "ActionDescriptor": {
+      "ActionName": "GetActionStringResult",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/ActionStringResult",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": "Anonymous Dynamic of C#",
+    "ID": "116978f6-3e72-47a1-a796-078fed2eda10",
+    "ActionDescriptor": {
+      "ActionName": "GetAnonymousDynamic",
+      "ReturnType": "System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Object",
+      "ControllerDescriptor": {
+        "ControllerName": "SpecialTypes",
+        "ControllerType": "DemoCoreWeb.Controllers.SpecialTypesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoCoreWeb.Controllers.SpecialTypesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SpecialTypes/AnonymousDynamic",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": "dyanmic things",
+      "ResponseTypeName": "System.Object"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "eeecf9fd-e8f2-484a-a71a-aea3ee88d967",
+    "ActionDescriptor": {
+      "ActionName": "GetAnonymousObject",
+      "ReturnType": "System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Object",
+      "ControllerDescriptor": {
+        "ControllerName": "SpecialTypes",
+        "ControllerType": "DemoCoreWeb.Controllers.SpecialTypesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoCoreWeb.Controllers.SpecialTypesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SpecialTypes/AnonymousObject",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Object"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "fab1a65f-d4ea-49bf-84d9-4aa400d8f319",
+    "ActionDescriptor": {
+      "ActionName": "GetAsyncHeroes",
+      "ReturnType": "System.Collections.Generic.IAsyncEnumerable`1[[DemoWebApi.Controllers.Hero, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.IAsyncEnumerable`1[[DemoWebApi.Controllers.Hero, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Heroes",
+        "ControllerType": "DemoWebApi.Controllers.HeroesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HeroesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Heroes/asyncHeroes",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.IAsyncEnumerable`1[[DemoWebApi.Controllers.Hero, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "6faacd2e-8bd2-48f7-9b07-266ffee9d692",
+    "ActionDescriptor": {
+      "ActionName": "GetBool",
+      "ReturnType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Boolean",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/bool",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Boolean"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "268abcb2-112a-4fc6-a2c3-7e46d5bfba31",
+    "ActionDescriptor": {
+      "ActionName": "Getbyte",
+      "ReturnType": "System.Byte, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Byte",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/byte",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Byte"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "6e1d0c03-7373-4053-bcb2-87859d56fb5c",
+    "ActionDescriptor": {
+      "ActionName": "GetByteArray",
+      "ReturnType": "System.Byte[], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Byte[]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/ByteArray",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Byte[]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "40407a44-314a-42bd-91ef-da22db46bf39",
+    "ActionDescriptor": {
+      "ActionName": "GetChar",
+      "ReturnType": "System.Char, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Char",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/char",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Char"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "99c90961-c079-45d3-823f-022d160f21fe",
+    "ActionDescriptor": {
+      "ActionName": "GetCollection",
+      "ReturnType": "System.Collections.ObjectModel.Collection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.ObjectModel.Collection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/Collection",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.ObjectModel.Collection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "c5623540-9a86-44bf-b1ad-89f199d26f65",
+    "ActionDescriptor": {
+      "ActionName": "GetCompany",
+      "ReturnType": "DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Company",
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/Company/{id}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Company"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "81291428-2328-48c6-a5a5-ac8908e29a1d",
+    "ActionDescriptor": {
+      "ActionName": "GetDateTime",
+      "ReturnType": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "hasValue",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "hasValue",
+          "ParameterType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/NullableDatetime/{hasValue}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "224b82f0-be0f-45a8-ad42-4e202a2ce262",
+    "ActionDescriptor": {
+      "ActionName": "GetDateTimeOffset",
+      "ReturnType": "System.DateTimeOffset, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.DateTimeOffset",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/DateTimeOffset",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.DateTimeOffset"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "efd18be9-e7e0-477b-8ec3-f356057a1722",
+    "ActionDescriptor": {
+      "ActionName": "GetDecimal",
+      "ReturnType": "System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Decimal",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/decimal",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Decimal"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "510b0c8e-668b-447e-9509-ab82919feb8b",
+    "ActionDescriptor": {
+      "ActionName": "GetDecimalSquare",
+      "ReturnType": "System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Decimal",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "d",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "d",
+          "ParameterType": "System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/decimal/{d}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Decimal"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "d8f3fb3b-33ca-4251-825c-01d63a10c265",
+    "ActionDescriptor": {
+      "ActionName": "GetDecimalZero",
+      "ReturnType": "System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Decimal",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/DecimalZero",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Decimal"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "30f0080a-4d51-4203-8a9a-e87301faeeab",
+    "ActionDescriptor": {
+      "ActionName": "GetDictionary",
+      "ReturnType": "System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/StringStringDic",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e45d04b0-e534-496e-9240-531cc0983e93",
+    "ActionDescriptor": {
+      "ActionName": "GetDictionaryOfPeople",
+      "ReturnType": "System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/StringPersonDic",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "0d46400e-9989-4709-aefe-2fdc5f823429",
+    "ActionDescriptor": {
+      "ActionName": "Getdouble",
+      "ReturnType": "System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Double",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/doulbe",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Double"
+    }
+  },
+  {
+    "Documentation": "Result of 0.1d + 0.2d - 0.3d",
+    "ID": "516a6615-475b-476d-b2d8-036e99083080",
+    "ActionDescriptor": {
+      "ActionName": "GetDoubleZero",
+      "ReturnType": "System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Double",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/DoubleZero",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Double"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "499d8da1-5de5-4bcd-bc98-3ec191a1a917",
+    "ActionDescriptor": {
+      "ActionName": "GetEmptyString",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/EmptyString",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "bca89c8f-9832-4a05-960d-fb0e19385f13",
+    "ActionDescriptor": {
+      "ActionName": "GetFloatZero",
+      "ReturnType": "System.Single, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Single",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/FloatZero",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Single"
+    }
+  },
+  {
+    "Documentation": "Get a hero.",
+    "ID": "f9d9ccdf-da4e-4888-913b-3f1e8f20a697",
+    "ActionDescriptor": {
+      "ActionName": "GetHero",
+      "ReturnType": "DemoWebApi.Controllers.Hero, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.Controllers.Hero",
+      "ControllerDescriptor": {
+        "ControllerName": "Heroes",
+        "ControllerType": "DemoWebApi.Controllers.HeroesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HeroesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Heroes/{id}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.Controllers.Hero"
+    }
+  },
+  {
+    "Documentation": "Get all heroes.",
+    "ID": "5ad18b58-687e-4a80-a1be-7b6c5522195b",
+    "ActionDescriptor": {
+      "ActionName": "GetHeros",
+      "ReturnType": "DemoWebApi.Controllers.Hero[], DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.Controllers.Hero[]",
+      "ControllerDescriptor": {
+        "ControllerName": "Heroes",
+        "ControllerType": "DemoWebApi.Controllers.HeroesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HeroesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Heroes",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.Controllers.Hero[]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "b77bc468-29a8-473f-8f29-0ad43d719734",
+    "ActionDescriptor": {
+      "ActionName": "GetICollection",
+      "ReturnType": "System.Collections.Generic.ICollection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.ICollection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/ICollection",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.ICollection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "78f4bd1d-dc83-40ff-8600-e2945c4df7df",
+    "ActionDescriptor": {
+      "ActionName": "GetIList",
+      "ReturnType": "System.Collections.Generic.IList`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.IList`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/IList",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.IList`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "9d1a2fba-69d1-4e16-9a78-a74b9fa041d2",
+    "ActionDescriptor": {
+      "ActionName": "GetInt2D",
+      "ReturnType": "System.Int32[,], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32[,]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/int2d",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32[,]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "edc6b434-b2c3-4f56-bf6d-f3a464cba874",
+    "ActionDescriptor": {
+      "ActionName": "GetInt2DJagged",
+      "ReturnType": "System.Int32[][], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32[][]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/int2dJagged",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32[][]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "1f709ce6-aecb-48f4-861a-0ef5b8f661d0",
+    "ActionDescriptor": {
+      "ActionName": "GetIntArray",
+      "ReturnType": "System.Int32[], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32[]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/intArray",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32[]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "2d9a37eb-7824-4554-b0a4-5e0983f46763",
+    "ActionDescriptor": {
+      "ActionName": "GetIntSquare",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "d",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "d",
+          "ParameterType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/int/{d}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "a4dec362-5365-400c-b384-0199ac631e96",
+    "ActionDescriptor": {
+      "ActionName": "GetIReadOnlyCollection",
+      "ReturnType": "System.Collections.Generic.IReadOnlyCollection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.IReadOnlyCollection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/IReadOnlyCollection",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.IReadOnlyCollection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "652beaf7-f531-4e4c-a588-148a8be452e1",
+    "ActionDescriptor": {
+      "ActionName": "GetIReadOnlyList",
+      "ReturnType": "System.Collections.Generic.IReadOnlyList`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.IReadOnlyList`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/IReadOnlyList",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.IReadOnlyList`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "763396e4-d938-470b-848a-7dcfd2c333ea",
+    "ActionDescriptor": {
+      "ActionName": "GetKeyhValuePair",
+      "ReturnType": "System.Collections.Generic.KeyValuePair`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.KeyValuePair`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/KeyValuePair",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.KeyValuePair`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "f2cbae09-00d0-422a-80a1-ed25c3aa5fe5",
+    "ActionDescriptor": {
+      "ActionName": "GetList",
+      "ReturnType": "System.Collections.Generic.List`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Collections.Generic.List`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/List",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Collections.Generic.List`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "9676bb65-86e2-448f-a229-b38383712bbf",
+    "ActionDescriptor": {
+      "ActionName": "GetMims",
+      "ReturnType": "DemoWebApi.DemoData.MimsResult`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.MimsResult`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "p",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "p",
+          "ParameterType": "DemoWebApi.DemoData.MimsPackage, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/Mims",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.MimsResult`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "71980b4a-7e8e-4cd5-8a9d-1a487c703f25",
+    "ActionDescriptor": {
+      "ActionName": "GetMyGeneric",
+      "ReturnType": "DemoWebApi.DemoData.MyGeneric`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.MyGeneric`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "s",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "s",
+          "ParameterType": "DemoWebApi.DemoData.MyGeneric`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/MyGeneric",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.MyGeneric`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "0049262f-cf46-467f-ba18-4d04334c3066",
+    "ActionDescriptor": {
+      "ActionName": "GetMyGenericPerson",
+      "ReturnType": "DemoWebApi.DemoData.MyGeneric`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.MyGeneric`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "s",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "s",
+          "ParameterType": "DemoWebApi.DemoData.MyGeneric`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/MyGenericPerson",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.MyGeneric`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "593bf71d-3418-4341-90b3-55e18a28d9bd",
+    "ActionDescriptor": {
+      "ActionName": "GetNextHour",
+      "ReturnType": "System.DateTimeOffset, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.DateTimeOffset",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "dt",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "dt",
+          "ParameterType": "System.DateTimeOffset, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/NextHour/{dt}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.DateTimeOffset"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "7319fe12-085c-4b1e-b0c7-05fd2d3ce6d5",
+    "ActionDescriptor": {
+      "ActionName": "GetNextHourNullable",
+      "ReturnType": "System.DateTimeOffset, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.DateTimeOffset",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "n",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "n",
+          "ParameterType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "dt",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "dt",
+          "ParameterType": "System.Nullable`1[[System.DateTimeOffset, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/NextHourNullable?n={n}&dt={dt}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.DateTimeOffset"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "555d160e-d1c2-4516-9f0b-471851c0b0a3",
+    "ActionDescriptor": {
+      "ActionName": "GetNextYear",
+      "ReturnType": "System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.DateTime",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "dt",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "dt",
+          "ParameterType": "System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/NextYear/{dt}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.DateTime"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "bc3bf36e-e986-4204-88f2-66c877ccbc3b",
+    "ActionDescriptor": {
+      "ActionName": "GetNextYearNullable",
+      "ReturnType": "System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.DateTime",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "n",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "n",
+          "ParameterType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "dt",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "dt",
+          "ParameterType": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/NextYearNullable?n={n}&dt={dt}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.DateTime"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "f58c058a-5271-4b35-9d44-0c7d32a9a9dc",
+    "ActionDescriptor": {
+      "ActionName": "GetNullableDecimal",
+      "ReturnType": "System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "hasValue",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "hasValue",
+          "ParameterType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/NullableDecimal/{hasValue}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "2e884885-4d48-4bbe-a036-d27c80650bc9",
+    "ActionDescriptor": {
+      "ActionName": "GetNullPerson",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/NullObject",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "ae763aac-9276-4206-abd5-230b6c105893",
+    "ActionDescriptor": {
+      "ActionName": "GetNullString",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/NullString",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "1e8995f1-bfdc-49a0-a738-3a9279e55b07",
+    "ActionDescriptor": {
+      "ActionName": "GetPeopleCompany4",
+      "ReturnType": "System.Tuple`4[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`4[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/PeopleCompany4",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`4[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e799e7b7-6851-41a0-a246-1c84d8ec59ef",
+    "ActionDescriptor": {
+      "ActionName": "GetPeopleCompany5",
+      "ReturnType": "System.Tuple`5[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`5[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/PeopleCompany5",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`5[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    }
+  },
+  {
+    "Documentation": "Get a person\r\nso to know the person",
+    "ID": "89e6784e-21fa-427f-ad28-1d0f9eb6f789",
+    "ActionDescriptor": {
+      "ActionName": "GetPerson",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": "unique id of that guy",
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/getPerson/{id}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": "person in db",
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "2eb0c480-11e0-4742-aeec-4731c338f26c",
+    "ActionDescriptor": {
+      "ActionName": "GetPrimitiveNullable",
+      "ReturnType": "System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "location",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "location",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "dd",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "dd",
+          "ParameterType": "System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "de",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "de",
+          "ParameterType": "System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "4eb9eee5-8c18-4ec2-9f34-7ed057e809a0",
+    "ActionDescriptor": {
+      "ActionName": "GetPrimitiveNullable2",
+      "ReturnType": "System.Tuple`2[[System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`2[[System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "dd",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "dd",
+          "ParameterType": "System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "de",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "de",
+          "ParameterType": "System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/DoubleNullable2?dd={dd}&de={de}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`2[[System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "440970a0-50a0-4742-a8b7-00e750d9d16d",
+    "ActionDescriptor": {
+      "ActionName": "Getsbyte",
+      "ReturnType": "System.SByte, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.SByte",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/sbyte",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.SByte"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "9f304339-c9d6-4951-b172-f3998a86f129",
+    "ActionDescriptor": {
+      "ActionName": "GetShort",
+      "ReturnType": "System.Int16, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int16",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/short",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int16"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e43fa3f4-0765-4d2f-ba44-faaca9db4178",
+    "ActionDescriptor": {
+      "ActionName": "GetTextStream",
+      "ReturnType": "Microsoft.AspNetCore.Mvc.ActionResult, Microsoft.AspNetCore.Mvc.Core, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60",
+      "ReturnTypeName": "Microsoft.AspNetCore.Mvc.ActionResult",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/TextStream",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "Microsoft.AspNetCore.Mvc.ActionResult"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "d4b1680e-172b-40e3-b32d-fb071a79a37a",
+    "ActionDescriptor": {
+      "ActionName": "GetTuple1",
+      "ReturnType": "System.Tuple`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/Tuple1",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "04abcd3d-459b-49c5-a1d6-4c21d5211883",
+    "ActionDescriptor": {
+      "ActionName": "GetTuple2",
+      "ReturnType": "System.Tuple`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/Tuple2",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "37ddf775-dfbb-4e0e-9ff0-ccab3f256dd5",
+    "ActionDescriptor": {
+      "ActionName": "GetTuple3",
+      "ReturnType": "System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/Tuple3",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "6789acd8-a282-4339-ace3-73b122451256",
+    "ActionDescriptor": {
+      "ActionName": "GetTuple4",
+      "ReturnType": "System.Tuple`4[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`4[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/Tuple4",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`4[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "6c4f2bdc-d566-4964-81f3-bc210cacd630",
+    "ActionDescriptor": {
+      "ActionName": "GetTuple5",
+      "ReturnType": "System.Tuple`5[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`5[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/Tuple5",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`5[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "4ffbda4b-f133-4365-af6f-1dfb1893af2f",
+    "ActionDescriptor": {
+      "ActionName": "GetTuple6",
+      "ReturnType": "System.Tuple`6[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`6[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/Tuple6",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`6[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "2591c894-6d26-400f-9362-31e2ae4d5410",
+    "ActionDescriptor": {
+      "ActionName": "GetTuple7",
+      "ReturnType": "System.Tuple`7[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`7[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/Tuple7",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`7[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "7ecaa8bc-e3a6-408f-96ea-8ada66386730",
+    "ActionDescriptor": {
+      "ActionName": "GetTuple8",
+      "ReturnType": "System.Tuple`8[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`8[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Tuple/Tuple8",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`8[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "7978763a-e60a-4adb-9e2d-3981c60fc861",
+    "ActionDescriptor": {
+      "ActionName": "GetUint",
+      "ReturnType": "System.UInt32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.UInt32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/uint",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.UInt32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "767ba8d0-01fc-48af-901a-9a72c0b499ab",
+    "ActionDescriptor": {
+      "ActionName": "Getulong",
+      "ReturnType": "System.UInt64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.UInt64",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/ulong",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.UInt64"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "c18fc9f9-aa51-4971-bac6-fba7875e5a4b",
+    "ActionDescriptor": {
+      "ActionName": "GetUShort",
+      "ReturnType": "System.UInt16, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.UInt16",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/ushort",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.UInt16"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "ce019623-fda4-4295-869d-3a405dc9a3db",
+    "ActionDescriptor": {
+      "ActionName": "Index",
+      "ReturnType": "Microsoft.AspNetCore.Mvc.ActionResult, Microsoft.AspNetCore.Mvc.Core, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60",
+      "ReturnTypeName": "Microsoft.AspNetCore.Mvc.ActionResult",
+      "ControllerDescriptor": {
+        "ControllerName": "Home",
+        "ControllerType": "DemoWebApi.Controllers.HomeController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HomeController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/Home",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "Microsoft.AspNetCore.Mvc.ActionResult"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "23fe47b4-a2a6-47e9-a3b7-9dd2ff57ae85",
+    "ActionDescriptor": {
+      "ActionName": "LinkPeopleCompany2",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "peopleAndCompany",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "peopleAndCompany",
+          "ParameterType": "System.Tuple`2[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/PeopleCompany2",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "9c51c174-474c-4cf4-a1cc-b3b2874ecc24",
+    "ActionDescriptor": {
+      "ActionName": "LinkPeopleCompany3",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "peopleAndCompany",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "peopleAndCompany",
+          "ParameterType": "System.Tuple`3[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/PeopleCompany3",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "4f288f62-01b5-4b6b-b425-d91c77a7ec94",
+    "ActionDescriptor": {
+      "ActionName": "LinkPeopleCompany4",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "peopleAndCompany",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "peopleAndCompany",
+          "ParameterType": "System.Tuple`4[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/PeopleCompany4",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e57e7bdf-afb8-486c-87ce-2cfa245a2dde",
+    "ActionDescriptor": {
+      "ActionName": "LinkPeopleCompany5",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "peopleAndCompany",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "peopleAndCompany",
+          "ParameterType": "System.Tuple`5[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/PeopleCompany5",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "0e58c9b4-4b9c-4143-b806-598cf194c4d2",
+    "ActionDescriptor": {
+      "ActionName": "LinkPeopleCompany6",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "peopleAndCompany",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "peopleAndCompany",
+          "ParameterType": "System.Tuple`6[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/PeopleCompany6",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "57040433-37ff-4e86-870e-66886521e41e",
+    "ActionDescriptor": {
+      "ActionName": "LinkPeopleCompany7",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "peopleAndCompany",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "peopleAndCompany",
+          "ParameterType": "System.Tuple`7[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/PeopleCompany7",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "2c130309-77bf-46a6-b613-726c0f9a3152",
+    "ActionDescriptor": {
+      "ActionName": "LinkPeopleCompany8",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "peopleAndCompany",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "peopleAndCompany",
+          "ParameterType": "System.Tuple`8[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/PeopleCompany8",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "bc0d3cf0-04fc-44d6-8125-5b2decaddfac",
+    "ActionDescriptor": {
+      "ActionName": "LinkPerson",
+      "ReturnType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Boolean",
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "PUT",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "relationship",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "relationship",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "person",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "person",
+          "ParameterType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/link?id={id}&relationship={relationship}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Boolean"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "357d3aab-accb-41de-8dee-e7d671c478c9",
+    "ActionDescriptor": {
+      "ActionName": "LinkPersonCompany1",
+      "ReturnType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.DemoData.Person",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "peopleAndCompany",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "peopleAndCompany",
+          "ParameterType": "System.Tuple`2[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[DemoWebApi.DemoData.Company, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/PersonCompany1",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.DemoData.Person"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "3ed2c10b-5919-46ca-b13b-18f8a1dba5aa",
+    "ActionDescriptor": {
+      "ActionName": "Post",
+      "ReturnType": "DemoWebApi.Controllers.Hero, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.Controllers.Hero",
+      "ControllerDescriptor": {
+        "ControllerName": "Heroes",
+        "ControllerType": "DemoWebApi.Controllers.HeroesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HeroesController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "name",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "name",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Heroes",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.Controllers.Hero"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "c96aeacd-292f-4217-9910-7b8f6ddea92d",
+    "ActionDescriptor": {
+      "ActionName": "Post",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Values",
+        "ControllerType": "DemoWebApi.Controllers.ValuesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.ValuesController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "value",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "value",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Values",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "81ca7fe1-b445-478f-a43a-4eb7967d86e9",
+    "ActionDescriptor": {
+      "ActionName": "PostActionResult",
+      "ReturnType": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult, Microsoft.AspNetCore.Mvc.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult, Microsoft.AspNetCore.Mvc.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [],
+    "RelativePath": "api/SuperDemo/ActionResult",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult, Microsoft.AspNetCore.Mvc.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "07675cc4-3829-4a1b-a18a-060fcff86f92",
+    "ActionDescriptor": {
+      "ActionName": "PostActionResult2",
+      "ReturnType": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult, Microsoft.AspNetCore.Mvc.Core, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult, Microsoft.AspNetCore.Mvc.Core, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "s",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "s",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/PostActionResult2",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult, Microsoft.AspNetCore.Mvc.Core, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "5f30b6a2-25bb-417b-898a-733f8aa8a14f",
+    "ActionDescriptor": {
+      "ActionName": "PostActionResult3",
+      "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult, Microsoft.AspNetCore.Mvc.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60",
+      "ReturnTypeName": "Microsoft.AspNetCore.Mvc.IActionResult",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "person",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "person",
+          "ParameterType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/PostActionResult3",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "Microsoft.AspNetCore.Mvc.IActionResult"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e35eb202-a45a-4e44-8db6-dfe7117ba0ba",
+    "ActionDescriptor": {
+      "ActionName": "PostAnonymousObject",
+      "ReturnType": "System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Object",
+      "ControllerDescriptor": {
+        "ControllerName": "SpecialTypes",
+        "ControllerType": "DemoCoreWeb.Controllers.SpecialTypesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoCoreWeb.Controllers.SpecialTypesController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "obj",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "obj",
+          "ParameterType": "System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SpecialTypes/AnonymousObject",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Object"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "2296b818-2172-4ac9-a86b-2db09c2e80eb",
+    "ActionDescriptor": {
+      "ActionName": "PostCollection",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "list",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "list",
+          "ParameterType": "System.Collections.ObjectModel.Collection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/Collection",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": "DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.",
+    "ID": "f58cf959-447b-4a93-ba5d-6d27ce956ac6",
+    "ActionDescriptor": {
+      "ActionName": "PostDateTimeOffset",
+      "ReturnType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Boolean",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "d",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "d",
+          "ParameterType": "System.DateTimeOffset, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/DateTimeOffset",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Boolean"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "bf789662-35c0-40d0-90f1-d18636dae9fe",
+    "ActionDescriptor": {
+      "ActionName": "PostDateTimeOffsetNullable",
+      "ReturnType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Boolean",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "d",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "d",
+          "ParameterType": "System.Nullable`1[[System.DateTimeOffset, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/DateTimeOffsetNullable",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Boolean"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "847a6745-d2d9-4dd4-af5a-4b147fa10da9",
+    "ActionDescriptor": {
+      "ActionName": "PostDictionary",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "dic",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "dic",
+          "ParameterType": "System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/StringPersonDic",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e19ebbf8-dc14-4b4e-8b5e-9bfad13c47f3",
+    "ActionDescriptor": {
+      "ActionName": "PostICollection",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "list",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "list",
+          "ParameterType": "System.Collections.Generic.ICollection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/ICollection",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e7772277-a481-4492-9f9c-b2075785bace",
+    "ActionDescriptor": {
+      "ActionName": "PostIList",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "list",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "list",
+          "ParameterType": "System.Collections.Generic.IList`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/IList",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "5a425ac6-3a43-48bb-aac1-6920c3401baa",
+    "ActionDescriptor": {
+      "ActionName": "PostInt2D",
+      "ReturnType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Boolean",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "a",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "a",
+          "ParameterType": "System.Int32[,], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/int2d",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Boolean"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "c03118d6-1ea1-4e2f-88e8-4e2dd85e8d80",
+    "ActionDescriptor": {
+      "ActionName": "PostInt2DJagged",
+      "ReturnType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Boolean",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "a",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "a",
+          "ParameterType": "System.Int32[][], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/int2djagged",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Boolean"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "fd5bee3b-82d5-4ca2-9c58-d1b9731e4b6d",
+    "ActionDescriptor": {
+      "ActionName": "PostIntArray",
+      "ReturnType": "System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Boolean",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "a",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "a",
+          "ParameterType": "System.Int32[], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/intArray",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Boolean"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "06dc803f-7f62-4a03-b13e-3347e9493efa",
+    "ActionDescriptor": {
+      "ActionName": "PostIReadOnlyCollection",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "list",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "list",
+          "ParameterType": "System.Collections.Generic.IReadOnlyCollection`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/IReadOnlyCollection",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "535b0793-78b2-4e26-9e67-cf6d84471a9d",
+    "ActionDescriptor": {
+      "ActionName": "PostIReadOnlyList",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "list",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "list",
+          "ParameterType": "System.Collections.Generic.IReadOnlyList`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/IReadOnlyList",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "e98f8b76-4f04-437e-8ba7-3435c4327b03",
+    "ActionDescriptor": {
+      "ActionName": "PostList",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "list",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "list",
+          "ParameterType": "System.Collections.Generic.List`1[[DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/List",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "0ef87bda-efa4-41b0-9c9f-ab18cc4d470b",
+    "ActionDescriptor": {
+      "ActionName": "PostNextYear",
+      "ReturnType": "System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.DateTime",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "dt",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "dt",
+          "ParameterType": "System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/NextYear",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.DateTime"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "579a8f1d-d06b-44e5-b25e-c7bb7438980f",
+    "ActionDescriptor": {
+      "ActionName": "PostTuple1",
+      "ReturnType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Int32",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "tuple",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "tuple",
+          "ParameterType": "System.Tuple`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/Tuple1",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Int32"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "d9b148db-49d0-4822-8b11-25f0a39e25bd",
+    "ActionDescriptor": {
+      "ActionName": "PostTuple2",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "tuple",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "tuple",
+          "ParameterType": "System.Tuple`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/Tuple2",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "2ae964ae-7cdc-447b-9809-35123f3605eb",
+    "ActionDescriptor": {
+      "ActionName": "PostTuple3",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "tuple",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "tuple",
+          "ParameterType": "System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/Tuple3",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "18295333-4327-4229-81e3-ea5fae287700",
+    "ActionDescriptor": {
+      "ActionName": "PostTuple4",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "tuple",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "tuple",
+          "ParameterType": "System.Tuple`4[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/Tuple4",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "1ed0d4d3-23a8-4414-bcf5-eb3c099cac05",
+    "ActionDescriptor": {
+      "ActionName": "PostTuple5",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "tuple",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "tuple",
+          "ParameterType": "System.Tuple`5[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/Tuple5",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "10ee21ba-5cbf-46c1-9bdf-7a6d60929014",
+    "ActionDescriptor": {
+      "ActionName": "PostTuple6",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "tuple",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "tuple",
+          "ParameterType": "System.Tuple`6[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/Tuple6",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "bb47b77d-0993-4b76-aa27-5736c418134c",
+    "ActionDescriptor": {
+      "ActionName": "PostTuple7",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "tuple",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "tuple",
+          "ParameterType": "System.Tuple`7[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/Tuple7",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "62549701-95ab-4286-92bf-c824f09bd384",
+    "ActionDescriptor": {
+      "ActionName": "PostTuple8",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Tuple",
+        "ControllerType": "DemoWebApi.Controllers.TupleController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.TupleController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "tuple",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "tuple",
+          "ParameterType": "System.Tuple`8[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Tuple`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Tuple/Tuple8",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": "Add a hero",
+    "ID": "c5020fed-80fe-4248-806a-f28e9bf75e84",
+    "ActionDescriptor": {
+      "ActionName": "PostWithQuery",
+      "ReturnType": "DemoWebApi.Controllers.Hero, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.Controllers.Hero",
+      "ControllerDescriptor": {
+        "ControllerName": "Heroes",
+        "ControllerType": "DemoWebApi.Controllers.HeroesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HeroesController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "name",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "name",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Heroes/q?name={name}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.Controllers.Hero"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "f65ce998-8ea0-4b28-90d8-44404e60f6a0",
+    "ActionDescriptor": {
+      "ActionName": "PostWithQueryButEmptyBody",
+      "ReturnType": "System.Tuple`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "s",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "s",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "i",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "i",
+          "ParameterType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/PostEmpty/{i}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": "Update hero.",
+    "ID": "fa5b6c7d-a8fe-4a2d-9382-8e27bdbce1ae",
+    "ActionDescriptor": {
+      "ActionName": "Put",
+      "ReturnType": "DemoWebApi.Controllers.Hero, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.Controllers.Hero",
+      "ControllerDescriptor": {
+        "ControllerName": "Heroes",
+        "ControllerType": "DemoWebApi.Controllers.HeroesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HeroesController"
+      }
+    },
+    "HttpMethod": "PUT",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "hero",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "hero",
+          "ParameterType": "DemoWebApi.Controllers.Hero, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Heroes",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.Controllers.Hero"
+    }
+  },
+  {
+    "Documentation": "Update with valjue",
+    "ID": "a04fdf22-64ec-473d-8f19-61f3a4a85e94",
+    "ActionDescriptor": {
+      "ActionName": "Put",
+      "ReturnType": null,
+      "ReturnTypeName": null,
+      "ControllerDescriptor": {
+        "ControllerName": "Values",
+        "ControllerType": "DemoWebApi.Controllers.ValuesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.ValuesController"
+      }
+    },
+    "HttpMethod": "PUT",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "id",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "id",
+          "ParameterType": "System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "value",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "value",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Values/{id}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": null
+    }
+  },
+  {
+    "Documentation": "Search heroes",
+    "ID": "b3804b0d-a710-445a-b7b5-c26ccbc73124",
+    "ActionDescriptor": {
+      "ActionName": "Search",
+      "ReturnType": "DemoWebApi.Controllers.Hero[], DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.Controllers.Hero[]",
+      "ControllerDescriptor": {
+        "ControllerName": "Heroes",
+        "ControllerType": "DemoWebApi.Controllers.HeroesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.HeroesController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": "keyword contained in hero name.",
+        "Name": "name",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "name",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/Heroes/search/{name}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": "Hero array matching the keyword.",
+      "ResponseTypeName": "DemoWebApi.Controllers.Hero[]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "cc04d98e-9414-4c8c-a6b1-4157d29ad0fd",
+    "ActionDescriptor": {
+      "ActionName": "SearchDateRange",
+      "ReturnType": "System.Tuple`2[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.Tuple`2[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+      "ControllerDescriptor": {
+        "ControllerName": "SuperDemo",
+        "ControllerType": "DemoWebApi.Controllers.SuperDemoController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.SuperDemoController"
+      }
+    },
+    "HttpMethod": "GET",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "startDate",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "startDate",
+          "ParameterType": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "endDate",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "endDate",
+          "ParameterType": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      }
+    ],
+    "RelativePath": "api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.Tuple`2[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "2aecddcc-6d69-4da9-9080-7cd17d19100c",
+    "ActionDescriptor": {
+      "ActionName": "UpdatePerson",
+      "ReturnType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "ReturnTypeName": "System.String",
+      "ControllerDescriptor": {
+        "ControllerName": "Entities",
+        "ControllerType": "DemoWebApi.Controllers.EntitiesController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.EntitiesController"
+      }
+    },
+    "HttpMethod": "PUT",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "person",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "person",
+          "ParameterType": "DemoWebApi.DemoData.Person, DemoWebApi.DemoDataCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ParameterBinder": 2
+        }
+      }
+    ],
+    "RelativePath": "api/Entities/updatePerson",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "System.String"
+    }
+  },
+  {
+    "Documentation": null,
+    "ID": "19459738-ad24-482a-be41-ac1c1d8c571e",
+    "ActionDescriptor": {
+      "ActionName": "UploadAvatar",
+      "ReturnType": "DemoWebApi.Controllers.FileResult, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ReturnTypeName": "DemoWebApi.Controllers.FileResult",
+      "ControllerDescriptor": {
+        "ControllerName": "FileUpload",
+        "ControllerType": "DemoWebApi.Controllers.FileUploadController, DemoCoreWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "ControllerTypeName": "DemoWebApi.Controllers.FileUploadController"
+      }
+    },
+    "HttpMethod": "POST",
+    "ParameterDescriptions": [
+      {
+        "Documentation": null,
+        "Name": "userId",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "userId",
+          "ParameterType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 1
+        }
+      },
+      {
+        "Documentation": null,
+        "Name": "files",
+        "ParameterDescriptor": {
+          "IsOptional": false,
+          "ParameterName": "files",
+          "ParameterType": "System.Collections.Generic.List`1[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+          "ParameterBinder": 4
+        }
+      }
+    ],
+    "RelativePath": "api/FileUpload?userId={userId}",
+    "ResponseDescription": {
+      "DeclaredTypeName": null,
+      "Documentation": null,
+      "ResponseTypeName": "DemoWebApi.Controllers.FileResult"
+    }
+  }
+]

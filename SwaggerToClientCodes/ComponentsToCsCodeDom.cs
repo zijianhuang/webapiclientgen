@@ -145,16 +145,26 @@ namespace Fonlow.WebApiClientGen.Swag
 							var clientField = new CodeMemberField()
 							{
 								Name = memberName,
-								//Type = new CodeTypeReference(fieldInfo.FieldType),
+								//Type = //no needed, since it is always the enum type.
+								InitExpression = new CodePrimitiveExpression(intValue),
+							};
+
+							typeDeclaration.Members.Add(clientField);
+							k++;
+						} else
+						{
+							var intMember = enumMember as OpenApiInteger;
+							var memberName = "_" + intMember.Value.ToString();
+							var intValue = k;
+							var clientField = new CodeMemberField()
+							{
+								Name = memberName,
 								InitExpression = new CodePrimitiveExpression(intValue),
 							};
 
 							typeDeclaration.Members.Add(clientField);
 							k++;
 						}
-
-
-
 					}
 				}
 			}

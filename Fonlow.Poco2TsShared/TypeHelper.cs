@@ -24,7 +24,7 @@ namespace Fonlow.Reflection
        }
        );
 
-        internal static readonly List<string> TupleTypeNames = new List<string>(
+        public static readonly List<string> TupleTypeNames = new List<string>(
             new string[]
             {
                 typeof(Tuple<>).FullName,
@@ -111,12 +111,12 @@ namespace Fonlow.Reflection
             return propertyValue.ToString() == expectedValue;
         }
 
-        internal static bool IsArrayType(Type type)
+        public static bool IsArrayType(Type type)
         {
             return arrayTypeNames.Contains(type.FullName);//Could be using IsAssignableFrom() if many people need this.
         }
 
-        internal static int IsTuple(Type type)
+        public static int IsTuple(Type type)
         {
             return TupleTypeNames.IndexOf(type.FullName);
         }

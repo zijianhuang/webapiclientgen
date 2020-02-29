@@ -12,18 +12,18 @@ using Fonlow.DocComment;
 namespace Fonlow.Poco2Client
 {
 	/// <summary>
-	/// POCO to C# client data types generator
+	/// POCO to C# client data types generator, with CSharp CodeDOM provider.
 	/// </summary>
 	public class Poco2CsGen : IPoco2Client
 	{
-		CodeCompileUnit targetUnit;
+		CodeCompileUnit codeCompileUnit;
 
 		/// <summary>
 		/// Init with its own CodeCompileUnit.
 		/// </summary>
 		public Poco2CsGen()
 		{
-			targetUnit = new CodeCompileUnit();
+			codeCompileUnit = new CodeCompileUnit();
 			pendingTypes = new List<Type>();
 		}
 
@@ -33,7 +33,7 @@ namespace Fonlow.Poco2Client
 		/// <param name="codeCompileUnit"></param>
 		public Poco2CsGen(CodeCompileUnit codeCompileUnit)
 		{
-			targetUnit = codeCompileUnit;
+			this.codeCompileUnit = codeCompileUnit;
 			pendingTypes = new List<Type>();
 		}
 
@@ -45,7 +45,7 @@ namespace Fonlow.Poco2Client
 		public void SaveCodeToFile(string fileName)
 		{
 			if (String.IsNullOrEmpty(fileName))
-				throw new ArgumentException("A valid fileName is not defined.", "fileName");
+				throw new ArgumentException("A valid fileName is not defined.", nameof(fileName));
 
 			try
 			{
@@ -80,12 +80,12 @@ namespace Fonlow.Poco2Client
 		public void WriteCode(TextWriter writer)
 		{
 			if (writer == null)
-				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
+				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
 
 			CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
 			CodeGeneratorOptions options = new CodeGeneratorOptions();
 
-			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+			provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 		}
 
 		string clientNamespaceSuffix;
@@ -98,58 +98,9 @@ namespace Fonlow.Poco2Client
 			CreateCodeDom(cherryTypes, methods, clientNamespaceSuffix);
 		}
 
-		DocCommentLookup docLookup;
-
-		void CreateTypeDocComment(Type type, CodeTypeDeclaration typeDeclaration)
-		{
-			if (docLookup != null)
-			{
-				var dm = docLookup.GetMember("T:" + type.FullName);
-				AddDocComments(dm, typeDeclaration.Comments);
-			}
-		}
-
-		void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeTypeMember codeField)
-		{
-			if (docLookup != null)
-			{
-				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
-				var dm = docLookup.GetMember("P:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments);
-			}
-		}
-
-		void CreateFieldDocComment(FieldInfo fieldInfo, CodeTypeMember codeField)
-		{
-			if (docLookup != null)
-			{
-				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
-				var dm = docLookup.GetMember("F:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments);
-			}
-		}
-
-		static void AddDocComments(docMember member, CodeCommentStatementCollection comments)
-		{
-			if (member != null && comments != null)
-			{
-				if (member.summary != null)
-				{
-					comments.Add(new CodeCommentStatement("<summary>", true));
-					var noIndent = StringFunctions.TrimTrimIndentsOfArray(member.summary.Text);
-					if (noIndent != null)
-					{
-						foreach (var item in noIndent)
-						{
-							comments.Add(new CodeCommentStatement(item, true));
-						}
-					}
-
-					comments.Add(new CodeCommentStatement("</summary>", true));
-				}
-			}
-		}
-
+		/// <summary>
+		/// To store all custom types of the service app
+		/// </summary>
 		List<Type> pendingTypes;
 
 		/// <summary>
@@ -161,9 +112,10 @@ namespace Fonlow.Poco2Client
 		public void CreateCodeDom(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
 		{
 			if (types == null)
-				throw new ArgumentNullException("types", "types is not defined.");
+				throw new ArgumentNullException(nameof(types), "types is not defined.");
 
 			this.pendingTypes.AddRange(types);
+
 			var typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
 				.OrderBy(k => k.Key); // order by namespace
@@ -172,7 +124,7 @@ namespace Fonlow.Poco2Client
 			{
 				var clientNamespaceText = (groupedTypes.Key + clientNamespaceSuffix);
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
-				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+				codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
 				groupedTypes.OrderBy(t => t.Name).Select(type =>
@@ -220,13 +172,13 @@ namespace Fonlow.Poco2Client
 							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
 
 
-							//var clientProperty = new CodeMemberProperty()
+							//var clientProperty = new CodeMemberProperty() //orthodox way of creating property, but resulting in verbose generated codes
 							//{
 							// Name = tsPropertyName,
 							// Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
 							// Attributes = MemberAttributes.Public | MemberAttributes.Final,
 							//};
-							var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType);
+							var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType); //hacky way of creating clean getter and writter.
 
 							var isRequired = cherryType == CherryType.BigCherry;
 							if (isRequired)
@@ -265,14 +217,14 @@ namespace Fonlow.Poco2Client
 							//public fields of a class will be translated into properties
 							if (type.IsClass)
 							{
-								//var clientProperty = new CodeMemberProperty()
+								//var clientProperty = new CodeMemberProperty() //orthodox way of creating property, but resulting in verbose generated codes
 								//{
 								// Name = tsPropertyName,
 								// Type = TranslateToClientTypeReference(fieldInfo.FieldType),
 								// Attributes = MemberAttributes.Public | MemberAttributes.Final,
 								//};
 
-								var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType);
+								var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType); //hacky way of creating clean getter and writter.
 
 								var isRequired = cherryType == CherryType.BigCherry;
 								if (isRequired)
@@ -353,6 +305,58 @@ namespace Fonlow.Poco2Client
 
 		}
 
+		DocCommentLookup docLookup;
+
+		void CreateTypeDocComment(Type type, CodeTypeDeclaration typeDeclaration)
+		{
+			if (docLookup != null)
+			{
+				var dm = docLookup.GetMember("T:" + type.FullName);
+				AddDocComments(dm, typeDeclaration.Comments);
+			}
+		}
+
+		void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeTypeMember codeField)
+		{
+			if (docLookup != null)
+			{
+				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
+				var dm = docLookup.GetMember("P:" + propertyFullName);
+				AddDocComments(dm, codeField.Comments);
+			}
+		}
+
+		void CreateFieldDocComment(FieldInfo fieldInfo, CodeTypeMember codeField)
+		{
+			if (docLookup != null)
+			{
+				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
+				var dm = docLookup.GetMember("F:" + propertyFullName);
+				AddDocComments(dm, codeField.Comments);
+			}
+		}
+
+		static void AddDocComments(docMember member, CodeCommentStatementCollection comments)
+		{
+			if (member != null && comments != null)
+			{
+				if (member.summary != null)
+				{
+					comments.Add(new CodeCommentStatement("<summary>", true));
+					var noIndent = StringFunctions.TrimTrimIndentsOfArray(member.summary.Text);
+					if (noIndent != null)
+					{
+						foreach (var item in noIndent)
+						{
+							comments.Add(new CodeCommentStatement(item, true));
+						}
+					}
+
+					comments.Add(new CodeCommentStatement("</summary>", true));
+				}
+			}
+		}
+
 		CodeMemberField CreateProperty(string name, Type type)
 		{
 			// This is a little hack. Since you cant create auto properties in CodeDOM,
@@ -366,6 +370,11 @@ namespace Fonlow.Poco2Client
 			return result;
 		}
 
+		/// <summary>
+		/// Translate custom types, generic types, array and some special http message types to client code type refernce
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public CodeTypeReference TranslateToClientTypeReference(Type type)
 		{
 			if (type == null)

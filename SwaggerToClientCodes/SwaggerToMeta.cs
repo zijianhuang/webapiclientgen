@@ -156,7 +156,7 @@ namespace Fonlow.WebApiClientGen.Swag
 			var jsonContent = goodResponse.Content["application/json"];
 			var schemaType = jsonContent.Schema.Type;
 			var schemaFormat = jsonContent.Schema.Format;
-			return SwaggerTypeToClrType(schemaType, schemaFormat);
+			return PremitiveSwaggerTypeToClrType(schemaType, schemaFormat);
 		}
 
 		readonly Dictionary<string, Type> basicTypeDic = new Dictionary<string, Type>()
@@ -178,7 +178,7 @@ namespace Fonlow.WebApiClientGen.Swag
 		/// <param name="type"></param>
 		/// <param name="format"></param>
 		/// <returns></returns>
-		public Type SwaggerTypeToClrType(string type, string format)
+		public Type PremitiveSwaggerTypeToClrType(string type, string format)
 		{
 			var key = type + (String.IsNullOrEmpty(format) ? String.Empty : ("_" + format));
 			Type t;
@@ -223,6 +223,8 @@ namespace Fonlow.WebApiClientGen.Swag
 	public class Settings
 	{
 		public string ClientNamespace { get; set; }
+
+		public string ClientNamespaceSuffix { get; set; }
 
 		public string PathPrefixToRemove { get; set; }
 

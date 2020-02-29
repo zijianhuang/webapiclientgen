@@ -11,6 +11,11 @@ namespace Fonlow.Poco2Client
         void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, Fonlow.DocComment.DocCommentLookup docLookup, string clientNamespaceSuffix);
         void SaveCodeToFile(string fileName);
         CodeTypeReference TranslateToClientTypeReference(Type type);
+ 
+        /// <summary>
+        /// Initialize a CodeDOM provider which write CodeDOM to TextWriter
+        /// </summary>
+        /// <param name="writer"></param>
         void WriteCode(TextWriter writer);
     }
 }

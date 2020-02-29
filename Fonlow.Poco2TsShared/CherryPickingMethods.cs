@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Fonlow.Poco2Client
 {
     /// <summary>
@@ -45,7 +44,6 @@ namespace Fonlow.Poco2Client
     public enum CherryType
     {
         None,
-
         Cherry,
         BigCherry,
     }

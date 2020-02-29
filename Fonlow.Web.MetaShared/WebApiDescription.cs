@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Fonlow.Web.Meta
 {
-	public class Constants
+	public static class Constants
 	{
 		public const string NS = "http://fonlow.com/Web/Meta/201509";
 	}
@@ -76,11 +76,16 @@ namespace Fonlow.Web.Meta
 		public string ActionName
 		{ get; set; }
 
+		/// <summary>
+		/// It may be null
+		/// </summary>
 		[DataMember]
 		public Type ReturnType
 		{ get; set; }
 
-
+		/// <summary>
+		/// FullName of ReturnType
+		/// </summary>
 		[DataMember]
 		public string ReturnTypeName
 		{
@@ -109,10 +114,16 @@ namespace Fonlow.Web.Meta
 		public string ControllerName
 		{ get; set; }
 
+		/// <summary>
+		/// It may be null
+		/// </summary>
 		[DataMember]
 		public Type ControllerType
 		{ get; set; }
 
+		/// <summary>
+		/// Fullname of ControllerType
+		/// </summary>
 		[DataMember]
 		public string ControllerTypeName
 		{
@@ -174,10 +185,6 @@ namespace Fonlow.Web.Meta
 		public Type ParameterType
 		{ get; set; }
 
-		//[DataMember]
-		//public string Prefix
-		//{ get; set; }
-
 		[DataMember]
 		public ParameterBinder ParameterBinder
 		{ get; set; }
@@ -187,9 +194,15 @@ namespace Fonlow.Web.Meta
 	[DataContract(Namespace = Constants.NS)]
 	public class ResponseDescription
 	{
+		/// <summary>
+		/// It may be null
+		/// </summary>
 		public Type DeclaredType
 		{ get; set; }
 
+		/// <summary>
+		/// Fullname of DeclaredType
+		/// </summary>
 		[DataMember]
 		public string DeclaredTypeName
 		{
@@ -207,9 +220,15 @@ namespace Fonlow.Web.Meta
 		public string Documentation
 		{ get; set; }
 
+		/// <summary>
+		/// It may be null
+		/// </summary>
 		public Type ResponseType
 		{ get; set; }
 
+		/// <summary>
+		/// Fullname of ResponseType
+		/// </summary>
 		[DataMember]
 		public string ResponseTypeName
 		{

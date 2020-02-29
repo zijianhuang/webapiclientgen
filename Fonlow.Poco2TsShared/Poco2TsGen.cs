@@ -13,7 +13,7 @@ using Fonlow.DocComment;
 namespace Fonlow.Poco2Ts
 {
 	/// <summary>
-	/// POCO to TypeScript interfaces generator. Create CodeDOM and output TS codes
+	/// POCO to TypeScript interfaces generator. Create CodeDOM and output TS codes, with TypeScript CodeDOM provider
 	/// </summary>
 	public class Poco2TsGen : IPoco2Client
 	{
@@ -69,16 +69,12 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
-		/// <summary>
-		/// Save TypeScript codes generated into a TextWriter.
-		/// </summary>
-		/// <param name="writer"></param>
 		public void WriteCode(TextWriter writer)
 		{
 			if (writer == null)
 				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-			var provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true);
+			CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true);
 			CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
 			options.BracingStyle = "JS";
 			options.IndentString = "\t";

@@ -10,9 +10,9 @@ namespace Fonlow.Poco2Client
 	/// <summary>
 	/// Some shared functions used by CsPodgen and TsPodGen
 	/// </summary>
-	internal class PodGenHelper
+	public class PodGenHelper
 	{
-		internal static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
+		public static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
 		{
 			var targetClass = new CodeTypeDeclaration(className)
 			{
@@ -23,7 +23,7 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		internal static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
+		public static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
 		{
 			try
 			{
@@ -45,7 +45,7 @@ namespace Fonlow.Poco2Client
 			return null;
 		}
 
-		internal static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)
+		public static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)
 		{
 			var targetClass = new CodeTypeDeclaration(className)
 			{
@@ -56,7 +56,7 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		internal static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type)
+		public static CodeTypeDeclaration CreatePodClientGenericClass(CodeNamespace ns, Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
@@ -79,7 +79,7 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		internal static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
+		public static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
 		{
 			var targetClass = new CodeTypeDeclaration(className)
 			{
@@ -91,7 +91,7 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		internal static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
+		public static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
 		{
 			var targetClass = new CodeTypeDeclaration(className)
 			{
@@ -102,7 +102,7 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		internal static CodeTypeDeclaration CreatePodClientGenericInterface(CodeNamespace ns, Type type)
+		public static CodeTypeDeclaration CreatePodClientGenericInterface(CodeNamespace ns, Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();

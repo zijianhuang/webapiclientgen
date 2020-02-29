@@ -21,5 +21,9 @@ namespace Fonlow.Web.Meta
 		{
 			base.GetObjectData(info, context);
 		}
+
+		protected CodeGenException(SerializationInfo serializationInfo, StreamingContext streamingContext): base(serializationInfo, streamingContext)
+		{
+		}
 	}
 }

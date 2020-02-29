@@ -6,7 +6,7 @@ using System.IO;
 namespace Fonlow.TypeScriptCodeDom
 {
     /// <summary>
-    /// TypeScriptCodeProvider has ICodeGenerator implemented for TypeScript.
+    /// TypeScriptCodeProvider has ICodeGenerator implemented for TypeScript. TypeScript CodeDOM provider.
     /// </summary>
     /// <remarks>As stated in msdn, when implementing ICodeGenerator, "you must not call the corresponding method of the base class."</remarks>
     public sealed class TypeScriptCodeProvider : CodeDomProvider, ICodeGenerator

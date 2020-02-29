@@ -31,9 +31,9 @@ namespace SwagTests
 		public NameComposer Composer { get;}
 	}
 
-	public class ComposeName : IClassFixture<DocFixture>
+	public class ComposeNameTests : IClassFixture<DocFixture>
 	{
-		public ComposeName(DocFixture fixture)
+		public ComposeNameTests(DocFixture fixture)
 		{
 			doc = fixture.Doc;
 			composer = fixture.Composer;
@@ -81,11 +81,11 @@ namespace SwagTests
 		[Fact]
 		public void TestSwaggerTypeToClrType()
 		{
-			Assert.Equal(typeof(long), composer.SwaggerTypeToClrType("integer", "int64"));
-			Assert.Equal(typeof(double), composer.SwaggerTypeToClrType("number", "double"));
-			Assert.Equal(typeof(string), composer.SwaggerTypeToClrType("string", ""));
-			Assert.Equal(typeof(DateTime), composer.SwaggerTypeToClrType("string", "date"));
-			Assert.Equal(typeof(DateTime), composer.SwaggerTypeToClrType("string", "date-time"));
+			Assert.Equal(typeof(long), composer.PremitiveSwaggerTypeToClrType("integer", "int64"));
+			Assert.Equal(typeof(double), composer.PremitiveSwaggerTypeToClrType("number", "double"));
+			Assert.Equal(typeof(string), composer.PremitiveSwaggerTypeToClrType("string", ""));
+			Assert.Equal(typeof(DateTime), composer.PremitiveSwaggerTypeToClrType("string", "date"));
+			Assert.Equal(typeof(DateTime), composer.PremitiveSwaggerTypeToClrType("string", "date-time"));
 		}
 
 		[Fact]

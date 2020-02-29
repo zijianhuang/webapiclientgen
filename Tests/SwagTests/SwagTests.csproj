@@ -10,6 +10,7 @@
     <None Remove="SwagMock\myswagger.json" />
     <None Remove="SwagMock\PathItemValues.json" />
     <None Remove="SwagMock\pet.json" />
+    <None Remove="SwagMock\PetDogCat.json" />
     <None Remove="SwagMock\SimplePet.json" />
     <None Remove="SwagMock\SimplePetCat.json" />
   </ItemGroup>
@@ -19,6 +20,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\pet.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\PetDogCat.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\Enum.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\SimplePet.json">

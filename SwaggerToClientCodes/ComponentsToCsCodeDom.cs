@@ -17,6 +17,7 @@ using Fonlow.Poco2Client;
 using Fonlow.Reflection;
 using System.Diagnostics;
 using Fonlow.DocComment;
+using Microsoft.OpenApi.Any;
 
 namespace Fonlow.WebApiClientGen.Swag
 {
@@ -121,46 +122,48 @@ namespace Fonlow.WebApiClientGen.Swag
 						typeDeclaration.BaseTypes.Add(baseTypeName);
 
 						var allOfProperteisSchema = allOfBaseTypeSchemaList[1];
-						AddProperties(typeDeclaration, allOfProperteisSchema, allOfProperteisSchema.Properties);
+						AddProperties(typeDeclaration, allOfProperteisSchema);
 					}
 
 					CreateTypeOrMemberDocComment(item, typeDeclaration);
 					//	typeDeclarationDic.Add(typeName, typeDeclaration);
 
-					AddProperties(typeDeclaration, schema, schemaProperties);
+					AddProperties(typeDeclaration, schema);
 				}
 				else
 				{
 					typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, typeName);
 					CreateTypeOrMemberDocComment(item, typeDeclaration);
-					//foreach (var enumMember in enumTypeList)
-					//{
-					//	var name = enumMember.AnyType.ToString();
-					//	var intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
-					//	Debug.WriteLine(name + " -- " + intValue);
-					//	var isInitialized = intValue != k;
+					int k = 0;
+					foreach (var enumMember in enumTypeList)
+					{
+						var stringMember = enumMember as OpenApiString;
+						if (stringMember != null)
+						{
+							var memberName = stringMember.Value;
+							var intValue = k;
+							var clientField = new CodeMemberField()
+							{
+								Name = memberName,
+								//Type = new CodeTypeReference(fieldInfo.FieldType),
+								InitExpression = new CodePrimitiveExpression(intValue),
+							};
 
-					//	var clientField = new CodeMemberField()
-					//	{
-					//		Name = name,
-					//		Type = new CodeTypeReference(fieldInfo.FieldType),
-					//		InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
-					//	};
+							typeDeclaration.Members.Add(clientField);
+							k++;
+						}
 
-					//	CreateFieldDocComment(fieldInfo, clientField);
 
-					//	typeDeclaration.Members.Add(clientField);
-					//	k++;
 
-					//}
+					}
 				}
 			}
 
 		}
 
-		void AddProperties(CodeTypeDeclaration typeDeclaration, OpenApiSchema schema, IDictionary<string, OpenApiSchema> schemaProperties)
+		void AddProperties(CodeTypeDeclaration typeDeclaration, OpenApiSchema schema)
 		{
-			foreach (var p in schemaProperties)
+			foreach (var p in schema.Properties)
 			{
 				var propertyName = p.Key;
 				var premitivePropertyType = p.Value.Type;

@@ -104,53 +104,30 @@ namespace Fonlow.WebApiClientGen.Swag
 			{
 				var typeName = item.Key;
 				Debug.WriteLine("clientClass: " + typeName);
-				var type = item.Value.Type;
-				var allOfBaseTypeSchemaList = item.Value.AllOf; //maybe empty
-				var enumTypeList = item.Value.Enum; //maybe empty
+				var schema = item.Value;
+				var type = schema.Type;
+				var allOfBaseTypeSchemaList = schema.AllOf; //maybe empty
+				var enumTypeList = schema.Enum; //maybe empty
 				bool isForClass = enumTypeList.Count==0;
-				var schemaProperties = item.Value.Properties;
+				var schemaProperties = schema.Properties;
 				CodeTypeDeclaration typeDeclaration;
 				if (isForClass)
 				{
 					typeDeclaration = PodGenHelper.CreatePodClientClass(clientNamespace, typeName);
-					if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList != null && allOfBaseTypeSchemaList.Count > 0)
+					if (String.IsNullOrEmpty(type) &&  allOfBaseTypeSchemaList.Count > 0)
 					{
-						var refToType = allOfBaseTypeSchemaList[0];
-						typeDeclaration.BaseTypes.Add(refToType.Type);
+						var allOfRef = allOfBaseTypeSchemaList[0];
+						var baseTypeName = allOfRef.Reference.Id; //pointing to parent class
+						typeDeclaration.BaseTypes.Add(baseTypeName);
+
+						var allOfProperteisSchema = allOfBaseTypeSchemaList[1];
+						AddProperties(typeDeclaration, allOfProperteisSchema, allOfProperteisSchema.Properties);
 					}
 
 					CreateTypeOrMemberDocComment(item, typeDeclaration);
 					//	typeDeclarationDic.Add(typeName, typeDeclaration);
 
-					foreach (var p in schemaProperties)
-					{
-						var propertyName = p.Key;
-						var premitivePropertyType = p.Value.Type;
-						var isRequired = item.Value.Required.Contains(propertyName);
-
-						CodeMemberField clientProperty;
-						if (String.IsNullOrEmpty(premitivePropertyType)) //point to a custom time "$ref": "#/components/schemas/PhoneType"
-						{
-							var refToType = p.Value.AllOf[0];
-							var customPropertyType = refToType.Type;
-							clientProperty = CreateProperty(propertyName, customPropertyType);
-						}
-						else
-						{
-							var simpleType = nameComposer.PremitiveSwaggerTypeToClrType(premitivePropertyType, p.Value.Format);
-							clientProperty = CreateProperty(propertyName, simpleType);
-						}
-
-						if (isRequired)
-						{
-							clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
-						}
-
-						CreateTypeOrMemberDocComment(p, clientProperty);
-
-						typeDeclaration.Members.Add(clientProperty);
-
-					}
+					AddProperties(typeDeclaration, schema, schemaProperties);
 				}
 				else
 				{
@@ -179,6 +156,38 @@ namespace Fonlow.WebApiClientGen.Swag
 				}
 			}
 
+		}
+
+		void AddProperties(CodeTypeDeclaration typeDeclaration, OpenApiSchema schema, IDictionary<string, OpenApiSchema> schemaProperties)
+		{
+			foreach (var p in schemaProperties)
+			{
+				var propertyName = p.Key;
+				var premitivePropertyType = p.Value.Type;
+				var isRequired = schema.Required.Contains(propertyName);
+
+				CodeMemberField clientProperty;
+				if (String.IsNullOrEmpty(premitivePropertyType)) //point to a custom time "$ref": "#/components/schemas/PhoneType"
+				{
+					var refToType = p.Value.AllOf[0];
+					var customPropertyType = refToType.Type;
+					clientProperty = CreateProperty(propertyName, customPropertyType);
+				}
+				else
+				{
+					var simpleType = nameComposer.PremitiveSwaggerTypeToClrType(premitivePropertyType, p.Value.Format);
+					clientProperty = CreateProperty(propertyName, simpleType);
+				}
+
+				if (isRequired)
+				{
+					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+				}
+
+				CreateTypeOrMemberDocComment(p, clientProperty);
+
+				typeDeclaration.Members.Add(clientProperty);
+			}
 		}
 
 		void CreateTypeOrMemberDocComment(KeyValuePair<string, OpenApiSchema> item, CodeTypeMember declaration)

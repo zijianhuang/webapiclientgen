@@ -9,14 +9,22 @@
   <ItemGroup>
     <None Remove="SwagMock\myswagger.json" />
     <None Remove="SwagMock\PathItemValues.json" />
+    <None Remove="SwagMock\pet.json" />
     <None Remove="SwagMock\SimplePet.json" />
+    <None Remove="SwagMock\SimplePetCat.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="SwagMock\PathItemValues.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="SwagMock\pet.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SwagMock\SimplePet.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\SimplePetCat.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

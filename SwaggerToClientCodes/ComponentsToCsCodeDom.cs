@@ -186,6 +186,7 @@ namespace Fonlow.WebApiClientGen.Swag
 				var propertySchema = p.Value;
 				var premitivePropertyType = propertySchema.Type;
 				var isRequired = schema.Required.Contains(propertyName);
+				
 
 				CodeMemberField clientProperty;
 				if (String.IsNullOrEmpty(premitivePropertyType)) //point to a custom time "$ref": "#/components/schemas/PhoneType"
@@ -196,7 +197,23 @@ namespace Fonlow.WebApiClientGen.Swag
 				}
 				else
 				{
-					if (propertySchema.Enum.Count == 0)
+					if (propertySchema.Type == "array")
+					{
+						var arrayItemsSchema = propertySchema.Items;
+						if (arrayItemsSchema.AllOf == null || arrayItemsSchema.AllOf.Count == 0)
+						{
+							var refToType = arrayItemsSchema.AllOf[0];
+							var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(refToType.Type, 1);
+							clientProperty = new CodeMemberField(arrayCodeTypeReference, propertyName);
+						}
+						else
+						{
+							var arrayType = arrayItemsSchema.Type;
+							var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayType, 1);
+							clientProperty = new CodeMemberField(arrayCodeTypeReference, propertyName);
+						}
+					}
+					else if (propertySchema.Enum.Count == 0)
 					{
 						var simpleType = nameComposer.PremitiveSwaggerTypeToClrType(premitivePropertyType, propertySchema.Format);
 						clientProperty = CreateProperty(propertyName, simpleType);
@@ -301,128 +318,10 @@ namespace Fonlow.WebApiClientGen.Swag
 		//	return typeDeclarationDic[key];
 		//}
 
-		CodeTypeReference TranslateGenericToTypeReference(Type type)
-		{
-			Type genericTypeDefinition = type.GetGenericTypeDefinition();
-			Type[] genericArguments = type.GetGenericArguments();
-
-			if (genericTypeDefinition == typeof(Nullable<>))
-			{
-				return new CodeTypeReference(typeof(Nullable).FullName
-					, TranslateToClientTypeReference(genericArguments[0]));
-			}
-
-			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
-			{
-				return TranslateToClientTypeReference(genericArguments[0]);
-			}
-
-			//Handle array types
-			if (TypeHelper.IsArrayType(genericTypeDefinition))
-			{
-				Debug.Assert(type.GenericTypeArguments.Length == 1);
-				var elementType = type.GenericTypeArguments[0];
-				return CreateArrayTypeReference(elementType, 1);
-			}
-
-			var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
-			if (tupleTypeIndex >= 0)
-			{
-				switch (tupleTypeIndex)
-				{
-					case 0:
-						Debug.Assert(genericArguments.Length == 1);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[0]
-							, TranslateToClientTypeReference(genericArguments[0]));
-					case 1:
-						Debug.Assert(genericArguments.Length == 2);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[1]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1]));
-					case 2:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[2]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2]));
-					case 3:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[3]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3]));
-					case 4:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[4]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4]));
-					case 5:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[5]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5]));
-					case 6:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[6]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5])
-							, TranslateToClientTypeReference(genericArguments[6]));
-					case 7:
-						Debug.Assert(genericArguments.Length == 8);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[7]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5])
-							, TranslateToClientTypeReference(genericArguments[6])
-							, TranslateToClientTypeReference(genericArguments[7]));
-					default:
-						throw new InvalidOperationException("Hey, what Tuple");
-				}
-			}
-
-
-			if (genericArguments.Length == 2)
-			{
-				if (genericTypeDefinition == typeof(IDictionary<,>))
-				{
-					return new CodeTypeReference(typeof(Dictionary<,>).FullName,
-						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
-				}
-
-				Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
-				if (closedDictionaryType.IsAssignableFrom(type))
-				{
-					return new CodeTypeReference(typeof(Dictionary<,>).FullName,
-						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
-				}
-
-				if (genericTypeDefinition == typeof(KeyValuePair<,>))
-				{
-					return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
-						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
-				}
-
-
-			}
-
-			return new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray());
-
-		}
-
-		string RefineCustomComplexTypeText(Type t)
-		{
-			return t.Namespace + settings.ClientNamespaceSuffix + "." + t.Name;
-		}
+		//string RefineCustomComplexTypeText(string typeName)
+		//{
+		//	return settings.ClientNamespace + settings.ClientNamespaceSuffix + "." + typeName;
+		//}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
 		{
@@ -433,9 +332,9 @@ namespace Fonlow.WebApiClientGen.Swag
 			return otherArrayType;
 		}
 
-		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
+		CodeTypeReference CreateArrayOfCustomTypeReference(string typeName, int arrayRank)
 		{
-			var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
+			var elementTypeReference = new CodeTypeReference(typeName);
 			var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
 			{
 				ArrayElementType = elementTypeReference,

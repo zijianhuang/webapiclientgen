@@ -40,6 +40,10 @@
 						"xml": {
 							"name": "photoUrl",
 							"wrapped": true
+						},
+						"items": {
+							"type": "string",
+							"format": "url"
 						}
 					}
 				}

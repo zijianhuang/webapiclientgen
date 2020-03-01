@@ -264,18 +264,9 @@ namespace MyNS {
         public string PetType { get; set; }//;
         
         /// <summary>
-        /// Pet status in the store
+        /// The list of URL to a cute photos featuring pet
         /// </summary>
-        public PetStatus Status { get; set; }//;
-    }
-    
-    public enum PetStatus {
-        
-        available = 0,
-        
-        pending = 1,
-        
-        sold = 2,
+        public string[] PhotoUrls { get; set; }//;
     }
 }
 ";
@@ -283,6 +274,15 @@ namespace MyNS {
             Assert.Equal(expected, s);
         }
 
+        [Fact]
+        public void TestArrayProperty()
+        {
+            var doc = ReadJson("SwagMock\\StringArray.json");
+            var property = doc.Components.Schemas["Pet"].Properties["photoUrls"];
+            Assert.Equal("array", property.Type);
+            Assert.Equal(20, property.MaxItems);
+            Assert.NotNull(property.Items); //failed with 1.1.4 and 1.2.0 preview
+        }
 
         [Fact]
 		public void TestEnumType()
@@ -294,7 +294,7 @@ namespace MyNS {
 
 	}
 
-	public enum PhoneType
+    public enum PhoneType
 	{
 		/// <summary>
 		/// Land line

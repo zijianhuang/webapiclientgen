@@ -200,17 +200,17 @@ namespace Fonlow.WebApiClientGen.Swag
 					if (propertySchema.Type == "array")
 					{
 						var arrayItemsSchema = propertySchema.Items;
-						if (arrayItemsSchema.AllOf == null || arrayItemsSchema.AllOf.Count == 0)
+						if (arrayItemsSchema.AllOf.Count > 0)
 						{
 							var refToType = arrayItemsSchema.AllOf[0];
 							var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(refToType.Type, 1);
-							clientProperty = new CodeMemberField(arrayCodeTypeReference, propertyName);
+							clientProperty = CreateProperty(arrayCodeTypeReference, propertyName);
 						}
 						else
 						{
 							var arrayType = arrayItemsSchema.Type;
 							var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayType, 1);
-							clientProperty = new CodeMemberField(arrayCodeTypeReference, propertyName);
+							clientProperty = CreateProperty(arrayCodeTypeReference, propertyName);
 						}
 					}
 					else if (propertySchema.Enum.Count == 0)
@@ -260,24 +260,33 @@ namespace Fonlow.WebApiClientGen.Swag
 			}
 		}
 
-		CodeMemberField CreateProperty(string name, Type type)
+		CodeMemberField CreateProperty(string propertyName, Type type)
 		{
 			// This is a little hack. Since you cant create auto properties in CodeDOM,
 			//  we make the getter and setter part of the member name.
 			// This leaves behind a trailing semicolon that we comment out.
 			//  Later, we remove the commented out semicolons.
-			string memberName = name + " { get; set; }//";
+			string memberName = propertyName + " { get; set; }//";
 
 			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(type), Name = memberName };
 			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
 			return result;
 		}
 
-		CodeMemberField CreateProperty(string name, string typeName)
+		CodeMemberField CreateProperty(string propertyName, string typeName)
 		{
-			string memberName = name + " { get; set; }//";
+			string memberName = propertyName + " { get; set; }//";
 
 			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(typeName), Name = memberName };
+			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+			return result;
+		}
+
+		CodeMemberField CreateProperty(CodeTypeReference codeTypeReference, string propertyName)
+		{
+			string memberName = propertyName + " { get; set; }//";
+
+			CodeMemberField result = new CodeMemberField(codeTypeReference, memberName);
 			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
 			return result;
 		}

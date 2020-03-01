@@ -211,7 +211,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		static string ToTitleCase(string s)
 		{
-			return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s);
+			return String.IsNullOrEmpty(s) ? s : (char.ToUpper(s[0]) + (s.Length > 1 ? s.Substring(1) : String.Empty));
 		}
 
 		static void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)

@@ -54,7 +54,7 @@ namespace Fonlow.WebApiClientGen.Swag
 					d.HttpMethod = opKV.Key.ToString();
 					d.RelativePath = urlPath;
 					actionDescriptor.ActionName = nameComposer.GetActionName(opKV.Value, opKV.Key.ToString());
-					
+
 				}
 			}
 			return swagDoc.Paths.Select(p =>
@@ -125,9 +125,7 @@ namespace Fonlow.WebApiClientGen.Swag
 
 		static string ToTitleCase(string s)
 		{
-			System.Globalization.TextInfo myTI = new System.Globalization.CultureInfo("en-US", false).TextInfo;
-			//return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s);
-			return myTI.ToTitleCase(s);
+			return String.IsNullOrEmpty(s)? s : (char.ToUpper(s[0]) + (s.Length > 1 ? s.Substring(1) : String.Empty));
 		}
 
 		public string UrlToFunctionName(string urlText)
@@ -137,7 +135,7 @@ namespace Fonlow.WebApiClientGen.Swag
 			var basketIdx = localPath.IndexOf("{");
 			if (basketIdx >= 0)
 			{
-				localPath= localPath.Remove(basketIdx);
+				localPath = localPath.Remove(basketIdx);
 			}
 
 			if (!String.IsNullOrEmpty(settings.PathPrefixToRemove))

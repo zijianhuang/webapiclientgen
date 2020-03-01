@@ -91,6 +91,8 @@ namespace Fonlow.WebApiClientGen.Swag
 			provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 		}
 
+		CodeNamespace clientNamespace;
+
 		public void CreateCodeDom(OpenApiComponents components)
 		{
 			if (components == null)
@@ -98,24 +100,24 @@ namespace Fonlow.WebApiClientGen.Swag
 				throw new ArgumentNullException(nameof(components));
 			}
 
-			var clientNamespace = new CodeNamespace(settings.ClientNamespace);
+			clientNamespace = new CodeNamespace(settings.ClientNamespace);
 			codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
 			foreach (var item in components.Schemas)
 			{
-				var typeName = item.Key;
+				var typeName = ToTitleCase(item.Key);
 				Debug.WriteLine("clientClass: " + typeName);
 				var schema = item.Value;
 				var type = schema.Type;
 				var allOfBaseTypeSchemaList = schema.AllOf; //maybe empty
 				var enumTypeList = schema.Enum; //maybe empty
-				bool isForClass = enumTypeList.Count==0;
+				bool isForClass = enumTypeList.Count == 0;
 				var schemaProperties = schema.Properties;
 				CodeTypeDeclaration typeDeclaration;
 				if (isForClass)
 				{
 					typeDeclaration = PodGenHelper.CreatePodClientClass(clientNamespace, typeName);
-					if (String.IsNullOrEmpty(type) &&  allOfBaseTypeSchemaList.Count > 0)
+					if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
 					{
 						var allOfRef = allOfBaseTypeSchemaList[0];
 						var baseTypeName = allOfRef.Reference.Id; //pointing to parent class
@@ -134,62 +136,78 @@ namespace Fonlow.WebApiClientGen.Swag
 				{
 					typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, typeName);
 					CreateTypeOrMemberDocComment(item, typeDeclaration);
-					int k = 0;
-					foreach (var enumMember in enumTypeList)
-					{
-						var stringMember = enumMember as OpenApiString;
-						if (stringMember != null)
-						{
-							var memberName = stringMember.Value;
-							var intValue = k;
-							var clientField = new CodeMemberField()
-							{
-								Name = memberName,
-								//Type = //no needed, since it is always the enum type.
-								InitExpression = new CodePrimitiveExpression(intValue),
-							};
-
-							typeDeclaration.Members.Add(clientField);
-							k++;
-						} else
-						{
-							var intMember = enumMember as OpenApiInteger;
-							var memberName = "_" + intMember.Value.ToString();
-							var intValue = k;
-							var clientField = new CodeMemberField()
-							{
-								Name = memberName,
-								InitExpression = new CodePrimitiveExpression(intValue),
-							};
-
-							typeDeclaration.Members.Add(clientField);
-							k++;
-						}
-					}
+					AddEnumMembers(typeDeclaration, enumTypeList);
 				}
 			}
 
+		}
+
+		void AddEnumMembers(CodeTypeDeclaration typeDeclaration, IList<IOpenApiAny> enumTypeList)
+		{
+			int k = 0;
+			foreach (var enumMember in enumTypeList)
+			{
+				var stringMember = enumMember as OpenApiString;
+				if (stringMember != null)
+				{
+					var memberName = stringMember.Value;
+					var intValue = k;
+					var clientField = new CodeMemberField()
+					{
+						Name = memberName,
+						InitExpression = new CodePrimitiveExpression(intValue),
+					};
+
+					typeDeclaration.Members.Add(clientField);
+					k++;
+				}
+				else
+				{
+					var intMember = enumMember as OpenApiInteger;
+					var memberName = "_" + intMember.Value.ToString();
+					var intValue = k;
+					var clientField = new CodeMemberField()
+					{
+						Name = memberName,
+						InitExpression = new CodePrimitiveExpression(intValue),
+					};
+
+					typeDeclaration.Members.Add(clientField);
+					k++;
+				}
+			}
 		}
 
 		void AddProperties(CodeTypeDeclaration typeDeclaration, OpenApiSchema schema)
 		{
 			foreach (var p in schema.Properties)
 			{
-				var propertyName = p.Key;
-				var premitivePropertyType = p.Value.Type;
+				var propertyName = ToTitleCase(p.Key);
+				var propertySchema = p.Value;
+				var premitivePropertyType = propertySchema.Type;
 				var isRequired = schema.Required.Contains(propertyName);
 
 				CodeMemberField clientProperty;
 				if (String.IsNullOrEmpty(premitivePropertyType)) //point to a custom time "$ref": "#/components/schemas/PhoneType"
 				{
-					var refToType = p.Value.AllOf[0];
+					var refToType = propertySchema.AllOf[0];
 					var customPropertyType = refToType.Type;
 					clientProperty = CreateProperty(propertyName, customPropertyType);
 				}
 				else
 				{
-					var simpleType = nameComposer.PremitiveSwaggerTypeToClrType(premitivePropertyType, p.Value.Format);
-					clientProperty = CreateProperty(propertyName, simpleType);
+					if (propertySchema.Enum.Count == 0)
+					{
+						var simpleType = nameComposer.PremitiveSwaggerTypeToClrType(premitivePropertyType, propertySchema.Format);
+						clientProperty = CreateProperty(propertyName, simpleType);
+					}
+					else
+					{
+						var casualEnumName = typeDeclaration.Name + ToTitleCase(propertyName);
+						var casualEnumTypeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, casualEnumName);
+						AddEnumMembers(casualEnumTypeDeclaration, propertySchema.Enum);
+						clientProperty = CreateProperty(propertyName, casualEnumName);
+					}
 				}
 
 				if (isRequired)
@@ -201,6 +219,11 @@ namespace Fonlow.WebApiClientGen.Swag
 
 				typeDeclaration.Members.Add(clientProperty);
 			}
+		}
+
+		static string ToTitleCase(string s)
+		{
+			return String.IsNullOrEmpty(s) ? s : (char.ToUpper(s[0]) + (s.Length > 1 ? s.Substring(1) : String.Empty));
 		}
 
 		void CreateTypeOrMemberDocComment(KeyValuePair<string, OpenApiSchema> item, CodeTypeMember declaration)

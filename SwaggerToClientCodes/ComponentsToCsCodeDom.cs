@@ -200,16 +200,17 @@ namespace Fonlow.WebApiClientGen.Swag
 					if (propertySchema.Type == "array")
 					{
 						var arrayItemsSchema = propertySchema.Items;
-						if (arrayItemsSchema.AllOf.Count > 0)
+						if (arrayItemsSchema.Reference != null) //array of custom type
 						{
-							var refToType = arrayItemsSchema.AllOf[0];
-							var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(refToType.Type, 1);
+							var arrayTypeName = arrayItemsSchema.Reference.Id;
+							var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayTypeName, 1);
 							clientProperty = CreateProperty(arrayCodeTypeReference, propertyName);
 						}
 						else
 						{
 							var arrayType = arrayItemsSchema.Type;
-							var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayType, 1);
+							var clrType = nameComposer.PremitiveSwaggerTypeToClrType(arrayType, null);
+							var arrayCodeTypeReference = CreateArrayTypeReference(clrType, 1);
 							clientProperty = CreateProperty(arrayCodeTypeReference, propertyName);
 						}
 					}
@@ -350,6 +351,8 @@ namespace Fonlow.WebApiClientGen.Swag
 			};
 			return typeReference;
 		}
+
+
 
 	}
 }

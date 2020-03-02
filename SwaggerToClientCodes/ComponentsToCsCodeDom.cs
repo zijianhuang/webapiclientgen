@@ -1,23 +1,12 @@
-﻿using System;
+﻿using Fonlow.Poco2Client;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
-using Microsoft.OpenApi.Readers.Exceptions;
-using Microsoft.OpenApi;
-using System.Reflection;
-using System.IO;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Text;
-using Fonlow.Web.Meta;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using Tavis.UriTemplates;
-using Fonlow.Poco2Client;
-using Fonlow.Reflection;
 using System.Diagnostics;
-using Fonlow.DocComment;
-using Microsoft.OpenApi.Any;
+using System.IO;
 
 namespace Fonlow.WebApiClientGen.Swag
 {
@@ -38,8 +27,6 @@ namespace Fonlow.WebApiClientGen.Swag
 		readonly Settings settings;
 
 		readonly NameComposer nameComposer;
-
-		//Dictionary<string, CodeTypeDeclaration> typeDeclarationDic = new Dictionary<string, CodeTypeDeclaration>();
 
 		/// <summary>
 		/// Save TypeScript codes generated into a file.
@@ -330,22 +317,6 @@ namespace Fonlow.WebApiClientGen.Swag
 
 		}
 
-		///// <summary>
-		///// Ref could be #/components/schemas/Address, while the key is Address.
-		///// </summary>
-		///// <param name="refNo"></param>
-		///// <returns></returns>
-		//CodeTypeDeclaration RefToTypeDeclaration(string refNo)
-		//{
-		//	var key = refNo.Substring(22);
-		//	return typeDeclarationDic[key];
-		//}
-
-		//string RefineCustomComplexTypeText(string typeName)
-		//{
-		//	return settings.ClientNamespace + settings.ClientNamespaceSuffix + "." + typeName;
-		//}
-
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
 		{
 			var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
@@ -364,8 +335,6 @@ namespace Fonlow.WebApiClientGen.Swag
 			};
 			return typeReference;
 		}
-
-
 
 	}
 }

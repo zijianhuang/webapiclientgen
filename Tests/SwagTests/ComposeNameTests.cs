@@ -1,15 +1,10 @@
-using System;
-using Xunit;
 using Fonlow.WebApiClientGen.Swag;
-using Newtonsoft.Json;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
-using Microsoft.OpenApi.Readers.Exceptions;
-using Microsoft.OpenApi;
+using System;
 using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using Xunit;
+
 namespace SwagTests
 {
 	public class DocFixture
@@ -96,5 +91,54 @@ namespace SwagTests
 			Assert.Equal(typeof(double), t);
 		}
 
+		[Fact]
+		public void TestEnumType()
+		{
+			var type = typeof(PhoneType);
+			var fields = type.GetFields();
+			Assert.NotEmpty(fields);
+		}
+
+		[Fact]
+		public void TestDataAnnotationsRange()
+		{
+			var d = new DDD()
+			{
+				PackSize = 1000
+			};
+
+			Assert.Equal(1000, d.PackSize); // no check.
+
+			var s = Newtonsoft.Json.JsonConvert.SerializeObject(d);
+			Assert.Equal("{\"packSize\":1000}", s); //no check in serialization
+		}
+
+
 	}
+
+	public enum PhoneType
+	{
+		/// <summary>
+		/// Land line
+		/// </summary>
+		Tel = 0,
+
+		/// <summary>
+		/// Mobile phone
+		/// </summary>
+		Mobile = 1,
+
+		Skype = 2,
+		Fax = 3,
+	}
+
+	public partial class DDD
+	{
+		/// <summary>The size of the pack the dog is from</summary>
+		[Newtonsoft.Json.JsonProperty("packSize", Required = Newtonsoft.Json.Required.Always)]
+		[System.ComponentModel.DataAnnotations.Range(1, 100)]
+		public int PackSize { get; set; } = 1;
+	}
+
+
 }

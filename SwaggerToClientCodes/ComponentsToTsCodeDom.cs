@@ -1,19 +1,13 @@
-﻿using System.Reflection;
-using System.IO;
+﻿using Fonlow.Poco2Client;
+using Fonlow.Reflection;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System;
-using Fonlow.Poco2Client;
-using Fonlow.Reflection;
-using Fonlow.DocComment;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
-using Microsoft.OpenApi.Readers.Exceptions;
-using Microsoft.OpenApi;
-using Microsoft.OpenApi.Any;
+using System.IO;
 
 namespace Fonlow.WebApiClientGen.Swag
 {
@@ -198,7 +192,6 @@ namespace Fonlow.WebApiClientGen.Swag
 					var customPropertyType = refToType.Type;
 					var customPropertyFormat = refToType.Format;
 					var customType = nameComposer.PrimitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);
-					//clientProperty = CreateProperty(propertyName, customPropertyType);
 					clientProperty = CreateProperty(propertyName, customType, isRequired);
 				}
 				else
@@ -336,8 +329,6 @@ namespace Fonlow.WebApiClientGen.Swag
 
 			return null;
 		}
-
-		List<Type> pendingTypes;
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
 		{

@@ -1,15 +1,8 @@
-using System;
-using Xunit;
 using Fonlow.WebApiClientGen.Swag;
-using Newtonsoft.Json;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
-using Microsoft.OpenApi.Readers.Exceptions;
-using Microsoft.OpenApi;
 using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using Xunit;
 
 namespace SwagTests
 {
@@ -29,7 +22,6 @@ namespace SwagTests
 
 			Settings settings = new Settings()
 			{
-				ClientNamespaceSuffix = ".Client",
 				ClientNamespace = "MyNS",
 			};
 			var gen = new ComponentsToTsCodeDom(settings, new System.CodeDom.CodeCompileUnit());
@@ -280,30 +272,6 @@ namespace SwagTests
 		}
 
 
-		[Fact]
-		public void TestEnumType()
-		{
-			var type = typeof(PhoneType);
-			var fields = type.GetFields();
-			Assert.NotEmpty(fields);
-		}
-
-	}
-
-    public enum PhoneType
-	{
-		/// <summary>
-		/// Land line
-		/// </summary>
-		Tel = 0,
-
-		/// <summary>
-		/// Mobile phone
-		/// </summary>
-		Mobile = 1,
-
-		Skype = 2,
-		Fax = 3,
 	}
 
 }

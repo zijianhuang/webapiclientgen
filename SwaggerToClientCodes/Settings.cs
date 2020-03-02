@@ -44,8 +44,6 @@ namespace Fonlow.WebApiClientGen.Swag
 	{
 		public string ClientNamespace { get; set; }
 
-		public string ClientNamespaceSuffix { get; set; }
-
 		public string PathPrefixToRemove { get; set; }
 
 		public ActionNameStrategy ActionNameStrategy { get; set; }

@@ -92,10 +92,10 @@ namespace Fonlow.WebApiClientGen.Swag
 			var jsonContent = goodResponse.Content["application/json"];
 			var schemaType = jsonContent.Schema.Type;
 			var schemaFormat = jsonContent.Schema.Format;
-			return PremitiveSwaggerTypeToClrType(schemaType, schemaFormat);
+			return PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat);
 		}
 
-		readonly Dictionary<string, Type> basicTypeDic = new Dictionary<string, Type>()
+		readonly Dictionary<string, Type> basicClrTypeDic = new Dictionary<string, Type>()
 		{
 			{"integer_int32", typeof(int) },
 			{"integer_int64", typeof(long) },
@@ -107,6 +107,18 @@ namespace Fonlow.WebApiClientGen.Swag
 			{"string_date-time", typeof(DateTime) },
 		};
 
+		readonly Dictionary<string, string> basicTsTypeDic = new Dictionary<string, string>()
+		{
+			{"integer_int32", "number" },
+			{"integer_int64", "number" },
+			{"number_float", "number" },
+			{"number_double", "number" },
+			{"string", "string" },
+			{"boolean", "boolean" },
+			{"string_date", "Date" },
+			{"string_date-time", "Date" },
+		};
+
 		/// <summary>
 		/// https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md
 		/// https://swagger.io/specification/
@@ -114,11 +126,11 @@ namespace Fonlow.WebApiClientGen.Swag
 		/// <param name="type"></param>
 		/// <param name="format"></param>
 		/// <returns></returns>
-		public Type PremitiveSwaggerTypeToClrType(string type, string format)
+		public Type PrimitiveSwaggerTypeToClrType(string type, string format)
 		{
 			var key = type + (String.IsNullOrEmpty(format) ? String.Empty : ("_" + format));
 			Type t;
-			if (basicTypeDic.TryGetValue(key, out t))
+			if (basicClrTypeDic.TryGetValue(key, out t))
 			{
 				return t;
 			}
@@ -127,5 +139,21 @@ namespace Fonlow.WebApiClientGen.Swag
 				return typeof(string);
 			}
 		}
+
+		public string PrimitiveSwaggerTypeToTsType(string type, string format)
+		{
+			var key = type + (String.IsNullOrEmpty(format) ? String.Empty : ("_" + format));
+			string t;
+			if (basicTsTypeDic.TryGetValue(key, out t))
+			{
+				return t;
+			}
+			else
+			{
+				return "string";
+			}
+		}
+
+
 	}
 }

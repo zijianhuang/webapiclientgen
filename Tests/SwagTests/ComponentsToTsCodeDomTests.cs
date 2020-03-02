@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SwagTests
 {
-    public class ComponentstoCsCodeDom
+    public class ToCsCodeDom
     {
         static OpenApiDocument ReadJson(string filePath)
         {

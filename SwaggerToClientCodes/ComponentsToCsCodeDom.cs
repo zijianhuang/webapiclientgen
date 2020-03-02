@@ -195,7 +195,7 @@ namespace Fonlow.WebApiClientGen.Swag
 				var propertyName = ToTitleCase(p.Key);
 				var propertySchema = p.Value;
 				var premitivePropertyType = propertySchema.Type;
-				var isRequired = schema.Required.Contains(propertyName);
+				var isRequired = schema.Required.Contains(p.Key); //compare with the original key
 				
 
 				CodeMemberField clientProperty;

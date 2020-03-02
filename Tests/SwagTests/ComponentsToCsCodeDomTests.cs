@@ -231,10 +231,10 @@ namespace SwagTests
             Assert.Equal(expected, s);
         }
 
-        [Fact]
-        public void TestTypeAlias()
-        {
-            string expected = @"export namespace MyNS {
+		[Fact]
+		public void TestTypeAlias()
+		{
+			string expected = @"export namespace MyNS {
 	export interface Tag {
 
 		/**Tag ID */
@@ -247,21 +247,40 @@ namespace SwagTests
 }
 
 ";
-            var s = TranslateJsonToCode("SwagMock\\TypeAlias.json");
-            Assert.Equal(expected, s);
-        }
+			var s = TranslateJsonToCode("SwagMock\\TypeAlias.json");
+			Assert.Equal(expected, s);
+		}
 
-        //[Fact]
-        //public void TestArrayProperty()
-        //{
-        //    var doc = ReadJson("SwagMock\\StringArray.json");
-        //    var property = doc.Components.Schemas["Pet"].Properties["photoUrls"];
-        //    Assert.Equal("array", property.Type);
-        //    Assert.Equal(20, property.MaxItems);
-        //    Assert.NotNull(property.Items); //failed with 1.1.4 and 1.2.0 preview
-        //}
+		[Fact]
+		public void TestRequired()
+		{
+			string expected = @"export namespace MyNS {
+	export interface Pet {
 
-        [Fact]
+		/**The name given to a pet */
+		name: string;
+
+		/**Type of a pet */
+		petType?: string;
+	}
+
+
+	/**A representation of a cat */
+	export interface Cat extends Pet {
+
+		/**The measured skill for hunting */
+		huntingSkill: string;
+	}
+
+}
+
+";
+			var s = TranslateJsonToCode("SwagMock\\Required.json");
+			Assert.Equal(expected, s);
+		}
+
+
+		[Fact]
 		public void TestEnumType()
 		{
 			var type = typeof(PhoneType);

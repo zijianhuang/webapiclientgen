@@ -10,6 +10,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using Tavis.UriTemplates;
+using System.CodeDom;
+using System.Diagnostics;
+using Fonlow.Reflection;
 
 namespace Fonlow.WebApiClientGen.Swag
 {
@@ -30,14 +33,21 @@ namespace Fonlow.WebApiClientGen.Swag
 		public WebApiDescription[] GetDescriptions()
 		{
 			List<WebApiDescription> ds = new List<WebApiDescription>();
-			foreach (var p in swagDoc.Paths)
+			foreach (var p in swagDoc.Paths) // each path contain multiple operations
 			{
 				var urlPath = p.Key;
 				var pathItem = p.Value;
 				foreach (var opKV in pathItem.Operations)
 				{
 					var id = Guid.NewGuid().ToString();
-					var d = new WebApiDescription(id);
+					var d = new WebApiDescription(id)
+					{
+						ActionDescriptor= new ActionDescriptor()
+						{
+							ActionName= nameComposer.GetActionName(opKV.Value, opKV.Key.ToString()),
+							ReturnType=
+						}
+					};
 
 					var controllerName = nameComposer.GetControllerName(opKV.Value, urlPath);
 					var actionDescriptor = new ActionDescriptor();
@@ -53,7 +63,6 @@ namespace Fonlow.WebApiClientGen.Swag
 
 					d.HttpMethod = opKV.Key.ToString();
 					d.RelativePath = urlPath;
-					actionDescriptor.ActionName = nameComposer.GetActionName(opKV.Value, opKV.Key.ToString());
 
 				}
 			}
@@ -71,6 +80,22 @@ namespace Fonlow.WebApiClientGen.Swag
 
 				return d;
 			}).ToArray();
+		}
+
+		static OpenApiReference GetReturnType(OpenApiOperation op)
+		{
+			var goodResponse = op.Responses["200"];
+			if (goodResponse != null)
+			{
+				return goodResponse.Content["application/json"].Schema.Reference;
+			}
+
+			return null;
+		}
+
+		CodeMemberMethod CreateApiFunction(OpenApiOperation op)
+		{
+
 		}
 
 	}

@@ -1,7 +1,7 @@
 ﻿using System;
 using Fonlow.Web.Meta;
 
-namespace Fonlow.CodeDom.Web
+namespace Fonlow.WebApiClientGen.Swag.Cs
 {
 	public static class CodeGen
 	{

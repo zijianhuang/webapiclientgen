@@ -1,15 +1,8 @@
-﻿using System;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
-using Microsoft.OpenApi.Readers.Exceptions;
-using Microsoft.OpenApi;
-using System.IO;
-using System.Text;
-using Fonlow.Web.Meta;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using Microsoft.OpenApi.Models;
+using System;
 using System.Collections.Generic;
-using Tavis.UriTemplates;
+using System.IO;
+using System.Linq;
 
 namespace Fonlow.WebApiClientGen.Swag
 {

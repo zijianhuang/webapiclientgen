@@ -72,13 +72,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SwaggerToClientCodes\SwaggerToClientCodes.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="SwagMock\myswagger.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Fonlow.SwaggerToTypes\Fonlow.SwaggerToTypes.csproj" />
   </ItemGroup>
 
 </Project>

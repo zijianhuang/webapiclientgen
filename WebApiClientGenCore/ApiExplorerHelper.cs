@@ -8,7 +8,7 @@ namespace Fonlow.CodeDom.Web
 	/// 
 	/// </summary>
 	public static class ApiExplorerHelper
-    {
+	{
 		/// <summary>
 		/// Get a flat list of ApiDescriptions in the api explorer
 		/// </summary>

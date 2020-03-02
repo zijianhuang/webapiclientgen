@@ -14,9 +14,11 @@
     <None Remove="SwagMock\PathItemValues.json" />
     <None Remove="SwagMock\pet.json" />
     <None Remove="SwagMock\PetDogCat.json" />
+    <None Remove="SwagMock\SimpleOrder.json" />
     <None Remove="SwagMock\SimplePet.json" />
     <None Remove="SwagMock\SimplePetCat.json" />
     <None Remove="SwagMock\StringArray.json" />
+    <None Remove="SwagMock\TypeAlias.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +41,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\CustomTypeArray.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\TypeAlias.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\SimpleOrder.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\StringArray.json">

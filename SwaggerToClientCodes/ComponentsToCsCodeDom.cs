@@ -116,21 +116,31 @@ namespace Fonlow.WebApiClientGen.Swag
 				CodeTypeDeclaration typeDeclaration;
 				if (isForClass)
 				{
-					typeDeclaration = PodGenHelper.CreatePodClientClass(clientNamespace, typeName);
-					if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
+					if (schema.Properties.Count > 0 || (schema.Properties.Count==0 && allOfBaseTypeSchemaList.Count>1))
 					{
-						var allOfRef = allOfBaseTypeSchemaList[0];
-						var baseTypeName = allOfRef.Reference.Id; //pointing to parent class
-						typeDeclaration.BaseTypes.Add(baseTypeName);
+						typeDeclaration = PodGenHelper.CreatePodClientClass(clientNamespace, typeName);
+						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
+						{
+							var allOfRef = allOfBaseTypeSchemaList[0];
+							var baseTypeName = allOfRef.Reference.Id; //pointing to parent class
+							typeDeclaration.BaseTypes.Add(baseTypeName);
 
-						var allOfProperteisSchema = allOfBaseTypeSchemaList[1];
-						AddProperties(typeDeclaration, allOfProperteisSchema);
+							var allOfProperteisSchema = allOfBaseTypeSchemaList[1];
+							AddProperties(typeDeclaration, allOfProperteisSchema);
+						}
+
+						CreateTypeOrMemberDocComment(item, typeDeclaration);
+						//	typeDeclarationDic.Add(typeName, typeDeclaration);
+
+						AddProperties(typeDeclaration, schema);
 					}
-
-					CreateTypeOrMemberDocComment(item, typeDeclaration);
-					//	typeDeclarationDic.Add(typeName, typeDeclaration);
-
-					AddProperties(typeDeclaration, schema);
+					else // type alias
+					{
+						//var typeFormat = schema.Format; No need to do C# Type Alias, since OpenApi.NET will translate the alias to the real type.
+						//var realTypeName = nameComposer.PremitiveSwaggerTypeToClrType(type, typeFormat);
+						//CodeNamespaceImport cd = new CodeNamespaceImport($"{typeName} = {realTypeName}");
+						//clientNamespace.Imports.Add(cd);
+					}
 				}
 				else
 				{
@@ -189,15 +199,18 @@ namespace Fonlow.WebApiClientGen.Swag
 				
 
 				CodeMemberField clientProperty;
-				if (String.IsNullOrEmpty(premitivePropertyType)) //point to a custom time "$ref": "#/components/schemas/PhoneType"
+				if (String.IsNullOrEmpty(premitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
 				{
 					var refToType = propertySchema.AllOf[0];
 					var customPropertyType = refToType.Type;
-					clientProperty = CreateProperty(propertyName, customPropertyType);
+					var customPropertyFormat = refToType.Format;
+					var customType = nameComposer.PremitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);
+					//clientProperty = CreateProperty(propertyName, customPropertyType);
+					clientProperty = CreateProperty(propertyName, customType);
 				}
 				else
 				{
-					if (propertySchema.Type == "array")
+					if (propertySchema.Type == "array") // for array
 					{
 						var arrayItemsSchema = propertySchema.Items;
 						if (arrayItemsSchema.Reference != null) //array of custom type
@@ -214,12 +227,12 @@ namespace Fonlow.WebApiClientGen.Swag
 							clientProperty = CreateProperty(arrayCodeTypeReference, propertyName);
 						}
 					}
-					else if (propertySchema.Enum.Count == 0)
+					else if (propertySchema.Enum.Count == 0) // for premitive type
 					{
 						var simpleType = nameComposer.PremitiveSwaggerTypeToClrType(premitivePropertyType, propertySchema.Format);
 						clientProperty = CreateProperty(propertyName, simpleType);
 					}
-					else
+					else // for casual enum
 					{
 						var casualEnumName = typeDeclaration.Name + ToTitleCase(propertyName);
 						var casualEnumTypeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, casualEnumName);

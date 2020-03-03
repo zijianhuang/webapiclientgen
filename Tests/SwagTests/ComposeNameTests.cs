@@ -84,11 +84,35 @@ namespace SwagTests
 		}
 
 		[Fact]
-		public void TestReturnType()
+		public void TestReturnSimpleType()
 		{
 			var pathItem = doc.Paths["/api/SuperDemo/decimal/{d}"];
-			var t = composer.GetActionReturnType(pathItem.Operations[OperationType.Get]);
+			var t = composer.GetOperationReturnSimpleType(pathItem.Operations[OperationType.Get]);
 			Assert.Equal(typeof(double), t);
+		}
+
+		[Fact]
+		public void TestReturnComplexType()
+		{
+			var pathItem = doc.Paths["/api/Entities/getPerson/{id}"];
+			var t = composer.GetOperationReturnComplexType(pathItem.Operations[OperationType.Get]);
+			Assert.Equal("Person", t);
+		}
+
+		[Fact]
+		public void TestReturnTypePerson()
+		{
+			var pathItem = doc.Paths["/api/Entities/getPerson/{id}"];
+			var t = composer.GetOperationReturnType(pathItem.Operations[OperationType.Get]);
+			Assert.Equal("Person", t.Item2);
+		}
+
+		[Fact]
+		public void TestReturnTypeDouble()
+		{
+			var pathItem = doc.Paths["/api/SuperDemo/decimal/{d}"];
+			var t = composer.GetOperationReturnType(pathItem.Operations[OperationType.Get]);
+			Assert.Equal(typeof(double), t.Item1);
 		}
 
 		[Fact]

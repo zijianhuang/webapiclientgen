@@ -18,15 +18,15 @@ namespace Fonlow.OpenApiClientGen.Cs
 		OpenApiOperation description;
 		string methodName;
 		string relativePath;
-		protected Type returnType;
+		protected CodeTypeDeclaration returnType;
 		bool returnTypeIsStream;
 		CodeMemberMethod method;
-		readonly ComponentsToCsCodeDom poco2CsGen;
+		readonly ComponentsToCsTypes poco2CsGen;
 
 		bool forAsync;
 		bool stringAsString;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, string relativePath, OperationType method, OpenApiOperation description, ComponentsToCsCodeDom poco2CsGen, bool stringAsString, bool forAsync = false)
+		public ClientApiFunctionGen(SharedContext sharedContext, string relativePath, OperationType method, OpenApiOperation description, ComponentsToCsTypes poco2CsGen, bool stringAsString, bool forAsync = false)
 		{
 			this.description = description;
 			this.sharedContext = sharedContext;
@@ -39,7 +39,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			if (methodName.EndsWith("Async"))
 				methodName = methodName.Substring(0, methodName.Length - 5);
 
-			returnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
+			returnType = description.Responses["200"];
 			returnTypeIsStream = returnType!=null && ( (returnType.FullName == typeNameOfHttpResponseMessage) 
 				|| (returnType.FullName == typeOfIHttpActionResult) 
 				|| (returnType.FullName == typeOfIActionResult) 

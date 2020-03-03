@@ -11,7 +11,7 @@ using System.IO;
 namespace Fonlow.OpenApi.ClientTypes
 {
 	/// <summary>
-	/// Create CS CodeDOM from OpenApiComponents
+	/// Create CS Types CodeDOM from OpenApiComponents
 	/// </summary>
 	public class ComponentsToCsTypes
 	{

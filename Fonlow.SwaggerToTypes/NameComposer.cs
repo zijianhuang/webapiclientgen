@@ -56,7 +56,7 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		static string ToTitleCase(string s)
 		{
-			return String.IsNullOrEmpty(s)? s : (char.ToUpper(s[0]) + (s.Length > 1 ? s.Substring(1) : String.Empty));
+			return String.IsNullOrEmpty(s) ? s : (char.ToUpper(s[0]) + (s.Length > 1 ? s.Substring(1) : String.Empty));
 		}
 
 		public string UrlToFunctionName(string urlText)
@@ -79,13 +79,47 @@ namespace Fonlow.OpenApi.ClientTypes
 			return String.Join(String.Empty, uriWithPaths.Segments.Select(p => ToTitleCase(p.Replace("/", String.Empty))));
 		}
 
-		public Type GetActionReturnType(OpenApiOperation op)
+		public Type GetOperationReturnSimpleType(OpenApiOperation op)
 		{
 			var goodResponse = op.Responses["200"];
-			var jsonContent = goodResponse.Content["application/json"];
-			var schemaType = jsonContent.Schema.Type;
-			var schemaFormat = jsonContent.Schema.Format;
-			return PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat);
+			if (goodResponse != null)
+			{
+				var jsonContent = goodResponse.Content["application/json"];
+				var schemaType = jsonContent.Schema.Type;
+				if (schemaType != null)
+				{
+					var schemaFormat = jsonContent.Schema.Format;
+					return PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat);
+				}
+			}
+
+			return null;
+		}
+
+		public string GetOperationReturnComplexType(OpenApiOperation op)
+		{
+			var goodResponse = op.Responses["200"];
+			if (goodResponse != null)
+			{
+				if (goodResponse.Content["application/json"].Schema != null && goodResponse.Content["application/json"].Schema.Reference != null)
+				{
+					return goodResponse.Content["application/json"].Schema.Reference.Id;
+				}
+			}
+
+			return null;
+		}
+
+		public Tuple<Type, string> GetOperationReturnType(OpenApiOperation op)
+		{
+			var complexTypeName = GetOperationReturnComplexType(op);
+			Type primitiveType = null;
+			if (complexTypeName == null)
+			{
+				primitiveType = GetOperationReturnSimpleType(op);
+			}
+
+			return Tuple.Create<Type, string>(primitiveType, complexTypeName);
 		}
 
 		readonly Dictionary<string, Type> basicClrTypeDic = new Dictionary<string, Type>()

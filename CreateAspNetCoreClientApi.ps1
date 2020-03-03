@@ -31,10 +31,10 @@ catch {
         Write-Output  $responseBody
 }
 
-#Step 3: Compile generated TS codes to JS for jQuery
+#Step 3: Compile generated TS codes to JS for jQuery. https://www.typescriptlang.org/docs/handbook/compiler-options.html
 $procTscArgs = @{
     FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreJQClientAuto.ts"
+    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.7\tsc.js`" --target es2015 $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreJQClientAuto.ts"
     PassThru         = $true
     
 }
@@ -43,7 +43,7 @@ $processTsc = Start-Process @procTscArgs
 # Compile for axios, if the app is coded on JS
 $procTscArgs = @{
     FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.2\tsc.js`" $PSScriptRoot\axios\src\clientapi\WebApiCoreAxiosClientAuto.ts"
+    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.7\tsc.js`" $PSScriptRoot\axios\src\clientapi\WebApiCoreAxiosClientAuto.ts"
     PassThru         = $false
     
 }

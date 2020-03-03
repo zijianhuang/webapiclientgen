@@ -558,5 +558,18 @@ namespace IntegrationTests
 			Assert.Equal("\"abcdefg\"", s);
 
 		}
+
+		[Fact]
+		public void TestPostGuids()
+		{
+			var id1 = Guid.NewGuid();
+			var id2 = Guid.NewGuid();
+			var ids = new Guid[] { id1, id2 };
+			var r = api.PostGuids(ids);
+			Assert.Equal(2, r.Length);
+			Assert.Equal(id1, r[0]);
+		}
+
+
 	}
 }

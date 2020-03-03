@@ -1,3 +1,32 @@
+export namespace DemoWebApi_Controllers_Client {
+
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string;
+	}
+
+
+	/**
+	 * Complex hero type
+	 */
+	export interface Hero {
+		id?: number;
+		name?: string;
+	}
+
+}
+
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 		city?: string;
@@ -186,35 +215,6 @@ export namespace DemoWebApi_Models_Client {
 	export interface SetPasswordBindingModel {
 		confirmPassword?: string;
 		newPassword?: string;
-	}
-
-}
-
-export namespace DemoWebApi_Controllers_Client {
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResult {
-
-		/**
-		 * Gets or sets the local path of the file saved on the server.
-		 */
-		fileNames?: Array<string>;
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter?: string;
-	}
-
-
-	/**
-	 * Complex hero type
-	 */
-	export interface Hero {
-		id?: number;
-		name?: string;
 	}
 
 }
@@ -780,6 +780,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }): Promise<number> {
 			return fetch(this.baseUri + 'api/SuperDemo/StringPersonDic', {method: 'post', headers: { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dic) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/SuperDemo/Guids
+		 */
+		postGuids(guids: Array<string>): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/SuperDemo/Guids', {method: 'post', headers: { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(guids) }).then(d => d.json());
 		}
 
 		/**

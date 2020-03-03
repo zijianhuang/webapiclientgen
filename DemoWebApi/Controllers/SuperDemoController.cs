@@ -663,6 +663,12 @@ namespace DemoWebApi.Controllers
 			return new Tuple<DateTime?, DateTime?>(startDate, endDate);
 		}
 
+		[HttpPost]
+		[Route("Guids")]
+		public Guid[] PostGuids([FromBody] Guid[] guids)
+		{
+			return guids;
+		}
 
 
 	}

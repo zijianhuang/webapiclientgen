@@ -1,4 +1,4 @@
-using Fonlow.WebApiClientGen.Swag;
+using Fonlow.OpenApi.ClientTypes;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
 using System;

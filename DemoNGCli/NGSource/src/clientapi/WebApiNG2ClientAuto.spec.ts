@@ -2,10 +2,9 @@ import { async, inject, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 
 //import * as namespaces from './WebApiNG2ClientAuto';
- import * as namespaces from './WebApiCoreNG2ClientAuto';
-
+import * as namespaces from './WebApiCoreNG2ClientAuto';
 //const apiBaseUri = 'http://localhost:10965/'; // for DemoWebApi
- const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
+const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 export function valuesClientFactory(http: HttpClient) {
   return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
@@ -845,21 +844,37 @@ describe('SuperDemo API', () => {
   }
   );
 
-  it('postWithQueryButEmptyBody', (done) => {
-	service.postWithQueryButEmptyBody('abc', 123).subscribe(
-	  data => {
-		expect(data.item1).toBe('abc');
-		expect(data.item2).toBe(123);
-		done();
-	  },
-	  error => {
-		fail(errorResponseToString(error));
-		done();
-	  }
+	it('postWithQueryButEmptyBody', (done) => {
+		service.postWithQueryButEmptyBody('abc', 123).subscribe(
+			data => {
+				expect(data.item1).toBe('abc');
+				expect(data.item2).toBe(123);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
 	);
 
-  }
-  );
+	it('postGuids', (done) => {
+		service.postGuids(["08d7be8b-4805-459e-849a-fcd5c64a33ee","08d7be8b-47fb-44a5-86a8-a6f4fe928fa9"]).subscribe(
+			data => {
+				expect(data.length).toBe(2);
+				expect(data[0]).toBe("08d7be8b-4805-459e-849a-fcd5c64a33ee");
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
 
   it('getDictionaryOfPeople', (done) => {
 	service.getDictionaryOfPeople().subscribe(

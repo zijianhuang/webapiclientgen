@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Description>Read Open API definition and generate client codes in C# or TypeScript for data types.</Description>
+    <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <PackageTags>TypeScriptCode DOM swagger open-api</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Zijian Huang</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <AssemblyName>Fonlow.OpenApi.ClientTypes</AssemblyName>
+    <RootNamespace>Fonlow.OpenApi.ClientTypes</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

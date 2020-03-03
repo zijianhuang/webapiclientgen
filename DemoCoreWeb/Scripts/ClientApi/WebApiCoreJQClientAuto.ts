@@ -757,6 +757,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/SuperDemo/Guids
+		 */
+		postGuids(guids: Array<string>, callback: (data : Array<string>) => any) {
+			this.httpClient.post(this.baseUri + 'api/SuperDemo/Guids', guids, callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * POST api/SuperDemo/ICollection
 		 */
 		postICollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any) {

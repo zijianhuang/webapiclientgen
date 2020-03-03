@@ -1,4 +1,4 @@
-﻿namespace Fonlow.WebApiClientGen.Swag
+﻿namespace Fonlow.OpenApi.ClientTypes
 {
 	public enum ActionNameStrategy
 	{

@@ -515,6 +515,12 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].post(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
+         * POST api/SuperDemo/Guids
+         */
+        SuperDemo.prototype.postGuids = function (guids) {
+            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/Guids', JSON.stringify(guids), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+        };
+        /**
          * POST api/SuperDemo/ICollection
          */
         SuperDemo.prototype.postICollection = function (list) {

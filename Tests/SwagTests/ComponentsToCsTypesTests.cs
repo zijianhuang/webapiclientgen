@@ -1,4 +1,4 @@
-using Fonlow.WebApiClientGen.Swag;
+using Fonlow.OpenApi.ClientTypes;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
 using System.IO;
@@ -6,7 +6,7 @@ using Xunit;
 
 namespace SwagTests
 {
-	public class ToTsCodeDom
+	public class ToTsTypes
 	{
 		static OpenApiDocument ReadJson(string filePath)
 		{
@@ -24,7 +24,7 @@ namespace SwagTests
 			{
 				ClientNamespace = "MyNS",
 			};
-			var gen = new ComponentsToTsCodeDom(settings, new System.CodeDom.CodeCompileUnit());
+			var gen = new ComponentsToTsTypes(settings, new System.CodeDom.CodeCompileUnit());
 			gen.CreateCodeDom(doc.Components);
 			using (var writer = new StringWriter())
 			{
@@ -114,10 +114,10 @@ namespace SwagTests
 		}
 
 
-        [Fact]
-        public void TestCasualEnum()
-        {
-            string expected = @"export namespace MyNS {
+		[Fact]
+		public void TestCasualEnum()
+		{
+			string expected = @"export namespace MyNS {
 	export interface Pet {
 
 		/**The name given to a pet */
@@ -135,14 +135,14 @@ namespace SwagTests
 }
 
 ";
-            var s = TranslateJsonToCode("SwagMock\\CasualEnum.json");
-            Assert.Equal(expected, s);
-        }
+			var s = TranslateJsonToCode("SwagMock\\CasualEnum.json");
+			Assert.Equal(expected, s);
+		}
 
-        [Fact]
-        public void TestStringArray()
-        {
-            string expected = @"export namespace MyNS {
+		[Fact]
+		public void TestStringArray()
+		{
+			string expected = @"export namespace MyNS {
 	export interface Pet {
 
 		/**The name given to a pet */
@@ -158,14 +158,14 @@ namespace SwagTests
 }
 
 ";
-            var s = TranslateJsonToCode("SwagMock\\StringArray.json");
-            Assert.Equal(expected, s);
-        }
+			var s = TranslateJsonToCode("SwagMock\\StringArray.json");
+			Assert.Equal(expected, s);
+		}
 
-        [Fact]
-        public void TestCustomTypeArray()
-        {
-            string expected = @"export namespace MyNS {
+		[Fact]
+		public void TestCustomTypeArray()
+		{
+			string expected = @"export namespace MyNS {
 	export interface Pet {
 
 		/**The name given to a pet */
@@ -190,14 +190,14 @@ namespace SwagTests
 }
 
 ";
-            var s = TranslateJsonToCode("SwagMock\\CustomTypeArray.json");
-            Assert.Equal(expected, s);
-        }
+			var s = TranslateJsonToCode("SwagMock\\CustomTypeArray.json");
+			Assert.Equal(expected, s);
+		}
 
-        [Fact]
-        public void TestSimpleOrder()
-        {
-            string expected = @"export namespace MyNS {
+		[Fact]
+		public void TestSimpleOrder()
+		{
+			string expected = @"export namespace MyNS {
 	export interface Order {
 		quantity?: number;
 
@@ -219,9 +219,9 @@ namespace SwagTests
 }
 
 ";
-            var s = TranslateJsonToCode("SwagMock\\SimpleOrder.json");
-            Assert.Equal(expected, s);
-        }
+			var s = TranslateJsonToCode("SwagMock\\SimpleOrder.json");
+			Assert.Equal(expected, s);
+		}
 
 		[Fact]
 		public void TestTypeAlias()

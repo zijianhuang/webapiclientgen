@@ -42,10 +42,10 @@ namespace Fonlow.WebApiClientGen.Swag
 					var id = Guid.NewGuid().ToString();
 					var d = new WebApiDescription(id)
 					{
-						ActionDescriptor= new ActionDescriptor()
+						ActionDescriptor = new ActionDescriptor()
 						{
-							ActionName= nameComposer.GetActionName(opKV.Value, opKV.Key.ToString()),
-							ReturnType=
+							ActionName = nameComposer.GetActionName(opKV.Value, opKV.Key.ToString()),
+							//ReturnType=
 						}
 					};
 

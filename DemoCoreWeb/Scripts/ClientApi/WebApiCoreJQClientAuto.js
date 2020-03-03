@@ -519,6 +519,12 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/SuperDemo/StringPersonDic', dic, callback, this.error, this.statusCode);
         }
         /**
+         * POST api/SuperDemo/Guids
+         */
+        postGuids(guids, callback) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/Guids', guids, callback, this.error, this.statusCode);
+        }
+        /**
          * POST api/SuperDemo/ICollection
          */
         postICollection(list, callback) {
@@ -812,4 +818,3 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
-//# sourceMappingURL=WebApiCoreJQClientAuto.js.map

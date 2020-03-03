@@ -757,6 +757,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/SuperDemo/Guids
+		 */
+		postGuids(guids: Array<string>): Promise<Array<string>> {
+			return Axios.post(this.baseUri + 'api/SuperDemo/Guids', JSON.stringify(guids), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as Array<string>);
+		}
+
+		/**
 		 * POST api/SuperDemo/ICollection
 		 */
 		postICollection(list: Array<DemoWebApi_DemoData_Client.Person>): Promise<number> {

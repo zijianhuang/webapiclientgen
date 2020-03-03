@@ -1,4 +1,4 @@
-using Fonlow.WebApiClientGen.Swag;
+using Fonlow.OpenApi.ClientTypes;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
 using System.IO;
@@ -6,7 +6,7 @@ using Xunit;
 
 namespace SwagTests
 {
-    public class ToCsCodeDom
+    public class ToCsTypes
     {
         static OpenApiDocument ReadJson(string filePath)
         {
@@ -24,7 +24,7 @@ namespace SwagTests
             {
                 ClientNamespace = "MyNS",
             };
-            var gen = new ComponentsToCsCodeDom(settings, new System.CodeDom.CodeCompileUnit());
+            var gen = new ComponentsToCsTypes(settings, new System.CodeDom.CodeCompileUnit());
             gen.CreateCodeDom(doc.Components);
             using (var writer = new StringWriter())
             {

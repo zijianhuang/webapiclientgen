@@ -5,8 +5,9 @@ using System.Diagnostics;
 using Fonlow.Reflection;
 using Fonlow.Web.Meta;
 using Microsoft.OpenApi.Models;
+using Fonlow.OpenApi.ClientTypes;
 
-namespace Fonlow.WebApiClientGen.Swag.Cs
+namespace Fonlow.OpenApiClientGen.Cs
 {
 	/// <summary>
 	/// Generate a client function upon ApiDescription for C#

@@ -13,6 +13,7 @@ using Tavis.UriTemplates;
 using System.CodeDom;
 using System.Diagnostics;
 using Fonlow.Reflection;
+using Fonlow.OpenApi.ClientTypes;
 
 namespace Fonlow.WebApiClientGen.Swag
 {

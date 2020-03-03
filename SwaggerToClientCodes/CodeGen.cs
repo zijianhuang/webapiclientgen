@@ -1,7 +1,8 @@
 ﻿using System;
 using Fonlow.Web.Meta;
+using Fonlow.OpenApi.ClientTypes;
 
-namespace Fonlow.WebApiClientGen.Swag.Cs
+namespace Fonlow.OpenApiClientGen.Cs
 {
 	public static class CodeGen
 	{

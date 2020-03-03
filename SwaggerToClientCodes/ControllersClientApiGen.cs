@@ -6,8 +6,9 @@ using System.Linq;
 using Fonlow.Web.Meta;
 using System;
 using Fonlow.Poco2Client;
+using Fonlow.OpenApi.ClientTypes;
 
-namespace Fonlow.WebApiClientGen.Swag.Cs
+namespace Fonlow.OpenApiClientGen.Cs
 {
 	/// <summary>
 	/// Store CodeDom references shared by all functions of the client API class.

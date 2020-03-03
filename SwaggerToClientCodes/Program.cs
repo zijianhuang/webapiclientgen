@@ -6,7 +6,7 @@ using Microsoft.OpenApi;
 using System.IO;
 using System.Text;
 
-namespace SwaggerToClientCodes
+namespace Fonlow.OpenApiClientGen
 {
 	class Program
 	{

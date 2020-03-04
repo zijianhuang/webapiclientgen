@@ -29,12 +29,19 @@ namespace SwagTests
             };
             var gen = new ControllersClientApiGen(settings);
             gen.CreateCodeDom(doc.Paths, doc.Components);
-            using (var writer = new StringWriter())
-            {
-                gen.WriteCode(writer);
-                return writer.ToString();
-            }
+            return gen.WriteToText();
+        }
 
+        static string ReadFromResults(string filePath)
+        {
+            return File.ReadAllText(filePath);
+        }
+
+        [Fact]
+        public void TestValuesPaths()
+        {
+            var s = TranslateJsonToCode("SwagMock\\ValuesPaths.json");
+            Assert.Equal(ReadFromResults("Results\\ValuesPaths.txt"), s);
         }
 
         [Fact]
@@ -49,24 +56,26 @@ namespace SwagTests
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Pet {
-        
-        /// <summary>
-        /// The name given to a pet
-        /// </summary>
-        public string Name { get; set; }//;
-        
-        /// <summary>
-        /// Type of a pet
-        /// </summary>
-        public string PetType { get; set; }//;
-    }
+namespace MyNS
+{
+	
+	
+	public class Pet
+	{
+		
+		/// <summary>
+		/// The name given to a pet
+		/// </summary>
+		public string Name { get; set; }
+		
+		/// <summary>
+		/// Type of a pet
+		/// </summary>
+		public string PetType { get; set; }
+	}
 }
 ";
-            var s = TranslateJsonToCode("SwagMock\\ValuesPaths.json");
+            var s = TranslateJsonToCode("SwagMock\\SimplePet.json");
             Assert.Equal(expected, s);
         }
 

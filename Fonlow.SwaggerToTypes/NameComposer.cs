@@ -95,7 +95,7 @@ namespace Fonlow.OpenApi.ClientTypes
 				}
 			}
 
-			return typeof(void);
+			return null;
 		}
 
 		public string GetOperationReturnComplexType(OpenApiOperation op)
@@ -136,7 +136,7 @@ namespace Fonlow.OpenApi.ClientTypes
 			if (complexTypeName == null)
 			{
 				var primitiveType = GetOperationReturnSimpleType(op);
-				return new CodeTypeReference(primitiveType);
+				return primitiveType==null? null : new CodeTypeReference(primitiveType);
 			}
 
 			return new CodeTypeReference(settings.ClientNamespace + "." + complexTypeName);

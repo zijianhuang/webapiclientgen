@@ -41,18 +41,15 @@ namespace Fonlow.OpenApiClientGen.Cs
 			this.settings = settings;
 			codeCompileUnit = new CodeCompileUnit();
 			sharedContext = new SharedContext();
-			poco2CsGen = new Poco2CsGen(codeCompileUnit);
 			nameComposer = new NameComposer(settings);
 		}
-
-		IPoco2Client poco2CsGen;
 
 		Settings settings;
 
 		NameComposer nameComposer;
 
 		/// <summary>
-		/// Save C# codes into a file.
+		/// Save C# codes into a file, after CreateDom().
 		/// </summary>
 		/// <param name="fileName"></param>
 		// hack inspired by https://csharpcodewhisperer.blogspot.com/2014/10/create-c-class-code-from-datatable.html
@@ -85,13 +82,31 @@ namespace Fonlow.OpenApiClientGen.Cs
 			}
 		}
 
+		public string WriteToText()
+		{
+			using (var stream = new MemoryStream())
+			using (StreamWriter writer = new StreamWriter(stream))
+			{
+				WriteCode(writer);
+				writer.Flush();
+				stream.Position = 0;
+				using (var stringReader = new StreamReader(stream))
+				using (var stringWriter = new StringWriter())
+				{
+					var s = stringReader.ReadToEnd();
+					stringWriter.Write(s.Replace("//;", ""));
+					return stringWriter.ToString();
+				}
+			}
+		}
+
 		/// <summary>
 		/// Generate CodeDom of the client API for ApiDescriptions.
 		/// </summary>
 		/// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
 		public void CreateCodeDom(OpenApiPaths paths, OpenApiComponents components)
 		{
-			if (paths == null && components==null)
+			if (paths == null && components == null)
 			{
 				return;
 			}
@@ -101,6 +116,9 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 			var componentsToCsTypes = new ComponentsToCsTypes(settings, codeCompileUnit, clientNamespace);
 			componentsToCsTypes.CreateCodeDom(components);
+
+			if (paths == null)
+				return;
 
 			clientNamespace.Imports.AddRange(new CodeNamespaceImport[]{
 				new CodeNamespaceImport("System"),

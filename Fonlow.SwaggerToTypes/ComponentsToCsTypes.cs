@@ -72,10 +72,12 @@ namespace Fonlow.OpenApi.ClientTypes
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
 
-			CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-			CodeGeneratorOptions options = new CodeGeneratorOptions();
+			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
+			{
+				CodeGeneratorOptions options = new CodeGeneratorOptions();
 
-			provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+			}
 		}
 
 		public CodeNamespace ClientNamespace { get; private set; }

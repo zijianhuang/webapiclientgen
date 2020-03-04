@@ -64,12 +64,14 @@ namespace Fonlow.OpenApi.ClientTypes
 			if (writer == null)
 				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-			CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true);
-			CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
-			options.BracingStyle = "JS";
-			options.IndentString = "\t";
+			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true))
+			{
+				CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
+				options.BracingStyle = "JS";
+				options.IndentString = "\t";
 
-			provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+			}
 		}
 
 		CodeNamespace clientNamespace;

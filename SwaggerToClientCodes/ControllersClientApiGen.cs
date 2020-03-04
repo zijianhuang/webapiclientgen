@@ -30,20 +30,15 @@ namespace Fonlow.OpenApiClientGen.Cs
 	{
 		CodeCompileUnit codeCompileUnit;
 		SharedContext sharedContext;
-		CodeGenSettings codeGenParameters;
 		CodeNamespace clientNamespace;
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="codeGenParameters"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		public ControllersClientApiGen(CodeGenSettings codeGenParameters, Settings settings)
+		public ControllersClientApiGen(Settings settings)
 		{
-			if (codeGenParameters == null)
-				throw new System.ArgumentNullException(nameof(codeGenParameters));
-
 			this.settings = settings;
-			this.codeGenParameters = codeGenParameters;
 			codeCompileUnit = new CodeCompileUnit();
 			sharedContext = new SharedContext();
 			poco2CsGen = new Poco2CsGen(codeCompileUnit);
@@ -63,24 +58,34 @@ namespace Fonlow.OpenApiClientGen.Cs
 		// hack inspired by https://csharpcodewhisperer.blogspot.com/2014/10/create-c-class-code-from-datatable.html
 		public void Save(string fileName)
 		{
+			CodeGeneratorOptions options = new CodeGeneratorOptions();
+			options.BracingStyle = "C";
+			options.IndentString = "\t";
+			using (var stream = new MemoryStream())
+			using (StreamWriter writer = new StreamWriter(stream))
+			{
+				WriteCode(writer);
+				writer.Flush();
+				stream.Position = 0;
+				using (var stringReader = new StreamReader(stream))
+				using (var fileWriter = new StreamWriter(fileName))
+				{
+					var s = stringReader.ReadToEnd();
+					fileWriter.Write(s.Replace("//;", ""));
+				}
+			}
+		}
+
+		public void WriteCode(TextWriter writer)
+		{
+			if (writer == null)
+				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
+
 			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
 			{
 				CodeGeneratorOptions options = new CodeGeneratorOptions();
-				options.BracingStyle = "C";
-				options.IndentString = "\t";
-				using (var stream = new MemoryStream())
-				using (StreamWriter writer = new StreamWriter(stream))
-				{
-					provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
-					writer.Flush();
-					stream.Position = 0;
-					using (var stringReader = new StreamReader(stream))
-					using (var fileWriter = new StreamWriter(fileName))
-					{
-						var s = stringReader.ReadToEnd();
-						fileWriter.Write(s.Replace("//;", ""));
-					}
-				}
+
+				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 			}
 		}
 

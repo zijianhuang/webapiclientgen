@@ -82,10 +82,11 @@ namespace Fonlow.Poco2Client
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
 
-			CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-			CodeGeneratorOptions options = new CodeGeneratorOptions();
-
-			provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
+			{
+				CodeGeneratorOptions options = new CodeGeneratorOptions();
+				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+			}
 		}
 
 		string clientNamespaceSuffix;

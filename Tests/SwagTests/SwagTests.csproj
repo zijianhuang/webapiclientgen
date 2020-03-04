@@ -20,6 +20,7 @@
     <None Remove="SwagMock\SimplePetCat.json" />
     <None Remove="SwagMock\StringArray.json" />
     <None Remove="SwagMock\TypeAlias.json" />
+    <None Remove="SwagMock\ValuesPaths.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +63,9 @@
     <Content Include="SwagMock\SimplePetCat.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="SwagMock\ValuesPaths.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +83,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Fonlow.SwaggerToTypes\Fonlow.SwaggerToTypes.csproj" />
+    <ProjectReference Include="..\..\SwaggerToClientCodes\SwaggerToClientCodes.csproj" />
   </ItemGroup>
 
 </Project>

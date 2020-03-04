@@ -74,12 +74,14 @@ namespace Fonlow.Poco2Ts
 			if (writer == null)
 				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-			CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true);
-			CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
-			options.BracingStyle = "JS";
-			options.IndentString = "\t";
+			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true))
+			{
+				CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
+				options.BracingStyle = "JS";
+				options.IndentString = "\t";
 
-			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+			}
 		}
 
 		string clientNamespaceSuffix;

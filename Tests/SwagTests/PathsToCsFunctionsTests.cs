@@ -79,6 +79,21 @@ namespace MyNS
             Assert.Equal(expected, s);
         }
 
+        [Fact]
+        public void TestPet()
+        {
+            var s = TranslateJsonToCode("SwagMock\\Pet.json");
+            Assert.Equal(ReadFromResults("Results\\Pet.txt"), s);
+        }
+
+        [Fact]
+        public void TestPetTypes()
+        {
+            var s = TranslateJsonToCode("SwagMock\\PetTypes.json");
+            Assert.Equal(ReadFromResults("Results\\PetTypes.txt"), s);
+        }
+
+
 
 
     }

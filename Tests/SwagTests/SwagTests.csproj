@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Results\Pet.txt" />
+    <None Remove="Results\PetTypes.txt" />
     <None Remove="Results\ValuesPaths.txt" />
     <None Remove="SwagMock\CasualEnum.json" />
     <None Remove="SwagMock\CustomTypeArray.json" />
@@ -15,6 +17,7 @@
     <None Remove="SwagMock\PathItemValues.json" />
     <None Remove="SwagMock\pet.json" />
     <None Remove="SwagMock\PetDogCat.json" />
+    <None Remove="SwagMock\petTypes.json" />
     <None Remove="SwagMock\Required.json" />
     <None Remove="SwagMock\SimpleOrder.json" />
     <None Remove="SwagMock\SimplePet.json" />
@@ -25,6 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Results\PetTypes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\Pet.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Results\ValuesPaths.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -32,6 +41,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\PathItemValues.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\petTypes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\pet.json">

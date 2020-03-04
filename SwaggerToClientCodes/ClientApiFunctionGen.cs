@@ -6,48 +6,59 @@ using Fonlow.Reflection;
 using Fonlow.Web.Meta;
 using Microsoft.OpenApi.Models;
 using Fonlow.OpenApi.ClientTypes;
+using Fonlow.CodeDom.Web;
 
 namespace Fonlow.OpenApiClientGen.Cs
 {
 	/// <summary>
-	/// Generate a client function upon ApiDescription for C#
+	/// Generate a client function upon OpenApiOperation for C#
 	/// </summary>
 	internal class ClientApiFunctionGen
 	{
 		SharedContext sharedContext;
-		OpenApiOperation description;
+		OpenApiOperation apiOperation;
+		ParameterDescription[] parameterDescriptions;
 		string methodName;
 		string relativePath;
-		protected CodeTypeDeclaration returnType;
-		bool returnTypeIsStream;
+		protected CodeTypeReference returnTypeReference;
+		//bool returnTypeIsStream;
 		CodeMemberMethod method;
 		readonly ComponentsToCsTypes poco2CsGen;
+		NameComposer nameComposer;
+		Settings settings;
+		string actionName;
 
 		bool forAsync;
 		bool stringAsString;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, string relativePath, OperationType method, OpenApiOperation description, ComponentsToCsTypes poco2CsGen, bool stringAsString, bool forAsync = false)
+		public ClientApiFunctionGen(SharedContext sharedContext, Settings settings, string relativePath, OperationType method, OpenApiOperation apiOperation, ComponentsToCsTypes poco2CsGen, bool stringAsString, bool forAsync = false)
 		{
-			this.description = description;
+			this.settings = settings;
+			this.nameComposer = new NameComposer(settings);
+			this.apiOperation = apiOperation;
+			this.parameterDescriptions = nameComposer.OpenApiParametersToParameterDescriptions(apiOperation.Parameters);
+			this.actionName = nameComposer.GetActionName(apiOperation, method.ToString());
 			this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
 			this.forAsync = forAsync;
 			this.stringAsString = stringAsString;
 
 			methodName = method.ToString().ToUpper();
+
 			this.relativePath = relativePath;
 			if (methodName.EndsWith("Async"))
 				methodName = methodName.Substring(0, methodName.Length - 5);
 
-			returnType = description.Responses["200"];
-			returnTypeIsStream = returnType!=null && ( (returnType.FullName == typeNameOfHttpResponseMessage) 
-				|| (returnType.FullName == typeOfIHttpActionResult) 
-				|| (returnType.FullName == typeOfIActionResult) 
-				|| (returnType.FullName == typeOfActionResult)
-				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult")) // .net core is not translating Task<IActionResult> properly.
-				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult"))
-				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult"))
-				);
+			returnTypeReference = nameComposer.GetOperationReturnTypeReference(apiOperation);
+			//todo: stream, byte and ActionResult later.
+			//returnTypeIsStream = returnType!=null && ( (returnType.FullName == typeNameOfHttpResponseMessage) 
+			//	|| (returnType.FullName == typeOfIHttpActionResult) 
+			//	|| (returnType.FullName == typeOfIActionResult) 
+			//	|| (returnType.FullName == typeOfActionResult)
+			//	|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult")) // .net core is not translating Task<IActionResult> properly.
+			//	|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult"))
+			//	|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult"))
+			//	);
 		}
 
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
@@ -56,11 +67,11 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(SharedContext sharedContext, string relativePath, OperationType method, OpenApiOperation description, ComponentsToCsCodeDom poco2CsGen, bool stringAsString, bool forAsync)
-		{
-			var gen = new ClientApiFunctionGen(sharedContext, relativePath, method, description, poco2CsGen, stringAsString, forAsync);
-			return gen.CreateApiFunction();
-		}
+		//public static CodeMemberMethod Create(SharedContext sharedContext, string relativePath, OperationType method, OpenApiOperation description, ComponentsToCsCodeDom poco2CsGen, bool stringAsString, bool forAsync)
+		//{
+		//	var gen = new ClientApiFunctionGen(sharedContext, relativePath, method, description, poco2CsGen, stringAsString, forAsync);
+		//	return gen.CreateApiFunction();
+		//}
 
 		public CodeMemberMethod CreateApiFunction()
 		{
@@ -119,7 +130,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName,
-				ReturnType = poco2CsGen.TranslateToClientTypeReference(returnType),
+				ReturnType = returnTypeReference,
 			};
 		}
 
@@ -129,8 +140,8 @@ namespace Fonlow.OpenApiClientGen.Cs
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName + "Async",
-				ReturnType = returnType == null ? new CodeTypeReference("async Task")
-				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReference(returnType)),
+				ReturnType = returnTypeReference == null ? new CodeTypeReference("async Task")
+				: new CodeTypeReference("async Task", returnTypeReference),
 			};
 		}
 
@@ -153,7 +164,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			};
 
 			method.Comments.Add(new CodeCommentStatement("<summary>", true));
-			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(description.Documentation);
+			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(apiOperation.Description);
 			if (noIndent != null)
 			{
 				foreach (var item in noIndent)
@@ -164,26 +175,26 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 			method.Comments.Add(new CodeCommentStatement(methodName + " " + relativePath, true));
 			method.Comments.Add(new CodeCommentStatement("</summary>", true));
-			foreach (var item in description.ParameterDescriptions)
+			foreach (var item in parameterDescriptions)
 			{
 				CreateParamDocComment(item.Name, item.Documentation);
 			}
-			CreateDocComment("returns", description.ResponseDescription.Documentation);
+			CreateDocComment("returns", nameComposer.GetOperationReturnComment(apiOperation));
 		}
 
 		void RenderGetOrDeleteImplementation(CodeExpression httpMethodInvokeExpression)
 		{
 			//Create function parameters
-			var parameters = description.Parameters.Select(d => new CodeParameterDeclarationExpression()
+			var parameters = apiOperation.Parameters.Select(d => new CodeParameterDeclarationExpression()
 			{
 				Name = d.Name,
-				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
+				Type = nameComposer.GetParameterCodeTypeReference(d),
 
 			}).ToArray();
 
 			method.Parameters.AddRange(parameters);
 
-			var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, description.ParameterDescriptions);
+			var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, parameterDescriptions);
 			var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{relativePath}\")" :
 				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
 
@@ -200,23 +211,23 @@ namespace Fonlow.OpenApiClientGen.Cs
 			var resultReference = new CodeVariableReferenceExpression("responseMessage");
 
 			//Statement: result.EnsureSuccessStatusCode();
-			if (returnTypeIsStream)
-			{
-				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+			//if (returnTypeIsStream)
+			//{
+			//	method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
 
-				if (returnType != null)
-				{
-					AddReturnStatement(method.Statements);
-				}
-			}
-			else
+			//	if (returnType != null)
+			//	{
+			//		AddReturnStatement(method.Statements);
+			//	}
+			//}
+			//else
 			{
 				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
 				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
 				method.Statements.Add(try1);
 
 				//Statement: return something;
-				if (returnType != null)
+				if (returnTypeReference != null)
 				{
 					AddReturnStatement(try1.TryStatements);
 				}
@@ -229,27 +240,27 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 		void AddReturnStatement(CodeStatementCollection statementCollection)
 		{
-			if (returnTypeIsStream)
-			{
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
-				return;
-			}
-			else if (returnType.IsGenericType)
-			{
-				Type genericTypeDefinition = returnType.GetGenericTypeDefinition();
-				if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
-				{
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
-					return;
-				}
-			}
+			//if (returnTypeIsStream)
+			//{
+			//	statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
+			//	return;
+			//}
+			//else if (returnType.IsGenericType)
+			//{
+			//	Type genericTypeDefinition = returnType.GetGenericTypeDefinition();
+			//	if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
+			//	{
+			//		statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
+			//		return;
+			//	}
+			//}
 
 			statementCollection.Add(new CodeSnippetStatement(forAsync ?
 				"\t\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
 				: "\t\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
 			//  statementCollection.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
 
-			if (returnType != null && TypeHelper.IsStringType(returnType))
+			if (returnTypeReference != null && returnTypeReference.BaseType=="System.String")
 			{
 				if (this.stringAsString)
 				{
@@ -264,52 +275,64 @@ namespace Fonlow.OpenApiClientGen.Cs
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
 				}
 			}
-			else if (returnType == typeOfChar)
-			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
-				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
-			}
-			else if (returnType.IsPrimitive)
-			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
-			}
-			else if (returnType.IsGenericType)
+			//else if (returnTypeReference == typeOfChar)
+			//{
+			//	statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+			//	statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+			//	statementCollection.Add(new CodeVariableDeclarationStatement(
+			//		new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+			//	statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
+			//}
+			//else if (returnTypeReference.IsPrimitive)
+			//{
+			//	statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+			//	statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+			//	statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnTypeReference.FullName))));
+			//}
+			else if (IsPrimitive(returnTypeReference.BaseType))
 			{
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 				statementCollection.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", returnTypeReference),
 						new CodeSnippetExpression("jsonReader"))));
 			}
-			else if (TypeHelper.IsComplexType(returnType))
+			else if (IsComplexType(returnTypeReference.BaseType))
 			{
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 				statementCollection.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", returnTypeReference),
 						new CodeSnippetExpression("jsonReader"))));
 			}
 			else
 			{
-				Trace.TraceWarning("This type is not yet supported: {0}", returnType.FullName);
+				Trace.TraceWarning("This type is not yet supported: {0}", returnTypeReference.BaseType);
 			}
 
 			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));
 		}
 
+		static bool IsPrimitive(string typeName)
+		{
+			string[] ts = new string[] {"System.Int32", "System.Int64", "System.Float", "System.Double", "System.DateTime", "System.Boolean" };
+			return ts.Contains(typeName);
+		}
+
+		bool IsComplexType(string typeName)
+		{
+			return typeName.StartsWith(settings.ClientNamespace);
+		}
+
+
 		void RenderPostOrPutImplementation(bool isPost)
 		{
 			//Create function parameters in prototype
-			var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
+			var parameters = parameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
 			{
 				Name = d.Name,
 				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
@@ -317,7 +340,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			}).ToArray();
 			method.Parameters.AddRange(parameters);
 
-			var uriQueryParameters = description.ParameterDescriptions.Where(d =>
+			var uriQueryParameters = parameterDescriptions.Where(d =>
 				(d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromBody && d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromForm && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
 				|| (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
@@ -327,13 +350,13 @@ namespace Fonlow.OpenApiClientGen.Cs
 					Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
 				}).ToArray();
 
-			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+			var fromBodyParameterDescriptions = parameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
 			if (fromBodyParameterDescriptions.Length > 1)
 			{
 				throw new CodeGenException("Bad Api Definition")
 				{
-					Description = String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName)
+					Description = String.Format("This API function {0} has more than 1 FromBody bindings in parameters", actionName)
 				};
 			}
 
@@ -342,7 +365,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			Action AddRequestUriWithQueryAssignmentStatement = () =>
 			{
 
-				var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, description.ParameterDescriptions);
+				var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, parameterDescriptions);
 				var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{relativePath}\")" :
 				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
 
@@ -353,7 +376,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 			Action AddRequestUriAssignmentStatement = () =>
 			{
-				var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, description.ParameterDescriptions);
+				var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, parameterDescriptions);
 				var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{relativePath}\")" :
 				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
 
@@ -435,24 +458,24 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 			var resultReference = new CodeVariableReferenceExpression("responseMessage");
 
-			if (returnTypeIsStream)
-			{
-				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+			//if (returnTypeIsStream)
+			//{
+			//	method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
 
-				//Statement: return something;
-				if (returnType != null)
-				{
-					AddReturnStatement(method.Statements);
-				}
-			}
-			else
+			//	//Statement: return something;
+			//	if (returnTypeReference != null)
+			//	{
+			//		AddReturnStatement(method.Statements);
+			//	}
+			//}
+			//else
 			{
 				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
 				method.Statements.Add(try1);
 				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
 
 				//Statement: return something;
-				if (returnType != null)
+				if (returnTypeReference != null)
 				{
 					AddReturnStatement(try1.TryStatements);
 				}

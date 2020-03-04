@@ -14,15 +14,20 @@
 		MethodQueryParameters,
 	}
 
-	public enum ControllerNameStrategy
+	public enum ContainerNameStrategy
 	{
+		/// <summary>
+		/// All client functions will be constructed in a god class named after ContainerClassName
+		/// </summary>
+		None,
+
 		/// <summary>
 		/// Use tags
 		/// </summary>
 		Tags,
 
 		/// <summary>
-		/// Use path along with regex to pick 
+		/// Use path as resource for grouping
 		/// </summary>
 		Path,
 	}
@@ -31,10 +36,18 @@
 	{
 		public string ClientNamespace { get; set; }
 
+		/// <summary>
+		/// To compose client function name through removing path prefix
+		/// </summary>
 		public string PathPrefixToRemove { get; set; }
 
 		public ActionNameStrategy ActionNameStrategy { get; set; }
 
-		public ControllerNameStrategy ControllerNameStrategy { get; set; }
+		public ContainerNameStrategy ControllerNameStrategy { get; set; }
+
+		/// <summary>
+		/// Utilized when ContainerNameStrategy is None
+		/// </summary>
+		public string ContainerClassName { get; set; } = "Misc";
 	}
 }

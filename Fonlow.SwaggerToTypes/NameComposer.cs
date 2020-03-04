@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.CodeDom;
+using Fonlow.Web.Meta;
 
 namespace Fonlow.OpenApi.ClientTypes
 {
@@ -45,12 +47,12 @@ namespace Fonlow.OpenApi.ClientTypes
 		{
 			switch (settings.ControllerNameStrategy)
 			{
-				case ControllerNameStrategy.Path:
+				case ContainerNameStrategy.Path:
 					return PathToControllerName(path);
-				case ControllerNameStrategy.Tags:
-					return op.Tags[0].Name;//todo: concanate multiple ones?
+				case ContainerNameStrategy.Tags:
+					return ToTitleCase(op.Tags[0].Name);//todo: concanate multiple ones?
 				default:
-					return "Misc";
+					return settings.ContainerClassName;
 			}
 		}
 
@@ -110,6 +112,12 @@ namespace Fonlow.OpenApi.ClientTypes
 			return null;
 		}
 
+		public string GetOperationReturnComment(OpenApiOperation op)
+		{
+			var goodResponse = op.Responses["200"];
+			return goodResponse == null ? null : goodResponse.Description;
+		}
+
 		public Tuple<Type, string> GetOperationReturnType(OpenApiOperation op)
 		{
 			var complexTypeName = GetOperationReturnComplexType(op);
@@ -120,6 +128,60 @@ namespace Fonlow.OpenApi.ClientTypes
 			}
 
 			return Tuple.Create<Type, string>(primitiveType, complexTypeName);
+		}
+
+		public CodeTypeReference GetOperationReturnTypeReference(OpenApiOperation op)
+		{
+			var complexTypeName = GetOperationReturnComplexType(op);
+			if (complexTypeName == null)
+			{
+				var primitiveType = GetOperationReturnSimpleType(op);
+				return new CodeTypeReference(primitiveType);
+			}
+
+			return new CodeTypeReference(settings.ClientNamespace + "." + complexTypeName);
+		}
+
+		public CodeTypeReference GetParameterCodeTypeReference(OpenApiParameter p)
+		{
+			var type = PrimitiveSwaggerTypeToClrType(p.Schema.Type, p.Schema.Format);
+			return new CodeTypeReference(type);
+		}
+
+		public ParameterDescription[] OpenApiParametersToParameterDescriptions(IList<OpenApiParameter> ps)
+		{
+			return ps.Select(p =>
+				new ParameterDescription()
+				{
+					Name=p.Name,
+					Documentation=p.Description,
+					ParameterDescriptor= new ParameterDescriptor()
+					{
+						IsOptional= !p.Required,
+						ParameterName=p.Name,
+						ParameterType=PrimitiveSwaggerTypeToClrType(p.Schema.Type, p.Schema.Format),
+						ParameterBinder= ParameterLocationToParameterBinder(p.In),
+					}
+				}
+			).ToArray();
+		}
+
+		ParameterBinder ParameterLocationToParameterBinder(ParameterLocation? lo)
+		{
+			if (!lo.HasValue)
+			{
+				throw new InvalidDataException("ParameterLocation is REQUIRED");
+			}
+
+			switch (lo)
+			{
+				case ParameterLocation.Query:
+					return ParameterBinder.FromQuery;
+				case ParameterLocation.Path:
+					return ParameterBinder.FromUri;
+				default:
+					throw new NotSupportedException($"{lo} as parameter not supported");
+			}
 		}
 
 		readonly Dictionary<string, Type> basicClrTypeDic = new Dictionary<string, Type>()

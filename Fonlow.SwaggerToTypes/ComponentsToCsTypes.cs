@@ -78,17 +78,17 @@ namespace Fonlow.OpenApi.ClientTypes
 			provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 		}
 
-		CodeNamespace clientNamespace;
+		public CodeNamespace ClientNamespace { get; private set; }
 
 		public void CreateCodeDom(OpenApiComponents components)
 		{
 			if (components == null)
 			{
-				throw new ArgumentNullException(nameof(components));
+				return;
 			}
 
-			clientNamespace = new CodeNamespace(settings.ClientNamespace);
-			codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+			ClientNamespace = new CodeNamespace(settings.ClientNamespace);
+			codeCompileUnit.Namespaces.Add(ClientNamespace);//namespace added to Dom
 
 			foreach (var item in components.Schemas)
 			{
@@ -105,7 +105,7 @@ namespace Fonlow.OpenApi.ClientTypes
 				{
 					if (schema.Properties.Count > 0 || (schema.Properties.Count==0 && allOfBaseTypeSchemaList.Count>1))
 					{
-						typeDeclaration = PodGenHelper.CreatePodClientClass(clientNamespace, typeName);
+						typeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, typeName);
 						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
 						{
 							var allOfRef = allOfBaseTypeSchemaList[0];
@@ -131,7 +131,7 @@ namespace Fonlow.OpenApi.ClientTypes
 				}
 				else
 				{
-					typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, typeName);
+					typeDeclaration = PodGenHelper.CreatePodClientEnum(ClientNamespace, typeName);
 					CreateTypeOrMemberDocComment(item, typeDeclaration);
 					AddEnumMembers(typeDeclaration, enumTypeList);
 				}
@@ -222,7 +222,7 @@ namespace Fonlow.OpenApi.ClientTypes
 					else // for casual enum
 					{
 						var casualEnumName = typeDeclaration.Name + ToTitleCase(propertyName);
-						var casualEnumTypeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, casualEnumName);
+						var casualEnumTypeDeclaration = PodGenHelper.CreatePodClientEnum(ClientNamespace, casualEnumName);
 						AddEnumMembers(casualEnumTypeDeclaration, propertySchema.Enum);
 						clientProperty = CreateProperty(propertyName, casualEnumName);
 					}

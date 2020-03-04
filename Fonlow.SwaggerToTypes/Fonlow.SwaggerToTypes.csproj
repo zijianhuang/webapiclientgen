@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
+    <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
   </ItemGroup>
 
 </Project>

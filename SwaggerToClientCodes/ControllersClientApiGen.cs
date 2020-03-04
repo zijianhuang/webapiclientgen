@@ -7,6 +7,9 @@ using Fonlow.Web.Meta;
 using System;
 using Fonlow.Poco2Client;
 using Fonlow.OpenApi.ClientTypes;
+using Fonlow.CodeDom.Web;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
 namespace Fonlow.OpenApiClientGen.Cs
 {
@@ -25,45 +28,33 @@ namespace Fonlow.OpenApiClientGen.Cs
 	/// </summary>
 	public class ControllersClientApiGen
 	{
-		CodeCompileUnit targetUnit { get; set; }
-		SharedContext sharedContext { get; set; }
-		CodeGenSettings codeGenParameters { get; set; }
-
+		CodeCompileUnit codeCompileUnit;
+		SharedContext sharedContext;
+		CodeGenSettings codeGenParameters;
+		CodeNamespace clientNamespace;
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="codeGenParameters"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		public ControllersClientApiGen(CodeGenSettings codeGenParameters)
+		public ControllersClientApiGen(CodeGenSettings codeGenParameters, Settings settings)
 		{
 			if (codeGenParameters == null)
 				throw new System.ArgumentNullException(nameof(codeGenParameters));
 
+			this.settings = settings;
 			this.codeGenParameters = codeGenParameters;
-			targetUnit = new CodeCompileUnit();
+			codeCompileUnit = new CodeCompileUnit();
 			sharedContext = new SharedContext();
-			poco2CsGen = new Poco2CsGen(targetUnit);
+			poco2CsGen = new Poco2CsGen(codeCompileUnit);
+			nameComposer = new NameComposer(settings);
 		}
 
 		IPoco2Client poco2CsGen;
 
-		/// <summary>
-		/// Save C# codes into a file.
-		/// </summary>
-		/// <param name="fileName"></param>
-		//public void Save(string fileName)
-		//{
-		//	using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
-		//	{
-		//		CodeGeneratorOptions options = new CodeGeneratorOptions();
-		//		options.BracingStyle = "C";
-		//		options.IndentString = "\t";
-		//		using (StreamWriter writer = new StreamWriter(fileName))
-		//		{
-		//			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
-		//		}
-		//	}
-		//}
+		Settings settings;
+
+		NameComposer nameComposer;
 
 		/// <summary>
 		/// Save C# codes into a file.
@@ -80,7 +71,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 				using (var stream = new MemoryStream())
 				using (StreamWriter writer = new StreamWriter(stream))
 				{
-					provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+					provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 					writer.Flush();
 					stream.Position = 0;
 					using (var stringReader = new StreamReader(stream))
@@ -96,48 +87,22 @@ namespace Fonlow.OpenApiClientGen.Cs
 		public bool ForBothAsyncAndSync { get; set; }
 
 
-		void GenerateCsFromPoco()
-		{
-			if (codeGenParameters.ApiSelections.DataModelAssemblyNames == null)
-				return;
-
-			var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-			var assemblies = allAssemblies.Where(d => codeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
-			var cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-			foreach (var assembly in assemblies)
-			{
-				var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
-				var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-				poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix);
-			}
-		}
-
 		/// <summary>
 		/// Generate CodeDom of the client API for ApiDescriptions.
 		/// </summary>
 		/// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-		public void CreateCodeDom(WebApiDescription[] descriptions)
+		public void CreateCodeDom(OpenApiPaths paths, OpenApiComponents components)
 		{
-			if (descriptions == null)
+			if (paths == null)
 			{
-				throw new ArgumentNullException(nameof(descriptions));
+				return;
 			}
 
-			GenerateCsFromPoco();
-			//controllers of ApiDescriptions (functions) grouped by namespace
-			var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
-				.Distinct()
-				.GroupBy(d => d.ControllerType.Namespace)
-				.OrderBy(g => g.Key);// order by namespace
+			var componentsToCsTypes = new ComponentsToCsTypes(settings, codeCompileUnit);
+			componentsToCsTypes.CreateCodeDom(components);
+			clientNamespace = componentsToCsTypes.ClientNamespace;
 
-			//Create client classes mapping to controller classes
-			foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
-			{
-				var clientNamespaceText = grouppedControllerDescriptions.Key + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix;
-				var clientNamespace = new CodeNamespace(clientNamespaceText);
-				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
-
-				clientNamespace.Imports.AddRange(new CodeNamespaceImport[]{
+			clientNamespace.Imports.AddRange(new CodeNamespaceImport[]{
 				new CodeNamespaceImport("System"),
 				new CodeNamespaceImport("System.Collections.Generic"),
 				new CodeNamespaceImport("System.Threading.Tasks"),
@@ -145,53 +110,60 @@ namespace Fonlow.OpenApiClientGen.Cs
 				new CodeNamespaceImport("Newtonsoft.Json"),
 				});
 
-				var newClassesCreated = grouppedControllerDescriptions
-					.OrderBy(d=>d.ControllerName)
-					.Select(d =>
-					{
-						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
-						if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
-							return null;
+			var containerClassNames = GetContainerClassNames(paths);
 
-						return CreateControllerClientClass(clientNamespace, d.ControllerName);
+			var newClassesCreated = containerClassNames.Select(d => CreateControllerClientClass(clientNamespace, d)).ToArray();
+
+			foreach (var p in paths)
+			{
+				foreach (var op in p.Value.Operations)
+				{
+					ClientApiFunctionGen functionGen = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, true, true);
+					var apiFunction = functionGen.CreateApiFunction();
+					var containerClassName = nameComposer.GetControllerName(op.Value, p.Key);
+					var existingClass = LookupExistingClass(containerClassName);
+					existingClass.Members.Add(apiFunction);
+					if (ForBothAsyncAndSync)
+					{
+						ClientApiFunctionGen functionGen2 = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, true, false);
+						existingClass.Members.Add(functionGen2.CreateApiFunction());
 					}
-					)
-					.ToArray();//add classes into the namespace
+				}
+			}
+		}
+
+		string[] GetContainerClassNames(OpenApiPaths paths)
+		{
+			if (settings.ControllerNameStrategy == ContainerNameStrategy.None)
+			{
+				return new string[] { settings.ContainerClassName };
 			}
 
-			foreach (var d in descriptions)
+			List<string> names = new List<string>();
+
+			foreach (var p in paths)
 			{
-				var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
-				var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
-				var controllerFullName = controllerNamespace + "." + controllerName;
-				if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
-					continue;
-
-				var existingClientClass = LookupExistingClass(controllerNamespace, controllerName);
-				System.Diagnostics.Trace.Assert(existingClientClass != null);
-
-				var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, true);
-				existingClientClass.Members.Add(apiFunction);
-				if (ForBothAsyncAndSync)
+				foreach (var op in p.Value.Operations)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, false));
+					var name = nameComposer.GetControllerName(op.Value, p.Key);
+					names.Add(name);
 				}
 			}
 
+			return names.Distinct().ToArray();
 		}
 
 		/// <summary>
 		/// Lookup existing CodeTypeDeclaration created.
 		/// </summary>
-		/// <param name="namespaceText"></param>
 		/// <param name="controllerName"></param>
 		/// <returns></returns>
-		CodeTypeDeclaration LookupExistingClass(string namespaceText, string controllerName)
+		CodeTypeDeclaration LookupExistingClass(string controllerName)
 		{
-			for (int i = 0; i < targetUnit.Namespaces.Count; i++)
+			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
 			{
-				var ns = targetUnit.Namespaces[i];
-				if (ns.Name == namespaceText + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix)
+				var ns = codeCompileUnit.Namespaces[i];
+				if (ns.Name == settings.ClientNamespace)
 				{
 					for (int k = 0; k < ns.Types.Count; k++)
 					{

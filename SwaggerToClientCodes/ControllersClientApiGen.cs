@@ -98,14 +98,16 @@ namespace Fonlow.OpenApiClientGen.Cs
 		/// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
 		public void CreateCodeDom(OpenApiPaths paths, OpenApiComponents components)
 		{
-			if (paths == null)
+			if (paths == null && components==null)
 			{
 				return;
 			}
 
-			var componentsToCsTypes = new ComponentsToCsTypes(settings, codeCompileUnit);
+			clientNamespace = new CodeNamespace(settings.ClientNamespace);
+			codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+
+			var componentsToCsTypes = new ComponentsToCsTypes(settings, codeCompileUnit, clientNamespace);
 			componentsToCsTypes.CreateCodeDom(components);
-			clientNamespace = componentsToCsTypes.ClientNamespace;
 
 			clientNamespace.Imports.AddRange(new CodeNamespaceImport[]{
 				new CodeNamespaceImport("System"),

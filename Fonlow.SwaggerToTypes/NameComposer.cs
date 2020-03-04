@@ -84,7 +84,7 @@ namespace Fonlow.OpenApi.ClientTypes
 		public Type GetOperationReturnSimpleType(OpenApiOperation op)
 		{
 			var goodResponse = op.Responses["200"];
-			if (goodResponse != null)
+			if (goodResponse != null && goodResponse.Content.Count>0)
 			{
 				var jsonContent = goodResponse.Content["application/json"];
 				var schemaType = jsonContent.Schema.Type;
@@ -101,7 +101,7 @@ namespace Fonlow.OpenApi.ClientTypes
 		public string GetOperationReturnComplexType(OpenApiOperation op)
 		{
 			var goodResponse = op.Responses["200"];
-			if (goodResponse != null)
+			if (goodResponse != null && goodResponse.Content.Count > 0)
 			{
 				if (goodResponse.Content["application/json"].Schema != null && goodResponse.Content["application/json"].Schema.Reference != null)
 				{
@@ -153,14 +153,14 @@ namespace Fonlow.OpenApi.ClientTypes
 			return ps.Select(p =>
 				new ParameterDescription()
 				{
-					Name=p.Name,
-					Documentation=p.Description,
-					ParameterDescriptor= new ParameterDescriptor()
+					Name = p.Name,
+					Documentation = p.Description,
+					ParameterDescriptor = new ParameterDescriptor()
 					{
-						IsOptional= !p.Required,
-						ParameterName=p.Name,
-						ParameterType=PrimitiveSwaggerTypeToClrType(p.Schema.Type, p.Schema.Format),
-						ParameterBinder= ParameterLocationToParameterBinder(p.In),
+						IsOptional = !p.Required,
+						ParameterName = p.Name,
+						ParameterType = PrimitiveSwaggerTypeToClrType(p.Schema.Type, p.Schema.Format),
+						ParameterBinder = ParameterLocationToParameterBinder(p.In),
 					}
 				}
 			).ToArray();

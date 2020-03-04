@@ -24,7 +24,11 @@ namespace SwagTests
 			{
 				ClientNamespace = "MyNS",
 			};
-			var gen = new ComponentsToTsTypes(settings, new System.CodeDom.CodeCompileUnit());
+
+			var codeCompileUnit = new System.CodeDom.CodeCompileUnit();
+			var clientNamespace = new System.CodeDom.CodeNamespace(settings.ClientNamespace);
+			codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+			var gen = new ComponentsToTsTypes(settings, codeCompileUnit, clientNamespace);
 			gen.CreateCodeDom(doc.Components);
 			using (var writer = new StringWriter())
 			{

@@ -15,11 +15,12 @@ namespace Fonlow.OpenApi.ClientTypes
 	/// </summary>
 	public class ComponentsToCsTypes
 	{
-		public ComponentsToCsTypes(Settings settings, CodeCompileUnit codeCompileUnit)
+		public ComponentsToCsTypes(Settings settings, CodeCompileUnit codeCompileUnit, CodeNamespace clientNamespace)
 		{
 			this.codeCompileUnit = codeCompileUnit;
 			this.settings = settings;
 			this.nameComposer = new NameComposer(settings);
+			this.ClientNamespace = clientNamespace;
 		}
 
 		readonly CodeCompileUnit codeCompileUnit;
@@ -88,9 +89,6 @@ namespace Fonlow.OpenApi.ClientTypes
 			{
 				return;
 			}
-
-			ClientNamespace = new CodeNamespace(settings.ClientNamespace);
-			codeCompileUnit.Namespaces.Add(ClientNamespace);//namespace added to Dom
 
 			foreach (var item in components.Schemas)
 			{

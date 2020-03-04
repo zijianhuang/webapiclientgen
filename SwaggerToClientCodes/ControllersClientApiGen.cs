@@ -58,9 +58,6 @@ namespace Fonlow.OpenApiClientGen.Cs
 		// hack inspired by https://csharpcodewhisperer.blogspot.com/2014/10/create-c-class-code-from-datatable.html
 		public void Save(string fileName)
 		{
-			CodeGeneratorOptions options = new CodeGeneratorOptions();
-			options.BracingStyle = "C";
-			options.IndentString = "\t";
 			using (var stream = new MemoryStream())
 			using (StreamWriter writer = new StreamWriter(stream))
 			{
@@ -83,14 +80,10 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
 			{
-				CodeGeneratorOptions options = new CodeGeneratorOptions();
-
+				CodeGeneratorOptions options = new CodeGeneratorOptions() { BracingStyle = "C", IndentString = "\t" };
 				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 			}
 		}
-
-		public bool ForBothAsyncAndSync { get; set; }
-
 
 		/// <summary>
 		/// Generate CodeDom of the client API for ApiDescriptions.
@@ -130,7 +123,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 					var containerClassName = nameComposer.GetControllerName(op.Value, p.Key);
 					var existingClass = LookupExistingClass(containerClassName);
 					existingClass.Members.Add(apiFunction);
-					if (ForBothAsyncAndSync)
+					if (settings.ForBothAsyncAndSync)
 					{
 						ClientApiFunctionGen functionGen2 = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, true, false);
 						existingClass.Members.Add(functionGen2.CreateApiFunction());

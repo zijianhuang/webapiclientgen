@@ -49,5 +49,7 @@
 		/// Utilized when ContainerNameStrategy is None
 		/// </summary>
 		public string ContainerClassName { get; set; } = "Misc";
+
+		public bool ForBothAsyncAndSync { get; set; }
 	}
 }

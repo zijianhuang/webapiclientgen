@@ -67,10 +67,7 @@ namespace Fonlow.OpenApi.ClientTypes
 
 			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true))
 			{
-				CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
-				options.BracingStyle = "JS";
-				options.IndentString = "\t";
-
+				CodeGeneratorOptions options = new CodeGeneratorOptions() { BracingStyle = "JS", IndentString = "\t" };
 				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 			}
 		}

@@ -51,21 +51,23 @@ namespace SwagTests
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Pet {
-        
-        /// <summary>
-        /// The name given to a pet
-        /// </summary>
-        public string Name { get; set; }//;
-        
-        /// <summary>
-        /// Type of a pet
-        /// </summary>
-        public string PetType { get; set; }//;
-    }
+namespace MyNS
+{
+	
+	
+	public class Pet
+	{
+		
+		/// <summary>
+		/// The name given to a pet
+		/// </summary>
+		public string Name { get; set; }//;
+		
+		/// <summary>
+		/// Type of a pet
+		/// </summary>
+		public string PetType { get; set; }//;
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\SimplePet.json");
@@ -85,32 +87,35 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Pet {
-        
-        /// <summary>
-        /// The name given to a pet
-        /// </summary>
-        public string Name { get; set; }//;
-        
-        /// <summary>
-        /// Type of a pet
-        /// </summary>
-        public string PetType { get; set; }//;
-    }
-    
-    /// <summary>
-    /// A representation of a cat
-    /// </summary>
-    public class Cat : Pet {
-        
-        /// <summary>
-        /// The measured skill for hunting
-        /// </summary>
-        public string HuntingSkill { get; set; }//;
-    }
+namespace MyNS
+{
+	
+	
+	public class Pet
+	{
+		
+		/// <summary>
+		/// The name given to a pet
+		/// </summary>
+		public string Name { get; set; }//;
+		
+		/// <summary>
+		/// Type of a pet
+		/// </summary>
+		public string PetType { get; set; }//;
+	}
+	
+	/// <summary>
+	/// A representation of a cat
+	/// </summary>
+	public class Cat : Pet
+	{
+		
+		/// <summary>
+		/// The measured skill for hunting
+		/// </summary>
+		public string HuntingSkill { get; set; }//;
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\SimplePetCat.json");
@@ -129,22 +134,24 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    /// <summary>
-    /// Phone types
-    /// </summary>
-    public enum PhoneType {
-        
-        Tel = 0,
-        
-        Mobile = 1,
-        
-        Skype = 2,
-        
-        Fax = 3,
-    }
+namespace MyNS
+{
+	
+	
+	/// <summary>
+	/// Phone types
+	/// </summary>
+	public enum PhoneType
+	{
+		
+		Tel = 0,
+		
+		Mobile = 1,
+		
+		Skype = 2,
+		
+		Fax = 3,
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\Enum.json");
@@ -163,22 +170,24 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    /// <summary>
-    /// Integer enum types
-    /// </summary>
-    public enum IntType {
-        
-        _1 = 0,
-        
-        _2 = 1,
-        
-        _3 = 2,
-        
-        _4 = 3,
-    }
+namespace MyNS
+{
+	
+	
+	/// <summary>
+	/// Integer enum types
+	/// </summary>
+	public enum IntType
+	{
+		
+		_1 = 0,
+		
+		_2 = 1,
+		
+		_3 = 2,
+		
+		_4 = 3,
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\IntEnum.json");
@@ -198,35 +207,38 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Pet {
-        
-        /// <summary>
-        /// The name given to a pet
-        /// </summary>
-        public string Name { get; set; }//;
-        
-        /// <summary>
-        /// Type of a pet
-        /// </summary>
-        public string PetType { get; set; }//;
-        
-        /// <summary>
-        /// Pet status in the store
-        /// </summary>
-        public PetStatus Status { get; set; }//;
-    }
-    
-    public enum PetStatus {
-        
-        available = 0,
-        
-        pending = 1,
-        
-        sold = 2,
-    }
+namespace MyNS
+{
+	
+	
+	public class Pet
+	{
+		
+		/// <summary>
+		/// The name given to a pet
+		/// </summary>
+		public string Name { get; set; }//;
+		
+		/// <summary>
+		/// Type of a pet
+		/// </summary>
+		public string PetType { get; set; }//;
+		
+		/// <summary>
+		/// Pet status in the store
+		/// </summary>
+		public PetStatus Status { get; set; }//;
+	}
+	
+	public enum PetStatus
+	{
+		
+		available = 0,
+		
+		pending = 1,
+		
+		sold = 2,
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\CasualEnum.json");
@@ -245,26 +257,28 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Pet {
-        
-        /// <summary>
-        /// The name given to a pet
-        /// </summary>
-        public string Name { get; set; }//;
-        
-        /// <summary>
-        /// Type of a pet
-        /// </summary>
-        public string PetType { get; set; }//;
-        
-        /// <summary>
-        /// The list of URL to a cute photos featuring pet
-        /// </summary>
-        public string[] PhotoUrls { get; set; }//;
-    }
+namespace MyNS
+{
+	
+	
+	public class Pet
+	{
+		
+		/// <summary>
+		/// The name given to a pet
+		/// </summary>
+		public string Name { get; set; }//;
+		
+		/// <summary>
+		/// Type of a pet
+		/// </summary>
+		public string PetType { get; set; }//;
+		
+		/// <summary>
+		/// The list of URL to a cute photos featuring pet
+		/// </summary>
+		public string[] PhotoUrls { get; set; }//;
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\StringArray.json");
@@ -283,39 +297,42 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Pet {
-        
-        /// <summary>
-        /// The name given to a pet
-        /// </summary>
-        public string Name { get; set; }//;
-        
-        /// <summary>
-        /// Type of a pet
-        /// </summary>
-        public string PetType { get; set; }//;
-        
-        /// <summary>
-        /// Tags attached to the pet
-        /// </summary>
-        public Tag[] Tags { get; set; }//;
-    }
-    
-    public class Tag {
-        
-        /// <summary>
-        /// Tag ID
-        /// </summary>
-        public long Id { get; set; }//;
-        
-        /// <summary>
-        /// Tag name
-        /// </summary>
-        public string Name { get; set; }//;
-    }
+namespace MyNS
+{
+	
+	
+	public class Pet
+	{
+		
+		/// <summary>
+		/// The name given to a pet
+		/// </summary>
+		public string Name { get; set; }//;
+		
+		/// <summary>
+		/// Type of a pet
+		/// </summary>
+		public string PetType { get; set; }//;
+		
+		/// <summary>
+		/// Tags attached to the pet
+		/// </summary>
+		public Tag[] Tags { get; set; }//;
+	}
+	
+	public class Tag
+	{
+		
+		/// <summary>
+		/// Tag ID
+		/// </summary>
+		public long Id { get; set; }//;
+		
+		/// <summary>
+		/// Tag name
+		/// </summary>
+		public string Name { get; set; }//;
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\CustomTypeArray.json");
@@ -334,42 +351,45 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Order {
-        
-        public int Quantity { get; set; }//;
-        
-        /// <summary>
-        /// Estimated ship date
-        /// </summary>
-        public System.DateTime ShipDate { get; set; }//;
-        
-        /// <summary>
-        /// Order Status
-        /// </summary>
-        public OrderStatus Status { get; set; }//;
-        
-        /// <summary>
-        /// Indicates whenever order was completed or not
-        /// </summary>
-        public bool Complete { get; set; }//;
-        
-        /// <summary>
-        /// Unique Request Id
-        /// </summary>
-        public string RequestId { get; set; }//;
-    }
-    
-    public enum OrderStatus {
-        
-        placed = 0,
-        
-        approved = 1,
-        
-        delivered = 2,
-    }
+namespace MyNS
+{
+	
+	
+	public class Order
+	{
+		
+		public int Quantity { get; set; }//;
+		
+		/// <summary>
+		/// Estimated ship date
+		/// </summary>
+		public System.DateTime ShipDate { get; set; }//;
+		
+		/// <summary>
+		/// Order Status
+		/// </summary>
+		public OrderStatus Status { get; set; }//;
+		
+		/// <summary>
+		/// Indicates whenever order was completed or not
+		/// </summary>
+		public bool Complete { get; set; }//;
+		
+		/// <summary>
+		/// Unique Request Id
+		/// </summary>
+		public string RequestId { get; set; }//;
+	}
+	
+	public enum OrderStatus
+	{
+		
+		placed = 0,
+		
+		approved = 1,
+		
+		delivered = 2,
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\SimpleOrder.json");
@@ -388,21 +408,23 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Tag {
-        
-        /// <summary>
-        /// Tag ID
-        /// </summary>
-        public long Id { get; set; }//;
-        
-        /// <summary>
-        /// Tag name
-        /// </summary>
-        public string Name { get; set; }//;
-    }
+namespace MyNS
+{
+	
+	
+	public class Tag
+	{
+		
+		/// <summary>
+		/// Tag ID
+		/// </summary>
+		public long Id { get; set; }//;
+		
+		/// <summary>
+		/// Tag name
+		/// </summary>
+		public string Name { get; set; }//;
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\TypeAlias.json");
@@ -432,34 +454,37 @@ namespace MyNS {
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyNS {
-    
-    
-    public class Pet {
-        
-        /// <summary>
-        /// The name given to a pet
-        /// </summary>
-        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
-        public string Name { get; set; }//;
-        
-        /// <summary>
-        /// Type of a pet
-        /// </summary>
-        public string PetType { get; set; }//;
-    }
-    
-    /// <summary>
-    /// A representation of a cat
-    /// </summary>
-    public class Cat : Pet {
-        
-        /// <summary>
-        /// The measured skill for hunting
-        /// </summary>
-        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
-        public string HuntingSkill { get; set; }//;
-    }
+namespace MyNS
+{
+	
+	
+	public class Pet
+	{
+		
+		/// <summary>
+		/// The name given to a pet
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		public string Name { get; set; }//;
+		
+		/// <summary>
+		/// Type of a pet
+		/// </summary>
+		public string PetType { get; set; }//;
+	}
+	
+	/// <summary>
+	/// A representation of a cat
+	/// </summary>
+	public class Cat : Pet
+	{
+		
+		/// <summary>
+		/// The measured skill for hunting
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		public string HuntingSkill { get; set; }//;
+	}
 }
 ";
             var s = TranslateJsonToCode("SwagMock\\Required.json");

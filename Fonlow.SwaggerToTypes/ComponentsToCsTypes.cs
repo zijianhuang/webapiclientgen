@@ -75,8 +75,7 @@ namespace Fonlow.OpenApi.ClientTypes
 
 			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
 			{
-				CodeGeneratorOptions options = new CodeGeneratorOptions();
-
+				CodeGeneratorOptions options = new CodeGeneratorOptions() { BracingStyle = "C", IndentString = "\t" };
 				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 			}
 		}

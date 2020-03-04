@@ -25,6 +25,7 @@ namespace SwagTests
             {
                 ClientNamespace = "MyNS",
                 PathPrefixToRemove="/api",
+                ForBothAsyncAndSync=true
             };
             var gen = new ControllersClientApiGen(settings);
             gen.CreateCodeDom(doc.Paths, doc.Components);

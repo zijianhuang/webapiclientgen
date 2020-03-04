@@ -18,7 +18,6 @@ namespace Fonlow.OpenApiClientGen.Cs
 		SharedContext sharedContext;
 		OpenApiOperation apiOperation;
 		ParameterDescription[] parameterDescriptions;
-		string methodName;
 		string relativePath;
 		protected CodeTypeReference returnTypeReference;
 		//bool returnTypeIsStream;
@@ -27,27 +26,27 @@ namespace Fonlow.OpenApiClientGen.Cs
 		NameComposer nameComposer;
 		Settings settings;
 		string actionName;
-
+		OperationType httpMethod;
 		bool forAsync;
 		bool stringAsString;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, Settings settings, string relativePath, OperationType method, OpenApiOperation apiOperation, ComponentsToCsTypes poco2CsGen, bool stringAsString, bool forAsync = false)
+		public ClientApiFunctionGen(SharedContext sharedContext, Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToCsTypes poco2CsGen, bool stringAsString, bool forAsync = false)
 		{
 			this.settings = settings;
 			this.nameComposer = new NameComposer(settings);
 			this.apiOperation = apiOperation;
+			this.httpMethod = httpMethod;
 			this.parameterDescriptions = nameComposer.OpenApiParametersToParameterDescriptions(apiOperation.Parameters);
-			this.actionName = nameComposer.GetActionName(apiOperation, method.ToString());
+			this.actionName = nameComposer.GetActionName(apiOperation, httpMethod.ToString());
 			this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
 			this.forAsync = forAsync;
 			this.stringAsString = stringAsString;
 
-			methodName = method.ToString().ToUpper();
 
 			this.relativePath = relativePath;
-			if (methodName.EndsWith("Async"))
-				methodName = methodName.Substring(0, methodName.Length - 5);
+			if (actionName.EndsWith("Async"))
+				actionName = actionName.Substring(0, actionName.Length - 5);
 
 			returnTypeReference = nameComposer.GetOperationReturnTypeReference(apiOperation);
 			//todo: stream, byte and ActionResult later.
@@ -80,9 +79,9 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 			CreateDocComments();
 
-			switch (methodName)
+			switch (httpMethod)
 			{
-				case "GET":
+				case OperationType.Get:
 					if (forAsync)
 					{
 						RenderGetOrDeleteImplementation(
@@ -95,7 +94,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 							new CodeMethodInvokeExpression(sharedContext.clientReference, "GetAsync", new CodeSnippetExpression("requestUri")), "Result"));
 					}
 					break;
-				case "DELETE":
+				case OperationType.Delete:
 					if (forAsync)
 					{
 						RenderGetOrDeleteImplementation(
@@ -109,15 +108,15 @@ namespace Fonlow.OpenApiClientGen.Cs
 							, "Result"));
 					}
 					break;
-				case "POST":
+				case OperationType.Post:
 					RenderPostOrPutImplementation(true);
 					break;
-				case "PUT":
+				case OperationType.Put:
 					RenderPostOrPutImplementation(false);
 					break;
 
 				default:
-					Trace.TraceWarning("This HTTP method {0} is not yet supported", methodName);
+					Trace.TraceWarning("This HTTP method {0} is not yet supported", httpMethod);
 					break;
 			}
 
@@ -129,7 +128,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			return new CodeMemberMethod()
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
-				Name = methodName,
+				Name = actionName,
 				ReturnType = returnTypeReference,
 			};
 		}
@@ -139,7 +138,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			return new CodeMemberMethod()
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
-				Name = methodName + "Async",
+				Name = actionName + "Async",
 				ReturnType = returnTypeReference == null ? new CodeTypeReference("async Task")
 				: new CodeTypeReference("async Task", returnTypeReference),
 			};
@@ -173,7 +172,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 				}
 			}
 
-			method.Comments.Add(new CodeCommentStatement(methodName + " " + relativePath, true));
+			method.Comments.Add(new CodeCommentStatement(actionName + " " + relativePath, true));
 			method.Comments.Add(new CodeCommentStatement("</summary>", true));
 			foreach (var item in parameterDescriptions)
 			{

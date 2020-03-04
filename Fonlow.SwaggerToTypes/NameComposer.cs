@@ -95,7 +95,7 @@ namespace Fonlow.OpenApi.ClientTypes
 				}
 			}
 
-			return null;
+			return typeof(void);
 		}
 
 		public string GetOperationReturnComplexType(OpenApiOperation op)

@@ -88,7 +88,7 @@ namespace SwagTests
 		{
 			var pathItem = doc.Paths["/api/SuperDemo/decimal/{d}"];
 			var t = composer.GetOperationReturnSimpleType(pathItem.Operations[OperationType.Get]);
-			Assert.Equal(typeof(double), t);
+			Assert.Equal(typeof(double), t.Item1);
 		}
 
 		[Fact]

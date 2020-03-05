@@ -136,14 +136,14 @@ namespace Fonlow.OpenApiClientGen.Cs
 			{
 				foreach (var op in p.Value.Operations)
 				{
-					ClientApiFunctionGen functionGen = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, true, true);
+					ClientApiFunctionGen functionGen = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, true);
 					var apiFunction = functionGen.CreateApiFunction();
 					var containerClassName = nameComposer.GetControllerName(op.Value, p.Key);
 					var existingClass = LookupExistingClass(containerClassName);
 					existingClass.Members.Add(apiFunction);
 					if (settings.ForBothAsyncAndSync)
 					{
-						ClientApiFunctionGen functionGen2 = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, true, false);
+						ClientApiFunctionGen functionGen2 = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, false);
 						existingClass.Members.Add(functionGen2.CreateApiFunction());
 					}
 				}

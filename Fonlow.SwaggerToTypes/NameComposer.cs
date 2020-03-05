@@ -81,24 +81,40 @@ namespace Fonlow.OpenApi.ClientTypes
 			return String.Join(String.Empty, uriWithPaths.Segments.Select(p => ToTitleCase(p.Replace("/", String.Empty))));
 		}
 
-		public Type GetOperationReturnSimpleType(OpenApiOperation op)
+		readonly Type typeOfString = typeof(string);
+
+		public Tuple<Type, bool> GetOperationReturnSimpleType(OpenApiOperation op)
 		{
 			OpenApiResponse goodResponse;
 			if (op.Responses.TryGetValue("200", out goodResponse))
 			{
 				OpenApiMediaType content;
+				if (goodResponse.Content.TryGetValue("text/plain", out content))
+				{
+					if (content.Schema != null)
+					{
+						var schemaType = content.Schema.Type;
+						if (schemaType != null)
+						{
+							var schemaFormat = content.Schema.Format;
+							var type = PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat);
+							return Tuple.Create(type, type == typeOfString);
+						}
+					}
+				}
+
 				if (goodResponse.Content.TryGetValue("application/json", out content))
 				{
 					var schemaType = content.Schema.Type;
 					if (schemaType != null)
 					{
 						var schemaFormat = content.Schema.Format;
-						return PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat);
+						return Tuple.Create(PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat), false);
 					}
 				}
 			}
 
-			return null;
+			return Tuple.Create<Type, bool>(null, false);
 		}
 
 		public string GetOperationReturnComplexType(OpenApiOperation op)
@@ -127,28 +143,39 @@ namespace Fonlow.OpenApi.ClientTypes
 			return null;
 		}
 
-		public Tuple<Type, string> GetOperationReturnType(OpenApiOperation op)
+		/// <summary>
+		/// Get either Type of simple Type, or type name of complex type
+		/// </summary>
+		/// <param name="op"></param>
+		/// <returns></returns>
+		public Tuple<Type, string, bool> GetOperationReturnType(OpenApiOperation op)
 		{
 			var complexTypeName = GetOperationReturnComplexType(op);
 			Type primitiveType = null;
+			bool stringAsString = false;
 			if (complexTypeName == null)
 			{
-				primitiveType = GetOperationReturnSimpleType(op);
+				var r = GetOperationReturnSimpleType(op);
+				primitiveType = r.Item1;
+				stringAsString = r.Item2;
 			}
 
-			return Tuple.Create<Type, string>(primitiveType, complexTypeName);
+			return Tuple.Create(primitiveType, complexTypeName, stringAsString);
 		}
 
-		public CodeTypeReference GetOperationReturnTypeReference(OpenApiOperation op)
+		public Tuple<CodeTypeReference, bool> GetOperationReturnTypeReference(OpenApiOperation op)
 		{
 			var complexTypeName = GetOperationReturnComplexType(op);
+			bool stringAsString = false;
 			if (complexTypeName == null)
 			{
-				var primitiveType = GetOperationReturnSimpleType(op);
-				return primitiveType == null ? null : new CodeTypeReference(primitiveType);
+				var r = GetOperationReturnSimpleType(op);
+				var primitiveType = r.Item1;
+				stringAsString = r.Item2;
+				return Tuple.Create(primitiveType == null ? null : new CodeTypeReference(primitiveType), stringAsString);
 			}
 
-			return new CodeTypeReference(settings.ClientNamespace + "." + complexTypeName);
+			return Tuple.Create(new CodeTypeReference(settings.ClientNamespace + "." + complexTypeName), stringAsString);
 		}
 
 		public CodeTypeReference GetParameterCodeTypeReference(OpenApiParameter p)

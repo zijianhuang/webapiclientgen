@@ -30,7 +30,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 		bool forAsync;
 		bool stringAsString;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToCsTypes poco2CsGen, bool stringAsString, bool forAsync = false)
+		public ClientApiFunctionGen(SharedContext sharedContext, Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToCsTypes poco2CsGen, bool forAsync = false)
 		{
 			this.settings = settings;
 			this.nameComposer = new NameComposer(settings);
@@ -41,14 +41,16 @@ namespace Fonlow.OpenApiClientGen.Cs
 			this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
 			this.forAsync = forAsync;
-			this.stringAsString = stringAsString;
 
 
 			this.relativePath = relativePath;
 			if (actionName.EndsWith("Async"))
 				actionName = actionName.Substring(0, actionName.Length - 5);
 
-			returnTypeReference = nameComposer.GetOperationReturnTypeReference(apiOperation);
+			var r = nameComposer.GetOperationReturnTypeReference(apiOperation);
+			returnTypeReference = r.Item1;
+			stringAsString = r.Item2;
+
 			//todo: stream, byte and ActionResult later.
 			//returnTypeIsStream = returnType!=null && ( (returnType.FullName == typeNameOfHttpResponseMessage) 
 			//	|| (returnType.FullName == typeOfIHttpActionResult) 

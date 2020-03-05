@@ -184,7 +184,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 		void RenderGetOrDeleteImplementation(CodeExpression httpMethodInvokeExpression)
 		{
 			//Create function parameters
-			var parameters = apiOperation.Parameters.Select(d => new CodeParameterDeclarationExpression()
+			var parameters = apiOperation.Parameters.Where(p=>p.In == ParameterLocation.Path || p.In == ParameterLocation.Query).Select(d => new CodeParameterDeclarationExpression()
 			{
 				Name = d.Name,
 				Type = nameComposer.GetParameterCodeTypeReference(d),

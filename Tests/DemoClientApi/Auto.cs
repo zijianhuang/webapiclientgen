@@ -16,6 +16,242 @@ namespace MyNS
 	using Newtonsoft.Json;
 
 
+	public class ApiResponse
+	{
+
+		public int Code { get; set; }
+
+		public string Type { get; set; }
+
+		public string Message { get; set; }
+	}
+
+	/// <summary>
+	/// A representation of a cat
+	/// </summary>
+	public class Cat : Pet
+	{
+
+		/// <summary>
+		/// The measured skill for hunting
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		public CatHuntingSkill HuntingSkill { get; set; }
+	}
+
+	public enum CatHuntingSkill
+	{
+
+		clueless = 0,
+
+		lazy = 1,
+
+		adventurous = 2,
+
+		aggressive = 3,
+	}
+
+	public class Category
+	{
+
+		/// <summary>
+		/// Category ID
+		/// </summary>
+		public long Id { get; set; }
+
+		/// <summary>
+		/// Category name
+		/// </summary>
+		public string Name { get; set; }
+
+		/// <summary>
+		/// Test Sub Category
+		/// </summary>
+		public string Sub { get; set; }
+	}
+
+	/// <summary>
+	/// A representation of a dog
+	/// </summary>
+	public class Dog : Pet
+	{
+
+		/// <summary>
+		/// The size of the pack the dog is from
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		public int PackSize { get; set; }
+	}
+
+	/// <summary>
+	/// A representation of a honey bee
+	/// </summary>
+	public class HoneyBee : Pet
+	{
+
+		/// <summary>
+		/// Average amount of honey produced per day in ounces
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		public string HoneyPerDay { get; set; }
+	}
+
+	public class Order
+	{
+
+		/// <summary>
+		/// Order ID
+		/// </summary>
+		public long Id { get; set; }
+
+		/// <summary>
+		/// Pet ID
+		/// </summary>
+		public long PetId { get; set; }
+
+		public int Quantity { get; set; }
+
+		/// <summary>
+		/// Estimated ship date
+		/// </summary>
+		public System.DateTime ShipDate { get; set; }
+
+		/// <summary>
+		/// Order Status
+		/// </summary>
+		public OrderStatus Status { get; set; }
+
+		/// <summary>
+		/// Indicates whenever order was completed or not
+		/// </summary>
+		public bool Complete { get; set; }
+
+		/// <summary>
+		/// Unique Request Id
+		/// </summary>
+		public string RequestId { get; set; }
+	}
+
+	public enum OrderStatus
+	{
+
+		placed = 0,
+
+		approved = 1,
+
+		delivered = 2,
+	}
+
+	public class Pet
+	{
+
+		/// <summary>
+		/// Pet ID
+		/// </summary>
+		public long Id { get; set; }
+
+		/// <summary>
+		/// Categories this pet belongs to
+		/// </summary>
+		public string Category { get; set; }
+
+		/// <summary>
+		/// The name given to a pet
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		public string Name { get; set; }
+
+		/// <summary>
+		/// The list of URL to a cute photos featuring pet
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		public string[] PhotoUrls { get; set; }
+
+		public string Friend { get; set; }
+
+		/// <summary>
+		/// Tags attached to the pet
+		/// </summary>
+		public Tag[] Tags { get; set; }
+
+		/// <summary>
+		/// Pet status in the store
+		/// </summary>
+		public PetStatus Status { get; set; }
+
+		/// <summary>
+		/// Type of a pet
+		/// </summary>
+		public string PetType { get; set; }
+	}
+
+	public enum PetStatus
+	{
+
+		available = 0,
+
+		pending = 1,
+
+		sold = 2,
+	}
+
+	public class Tag
+	{
+
+		/// <summary>
+		/// Tag ID
+		/// </summary>
+		public long Id { get; set; }
+
+		/// <summary>
+		/// Tag name
+		/// </summary>
+		public string Name { get; set; }
+	}
+
+	public class User
+	{
+
+		public long Id { get; set; }
+
+		public string Pet { get; set; }
+
+		/// <summary>
+		/// User supplied username
+		/// </summary>
+		public string Username { get; set; }
+
+		/// <summary>
+		/// User first name
+		/// </summary>
+		public string FirstName { get; set; }
+
+		/// <summary>
+		/// User last name
+		/// </summary>
+		public string LastName { get; set; }
+
+		/// <summary>
+		/// User email address
+		/// </summary>
+		public string Email { get; set; }
+
+		/// <summary>
+		/// User password, MUST contain a mix of upper and lower case letters, as well as digits
+		/// </summary>
+		public string Password { get; set; }
+
+		/// <summary>
+		/// User phone number in international format
+		/// </summary>
+		public string Phone { get; set; }
+
+		/// <summary>
+		/// User status
+		/// </summary>
+		public int UserStatus { get; set; }
+	}
+
 	public partial class Misc
 	{
 
@@ -36,67 +272,16 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// ValuesGet /api/Values
+		/// Add new pet to the store inventory.
+		/// addPet /pet
 		/// </summary>
-		/// <returns>Success</returns>
-		public async Task<string> ValuesGetAsync()
+		public async Task addPetAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values");
-			var responseMessage = await client.GetAsync(requestUri);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-				{
-					return streamReader.ReadToEnd(); ;
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-
-		/// <summary>
-		/// ValuesGet /api/Values
-		/// </summary>
-		/// <returns>Success</returns>
-		public string ValuesGet()
-		{
-			var requestUri = new Uri(this.baseUri, "/api/Values");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-				{
-					return streamReader.ReadToEnd(); ;
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-
-		/// <summary>
-		/// ValuesPost /api/Values
-		/// </summary>
-		/// <returns>Success</returns>
-		public async Task<string> ValuesPostAsync()
-		{
-			var requestUri = new Uri(this.baseUri, "/api/Values");
+			var requestUri = new Uri(this.baseUri, "/pet");
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-				{
-					return streamReader.ReadToEnd(); ;
-				}
 			}
 			finally
 			{
@@ -105,21 +290,16 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// ValuesPost /api/Values
+		/// Add new pet to the store inventory.
+		/// addPet /pet
 		/// </summary>
-		/// <returns>Success</returns>
-		public string ValuesPost()
+		public void addPet()
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values");
+			var requestUri = new Uri(this.baseUri, "/pet");
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-				{
-					return streamReader.ReadToEnd(); ;
-				}
 			}
 			finally
 			{
@@ -128,58 +308,11 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// ValuesGetById /api/Values/{id}
+		/// updatePet /pet
 		/// </summary>
-		/// <returns>Success</returns>
-		public async Task<string> ValuesGetByIdAsync(int id)
+		public async Task updatePetAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
-			var responseMessage = await client.GetAsync(requestUri);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-				{
-					return streamReader.ReadToEnd(); ;
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-
-		/// <summary>
-		/// ValuesGetById /api/Values/{id}
-		/// </summary>
-		/// <returns>Success</returns>
-		public string ValuesGetById(int id)
-		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-				{
-					return streamReader.ReadToEnd(); ;
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-
-		/// <summary>
-		/// ValuesPutById /api/Values/{id}
-		/// </summary>
-		/// <returns>Success</returns>
-		public async Task ValuesPutByIdAsync(int id)
-		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = new Uri(this.baseUri, "/pet");
 			var responseMessage = await client.PutAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -192,12 +325,11 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// ValuesPutById /api/Values/{id}
+		/// updatePet /pet
 		/// </summary>
-		/// <returns>Success</returns>
-		public void ValuesPutById(int id)
+		public void updatePet()
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = new Uri(this.baseUri, "/pet");
 			var responseMessage = this.client.PutAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -210,12 +342,100 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// ValuesDeleteById /api/Values/{id}
+		/// Returns a single pet
+		/// getPetById /pet/{petId}
 		/// </summary>
-		/// <returns>Success</returns>
-		public async Task ValuesDeleteByIdAsync(int id)
+		/// <param name="petId">ID of pet to return</param>
+		/// <returns>successful operation</returns>
+		public async Task<MyNS.Pet> getPetByIdAsync(long petId)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.Pet>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Returns a single pet
+		/// getPetById /pet/{petId}
+		/// </summary>
+		/// <param name="petId">ID of pet to return</param>
+		/// <returns>successful operation</returns>
+		public MyNS.Pet getPetById(long petId)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.Pet>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// updatePetWithForm /pet/{petId}
+		/// </summary>
+		/// <param name="petId">ID of pet that needs to be updated</param>
+		public async Task updatePetWithFormAsync(long petId)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
+			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// updatePetWithForm /pet/{petId}
+		/// </summary>
+		/// <param name="petId">ID of pet that needs to be updated</param>
+		public void updatePetWithForm(long petId)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
+			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// deletePet /pet/{petId}
+		/// </summary>
+		/// <param name="petId">Pet id to delete</param>
+		public async Task deletePetAsync(long petId)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -228,13 +448,663 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// ValuesDeleteById /api/Values/{id}
+		/// deletePet /pet/{petId}
 		/// </summary>
-		/// <returns>Success</returns>
-		public void ValuesDeleteById(int id)
+		/// <param name="petId">Pet id to delete</param>
+		public void deletePet(long petId)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// uploadFile /pet/{petId}/uploadImage
+		/// </summary>
+		/// <param name="petId">ID of pet to update</param>
+		/// <returns>successful operation</returns>
+		public async Task<MyNS.ApiResponse> uploadFileAsync(long petId)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/" + petId + "/uploadImage");
+			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.ApiResponse>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// uploadFile /pet/{petId}/uploadImage
+		/// </summary>
+		/// <param name="petId">ID of pet to update</param>
+		/// <returns>successful operation</returns>
+		public MyNS.ApiResponse uploadFile(long petId)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/" + petId + "/uploadImage");
+			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.ApiResponse>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Multiple status values can be provided with comma separated strings
+		/// findPetsByStatus /pet/findByStatus
+		/// </summary>
+		/// <param name="status">Status values that need to be considered for filter</param>
+		/// <returns>successful operation</returns>
+		public async Task<string> findPetsByStatusAsync(string status)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+					return streamReader.ReadToEnd(); ;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Multiple status values can be provided with comma separated strings
+		/// findPetsByStatus /pet/findByStatus
+		/// </summary>
+		/// <param name="status">Status values that need to be considered for filter</param>
+		/// <returns>successful operation</returns>
+		public string findPetsByStatus(string status)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+					return streamReader.ReadToEnd(); ;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+		/// findPetsByTags /pet/findByTags
+		/// </summary>
+		/// <param name="tags">Tags to filter by</param>
+		/// <returns>successful operation</returns>
+		public async Task<string> findPetsByTagsAsync(string tags)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+					return streamReader.ReadToEnd(); ;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+		/// findPetsByTags /pet/findByTags
+		/// </summary>
+		/// <param name="tags">Tags to filter by</param>
+		/// <returns>successful operation</returns>
+		public string findPetsByTags(string tags)
+		{
+			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+					return streamReader.ReadToEnd(); ;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Returns a map of status codes to quantities
+		/// getInventory /store/inventory
+		/// </summary>
+		/// <returns>successful operation</returns>
+		public async Task<string> getInventoryAsync()
+		{
+			var requestUri = new Uri(this.baseUri, "/store/inventory");
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+					return streamReader.ReadToEnd(); ;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Returns a map of status codes to quantities
+		/// getInventory /store/inventory
+		/// </summary>
+		/// <returns>successful operation</returns>
+		public string getInventory()
+		{
+			var requestUri = new Uri(this.baseUri, "/store/inventory");
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+					return streamReader.ReadToEnd(); ;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// placeOrder /store/order
+		/// </summary>
+		/// <returns>successful operation</returns>
+		public async Task<MyNS.Order> placeOrderAsync()
+		{
+			var requestUri = new Uri(this.baseUri, "/store/order");
+			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.Order>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// placeOrder /store/order
+		/// </summary>
+		/// <returns>successful operation</returns>
+		public MyNS.Order placeOrder()
+		{
+			var requestUri = new Uri(this.baseUri, "/store/order");
+			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.Order>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
+		/// getOrderById /store/order/{orderId}
+		/// </summary>
+		/// <param name="orderId">ID of pet that needs to be fetched</param>
+		/// <returns>successful operation</returns>
+		public async Task<MyNS.Order> getOrderByIdAsync(long orderId)
+		{
+			var requestUri = new Uri(this.baseUri, "/store/order/" + orderId);
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.Order>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
+		/// getOrderById /store/order/{orderId}
+		/// </summary>
+		/// <param name="orderId">ID of pet that needs to be fetched</param>
+		/// <returns>successful operation</returns>
+		public MyNS.Order getOrderById(long orderId)
+		{
+			var requestUri = new Uri(this.baseUri, "/store/order/" + orderId);
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.Order>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+		/// deleteOrder /store/order/{orderId}
+		/// </summary>
+		/// <param name="orderId">ID of the order that needs to be deleted</param>
+		public async Task deleteOrderAsync(string orderId)
+		{
+			var requestUri = new Uri(this.baseUri, "/store/order/" + Uri.EscapeDataString(orderId));
+			var responseMessage = await client.DeleteAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+		/// deleteOrder /store/order/{orderId}
+		/// </summary>
+		/// <param name="orderId">ID of the order that needs to be deleted</param>
+		public void deleteOrder(string orderId)
+		{
+			var requestUri = new Uri(this.baseUri, "/store/order/" + Uri.EscapeDataString(orderId));
+			var responseMessage = this.client.DeleteAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// This can only be done by the logged in user.
+		/// createUser /user
+		/// </summary>
+		public async Task createUserAsync()
+		{
+			var requestUri = new Uri(this.baseUri, "/user");
+			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// This can only be done by the logged in user.
+		/// createUser /user
+		/// </summary>
+		public void createUser()
+		{
+			var requestUri = new Uri(this.baseUri, "/user");
+			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// getUserByName /user/{username}
+		/// </summary>
+		/// <param name="username">The name that needs to be fetched. Use user1 for testing. </param>
+		/// <returns>successful operation</returns>
+		public async Task<MyNS.User> getUserByNameAsync(string username)
+		{
+			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.User>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// getUserByName /user/{username}
+		/// </summary>
+		/// <param name="username">The name that needs to be fetched. Use user1 for testing. </param>
+		/// <returns>successful operation</returns>
+		public MyNS.User getUserByName(string username)
+		{
+			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<MyNS.User>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// This can only be done by the logged in user.
+		/// updateUser /user/{username}
+		/// </summary>
+		/// <param name="username">name that need to be deleted</param>
+		public async Task updateUserAsync(string username)
+		{
+			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
+			var responseMessage = await client.PutAsync(requestUri, new StringContent(String.Empty));
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// This can only be done by the logged in user.
+		/// updateUser /user/{username}
+		/// </summary>
+		/// <param name="username">name that need to be deleted</param>
+		public void updateUser(string username)
+		{
+			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
+			var responseMessage = this.client.PutAsync(requestUri, new StringContent(String.Empty)).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// This can only be done by the logged in user.
+		/// deleteUser /user/{username}
+		/// </summary>
+		/// <param name="username">The name that needs to be deleted</param>
+		public async Task deleteUserAsync(string username)
+		{
+			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
+			var responseMessage = await client.DeleteAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// This can only be done by the logged in user.
+		/// deleteUser /user/{username}
+		/// </summary>
+		/// <param name="username">The name that needs to be deleted</param>
+		public void deleteUser(string username)
+		{
+			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
+			var responseMessage = this.client.DeleteAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// createUsersWithArrayInput /user/createWithArray
+		/// </summary>
+		public async Task createUsersWithArrayInputAsync()
+		{
+			var requestUri = new Uri(this.baseUri, "/user/createWithArray");
+			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// createUsersWithArrayInput /user/createWithArray
+		/// </summary>
+		public void createUsersWithArrayInput()
+		{
+			var requestUri = new Uri(this.baseUri, "/user/createWithArray");
+			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// createUsersWithListInput /user/createWithList
+		/// </summary>
+		public async Task createUsersWithListInputAsync()
+		{
+			var requestUri = new Uri(this.baseUri, "/user/createWithList");
+			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// createUsersWithListInput /user/createWithList
+		/// </summary>
+		public void createUsersWithListInput()
+		{
+			var requestUri = new Uri(this.baseUri, "/user/createWithList");
+			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// loginUser /user/login
+		/// </summary>
+		/// <param name="username">The user name for login</param>
+		/// <param name="password">The password for login in clear text</param>
+		/// <returns>successful operation</returns>
+		public async Task<string> loginUserAsync(string username, string password)
+		{
+			var requestUri = new Uri(this.baseUri, "/user/login");
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+					return streamReader.ReadToEnd(); ;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// loginUser /user/login
+		/// </summary>
+		/// <param name="username">The user name for login</param>
+		/// <param name="password">The password for login in clear text</param>
+		/// <returns>successful operation</returns>
+		public string loginUser(string username, string password)
+		{
+			var requestUri = new Uri(this.baseUri, "/user/login");
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+					return streamReader.ReadToEnd(); ;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// logoutUser /user/logout
+		/// </summary>
+		public async Task logoutUserAsync()
+		{
+			var requestUri = new Uri(this.baseUri, "/user/logout");
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// logoutUser /user/logout
+		/// </summary>
+		public void logoutUser()
+		{
+			var requestUri = new Uri(this.baseUri, "/user/logout");
+			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();

@@ -87,6 +87,13 @@ namespace MyNS
         }
 
         [Fact]
+        public void TestPetDelete()
+        {
+            var s = TranslateJsonToCode("SwagMock\\PetDelete.json");
+            Assert.Equal(ReadFromResults("Results\\PetDelete.txt"), s);
+        }
+
+        [Fact]
         public void TestPetTypes()
         {
             var s = TranslateJsonToCode("SwagMock\\PetTypes.json");

@@ -1,0 +1,52 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "My API",
+		"version": "v1"
+	},
+	"paths": {
+		"/pet/{petId}": {
+			"delete": {
+			  "tags": [
+				"pet"
+			  ],
+			  "summary": "Deletes a pet",
+			  "description": "",
+			  "operationId": "deletePet",
+			  "parameters": [
+				{
+				  "name": "api_key",
+				  "in": "header",
+				  "schema": {
+					"type": "string"
+				  },
+				  "example": "Bearer <TOKEN>"
+				},
+				{
+				  "name": "petId",
+				  "in": "path",
+				  "required": true,
+				  "description": "Pet id to delete",
+				  "schema": {
+					"type": "integer",
+					"format": "int64"
+				  }
+				}
+			  ],
+			  "responses": {
+				"400": {
+				  "description": "Invalid pet value"
+				}
+			  },
+			  "security": [
+				{
+				  "petstore_auth": [
+					"write:pets",
+					"read:pets"
+				  ]
+				}
+			  ]
+			}
+		  },
+		  }
+}

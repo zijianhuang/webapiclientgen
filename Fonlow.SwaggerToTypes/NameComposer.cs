@@ -39,7 +39,7 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		public string ComposeActionName(OpenApiOperation op, string httpMethod)
 		{
-			var byWhat = String.Join("And", op.Parameters.Select(p => ToTitleCase(p.Name)));
+			var byWhat = String.Join("And", op.Parameters.Where(p => p.In == ParameterLocation.Path || p.In == ParameterLocation.Query).Select(p => ToTitleCase(p.Name)));
 			return op.Tags[0].Name + httpMethod + (String.IsNullOrEmpty(byWhat) ? String.Empty : "By" + byWhat);
 		}
 
@@ -83,15 +83,18 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		public Type GetOperationReturnSimpleType(OpenApiOperation op)
 		{
-			var goodResponse = op.Responses["200"];
-			if (goodResponse != null && goodResponse.Content.Count>0)
+			OpenApiResponse goodResponse;
+			if (op.Responses.TryGetValue("200", out goodResponse))
 			{
-				var jsonContent = goodResponse.Content["application/json"];
-				var schemaType = jsonContent.Schema.Type;
-				if (schemaType != null)
+				OpenApiMediaType content;
+				if (goodResponse.Content.TryGetValue("application/json", out content))
 				{
-					var schemaFormat = jsonContent.Schema.Format;
-					return PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat);
+					var schemaType = content.Schema.Type;
+					if (schemaType != null)
+					{
+						var schemaFormat = content.Schema.Format;
+						return PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat);
+					}
 				}
 			}
 
@@ -100,12 +103,13 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		public string GetOperationReturnComplexType(OpenApiOperation op)
 		{
-			var goodResponse = op.Responses["200"];
-			if (goodResponse != null && goodResponse.Content.Count > 0)
+			OpenApiResponse goodResponse;
+			if (op.Responses.TryGetValue("200", out goodResponse))
 			{
-				if (goodResponse.Content["application/json"].Schema != null && goodResponse.Content["application/json"].Schema.Reference != null)
+				OpenApiMediaType content;
+				if (goodResponse.Content.TryGetValue("application/json", out content) && content.Schema != null && content.Schema.Reference != null)
 				{
-					return goodResponse.Content["application/json"].Schema.Reference.Id;
+					return content.Schema.Reference.Id;
 				}
 			}
 
@@ -114,8 +118,13 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		public string GetOperationReturnComment(OpenApiOperation op)
 		{
-			var goodResponse = op.Responses["200"];
-			return goodResponse == null ? null : goodResponse.Description;
+			OpenApiResponse goodResponse;
+			if (op.Responses.TryGetValue("200", out goodResponse))
+			{
+				return goodResponse.Description;
+			}
+
+			return null;
 		}
 
 		public Tuple<Type, string> GetOperationReturnType(OpenApiOperation op)
@@ -136,7 +145,7 @@ namespace Fonlow.OpenApi.ClientTypes
 			if (complexTypeName == null)
 			{
 				var primitiveType = GetOperationReturnSimpleType(op);
-				return primitiveType==null? null : new CodeTypeReference(primitiveType);
+				return primitiveType == null ? null : new CodeTypeReference(primitiveType);
 			}
 
 			return new CodeTypeReference(settings.ClientNamespace + "." + complexTypeName);
@@ -163,7 +172,7 @@ namespace Fonlow.OpenApi.ClientTypes
 						ParameterBinder = ParameterLocationToParameterBinder(p.In),
 					}
 				}
-			).ToArray();
+			).Where(k => k.ParameterDescriptor.ParameterBinder != ParameterBinder.None).ToArray();
 		}
 
 		ParameterBinder ParameterLocationToParameterBinder(ParameterLocation? lo)
@@ -180,7 +189,7 @@ namespace Fonlow.OpenApi.ClientTypes
 				case ParameterLocation.Path:
 					return ParameterBinder.FromUri;
 				default:
-					throw new NotSupportedException($"{lo} as parameter not supported");
+					return ParameterBinder.None; //so to be skiped/ignored
 			}
 		}
 

@@ -94,6 +94,14 @@ namespace Fonlow.OpenApi.ClientTypes
 			if (op.Responses.TryGetValue("200", out goodResponse))
 			{
 				OpenApiMediaType content;
+				CodeTypeReference codeTypeReference;
+
+				if (goodResponse.Content.TryGetValue("application/json", out content)) // application/json has better to be first.
+				{
+					codeTypeReference = OpenApiMediaTypeToCodeTypeReference(content);
+					return Tuple.Create(codeTypeReference, false);
+				}
+
 				if (goodResponse.Content.TryGetValue("text/plain", out content))
 				{
 					if (content.Schema != null)
@@ -108,13 +116,6 @@ namespace Fonlow.OpenApi.ClientTypes
 					}
 				}
 
-				CodeTypeReference codeTypeReference;
-
-				if (goodResponse.Content.TryGetValue("application/json", out content))
-				{
-					codeTypeReference = OpenApiMediaTypeToCodeTypeReference(content);
-					return Tuple.Create<CodeTypeReference, bool>(codeTypeReference, false);
-				}
 			}
 
 			return Tuple.Create<CodeTypeReference, bool>(null, false);
@@ -250,6 +251,11 @@ namespace Fonlow.OpenApi.ClientTypes
 			return null;
 		}
 
+		/// <summary>
+		/// Translate OpenApiMediaType content to CodeTypeReference
+		/// </summary>
+		/// <param name="content"></param>
+		/// <returns></returns>
 		CodeTypeReference OpenApiMediaTypeToCodeTypeReference(OpenApiMediaType content)
 		{
 			var schemaType = content.Schema.Type;

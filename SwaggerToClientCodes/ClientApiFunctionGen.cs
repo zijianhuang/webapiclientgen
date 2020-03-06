@@ -205,7 +205,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 		void RenderGetOrDeleteImplementation(CodeExpression httpMethodInvokeExpression)
 		{
 			//Create function parameters
-			var parameters = apiOperation.Parameters.Where(p=>p.In == ParameterLocation.Path || p.In == ParameterLocation.Query).Select(d => new CodeParameterDeclarationExpression()
+			var parameters = apiOperation.Parameters.Where(p => p.In == ParameterLocation.Path || p.In == ParameterLocation.Query).Select(d => new CodeParameterDeclarationExpression()
 			{
 				Name = d.Name,
 				Type = nameComposer.GetParameterCodeTypeReference(d),
@@ -280,7 +280,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 				: "\t\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
 			//  statementCollection.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
 
-			if (returnTypeReference != null && returnTypeReference.BaseType=="System.String")
+			if (returnTypeReference != null && returnTypeReference.BaseType == "System.String" && returnTypeReference.ArrayElementType == null)
 			{
 				if (this.stringAsString)
 				{
@@ -339,13 +339,13 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 		static bool IsPrimitive(string typeName)
 		{
-			string[] ts = new string[] {"System.Int32", "System.Int64", "System.Float", "System.Double", "System.DateTime", "System.Boolean" };
+			string[] ts = new string[] { "System.Int32", "System.Int64", "System.Float", "System.Double", "System.DateTime", "System.Boolean" };
 			return ts.Contains(typeName);
 		}
 
 		bool IsComplexType(CodeTypeReference ctf)
 		{
-			return ctf.BaseType.StartsWith(settings.ClientNamespace) || ctf.ArrayElementType !=null;
+			return ctf.BaseType.StartsWith(settings.ClientNamespace) || ctf.ArrayElementType != null;
 		}
 
 

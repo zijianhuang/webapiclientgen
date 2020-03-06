@@ -44,12 +44,12 @@ namespace Fonlow.OpenApiClientGen.Cs
 			nameComposer = new NameComposer(settings);
 		}
 
-		Settings settings;
+		readonly Settings settings;
 
-		NameComposer nameComposer;
+		readonly NameComposer nameComposer;
 
 		/// <summary>
-		/// Save C# codes into a file, after CreateDom().
+		/// Save C# codes to a file, after CreateDom().
 		/// </summary>
 		/// <param name="fileName"></param>
 		// hack inspired by https://csharpcodewhisperer.blogspot.com/2014/10/create-c-class-code-from-datatable.html
@@ -70,7 +70,11 @@ namespace Fonlow.OpenApiClientGen.Cs
 			}
 		}
 
-		public void WriteCode(TextWriter writer)
+		/// <summary>
+		/// Write CodeDOM into C# codes to TextWriter
+		/// </summary>
+		/// <param name="writer"></param>
+		void WriteCode(TextWriter writer)
 		{
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
@@ -82,6 +86,10 @@ namespace Fonlow.OpenApiClientGen.Cs
 			}
 		}
 
+		/// <summary>
+		/// Write CodeDOM into C# codes to text
+		/// </summary>
+		/// <returns></returns>
 		public string WriteToText()
 		{
 			using (var stream = new MemoryStream())

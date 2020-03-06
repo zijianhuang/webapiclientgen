@@ -87,7 +87,7 @@ namespace SwagTests
 		public void TestReturnSimpleType()
 		{
 			var pathItem = doc.Paths["/api/SuperDemo/decimal/{d}"];
-			var t = composer.GetOperationReturnSimpleType(pathItem.Operations[OperationType.Get]);
+			var t = composer.GetOperationReturnSimpleTypeReference(pathItem.Operations[OperationType.Get]);
 			Assert.Equal("System.Double", t.Item1.BaseType);
 		}
 
@@ -95,7 +95,7 @@ namespace SwagTests
 		public void TestReturnComplexType()
 		{
 			var pathItem = doc.Paths["/api/Entities/getPerson/{id}"];
-			var t = composer.GetOperationReturnComplexType(pathItem.Operations[OperationType.Get]);
+			var t = composer.GetOperationReturnComplexTypeReference(pathItem.Operations[OperationType.Get]);
 			Assert.Equal("Person", t);
 		}
 

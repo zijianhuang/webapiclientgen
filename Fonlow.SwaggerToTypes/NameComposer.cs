@@ -148,8 +148,8 @@ namespace Fonlow.OpenApi.ClientTypes
 		/// 
 		/// </summary>
 		/// <param name="op"></param>
-		/// <returns>CodeTypeReference of the return type, and StringAsString</returns>
-		public Tuple<CodeTypeReference, bool> GetOperationReturnSimpleType(OpenApiOperation op)
+		/// <returns>CodeTypeReference of the return type, and StringAsString generally with text/plain</returns>
+		public Tuple<CodeTypeReference, bool> GetOperationReturnSimpleTypeReference(OpenApiOperation op)
 		{
 			OpenApiResponse goodResponse;
 			if (op.Responses.TryGetValue("200", out goodResponse))
@@ -182,7 +182,7 @@ namespace Fonlow.OpenApi.ClientTypes
 			return Tuple.Create<CodeTypeReference, bool>(null, false);
 		}
 
-		public string GetOperationReturnComplexType(OpenApiOperation op)
+		public string GetOperationReturnComplexTypeReference(OpenApiOperation op)
 		{
 			OpenApiResponse goodResponse;
 			if (op.Responses.TryGetValue("200", out goodResponse))
@@ -208,33 +208,13 @@ namespace Fonlow.OpenApi.ClientTypes
 			return null;
 		}
 
-		///// <summary>
-		///// Get either Type of simple Type, or type name of complex type
-		///// </summary>
-		///// <param name="op"></param>
-		///// <returns></returns>
-		//public Tuple<Type, string, bool> GetOperationReturnType(OpenApiOperation op)
-		//{
-		//	var complexTypeName = GetOperationReturnComplexType(op);
-		//	Type primitiveType = null;
-		//	bool stringAsString = false;
-		//	if (complexTypeName == null)
-		//	{
-		//		var r = GetOperationReturnSimpleType(op);
-		//		primitiveType = r.Item1;
-		//		stringAsString = r.Item2;
-		//	}
-
-		//	return Tuple.Create(primitiveType, complexTypeName, stringAsString);
-		//}
-
 		public Tuple<CodeTypeReference, bool> GetOperationReturnTypeReference(OpenApiOperation op)
 		{
-			var complexTypeName = GetOperationReturnComplexType(op);
+			var complexTypeName = GetOperationReturnComplexTypeReference(op);
 			bool stringAsString = false;
 			if (complexTypeName == null)
 			{
-				var r = GetOperationReturnSimpleType(op);
+				var r = GetOperationReturnSimpleTypeReference(op);
 				var primitiveTypeReference = r.Item1;
 				stringAsString = r.Item2;
 				return Tuple.Create(primitiveTypeReference == null ? null : primitiveTypeReference, stringAsString);

@@ -83,7 +83,7 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		readonly Type typeOfString = typeof(string);
 
-		public Tuple<Type, bool> GetOperationReturnSimpleType(OpenApiOperation op)
+		public Tuple<CodeTypeReference, bool> GetOperationReturnSimpleType(OpenApiOperation op)
 		{
 			OpenApiResponse goodResponse;
 			if (op.Responses.TryGetValue("200", out goodResponse))
@@ -98,7 +98,7 @@ namespace Fonlow.OpenApi.ClientTypes
 						{
 							var schemaFormat = content.Schema.Format;
 							var type = PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat);
-							return Tuple.Create(type, type == typeOfString);
+							return Tuple.Create(new CodeTypeReference(type), type == typeOfString);
 						}
 					}
 				}
@@ -108,13 +108,37 @@ namespace Fonlow.OpenApi.ClientTypes
 					var schemaType = content.Schema.Type;
 					if (schemaType != null)
 					{
+						if (schemaType == "array") // for array
+						{
+							var arrayItemsSchema = content.Schema.Items;
+							if (arrayItemsSchema.Reference != null) //array of custom type
+							{
+								var arrayTypeName = arrayItemsSchema.Reference.Id;
+								var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayTypeName, 1);
+								return Tuple.Create(arrayCodeTypeReference, false);
+							}
+							else
+							{
+								var arrayType = arrayItemsSchema.Type;
+								var clrType = PrimitiveSwaggerTypeToClrType(arrayType, null);
+								var arrayCodeTypeReference = CreateArrayTypeReference(clrType, 1);
+								return Tuple.Create(arrayCodeTypeReference, false);
+							}
+						}
+						else if (content.Schema.Enum.Count == 0) // for premitive type
+						{
+							var simpleType = PrimitiveSwaggerTypeToClrType(content.Schema.Type, content.Schema.Format);
+							var codeTypeReference = new CodeTypeReference(simpleType);
+							return Tuple.Create(codeTypeReference, false);
+						}
+
 						var schemaFormat = content.Schema.Format;
-						return Tuple.Create(PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat), false);
+						return Tuple.Create(new CodeTypeReference(PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat)), false);
 					}
 				}
 			}
 
-			return Tuple.Create<Type, bool>(null, false);
+			return Tuple.Create<CodeTypeReference, bool>(null, false);
 		}
 
 		public string GetOperationReturnComplexType(OpenApiOperation op)
@@ -143,25 +167,25 @@ namespace Fonlow.OpenApi.ClientTypes
 			return null;
 		}
 
-		/// <summary>
-		/// Get either Type of simple Type, or type name of complex type
-		/// </summary>
-		/// <param name="op"></param>
-		/// <returns></returns>
-		public Tuple<Type, string, bool> GetOperationReturnType(OpenApiOperation op)
-		{
-			var complexTypeName = GetOperationReturnComplexType(op);
-			Type primitiveType = null;
-			bool stringAsString = false;
-			if (complexTypeName == null)
-			{
-				var r = GetOperationReturnSimpleType(op);
-				primitiveType = r.Item1;
-				stringAsString = r.Item2;
-			}
+		///// <summary>
+		///// Get either Type of simple Type, or type name of complex type
+		///// </summary>
+		///// <param name="op"></param>
+		///// <returns></returns>
+		//public Tuple<Type, string, bool> GetOperationReturnType(OpenApiOperation op)
+		//{
+		//	var complexTypeName = GetOperationReturnComplexType(op);
+		//	Type primitiveType = null;
+		//	bool stringAsString = false;
+		//	if (complexTypeName == null)
+		//	{
+		//		var r = GetOperationReturnSimpleType(op);
+		//		primitiveType = r.Item1;
+		//		stringAsString = r.Item2;
+		//	}
 
-			return Tuple.Create(primitiveType, complexTypeName, stringAsString);
-		}
+		//	return Tuple.Create(primitiveType, complexTypeName, stringAsString);
+		//}
 
 		public Tuple<CodeTypeReference, bool> GetOperationReturnTypeReference(OpenApiOperation op)
 		{
@@ -170,9 +194,9 @@ namespace Fonlow.OpenApi.ClientTypes
 			if (complexTypeName == null)
 			{
 				var r = GetOperationReturnSimpleType(op);
-				var primitiveType = r.Item1;
+				var primitiveTypeReference = r.Item1;
 				stringAsString = r.Item2;
-				return Tuple.Create(primitiveType == null ? null : new CodeTypeReference(primitiveType), stringAsString);
+				return Tuple.Create(primitiveTypeReference == null ? null : primitiveTypeReference, stringAsString);
 			}
 
 			return Tuple.Create(new CodeTypeReference(settings.ClientNamespace + "." + complexTypeName), stringAsString);
@@ -279,6 +303,47 @@ namespace Fonlow.OpenApi.ClientTypes
 			}
 		}
 
+		public CodeTypeReference TranslateToClientTypeReference(Type type)
+		{
+			if (type == null)
+				return null;// new CodeTypeReference("void");
+			if (type.IsArray)
+			{
+				var elementType = type.GetElementType();
+				var arrayRank = type.GetArrayRank();
+				return CreateArrayTypeReference(elementType, arrayRank);
+			}
 
+			return new CodeTypeReference(type);
+
+		}
+
+		CodeTypeReference TranslateToClientTypeReference(string typeName)
+		{
+			if (typeName == null)
+				return null;// new CodeTypeReference("void");
+
+			return new CodeTypeReference(typeName);
+
+		}
+
+		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
+		{
+			var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
+			{
+				ArrayElementType = TranslateToClientTypeReference(elementType),
+			};
+			return otherArrayType;
+		}
+
+		CodeTypeReference CreateArrayOfCustomTypeReference(string typeName, int arrayRank)
+		{
+			var elementTypeReference = new CodeTypeReference(typeName);
+			var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
+			{
+				ArrayElementType = elementTypeReference,
+			};
+			return typeReference;
+		}
 	}
 }

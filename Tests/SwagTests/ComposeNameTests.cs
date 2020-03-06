@@ -88,7 +88,7 @@ namespace SwagTests
 		{
 			var pathItem = doc.Paths["/api/SuperDemo/decimal/{d}"];
 			var t = composer.GetOperationReturnSimpleType(pathItem.Operations[OperationType.Get]);
-			Assert.Equal(typeof(double), t.Item1);
+			Assert.Equal("System.Double", t.Item1.BaseType);
 		}
 
 		[Fact]
@@ -99,21 +99,21 @@ namespace SwagTests
 			Assert.Equal("Person", t);
 		}
 
-		[Fact]
-		public void TestReturnTypePerson()
-		{
-			var pathItem = doc.Paths["/api/Entities/getPerson/{id}"];
-			var t = composer.GetOperationReturnType(pathItem.Operations[OperationType.Get]);
-			Assert.Equal("Person", t.Item2);
-		}
+		//[Fact]
+		//public void TestReturnTypePerson()
+		//{
+		//	var pathItem = doc.Paths["/api/Entities/getPerson/{id}"];
+		//	var t = composer.GetOperationReturnType(pathItem.Operations[OperationType.Get]);
+		//	Assert.Equal("Person", t.Item2);
+		//}
 
-		[Fact]
-		public void TestReturnTypeDouble()
-		{
-			var pathItem = doc.Paths["/api/SuperDemo/decimal/{d}"];
-			var t = composer.GetOperationReturnType(pathItem.Operations[OperationType.Get]);
-			Assert.Equal(typeof(double), t.Item1);
-		}
+		//[Fact]
+		//public void TestReturnTypeDouble()
+		//{
+		//	var pathItem = doc.Paths["/api/SuperDemo/decimal/{d}"];
+		//	var t = composer.GetOperationReturnType(pathItem.Operations[OperationType.Get]);
+		//	Assert.Equal(typeof(double), t.Item1);
+		//}
 
 		[Fact]
 		public void TestEnumType()

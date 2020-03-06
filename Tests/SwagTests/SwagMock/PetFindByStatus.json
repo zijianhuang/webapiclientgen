@@ -1,0 +1,151 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "My API",
+		"version": "v1"
+	},
+	"components": {
+		"schemas": {
+			"Pet": {
+				"type": "object",
+				"discriminator": {
+					"propertyName": "petType",
+					"mapping": {
+						"cat": "#/components/schemas/Cat"
+					}
+				},
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The name given to a pet",
+						"example": "Guru"
+					},
+					"petType": {
+						"type": "string",
+						"description": "Type of a pet"
+					}
+				}
+			},
+			"Cat": {
+				"description": "A representation of a cat",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Pet"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"huntingSkill": {
+								"type": "string",
+								"description": "The measured skill for hunting"
+							}
+						}
+					}
+				]
+			}
+		},
+
+		"examples": {
+			"Order": {
+				"value": {
+					"quantity": "1,",
+					"shipDate": "2018-10-19T16:46:45Z,",
+					"status": "placed,",
+					"complete": "false"
+				}
+			}
+		},
+		"securitySchemes": {
+			"petstore_auth": {
+				"type": "oauth2",
+				"description": "Get access to data while protecting your account credentials.\nOAuth2 is also a safer and more secure way to give you access.\n",
+				"flows": {
+					"implicit": {
+						"authorizationUrl": "http://petstore.swagger.io/api/oauth/dialog",
+						"scopes": {
+							"write:pets": "modify pets in your account",
+							"read:pets": "read your pets"
+						}
+					}
+				}
+			},
+			"api_key": {
+				"type": "apiKey",
+				"description": "For this sample, you can use the api key `special-key` to test the authorization filters.\n",
+				"name": "api_key",
+				"in": "header"
+			}
+		}
+	},
+
+	"paths": {
+		"/pet/findByStatus": {
+			"get": {
+				"tags": [
+					"pet"
+				],
+				"summary": "Finds Pets by status",
+				"description": "Multiple status values can be provided with comma separated strings",
+				"operationId": "findPetsByStatus",
+				"parameters": [
+					{
+						"name": "status",
+						"in": "query",
+						"style": "form",
+						"required": true,
+						"description": "Status values that need to be considered for filter",
+						"schema": {
+							"type": "array",
+							"maxItems": 3,
+							"minItems": 1,
+							"items": {
+								"type": "string",
+								"default": "available",
+								"enum": [
+									"available",
+									"pending",
+									"sold"
+								]
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Pet"
+									}
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Pet"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				},
+				"security": [
+					{
+						"petstore_auth": [
+							"write:pets",
+							"read:pets"
+						]
+					}
+				]
+			}
+		}
+
+	}
+}

@@ -521,7 +521,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
-		public async Task<string> findPetsByStatusAsync(string status)
+		public async Task<Pet[]> findPetsByStatusAsync(string status)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
 			var responseMessage = await client.GetAsync(requestUri);
@@ -529,9 +529,10 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-					return streamReader.ReadToEnd(); ;
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<Pet[]>(jsonReader);
 				}
 			}
 			finally
@@ -546,7 +547,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
-		public string findPetsByStatus(string status)
+		public Pet[] findPetsByStatus(string status)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -554,9 +555,10 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-					return streamReader.ReadToEnd(); ;
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<Pet[]>(jsonReader);
 				}
 			}
 			finally
@@ -571,7 +573,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="tags">Tags to filter by</param>
 		/// <returns>successful operation</returns>
-		public async Task<string> findPetsByTagsAsync(string tags)
+		public async Task<Pet[]> findPetsByTagsAsync(string tags)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
 			var responseMessage = await client.GetAsync(requestUri);
@@ -579,9 +581,10 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-					return streamReader.ReadToEnd(); ;
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<Pet[]>(jsonReader);
 				}
 			}
 			finally
@@ -596,7 +599,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="tags">Tags to filter by</param>
 		/// <returns>successful operation</returns>
-		public string findPetsByTags(string tags)
+		public Pet[] findPetsByTags(string tags)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -604,9 +607,10 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-					return streamReader.ReadToEnd(); ;
+					var serializer = new JsonSerializer();
+					return serializer.Deserialize<Pet[]>(jsonReader);
 				}
 			}
 			finally
@@ -628,9 +632,9 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-					return streamReader.ReadToEnd(); ;
+					return jsonReader.ReadAsString();
 				}
 			}
 			finally
@@ -652,9 +656,9 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-					return streamReader.ReadToEnd(); ;
+					return jsonReader.ReadAsString();
 				}
 			}
 			finally
@@ -1045,9 +1049,9 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-					return streamReader.ReadToEnd(); ;
+					return jsonReader.ReadAsString();
 				}
 			}
 			finally
@@ -1070,9 +1074,9 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-					return streamReader.ReadToEnd(); ;
+					return jsonReader.ReadAsString();
 				}
 			}
 			finally

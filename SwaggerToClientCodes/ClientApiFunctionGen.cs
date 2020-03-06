@@ -290,7 +290,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			//	statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 			//	statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnTypeReference.FullName))));
 			//}
-			else if (IsPrimitive(returnTypeReference.BaseType))
+			else if (IsComplexType(returnTypeReference))
 			{
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
@@ -300,7 +300,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", returnTypeReference),
 						new CodeSnippetExpression("jsonReader"))));
 			}
-			else if (IsComplexType(returnTypeReference.BaseType))
+			else if (IsPrimitive(returnTypeReference.BaseType))
 			{
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
@@ -324,9 +324,9 @@ namespace Fonlow.OpenApiClientGen.Cs
 			return ts.Contains(typeName);
 		}
 
-		bool IsComplexType(string typeName)
+		bool IsComplexType(CodeTypeReference ctf)
 		{
-			return typeName.StartsWith(settings.ClientNamespace);
+			return ctf.BaseType.StartsWith(settings.ClientNamespace) || ctf.ArrayElementType !=null;
 		}
 
 

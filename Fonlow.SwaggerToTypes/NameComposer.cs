@@ -83,6 +83,11 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		readonly Type typeOfString = typeof(string);
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="op"></param>
+		/// <returns>CodeTypeReference of the return type, and StringAsString</returns>
 		public Tuple<CodeTypeReference, bool> GetOperationReturnSimpleType(OpenApiOperation op)
 		{
 			OpenApiResponse goodResponse;
@@ -103,38 +108,12 @@ namespace Fonlow.OpenApi.ClientTypes
 					}
 				}
 
+				CodeTypeReference codeTypeReference;
+
 				if (goodResponse.Content.TryGetValue("application/json", out content))
 				{
-					var schemaType = content.Schema.Type;
-					if (schemaType != null)
-					{
-						if (schemaType == "array") // for array
-						{
-							var arrayItemsSchema = content.Schema.Items;
-							if (arrayItemsSchema.Reference != null) //array of custom type
-							{
-								var arrayTypeName = arrayItemsSchema.Reference.Id;
-								var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayTypeName, 1);
-								return Tuple.Create(arrayCodeTypeReference, false);
-							}
-							else
-							{
-								var arrayType = arrayItemsSchema.Type;
-								var clrType = PrimitiveSwaggerTypeToClrType(arrayType, null);
-								var arrayCodeTypeReference = CreateArrayTypeReference(clrType, 1);
-								return Tuple.Create(arrayCodeTypeReference, false);
-							}
-						}
-						else if (content.Schema.Enum.Count == 0) // for premitive type
-						{
-							var simpleType = PrimitiveSwaggerTypeToClrType(content.Schema.Type, content.Schema.Format);
-							var codeTypeReference = new CodeTypeReference(simpleType);
-							return Tuple.Create(codeTypeReference, false);
-						}
-
-						var schemaFormat = content.Schema.Format;
-						return Tuple.Create(new CodeTypeReference(PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat)), false);
-					}
+					codeTypeReference = OpenApiMediaTypeToCodeTypeReference(content);
+					return Tuple.Create<CodeTypeReference, bool>(codeTypeReference, false);
 				}
 			}
 

@@ -89,6 +89,33 @@ namespace MyNS
         }
 
         [Fact]
+        public void TestPetWithPathAsContainerName()
+        {
+            var s = TranslateJsonToCode("SwagMock\\pet.yaml", new Settings()
+            {
+                ClientNamespace = "MyNS",
+                ContainerClassName = "Misc",
+                ActionNameStrategy = ActionNameStrategy.MethodQueryParameters,
+                ContainerNameStrategy = ContainerNameStrategy.Path,
+                ForBothAsyncAndSync = false
+            });
+            Assert.Equal(ReadFromResults("Results\\PetPathAsContainer.txt"), s);
+        }
+
+        [Fact]
+        public void TestPetWithGodContainerAndPathAction()
+        {
+            var s = TranslateJsonToCode("SwagMock\\pet.yaml", new Settings()
+            {
+                ClientNamespace = "MyNS",
+                ActionNameStrategy = ActionNameStrategy.PathMethodQueryParameters,
+                ContainerNameStrategy = ContainerNameStrategy.None,
+                ForBothAsyncAndSync = false
+            });
+            Assert.Equal(ReadFromResults("Results\\PetGodClass.txt"), s);
+        }
+
+        [Fact]
         public void TestPetFindByStatus()
         {
             var s = TranslateJsonToCode("SwagMock\\PetFindByStatus.json", new Settings()

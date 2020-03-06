@@ -70,7 +70,7 @@ namespace SwagTests
 		[Fact]
 		public void TestUrlToFunctionName()
 		{
-			Assert.Equal("EntitiesPerson", composer.UrlToFunctionName("/api/Entities/person/{id}"));
+			Assert.Equal("EntitiesPerson", composer.PathToActionOrContainerName("/api/Entities/person/{id}"));
 		}
 
 		[Fact]

@@ -36,10 +36,10 @@ namespace MyNS
 		}
 		
 		/// <summary>
-		/// deletePet /pet/{petId}
+		/// DeletePet /pet/{petId}
 		/// </summary>
 		/// <param name="petId">Pet id to delete</param>
-		public async Task deletePetAsync(long petId)
+		public async Task DeletePetAsync(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/"+petId);
 			var responseMessage = await client.DeleteAsync(requestUri);
@@ -54,10 +54,10 @@ namespace MyNS
 		}
 		
 		/// <summary>
-		/// deletePet /pet/{petId}
+		/// DeletePet /pet/{petId}
 		/// </summary>
 		/// <param name="petId">Pet id to delete</param>
-		public void deletePet(long petId)
+		public void DeletePet(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/"+petId);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;

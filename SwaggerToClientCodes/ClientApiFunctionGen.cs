@@ -50,7 +50,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 				}
 			}
 
-			this.actionName = nameComposer.GetActionName(apiOperation, httpMethod.ToString());
+			this.actionName = nameComposer.GetActionName(apiOperation, httpMethod.ToString(), relativePath);
 			this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
 			this.forAsync = forAsync;

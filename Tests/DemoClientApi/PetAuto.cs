@@ -273,10 +273,10 @@ namespace MyNS
 
 		/// <summary>
 		/// Add new pet to the store inventory.
-		/// addPet /pet
+		/// AddPet /pet
 		/// </summary>
 		/// <param name="requestBody">Pet object that needs to be added to the store</param>
-		public async Task addPetAsync(Pet requestBody)
+		public async Task AddPetAsync(Pet requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -298,10 +298,10 @@ namespace MyNS
 
 		/// <summary>
 		/// Add new pet to the store inventory.
-		/// addPet /pet
+		/// AddPet /pet
 		/// </summary>
 		/// <param name="requestBody">Pet object that needs to be added to the store</param>
-		public void addPet(Pet requestBody)
+		public void AddPet(Pet requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -322,10 +322,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// updatePet /pet
+		/// UpdatePet /pet
 		/// </summary>
 		/// <param name="requestBody">Pet object that needs to be added to the store</param>
-		public async Task updatePetAsync(Pet requestBody)
+		public async Task UpdatePetAsync(Pet requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -346,10 +346,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// updatePet /pet
+		/// UpdatePet /pet
 		/// </summary>
 		/// <param name="requestBody">Pet object that needs to be added to the store</param>
-		public void updatePet(Pet requestBody)
+		public void UpdatePet(Pet requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -371,11 +371,11 @@ namespace MyNS
 
 		/// <summary>
 		/// Returns a single pet
-		/// getPetById /pet/{petId}
+		/// GetPetById /pet/{petId}
 		/// </summary>
 		/// <param name="petId">ID of pet to return</param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.Pet> getPetByIdAsync(long petId)
+		public async Task<MyNS.Pet> GetPetByIdAsync(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
 			var responseMessage = await client.GetAsync(requestUri);
@@ -397,11 +397,11 @@ namespace MyNS
 
 		/// <summary>
 		/// Returns a single pet
-		/// getPetById /pet/{petId}
+		/// GetPetById /pet/{petId}
 		/// </summary>
 		/// <param name="petId">ID of pet to return</param>
 		/// <returns>successful operation</returns>
-		public MyNS.Pet getPetById(long petId)
+		public MyNS.Pet GetPetById(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -422,10 +422,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// updatePetWithForm /pet/{petId}
+		/// UpdatePetWithForm /pet/{petId}
 		/// </summary>
 		/// <param name="petId">ID of pet that needs to be updated</param>
-		public async Task updatePetWithFormAsync(long petId)
+		public async Task UpdatePetWithFormAsync(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
@@ -440,10 +440,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// updatePetWithForm /pet/{petId}
+		/// UpdatePetWithForm /pet/{petId}
 		/// </summary>
 		/// <param name="petId">ID of pet that needs to be updated</param>
-		public void updatePetWithForm(long petId)
+		public void UpdatePetWithForm(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
@@ -458,10 +458,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// deletePet /pet/{petId}
+		/// DeletePet /pet/{petId}
 		/// </summary>
 		/// <param name="petId">Pet id to delete</param>
-		public async Task deletePetAsync(long petId)
+		public async Task DeletePetAsync(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
 			var responseMessage = await client.DeleteAsync(requestUri);
@@ -476,10 +476,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// deletePet /pet/{petId}
+		/// DeletePet /pet/{petId}
 		/// </summary>
 		/// <param name="petId">Pet id to delete</param>
-		public void deletePet(long petId)
+		public void DeletePet(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/" + petId);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
@@ -494,11 +494,11 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// uploadFile /pet/{petId}/uploadImage
+		/// UploadFile /pet/{petId}/uploadImage
 		/// </summary>
 		/// <param name="petId">ID of pet to update</param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.ApiResponse> uploadFileAsync(long petId)
+		public async Task<MyNS.ApiResponse> UploadFileAsync(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/" + petId + "/uploadImage");
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
@@ -519,11 +519,11 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// uploadFile /pet/{petId}/uploadImage
+		/// UploadFile /pet/{petId}/uploadImage
 		/// </summary>
 		/// <param name="petId">ID of pet to update</param>
 		/// <returns>successful operation</returns>
-		public MyNS.ApiResponse uploadFile(long petId)
+		public MyNS.ApiResponse UploadFile(long petId)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/" + petId + "/uploadImage");
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
@@ -545,11 +545,11 @@ namespace MyNS
 
 		/// <summary>
 		/// Multiple status values can be provided with comma separated strings
-		/// findPetsByStatus /pet/findByStatus
+		/// FindPetsByStatus /pet/findByStatus
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
-		public async Task<Pet[]> findPetsByStatusAsync(string status)
+		public async Task<Pet[]> FindPetsByStatusAsync(string status)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
 			var responseMessage = await client.GetAsync(requestUri);
@@ -571,11 +571,11 @@ namespace MyNS
 
 		/// <summary>
 		/// Multiple status values can be provided with comma separated strings
-		/// findPetsByStatus /pet/findByStatus
+		/// FindPetsByStatus /pet/findByStatus
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
-		public Pet[] findPetsByStatus(string status)
+		public Pet[] FindPetsByStatus(string status)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -597,11 +597,11 @@ namespace MyNS
 
 		/// <summary>
 		/// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-		/// findPetsByTags /pet/findByTags
+		/// FindPetsByTags /pet/findByTags
 		/// </summary>
 		/// <param name="tags">Tags to filter by</param>
 		/// <returns>successful operation</returns>
-		public async Task<Pet[]> findPetsByTagsAsync(string tags)
+		public async Task<Pet[]> FindPetsByTagsAsync(string tags)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
 			var responseMessage = await client.GetAsync(requestUri);
@@ -623,11 +623,11 @@ namespace MyNS
 
 		/// <summary>
 		/// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-		/// findPetsByTags /pet/findByTags
+		/// FindPetsByTags /pet/findByTags
 		/// </summary>
 		/// <param name="tags">Tags to filter by</param>
 		/// <returns>successful operation</returns>
-		public Pet[] findPetsByTags(string tags)
+		public Pet[] FindPetsByTags(string tags)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -669,10 +669,10 @@ namespace MyNS
 
 		/// <summary>
 		/// Returns a map of status codes to quantities
-		/// getInventory /store/inventory
+		/// GetInventory /store/inventory
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<string> getInventoryAsync()
+		public async Task<string> GetInventoryAsync()
 		{
 			var requestUri = new Uri(this.baseUri, "/store/inventory");
 			var responseMessage = await client.GetAsync(requestUri);
@@ -693,10 +693,10 @@ namespace MyNS
 
 		/// <summary>
 		/// Returns a map of status codes to quantities
-		/// getInventory /store/inventory
+		/// GetInventory /store/inventory
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public string getInventory()
+		public string GetInventory()
 		{
 			var requestUri = new Uri(this.baseUri, "/store/inventory");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -716,11 +716,11 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// placeOrder /store/order
+		/// PlaceOrder /store/order
 		/// </summary>
 		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.Order> placeOrderAsync(string requestBody)
+		public async Task<MyNS.Order> PlaceOrderAsync(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/store/order");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -747,11 +747,11 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// placeOrder /store/order
+		/// PlaceOrder /store/order
 		/// </summary>
 		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
-		public MyNS.Order placeOrder(string requestBody)
+		public MyNS.Order PlaceOrder(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/store/order");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -779,11 +779,11 @@ namespace MyNS
 
 		/// <summary>
 		/// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
-		/// getOrderById /store/order/{orderId}
+		/// GetOrderById /store/order/{orderId}
 		/// </summary>
 		/// <param name="orderId">ID of pet that needs to be fetched</param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.Order> getOrderByIdAsync(long orderId)
+		public async Task<MyNS.Order> GetOrderByIdAsync(long orderId)
 		{
 			var requestUri = new Uri(this.baseUri, "/store/order/" + orderId);
 			var responseMessage = await client.GetAsync(requestUri);
@@ -805,11 +805,11 @@ namespace MyNS
 
 		/// <summary>
 		/// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
-		/// getOrderById /store/order/{orderId}
+		/// GetOrderById /store/order/{orderId}
 		/// </summary>
 		/// <param name="orderId">ID of pet that needs to be fetched</param>
 		/// <returns>successful operation</returns>
-		public MyNS.Order getOrderById(long orderId)
+		public MyNS.Order GetOrderById(long orderId)
 		{
 			var requestUri = new Uri(this.baseUri, "/store/order/" + orderId);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -831,10 +831,10 @@ namespace MyNS
 
 		/// <summary>
 		/// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
-		/// deleteOrder /store/order/{orderId}
+		/// DeleteOrder /store/order/{orderId}
 		/// </summary>
 		/// <param name="orderId">ID of the order that needs to be deleted</param>
-		public async Task deleteOrderAsync(string orderId)
+		public async Task DeleteOrderAsync(string orderId)
 		{
 			var requestUri = new Uri(this.baseUri, "/store/order/" + Uri.EscapeDataString(orderId));
 			var responseMessage = await client.DeleteAsync(requestUri);
@@ -850,10 +850,10 @@ namespace MyNS
 
 		/// <summary>
 		/// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
-		/// deleteOrder /store/order/{orderId}
+		/// DeleteOrder /store/order/{orderId}
 		/// </summary>
 		/// <param name="orderId">ID of the order that needs to be deleted</param>
-		public void deleteOrder(string orderId)
+		public void DeleteOrder(string orderId)
 		{
 			var requestUri = new Uri(this.baseUri, "/store/order/" + Uri.EscapeDataString(orderId));
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
@@ -889,10 +889,10 @@ namespace MyNS
 
 		/// <summary>
 		/// This can only be done by the logged in user.
-		/// createUser /user
+		/// CreateUser /user
 		/// </summary>
 		/// <param name="requestBody">Created user object</param>
-		public async Task createUserAsync(string requestBody)
+		public async Task CreateUserAsync(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -914,10 +914,10 @@ namespace MyNS
 
 		/// <summary>
 		/// This can only be done by the logged in user.
-		/// createUser /user
+		/// CreateUser /user
 		/// </summary>
 		/// <param name="requestBody">Created user object</param>
-		public void createUser(string requestBody)
+		public void CreateUser(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -938,11 +938,11 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// getUserByName /user/{username}
+		/// GetUserByName /user/{username}
 		/// </summary>
 		/// <param name="username">The name that needs to be fetched. Use user1 for testing. </param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.User> getUserByNameAsync(string username)
+		public async Task<MyNS.User> GetUserByNameAsync(string username)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
 			var responseMessage = await client.GetAsync(requestUri);
@@ -963,11 +963,11 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// getUserByName /user/{username}
+		/// GetUserByName /user/{username}
 		/// </summary>
 		/// <param name="username">The name that needs to be fetched. Use user1 for testing. </param>
 		/// <returns>successful operation</returns>
-		public MyNS.User getUserByName(string username)
+		public MyNS.User GetUserByName(string username)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -989,11 +989,11 @@ namespace MyNS
 
 		/// <summary>
 		/// This can only be done by the logged in user.
-		/// updateUser /user/{username}
+		/// UpdateUser /user/{username}
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
 		/// <param name="requestBody">Updated user object</param>
-		public async Task updateUserAsync(string username, string requestBody)
+		public async Task UpdateUserAsync(string username, string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1015,11 +1015,11 @@ namespace MyNS
 
 		/// <summary>
 		/// This can only be done by the logged in user.
-		/// updateUser /user/{username}
+		/// UpdateUser /user/{username}
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
 		/// <param name="requestBody">Updated user object</param>
-		public void updateUser(string username, string requestBody)
+		public void UpdateUser(string username, string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1041,10 +1041,10 @@ namespace MyNS
 
 		/// <summary>
 		/// This can only be done by the logged in user.
-		/// deleteUser /user/{username}
+		/// DeleteUser /user/{username}
 		/// </summary>
 		/// <param name="username">The name that needs to be deleted</param>
-		public async Task deleteUserAsync(string username)
+		public async Task DeleteUserAsync(string username)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
 			var responseMessage = await client.DeleteAsync(requestUri);
@@ -1060,10 +1060,10 @@ namespace MyNS
 
 		/// <summary>
 		/// This can only be done by the logged in user.
-		/// deleteUser /user/{username}
+		/// DeleteUser /user/{username}
 		/// </summary>
 		/// <param name="username">The name that needs to be deleted</param>
-		public void deleteUser(string username)
+		public void DeleteUser(string username)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
@@ -1078,10 +1078,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// createUsersWithArrayInput /user/createWithArray
+		/// CreateUsersWithArrayInput /user/createWithArray
 		/// </summary>
 		/// <param name="requestBody">List of user object</param>
-		public async Task createUsersWithArrayInputAsync(User[] requestBody)
+		public async Task CreateUsersWithArrayInputAsync(User[] requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/createWithArray");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1102,10 +1102,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// createUsersWithArrayInput /user/createWithArray
+		/// CreateUsersWithArrayInput /user/createWithArray
 		/// </summary>
 		/// <param name="requestBody">List of user object</param>
-		public void createUsersWithArrayInput(User[] requestBody)
+		public void CreateUsersWithArrayInput(User[] requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/createWithArray");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1126,10 +1126,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// createUsersWithListInput /user/createWithList
+		/// CreateUsersWithListInput /user/createWithList
 		/// </summary>
 		/// <param name="requestBody">List of user object</param>
-		public async Task createUsersWithListInputAsync(User[] requestBody)
+		public async Task CreateUsersWithListInputAsync(User[] requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/createWithList");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1150,10 +1150,10 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// createUsersWithListInput /user/createWithList
+		/// CreateUsersWithListInput /user/createWithList
 		/// </summary>
 		/// <param name="requestBody">List of user object</param>
-		public void createUsersWithListInput(User[] requestBody)
+		public void CreateUsersWithListInput(User[] requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/createWithList");
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1174,12 +1174,12 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// loginUser /user/login
+		/// LoginUser /user/login
 		/// </summary>
 		/// <param name="username">The user name for login</param>
 		/// <param name="password">The password for login in clear text</param>
 		/// <returns>successful operation</returns>
-		public async Task<string> loginUserAsync(string username, string password)
+		public async Task<string> LoginUserAsync(string username, string password)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/login");
 			var responseMessage = await client.GetAsync(requestUri);
@@ -1199,12 +1199,12 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// loginUser /user/login
+		/// LoginUser /user/login
 		/// </summary>
 		/// <param name="username">The user name for login</param>
 		/// <param name="password">The password for login in clear text</param>
 		/// <returns>successful operation</returns>
-		public string loginUser(string username, string password)
+		public string LoginUser(string username, string password)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/login");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -1224,9 +1224,9 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// logoutUser /user/logout
+		/// LogoutUser /user/logout
 		/// </summary>
-		public async Task logoutUserAsync()
+		public async Task LogoutUserAsync()
 		{
 			var requestUri = new Uri(this.baseUri, "/user/logout");
 			var responseMessage = await client.GetAsync(requestUri);
@@ -1241,9 +1241,9 @@ namespace MyNS
 		}
 
 		/// <summary>
-		/// logoutUser /user/logout
+		/// LogoutUser /user/logout
 		/// </summary>
-		public void logoutUser()
+		public void LogoutUser()
 		{
 			var requestUri = new Uri(this.baseUri, "/user/logout");
 			var responseMessage = this.client.GetAsync(requestUri).Result;

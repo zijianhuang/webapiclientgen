@@ -10,6 +10,8 @@
     <None Remove="Results\Pet.txt" />
     <None Remove="Results\PetDelete.txt" />
     <None Remove="Results\PetFindByStatus.txt" />
+    <None Remove="Results\PetGodClass.txt" />
+    <None Remove="Results\PetPathAsContainer.txt" />
     <None Remove="Results\PetTypes.txt" />
     <None Remove="Results\ValuesPaths.txt" />
     <None Remove="SwagMock\CasualEnum.json" />
@@ -33,6 +35,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Results\PetGodClass.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\PetPathAsContainer.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Results\PetFindByStatus.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

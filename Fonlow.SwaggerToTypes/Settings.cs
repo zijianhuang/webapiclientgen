@@ -3,15 +3,18 @@
 	public enum ActionNameStrategy
 	{
 		/// <summary>
-		/// OperationId or auto
+		/// Either OperationId or MethodQueryParameters
 		/// </summary>
 		Default,
+
 		OperationId,
 
 		/// <summary>
-		/// like GetSomeWhereById1AndId2
+		/// Compose something like GetSomeWhereById1AndId2. Generally used with ContainerNameStrategy.Path
 		/// </summary>
 		MethodQueryParameters,
+
+		PathMethodQueryParameters,
 	}
 
 	public enum ContainerNameStrategy
@@ -27,7 +30,7 @@
 		Tags,
 
 		/// <summary>
-		/// Use path as resource for grouping
+		/// Use path as resource for grouping, as a container class name.
 		/// </summary>
 		Path,
 	}
@@ -37,9 +40,10 @@
 		public string ClientNamespace { get; set; }
 
 		/// <summary>
-		/// To compose client function name through removing path prefix
+		/// To compose client function name through removing path prefix. Typically / or /api. The default is /.
+		/// The lenght of the prefix is used to remove path prefix.
 		/// </summary>
-		public string PathPrefixToRemove { get; set; }
+		public string PathPrefixToRemove { get; set; } = "/";
 
 		public ActionNameStrategy ActionNameStrategy { get; set; }
 

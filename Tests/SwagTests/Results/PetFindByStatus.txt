@@ -63,11 +63,11 @@ namespace MyNS
 		
 		/// <summary>
 		/// Multiple status values can be provided with comma separated strings
-		/// findPetsByStatus /pet/findByStatus
+		/// FindPetsByStatus /pet/findByStatus
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
-		public async Task<Pet[]> findPetsByStatusAsync(string status)
+		public async Task<Pet[]> FindPetsByStatusAsync(string status)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
 			var responseMessage = await client.GetAsync(requestUri);
@@ -89,11 +89,11 @@ namespace MyNS
 		
 		/// <summary>
 		/// Multiple status values can be provided with comma separated strings
-		/// findPetsByStatus /pet/findByStatus
+		/// FindPetsByStatus /pet/findByStatus
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
-		public Pet[] findPetsByStatus(string status)
+		public Pet[] FindPetsByStatus(string status)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
 			var responseMessage = this.client.GetAsync(requestUri).Result;

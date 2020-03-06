@@ -246,42 +246,61 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		public CodeTypeReference GetBodyContent(OpenApiOperation op)
 		{
-			if (op.RequestBody != null && op.RequestBody.Content!=null)
+			if (op.RequestBody != null && op.RequestBody.Content != null)
 			{
 				OpenApiMediaType content;
-				if (op.RequestBody.Content.TryGetValue("application/json", out content))
+				if (op.RequestBody.Reference != null)
 				{
-					var schemaType = content.Schema.Type;
-					if (schemaType != null)
+					if (op.RequestBody.Content.TryGetValue("application/json", out content) && content.Schema.Type != null)
 					{
-						if (schemaType == "array") // for array
-						{
-							var arrayItemsSchema = content.Schema.Items;
-							if (arrayItemsSchema.Reference != null) //array of custom type
-							{
-								var arrayTypeName = arrayItemsSchema.Reference.Id;
-								var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayTypeName, 1);
-								return arrayCodeTypeReference;
-							}
-							else
-							{
-								var arrayType = arrayItemsSchema.Type;
-								var clrType = PrimitiveSwaggerTypeToClrType(arrayType, null);
-								var arrayCodeTypeReference = CreateArrayTypeReference(clrType, 1);
-								return arrayCodeTypeReference;
-							}
-						}
-						else if (content.Schema.Enum.Count == 0) // for premitive type
-						{
-							var simpleType = PrimitiveSwaggerTypeToClrType(content.Schema.Type, content.Schema.Format);
-							var codeTypeReference = new CodeTypeReference(simpleType);
-							return codeTypeReference;
-						}
+						return OpenApiMediaTypeToCodeTypeReference(content);
+					}
 
-						var schemaFormat = content.Schema.Format;
-						return new CodeTypeReference(PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat));
+					var typeName = op.RequestBody.Reference.Id;
+					var description = op.RequestBody.Description;//todo: comment
+					var codeTypeReference = new CodeTypeReference(typeName);
+					return codeTypeReference;
+				}
+				else if (op.RequestBody.Content.TryGetValue("application/json", out content))
+				{
+					return OpenApiMediaTypeToCodeTypeReference(content);
+				}
+			}
+
+			return null;
+		}
+
+		CodeTypeReference OpenApiMediaTypeToCodeTypeReference(OpenApiMediaType content)
+		{
+			var schemaType = content.Schema.Type;
+			if (schemaType != null)
+			{
+				if (schemaType == "array") // for array
+				{
+					var arrayItemsSchema = content.Schema.Items;
+					if (arrayItemsSchema.Reference != null) //array of custom type
+					{
+						var arrayTypeName = arrayItemsSchema.Reference.Id;
+						var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayTypeName, 1);
+						return arrayCodeTypeReference;
+					}
+					else
+					{
+						var arrayType = arrayItemsSchema.Type;
+						var clrType = PrimitiveSwaggerTypeToClrType(arrayType, null);
+						var arrayCodeTypeReference = CreateArrayTypeReference(clrType, 1);
+						return arrayCodeTypeReference;
 					}
 				}
+				else if (content.Schema.Enum.Count == 0) // for premitive type
+				{
+					var simpleType = PrimitiveSwaggerTypeToClrType(content.Schema.Type, content.Schema.Format);
+					var codeTypeReference = new CodeTypeReference(simpleType);
+					return codeTypeReference;
+				}
+
+				var schemaFormat = content.Schema.Format;
+				return new CodeTypeReference(PrimitiveSwaggerTypeToClrType(schemaType, schemaFormat));
 			}
 
 			return null;

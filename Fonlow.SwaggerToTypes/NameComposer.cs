@@ -244,26 +244,27 @@ namespace Fonlow.OpenApi.ClientTypes
 			}
 		}
 
-		public CodeTypeReference GetBodyContent(OpenApiOperation op)
+		public Tuple<CodeTypeReference, string> GetBodyContent(OpenApiOperation op)
 		{
 			if (op.RequestBody != null && op.RequestBody.Content != null)
 			{
 				OpenApiMediaType content;
+				var description = op.RequestBody.Description;//todo: comment
+
 				if (op.RequestBody.Reference != null)
 				{
 					if (op.RequestBody.Content.TryGetValue("application/json", out content) && content.Schema.Type != null)
 					{
-						return OpenApiMediaTypeToCodeTypeReference(content);
+						return Tuple.Create(OpenApiMediaTypeToCodeTypeReference(content), description);
 					}
 
 					var typeName = op.RequestBody.Reference.Id;
-					var description = op.RequestBody.Description;//todo: comment
 					var codeTypeReference = new CodeTypeReference(typeName);
-					return codeTypeReference;
+					return Tuple.Create(codeTypeReference, description);
 				}
 				else if (op.RequestBody.Content.TryGetValue("application/json", out content))
 				{
-					return OpenApiMediaTypeToCodeTypeReference(content);
+					return Tuple.Create(OpenApiMediaTypeToCodeTypeReference(content), description);
 				}
 			}
 

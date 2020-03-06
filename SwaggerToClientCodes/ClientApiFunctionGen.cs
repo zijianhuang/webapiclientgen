@@ -19,6 +19,8 @@ namespace Fonlow.OpenApiClientGen.Cs
 		OpenApiOperation apiOperation;
 		ParameterDescription[] parameterDescriptions;
 		CodeTypeReference requestBodyCodeTypeReference; // for post and put
+		string requestBodyComment;
+
 		string relativePath;
 		protected CodeTypeReference returnTypeReference;
 		//bool returnTypeIsStream;
@@ -40,7 +42,12 @@ namespace Fonlow.OpenApiClientGen.Cs
 			this.parameterDescriptions = nameComposer.OpenApiParametersToParameterDescriptions(apiOperation.Parameters);
 			if (httpMethod == OperationType.Post || httpMethod == OperationType.Put)
 			{
-				this.requestBodyCodeTypeReference = nameComposer.GetBodyContent(apiOperation);
+				var kc = nameComposer.GetBodyContent(apiOperation);
+				if (kc != null)
+				{
+					this.requestBodyCodeTypeReference = kc.Item1;
+					this.requestBodyComment = kc.Item2;
+				}
 			}
 
 			this.actionName = nameComposer.GetActionName(apiOperation, httpMethod.ToString());
@@ -186,6 +193,12 @@ namespace Fonlow.OpenApiClientGen.Cs
 			{
 				CreateParamDocComment(item.Name, item.Documentation);
 			}
+
+			if (!String.IsNullOrEmpty(requestBodyComment))
+			{
+				CreateParamDocComment("requestBody", requestBodyComment);
+			}
+
 			CreateDocComment("returns", nameComposer.GetOperationReturnComment(apiOperation));
 		}
 

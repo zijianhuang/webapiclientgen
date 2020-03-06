@@ -275,6 +275,7 @@ namespace MyNS
 		/// Add new pet to the store inventory.
 		/// addPet /pet
 		/// </summary>
+		/// <param name="requestBody">Pet object that needs to be added to the store</param>
 		public async Task addPetAsync(Pet requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet");
@@ -299,6 +300,7 @@ namespace MyNS
 		/// Add new pet to the store inventory.
 		/// addPet /pet
 		/// </summary>
+		/// <param name="requestBody">Pet object that needs to be added to the store</param>
 		public void addPet(Pet requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet");
@@ -322,6 +324,7 @@ namespace MyNS
 		/// <summary>
 		/// updatePet /pet
 		/// </summary>
+		/// <param name="requestBody">Pet object that needs to be added to the store</param>
 		public async Task updatePetAsync(Pet requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet");
@@ -345,6 +348,7 @@ namespace MyNS
 		/// <summary>
 		/// updatePet /pet
 		/// </summary>
+		/// <param name="requestBody">Pet object that needs to be added to the store</param>
 		public void updatePet(Pet requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/pet");
@@ -694,6 +698,7 @@ namespace MyNS
 		/// <summary>
 		/// placeOrder /store/order
 		/// </summary>
+		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
 		public async Task<MyNS.Order> placeOrderAsync(string requestBody)
 		{
@@ -724,6 +729,7 @@ namespace MyNS
 		/// <summary>
 		/// placeOrder /store/order
 		/// </summary>
+		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
 		public MyNS.Order placeOrder(string requestBody)
 		{
@@ -845,6 +851,7 @@ namespace MyNS
 		/// This can only be done by the logged in user.
 		/// createUser /user
 		/// </summary>
+		/// <param name="requestBody">Created user object</param>
 		public async Task createUserAsync(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user");
@@ -869,6 +876,7 @@ namespace MyNS
 		/// This can only be done by the logged in user.
 		/// createUser /user
 		/// </summary>
+		/// <param name="requestBody">Created user object</param>
 		public void createUser(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user");
@@ -944,6 +952,7 @@ namespace MyNS
 		/// updateUser /user/{username}
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
+		/// <param name="requestBody">Updated user object</param>
 		public async Task updateUserAsync(string username, string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
@@ -969,6 +978,7 @@ namespace MyNS
 		/// updateUser /user/{username}
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
+		/// <param name="requestBody">Updated user object</param>
 		public void updateUser(string username, string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
@@ -1030,6 +1040,7 @@ namespace MyNS
 		/// <summary>
 		/// createUsersWithArrayInput /user/createWithArray
 		/// </summary>
+		/// <param name="requestBody">List of user object</param>
 		public async Task createUsersWithArrayInputAsync(User[] requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/createWithArray");
@@ -1053,6 +1064,7 @@ namespace MyNS
 		/// <summary>
 		/// createUsersWithArrayInput /user/createWithArray
 		/// </summary>
+		/// <param name="requestBody">List of user object</param>
 		public void createUsersWithArrayInput(User[] requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/createWithArray");
@@ -1076,6 +1088,7 @@ namespace MyNS
 		/// <summary>
 		/// createUsersWithListInput /user/createWithList
 		/// </summary>
+		/// <param name="requestBody">List of user object</param>
 		public async Task createUsersWithListInputAsync(User[] requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/createWithList");
@@ -1099,6 +1112,7 @@ namespace MyNS
 		/// <summary>
 		/// createUsersWithListInput /user/createWithList
 		/// </summary>
+		/// <param name="requestBody">List of user object</param>
 		public void createUsersWithListInput(User[] requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/createWithList");

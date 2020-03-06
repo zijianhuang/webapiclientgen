@@ -671,23 +671,29 @@ namespace MyNS
 		/// placeOrder /store/order
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.Order> placeOrderAsync()
+		public async Task<MyNS.Order> placeOrderAsync(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/store/order");
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			try
+			using (var requestWriter = new System.IO.StringWriter())
 			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				var requestSerializer = JsonSerializer.Create();
+				requestSerializer.Serialize(requestWriter, requestBody);
+				var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+				var responseMessage = await client.PostAsync(requestUri, content);
+				try
 				{
-					var serializer = new JsonSerializer();
-					return serializer.Deserialize<MyNS.Order>(jsonReader);
+					responseMessage.EnsureSuccessStatusCode();
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+					{
+						var serializer = new JsonSerializer();
+						return serializer.Deserialize<MyNS.Order>(jsonReader);
+					}
 				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
+				finally
+				{
+					responseMessage.Dispose();
+				}
 			}
 		}
 
@@ -695,23 +701,29 @@ namespace MyNS
 		/// placeOrder /store/order
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public MyNS.Order placeOrder()
+		public MyNS.Order placeOrder(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/store/order");
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
-			try
+			using (var requestWriter = new System.IO.StringWriter())
 			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				var requestSerializer = JsonSerializer.Create();
+				requestSerializer.Serialize(requestWriter, requestBody);
+				var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+				var responseMessage = this.client.PostAsync(requestUri, content).Result;
+				try
 				{
-					var serializer = new JsonSerializer();
-					return serializer.Deserialize<MyNS.Order>(jsonReader);
+					responseMessage.EnsureSuccessStatusCode();
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+					{
+						var serializer = new JsonSerializer();
+						return serializer.Deserialize<MyNS.Order>(jsonReader);
+					}
 				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
+				finally
+				{
+					responseMessage.Dispose();
+				}
 			}
 		}
 
@@ -809,17 +821,23 @@ namespace MyNS
 		/// This can only be done by the logged in user.
 		/// createUser /user
 		/// </summary>
-		public async Task createUserAsync()
+		public async Task createUserAsync(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user");
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			try
+			using (var requestWriter = new System.IO.StringWriter())
 			{
-				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
+				var requestSerializer = JsonSerializer.Create();
+				requestSerializer.Serialize(requestWriter, requestBody);
+				var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+				var responseMessage = await client.PostAsync(requestUri, content);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCode();
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
 			}
 		}
 
@@ -827,17 +845,23 @@ namespace MyNS
 		/// This can only be done by the logged in user.
 		/// createUser /user
 		/// </summary>
-		public void createUser()
+		public void createUser(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user");
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
-			try
+			using (var requestWriter = new System.IO.StringWriter())
 			{
-				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
+				var requestSerializer = JsonSerializer.Create();
+				requestSerializer.Serialize(requestWriter, requestBody);
+				var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+				var responseMessage = this.client.PostAsync(requestUri, content).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCode();
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
 			}
 		}
 
@@ -896,17 +920,23 @@ namespace MyNS
 		/// updateUser /user/{username}
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
-		public async Task updateUserAsync(string username)
+		public async Task updateUserAsync(string username, string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
-			var responseMessage = await client.PutAsync(requestUri, new StringContent(String.Empty));
-			try
+			using (var requestWriter = new System.IO.StringWriter())
 			{
-				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
+				var requestSerializer = JsonSerializer.Create();
+				requestSerializer.Serialize(requestWriter, requestBody);
+				var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+				var responseMessage = await client.PutAsync(requestUri, content);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCode();
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
 			}
 		}
 
@@ -915,17 +945,23 @@ namespace MyNS
 		/// updateUser /user/{username}
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
-		public void updateUser(string username)
+		public void updateUser(string username, string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/user/" + Uri.EscapeDataString(username));
-			var responseMessage = this.client.PutAsync(requestUri, new StringContent(String.Empty)).Result;
-			try
+			using (var requestWriter = new System.IO.StringWriter())
 			{
-				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
+				var requestSerializer = JsonSerializer.Create();
+				requestSerializer.Serialize(requestWriter, requestBody);
+				var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+				var responseMessage = this.client.PutAsync(requestUri, content).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCode();
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
 			}
 		}
 

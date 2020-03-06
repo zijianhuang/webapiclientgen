@@ -18,6 +18,7 @@
     <None Remove="SwagMock\myswagger.json" />
     <None Remove="SwagMock\PathItemValues.json" />
     <None Remove="SwagMock\pet.json" />
+    <None Remove="SwagMock\pet.yaml" />
     <None Remove="SwagMock\PetDelete.json" />
     <None Remove="SwagMock\PetDogCat.json" />
     <None Remove="SwagMock\PetFindByStatus.json" />
@@ -51,6 +52,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\PathItemValues.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\pet.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\PetFindByStatus.json">

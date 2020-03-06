@@ -82,7 +82,7 @@ namespace MyNS
         [Fact]
         public void TestPet()
         {
-            var s = TranslateJsonToCode("SwagMock\\Pet.json");
+            var s = TranslateJsonToCode("SwagMock\\pet.yaml");
             Assert.Equal(ReadFromResults("Results\\Pet.txt"), s);
         }
 

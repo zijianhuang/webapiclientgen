@@ -85,10 +85,15 @@ namespace MyNS
 		/// ValuesPost /api/Values
 		/// </summary>
 		/// <returns>Success</returns>
-		public async Task<string> ValuesPostAsync()
+		public async Task<string> ValuesPostAsync(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/api/Values");
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, requestBody);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();
@@ -102,16 +107,22 @@ namespace MyNS
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// ValuesPost /api/Values
 		/// </summary>
 		/// <returns>Success</returns>
-		public string ValuesPost()
+		public string ValuesPost(string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/api/Values");
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, requestBody);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();
@@ -124,6 +135,7 @@ namespace MyNS
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
@@ -177,10 +189,15 @@ namespace MyNS
 		/// ValuesPutById /api/Values/{id}
 		/// </summary>
 		/// <returns>Success</returns>
-		public async Task ValuesPutByIdAsync(int id)
+		public async Task ValuesPutByIdAsync(int id, string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/api/Values/"+id);
-			var responseMessage = await client.PutAsync(requestUri, new StringContent(String.Empty));
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, requestBody);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = await client.PutAsync(requestUri, content);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();
@@ -188,6 +205,7 @@ namespace MyNS
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
@@ -195,10 +213,15 @@ namespace MyNS
 		/// ValuesPutById /api/Values/{id}
 		/// </summary>
 		/// <returns>Success</returns>
-		public void ValuesPutById(int id)
+		public void ValuesPutById(int id, string requestBody)
 		{
 			var requestUri = new Uri(this.baseUri, "/api/Values/"+id);
-			var responseMessage = this.client.PutAsync(requestUri, new StringContent(String.Empty)).Result;
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, requestBody);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = this.client.PutAsync(requestUri, content).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();
@@ -206,6 +229,7 @@ namespace MyNS
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		

@@ -18,6 +18,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 		SharedContext sharedContext;
 		OpenApiOperation apiOperation;
 		ParameterDescription[] parameterDescriptions;
+		CodeTypeReference requestBodyCodeTypeReference; // for post and put
 		string relativePath;
 		protected CodeTypeReference returnTypeReference;
 		//bool returnTypeIsStream;
@@ -37,6 +38,11 @@ namespace Fonlow.OpenApiClientGen.Cs
 			this.apiOperation = apiOperation;
 			this.httpMethod = httpMethod;
 			this.parameterDescriptions = nameComposer.OpenApiParametersToParameterDescriptions(apiOperation.Parameters);
+			if (httpMethod == OperationType.Post || httpMethod == OperationType.Put)
+			{
+				this.requestBodyCodeTypeReference = nameComposer.GetBodyContent(apiOperation);
+			}
+
 			this.actionName = nameComposer.GetActionName(apiOperation, httpMethod.ToString());
 			this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
@@ -340,6 +346,11 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 			}).ToArray();
 			method.Parameters.AddRange(parameters);
+			if (requestBodyCodeTypeReference != null)
+			{
+				var p = new CodeParameterDeclarationExpression(requestBodyCodeTypeReference, "requestBody");
+				method.Parameters.Add(p);
+			}
 
 			var uriQueryParameters = parameterDescriptions.Where(d =>
 				(d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromBody && d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromForm && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
@@ -351,17 +362,17 @@ namespace Fonlow.OpenApiClientGen.Cs
 					Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
 				}).ToArray();
 
-			var fromBodyParameterDescriptions = parameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-			if (fromBodyParameterDescriptions.Length > 1)
-			{
-				throw new CodeGenException("Bad Api Definition")
-				{
-					Description = String.Format("This API function {0} has more than 1 FromBody bindings in parameters", actionName)
-				};
-			}
+			//var fromBodyParameterDescriptions = parameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+			//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+			//if (fromBodyParameterDescriptions.Length > 1)
+			//{
+			//	throw new CodeGenException("Bad Api Definition")
+			//	{
+			//		Description = String.Format("This API function {0} has more than 1 FromBody bindings in parameters", actionName)
+			//	};
+			//}
 
-			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+			//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
 			Action AddRequestUriWithQueryAssignmentStatement = () =>
 			{
@@ -405,7 +416,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 				AddRequestUriAssignmentStatement();
 			}
 
-			if (singleFromBodyParameterDescription != null)
+			if (requestBodyCodeTypeReference != null)
 			{
 				method.Statements.Add(new CodeSnippetStatement(
 @"			using (var requestWriter = new System.IO.StringWriter())
@@ -414,7 +425,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 ));
 				method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
 					new CodeSnippetExpression("requestWriter"),
-					new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
+					new CodeSnippetExpression("requestBody")));
 
 
 				method.Statements.Add(new CodeSnippetStatement(
@@ -484,7 +495,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
 			}
 
-			if (singleFromBodyParameterDescription != null)
+			if (requestBodyCodeTypeReference != null)
 				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 

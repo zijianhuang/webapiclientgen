@@ -43,13 +43,21 @@
 
 		public ActionNameStrategy ActionNameStrategy { get; set; }
 
-		public ContainerNameStrategy ControllerNameStrategy { get; set; }
+		public ContainerNameStrategy ContainerNameStrategy { get; set; }
 
 		/// <summary>
-		/// Utilized when ContainerNameStrategy is None
+		/// Container class name when ContainerNameStrategy is None. The default is Misc.
 		/// </summary>
 		public string ContainerClassName { get; set; } = "Misc";
 
+		/// <summary>
+		/// Suffix of container class name if ContainerNameStrategy is not None.
+		/// </summary>
+		public string SuffixOfContainerName { get; set; } = "Client";
+
+		/// <summary>
+		/// Whether to generate both async ans sync C# client codes.
+		/// </summary>
 		public bool ForBothAsyncAndSync { get; set; }
 	}
 }

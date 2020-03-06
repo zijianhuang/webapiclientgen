@@ -152,7 +152,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 		string[] GetContainerClassNames(OpenApiPaths paths)
 		{
-			if (settings.ControllerNameStrategy == ContainerNameStrategy.None)
+			if (settings.ContainerNameStrategy == ContainerNameStrategy.None)
 			{
 				return new string[] { settings.ContainerClassName };
 			}

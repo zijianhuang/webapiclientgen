@@ -45,12 +45,19 @@ namespace Fonlow.OpenApi.ClientTypes
 
 		public string GetControllerName(OpenApiOperation op, string path)
 		{
-			switch (settings.ControllerNameStrategy)
+			switch (settings.ContainerNameStrategy)
 			{
 				case ContainerNameStrategy.Path:
 					return PathToControllerName(path);
 				case ContainerNameStrategy.Tags:
-					return ToTitleCase(op.Tags[0].Name);//todo: concanate multiple ones?
+					if (op.Tags != null && op.Tags.Count > 0)
+					{
+						return ToTitleCase(op.Tags[0].Name) + settings.SuffixOfContainerName;//todo: concanate multiple ones?
+					}
+					else
+					{
+						return settings.ContainerClassName;
+					}
 				default:
 					return settings.ContainerClassName;
 			}

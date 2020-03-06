@@ -16,14 +16,14 @@ namespace MyNS
 	using Newtonsoft.Json;
 	
 	
-	public partial class Misc
+	public partial class ValuesClient
 	{
 		
 		private System.Net.Http.HttpClient client;
 		
 		private System.Uri baseUri;
 		
-		public Misc(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public ValuesClient(System.Net.Http.HttpClient client, System.Uri baseUri)
 		{
 			if (client == null)
 				throw new ArgumentNullException("client", "Null HttpClient.");
@@ -100,9 +100,9 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
-				return jsonReader.ReadAsString();
+				return streamReader.ReadToEnd();;
 				}
 			}
 			finally
@@ -129,9 +129,9 @@ namespace MyNS
 			{
 				responseMessage.EnsureSuccessStatusCode();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
-				return jsonReader.ReadAsString();
+				return streamReader.ReadToEnd();;
 				}
 			}
 			finally

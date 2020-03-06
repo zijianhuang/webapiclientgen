@@ -16,14 +16,14 @@ namespace MyNS
 	using Newtonsoft.Json;
 	
 	
-	public partial class Misc
+	public partial class PetClient
 	{
 		
 		private System.Net.Http.HttpClient client;
 		
 		private System.Uri baseUri;
 		
-		public Misc(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public PetClient(System.Net.Http.HttpClient client, System.Uri baseUri)
 		{
 			if (client == null)
 				throw new ArgumentNullException("client", "Null HttpClient.");

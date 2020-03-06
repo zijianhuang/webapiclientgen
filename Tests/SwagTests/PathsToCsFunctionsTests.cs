@@ -17,14 +17,16 @@ namespace SwagTests
             }
         }
 
-        static string TranslateJsonToCode(string filePath)
+        static string TranslateJsonToCode(string filePath, Settings mySettings=null)
         {
             OpenApiDocument doc = ReadJson(filePath);
 
-            Settings settings = new Settings()
+            Settings settings = mySettings ?? new Settings()
             {
                 ClientNamespace = "MyNS",
                 PathPrefixToRemove="/api",
+                ContainerClassName="Misc",
+                ContainerNameStrategy= ContainerNameStrategy.Tags,
                 ForBothAsyncAndSync=true
             };
             var gen = new ControllersClientApiGen(settings);
@@ -89,7 +91,14 @@ namespace MyNS
         [Fact]
         public void TestPetFindByStatus()
         {
-            var s = TranslateJsonToCode("SwagMock\\PetFindByStatus.json");
+            var s = TranslateJsonToCode("SwagMock\\PetFindByStatus.json", new Settings()
+            {
+                ClientNamespace = "MyNS",
+                PathPrefixToRemove = "/api",
+                ContainerClassName = "Misc",
+                SuffixOfContainerName="",
+                ForBothAsyncAndSync = true
+            });
             Assert.Equal(ReadFromResults("Results\\PetFindByStatus.txt"), s);
         }
 

@@ -16,10 +16,10 @@ namespace IntegrationTests
 			//  .Accept
 			//  .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//.net core has different behavior as described at https://github.com/zijianhuang/webapiclientgen/issues/26
 
-			Api = new Values(httpClient, baseUri);
+			Api = new ValuesClient(httpClient, baseUri);
 		}
 
-		public Values Api { get; private set; }
+		public ValuesClient Api { get; private set; }
 
 		System.Net.Http.HttpClient httpClient;
 
@@ -54,7 +54,7 @@ namespace IntegrationTests
 			api = fixture.Api;
 		}
 
-		Values api;
+		ValuesClient api;
 
 		[Fact]
 		public void TestValuesGet()

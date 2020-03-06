@@ -252,14 +252,14 @@ namespace MyNS
 		public int UserStatus { get; set; }
 	}
 
-	public partial class Misc
+	public partial class PetClient
 	{
 
 		private System.Net.Http.HttpClient client;
 
 		private System.Uri baseUri;
 
-		public Misc(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public PetClient(System.Net.Http.HttpClient client, System.Uri baseUri)
 		{
 			if (client == null)
 				throw new ArgumentNullException("client", "Null HttpClient.");
@@ -646,6 +646,26 @@ namespace MyNS
 				responseMessage.Dispose();
 			}
 		}
+	}
+
+	public partial class StoreClient
+	{
+
+		private System.Net.Http.HttpClient client;
+
+		private System.Uri baseUri;
+
+		public StoreClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		{
+			if (client == null)
+				throw new ArgumentNullException("client", "Null HttpClient.");
+
+			if (baseUri == null)
+				throw new ArgumentNullException("baseUri", "Null baseUri");
+
+			this.client = client;
+			this.baseUri = baseUri;
+		}
 
 		/// <summary>
 		/// Returns a map of status codes to quantities
@@ -845,6 +865,26 @@ namespace MyNS
 			{
 				responseMessage.Dispose();
 			}
+		}
+	}
+
+	public partial class UserClient
+	{
+
+		private System.Net.Http.HttpClient client;
+
+		private System.Uri baseUri;
+
+		public UserClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		{
+			if (client == null)
+				throw new ArgumentNullException("client", "Null HttpClient.");
+
+			if (baseUri == null)
+				throw new ArgumentNullException("baseUri", "Null baseUri");
+
+			this.client = client;
+			this.baseUri = baseUri;
 		}
 
 		/// <summary>

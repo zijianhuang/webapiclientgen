@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CodeGenException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UriTemplateTransform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebApiDescription.cs" />
   </ItemGroup>
 </Project>

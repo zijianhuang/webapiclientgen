@@ -13,6 +13,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)ClientApiTsFunctionGenBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodeGenParameters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersTsClientApiGenBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UriTemplateTransform.cs" />
   </ItemGroup>
 </Project>

@@ -126,8 +126,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Fonlow.SwaggerToTypes\Fonlow.SwaggerToTypes.csproj" />
-    <ProjectReference Include="..\..\SwaggerToClientCodes\SwaggerToClientCodes.csproj" />
+    <ProjectReference Include="..\..\Fonlow.SwaggerToTypes\Fonlow.OpenApi.ClientTypes.csproj" />
+    <ProjectReference Include="..\..\SwaggerToClientCodes\Fonlow.OpenApiClientGen.csproj" />
   </ItemGroup>
 
 </Project>

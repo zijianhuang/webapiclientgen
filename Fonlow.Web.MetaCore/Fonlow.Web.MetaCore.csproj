@@ -23,4 +23,8 @@
 
   <Import Project="..\Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems" Label="Shared" />
 
+  <ItemGroup>
+    <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
+  </ItemGroup>
+
 </Project>

@@ -352,12 +352,9 @@ namespace Fonlow.OpenApiClientGen.Cs
 		void RenderPostOrPutImplementation(bool isPost)
 		{
 			//Create function parameters in prototype
-			var parameters = parameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
-			{
-				Name = d.Name,
-				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
-
-			}).ToArray();
+			var parameters = parameterDescriptions.Select(d =>
+				new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name))
+				.ToArray();
 			method.Parameters.AddRange(parameters);
 			if (requestBodyCodeTypeReference != null)
 			{

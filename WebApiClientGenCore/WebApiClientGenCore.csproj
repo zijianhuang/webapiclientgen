@@ -42,8 +42,9 @@
     <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
     <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
     <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
-    <ProjectReference Include="..\WebApiClientGenBaseCore\WebApiClientGenBaseCore.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
   </ItemGroup>
+
+  <Import Project="..\WebApiClientGenShared\WebApiClientGenShared.projitems" Label="Shared" />
 
 </Project>

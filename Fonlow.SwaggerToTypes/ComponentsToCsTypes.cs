@@ -68,15 +68,24 @@ namespace Fonlow.OpenApi.ClientTypes
 			}
 		}
 
-		public void WriteCode(TextWriter writer)
+		void WriteCode(TextWriter writer)
 		{
-			if (writer == null)
-				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
+			//if (writer == null)
+			//	throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
 
 			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
 			{
 				CodeGeneratorOptions options = new CodeGeneratorOptions() { BracingStyle = "C", IndentString = "\t" };
 				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+			}
+		}
+
+		public string WriteToText()
+		{
+			using (var writer = new StringWriter())
+			{
+				WriteCode(writer);
+				return writer.ToString();
 			}
 		}
 

@@ -53,10 +53,37 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// </summary>
 		public void Save()
 		{
-			var provider = new TypeScriptCodeProvider(jsOutput.AsModule);
 			using (StreamWriter writer = new StreamWriter(jsOutput.JSPath))
 			{
+				WriteCode(writer);
+			}
+		}
+
+		/// <summary>
+		/// Write CodeDOM into TS codes to TextWriter
+		/// </summary>
+		/// <param name="writer"></param>
+		void WriteCode(TextWriter writer)
+		{
+			if (writer == null)
+				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
+
+			using (var provider = new TypeScriptCodeProvider(jsOutput.AsModule))
+			{
 				provider.GenerateCodeFromCompileUnit(CodeCompileUnit, writer, TsCodeGenerationOptions.Instance);
+			}
+		}
+
+		/// <summary>
+		/// Write CodeDOM into C# codes to text
+		/// </summary>
+		/// <returns></returns>
+		public string WriteToText()
+		{
+			using (var writer = new StringWriter())
+			{
+				WriteCode(writer);
+				return writer.ToString();
 			}
 		}
 
@@ -88,9 +115,10 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			foreach (var p in paths)
 			{
+				var relativePath = p.Key;
 				foreach (var op in p.Value.Operations)
 				{
-					var apiFunction = apiFunctionGen.CreateApiFunction();
+					var apiFunction = apiFunctionGen.CreateApiFunction(settings, relativePath, op.Key, op.Value, new ComponentsToTsTypes(settings, CodeCompileUnit, clientNamespace) );
 					var containerClassName = nameComposer.GetContainerName(op.Value, p.Key);
 					var existingClass = LookupExistingClass(containerClassName);
 					existingClass.Members.Add(apiFunction);

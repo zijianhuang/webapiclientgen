@@ -31,12 +31,7 @@ namespace SwagTests
 
             var gen = new ComponentsToCsTypes(settings, codeCompileUnit, clientNamespace);
             gen.CreateCodeDom(doc.Components);
-            using (var writer = new StringWriter())
-            {
-                gen.WriteCode(writer);
-                return writer.ToString();
-            }
-
+			return gen.WriteToText();
         }
 
         [Fact]

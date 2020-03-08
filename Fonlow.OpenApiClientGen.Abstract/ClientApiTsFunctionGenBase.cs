@@ -13,8 +13,7 @@ namespace Fonlow.CodeDom.Web.Ts
 {
 	public abstract class ClientApiTsFunctionGenBase : ClientApiTsFunctionGenAbstract
 	{
-		protected ClientApiTsFunctionGenBase(Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToTsTypes poco2TsGen):
-			base(settings, relativePath, httpMethod, apiOperation, poco2TsGen)
+		protected ClientApiTsFunctionGenBase():	base()
 		{
 
 		}

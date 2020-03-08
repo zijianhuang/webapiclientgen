@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Readers;
 using System.IO;
 using Xunit;
 using Fonlow.CodeDom.Web;
+using System;
 namespace SwagTests
 {
 	public class CodeGenNG2Tests
@@ -18,24 +19,63 @@ namespace SwagTests
 
 		static string TranslateJsonToCode(string filePath)
 		{
+			Func<string, string, string> CreateTsPath = (folder, fileName) =>
+			{
+				if (!string.IsNullOrEmpty(folder))
+				{
+					string theFolder;
+					try
+					{
+						theFolder = System.IO.Path.IsPathRooted(folder) ?
+							folder : System.IO.Path.Combine(Directory.GetCurrentDirectory(), folder);
+
+					}
+					catch (ArgumentException e)
+					{
+						System.Diagnostics.Trace.TraceWarning(e.Message);
+						throw;
+					}
+
+					if (!System.IO.Directory.Exists(theFolder))
+					{
+						throw new ArgumentException("TypeScript Folder Not Exist");
+					}
+					return System.IO.Path.Combine(theFolder, fileName);
+				};
+
+				return null;
+			};
+
 			OpenApiDocument doc = ReadJson(filePath);
 
 			Settings settings = new Settings()
 			{
 				ClientNamespace = "MyNS",
+				PathPrefixToRemove = "/api",
+				ContainerClassName = "Misc",
+				ContainerNameStrategy = ContainerNameStrategy.Tags,
 			};
 
 			var codeCompileUnit = new System.CodeDom.CodeCompileUnit();
 			var clientNamespace = new System.CodeDom.CodeNamespace(settings.ClientNamespace);
 			codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
-			var gen = new Fonlow.CodeDom.Web.Ts.ControllersTsNG2ClientApiGen(settings, null, )
-			gen.CreateCodeDom(doc.Components);
-			using (var writer = new StringWriter())
+			var jsOutput = new JSOutput
 			{
-				gen.WriteCode(writer);
-				return writer.ToString();
-			}
+				CamelCase = settings.CamelCase,
+				JSPath = CreateTsPath("Results", filePath),
+				AsModule = true,
+				ContentType = "application/json;charset=UTF-8",
+				ClientNamespaceSuffix = "Client",
+			};
 
+			var gen = new Fonlow.CodeDom.Web.Ts.ControllersTsNG2ClientApiGen(settings, jsOutput);
+			gen.CreateCodeDom(doc.Paths, doc.Components);
+			return gen.WriteToText();
+		}
+
+		static string ReadFromResults(string filePath)
+		{
+			return File.ReadAllText(filePath);
 		}
 
 		[Fact]
@@ -273,6 +313,13 @@ namespace SwagTests
 ";
 			var s = TranslateJsonToCode("SwagMock\\Required.json");
 			Assert.Equal(expected, s);
+		}
+
+		[Fact]
+		public void TestValuesPaths()
+		{
+			var s = TranslateJsonToCode("SwagMock\\ValuesPaths.json");
+			Assert.Equal(ReadFromResults("Results\\ValuesPaths.txt"), s);
 		}
 
 

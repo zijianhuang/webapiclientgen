@@ -60,15 +60,24 @@ namespace Fonlow.OpenApi.ClientTypes
 			}
 		}
 
-		public void WriteCode(TextWriter writer)
+		void WriteCode(TextWriter writer)
 		{
-			if (writer == null)
-				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
+			//if (writer == null)
+			//	throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
 			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true))
 			{
 				CodeGeneratorOptions options = new CodeGeneratorOptions() { BracingStyle = "JS", IndentString = "\t" };
 				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+			}
+		}
+
+		public string WriteToText()
+		{
+			using (var writer = new StringWriter())
+			{
+				WriteCode(writer);
+				return writer.ToString();
 			}
 		}
 
@@ -84,7 +93,7 @@ namespace Fonlow.OpenApi.ClientTypes
 		{
 			if (components == null)
 			{
-				throw new ArgumentNullException(nameof(components));
+				return;
 			}
 
 			foreach (var item in components.Schemas)

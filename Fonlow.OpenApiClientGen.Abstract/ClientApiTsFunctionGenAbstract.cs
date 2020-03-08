@@ -28,12 +28,18 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected CodeMemberMethod Method { get; private set; }
 		protected ComponentsToTsTypes Poco2TsGen { get; private set; }
 		NameComposer nameComposer;
-		readonly Settings settings;
+		Settings settings;
 		protected string ActionName { get; private set; }
 		protected OperationType HttpMethod { get; private set; }
 		bool stringAsString;
 
-		protected ClientApiTsFunctionGenAbstract(Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToTsTypes poco2TsGen)
+		protected ClientApiTsFunctionGenAbstract()
+		{
+		}
+
+		static readonly Type typeOfChar = typeof(char);
+
+		public CodeMemberMethod CreateApiFunction(Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToTsTypes poco2TsGen)
 		{
 			this.settings = settings;
 			this.nameComposer = new NameComposer(settings);
@@ -70,12 +76,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			//	|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult"))
 			//	|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult"))
 			//	);
-		}
 
-		static readonly Type typeOfChar = typeof(char);
-
-		public CodeMemberMethod CreateApiFunction()
-		{
 			//create method
 			Method = CreateMethodName();
 

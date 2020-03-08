@@ -97,17 +97,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					//var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-					//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-					//	|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					//if (fromBodyParameterDescriptions.Length > 1)
-					//{
-					//	throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
-					//}
-					//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					//var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
 					if (String.IsNullOrEmpty(contentType))
 					{
 						contentType = "application/json;charset=UTF-8";
@@ -138,17 +127,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					//var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-					//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-					//	|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					//if (fromBodyParameterDescriptions.Length > 1)
-					//{
-					//	throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
-					//}
-					//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					//var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
 					if (RequestBodyCodeTypeReference == null)
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {optionForStream});"));
@@ -174,17 +152,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					//var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-					//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-					//	|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					//if (fromBodyParameterDescriptions.Length > 1)
-					//{
-					//	throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
-					//}
-					//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					//var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
 					if (RequestBodyCodeTypeReference == null)
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {optionForActionResult});"));
@@ -209,17 +176,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					//var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-					//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-					//	|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					//if (fromBodyParameterDescriptions.Length > 1)
-					//{
-					//	throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
-					//}
-					//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					//var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
 					if (String.IsNullOrEmpty(contentType))
 					{
 						contentType = "application/json;charset=UTF-8";

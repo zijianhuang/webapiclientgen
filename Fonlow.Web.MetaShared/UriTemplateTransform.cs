@@ -50,39 +50,80 @@ namespace Fonlow.CodeDom.Web
 			}
 		}
 
-		public static string TransformForTs(string newUriText, ParameterDescription d)
+		public static string TransformForTs(string newUriText, ParameterDescription d, bool queryPlaceHolderMissing = false)
 		{
-			if (d.ParameterDescriptor.ParameterType == typeofString)
+			if (queryPlaceHolderMissing)
 			{
-				return newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
-			}
-			else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
-			{
-				return newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}.toISOString() + '");
-			}
-			else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
-			{
-				var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toISOString() : '') + '");
-				if (replaced == newUriText)
-				{
-					replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toISOString() : '') + '");
-				}
+				bool queryExists = newUriText.Contains("?");
+				newUriText += queryExists ? "&" : "?";
 
-				return replaced;
-			}
-			else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
-			{
-				var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
-				if (replaced == newUriText)
+				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toString() : '') + '");
+					return newUriText+=$"{d.Name}=' + encodeURIComponent({d.Name}) + '";
 				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
+				{
+					return newUriText+= $"{d.Name}=' + {d.Name}.toISOString() + '";
+				}
+				//else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
+				//{
+				//	var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toISOString() : '') + '");
+				//	if (replaced == newUriText)
+				//	{
+				//		replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toISOString() : '') + '");
+				//	}
 
-				return replaced;
+				//	return replaced;
+				//}
+				//else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				//{
+				//	var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
+				//	if (replaced == newUriText)
+				//	{
+				//		replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toString() : '') + '");
+				//	}
+
+				//	return replaced;
+				//}
+				else
+				{
+					return newUriText+= $"{d.Name}=' + {d.Name} + '";
+				}
 			}
 			else
 			{
-				return newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
+				if (d.ParameterDescriptor.ParameterType == typeofString)
+				{
+					return newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
+				{
+					return newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}.toISOString() + '");
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
+				{
+					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toISOString() : '') + '");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toISOString() : '') + '");
+					}
+
+					return replaced;
+				}
+				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				{
+					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toString() : '') + '");
+					}
+
+					return replaced;
+				}
+				else
+				{
+					return newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name} + '");
+				}
 			}
 
 		}

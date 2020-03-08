@@ -17,7 +17,7 @@ namespace SwagTests
 			}
 		}
 
-		static string TranslateJsonToCode(string filePath)
+		static string TranslateJsonToCode(string filePath, Settings mySettings=null)
 		{
 			Func<string, string, string> CreateTsPath = (folder, fileName) =>
 			{
@@ -48,7 +48,7 @@ namespace SwagTests
 
 			OpenApiDocument doc = ReadJson(filePath);
 
-			Settings settings = new Settings()
+			Settings settings = mySettings ?? new Settings()
 			{
 				ClientNamespace = "MyNS",
 				PathPrefixToRemove = "/api",
@@ -328,6 +328,54 @@ namespace SwagTests
 		{
 			var s = TranslateJsonToCode("SwagMock\\PetDelete.json");
 			Assert.Equal(ReadFromResults("NG2Results\\PetDelete.txt"), s);
+		}
+
+		[Fact]
+		public void TestPet()
+		{
+			var s = TranslateJsonToCode("SwagMock\\pet.yaml");
+			Assert.Equal(ReadFromResults("NG2Results\\Pet.txt"), s);
+		}
+
+		[Fact]
+		public void TestPetWithPathAsContainerName()
+		{
+			var s = TranslateJsonToCode("SwagMock\\pet.yaml", new Settings()
+			{
+				ClientNamespace = "MyNS",
+				ContainerClassName = "Misc",
+				ActionNameStrategy = ActionNameStrategy.MethodQueryParameters,
+				ContainerNameStrategy = ContainerNameStrategy.Path,
+				GenerateBothAsyncAndSync = false
+			});
+			Assert.Equal(ReadFromResults("NG2Results\\PetPathAsContainer.txt"), s);
+		}
+
+		[Fact]
+		public void TestPetWithGodContainerAndPathAction()
+		{
+			var s = TranslateJsonToCode("SwagMock\\pet.yaml", new Settings()
+			{
+				ClientNamespace = "MyNS",
+				ActionNameStrategy = ActionNameStrategy.PathMethodQueryParameters,
+				ContainerNameStrategy = ContainerNameStrategy.None,
+				GenerateBothAsyncAndSync = false
+			});
+			Assert.Equal(ReadFromResults("NG2Results\\PetGodClass.txt"), s);
+		}
+
+		[Fact]
+		public void TestPetFindByStatus()
+		{
+			var s = TranslateJsonToCode("SwagMock\\PetFindByStatus.json", new Settings()
+			{
+				ClientNamespace = "MyNS",
+				PathPrefixToRemove = "/api",
+				ContainerClassName = "Misc",
+				SuffixOfContainerName = "",
+				GenerateBothAsyncAndSync = true
+			});
+			Assert.Equal(ReadFromResults("NG2Results\\PetFindByStatus.txt"), s);
 		}
 
 

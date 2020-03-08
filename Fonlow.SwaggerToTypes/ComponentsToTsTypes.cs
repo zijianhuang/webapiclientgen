@@ -194,7 +194,20 @@ namespace Fonlow.OpenApi.ClientTypes
 				CodeMemberField clientProperty;
 				if (String.IsNullOrEmpty(premitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
 				{
-					var refToType = propertySchema.AllOf[0];
+					OpenApiSchema refToType = null;
+					if (propertySchema.AllOf.Count > 0)
+					{
+						refToType = propertySchema.AllOf[0];
+					}
+					else if (propertySchema.OneOf.Count > 0)
+					{
+						refToType = propertySchema.OneOf[0];
+					}
+					else if (propertySchema.AnyOf.Count > 0)
+					{
+						refToType = propertySchema.AnyOf[0];
+					}
+
 					var customPropertyType = refToType.Type;
 					var customPropertyFormat = refToType.Format;
 					var customType = nameComposer.PrimitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);

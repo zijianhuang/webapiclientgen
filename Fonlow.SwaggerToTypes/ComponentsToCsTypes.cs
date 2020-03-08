@@ -212,7 +212,6 @@ namespace Fonlow.OpenApi.ClientTypes
 					var customPropertyType = refToType.Type;
 					var customPropertyFormat = refToType.Format;
 					var customType = nameComposer.PrimitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);
-					//clientProperty = CreateProperty(propertyName, customPropertyType);
 					clientProperty = CreateProperty(propertyName, customType);
 				}
 				else

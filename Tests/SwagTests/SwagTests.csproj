@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="NG2Results\Pet.txt" />
     <None Remove="NG2Results\PetDelete.txt" />
     <None Remove="NG2Results\PetFindByStatus.txt" />
+    <None Remove="NG2Results\PetGodClass.txt" />
+    <None Remove="NG2Results\PetPathAsContainer.txt" />
     <None Remove="NG2Results\ValuesPaths.txt" />
     <None Remove="Results\Pet.txt" />
     <None Remove="Results\PetDelete.txt" />
@@ -38,10 +41,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="NG2Results\Pet.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="NG2Results\PetDelete.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NG2Results\PetFindByStatus.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NG2Results\PetGodClass.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NG2Results\PetPathAsContainer.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NG2Results\ValuesPaths.txt">

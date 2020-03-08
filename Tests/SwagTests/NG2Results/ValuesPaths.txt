@@ -36,7 +36,7 @@ export namespace MyNS {
 		 * @return {void} Success
 		 */
 		ValuesPutById(id: number, requestBody: string): Observable<Response> {
-			return this.http.put(this.baseUri + '/api/Values/' + id, JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.put<Response>(this.baseUri + '/api/Values/' + id, JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -44,7 +44,7 @@ export namespace MyNS {
 		 * @return {void} Success
 		 */
 		ValuesDeleteById(id: number, requestBody: string): Observable<Response> {
-			return this.http.delete(this.baseUri + '/api/Values/' + id);
+			return this.http.delete<Response>(this.baseUri + '/api/Values/' + id);
 		}
 	}
 

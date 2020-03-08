@@ -167,7 +167,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else
 			{
-				var typeCast = returnTypeText == null ? String.Empty : $"<{returnTypeText}>";
+				var typeCast = returnTypeText == null ? "<Response>" : $"<{returnTypeText}>";
 				if (httpMethodName == "get" || httpMethodName == "delete")
 				{
 					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}{typeCast}({uriText});"));

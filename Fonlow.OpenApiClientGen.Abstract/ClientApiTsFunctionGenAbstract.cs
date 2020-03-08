@@ -18,7 +18,7 @@ namespace Fonlow.CodeDom.Web.Ts
 	{
 		OpenApiOperation apiOperation;
 		protected ParameterDescription[] ParameterDescriptions { get; private set; }
-		CodeTypeReference requestBodyCodeTypeReference; // for post and put
+		protected CodeTypeReference RequestBodyCodeTypeReference { get; private set; }
 		string requestBodyComment;
 
 		protected string RelativePath { get; private set; }
@@ -51,7 +51,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				var kc = nameComposer.GetBodyContent(apiOperation);
 				if (kc != null)
 				{
-					this.requestBodyCodeTypeReference = kc.Item1;
+					this.RequestBodyCodeTypeReference = kc.Item1;
 					this.requestBodyComment = kc.Item2;
 				}
 			}
@@ -122,7 +122,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (!String.IsNullOrEmpty(requestBodyComment))
 			{
-				builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(requestBodyCodeTypeReference)}}} requestBody {requestBodyComment}");
+				builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(RequestBodyCodeTypeReference)}}} requestBody {requestBodyComment}");
 			}
 
 

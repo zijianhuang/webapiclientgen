@@ -48,7 +48,9 @@ namespace Fonlow.CodeDom.Web.Ts
 				returnTypeText = NG2HttpBlobResponse;
 			}
 
-			var callbackTypeText = $"Observable<{returnTypeText}>";
+			var typeCast = returnTypeText == null ? "<Response>" : $"<{returnTypeText}>";
+
+			var callbackTypeText = $"Observable{typeCast}";
 			Debug.WriteLine("callback: " + callbackTypeText);
 			var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
 
@@ -73,13 +75,19 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			Method.Parameters.AddRange(parameters);
 
+			if (RequestBodyCodeTypeReference != null)
+			{
+				var p = new CodeParameterDeclarationExpression(RequestBodyCodeTypeReference, "requestBody");
+				Method.Parameters.Add(p);
+			}
+
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(RelativePath, ParameterDescriptions);
 			var uriText = jsUriQuery == null ? $"this.baseUri + '{RelativePath}'" :
 				RemoveTrialEmptyString($"this.baseUri + '{jsUriQuery}'");
 
 			// var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
 
-			if (ReturnTypeReference != null &&  ReturnTypeReference.BaseType == "System.String" && ReturnTypeReference.ArrayElementType == null)//stringAsString is for .NET Core Web API
+			if (ReturnTypeReference != null && ReturnTypeReference.BaseType == "System.String" && ReturnTypeReference.ArrayElementType == null)//stringAsString is for .NET Core Web API
 			{
 				if (httpMethodName == "get" || httpMethodName == "delete")
 				{
@@ -89,29 +97,29 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+					//var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+					//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+					//	|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+					//if (fromBodyParameterDescriptions.Length > 1)
+					//{
+					//	throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
+					//}
+					//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+					//var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
 					if (String.IsNullOrEmpty(contentType))
 					{
 						contentType = "application/json;charset=UTF-8";
 					}
 
-					if (dataToPost == "null")
+					if (RequestBodyCodeTypeReference == null)
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {{headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify(requestBody), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }});"));
 					}
 
 					return;
@@ -130,24 +138,24 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+					//var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+					//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+					//	|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+					//if (fromBodyParameterDescriptions.Length > 1)
+					//{
+					//	throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
+					//}
+					//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+					//var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-					if (dataToPost == "null")
+					if (RequestBodyCodeTypeReference == null)
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {optionForStream});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {optionForStream});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify(requestBody), {optionForStream});"));
 					}
 
 					return;
@@ -166,24 +174,24 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+					//var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+					//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+					//	|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+					//if (fromBodyParameterDescriptions.Length > 1)
+					//{
+					//	throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
+					//}
+					//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+					//var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-					if (dataToPost == "null")
+					if (RequestBodyCodeTypeReference == null)
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {optionForActionResult});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, observe: 'response', responseType: 'text' }});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify(requestBody), {{ headers: {{ 'Content-Type': '{contentType}' }}, observe: 'response', responseType: 'text' }});"));
 					}
 
 					return;
@@ -192,37 +200,38 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else
 			{
+				var typeCast = returnTypeText == null ? String.Empty : $"<{returnTypeText}>";
 				if (httpMethodName == "get" || httpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}<{returnTypeText}>({uriText});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}{typeCast}({uriText});"));
 					return;
 				}
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+					//var fromBodyParameterDescriptions = ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+					//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+					//	|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+					//if (fromBodyParameterDescriptions.Length > 1)
+					//{
+					//	throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", ActionName));
+					//}
+					//var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+					//var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
 					if (String.IsNullOrEmpty(contentType))
 					{
 						contentType = "application/json;charset=UTF-8";
 					}
 
-					if (dataToPost == "null")
+					if (RequestBodyCodeTypeReference == null)
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}<{returnTypeText}>({uriText}, null, {{ headers: {{ 'Content-Type': '{contentType}' }} }});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}{typeCast}({uriText}, null, {{ headers: {{ 'Content-Type': '{contentType}' }} }});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}<{returnTypeText}>({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }} }});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}{typeCast}({uriText}, JSON.stringify(requestBody), {{ headers: {{ 'Content-Type': '{contentType}' }} }});"));
 					}
 
 					return;

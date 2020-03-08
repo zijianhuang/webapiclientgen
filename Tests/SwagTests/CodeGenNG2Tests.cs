@@ -319,7 +319,15 @@ namespace SwagTests
 		public void TestValuesPaths()
 		{
 			var s = TranslateJsonToCode("SwagMock\\ValuesPaths.json");
-			Assert.Equal(ReadFromResults("Results\\ValuesPaths.txt"), s);
+			Assert.Equal(ReadFromResults("NG2Results\\ValuesPaths.txt"), s);
+		}
+
+
+		[Fact]
+		public void TestPetDelete()
+		{
+			var s = TranslateJsonToCode("SwagMock\\PetDelete.json");
+			Assert.Equal(ReadFromResults("NG2Results\\PetDelete.txt"), s);
 		}
 
 

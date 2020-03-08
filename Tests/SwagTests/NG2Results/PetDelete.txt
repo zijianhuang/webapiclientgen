@@ -1,0 +1,21 @@
+﻿import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+export namespace MyNS {
+	@Injectable()
+	export class PetClient {
+		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * Delete /pet/{petId}
+		 * @param {number} petId Pet id to delete
+		 * @return {void} 
+		 */
+		DeletePet(petId: number): Observable<Response> {
+			return this.http.delete(this.baseUri + '/pet/' + petId);
+		}
+	}
+
+}
+

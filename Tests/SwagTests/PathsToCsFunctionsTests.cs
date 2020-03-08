@@ -27,7 +27,7 @@ namespace SwagTests
                 PathPrefixToRemove="/api",
                 ContainerClassName="Misc",
                 ContainerNameStrategy= ContainerNameStrategy.Tags,
-                ForBothAsyncAndSync=true
+                GenerateBothAsyncAndSync=true
             };
             var gen = new ControllersClientApiGen(settings);
             gen.CreateCodeDom(doc.Paths, doc.Components);
@@ -97,7 +97,7 @@ namespace MyNS
                 ContainerClassName = "Misc",
                 ActionNameStrategy = ActionNameStrategy.MethodQueryParameters,
                 ContainerNameStrategy = ContainerNameStrategy.Path,
-                ForBothAsyncAndSync = false
+                GenerateBothAsyncAndSync = false
             });
             Assert.Equal(ReadFromResults("Results\\PetPathAsContainer.txt"), s);
         }
@@ -110,7 +110,7 @@ namespace MyNS
                 ClientNamespace = "MyNS",
                 ActionNameStrategy = ActionNameStrategy.PathMethodQueryParameters,
                 ContainerNameStrategy = ContainerNameStrategy.None,
-                ForBothAsyncAndSync = false
+                GenerateBothAsyncAndSync = false
             });
             Assert.Equal(ReadFromResults("Results\\PetGodClass.txt"), s);
         }
@@ -124,7 +124,7 @@ namespace MyNS
                 PathPrefixToRemove = "/api",
                 ContainerClassName = "Misc",
                 SuffixOfContainerName="",
-                ForBothAsyncAndSync = true
+                GenerateBothAsyncAndSync = true
             });
             Assert.Equal(ReadFromResults("Results\\PetFindByStatus.txt"), s);
         }

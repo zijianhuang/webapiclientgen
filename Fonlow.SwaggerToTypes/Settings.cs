@@ -60,19 +60,16 @@
 		public string SuffixOfContainerName { get; set; } = "Client";
 
 		/// <summary>
-		/// Whether to generate both async ans sync C# client codes.
+		/// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
 		/// </summary>
-		public bool ForBothAsyncAndSync { get; set; }
+		public string ClientLibraryProjectFolderName { get; set; }
 
+		/// <summary>
+		/// For .NET client, generate both async and sync functions for each Web API function
+		/// </summary>
+		public bool GenerateBothAsyncAndSync { get; set; }
 
-		///// <summary>
-		///// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
-		///// </summary>
-		public string ContentType { get; set; }
-
-		public string JSPath { get; set; }
-
-		public bool AsModule { get; set; }
+		public bool? CamelCase { get; set; }
 
 		public JSPlugin[] Plugins { get; set; }
 
@@ -98,8 +95,6 @@
 		///// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
 		///// </summary>
 		public string ContentType { get; set; }
-
-		public bool StringAsString { get; set; }
 
 		public string ClientNamespaceSuffix { get; set; } = ".Client";
 	}

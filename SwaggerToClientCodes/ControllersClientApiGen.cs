@@ -149,7 +149,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 					var containerClassName = nameComposer.GetContainerName(op.Value, p.Key);
 					var existingClass = LookupExistingClass(containerClassName);
 					existingClass.Members.Add(apiFunction);
-					if (settings.ForBothAsyncAndSync)
+					if (settings.GenerateBothAsyncAndSync)
 					{
 						ClientApiFunctionGen functionGen2 = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, false);
 						existingClass.Members.Add(functionGen2.CreateApiFunction());

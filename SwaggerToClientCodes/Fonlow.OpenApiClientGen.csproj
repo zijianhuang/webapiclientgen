@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Fonlow.OpenApiClientGen.Abstract\Fonlow.OpenApiClientGen.Abstract.csproj" />
     <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
     <ProjectReference Include="..\Fonlow.SwaggerToTypes\Fonlow.OpenApi.ClientTypes.csproj" />
     <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />

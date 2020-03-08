@@ -21,6 +21,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		CodeNamespace clientNamespace;
 		protected Settings settings;
+		JSOutput jsOutput;
 
 		readonly NameComposer nameComposer;
 
@@ -32,9 +33,10 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <param name="jsOutput"></param>
 		/// <param name="apiFunctionGen"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		protected ControllersTsClientApiGenBase(Settings settings, ClientApiTsFunctionGenAbstract apiFunctionGen)
+		protected ControllersTsClientApiGenBase(Settings settings, JSOutput jsOutput, ClientApiTsFunctionGenAbstract apiFunctionGen)
 		{
 			this.settings = settings;
+			this.jsOutput = jsOutput;
 			this.apiFunctionGen = apiFunctionGen;
 			CodeCompileUnit = new CodeCompileUnit();
 			nameComposer = new NameComposer(settings);
@@ -51,8 +53,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// </summary>
 		public void Save()
 		{
-			var provider = new TypeScriptCodeProvider(settings.AsModule);
-			using (StreamWriter writer = new StreamWriter(settings.JSPath))
+			var provider = new TypeScriptCodeProvider(jsOutput.AsModule);
+			using (StreamWriter writer = new StreamWriter(jsOutput.JSPath))
 			{
 				provider.GenerateCodeFromCompileUnit(CodeCompileUnit, writer, TsCodeGenerationOptions.Instance);
 			}

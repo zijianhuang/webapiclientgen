@@ -27,10 +27,10 @@ namespace Fonlow.CodeDom.Web.Ts
 		string returnTypeText = null;
 		string contentType;
 
-		public ClientApiTsNG2FunctionGen(Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToTsTypes poco2TsGen)
+		public ClientApiTsNG2FunctionGen(Settings settings, string contentType, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToTsTypes poco2TsGen)
 			: base(settings, relativePath, httpMethod, apiOperation, poco2TsGen)
 		{
-			this.contentType = settings.ContentType;
+			this.contentType = contentType;
 		}
 
 		protected override CodeMemberMethod CreateMethodName()

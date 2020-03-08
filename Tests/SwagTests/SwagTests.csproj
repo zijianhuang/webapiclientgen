@@ -127,6 +127,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Fonlow.SwaggerToTypes\Fonlow.OpenApi.ClientTypes.csproj" />
+    <ProjectReference Include="..\..\OpenApiClientGenCore.NG2\OpenApiClientGenCore.NG2.csproj" />
     <ProjectReference Include="..\..\SwaggerToClientCodes\Fonlow.OpenApiClientGen.csproj" />
   </ItemGroup>
 

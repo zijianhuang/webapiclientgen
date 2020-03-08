@@ -1,0 +1,49 @@
+﻿import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+export namespace MyNS {
+	export interface Pet {
+		id: number;
+		name: string;
+		tag?: string;
+	}
+
+	export interface Error {
+		code: number;
+		message: string;
+	}
+
+	@Injectable()
+	export class PetsClient {
+		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * Get /pets
+		 * @param {number} limit How many items to return at one time (max 100)
+		 * @return {MyNS.Pets} A paged array of pets
+		 */
+		ListPets(limit: number): Observable<MyNS.Pets> {
+			return this.http.get<MyNS.Pets>(this.baseUri + '/pets?limit=' + limit);
+		}
+
+		/**
+		 * Post /pets
+		 * @return {void} 
+		 */
+		CreatePets(): Observable<Response> {
+			return this.http.post<Response>(this.baseUri + '/pets', null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Get /pets/{petId}
+		 * @param {string} petId The id of the pet to retrieve
+		 * @return {MyNS.Pet} Expected response to a valid request
+		 */
+		ShowPetById(petId: string): Observable<MyNS.Pet> {
+			return this.http.get<MyNS.Pet>(this.baseUri + '/pets/' + encodeURIComponent(petId));
+		}
+	}
+
+}
+

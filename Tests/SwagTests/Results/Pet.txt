@@ -551,7 +551,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> FindPetsByStatusAsync(string status)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
+			var requestUri = new Uri(this.baseUri, "/pet/findByStatus?status=" + Uri.EscapeDataString(status));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -577,7 +577,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public Pet[] FindPetsByStatus(string status)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
+			var requestUri = new Uri(this.baseUri, "/pet/findByStatus?status=" + Uri.EscapeDataString(status));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -603,7 +603,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> FindPetsByTagsAsync(string tags)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
+			var requestUri = new Uri(this.baseUri, "/pet/findByTags?tags=" + Uri.EscapeDataString(tags));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -629,7 +629,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public Pet[] FindPetsByTags(string tags)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
+			var requestUri = new Uri(this.baseUri, "/pet/findByTags?tags=" + Uri.EscapeDataString(tags));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1181,7 +1181,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<string> LoginUserAsync(string username, string password)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/login");
+			var requestUri = new Uri(this.baseUri, "/user/login?username=" + Uri.EscapeDataString(username)+"&password=" + Uri.EscapeDataString(password));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1206,7 +1206,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public string LoginUser(string username, string password)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/login");
+			var requestUri = new Uri(this.baseUri, "/user/login?username=" + Uri.EscapeDataString(username)+"&password=" + Uri.EscapeDataString(password));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{

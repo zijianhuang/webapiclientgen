@@ -378,6 +378,13 @@ namespace SwagTests
 			Assert.Equal(ReadFromResults("NG2Results\\PetFindByStatus.txt"), s);
 		}
 
+		[Fact]
+		public void TestPetStore()
+		{
+			var s = TranslateJsonToCode("SwagMock\\petStore.yaml");
+			Assert.Equal(ReadFromResults("NG2Results\\PetStore.txt"), s);
+		}
+
 
 	}
 

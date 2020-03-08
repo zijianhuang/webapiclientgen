@@ -12,12 +12,14 @@
     <None Remove="NG2Results\PetFindByStatus.txt" />
     <None Remove="NG2Results\PetGodClass.txt" />
     <None Remove="NG2Results\PetPathAsContainer.txt" />
+    <None Remove="NG2Results\PetStore.txt" />
     <None Remove="NG2Results\ValuesPaths.txt" />
     <None Remove="Results\Pet.txt" />
     <None Remove="Results\PetDelete.txt" />
     <None Remove="Results\PetFindByStatus.txt" />
     <None Remove="Results\PetGodClass.txt" />
     <None Remove="Results\PetPathAsContainer.txt" />
+    <None Remove="Results\PetStore.txt" />
     <None Remove="Results\PetTypes.txt" />
     <None Remove="Results\ValuesPaths.txt" />
     <None Remove="SwagMock\CasualEnum.json" />
@@ -30,6 +32,8 @@
     <None Remove="SwagMock\PetDelete.json" />
     <None Remove="SwagMock\PetDogCat.json" />
     <None Remove="SwagMock\PetFindByStatus.json" />
+    <None Remove="SwagMock\petStore.yaml" />
+    <None Remove="SwagMock\petStoreExpanded.yaml" />
     <None Remove="SwagMock\petTypes.json" />
     <None Remove="SwagMock\Required.json" />
     <None Remove="SwagMock\SimpleOrder.json" />
@@ -37,10 +41,14 @@
     <None Remove="SwagMock\SimplePetCat.json" />
     <None Remove="SwagMock\StringArray.json" />
     <None Remove="SwagMock\TypeAlias.json" />
+    <None Remove="SwagMock\uspto.yaml" />
     <None Remove="SwagMock\ValuesPaths.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="NG2Results\PetStore.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="NG2Results\Pet.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -57,6 +65,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NG2Results\ValuesPaths.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\PetStore.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\PetGodClass.txt">
@@ -84,6 +95,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\PathItemValues.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\uspto.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\petStoreExpanded.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\petStore.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\pet.yaml">

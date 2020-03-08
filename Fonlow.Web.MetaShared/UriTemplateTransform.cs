@@ -14,39 +14,60 @@ namespace Fonlow.CodeDom.Web
 		static readonly Type typeofDateTimeOffsetNullable = typeof(DateTimeOffset?);
 		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
-		public static string Transform(string newUriText, ParameterDescription d)
+		public static string Transform(string newUriText, ParameterDescription d, bool queryPlaceHolderMissing = false)
 		{
-			if (d.ParameterDescriptor.ParameterType == typeofString)
+			if (queryPlaceHolderMissing)
 			{
-				return newUriText.Replace($"{{{d.Name}}}", $"\"+Uri.EscapeDataString({d.Name})+\"");
-			}
-			else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
-			{
-				return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\")+\"");
-			}
-			else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
-			{
-				var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
-				if (replaced == newUriText)
-				{
-					replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
-				}
+				bool queryExists = newUriText.Contains("?");
+				newUriText += queryExists ? "&" : "?";
 
-				return replaced;
-			}
-			else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
-			{
-				var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
-				if (replaced == newUriText)
+				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
+					return newUriText += $"{d.Name}=\" + Uri.EscapeDataString({d.Name})+\"";
 				}
-
-				return replaced;
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
+				{
+					return newUriText += $"{d.Name}=\" + {d.Name}.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\")+\"";
+				}
+				else
+				{
+					return newUriText += $"{d.Name}=\"+{d.Name}+\"";
+				}
 			}
 			else
 			{
-				return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}+\"");
+				if (d.ParameterDescriptor.ParameterType == typeofString)
+				{
+					return newUriText.Replace($"{{{d.Name}}}", $"\"+Uri.EscapeDataString({d.Name})+\"");
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
+				{
+					return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\")+\"");
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
+				{
+					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
+					}
+
+					return replaced;
+				}
+				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				{
+					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
+					}
+
+					return replaced;
+				}
+				else
+				{
+					return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}+\"");
+				}
 			}
 		}
 

@@ -143,6 +143,13 @@ namespace MyNS
             Assert.Equal(ReadFromResults("Results\\PetTypes.txt"), s);
         }
 
+        [Fact]
+        public void TestPetStore()
+        {
+            var s = TranslateJsonToCode("SwagMock\\petStore.yaml");
+            Assert.Equal(ReadFromResults("Results\\PetStore.txt"), s);
+        }
+
 
 
 

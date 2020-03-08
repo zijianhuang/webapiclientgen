@@ -15,18 +15,22 @@ namespace Fonlow.CodeDom.Web
 		{
 			var template = new UriTemplate(uriText);
 			var parameterNames = template.GetParameterNames().ToArray();
-			if (parameterNames.Length == 0)
+			if (parameterNames.Length == 0 && parameterDescriptions.Length == 0)
 				return null;
+
+			bool queryPlaceholderMissing = parameterNames.Length != parameterDescriptions.Length
+				&& !parameterDescriptions.Any(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody || d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromForm);//sometimes yaml does not give propery query placeholder.
 
 			string newUriText = uriText;
 
-			for (int i = 0; i < parameterNames.Length; i++)
+			foreach (var d in parameterDescriptions)
 			{
-				var name = parameterNames[i];//PathSegmentVariableNames[i] always give uppercase
-				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-				Debug.Assert(d != null);
+				if (d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody || d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromForm)
+				{
+					continue;
+				}
 
-				newUriText = UriTemplateTransform.Transform(newUriText, d);
+				newUriText = UriTemplateTransform.Transform(newUriText, d, queryPlaceholderMissing);
 			}
 
 			return newUriText;
@@ -44,13 +48,6 @@ namespace Fonlow.CodeDom.Web
 			
 			string newUriText = uriText;
 
-			//for (int i = 0; i < parameterNames.Length; i++)
-			//{
-			//	var name = parameterNames[i];//PathSegmentVariableNames[i] always give uppercase
-			//	var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-			//	Debug.Assert(d != null);
-			//	newUriText = UriTemplateTransform.TransformForTs(newUriText, d);
-			//}
 			foreach (var d in parameterDescriptions)
 			{
 				if (d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody || d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromForm)

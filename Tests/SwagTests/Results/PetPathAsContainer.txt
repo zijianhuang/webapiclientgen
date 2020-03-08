@@ -455,7 +455,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> GetByStatusAsync(string status)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/findByStatus");
+			var requestUri = new Uri(this.baseUri, "/pet/findByStatus?status=" + Uri.EscapeDataString(status));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -501,7 +501,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> GetByTagsAsync(string tags)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/findByTags");
+			var requestUri = new Uri(this.baseUri, "/pet/findByTags?tags=" + Uri.EscapeDataString(tags));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -890,7 +890,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<string> GetByUsernameAndPasswordAsync(string username, string password)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/login");
+			var requestUri = new Uri(this.baseUri, "/user/login?username=" + Uri.EscapeDataString(username)+"&password=" + Uri.EscapeDataString(password));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{

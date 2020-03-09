@@ -334,16 +334,15 @@ namespace DemoCoreWeb.Controllers.Client
 		
 		private System.Uri baseUri;
 		
-		public SpecialTypes(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public SpecialTypes(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -353,7 +352,7 @@ namespace DemoCoreWeb.Controllers.Client
 		/// <returns>dyanmic things</returns>
 		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamicAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousDynamic");
+			var requestUri = "api/SpecialTypes/AnonymousDynamic";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -378,7 +377,7 @@ namespace DemoCoreWeb.Controllers.Client
 		/// <returns>dyanmic things</returns>
 		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousDynamic");
+			var requestUri = "api/SpecialTypes/AnonymousDynamic";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -401,7 +400,7 @@ namespace DemoCoreWeb.Controllers.Client
 		/// </summary>
 		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObjectAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousObject");
+			var requestUri = "api/SpecialTypes/AnonymousObject";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -424,7 +423,7 @@ namespace DemoCoreWeb.Controllers.Client
 		/// </summary>
 		public Newtonsoft.Json.Linq.JObject GetAnonymousObject()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousObject");
+			var requestUri = "api/SpecialTypes/AnonymousObject";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -447,7 +446,7 @@ namespace DemoCoreWeb.Controllers.Client
 		/// </summary>
 		public async Task<Newtonsoft.Json.Linq.JObject> PostAnonymousObjectAsync(Newtonsoft.Json.Linq.JObject obj)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousObject");
+			var requestUri = "api/SpecialTypes/AnonymousObject";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -476,7 +475,7 @@ namespace DemoCoreWeb.Controllers.Client
 		/// </summary>
 		public Newtonsoft.Json.Linq.JObject PostAnonymousObject(Newtonsoft.Json.Linq.JObject obj)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SpecialTypes/AnonymousObject");
+			var requestUri = "api/SpecialTypes/AnonymousObject";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -517,16 +516,15 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Uri baseUri;
 		
-		public Entities(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public Entities(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -534,7 +532,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<long> CreatePersonAsync(DemoWebApi.DemoData.Client.Person p)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/createPerson");
+			var requestUri = "api/Entities/createPerson";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -562,7 +560,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public long CreatePerson(DemoWebApi.DemoData.Client.Person p)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/createPerson");
+			var requestUri = "api/Entities/createPerson";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -590,7 +588,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task DeleteAsync(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/"+id);
+			var requestUri = "api/Entities/"+id;
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -607,7 +605,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public void Delete(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/"+id);
+			var requestUri = "api/Entities/"+id;
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -624,7 +622,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Company> GetCompanyAsync(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/Company/"+id);
+			var requestUri = "api/Entities/Company/"+id;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -647,7 +645,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Company GetCompany(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/Company/"+id);
+			var requestUri = "api/Entities/Company/"+id;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -670,7 +668,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.MimsResult<string>> GetMimsAsync(DemoWebApi.DemoData.Client.MimsPackage p)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
+			var requestUri = "api/Entities/Mims";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -699,7 +697,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.MimsResult<string> GetMims(DemoWebApi.DemoData.Client.MimsPackage p)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
+			var requestUri = "api/Entities/Mims";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -728,7 +726,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>> GetMyGenericAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/MyGeneric");
+			var requestUri = "api/Entities/MyGeneric";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -757,7 +755,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> GetMyGeneric(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/MyGeneric");
+			var requestUri = "api/Entities/MyGeneric";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -786,7 +784,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>> GetMyGenericPersonAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/MyGenericPerson");
+			var requestUri = "api/Entities/MyGenericPerson";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -815,7 +813,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> GetMyGenericPerson(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/MyGenericPerson");
+			var requestUri = "api/Entities/MyGenericPerson";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -848,7 +846,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <returns>person in db</returns>
 		public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/getPerson/"+id);
+			var requestUri = "api/Entities/getPerson/"+id;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -875,7 +873,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <returns>person in db</returns>
 		public DemoWebApi.DemoData.Client.Person GetPerson(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/getPerson/"+id);
+			var requestUri = "api/Entities/getPerson/"+id;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -898,7 +896,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> LinkPersonAsync(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship));
+			var requestUri = "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -926,7 +924,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool LinkPerson(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship));
+			var requestUri = "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -954,7 +952,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
+			var requestUri = "api/Entities/updatePerson";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -982,7 +980,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string UpdatePerson(DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
+			var requestUri = "api/Entities/updatePerson";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1013,16 +1011,15 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Uri baseUri;
 		
-		public Heroes(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public Heroes(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -1030,7 +1027,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task DeleteAsync(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
+			var requestUri = "api/Heroes/"+id;
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -1047,7 +1044,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public void Delete(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
+			var requestUri = "api/Heroes/"+id;
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -1064,7 +1061,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetAsyncHeroesAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/asyncHeroes");
+			var requestUri = "api/Heroes/asyncHeroes";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1087,7 +1084,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero[] GetAsyncHeroes()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/asyncHeroes");
+			var requestUri = "api/Heroes/asyncHeroes";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1111,7 +1108,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> GetHeroAsync(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
+			var requestUri = "api/Heroes/"+id;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1135,7 +1132,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero GetHero(long id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
+			var requestUri = "api/Heroes/"+id;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1159,7 +1156,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetHerosAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var requestUri = "api/Heroes";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1183,7 +1180,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero[] GetHeros()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var requestUri = "api/Heroes";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1206,7 +1203,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var requestUri = "api/Heroes";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1235,7 +1232,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero Post(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var requestUri = "api/Heroes";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1265,7 +1262,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+Uri.EscapeDataString(name));
+			var requestUri = "api/Heroes/q?name="+Uri.EscapeDataString(name);
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -1289,7 +1286,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+Uri.EscapeDataString(name));
+			var requestUri = "api/Heroes/q?name="+Uri.EscapeDataString(name);
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -1313,7 +1310,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PutAsync(DemoWebApi.Controllers.Client.Hero hero)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var requestUri = "api/Heroes";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1343,7 +1340,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero Put(DemoWebApi.Controllers.Client.Hero hero)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var requestUri = "api/Heroes";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1375,7 +1372,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <returns>Hero array matching the keyword.</returns>
 		public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/search/"+Uri.EscapeDataString(name));
+			var requestUri = "api/Heroes/search/"+Uri.EscapeDataString(name);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1401,7 +1398,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <returns>Hero array matching the keyword.</returns>
 		public DemoWebApi.Controllers.Client.Hero[] Search(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/search/"+Uri.EscapeDataString(name));
+			var requestUri = "api/Heroes/search/"+Uri.EscapeDataString(name);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1427,16 +1424,15 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Uri baseUri;
 		
-		public SuperDemo(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public SuperDemo(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -1444,7 +1440,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Net.Http.HttpResponseMessage> GetActionResultAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
+			var requestUri = "api/SuperDemo/ActionResult";
 			var responseMessage = await client.GetAsync(requestUri);
 			responseMessage.EnsureSuccessStatusCode();
 			return responseMessage;
@@ -1455,7 +1451,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Net.Http.HttpResponseMessage GetActionResult()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
+			var requestUri = "api/SuperDemo/ActionResult";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			responseMessage.EnsureSuccessStatusCode();
 			return responseMessage;
@@ -1466,7 +1462,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Net.Http.HttpResponseMessage> GetActionResult2Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult2");
+			var requestUri = "api/SuperDemo/ActionResult2";
 			var responseMessage = await client.GetAsync(requestUri);
 			responseMessage.EnsureSuccessStatusCode();
 			return responseMessage;
@@ -1477,7 +1473,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Net.Http.HttpResponseMessage GetActionResult2()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult2");
+			var requestUri = "api/SuperDemo/ActionResult2";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			responseMessage.EnsureSuccessStatusCode();
 			return responseMessage;
@@ -1488,7 +1484,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetActionStringResultAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionStringResult");
+			var requestUri = "api/SuperDemo/ActionStringResult";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1510,7 +1506,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string GetActionStringResult()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionStringResult");
+			var requestUri = "api/SuperDemo/ActionStringResult";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1532,7 +1528,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> GetBoolAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/bool");
+			var requestUri = "api/SuperDemo/bool";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1554,7 +1550,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool GetBool()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/bool");
+			var requestUri = "api/SuperDemo/bool";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1576,7 +1572,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<byte> GetbyteAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/byte");
+			var requestUri = "api/SuperDemo/byte";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1598,7 +1594,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public byte Getbyte()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/byte");
+			var requestUri = "api/SuperDemo/byte";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1620,7 +1616,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<byte[]> GetByteArrayAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ByteArray");
+			var requestUri = "api/SuperDemo/ByteArray";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1643,7 +1639,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public byte[] GetByteArray()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ByteArray");
+			var requestUri = "api/SuperDemo/ByteArray";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1666,7 +1662,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<char> GetCharAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/char");
+			var requestUri = "api/SuperDemo/char";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1689,7 +1685,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public char GetChar()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/char");
+			var requestUri = "api/SuperDemo/char";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1712,7 +1708,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person[]> GetCollectionAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
+			var requestUri = "api/SuperDemo/Collection";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1735,7 +1731,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person[] GetCollection()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
+			var requestUri = "api/SuperDemo/Collection";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1758,7 +1754,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime/"+hasValue);
+			var requestUri = "api/SuperDemo/NullableDatetime/"+hasValue;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1781,7 +1777,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Nullable<System.DateTime> GetDateTime(bool hasValue)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime/"+hasValue);
+			var requestUri = "api/SuperDemo/NullableDatetime/"+hasValue;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1804,7 +1800,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
+			var requestUri = "api/SuperDemo/DateTimeOffset";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1827,7 +1823,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.DateTimeOffset GetDateTimeOffset()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
+			var requestUri = "api/SuperDemo/DateTimeOffset";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1850,7 +1846,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<decimal> GetDecimalAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
+			var requestUri = "api/SuperDemo/decimal";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1873,7 +1869,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public decimal GetDecimal()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
+			var requestUri = "api/SuperDemo/decimal";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1896,7 +1892,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<decimal> GetDecimalSquareAsync(decimal d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal/"+d);
+			var requestUri = "api/SuperDemo/decimal/"+d;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1919,7 +1915,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public decimal GetDecimalSquare(decimal d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal/"+d);
+			var requestUri = "api/SuperDemo/decimal/"+d;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1942,7 +1938,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<decimal> GetDecimalZeroAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DecimalZero");
+			var requestUri = "api/SuperDemo/DecimalZero";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1965,7 +1961,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public decimal GetDecimalZero()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DecimalZero");
+			var requestUri = "api/SuperDemo/DecimalZero";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1988,7 +1984,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Collections.Generic.Dictionary<string, string>> GetDictionaryAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringStringDic");
+			var requestUri = "api/SuperDemo/StringStringDic";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2011,7 +2007,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Collections.Generic.Dictionary<string, string> GetDictionary()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringStringDic");
+			var requestUri = "api/SuperDemo/StringStringDic";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2034,7 +2030,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>> GetDictionaryOfPeopleAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
+			var requestUri = "api/SuperDemo/StringPersonDic";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2057,7 +2053,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> GetDictionaryOfPeople()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
+			var requestUri = "api/SuperDemo/StringPersonDic";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2080,7 +2076,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<double> GetdoubleAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/doulbe");
+			var requestUri = "api/SuperDemo/doulbe";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2102,7 +2098,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public double Getdouble()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/doulbe");
+			var requestUri = "api/SuperDemo/doulbe";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2125,7 +2121,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<double> GetDoubleZeroAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleZero");
+			var requestUri = "api/SuperDemo/DoubleZero";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2148,7 +2144,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public double GetDoubleZero()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleZero");
+			var requestUri = "api/SuperDemo/DoubleZero";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2170,7 +2166,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetEmptyStringAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/EmptyString");
+			var requestUri = "api/SuperDemo/EmptyString";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2192,7 +2188,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string GetEmptyString()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/EmptyString");
+			var requestUri = "api/SuperDemo/EmptyString";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2214,7 +2210,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<float> GetFloatZeroAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/FloatZero");
+			var requestUri = "api/SuperDemo/FloatZero";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2236,7 +2232,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public float GetFloatZero()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/FloatZero");
+			var requestUri = "api/SuperDemo/FloatZero";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2258,7 +2254,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person[]> GetICollectionAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
+			var requestUri = "api/SuperDemo/ICollection";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2281,7 +2277,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person[] GetICollection()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
+			var requestUri = "api/SuperDemo/ICollection";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2304,7 +2300,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIListAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
+			var requestUri = "api/SuperDemo/IList";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2327,7 +2323,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person[] GetIList()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
+			var requestUri = "api/SuperDemo/IList";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2350,7 +2346,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int[,]> GetInt2DAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
+			var requestUri = "api/SuperDemo/int2d";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2373,7 +2369,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int[,] GetInt2D()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
+			var requestUri = "api/SuperDemo/int2d";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2396,7 +2392,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int[][]> GetInt2DJaggedAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2dJagged");
+			var requestUri = "api/SuperDemo/int2dJagged";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2419,7 +2415,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int[][] GetInt2DJagged()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2dJagged");
+			var requestUri = "api/SuperDemo/int2dJagged";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2442,7 +2438,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int[]> GetIntArrayAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
+			var requestUri = "api/SuperDemo/intArray";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2465,7 +2461,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int[] GetIntArray()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
+			var requestUri = "api/SuperDemo/intArray";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2488,7 +2484,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> GetIntSquareAsync(int d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int/"+d);
+			var requestUri = "api/SuperDemo/int/"+d;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2510,7 +2506,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int GetIntSquare(int d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int/"+d);
+			var requestUri = "api/SuperDemo/int/"+d;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2532,7 +2528,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyCollectionAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
+			var requestUri = "api/SuperDemo/IReadOnlyCollection";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2555,7 +2551,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyCollection()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
+			var requestUri = "api/SuperDemo/IReadOnlyCollection";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2578,7 +2574,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyListAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
+			var requestUri = "api/SuperDemo/IReadOnlyList";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2601,7 +2597,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyList()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
+			var requestUri = "api/SuperDemo/IReadOnlyList";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2624,7 +2620,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>> GetKeyhValuePairAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/KeyValuePair");
+			var requestUri = "api/SuperDemo/KeyValuePair";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2647,7 +2643,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person> GetKeyhValuePair()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/KeyValuePair");
+			var requestUri = "api/SuperDemo/KeyValuePair";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2670,7 +2666,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person[]> GetListAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
+			var requestUri = "api/SuperDemo/List";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2693,7 +2689,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person[] GetList()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
+			var requestUri = "api/SuperDemo/List";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2716,7 +2712,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.DateTimeOffset> GetNextHourAsync(System.DateTimeOffset dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+			var requestUri = "api/SuperDemo/NextHour/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2739,7 +2735,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.DateTimeOffset GetNextHour(System.DateTimeOffset dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+			var requestUri = "api/SuperDemo/NextHour/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2762,7 +2758,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.DateTimeOffset> GetNextHourNullableAsync(int n, System.Nullable<System.DateTimeOffset> dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+			var requestUri = "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2785,7 +2781,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.DateTimeOffset GetNextHourNullable(int n, System.Nullable<System.DateTimeOffset> dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+			var requestUri = "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2808,7 +2804,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.DateTime> GetNextYearAsync(System.DateTime dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+			var requestUri = "api/SuperDemo/NextYear/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2831,7 +2827,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.DateTime GetNextYear(System.DateTime dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+			var requestUri = "api/SuperDemo/NextYear/"+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2854,7 +2850,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.DateTime> GetNextYearNullableAsync(int n, System.Nullable<System.DateTime> dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+			var requestUri = "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2877,7 +2873,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.DateTime GetNextYearNullable(int n, System.Nullable<System.DateTime> dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+			var requestUri = "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2900,7 +2896,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal/"+hasValue);
+			var requestUri = "api/SuperDemo/NullableDecimal/"+hasValue;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2923,7 +2919,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Nullable<decimal> GetNullableDecimal(bool hasValue)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal/"+hasValue);
+			var requestUri = "api/SuperDemo/NullableDecimal/"+hasValue;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2946,7 +2942,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullObject");
+			var requestUri = "api/SuperDemo/NullObject";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2969,7 +2965,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person GetNullPerson()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullObject");
+			var requestUri = "api/SuperDemo/NullObject";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2992,7 +2988,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetNullStringAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullString");
+			var requestUri = "api/SuperDemo/NullString";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3014,7 +3010,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string GetNullString()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullString");
+			var requestUri = "api/SuperDemo/NullString";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3036,7 +3032,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullableAsync(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+			var requestUri = "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3059,7 +3055,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+			var requestUri = "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3082,7 +3078,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullable2Async(System.Nullable<double> dd, System.Nullable<decimal> de)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+			var requestUri = "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3105,7 +3101,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable2(System.Nullable<double> dd, System.Nullable<decimal> de)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+			var requestUri = "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3128,7 +3124,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<sbyte> GetsbyteAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/sbyte");
+			var requestUri = "api/SuperDemo/sbyte";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3150,7 +3146,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public sbyte Getsbyte()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/sbyte");
+			var requestUri = "api/SuperDemo/sbyte";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3172,7 +3168,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<short> GetShortAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/short");
+			var requestUri = "api/SuperDemo/short";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3194,7 +3190,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public short GetShort()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/short");
+			var requestUri = "api/SuperDemo/short";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3216,7 +3212,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
+			var requestUri = "api/SuperDemo/TextStream";
 			var responseMessage = await client.GetAsync(requestUri);
 			responseMessage.EnsureSuccessStatusCode();
 			return responseMessage;
@@ -3227,7 +3223,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Net.Http.HttpResponseMessage GetTextStream()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
+			var requestUri = "api/SuperDemo/TextStream";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			responseMessage.EnsureSuccessStatusCode();
 			return responseMessage;
@@ -3238,7 +3234,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<uint> GetUintAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/uint");
+			var requestUri = "api/SuperDemo/uint";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3260,7 +3256,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public uint GetUint()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/uint");
+			var requestUri = "api/SuperDemo/uint";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3282,7 +3278,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<ulong> GetulongAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ulong");
+			var requestUri = "api/SuperDemo/ulong";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3304,7 +3300,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public ulong Getulong()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ulong");
+			var requestUri = "api/SuperDemo/ulong";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3326,7 +3322,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<ushort> GetUShortAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ushort");
+			var requestUri = "api/SuperDemo/ushort";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3348,7 +3344,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public ushort GetUShort()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ushort");
+			var requestUri = "api/SuperDemo/ushort";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3370,7 +3366,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Net.Http.HttpResponseMessage> PostActionResultAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
+			var requestUri = "api/SuperDemo/ActionResult";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			responseMessage.EnsureSuccessStatusCode();
 			return responseMessage;
@@ -3381,7 +3377,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Net.Http.HttpResponseMessage PostActionResult()
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
+			var requestUri = "api/SuperDemo/ActionResult";
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			responseMessage.EnsureSuccessStatusCode();
 			return responseMessage;
@@ -3392,7 +3388,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Net.Http.HttpResponseMessage> PostActionResult2Async(string s)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult2");
+			var requestUri = "api/SuperDemo/PostActionResult2";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3409,7 +3405,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Net.Http.HttpResponseMessage PostActionResult2(string s)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult2");
+			var requestUri = "api/SuperDemo/PostActionResult2";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3426,7 +3422,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Net.Http.HttpResponseMessage> PostActionResult3Async(DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult3");
+			var requestUri = "api/SuperDemo/PostActionResult3";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3443,7 +3439,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Net.Http.HttpResponseMessage PostActionResult3(DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult3");
+			var requestUri = "api/SuperDemo/PostActionResult3";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3460,7 +3456,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> PostCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
+			var requestUri = "api/SuperDemo/Collection";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3488,7 +3484,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int PostCollection(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
+			var requestUri = "api/SuperDemo/Collection";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3517,7 +3513,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
+			var requestUri = "api/SuperDemo/DateTimeOffset";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3546,7 +3542,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool PostDateTimeOffset(System.DateTimeOffset d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
+			var requestUri = "api/SuperDemo/DateTimeOffset";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3574,7 +3570,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
+			var requestUri = "api/SuperDemo/DateTimeOffsetNullable";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3602,7 +3598,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
+			var requestUri = "api/SuperDemo/DateTimeOffsetNullable";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3630,7 +3626,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> PostDictionaryAsync(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
+			var requestUri = "api/SuperDemo/StringPersonDic";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3658,7 +3654,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int PostDictionary(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
+			var requestUri = "api/SuperDemo/StringPersonDic";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3686,7 +3682,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Guid[]> PostGuidsAsync(System.Guid[] guids)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Guids");
+			var requestUri = "api/SuperDemo/Guids";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3715,7 +3711,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Guid[] PostGuids(System.Guid[] guids)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Guids");
+			var requestUri = "api/SuperDemo/Guids";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3744,7 +3740,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> PostICollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
+			var requestUri = "api/SuperDemo/ICollection";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3772,7 +3768,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int PostICollection(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
+			var requestUri = "api/SuperDemo/ICollection";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3800,7 +3796,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> PostIListAsync(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
+			var requestUri = "api/SuperDemo/IList";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3828,7 +3824,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int PostIList(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
+			var requestUri = "api/SuperDemo/IList";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3856,7 +3852,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> PostInt2DAsync(int[,] a)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
+			var requestUri = "api/SuperDemo/int2d";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3884,7 +3880,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool PostInt2D(int[,] a)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
+			var requestUri = "api/SuperDemo/int2d";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3912,7 +3908,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> PostInt2DJaggedAsync(int[][] a)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2djagged");
+			var requestUri = "api/SuperDemo/int2djagged";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3940,7 +3936,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool PostInt2DJagged(int[][] a)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2djagged");
+			var requestUri = "api/SuperDemo/int2djagged";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3968,7 +3964,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> PostIntArrayAsync(int[] a)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
+			var requestUri = "api/SuperDemo/intArray";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3996,7 +3992,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool PostIntArray(int[] a)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
+			var requestUri = "api/SuperDemo/intArray";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4024,7 +4020,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> PostIReadOnlyCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
+			var requestUri = "api/SuperDemo/IReadOnlyCollection";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4052,7 +4048,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int PostIReadOnlyCollection(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
+			var requestUri = "api/SuperDemo/IReadOnlyCollection";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4080,7 +4076,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> PostIReadOnlyListAsync(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
+			var requestUri = "api/SuperDemo/IReadOnlyList";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4108,7 +4104,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int PostIReadOnlyList(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
+			var requestUri = "api/SuperDemo/IReadOnlyList";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4136,7 +4132,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> PostListAsync(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
+			var requestUri = "api/SuperDemo/List";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4164,7 +4160,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int PostList(DemoWebApi.DemoData.Client.Person[] list)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
+			var requestUri = "api/SuperDemo/List";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4192,7 +4188,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.DateTime> PostNextYearAsync(System.DateTime dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
+			var requestUri = "api/SuperDemo/NextYear";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4221,7 +4217,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.DateTime PostNextYear(System.DateTime dt)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
+			var requestUri = "api/SuperDemo/NextYear";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4250,7 +4246,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync(string s, int i)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty/"+i);
+			var requestUri = "api/SuperDemo/PostEmpty/"+i;
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4279,7 +4275,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty/"+i);
+			var requestUri = "api/SuperDemo/PostEmpty/"+i;
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4308,7 +4304,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>> SearchDateRangeAsync(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+			var requestUri = "api/SuperDemo/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4331,7 +4327,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>> SearchDateRange(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
+			var requestUri = "api/SuperDemo/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4357,16 +4353,15 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Uri baseUri;
 		
-		public Tuple(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public Tuple(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -4374,7 +4369,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> ChangeNameAsync(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/ChangeName");
+			var requestUri = "api/Tuple/ChangeName";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4403,7 +4398,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person ChangeName(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/ChangeName");
+			var requestUri = "api/Tuple/ChangeName";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4432,7 +4427,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
+			var requestUri = "api/Tuple/PeopleCompany4";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4455,7 +4450,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
+			var requestUri = "api/Tuple/PeopleCompany4";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4478,7 +4473,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
+			var requestUri = "api/Tuple/PeopleCompany5";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4501,7 +4496,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
+			var requestUri = "api/Tuple/PeopleCompany5";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4524,7 +4519,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<int>> GetTuple1Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
+			var requestUri = "api/Tuple/Tuple1";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4547,7 +4542,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<int> GetTuple1()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
+			var requestUri = "api/Tuple/Tuple1";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4570,7 +4565,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, int>> GetTuple2Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
+			var requestUri = "api/Tuple/Tuple2";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4593,7 +4588,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, int> GetTuple2()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
+			var requestUri = "api/Tuple/Tuple2";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4616,7 +4611,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, string, int>> GetTuple3Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
+			var requestUri = "api/Tuple/Tuple3";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4639,7 +4634,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, string, int> GetTuple3()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
+			var requestUri = "api/Tuple/Tuple3";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4662,7 +4657,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, string, string, int>> GetTuple4Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
+			var requestUri = "api/Tuple/Tuple4";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4685,7 +4680,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, string, string, int> GetTuple4()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
+			var requestUri = "api/Tuple/Tuple4";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4708,7 +4703,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, string, string, string, int>> GetTuple5Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
+			var requestUri = "api/Tuple/Tuple5";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4731,7 +4726,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, string, string, string, int> GetTuple5()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
+			var requestUri = "api/Tuple/Tuple5";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4754,7 +4749,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, string, string, string, string, int>> GetTuple6Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
+			var requestUri = "api/Tuple/Tuple6";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4777,7 +4772,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, string, string, string, string, int> GetTuple6()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
+			var requestUri = "api/Tuple/Tuple6";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4800,7 +4795,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, string, string, string, string, long, int>> GetTuple7Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
+			var requestUri = "api/Tuple/Tuple7";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4823,7 +4818,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, string, string, string, string, long, int> GetTuple7()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
+			var requestUri = "api/Tuple/Tuple7";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4846,7 +4841,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>> GetTuple8Async()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
+			var requestUri = "api/Tuple/Tuple8";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4869,7 +4864,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>> GetTuple8()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
+			var requestUri = "api/Tuple/Tuple8";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4892,7 +4887,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany2Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany2");
+			var requestUri = "api/Tuple/PeopleCompany2";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4921,7 +4916,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany2(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany2");
+			var requestUri = "api/Tuple/PeopleCompany2";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4950,7 +4945,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany3Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany3");
+			var requestUri = "api/Tuple/PeopleCompany3";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -4979,7 +4974,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany3(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany3");
+			var requestUri = "api/Tuple/PeopleCompany3";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5008,7 +5003,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany4Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
+			var requestUri = "api/Tuple/PeopleCompany4";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5037,7 +5032,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany4(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
+			var requestUri = "api/Tuple/PeopleCompany4";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5066,7 +5061,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany5Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
+			var requestUri = "api/Tuple/PeopleCompany5";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5095,7 +5090,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany5(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
+			var requestUri = "api/Tuple/PeopleCompany5";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5124,7 +5119,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany6Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany6");
+			var requestUri = "api/Tuple/PeopleCompany6";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5153,7 +5148,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany6(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany6");
+			var requestUri = "api/Tuple/PeopleCompany6";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5182,7 +5177,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany7");
+			var requestUri = "api/Tuple/PeopleCompany7";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5211,7 +5206,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany7");
+			var requestUri = "api/Tuple/PeopleCompany7";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5240,7 +5235,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany8Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany8");
+			var requestUri = "api/Tuple/PeopleCompany8";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5269,7 +5264,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany8(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany8");
+			var requestUri = "api/Tuple/PeopleCompany8";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5298,7 +5293,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPersonCompany1Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PersonCompany1");
+			var requestUri = "api/Tuple/PersonCompany1";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5327,7 +5322,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPersonCompany1(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PersonCompany1");
+			var requestUri = "api/Tuple/PersonCompany1";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5356,7 +5351,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<int> PostTuple1Async(System.Tuple<int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
+			var requestUri = "api/Tuple/Tuple1";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5384,7 +5379,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public int PostTuple1(System.Tuple<int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
+			var requestUri = "api/Tuple/Tuple1";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5412,7 +5407,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> PostTuple2Async(System.Tuple<string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
+			var requestUri = "api/Tuple/Tuple2";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5440,7 +5435,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string PostTuple2(System.Tuple<string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
+			var requestUri = "api/Tuple/Tuple2";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5468,7 +5463,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> PostTuple3Async(System.Tuple<string, string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
+			var requestUri = "api/Tuple/Tuple3";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5496,7 +5491,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string PostTuple3(System.Tuple<string, string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
+			var requestUri = "api/Tuple/Tuple3";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5524,7 +5519,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> PostTuple4Async(System.Tuple<string, string, string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
+			var requestUri = "api/Tuple/Tuple4";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5552,7 +5547,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string PostTuple4(System.Tuple<string, string, string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
+			var requestUri = "api/Tuple/Tuple4";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5580,7 +5575,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> PostTuple5Async(System.Tuple<string, string, string, string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
+			var requestUri = "api/Tuple/Tuple5";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5608,7 +5603,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string PostTuple5(System.Tuple<string, string, string, string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
+			var requestUri = "api/Tuple/Tuple5";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5636,7 +5631,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> PostTuple6Async(System.Tuple<string, string, string, string, string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
+			var requestUri = "api/Tuple/Tuple6";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5664,7 +5659,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string PostTuple6(System.Tuple<string, string, string, string, string, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
+			var requestUri = "api/Tuple/Tuple6";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5692,7 +5687,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> PostTuple7Async(System.Tuple<string, string, string, string, string, long, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
+			var requestUri = "api/Tuple/Tuple7";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5720,7 +5715,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string PostTuple7(System.Tuple<string, string, string, string, string, long, int> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
+			var requestUri = "api/Tuple/Tuple7";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5748,7 +5743,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> PostTuple8Async(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
+			var requestUri = "api/Tuple/Tuple8";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5776,7 +5771,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string PostTuple8(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
+			var requestUri = "api/Tuple/Tuple8";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -5807,16 +5802,15 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Uri baseUri;
 		
-		public Values(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public Values(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -5824,7 +5818,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task DeleteAsync(int id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
+			var requestUri = "api/Values/"+id;
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -5841,7 +5835,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public void Delete(int id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
+			var requestUri = "api/Values/"+id;
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -5859,7 +5853,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string[]> GetAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values");
+			var requestUri = "api/Values";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -5883,7 +5877,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string[] Get()
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values");
+			var requestUri = "api/Values";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -5907,7 +5901,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetAsync(int id, string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id+"?name="+Uri.EscapeDataString(name));
+			var requestUri = "api/Values/"+id+"?name="+Uri.EscapeDataString(name);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -5930,7 +5924,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string Get(int id, string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id+"?name="+Uri.EscapeDataString(name));
+			var requestUri = "api/Values/"+id+"?name="+Uri.EscapeDataString(name);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -5952,7 +5946,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetAsync(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values?name="+Uri.EscapeDataString(name));
+			var requestUri = "api/Values?name="+Uri.EscapeDataString(name);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -5974,7 +5968,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string Get(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values?name="+Uri.EscapeDataString(name));
+			var requestUri = "api/Values?name="+Uri.EscapeDataString(name);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -5996,7 +5990,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetAsync(int id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
+			var requestUri = "api/Values/"+id;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -6018,7 +6012,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string Get(int id)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
+			var requestUri = "api/Values/"+id;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -6040,7 +6034,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> PostAsync(string value)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values");
+			var requestUri = "api/Values";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -6068,7 +6062,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string Post(string value)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values");
+			var requestUri = "api/Values";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -6097,7 +6091,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task PutAsync(int id, string value)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
+			var requestUri = "api/Values/"+id;
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -6121,7 +6115,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public void Put(int id, string value)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
+			var requestUri = "api/Values/"+id;
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();

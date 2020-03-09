@@ -23,7 +23,8 @@ namespace IntegrationTests
 			var baseUri = new Uri("http://localhost:5000/");
 
 			httpClient = new System.Net.Http.HttpClient();
-			Api = new DemoWebApi.Controllers.Client.Entities(httpClient, baseUri);
+			httpClient.BaseAddress = baseUri;
+			Api = new DemoWebApi.Controllers.Client.Entities(httpClient);
 		}
 
 		public DemoWebApi.Controllers.Client.Entities Api { get; private set; }

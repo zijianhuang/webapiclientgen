@@ -9,7 +9,6 @@
     <Import_RootNamespace>IntegrationTestsShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)BasicHealthIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntitiesApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeroesApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuperDemoIntegration.cs" />

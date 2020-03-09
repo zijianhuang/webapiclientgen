@@ -11,8 +11,9 @@ namespace IntegrationTests
 			var baseUri = new Uri("http://localhost:5000/");
 
 			httpClient = new System.Net.Http.HttpClient();
+			httpClient.BaseAddress = baseUri;
 
-			Api = new DemoCoreWeb.Controllers.Client.SpecialTypes(httpClient, baseUri);
+			Api = new DemoCoreWeb.Controllers.Client.SpecialTypes(httpClient);
 		}
 
 		public DemoCoreWeb.Controllers.Client.SpecialTypes Api { get; private set; }

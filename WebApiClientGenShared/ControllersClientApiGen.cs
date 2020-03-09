@@ -46,10 +46,10 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		IPoco2Client poco2CsGen;
 
-		/// <summary>
-		/// Save C# codes into a file.
-		/// </summary>
-		/// <param name="fileName"></param>
+		///// <summary>
+		///// Save C# codes into a file.
+		///// </summary>
+		///// <param name="fileName"></param>
 		//public void Save(string fileName)
 		//{
 		//	using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
@@ -228,7 +228,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 
-		static void AddLocalFields(CodeTypeDeclaration targetClass)
+		void AddLocalFields(CodeTypeDeclaration targetClass)
 		{
 			CodeMemberField clientField = new CodeMemberField();
 			clientField.Attributes = MemberAttributes.Private;
@@ -236,11 +236,14 @@ namespace Fonlow.CodeDom.Web.Cs
 			clientField.Type = new CodeTypeReference("System.Net.Http.HttpClient");
 			targetClass.Members.Add(clientField);
 
-			CodeMemberField baseUriField = new CodeMemberField();
-			baseUriField.Attributes = MemberAttributes.Private;
-			baseUriField.Name = "baseUri";
-			baseUriField.Type = new CodeTypeReference("System.Uri");
-			targetClass.Members.Add(baseUriField);
+			if (!codeGenParameters.ClientApiOutputs.DIFriendly)
+			{
+				CodeMemberField baseUriField = new CodeMemberField();
+				baseUriField.Attributes = MemberAttributes.Private;
+				baseUriField.Name = "baseUri";
+				baseUriField.Type = new CodeTypeReference("System.Uri");
+				targetClass.Members.Add(baseUriField);
+			}
 
 		}
 

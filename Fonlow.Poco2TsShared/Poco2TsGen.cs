@@ -136,6 +136,7 @@ namespace Fonlow.Poco2Ts
 		/// </summary>
 		/// <param name="types">POCO types.</param>
 		/// <param name="methods"></param>
+		/// <param name="clientNamespaceSuffix"></param>
 		public void CreateCodeDom(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
 		{
 			if (types == null)

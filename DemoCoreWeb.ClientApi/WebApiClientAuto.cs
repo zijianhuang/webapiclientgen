@@ -332,8 +332,6 @@ namespace DemoCoreWeb.Controllers.Client
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public SpecialTypes(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -513,8 +511,6 @@ namespace DemoWebApi.Controllers.Client
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public Entities(System.Net.Http.HttpClient client)
 		{
@@ -1009,8 +1005,6 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public Heroes(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -1421,8 +1415,6 @@ namespace DemoWebApi.Controllers.Client
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public SuperDemo(System.Net.Http.HttpClient client)
 		{
@@ -4351,8 +4343,6 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public Tuple(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -5799,8 +5789,6 @@ namespace DemoWebApi.Controllers.Client
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public Values(System.Net.Http.HttpClient client)
 		{

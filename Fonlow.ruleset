@@ -1,12 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Fonlow Rules" Description="Code analysis rules for Fonlow Projects" ToolsVersion="14.0">
+<RuleSet Name="Fonlow Rules" Description="Code analysis rules for Fonlow Projects" ToolsVersion="16.0">
   <Include Path="basicdesignguidelinerules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1021" Action="Warning" />
     <Rule Id="CA1024" Action="None" />
-    <Rule Id="CA1303" Action="None" />
-    <Rule Id="CA1305" Action="None" />
-    <Rule Id="CA1307" Action="None" />
     <Rule Id="CA1026" Action="None" />
     <Rule Id="CA1040" Action="Warning" />
     <Rule Id="CA1045" Action="Warning" />
@@ -14,6 +11,7 @@
     <Rule Id="CA1054" Action="None" />
     <Rule Id="CA1055" Action="None" />
     <Rule Id="CA1056" Action="None" />
+    <Rule Id="CA1500" Action="None" />
     <Rule Id="CA1501" Action="Warning" />
     <Rule Id="CA1502" Action="None" />
     <Rule Id="CA1504" Action="Warning" />

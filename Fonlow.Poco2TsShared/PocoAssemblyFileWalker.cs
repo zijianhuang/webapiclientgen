@@ -17,6 +17,7 @@ namespace Fonlow.Poco2Ts
 		/// <param name="assemblyFilePath">Absolute or relative path, including the assembly file extension name dll or exe.</param>
 		/// <param name="tsFilePath">TypeScript output file path.</param>
 		/// <param name="methods"></param>
+		/// <param name="clientNamespaceSuffix"></param>
 		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods, string clientNamespaceSuffix)
 		{
 			var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);

@@ -10,7 +10,7 @@ namespace Fonlow.Poco2Client
 	/// <summary>
 	/// Some shared functions used by CsPodgen and TsPodGen
 	/// </summary>
-	public class PodGenHelper
+	public static class PodGenHelper
 	{
 		public static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
 		{

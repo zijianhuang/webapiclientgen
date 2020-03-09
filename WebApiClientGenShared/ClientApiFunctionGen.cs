@@ -323,15 +323,15 @@ namespace Fonlow.CodeDom.Web.Cs
 			}).ToArray();
 			method.Parameters.AddRange(parameters);
 
-			var uriQueryParameters = description.ParameterDescriptions.Where(d =>
-				(d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromBody && d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromForm && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
-				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-				|| (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-				).Select(d => new CodeParameterDeclarationExpression()
-				{
-					Name = d.Name,
-					Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
-				}).ToArray();
+			//var uriQueryParameters = description.ParameterDescriptions.Where(d =>
+			//	(d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromBody && d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromForm && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
+			//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+			//	|| (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+			//	).Select(d => new CodeParameterDeclarationExpression()
+			//	{
+			//		Name = d.Name,
+			//		Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
+			//	}).ToArray();
 
 			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();

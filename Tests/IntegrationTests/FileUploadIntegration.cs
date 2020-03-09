@@ -96,7 +96,7 @@ namespace IntegrationTests
 			else
 			{
 				message = String.Format("  Request {0} uploaded {1} bytes",
-					request.RequestUri, eventArgs.BytesTransferred, eventArgs.TotalBytes, eventArgs.ProgressPercentage);
+					request.RequestUri, eventArgs.BytesTransferred);
 			}
 
 			// Write progress message to console   

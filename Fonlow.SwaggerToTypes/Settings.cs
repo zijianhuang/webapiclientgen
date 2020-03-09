@@ -17,7 +17,10 @@
 		PathMethodQueryParameters,
 
 		/// <summary>
-		/// Some YAML may define operationId not a valid function name for example, list-data-sets. Regex may be needed to create a valid function name from such operationId.
+		/// According to Open API specification, it is RECOMMENDED that the naming of operationId follows common programming naming conventions. 
+		/// However, some YAML may name operationId after a valid function name. For example, "list-data-sets", "Search by name" or "SearchByName@WkUld". 
+		/// Regular expression (regex) may be needed to pick up alphanumeric words from such operationId and create a valid function name.
+		/// The default RegexForNormalizedOperationId is /w*.
 		/// </summary>
 		NormalizedOperationId,
 	}
@@ -53,7 +56,7 @@
 		public ActionNameStrategy ActionNameStrategy { get; set; }
 
 		/// <summary>
-		/// Default is \w* for Alphanumeric words
+		/// Default is \w* for picking up alphanumeric words from crikey operationId. Applied when ActionNameStrategy is NorrmalizedOperationId.
 		/// </summary>
 		public string RegexForNormalizedOperationId { get; set; } = @"\w*";
 
@@ -65,7 +68,7 @@
 		public string ContainerClassName { get; set; } = "Misc";
 
 		/// <summary>
-		/// Suffix of container class name if ContainerNameStrategy is not None.
+		/// Suffix of container class name if ContainerNameStrategy is not None. The default is Client
 		/// </summary>
 		public string SuffixOfContainerName { get; set; } = "Client";
 

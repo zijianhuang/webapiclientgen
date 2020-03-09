@@ -53,35 +53,35 @@ namespace IntegrationTests
 			api = fixture.Api;
 		}
 
-        DemoCoreWeb.Controllers.Client.SpecialTypes api;
+		DemoCoreWeb.Controllers.Client.SpecialTypes api;
 
-        [Fact]
-        public void TestGetAnonymousDynamic()
-        {
-            var d = api.GetAnonymousDynamic();
-            Assert.Equal("12345", d["id"].ToString());
-            Assert.Equal("Something", d["name"].ToString());
-        }
+		[Fact]
+		public void TestGetAnonymousDynamic()
+		{
+			var d = api.GetAnonymousDynamic();
+			Assert.Equal("12345", d["id"].ToString());
+			Assert.Equal("Something", d["name"].ToString());
+		}
 
-        [Fact]
-        public void TestGetAnonymousObject()
-        {
-            var d = api.GetAnonymousObject();
-            Assert.Equal("12345", d["id"].ToString());
-            Assert.Equal("Something", d["name"].ToString());
-        }
+		[Fact]
+		public void TestGetAnonymousObject()
+		{
+			var d = api.GetAnonymousObject();
+			Assert.Equal("12345", d["id"].ToString());
+			Assert.Equal("Something", d["name"].ToString());
+		}
 
-        [Fact]
-        public void TestPostAnonymousObject()
-        {
-            var d = new Newtonsoft.Json.Linq.JObject();
-            d["Id"] = "12345";
-            d["Name"] = "Something";
-            var r = api.PostAnonymousObject(d);
-            Assert.Equal("123451", r["Id"].ToString());
-            Assert.Equal("Something1", r["Name"].ToString());
+		[Fact]
+		public void TestPostAnonymousObject()
+		{
+			var d = new Newtonsoft.Json.Linq.JObject();
+			d["Id"] = "12345";
+			d["Name"] = "Something";
+			var r = api.PostAnonymousObject(d);
+			Assert.Equal("123451", r["Id"].ToString());
+			Assert.Equal("Something1", r["Name"].ToString());
 
-        }
+		}
 
-    }
+	}
 }

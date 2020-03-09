@@ -214,7 +214,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 			ns.Types.Add(targetClass);
 			AddLocalFields(targetClass);
-			AddConstructor(targetClass);
+			AddConstructorWithHttpClient(targetClass);
 
 			return targetClass;
 		}
@@ -236,7 +236,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 
 		}
 
-		void AddConstructor(CodeTypeDeclaration targetClass)
+		void AddConstructorWithHttpClient(CodeTypeDeclaration targetClass)
 		{
 			CodeConstructor constructor = new CodeConstructor();
 			constructor.Attributes =
@@ -245,20 +245,16 @@ namespace Fonlow.OpenApiClientGen.Cs
 			// Add parameters.
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Net.Http.HttpClient", "client"));
-			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"System.Uri", "baseUri"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
-				throw new ArgumentNullException(""client"", ""Null HttpClient."");
+				throw new ArgumentNullException(""Null HttpClient."", ""client"");
 "));
-			constructor.Statements.Add(new CodeSnippetStatement(@"			if (baseUri == null)
-				throw new ArgumentNullException(""baseUri"", ""Null baseUri"");
+			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client.BaseAddress == null)
+				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
 "));
 			// Add field initialization logic
 			sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
 			constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));
-			sharedContext.baseUriReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "baseUri");
-			constructor.Statements.Add(new CodeAssignStatement(sharedContext.baseUriReference, new CodeArgumentReferenceExpression("baseUri")));
 			targetClass.Members.Add(constructor);
 		}
 

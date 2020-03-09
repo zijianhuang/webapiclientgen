@@ -259,16 +259,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public PetClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public PetClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -278,7 +277,7 @@ namespace MyNS
 		/// <param name="requestBody">Pet object that needs to be added to the store</param>
 		public async Task PostAsync(Pet requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet");
+			var requestUri = "/pet";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -302,7 +301,7 @@ namespace MyNS
 		/// <param name="requestBody">Pet object that needs to be added to the store</param>
 		public async Task PutAsync(Pet requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet");
+			var requestUri = "/pet";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -328,7 +327,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<MyNS.Pet> GetByPetIdAsync(long petId)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/"+petId);
+			var requestUri = "/pet/"+petId;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -352,7 +351,7 @@ namespace MyNS
 		/// <param name="petId">ID of pet that needs to be updated</param>
 		public async Task PostByPetIdAsync(long petId)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/"+petId);
+			var requestUri = "/pet/"+petId;
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -370,7 +369,7 @@ namespace MyNS
 		/// <param name="petId">Pet id to delete</param>
 		public async Task DeleteByPetIdAsync(long petId)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/"+petId);
+			var requestUri = "/pet/"+petId;
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -390,16 +389,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public PetUploadImageClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public PetUploadImageClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -409,7 +407,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<MyNS.ApiResponse> PostByPetIdAsync(long petId)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/"+petId+"/uploadImage");
+			var requestUri = "/pet/"+petId+"/uploadImage";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -435,16 +433,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public PetFindByStatusClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public PetFindByStatusClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -455,7 +452,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> GetByStatusAsync(string status)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/findByStatus?status=" + Uri.EscapeDataString(status));
+			var requestUri = "/pet/findByStatus?status=" + Uri.EscapeDataString(status);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -481,16 +478,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public PetFindByTagsClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public PetFindByTagsClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -501,7 +497,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> GetByTagsAsync(string tags)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/findByTags?tags=" + Uri.EscapeDataString(tags));
+			var requestUri = "/pet/findByTags?tags=" + Uri.EscapeDataString(tags);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -527,16 +523,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public StoreInventoryClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public StoreInventoryClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -546,7 +541,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<string> GetAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "/store/inventory");
+			var requestUri = "/store/inventory";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -571,16 +566,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public StoreOrderClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public StoreOrderClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -590,7 +584,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<MyNS.Order> PostAsync(string requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/store/order");
+			var requestUri = "/store/order";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -622,7 +616,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<MyNS.Order> GetByOrderIdAsync(long orderId)
 		{
-			var requestUri = new Uri(this.baseUri, "/store/order/"+orderId);
+			var requestUri = "/store/order/"+orderId;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -647,7 +641,7 @@ namespace MyNS
 		/// <param name="orderId">ID of the order that needs to be deleted</param>
 		public async Task DeleteByOrderIdAsync(string orderId)
 		{
-			var requestUri = new Uri(this.baseUri, "/store/order/"+Uri.EscapeDataString(orderId));
+			var requestUri = "/store/order/"+Uri.EscapeDataString(orderId);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -667,16 +661,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public UserClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public UserClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -686,7 +679,7 @@ namespace MyNS
 		/// <param name="requestBody">Created user object</param>
 		public async Task PostAsync(string requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/user");
+			var requestUri = "/user";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -711,7 +704,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<MyNS.User> GetByUsernameAsync(string username)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/"+Uri.EscapeDataString(username));
+			var requestUri = "/user/"+Uri.EscapeDataString(username);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -737,7 +730,7 @@ namespace MyNS
 		/// <param name="requestBody">Updated user object</param>
 		public async Task PutByUsernameAsync(string username, string requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/"+Uri.EscapeDataString(username));
+			var requestUri = "/user/"+Uri.EscapeDataString(username);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -762,7 +755,7 @@ namespace MyNS
 		/// <param name="username">The name that needs to be deleted</param>
 		public async Task DeleteByUsernameAsync(string username)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/"+Uri.EscapeDataString(username));
+			var requestUri = "/user/"+Uri.EscapeDataString(username);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -782,16 +775,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public UserCreateWithArrayClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public UserCreateWithArrayClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -800,7 +792,7 @@ namespace MyNS
 		/// <param name="requestBody">List of user object</param>
 		public async Task PostAsync(User[] requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/createWithArray");
+			var requestUri = "/user/createWithArray";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -826,16 +818,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public UserCreateWithListClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public UserCreateWithListClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -844,7 +835,7 @@ namespace MyNS
 		/// <param name="requestBody">List of user object</param>
 		public async Task PostAsync(User[] requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/createWithList");
+			var requestUri = "/user/createWithList";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -870,16 +861,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public UserLoginClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public UserLoginClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -890,7 +880,7 @@ namespace MyNS
 		/// <returns>successful operation</returns>
 		public async Task<string> GetByUsernameAndPasswordAsync(string username, string password)
 		{
-			var requestUri = new Uri(this.baseUri, "/user/login?username=" + Uri.EscapeDataString(username)+"&password=" + Uri.EscapeDataString(password));
+			var requestUri = "/user/login?username=" + Uri.EscapeDataString(username)+"&password=" + Uri.EscapeDataString(password);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -915,16 +905,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public UserLogoutClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public UserLogoutClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -932,7 +921,7 @@ namespace MyNS
 		/// </summary>
 		public async Task GetAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "/user/logout");
+			var requestUri = "/user/logout";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{

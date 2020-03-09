@@ -215,8 +215,8 @@ namespace Fonlow.OpenApiClientGen.Cs
 			method.Parameters.AddRange(parameters);
 
 			var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, parameterDescriptions);
-			var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{relativePath}\")" :
-				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
+			var uriText = jsUriQuery == null ? $"\"{relativePath}\"" :
+				RemoveTrialEmptyString($"\"{jsUriQuery}\"");
 
 			method.Statements.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "requestUri",
@@ -388,24 +388,12 @@ namespace Fonlow.OpenApiClientGen.Cs
 			{
 
 				var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, parameterDescriptions);
-				var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{relativePath}\")" :
-				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
+				var uriText = jsUriQuery == null ? $"\"{relativePath}\"" :
+				RemoveTrialEmptyString($"\"{jsUriQuery}\"");
 
 				method.Statements.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "requestUri",
 					new CodeSnippetExpression(uriText)));
-			};
-
-			Action AddRequestUriAssignmentStatement = () =>
-			{
-				var jsUriQuery = UriQueryHelper.CreateUriQuery(relativePath, parameterDescriptions);
-				var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{relativePath}\")" :
-				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
-
-				method.Statements.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "requestUri",
-					new CodeSnippetExpression(uriText)));
-
 			};
 
 			Action<CodeExpression> AddPostStatement = (httpMethodInvokeExpression) =>
@@ -417,14 +405,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			};
 
 
-			if (uriQueryParameters.Length > 0)
-			{
-				AddRequestUriWithQueryAssignmentStatement();
-			}
-			else
-			{
-				AddRequestUriAssignmentStatement();
-			}
+			AddRequestUriWithQueryAssignmentStatement();
 
 			if (requestBodyCodeTypeReference != null)
 			{

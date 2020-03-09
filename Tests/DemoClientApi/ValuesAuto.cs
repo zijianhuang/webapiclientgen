@@ -23,16 +23,15 @@ namespace MyNS
 
 		private System.Uri baseUri;
 
-		public ValuesClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public ValuesClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 
 		/// <summary>
@@ -41,7 +40,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<string[]> ValuesGetAsync()
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values");
+			var requestUri = "/api/Values";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -65,7 +64,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public string[] ValuesGet()
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values");
+			var requestUri = "/api/Values";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -89,7 +88,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<string> ValuesPostAsync(string requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values");
+			var requestUri = "/api/Values";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 				var requestSerializer = JsonSerializer.Create();
@@ -118,7 +117,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public string ValuesPost(string requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values");
+			var requestUri = "/api/Values";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 				var requestSerializer = JsonSerializer.Create();
@@ -147,7 +146,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<string> ValuesGetByIdAsync(int id)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = "/api/Values/" + id;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -170,7 +169,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public string ValuesGetById(int id)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = "/api/Values/" + id;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -193,7 +192,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task ValuesPutByIdAsync(int id, string requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = "/api/Values/" + id;
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 				var requestSerializer = JsonSerializer.Create();
@@ -217,7 +216,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public void ValuesPutById(int id, string requestBody)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = "/api/Values/" + id;
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 				var requestSerializer = JsonSerializer.Create();
@@ -241,7 +240,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task ValuesDeleteByIdAsync(int id)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = "/api/Values/" + id;
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -259,7 +258,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public void ValuesDeleteById(int id)
 		{
-			var requestUri = new Uri(this.baseUri, "/api/Values/" + id);
+			var requestUri = "/api/Values/" + id;
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{

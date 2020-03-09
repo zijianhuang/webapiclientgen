@@ -23,16 +23,15 @@ namespace MyNS
 		
 		private System.Uri baseUri;
 		
-		public PetClient(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public PetClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
-				throw new ArgumentNullException("client", "Null HttpClient.");
+				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("baseUri", "Null baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
 		}
 		
 		/// <summary>
@@ -41,7 +40,7 @@ namespace MyNS
 		/// <param name="petId">Pet id to delete</param>
 		public async Task DeletePetAsync(long petId)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/"+petId);
+			var requestUri = "/pet/"+petId;
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -59,7 +58,7 @@ namespace MyNS
 		/// <param name="petId">Pet id to delete</param>
 		public void DeletePet(long petId)
 		{
-			var requestUri = new Uri(this.baseUri, "/pet/"+petId);
+			var requestUri = "/pet/"+petId;
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{

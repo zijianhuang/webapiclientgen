@@ -150,6 +150,20 @@ namespace MyNS
             Assert.Equal(ReadFromResults("Results\\PetStore.txt"), s);
         }
 
+        [Fact]
+        public void TestPetStoreExpanded()
+        {
+            var s = TranslateJsonToCode("SwagMock\\petStoreExpanded.yaml");
+            Assert.Equal(ReadFromResults("Results\\PetStoreExpanded.txt"), s);
+        }
+
+        [Fact]
+        public void TestUspto()
+        {
+            var s = TranslateJsonToCode("SwagMock\\uspto.yaml");
+            Assert.Equal(ReadFromResults("Results\\Uspto.txt"), s);
+        }
+
 
 
 

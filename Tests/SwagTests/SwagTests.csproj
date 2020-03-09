@@ -20,7 +20,10 @@
     <None Remove="Results\PetGodClass.txt" />
     <None Remove="Results\PetPathAsContainer.txt" />
     <None Remove="Results\PetStore.txt" />
+    <None Remove="Results\PetStoreExpanded.txt" />
     <None Remove="Results\PetTypes.txt" />
+    <None Remove="Results\Uspto.txt" />
+    <None Remove="Results\uspto.yaml" />
     <None Remove="Results\ValuesPaths.txt" />
     <None Remove="SwagMock\CasualEnum.json" />
     <None Remove="SwagMock\CustomTypeArray.json" />
@@ -67,6 +70,9 @@
     <Content Include="NG2Results\ValuesPaths.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Results\PetStoreExpanded.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Results\PetStore.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -82,10 +88,16 @@
     <Content Include="Results\PetDelete.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Results\Uspto.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Results\PetTypes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\Pet.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\uspto.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\ValuesPaths.txt">

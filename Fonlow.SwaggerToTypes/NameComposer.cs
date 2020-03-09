@@ -337,8 +337,10 @@ namespace Fonlow.OpenApi.ClientTypes
 		{
 			{"integer_int32", typeof(int) },
 			{"integer_int64", typeof(long) },
+			{"integer", typeof(int) },
 			{"number_float", typeof(float) },
 			{"number_double", typeof(double) },
+			{"number", typeof(float) },
 			{"string", typeof(string) },
 			{"boolean", typeof(bool) },
 			{"string_date", typeof(DateTime) },
@@ -349,8 +351,10 @@ namespace Fonlow.OpenApi.ClientTypes
 		{
 			{"integer_int32", "number" },
 			{"integer_int64", "number" },
+			{"integer", "number" },
 			{"number_float", "number" },
 			{"number_double", "number" },
+			{"number", "number" },
 			{"string", "string" },
 			{"boolean", "boolean" },
 			{"string_date", "Date" },

@@ -22,14 +22,16 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		bool forAsync;
 		bool stringAsString;
+		bool diFriendly;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync = false)
+		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly)
 		{
 			this.description = description;
 			this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
 			this.forAsync = forAsync;
 			this.stringAsString = stringAsString;
+			this.diFriendly = diFriendly;
 
 			methodName = description.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async"))
@@ -52,9 +54,9 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync)
+		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly)
 		{
-			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync);
+			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync, diFriendly);
 			return gen.CreateApiFunction();
 		}
 
@@ -180,8 +182,16 @@ namespace Fonlow.CodeDom.Web.Cs
 			method.Parameters.AddRange(parameters);
 
 			var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-			var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
-				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
+			string uriText;
+			if (diFriendly)
+			{
+				uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
+			}
+			else
+			{
+				uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
+					RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
+			}
 
 			method.Statements.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "requestUri",
@@ -339,25 +349,43 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 
 				var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-				var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
-				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
+				string uriText;
+				
+				if (diFriendly)
+				{
+					uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
+				}
+				else
+				{
+					uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
+					RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
+				}
 
 				method.Statements.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "requestUri",
 					new CodeSnippetExpression(uriText)));
 			};
 
-			Action AddRequestUriAssignmentStatement = () =>
-			{
-				var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-				var uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
-				RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
+			//Action AddRequestUriAssignmentStatement = () =>
+			//{
+			//	var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+			//	string uriText;
 
-				method.Statements.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "requestUri",
-					new CodeSnippetExpression(uriText)));
+			//	if (diFriendly)
+			//	{
+			//		uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
+			//	}
+			//	else
+			//	{
+			//		uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
+			//		RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
+			//	}
 
-			};
+			//	method.Statements.Add(new CodeVariableDeclarationStatement(
+			//		new CodeTypeReference("var"), "requestUri",
+			//		new CodeSnippetExpression(uriText)));
+
+			//};
 
 			Action<CodeExpression> AddPostStatement = (httpMethodInvokeExpression) =>
 			{
@@ -368,14 +396,15 @@ namespace Fonlow.CodeDom.Web.Cs
 			};
 
 
-			if (uriQueryParameters.Length > 0)
-			{
-				AddRequestUriWithQueryAssignmentStatement();
-			}
-			else
-			{
-				AddRequestUriAssignmentStatement();
-			}
+			AddRequestUriWithQueryAssignmentStatement();
+			//if (uriQueryParameters.Length > 0)
+			//{
+			//	AddRequestUriWithQueryAssignmentStatement();
+			//}
+			//else
+			//{
+			//	AddRequestUriAssignmentStatement();
+			//}
 
 			if (singleFromBodyParameterDescription != null)
 			{

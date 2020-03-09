@@ -169,11 +169,11 @@ namespace Fonlow.CodeDom.Web.Cs
 				var existingClientClass = LookupExistingClass(controllerNamespace, controllerName);
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, true);
+				var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, true, codeGenParameters.ClientApiOutputs.DIFriendly);
 				existingClientClass.Members.Add(apiFunction);
 				if (ForBothAsyncAndSync)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, false));
+					existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, false, codeGenParameters.ClientApiOutputs.DIFriendly));
 				}
 			}
 
@@ -215,7 +215,14 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			ns.Types.Add(targetClass);
 			AddLocalFields(targetClass);
-			AddConstructor(targetClass);
+			if (codeGenParameters.ClientApiOutputs.DIFriendly)
+			{
+				AddConstructorWithHttpClient(targetClass);
+			}
+			else
+			{
+				AddConstructor(targetClass);
+			}
 
 			return targetClass;
 		}
@@ -250,16 +257,38 @@ namespace Fonlow.CodeDom.Web.Cs
 				"System.Uri", "baseUri"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
-				throw new ArgumentNullException(""client"", ""Null HttpClient."");
+				throw new ArgumentNullException(""Null HttpClient."", ""client"");
 "));
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (baseUri == null)
-				throw new ArgumentNullException(""baseUri"", ""Null baseUri"");
+				throw new ArgumentNullException(""Null baseUri"", ""baseUri"");
 "));
 			// Add field initialization logic
 			sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
 			constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));
 			sharedContext.baseUriReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "baseUri");
 			constructor.Statements.Add(new CodeAssignStatement(sharedContext.baseUriReference, new CodeArgumentReferenceExpression("baseUri")));
+			targetClass.Members.Add(constructor);
+		}
+
+		void AddConstructorWithHttpClient(CodeTypeDeclaration targetClass)
+		{
+			CodeConstructor constructor = new CodeConstructor();
+			constructor.Attributes =
+				MemberAttributes.Public | MemberAttributes.Final;
+
+			// Add parameters.
+			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
+				"System.Net.Http.HttpClient", "client"));
+
+			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
+				throw new ArgumentNullException(""Null HttpClient."", ""client"");
+"));
+			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client.BaseAddress == null)
+				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
+"));
+			// Add field initialization logic
+			sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
+			constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));
 			targetClass.Members.Add(constructor);
 		}
 

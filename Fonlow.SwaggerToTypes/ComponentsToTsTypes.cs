@@ -227,9 +227,20 @@ namespace Fonlow.OpenApi.ClientTypes
 						else
 						{
 							var arrayType = arrayItemsSchema.Type;
-							var clrType = nameComposer.PrimitiveSwaggerTypeToClrType(arrayType, null);
-							var arrayCodeTypeReference = CreateArrayTypeReference(clrType, 1);
-							clientProperty = CreateProperty(arrayCodeTypeReference, propertyName, isRequired);
+							if (arrayItemsSchema.Properties != null && arrayItemsSchema.Properties.Count > 0) // for casual type
+							{
+								var casualTypeName = typeDeclaration.Name + ToTitleCase(propertyName);
+								var casualTypeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, casualTypeName);
+								AddProperties(casualTypeDeclaration, arrayItemsSchema);
+								var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(casualTypeName, 1);
+								clientProperty = CreateProperty(arrayCodeTypeReference, casualTypeName, isRequired);
+							}
+							else
+							{
+								var clrType = nameComposer.PrimitiveSwaggerTypeToClrType(arrayType, null);
+								var arrayCodeTypeReference = CreateArrayTypeReference(clrType, 1);
+								clientProperty = CreateProperty(arrayCodeTypeReference, propertyName, isRequired);
+							}
 						}
 					}
 					else if (propertySchema.Enum.Count == 0) // for premitive type

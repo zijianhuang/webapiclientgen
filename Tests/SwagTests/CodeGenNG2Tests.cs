@@ -385,6 +385,33 @@ namespace SwagTests
 			Assert.Equal(ReadFromResults("NG2Results\\PetStore.txt"), s);
 		}
 
+		[Fact]
+		public void TestPetStoreExpanded()
+		{
+			var s = TranslateJsonToCode("SwagMock\\petStoreExpanded.yaml", new Settings()
+			{
+				ClientNamespace = "MyNS",
+				ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
+				ContainerNameStrategy = ContainerNameStrategy.Tags,
+				GenerateBothAsyncAndSync = false
+
+			});
+			Assert.Equal(ReadFromResults("NG2Results\\PetStoreExpanded.txt"), s);
+		}
+
+		[Fact]
+		public void TestUspto()
+		{
+			var s = TranslateJsonToCode("SwagMock\\uspto.yaml", new Settings()
+			{
+				ClientNamespace = "MyNS",
+				ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
+				ContainerNameStrategy = ContainerNameStrategy.Tags,
+				GenerateBothAsyncAndSync = false
+
+			});
+			Assert.Equal(ReadFromResults("NG2Results\\Uspto.txt"), s);
+		}
 
 	}
 

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.CodeDom;
 using Fonlow.Web.Meta;
+using System.Text.RegularExpressions;
 
 namespace Fonlow.OpenApi.ClientTypes
 {
@@ -16,6 +17,15 @@ namespace Fonlow.OpenApi.ClientTypes
 		public NameComposer(Settings settings)
 		{
 			this.settings = settings;
+			if (settings.ActionNameStrategy== ActionNameStrategy.NormalizedOperationId)
+			{
+				if (String.IsNullOrEmpty(settings.RegexForNormalizedOperationId))
+				{
+					throw new ArgumentException("When having ActionNameStrategy.NormalizedOperationId you should define RegexForNormalizedOperationId", nameof(settings));
+				}
+
+				regex = new Regex(settings.RegexForNormalizedOperationId);
+			}
 		}
 
 		Settings settings;
@@ -38,10 +48,21 @@ namespace Fonlow.OpenApi.ClientTypes
 					return ComposeActionNameForPathAsContainer(op, httpMethod);
 				case ActionNameStrategy.PathMethodQueryParameters:
 					return ComposeActionNameWithPath(op, httpMethod, path);
+				case ActionNameStrategy.NormalizedOperationId:
+					return NormalizeOperationId(op.OperationId);
 				default:
 					throw new InvalidDataException("Impossible");
 			}
 		}
+
+		public string NormalizeOperationId(string s)
+		{
+			var matches = regex.Matches(s);
+			var r = String.Join(String.Empty, matches.Select(m => ToTitleCase(m.Value)));
+			return r;
+		}
+
+		Regex regex;
 
 		/// <summary>
 		/// Compose action name according to tags, httpMethod and Parameters.

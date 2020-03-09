@@ -9,241 +9,157 @@
 
 namespace MyNS
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
+	using System.Net.Http;
+	using Newtonsoft.Json;
 	
 	
-	public class ApiResponse
+	public class DataSetList
 	{
 		
-		public int Code { get; set; }
+		public int Total { get; set; }
 		
-		public string Type { get; set; }
-		
-		public string Message { get; set; }
+		public DataSetListApis[] DataSetListApis { get; set; }
 	}
 	
-	/// <summary>
-	/// A representation of a cat
-	/// </summary>
-	public class Cat : Pet
+	public class DataSetListApis
 	{
 		
 		/// <summary>
-		/// The measured skill for hunting
+		/// To be used as a dataset parameter value
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public CatHuntingSkill HuntingSkill { get; set; }
+		public string ApiKey { get; set; }
+		
+		/// <summary>
+		/// To be used as a version parameter value
+		/// </summary>
+		public string ApiVersionNumber { get; set; }
+		
+		/// <summary>
+		/// The URL describing the dataset's fields
+		/// </summary>
+		public string ApiUrl { get; set; }
+		
+		/// <summary>
+		/// A URL to the API console for each API
+		/// </summary>
+		public string ApiDocumentationUrl { get; set; }
 	}
 	
-	public enum CatHuntingSkill
+	public partial class MetadataClient
 	{
 		
-		clueless = 0,
+		private System.Net.Http.HttpClient client;
 		
-		lazy = 1,
+		private System.Uri baseUri;
 		
-		adventurous = 2,
+		public MetadataClient(System.Net.Http.HttpClient client)
+		{
+			if (client == null)
+				throw new ArgumentNullException("Null HttpClient.", "client");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
+
+			this.client = client;
+		}
 		
-		aggressive = 3,
+		/// <summary>
+		/// ListDataSets /
+		/// </summary>
+		/// <returns>Returns a list of data sets</returns>
+		public async Task<MyNS.dataSetList> ListDataSetsAsync()
+		{
+			var requestUri = "/";
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<MyNS.dataSetList>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// This GET API returns the list of all the searchable field names that are in the oa_citations. Please see the 'fields' attribute which returns an array of field names. Each field or a combination of fields can be searched using the syntax options shown below.
+		/// ListSearchableFields /{dataset}/{version}/fields
+		/// </summary>
+		/// <param name="dataset">Name of the dataset.</param>
+		/// <param name="version">Version of the dataset.</param>
+		/// <returns>The dataset API for the given version is found and it is accessible to consume.</returns>
+		public async Task<string> ListSearchableFieldsAsync(string dataset, string version)
+		{
+			var requestUri = "/"+Uri.EscapeDataString(dataset)+"/"+Uri.EscapeDataString(version)+"/fields";
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				return jsonReader.ReadAsString();
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
 	}
 	
-	public class Category
+	public partial class SearchClient
 	{
 		
-		/// <summary>
-		/// Category ID
-		/// </summary>
-		public long Id { get; set; }
+		private System.Net.Http.HttpClient client;
+		
+		private System.Uri baseUri;
+		
+		public SearchClient(System.Net.Http.HttpClient client)
+		{
+			if (client == null)
+				throw new ArgumentNullException("Null HttpClient.", "client");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
+
+			this.client = client;
+		}
 		
 		/// <summary>
-		/// Category name
+		/// This API is based on Solr/Lucense Search. The data is indexed using SOLR. This GET API returns the list of all the searchable field names that are in the Solr Index. Please see the 'fields' attribute which returns an array of field names. Each field or a combination of fields can be searched using the Solr/Lucene Syntax. Please refer https://lucene.apache.org/core/3_6_2/queryparsersyntax.html#Overview for the query syntax. List of field names that are searchable can be determined using above GET api.
+		/// PerformSearch /{dataset}/{version}/records
 		/// </summary>
-		public string Name { get; set; }
-		
-		/// <summary>
-		/// Test Sub Category
-		/// </summary>
-		public string Sub { get; set; }
-	}
-	
-	/// <summary>
-	/// A representation of a dog
-	/// </summary>
-	public class Dog : Pet
-	{
-		
-		/// <summary>
-		/// The size of the pack the dog is from
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public int PackSize { get; set; }
-	}
-	
-	/// <summary>
-	/// A representation of a honey bee
-	/// </summary>
-	public class HoneyBee : Pet
-	{
-		
-		/// <summary>
-		/// Average amount of honey produced per day in ounces
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string HoneyPerDay { get; set; }
-	}
-	
-	public class Order
-	{
-		
-		/// <summary>
-		/// Order ID
-		/// </summary>
-		public long Id { get; set; }
-		
-		/// <summary>
-		/// Pet ID
-		/// </summary>
-		public long PetId { get; set; }
-		
-		public int Quantity { get; set; }
-		
-		/// <summary>
-		/// Estimated ship date
-		/// </summary>
-		public System.DateTime ShipDate { get; set; }
-		
-		/// <summary>
-		/// Order Status
-		/// </summary>
-		public OrderStatus Status { get; set; }
-		
-		/// <summary>
-		/// Indicates whenever order was completed or not
-		/// </summary>
-		public bool Complete { get; set; }
-		
-		/// <summary>
-		/// Unique Request Id
-		/// </summary>
-		public string RequestId { get; set; }
-	}
-	
-	public enum OrderStatus
-	{
-		
-		placed = 0,
-		
-		approved = 1,
-		
-		delivered = 2,
-	}
-	
-	public class Pet
-	{
-		
-		/// <summary>
-		/// Pet ID
-		/// </summary>
-		public long Id { get; set; }
-		
-		/// <summary>
-		/// Categories this pet belongs to
-		/// </summary>
-		public string Category { get; set; }
-		
-		/// <summary>
-		/// The name given to a pet
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Name { get; set; }
-		
-		/// <summary>
-		/// The list of URL to a cute photos featuring pet
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string[] PhotoUrls { get; set; }
-		
-		public string Friend { get; set; }
-		
-		/// <summary>
-		/// Tags attached to the pet
-		/// </summary>
-		public Tag[] Tags { get; set; }
-		
-		/// <summary>
-		/// Pet status in the store
-		/// </summary>
-		public PetStatus Status { get; set; }
-		
-		/// <summary>
-		/// Type of a pet
-		/// </summary>
-		public string PetType { get; set; }
-	}
-	
-	public enum PetStatus
-	{
-		
-		available = 0,
-		
-		pending = 1,
-		
-		sold = 2,
-	}
-	
-	public class Tag
-	{
-		
-		/// <summary>
-		/// Tag ID
-		/// </summary>
-		public long Id { get; set; }
-		
-		/// <summary>
-		/// Tag name
-		/// </summary>
-		public string Name { get; set; }
-	}
-	
-	public class User
-	{
-		
-		public long Id { get; set; }
-		
-		public string Pet { get; set; }
-		
-		/// <summary>
-		/// User supplied username
-		/// </summary>
-		public string Username { get; set; }
-		
-		/// <summary>
-		/// User first name
-		/// </summary>
-		public string FirstName { get; set; }
-		
-		/// <summary>
-		/// User last name
-		/// </summary>
-		public string LastName { get; set; }
-		
-		/// <summary>
-		/// User email address
-		/// </summary>
-		public string Email { get; set; }
-		
-		/// <summary>
-		/// User password, MUST contain a mix of upper and lower case letters, as well as digits
-		/// </summary>
-		public string Password { get; set; }
-		
-		/// <summary>
-		/// User phone number in international format
-		/// </summary>
-		public string Phone { get; set; }
-		
-		/// <summary>
-		/// User status
-		/// </summary>
-		public int UserStatus { get; set; }
+		/// <param name="version">Version of the dataset.</param>
+		/// <param name="dataset">Name of the dataset. In this case, the default value is oa_citations</param>
+		/// <returns>successful operation</returns>
+		public async Task<string[]> PerformSearchAsync(string version, string dataset)
+		{
+			var requestUri = "/"+Uri.EscapeDataString(dataset)+"/"+Uri.EscapeDataString(version)+"/records";
+			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<string[]>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
 	}
 }

@@ -15,6 +15,11 @@
 		MethodQueryParameters,
 
 		PathMethodQueryParameters,
+
+		/// <summary>
+		/// Some YAML may define operationId not a valid function name for example, list-data-sets. Regex may be needed to create a valid function name from such operationId.
+		/// </summary>
+		NormalizedOperationId,
 	}
 
 	public enum ContainerNameStrategy
@@ -46,6 +51,11 @@
 		public string PathPrefixToRemove { get; set; } = "/";
 
 		public ActionNameStrategy ActionNameStrategy { get; set; }
+
+		/// <summary>
+		/// Default is \w* for Alphanumeric words
+		/// </summary>
+		public string RegexForNormalizedOperationId { get; set; } = @"\w*";
 
 		public ContainerNameStrategy ContainerNameStrategy { get; set; }
 

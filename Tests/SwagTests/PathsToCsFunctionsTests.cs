@@ -153,14 +153,31 @@ namespace MyNS
         [Fact]
         public void TestPetStoreExpanded()
         {
-            var s = TranslateJsonToCode("SwagMock\\petStoreExpanded.yaml");
+            var s = TranslateJsonToCode("SwagMock\\petStoreExpanded.yaml", new Settings()
+            {
+                ClientNamespace = "MyNS",
+                ContainerClassName = "Misc",
+                ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
+                //RegexForNormalizedOperationId = @"\w*",
+                ContainerNameStrategy = ContainerNameStrategy.Tags,
+                GenerateBothAsyncAndSync = false
+
+            });
             Assert.Equal(ReadFromResults("Results\\PetStoreExpanded.txt"), s);
         }
 
         [Fact]
         public void TestUspto()
         {
-            var s = TranslateJsonToCode("SwagMock\\uspto.yaml");
+            var s = TranslateJsonToCode("SwagMock\\uspto.yaml", new Settings() {
+                ClientNamespace = "MyNS",
+                ContainerClassName = "Misc",
+                ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
+                RegexForNormalizedOperationId= @"\w*",
+                ContainerNameStrategy = ContainerNameStrategy.Tags,
+                GenerateBothAsyncAndSync = false
+
+            });
             Assert.Equal(ReadFromResults("Results\\Uspto.txt"), s);
         }
 

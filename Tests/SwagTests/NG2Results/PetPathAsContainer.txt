@@ -43,7 +43,7 @@ export namespace MyNS {
 	export interface HoneyBee extends Pet {
 
 		/**Average amount of honey produced per day in ounces */
-		honeyPerDay: string;
+		honeyPerDay: number;
 	}
 
 	export interface Order {

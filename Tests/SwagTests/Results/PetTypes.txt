@@ -88,7 +88,7 @@ namespace MyNS
 		/// Average amount of honey produced per day in ounces
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string HoneyPerDay { get; set; }
+		public float HoneyPerDay { get; set; }
 	}
 	
 	public class Order

@@ -1,0 +1,68 @@
+﻿import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+export namespace MyNS {
+	export interface DataSetList {
+		total?: number;
+		DataSetListApis?: Array<DataSetListApis>;
+	}
+
+	export interface DataSetListApis {
+
+		/**To be used as a dataset parameter value */
+		apiKey?: string;
+
+		/**To be used as a version parameter value */
+		apiVersionNumber?: string;
+
+		/**The URL describing the dataset's fields */
+		apiUrl?: string;
+
+		/**A URL to the API console for each API */
+		apiDocumentationUrl?: string;
+	}
+
+	@Injectable()
+	export class MetadataClient {
+		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * Get /
+		 * @return {MyNS.dataSetList} Returns a list of data sets
+		 */
+		ListDataSets(): Observable<MyNS.dataSetList> {
+			return this.http.get<MyNS.dataSetList>(this.baseUri + '/');
+		}
+
+		/**
+		 * This GET API returns the list of all the searchable field names that are in the oa_citations. Please see the 'fields' attribute which returns an array of field names. Each field or a combination of fields can be searched using the syntax options shown below.
+		 * Get /{dataset}/{version}/fields
+		 * @param {string} dataset Name of the dataset.
+		 * @param {string} version Version of the dataset.
+		 * @return {string} The dataset API for the given version is found and it is accessible to consume.
+		 */
+		ListSearchableFields(dataset: string, version: string): Observable<string> {
+			return this.http.get(this.baseUri + '/' + encodeURIComponent(dataset) + '/' + encodeURIComponent(version) + '/fields', { responseType: 'text' });
+		}
+	}
+
+	@Injectable()
+	export class SearchClient {
+		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * This API is based on Solr/Lucense Search. The data is indexed using SOLR. This GET API returns the list of all the searchable field names that are in the Solr Index. Please see the 'fields' attribute which returns an array of field names. Each field or a combination of fields can be searched using the Solr/Lucene Syntax. Please refer https://lucene.apache.org/core/3_6_2/queryparsersyntax.html#Overview for the query syntax. List of field names that are searchable can be determined using above GET api.
+		 * Post /{dataset}/{version}/records
+		 * @param {string} version Version of the dataset.
+		 * @param {string} dataset Name of the dataset. In this case, the default value is oa_citations
+		 * @return {Array<string>} successful operation
+		 */
+		PerformSearch(version: string, dataset: string): Observable<Array<string>> {
+			return this.http.post<Array<string>>(this.baseUri + '/' + encodeURIComponent(dataset) + '/' + encodeURIComponent(version) + '/records', null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+	}
+
+}
+

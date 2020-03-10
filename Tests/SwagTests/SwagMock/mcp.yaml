@@ -1,0 +1,2497 @@
+swagger: '2.0'
+info:
+  x-ibm-name: mcpbulkbillpaymentreport
+  title: mcp.bulk.bill.payment.report
+  version: 1.0.0
+  description: Bulk Bill Payment Report
+  contact:
+    name: DHS-Medicare
+    email: otsliaison@humanservices.gov.au
+  x-ibm-summary: ''
+schemes:
+- https
+host: test.healthclaiming.api.humanservices.gov.au
+basePath: /claiming/ext-vnd
+consumes:
+- application/json
+produces:
+- application/json
+securityDefinitions:
+  clientID:
+    type: apiKey
+    in: header
+    name: X-IBM-Client-Id
+security:
+- clientID: []
+x-ibm-configuration:
+  cors:
+    enabled: true
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  servers:
+  - url: 'https://test.healthclaiming.api.humanservices.gov.au/claiming/ext-vnd'
+    description: ''
+    type:
+    - Production
+    - Development
+paths:
+  /mcp/bulkbillpaymentreport/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/BBSReportRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BBSPaymentReportResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-bulk-bill-payment-report@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/bulkbillprocessingreport/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/BBSReportRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BBSProcessingReportResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-bulk-bill-processing-report@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/bulkbillstoreforward/general/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/BulkBillStoreForwardRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BulkBillStoreForwardResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-bulk-bill-store-forward-general@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/bulkbillstoreforward/pathology/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/BulkBillStoreForwardRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BulkBillStoreForwardResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-bulk-bill-store-forward-pathology@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/bulkbillstoreforward/specialist/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/BulkBillStoreForwardRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BulkBillStoreForwardResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-bulk-bill-store-forward-specialist@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaalliedhealth/allied/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/AlliedHealthClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AlliedHealthClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-allied-health-allied@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaalliedhealth/communitynursing/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/AlliedHealthClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AlliedHealthClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-allied-health-community-nursing@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaalliedhealth/dental/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/AlliedHealthClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AlliedHealthClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-allied-health-dental@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaalliedhealth/optical/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/AlliedHealthClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AlliedHealthClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-allied-health-optical@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaalliedhealth/psych/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/AlliedHealthClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AlliedHealthClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-allied-health-psych@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaalliedhealth/speechpathology/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/AlliedHealthClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AlliedHealthClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-allied-health-speech-pathology@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaclaim/general/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/DVAClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/DVAClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-claim-general@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaclaim/pathology/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/DVAClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/DVAClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-claim-pathology@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaclaim/specialist/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/DVAClaimRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/DVAClaimResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-claim-specialist@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvapaymentreport/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/DVAReportRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/DVAPaymentReportResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-payment-report@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/dvaprocessingreport/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/DVAReportRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/DVAProcessingReportResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-dva-processing-report@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/enterpriseconcessionverification/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/EnterpriseConcessionVerificationRequestType'
+      responses:
+        "200":
+          description: successful operation
+          examples:
+            application/json:
+              status: SUCCESS
+          schema:
+            $ref: '#/definitions/EnterpriseConcessionVerificationResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-enterprise-concession-verification@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/enterprisepatientverification/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/EnterprisePatientVerificationRequestType'
+      responses:
+        "200":
+          description: successful operation
+          examples:
+            application/json:
+              status: SUCCESS
+          schema:
+            $ref: '#/definitions/EnterprisePatientVerificationResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-enterprise-patient-verification@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/enterpriseveteranverification/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/EnterpriseVeteranVerificationRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/EnterpriseVeteranVerificationResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-enterprise-veteran-verification@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/patientclaiminteractive/general/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/PatientClaimInteractiveRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/PatientClaimInteractiveResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-patient-claim-interactive-general@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/patientclaiminteractive/pathology/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/PatientClaimInteractiveRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/PatientClaimInteractiveResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-patient-claim-interactive-pathology@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/patientclaiminteractive/specialist/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/PatientClaimInteractiveRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/PatientClaimInteractiveResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-patient-claim-interactive-specialist@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/patientverification/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/PatientVerificationRequestType'
+      responses:
+        "200":
+          description: successful operation
+          examples:
+            application/json:
+              medicareStatus:
+                status:
+                  code: 0
+                  text: Patient is eligible to claim for Medicare with details provided.
+              healthFundStatus:
+                status:
+                  code: 0
+                  text: Patient Matched.
+          schema:
+            $ref: '#/definitions/PatientVerificationResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-patient-verification@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/patientverification/hf/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/PatientVerificationRequestType'
+      responses:
+        "200":
+          description: successful operation
+          examples:
+            application/json:
+              healthFundStatus:
+                status:
+                  code: 0
+                  text: Patient Matched.
+          schema:
+            $ref: '#/definitions/PatientVerificationResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-patient-verification-hf@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/patientverification/medicare/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/PatientVerificationRequestType'
+      responses:
+        "200":
+          description: successful operation
+          examples:
+            application/json:
+              medicareStatus:
+                status:
+                  code: 0
+                  text: Patient is eligible to claim for Medicare with details provided.
+          schema:
+            $ref: '#/definitions/PatientVerificationResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-patient-verification-medicare@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/enterpriseconcessionverification/retrievereport/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/RetrieveReportRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/RetrieveReportResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-retrieve-report-ecv@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/enterprisepatientverification/retrievereport/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/RetrieveReportRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/RetrieveReportResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-retrieve-report-epv@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/enterpriseveteranverification/retrievereport/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/RetrieveReportRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/RetrieveReportResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-retrieve-report-evv@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/samedaydelete/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/SameDayDeleteRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/SameDayDeleteResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-same-day-delete@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/statusreport/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/StatusReportRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/StatusReportResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-status-report@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+  /mcp/veteranverification/v1:
+    post:
+      summary: This is the request
+      parameters:
+      - name: body
+        required: true
+        in: body
+        schema:
+          $ref: '#/definitions/VeteranVerificationRequestType'
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/VeteranVerificationResponseType'
+        "400":
+          description: server cannot or will not process the request
+          schema:
+            $ref: '#/definitions/ServiceMessagesType'
+      operationId: mcp-veteran-verification@1-eigw
+    parameters:
+    - $ref: '#/parameters/Authorization'
+    - $ref: '#/parameters/dhs-auditId'
+    - $ref: '#/parameters/dhs-subjectId'
+    - $ref: '#/parameters/dhs-messageId'
+    - $ref: '#/parameters/dhs-auditIdType'
+    - $ref: '#/parameters/dhs-correlationId'
+    - $ref: '#/parameters/dhs-productId'
+    - $ref: '#/parameters/dhs-subjectIdType'
+definitions:
+  BBSReportRequestType:
+    type: object
+    required:
+    - payeeProvider
+    properties:
+      payeeProvider:
+        $ref: '#/definitions/ProviderType'
+      claimId:
+        type: string
+        minLength: 6
+        maxLength: 6
+      lodgementDate:
+        type: string
+        format: date
+  ProviderType:
+    type: object
+    required:
+    - providerNumber
+    properties:
+      providerNumber:
+        type: string
+        minLength: 8
+        maxLength: 8
+  BBSPaymentReportResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      paymentRun:
+        $ref: '#/definitions/PaymentRunType'
+      paymentInfo:
+        $ref: '#/definitions/PaymentType'
+      claimSummary:
+        type: array
+        items:
+          $ref: '#/definitions/ClaimSummaryType'
+        minItems: 1
+      status:
+        type: string
+  PaymentRunType:
+    type: object
+    properties:
+      payerName:
+        type: string
+      runDate:
+        type: string
+        format: date
+      runNumber:
+        type: string
+  PaymentType:
+    type: object
+    required:
+    - accountInfo
+    properties:
+      accountInfo:
+        $ref: '#/definitions/BankAccountType'
+      depositAmount:
+        type: string
+      paymentReference:
+        type: string
+  BankAccountType:
+    type: object
+    properties:
+      accountName:
+        type: string
+        minLength: 1
+        maxLength: 30
+      accountNumber:
+        type: string
+        minLength: 1
+        maxLength: 9
+      bsbCode:
+        type: string
+        minLength: 6
+        maxLength: 6
+  ClaimSummaryType:
+    type: object
+    properties:
+      accountReferenceId:
+        type: string
+      benefit:
+        type: string
+      chargeAmount:
+        type: string
+        minLength: 1
+        maxLength: 9
+      claimChannelCode:
+        type: string
+      claimId:
+        type: string
+      lodgementDate:
+        type: string
+        format: date
+      transactionId:
+        type: string
+  ServiceMessagesType:
+    type: object
+    required:
+    - highestSeverity
+    - serviceMessage
+    properties:
+      highestSeverity:
+        type: string
+        enum:
+        - Fatal
+        - Error
+        - Warning
+        - Informational
+      serviceMessage:
+        type: array
+        items:
+          $ref: '#/definitions/ServiceMessageType'
+        minItems: 1
+  ServiceMessageType:
+    type: object
+    required:
+    - code
+    - severity
+    - reason
+    properties:
+      code:
+        type: string
+      severity:
+        type: string
+        enum:
+        - Fatal
+        - Error
+        - Warning
+        - Informational
+      reason:
+        type: string
+  BBSProcessingReportResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      claimAssessment:
+        $ref: '#/definitions/ClaimAssessmentType'
+      status:
+        type: string
+  ClaimAssessmentType:
+    type: object
+    properties:
+      medicalEvent:
+        type: array
+        items:
+          $ref: '#/definitions/MedicalEventResponseType'
+        minItems: 1
+      serviceProvider:
+        $ref: '#/definitions/ProviderType'
+      benefitPaid:
+        type: string
+      chargeAmount:
+        type: string
+        minLength: 1
+        maxLength: 9
+      claimId:
+        type: string
+  MedicalEventResponseType:
+    type: object
+    properties:
+      patient:
+        $ref: '#/definitions/MembershipStatusType'
+      service:
+        type: array
+        items:
+          $ref: '#/definitions/ServiceResponseType'
+        minItems: 1
+      id:
+        type: string
+      eventDate:
+        type: string
+        format: date
+  MembershipStatusType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      currentMembership:
+        $ref: '#/definitions/MembershipType'
+      currentMember:
+        $ref: '#/definitions/IdentityType'
+      processDate:
+        type: string
+        format: date
+  StatusType:
+    type: object
+    properties:
+      code:
+        type: integer
+      text:
+        type: string
+  MembershipType:
+    type: object
+    properties:
+      memberNumber:
+        type: string
+        minLength: 10
+        maxLength: 10
+      memberRefNumber:
+        type: string
+        minLength: 1
+        maxLength: 1
+  IdentityType:
+    type: object
+    discriminator: identityType
+    properties:
+      dateOfBirth:
+        type: string
+        format: date
+      familyName:
+        type: string
+      givenName:
+        type: string
+      secondInitial:
+        type: string
+        minLength: 1
+        maxLength: 1
+      sex:
+        type: string
+        minLength: 1
+        maxLength: 1
+  ServiceResponseType:
+    type: object
+    properties:
+      error:
+        $ref: '#/definitions/StatusType'
+      id:
+        type: string
+      assessmentCode:
+        type: string
+      benefitPaid:
+        type: string
+      chargeAmount:
+        type: string
+        minLength: 1
+        maxLength: 9
+      itemNumber:
+        type: string
+      numberOfPatientsSeen:
+        type: string
+  BulkBillStoreForwardRequestType:
+    type: object
+    required:
+    - claim
+    properties:
+      claim:
+        $ref: '#/definitions/BulkBillClaimStoreForwardClaimType'
+  BulkBillClaimStoreForwardClaimType:
+    type: object
+    required:
+    - medicalEvent
+    - serviceProvider
+    - serviceTypeCode
+    properties:
+      facilityId:
+        type: string
+        minLength: 8
+        maxLength: 8
+      hospitalInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      medicalEvent:
+        type: array
+        items:
+          $ref: '#/definitions/BBSMedicalEventType'
+        minItems: 1
+      payeeProvider:
+        $ref: '#/definitions/ProviderType'
+      serviceProvider:
+        $ref: '#/definitions/ProviderType'
+      serviceTypeCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+  BBSMedicalEventType:
+    type: object
+    required:
+    - patient
+    - service
+    - id
+    - authorisationDate
+    - createDateTime
+    - medicalEventDate
+    - submissionAuthorityInd
+    properties:
+      id:
+        type: string
+        minLength: 2
+        maxLength: 2
+      authorisationDate:
+        type: string
+        format: date
+      createDateTime:
+        type: string
+        format: date-time
+      medicalEventDate:
+        type: string
+        format: date
+      medicalEventTime:
+        type: string
+        pattern: '^([0-1][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)([.][0-9]*)?(Z|z|(([+]|-)([0-1][0-9]|2[0-3]):[0-5][0-9]))?$'
+      patient:
+        $ref: '#/definitions/MedicarePatientType'
+      referral:
+        $ref: '#/definitions/ReferralType'
+      referralOverrideCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+      service:
+        type: array
+        items:
+          $ref: '#/definitions/ServiceType'
+        minItems: 1
+      submissionAuthorityInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+  MedicarePatientType:
+    type: object
+    discriminator: medicarePatientType
+    required:
+    - identity
+    - medicare
+    properties:
+      identity:
+        $ref: '#/definitions/IdentityType'
+      medicare:
+        $ref: '#/definitions/MembershipType'
+  ReferralType:
+    type: object
+    required:
+    - provider
+    - issueDate
+    - typeCode
+    properties:
+      issueDate:
+        type: string
+        format: date
+      period:
+        type: string
+        minLength: 1
+        maxLength: 2
+      periodCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+      provider:
+        $ref: '#/definitions/ProviderType'
+      typeCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+  ServiceType:
+    type: object
+    discriminator: serviceType
+    required:
+    - id
+    properties:
+      id:
+        type: string
+        minLength: 4
+        maxLength: 4
+      accessionDateTime:
+        type: string
+        format: date-time
+      aftercareOverrideInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      chargeAmount:
+        type: string
+        minLength: 1
+        maxLength: 9
+      collectionDateTime:
+        type: string
+        format: date-time
+      duplicateServiceOverrideInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      fieldQuantity:
+        type: string
+        minLength: 1
+        maxLength: 2
+      itemNumber:
+        type: string
+        minLength: 1
+        maxLength: 5
+      lspNumber:
+        type: string
+        minLength: 1
+        maxLength: 6
+      multipleProcedureOverrideInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      numberOfPatientsSeen:
+        type: string
+        minLength: 1
+        maxLength: 2
+      restrictiveOverrideCode:
+        type: string
+        minLength: 2
+        maxLength: 2
+      rule3ExemptInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      s4b3ExemptInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      scpId:
+        type: string
+        minLength: 3
+        maxLength: 5
+      selfDeemedCode:
+        type: string
+        minLength: 1
+        maxLength: 2
+      text:
+        type: string
+      timeDuration:
+        type: string
+        minLength: 3
+        maxLength: 3
+  BulkBillStoreForwardResponseType:
+    type: object
+    required:
+    - status
+    - claimId
+    properties:
+      claimId:
+        type: string
+      status:
+        type: string
+  AlliedHealthClaimRequestType:
+    type: object
+    required:
+    - claim
+    properties:
+      claim:
+        $ref: '#/definitions/VAAClaimType'
+  VAAClaimType:
+    type: object
+    required:
+    - medicalEvent
+    - serviceTypeCode
+    - serviceProvider
+    properties:
+      hospitalInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      medicalEvent:
+        type: array
+        items:
+          $ref: '#/definitions/VAAMedicalEventType'
+        minItems: 1
+      payeeProvider:
+        $ref: '#/definitions/ProviderType'
+      serviceProvider:
+        $ref: '#/definitions/ProviderType'
+      serviceTypeCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+  VAAMedicalEventType:
+    type: object
+    required:
+    - service
+    - id
+    - authorisationDate
+    - createDateTime
+    - medicalEventDate
+    - patient
+    - submissionAuthorityInd
+    properties:
+      id:
+        type: string
+        minLength: 2
+        maxLength: 2
+      acceptedDisability:
+        $ref: '#/definitions/AcceptedDisabilityType'
+      authorisationDate:
+        type: string
+        format: date
+      breakInEpisodeEndDate:
+        type: string
+        format: date
+      breakInEpisodeOfCareNumber:
+        type: string
+        minLength: 1
+        maxLength: 1
+      breakInEpisodeStartDate:
+        type: string
+        format: date
+      numberOfCNCHours:
+        type: string
+        minLength: 1
+        maxLength: 5
+      numberOfCNCVisits:
+        type: string
+        minLength: 1
+        maxLength: 3
+      createDateTime:
+        type: string
+        format: date-time
+      numberOfENHours:
+        type: string
+        minLength: 1
+        maxLength: 5
+      numberOfENVisits:
+        type: string
+        minLength: 1
+        maxLength: 3
+      facilityId:
+        type: string
+        minLength: 8
+        maxLength: 8
+      medicalEventDate:
+        type: string
+        format: date
+      medicalEventTime:
+        type: string
+        pattern: '^([0-1][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)([.][0-9]*)?(Z|z|(([+]|-)([0-1][0-9]|2[0-3]):[0-5][0-9]))?$'
+      numberOfNSSHours:
+        type: string
+        minLength: 1
+        maxLength: 5
+      numberOfNSSVisits:
+        type: string
+        minLength: 1
+        maxLength: 3
+      patient:
+        $ref: '#/definitions/VeteranPatientType'
+      referral:
+        $ref: '#/definitions/ReferralType'
+      referralOverrideCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+      numberOfRNHours:
+        type: string
+        minLength: 1
+        maxLength: 5
+      numberOfRNVisits:
+        type: string
+        minLength: 1
+        maxLength: 3
+      service:
+        type: array
+        items:
+          $ref: '#/definitions/VAAServiceType'
+        minItems: 1
+      submissionAuthorityInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+  AcceptedDisabilityType:
+    type: object
+    required:
+    - ind
+    - code
+    properties:
+      code:
+        type: string
+      ind:
+        type: string
+        minLength: 1
+        maxLength: 1
+  VeteranPatientType:
+    allOf:
+    - $ref: '#/definitions/PatientType'
+    - type: object
+      properties:
+        veteranMembership:
+          $ref: '#/definitions/VeteranMembershipType'
+  PatientType:
+    type: object
+    discriminator: patientType
+    required:
+    - identity
+    properties:
+      identity:
+        $ref: '#/definitions/IdentityType'
+      residentialAddress:
+        $ref: '#/definitions/AddressType'
+  AddressType:
+    type: object
+    properties:
+      addressLineOne:
+        type: string
+        minLength: 1
+        maxLength: 40
+      addressLineTwo:
+        type: string
+        minLength: 1
+        maxLength: 40
+      locality:
+        type: string
+        minLength: 1
+        maxLength: 40
+      postcode:
+        type: string
+        minLength: 4
+        maxLength: 4
+  VeteranMembershipType:
+    type: object
+    discriminator: veteranMembershipType
+    required:
+    - veteranNumber
+    properties:
+      veteranNumber:
+        type: string
+        minLength: 3
+        maxLength: 9
+  VAAServiceType:
+    type: object
+    required:
+    - id
+    - itemNumber
+    properties:
+      id:
+        type: string
+        minLength: 4
+        maxLength: 4
+      accountReferenceNumber:
+        type: string
+        minLength: 1
+        maxLength: 8
+      admissionDate:
+        type: string
+        format: date
+      chargeAmount:
+        type: string
+        minLength: 3
+        maxLength: 7
+      dischargeDate:
+        type: string
+        format: date
+      distanceKilometres:
+        type: integer
+      duplicateServiceOverrideInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      itemNumber:
+        type: string
+        minLength: 1
+        maxLength: 5
+      multipleProcedureOverrideInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      numberOfPatientsSeen:
+        type: string
+        minLength: 1
+        maxLength: 2
+      numberOfTeeth:
+        type: string
+        minLength: 1
+        maxLength: 2
+      opticalScriptCode:
+        type: string
+        minLength: 1
+        maxLength: 2
+      restrictiveOverrideCode:
+        type: string
+        minLength: 2
+        maxLength: 2
+      secondDeviceInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      selfDeemedCode:
+        type: string
+        minLength: 1
+        maxLength: 2
+      text:
+        type: string
+      timeDuration:
+        type: string
+        minLength: 3
+        maxLength: 3
+      toothNumber:
+        type: string
+        minLength: 2
+        maxLength: 2
+      upperLowerJawCode:
+        type: string
+        minLength: 3
+        maxLength: 3
+  AlliedHealthClaimResponseType:
+    type: object
+    required:
+    - claimId
+    - status
+    properties:
+      claimId:
+        type: string
+      status:
+        type: string
+  DVAClaimRequestType:
+    type: object
+    required:
+    - claim
+    properties:
+      claim:
+        $ref: '#/definitions/DVAClaimType'
+  DVAClaimType:
+    type: object
+    required:
+    - medicalEvent
+    - serviceProvider
+    - serviceTypeCode
+    properties:
+      hospitalInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      serviceTypeCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+      medicalEvent:
+        type: array
+        items:
+          $ref: '#/definitions/DVAMedicalEventType'
+        minItems: 1
+      serviceProvider:
+        $ref: '#/definitions/ProviderType'
+      payeeProvider:
+        $ref: '#/definitions/ProviderType'
+  DVAMedicalEventType:
+    type: object
+    required:
+    - patient
+    - service
+    - id
+    - authorisationDate
+    - createDateTime
+    - medicalEventDate
+    - submissionAuthorityInd
+    properties:
+      id:
+        type: string
+        minLength: 2
+        maxLength: 2
+      authorisationDate:
+        type: string
+        format: date
+      createDateTime:
+        type: string
+        format: date-time
+      facilityId:
+        type: string
+        minLength: 8
+        maxLength: 8
+      medicalEventDate:
+        type: string
+        format: date
+      medicalEventTime:
+        type: string
+        pattern: '^([0-1][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)([.][0-9]*)?(Z|z|(([+]|-)([0-1][0-9]|2[0-3]):[0-5][0-9]))?$'
+      referralOverrideCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+      submissionAuthorityInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      treatmentLocationCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+      acceptedDisability:
+        $ref: '#/definitions/AcceptedDisabilityType'
+      referral:
+        $ref: '#/definitions/ReferralType'
+      patient:
+        $ref: '#/definitions/VeteranPatientType'
+      service:
+        type: array
+        items:
+          $ref: '#/definitions/DVAServiceType'
+        minItems: 1
+  DVAServiceType:
+    allOf:
+    - $ref: '#/definitions/ServiceType'
+    - type: object
+      properties:
+        accountReferenceNumber:
+          type: string
+          minLength: 1
+          maxLength: 8
+        distanceKilometres:
+          type: integer
+  DVAClaimResponseType:
+    type: object
+    required:
+    - status
+    - claimId
+    properties:
+      claimId:
+        type: string
+      status:
+        type: string
+  DVAReportRequestType:
+    type: object
+    required:
+    - payeeProvider
+    properties:
+      payeeProvider:
+        $ref: '#/definitions/ProviderType'
+      claimId:
+        type: string
+        minLength: 6
+        maxLength: 6
+      lodgementDate:
+        type: string
+        format: date
+  DVAPaymentReportResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      paymentRun:
+        $ref: '#/definitions/PaymentRunType'
+      paymentInfo:
+        $ref: '#/definitions/PaymentType'
+      claimSummary:
+        type: array
+        items:
+          $ref: '#/definitions/ClaimSummaryType'
+        minItems: 1
+      status:
+        type: string
+  DVAProcessingReportResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      claimAssessment:
+        $ref: '#/definitions/DVAClaimAssessmentType'
+      status:
+        type: string
+  DVAClaimAssessmentType:
+    type: object
+    properties:
+      medicalEvent:
+        type: array
+        items:
+          $ref: '#/definitions/DVAMedicalEventAssessmentType'
+        minItems: 1
+      serviceProvider:
+        $ref: '#/definitions/ProviderType'
+      benefitPaid:
+        type: string
+      chargeAmount:
+        type: string
+        minLength: 1
+        maxLength: 9
+      claimId:
+        type: string
+  DVAMedicalEventAssessmentType:
+    type: object
+    properties:
+      patient:
+        $ref: '#/definitions/VeteranMembershipStatusType'
+      service:
+        type: array
+        items:
+          $ref: '#/definitions/DVAServiceAssessmentType'
+        minItems: 1
+      id:
+        type: string
+      eventDate:
+        type: string
+        format: date
+  VeteranMembershipStatusType:
+    type: object
+    properties:
+      currentMembership:
+        $ref: '#/definitions/VeteranMembershipResponseType'
+      currentMember:
+        $ref: '#/definitions/IdentityType'
+      status:
+        $ref: '#/definitions/StatusType'
+      processDate:
+        type: string
+        format: date
+  VeteranMembershipResponseType:
+    allOf:
+    - $ref: '#/definitions/VeteranMembershipType'
+    - type: object
+      properties:
+        entitlementCode:
+          type: string
+  DVAServiceAssessmentType:
+    type: object
+    properties:
+      id:
+        type: string
+      accountReferenceNumber:
+        type: string
+      assessmentCode:
+        type: string
+      benefitPaid:
+        type: string
+      chargeAmount:
+        type: string
+        minLength: 1
+        maxLength: 9
+      gstInd:
+        type: string
+      itemNumber:
+        type: string
+      numberOfPatientsSeen:
+        type: string
+  EnterpriseConcessionVerificationRequestType:
+    type: object
+    required:
+    - concessionVerificationRequest
+    properties:
+      timeout:
+        type: integer
+      concessionVerificationRequest:
+        type: array
+        items:
+          $ref: '#/definitions/ReferenceConcessionVerificationRequestType'
+        minItems: 1
+    example:
+      timeout: 12
+      concessionVerificationRequest:
+      - patient:
+          identity:
+            familyName: Abhi
+            givenName: XCM
+            dateOfBirth: '2018-10-10T00:00:00.000Z'
+          medicare:
+            memberRefNumber: '1'
+            memberNumber: '2510484911'
+        dateOfService: '2019-03-18T00:00:00.000Z'
+        id: '01'
+      - patient:
+          identity:
+            dateOfBirth: '1980-06-01T00:00:00.000Z'
+            familyName: Person
+            givenName: Dev
+          medicare:
+            memberNumber: '2509999891'
+            memberRefNumber: '1'
+        dateOfService: '2019-03-19T00:00:00.000Z'
+        id: '02'
+  ReferenceConcessionVerificationRequestType:
+    allOf:
+    - $ref: '#/definitions/ConcessionVerificationRequestType'
+    - type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+  ConcessionVerificationRequestType:
+    type: object
+    discriminator: concessionVerificationRequestType
+    required:
+    - patient
+    properties:
+      patient:
+        $ref: '#/definitions/MedicarePatientType'
+      dateOfService:
+        type: string
+        format: date
+  EnterpriseConcessionVerificationResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      status:
+        type: string
+      concessionVerificationResponse:
+        type: array
+        items:
+          $ref: '#/definitions/ReferenceConcessionVerificationResponseType'
+        minItems: 1
+  ReferenceConcessionVerificationResponseType:
+    allOf:
+    - $ref: '#/definitions/ConcessionVerificationResponseType'
+    - type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+  ConcessionVerificationResponseType:
+    type: object
+    discriminator: concessionVerificationResponseType
+    required:
+    - medicareStatus
+    - concessionStatus
+    properties:
+      medicareStatus:
+        $ref: '#/definitions/MembershipStatusType'
+      concessionStatus:
+        $ref: '#/definitions/ConcessionStatusType'
+  ConcessionStatusType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      processDate:
+        type: string
+        format: date
+  EnterprisePatientVerificationRequestType:
+    type: object
+    required:
+    - patientVerificationRequest
+    properties:
+      timeout:
+        type: integer
+      patientVerificationRequest:
+        type: array
+        items:
+          $ref: '#/definitions/ReferencePatientVerificationRequestType'
+        minItems: 1
+    example:
+      timeout: 12
+      patientVerificationRequest:
+      - patient:
+          identity:
+            dateOfBirth: '1980-06-01T00:00:00.000Z'
+            familyName: Person
+            givenName: Dev
+            secondInitial: J
+            sex: '2'
+          medicare:
+            memberNumber: '2509999891'
+            memberRefNumber: '1'
+          healthFund:
+            memberNumber: '2509999891'
+            memberRefNumber: '1'
+            organisation: DDD
+        typeCode: OPV
+        id: '0001'
+  ReferencePatientVerificationRequestType:
+    allOf:
+    - $ref: '#/definitions/PatientVerificationRequestType'
+    - type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+  PatientVerificationRequestType:
+    type: object
+    discriminator: patientVerificationRequestType
+    required:
+    - patient
+    - typeCode
+    properties:
+      patient:
+        $ref: '#/definitions/FundPatientType'
+      provider:
+        $ref: '#/definitions/ProviderType'
+      dateOfService:
+        type: string
+        format: date
+      typeCode:
+        type: string
+        minLength: 3
+        maxLength: 3
+    example:
+      patient:
+        identity:
+          dateOfBirth: '1980-06-01T00:00:00.000Z'
+          familyName: Person
+          givenName: Dev
+          secondInitial: J
+          sex: '2'
+        healthFund:
+          memberNumber: '2312312431'
+          memberRefNumber: '5'
+          organisation: DDD
+        alsoKnownAs:
+          familyName: Person
+          givenName: Bee
+        medicare:
+          memberNumber: '2509999891'
+          memberRefNumber: '1'
+      typeCode: OPV
+  FundPatientType:
+    allOf:
+    - $ref: '#/definitions/PatientType'
+    - type: object
+      properties:
+        alsoKnownAs:
+          $ref: '#/definitions/IdentityType'
+        medicare:
+          $ref: '#/definitions/MembershipType'
+        healthFund:
+          $ref: '#/definitions/FundMembershipType'
+  FundMembershipType:
+    type: object
+    properties:
+      memberNumber:
+        type: string
+        minLength: 1
+        maxLength: 19
+      memberRefNumber:
+        type: string
+        minLength: 1
+        maxLength: 2
+      organisation:
+        type: string
+        minLength: 3
+        maxLength: 3
+  EnterprisePatientVerificationResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      status:
+        type: string
+      patientVerificationResponse:
+        type: array
+        items:
+          $ref: '#/definitions/ReferencePatientVerificationResponseType'
+        minItems: 1
+  ReferencePatientVerificationResponseType:
+    allOf:
+    - $ref: '#/definitions/PatientVerificationResponseType'
+    - type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+  PatientVerificationResponseType:
+    type: object
+    discriminator: patientVerificationResponseType
+    properties:
+      medicareStatus:
+        $ref: '#/definitions/MembershipStatusType'
+      healthFundStatus:
+        $ref: '#/definitions/FundMembershipStatusType'
+  FundMembershipStatusType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      currentMembership:
+        $ref: '#/definitions/FundMembershipType'
+      currentMember:
+        $ref: '#/definitions/IdentityType'
+      processDate:
+        type: string
+        format: date
+  EnterpriseVeteranVerificationRequestType:
+    type: object
+    required:
+    - veteranVerificationRequest
+    properties:
+      timeout:
+        type: integer
+      veteranVerificationRequest:
+        type: array
+        items:
+          $ref: '#/definitions/ReferenceVeteranVerificationRequestType'
+        minItems: 1
+  ReferenceVeteranVerificationRequestType:
+    allOf:
+    - $ref: '#/definitions/VeteranVerificationRequestType'
+    - type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+  VeteranVerificationRequestType:
+    type: object
+    discriminator: veteranVerificationRequestType
+    required:
+    - patient
+    properties:
+      patient:
+        $ref: '#/definitions/VeteranPatientType'
+  EnterpriseVeteranVerificationResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      status:
+        type: string
+      veteranVerificationResponse:
+        type: array
+        items:
+          $ref: '#/definitions/ReferenceVeteranVerificationResponseType'
+        minItems: 1
+  ReferenceVeteranVerificationResponseType:
+    allOf:
+    - $ref: '#/definitions/VeteranVerificationResponseType'
+    - type: object
+      properties:
+        id:
+          type: string
+  VeteranVerificationResponseType:
+    type: object
+    discriminator: veteranVerificationResponseType
+    properties:
+      veteranStatus:
+        $ref: '#/definitions/VeteranMembershipStatusType'
+  PatientClaimInteractiveRequestType:
+    type: object
+    required:
+    - patientClaimInteractive
+    properties:
+      patientClaimInteractive:
+        $ref: '#/definitions/PatientClaimInteractiveType'
+  PatientClaimInteractiveType:
+    type: object
+    required:
+    - patient
+    - claimant
+    - medicalEvent
+    - serviceProvider
+    - accountPaidInd
+    - submissionAuthorityInd
+    - authorisationDate
+    properties:
+      patient:
+        $ref: '#/definitions/MedicarePatientType'
+      referral:
+        $ref: '#/definitions/ReferralType'
+      claimant:
+        $ref: '#/definitions/ClaimantType'
+      medicalEvent:
+        type: array
+        items:
+          $ref: '#/definitions/PCIMedicalEventType'
+        minItems: 1
+      payeeProvider:
+        $ref: '#/definitions/ProviderType'
+      serviceProvider:
+        $ref: '#/definitions/ProviderType'
+      referralOverrideCode:
+        type: string
+        minLength: 1
+        maxLength: 1
+      accountPaidInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      accountReferenceId:
+        type: string
+      submissionAuthorityInd:
+        type: string
+        minLength: 1
+        maxLength: 1
+      authorisationDate:
+        type: string
+        format: date
+  ClaimantType:
+    allOf:
+    - $ref: '#/definitions/MedicarePatientType'
+    - type: object
+      properties:
+        eftDetails:
+          $ref: '#/definitions/BankAccountType'
+        residentialAddress:
+          $ref: '#/definitions/AddressType'
+        contactDetails:
+          $ref: '#/definitions/ContactType'
+  ContactType:
+    type: object
+    properties:
+      emailAddress:
+        type: string
+        minLength: 5
+        maxLength: 128
+      name:
+        type: string
+      phoneNumber:
+        type: string
+        minLength: 8
+        maxLength: 19
+  PCIMedicalEventType:
+    type: object
+    required:
+    - service
+    - id
+    - medicalEventDate
+    properties:
+      service:
+        type: array
+        items:
+          $ref: '#/definitions/PCIServiceType'
+        minItems: 1
+      id:
+        type: string
+        minLength: 2
+        maxLength: 2
+      medicalEventDate:
+        type: string
+        format: date
+      medicalEventTime:
+        type: string
+        pattern: '^([0-1][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)([.][0-9]*)?(Z|z|(([+]|-)([0-1][0-9]|2[0-3]):[0-5][0-9]))?$'
+  PCIServiceType:
+    allOf:
+    - $ref: '#/definitions/ServiceType'
+    - type: object
+      properties:
+        patientContribAmount:
+          type: string
+          minLength: 3
+          maxLength: 7
+        facilityId:
+          type: string
+          minLength: 8
+          maxLength: 8
+        hospitalInd:
+          type: string
+          minLength: 1
+          maxLength: 1
+  PatientClaimInteractiveResponseType:
+    type: object
+    required:
+    - claimAssessment
+    - status
+    properties:
+      claimAssessment:
+        $ref: '#/definitions/PCIAssessmentType'
+      status:
+        type: string
+  PCIAssessmentType:
+    type: object
+    required:
+    - claimId
+    properties:
+      claimant:
+        $ref: '#/definitions/CurrentMembershipType'
+      patient:
+        $ref: '#/definitions/CurrentMembershipType'
+      medicalEvent:
+        type: array
+        items:
+          $ref: '#/definitions/PCIMedicalEventResponseType'
+        minItems: 1
+      error:
+        $ref: '#/definitions/StatusType'
+      claimId:
+        type: string
+  CurrentMembershipType:
+    type: object
+    required:
+    - currentMembership
+    properties:
+      currentMembership:
+        $ref: '#/definitions/MembershipType'
+  PCIMedicalEventResponseType:
+    type: object
+    properties:
+      service:
+        type: array
+        items:
+          $ref: '#/definitions/ServiceResponseType'
+        minItems: 1
+      eventDate:
+        type: string
+        format: date
+      id:
+        type: string
+  RetrieveReportRequestType:
+    type: object
+    required:
+    - transactionId
+    properties:
+      transactionId:
+        type: array
+        items:
+          type: string
+        minItems: 1
+  RetrieveReportResponseType:
+    type: object
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/ContentType'
+        minItems: 1
+  ContentType:
+    type: object
+    discriminator: contentType
+    properties:
+      transactionId:
+        type: string
+      status:
+        type: string
+  EnterpriseConcessionVerificationReportContentType:
+    allOf:
+    - $ref: '#/definitions/ContentType'
+    - type: object
+      properties:
+        report:
+          $ref: '#/definitions/EnterpriseConcessionVerificationResponseType'
+  EnterprisePatientVerificationReportContentType:
+    allOf:
+    - $ref: '#/definitions/ContentType'
+    - type: object
+      properties:
+        report:
+          $ref: '#/definitions/EnterprisePatientVerificationResponseType'
+  EnterpriseVeteranVerificationReportContentType:
+    allOf:
+    - $ref: '#/definitions/ContentType'
+    - type: object
+      properties:
+        report:
+          $ref: '#/definitions/EnterpriseVeteranVerificationResponseType'
+  SameDayDeleteRequestType:
+    type: object
+    required:
+    - sameDayDelete
+    properties:
+      sameDayDelete:
+        $ref: '#/definitions/SameDayDeleteType'
+  SameDayDeleteType:
+    type: object
+    required:
+    - patient
+    - reasonCode
+    properties:
+      patient:
+        $ref: '#/definitions/MedicarePatientType'
+      reasonCode:
+        type: string
+        minLength: 3
+        maxLength: 3
+  SameDayDeleteResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      status:
+        type: string
+  StatusReportRequestType:
+    type: object
+    properties:
+      transactionId:
+        type: array
+        items:
+          type: string
+        minItems: 1
+      associateName:
+        type: string
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+      reportStatus:
+        type: string
+      requestTransmissionType:
+        type: string
+      status:
+        type: string
+  StatusReportResponseType:
+    type: object
+    required:
+    - status
+    properties:
+      transactionStatus:
+        type: array
+        items:
+          $ref: '#/definitions/TransactionStatusType'
+        minItems: 1
+      status:
+        type: string
+  TransactionStatusType:
+    type: object
+    properties:
+      associateName:
+        type: string
+      lodgementDateTime:
+        type: string
+        format: date-time
+      processStatus:
+        type: string
+      reference:
+        type: string
+      reportStatus:
+        type: string
+      requestTransmissionType:
+        type: string
+      transactionId:
+        type: string
+tags: []
+parameters:
+  Authorization:
+    name: Authorization
+    type: string
+    required: true
+    in: header
+    description: JWT header for authorization
+    default: Bearer REPLACE_THIS_KEY
+  dhs-auditId:
+    name: dhs-auditId
+    type: string
+    required: true
+    in: header
+    description: DHS Audit ID
+    default: LOC00001
+  dhs-subjectId:
+    name: dhs-subjectId
+    type: string
+    required: true
+    in: header
+    description: DHS Subject ID
+    default: '2509999891'
+  dhs-messageId:
+    name: dhs-messageId
+    type: string
+    required: true
+    in: header
+    description: DHS Message ID
+    default: 'urn:uuid:a83f0c71-84a1-42c5-a442-51ea754f088e'
+  dhs-auditIdType:
+    name: dhs-auditIdType
+    type: string
+    required: true
+    in: header
+    description: DHS Audit Type
+    default: Location Id
+  dhs-correlationId:
+    name: dhs-correlationId
+    type: string
+    required: true
+    in: header
+    description: DHS Correlation ID
+    default: 'urn:uuid:LOC00001a72594485d924214'
+  dhs-productId:
+    name: dhs-productId
+    type: string
+    required: true
+    in: header
+    description: DHS Product ID
+    default: MyProduct 1.0
+  dhs-subjectIdType:
+    name: dhs-subjectIdType
+    type: string
+    required: true
+    in: header
+    description: DHS Subject ID Type
+    default: Medicare Card

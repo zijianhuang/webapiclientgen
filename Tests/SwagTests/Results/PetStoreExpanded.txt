@@ -47,8 +47,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public Misc(System.Net.Http.HttpClient client)
 		{
 			if (client == null)

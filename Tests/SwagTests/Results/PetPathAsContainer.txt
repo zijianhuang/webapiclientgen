@@ -257,8 +257,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public PetClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -387,8 +385,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public PetUploadImageClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -430,8 +426,6 @@ namespace MyNS
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public PetFindByStatusClient(System.Net.Http.HttpClient client)
 		{
@@ -476,8 +470,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public PetFindByTagsClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -521,8 +513,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public StoreInventoryClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -563,8 +553,6 @@ namespace MyNS
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public StoreOrderClient(System.Net.Http.HttpClient client)
 		{
@@ -658,8 +646,6 @@ namespace MyNS
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public UserClient(System.Net.Http.HttpClient client)
 		{
@@ -773,8 +759,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public UserCreateWithArrayClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -815,8 +799,6 @@ namespace MyNS
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public UserCreateWithListClient(System.Net.Http.HttpClient client)
 		{
@@ -859,8 +841,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public UserLoginClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -902,8 +882,6 @@ namespace MyNS
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public UserLogoutClient(System.Net.Http.HttpClient client)
 		{

@@ -12,21 +12,50 @@ namespace Fonlow.OpenApiClientGen
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			Console.WriteLine("Fonlow.OpenApiClientGen.exe generates C# and TypeScript client codes from an Open API YAML/JSON file.");
+			Console.WriteLine(@"
+Parameter 1: Open API YAML/JSON file
+Parameter 2: Settings file in JSON format.
+Example:  
+For classes decorated by DataContractAttribute:
+  Fonlow.OpenApiClientGen.exe my.yaml
+For classes decorated by Newtonsoft.Json.JsonObjectAttribute:
+  Fonlow.OpenApiClientGen.exe my.yaml myproj.json
+For classes decorated by SerializableAttribute:
+  Fonlow.OpenApiClientGen.exe my.yaml ..\myproj.json
+
+");
 			if (args.Length == 0)
 			{
-				Console.WriteLine("Need file path or URL");
+				Console.WriteLine("Warning: Need yaml/json path and settings path.");
+				return;
 			}
 
-			var path = args[0];
+			if (args.Length == 1)
+			{
+				Console.WriteLine("Warning: Need settings path.");
+				return;
+			}
+
+			var defFile = args[0];
+			var settingsFile = args[1];
+
+			var settingsString = File.ReadAllText(settingsFile);
+			var settings = System.Text.Json.JsonSerializer.Deserialize<Fonlow.OpenApi.ClientTypes.Settings>(settingsString);
 
 			OpenApiDocument doc;
-			using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+			using (var stream = new FileStream(defFile, FileMode.Open, FileAccess.Read))
 			{
 				doc = new OpenApiStreamReader().Read(stream, out var diagnostic);
 			}
 
+			Console.WriteLine("Processing...");
 			Console.Write(doc.Info.FormatOpenApiInfo());
+
+			Fonlow.CodeDom.Web.CodeGen.GenerateClientAPIs(settings, doc.Paths, doc.Components, Directory.GetCurrentDirectory());
+
+			Console.WriteLine("Done");
+
 		}
 
 	}

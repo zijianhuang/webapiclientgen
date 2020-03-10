@@ -45,7 +45,10 @@
 
 	public class Settings
 	{
-		public string ClientNamespace { get; set; }
+		/// <summary>
+		/// The generated codes should be contained in a namespace. The default is My.Namespace.
+		/// </summary>
+		public string ClientNamespace { get; set; } = "My.Namespace";
 
 		/// <summary>
 		/// To compose client function name through removing path prefix. Typically / or /api. The default is /.
@@ -76,6 +79,11 @@
 		/// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
 		/// </summary>
 		public string ClientLibraryProjectFolderName { get; set; }
+
+		/// <summary>
+		/// The name of the CS file to be generated under client library project folder. The default is OpenApiClientAuto.cs.
+		/// </summary>
+		public string ClientLibraryFileName { get; set; } = "OpenApiClientAuto.cs";
 
 		/// <summary>
 		/// For .NET client, generate both async and sync functions for each Web API function

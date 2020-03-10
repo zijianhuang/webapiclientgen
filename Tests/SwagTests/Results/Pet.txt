@@ -257,8 +257,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public PetClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -652,8 +650,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public StoreClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)
@@ -870,8 +866,6 @@ namespace MyNS
 	{
 		
 		private System.Net.Http.HttpClient client;
-		
-		private System.Uri baseUri;
 		
 		public UserClient(System.Net.Http.HttpClient client)
 		{

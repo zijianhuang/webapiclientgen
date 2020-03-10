@@ -228,11 +228,11 @@ namespace Fonlow.OpenApiClientGen.Cs
 			clientField.Type = new CodeTypeReference("System.Net.Http.HttpClient");
 			targetClass.Members.Add(clientField);
 
-			CodeMemberField baseUriField = new CodeMemberField();
-			baseUriField.Attributes = MemberAttributes.Private;
-			baseUriField.Name = "baseUri";
-			baseUriField.Type = new CodeTypeReference("System.Uri");
-			targetClass.Members.Add(baseUriField);
+			//CodeMemberField baseUriField = new CodeMemberField();
+			//baseUriField.Attributes = MemberAttributes.Private;
+			//baseUriField.Name = "baseUri";
+			//baseUriField.Type = new CodeTypeReference("System.Uri");
+			//targetClass.Members.Add(baseUriField);
 
 		}
 

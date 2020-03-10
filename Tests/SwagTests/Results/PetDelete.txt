@@ -21,8 +21,6 @@ namespace MyNS
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
-		
 		public PetClient(System.Net.Http.HttpClient client)
 		{
 			if (client == null)

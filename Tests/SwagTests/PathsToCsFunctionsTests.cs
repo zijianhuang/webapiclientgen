@@ -181,6 +181,22 @@ namespace MyNS
             Assert.Equal(ReadFromResults("Results\\Uspto.txt"), s);
         }
 
+        //[Fact]
+        //public void TestMcp()
+        //{
+        //    var s = TranslateJsonToCode("SwagMock\\mcp.yaml", new Settings()
+        //    {
+        //        ClientNamespace = "MyNS",
+        //        ContainerClassName = "McpClient",
+        //        ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
+        //        //RegexForNormalizedOperationId = @"\w*",
+        //        ContainerNameStrategy = ContainerNameStrategy.None,
+        //        GenerateBothAsyncAndSync = false,
+        //        PathPrefixToRemove= "/mcp",
+        //    });
+        //    Assert.Equal(ReadFromResults("Results\\PetStore.txt"), s);
+        //}
+
 
 
 

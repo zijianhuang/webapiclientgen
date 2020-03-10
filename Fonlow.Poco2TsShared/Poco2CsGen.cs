@@ -110,6 +110,7 @@ namespace Fonlow.Poco2Client
 		/// </summary>
 		/// <param name="types">POCO types.</param>
 		/// <param name="methods">How to cherry pick data to be exposed to the clients.</param>
+		/// <param name="clientNamespaceSuffix"></param>
 		public void CreateCodeDom(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
 		{
 			if (types == null)

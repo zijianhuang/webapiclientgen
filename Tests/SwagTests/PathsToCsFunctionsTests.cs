@@ -42,7 +42,7 @@ namespace SwagTests
         static void GenerateAndAssert(string openApiFile, string expectedFile, Settings mySettings = null)
         {
             var s = TranslateJsonToCode(openApiFile, mySettings);
-            File.WriteAllText(expectedFile, s); //To update Results after some feature changes. Copy what in the bin folder back to the source content.
+            //File.WriteAllText(expectedFile, s); //To update Results after some feature changes. Copy what in the bin folder back to the source content.
             Assert.Equal(ReadFromResults(expectedFile), s);
         }
 

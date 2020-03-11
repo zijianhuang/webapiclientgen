@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
-using Microsoft.OpenApi.Readers.Exceptions;
-using Microsoft.OpenApi;
+using System;
 using System.IO;
 using System.Text;
 
@@ -12,7 +10,7 @@ namespace Fonlow.OpenApiClientGen
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Fonlow.OpenApiClientGen.exe generates C# and TypeScript client codes from an Open API YAML/JSON file.");
+			Console.WriteLine("Fonlow.OpenApiClientGen.exe generates C# and TypeScript client codes according to an Open API YAML/JSON file.");
 			Console.WriteLine(@"
 Parameter 1: Open API YAML/JSON file
 Parameter 2: Settings file in JSON format.
@@ -41,7 +39,7 @@ For classes decorated by SerializableAttribute:
 			var settingsFile = args[1];
 
 			var settingsString = File.ReadAllText(settingsFile);
-			var settings = System.Text.Json.JsonSerializer.Deserialize<Fonlow.OpenApi.ClientTypes.Settings>(settingsString);
+			var settings = System.Text.Json.JsonSerializer.Deserialize<ClientTypes.Settings>(settingsString);
 
 			OpenApiDocument doc;
 			using (var stream = new FileStream(defFile, FileMode.Open, FileAccess.Read))

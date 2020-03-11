@@ -1,14 +1,12 @@
-﻿using Fonlow.Poco2Client;
+﻿using Fonlow.OpenApiClientGen.ClientTypes;
 using Fonlow.TypeScriptCodeDom;
+using Microsoft.OpenApi.Models;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Fonlow.Web.Meta;
-using Fonlow.OpenApi.ClientTypes;
-using Microsoft.OpenApi.Models;
 
 namespace Fonlow.CodeDom.Web.Ts
 {

@@ -1,5 +1,4 @@
 ﻿using Fonlow.Poco2Client;
-using Fonlow.Reflection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using System;
@@ -9,19 +8,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-namespace Fonlow.OpenApi.ClientTypes
+namespace Fonlow.OpenApiClientGen.ClientTypes
 {
 	/// <summary>
-	/// POCO to TypeScript interfaces generator. Create CodeDOM and output TS codes, with TypeScript CodeDOM provider
+	/// Create CS Types CodeDOM from OpenApiComponents
 	/// </summary>
-	public class ComponentsToTsTypes
+	public class ComponentsToCsTypes
 	{
-		public ComponentsToTsTypes(Settings settings, CodeCompileUnit codeCompileUnit, CodeNamespace clientNamespace)
+		public ComponentsToCsTypes(Settings settings, CodeCompileUnit codeCompileUnit, CodeNamespace clientNamespace)
 		{
 			this.codeCompileUnit = codeCompileUnit;
 			this.settings = settings;
 			this.nameComposer = new NameComposer(settings);
-			this.clientNamespace = clientNamespace;
+			this.ClientNamespace = clientNamespace;
 		}
 
 		readonly CodeCompileUnit codeCompileUnit;
@@ -37,13 +36,22 @@ namespace Fonlow.OpenApi.ClientTypes
 		public void SaveCodeToFile(string fileName)
 		{
 			if (String.IsNullOrEmpty(fileName))
-				throw new ArgumentException("A valid fileName is not defined.", "fileName");
+				throw new ArgumentException("A valid fileName is not defined.", nameof(fileName));
 
 			try
 			{
-				using (StreamWriter writer = new StreamWriter(fileName))
+				using (var stream = new MemoryStream())
+				using (StreamWriter writer = new StreamWriter(stream))
 				{
 					WriteCode(writer);
+					writer.Flush();
+					stream.Position = 0;
+					using (var stringReader = new StreamReader(stream))
+					using (var fileWriter = new StreamWriter(fileName))
+					{
+						var s = stringReader.ReadToEnd();
+						fileWriter.Write(s.Replace("//;", ""));
+					}
 				}
 			}
 			catch (IOException e)
@@ -63,11 +71,11 @@ namespace Fonlow.OpenApi.ClientTypes
 		void WriteCode(TextWriter writer)
 		{
 			//if (writer == null)
-			//	throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
+			//	throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
 
-			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true))
+			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
 			{
-				CodeGeneratorOptions options = new CodeGeneratorOptions() { BracingStyle = "JS", IndentString = "\t" };
+				CodeGeneratorOptions options = new CodeGeneratorOptions() { BracingStyle = "C", IndentString = "\t" };
 				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 			}
 		}
@@ -81,14 +89,8 @@ namespace Fonlow.OpenApi.ClientTypes
 			}
 		}
 
-		CodeNamespace clientNamespace;
+		public CodeNamespace ClientNamespace { get; private set; }
 
-		/// <summary>
-		/// Create TypeScript CodeDOM for POCO types. 
-		/// For an enum type, all members will be processed regardless of EnumMemberAttribute.
-		/// </summary>
-		/// <param name="types">POCO types.</param>
-		/// <param name="methods"></param>
 		public void CreateCodeDom(OpenApiComponents components)
 		{
 			if (components == null)
@@ -109,9 +111,9 @@ namespace Fonlow.OpenApi.ClientTypes
 				CodeTypeDeclaration typeDeclaration;
 				if (isForClass)
 				{
-					if (schema.Properties.Count > 0 || (schema.Properties.Count == 0 && allOfBaseTypeSchemaList.Count > 1))
+					if (schema.Properties.Count > 0 || (schema.Properties.Count==0 && allOfBaseTypeSchemaList.Count>1))
 					{
-						typeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, typeName);
+						typeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, typeName);
 						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
 						{
 							var allOfRef = allOfBaseTypeSchemaList[0];
@@ -137,7 +139,7 @@ namespace Fonlow.OpenApi.ClientTypes
 				}
 				else
 				{
-					typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, typeName);
+					typeDeclaration = PodGenHelper.CreatePodClientEnum(ClientNamespace, typeName);
 					CreateTypeOrMemberDocComment(item, typeDeclaration);
 					AddEnumMembers(typeDeclaration, enumTypeList);
 				}
@@ -185,11 +187,11 @@ namespace Fonlow.OpenApi.ClientTypes
 		{
 			foreach (var p in schema.Properties)
 			{
-				var propertyName = p.Key;
+				var propertyName = ToTitleCase(p.Key);
 				var propertySchema = p.Value;
 				var premitivePropertyType = propertySchema.Type;
-				var isRequired = schema.Required.Contains(propertyName);
-
+				var isRequired = schema.Required.Contains(p.Key); //compare with the original key
+				
 
 				CodeMemberField clientProperty;
 				if (String.IsNullOrEmpty(premitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
@@ -202,8 +204,7 @@ namespace Fonlow.OpenApi.ClientTypes
 					else if (propertySchema.OneOf.Count > 0)
 					{
 						refToType = propertySchema.OneOf[0];
-					}
-					else if (propertySchema.AnyOf.Count > 0)
+					}else if (propertySchema.AnyOf.Count > 0)
 					{
 						refToType = propertySchema.AnyOf[0];
 					}
@@ -211,7 +212,7 @@ namespace Fonlow.OpenApi.ClientTypes
 					var customPropertyType = refToType.Type;
 					var customPropertyFormat = refToType.Format;
 					var customType = nameComposer.PrimitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);
-					clientProperty = CreateProperty(propertyName, customType, isRequired);
+					clientProperty = CreateProperty(propertyName, customType);
 				}
 				else
 				{
@@ -222,7 +223,7 @@ namespace Fonlow.OpenApi.ClientTypes
 						{
 							var arrayTypeName = arrayItemsSchema.Reference.Id;
 							var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(arrayTypeName, 1);
-							clientProperty = CreateProperty(arrayCodeTypeReference, propertyName, isRequired);
+							clientProperty = CreateProperty(arrayCodeTypeReference, propertyName);
 						}
 						else
 						{
@@ -230,30 +231,30 @@ namespace Fonlow.OpenApi.ClientTypes
 							if (arrayItemsSchema.Properties != null && arrayItemsSchema.Properties.Count > 0) // for casual type
 							{
 								var casualTypeName = typeDeclaration.Name + ToTitleCase(propertyName);
-								var casualTypeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, casualTypeName);
+								var casualTypeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, casualTypeName);
 								AddProperties(casualTypeDeclaration, arrayItemsSchema);
 								var arrayCodeTypeReference = CreateArrayOfCustomTypeReference(casualTypeName, 1);
-								clientProperty = CreateProperty(arrayCodeTypeReference, casualTypeName, isRequired);
+								clientProperty = CreateProperty(arrayCodeTypeReference, casualTypeName);
 							}
 							else
 							{
 								var clrType = nameComposer.PrimitiveSwaggerTypeToClrType(arrayType, null);
 								var arrayCodeTypeReference = CreateArrayTypeReference(clrType, 1);
-								clientProperty = CreateProperty(arrayCodeTypeReference, propertyName, isRequired);
+								clientProperty = CreateProperty(arrayCodeTypeReference, propertyName);
 							}
 						}
 					}
 					else if (propertySchema.Enum.Count == 0) // for premitive type
 					{
 						var simpleType = nameComposer.PrimitiveSwaggerTypeToClrType(premitivePropertyType, propertySchema.Format);
-						clientProperty = CreateProperty(propertyName, simpleType, isRequired);
+						clientProperty = CreateProperty(propertyName, simpleType);
 					}
 					else // for casual enum
 					{
 						var casualEnumName = typeDeclaration.Name + ToTitleCase(propertyName);
-						var casualEnumTypeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, casualEnumName);
+						var casualEnumTypeDeclaration = PodGenHelper.CreatePodClientEnum(ClientNamespace, casualEnumName);
 						AddEnumMembers(casualEnumTypeDeclaration, propertySchema.Enum);
-						clientProperty = CreateProperty(propertyName, casualEnumName, isRequired);
+						clientProperty = CreateProperty(propertyName, casualEnumName);
 					}
 				}
 
@@ -268,59 +269,64 @@ namespace Fonlow.OpenApi.ClientTypes
 			}
 		}
 
-		void CreateTypeOrMemberDocComment(KeyValuePair<string, OpenApiSchema> item, CodeTypeMember declaration)
-		{
-			if (String.IsNullOrEmpty(item.Value.Description))
-				return;
-
-			declaration.Comments.Add(new CodeCommentStatement(item.Value.Description, true));
-		}
-
-		CodeMemberField CreateProperty(string propertyName, Type type, bool isRequired)
-		{
-			var memberName = propertyName + (isRequired ? String.Empty : "?");
-			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(type), Name = memberName };
-			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
-			return result;
-		}
-
-		CodeMemberField CreateProperty(string propertyName, string typeName, bool isRequired)
-		{
-			var memberName = propertyName + (isRequired ? String.Empty : "?");
-			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(typeName), Name = memberName };
-			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
-			return result;
-		}
-
-		CodeMemberField CreateProperty(CodeTypeReference codeTypeReference, string propertyName, bool isRequired)
-		{
-			var memberName = propertyName + (isRequired ? String.Empty : "?");
-			CodeMemberField result = new CodeMemberField(codeTypeReference, memberName);
-			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
-			return result;
-		}
-
 		static string ToTitleCase(string s)
 		{
 			return String.IsNullOrEmpty(s) ? s : (char.ToUpper(s[0]) + (s.Length > 1 ? s.Substring(1) : String.Empty));
 		}
 
-		/// <summary>
-		/// Translate a service type into a CodeTypeReference for client.
-		/// </summary>
-		/// <param name="type">CLR type of the service</param>
-		/// <returns></returns>
+		void CreateTypeOrMemberDocComment(KeyValuePair<string, OpenApiSchema> item, CodeTypeMember declaration)
+		{
+			var typeComment = item.Value.Description;
+			AddDocComments(typeComment, declaration.Comments);
+
+		}
+
+		static void AddDocComments(string description, CodeCommentStatementCollection comments)
+		{
+			if (description != null && comments != null)
+			{
+				comments.Add(new CodeCommentStatement("<summary>", true));
+				comments.Add(new CodeCommentStatement(description, true));
+				comments.Add(new CodeCommentStatement("</summary>", true));
+			}
+		}
+
+		CodeMemberField CreateProperty(string propertyName, Type type)
+		{
+			// This is a little hack. Since you cant create auto properties in CodeDOM,
+			//  we make the getter and setter part of the member name.
+			// This leaves behind a trailing semicolon that we comment out.
+			//  Later, we remove the commented out semicolons.
+			string memberName = propertyName + " { get; set; }//";
+
+			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(type), Name = memberName };
+			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+			return result;
+		}
+
+		CodeMemberField CreateProperty(string propertyName, string typeName)
+		{
+			string memberName = propertyName + " { get; set; }//";
+
+			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(typeName), Name = memberName };
+			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+			return result;
+		}
+
+		CodeMemberField CreateProperty(CodeTypeReference codeTypeReference, string propertyName)
+		{
+			string memberName = propertyName + " { get; set; }//";
+
+			CodeMemberField result = new CodeMemberField(codeTypeReference, memberName);
+			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+			return result;
+		}
+
 		public CodeTypeReference TranslateToClientTypeReference(Type type)
 		{
 			if (type == null)
-				return new CodeTypeReference("void");
-
-			if (TypeHelper.IsSimpleType(type))
-			{
-				var typeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
-				return new CodeTypeReference(typeText);
-			}
-			else if (type.IsArray)
+				return null;// new CodeTypeReference("void");
+			if (type.IsArray)
 			{
 				Debug.Assert(type.Name.EndsWith("]"));
 				var elementType = type.GetElementType();
@@ -328,17 +334,8 @@ namespace Fonlow.OpenApi.ClientTypes
 				return CreateArrayTypeReference(elementType, arrayRank);
 			}
 
-			var tsBasicTypeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
-			if (tsBasicTypeText != null)
-				return new CodeTypeReference(tsBasicTypeText);
+			return new CodeTypeReference(type);
 
-			var actionResultTypeReference = TranslateActionResultToClientTypeReference(type);
-			if (actionResultTypeReference != null)
-			{
-				return actionResultTypeReference;
-			}
-
-			return new CodeTypeReference("any");
 		}
 
 		public CodeTypeReference TranslateToClientTypeReference(string typeName)
@@ -348,16 +345,6 @@ namespace Fonlow.OpenApi.ClientTypes
 
 			return new CodeTypeReference(typeName);
 
-		}
-
-		virtual protected CodeTypeReference TranslateActionResultToClientTypeReference(Type type)
-		{
-			if (type.FullName.Contains("System.Net.Http.HttpResponseMessage") || type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.ActionResult"))
-			{
-				return new CodeTypeReference("response");
-			}
-
-			return null;
 		}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
@@ -379,8 +366,5 @@ namespace Fonlow.OpenApi.ClientTypes
 			return typeReference;
 		}
 
-
-
 	}
-
 }

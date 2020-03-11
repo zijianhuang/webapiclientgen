@@ -1,4 +1,4 @@
-﻿namespace Fonlow.OpenApi.ClientTypes
+﻿namespace Fonlow.OpenApiClientGen.ClientTypes
 {
 	public enum ActionNameStrategy
 	{
@@ -122,6 +122,9 @@
 
 	public class JSPlugin
 	{
+		/// <summary>
+		/// Assembly file name without extension dll and dir. The assembly file should be in the same directory of the main program.
+		/// </summary>
 		public string AssemblyName { get; set; }
 
 		public string TargetDir { get; set; }

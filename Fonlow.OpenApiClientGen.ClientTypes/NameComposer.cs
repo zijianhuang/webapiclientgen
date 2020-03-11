@@ -7,7 +7,7 @@ using System.CodeDom;
 using Fonlow.Web.Meta;
 using System.Text.RegularExpressions;
 
-namespace Fonlow.OpenApi.ClientTypes
+namespace Fonlow.OpenApiClientGen.ClientTypes
 {
 	/// <summary>
 	/// Helper functions to compose names from Open API meta data

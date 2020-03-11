@@ -1,10 +1,9 @@
-using Fonlow.OpenApi.ClientTypes;
+using Fonlow.OpenApiClientGen.ClientTypes;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
+using System;
 using System.IO;
 using Xunit;
-using Fonlow.CodeDom.Web;
-using System;
 namespace SwagTests
 {
 	public class CodeGenNG2Tests

@@ -1,5 +1,5 @@
 ﻿using System.CodeDom;
-using Fonlow.OpenApi.ClientTypes;
+using Fonlow.OpenApiClientGen.ClientTypes;
 
 namespace Fonlow.CodeDom.Web.Ts
 {

@@ -5,8 +5,8 @@ using System.Diagnostics;
 using Fonlow.Reflection;
 using Fonlow.Web.Meta;
 using Microsoft.OpenApi.Models;
-using Fonlow.OpenApi.ClientTypes;
 using Fonlow.CodeDom.Web;
+using Fonlow.OpenApiClientGen.ClientTypes;
 
 namespace Fonlow.OpenApiClientGen.Cs
 {

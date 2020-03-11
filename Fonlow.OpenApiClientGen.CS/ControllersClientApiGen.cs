@@ -1,15 +1,12 @@
-﻿using System.Reflection;
-using System.IO;
+﻿using Fonlow.OpenApiClientGen.ClientTypes;
+using Microsoft.OpenApi.Models;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Linq;
-using Fonlow.Web.Meta;
-using System;
-using Fonlow.Poco2Client;
-using Fonlow.OpenApi.ClientTypes;
-using Fonlow.CodeDom.Web;
-using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Fonlow.OpenApiClientGen.Cs
 {

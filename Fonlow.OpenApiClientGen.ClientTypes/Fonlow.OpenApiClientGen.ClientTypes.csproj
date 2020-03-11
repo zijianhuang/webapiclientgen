@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Zijian Huang</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyName>Fonlow.OpenApi.ClientTypes</AssemblyName>
-    <RootNamespace>Fonlow.OpenApi.ClientTypes</RootNamespace>
+    <AssemblyName>Fonlow.OpenApiClientGen.ClientTypes</AssemblyName>
+    <RootNamespace>Fonlow.OpenApiClientGen.ClientTypes</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

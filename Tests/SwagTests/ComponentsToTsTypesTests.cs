@@ -1,4 +1,4 @@
-using Fonlow.OpenApi.ClientTypes;
+using Fonlow.OpenApiClientGen.ClientTypes;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
 using System.IO;

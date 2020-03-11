@@ -2,11 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
+    <Authors>Zijian Huang</Authors>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Fonlow.OpenApiClientGen.ClientTypes\Fonlow.OpenApiClientGen.ClientTypes.csproj" />
     <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
-    <ProjectReference Include="..\Fonlow.SwaggerToTypes\Fonlow.OpenApi.ClientTypes.csproj" />
     <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
   </ItemGroup>
 

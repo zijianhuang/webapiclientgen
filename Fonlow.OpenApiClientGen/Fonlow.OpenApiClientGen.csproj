@@ -5,6 +5,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Fonlow.OpenApiClientGen</RootNamespace>
     <AssemblyName>Fonlow.OpenApiClientGen</AssemblyName>
+    <Authors>Zijian Huang</Authors>
+    <Description>Generates C# and TypeScript client codes according to an Open API YAML/JSON file.</Description>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Zijian Huang</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +19,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fonlow.OpenApiClientGen.Abstract\Fonlow.OpenApiClientGen.Abstract.csproj" />
+    <ProjectReference Include="..\Fonlow.OpenApiClientGen.CS\Fonlow.OpenApiClientGen.CS.csproj" />
     <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
-    <ProjectReference Include="..\Fonlow.SwaggerToTypes\Fonlow.OpenApi.ClientTypes.csproj" />
     <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
   </ItemGroup>
 

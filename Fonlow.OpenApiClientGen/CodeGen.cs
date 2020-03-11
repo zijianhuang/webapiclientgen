@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Fonlow.OpenApiClientGen.ClientTypes;
 using Fonlow.Web.Meta;
-using Fonlow.OpenApi.ClientTypes;
-using Fonlow.OpenApiClientGen;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace Fonlow.CodeDom.Web
 {

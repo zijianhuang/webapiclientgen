@@ -71,6 +71,10 @@ namespace Fonlow.CodeDom.Web
 				return controllersTsClientApiGen;
 
 			}
+			catch (System.IO.FileNotFoundException e)
+			{
+				Trace.TraceError($"When loading plugin {assemblyFilePath}: {e.Message}");
+			}
 			catch (ReflectionTypeLoadException e)
 			{
 				foreach (Exception ex in e.LoaderExceptions)

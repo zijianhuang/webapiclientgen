@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "SwaggerToClientCodes": {
+    "Fonlow.OpenApiClientGen": {
       "commandName": "Project",
       "commandLineArgs": "pet.yaml petCodeGen.json"
     }

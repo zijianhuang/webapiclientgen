@@ -84,9 +84,7 @@ namespace Fonlow.CodeDom.Web
 					}
 					else
 					{
-						var s = $"Cannot instantiate plugin {plugin.AssemblyName}. Please check if the plugin assembly is in place.";
-						System.Diagnostics.Trace.TraceError(s);
-						throw new CodeGenException(s);
+						System.Diagnostics.Trace.TraceWarning($"Not done with plugin {plugin.AssemblyName}");
 					}
 				}
 			}

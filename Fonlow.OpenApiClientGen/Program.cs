@@ -1,8 +1,12 @@
 ﻿using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 
 namespace Fonlow.OpenApiClientGen
 {
@@ -35,25 +39,49 @@ For classes decorated by SerializableAttribute:
 				return;
 			}
 
-			var defFile = args[0];
-			var settingsFile = args[1];
+			var configuration = new ConfigurationBuilder()
+					.AddJsonFile("appsettings.json", false, true)
+					.Build();
 
-			var settingsString = File.ReadAllText(settingsFile);
-			var settings = System.Text.Json.JsonSerializer.Deserialize<ClientTypes.Settings>(settingsString);
+			ILogger logger;
 
-			OpenApiDocument doc;
-			using (var stream = new FileStream(defFile, FileMode.Open, FileAccess.Read))
+			using (var serviceProvider = new ServiceCollection()
+				.AddLogging(cfg =>
+				{
+					cfg.AddConfiguration(configuration.GetSection("Logging"));
+					cfg.AddConsole();
+				})
+				.BuildServiceProvider())
 			{
-				doc = new OpenApiStreamReader().Read(stream, out var diagnostic);
+				logger = serviceProvider.GetService<ILogger<Program>>();
 			}
 
-			Console.WriteLine("Processing...");
-			Console.Write(doc.Info.FormatOpenApiInfo());
+			logger.LogInformation("Program logger loaded");
 
-			Fonlow.CodeDom.Web.CodeGen.GenerateClientAPIs(settings, doc.Paths, doc.Components, Directory.GetCurrentDirectory());
 
-			Console.WriteLine("Done");
+			using (var listener = new Fonlow.Diagnostics.LoggerTraceListener(logger))
+			{
+				System.Diagnostics.Trace.Listeners.Add(listener);
 
+				var defFile = args[0];
+				var settingsFile = args[1];
+
+				var settingsString = File.ReadAllText(settingsFile);
+				var settings = System.Text.Json.JsonSerializer.Deserialize<ClientTypes.Settings>(settingsString);
+
+				OpenApiDocument doc;
+				using (var stream = new FileStream(defFile, FileMode.Open, FileAccess.Read))
+				{
+					doc = new OpenApiStreamReader().Read(stream, out var diagnostic);
+				}
+
+				Trace.TraceInformation("Processing...");
+				Console.WriteLine(doc.Info.FormatOpenApiInfo());
+
+				Fonlow.CodeDom.Web.CodeGen.GenerateClientAPIs(settings, doc.Paths, doc.Components, Directory.GetCurrentDirectory());
+
+				Trace.TraceInformation("Done");
+			}
 		}
 
 	}

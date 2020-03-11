@@ -20,7 +20,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string PayeeProvider { get; set; }
+		public MyNS.ProviderType PayeeProvider { get; set; }
 		
 		public string ClaimId { get; set; }
 		
@@ -37,9 +37,9 @@ namespace MyNS
 	public class BBSPaymentReportResponseType
 	{
 		
-		public string PaymentRun { get; set; }
+		public MyNS.PaymentRunType PaymentRun { get; set; }
 		
-		public string PaymentInfo { get; set; }
+		public MyNS.PaymentType PaymentInfo { get; set; }
 		
 		public ClaimSummaryType[] ClaimSummary { get; set; }
 		
@@ -61,7 +61,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string AccountInfo { get; set; }
+		public MyNS.BankAccountType AccountInfo { get; set; }
 		
 		public string DepositAmount { get; set; }
 		
@@ -146,7 +146,7 @@ namespace MyNS
 	public class BBSProcessingReportResponseType
 	{
 		
-		public string ClaimAssessment { get; set; }
+		public MyNS.ClaimAssessmentType ClaimAssessment { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Status { get; set; }
@@ -157,7 +157,7 @@ namespace MyNS
 		
 		public MedicalEventResponseType[] MedicalEvent { get; set; }
 		
-		public string ServiceProvider { get; set; }
+		public MyNS.ProviderType ServiceProvider { get; set; }
 		
 		public string BenefitPaid { get; set; }
 		
@@ -169,7 +169,7 @@ namespace MyNS
 	public class MedicalEventResponseType
 	{
 		
-		public string Patient { get; set; }
+		public MyNS.MembershipStatusType Patient { get; set; }
 		
 		public ServiceResponseType[] Service { get; set; }
 		
@@ -181,11 +181,11 @@ namespace MyNS
 	public class MembershipStatusType
 	{
 		
-		public string Status { get; set; }
+		public MyNS.StatusType Status { get; set; }
 		
-		public string CurrentMembership { get; set; }
+		public MyNS.MembershipType CurrentMembership { get; set; }
 		
-		public string CurrentMember { get; set; }
+		public MyNS.IdentityType CurrentMember { get; set; }
 		
 		public System.DateTimeOffset ProcessDate { get; set; }
 	}
@@ -223,7 +223,7 @@ namespace MyNS
 	public class ServiceResponseType
 	{
 		
-		public string Error { get; set; }
+		public MyNS.StatusType Error { get; set; }
 		
 		public string Id { get; set; }
 		
@@ -242,7 +242,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Claim { get; set; }
+		public MyNS.BulkBillClaimStoreForwardClaimType Claim { get; set; }
 	}
 	
 	public class BulkBillClaimStoreForwardClaimType
@@ -255,10 +255,10 @@ namespace MyNS
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public BBSMedicalEventType[] MedicalEvent { get; set; }
 		
-		public string PayeeProvider { get; set; }
+		public MyNS.ProviderType PayeeProvider { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string ServiceProvider { get; set; }
+		public MyNS.ProviderType ServiceProvider { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string ServiceTypeCode { get; set; }
@@ -282,9 +282,9 @@ namespace MyNS
 		public string MedicalEventTime { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Patient { get; set; }
+		public MyNS.MedicarePatientType Patient { get; set; }
 		
-		public string Referral { get; set; }
+		public MyNS.ReferralType Referral { get; set; }
 		
 		public string ReferralOverrideCode { get; set; }
 		
@@ -299,10 +299,10 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Identity { get; set; }
+		public MyNS.IdentityType Identity { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Medicare { get; set; }
+		public MyNS.MembershipType Medicare { get; set; }
 	}
 	
 	public class ReferralType
@@ -316,7 +316,7 @@ namespace MyNS
 		public string PeriodCode { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Provider { get; set; }
+		public MyNS.ProviderType Provider { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string TypeCode { get; set; }
@@ -377,7 +377,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Claim { get; set; }
+		public MyNS.VAAClaimType Claim { get; set; }
 	}
 	
 	public class VAAClaimType
@@ -388,10 +388,10 @@ namespace MyNS
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public VAAMedicalEventType[] MedicalEvent { get; set; }
 		
-		public string PayeeProvider { get; set; }
+		public MyNS.ProviderType PayeeProvider { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string ServiceProvider { get; set; }
+		public MyNS.ProviderType ServiceProvider { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string ServiceTypeCode { get; set; }
@@ -403,7 +403,7 @@ namespace MyNS
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Id { get; set; }
 		
-		public string AcceptedDisability { get; set; }
+		public MyNS.AcceptedDisabilityType AcceptedDisability { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public System.DateTimeOffset AuthorisationDate { get; set; }
@@ -439,7 +439,7 @@ namespace MyNS
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public MyNS.VeteranPatientType Patient { get; set; }
 		
-		public string Referral { get; set; }
+		public MyNS.ReferralType Referral { get; set; }
 		
 		public string ReferralOverrideCode { get; set; }
 		
@@ -467,16 +467,16 @@ namespace MyNS
 	public class VeteranPatientType : PatientType
 	{
 		
-		public string VeteranMembership { get; set; }
+		public MyNS.VeteranMembershipType VeteranMembership { get; set; }
 	}
 	
 	public class PatientType
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Identity { get; set; }
+		public MyNS.IdentityType Identity { get; set; }
 		
-		public string ResidentialAddress { get; set; }
+		public MyNS.AddressType ResidentialAddress { get; set; }
 	}
 	
 	public class AddressType
@@ -556,7 +556,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Claim { get; set; }
+		public MyNS.DVAClaimType Claim { get; set; }
 	}
 	
 	public class DVAClaimType
@@ -571,9 +571,9 @@ namespace MyNS
 		public DVAMedicalEventType[] MedicalEvent { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string ServiceProvider { get; set; }
+		public MyNS.ProviderType ServiceProvider { get; set; }
 		
-		public string PayeeProvider { get; set; }
+		public MyNS.ProviderType PayeeProvider { get; set; }
 	}
 	
 	public class DVAMedicalEventType
@@ -602,9 +602,9 @@ namespace MyNS
 		
 		public string TreatmentLocationCode { get; set; }
 		
-		public string AcceptedDisability { get; set; }
+		public MyNS.AcceptedDisabilityType AcceptedDisability { get; set; }
 		
-		public string Referral { get; set; }
+		public MyNS.ReferralType Referral { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public MyNS.VeteranPatientType Patient { get; set; }
@@ -635,7 +635,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string PayeeProvider { get; set; }
+		public MyNS.ProviderType PayeeProvider { get; set; }
 		
 		public string ClaimId { get; set; }
 		
@@ -645,9 +645,9 @@ namespace MyNS
 	public class DVAPaymentReportResponseType
 	{
 		
-		public string PaymentRun { get; set; }
+		public MyNS.PaymentRunType PaymentRun { get; set; }
 		
-		public string PaymentInfo { get; set; }
+		public MyNS.PaymentType PaymentInfo { get; set; }
 		
 		public ClaimSummaryType[] ClaimSummary { get; set; }
 		
@@ -658,7 +658,7 @@ namespace MyNS
 	public class DVAProcessingReportResponseType
 	{
 		
-		public string ClaimAssessment { get; set; }
+		public MyNS.DVAClaimAssessmentType ClaimAssessment { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Status { get; set; }
@@ -669,7 +669,7 @@ namespace MyNS
 		
 		public DVAMedicalEventAssessmentType[] MedicalEvent { get; set; }
 		
-		public string ServiceProvider { get; set; }
+		public MyNS.ProviderType ServiceProvider { get; set; }
 		
 		public string BenefitPaid { get; set; }
 		
@@ -681,7 +681,7 @@ namespace MyNS
 	public class DVAMedicalEventAssessmentType
 	{
 		
-		public string Patient { get; set; }
+		public MyNS.VeteranMembershipStatusType Patient { get; set; }
 		
 		public DVAServiceAssessmentType[] Service { get; set; }
 		
@@ -695,9 +695,9 @@ namespace MyNS
 		
 		public MyNS.VeteranMembershipResponseType CurrentMembership { get; set; }
 		
-		public string CurrentMember { get; set; }
+		public MyNS.IdentityType CurrentMember { get; set; }
 		
-		public string Status { get; set; }
+		public MyNS.StatusType Status { get; set; }
 		
 		public System.DateTimeOffset ProcessDate { get; set; }
 	}
@@ -748,7 +748,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Patient { get; set; }
+		public MyNS.MedicarePatientType Patient { get; set; }
 		
 		public System.DateTimeOffset DateOfService { get; set; }
 	}
@@ -773,16 +773,16 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string MedicareStatus { get; set; }
+		public MyNS.MembershipStatusType MedicareStatus { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string ConcessionStatus { get; set; }
+		public MyNS.ConcessionStatusType ConcessionStatus { get; set; }
 	}
 	
 	public class ConcessionStatusType
 	{
 		
-		public string Status { get; set; }
+		public MyNS.StatusType Status { get; set; }
 		
 		public System.DateTimeOffset ProcessDate { get; set; }
 	}
@@ -809,7 +809,7 @@ namespace MyNS
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public MyNS.FundPatientType Patient { get; set; }
 		
-		public string Provider { get; set; }
+		public MyNS.ProviderType Provider { get; set; }
 		
 		public System.DateTimeOffset DateOfService { get; set; }
 		
@@ -820,11 +820,11 @@ namespace MyNS
 	public class FundPatientType : PatientType
 	{
 		
-		public string AlsoKnownAs { get; set; }
+		public MyNS.IdentityType AlsoKnownAs { get; set; }
 		
-		public string Medicare { get; set; }
+		public MyNS.MembershipType Medicare { get; set; }
 		
-		public string HealthFund { get; set; }
+		public MyNS.FundMembershipType HealthFund { get; set; }
 	}
 	
 	public class FundMembershipType
@@ -856,19 +856,19 @@ namespace MyNS
 	public class PatientVerificationResponseType
 	{
 		
-		public string MedicareStatus { get; set; }
+		public MyNS.MembershipStatusType MedicareStatus { get; set; }
 		
-		public string HealthFundStatus { get; set; }
+		public MyNS.FundMembershipStatusType HealthFundStatus { get; set; }
 	}
 	
 	public class FundMembershipStatusType
 	{
 		
-		public string Status { get; set; }
+		public MyNS.StatusType Status { get; set; }
 		
-		public string CurrentMembership { get; set; }
+		public MyNS.FundMembershipType CurrentMembership { get; set; }
 		
-		public string CurrentMember { get; set; }
+		public MyNS.IdentityType CurrentMember { get; set; }
 		
 		public System.DateTimeOffset ProcessDate { get; set; }
 	}
@@ -914,23 +914,23 @@ namespace MyNS
 	public class VeteranVerificationResponseType
 	{
 		
-		public string VeteranStatus { get; set; }
+		public MyNS.VeteranMembershipStatusType VeteranStatus { get; set; }
 	}
 	
 	public class PatientClaimInteractiveRequestType
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string PatientClaimInteractive { get; set; }
+		public MyNS.PatientClaimInteractiveType PatientClaimInteractive { get; set; }
 	}
 	
 	public class PatientClaimInteractiveType
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Patient { get; set; }
+		public MyNS.MedicarePatientType Patient { get; set; }
 		
-		public string Referral { get; set; }
+		public MyNS.ReferralType Referral { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public MyNS.ClaimantType Claimant { get; set; }
@@ -938,10 +938,10 @@ namespace MyNS
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public PCIMedicalEventType[] MedicalEvent { get; set; }
 		
-		public string PayeeProvider { get; set; }
+		public MyNS.ProviderType PayeeProvider { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string ServiceProvider { get; set; }
+		public MyNS.ProviderType ServiceProvider { get; set; }
 		
 		public string ReferralOverrideCode { get; set; }
 		
@@ -960,11 +960,11 @@ namespace MyNS
 	public class ClaimantType : MedicarePatientType
 	{
 		
-		public string EftDetails { get; set; }
+		public MyNS.BankAccountType EftDetails { get; set; }
 		
-		public string ResidentialAddress { get; set; }
+		public MyNS.AddressType ResidentialAddress { get; set; }
 		
-		public string ContactDetails { get; set; }
+		public MyNS.ContactType ContactDetails { get; set; }
 	}
 	
 	public class ContactType
@@ -1006,7 +1006,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string ClaimAssessment { get; set; }
+		public MyNS.PCIAssessmentType ClaimAssessment { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Status { get; set; }
@@ -1015,13 +1015,13 @@ namespace MyNS
 	public class PCIAssessmentType
 	{
 		
-		public string Claimant { get; set; }
+		public MyNS.CurrentMembershipType Claimant { get; set; }
 		
-		public string Patient { get; set; }
+		public MyNS.CurrentMembershipType Patient { get; set; }
 		
 		public PCIMedicalEventResponseType[] MedicalEvent { get; set; }
 		
-		public string Error { get; set; }
+		public MyNS.StatusType Error { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string ClaimId { get; set; }
@@ -1031,7 +1031,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string CurrentMembership { get; set; }
+		public MyNS.MembershipType CurrentMembership { get; set; }
 	}
 	
 	public class PCIMedicalEventResponseType
@@ -1068,33 +1068,33 @@ namespace MyNS
 	public class EnterpriseConcessionVerificationReportContentType : ContentType
 	{
 		
-		public string Report { get; set; }
+		public MyNS.EnterpriseConcessionVerificationResponseType Report { get; set; }
 	}
 	
 	public class EnterprisePatientVerificationReportContentType : ContentType
 	{
 		
-		public string Report { get; set; }
+		public MyNS.EnterprisePatientVerificationResponseType Report { get; set; }
 	}
 	
 	public class EnterpriseVeteranVerificationReportContentType : ContentType
 	{
 		
-		public string Report { get; set; }
+		public MyNS.EnterpriseVeteranVerificationResponseType Report { get; set; }
 	}
 	
 	public class SameDayDeleteRequestType
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string SameDayDelete { get; set; }
+		public MyNS.SameDayDeleteType SameDayDelete { get; set; }
 	}
 	
 	public class SameDayDeleteType
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Patient { get; set; }
+		public MyNS.MedicarePatientType Patient { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string ReasonCode { get; set; }

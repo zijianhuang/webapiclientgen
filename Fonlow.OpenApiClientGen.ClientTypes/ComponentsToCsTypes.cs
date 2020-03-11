@@ -114,13 +114,13 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					if (schema.Properties.Count > 0 || (schema.Properties.Count == 0 && allOfBaseTypeSchemaList.Count > 1))
 					{
 						typeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, typeName);
-						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
+						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)// in Swagger 2.0,
 						{
 							var allOfRef = allOfBaseTypeSchemaList[0];
 							var baseTypeName = allOfRef.Reference.Id; //pointing to parent class
 							typeDeclaration.BaseTypes.Add(baseTypeName);
 
-							var allOfProperteisSchema = allOfBaseTypeSchemaList[1];
+							var allOfProperteisSchema = allOfBaseTypeSchemaList[1]; //the 2nd one points to properties of the derived type, while the 1st one points to the base type.
 							AddProperties(typeDeclaration, allOfProperteisSchema);
 						}
 
@@ -189,12 +189,13 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 			{
 				var propertyName = ToTitleCase(p.Key);
 				var propertySchema = p.Value;
-				var premitivePropertyType = propertySchema.Type;
+				var primitivePropertyType = propertySchema.Type;
+				var isPremitiveType = nameComposer.IsPrimitiveType(primitivePropertyType);
 				var isRequired = schema.Required.Contains(p.Key); //compare with the original key
 
 
 				CodeMemberField clientProperty;
-				if (String.IsNullOrEmpty(premitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
+				if (String.IsNullOrEmpty(primitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
 				{
 					OpenApiSchema refToType = null;
 					if (propertySchema.Reference != null) // for Swagger 2.0
@@ -253,9 +254,14 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 							}
 						}
 					}
+					else if (propertySchema.Enum.Count == 0 && propertySchema.Reference != null && !isPremitiveType) // for complex type
+					{
+						var complexType = propertySchema.Reference.Id;
+						clientProperty = CreateProperty(propertyName, settings.ClientNamespace + "." + complexType);
+					}
 					else if (propertySchema.Enum.Count == 0) // for premitive type
 					{
-						var simpleType = nameComposer.PrimitiveSwaggerTypeToClrType(premitivePropertyType, propertySchema.Format);
+						var simpleType = nameComposer.PrimitiveSwaggerTypeToClrType(primitivePropertyType, propertySchema.Format);
 						clientProperty = CreateProperty(propertyName, simpleType);
 					}
 					else // for casual enum

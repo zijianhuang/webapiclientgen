@@ -382,6 +382,13 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 			{"string_date-time", "Date" },
 		};
 
+		readonly string[] oafTypes = new string[] { "integer", "number", "string", "boolean" };
+
+		public bool IsPrimitiveType(string typeName)
+		{
+			return oafTypes.Contains(typeName);
+		}
+
 		/// <summary>
 		/// https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md
 		/// https://swagger.io/specification/

@@ -77,6 +77,14 @@ namespace SwagTests
 			return File.ReadAllText(filePath);
 		}
 
+		static void GenerateAndAssert(string openApiFile, string expectedFile, Settings mySettings = null)
+		{
+			var s = TranslateJsonToCode(openApiFile, mySettings);
+			//File.WriteAllText(expectedFile, s); //To update Results after some feature changes. Copy what in the bin folder back to the source content.
+			Assert.Equal(ReadFromResults(expectedFile), s);
+		}
+
+
 		[Fact]
 		public void TestSimplePet()
 		{
@@ -317,29 +325,26 @@ namespace SwagTests
 		[Fact]
 		public void TestValuesPaths()
 		{
-			var s = TranslateJsonToCode("SwagMock\\ValuesPaths.json");
-			Assert.Equal(ReadFromResults("NG2Results\\ValuesPaths.txt"), s);
+			GenerateAndAssert("SwagMock\\ValuesPaths.json", "NG2Results\\ValuesPaths.txt");
 		}
 
 
 		[Fact]
 		public void TestPetDelete()
 		{
-			var s = TranslateJsonToCode("SwagMock\\PetDelete.json");
-			Assert.Equal(ReadFromResults("NG2Results\\PetDelete.txt"), s);
+			GenerateAndAssert("SwagMock\\PetDelete.json", "NG2Results\\PetDelete.txt");
 		}
 
 		[Fact]
 		public void TestPet()
 		{
-			var s = TranslateJsonToCode("SwagMock\\pet.yaml");
-			Assert.Equal(ReadFromResults("NG2Results\\Pet.txt"), s);
+			GenerateAndAssert("SwagMock\\pet.yaml", "NG2Results\\Pet.txt");
 		}
 
 		[Fact]
 		public void TestPetWithPathAsContainerName()
 		{
-			var s = TranslateJsonToCode("SwagMock\\pet.yaml", new Settings()
+			GenerateAndAssert("SwagMock\\pet.yaml", "NG2Results\\PetPathAsContainer.txt", new Settings()
 			{
 				ClientNamespace = "MyNS",
 				ContainerClassName = "Misc",
@@ -347,26 +352,24 @@ namespace SwagTests
 				ContainerNameStrategy = ContainerNameStrategy.Path,
 				GenerateBothAsyncAndSync = false
 			});
-			Assert.Equal(ReadFromResults("NG2Results\\PetPathAsContainer.txt"), s);
 		}
 
 		[Fact]
 		public void TestPetWithGodContainerAndPathAction()
 		{
-			var s = TranslateJsonToCode("SwagMock\\pet.yaml", new Settings()
+			GenerateAndAssert("SwagMock\\pet.yaml" , "NG2Results\\PetGodClass.txt", new Settings()
 			{
 				ClientNamespace = "MyNS",
 				ActionNameStrategy = ActionNameStrategy.PathMethodQueryParameters,
 				ContainerNameStrategy = ContainerNameStrategy.None,
 				GenerateBothAsyncAndSync = false
 			});
-			Assert.Equal(ReadFromResults("NG2Results\\PetGodClass.txt"), s);
 		}
 
 		[Fact]
 		public void TestPetFindByStatus()
 		{
-			var s = TranslateJsonToCode("SwagMock\\PetFindByStatus.json", new Settings()
+			GenerateAndAssert("SwagMock\\PetFindByStatus.json" , "NG2Results\\PetFindByStatus.txt", new Settings()
 			{
 				ClientNamespace = "MyNS",
 				PathPrefixToRemove = "/api",
@@ -374,20 +377,18 @@ namespace SwagTests
 				SuffixOfContainerName = "",
 				GenerateBothAsyncAndSync = true
 			});
-			Assert.Equal(ReadFromResults("NG2Results\\PetFindByStatus.txt"), s);
 		}
 
 		[Fact]
 		public void TestPetStore()
 		{
-			var s = TranslateJsonToCode("SwagMock\\petStore.yaml");
-			Assert.Equal(ReadFromResults("NG2Results\\PetStore.txt"), s);
+			GenerateAndAssert("SwagMock\\petStore.yaml", "NG2Results\\PetStore.txt");
 		}
 
 		[Fact]
 		public void TestPetStoreExpanded()
 		{
-			var s = TranslateJsonToCode("SwagMock\\petStoreExpanded.yaml", new Settings()
+			GenerateAndAssert("SwagMock\\petStoreExpanded.yaml" , "NG2Results\\PetStoreExpanded.txt", new Settings()
 			{
 				ClientNamespace = "MyNS",
 				ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
@@ -395,13 +396,12 @@ namespace SwagTests
 				GenerateBothAsyncAndSync = false
 
 			});
-			Assert.Equal(ReadFromResults("NG2Results\\PetStoreExpanded.txt"), s);
 		}
 
 		[Fact]
 		public void TestUspto()
 		{
-			var s = TranslateJsonToCode("SwagMock\\uspto.yaml", new Settings()
+			GenerateAndAssert("SwagMock\\uspto.yaml" , "NG2Results\\Uspto.txt", new Settings()
 			{
 				ClientNamespace = "MyNS",
 				ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
@@ -409,7 +409,6 @@ namespace SwagTests
 				GenerateBothAsyncAndSync = false
 
 			});
-			Assert.Equal(ReadFromResults("NG2Results\\Uspto.txt"), s);
 		}
 
 	}

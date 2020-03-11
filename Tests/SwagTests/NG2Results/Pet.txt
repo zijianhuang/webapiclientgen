@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 export namespace MyNS {
@@ -138,6 +138,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Add a new pet to the store
 		 * Add new pet to the store inventory.
 		 * Post /pet
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
@@ -148,6 +149,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Update an existing pet
 		 * Put /pet
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
 		 * @return {void} 
@@ -157,6 +159,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Find pet by ID
 		 * Returns a single pet
 		 * Get /pet/{petId}
 		 * @param {number} petId ID of pet to return
@@ -168,6 +171,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Updates a pet in the store with form data
 		 * Post /pet/{petId}
 		 * @param {number} petId ID of pet that needs to be updated
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
@@ -178,6 +182,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Deletes a pet
 		 * Delete /pet/{petId}
 		 * @param {number} petId Pet id to delete
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
@@ -188,6 +193,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * uploads an image
 		 * Post /pet/{petId}/uploadImage
 		 * @param {number} petId ID of pet to update
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
@@ -198,6 +204,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Finds Pets by status
 		 * Multiple status values can be provided with comma separated strings
 		 * Get /pet/findByStatus
 		 * @param {string} status Status values that need to be considered for filter
@@ -209,6 +216,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Finds Pets by tags
 		 * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
 		 * Get /pet/findByTags
 		 * @param {string} tags Tags to filter by
@@ -226,6 +234,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Returns pet inventories by status
 		 * Returns a map of status codes to quantities
 		 * Get /store/inventory
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
@@ -236,6 +245,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Place an order for a pet
 		 * Post /store/order
 		 * @param {string} requestBody order placed for purchasing the pet
 		 * @return {MyNS.Order} successful operation
@@ -245,6 +255,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Find purchase order by ID
 		 * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
 		 * Get /store/order/{orderId}
 		 * @param {number} orderId ID of pet that needs to be fetched
@@ -256,6 +267,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Delete purchase order by ID
 		 * For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
 		 * Delete /store/order/{orderId}
 		 * @param {string} orderId ID of the order that needs to be deleted
@@ -273,6 +285,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Create user
 		 * This can only be done by the logged in user.
 		 * Post /user
 		 * @param {string} requestBody Created user object
@@ -283,6 +296,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Get user by user name
 		 * Get /user/{username}
 		 * @param {string} username The name that needs to be fetched. Use user1 for testing. 
 		 * @param {string} requestBody Created user object
@@ -293,6 +307,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Updated user
 		 * This can only be done by the logged in user.
 		 * Put /user/{username}
 		 * @param {string} username name that need to be deleted
@@ -304,6 +319,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Delete user
 		 * This can only be done by the logged in user.
 		 * Delete /user/{username}
 		 * @param {string} username The name that needs to be deleted
@@ -315,6 +331,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Creates list of users with given input array
 		 * Post /user/createWithArray
 		 * @param {Array<User>} requestBody List of user object
 		 * @return {void} 
@@ -324,6 +341,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Creates list of users with given input array
 		 * Post /user/createWithList
 		 * @param {Array<User>} requestBody List of user object
 		 * @return {void} 
@@ -333,6 +351,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Logs user into the system
 		 * Get /user/login
 		 * @param {string} username The user name for login
 		 * @param {string} password The password for login in clear text
@@ -344,6 +363,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Logs out current logged in user session
 		 * Get /user/logout
 		 * @param {Array<User>} requestBody List of user object
 		 * @return {void} 

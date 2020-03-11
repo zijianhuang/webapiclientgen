@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 export namespace MyNS {
@@ -19,6 +19,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * List all pets
 		 * Get /pets
 		 * @param {number} limit How many items to return at one time (max 100)
 		 * @return {MyNS.Pets} A paged array of pets
@@ -28,6 +29,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Create a pet
 		 * Post /pets
 		 * @return {void} 
 		 */
@@ -36,6 +38,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Info for a specific pet
 		 * Get /pets/{petId}
 		 * @param {string} petId The id of the pet to retrieve
 		 * @return {MyNS.Pet} Expected response to a valid request

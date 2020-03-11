@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 export namespace MyNS {
@@ -8,6 +8,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Deletes a pet
 		 * Delete /pet/{petId}
 		 * @param {number} petId Pet id to delete
 		 * @return {void} 

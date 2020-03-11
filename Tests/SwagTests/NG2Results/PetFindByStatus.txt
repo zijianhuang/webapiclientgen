@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 export namespace MyNS {
@@ -25,6 +25,7 @@ export namespace MyNS {
 		}
 
 		/**
+		 * Finds Pets by status
 		 * Multiple status values can be provided with comma separated strings
 		 * Get /pet/findByStatus
 		 * @param {string} status Status values that need to be considered for filter

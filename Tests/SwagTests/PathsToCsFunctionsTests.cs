@@ -39,34 +39,35 @@ namespace SwagTests
             return File.ReadAllText(filePath);
         }
 
-        static void AssertFile(string openApiFile, string expectedFile)
+        static void GenerateAndAssert(string openApiFile, string expectedFile, Settings mySettings = null)
         {
-            var s = TranslateJsonToCode(openApiFile);
+            var s = TranslateJsonToCode(openApiFile, mySettings);
+            //File.WriteAllText(expectedFile, s); //To update Results after some feature changes. Copy what in the bin folder back to the source content.
             Assert.Equal(ReadFromResults(expectedFile), s);
         }
 
         [Fact]
         public void TestValuesPaths()
         {
-            AssertFile("SwagMock\\ValuesPaths.json", "Results\\ValuesPaths.txt");
+            GenerateAndAssert("SwagMock\\ValuesPaths.json", "Results\\ValuesPaths.txt");
         }
 
         [Fact]
         public void TestSimplePet()
         {
-            AssertFile("SwagMock\\SimplePet.json", "Results\\SimplePet.txt");
+            GenerateAndAssert("SwagMock\\SimplePet.json", "Results\\SimplePet.txt");
         }
 
         [Fact]
         public void TestPet()
         {
-            AssertFile("SwagMock\\pet.yaml", "Results\\Pet.txt");
+            GenerateAndAssert("SwagMock\\pet.yaml", "Results\\Pet.txt");
         }
 
         [Fact]
         public void TestPetWithPathAsContainerName()
         {
-            var s = TranslateJsonToCode("SwagMock\\pet.yaml", new Settings()
+            GenerateAndAssert("SwagMock\\pet.yaml","Results\\PetPathAsContainer.txt" , new Settings()
             {
                 ClientNamespace = "MyNS",
                 ContainerClassName = "Misc",
@@ -74,26 +75,24 @@ namespace SwagTests
                 ContainerNameStrategy = ContainerNameStrategy.Path,
                 GenerateBothAsyncAndSync = false
             });
-            Assert.Equal(ReadFromResults("Results\\PetPathAsContainer.txt"), s);
         }
 
         [Fact]
         public void TestPetWithGodContainerAndPathAction()
         {
-            var s = TranslateJsonToCode("SwagMock\\pet.yaml", new Settings()
+            GenerateAndAssert("SwagMock\\pet.yaml", "Results\\PetGodClass.txt", new Settings()
             {
                 ClientNamespace = "MyNS",
                 ActionNameStrategy = ActionNameStrategy.PathMethodQueryParameters,
                 ContainerNameStrategy = ContainerNameStrategy.None,
                 GenerateBothAsyncAndSync = false
             });
-            Assert.Equal(ReadFromResults("Results\\PetGodClass.txt"), s);
         }
 
         [Fact]
         public void TestPetFindByStatus()
         {
-            var s = TranslateJsonToCode("SwagMock\\PetFindByStatus.json", new Settings()
+            GenerateAndAssert("SwagMock\\PetFindByStatus.json", "Results\\PetFindByStatus.txt", new Settings()
             {
                 ClientNamespace = "MyNS",
                 PathPrefixToRemove = "/api",
@@ -101,31 +100,30 @@ namespace SwagTests
                 SuffixOfContainerName="",
                 GenerateBothAsyncAndSync = true
             });
-            Assert.Equal(ReadFromResults("Results\\PetFindByStatus.txt"), s);
         }
 
         [Fact]
         public void TestPetDelete()
         {
-            AssertFile("SwagMock\\PetDelete.json", "Results\\PetDelete.txt");
+            GenerateAndAssert("SwagMock\\PetDelete.json", "Results\\PetDelete.txt");
         }
 
         [Fact]
         public void TestPetTypes()
         {
-            AssertFile("SwagMock\\PetTypes.json", "Results\\PetTypes.txt");
+            GenerateAndAssert("SwagMock\\PetTypes.json", "Results\\PetTypes.txt");
         }
 
         [Fact]
         public void TestPetStore()
         {
-            AssertFile("SwagMock\\petStore.yaml", "Results\\PetStore.txt");
+            GenerateAndAssert("SwagMock\\petStore.yaml", "Results\\PetStore.txt");
         }
 
         [Fact]
         public void TestPetStoreExpanded()
         {
-            var s = TranslateJsonToCode("SwagMock\\petStoreExpanded.yaml", new Settings()
+            GenerateAndAssert("SwagMock\\petStoreExpanded.yaml", "Results\\PetStoreExpanded.txt", new Settings()
             {
                 ClientNamespace = "MyNS",
                 ContainerClassName = "Misc",
@@ -135,13 +133,12 @@ namespace SwagTests
                 GenerateBothAsyncAndSync = false
 
             });
-            Assert.Equal(ReadFromResults("Results\\PetStoreExpanded.txt"), s);
         }
 
         [Fact]
         public void TestUspto()
         {
-            var s = TranslateJsonToCode("SwagMock\\uspto.yaml", new Settings() {
+            GenerateAndAssert("SwagMock\\uspto.yaml", "Results\\Uspto.txt", new Settings() {
                 ClientNamespace = "MyNS",
                 ContainerClassName = "Misc",
                 ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
@@ -150,13 +147,12 @@ namespace SwagTests
                 GenerateBothAsyncAndSync = false
 
             });
-            Assert.Equal(ReadFromResults("Results\\Uspto.txt"), s);
         }
 
         [Fact]
         public void TestMcp()
         {
-            var s = TranslateJsonToCode("SwagMock\\mcp.yaml", new Settings()
+            GenerateAndAssert("SwagMock\\mcp.yaml", "Results\\mcp.txt", new Settings()
             {
                 ClientNamespace = "MyNS",
                 ContainerClassName = "McpClient",
@@ -166,7 +162,6 @@ namespace SwagTests
                 GenerateBothAsyncAndSync = false,
                 PathPrefixToRemove = "/mcp",
             });
-            Assert.Equal(ReadFromResults("Results\\PetStore.txt"), s);
         }
 
 

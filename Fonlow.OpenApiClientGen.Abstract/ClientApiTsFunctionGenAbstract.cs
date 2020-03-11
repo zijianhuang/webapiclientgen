@@ -99,7 +99,10 @@ namespace Fonlow.CodeDom.Web.Ts
 		void CreateDocComments()
 		{
 			StringBuilder builder = new StringBuilder();
-			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(apiOperation.Description);
+			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(
+				apiOperation.Summary
+				+ ((String.IsNullOrEmpty(apiOperation.Summary) || string.IsNullOrEmpty(apiOperation.Description)) ? String.Empty : "\n")
+				+ apiOperation.Description);
 			if (noIndent != null)
 			{
 				foreach (var item in noIndent)

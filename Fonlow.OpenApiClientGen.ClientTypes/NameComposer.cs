@@ -286,7 +286,12 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 			}
 		}
 
-		public Tuple<CodeTypeReference, string> GetBodyContent(OpenApiOperation op)
+		/// <summary>
+		/// Get CodeTypeReference and description of requestBody of operation.
+		/// </summary>
+		/// <param name="op"></param>
+		/// <returns>bool is whether to support generating codes for this.</returns>
+		public Tuple<CodeTypeReference, string, bool> GetBodyContent(OpenApiOperation op)
 		{
 			if (op.RequestBody != null && op.RequestBody.Content != null)
 			{
@@ -297,20 +302,24 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				{
 					if (op.RequestBody.Content.TryGetValue("application/json", out content) && content.Schema.Type != null)
 					{
-						return Tuple.Create(OpenApiMediaTypeToCodeTypeReference(content), description);
+						return Tuple.Create(OpenApiMediaTypeToCodeTypeReference(content), description, true);
 					}
 
 					var typeName = op.RequestBody.Reference.Id;
 					var codeTypeReference = new CodeTypeReference(typeName);
-					return Tuple.Create(codeTypeReference, description);
+					return Tuple.Create(codeTypeReference, description, true);
 				}
 				else if (op.RequestBody.Content.TryGetValue("application/json", out content))
 				{
-					return Tuple.Create(OpenApiMediaTypeToCodeTypeReference(content), description);
+					return Tuple.Create(OpenApiMediaTypeToCodeTypeReference(content), description, true);
+				}
+				else if (op.RequestBody.Content.Count > 0) // with content but not supported
+				{
+					return Tuple.Create(new CodeTypeReference("dummy"), description, false);
 				}
 			}
 
-			return null;
+			return null; //empty post
 		}
 
 		/// <summary>

@@ -25,7 +25,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 		protected CodeTypeReference returnTypeReference;
 		//bool returnTypeIsStream;
 		CodeMemberMethod method;
-		readonly ComponentsToCsTypes poco2CsGen;
+		ComponentsToCsTypes poco2CsGen;
 		NameComposer nameComposer;
 		Settings settings;
 		string actionName;
@@ -34,7 +34,23 @@ namespace Fonlow.OpenApiClientGen.Cs
 		bool stringAsString;
 		bool returnIsComplexType;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToCsTypes poco2CsGen, bool forAsync = false)
+		public ClientApiFunctionGen()
+		{
+		}
+
+		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
+		const string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+		const string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+
+		static readonly Type typeOfChar = typeof(char);
+
+		//public static CodeMemberMethod Create(SharedContext sharedContext, string relativePath, OperationType method, OpenApiOperation description, ComponentsToCsCodeDom poco2CsGen, bool stringAsString, bool forAsync)
+		//{
+		//	var gen = new ClientApiFunctionGen(sharedContext, relativePath, method, description, poco2CsGen, stringAsString, forAsync);
+		//	return gen.CreateApiFunction();
+		//}
+
+		public CodeMemberMethod CreateApiFunction(SharedContext sharedContext, Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToCsTypes poco2CsGen, bool forAsync = false)
 		{
 			this.settings = settings;
 			this.nameComposer = new NameComposer(settings);
@@ -48,6 +64,10 @@ namespace Fonlow.OpenApiClientGen.Cs
 				{
 					this.requestBodyCodeTypeReference = kc.Item1;
 					this.requestBodyComment = kc.Item2;
+					if (!kc.Item3)
+					{
+						return null; // not to generate for unsupported POST content type.
+					}
 				}
 			}
 
@@ -75,22 +95,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			//	|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult"))
 			//	|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult"))
 			//	);
-		}
 
-		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
-		const string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
-		const string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
-
-		static readonly Type typeOfChar = typeof(char);
-
-		//public static CodeMemberMethod Create(SharedContext sharedContext, string relativePath, OperationType method, OpenApiOperation description, ComponentsToCsCodeDom poco2CsGen, bool stringAsString, bool forAsync)
-		//{
-		//	var gen = new ClientApiFunctionGen(sharedContext, relativePath, method, description, poco2CsGen, stringAsString, forAsync);
-		//	return gen.CreateApiFunction();
-		//}
-
-		public CodeMemberMethod CreateApiFunction()
-		{
 			//create method
 			method = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 

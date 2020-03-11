@@ -141,15 +141,22 @@ namespace Fonlow.OpenApiClientGen.Cs
 			{
 				foreach (var op in p.Value.Operations)
 				{
-					ClientApiFunctionGen functionGen = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, true);
-					var apiFunction = functionGen.CreateApiFunction();
+					ClientApiFunctionGen functionGen = new ClientApiFunctionGen();
+					var apiFunction = functionGen.CreateApiFunction(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, true);
+					if (apiFunction == null)
+					{
+						System.Diagnostics.Trace.TraceWarning($"Not to generate for {p.Key} {op.Key}.");
+						continue;
+					}
+
 					var containerClassName = nameComposer.GetContainerName(op.Value, p.Key);
 					var existingClass = LookupExistingClass(containerClassName);
+
 					existingClass.Members.Add(apiFunction);
 					if (settings.GenerateBothAsyncAndSync)
 					{
-						ClientApiFunctionGen functionGen2 = new ClientApiFunctionGen(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, false);
-						existingClass.Members.Add(functionGen2.CreateApiFunction());
+						ClientApiFunctionGen functionGen2 = new ClientApiFunctionGen();
+						existingClass.Members.Add(functionGen2.CreateApiFunction(sharedContext, settings, p.Key, op.Key, op.Value, componentsToCsTypes, false));
 					}
 				}
 			}

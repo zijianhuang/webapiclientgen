@@ -425,44 +425,6 @@ namespace MyNS
 		}
 		
 		/// <summary>
-		/// Updates a pet in the store with form data
-		/// UpdatePetWithForm /pet/{petId}
-		/// </summary>
-		/// <param name="petId">ID of pet that needs to be updated</param>
-		public async Task UpdatePetWithFormAsync(long petId)
-		{
-			var requestUri = "/pet/"+petId;
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// Updates a pet in the store with form data
-		/// UpdatePetWithForm /pet/{petId}
-		/// </summary>
-		/// <param name="petId">ID of pet that needs to be updated</param>
-		public void UpdatePetWithForm(long petId)
-		{
-			var requestUri = "/pet/"+petId;
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
 		/// Deletes a pet
 		/// DeletePet /pet/{petId}
 		/// </summary>
@@ -493,58 +455,6 @@ namespace MyNS
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// uploads an image
-		/// UploadFile /pet/{petId}/uploadImage
-		/// </summary>
-		/// <param name="petId">ID of pet to update</param>
-		/// <returns>successful operation</returns>
-		public async Task<ApiResponse> UploadFileAsync(long petId)
-		{
-			var requestUri = "/pet/"+petId+"/uploadImage";
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<ApiResponse>(jsonReader);
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// uploads an image
-		/// UploadFile /pet/{petId}/uploadImage
-		/// </summary>
-		/// <param name="petId">ID of pet to update</param>
-		/// <returns>successful operation</returns>
-		public ApiResponse UploadFile(long petId)
-		{
-			var requestUri = "/pet/"+petId+"/uploadImage";
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<ApiResponse>(jsonReader);
-				}
 			}
 			finally
 			{

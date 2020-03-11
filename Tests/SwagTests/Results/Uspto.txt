@@ -69,7 +69,7 @@ namespace MyNS
 		/// ListDataSets /
 		/// </summary>
 		/// <returns>Returns a list of data sets</returns>
-		public async Task<MyNS.dataSetList> ListDataSetsAsync()
+		public async Task<dataSetList> ListDataSetsAsync()
 		{
 			var requestUri = "/";
 			var responseMessage = await client.GetAsync(requestUri);
@@ -80,7 +80,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.dataSetList>(jsonReader);
+				return serializer.Deserialize<dataSetList>(jsonReader);
 				}
 			}
 			finally

@@ -188,7 +188,8 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				var propertyName = p.Key;
 				var propertySchema = p.Value;
 				var primitivePropertyType = propertySchema.Type;
-				var isRequired = schema.Required.Contains(propertyName);
+				var isPrimitiveType = nameComposer.IsPrimitiveType(primitivePropertyType);
+				var isRequired = schema.Required.Contains(p.Key);//compare with the original key
 
 
 				CodeMemberField clientProperty;
@@ -197,25 +198,29 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					OpenApiSchema refToType = null;
 					if (propertySchema.Reference != null)
 					{
-						var kk = propertySchema.Reference;
+						var typeId = propertySchema.Reference.Id;
+						clientProperty = CreateProperty(propertyName, typeId, isRequired);
 					}
-					else if (propertySchema.AllOf.Count > 0)
+					else
 					{
-						refToType = propertySchema.AllOf[0];
-					}
-					else if (propertySchema.OneOf.Count > 0)
-					{
-						refToType = propertySchema.OneOf[0];
-					}
-					else if (propertySchema.AnyOf.Count > 0)
-					{
-						refToType = propertySchema.AnyOf[0];
-					}
+						if (propertySchema.AllOf.Count > 0)
+						{
+							refToType = propertySchema.AllOf[0];
+						}
+						else if (propertySchema.OneOf.Count > 0)
+						{
+							refToType = propertySchema.OneOf[0];
+						}
+						else if (propertySchema.AnyOf.Count > 0)
+						{
+							refToType = propertySchema.AnyOf[0];
+						}
 
-					var customPropertyType = refToType.Type;
-					var customPropertyFormat = refToType.Format;
-					var customType = nameComposer.PrimitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);
-					clientProperty = CreateProperty(propertyName, customType, isRequired);
+						var customPropertyType = refToType.Type;
+						var customPropertyFormat = refToType.Format;
+						var customType = nameComposer.PrimitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);
+						clientProperty = CreateProperty(propertyName, customType, isRequired);
+					}
 				}
 				else
 				{
@@ -246,6 +251,11 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 								clientProperty = CreateProperty(arrayCodeTypeReference, propertyName, isRequired);
 							}
 						}
+					}
+					else if (propertySchema.Enum.Count == 0 && propertySchema.Reference != null && !isPrimitiveType) // for complex type
+					{
+						var complexType = propertySchema.Reference.Id;
+						clientProperty = CreateProperty(propertyName, complexType, isRequired);
 					}
 					else if (propertySchema.Enum.Count == 0) // for primitive type
 					{

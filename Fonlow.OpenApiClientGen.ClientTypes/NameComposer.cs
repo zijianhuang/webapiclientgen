@@ -229,7 +229,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 			return null;
 		}
 
-		public Tuple<CodeTypeReference, bool> GetOperationReturnTypeReference(OpenApiOperation op)
+		public Tuple<CodeTypeReference, bool, bool> GetOperationReturnTypeReference(OpenApiOperation op)
 		{
 			var complexTypeName = GetOperationReturnComplexTypeReference(op);
 			bool stringAsString = false;
@@ -238,10 +238,10 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				var r = GetOperationReturnSimpleTypeReference(op);
 				var primitiveTypeReference = r.Item1;
 				stringAsString = r.Item2;
-				return Tuple.Create(primitiveTypeReference == null ? null : primitiveTypeReference, stringAsString);
+				return Tuple.Create(primitiveTypeReference == null ? null : primitiveTypeReference, stringAsString, false);
 			}
 
-			return Tuple.Create(new CodeTypeReference(settings.ClientNamespace + "." + complexTypeName), stringAsString);
+			return Tuple.Create(new CodeTypeReference(complexTypeName), stringAsString, true);
 		}
 
 		public CodeTypeReference GetParameterCodeTypeReference(OpenApiParameter p)

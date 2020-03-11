@@ -114,7 +114,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					if (schema.Properties.Count > 0 || (schema.Properties.Count == 0 && allOfBaseTypeSchemaList.Count > 1))
 					{
 						typeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, typeName);
-						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)// in Swagger 2.0,
+						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
 						{
 							var allOfRef = allOfBaseTypeSchemaList[0];
 							var baseTypeName = allOfRef.Reference.Id; //pointing to parent class
@@ -198,7 +198,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				if (String.IsNullOrEmpty(primitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
 				{
 					OpenApiSchema refToType = null;
-					if (propertySchema.Reference != null) // for Swagger 2.0
+					if (propertySchema.Reference != null)
 					{
 						var typeId = propertySchema.Reference.Id;
 						clientProperty = CreateProperty(propertyName, typeId);

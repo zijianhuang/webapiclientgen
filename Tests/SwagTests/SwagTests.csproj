@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="NG2Results\mcp.txt" />
     <None Remove="NG2Results\Pet.txt" />
     <None Remove="NG2Results\PetDelete.txt" />
     <None Remove="NG2Results\PetFindByStatus.txt" />
@@ -32,6 +33,7 @@
     <None Remove="SwagMock\CustomTypeArray.json" />
     <None Remove="SwagMock\IntEnum.json" />
     <None Remove="SwagMock\mcp.yaml" />
+    <None Remove="SwagMock\mcp3.yaml" />
     <None Remove="SwagMock\myswagger.json" />
     <None Remove="SwagMock\PathItemValues.json" />
     <None Remove="SwagMock\pet.json" />
@@ -53,6 +55,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="NG2Results\mcp.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="NG2Results\Uspto.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -117,6 +122,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\IntEnum.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\mcp3.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\PathItemValues.json">

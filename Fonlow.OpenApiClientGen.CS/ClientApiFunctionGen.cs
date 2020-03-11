@@ -32,6 +32,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 		OperationType httpMethod;
 		bool forAsync;
 		bool stringAsString;
+		bool returnIsComplexType;
 
 		public ClientApiFunctionGen(SharedContext sharedContext, Settings settings, string relativePath, OperationType httpMethod, OpenApiOperation apiOperation, ComponentsToCsTypes poco2CsGen, bool forAsync = false)
 		{
@@ -63,6 +64,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			var r = nameComposer.GetOperationReturnTypeReference(apiOperation);
 			returnTypeReference = r.Item1;
 			stringAsString = r.Item2;
+			returnIsComplexType = r.Item3;
 
 			//todo: stream, byte and ActionResult later.
 			//returnTypeIsStream = returnType!=null && ( (returnType.FullName == typeNameOfHttpResponseMessage) 
@@ -312,16 +314,6 @@ namespace Fonlow.OpenApiClientGen.Cs
 			//	statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 			//	statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnTypeReference.FullName))));
 			//}
-			else if (IsComplexType(returnTypeReference))
-			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
-				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", returnTypeReference),
-						new CodeSnippetExpression("jsonReader"))));
-			}
 			else if (IsPrimitive(returnTypeReference.BaseType))
 			{
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
@@ -332,9 +324,15 @@ namespace Fonlow.OpenApiClientGen.Cs
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", returnTypeReference),
 						new CodeSnippetExpression("jsonReader"))));
 			}
-			else
+			else // then is complex.
 			{
-				Trace.TraceWarning("This type is not yet supported: {0}", returnTypeReference.BaseType);
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+				statementCollection.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", returnTypeReference),
+						new CodeSnippetExpression("jsonReader"))));
 			}
 
 			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));

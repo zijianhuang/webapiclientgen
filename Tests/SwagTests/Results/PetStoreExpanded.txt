@@ -95,7 +95,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="requestBody">Pet to add to the store</param>
 		/// <returns>pet response</returns>
-		public async Task<MyNS.Pet> AddPetAsync(string requestBody)
+		public async Task<Pet> AddPetAsync(string requestBody)
 		{
 			var requestUri = "/pets";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -111,7 +111,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Pet>(jsonReader);
+				return serializer.Deserialize<Pet>(jsonReader);
 				}
 			}
 			finally
@@ -127,7 +127,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="id">ID of pet to fetch</param>
 		/// <returns>pet response</returns>
-		public async Task<MyNS.Pet> FindPetByIdAsync(long id)
+		public async Task<Pet> FindPetByIdAsync(long id)
 		{
 			var requestUri = "/pets/"+id;
 			var responseMessage = await client.GetAsync(requestUri);
@@ -138,7 +138,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Pet>(jsonReader);
+				return serializer.Deserialize<Pet>(jsonReader);
 				}
 			}
 			finally

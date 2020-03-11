@@ -114,7 +114,7 @@ namespace MyNS
 		/// <summary>
 		/// Estimated ship date
 		/// </summary>
-		public System.DateTime ShipDate { get; set; }
+		public System.DateTimeOffset ShipDate { get; set; }
 		
 		/// <summary>
 		/// Order Status
@@ -377,7 +377,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="petId">ID of pet to return</param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.Pet> GetPetByIdAsync(long petId)
+		public async Task<Pet> GetPetByIdAsync(long petId)
 		{
 			var requestUri = "/pet/"+petId;
 			var responseMessage = await client.GetAsync(requestUri);
@@ -388,7 +388,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Pet>(jsonReader);
+				return serializer.Deserialize<Pet>(jsonReader);
 				}
 			}
 			finally
@@ -404,7 +404,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="petId">ID of pet to return</param>
 		/// <returns>successful operation</returns>
-		public MyNS.Pet GetPetById(long petId)
+		public Pet GetPetById(long petId)
 		{
 			var requestUri = "/pet/"+petId;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -415,7 +415,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Pet>(jsonReader);
+				return serializer.Deserialize<Pet>(jsonReader);
 				}
 			}
 			finally
@@ -506,7 +506,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="petId">ID of pet to update</param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.ApiResponse> UploadFileAsync(long petId)
+		public async Task<ApiResponse> UploadFileAsync(long petId)
 		{
 			var requestUri = "/pet/"+petId+"/uploadImage";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
@@ -517,7 +517,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.ApiResponse>(jsonReader);
+				return serializer.Deserialize<ApiResponse>(jsonReader);
 				}
 			}
 			finally
@@ -532,7 +532,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="petId">ID of pet to update</param>
 		/// <returns>successful operation</returns>
-		public MyNS.ApiResponse UploadFile(long petId)
+		public ApiResponse UploadFile(long petId)
 		{
 			var requestUri = "/pet/"+petId+"/uploadImage";
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
@@ -543,7 +543,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.ApiResponse>(jsonReader);
+				return serializer.Deserialize<ApiResponse>(jsonReader);
 				}
 			}
 			finally
@@ -733,7 +733,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.Order> PlaceOrderAsync(string requestBody)
+		public async Task<Order> PlaceOrderAsync(string requestBody)
 		{
 			var requestUri = "/store/order";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -749,7 +749,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Order>(jsonReader);
+				return serializer.Deserialize<Order>(jsonReader);
 				}
 			}
 			finally
@@ -765,7 +765,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
-		public MyNS.Order PlaceOrder(string requestBody)
+		public Order PlaceOrder(string requestBody)
 		{
 			var requestUri = "/store/order";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -781,7 +781,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Order>(jsonReader);
+				return serializer.Deserialize<Order>(jsonReader);
 				}
 			}
 			finally
@@ -798,7 +798,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="orderId">ID of pet that needs to be fetched</param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.Order> GetOrderByIdAsync(long orderId)
+		public async Task<Order> GetOrderByIdAsync(long orderId)
 		{
 			var requestUri = "/store/order/"+orderId;
 			var responseMessage = await client.GetAsync(requestUri);
@@ -809,7 +809,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Order>(jsonReader);
+				return serializer.Deserialize<Order>(jsonReader);
 				}
 			}
 			finally
@@ -825,7 +825,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="orderId">ID of pet that needs to be fetched</param>
 		/// <returns>successful operation</returns>
-		public MyNS.Order GetOrderById(long orderId)
+		public Order GetOrderById(long orderId)
 		{
 			var requestUri = "/store/order/"+orderId;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -836,7 +836,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Order>(jsonReader);
+				return serializer.Deserialize<Order>(jsonReader);
 				}
 			}
 			finally
@@ -960,7 +960,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="username">The name that needs to be fetched. Use user1 for testing. </param>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.User> GetUserByNameAsync(string username)
+		public async Task<User> GetUserByNameAsync(string username)
 		{
 			var requestUri = "/user/"+Uri.EscapeDataString(username);
 			var responseMessage = await client.GetAsync(requestUri);
@@ -971,7 +971,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.User>(jsonReader);
+				return serializer.Deserialize<User>(jsonReader);
 				}
 			}
 			finally
@@ -986,7 +986,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="username">The name that needs to be fetched. Use user1 for testing. </param>
 		/// <returns>successful operation</returns>
-		public MyNS.User GetUserByName(string username)
+		public User GetUserByName(string username)
 		{
 			var requestUri = "/user/"+Uri.EscapeDataString(username);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -997,7 +997,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.User>(jsonReader);
+				return serializer.Deserialize<User>(jsonReader);
 				}
 			}
 			finally

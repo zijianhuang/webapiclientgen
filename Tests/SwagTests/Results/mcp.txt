@@ -1173,7 +1173,7 @@ namespace MyNS
 		/// McpBulkBillPaymentReport1Eigw /mcp/bulkbillpaymentreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.BBSPaymentReportResponseType> McpBulkBillPaymentReport1EigwAsync(string requestBody)
+		public async Task<BBSPaymentReportResponseType> McpBulkBillPaymentReport1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/bulkbillpaymentreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1189,7 +1189,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.BBSPaymentReportResponseType>(jsonReader);
+				return serializer.Deserialize<BBSPaymentReportResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1204,7 +1204,7 @@ namespace MyNS
 		/// McpBulkBillProcessingReport1Eigw /mcp/bulkbillprocessingreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.BBSProcessingReportResponseType> McpBulkBillProcessingReport1EigwAsync(string requestBody)
+		public async Task<BBSProcessingReportResponseType> McpBulkBillProcessingReport1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/bulkbillprocessingreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1220,7 +1220,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.BBSProcessingReportResponseType>(jsonReader);
+				return serializer.Deserialize<BBSProcessingReportResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1235,7 +1235,7 @@ namespace MyNS
 		/// McpBulkBillStoreForwardGeneral1Eigw /mcp/bulkbillstoreforward/general/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.BulkBillStoreForwardResponseType> McpBulkBillStoreForwardGeneral1EigwAsync(string requestBody)
+		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardGeneral1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/bulkbillstoreforward/general/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1251,7 +1251,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.BulkBillStoreForwardResponseType>(jsonReader);
+				return serializer.Deserialize<BulkBillStoreForwardResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1266,7 +1266,7 @@ namespace MyNS
 		/// McpBulkBillStoreForwardPathology1Eigw /mcp/bulkbillstoreforward/pathology/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.BulkBillStoreForwardResponseType> McpBulkBillStoreForwardPathology1EigwAsync(string requestBody)
+		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardPathology1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/bulkbillstoreforward/pathology/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1282,7 +1282,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.BulkBillStoreForwardResponseType>(jsonReader);
+				return serializer.Deserialize<BulkBillStoreForwardResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1297,7 +1297,7 @@ namespace MyNS
 		/// McpBulkBillStoreForwardSpecialist1Eigw /mcp/bulkbillstoreforward/specialist/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.BulkBillStoreForwardResponseType> McpBulkBillStoreForwardSpecialist1EigwAsync(string requestBody)
+		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardSpecialist1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/bulkbillstoreforward/specialist/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1313,7 +1313,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.BulkBillStoreForwardResponseType>(jsonReader);
+				return serializer.Deserialize<BulkBillStoreForwardResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1328,7 +1328,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthAllied1Eigw /mcp/dvaalliedhealth/allied/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.AlliedHealthClaimResponseType> McpDvaAlliedHealthAllied1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthAllied1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/allied/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1344,7 +1344,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.AlliedHealthClaimResponseType>(jsonReader);
+				return serializer.Deserialize<AlliedHealthClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1359,7 +1359,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthCommunityNursing1Eigw /mcp/dvaalliedhealth/communitynursing/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.AlliedHealthClaimResponseType> McpDvaAlliedHealthCommunityNursing1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthCommunityNursing1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/communitynursing/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1375,7 +1375,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.AlliedHealthClaimResponseType>(jsonReader);
+				return serializer.Deserialize<AlliedHealthClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1390,7 +1390,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthDental1Eigw /mcp/dvaalliedhealth/dental/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.AlliedHealthClaimResponseType> McpDvaAlliedHealthDental1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthDental1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/dental/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1406,7 +1406,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.AlliedHealthClaimResponseType>(jsonReader);
+				return serializer.Deserialize<AlliedHealthClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1421,7 +1421,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthOptical1Eigw /mcp/dvaalliedhealth/optical/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.AlliedHealthClaimResponseType> McpDvaAlliedHealthOptical1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthOptical1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/optical/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1437,7 +1437,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.AlliedHealthClaimResponseType>(jsonReader);
+				return serializer.Deserialize<AlliedHealthClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1452,7 +1452,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthPsych1Eigw /mcp/dvaalliedhealth/psych/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.AlliedHealthClaimResponseType> McpDvaAlliedHealthPsych1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthPsych1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/psych/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1468,7 +1468,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.AlliedHealthClaimResponseType>(jsonReader);
+				return serializer.Deserialize<AlliedHealthClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1483,7 +1483,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthSpeechPathology1Eigw /mcp/dvaalliedhealth/speechpathology/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.AlliedHealthClaimResponseType> McpDvaAlliedHealthSpeechPathology1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthSpeechPathology1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/speechpathology/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1499,7 +1499,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.AlliedHealthClaimResponseType>(jsonReader);
+				return serializer.Deserialize<AlliedHealthClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1514,7 +1514,7 @@ namespace MyNS
 		/// McpDvaClaimGeneral1Eigw /mcp/dvaclaim/general/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.DVAClaimResponseType> McpDvaClaimGeneral1EigwAsync(string requestBody)
+		public async Task<DVAClaimResponseType> McpDvaClaimGeneral1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaclaim/general/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1530,7 +1530,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.DVAClaimResponseType>(jsonReader);
+				return serializer.Deserialize<DVAClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1545,7 +1545,7 @@ namespace MyNS
 		/// McpDvaClaimPathology1Eigw /mcp/dvaclaim/pathology/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.DVAClaimResponseType> McpDvaClaimPathology1EigwAsync(string requestBody)
+		public async Task<DVAClaimResponseType> McpDvaClaimPathology1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaclaim/pathology/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1561,7 +1561,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.DVAClaimResponseType>(jsonReader);
+				return serializer.Deserialize<DVAClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1576,7 +1576,7 @@ namespace MyNS
 		/// McpDvaClaimSpecialist1Eigw /mcp/dvaclaim/specialist/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.DVAClaimResponseType> McpDvaClaimSpecialist1EigwAsync(string requestBody)
+		public async Task<DVAClaimResponseType> McpDvaClaimSpecialist1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaclaim/specialist/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1592,7 +1592,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.DVAClaimResponseType>(jsonReader);
+				return serializer.Deserialize<DVAClaimResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1607,7 +1607,7 @@ namespace MyNS
 		/// McpDvaPaymentReport1Eigw /mcp/dvapaymentreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.DVAPaymentReportResponseType> McpDvaPaymentReport1EigwAsync(string requestBody)
+		public async Task<DVAPaymentReportResponseType> McpDvaPaymentReport1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvapaymentreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1623,7 +1623,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.DVAPaymentReportResponseType>(jsonReader);
+				return serializer.Deserialize<DVAPaymentReportResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1638,7 +1638,7 @@ namespace MyNS
 		/// McpDvaProcessingReport1Eigw /mcp/dvaprocessingreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.DVAProcessingReportResponseType> McpDvaProcessingReport1EigwAsync(string requestBody)
+		public async Task<DVAProcessingReportResponseType> McpDvaProcessingReport1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/dvaprocessingreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1654,7 +1654,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.DVAProcessingReportResponseType>(jsonReader);
+				return serializer.Deserialize<DVAProcessingReportResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1669,7 +1669,7 @@ namespace MyNS
 		/// McpEnterpriseConcessionVerification1Eigw /mcp/enterpriseconcessionverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.EnterpriseConcessionVerificationResponseType> McpEnterpriseConcessionVerification1EigwAsync(string requestBody)
+		public async Task<EnterpriseConcessionVerificationResponseType> McpEnterpriseConcessionVerification1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/enterpriseconcessionverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1685,7 +1685,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.EnterpriseConcessionVerificationResponseType>(jsonReader);
+				return serializer.Deserialize<EnterpriseConcessionVerificationResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1700,7 +1700,7 @@ namespace MyNS
 		/// McpEnterprisePatientVerification1Eigw /mcp/enterprisepatientverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.EnterprisePatientVerificationResponseType> McpEnterprisePatientVerification1EigwAsync(string requestBody)
+		public async Task<EnterprisePatientVerificationResponseType> McpEnterprisePatientVerification1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/enterprisepatientverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1716,7 +1716,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.EnterprisePatientVerificationResponseType>(jsonReader);
+				return serializer.Deserialize<EnterprisePatientVerificationResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1731,7 +1731,7 @@ namespace MyNS
 		/// McpEnterpriseVeteranVerification1Eigw /mcp/enterpriseveteranverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.EnterpriseVeteranVerificationResponseType> McpEnterpriseVeteranVerification1EigwAsync(string requestBody)
+		public async Task<EnterpriseVeteranVerificationResponseType> McpEnterpriseVeteranVerification1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/enterpriseveteranverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1747,7 +1747,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.EnterpriseVeteranVerificationResponseType>(jsonReader);
+				return serializer.Deserialize<EnterpriseVeteranVerificationResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1762,7 +1762,7 @@ namespace MyNS
 		/// McpPatientClaimInteractiveGeneral1Eigw /mcp/patientclaiminteractive/general/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.PatientClaimInteractiveResponseType> McpPatientClaimInteractiveGeneral1EigwAsync(string requestBody)
+		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractiveGeneral1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/patientclaiminteractive/general/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1778,7 +1778,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.PatientClaimInteractiveResponseType>(jsonReader);
+				return serializer.Deserialize<PatientClaimInteractiveResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1793,7 +1793,7 @@ namespace MyNS
 		/// McpPatientClaimInteractivePathology1Eigw /mcp/patientclaiminteractive/pathology/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.PatientClaimInteractiveResponseType> McpPatientClaimInteractivePathology1EigwAsync(string requestBody)
+		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractivePathology1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/patientclaiminteractive/pathology/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1809,7 +1809,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.PatientClaimInteractiveResponseType>(jsonReader);
+				return serializer.Deserialize<PatientClaimInteractiveResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1824,7 +1824,7 @@ namespace MyNS
 		/// McpPatientClaimInteractiveSpecialist1Eigw /mcp/patientclaiminteractive/specialist/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.PatientClaimInteractiveResponseType> McpPatientClaimInteractiveSpecialist1EigwAsync(string requestBody)
+		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractiveSpecialist1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/patientclaiminteractive/specialist/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1840,7 +1840,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.PatientClaimInteractiveResponseType>(jsonReader);
+				return serializer.Deserialize<PatientClaimInteractiveResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1855,7 +1855,7 @@ namespace MyNS
 		/// McpPatientVerification1Eigw /mcp/patientverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.PatientVerificationResponseType> McpPatientVerification1EigwAsync(string requestBody)
+		public async Task<PatientVerificationResponseType> McpPatientVerification1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/patientverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1871,7 +1871,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.PatientVerificationResponseType>(jsonReader);
+				return serializer.Deserialize<PatientVerificationResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1886,7 +1886,7 @@ namespace MyNS
 		/// McpPatientVerificationHf1Eigw /mcp/patientverification/hf/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.PatientVerificationResponseType> McpPatientVerificationHf1EigwAsync(string requestBody)
+		public async Task<PatientVerificationResponseType> McpPatientVerificationHf1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/patientverification/hf/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1902,7 +1902,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.PatientVerificationResponseType>(jsonReader);
+				return serializer.Deserialize<PatientVerificationResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1917,7 +1917,7 @@ namespace MyNS
 		/// McpPatientVerificationMedicare1Eigw /mcp/patientverification/medicare/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.PatientVerificationResponseType> McpPatientVerificationMedicare1EigwAsync(string requestBody)
+		public async Task<PatientVerificationResponseType> McpPatientVerificationMedicare1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/patientverification/medicare/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1933,7 +1933,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.PatientVerificationResponseType>(jsonReader);
+				return serializer.Deserialize<PatientVerificationResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1948,7 +1948,7 @@ namespace MyNS
 		/// McpRetrieveReportEcv1Eigw /mcp/enterpriseconcessionverification/retrievereport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.RetrieveReportResponseType> McpRetrieveReportEcv1EigwAsync(string requestBody)
+		public async Task<RetrieveReportResponseType> McpRetrieveReportEcv1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/enterpriseconcessionverification/retrievereport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1964,7 +1964,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.RetrieveReportResponseType>(jsonReader);
+				return serializer.Deserialize<RetrieveReportResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -1979,7 +1979,7 @@ namespace MyNS
 		/// McpRetrieveReportEpv1Eigw /mcp/enterprisepatientverification/retrievereport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.RetrieveReportResponseType> McpRetrieveReportEpv1EigwAsync(string requestBody)
+		public async Task<RetrieveReportResponseType> McpRetrieveReportEpv1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/enterprisepatientverification/retrievereport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1995,7 +1995,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.RetrieveReportResponseType>(jsonReader);
+				return serializer.Deserialize<RetrieveReportResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -2010,7 +2010,7 @@ namespace MyNS
 		/// McpRetrieveReportEvv1Eigw /mcp/enterpriseveteranverification/retrievereport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.RetrieveReportResponseType> McpRetrieveReportEvv1EigwAsync(string requestBody)
+		public async Task<RetrieveReportResponseType> McpRetrieveReportEvv1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/enterpriseveteranverification/retrievereport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -2026,7 +2026,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.RetrieveReportResponseType>(jsonReader);
+				return serializer.Deserialize<RetrieveReportResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -2041,7 +2041,7 @@ namespace MyNS
 		/// McpSameDayDelete1Eigw /mcp/samedaydelete/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.SameDayDeleteResponseType> McpSameDayDelete1EigwAsync(string requestBody)
+		public async Task<SameDayDeleteResponseType> McpSameDayDelete1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/samedaydelete/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -2057,7 +2057,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.SameDayDeleteResponseType>(jsonReader);
+				return serializer.Deserialize<SameDayDeleteResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -2072,7 +2072,7 @@ namespace MyNS
 		/// McpStatusReport1Eigw /mcp/statusreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.StatusReportResponseType> McpStatusReport1EigwAsync(string requestBody)
+		public async Task<StatusReportResponseType> McpStatusReport1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/statusreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -2088,7 +2088,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.StatusReportResponseType>(jsonReader);
+				return serializer.Deserialize<StatusReportResponseType>(jsonReader);
 				}
 			}
 			finally
@@ -2103,7 +2103,7 @@ namespace MyNS
 		/// McpVeteranVerification1Eigw /mcp/veteranverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<MyNS.VeteranVerificationResponseType> McpVeteranVerification1EigwAsync(string requestBody)
+		public async Task<VeteranVerificationResponseType> McpVeteranVerification1EigwAsync(string requestBody)
 		{
 			var requestUri = "/mcp/veteranverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -2119,7 +2119,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.VeteranVerificationResponseType>(jsonReader);
+				return serializer.Deserialize<VeteranVerificationResponseType>(jsonReader);
 				}
 			}
 			finally

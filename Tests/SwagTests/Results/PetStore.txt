@@ -60,7 +60,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="limit">How many items to return at one time (max 100)</param>
 		/// <returns>A paged array of pets</returns>
-		public async Task<MyNS.Pets> ListPetsAsync(int limit)
+		public async Task<Pets> ListPetsAsync(int limit)
 		{
 			var requestUri = "/pets?limit="+limit;
 			var responseMessage = await client.GetAsync(requestUri);
@@ -71,7 +71,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Pets>(jsonReader);
+				return serializer.Deserialize<Pets>(jsonReader);
 				}
 			}
 			finally
@@ -86,7 +86,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="limit">How many items to return at one time (max 100)</param>
 		/// <returns>A paged array of pets</returns>
-		public MyNS.Pets ListPets(int limit)
+		public Pets ListPets(int limit)
 		{
 			var requestUri = "/pets?limit="+limit;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -97,7 +97,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Pets>(jsonReader);
+				return serializer.Deserialize<Pets>(jsonReader);
 				}
 			}
 			finally
@@ -148,7 +148,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="petId">The id of the pet to retrieve</param>
 		/// <returns>Expected response to a valid request</returns>
-		public async Task<MyNS.Pet> ShowPetByIdAsync(string petId)
+		public async Task<Pet> ShowPetByIdAsync(string petId)
 		{
 			var requestUri = "/pets/"+Uri.EscapeDataString(petId);
 			var responseMessage = await client.GetAsync(requestUri);
@@ -159,7 +159,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Pet>(jsonReader);
+				return serializer.Deserialize<Pet>(jsonReader);
 				}
 			}
 			finally
@@ -174,7 +174,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="petId">The id of the pet to retrieve</param>
 		/// <returns>Expected response to a valid request</returns>
-		public MyNS.Pet ShowPetById(string petId)
+		public Pet ShowPetById(string petId)
 		{
 			var requestUri = "/pets/"+Uri.EscapeDataString(petId);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -185,7 +185,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<MyNS.Pet>(jsonReader);
+				return serializer.Deserialize<Pet>(jsonReader);
 				}
 			}
 			finally

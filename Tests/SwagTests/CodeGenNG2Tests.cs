@@ -350,7 +350,7 @@ namespace SwagTests
 				ContainerClassName = "Misc",
 				ActionNameStrategy = ActionNameStrategy.MethodQueryParameters,
 				ContainerNameStrategy = ContainerNameStrategy.Path,
-				GenerateBothAsyncAndSync = false
+			
 			});
 		}
 
@@ -362,7 +362,7 @@ namespace SwagTests
 				ClientNamespace = "MyNS",
 				ActionNameStrategy = ActionNameStrategy.PathMethodQueryParameters,
 				ContainerNameStrategy = ContainerNameStrategy.None,
-				GenerateBothAsyncAndSync = false
+			
 			});
 		}
 
@@ -393,8 +393,6 @@ namespace SwagTests
 				ClientNamespace = "MyNS",
 				ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
 				ContainerNameStrategy = ContainerNameStrategy.Tags,
-				GenerateBothAsyncAndSync = false
-
 			});
 		}
 
@@ -406,10 +404,25 @@ namespace SwagTests
 				ClientNamespace = "MyNS",
 				ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
 				ContainerNameStrategy = ContainerNameStrategy.Tags,
-				GenerateBothAsyncAndSync = false
+				
 
 			});
 		}
+
+		[Fact]
+		public void TestMcp()
+		{
+			GenerateAndAssert("SwagMock\\mcp.yaml", "NG2Results\\mcp.txt", new Settings()
+			{
+				ClientNamespace = "MyNS",
+				ContainerClassName = "McpClient",
+				ActionNameStrategy = ActionNameStrategy.NormalizedOperationId,
+				//RegexForNormalizedOperationId = @"\w*",
+				ContainerNameStrategy = ContainerNameStrategy.None,
+				PathPrefixToRemove = "/mcp",
+			});
+		}
+
 
 	}
 

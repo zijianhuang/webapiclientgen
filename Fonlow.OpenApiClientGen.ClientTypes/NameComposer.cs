@@ -340,7 +340,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 						return arrayCodeTypeReference;
 					}
 				}
-				else if (content.Schema.Enum.Count == 0) // for premitive type
+				else if (content.Schema.Enum.Count == 0) // for primitive type
 				{
 					var simpleType = PrimitiveSwaggerTypeToClrType(content.Schema.Type, content.Schema.Format);
 					var codeTypeReference = new CodeTypeReference(simpleType);

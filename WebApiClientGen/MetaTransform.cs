@@ -67,7 +67,7 @@ namespace Fonlow.Web.Meta
 					var parameterBinder = GetParameterBinder(d.ParameterDescriptor.ParameterBinderAttribute);
 					var parameterType = d.ParameterDescriptor.ParameterType;
 					var parameterName = d.ParameterDescriptor.ParameterName;
-					if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsValueType(parameterType) && !TypeHelper.IsNullablePremitive(parameterType))
+					if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsValueType(parameterType) && !TypeHelper.IsNullablePrimitive(parameterType))
 					{
 						throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterName}:{parameterType.ToString()} in {controllerName}/{actionName}.");
 					}

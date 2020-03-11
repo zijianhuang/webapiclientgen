@@ -130,7 +130,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					else // type alias
 					{
 						//var typeFormat = schema.Format; No need to do C# Type Alias, since OpenApi.NET will translate the alias to the real type.
-						//var realTypeName = nameComposer.PremitiveSwaggerTypeToClrType(type, typeFormat);
+						//var realTypeName = nameComposer.PrimitiveSwaggerTypeToClrType(type, typeFormat);
 						//CodeNamespaceImport cd = new CodeNamespaceImport($"{typeName} = {realTypeName}");
 						//clientNamespace.Imports.Add(cd);
 					}
@@ -187,12 +187,12 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 			{
 				var propertyName = p.Key;
 				var propertySchema = p.Value;
-				var premitivePropertyType = propertySchema.Type;
+				var primitivePropertyType = propertySchema.Type;
 				var isRequired = schema.Required.Contains(propertyName);
 
 
 				CodeMemberField clientProperty;
-				if (String.IsNullOrEmpty(premitivePropertyType)) // for custom type, pointing to a custom type "$ref": "#/components/schemas/PhoneType"
+				if (String.IsNullOrEmpty(primitivePropertyType)) // for custom type, pointing to a custom type "$ref": "#/components/schemas/PhoneType"
 				{
 					OpenApiSchema refToType = null;
 					if (propertySchema.Reference != null)
@@ -247,9 +247,9 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 							}
 						}
 					}
-					else if (propertySchema.Enum.Count == 0) // for premitive type
+					else if (propertySchema.Enum.Count == 0) // for primitive type
 					{
-						var simpleType = nameComposer.PrimitiveSwaggerTypeToClrType(premitivePropertyType, propertySchema.Format);
+						var simpleType = nameComposer.PrimitiveSwaggerTypeToClrType(primitivePropertyType, propertySchema.Format);
 						clientProperty = CreateProperty(propertyName, simpleType, isRequired);
 					}
 					else // for casual enum

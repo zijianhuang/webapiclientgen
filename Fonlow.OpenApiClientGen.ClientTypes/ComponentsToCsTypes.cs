@@ -132,7 +132,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					else // type alias
 					{
 						//var typeFormat = schema.Format; No need to do C# Type Alias, since OpenApi.NET will translate the alias to the real type.
-						//var realTypeName = nameComposer.PremitiveSwaggerTypeToClrType(type, typeFormat);
+						//var realTypeName = nameComposer.PrimitiveSwaggerTypeToClrType(type, typeFormat);
 						//CodeNamespaceImport cd = new CodeNamespaceImport($"{typeName} = {realTypeName}");
 						//clientNamespace.Imports.Add(cd);
 					}
@@ -190,7 +190,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				var propertyName = ToTitleCase(p.Key);
 				var propertySchema = p.Value;
 				var primitivePropertyType = propertySchema.Type;
-				var isPremitiveType = nameComposer.IsPrimitiveType(primitivePropertyType);
+				var isPrimitiveType = nameComposer.IsPrimitiveType(primitivePropertyType);
 				var isRequired = schema.Required.Contains(p.Key); //compare with the original key
 
 
@@ -201,7 +201,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					if (propertySchema.Reference != null) // for Swagger 2.0
 					{
 						var typeId = propertySchema.Reference.Id;
-						clientProperty = CreateProperty(propertyName, settings.ClientNamespace + "." + typeId);
+						clientProperty = CreateProperty(propertyName, typeId);
 					}
 					else
 					{
@@ -254,12 +254,12 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 							}
 						}
 					}
-					else if (propertySchema.Enum.Count == 0 && propertySchema.Reference != null && !isPremitiveType) // for complex type
+					else if (propertySchema.Enum.Count == 0 && propertySchema.Reference != null && !isPrimitiveType) // for complex type
 					{
 						var complexType = propertySchema.Reference.Id;
-						clientProperty = CreateProperty(propertyName, settings.ClientNamespace + "." + complexType);
+						clientProperty = CreateProperty(propertyName, complexType);
 					}
-					else if (propertySchema.Enum.Count == 0) // for premitive type
+					else if (propertySchema.Enum.Count == 0) // for primitive type
 					{
 						var simpleType = nameComposer.PrimitiveSwaggerTypeToClrType(primitivePropertyType, propertySchema.Format);
 						clientProperty = CreateProperty(propertyName, simpleType);

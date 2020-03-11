@@ -133,7 +133,7 @@ namespace Poco2TsTests
 			Assert.False(t.IsGenericTypeDefinition);
 			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
 			Assert.Equal(typeof(DateTime), t.GetGenericArguments()[0]);
-			Assert.True(IsNullablePremitive(t));
+			Assert.True(IsNullablePrimitive(t));
 
 		}
 
@@ -148,7 +148,7 @@ namespace Poco2TsTests
 			Assert.False(t.IsGenericTypeDefinition);
 			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
 			Assert.Equal(typeof(double), t.GetGenericArguments()[0]);
-			Assert.True(IsNullablePremitive(t));
+			Assert.True(IsNullablePrimitive(t));
 
 		}
 
@@ -163,18 +163,18 @@ namespace Poco2TsTests
 			Assert.False(t.IsGenericTypeDefinition);
 			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
 			Assert.Equal(typeof(decimal), t.GetGenericArguments()[0]);
-			Assert.True(IsNullablePremitive(t));
+			Assert.True(IsNullablePrimitive(t));
 		}
 
 
 		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
 		/// <summary>
-		/// DateTime is not premitive type. Decimal is premitive VB.net but not in C#.NET
+		/// DateTime is not primitive type. Decimal is preiitive VB.net but not in C#.NET
 		/// </summary>
 		/// <param name="t"></param>
 		/// <returns></returns>
-		static bool IsNullablePremitive(Type t)
+		static bool IsNullablePrimitive(Type t)
 		{
 			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
 		}

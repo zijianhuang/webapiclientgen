@@ -12,7 +12,7 @@ namespace Poco2TsTests
 		{
             var type = typeof(Guid);
             Assert.True(TypeHelper.IsValueType(type));
-            Assert.False(!TypeHelper.IsValueType(type) && !TypeHelper.IsNullablePremitive(type));
+            Assert.False(!TypeHelper.IsValueType(type) && !TypeHelper.IsNullablePrimitive(type));
 		}
 
 	}

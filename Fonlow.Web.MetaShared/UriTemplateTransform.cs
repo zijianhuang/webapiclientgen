@@ -54,7 +54,7 @@ namespace Fonlow.CodeDom.Web
 
 					return replaced;
 				}
-				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				else if (IsNullablePrimitive(d.ParameterDescriptor.ParameterType))
 				{
 					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString():String.Empty)+\"");
 					if (replaced == newUriText)
@@ -96,7 +96,7 @@ namespace Fonlow.CodeDom.Web
 
 				//	return replaced;
 				//}
-				//else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				//else if (IsNullablePrimitive(d.ParameterDescriptor.ParameterType))
 				//{
 				//	var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
 				//	if (replaced == newUriText)
@@ -131,7 +131,7 @@ namespace Fonlow.CodeDom.Web
 
 					return replaced;
 				}
-				else if (IsNullablePremitive(d.ParameterDescriptor.ParameterType))
+				else if (IsNullablePrimitive(d.ParameterDescriptor.ParameterType))
 				{
 					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
 					if (replaced == newUriText)
@@ -149,12 +149,12 @@ namespace Fonlow.CodeDom.Web
 
 		}
 		/// <summary>
-		/// DateTime is not premitive type. Decimal is premitive VB.net but not in C#.NET
+		/// DateTime is not primitive type. Decimal is primitive VB.net but not in C#.NET
 		/// https://stackoverflow.com/questions/13471941/why-is-decimal-not-a-primitive-type
 		/// </summary>
 		/// <param name="t"></param>
 		/// <returns></returns>
-		static bool IsNullablePremitive(Type t)
+		static bool IsNullablePrimitive(Type t)
 		{
 			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
 		}

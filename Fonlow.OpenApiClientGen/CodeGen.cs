@@ -10,7 +10,6 @@ namespace Fonlow.CodeDom.Web
 		public static void GenerateClientAPIs(Settings settings, OpenApiPaths paths, OpenApiComponents components, string outputBasePath)
 		{
 			var currentDir = System.IO.Directory.GetCurrentDirectory();
-
 			if (settings.ClientLibraryProjectFolderName != null)
 			{
 				string csharpClientProjectDir = System.IO.Path.IsPathRooted(settings.ClientLibraryProjectFolderName) ?
@@ -64,6 +63,7 @@ namespace Fonlow.CodeDom.Web
 
 			if (settings.Plugins != null)
 			{
+				var exeDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 				foreach (var plugin in settings.Plugins)
 				{
 					var jsOutput = new JSOutput
@@ -75,7 +75,7 @@ namespace Fonlow.CodeDom.Web
 						ClientNamespaceSuffix = plugin.ClientNamespaceSuffix,
 					};
 
-					var assemblyFilePath = System.IO.Path.Combine(currentDir, plugin.AssemblyName + ".dll");
+					var assemblyFilePath = System.IO.Path.Combine(exeDir, plugin.AssemblyName + ".dll");
 					var tsGen = PluginFactory.CreateImplementationsFromAssembly(assemblyFilePath, settings, jsOutput);
 					if (tsGen != null)
 					{

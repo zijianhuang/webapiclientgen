@@ -24,6 +24,7 @@
     <None Remove="Results\PetStore.txt" />
     <None Remove="Results\PetStoreExpanded.txt" />
     <None Remove="Results\PetTypes.txt" />
+    <None Remove="Results\SimplePet.txt" />
     <None Remove="Results\Uspto.txt" />
     <None Remove="Results\ValuesPaths.txt" />
     <None Remove="SwagMock\CasualEnum.json" />
@@ -76,6 +77,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NG2Results\ValuesPaths.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\SimplePet.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\PetStoreExpanded.txt">

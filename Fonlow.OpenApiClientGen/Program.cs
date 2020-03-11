@@ -15,26 +15,17 @@ namespace Fonlow.OpenApiClientGen
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Fonlow.OpenApiClientGen.exe generates C# and TypeScript client codes according to an Open API YAML/JSON file.");
-			Console.WriteLine(@"
-Parameter 1: Open API YAML/JSON file
-Parameter 2: Settings file in JSON format.
-Example:  
-For classes decorated by DataContractAttribute:
-  Fonlow.OpenApiClientGen.exe my.yaml
-For classes decorated by Newtonsoft.Json.JsonObjectAttribute:
-  Fonlow.OpenApiClientGen.exe my.yaml myproj.json
-For classes decorated by SerializableAttribute:
-  Fonlow.OpenApiClientGen.exe my.yaml ..\myproj.json
-
-");
+			
 			if (args.Length == 0)
 			{
+				ShowHelp();
 				Console.WriteLine("Warning: Need yaml/json path and settings path.");
 				return;
 			}
 
 			if (args.Length == 1)
 			{
+				ShowHelp();
 				Console.WriteLine("Warning: Need settings path.");
 				return;
 			}
@@ -58,7 +49,6 @@ For classes decorated by SerializableAttribute:
 
 			logger.LogInformation("Program logger loaded");
 
-
 			using (var listener = new Fonlow.Diagnostics.LoggerTraceListener(logger))
 			{
 				System.Diagnostics.Trace.Listeners.Add(listener);
@@ -75,13 +65,29 @@ For classes decorated by SerializableAttribute:
 					doc = new OpenApiStreamReader().Read(stream, out var diagnostic);
 				}
 
-				Trace.TraceInformation("Processing...");
-				Console.WriteLine(doc.Info.FormatOpenApiInfo());
+				Console.WriteLine("Processing...");
+				Trace.TraceInformation(doc.Info.FormatOpenApiInfo());
 
 				Fonlow.CodeDom.Web.CodeGen.GenerateClientAPIs(settings, doc.Paths, doc.Components, Directory.GetCurrentDirectory());
 
-				Trace.TraceInformation("Done");
+				Console.WriteLine("Done");
 			}
+		}
+
+		static void ShowHelp()
+		{
+			Console.WriteLine(@"
+Parameter 1: Open API YAML/JSON file
+Parameter 2: Settings file in JSON format.
+Example:  
+For classes decorated by DataContractAttribute:
+  Fonlow.OpenApiClientGen.exe my.yaml
+For classes decorated by Newtonsoft.Json.JsonObjectAttribute:
+  Fonlow.OpenApiClientGen.exe my.yaml myproj.json
+For classes decorated by SerializableAttribute:
+  Fonlow.OpenApiClientGen.exe my.yaml ..\myproj.json
+
+");
 		}
 
 	}

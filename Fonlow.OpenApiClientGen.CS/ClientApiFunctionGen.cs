@@ -178,7 +178,10 @@ namespace Fonlow.OpenApiClientGen.Cs
 			};
 
 			method.Comments.Add(new CodeCommentStatement("<summary>", true));
-			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(apiOperation.Description);
+			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(
+				apiOperation.Summary
+				+ ((String.IsNullOrEmpty(apiOperation.Summary) || string.IsNullOrEmpty(apiOperation.Description)) ? String.Empty : "\n")
+				+ apiOperation.Description);
 			if (noIndent != null)
 			{
 				foreach (var item in noIndent)

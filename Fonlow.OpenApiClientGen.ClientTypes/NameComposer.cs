@@ -364,8 +364,8 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 			{"number", typeof(float) },
 			{"string", typeof(string) },
 			{"boolean", typeof(bool) },
-			{"string_date", typeof(DateTime) },
-			{"string_date-time", typeof(DateTime) },
+			{"string_date", typeof(DateTimeOffset) },
+			{"string_date-time", typeof(DateTimeOffset) },
 		};
 
 		readonly Dictionary<string, string> basicTsTypeDic = new Dictionary<string, string>()

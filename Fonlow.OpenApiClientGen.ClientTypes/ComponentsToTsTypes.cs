@@ -192,10 +192,14 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 
 
 				CodeMemberField clientProperty;
-				if (String.IsNullOrEmpty(premitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
+				if (String.IsNullOrEmpty(premitivePropertyType)) // for custom type, pointing to a custom type "$ref": "#/components/schemas/PhoneType"
 				{
 					OpenApiSchema refToType = null;
-					if (propertySchema.AllOf.Count > 0)
+					if (propertySchema.Reference != null)
+					{
+						var kk = propertySchema.Reference;
+					}
+					else if (propertySchema.AllOf.Count > 0)
 					{
 						refToType = propertySchema.AllOf[0];
 					}

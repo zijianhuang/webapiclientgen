@@ -358,7 +358,7 @@ namespace MyNS
 		/// <summary>
 		/// Estimated ship date
 		/// </summary>
-		public System.DateTime ShipDate { get; set; }//;
+		public System.DateTimeOffset ShipDate { get; set; }//;
 		
 		/// <summary>
 		/// Order Status

@@ -24,7 +24,7 @@ namespace MyNS
 		
 		public string ClaimId { get; set; }
 		
-		public System.DateTime LodgementDate { get; set; }
+		public System.DateTimeOffset LodgementDate { get; set; }
 	}
 	
 	public class ProviderType
@@ -52,7 +52,7 @@ namespace MyNS
 		
 		public string PayerName { get; set; }
 		
-		public System.DateTime RunDate { get; set; }
+		public System.DateTimeOffset RunDate { get; set; }
 		
 		public string RunNumber { get; set; }
 	}
@@ -91,7 +91,7 @@ namespace MyNS
 		
 		public string ClaimId { get; set; }
 		
-		public System.DateTime LodgementDate { get; set; }
+		public System.DateTimeOffset LodgementDate { get; set; }
 		
 		public string TransactionId { get; set; }
 	}
@@ -175,7 +175,7 @@ namespace MyNS
 		
 		public string Id { get; set; }
 		
-		public System.DateTime EventDate { get; set; }
+		public System.DateTimeOffset EventDate { get; set; }
 	}
 	
 	public class MembershipStatusType
@@ -187,7 +187,7 @@ namespace MyNS
 		
 		public string CurrentMember { get; set; }
 		
-		public System.DateTime ProcessDate { get; set; }
+		public System.DateTimeOffset ProcessDate { get; set; }
 	}
 	
 	public class StatusType
@@ -209,7 +209,7 @@ namespace MyNS
 	public class IdentityType
 	{
 		
-		public System.DateTime DateOfBirth { get; set; }
+		public System.DateTimeOffset DateOfBirth { get; set; }
 		
 		public string FamilyName { get; set; }
 		
@@ -271,13 +271,13 @@ namespace MyNS
 		public string Id { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime AuthorisationDate { get; set; }
+		public System.DateTimeOffset AuthorisationDate { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime CreateDateTime { get; set; }
+		public System.DateTimeOffset CreateDateTime { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime MedicalEventDate { get; set; }
+		public System.DateTimeOffset MedicalEventDate { get; set; }
 		
 		public string MedicalEventTime { get; set; }
 		
@@ -309,7 +309,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime IssueDate { get; set; }
+		public System.DateTimeOffset IssueDate { get; set; }
 		
 		public string Period { get; set; }
 		
@@ -328,13 +328,13 @@ namespace MyNS
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Id { get; set; }
 		
-		public System.DateTime AccessionDateTime { get; set; }
+		public System.DateTimeOffset AccessionDateTime { get; set; }
 		
 		public string AftercareOverrideInd { get; set; }
 		
 		public string ChargeAmount { get; set; }
 		
-		public System.DateTime CollectionDateTime { get; set; }
+		public System.DateTimeOffset CollectionDateTime { get; set; }
 		
 		public string DuplicateServiceOverrideInd { get; set; }
 		
@@ -406,20 +406,20 @@ namespace MyNS
 		public string AcceptedDisability { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime AuthorisationDate { get; set; }
+		public System.DateTimeOffset AuthorisationDate { get; set; }
 		
-		public System.DateTime BreakInEpisodeEndDate { get; set; }
+		public System.DateTimeOffset BreakInEpisodeEndDate { get; set; }
 		
 		public string BreakInEpisodeOfCareNumber { get; set; }
 		
-		public System.DateTime BreakInEpisodeStartDate { get; set; }
+		public System.DateTimeOffset BreakInEpisodeStartDate { get; set; }
 		
 		public string NumberOfCNCHours { get; set; }
 		
 		public string NumberOfCNCVisits { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime CreateDateTime { get; set; }
+		public System.DateTimeOffset CreateDateTime { get; set; }
 		
 		public string NumberOfENHours { get; set; }
 		
@@ -428,7 +428,7 @@ namespace MyNS
 		public string FacilityId { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime MedicalEventDate { get; set; }
+		public System.DateTimeOffset MedicalEventDate { get; set; }
 		
 		public string MedicalEventTime { get; set; }
 		
@@ -437,7 +437,7 @@ namespace MyNS
 		public string NumberOfNSSVisits { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Patient { get; set; }
+		public MyNS.VeteranPatientType Patient { get; set; }
 		
 		public string Referral { get; set; }
 		
@@ -506,11 +506,11 @@ namespace MyNS
 		
 		public string AccountReferenceNumber { get; set; }
 		
-		public System.DateTime AdmissionDate { get; set; }
+		public System.DateTimeOffset AdmissionDate { get; set; }
 		
 		public string ChargeAmount { get; set; }
 		
-		public System.DateTime DischargeDate { get; set; }
+		public System.DateTimeOffset DischargeDate { get; set; }
 		
 		public int DistanceKilometres { get; set; }
 		
@@ -583,15 +583,15 @@ namespace MyNS
 		public string Id { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime AuthorisationDate { get; set; }
+		public System.DateTimeOffset AuthorisationDate { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime CreateDateTime { get; set; }
+		public System.DateTimeOffset CreateDateTime { get; set; }
 		
 		public string FacilityId { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime MedicalEventDate { get; set; }
+		public System.DateTimeOffset MedicalEventDate { get; set; }
 		
 		public string MedicalEventTime { get; set; }
 		
@@ -607,7 +607,7 @@ namespace MyNS
 		public string Referral { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Patient { get; set; }
+		public MyNS.VeteranPatientType Patient { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public DVAServiceType[] Service { get; set; }
@@ -639,7 +639,7 @@ namespace MyNS
 		
 		public string ClaimId { get; set; }
 		
-		public System.DateTime LodgementDate { get; set; }
+		public System.DateTimeOffset LodgementDate { get; set; }
 	}
 	
 	public class DVAPaymentReportResponseType
@@ -687,19 +687,19 @@ namespace MyNS
 		
 		public string Id { get; set; }
 		
-		public System.DateTime EventDate { get; set; }
+		public System.DateTimeOffset EventDate { get; set; }
 	}
 	
 	public class VeteranMembershipStatusType
 	{
 		
-		public string CurrentMembership { get; set; }
+		public MyNS.VeteranMembershipResponseType CurrentMembership { get; set; }
 		
 		public string CurrentMember { get; set; }
 		
 		public string Status { get; set; }
 		
-		public System.DateTime ProcessDate { get; set; }
+		public System.DateTimeOffset ProcessDate { get; set; }
 	}
 	
 	public class VeteranMembershipResponseType : VeteranMembershipType
@@ -750,7 +750,7 @@ namespace MyNS
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Patient { get; set; }
 		
-		public System.DateTime DateOfService { get; set; }
+		public System.DateTimeOffset DateOfService { get; set; }
 	}
 	
 	public class EnterpriseConcessionVerificationResponseType
@@ -784,7 +784,7 @@ namespace MyNS
 		
 		public string Status { get; set; }
 		
-		public System.DateTime ProcessDate { get; set; }
+		public System.DateTimeOffset ProcessDate { get; set; }
 	}
 	
 	public class EnterprisePatientVerificationRequestType
@@ -807,11 +807,11 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Patient { get; set; }
+		public MyNS.FundPatientType Patient { get; set; }
 		
 		public string Provider { get; set; }
 		
-		public System.DateTime DateOfService { get; set; }
+		public System.DateTimeOffset DateOfService { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string TypeCode { get; set; }
@@ -870,7 +870,7 @@ namespace MyNS
 		
 		public string CurrentMember { get; set; }
 		
-		public System.DateTime ProcessDate { get; set; }
+		public System.DateTimeOffset ProcessDate { get; set; }
 	}
 	
 	public class EnterpriseVeteranVerificationRequestType
@@ -893,7 +893,7 @@ namespace MyNS
 	{
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Patient { get; set; }
+		public MyNS.VeteranPatientType Patient { get; set; }
 	}
 	
 	public class EnterpriseVeteranVerificationResponseType
@@ -933,7 +933,7 @@ namespace MyNS
 		public string Referral { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public string Claimant { get; set; }
+		public MyNS.ClaimantType Claimant { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public PCIMedicalEventType[] MedicalEvent { get; set; }
@@ -954,7 +954,7 @@ namespace MyNS
 		public string SubmissionAuthorityInd { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime AuthorisationDate { get; set; }
+		public System.DateTimeOffset AuthorisationDate { get; set; }
 	}
 	
 	public class ClaimantType : MedicarePatientType
@@ -987,7 +987,7 @@ namespace MyNS
 		public string Id { get; set; }
 		
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		public System.DateTime MedicalEventDate { get; set; }
+		public System.DateTimeOffset MedicalEventDate { get; set; }
 		
 		public string MedicalEventTime { get; set; }
 	}
@@ -1039,7 +1039,7 @@ namespace MyNS
 		
 		public ServiceResponseType[] Service { get; set; }
 		
-		public System.DateTime EventDate { get; set; }
+		public System.DateTimeOffset EventDate { get; set; }
 		
 		public string Id { get; set; }
 	}
@@ -1114,9 +1114,9 @@ namespace MyNS
 		
 		public string AssociateName { get; set; }
 		
-		public System.DateTime FromDateTime { get; set; }
+		public System.DateTimeOffset FromDateTime { get; set; }
 		
-		public System.DateTime ToDateTime { get; set; }
+		public System.DateTimeOffset ToDateTime { get; set; }
 		
 		public string ReportStatus { get; set; }
 		
@@ -1139,7 +1139,7 @@ namespace MyNS
 		
 		public string AssociateName { get; set; }
 		
-		public System.DateTime LodgementDateTime { get; set; }
+		public System.DateTimeOffset LodgementDateTime { get; set; }
 		
 		public string ProcessStatus { get; set; }
 		

@@ -5,16 +5,16 @@
 		/// <summary>
 		/// Either OperationId or MethodQueryParameters
 		/// </summary>
-		Default,
+		Default = 0,
 
-		OperationId,
+		OperationId = 1,
 
 		/// <summary>
 		/// Compose something like GetSomeWhereById1AndId2. Generally used with ContainerNameStrategy.Path
 		/// </summary>
-		MethodQueryParameters,
+		MethodQueryParameters = 2,
 
-		PathMethodQueryParameters,
+		PathMethodQueryParameters = 3,
 
 		/// <summary>
 		/// According to Open API specification, it is RECOMMENDED that the naming of operationId follows common programming naming conventions. 
@@ -22,7 +22,7 @@
 		/// Regular expression (regex) may be needed to pick up alphanumeric words from such operationId and create a valid function name.
 		/// The default RegexForNormalizedOperationId is /w*.
 		/// </summary>
-		NormalizedOperationId,
+		NormalizedOperationId = 4,
 	}
 
 	public enum ContainerNameStrategy
@@ -52,14 +52,16 @@
 
 		/// <summary>
 		/// To compose client function name through removing path prefix. Typically / or /api. The default is /.
-		/// The lenght of the prefix is used to remove path prefix.
+		/// The lenght of the prefix is used to remove path prefix. Applied when ActionNameStrategy is PathMethodQueryParameters.
 		/// </summary>
 		public string PathPrefixToRemove { get; set; } = "/";
 
 		public ActionNameStrategy ActionNameStrategy { get; set; }
 
 		/// <summary>
-		/// Default is \w* for picking up alphanumeric words from crikey operationId. Applied when ActionNameStrategy is NorrmalizedOperationId.
+		/// The default is \w* for picking up alphanumeric words from some crikey operationIds through matching a list of words 
+		/// which will be merged into a function name in Pascal or camel casing. 
+		/// Applied when ActionNameStrategy is NorrmalizedOperationId.
 		/// </summary>
 		public string RegexForNormalizedOperationId { get; set; } = @"\w*";
 

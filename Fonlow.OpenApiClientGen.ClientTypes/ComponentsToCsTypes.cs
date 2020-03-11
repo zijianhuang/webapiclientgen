@@ -111,7 +111,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				CodeTypeDeclaration typeDeclaration;
 				if (isForClass)
 				{
-					if (schema.Properties.Count > 0 || (schema.Properties.Count==0 && allOfBaseTypeSchemaList.Count>1))
+					if (schema.Properties.Count > 0 || (schema.Properties.Count == 0 && allOfBaseTypeSchemaList.Count > 1))
 					{
 						typeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, typeName);
 						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
@@ -191,28 +191,37 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				var propertySchema = p.Value;
 				var premitivePropertyType = propertySchema.Type;
 				var isRequired = schema.Required.Contains(p.Key); //compare with the original key
-				
+
 
 				CodeMemberField clientProperty;
 				if (String.IsNullOrEmpty(premitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
 				{
 					OpenApiSchema refToType = null;
-					if (propertySchema.AllOf.Count > 0)
+					if (propertySchema.Reference != null) // for Swagger 2.0
 					{
-						refToType = propertySchema.AllOf[0];
+						var typeId = propertySchema.Reference.Id;
+						clientProperty = CreateProperty(propertyName, settings.ClientNamespace + "." + typeId);
 					}
-					else if (propertySchema.OneOf.Count > 0)
+					else
 					{
-						refToType = propertySchema.OneOf[0];
-					}else if (propertySchema.AnyOf.Count > 0)
-					{
-						refToType = propertySchema.AnyOf[0];
-					}
+						if (propertySchema.AllOf.Count > 0)
+						{
+							refToType = propertySchema.AllOf[0];
+						}
+						else if (propertySchema.OneOf.Count > 0)
+						{
+							refToType = propertySchema.OneOf[0];
+						}
+						else if (propertySchema.AnyOf.Count > 0)
+						{
+							refToType = propertySchema.AnyOf[0];
+						}
 
-					var customPropertyType = refToType.Type;
-					var customPropertyFormat = refToType.Format;
-					var customType = nameComposer.PrimitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);
-					clientProperty = CreateProperty(propertyName, customType);
+						var customPropertyType = refToType.Type;
+						var customPropertyFormat = refToType.Format;
+						var customType = nameComposer.PrimitiveSwaggerTypeToClrType(customPropertyType, customPropertyFormat);
+						clientProperty = CreateProperty(propertyName, customType);
+					}
 				}
 				else
 				{

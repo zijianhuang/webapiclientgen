@@ -28,6 +28,10 @@ namespace MyNS
 		public string Tag { get; set; }
 	}
 	
+	public class Pets : System.Collections.ObjectModel.Collection<Pet>
+	{
+	}
+	
 	public class Error
 	{
 		

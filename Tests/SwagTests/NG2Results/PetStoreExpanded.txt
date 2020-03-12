@@ -48,10 +48,9 @@ export namespace MyNS {
 		 * Returns a user based on a single ID, if the user does not have access to the pet
 		 * Get /pets/{id}
 		 * @param {number} id ID of pet to fetch
-		 * @param {string} requestBody Pet to add to the store
 		 * @return {Pet} pet response
 		 */
-		FindPetById(id: number, requestBody: string): Observable<Pet> {
+		FindPetById(id: number): Observable<Pet> {
 			return this.http.get<Pet>(this.baseUri + '/pets/' + id);
 		}
 
@@ -59,10 +58,9 @@ export namespace MyNS {
 		 * deletes a single pet based on the ID supplied
 		 * Delete /pets/{id}
 		 * @param {number} id ID of pet to delete
-		 * @param {string} requestBody Pet to add to the store
 		 * @return {void} 
 		 */
-		DeletePet(id: number, requestBody: string): Observable<Response> {
+		DeletePet(id: number): Observable<Response> {
 			return this.http.delete<Response>(this.baseUri + '/pets/' + id);
 		}
 	}

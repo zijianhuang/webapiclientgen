@@ -326,7 +326,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				}
 				else if (op.RequestBody.Content.Count > 0) // with content but not supported
 				{
-					return Tuple.Create(new CodeTypeReference("dummy"), description, false);
+					return Tuple.Create<CodeTypeReference, string, bool>(null, null, false);
 				}
 			}
 

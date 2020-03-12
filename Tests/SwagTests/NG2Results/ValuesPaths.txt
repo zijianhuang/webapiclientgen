@@ -27,7 +27,7 @@ export namespace MyNS {
 		 * Get /api/Values/{id}
 		 * @return {string} Success
 		 */
-		ValuesGetById(id: number, requestBody: string): Observable<string> {
+		ValuesGetById(id: number): Observable<string> {
 			return this.http.get(this.baseUri + '/api/Values/' + id, { responseType: 'text' });
 		}
 
@@ -43,7 +43,7 @@ export namespace MyNS {
 		 * Delete /api/Values/{id}
 		 * @return {void} Success
 		 */
-		ValuesDeleteById(id: number, requestBody: string): Observable<Response> {
+		ValuesDeleteById(id: number): Observable<Response> {
 			return this.http.delete<Response>(this.baseUri + '/api/Values/' + id);
 		}
 	}

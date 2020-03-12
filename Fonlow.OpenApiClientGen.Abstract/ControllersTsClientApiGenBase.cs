@@ -23,7 +23,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		readonly NameComposer nameComposer;
 
-		ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
+		Func<ClientApiTsFunctionGenAbstract> apiFunctionGenFactory; //to be injected in ctor of derived class.
 
 		/// <summary>
 		/// 
@@ -31,11 +31,11 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <param name="jsOutput"></param>
 		/// <param name="apiFunctionGen"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		protected ControllersTsClientApiGenBase(Settings settings, JSOutput jsOutput, ClientApiTsFunctionGenAbstract apiFunctionGen)
+		protected ControllersTsClientApiGenBase(Settings settings, JSOutput jsOutput, Func<ClientApiTsFunctionGenAbstract> apiFunctionGenFactory)
 		{
 			this.settings = settings;
 			this.jsOutput = jsOutput;
-			this.apiFunctionGen = apiFunctionGen;
+			this.apiFunctionGenFactory = apiFunctionGenFactory;
 			CodeCompileUnit = new CodeCompileUnit();
 			nameComposer = new NameComposer(settings);
 
@@ -116,6 +116,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				var relativePath = p.Key;
 				foreach (var op in p.Value.Operations)
 				{
+					var apiFunctionGen = apiFunctionGenFactory();
 					var apiFunction = apiFunctionGen.CreateApiFunction(settings, relativePath, op.Key, op.Value, new ComponentsToTsTypes(settings, CodeCompileUnit, clientNamespace) );
 					if (apiFunction == null)
 					{

@@ -220,10 +220,10 @@ export namespace MyNS {
 		/**
 		 * Place an order for a pet
 		 * Post /store/order
-		 * @param {string} requestBody order placed for purchasing the pet
+		 * @param {Order} requestBody order placed for purchasing the pet
 		 * @return {Order} successful operation
 		 */
-		PlaceOrder(requestBody: string): Observable<Order> {
+		PlaceOrder(requestBody: Order): Observable<Order> {
 			return this.http.post<Order>(this.baseUri + '/store/order', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
@@ -259,10 +259,10 @@ export namespace MyNS {
 		 * Create user
 		 * This can only be done by the logged in user.
 		 * Post /user
-		 * @param {string} requestBody Created user object
+		 * @param {User} requestBody Created user object
 		 * @return {void} 
 		 */
-		CreateUser(requestBody: string): Observable<Response> {
+		CreateUser(requestBody: User): Observable<Response> {
 			return this.http.post<Response>(this.baseUri + '/user', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
@@ -281,10 +281,10 @@ export namespace MyNS {
 		 * This can only be done by the logged in user.
 		 * Put /user/{username}
 		 * @param {string} username name that need to be deleted
-		 * @param {string} requestBody Updated user object
+		 * @param {User} requestBody Updated user object
 		 * @return {void} 
 		 */
-		UpdateUser(username: string, requestBody: string): Observable<Response> {
+		UpdateUser(username: string, requestBody: User): Observable<Response> {
 			return this.http.put<Response>(this.baseUri + '/user/' + encodeURIComponent(username), JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 

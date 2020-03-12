@@ -37,10 +37,10 @@ export namespace MyNS {
 		/**
 		 * Creates a new pet in the store. Duplicates are allowed
 		 * Post /pets
-		 * @param {string} requestBody Pet to add to the store
+		 * @param {NewPet} requestBody Pet to add to the store
 		 * @return {Pet} pet response
 		 */
-		AddPet(requestBody: string): Observable<Pet> {
+		AddPet(requestBody: NewPet): Observable<Pet> {
 			return this.http.post<Pet>(this.baseUri + '/pets', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 

@@ -17,7 +17,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 		public NameComposer(Settings settings)
 		{
 			this.settings = settings;
-			if (settings.ActionNameStrategy== ActionNameStrategy.NormalizedOperationId)
+			if (settings.ActionNameStrategy == ActionNameStrategy.NormalizedOperationId)
 			{
 				if (String.IsNullOrEmpty(settings.RegexForNormalizedOperationId))
 				{
@@ -153,7 +153,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				localPath = localPath.Remove(0, settings.PathPrefixToRemove.Length);
 
 			}
-			 
+
 			if (!localPath.StartsWith("/"))
 			{
 				localPath = "/" + localPath;
@@ -311,7 +311,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 
 				if (op.RequestBody.Reference != null)
 				{
-					if (op.RequestBody.Content.TryGetValue("application/json", out content) && content.Schema.Type != null)
+					if (op.RequestBody.Content.TryGetValue("application/json", out content) && (content.Schema.Type != null && content.Schema.Type != "object"))
 					{
 						return Tuple.Create(OpenApiMediaTypeToCodeTypeReference(content), description, true);
 					}
@@ -322,6 +322,13 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				}
 				else if (op.RequestBody.Content.TryGetValue("application/json", out content))
 				{
+					if (content.Schema!=null && content.Schema.Reference != null)
+					{
+						var typeName = content.Schema.Reference.Id;
+						var codeTypeReference = new CodeTypeReference(typeName);
+						return Tuple.Create(codeTypeReference, description, true);
+					}
+
 					return Tuple.Create(OpenApiMediaTypeToCodeTypeReference(content), description, true);
 				}
 				else if (op.RequestBody.Content.Count > 0) // with content but not supported

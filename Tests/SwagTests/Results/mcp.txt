@@ -1173,7 +1173,7 @@ namespace MyNS
 		/// McpBulkBillPaymentReport1Eigw /mcp/bulkbillpaymentreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<BBSPaymentReportResponseType> McpBulkBillPaymentReport1EigwAsync(string requestBody)
+		public async Task<BBSPaymentReportResponseType> McpBulkBillPaymentReport1EigwAsync(BBSReportRequestType requestBody)
 		{
 			var requestUri = "/mcp/bulkbillpaymentreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1204,7 +1204,7 @@ namespace MyNS
 		/// McpBulkBillProcessingReport1Eigw /mcp/bulkbillprocessingreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<BBSProcessingReportResponseType> McpBulkBillProcessingReport1EigwAsync(string requestBody)
+		public async Task<BBSProcessingReportResponseType> McpBulkBillProcessingReport1EigwAsync(BBSReportRequestType requestBody)
 		{
 			var requestUri = "/mcp/bulkbillprocessingreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1235,7 +1235,7 @@ namespace MyNS
 		/// McpBulkBillStoreForwardGeneral1Eigw /mcp/bulkbillstoreforward/general/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardGeneral1EigwAsync(string requestBody)
+		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardGeneral1EigwAsync(BulkBillStoreForwardRequestType requestBody)
 		{
 			var requestUri = "/mcp/bulkbillstoreforward/general/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1266,7 +1266,7 @@ namespace MyNS
 		/// McpBulkBillStoreForwardPathology1Eigw /mcp/bulkbillstoreforward/pathology/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardPathology1EigwAsync(string requestBody)
+		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardPathology1EigwAsync(BulkBillStoreForwardRequestType requestBody)
 		{
 			var requestUri = "/mcp/bulkbillstoreforward/pathology/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1297,7 +1297,7 @@ namespace MyNS
 		/// McpBulkBillStoreForwardSpecialist1Eigw /mcp/bulkbillstoreforward/specialist/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardSpecialist1EigwAsync(string requestBody)
+		public async Task<BulkBillStoreForwardResponseType> McpBulkBillStoreForwardSpecialist1EigwAsync(BulkBillStoreForwardRequestType requestBody)
 		{
 			var requestUri = "/mcp/bulkbillstoreforward/specialist/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1328,7 +1328,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthAllied1Eigw /mcp/dvaalliedhealth/allied/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthAllied1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthAllied1EigwAsync(AlliedHealthClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/allied/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1359,7 +1359,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthCommunityNursing1Eigw /mcp/dvaalliedhealth/communitynursing/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthCommunityNursing1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthCommunityNursing1EigwAsync(AlliedHealthClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/communitynursing/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1390,7 +1390,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthDental1Eigw /mcp/dvaalliedhealth/dental/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthDental1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthDental1EigwAsync(AlliedHealthClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/dental/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1421,7 +1421,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthOptical1Eigw /mcp/dvaalliedhealth/optical/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthOptical1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthOptical1EigwAsync(AlliedHealthClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/optical/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1452,7 +1452,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthPsych1Eigw /mcp/dvaalliedhealth/psych/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthPsych1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthPsych1EigwAsync(AlliedHealthClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/psych/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1483,7 +1483,7 @@ namespace MyNS
 		/// McpDvaAlliedHealthSpeechPathology1Eigw /mcp/dvaalliedhealth/speechpathology/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthSpeechPathology1EigwAsync(string requestBody)
+		public async Task<AlliedHealthClaimResponseType> McpDvaAlliedHealthSpeechPathology1EigwAsync(AlliedHealthClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaalliedhealth/speechpathology/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1514,7 +1514,7 @@ namespace MyNS
 		/// McpDvaClaimGeneral1Eigw /mcp/dvaclaim/general/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<DVAClaimResponseType> McpDvaClaimGeneral1EigwAsync(string requestBody)
+		public async Task<DVAClaimResponseType> McpDvaClaimGeneral1EigwAsync(DVAClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaclaim/general/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1545,7 +1545,7 @@ namespace MyNS
 		/// McpDvaClaimPathology1Eigw /mcp/dvaclaim/pathology/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<DVAClaimResponseType> McpDvaClaimPathology1EigwAsync(string requestBody)
+		public async Task<DVAClaimResponseType> McpDvaClaimPathology1EigwAsync(DVAClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaclaim/pathology/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1576,7 +1576,7 @@ namespace MyNS
 		/// McpDvaClaimSpecialist1Eigw /mcp/dvaclaim/specialist/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<DVAClaimResponseType> McpDvaClaimSpecialist1EigwAsync(string requestBody)
+		public async Task<DVAClaimResponseType> McpDvaClaimSpecialist1EigwAsync(DVAClaimRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaclaim/specialist/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1607,7 +1607,7 @@ namespace MyNS
 		/// McpDvaPaymentReport1Eigw /mcp/dvapaymentreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<DVAPaymentReportResponseType> McpDvaPaymentReport1EigwAsync(string requestBody)
+		public async Task<DVAPaymentReportResponseType> McpDvaPaymentReport1EigwAsync(DVAReportRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvapaymentreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1638,7 +1638,7 @@ namespace MyNS
 		/// McpDvaProcessingReport1Eigw /mcp/dvaprocessingreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<DVAProcessingReportResponseType> McpDvaProcessingReport1EigwAsync(string requestBody)
+		public async Task<DVAProcessingReportResponseType> McpDvaProcessingReport1EigwAsync(DVAReportRequestType requestBody)
 		{
 			var requestUri = "/mcp/dvaprocessingreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1669,7 +1669,7 @@ namespace MyNS
 		/// McpEnterpriseConcessionVerification1Eigw /mcp/enterpriseconcessionverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<EnterpriseConcessionVerificationResponseType> McpEnterpriseConcessionVerification1EigwAsync(string requestBody)
+		public async Task<EnterpriseConcessionVerificationResponseType> McpEnterpriseConcessionVerification1EigwAsync(EnterpriseConcessionVerificationRequestType requestBody)
 		{
 			var requestUri = "/mcp/enterpriseconcessionverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1700,7 +1700,7 @@ namespace MyNS
 		/// McpEnterprisePatientVerification1Eigw /mcp/enterprisepatientverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<EnterprisePatientVerificationResponseType> McpEnterprisePatientVerification1EigwAsync(string requestBody)
+		public async Task<EnterprisePatientVerificationResponseType> McpEnterprisePatientVerification1EigwAsync(EnterprisePatientVerificationRequestType requestBody)
 		{
 			var requestUri = "/mcp/enterprisepatientverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1731,7 +1731,7 @@ namespace MyNS
 		/// McpEnterpriseVeteranVerification1Eigw /mcp/enterpriseveteranverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<EnterpriseVeteranVerificationResponseType> McpEnterpriseVeteranVerification1EigwAsync(string requestBody)
+		public async Task<EnterpriseVeteranVerificationResponseType> McpEnterpriseVeteranVerification1EigwAsync(EnterpriseVeteranVerificationRequestType requestBody)
 		{
 			var requestUri = "/mcp/enterpriseveteranverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1762,7 +1762,7 @@ namespace MyNS
 		/// McpPatientClaimInteractiveGeneral1Eigw /mcp/patientclaiminteractive/general/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractiveGeneral1EigwAsync(string requestBody)
+		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractiveGeneral1EigwAsync(PatientClaimInteractiveRequestType requestBody)
 		{
 			var requestUri = "/mcp/patientclaiminteractive/general/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1793,7 +1793,7 @@ namespace MyNS
 		/// McpPatientClaimInteractivePathology1Eigw /mcp/patientclaiminteractive/pathology/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractivePathology1EigwAsync(string requestBody)
+		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractivePathology1EigwAsync(PatientClaimInteractiveRequestType requestBody)
 		{
 			var requestUri = "/mcp/patientclaiminteractive/pathology/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1824,7 +1824,7 @@ namespace MyNS
 		/// McpPatientClaimInteractiveSpecialist1Eigw /mcp/patientclaiminteractive/specialist/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractiveSpecialist1EigwAsync(string requestBody)
+		public async Task<PatientClaimInteractiveResponseType> McpPatientClaimInteractiveSpecialist1EigwAsync(PatientClaimInteractiveRequestType requestBody)
 		{
 			var requestUri = "/mcp/patientclaiminteractive/specialist/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1855,7 +1855,7 @@ namespace MyNS
 		/// McpPatientVerification1Eigw /mcp/patientverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<PatientVerificationResponseType> McpPatientVerification1EigwAsync(string requestBody)
+		public async Task<PatientVerificationResponseType> McpPatientVerification1EigwAsync(PatientVerificationRequestType requestBody)
 		{
 			var requestUri = "/mcp/patientverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1886,7 +1886,7 @@ namespace MyNS
 		/// McpPatientVerificationHf1Eigw /mcp/patientverification/hf/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<PatientVerificationResponseType> McpPatientVerificationHf1EigwAsync(string requestBody)
+		public async Task<PatientVerificationResponseType> McpPatientVerificationHf1EigwAsync(PatientVerificationRequestType requestBody)
 		{
 			var requestUri = "/mcp/patientverification/hf/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1917,7 +1917,7 @@ namespace MyNS
 		/// McpPatientVerificationMedicare1Eigw /mcp/patientverification/medicare/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<PatientVerificationResponseType> McpPatientVerificationMedicare1EigwAsync(string requestBody)
+		public async Task<PatientVerificationResponseType> McpPatientVerificationMedicare1EigwAsync(PatientVerificationRequestType requestBody)
 		{
 			var requestUri = "/mcp/patientverification/medicare/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1948,7 +1948,7 @@ namespace MyNS
 		/// McpRetrieveReportEcv1Eigw /mcp/enterpriseconcessionverification/retrievereport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<RetrieveReportResponseType> McpRetrieveReportEcv1EigwAsync(string requestBody)
+		public async Task<RetrieveReportResponseType> McpRetrieveReportEcv1EigwAsync(RetrieveReportRequestType requestBody)
 		{
 			var requestUri = "/mcp/enterpriseconcessionverification/retrievereport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -1979,7 +1979,7 @@ namespace MyNS
 		/// McpRetrieveReportEpv1Eigw /mcp/enterprisepatientverification/retrievereport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<RetrieveReportResponseType> McpRetrieveReportEpv1EigwAsync(string requestBody)
+		public async Task<RetrieveReportResponseType> McpRetrieveReportEpv1EigwAsync(RetrieveReportRequestType requestBody)
 		{
 			var requestUri = "/mcp/enterprisepatientverification/retrievereport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -2010,7 +2010,7 @@ namespace MyNS
 		/// McpRetrieveReportEvv1Eigw /mcp/enterpriseveteranverification/retrievereport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<RetrieveReportResponseType> McpRetrieveReportEvv1EigwAsync(string requestBody)
+		public async Task<RetrieveReportResponseType> McpRetrieveReportEvv1EigwAsync(RetrieveReportRequestType requestBody)
 		{
 			var requestUri = "/mcp/enterpriseveteranverification/retrievereport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -2041,7 +2041,7 @@ namespace MyNS
 		/// McpSameDayDelete1Eigw /mcp/samedaydelete/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<SameDayDeleteResponseType> McpSameDayDelete1EigwAsync(string requestBody)
+		public async Task<SameDayDeleteResponseType> McpSameDayDelete1EigwAsync(SameDayDeleteRequestType requestBody)
 		{
 			var requestUri = "/mcp/samedaydelete/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -2072,7 +2072,7 @@ namespace MyNS
 		/// McpStatusReport1Eigw /mcp/statusreport/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<StatusReportResponseType> McpStatusReport1EigwAsync(string requestBody)
+		public async Task<StatusReportResponseType> McpStatusReport1EigwAsync(StatusReportRequestType requestBody)
 		{
 			var requestUri = "/mcp/statusreport/v1";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -2103,7 +2103,7 @@ namespace MyNS
 		/// McpVeteranVerification1Eigw /mcp/veteranverification/v1
 		/// </summary>
 		/// <returns>successful operation</returns>
-		public async Task<VeteranVerificationResponseType> McpVeteranVerification1EigwAsync(string requestBody)
+		public async Task<VeteranVerificationResponseType> McpVeteranVerification1EigwAsync(VeteranVerificationRequestType requestBody)
 		{
 			var requestUri = "/mcp/veteranverification/v1";
 			using (var requestWriter = new System.IO.StringWriter())

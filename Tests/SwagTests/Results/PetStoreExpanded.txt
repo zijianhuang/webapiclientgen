@@ -95,7 +95,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="requestBody">Pet to add to the store</param>
 		/// <returns>pet response</returns>
-		public async Task<Pet> AddPetAsync(string requestBody)
+		public async Task<Pet> AddPetAsync(NewPet requestBody)
 		{
 			var requestUri = "/pets";
 			using (var requestWriter = new System.IO.StringWriter())

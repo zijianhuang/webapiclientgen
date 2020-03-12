@@ -535,7 +535,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
-		public async Task<Order> PostAsync(string requestBody)
+		public async Task<Order> PostAsync(Order requestBody)
 		{
 			var requestUri = "/store/order";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -631,7 +631,7 @@ namespace MyNS
 		/// Post /user
 		/// </summary>
 		/// <param name="requestBody">Created user object</param>
-		public async Task PostAsync(string requestBody)
+		public async Task PostAsync(User requestBody)
 		{
 			var requestUri = "/user";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -684,7 +684,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
 		/// <param name="requestBody">Updated user object</param>
-		public async Task PutByUsernameAsync(string username, string requestBody)
+		public async Task PutByUsernameAsync(string username, User requestBody)
 		{
 			var requestUri = "/user/"+Uri.EscapeDataString(username);
 			using (var requestWriter = new System.IO.StringWriter())

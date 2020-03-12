@@ -643,7 +643,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
-		public async Task<Order> PlaceOrderAsync(string requestBody)
+		public async Task<Order> PlaceOrderAsync(Order requestBody)
 		{
 			var requestUri = "/store/order";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -675,7 +675,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
-		public Order PlaceOrder(string requestBody)
+		public Order PlaceOrder(Order requestBody)
 		{
 			var requestUri = "/store/order";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -818,7 +818,7 @@ namespace MyNS
 		/// CreateUser /user
 		/// </summary>
 		/// <param name="requestBody">Created user object</param>
-		public async Task CreateUserAsync(string requestBody)
+		public async Task CreateUserAsync(User requestBody)
 		{
 			var requestUri = "/user";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -844,7 +844,7 @@ namespace MyNS
 		/// CreateUser /user
 		/// </summary>
 		/// <param name="requestBody">Created user object</param>
-		public void CreateUser(string requestBody)
+		public void CreateUser(User requestBody)
 		{
 			var requestUri = "/user";
 			using (var requestWriter = new System.IO.StringWriter())
@@ -923,7 +923,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
 		/// <param name="requestBody">Updated user object</param>
-		public async Task UpdateUserAsync(string username, string requestBody)
+		public async Task UpdateUserAsync(string username, User requestBody)
 		{
 			var requestUri = "/user/"+Uri.EscapeDataString(username);
 			using (var requestWriter = new System.IO.StringWriter())
@@ -950,7 +950,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
 		/// <param name="requestBody">Updated user object</param>
-		public void UpdateUser(string username, string requestBody)
+		public void UpdateUser(string username, User requestBody)
 		{
 			var requestUri = "/user/"+Uri.EscapeDataString(username);
 			using (var requestWriter = new System.IO.StringWriter())

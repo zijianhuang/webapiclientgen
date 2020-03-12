@@ -22,10 +22,10 @@ export namespace MyNS {
 		 * List all pets
 		 * Get /pets
 		 * @param {number} limit How many items to return at one time (max 100)
-		 * @return {Pets} A paged array of pets
+		 * @return {Array<Pet>} A paged array of pets
 		 */
-		ListPets(limit: number): Observable<Pets> {
-			return this.http.get<Pets>(this.baseUri + '/pets?limit=' + limit);
+		ListPets(limit: number): Observable<Array<Pet>> {
+			return this.http.get<Array<Pet>>(this.baseUri + '/pets?limit=' + limit);
 		}
 
 		/**

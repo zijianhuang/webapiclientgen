@@ -38,10 +38,10 @@ export namespace MyNS {
 		 * Creates a new pet in the store. Duplicates are allowed
 		 * Post /pets
 		 * @param {string} requestBody Pet to add to the store
-		 * @return {MyNS.Pet} pet response
+		 * @return {Pet} pet response
 		 */
-		AddPet(requestBody: string): Observable<MyNS.Pet> {
-			return this.http.post<MyNS.Pet>(this.baseUri + '/pets', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		AddPet(requestBody: string): Observable<Pet> {
+			return this.http.post<Pet>(this.baseUri + '/pets', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -49,10 +49,10 @@ export namespace MyNS {
 		 * Get /pets/{id}
 		 * @param {number} id ID of pet to fetch
 		 * @param {string} requestBody Pet to add to the store
-		 * @return {MyNS.Pet} pet response
+		 * @return {Pet} pet response
 		 */
-		FindPetById(id: number, requestBody: string): Observable<MyNS.Pet> {
-			return this.http.get<MyNS.Pet>(this.baseUri + '/pets/' + id);
+		FindPetById(id: number, requestBody: string): Observable<Pet> {
+			return this.http.get<Pet>(this.baseUri + '/pets/' + id);
 		}
 
 		/**

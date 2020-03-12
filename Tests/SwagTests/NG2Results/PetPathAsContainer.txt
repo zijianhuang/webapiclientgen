@@ -164,31 +164,19 @@ export namespace MyNS {
 		 * Get /pet/{petId}
 		 * @param {number} petId ID of pet to return
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
-		 * @return {MyNS.Pet} successful operation
+		 * @return {Pet} successful operation
 		 */
-		GetByPetId(petId: number, requestBody: Pet): Observable<MyNS.Pet> {
-			return this.http.get<MyNS.Pet>(this.baseUri + '/pet/' + petId);
-		}
-
-		/**
-		 * Updates a pet in the store with form data
-		 * Post /pet/{petId}
-		 * @param {number} petId ID of pet that needs to be updated
-		 * @param {Pet} requestBody Pet object that needs to be added to the store
-		 * @return {void} 
-		 */
-		PostByPetId(petId: number, requestBody: Pet): Observable<Response> {
-			return this.http.post<Response>(this.baseUri + '/pet/' + petId, JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		GetByPetId(petId: number, requestBody: Pet): Observable<Pet> {
+			return this.http.get<Pet>(this.baseUri + '/pet/' + petId);
 		}
 
 		/**
 		 * Deletes a pet
 		 * Delete /pet/{petId}
 		 * @param {number} petId Pet id to delete
-		 * @param {Pet} requestBody Pet object that needs to be added to the store
 		 * @return {void} 
 		 */
-		DeleteByPetId(petId: number, requestBody: Pet): Observable<Response> {
+		DeleteByPetId(petId: number, requestBody: dummy): Observable<Response> {
 			return this.http.delete<Response>(this.baseUri + '/pet/' + petId);
 		}
 	}
@@ -196,17 +184,6 @@ export namespace MyNS {
 	@Injectable()
 	export class PetUploadImageClient {
 		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
-		}
-
-		/**
-		 * uploads an image
-		 * Post /pet/{petId}/uploadImage
-		 * @param {number} petId ID of pet to update
-		 * @param {Pet} requestBody Pet object that needs to be added to the store
-		 * @return {MyNS.ApiResponse} successful operation
-		 */
-		PostByPetId(petId: number, requestBody: Pet): Observable<MyNS.ApiResponse> {
-			return this.http.post<MyNS.ApiResponse>(this.baseUri + '/pet/' + petId + '/uploadImage', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
 
@@ -220,10 +197,9 @@ export namespace MyNS {
 		 * Multiple status values can be provided with comma separated strings
 		 * Get /pet/findByStatus
 		 * @param {string} status Status values that need to be considered for filter
-		 * @param {Pet} requestBody Pet object that needs to be added to the store
 		 * @return {Array<Pet>} successful operation
 		 */
-		GetByStatus(status: string, requestBody: Pet): Observable<Array<Pet>> {
+		GetByStatus(status: string, requestBody: dummy): Observable<Array<Pet>> {
 			return this.http.get<Array<Pet>>(this.baseUri + '/pet/findByStatus?status=' + encodeURIComponent(status));
 		}
 	}
@@ -238,10 +214,9 @@ export namespace MyNS {
 		 * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
 		 * Get /pet/findByTags
 		 * @param {string} tags Tags to filter by
-		 * @param {Pet} requestBody Pet object that needs to be added to the store
 		 * @return {Array<Pet>} successful operation
 		 */
-		GetByTags(tags: string, requestBody: Pet): Observable<Array<Pet>> {
+		GetByTags(tags: string, requestBody: dummy): Observable<Array<Pet>> {
 			return this.http.get<Array<Pet>>(this.baseUri + '/pet/findByTags?tags=' + encodeURIComponent(tags));
 		}
 	}
@@ -255,10 +230,9 @@ export namespace MyNS {
 		 * Returns pet inventories by status
 		 * Returns a map of status codes to quantities
 		 * Get /store/inventory
-		 * @param {Pet} requestBody Pet object that needs to be added to the store
 		 * @return {string} successful operation
 		 */
-		Get(requestBody: Pet): Observable<string> {
+		Get(requestBody: dummy): Observable<string> {
 			return this.http.get(this.baseUri + '/store/inventory', { responseType: 'text' });
 		}
 	}
@@ -272,10 +246,10 @@ export namespace MyNS {
 		 * Place an order for a pet
 		 * Post /store/order
 		 * @param {string} requestBody order placed for purchasing the pet
-		 * @return {MyNS.Order} successful operation
+		 * @return {Order} successful operation
 		 */
-		Post(requestBody: string): Observable<MyNS.Order> {
-			return this.http.post<MyNS.Order>(this.baseUri + '/store/order', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		Post(requestBody: string): Observable<Order> {
+			return this.http.post<Order>(this.baseUri + '/store/order', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -284,10 +258,10 @@ export namespace MyNS {
 		 * Get /store/order/{orderId}
 		 * @param {number} orderId ID of pet that needs to be fetched
 		 * @param {string} requestBody order placed for purchasing the pet
-		 * @return {MyNS.Order} successful operation
+		 * @return {Order} successful operation
 		 */
-		GetByOrderId(orderId: number, requestBody: string): Observable<MyNS.Order> {
-			return this.http.get<MyNS.Order>(this.baseUri + '/store/order/' + orderId);
+		GetByOrderId(orderId: number, requestBody: string): Observable<Order> {
+			return this.http.get<Order>(this.baseUri + '/store/order/' + orderId);
 		}
 
 		/**
@@ -324,10 +298,10 @@ export namespace MyNS {
 		 * Get /user/{username}
 		 * @param {string} username The name that needs to be fetched. Use user1 for testing. 
 		 * @param {string} requestBody Created user object
-		 * @return {MyNS.User} successful operation
+		 * @return {User} successful operation
 		 */
-		GetByUsername(username: string, requestBody: string): Observable<MyNS.User> {
-			return this.http.get<MyNS.User>(this.baseUri + '/user/' + encodeURIComponent(username));
+		GetByUsername(username: string, requestBody: string): Observable<User> {
+			return this.http.get<User>(this.baseUri + '/user/' + encodeURIComponent(username));
 		}
 
 		/**

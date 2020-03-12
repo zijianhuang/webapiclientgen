@@ -127,6 +127,13 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 
 						AddProperties(typeDeclaration, schema);
 					}
+					else if (type == "array") // wrapper of array
+					{
+						//var itemsRef = schema.Items.Reference;
+						//var baseTypeName = $"System.Collections.ObjectModel.Collection<{itemsRef.Id}>";
+						//typeDeclaration = PodGenHelper.CreatePodClientClass(clientNamespace, $"{itemsRef.Id}[]");
+						//typeDeclaration.BaseTypes.Add(baseTypeName);
+					}
 					else // type alias
 					{
 						//var typeFormat = schema.Format; No need to do C# Type Alias, since OpenApi.NET will translate the alias to the real type.

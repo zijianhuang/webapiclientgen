@@ -22,10 +22,10 @@ export namespace MyNS {
 		 * List all pets
 		 * Get /pets
 		 * @param {number} limit How many items to return at one time (max 100)
-		 * @return {MyNS.Pets} A paged array of pets
+		 * @return {Pets} A paged array of pets
 		 */
-		ListPets(limit: number): Observable<MyNS.Pets> {
-			return this.http.get<MyNS.Pets>(this.baseUri + '/pets?limit=' + limit);
+		ListPets(limit: number): Observable<Pets> {
+			return this.http.get<Pets>(this.baseUri + '/pets?limit=' + limit);
 		}
 
 		/**
@@ -41,10 +41,10 @@ export namespace MyNS {
 		 * Info for a specific pet
 		 * Get /pets/{petId}
 		 * @param {string} petId The id of the pet to retrieve
-		 * @return {MyNS.Pet} Expected response to a valid request
+		 * @return {Pet} Expected response to a valid request
 		 */
-		ShowPetById(petId: string): Observable<MyNS.Pet> {
-			return this.http.get<MyNS.Pet>(this.baseUri + '/pets/' + encodeURIComponent(petId));
+		ShowPetById(petId: string): Observable<Pet> {
+			return this.http.get<Pet>(this.baseUri + '/pets/' + encodeURIComponent(petId));
 		}
 	}
 

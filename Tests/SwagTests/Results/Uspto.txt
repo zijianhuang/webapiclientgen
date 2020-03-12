@@ -132,33 +132,5 @@ namespace MyNS
 
 			this.client = client;
 		}
-		
-		/// <summary>
-		/// Provides search capability for the data set with the given search criteria.
-		/// This API is based on Solr/Lucense Search. The data is indexed using SOLR. This GET API returns the list of all the searchable field names that are in the Solr Index. Please see the 'fields' attribute which returns an array of field names. Each field or a combination of fields can be searched using the Solr/Lucene Syntax. Please refer https://lucene.apache.org/core/3_6_2/queryparsersyntax.html#Overview for the query syntax. List of field names that are searchable can be determined using above GET api.
-		/// PerformSearch /{dataset}/{version}/records
-		/// </summary>
-		/// <param name="version">Version of the dataset.</param>
-		/// <param name="dataset">Name of the dataset. In this case, the default value is oa_citations</param>
-		/// <returns>successful operation</returns>
-		public async Task<string[]> PerformSearchAsync(string version, string dataset)
-		{
-			var requestUri = "/"+Uri.EscapeDataString(dataset)+"/"+Uri.EscapeDataString(version)+"/records";
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<string[]>(jsonReader);
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
 	}
 }

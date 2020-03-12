@@ -347,25 +347,6 @@ namespace MyNS
 		}
 		
 		/// <summary>
-		/// Updates a pet in the store with form data
-		/// PetPostByPetId /pet/{petId}
-		/// </summary>
-		/// <param name="petId">ID of pet that needs to be updated</param>
-		public async Task PetPostByPetIdAsync(long petId)
-		{
-			var requestUri = "/pet/"+petId;
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
 		/// Deletes a pet
 		/// PetDeleteByPetId /pet/{petId}
 		/// </summary>
@@ -377,32 +358,6 @@ namespace MyNS
 			try
 			{
 				responseMessage.EnsureSuccessStatusCode();
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// uploads an image
-		/// PetUploadImagePostByPetId /pet/{petId}/uploadImage
-		/// </summary>
-		/// <param name="petId">ID of pet to update</param>
-		/// <returns>successful operation</returns>
-		public async Task<ApiResponse> PetUploadImagePostByPetIdAsync(long petId)
-		{
-			var requestUri = "/pet/"+petId+"/uploadImage";
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			try
-			{
-				responseMessage.EnsureSuccessStatusCode();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<ApiResponse>(jsonReader);
-				}
 			}
 			finally
 			{

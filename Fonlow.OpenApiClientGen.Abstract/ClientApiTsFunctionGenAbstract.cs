@@ -51,6 +51,10 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					this.RequestBodyCodeTypeReference = kc.Item1;
 					this.requestBodyComment = kc.Item2;
+					if (!kc.Item3)
+					{
+						return null; // not to generate for unsupported POST content type.
+					}
 				}
 			}
 

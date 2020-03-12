@@ -117,6 +117,12 @@ namespace Fonlow.CodeDom.Web.Ts
 				foreach (var op in p.Value.Operations)
 				{
 					var apiFunction = apiFunctionGen.CreateApiFunction(settings, relativePath, op.Key, op.Value, new ComponentsToTsTypes(settings, CodeCompileUnit, clientNamespace) );
+					if (apiFunction == null)
+					{
+						System.Diagnostics.Trace.TraceWarning($"Not to generate for {p.Key} {op.Key}.");
+						continue;
+					}
+
 					var containerClassName = nameComposer.GetContainerName(op.Value, p.Key);
 					var existingClass = LookupExistingClass(containerClassName);
 					existingClass.Members.Add(apiFunction);

@@ -132,9 +132,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					else if (type == "array") // wrapper of array
 					{
 						var itemsRef = schema.Items.Reference;
-						var baseTypeName = $"System.Collections.ObjectModel.Collection<{itemsRef.Id}>";
-						typeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, typeName);
-						typeDeclaration.BaseTypes.Add(baseTypeName);
+						TypeAliasDic.Instance.Add(typeName, $"{itemsRef.Id}[]");
 					}
 					else // type alias
 					{

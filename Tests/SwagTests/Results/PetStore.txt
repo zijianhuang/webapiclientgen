@@ -28,10 +28,6 @@ namespace MyNS
 		public string Tag { get; set; }
 	}
 	
-	public class Pets : System.Collections.ObjectModel.Collection<Pet>
-	{
-	}
-	
 	public class Error
 	{
 		
@@ -64,7 +60,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="limit">How many items to return at one time (max 100)</param>
 		/// <returns>A paged array of pets</returns>
-		public async Task<Pets> ListPetsAsync(int limit)
+		public async Task<Pet[]> ListPetsAsync(int limit)
 		{
 			var requestUri = "/pets?limit="+limit;
 			var responseMessage = await client.GetAsync(requestUri);
@@ -75,7 +71,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<Pets>(jsonReader);
+				return serializer.Deserialize<Pet[]>(jsonReader);
 				}
 			}
 			finally
@@ -90,7 +86,7 @@ namespace MyNS
 		/// </summary>
 		/// <param name="limit">How many items to return at one time (max 100)</param>
 		/// <returns>A paged array of pets</returns>
-		public Pets ListPets(int limit)
+		public Pet[] ListPets(int limit)
 		{
 			var requestUri = "/pets?limit="+limit;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
@@ -101,7 +97,7 @@ namespace MyNS
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize<Pets>(jsonReader);
+				return serializer.Deserialize<Pet[]>(jsonReader);
 				}
 			}
 			finally

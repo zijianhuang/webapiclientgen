@@ -26,6 +26,16 @@
     <None Remove="Results\PetStore.txt" />
     <None Remove="Results\PetStoreExpanded.txt" />
     <None Remove="Results\PetTypes.txt" />
+    <None Remove="Results\sell_account.txt" />
+    <None Remove="Results\sell_analytics.txt" />
+    <None Remove="Results\sell_compliance.txt" />
+    <None Remove="Results\sell_finances.txt" />
+    <None Remove="Results\sell_inventory.txt" />
+    <None Remove="Results\sell_listing.txt" />
+    <None Remove="Results\sell_logistics.txt" />
+    <None Remove="Results\sell_marketing.txt" />
+    <None Remove="Results\sell_metadata.txt" />
+    <None Remove="Results\sell_negotiation.txt" />
     <None Remove="Results\SimplePet.txt" />
     <None Remove="Results\Uspto.txt" />
     <None Remove="Results\ValuesPaths.txt" />
@@ -46,6 +56,16 @@
     <None Remove="SwagMock\petTypes.json" />
     <None Remove="SwagMock\Required.json" />
     <None Remove="SwagMock\sell_account_v1_oas3.json" />
+    <None Remove="SwagMock\sell_analytics_v1_oas3.yaml" />
+    <None Remove="SwagMock\sell_compliance_v1_oas3.yaml" />
+    <None Remove="SwagMock\sell_finances_v1_oas3.yaml" />
+    <None Remove="SwagMock\sell_inventory_v1_oas3.yaml" />
+    <None Remove="SwagMock\sell_listing_v1_beta_oas3.yaml" />
+    <None Remove="SwagMock\sell_logistics_v1_oas3.json" />
+    <None Remove="SwagMock\sell_marketing_v1_oas3.json" />
+    <None Remove="SwagMock\sell_metadata_v1_oas3.json" />
+    <None Remove="SwagMock\sell_negotiation_v1_oas3.yaml" />
+    <None Remove="SwagMock\sell_recommendation_v1_oas3.yaml" />
     <None Remove="SwagMock\SimpleOrder.json" />
     <None Remove="SwagMock\SimplePet.json" />
     <None Remove="SwagMock\SimplePetCat.json" />
@@ -87,6 +107,36 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\mcp.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_account.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_analytics.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_compliance.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_finances.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_inventory.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_listing.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_logistics.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_marketing.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_metadata.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\sell_negotiation.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\SimplePet.txt">
@@ -135,6 +185,36 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\sell_account_v1_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_analytics_v1_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_compliance_v1_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_finances_v1_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_inventory_v1_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_listing_v1_beta_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_logistics_v1_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_marketing_v1_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_metadata_v1_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_negotiation_v1_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_recommendation_v1_oas3.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\uspto.yaml">

@@ -423,6 +423,72 @@ namespace SwagTests
 			});
 		}
 
+		[Fact]
+		public void TestEBaySellAccount()
+		{
+			GenerateAndAssert("SwagMock\\sell_account_v1_oas3.json", "NG2Results\\sell_account.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_analytics()
+		{
+			GenerateAndAssert("SwagMock\\sell_analytics_v1_oas3.yaml", "NG2Results\\sell_analytics.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_compliance()
+		{
+			GenerateAndAssert("SwagMock\\sell_compliance_v1_oas3.yaml", "NG2Results\\sell_compliance.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_finances()
+		{
+			GenerateAndAssert("SwagMock\\sell_finances_v1_oas3.yaml", "NG2Results\\sell_finances.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_inventory()
+		{
+			GenerateAndAssert("SwagMock\\sell_inventory_v1_oas3.yaml", "NG2Results\\sell_inventory.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_listing()
+		{
+			GenerateAndAssert("SwagMock\\sell_listing_v1_beta_oas3.yaml", "NG2Results\\sell_listing.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_logistics()
+		{
+			GenerateAndAssert("SwagMock\\sell_logistics_v1_oas3.json", "NG2Results\\sell_logistics.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_negotiation()
+		{
+			GenerateAndAssert("SwagMock\\sell_negotiation_v1_oas3.yaml", "NG2Results\\sell_negotiation.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_marketing()
+		{
+			GenerateAndAssert("SwagMock\\sell_marketing_v1_oas3.json", "NG2Results\\sell_marketing.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_metadata()
+		{
+			GenerateAndAssert("SwagMock\\sell_metadata_v1_oas3.json", "NG2Results\\sell_metadata.txt");
+		}
+
+		[Fact]
+		public void TestEBay_sell_recommendation()
+		{
+			GenerateAndAssert("SwagMock\\sell_recommendation_v1_oas3.yaml", "NG2Results\\sell_recommendation.txt");
+		}
+
 
 	}
 

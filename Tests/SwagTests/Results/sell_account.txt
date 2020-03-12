@@ -1289,13 +1289,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves all the fulfillment policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetFulfillmentPolicies /fulfillment_policy/
+		/// GetFulfillmentPolicies fulfillment_policy/
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <returns>Success</returns>
 		public async Task<FulfillmentPolicyResponse> GetFulfillmentPoliciesAsync(string marketplace_id)
 		{
-			var requestUri = "/fulfillment_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
+			var requestUri = "fulfillment_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1315,13 +1315,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves all the fulfillment policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetFulfillmentPolicies /fulfillment_policy/
+		/// GetFulfillmentPolicies fulfillment_policy/
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <returns>Success</returns>
 		public FulfillmentPolicyResponse GetFulfillmentPolicies(string marketplace_id)
 		{
-			var requestUri = "/fulfillment_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
+			var requestUri = "fulfillment_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1341,12 +1341,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling item purchases. Fulfillment policies include the shipment options that the seller offers to buyers. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. Be aware that some marketplaces require a specific fulfillment policy for vehicle listings. A successful request returns the URI to the new policy in the Location response header and the ID for the new policy is returned in the response payload. Tip: For details on creating and using the business policies supported by the Account API, see eBay business policies. Marketplaces and locales Policy instructions can be localized by providing a locale in the Accept-Language HTTP request header. For example, the following setting displays field values from the request body in German: Accept-Language: de-DE. Target the specific locale of a marketplace that supports multiple locales using the Content-Language request header. For example, target the French locale of the Canadian marketplace by specifying the fr-CA locale for Content-Language. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. Tip: For details on headers, see HTTP request headers.
-		/// CreateFulfillmentPolicy /fulfillment_policy/
+		/// CreateFulfillmentPolicy fulfillment_policy/
 		/// </summary>
 		/// <param name="requestBody">Request to create a seller account fulfillment policy.</param>
 		public async Task CreateFulfillmentPolicyAsync(FulfillmentPolicyRequest requestBody)
 		{
-			var requestUri = "/fulfillment_policy/";
+			var requestUri = "fulfillment_policy/";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1366,12 +1366,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling item purchases. Fulfillment policies include the shipment options that the seller offers to buyers. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. Be aware that some marketplaces require a specific fulfillment policy for vehicle listings. A successful request returns the URI to the new policy in the Location response header and the ID for the new policy is returned in the response payload. Tip: For details on creating and using the business policies supported by the Account API, see eBay business policies. Marketplaces and locales Policy instructions can be localized by providing a locale in the Accept-Language HTTP request header. For example, the following setting displays field values from the request body in German: Accept-Language: de-DE. Target the specific locale of a marketplace that supports multiple locales using the Content-Language request header. For example, target the French locale of the Canadian marketplace by specifying the fr-CA locale for Content-Language. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. Tip: For details on headers, see HTTP request headers.
-		/// CreateFulfillmentPolicy /fulfillment_policy/
+		/// CreateFulfillmentPolicy fulfillment_policy/
 		/// </summary>
 		/// <param name="requestBody">Request to create a seller account fulfillment policy.</param>
 		public void CreateFulfillmentPolicy(FulfillmentPolicyRequest requestBody)
 		{
-			var requestUri = "/fulfillment_policy/";
+			var requestUri = "fulfillment_policy/";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1391,13 +1391,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want to retrieve using the fulfillmentPolicyId path parameter.
-		/// GetFulfillmentPolicy /fulfillment_policy/{fulfillmentPolicyId}
+		/// GetFulfillmentPolicy fulfillment_policy/{fulfillmentPolicyId}
 		/// </summary>
 		/// <param name="fulfillmentPolicyId">This path parameter specifies the ID of the fulfillment policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public async Task<FulfillmentPolicy> GetFulfillmentPolicyAsync(string fulfillmentPolicyId)
 		{
-			var requestUri = "/fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
+			var requestUri = "fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1417,13 +1417,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want to retrieve using the fulfillmentPolicyId path parameter.
-		/// GetFulfillmentPolicy /fulfillment_policy/{fulfillmentPolicyId}
+		/// GetFulfillmentPolicy fulfillment_policy/{fulfillmentPolicyId}
 		/// </summary>
 		/// <param name="fulfillmentPolicyId">This path parameter specifies the ID of the fulfillment policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public FulfillmentPolicy GetFulfillmentPolicy(string fulfillmentPolicyId)
 		{
-			var requestUri = "/fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
+			var requestUri = "fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1443,14 +1443,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates an existing fulfillment policy. Specify the policy you want to update using the fulfillment_policy_id path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
-		/// UpdateFulfillmentPolicy /fulfillment_policy/{fulfillmentPolicyId}
+		/// UpdateFulfillmentPolicy fulfillment_policy/{fulfillmentPolicyId}
 		/// </summary>
 		/// <param name="fulfillmentPolicyId">This path parameter specifies the ID of the fulfillment policy you want to update.</param>
 		/// <param name="requestBody">Fulfillment policy request</param>
 		/// <returns>OK</returns>
 		public async Task<SetFulfillmentPolicyResponse> UpdateFulfillmentPolicyAsync(string fulfillmentPolicyId, FulfillmentPolicyRequest requestBody)
 		{
-			var requestUri = "/fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
+			var requestUri = "fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1476,14 +1476,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates an existing fulfillment policy. Specify the policy you want to update using the fulfillment_policy_id path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
-		/// UpdateFulfillmentPolicy /fulfillment_policy/{fulfillmentPolicyId}
+		/// UpdateFulfillmentPolicy fulfillment_policy/{fulfillmentPolicyId}
 		/// </summary>
 		/// <param name="fulfillmentPolicyId">This path parameter specifies the ID of the fulfillment policy you want to update.</param>
 		/// <param name="requestBody">Fulfillment policy request</param>
 		/// <returns>OK</returns>
 		public SetFulfillmentPolicyResponse UpdateFulfillmentPolicy(string fulfillmentPolicyId, FulfillmentPolicyRequest requestBody)
 		{
-			var requestUri = "/fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
+			var requestUri = "fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1509,12 +1509,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the fulfillmentPolicyId path parameter. Note that you cannot delete the default fulfillment policy.
-		/// DeleteFulfillmentPolicy /fulfillment_policy/{fulfillmentPolicyId}
+		/// DeleteFulfillmentPolicy fulfillment_policy/{fulfillmentPolicyId}
 		/// </summary>
 		/// <param name="fulfillmentPolicyId">This path parameter specifies the ID of the fulfillment policy to delete.</param>
 		public async Task DeleteFulfillmentPolicyAsync(string fulfillmentPolicyId)
 		{
-			var requestUri = "/fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
+			var requestUri = "fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -1528,12 +1528,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the fulfillmentPolicyId path parameter. Note that you cannot delete the default fulfillment policy.
-		/// DeleteFulfillmentPolicy /fulfillment_policy/{fulfillmentPolicyId}
+		/// DeleteFulfillmentPolicy fulfillment_policy/{fulfillmentPolicyId}
 		/// </summary>
 		/// <param name="fulfillmentPolicyId">This path parameter specifies the ID of the fulfillment policy to delete.</param>
 		public void DeleteFulfillmentPolicy(string fulfillmentPolicyId)
 		{
-			var requestUri = "/fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
+			var requestUri = "fulfillment_policy/"+Uri.EscapeDataString(fulfillmentPolicyId);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -1547,14 +1547,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details for a single fulfillment policy. In the request, supply both the policy name and its associated marketplace_id as query parameters. Marketplaces and locales Get the correct policy for a marketplace that supports multiple locales using the Content-Language request header. For example, get a policy for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetFulfillmentPolicyByName /fulfillment_policy/get_by_policy_name
+		/// GetFulfillmentPolicyByName fulfillment_policy/get_by_policy_name
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <param name="name">This query parameter specifies the user-defined name of the fulfillment policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public async Task<FulfillmentPolicy> GetFulfillmentPolicyByNameAsync(string marketplace_id, string name)
 		{
-			var requestUri = "/fulfillment_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
+			var requestUri = "fulfillment_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1574,14 +1574,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details for a single fulfillment policy. In the request, supply both the policy name and its associated marketplace_id as query parameters. Marketplaces and locales Get the correct policy for a marketplace that supports multiple locales using the Content-Language request header. For example, get a policy for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetFulfillmentPolicyByName /fulfillment_policy/get_by_policy_name
+		/// GetFulfillmentPolicyByName fulfillment_policy/get_by_policy_name
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <param name="name">This query parameter specifies the user-defined name of the fulfillment policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public FulfillmentPolicy GetFulfillmentPolicyByName(string marketplace_id, string name)
 		{
-			var requestUri = "/fulfillment_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
+			var requestUri = "fulfillment_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1618,13 +1618,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves all the payment policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetPaymentPolicies /payment_policy/
+		/// GetPaymentPolicies payment_policy/
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <returns>Success</returns>
 		public async Task<PaymentPolicyResponse> GetPaymentPoliciesAsync(string marketplace_id)
 		{
-			var requestUri = "/payment_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
+			var requestUri = "payment_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1644,13 +1644,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves all the payment policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetPaymentPolicies /payment_policy/
+		/// GetPaymentPolicies payment_policy/
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <returns>Success</returns>
 		public PaymentPolicyResponse GetPaymentPolicies(string marketplace_id)
 		{
-			var requestUri = "/payment_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
+			var requestUri = "payment_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1670,12 +1670,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a new payment policy where the policy encapsulates seller's terms for purchase payments. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. Be aware that some marketplaces require a specific payment policy for vehicle listings. A successful request returns the URI to the new policy in the Location response header and the ID for the new policy is returned in the response payload. Tip: For details on creating and using the business policies supported by the Account API, see eBay business policies. Marketplaces and locales Policy instructions can be localized by providing a locale in the Accept-Language HTTP request header. For example, the following setting displays field values from the request body in German: Accept-Language: de-DE. Target the specific locale of a marketplace that supports multiple locales using the Content-Language request header. For example, target the French locale of the Canadian marketplace by specifying the fr-CA locale for Content-Language. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. Tip: For details on headers, see HTTP request headers.
-		/// CreatePaymentPolicy /payment_policy/
+		/// CreatePaymentPolicy payment_policy/
 		/// </summary>
 		/// <param name="requestBody">Payment policy request</param>
 		public async Task CreatePaymentPolicyAsync(PaymentPolicyRequest requestBody)
 		{
-			var requestUri = "/payment_policy/";
+			var requestUri = "payment_policy/";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1695,12 +1695,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a new payment policy where the policy encapsulates seller's terms for purchase payments. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. Be aware that some marketplaces require a specific payment policy for vehicle listings. A successful request returns the URI to the new policy in the Location response header and the ID for the new policy is returned in the response payload. Tip: For details on creating and using the business policies supported by the Account API, see eBay business policies. Marketplaces and locales Policy instructions can be localized by providing a locale in the Accept-Language HTTP request header. For example, the following setting displays field values from the request body in German: Accept-Language: de-DE. Target the specific locale of a marketplace that supports multiple locales using the Content-Language request header. For example, target the French locale of the Canadian marketplace by specifying the fr-CA locale for Content-Language. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. Tip: For details on headers, see HTTP request headers.
-		/// CreatePaymentPolicy /payment_policy/
+		/// CreatePaymentPolicy payment_policy/
 		/// </summary>
 		/// <param name="requestBody">Payment policy request</param>
 		public void CreatePaymentPolicy(PaymentPolicyRequest requestBody)
 		{
-			var requestUri = "/payment_policy/";
+			var requestUri = "payment_policy/";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1720,13 +1720,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of a payment policy. Supply the ID of the policy you want to retrieve using the paymentPolicyId path parameter.
-		/// GetPaymentPolicy /payment_policy/{payment_policy_id}
+		/// GetPaymentPolicy payment_policy/{payment_policy_id}
 		/// </summary>
 		/// <param name="payment_policy_id">This path parameter specifies the ID of the payment policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public async Task<PaymentPolicy> GetPaymentPolicyAsync(string payment_policy_id)
 		{
-			var requestUri = "/payment_policy/"+Uri.EscapeDataString(payment_policy_id);
+			var requestUri = "payment_policy/"+Uri.EscapeDataString(payment_policy_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1746,13 +1746,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of a payment policy. Supply the ID of the policy you want to retrieve using the paymentPolicyId path parameter.
-		/// GetPaymentPolicy /payment_policy/{payment_policy_id}
+		/// GetPaymentPolicy payment_policy/{payment_policy_id}
 		/// </summary>
 		/// <param name="payment_policy_id">This path parameter specifies the ID of the payment policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public PaymentPolicy GetPaymentPolicy(string payment_policy_id)
 		{
-			var requestUri = "/payment_policy/"+Uri.EscapeDataString(payment_policy_id);
+			var requestUri = "payment_policy/"+Uri.EscapeDataString(payment_policy_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1772,14 +1772,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates an existing payment policy. Specify the policy you want to update using the payment_policy_id path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
-		/// UpdatePaymentPolicy /payment_policy/{payment_policy_id}
+		/// UpdatePaymentPolicy payment_policy/{payment_policy_id}
 		/// </summary>
 		/// <param name="payment_policy_id">This path parameter specifies the ID of the payment policy you want to update.</param>
 		/// <param name="requestBody">Payment policy request</param>
 		/// <returns>OK</returns>
 		public async Task<SetPaymentPolicyResponse> UpdatePaymentPolicyAsync(string payment_policy_id, PaymentPolicyRequest requestBody)
 		{
-			var requestUri = "/payment_policy/"+Uri.EscapeDataString(payment_policy_id);
+			var requestUri = "payment_policy/"+Uri.EscapeDataString(payment_policy_id);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1805,14 +1805,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates an existing payment policy. Specify the policy you want to update using the payment_policy_id path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
-		/// UpdatePaymentPolicy /payment_policy/{payment_policy_id}
+		/// UpdatePaymentPolicy payment_policy/{payment_policy_id}
 		/// </summary>
 		/// <param name="payment_policy_id">This path parameter specifies the ID of the payment policy you want to update.</param>
 		/// <param name="requestBody">Payment policy request</param>
 		/// <returns>OK</returns>
 		public SetPaymentPolicyResponse UpdatePaymentPolicy(string payment_policy_id, PaymentPolicyRequest requestBody)
 		{
-			var requestUri = "/payment_policy/"+Uri.EscapeDataString(payment_policy_id);
+			var requestUri = "payment_policy/"+Uri.EscapeDataString(payment_policy_id);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1838,12 +1838,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a payment policy. Supply the ID of the policy you want to delete in the paymentPolicyId path parameter. Note that you cannot delete the default payment policy.
-		/// DeletePaymentPolicy /payment_policy/{payment_policy_id}
+		/// DeletePaymentPolicy payment_policy/{payment_policy_id}
 		/// </summary>
 		/// <param name="payment_policy_id">This path parameter specifies the ID of the payment policy you want to delete.</param>
 		public async Task DeletePaymentPolicyAsync(string payment_policy_id)
 		{
-			var requestUri = "/payment_policy/"+Uri.EscapeDataString(payment_policy_id);
+			var requestUri = "payment_policy/"+Uri.EscapeDataString(payment_policy_id);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -1857,12 +1857,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a payment policy. Supply the ID of the policy you want to delete in the paymentPolicyId path parameter. Note that you cannot delete the default payment policy.
-		/// DeletePaymentPolicy /payment_policy/{payment_policy_id}
+		/// DeletePaymentPolicy payment_policy/{payment_policy_id}
 		/// </summary>
 		/// <param name="payment_policy_id">This path parameter specifies the ID of the payment policy you want to delete.</param>
 		public void DeletePaymentPolicy(string payment_policy_id)
 		{
-			var requestUri = "/payment_policy/"+Uri.EscapeDataString(payment_policy_id);
+			var requestUri = "payment_policy/"+Uri.EscapeDataString(payment_policy_id);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -1876,14 +1876,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of a single payment policy. Supply both the policy name and its associated marketplace_id in the request query parameters. Marketplaces and locales Get the correct policy for a marketplace that supports multiple locales using the Content-Language request header. For example, get a policy for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetPaymentPolicyByName /payment_policy/get_by_policy_name
+		/// GetPaymentPolicyByName payment_policy/get_by_policy_name
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <param name="name">This query parameter specifies the user-defined name of the payment policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public async Task<PaymentPolicy> GetPaymentPolicyByNameAsync(string marketplace_id, string name)
 		{
-			var requestUri = "/payment_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
+			var requestUri = "payment_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1903,14 +1903,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of a single payment policy. Supply both the policy name and its associated marketplace_id in the request query parameters. Marketplaces and locales Get the correct policy for a marketplace that supports multiple locales using the Content-Language request header. For example, get a policy for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetPaymentPolicyByName /payment_policy/get_by_policy_name
+		/// GetPaymentPolicyByName payment_policy/get_by_policy_name
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <param name="name">This query parameter specifies the user-defined name of the payment policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public PaymentPolicy GetPaymentPolicyByName(string marketplace_id, string name)
 		{
-			var requestUri = "/payment_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
+			var requestUri = "payment_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1947,14 +1947,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns whether or not the user is opted-in to the payment program. Sellers opt-in to payment programs by marketplace and you must target a specific marketplace in your requests to this method using the marketplace_id path parameter.
-		/// GetPaymentsProgram /payments_program/{marketplace_id}/{payments_program_type}
+		/// GetPaymentsProgram payments_program/{marketplace_id}/{payments_program_type}
 		/// </summary>
 		/// <param name="marketplace_id">This path parameter specifies the eBay marketplace of the payment program for which you want to retrieve the seller's status.</param>
 		/// <param name="payments_program_type">This path parameter specifies the payments program whose status is returned by the call. Currently the only supported payments program is EBAY_PAYMENTS. For details on the program, see Payments Terms of Use.</param>
 		/// <returns>Success</returns>
 		public async Task<PaymentsProgramResponse> GetPaymentsProgramAsync(string marketplace_id, string payments_program_type)
 		{
-			var requestUri = "/payments_program/"+Uri.EscapeDataString(marketplace_id)+"/"+Uri.EscapeDataString(payments_program_type);
+			var requestUri = "payments_program/"+Uri.EscapeDataString(marketplace_id)+"/"+Uri.EscapeDataString(payments_program_type);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1974,14 +1974,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns whether or not the user is opted-in to the payment program. Sellers opt-in to payment programs by marketplace and you must target a specific marketplace in your requests to this method using the marketplace_id path parameter.
-		/// GetPaymentsProgram /payments_program/{marketplace_id}/{payments_program_type}
+		/// GetPaymentsProgram payments_program/{marketplace_id}/{payments_program_type}
 		/// </summary>
 		/// <param name="marketplace_id">This path parameter specifies the eBay marketplace of the payment program for which you want to retrieve the seller's status.</param>
 		/// <param name="payments_program_type">This path parameter specifies the payments program whose status is returned by the call. Currently the only supported payments program is EBAY_PAYMENTS. For details on the program, see Payments Terms of Use.</param>
 		/// <returns>Success</returns>
 		public PaymentsProgramResponse GetPaymentsProgram(string marketplace_id, string payments_program_type)
 		{
-			var requestUri = "/payments_program/"+Uri.EscapeDataString(marketplace_id)+"/"+Uri.EscapeDataString(payments_program_type);
+			var requestUri = "payments_program/"+Uri.EscapeDataString(marketplace_id)+"/"+Uri.EscapeDataString(payments_program_type);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2018,12 +2018,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the seller's current set of privileges. The call returns whether or not the seller's eBay registration has been completed, as well as the details of their site-wide sellingLimt (the amount and quantity they can sell on a given day).
-		/// GetPrivileges /privilege/
+		/// GetPrivileges privilege/
 		/// </summary>
 		/// <returns>Success</returns>
 		public async Task<SellingPrivileges> GetPrivilegesAsync()
 		{
-			var requestUri = "/privilege/";
+			var requestUri = "privilege/";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2043,12 +2043,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the seller's current set of privileges. The call returns whether or not the seller's eBay registration has been completed, as well as the details of their site-wide sellingLimt (the amount and quantity they can sell on a given day).
-		/// GetPrivileges /privilege/
+		/// GetPrivileges privilege/
 		/// </summary>
 		/// <returns>Success</returns>
 		public SellingPrivileges GetPrivileges()
 		{
-			var requestUri = "/privilege/";
+			var requestUri = "privilege/";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2085,12 +2085,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method gets a list of the seller programs that the seller has opted-in to.
-		/// GetOptedInPrograms /program/get_opted_in_programs
+		/// GetOptedInPrograms program/get_opted_in_programs
 		/// </summary>
 		/// <returns>Success</returns>
 		public async Task<Programs> GetOptedInProgramsAsync()
 		{
-			var requestUri = "/program/get_opted_in_programs";
+			var requestUri = "program/get_opted_in_programs";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2110,12 +2110,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method gets a list of the seller programs that the seller has opted-in to.
-		/// GetOptedInPrograms /program/get_opted_in_programs
+		/// GetOptedInPrograms program/get_opted_in_programs
 		/// </summary>
 		/// <returns>Success</returns>
 		public Programs GetOptedInPrograms()
 		{
-			var requestUri = "/program/get_opted_in_programs";
+			var requestUri = "program/get_opted_in_programs";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2135,13 +2135,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method opts the seller in to an eBay seller program. Currently available programs include the Out of Stock Control and the Selling Policy Management program. When you opt-in to the SELLING_POLICY_MANAGEMENT, eBay can associate the business policies you create with the items you list. Note: It can take up to 24-hours for eBay to process your request to opt-in to a Seller Program. Use the getOptedInPrograms call to check the status of your request after a processing period has passed.
-		/// OptInToProgram /program/opt_in
+		/// OptInToProgram program/opt_in
 		/// </summary>
 		/// <param name="requestBody">Program being opted-in to.</param>
 		/// <returns>Success</returns>
 		public async Task<string> OptInToProgramAsync(Program requestBody)
 		{
-			var requestUri = "/program/opt_in";
+			var requestUri = "program/opt_in";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2166,13 +2166,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method opts the seller in to an eBay seller program. Currently available programs include the Out of Stock Control and the Selling Policy Management program. When you opt-in to the SELLING_POLICY_MANAGEMENT, eBay can associate the business policies you create with the items you list. Note: It can take up to 24-hours for eBay to process your request to opt-in to a Seller Program. Use the getOptedInPrograms call to check the status of your request after a processing period has passed.
-		/// OptInToProgram /program/opt_in
+		/// OptInToProgram program/opt_in
 		/// </summary>
 		/// <param name="requestBody">Program being opted-in to.</param>
 		/// <returns>Success</returns>
 		public string OptInToProgram(Program requestBody)
 		{
-			var requestUri = "/program/opt_in";
+			var requestUri = "program/opt_in";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2197,13 +2197,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method opts the seller out of a seller program to which you have previously opted-in to. Get a list of the seller programs you have opted-in to using the getOptedInPrograms call.
-		/// OptOutOfProgram /program/opt_out
+		/// OptOutOfProgram program/opt_out
 		/// </summary>
 		/// <param name="requestBody">Program being opted-out of.</param>
 		/// <returns>Success</returns>
 		public async Task<string> OptOutOfProgramAsync(Program requestBody)
 		{
-			var requestUri = "/program/opt_out";
+			var requestUri = "program/opt_out";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2228,13 +2228,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method opts the seller out of a seller program to which you have previously opted-in to. Get a list of the seller programs you have opted-in to using the getOptedInPrograms call.
-		/// OptOutOfProgram /program/opt_out
+		/// OptOutOfProgram program/opt_out
 		/// </summary>
 		/// <param name="requestBody">Program being opted-out of.</param>
 		/// <returns>Success</returns>
 		public string OptOutOfProgram(Program requestBody)
 		{
-			var requestUri = "/program/opt_out";
+			var requestUri = "program/opt_out";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2276,13 +2276,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves a seller's shipping rate tables for the country specified in the country_code query parameter. If no country code is specified, the call returns all shipping rate tables that have been assigned a rateTableId (to assign an ID to an older rate table, call this method using the table's country code). The method's response includes a rateTableId for each table defined by the seller. Use a table's ID value in a fulfillment policy to specify the shipping rate table to use for that policy's DOMESTIC or INTERNATIONAL shipping option (make sure the locality of the rate table matches the optionType of the shipping option). Sellers can define up to 40 shipping rate tables for their account, which lets them set up different rate tables for each of the marketplaces they sell into. Go to My eBay &gt; Account &gt; Site Preferences to create and maintain the rate tables. For more, see Using shipping rate tables. If you're using the Trading API, use the rate table ID values in the RateTableDetails container of the Add/Revise/Relist calls. If the locality for a rate table is set to DOMESTIC, pass the ID value in the RateTableDetails.DomesticRateTableId field. Otherwise, if locality is INTERNATIONAL, pass the ID value in RateTableDetails.InternationalRateTableId. Note: For regions that are not yet ramped up with multi-rate table support, this method returns an ID that maps to the seller's default rate table for the country specified. Currently, only the US and AU marketplaces support the extended multi-rate table functionality.
-		/// GetRateTables /rate_table/
+		/// GetRateTables rate_table/
 		/// </summary>
 		/// <param name="country_code">This query parameter specifies the two-letter ISO 3166-1 Alpha-2 code of country for which you want shipping-rate table information. If you do not specify a county code, the request returns all the seller-defined rate tables. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/CountryCodeEnum.html</param>
 		/// <returns>Success</returns>
 		public async Task<RateTableResponse> GetRateTablesAsync(string country_code)
 		{
-			var requestUri = "/rate_table/?country_code=" + Uri.EscapeDataString(country_code);
+			var requestUri = "rate_table/?country_code=" + Uri.EscapeDataString(country_code);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2302,13 +2302,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves a seller's shipping rate tables for the country specified in the country_code query parameter. If no country code is specified, the call returns all shipping rate tables that have been assigned a rateTableId (to assign an ID to an older rate table, call this method using the table's country code). The method's response includes a rateTableId for each table defined by the seller. Use a table's ID value in a fulfillment policy to specify the shipping rate table to use for that policy's DOMESTIC or INTERNATIONAL shipping option (make sure the locality of the rate table matches the optionType of the shipping option). Sellers can define up to 40 shipping rate tables for their account, which lets them set up different rate tables for each of the marketplaces they sell into. Go to My eBay &gt; Account &gt; Site Preferences to create and maintain the rate tables. For more, see Using shipping rate tables. If you're using the Trading API, use the rate table ID values in the RateTableDetails container of the Add/Revise/Relist calls. If the locality for a rate table is set to DOMESTIC, pass the ID value in the RateTableDetails.DomesticRateTableId field. Otherwise, if locality is INTERNATIONAL, pass the ID value in RateTableDetails.InternationalRateTableId. Note: For regions that are not yet ramped up with multi-rate table support, this method returns an ID that maps to the seller's default rate table for the country specified. Currently, only the US and AU marketplaces support the extended multi-rate table functionality.
-		/// GetRateTables /rate_table/
+		/// GetRateTables rate_table/
 		/// </summary>
 		/// <param name="country_code">This query parameter specifies the two-letter ISO 3166-1 Alpha-2 code of country for which you want shipping-rate table information. If you do not specify a county code, the request returns all the seller-defined rate tables. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/CountryCodeEnum.html</param>
 		/// <returns>Success</returns>
 		public RateTableResponse GetRateTables(string country_code)
 		{
-			var requestUri = "/rate_table/?country_code=" + Uri.EscapeDataString(country_code);
+			var requestUri = "rate_table/?country_code=" + Uri.EscapeDataString(country_code);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2345,13 +2345,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves all the return policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetReturnPolicies /return_policy/
+		/// GetReturnPolicies return_policy/
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <returns>Success</returns>
 		public async Task<ReturnPolicyResponse> GetReturnPoliciesAsync(string marketplace_id)
 		{
-			var requestUri = "/return_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
+			var requestUri = "return_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2371,13 +2371,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves all the return policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetReturnPolicies /return_policy/
+		/// GetReturnPolicies return_policy/
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <returns>Success</returns>
 		public ReturnPolicyResponse GetReturnPolicies(string marketplace_id)
 		{
-			var requestUri = "/return_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
+			var requestUri = "return_policy/?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2397,12 +2397,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a new return policy where the policy encapsulates seller's terms for returning items. Use the Metadata API method getReturnPolicies to determine which categories require you to supply a return policy for the marketplace(s) into which you list. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. A successful request returns the URI to the new policy in the Location response header and the ID for the new policy is returned in the response payload. Tip: For details on creating and using the business policies supported by the Account API, see eBay business policies. Marketplaces and locales Policy instructions can be localized by providing a locale in the Accept-Language HTTP request header. For example, the following setting displays field values from the request body in German: Accept-Language: de-DE. Target the specific locale of a marketplace that supports multiple locales using the Content-Language request header. For example, target the French locale of the Canadian marketplace by specifying the fr-CA locale for Content-Language. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. Tip: For details on headers, see HTTP request headers.
-		/// CreateReturnPolicy /return_policy/
+		/// CreateReturnPolicy return_policy/
 		/// </summary>
 		/// <param name="requestBody">Return policy request</param>
 		public async Task CreateReturnPolicyAsync(ReturnPolicyRequest requestBody)
 		{
-			var requestUri = "/return_policy/";
+			var requestUri = "return_policy/";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2422,12 +2422,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a new return policy where the policy encapsulates seller's terms for returning items. Use the Metadata API method getReturnPolicies to determine which categories require you to supply a return policy for the marketplace(s) into which you list. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. A successful request returns the URI to the new policy in the Location response header and the ID for the new policy is returned in the response payload. Tip: For details on creating and using the business policies supported by the Account API, see eBay business policies. Marketplaces and locales Policy instructions can be localized by providing a locale in the Accept-Language HTTP request header. For example, the following setting displays field values from the request body in German: Accept-Language: de-DE. Target the specific locale of a marketplace that supports multiple locales using the Content-Language request header. For example, target the French locale of the Canadian marketplace by specifying the fr-CA locale for Content-Language. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. Tip: For details on headers, see HTTP request headers.
-		/// CreateReturnPolicy /return_policy/
+		/// CreateReturnPolicy return_policy/
 		/// </summary>
 		/// <param name="requestBody">Return policy request</param>
 		public void CreateReturnPolicy(ReturnPolicyRequest requestBody)
 		{
-			var requestUri = "/return_policy/";
+			var requestUri = "return_policy/";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2447,13 +2447,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of the return policy specified by the returnPolicyId path parameter.
-		/// GetReturnPolicy /return_policy/{return_policy_id}
+		/// GetReturnPolicy return_policy/{return_policy_id}
 		/// </summary>
 		/// <param name="return_policy_id">This path parameter specifies the of the return policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public async Task<ReturnPolicy> GetReturnPolicyAsync(string return_policy_id)
 		{
-			var requestUri = "/return_policy/"+Uri.EscapeDataString(return_policy_id);
+			var requestUri = "return_policy/"+Uri.EscapeDataString(return_policy_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2473,13 +2473,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of the return policy specified by the returnPolicyId path parameter.
-		/// GetReturnPolicy /return_policy/{return_policy_id}
+		/// GetReturnPolicy return_policy/{return_policy_id}
 		/// </summary>
 		/// <param name="return_policy_id">This path parameter specifies the of the return policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public ReturnPolicy GetReturnPolicy(string return_policy_id)
 		{
-			var requestUri = "/return_policy/"+Uri.EscapeDataString(return_policy_id);
+			var requestUri = "return_policy/"+Uri.EscapeDataString(return_policy_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2499,14 +2499,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates an existing return policy. Specify the policy you want to update using the return_policy_id path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
-		/// UpdateReturnPolicy /return_policy/{return_policy_id}
+		/// UpdateReturnPolicy return_policy/{return_policy_id}
 		/// </summary>
 		/// <param name="return_policy_id">This path parameter specifies the ID of the return policy you want to update.</param>
 		/// <param name="requestBody">Container for a return policy request.</param>
 		/// <returns>OK</returns>
 		public async Task<SetReturnPolicyResponse> UpdateReturnPolicyAsync(string return_policy_id, ReturnPolicyRequest requestBody)
 		{
-			var requestUri = "/return_policy/"+Uri.EscapeDataString(return_policy_id);
+			var requestUri = "return_policy/"+Uri.EscapeDataString(return_policy_id);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2532,14 +2532,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates an existing return policy. Specify the policy you want to update using the return_policy_id path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
-		/// UpdateReturnPolicy /return_policy/{return_policy_id}
+		/// UpdateReturnPolicy return_policy/{return_policy_id}
 		/// </summary>
 		/// <param name="return_policy_id">This path parameter specifies the ID of the return policy you want to update.</param>
 		/// <param name="requestBody">Container for a return policy request.</param>
 		/// <returns>OK</returns>
 		public SetReturnPolicyResponse UpdateReturnPolicy(string return_policy_id, ReturnPolicyRequest requestBody)
 		{
-			var requestUri = "/return_policy/"+Uri.EscapeDataString(return_policy_id);
+			var requestUri = "return_policy/"+Uri.EscapeDataString(return_policy_id);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2565,12 +2565,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a return policy. Supply the ID of the policy you want to delete in the returnPolicyId path parameter. Note that you cannot delete the default return policy.
-		/// DeleteReturnPolicy /return_policy/{return_policy_id}
+		/// DeleteReturnPolicy return_policy/{return_policy_id}
 		/// </summary>
 		/// <param name="return_policy_id">This path parameter specifies the ID of the return policy you want to delete.</param>
 		public async Task DeleteReturnPolicyAsync(string return_policy_id)
 		{
-			var requestUri = "/return_policy/"+Uri.EscapeDataString(return_policy_id);
+			var requestUri = "return_policy/"+Uri.EscapeDataString(return_policy_id);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -2584,12 +2584,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a return policy. Supply the ID of the policy you want to delete in the returnPolicyId path parameter. Note that you cannot delete the default return policy.
-		/// DeleteReturnPolicy /return_policy/{return_policy_id}
+		/// DeleteReturnPolicy return_policy/{return_policy_id}
 		/// </summary>
 		/// <param name="return_policy_id">This path parameter specifies the ID of the return policy you want to delete.</param>
 		public void DeleteReturnPolicy(string return_policy_id)
 		{
-			var requestUri = "/return_policy/"+Uri.EscapeDataString(return_policy_id);
+			var requestUri = "return_policy/"+Uri.EscapeDataString(return_policy_id);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -2603,14 +2603,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of a single return policy. Supply both the policy name and its associated marketplace_id in the request query parameters. Marketplaces and locales Get the correct policy for a marketplace that supports multiple locales using the Content-Language request header. For example, get a policy for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetReturnPolicyByName /return_policy/get_by_policy_name
+		/// GetReturnPolicyByName return_policy/get_by_policy_name
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <param name="name">This query parameter specifies the user-defined name of the return policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public async Task<ReturnPolicy> GetReturnPolicyByNameAsync(string marketplace_id, string name)
 		{
-			var requestUri = "/return_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
+			var requestUri = "return_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2630,14 +2630,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the complete details of a single return policy. Supply both the policy name and its associated marketplace_id in the request query parameters. Marketplaces and locales Get the correct policy for a marketplace that supports multiple locales using the Content-Language request header. For example, get a policy for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: fr-BE. For details on header values, see HTTP request headers.
-		/// GetReturnPolicyByName /return_policy/get_by_policy_name
+		/// GetReturnPolicyByName return_policy/get_by_policy_name
 		/// </summary>
 		/// <param name="marketplace_id">This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/MarketplaceIdEnum.html</param>
 		/// <param name="name">This query parameter specifies the user-defined name of the return policy you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public ReturnPolicy GetReturnPolicyByName(string marketplace_id, string name)
 		{
-			var requestUri = "/return_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
+			var requestUri = "return_policy/get_by_policy_name?marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&name=" + Uri.EscapeDataString(name);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2674,14 +2674,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call gets the current tax table entry for a specific tax jurisdiction. Specify the jurisdiction to retrieve using the countryCode and jurisdictionId path parameters.
-		/// GetSalesTax /sales_tax/{countryCode}/{jurisdictionId}
+		/// GetSalesTax sales_tax/{countryCode}/{jurisdictionId}
 		/// </summary>
 		/// <param name="countryCode">This path parameter specifies the two-letter ISO 3166-1 Alpha-2 code for the country whose tax table you want to retrieve.</param>
 		/// <param name="jurisdictionId">This path parameter specifies the ID of the sales tax jurisdiction for the tax table entry you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public async Task<SalesTax> GetSalesTaxAsync(string countryCode, string jurisdictionId)
 		{
-			var requestUri = "/sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
+			var requestUri = "sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2701,14 +2701,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call gets the current tax table entry for a specific tax jurisdiction. Specify the jurisdiction to retrieve using the countryCode and jurisdictionId path parameters.
-		/// GetSalesTax /sales_tax/{countryCode}/{jurisdictionId}
+		/// GetSalesTax sales_tax/{countryCode}/{jurisdictionId}
 		/// </summary>
 		/// <param name="countryCode">This path parameter specifies the two-letter ISO 3166-1 Alpha-2 code for the country whose tax table you want to retrieve.</param>
 		/// <param name="jurisdictionId">This path parameter specifies the ID of the sales tax jurisdiction for the tax table entry you want to retrieve.</param>
 		/// <returns>Success</returns>
 		public SalesTax GetSalesTax(string countryCode, string jurisdictionId)
 		{
-			var requestUri = "/sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
+			var requestUri = "sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2728,14 +2728,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates or updates a sales tax table entry for a jurisdiction. Specify the tax table entry you want to configure using the two path parameters: countryCode and jurisdictionId. A tax table entry for a jurisdiction is comprised of two fields: one for the jurisdiction's sales-tax rate and another that's a boolean value indicating whether or not shipping and handling are taxed in the jurisdiction. You can set up tax tables for countries that support different tax jurisdictions. Currently, only Canada, India, and the US support separate tax jurisdictions. If you sell into any of these countries, you can set up tax tables for any of the country's jurisdictions. Retrieve valid jurisdiction IDs using getSalesTaxJurisdictions in the Metadata API. For details on using this call, see Establishing sales-tax tables.
-		/// CreateOrReplaceSalesTax /sales_tax/{countryCode}/{jurisdictionId}
+		/// CreateOrReplaceSalesTax sales_tax/{countryCode}/{jurisdictionId}
 		/// </summary>
 		/// <param name="countryCode">This path parameter specifies the two-letter ISO 3166-1 Alpha-2 code for the country for which you want to create tax table entry.</param>
 		/// <param name="jurisdictionId">This path parameter specifies the ID of the sales-tax jurisdiction for the table entry you want to create.</param>
 		/// <param name="requestBody">A container that describes the how the sales tax is calculated.</param>
 		public async Task CreateOrReplaceSalesTaxAsync(string countryCode, string jurisdictionId, SalesTaxBase requestBody)
 		{
-			var requestUri = "/sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
+			var requestUri = "sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2755,14 +2755,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates or updates a sales tax table entry for a jurisdiction. Specify the tax table entry you want to configure using the two path parameters: countryCode and jurisdictionId. A tax table entry for a jurisdiction is comprised of two fields: one for the jurisdiction's sales-tax rate and another that's a boolean value indicating whether or not shipping and handling are taxed in the jurisdiction. You can set up tax tables for countries that support different tax jurisdictions. Currently, only Canada, India, and the US support separate tax jurisdictions. If you sell into any of these countries, you can set up tax tables for any of the country's jurisdictions. Retrieve valid jurisdiction IDs using getSalesTaxJurisdictions in the Metadata API. For details on using this call, see Establishing sales-tax tables.
-		/// CreateOrReplaceSalesTax /sales_tax/{countryCode}/{jurisdictionId}
+		/// CreateOrReplaceSalesTax sales_tax/{countryCode}/{jurisdictionId}
 		/// </summary>
 		/// <param name="countryCode">This path parameter specifies the two-letter ISO 3166-1 Alpha-2 code for the country for which you want to create tax table entry.</param>
 		/// <param name="jurisdictionId">This path parameter specifies the ID of the sales-tax jurisdiction for the table entry you want to create.</param>
 		/// <param name="requestBody">A container that describes the how the sales tax is calculated.</param>
 		public void CreateOrReplaceSalesTax(string countryCode, string jurisdictionId, SalesTaxBase requestBody)
 		{
-			var requestUri = "/sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
+			var requestUri = "sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2782,13 +2782,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call deletes a tax table entry for a jurisdiction. Specify the jurisdiction to delete using the countryCode and jurisdictionId path parameters.
-		/// DeleteSalesTax /sales_tax/{countryCode}/{jurisdictionId}
+		/// DeleteSalesTax sales_tax/{countryCode}/{jurisdictionId}
 		/// </summary>
 		/// <param name="countryCode">This path parameter specifies the two-letter ISO 3166-1 Alpha-2 code for the country whose tax table entry you want to delete.</param>
 		/// <param name="jurisdictionId">This path parameter specifies the ID of the sales tax jurisdiction whose table entry you want to delete.</param>
 		public async Task DeleteSalesTaxAsync(string countryCode, string jurisdictionId)
 		{
-			var requestUri = "/sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
+			var requestUri = "sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -2802,13 +2802,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call deletes a tax table entry for a jurisdiction. Specify the jurisdiction to delete using the countryCode and jurisdictionId path parameters.
-		/// DeleteSalesTax /sales_tax/{countryCode}/{jurisdictionId}
+		/// DeleteSalesTax sales_tax/{countryCode}/{jurisdictionId}
 		/// </summary>
 		/// <param name="countryCode">This path parameter specifies the two-letter ISO 3166-1 Alpha-2 code for the country whose tax table entry you want to delete.</param>
 		/// <param name="jurisdictionId">This path parameter specifies the ID of the sales tax jurisdiction whose table entry you want to delete.</param>
 		public void DeleteSalesTax(string countryCode, string jurisdictionId)
 		{
-			var requestUri = "/sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
+			var requestUri = "sales_tax/"+Uri.EscapeDataString(countryCode)+"/"+Uri.EscapeDataString(jurisdictionId);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -2822,13 +2822,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// Use this call to retrieve a sales tax table that the seller established for a specific country. Specify the tax table to retrieve using the country_code query parameter.
-		/// GetSalesTaxes /sales_tax/
+		/// GetSalesTaxes sales_tax/
 		/// </summary>
 		/// <param name="country_code">This path parameter specifies the two-letter ISO 3166-1 Alpha-2 code for the country whose tax table you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/CountryCodeEnum.html</param>
 		/// <returns>Success</returns>
 		public async Task<SalesTaxes> GetSalesTaxesAsync(string country_code)
 		{
-			var requestUri = "/sales_tax/?country_code=" + Uri.EscapeDataString(country_code);
+			var requestUri = "sales_tax/?country_code=" + Uri.EscapeDataString(country_code);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2848,13 +2848,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// Use this call to retrieve a sales tax table that the seller established for a specific country. Specify the tax table to retrieve using the country_code query parameter.
-		/// GetSalesTaxes /sales_tax/
+		/// GetSalesTaxes sales_tax/
 		/// </summary>
 		/// <param name="country_code">This path parameter specifies the two-letter ISO 3166-1 Alpha-2 code for the country whose tax table you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/account/types/CountryCodeEnum.html</param>
 		/// <returns>Success</returns>
 		public SalesTaxes GetSalesTaxes(string country_code)
 		{
-			var requestUri = "/sales_tax/?country_code=" + Uri.EscapeDataString(country_code);
+			var requestUri = "sales_tax/?country_code=" + Uri.EscapeDataString(country_code);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{

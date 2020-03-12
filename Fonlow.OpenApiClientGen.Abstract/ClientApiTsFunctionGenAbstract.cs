@@ -61,7 +61,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.ActionName = nameComposer.GetActionName(apiOperation, httpMethod.ToString(), relativePath);
 			this.Poco2TsGen = poco2TsGen;
 
-			this.RelativePath = relativePath;
+			this.RelativePath = RemovePrefixSlash(relativePath);
 			if (ActionName.EndsWith("Async"))
 				ActionName = ActionName.Substring(0, ActionName.Length - 5);
 
@@ -98,6 +98,16 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			return Method;
+		}
+
+		static string RemovePrefixSlash(string uriText)
+		{
+			if (uriText[0] == '/')
+			{
+				return uriText.Remove(0, 1);
+			}
+
+			return uriText;
 		}
 
 		void CreateDocComments()

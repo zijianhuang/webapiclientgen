@@ -9,12 +9,12 @@ export namespace MyNS {
 
 		/**
 		 * Deletes a pet
-		 * Delete /pet/{petId}
+		 * Delete pet/{petId}
 		 * @param {number} petId Pet id to delete
 		 * @return {void} 
 		 */
 		DeletePet(petId: number): Observable<Response> {
-			return this.http.delete<Response>(this.baseUri + '/pet/' + petId);
+			return this.http.delete<Response>(this.baseUri + 'pet/' + petId);
 		}
 	}
 

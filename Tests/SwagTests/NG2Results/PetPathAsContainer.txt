@@ -140,43 +140,43 @@ export namespace MyNS {
 		/**
 		 * Add a new pet to the store
 		 * Add new pet to the store inventory.
-		 * Post /pet
+		 * Post pet
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
 		 * @return {void} 
 		 */
 		Post(requestBody: Pet): Observable<Response> {
-			return this.http.post<Response>(this.baseUri + '/pet', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<Response>(this.baseUri + 'pet', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * Update an existing pet
-		 * Put /pet
+		 * Put pet
 		 * @param {Pet} requestBody Pet object that needs to be added to the store
 		 * @return {void} 
 		 */
 		Put(requestBody: Pet): Observable<Response> {
-			return this.http.put<Response>(this.baseUri + '/pet', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.put<Response>(this.baseUri + 'pet', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * Find pet by ID
 		 * Returns a single pet
-		 * Get /pet/{petId}
+		 * Get pet/{petId}
 		 * @param {number} petId ID of pet to return
 		 * @return {Pet} successful operation
 		 */
 		GetByPetId(petId: number): Observable<Pet> {
-			return this.http.get<Pet>(this.baseUri + '/pet/' + petId);
+			return this.http.get<Pet>(this.baseUri + 'pet/' + petId);
 		}
 
 		/**
 		 * Deletes a pet
-		 * Delete /pet/{petId}
+		 * Delete pet/{petId}
 		 * @param {number} petId Pet id to delete
 		 * @return {void} 
 		 */
 		DeleteByPetId(petId: number): Observable<Response> {
-			return this.http.delete<Response>(this.baseUri + '/pet/' + petId);
+			return this.http.delete<Response>(this.baseUri + 'pet/' + petId);
 		}
 	}
 
@@ -194,12 +194,12 @@ export namespace MyNS {
 		/**
 		 * Finds Pets by status
 		 * Multiple status values can be provided with comma separated strings
-		 * Get /pet/findByStatus
+		 * Get pet/findByStatus
 		 * @param {string} status Status values that need to be considered for filter
 		 * @return {Array<Pet>} successful operation
 		 */
 		GetByStatus(status: string): Observable<Array<Pet>> {
-			return this.http.get<Array<Pet>>(this.baseUri + '/pet/findByStatus?status=' + encodeURIComponent(status));
+			return this.http.get<Array<Pet>>(this.baseUri + 'pet/findByStatus?status=' + encodeURIComponent(status));
 		}
 	}
 
@@ -211,12 +211,12 @@ export namespace MyNS {
 		/**
 		 * Finds Pets by tags
 		 * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-		 * Get /pet/findByTags
+		 * Get pet/findByTags
 		 * @param {string} tags Tags to filter by
 		 * @return {Array<Pet>} successful operation
 		 */
 		GetByTags(tags: string): Observable<Array<Pet>> {
-			return this.http.get<Array<Pet>>(this.baseUri + '/pet/findByTags?tags=' + encodeURIComponent(tags));
+			return this.http.get<Array<Pet>>(this.baseUri + 'pet/findByTags?tags=' + encodeURIComponent(tags));
 		}
 	}
 
@@ -228,11 +228,11 @@ export namespace MyNS {
 		/**
 		 * Returns pet inventories by status
 		 * Returns a map of status codes to quantities
-		 * Get /store/inventory
+		 * Get store/inventory
 		 * @return {string} successful operation
 		 */
 		Get(): Observable<string> {
-			return this.http.get(this.baseUri + '/store/inventory', { responseType: 'text' });
+			return this.http.get(this.baseUri + 'store/inventory', { responseType: 'text' });
 		}
 	}
 
@@ -243,34 +243,34 @@ export namespace MyNS {
 
 		/**
 		 * Place an order for a pet
-		 * Post /store/order
+		 * Post store/order
 		 * @param {Order} requestBody order placed for purchasing the pet
 		 * @return {Order} successful operation
 		 */
 		Post(requestBody: Order): Observable<Order> {
-			return this.http.post<Order>(this.baseUri + '/store/order', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<Order>(this.baseUri + 'store/order', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * Find purchase order by ID
 		 * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
-		 * Get /store/order/{orderId}
+		 * Get store/order/{orderId}
 		 * @param {number} orderId ID of pet that needs to be fetched
 		 * @return {Order} successful operation
 		 */
 		GetByOrderId(orderId: number): Observable<Order> {
-			return this.http.get<Order>(this.baseUri + '/store/order/' + orderId);
+			return this.http.get<Order>(this.baseUri + 'store/order/' + orderId);
 		}
 
 		/**
 		 * Delete purchase order by ID
 		 * For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
-		 * Delete /store/order/{orderId}
+		 * Delete store/order/{orderId}
 		 * @param {string} orderId ID of the order that needs to be deleted
 		 * @return {void} 
 		 */
 		DeleteByOrderId(orderId: string): Observable<Response> {
-			return this.http.delete<Response>(this.baseUri + '/store/order/' + encodeURIComponent(orderId));
+			return this.http.delete<Response>(this.baseUri + 'store/order/' + encodeURIComponent(orderId));
 		}
 	}
 
@@ -282,45 +282,45 @@ export namespace MyNS {
 		/**
 		 * Create user
 		 * This can only be done by the logged in user.
-		 * Post /user
+		 * Post user
 		 * @param {User} requestBody Created user object
 		 * @return {void} 
 		 */
 		Post(requestBody: User): Observable<Response> {
-			return this.http.post<Response>(this.baseUri + '/user', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<Response>(this.baseUri + 'user', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * Get user by user name
-		 * Get /user/{username}
+		 * Get user/{username}
 		 * @param {string} username The name that needs to be fetched. Use user1 for testing. 
 		 * @return {User} successful operation
 		 */
 		GetByUsername(username: string): Observable<User> {
-			return this.http.get<User>(this.baseUri + '/user/' + encodeURIComponent(username));
+			return this.http.get<User>(this.baseUri + 'user/' + encodeURIComponent(username));
 		}
 
 		/**
 		 * Updated user
 		 * This can only be done by the logged in user.
-		 * Put /user/{username}
+		 * Put user/{username}
 		 * @param {string} username name that need to be deleted
 		 * @param {User} requestBody Updated user object
 		 * @return {void} 
 		 */
 		PutByUsername(username: string, requestBody: User): Observable<Response> {
-			return this.http.put<Response>(this.baseUri + '/user/' + encodeURIComponent(username), JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.put<Response>(this.baseUri + 'user/' + encodeURIComponent(username), JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * Delete user
 		 * This can only be done by the logged in user.
-		 * Delete /user/{username}
+		 * Delete user/{username}
 		 * @param {string} username The name that needs to be deleted
 		 * @return {void} 
 		 */
 		DeleteByUsername(username: string): Observable<Response> {
-			return this.http.delete<Response>(this.baseUri + '/user/' + encodeURIComponent(username));
+			return this.http.delete<Response>(this.baseUri + 'user/' + encodeURIComponent(username));
 		}
 	}
 
@@ -331,12 +331,12 @@ export namespace MyNS {
 
 		/**
 		 * Creates list of users with given input array
-		 * Post /user/createWithArray
+		 * Post user/createWithArray
 		 * @param {Array<User>} requestBody List of user object
 		 * @return {void} 
 		 */
 		Post(requestBody: Array<User>): Observable<Response> {
-			return this.http.post<Response>(this.baseUri + '/user/createWithArray', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<Response>(this.baseUri + 'user/createWithArray', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
 
@@ -347,12 +347,12 @@ export namespace MyNS {
 
 		/**
 		 * Creates list of users with given input array
-		 * Post /user/createWithList
+		 * Post user/createWithList
 		 * @param {Array<User>} requestBody List of user object
 		 * @return {void} 
 		 */
 		Post(requestBody: Array<User>): Observable<Response> {
-			return this.http.post<Response>(this.baseUri + '/user/createWithList', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<Response>(this.baseUri + 'user/createWithList', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
 
@@ -363,13 +363,13 @@ export namespace MyNS {
 
 		/**
 		 * Logs user into the system
-		 * Get /user/login
+		 * Get user/login
 		 * @param {string} username The user name for login
 		 * @param {string} password The password for login in clear text
 		 * @return {string} successful operation
 		 */
 		GetByUsernameAndPassword(username: string, password: string): Observable<string> {
-			return this.http.get(this.baseUri + '/user/login?username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password), { responseType: 'text' });
+			return this.http.get(this.baseUri + 'user/login?username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password), { responseType: 'text' });
 		}
 	}
 
@@ -380,11 +380,11 @@ export namespace MyNS {
 
 		/**
 		 * Logs out current logged in user session
-		 * Get /user/logout
+		 * Get user/logout
 		 * @return {void} 
 		 */
 		Get(): Observable<Response> {
-			return this.http.get<Response>(this.baseUri + '/user/logout');
+			return this.http.get<Response>(this.baseUri + 'user/logout');
 		}
 	}
 

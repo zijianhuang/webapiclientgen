@@ -66,12 +66,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// List available data sets
-		/// ListDataSets /
+		/// ListDataSets 
 		/// </summary>
 		/// <returns>Returns a list of data sets</returns>
 		public async Task<dataSetList> ListDataSetsAsync()
 		{
-			var requestUri = "/";
+			var requestUri = "";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -92,14 +92,14 @@ namespace MyNS
 		/// <summary>
 		/// Provides the general information about the API and the list of fields that can be used to query the dataset.
 		/// This GET API returns the list of all the searchable field names that are in the oa_citations. Please see the 'fields' attribute which returns an array of field names. Each field or a combination of fields can be searched using the syntax options shown below.
-		/// ListSearchableFields /{dataset}/{version}/fields
+		/// ListSearchableFields {dataset}/{version}/fields
 		/// </summary>
 		/// <param name="dataset">Name of the dataset.</param>
 		/// <param name="version">Version of the dataset.</param>
 		/// <returns>The dataset API for the given version is found and it is accessible to consume.</returns>
 		public async Task<string> ListSearchableFieldsAsync(string dataset, string version)
 		{
-			var requestUri = "/"+Uri.EscapeDataString(dataset)+"/"+Uri.EscapeDataString(version)+"/fields";
+			var requestUri = ""+Uri.EscapeDataString(dataset)+"/"+Uri.EscapeDataString(version)+"/fields";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{

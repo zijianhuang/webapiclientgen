@@ -18,9 +18,6 @@ namespace Fonlow.CodeDom.Web
 			if (parameterNames.Length == 0 && parameterDescriptions.Length == 0)
 				return null;
 
-			bool queryPlaceholderMissing = parameterNames.Length != parameterDescriptions.Length
-				&& !parameterDescriptions.Any(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody || d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromForm);//sometimes yaml does not give propery query placeholder.
-
 			string newUriText = uriText;
 
 			foreach (var d in parameterDescriptions)
@@ -30,7 +27,7 @@ namespace Fonlow.CodeDom.Web
 					continue;
 				}
 
-				newUriText = UriTemplateTransform.Transform(newUriText, d, queryPlaceholderMissing);
+				newUriText = UriTemplateTransform.Transform(newUriText, d);
 			}
 
 			return newUriText;
@@ -42,10 +39,7 @@ namespace Fonlow.CodeDom.Web
 			var parameterNames = template.GetParameterNames().ToArray();
 			if (parameterNames.Length == 0 && parameterDescriptions.Length==0)
 				return null;
-
-			bool queryPlaceholderMissing = parameterNames.Length != parameterDescriptions.Length 
-				&& !parameterDescriptions.Any(d=>d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody || d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromForm) ;//sometimes yaml does not give propery query placeholder.
-			
+	
 			string newUriText = uriText;
 
 			foreach (var d in parameterDescriptions)
@@ -55,7 +49,7 @@ namespace Fonlow.CodeDom.Web
 					continue;
 				}
 
-				newUriText = UriTemplateTransform.TransformForTs(newUriText, d, queryPlaceholderMissing);
+				newUriText = UriTemplateTransform.TransformForTs(newUriText, d);
 			}
 
 			return newUriText;

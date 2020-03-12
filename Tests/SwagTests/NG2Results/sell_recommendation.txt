@@ -1,0 +1,155 @@
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+export namespace MyNS {
+
+	/**A complex type that contains recommendations and information on how to configure Promoted Listings ad campaigns. */
+	export interface Ad {
+
+		/**This field returns information that you can use to configure the bidPercentage field in a Promoted Listings campaign. While this field returns an array, TRENDING is currently the only supported bid percentage type, so the array is populated with just a single element. The TRENDING bid percentage is calculated by reviewing the average ad rates of other similar promoted listings in the marketplace. Setting the bidPercentage of your ad campaign to this rate will help the items in the campaign be competitive with other items in the marketplace by improving their chances of being displayed more often in the marketplace. */
+		bidPercentages?: Array<BidPercentages>;
+
+		/**An enum that describes whether or not eBay recommends placing the associated listing in a Promoted Listings ad campaign. */
+		promoteWithAd?: AdPromoteWithAd;
+	}
+
+	export enum AdPromoteWithAd { RECOMMENDED = 0, UNDETERMINED = 1 }
+
+
+	/**An enum that describes the different ways, or the basis, by which the bid percentage value is calculated. Currently, TRENDING is the only valid basis. */
+	export enum Basis { TRENDING = 0 }
+
+
+	/**A complex type that returns data related to Promoted Listings bid percentages. */
+	export interface BidPercentages {
+
+		/**An enum that describes the different ways, or the basis, by which the bid percentage value is calculated. Currently, TRENDING is the only valid basis. */
+		basis?: BidPercentagesBasis;
+
+		/**The bid percentage data is a single precision value, as calculated by the associated basis. A TRENDING value is calculated by taking into account the average bid percentages of similar promoted listings in the associated marketplace. In Promoted listings ad campaigns, the bid percentage (also known as the ad rate) is a user-defined value that sets the level that eBay raises the visibility of the listing in the marketplace. It is also the rate that is used to calculate the Promoted Listings fee. Minimum value: 1.0 &nbsp; Maximum value: 100.0 */
+		value?: string;
+	}
+
+	export enum BidPercentagesBasis { TRENDING = 0 }
+
+
+	/**This type defines the fields that can be returned in an error. */
+	export interface Error {
+
+		/**Identifies the type of erro. */
+		category?: string;
+
+		/**Name for the primary system where the error occurred. This is relevant for application errors. */
+		domain?: string;
+
+		/**A unique number to identify the error. */
+		errorId?: number;
+
+		/**An array of request elements most closely associated to the error. */
+		inputRefIds?: Array<string>;
+
+		/**A more detailed explanation of the error. */
+		longMessage?: string;
+
+		/**Information on how to correct the problem, in the end user's terms and language where applicable. */
+		message?: string;
+
+		/**An array of request elements most closely associated to the error. */
+		outputRefIds?: Array<string>;
+
+		/**An array of name/value pairs that describe details the error condition. These are useful when multiple errors are returned. */
+		parameters?: Array<ErrorParameter>;
+
+		/**Further helps indicate which subsystem the error is coming from. System subcategories include: Initialization, Serialization, Security, Monitoring, Rate Limiting, etc. */
+		subdomain?: string;
+	}
+
+	export interface ErrorParameter {
+
+		/**The object of the error. */
+		name?: string;
+
+		/**The value of the object. */
+		value?: string;
+	}
+
+
+	/**An list of listing ID values for which you want Promoted Listings ad configuration information. */
+	export interface FindListingRecommendationRequest {
+
+		/**A comma-separated list of listing IDs for which you want Promoted Listings ad configuration information. Currently, this method accepts only listingId values from the Trading API. Max: 500 listing IDs */
+		listingIds?: Array<string>;
+	}
+
+
+	/**A complex type that contains the ID of an actively listed item and a set of related listing recommendations. The recommendations contain information the seller can use to optimize their listing configurations. */
+	export interface ListingRecommendation {
+
+		/**An ID that identifies the active listing associated with the eBay recommendations. */
+		listingId?: string;
+
+		/**A complex type that contains information about how a seller can improve their listing configurations. The AD object contains Promoted Listings recommendations and information, which the seller can use to improve buyer conversions. The response can also contain an optional message about the returned data. */
+		marketing?: MarketingRecommendation;
+	}
+
+
+	/**A complex type that contains information about how a seller can improve their listing configurations. The AD object contains Promoted Listings recommendations and information, which the seller can use to improve buyer conversions. The response can also contain an optional message about the returned data. */
+	export interface MarketingRecommendation {
+
+		/**A complex type that contains recommendations and information on how to configure Promoted Listings ad campaigns. */
+		ad?: Ad;
+
+		/**A message that can conditionally accompany the listing information. */
+		message?: string;
+	}
+
+
+	/**The high-level object used to return a set of Promoted Listings ad recommendations. */
+	export interface PagedListingRecommendationCollection {
+
+		/**The URI of the current page of results from the result set. */
+		href?: string;
+
+		/**The number of items returned on a single page from the result set. This value can be set with the limit request parameter. */
+		limit?: number;
+
+		/**Returns a list of listingRecommendations, where each element in the list offers recommendations for the associated listing ID. */
+		listingRecommendations?: Array<ListingRecommendation>;
+
+		/**The URI for the next page of results. This value is returned only if there is an additional page of results in the result set. Max length: 2048 */
+		next?: string;
+
+		/**The number of results skipped in the result set before listing the first returned result. This value can be set with the offset request parameter. */
+		offset?: number;
+
+		/**The URI for the previous page of results. This value is returned only if there is a previous page of results in the result set. Max length: 2048 */
+		prev?: string;
+
+		/**The total number of items in the result set. */
+		total?: number;
+	}
+
+
+	/**An enum that describes whether or not eBay recommends placing the associated listing in a Promoted Listings ad campaign. */
+	export enum PromoteWithAd { RECOMMENDED = 0, UNDETERMINED = 1 }
+
+	@Injectable()
+	export class Listing_recommendationClient {
+		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * The find method returns recommendations and information that sellers can use to optimize their listing configurations. The response from this method includes an array of the seller's listing IDs, where each element in the array contains recommendations related to the associated listing ID. The AD recommendation type The method currently returns information for a single recommendation type (AD) which contains information that sellers can use to configure Promoted Listings ad campaigns. AD contains two sets of information: The promoteWithAd indicator The promoteWithAd response field indicates whether or not eBay recommends you place the associated listing in a Promoted Listings ad campaign. The returned value is set to either RECOMMENDED or UNDETERMINED, where RECOMMENDED identifies the listings that will benefit the most from having them included in an ad campaign. The bid percentage Also known as the &quot;ad rate,&quot; the bidPercentage field provides the current trending bid percentage of similarly promoted items in the marketplace. The ad rate is a user-specified value that indicates the level of promotion that eBay applies to the campaign across the marketplace. The value is also used to calculate the Promotion Listings fee, which is assessed to the seller if a Promoted Listings action results in the sale of an item. Configuring the request You can configure a request to review all of a seller's currently active listings, or just a subset of them. All active listings &ndash; If you leave the request body empty, the request targets all the items currently listed by the seller. Here, the response is filtered to contain only the items where promoteWithAd equals RECOMMENDED. In this case, eBay recommends that all the returned listings should be included in a Promoted Listings ad campaign. Selected listing IDs &ndash; If you populate the request body with a set of listingIds, the response contains data for all the specified listing IDs. In this scenario, the response provides you with information on listings where the promoteWithAd can be either RECOMMENDED or UNDETERMINED. The paginated response Because the response can contain many listing IDs, the findListingRecommendations method paginates the response set. You can control size of the returned pages, as well as an offset that dictates where to start the pagination, using query parameters in the request.
+		 * Post find
+		 * @param {string} filter Provide a list of key-value pairs to specify the criteria you want to use to filter the response. In the list, separate each filter key from its associated value with a colon (&quot;:&quot;). Currently, the only supported filter value is recommendationTypes and it supports only the (&quot;AD&quot;) type. Follow the recommendationTypes specifier with the filter type(s) enclosed in curly braces (&quot;{ }&quot;), and separate multiple types with commas. Example: filter=recommendationTypes:{AD} Default: recommendationTypes:{AD}
+		 * @param {string} limit Use this query parameter to set the maximum number of ads to return on a page from the paginated response. Default: 10 Maximum: 500
+		 * @param {string} offset Specifies the number of ads to skip in the result set before returning the first ad in the paginated response. Combine offset with the limit query parameter to control the items returned in the response. For example, if you supply an offset of 0 and a limit of 10, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If offset is 10 and limit is 20, the first page of the response contains items 11-30 from the complete result set. Default: 0
+		 * @return {void} Success
+		 */
+		FindListingRecommendations(filter: string, limit: string, offset: string, requestBody: FindListingRecommendationRequest): Observable<Response> {
+			return this.http.post<Response>(this.baseUri + 'find?filter=' + encodeURIComponent(filter) + '&limit=' + encodeURIComponent(limit) + '&offset=' + encodeURIComponent(offset), JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+	}
+
+}
+

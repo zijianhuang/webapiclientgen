@@ -271,12 +271,12 @@ namespace MyNS
 		/// <summary>
 		/// Add a new pet to the store
 		/// Add new pet to the store inventory.
-		/// Post /pet
+		/// Post pet
 		/// </summary>
 		/// <param name="requestBody">Pet object that needs to be added to the store</param>
 		public async Task PostAsync(Pet requestBody)
 		{
-			var requestUri = "/pet";
+			var requestUri = "pet";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -296,12 +296,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// Update an existing pet
-		/// Put /pet
+		/// Put pet
 		/// </summary>
 		/// <param name="requestBody">Pet object that needs to be added to the store</param>
 		public async Task PutAsync(Pet requestBody)
 		{
-			var requestUri = "/pet";
+			var requestUri = "pet";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -322,13 +322,13 @@ namespace MyNS
 		/// <summary>
 		/// Find pet by ID
 		/// Returns a single pet
-		/// GetByPetId /pet/{petId}
+		/// GetByPetId pet/{petId}
 		/// </summary>
 		/// <param name="petId">ID of pet to return</param>
 		/// <returns>successful operation</returns>
 		public async Task<Pet> GetByPetIdAsync(long petId)
 		{
-			var requestUri = "/pet/"+petId;
+			var requestUri = "pet/"+petId;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -348,12 +348,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// Deletes a pet
-		/// DeleteByPetId /pet/{petId}
+		/// DeleteByPetId pet/{petId}
 		/// </summary>
 		/// <param name="petId">Pet id to delete</param>
 		public async Task DeleteByPetIdAsync(long petId)
 		{
-			var requestUri = "/pet/"+petId;
+			var requestUri = "pet/"+petId;
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -402,13 +402,13 @@ namespace MyNS
 		/// <summary>
 		/// Finds Pets by status
 		/// Multiple status values can be provided with comma separated strings
-		/// GetByStatus /pet/findByStatus
+		/// GetByStatus pet/findByStatus
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> GetByStatusAsync(string status)
 		{
-			var requestUri = "/pet/findByStatus?status=" + Uri.EscapeDataString(status);
+			var requestUri = "pet/findByStatus?status=" + Uri.EscapeDataString(status);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -446,13 +446,13 @@ namespace MyNS
 		/// <summary>
 		/// Finds Pets by tags
 		/// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-		/// GetByTags /pet/findByTags
+		/// GetByTags pet/findByTags
 		/// </summary>
 		/// <param name="tags">Tags to filter by</param>
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> GetByTagsAsync(string tags)
 		{
-			var requestUri = "/pet/findByTags?tags=" + Uri.EscapeDataString(tags);
+			var requestUri = "pet/findByTags?tags=" + Uri.EscapeDataString(tags);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -490,12 +490,12 @@ namespace MyNS
 		/// <summary>
 		/// Returns pet inventories by status
 		/// Returns a map of status codes to quantities
-		/// Get /store/inventory
+		/// Get store/inventory
 		/// </summary>
 		/// <returns>successful operation</returns>
 		public async Task<string> GetAsync()
 		{
-			var requestUri = "/store/inventory";
+			var requestUri = "store/inventory";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -531,13 +531,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// Place an order for a pet
-		/// Post /store/order
+		/// Post store/order
 		/// </summary>
 		/// <param name="requestBody">order placed for purchasing the pet</param>
 		/// <returns>successful operation</returns>
 		public async Task<Order> PostAsync(Order requestBody)
 		{
-			var requestUri = "/store/order";
+			var requestUri = "store/order";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -564,13 +564,13 @@ namespace MyNS
 		/// <summary>
 		/// Find purchase order by ID
 		/// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
-		/// GetByOrderId /store/order/{orderId}
+		/// GetByOrderId store/order/{orderId}
 		/// </summary>
 		/// <param name="orderId">ID of pet that needs to be fetched</param>
 		/// <returns>successful operation</returns>
 		public async Task<Order> GetByOrderIdAsync(long orderId)
 		{
-			var requestUri = "/store/order/"+orderId;
+			var requestUri = "store/order/"+orderId;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -591,12 +591,12 @@ namespace MyNS
 		/// <summary>
 		/// Delete purchase order by ID
 		/// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
-		/// DeleteByOrderId /store/order/{orderId}
+		/// DeleteByOrderId store/order/{orderId}
 		/// </summary>
 		/// <param name="orderId">ID of the order that needs to be deleted</param>
 		public async Task DeleteByOrderIdAsync(string orderId)
 		{
-			var requestUri = "/store/order/"+Uri.EscapeDataString(orderId);
+			var requestUri = "store/order/"+Uri.EscapeDataString(orderId);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -628,12 +628,12 @@ namespace MyNS
 		/// <summary>
 		/// Create user
 		/// This can only be done by the logged in user.
-		/// Post /user
+		/// Post user
 		/// </summary>
 		/// <param name="requestBody">Created user object</param>
 		public async Task PostAsync(User requestBody)
 		{
-			var requestUri = "/user";
+			var requestUri = "user";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -653,13 +653,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// Get user by user name
-		/// GetByUsername /user/{username}
+		/// GetByUsername user/{username}
 		/// </summary>
 		/// <param name="username">The name that needs to be fetched. Use user1 for testing. </param>
 		/// <returns>successful operation</returns>
 		public async Task<User> GetByUsernameAsync(string username)
 		{
-			var requestUri = "/user/"+Uri.EscapeDataString(username);
+			var requestUri = "user/"+Uri.EscapeDataString(username);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -680,13 +680,13 @@ namespace MyNS
 		/// <summary>
 		/// Updated user
 		/// This can only be done by the logged in user.
-		/// PutByUsername /user/{username}
+		/// PutByUsername user/{username}
 		/// </summary>
 		/// <param name="username">name that need to be deleted</param>
 		/// <param name="requestBody">Updated user object</param>
 		public async Task PutByUsernameAsync(string username, User requestBody)
 		{
-			var requestUri = "/user/"+Uri.EscapeDataString(username);
+			var requestUri = "user/"+Uri.EscapeDataString(username);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -707,12 +707,12 @@ namespace MyNS
 		/// <summary>
 		/// Delete user
 		/// This can only be done by the logged in user.
-		/// DeleteByUsername /user/{username}
+		/// DeleteByUsername user/{username}
 		/// </summary>
 		/// <param name="username">The name that needs to be deleted</param>
 		public async Task DeleteByUsernameAsync(string username)
 		{
-			var requestUri = "/user/"+Uri.EscapeDataString(username);
+			var requestUri = "user/"+Uri.EscapeDataString(username);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -743,12 +743,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// Creates list of users with given input array
-		/// Post /user/createWithArray
+		/// Post user/createWithArray
 		/// </summary>
 		/// <param name="requestBody">List of user object</param>
 		public async Task PostAsync(User[] requestBody)
 		{
-			var requestUri = "/user/createWithArray";
+			var requestUri = "user/createWithArray";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -785,12 +785,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// Creates list of users with given input array
-		/// Post /user/createWithList
+		/// Post user/createWithList
 		/// </summary>
 		/// <param name="requestBody">List of user object</param>
 		public async Task PostAsync(User[] requestBody)
 		{
-			var requestUri = "/user/createWithList";
+			var requestUri = "user/createWithList";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -827,14 +827,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// Logs user into the system
-		/// GetByUsernameAndPassword /user/login
+		/// GetByUsernameAndPassword user/login
 		/// </summary>
 		/// <param name="username">The user name for login</param>
 		/// <param name="password">The password for login in clear text</param>
 		/// <returns>successful operation</returns>
 		public async Task<string> GetByUsernameAndPasswordAsync(string username, string password)
 		{
-			var requestUri = "/user/login?username=" + Uri.EscapeDataString(username)+"&password=" + Uri.EscapeDataString(password);
+			var requestUri = "user/login?username=" + Uri.EscapeDataString(username)+"&password=" + Uri.EscapeDataString(password);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -870,11 +870,11 @@ namespace MyNS
 		
 		/// <summary>
 		/// Logs out current logged in user session
-		/// Get /user/logout
+		/// Get user/logout
 		/// </summary>
 		public async Task GetAsync()
 		{
-			var requestUri = "/user/logout";
+			var requestUri = "user/logout";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{

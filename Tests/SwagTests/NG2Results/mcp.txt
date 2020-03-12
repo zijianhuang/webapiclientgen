@@ -609,281 +609,281 @@ export namespace MyNS {
 
 		/**
 		 * This is the request
-		 * Post /mcp/bulkbillpaymentreport/v1
+		 * Post mcp/bulkbillpaymentreport/v1
 		 * @return {BBSPaymentReportResponseType} successful operation
 		 */
 		McpBulkBillPaymentReport1Eigw(requestBody: BBSReportRequestType): Observable<BBSPaymentReportResponseType> {
-			return this.http.post<BBSPaymentReportResponseType>(this.baseUri + '/mcp/bulkbillpaymentreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<BBSPaymentReportResponseType>(this.baseUri + 'mcp/bulkbillpaymentreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/bulkbillprocessingreport/v1
+		 * Post mcp/bulkbillprocessingreport/v1
 		 * @return {BBSProcessingReportResponseType} successful operation
 		 */
 		McpBulkBillProcessingReport1Eigw(requestBody: BBSReportRequestType): Observable<BBSProcessingReportResponseType> {
-			return this.http.post<BBSProcessingReportResponseType>(this.baseUri + '/mcp/bulkbillprocessingreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<BBSProcessingReportResponseType>(this.baseUri + 'mcp/bulkbillprocessingreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/bulkbillstoreforward/general/v1
+		 * Post mcp/bulkbillstoreforward/general/v1
 		 * @return {BulkBillStoreForwardResponseType} successful operation
 		 */
 		McpBulkBillStoreForwardGeneral1Eigw(requestBody: BulkBillStoreForwardRequestType): Observable<BulkBillStoreForwardResponseType> {
-			return this.http.post<BulkBillStoreForwardResponseType>(this.baseUri + '/mcp/bulkbillstoreforward/general/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<BulkBillStoreForwardResponseType>(this.baseUri + 'mcp/bulkbillstoreforward/general/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/bulkbillstoreforward/pathology/v1
+		 * Post mcp/bulkbillstoreforward/pathology/v1
 		 * @return {BulkBillStoreForwardResponseType} successful operation
 		 */
 		McpBulkBillStoreForwardPathology1Eigw(requestBody: BulkBillStoreForwardRequestType): Observable<BulkBillStoreForwardResponseType> {
-			return this.http.post<BulkBillStoreForwardResponseType>(this.baseUri + '/mcp/bulkbillstoreforward/pathology/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<BulkBillStoreForwardResponseType>(this.baseUri + 'mcp/bulkbillstoreforward/pathology/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/bulkbillstoreforward/specialist/v1
+		 * Post mcp/bulkbillstoreforward/specialist/v1
 		 * @return {BulkBillStoreForwardResponseType} successful operation
 		 */
 		McpBulkBillStoreForwardSpecialist1Eigw(requestBody: BulkBillStoreForwardRequestType): Observable<BulkBillStoreForwardResponseType> {
-			return this.http.post<BulkBillStoreForwardResponseType>(this.baseUri + '/mcp/bulkbillstoreforward/specialist/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<BulkBillStoreForwardResponseType>(this.baseUri + 'mcp/bulkbillstoreforward/specialist/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaalliedhealth/allied/v1
+		 * Post mcp/dvaalliedhealth/allied/v1
 		 * @return {AlliedHealthClaimResponseType} successful operation
 		 */
 		McpDvaAlliedHealthAllied1Eigw(requestBody: AlliedHealthClaimRequestType): Observable<AlliedHealthClaimResponseType> {
-			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + '/mcp/dvaalliedhealth/allied/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + 'mcp/dvaalliedhealth/allied/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaalliedhealth/communitynursing/v1
+		 * Post mcp/dvaalliedhealth/communitynursing/v1
 		 * @return {AlliedHealthClaimResponseType} successful operation
 		 */
 		McpDvaAlliedHealthCommunityNursing1Eigw(requestBody: AlliedHealthClaimRequestType): Observable<AlliedHealthClaimResponseType> {
-			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + '/mcp/dvaalliedhealth/communitynursing/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + 'mcp/dvaalliedhealth/communitynursing/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaalliedhealth/dental/v1
+		 * Post mcp/dvaalliedhealth/dental/v1
 		 * @return {AlliedHealthClaimResponseType} successful operation
 		 */
 		McpDvaAlliedHealthDental1Eigw(requestBody: AlliedHealthClaimRequestType): Observable<AlliedHealthClaimResponseType> {
-			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + '/mcp/dvaalliedhealth/dental/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + 'mcp/dvaalliedhealth/dental/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaalliedhealth/optical/v1
+		 * Post mcp/dvaalliedhealth/optical/v1
 		 * @return {AlliedHealthClaimResponseType} successful operation
 		 */
 		McpDvaAlliedHealthOptical1Eigw(requestBody: AlliedHealthClaimRequestType): Observable<AlliedHealthClaimResponseType> {
-			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + '/mcp/dvaalliedhealth/optical/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + 'mcp/dvaalliedhealth/optical/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaalliedhealth/psych/v1
+		 * Post mcp/dvaalliedhealth/psych/v1
 		 * @return {AlliedHealthClaimResponseType} successful operation
 		 */
 		McpDvaAlliedHealthPsych1Eigw(requestBody: AlliedHealthClaimRequestType): Observable<AlliedHealthClaimResponseType> {
-			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + '/mcp/dvaalliedhealth/psych/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + 'mcp/dvaalliedhealth/psych/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaalliedhealth/speechpathology/v1
+		 * Post mcp/dvaalliedhealth/speechpathology/v1
 		 * @return {AlliedHealthClaimResponseType} successful operation
 		 */
 		McpDvaAlliedHealthSpeechPathology1Eigw(requestBody: AlliedHealthClaimRequestType): Observable<AlliedHealthClaimResponseType> {
-			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + '/mcp/dvaalliedhealth/speechpathology/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<AlliedHealthClaimResponseType>(this.baseUri + 'mcp/dvaalliedhealth/speechpathology/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaclaim/general/v1
+		 * Post mcp/dvaclaim/general/v1
 		 * @return {DVAClaimResponseType} successful operation
 		 */
 		McpDvaClaimGeneral1Eigw(requestBody: DVAClaimRequestType): Observable<DVAClaimResponseType> {
-			return this.http.post<DVAClaimResponseType>(this.baseUri + '/mcp/dvaclaim/general/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<DVAClaimResponseType>(this.baseUri + 'mcp/dvaclaim/general/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaclaim/pathology/v1
+		 * Post mcp/dvaclaim/pathology/v1
 		 * @return {DVAClaimResponseType} successful operation
 		 */
 		McpDvaClaimPathology1Eigw(requestBody: DVAClaimRequestType): Observable<DVAClaimResponseType> {
-			return this.http.post<DVAClaimResponseType>(this.baseUri + '/mcp/dvaclaim/pathology/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<DVAClaimResponseType>(this.baseUri + 'mcp/dvaclaim/pathology/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaclaim/specialist/v1
+		 * Post mcp/dvaclaim/specialist/v1
 		 * @return {DVAClaimResponseType} successful operation
 		 */
 		McpDvaClaimSpecialist1Eigw(requestBody: DVAClaimRequestType): Observable<DVAClaimResponseType> {
-			return this.http.post<DVAClaimResponseType>(this.baseUri + '/mcp/dvaclaim/specialist/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<DVAClaimResponseType>(this.baseUri + 'mcp/dvaclaim/specialist/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvapaymentreport/v1
+		 * Post mcp/dvapaymentreport/v1
 		 * @return {DVAPaymentReportResponseType} successful operation
 		 */
 		McpDvaPaymentReport1Eigw(requestBody: DVAReportRequestType): Observable<DVAPaymentReportResponseType> {
-			return this.http.post<DVAPaymentReportResponseType>(this.baseUri + '/mcp/dvapaymentreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<DVAPaymentReportResponseType>(this.baseUri + 'mcp/dvapaymentreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/dvaprocessingreport/v1
+		 * Post mcp/dvaprocessingreport/v1
 		 * @return {DVAProcessingReportResponseType} successful operation
 		 */
 		McpDvaProcessingReport1Eigw(requestBody: DVAReportRequestType): Observable<DVAProcessingReportResponseType> {
-			return this.http.post<DVAProcessingReportResponseType>(this.baseUri + '/mcp/dvaprocessingreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<DVAProcessingReportResponseType>(this.baseUri + 'mcp/dvaprocessingreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/enterpriseconcessionverification/v1
+		 * Post mcp/enterpriseconcessionverification/v1
 		 * @return {EnterpriseConcessionVerificationResponseType} successful operation
 		 */
 		McpEnterpriseConcessionVerification1Eigw(requestBody: EnterpriseConcessionVerificationRequestType): Observable<EnterpriseConcessionVerificationResponseType> {
-			return this.http.post<EnterpriseConcessionVerificationResponseType>(this.baseUri + '/mcp/enterpriseconcessionverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<EnterpriseConcessionVerificationResponseType>(this.baseUri + 'mcp/enterpriseconcessionverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/enterprisepatientverification/v1
+		 * Post mcp/enterprisepatientverification/v1
 		 * @return {EnterprisePatientVerificationResponseType} successful operation
 		 */
 		McpEnterprisePatientVerification1Eigw(requestBody: EnterprisePatientVerificationRequestType): Observable<EnterprisePatientVerificationResponseType> {
-			return this.http.post<EnterprisePatientVerificationResponseType>(this.baseUri + '/mcp/enterprisepatientverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<EnterprisePatientVerificationResponseType>(this.baseUri + 'mcp/enterprisepatientverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/enterpriseveteranverification/v1
+		 * Post mcp/enterpriseveteranverification/v1
 		 * @return {EnterpriseVeteranVerificationResponseType} successful operation
 		 */
 		McpEnterpriseVeteranVerification1Eigw(requestBody: EnterpriseVeteranVerificationRequestType): Observable<EnterpriseVeteranVerificationResponseType> {
-			return this.http.post<EnterpriseVeteranVerificationResponseType>(this.baseUri + '/mcp/enterpriseveteranverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<EnterpriseVeteranVerificationResponseType>(this.baseUri + 'mcp/enterpriseveteranverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/patientclaiminteractive/general/v1
+		 * Post mcp/patientclaiminteractive/general/v1
 		 * @return {PatientClaimInteractiveResponseType} successful operation
 		 */
 		McpPatientClaimInteractiveGeneral1Eigw(requestBody: PatientClaimInteractiveRequestType): Observable<PatientClaimInteractiveResponseType> {
-			return this.http.post<PatientClaimInteractiveResponseType>(this.baseUri + '/mcp/patientclaiminteractive/general/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<PatientClaimInteractiveResponseType>(this.baseUri + 'mcp/patientclaiminteractive/general/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/patientclaiminteractive/pathology/v1
+		 * Post mcp/patientclaiminteractive/pathology/v1
 		 * @return {PatientClaimInteractiveResponseType} successful operation
 		 */
 		McpPatientClaimInteractivePathology1Eigw(requestBody: PatientClaimInteractiveRequestType): Observable<PatientClaimInteractiveResponseType> {
-			return this.http.post<PatientClaimInteractiveResponseType>(this.baseUri + '/mcp/patientclaiminteractive/pathology/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<PatientClaimInteractiveResponseType>(this.baseUri + 'mcp/patientclaiminteractive/pathology/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/patientclaiminteractive/specialist/v1
+		 * Post mcp/patientclaiminteractive/specialist/v1
 		 * @return {PatientClaimInteractiveResponseType} successful operation
 		 */
 		McpPatientClaimInteractiveSpecialist1Eigw(requestBody: PatientClaimInteractiveRequestType): Observable<PatientClaimInteractiveResponseType> {
-			return this.http.post<PatientClaimInteractiveResponseType>(this.baseUri + '/mcp/patientclaiminteractive/specialist/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<PatientClaimInteractiveResponseType>(this.baseUri + 'mcp/patientclaiminteractive/specialist/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/patientverification/v1
+		 * Post mcp/patientverification/v1
 		 * @return {PatientVerificationResponseType} successful operation
 		 */
 		McpPatientVerification1Eigw(requestBody: PatientVerificationRequestType): Observable<PatientVerificationResponseType> {
-			return this.http.post<PatientVerificationResponseType>(this.baseUri + '/mcp/patientverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<PatientVerificationResponseType>(this.baseUri + 'mcp/patientverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/patientverification/hf/v1
+		 * Post mcp/patientverification/hf/v1
 		 * @return {PatientVerificationResponseType} successful operation
 		 */
 		McpPatientVerificationHf1Eigw(requestBody: PatientVerificationRequestType): Observable<PatientVerificationResponseType> {
-			return this.http.post<PatientVerificationResponseType>(this.baseUri + '/mcp/patientverification/hf/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<PatientVerificationResponseType>(this.baseUri + 'mcp/patientverification/hf/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/patientverification/medicare/v1
+		 * Post mcp/patientverification/medicare/v1
 		 * @return {PatientVerificationResponseType} successful operation
 		 */
 		McpPatientVerificationMedicare1Eigw(requestBody: PatientVerificationRequestType): Observable<PatientVerificationResponseType> {
-			return this.http.post<PatientVerificationResponseType>(this.baseUri + '/mcp/patientverification/medicare/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<PatientVerificationResponseType>(this.baseUri + 'mcp/patientverification/medicare/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/enterpriseconcessionverification/retrievereport/v1
+		 * Post mcp/enterpriseconcessionverification/retrievereport/v1
 		 * @return {RetrieveReportResponseType} successful operation
 		 */
 		McpRetrieveReportEcv1Eigw(requestBody: RetrieveReportRequestType): Observable<RetrieveReportResponseType> {
-			return this.http.post<RetrieveReportResponseType>(this.baseUri + '/mcp/enterpriseconcessionverification/retrievereport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<RetrieveReportResponseType>(this.baseUri + 'mcp/enterpriseconcessionverification/retrievereport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/enterprisepatientverification/retrievereport/v1
+		 * Post mcp/enterprisepatientverification/retrievereport/v1
 		 * @return {RetrieveReportResponseType} successful operation
 		 */
 		McpRetrieveReportEpv1Eigw(requestBody: RetrieveReportRequestType): Observable<RetrieveReportResponseType> {
-			return this.http.post<RetrieveReportResponseType>(this.baseUri + '/mcp/enterprisepatientverification/retrievereport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<RetrieveReportResponseType>(this.baseUri + 'mcp/enterprisepatientverification/retrievereport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/enterpriseveteranverification/retrievereport/v1
+		 * Post mcp/enterpriseveteranverification/retrievereport/v1
 		 * @return {RetrieveReportResponseType} successful operation
 		 */
 		McpRetrieveReportEvv1Eigw(requestBody: RetrieveReportRequestType): Observable<RetrieveReportResponseType> {
-			return this.http.post<RetrieveReportResponseType>(this.baseUri + '/mcp/enterpriseveteranverification/retrievereport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<RetrieveReportResponseType>(this.baseUri + 'mcp/enterpriseveteranverification/retrievereport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/samedaydelete/v1
+		 * Post mcp/samedaydelete/v1
 		 * @return {SameDayDeleteResponseType} successful operation
 		 */
 		McpSameDayDelete1Eigw(requestBody: SameDayDeleteRequestType): Observable<SameDayDeleteResponseType> {
-			return this.http.post<SameDayDeleteResponseType>(this.baseUri + '/mcp/samedaydelete/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<SameDayDeleteResponseType>(this.baseUri + 'mcp/samedaydelete/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/statusreport/v1
+		 * Post mcp/statusreport/v1
 		 * @return {StatusReportResponseType} successful operation
 		 */
 		McpStatusReport1Eigw(requestBody: StatusReportRequestType): Observable<StatusReportResponseType> {
-			return this.http.post<StatusReportResponseType>(this.baseUri + '/mcp/statusreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<StatusReportResponseType>(this.baseUri + 'mcp/statusreport/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * This is the request
-		 * Post /mcp/veteranverification/v1
+		 * Post mcp/veteranverification/v1
 		 * @return {VeteranVerificationResponseType} successful operation
 		 */
 		McpVeteranVerification1Eigw(requestBody: VeteranVerificationRequestType): Observable<VeteranVerificationResponseType> {
-			return this.http.post<VeteranVerificationResponseType>(this.baseUri + '/mcp/veteranverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<VeteranVerificationResponseType>(this.baseUri + 'mcp/veteranverification/v1', JSON.stringify(requestBody), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
 

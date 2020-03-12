@@ -29,23 +29,23 @@ export namespace MyNS {
 
 		/**
 		 * List available data sets
-		 * Get /
+		 * Get 
 		 * @return {dataSetList} Returns a list of data sets
 		 */
 		ListDataSets(): Observable<dataSetList> {
-			return this.http.get<dataSetList>(this.baseUri + '/');
+			return this.http.get<dataSetList>(this.baseUri + '');
 		}
 
 		/**
 		 * Provides the general information about the API and the list of fields that can be used to query the dataset.
 		 * This GET API returns the list of all the searchable field names that are in the oa_citations. Please see the 'fields' attribute which returns an array of field names. Each field or a combination of fields can be searched using the syntax options shown below.
-		 * Get /{dataset}/{version}/fields
+		 * Get {dataset}/{version}/fields
 		 * @param {string} dataset Name of the dataset.
 		 * @param {string} version Version of the dataset.
 		 * @return {string} The dataset API for the given version is found and it is accessible to consume.
 		 */
 		ListSearchableFields(dataset: string, version: string): Observable<string> {
-			return this.http.get(this.baseUri + '/' + encodeURIComponent(dataset) + '/' + encodeURIComponent(version) + '/fields', { responseType: 'text' });
+			return this.http.get(this.baseUri + encodeURIComponent(dataset) + '/' + encodeURIComponent(version) + '/fields', { responseType: 'text' });
 		}
 	}
 

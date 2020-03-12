@@ -56,13 +56,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// List all pets
-		/// ListPets /pets
+		/// ListPets pets
 		/// </summary>
 		/// <param name="limit">How many items to return at one time (max 100)</param>
 		/// <returns>A paged array of pets</returns>
 		public async Task<Pet[]> ListPetsAsync(int limit)
 		{
-			var requestUri = "/pets?limit="+limit;
+			var requestUri = "pets?limit="+limit;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -82,13 +82,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// List all pets
-		/// ListPets /pets
+		/// ListPets pets
 		/// </summary>
 		/// <param name="limit">How many items to return at one time (max 100)</param>
 		/// <returns>A paged array of pets</returns>
 		public Pet[] ListPets(int limit)
 		{
-			var requestUri = "/pets?limit="+limit;
+			var requestUri = "pets?limit="+limit;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -108,11 +108,11 @@ namespace MyNS
 		
 		/// <summary>
 		/// Create a pet
-		/// CreatePets /pets
+		/// CreatePets pets
 		/// </summary>
 		public async Task CreatePetsAsync()
 		{
-			var requestUri = "/pets";
+			var requestUri = "pets";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -126,11 +126,11 @@ namespace MyNS
 		
 		/// <summary>
 		/// Create a pet
-		/// CreatePets /pets
+		/// CreatePets pets
 		/// </summary>
 		public void CreatePets()
 		{
-			var requestUri = "/pets";
+			var requestUri = "pets";
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -144,13 +144,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// Info for a specific pet
-		/// ShowPetById /pets/{petId}
+		/// ShowPetById pets/{petId}
 		/// </summary>
 		/// <param name="petId">The id of the pet to retrieve</param>
 		/// <returns>Expected response to a valid request</returns>
 		public async Task<Pet> ShowPetByIdAsync(string petId)
 		{
-			var requestUri = "/pets/"+Uri.EscapeDataString(petId);
+			var requestUri = "pets/"+Uri.EscapeDataString(petId);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -170,13 +170,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// Info for a specific pet
-		/// ShowPetById /pets/{petId}
+		/// ShowPetById pets/{petId}
 		/// </summary>
 		/// <param name="petId">The id of the pet to retrieve</param>
 		/// <returns>Expected response to a valid request</returns>
 		public Pet ShowPetById(string petId)
 		{
-			var requestUri = "/pets/"+Uri.EscapeDataString(petId);
+			var requestUri = "pets/"+Uri.EscapeDataString(petId);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{

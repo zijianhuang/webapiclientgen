@@ -77,7 +77,7 @@ namespace Fonlow.OpenApiClientGen.Cs
 			this.forAsync = forAsync;
 
 
-			this.relativePath = relativePath;
+			this.relativePath = RemovePrefixSlash(relativePath);
 			if (actionName.EndsWith("Async"))
 				actionName = actionName.Substring(0, actionName.Length - 5);
 
@@ -143,6 +143,16 @@ namespace Fonlow.OpenApiClientGen.Cs
 			}
 
 			return method;
+		}
+
+		static string RemovePrefixSlash(string uriText)
+		{
+			if (uriText[0] == '/')
+			{
+				return uriText.Remove(0, 1);
+			}
+
+			return uriText;
 		}
 
 		CodeMemberMethod CreateMethodBasic()

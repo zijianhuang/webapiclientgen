@@ -64,14 +64,14 @@ namespace MyNS
 		/// 
 		/// Sed tempus felis lobortis leo pulvinar rutrum. Nam mattis velit nisl, eu condimentum ligula luctus nec. Phasellus semper velit eget aliquet faucibus. In a mattis elit. Phasellus vel urna viverra, condimentum lorem id, rhoncus nibh. Ut pellentesque posuere elementum. Sed a varius odio. Morbi rhoncus ligula libero, vel eleifend nunc tristique vitae. Fusce et sem dui. Aenean nec scelerisque tortor. Fusce malesuada accumsan magna vel tempus. Quisque mollis felis eu dolor tristique, sit amet auctor felis gravida. Sed libero lorem, molestie sed nisl in, accumsan tempor nisi. Fusce sollicitudin massa ut lacinia mattis. Sed vel eleifend lorem. Pellentesque vitae felis pretium, pulvinar elit eu, euismod sapien.
 		/// 
-		/// FindPets /pets
+		/// FindPets pets
 		/// </summary>
 		/// <param name="tags">tags to filter by</param>
 		/// <param name="limit">maximum number of results to return</param>
 		/// <returns>pet response</returns>
 		public async Task<Pet[]> FindPetsAsync(string tags, int limit)
 		{
-			var requestUri = "/pets?tags=" + Uri.EscapeDataString(tags)+"&limit="+limit;
+			var requestUri = "pets?tags=" + Uri.EscapeDataString(tags)+"&limit="+limit;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -91,13 +91,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// Creates a new pet in the store. Duplicates are allowed
-		/// AddPet /pets
+		/// AddPet pets
 		/// </summary>
 		/// <param name="requestBody">Pet to add to the store</param>
 		/// <returns>pet response</returns>
 		public async Task<Pet> AddPetAsync(NewPet requestBody)
 		{
-			var requestUri = "/pets";
+			var requestUri = "pets";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -123,13 +123,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// Returns a user based on a single ID, if the user does not have access to the pet
-		/// FindPetById /pets/{id}
+		/// FindPetById pets/{id}
 		/// </summary>
 		/// <param name="id">ID of pet to fetch</param>
 		/// <returns>pet response</returns>
 		public async Task<Pet> FindPetByIdAsync(long id)
 		{
-			var requestUri = "/pets/"+id;
+			var requestUri = "pets/"+id;
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -149,12 +149,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// deletes a single pet based on the ID supplied
-		/// DeletePet /pets/{id}
+		/// DeletePet pets/{id}
 		/// </summary>
 		/// <param name="id">ID of pet to delete</param>
 		public async Task DeletePetAsync(long id)
 		{
-			var requestUri = "/pets/"+id;
+			var requestUri = "pets/"+id;
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{

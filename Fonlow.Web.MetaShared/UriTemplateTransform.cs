@@ -14,9 +14,9 @@ namespace Fonlow.CodeDom.Web
 		static readonly Type typeofDateTimeOffsetNullable = typeof(DateTimeOffset?);
 		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
-		public static string Transform(string newUriText, ParameterDescription d, bool queryPlaceHolderMissing = false)
+		public static string Transform(string newUriText, ParameterDescription d)
 		{
-			if (queryPlaceHolderMissing)
+			if (d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromQuery)
 			{
 				bool queryExists = newUriText.Contains("?");
 				newUriText += queryExists ? "&" : "?";
@@ -71,9 +71,9 @@ namespace Fonlow.CodeDom.Web
 			}
 		}
 
-		public static string TransformForTs(string newUriText, ParameterDescription d, bool queryPlaceHolderMissing = false)
+		public static string TransformForTs(string newUriText, ParameterDescription d)
 		{
-			if (queryPlaceHolderMissing)
+			if (d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery)
 			{
 				bool queryExists = newUriText.Contains("?");
 				newUriText += queryExists ? "&" : "?";
@@ -86,26 +86,6 @@ namespace Fonlow.CodeDom.Web
 				{
 					return newUriText+= $"{d.Name}=' + {d.Name}.toISOString() + '";
 				}
-				//else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
-				//{
-				//	var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toISOString() : '') + '");
-				//	if (replaced == newUriText)
-				//	{
-				//		replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toISOString() : '') + '");
-				//	}
-
-				//	return replaced;
-				//}
-				//else if (IsNullablePrimitive(d.ParameterDescriptor.ParameterType))
-				//{
-				//	var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toString() : '') + '");
-				//	if (replaced == newUriText)
-				//	{
-				//		replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toString() : '') + '");
-				//	}
-
-				//	return replaced;
-				//}
 				else
 				{
 					return newUriText+= $"{d.Name}=' + {d.Name} + '";

@@ -20,31 +20,31 @@ export namespace MyNS {
 
 		/**
 		 * List all pets
-		 * Get /pets
+		 * Get pets
 		 * @param {number} limit How many items to return at one time (max 100)
 		 * @return {Array<Pet>} A paged array of pets
 		 */
 		ListPets(limit: number): Observable<Array<Pet>> {
-			return this.http.get<Array<Pet>>(this.baseUri + '/pets?limit=' + limit);
+			return this.http.get<Array<Pet>>(this.baseUri + 'pets?limit=' + limit);
 		}
 
 		/**
 		 * Create a pet
-		 * Post /pets
+		 * Post pets
 		 * @return {void} 
 		 */
 		CreatePets(): Observable<Response> {
-			return this.http.post<Response>(this.baseUri + '/pets', null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<Response>(this.baseUri + 'pets', null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
 		 * Info for a specific pet
-		 * Get /pets/{petId}
+		 * Get pets/{petId}
 		 * @param {string} petId The id of the pet to retrieve
 		 * @return {Pet} Expected response to a valid request
 		 */
 		ShowPetById(petId: string): Observable<Pet> {
-			return this.http.get<Pet>(this.baseUri + '/pets/' + encodeURIComponent(petId));
+			return this.http.get<Pet>(this.baseUri + 'pets/' + encodeURIComponent(petId));
 		}
 	}
 

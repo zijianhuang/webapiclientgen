@@ -1811,14 +1811,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an ad for each inventory reference ID specified in the request and associates the newly created ads with the specified campaign. Use the campaign ID returned from createCampaign as a URI parameter in your call to this method. In the payload, specify the bidPercentage, inventoryReferenceId, and inventoryReferenceType for each listing you want to include in the campaign. Each listing you specify becomes a new ad that is associated with the campaign. An inventory reference ID can be either a seller-defined SKU value or an inventoryItemGroupKey. An inventoryItemGroupKey is seller-defined ID for an inventory item group (a multiple-variation listing), and is created and used by the Inventory API. For information on the eBay marketplaces that support Promoted Listings campaigns, see Promoted Listings requirements and restrictions. Maximums: You can specify a maximum of 500 IDs per call and 25,000 listings per campaign.
-		/// BulkCreateAdsByInventoryReference /ad_campaign/{campaign_id}/bulk_create_ads_by_inventory_reference
+		/// BulkCreateAdsByInventoryReference ad_campaign/{campaign_id}/bulk_create_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the bulkCreateAdsByInventoryReference request.</param>
 		/// <returns>Success</returns>
 		public async Task<BulkCreateAdsByInventoryReferenceResponse> BulkCreateAdsByInventoryReferenceAsync(string campaign_id, BulkCreateAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_create_ads_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_create_ads_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1844,14 +1844,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an ad for each inventory reference ID specified in the request and associates the newly created ads with the specified campaign. Use the campaign ID returned from createCampaign as a URI parameter in your call to this method. In the payload, specify the bidPercentage, inventoryReferenceId, and inventoryReferenceType for each listing you want to include in the campaign. Each listing you specify becomes a new ad that is associated with the campaign. An inventory reference ID can be either a seller-defined SKU value or an inventoryItemGroupKey. An inventoryItemGroupKey is seller-defined ID for an inventory item group (a multiple-variation listing), and is created and used by the Inventory API. For information on the eBay marketplaces that support Promoted Listings campaigns, see Promoted Listings requirements and restrictions. Maximums: You can specify a maximum of 500 IDs per call and 25,000 listings per campaign.
-		/// BulkCreateAdsByInventoryReference /ad_campaign/{campaign_id}/bulk_create_ads_by_inventory_reference
+		/// BulkCreateAdsByInventoryReference ad_campaign/{campaign_id}/bulk_create_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the bulkCreateAdsByInventoryReference request.</param>
 		/// <returns>Success</returns>
 		public BulkCreateAdsByInventoryReferenceResponse BulkCreateAdsByInventoryReference(string campaign_id, BulkCreateAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_create_ads_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_create_ads_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1877,14 +1877,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an ad for each listing ID specified in the request and associates the newly created ads with the specified campaign. Use the campaign ID returned from createCampaign as a URI parameter and specify a list of elements, each containing a listingId and its associated bidPercentage, for each listing you want associated with the ad campaign. Each listing you specify becomes a new ad that is associated with the campaign. A listing ID can be either a listing ID created by the Inventory API or an item ID that is used by the Trading API. For information on the eBay marketplaces that support Promoted Listings campaigns, see Promoted Listings requirements and restrictions. Maximums: You can specify a maximum of 500 IDs per call and 25,000 listings per campaign.
-		/// BulkCreateAdsByListingId /ad_campaign/{campaign_id}/bulk_create_ads_by_listing_id
+		/// BulkCreateAdsByListingId ad_campaign/{campaign_id}/bulk_create_ads_by_listing_id
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">The container for the bulk request to create ads for eBay listing IDs. eBay listing IDs are generated when the listing is created on eBay. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).</param>
 		/// <returns>Success</returns>
 		public async Task<BulkAdResponse> BulkCreateAdsByListingIdAsync(string campaign_id, BulkCreateAdRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_create_ads_by_listing_id";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_create_ads_by_listing_id";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1910,14 +1910,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an ad for each listing ID specified in the request and associates the newly created ads with the specified campaign. Use the campaign ID returned from createCampaign as a URI parameter and specify a list of elements, each containing a listingId and its associated bidPercentage, for each listing you want associated with the ad campaign. Each listing you specify becomes a new ad that is associated with the campaign. A listing ID can be either a listing ID created by the Inventory API or an item ID that is used by the Trading API. For information on the eBay marketplaces that support Promoted Listings campaigns, see Promoted Listings requirements and restrictions. Maximums: You can specify a maximum of 500 IDs per call and 25,000 listings per campaign.
-		/// BulkCreateAdsByListingId /ad_campaign/{campaign_id}/bulk_create_ads_by_listing_id
+		/// BulkCreateAdsByListingId ad_campaign/{campaign_id}/bulk_create_ads_by_listing_id
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">The container for the bulk request to create ads for eBay listing IDs. eBay listing IDs are generated when the listing is created on eBay. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).</param>
 		/// <returns>Success</returns>
 		public BulkAdResponse BulkCreateAdsByListingId(string campaign_id, BulkCreateAdRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_create_ads_by_listing_id";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_create_ads_by_listing_id";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1943,14 +1943,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a set of ads, as specified by a list of inventory reference IDs, from the specified campaign. Pass the campaign_id as a URI parameter and create a request payload that contains a list of inventoryReferenceId and inventoryReferenceType pairs. An inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used in the Inventory API to create a multiple-variation listing). Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's inventory reference IDs.
-		/// BulkDeleteAdsByInventoryReference /ad_campaign/{campaign_id}/bulk_delete_ads_by_inventory_reference
+		/// BulkDeleteAdsByInventoryReference ad_campaign/{campaign_id}/bulk_delete_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for a bulkDeleteAdsByInventoryReference request.</param>
 		/// <returns>Success</returns>
 		public async Task<BulkDeleteAdsByInventoryReferenceResponse> BulkDeleteAdsByInventoryReferenceAsync(string campaign_id, BulkDeleteAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_delete_ads_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_delete_ads_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1976,14 +1976,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a set of ads, as specified by a list of inventory reference IDs, from the specified campaign. Pass the campaign_id as a URI parameter and create a request payload that contains a list of inventoryReferenceId and inventoryReferenceType pairs. An inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used in the Inventory API to create a multiple-variation listing). Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's inventory reference IDs.
-		/// BulkDeleteAdsByInventoryReference /ad_campaign/{campaign_id}/bulk_delete_ads_by_inventory_reference
+		/// BulkDeleteAdsByInventoryReference ad_campaign/{campaign_id}/bulk_delete_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for a bulkDeleteAdsByInventoryReference request.</param>
 		/// <returns>Success</returns>
 		public BulkDeleteAdsByInventoryReferenceResponse BulkDeleteAdsByInventoryReference(string campaign_id, BulkDeleteAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_delete_ads_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_delete_ads_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2009,14 +2009,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a set of ads, as specified by a list of listing IDs, from the specified campaign. Supply the campaign_id as a URI parameter and create a request payload that contains a list of listingId values. An eBay listing ID is generated when a listing is created on eBay. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's listing IDs. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).
-		/// BulkDeleteAdsByListingId /ad_campaign/{campaign_id}/bulk_delete_ads_by_listing_id
+		/// BulkDeleteAdsByListingId ad_campaign/{campaign_id}/bulk_delete_ads_by_listing_id
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the bulkDeleteAdsByListingId request.</param>
 		/// <returns>Success</returns>
 		public async Task<BulkDeleteAdResponse> BulkDeleteAdsByListingIdAsync(string campaign_id, BulkDeleteAdRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_delete_ads_by_listing_id";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_delete_ads_by_listing_id";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2042,14 +2042,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes a set of ads, as specified by a list of listing IDs, from the specified campaign. Supply the campaign_id as a URI parameter and create a request payload that contains a list of listingId values. An eBay listing ID is generated when a listing is created on eBay. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's listing IDs. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).
-		/// BulkDeleteAdsByListingId /ad_campaign/{campaign_id}/bulk_delete_ads_by_listing_id
+		/// BulkDeleteAdsByListingId ad_campaign/{campaign_id}/bulk_delete_ads_by_listing_id
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the bulkDeleteAdsByListingId request.</param>
 		/// <returns>Success</returns>
 		public BulkDeleteAdResponse BulkDeleteAdsByListingId(string campaign_id, BulkDeleteAdRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_delete_ads_by_listing_id";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_delete_ads_by_listing_id";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2075,14 +2075,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method replaces an ad bid based on a list of inventory references IDs associated with the specified campaign. In the request, specify the campaign_id as a URI parameter and a list of the bidPercentage, inventoryReferenceId, inventoryReferenceType fields. An inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used in the Inventory API to create a multiple-variation listing). You must always specify both an inventory_reference_id and the associated inventory_reference_type. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's inventory reference IDs.
-		/// BulkUpdateAdsBidByInventoryReference /ad_campaign/{campaign_id}/bulk_update_ads_bid_by_inventory_reference
+		/// BulkUpdateAdsBidByInventoryReference ad_campaign/{campaign_id}/bulk_update_ads_bid_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the BulkCreateAdsByInventoryReference request.</param>
 		/// <returns>Success</returns>
 		public async Task<BulkCreateAdsByInventoryReferenceResponse> BulkUpdateAdsBidByInventoryReferenceAsync(string campaign_id, BulkCreateAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_update_ads_bid_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_update_ads_bid_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2108,14 +2108,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method replaces an ad bid based on a list of inventory references IDs associated with the specified campaign. In the request, specify the campaign_id as a URI parameter and a list of the bidPercentage, inventoryReferenceId, inventoryReferenceType fields. An inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used in the Inventory API to create a multiple-variation listing). You must always specify both an inventory_reference_id and the associated inventory_reference_type. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's inventory reference IDs.
-		/// BulkUpdateAdsBidByInventoryReference /ad_campaign/{campaign_id}/bulk_update_ads_bid_by_inventory_reference
+		/// BulkUpdateAdsBidByInventoryReference ad_campaign/{campaign_id}/bulk_update_ads_bid_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the BulkCreateAdsByInventoryReference request.</param>
 		/// <returns>Success</returns>
 		public BulkCreateAdsByInventoryReferenceResponse BulkUpdateAdsBidByInventoryReference(string campaign_id, BulkCreateAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_update_ads_bid_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_update_ads_bid_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2141,14 +2141,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method replaces an ad bid based on a supplied list of listing IDs that are associated with the specified campaign. In the request, specify the campaign_id as a URI parameter and create a request payload that contains a list of listingId values. An eBay listing ID is generated when a listing is created on eBay. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's listing IDs. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).
-		/// BulkUpdateAdsBidByListingId /ad_campaign/{campaign_id}/bulk_update_ads_bid_by_listing_id
+		/// BulkUpdateAdsBidByListingId ad_campaign/{campaign_id}/bulk_update_ads_bid_by_listing_id
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">Container for the bulk request to update ads.</param>
 		/// <returns>Success</returns>
 		public async Task<BulkAdResponse> BulkUpdateAdsBidByListingIdAsync(string campaign_id, BulkCreateAdRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_update_ads_bid_by_listing_id";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_update_ads_bid_by_listing_id";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2174,14 +2174,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method replaces an ad bid based on a supplied list of listing IDs that are associated with the specified campaign. In the request, specify the campaign_id as a URI parameter and create a request payload that contains a list of listingId values. An eBay listing ID is generated when a listing is created on eBay. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's listing IDs. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).
-		/// BulkUpdateAdsBidByListingId /ad_campaign/{campaign_id}/bulk_update_ads_bid_by_listing_id
+		/// BulkUpdateAdsBidByListingId ad_campaign/{campaign_id}/bulk_update_ads_bid_by_listing_id
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">Container for the bulk request to update ads.</param>
 		/// <returns>Success</returns>
 		public BulkAdResponse BulkUpdateAdsBidByListingId(string campaign_id, BulkCreateAdRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_update_ads_bid_by_listing_id";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/bulk_update_ads_bid_by_listing_id";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2207,7 +2207,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves all the ads for the specified campaign. Use the listing_ids query parameter to control the ads to target, and paginate the result set by specifying a limit, which dictates how many ads to return on each page of the response. Specify how many ads to skip in the result set before returning the first result using the offset parameter. Call getCampaigns to retrieve the current campaign IDs for the seller. Note: This field accepts both a listingId, as generated by the Inventory API, and an itemId as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).
-		/// GetAds /ad_campaign/{campaign_id}/ad
+		/// GetAds ad_campaign/{campaign_id}/ad
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="limit">Specifies the maximum number of ads to return on a page in the paginated response. Default: 10 Maximum: 500</param>
@@ -2216,7 +2216,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<AdPagedCollection> GetAdsAsync(string campaign_id, string limit, string listing_ids, string offset)
 		{
-			var requestUri = "/ad_campaign/{campaign_id}/ad?campaign_id=" + Uri.EscapeDataString(campaign_id)+"&limit=" + Uri.EscapeDataString(limit)+"&listing_ids=" + Uri.EscapeDataString(listing_ids)+"&offset=" + Uri.EscapeDataString(offset);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad?limit=" + Uri.EscapeDataString(limit)+"&listing_ids=" + Uri.EscapeDataString(listing_ids)+"&offset=" + Uri.EscapeDataString(offset);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2236,7 +2236,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves all the ads for the specified campaign. Use the listing_ids query parameter to control the ads to target, and paginate the result set by specifying a limit, which dictates how many ads to return on each page of the response. Specify how many ads to skip in the result set before returning the first result using the offset parameter. Call getCampaigns to retrieve the current campaign IDs for the seller. Note: This field accepts both a listingId, as generated by the Inventory API, and an itemId as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).
-		/// GetAds /ad_campaign/{campaign_id}/ad
+		/// GetAds ad_campaign/{campaign_id}/ad
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="limit">Specifies the maximum number of ads to return on a page in the paginated response. Default: 10 Maximum: 500</param>
@@ -2245,7 +2245,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public AdPagedCollection GetAds(string campaign_id, string limit, string listing_ids, string offset)
 		{
-			var requestUri = "/ad_campaign/{campaign_id}/ad?campaign_id=" + Uri.EscapeDataString(campaign_id)+"&limit=" + Uri.EscapeDataString(limit)+"&listing_ids=" + Uri.EscapeDataString(listing_ids)+"&offset=" + Uri.EscapeDataString(offset);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad?limit=" + Uri.EscapeDataString(limit)+"&listing_ids=" + Uri.EscapeDataString(listing_ids)+"&offset=" + Uri.EscapeDataString(offset);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2265,13 +2265,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an ad for the specified listing ID, sets the bid percentage for that specific item, and associates the ad with the specified campaign. Use the campaign ID returned from createCampaign as a URI parameter and specify a listingId and its associated bidPercentage in the payload. After processing the request, eBay returns the ID of the newly-created ad in the Location response header. Call getCampaigns to get a list of the seller's campaign IDs. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs). For information on the eBay marketplaces that support Promoted Listings campaigns, see Promoted Listings requirements and restrictions. Maximums: You can specify a maximum of 500 IDs per call and 25,000 listings per campaign.
-		/// CreateAdByListingId /ad_campaign/{campaign_id}/ad
+		/// CreateAdByListingId ad_campaign/{campaign_id}/ad
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the createAd request.</param>
 		public async Task CreateAdByListingIdAsync(string campaign_id, CreateAdRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2291,13 +2291,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an ad for the specified listing ID, sets the bid percentage for that specific item, and associates the ad with the specified campaign. Use the campaign ID returned from createCampaign as a URI parameter and specify a listingId and its associated bidPercentage in the payload. After processing the request, eBay returns the ID of the newly-created ad in the Location response header. Call getCampaigns to get a list of the seller's campaign IDs. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs). For information on the eBay marketplaces that support Promoted Listings campaigns, see Promoted Listings requirements and restrictions. Maximums: You can specify a maximum of 500 IDs per call and 25,000 listings per campaign.
-		/// CreateAdByListingId /ad_campaign/{campaign_id}/ad
+		/// CreateAdByListingId ad_campaign/{campaign_id}/ad
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the createAd request.</param>
 		public void CreateAdByListingId(string campaign_id, CreateAdRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2317,13 +2317,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an ad for the specified inventory reference ID, sets the bid percentage for that specific item, and associates the ad with the specified campaign. Use the campaign ID returned from createCampaign as a URI parameter and in the payload specify an inventoryReferenceId, its inventoryReferenceType, and the bidPercentage for the specific item. Call getCampaigns to get a list of the seller's campaign IDs. For information on the eBay marketplaces that support Promoted Listings campaigns, see Promoted Listings requirements and restrictions.
-		/// CreateAdsByInventoryReference /ad_campaign/{campaign_id}/create_ads_by_inventory_reference
+		/// CreateAdsByInventoryReference ad_campaign/{campaign_id}/create_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the createAdsByInventoryReference request.</param>
 		public async Task CreateAdsByInventoryReferenceAsync(string campaign_id, CreateAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/create_ads_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/create_ads_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2343,13 +2343,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an ad for the specified inventory reference ID, sets the bid percentage for that specific item, and associates the ad with the specified campaign. Use the campaign ID returned from createCampaign as a URI parameter and in the payload specify an inventoryReferenceId, its inventoryReferenceType, and the bidPercentage for the specific item. Call getCampaigns to get a list of the seller's campaign IDs. For information on the eBay marketplaces that support Promoted Listings campaigns, see Promoted Listings requirements and restrictions.
-		/// CreateAdsByInventoryReference /ad_campaign/{campaign_id}/create_ads_by_inventory_reference
+		/// CreateAdsByInventoryReference ad_campaign/{campaign_id}/create_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the createAdsByInventoryReference request.</param>
 		public void CreateAdsByInventoryReference(string campaign_id, CreateAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/create_ads_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/create_ads_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2369,14 +2369,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the specified ad from the specified campaign. In the request, supply the campaign_id and ad_id as URI parameters. Call getCampaigns to retrieve a list of the seller's current campaign IDs and call getAds to retrieve their current ad IDs.
-		/// GetAd /ad_campaign/{campaign_id}/ad/{ad_id}
+		/// GetAd ad_campaign/{campaign_id}/ad/{ad_id}
 		/// </summary>
 		/// <param name="ad_id">Identifier of an ad. This ID was generated when the ad was created.</param>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <returns>Success</returns>
 		public async Task<Ad> GetAdAsync(string ad_id, string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2396,14 +2396,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the specified ad from the specified campaign. In the request, supply the campaign_id and ad_id as URI parameters. Call getCampaigns to retrieve a list of the seller's current campaign IDs and call getAds to retrieve their current ad IDs.
-		/// GetAd /ad_campaign/{campaign_id}/ad/{ad_id}
+		/// GetAd ad_campaign/{campaign_id}/ad/{ad_id}
 		/// </summary>
 		/// <param name="ad_id">Identifier of an ad. This ID was generated when the ad was created.</param>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <returns>Success</returns>
 		public Ad GetAd(string ad_id, string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2423,13 +2423,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method removes the specified ad from the specified campaign. This method requires that you pass in the ID of the ad to delete and the ID of the campaign to which the ad is associated. Call getCampaigns to get the current list of the seller's campaign IDs.
-		/// DeleteAd /ad_campaign/{campaign_id}/ad/{ad_id}
+		/// DeleteAd ad_campaign/{campaign_id}/ad/{ad_id}
 		/// </summary>
 		/// <param name="ad_id">Identifier of an ad. This ID was generated when the ad was created.</param>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public async Task DeleteAdAsync(string ad_id, string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -2443,13 +2443,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method removes the specified ad from the specified campaign. This method requires that you pass in the ID of the ad to delete and the ID of the campaign to which the ad is associated. Call getCampaigns to get the current list of the seller's campaign IDs.
-		/// DeleteAd /ad_campaign/{campaign_id}/ad/{ad_id}
+		/// DeleteAd ad_campaign/{campaign_id}/ad/{ad_id}
 		/// </summary>
 		/// <param name="ad_id">Identifier of an ad. This ID was generated when the ad was created.</param>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public void DeleteAd(string ad_id, string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -2463,14 +2463,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes ads using a list of seller inventory reference IDs that are associated with the specified campaign ID. Specify the campaign ID and a list of inventoryReferenceId and inventoryReferenceType pairs to be deleted. Call getCampaigns to get a list of the seller's current campaign IDs.
-		/// DeleteAdsByInventoryReference /ad_campaign/{campaign_id}/delete_ads_by_inventory_reference
+		/// DeleteAdsByInventoryReference ad_campaign/{campaign_id}/delete_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the deleteAdsByInventoryReference request.</param>
 		/// <returns>Success</returns>
 		public async Task<AdIds> DeleteAdsByInventoryReferenceAsync(string campaign_id, DeleteAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/delete_ads_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/delete_ads_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2496,14 +2496,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes ads using a list of seller inventory reference IDs that are associated with the specified campaign ID. Specify the campaign ID and a list of inventoryReferenceId and inventoryReferenceType pairs to be deleted. Call getCampaigns to get a list of the seller's current campaign IDs.
-		/// DeleteAdsByInventoryReference /ad_campaign/{campaign_id}/delete_ads_by_inventory_reference
+		/// DeleteAdsByInventoryReference ad_campaign/{campaign_id}/delete_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the deleteAdsByInventoryReference request.</param>
 		/// <returns>Success</returns>
 		public AdIds DeleteAdsByInventoryReference(string campaign_id, DeleteAdsByInventoryReferenceRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/delete_ads_by_inventory_reference";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/delete_ads_by_inventory_reference";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2529,7 +2529,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves ads from the specified campaign using the seller's inventory reference ID and inventory reference type. Supply the campaign_id as a URI parameter and configure the payload with inventory_reference_id inventory_reference_type pairs. An inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used in the Inventory API to create a multiple-variation listing). You must always specify both an inventory_reference_id and the associated inventory_reference_type. Call getCampaigns to retrieve all of the seller's the current campaign IDs.
-		/// GetAdsByInventoryReference /ad_campaign/{campaign_id}/get_ads_by_inventory_reference
+		/// GetAdsByInventoryReference ad_campaign/{campaign_id}/get_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="inventory_reference_id">The inventory reference ID associated with the ad you want returned. A seller's inventory reference ID is the ID of either a listing or the ID of an inventory item group (the parent of a multi-variation listing, such as a shirt that is available in multiple sizes and colors). You must always supply in both an inventory_reference_id and an inventory_reference_type.</param>
@@ -2537,7 +2537,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<Ads> GetAdsByInventoryReferenceAsync(string campaign_id, string inventory_reference_id, string inventory_reference_type)
 		{
-			var requestUri = "/ad_campaign/{campaign_id}/get_ads_by_inventory_reference?campaign_id=" + Uri.EscapeDataString(campaign_id)+"&inventory_reference_id=" + Uri.EscapeDataString(inventory_reference_id)+"&inventory_reference_type=" + Uri.EscapeDataString(inventory_reference_type);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/get_ads_by_inventory_reference?inventory_reference_id=" + Uri.EscapeDataString(inventory_reference_id)+"&inventory_reference_type=" + Uri.EscapeDataString(inventory_reference_type);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2557,7 +2557,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves ads from the specified campaign using the seller's inventory reference ID and inventory reference type. Supply the campaign_id as a URI parameter and configure the payload with inventory_reference_id inventory_reference_type pairs. An inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used in the Inventory API to create a multiple-variation listing). You must always specify both an inventory_reference_id and the associated inventory_reference_type. Call getCampaigns to retrieve all of the seller's the current campaign IDs.
-		/// GetAdsByInventoryReference /ad_campaign/{campaign_id}/get_ads_by_inventory_reference
+		/// GetAdsByInventoryReference ad_campaign/{campaign_id}/get_ads_by_inventory_reference
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="inventory_reference_id">The inventory reference ID associated with the ad you want returned. A seller's inventory reference ID is the ID of either a listing or the ID of an inventory item group (the parent of a multi-variation listing, such as a shirt that is available in multiple sizes and colors). You must always supply in both an inventory_reference_id and an inventory_reference_type.</param>
@@ -2565,7 +2565,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public Ads GetAdsByInventoryReference(string campaign_id, string inventory_reference_id, string inventory_reference_type)
 		{
-			var requestUri = "/ad_campaign/{campaign_id}/get_ads_by_inventory_reference?campaign_id=" + Uri.EscapeDataString(campaign_id)+"&inventory_reference_id=" + Uri.EscapeDataString(inventory_reference_id)+"&inventory_reference_type=" + Uri.EscapeDataString(inventory_reference_type);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/get_ads_by_inventory_reference?inventory_reference_id=" + Uri.EscapeDataString(inventory_reference_id)+"&inventory_reference_type=" + Uri.EscapeDataString(inventory_reference_type);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2585,14 +2585,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates the bid for the specified ad in the specified campaign. In the request, supply the campaign_id and ad_id as a URI parameters. Call getCampaigns to retrieve a seller's current campaign IDs and call getAds to get their ad IDs.
-		/// UpdateBid /ad_campaign/{campaign_id}/ad/{ad_id}/update_bid
+		/// UpdateBid ad_campaign/{campaign_id}/ad/{ad_id}/update_bid
 		/// </summary>
 		/// <param name="ad_id">A unique eBay-assigned ID for an ad that's generated when an ad is created.</param>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the updateBid request.</param>
 		public async Task UpdateBidAsync(string ad_id, string campaign_id, UpdateBidPercentageRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id)+"/update_bid";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id)+"/update_bid";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2612,14 +2612,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates the bid for the specified ad in the specified campaign. In the request, supply the campaign_id and ad_id as a URI parameters. Call getCampaigns to retrieve a seller's current campaign IDs and call getAds to get their ad IDs.
-		/// UpdateBid /ad_campaign/{campaign_id}/ad/{ad_id}/update_bid
+		/// UpdateBid ad_campaign/{campaign_id}/ad/{ad_id}/update_bid
 		/// </summary>
 		/// <param name="ad_id">A unique eBay-assigned ID for an ad that's generated when an ad is created.</param>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for the updateBid request.</param>
 		public void UpdateBid(string ad_id, string campaign_id, UpdateBidPercentageRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id)+"/update_bid";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/ad/"+Uri.EscapeDataString(ad_id)+"/update_bid";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2656,13 +2656,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method clones (makes a copy of) the specified campaign. Supply the campaign_id as a URI parameter. The ID of the newly-cloned campaign is returned in the Location response header. Call getCampaigns to retrieve a seller's current campaign IDs Requirement: In order to clone a campaign, the campaignStatus must be ENDED and the campaign must define a set of selection rules (it must be a rules-based campaign).
-		/// CloneCampaign /ad_campaign/{campaign_id}/clone
+		/// CloneCampaign ad_campaign/{campaign_id}/clone
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for a clone campaign request.</param>
 		public async Task CloneCampaignAsync(string campaign_id, CloneCampaignRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/clone";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/clone";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2682,13 +2682,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method clones (makes a copy of) the specified campaign. Supply the campaign_id as a URI parameter. The ID of the newly-cloned campaign is returned in the Location response header. Call getCampaigns to retrieve a seller's current campaign IDs Requirement: In order to clone a campaign, the campaignStatus must be ENDED and the campaign must define a set of selection rules (it must be a rules-based campaign).
-		/// CloneCampaign /ad_campaign/{campaign_id}/clone
+		/// CloneCampaign ad_campaign/{campaign_id}/clone
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields for a clone campaign request.</param>
 		public void CloneCampaign(string campaign_id, CloneCampaignRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/clone";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/clone";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2708,7 +2708,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the details for all the campaigns of a seller, including the campaign's the selection rules. Note that this method does not return the listing IDs or inventory reference IDs of the items included in the ad campaign. Call getAds to retrieve these IDs. You can filter the result set by a campaign name, end date range, start date range, or campaign status. You can also paginate the records returned from the result set using the limit query parameter, and control which records to return using the offset parameter. Note: This call does not retrieve campaigns created via the eBay web flow.
-		/// GetCampaigns /ad_campaign
+		/// GetCampaigns ad_campaign
 		/// </summary>
 		/// <param name="campaign_name">Specifies the campaign name. The results are filtered to include only the campaign by the specified name. Note: The results might be null if other filters exclude the campaign with this name. Maximum: 1 campaign name</param>
 		/// <param name="campaign_status">Specifies the campaign status. The results are filtered to include only campaigns that are in the specified states. Note: The results might not include all the campaigns with this status if other filters exclude them. Valid values: See CampaignStatusEnum Maximum: 1 status</param>
@@ -2719,7 +2719,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<CampaignPagedCollection> GetCampaignsAsync(string campaign_name, string campaign_status, string end_date_range, string limit, string offset, string start_date_range)
 		{
-			var requestUri = "/ad_campaign?campaign_name=" + Uri.EscapeDataString(campaign_name)+"&campaign_status=" + Uri.EscapeDataString(campaign_status)+"&end_date_range=" + Uri.EscapeDataString(end_date_range)+"&limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&start_date_range=" + Uri.EscapeDataString(start_date_range);
+			var requestUri = "ad_campaign?campaign_name=" + Uri.EscapeDataString(campaign_name)+"&campaign_status=" + Uri.EscapeDataString(campaign_status)+"&end_date_range=" + Uri.EscapeDataString(end_date_range)+"&limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&start_date_range=" + Uri.EscapeDataString(start_date_range);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2739,7 +2739,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the details for all the campaigns of a seller, including the campaign's the selection rules. Note that this method does not return the listing IDs or inventory reference IDs of the items included in the ad campaign. Call getAds to retrieve these IDs. You can filter the result set by a campaign name, end date range, start date range, or campaign status. You can also paginate the records returned from the result set using the limit query parameter, and control which records to return using the offset parameter. Note: This call does not retrieve campaigns created via the eBay web flow.
-		/// GetCampaigns /ad_campaign
+		/// GetCampaigns ad_campaign
 		/// </summary>
 		/// <param name="campaign_name">Specifies the campaign name. The results are filtered to include only the campaign by the specified name. Note: The results might be null if other filters exclude the campaign with this name. Maximum: 1 campaign name</param>
 		/// <param name="campaign_status">Specifies the campaign status. The results are filtered to include only campaigns that are in the specified states. Note: The results might not include all the campaigns with this status if other filters exclude them. Valid values: See CampaignStatusEnum Maximum: 1 status</param>
@@ -2750,7 +2750,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public CampaignPagedCollection GetCampaigns(string campaign_name, string campaign_status, string end_date_range, string limit, string offset, string start_date_range)
 		{
-			var requestUri = "/ad_campaign?campaign_name=" + Uri.EscapeDataString(campaign_name)+"&campaign_status=" + Uri.EscapeDataString(campaign_status)+"&end_date_range=" + Uri.EscapeDataString(end_date_range)+"&limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&start_date_range=" + Uri.EscapeDataString(start_date_range);
+			var requestUri = "ad_campaign?campaign_name=" + Uri.EscapeDataString(campaign_name)+"&campaign_status=" + Uri.EscapeDataString(campaign_status)+"&end_date_range=" + Uri.EscapeDataString(end_date_range)+"&limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&start_date_range=" + Uri.EscapeDataString(start_date_range);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2770,12 +2770,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a Promoted Listings ad campaign. To create a basic campaign, supply the user-defined campaign name, the start date (and optionally the end date) of the campaign, the eBay marketplace on which the campaign is hosted, and details on the campaign funding model. The campaign funding model specifies how the Promoted Listings fee is calculated. Currently, the only supported funding model is COST_PER_SALE. For complete information on how the fee is calculated and when it applies, see Promoted Listings fees. For details on creating Promoted Listings campaigns and how to select the items to be included in your campaigns, see Creating Promoted Listings campaigns. For recommendations on which listings are prime for a Promoted Listings ad campaign, and to get guidance on how to set the bidPercentage field, see Using the Recommendation API to help configure campaigns.
-		/// CreateCampaign /ad_campaign
+		/// CreateCampaign ad_campaign
 		/// </summary>
 		/// <param name="requestBody">This type defines the fields for the create campaign request.</param>
 		public async Task CreateCampaignAsync(CreateCampaignRequest requestBody)
 		{
-			var requestUri = "/ad_campaign";
+			var requestUri = "ad_campaign";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2795,12 +2795,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a Promoted Listings ad campaign. To create a basic campaign, supply the user-defined campaign name, the start date (and optionally the end date) of the campaign, the eBay marketplace on which the campaign is hosted, and details on the campaign funding model. The campaign funding model specifies how the Promoted Listings fee is calculated. Currently, the only supported funding model is COST_PER_SALE. For complete information on how the fee is calculated and when it applies, see Promoted Listings fees. For details on creating Promoted Listings campaigns and how to select the items to be included in your campaigns, see Creating Promoted Listings campaigns. For recommendations on which listings are prime for a Promoted Listings ad campaign, and to get guidance on how to set the bidPercentage field, see Using the Recommendation API to help configure campaigns.
-		/// CreateCampaign /ad_campaign
+		/// CreateCampaign ad_campaign
 		/// </summary>
 		/// <param name="requestBody">This type defines the fields for the create campaign request.</param>
 		public void CreateCampaign(CreateCampaignRequest requestBody)
 		{
-			var requestUri = "/ad_campaign";
+			var requestUri = "ad_campaign";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -2820,13 +2820,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the details of a single campaign, as specified with the campaign_id query parameter. This method returns all the details of a campaign (including the campaign's the selection rules), except the for the listing IDs or inventory reference IDs included in the campaign. These IDs are returned by getAds. Call getCampaigns to retrieve a list of the seller's campaign IDs. Note: This call does not retrieve campaigns created via the eBay web flow.
-		/// GetCampaign /ad_campaign/{campaign_id}
+		/// GetCampaign ad_campaign/{campaign_id}
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <returns>Success</returns>
 		public async Task<Campaign> GetCampaignAsync(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2846,13 +2846,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the details of a single campaign, as specified with the campaign_id query parameter. This method returns all the details of a campaign (including the campaign's the selection rules), except the for the listing IDs or inventory reference IDs included in the campaign. These IDs are returned by getAds. Call getCampaigns to retrieve a list of the seller's campaign IDs. Note: This call does not retrieve campaigns created via the eBay web flow.
-		/// GetCampaign /ad_campaign/{campaign_id}
+		/// GetCampaign ad_campaign/{campaign_id}
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <returns>Success</returns>
 		public Campaign GetCampaign(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -2872,12 +2872,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes the campaign specified by the campaign_id query parameter. Note: You can delete only campaigns that have ended. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.
-		/// DeleteCampaign /ad_campaign/{campaign_id}
+		/// DeleteCampaign ad_campaign/{campaign_id}
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public async Task DeleteCampaignAsync(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -2891,12 +2891,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes the campaign specified by the campaign_id query parameter. Note: You can delete only campaigns that have ended. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.
-		/// DeleteCampaign /ad_campaign/{campaign_id}
+		/// DeleteCampaign ad_campaign/{campaign_id}
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public void DeleteCampaign(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id);
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -2910,12 +2910,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method ends an active (RUNNINGM) or paused campaign. Specify the campaign you want to end by supplying its campaign ID in a query parameter. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.
-		/// EndCampaign /ad_campaign/{campaign_id}/end
+		/// EndCampaign ad_campaign/{campaign_id}/end
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public async Task EndCampaignAsync(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/end";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/end";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -2929,12 +2929,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method ends an active (RUNNINGM) or paused campaign. Specify the campaign you want to end by supplying its campaign ID in a query parameter. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.
-		/// EndCampaign /ad_campaign/{campaign_id}/end
+		/// EndCampaign ad_campaign/{campaign_id}/end
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public void EndCampaign(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/end";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/end";
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -2948,7 +2948,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the campaign containing the listing that is specified using either an eBay listing ID or an inventory reference ID and inventory reference type. eBay listing IDs are generated when you create a listing. An inventory reference ID can be either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used by the Inventory API to create a multiple-variation listing such as a shirt that is available in multiple sizes and colors. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).
-		/// FindCampaignByAdReference /ad_campaign/find_campaign_by_ad_reference
+		/// FindCampaignByAdReference ad_campaign/find_campaign_by_ad_reference
 		/// </summary>
 		/// <param name="inventory_reference_id">The seller's inventory reference ID of the listing to be used to find the campaign in which it is associated. You must always pass in both inventory_reference_id and inventory_reference_type.</param>
 		/// <param name="inventory_reference_type">The type of the seller's inventory reference ID, which is a listing or group of items. You must always pass in both inventory_reference_id and inventory_reference_type.</param>
@@ -2956,7 +2956,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<Campaigns> FindCampaignByAdReferenceAsync(string inventory_reference_id, string inventory_reference_type, string listing_id)
 		{
-			var requestUri = "/ad_campaign/find_campaign_by_ad_reference?inventory_reference_id=" + Uri.EscapeDataString(inventory_reference_id)+"&inventory_reference_type=" + Uri.EscapeDataString(inventory_reference_type)+"&listing_id=" + Uri.EscapeDataString(listing_id);
+			var requestUri = "ad_campaign/find_campaign_by_ad_reference?inventory_reference_id=" + Uri.EscapeDataString(inventory_reference_id)+"&inventory_reference_type=" + Uri.EscapeDataString(inventory_reference_type)+"&listing_id=" + Uri.EscapeDataString(listing_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -2976,7 +2976,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the campaign containing the listing that is specified using either an eBay listing ID or an inventory reference ID and inventory reference type. eBay listing IDs are generated when you create a listing. An inventory reference ID can be either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used by the Inventory API to create a multiple-variation listing such as a shirt that is available in multiple sizes and colors. Note: This request accepts both listing IDs, as generated by the Inventory API, and an item IDs, as used in the eBay Traditional API set (e.g., the Trading and Finding APIs).
-		/// FindCampaignByAdReference /ad_campaign/find_campaign_by_ad_reference
+		/// FindCampaignByAdReference ad_campaign/find_campaign_by_ad_reference
 		/// </summary>
 		/// <param name="inventory_reference_id">The seller's inventory reference ID of the listing to be used to find the campaign in which it is associated. You must always pass in both inventory_reference_id and inventory_reference_type.</param>
 		/// <param name="inventory_reference_type">The type of the seller's inventory reference ID, which is a listing or group of items. You must always pass in both inventory_reference_id and inventory_reference_type.</param>
@@ -2984,7 +2984,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public Campaigns FindCampaignByAdReference(string inventory_reference_id, string inventory_reference_type, string listing_id)
 		{
-			var requestUri = "/ad_campaign/find_campaign_by_ad_reference?inventory_reference_id=" + Uri.EscapeDataString(inventory_reference_id)+"&inventory_reference_type=" + Uri.EscapeDataString(inventory_reference_type)+"&listing_id=" + Uri.EscapeDataString(listing_id);
+			var requestUri = "ad_campaign/find_campaign_by_ad_reference?inventory_reference_id=" + Uri.EscapeDataString(inventory_reference_id)+"&inventory_reference_type=" + Uri.EscapeDataString(inventory_reference_type)+"&listing_id=" + Uri.EscapeDataString(listing_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3004,13 +3004,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the details of a single campaign, as specified with the campaign_name query parameter. Note that the campaign name you specify must be an exact, case-sensitive match of the name of the campaign you want to retrieve. This method returns all the details of a campaign (including the campaign's the selection rules), except the for the listing IDs or inventory reference IDs included in the campaign. These IDs are returned by getAds. Call getCampaigns to retrieve a list of the seller's campaign names. Note: This call does not retrieve campaigns created via the eBay web flow.
-		/// GetCampaignByName /ad_campaign/get_campaign_by_name
+		/// GetCampaignByName ad_campaign/get_campaign_by_name
 		/// </summary>
 		/// <param name="campaign_name">Name of the campaign.</param>
 		/// <returns>Success</returns>
 		public async Task<Campaign> GetCampaignByNameAsync(string campaign_name)
 		{
-			var requestUri = "/ad_campaign/get_campaign_by_name?campaign_name=" + Uri.EscapeDataString(campaign_name);
+			var requestUri = "ad_campaign/get_campaign_by_name?campaign_name=" + Uri.EscapeDataString(campaign_name);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3030,13 +3030,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method retrieves the details of a single campaign, as specified with the campaign_name query parameter. Note that the campaign name you specify must be an exact, case-sensitive match of the name of the campaign you want to retrieve. This method returns all the details of a campaign (including the campaign's the selection rules), except the for the listing IDs or inventory reference IDs included in the campaign. These IDs are returned by getAds. Call getCampaigns to retrieve a list of the seller's campaign names. Note: This call does not retrieve campaigns created via the eBay web flow.
-		/// GetCampaignByName /ad_campaign/get_campaign_by_name
+		/// GetCampaignByName ad_campaign/get_campaign_by_name
 		/// </summary>
 		/// <param name="campaign_name">Name of the campaign.</param>
 		/// <returns>Success</returns>
 		public Campaign GetCampaignByName(string campaign_name)
 		{
-			var requestUri = "/ad_campaign/get_campaign_by_name?campaign_name=" + Uri.EscapeDataString(campaign_name);
+			var requestUri = "ad_campaign/get_campaign_by_name?campaign_name=" + Uri.EscapeDataString(campaign_name);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3056,12 +3056,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method pauses an active (RUNNING) campaign. You can restarted by calling resumeCampaign, as long as the campaign's end date is in the future. Note: The listings associated with a paused campaign cannot be added into another campaign. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.
-		/// PauseCampaign /ad_campaign/{campaign_id}/pause
+		/// PauseCampaign ad_campaign/{campaign_id}/pause
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public async Task PauseCampaignAsync(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/pause";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/pause";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -3075,12 +3075,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method pauses an active (RUNNING) campaign. You can restarted by calling resumeCampaign, as long as the campaign's end date is in the future. Note: The listings associated with a paused campaign cannot be added into another campaign. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.
-		/// PauseCampaign /ad_campaign/{campaign_id}/pause
+		/// PauseCampaign ad_campaign/{campaign_id}/pause
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public void PauseCampaign(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/pause";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/pause";
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -3094,12 +3094,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method resumes a paused campaign, as long as it's end date is in the future. Supply the campaign_id for the campaign you want to restart as a query parameter in the request. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.
-		/// ResumeCampaign /ad_campaign/{campaign_id}/resume
+		/// ResumeCampaign ad_campaign/{campaign_id}/resume
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public async Task ResumeCampaignAsync(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/resume";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/resume";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -3113,12 +3113,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method resumes a paused campaign, as long as it's end date is in the future. Supply the campaign_id for the campaign you want to restart as a query parameter in the request. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.
-		/// ResumeCampaign /ad_campaign/{campaign_id}/resume
+		/// ResumeCampaign ad_campaign/{campaign_id}/resume
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		public void ResumeCampaign(string campaign_id)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/resume";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/resume";
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -3132,13 +3132,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method replaces the name and the start and end dates of a campaign. Specify the campaign_id you want to update as a URI parameter, and configure the campaignName and startDate in the request payload. If you want to change only the end date of the campaign, specify the current campaign name and set startDate to the current date (you cannot use a start date that is in the past), and set the endDate as desired. Note that if you do not set a new end date in this call, any current endDate value will be set to null. To preserve the currently-set end date, you must specify the value again in your request. Call getCampaigns to retrieve a seller's campaign details, including the campaign ID, campaign name, and the start and end dates of the campaign.
-		/// UpdateCampaignIdentification /ad_campaign/{campaign_id}/update_campaign_identification
+		/// UpdateCampaignIdentification ad_campaign/{campaign_id}/update_campaign_identification
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields to updated the campaign name and start and end dates.</param>
 		public async Task UpdateCampaignIdentificationAsync(string campaign_id, UpdateCampaignIdentificationRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/update_campaign_identification";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/update_campaign_identification";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3158,13 +3158,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method replaces the name and the start and end dates of a campaign. Specify the campaign_id you want to update as a URI parameter, and configure the campaignName and startDate in the request payload. If you want to change only the end date of the campaign, specify the current campaign name and set startDate to the current date (you cannot use a start date that is in the past), and set the endDate as desired. Note that if you do not set a new end date in this call, any current endDate value will be set to null. To preserve the currently-set end date, you must specify the value again in your request. Call getCampaigns to retrieve a seller's campaign details, including the campaign ID, campaign name, and the start and end dates of the campaign.
-		/// UpdateCampaignIdentification /ad_campaign/{campaign_id}/update_campaign_identification
+		/// UpdateCampaignIdentification ad_campaign/{campaign_id}/update_campaign_identification
 		/// </summary>
 		/// <param name="campaign_id">A unique eBay-assigned ID for an ad campaign that's generated when a campaign is created. Get a seller's campaign IDs by calling getCampaigns.</param>
 		/// <param name="requestBody">This type defines the fields to updated the campaign name and start and end dates.</param>
 		public void UpdateCampaignIdentification(string campaign_id, UpdateCampaignIdentificationRequest requestBody)
 		{
-			var requestUri = "/ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/update_campaign_identification";
+			var requestUri = "ad_campaign/"+Uri.EscapeDataString(campaign_id)+"/update_campaign_identification";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3201,13 +3201,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call downloads the report as specified by the report_id path parameter. Note: All date values are returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert and display in the seller's local time.
-		/// GetReport /ad_report/{report_id}
+		/// GetReport ad_report/{report_id}
 		/// </summary>
 		/// <param name="report_id">The unique ID of the Promoted Listings report you want to get. This ID is generated by eBay when you run a report task with a call to createReportTask. Get all the seller's report IDs by calling getReportTasks.</param>
 		/// <returns>Success</returns>
 		public async Task GetReportAsync(string report_id)
 		{
-			var requestUri = "/ad_report/"+Uri.EscapeDataString(report_id);
+			var requestUri = "ad_report/"+Uri.EscapeDataString(report_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3221,13 +3221,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call downloads the report as specified by the report_id path parameter. Note: All date values are returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert and display in the seller's local time.
-		/// GetReport /ad_report/{report_id}
+		/// GetReport ad_report/{report_id}
 		/// </summary>
 		/// <param name="report_id">The unique ID of the Promoted Listings report you want to get. This ID is generated by eBay when you run a report task with a call to createReportTask. Get all the seller's report IDs by calling getReportTasks.</param>
 		/// <returns>Success</returns>
 		public void GetReport(string report_id)
 		{
-			var requestUri = "/ad_report/"+Uri.EscapeDataString(report_id);
+			var requestUri = "ad_report/"+Uri.EscapeDataString(report_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3258,12 +3258,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call retrieves information that details the fields used in each of the Promoted Listings reports. The request for this method does not use a payload or any URI parameters. Use the information returned by this method to configure the different Promoted Listings report types.
-		/// GetReportMetadata /ad_report_metadata
+		/// GetReportMetadata ad_report_metadata
 		/// </summary>
 		/// <returns>Success</returns>
 		public async Task<ReportMetadatas> GetReportMetadataAsync()
 		{
-			var requestUri = "/ad_report_metadata";
+			var requestUri = "ad_report_metadata";
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3283,12 +3283,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call retrieves information that details the fields used in each of the Promoted Listings reports. The request for this method does not use a payload or any URI parameters. Use the information returned by this method to configure the different Promoted Listings report types.
-		/// GetReportMetadata /ad_report_metadata
+		/// GetReportMetadata ad_report_metadata
 		/// </summary>
 		/// <returns>Success</returns>
 		public ReportMetadatas GetReportMetadata()
 		{
-			var requestUri = "/ad_report_metadata";
+			var requestUri = "ad_report_metadata";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3308,13 +3308,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call retrieves metadata that details the fields used by the Promoted Listings report type that's specified by the report_type path parameter. This method does not use a request payload. Use the information returned by this method to configure the specified Promoted Listings report.
-		/// GetReportMetadataForReportType /ad_report_metadata/{report_type}
+		/// GetReportMetadataForReportType ad_report_metadata/{report_type}
 		/// </summary>
 		/// <param name="report_type">The name of the report type whose metadata you want to get. For details about each report type, see ReportTypeEnum. Valid values: &nbsp;&nbsp;&nbsp;ACCOUNT_PERFORMANCE_REPORT &nbsp;&nbsp;&nbsp;CAMPAIGN_PERFORMANCE_REPORT &nbsp;&nbsp;&nbsp;CAMPAIGN_PERFORMANCE_SUMMARY_REPORT &nbsp;&nbsp;&nbsp;LISTING_PERFORMANCE_REPORT &nbsp;&nbsp;&nbsp;INVENTORY_PERFORMANCE_REPORT</param>
 		/// <returns>Success</returns>
 		public async Task<ReportMetadata> GetReportMetadataForReportTypeAsync(string report_type)
 		{
-			var requestUri = "/ad_report_metadata/"+Uri.EscapeDataString(report_type);
+			var requestUri = "ad_report_metadata/"+Uri.EscapeDataString(report_type);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3334,13 +3334,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call retrieves metadata that details the fields used by the Promoted Listings report type that's specified by the report_type path parameter. This method does not use a request payload. Use the information returned by this method to configure the specified Promoted Listings report.
-		/// GetReportMetadataForReportType /ad_report_metadata/{report_type}
+		/// GetReportMetadataForReportType ad_report_metadata/{report_type}
 		/// </summary>
 		/// <param name="report_type">The name of the report type whose metadata you want to get. For details about each report type, see ReportTypeEnum. Valid values: &nbsp;&nbsp;&nbsp;ACCOUNT_PERFORMANCE_REPORT &nbsp;&nbsp;&nbsp;CAMPAIGN_PERFORMANCE_REPORT &nbsp;&nbsp;&nbsp;CAMPAIGN_PERFORMANCE_SUMMARY_REPORT &nbsp;&nbsp;&nbsp;LISTING_PERFORMANCE_REPORT &nbsp;&nbsp;&nbsp;INVENTORY_PERFORMANCE_REPORT</param>
 		/// <returns>Success</returns>
 		public ReportMetadata GetReportMetadataForReportType(string report_type)
 		{
-			var requestUri = "/ad_report_metadata/"+Uri.EscapeDataString(report_type);
+			var requestUri = "ad_report_metadata/"+Uri.EscapeDataString(report_type);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3377,7 +3377,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns information on all the existing report tasks related to a seller. Use the report_task_statuses query parameter to control which reports to return. You can paginate the result set by specifying a limit, which dictates how many report tasks to return on each page of the response. Use the offset parameter to specify how many reports to skip in the result set before returning the first result.
-		/// GetReportTasks /ad_report_task
+		/// GetReportTasks ad_report_task
 		/// </summary>
 		/// <param name="limit">Specifies the maximum number of report tasks to return on a page in the paginated response. Default: 10 Maximum: 500</param>
 		/// <param name="offset">Specifies the number of report tasks to skip in the result set before returning the first report in the paginated response. Combine offset with the limit query parameter to control the reports returned in the response. For example, if you supply an offset of 0 and a limit of 10, the response contains the first 10 reports from the complete list of report tasks retrieved by the call. If offset is 10 and limit is 10, the first page of the response contains reports 11-20 from the complete result set. Default: 0</param>
@@ -3385,7 +3385,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<ReportTaskPagedCollection> GetReportTasksAsync(string limit, string offset, string report_task_statuses)
 		{
-			var requestUri = "/ad_report_task?limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&report_task_statuses=" + Uri.EscapeDataString(report_task_statuses);
+			var requestUri = "ad_report_task?limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&report_task_statuses=" + Uri.EscapeDataString(report_task_statuses);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3405,7 +3405,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns information on all the existing report tasks related to a seller. Use the report_task_statuses query parameter to control which reports to return. You can paginate the result set by specifying a limit, which dictates how many report tasks to return on each page of the response. Use the offset parameter to specify how many reports to skip in the result set before returning the first result.
-		/// GetReportTasks /ad_report_task
+		/// GetReportTasks ad_report_task
 		/// </summary>
 		/// <param name="limit">Specifies the maximum number of report tasks to return on a page in the paginated response. Default: 10 Maximum: 500</param>
 		/// <param name="offset">Specifies the number of report tasks to skip in the result set before returning the first report in the paginated response. Combine offset with the limit query parameter to control the reports returned in the response. For example, if you supply an offset of 0 and a limit of 10, the response contains the first 10 reports from the complete list of report tasks retrieved by the call. If offset is 10 and limit is 10, the first page of the response contains reports 11-20 from the complete result set. Default: 0</param>
@@ -3413,7 +3413,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public ReportTaskPagedCollection GetReportTasks(string limit, string offset, string report_task_statuses)
 		{
-			var requestUri = "/ad_report_task?limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&report_task_statuses=" + Uri.EscapeDataString(report_task_statuses);
+			var requestUri = "ad_report_task?limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&report_task_statuses=" + Uri.EscapeDataString(report_task_statuses);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3433,12 +3433,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a report task, which generates a Promoted Listings report based on the values specified in the call. The report is generated based on the criteria you specify, including the report type, the report's dimensions and metrics, the report's start and end dates, the listings to include in the report, and more. Metrics are the quantitative measurements in the report while dimensions specify the attributes of the data included in the reports. For details on the required and optional fields for each report type, see Creating Promoted Listings reports. This call returns the URL to the report task in the Location response header, and the URL includes the report-task ID. Reports often take time to generate and it's common for this call to return an HTTP status of 202, which indicates the report is being generated. Call getReportTasks (or getReportTask with the report-task ID) to determine the status of a Promoted Listings report. When a report is complete, eBay sets its status to SUCCESS and you can download it using the URL returned in the reportHref field of the getReportTask call. Report files are tab-separated value gzip files with a file extension of .tsv.gz. Note: This call fails if you don't submit all the required fields for the specified report type. Fields not supported by the specified report type are ignored. Call getReportMetadata to retrieve a list of the fields you need to configure for each Promoted Listings report type.
-		/// CreateReportTask /ad_report_task
+		/// CreateReportTask ad_report_task
 		/// </summary>
 		/// <param name="requestBody">The container for the fields that define the report task.</param>
 		public async Task CreateReportTaskAsync(CreateReportTask requestBody)
 		{
-			var requestUri = "/ad_report_task";
+			var requestUri = "ad_report_task";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3458,12 +3458,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates a report task, which generates a Promoted Listings report based on the values specified in the call. The report is generated based on the criteria you specify, including the report type, the report's dimensions and metrics, the report's start and end dates, the listings to include in the report, and more. Metrics are the quantitative measurements in the report while dimensions specify the attributes of the data included in the reports. For details on the required and optional fields for each report type, see Creating Promoted Listings reports. This call returns the URL to the report task in the Location response header, and the URL includes the report-task ID. Reports often take time to generate and it's common for this call to return an HTTP status of 202, which indicates the report is being generated. Call getReportTasks (or getReportTask with the report-task ID) to determine the status of a Promoted Listings report. When a report is complete, eBay sets its status to SUCCESS and you can download it using the URL returned in the reportHref field of the getReportTask call. Report files are tab-separated value gzip files with a file extension of .tsv.gz. Note: This call fails if you don't submit all the required fields for the specified report type. Fields not supported by the specified report type are ignored. Call getReportMetadata to retrieve a list of the fields you need to configure for each Promoted Listings report type.
-		/// CreateReportTask /ad_report_task
+		/// CreateReportTask ad_report_task
 		/// </summary>
 		/// <param name="requestBody">The container for the fields that define the report task.</param>
 		public void CreateReportTask(CreateReportTask requestBody)
 		{
-			var requestUri = "/ad_report_task";
+			var requestUri = "ad_report_task";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3483,13 +3483,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call returns the details of a specific Promoted Listings report task, as specified by the report_task_id path parameter. The report task includes the report criteria (such as the report dimensions, metrics, and included listing) and the report-generation rules (such as starting and ending dates for the specified report task). Report-task IDs are generated by eBay when you call createReportTask. Get a complete list of a seller's report-task IDs by calling getReportTasks.
-		/// GetReportTask /ad_report_task/{report_task_id}
+		/// GetReportTask ad_report_task/{report_task_id}
 		/// </summary>
 		/// <param name="report_task_id">A unique eBay-assigned ID for the report task that's generated when the report task is created by a call to createReportTask.</param>
 		/// <returns>Success</returns>
 		public async Task<ReportTask> GetReportTaskAsync(string report_task_id)
 		{
-			var requestUri = "/ad_report_task/"+Uri.EscapeDataString(report_task_id);
+			var requestUri = "ad_report_task/"+Uri.EscapeDataString(report_task_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3509,13 +3509,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call returns the details of a specific Promoted Listings report task, as specified by the report_task_id path parameter. The report task includes the report criteria (such as the report dimensions, metrics, and included listing) and the report-generation rules (such as starting and ending dates for the specified report task). Report-task IDs are generated by eBay when you call createReportTask. Get a complete list of a seller's report-task IDs by calling getReportTasks.
-		/// GetReportTask /ad_report_task/{report_task_id}
+		/// GetReportTask ad_report_task/{report_task_id}
 		/// </summary>
 		/// <param name="report_task_id">A unique eBay-assigned ID for the report task that's generated when the report task is created by a call to createReportTask.</param>
 		/// <returns>Success</returns>
 		public ReportTask GetReportTask(string report_task_id)
 		{
-			var requestUri = "/ad_report_task/"+Uri.EscapeDataString(report_task_id);
+			var requestUri = "ad_report_task/"+Uri.EscapeDataString(report_task_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3535,12 +3535,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call deletes the report task specified by the report_task_id path parameter. This method also deletes any reports generated by the report task. Report task IDs are generated by eBay when you call createReportTask. Get a complete list of a seller's report-task IDs by calling getReportTasks.
-		/// DeleteReportTask /ad_report_task/{report_task_id}
+		/// DeleteReportTask ad_report_task/{report_task_id}
 		/// </summary>
 		/// <param name="report_task_id">A unique eBay-assigned ID for the report task that's generated when the report task is created by a call to createReportTask.</param>
 		public async Task DeleteReportTaskAsync(string report_task_id)
 		{
-			var requestUri = "/ad_report_task/"+Uri.EscapeDataString(report_task_id);
+			var requestUri = "ad_report_task/"+Uri.EscapeDataString(report_task_id);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -3554,12 +3554,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This call deletes the report task specified by the report_task_id path parameter. This method also deletes any reports generated by the report task. Report task IDs are generated by eBay when you call createReportTask. Get a complete list of a seller's report-task IDs by calling getReportTasks.
-		/// DeleteReportTask /ad_report_task/{report_task_id}
+		/// DeleteReportTask ad_report_task/{report_task_id}
 		/// </summary>
 		/// <param name="report_task_id">A unique eBay-assigned ID for the report task that's generated when the report task is created by a call to createReportTask.</param>
 		public void DeleteReportTask(string report_task_id)
 		{
-			var requestUri = "/ad_report_task/"+Uri.EscapeDataString(report_task_id);
+			var requestUri = "ad_report_task/"+Uri.EscapeDataString(report_task_id);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -3590,12 +3590,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an item price markdown promotion (know simply as a &quot;markdown promotion&quot;) where a discount amount is applied directly to the items included the promotion. Discounts can be specified as either a monetary amount or a percentage off the standard sales price. eBay highlights promoted items by placing teasers for the items throughout the online sales flows. Unlike an item promotion, a markdown promotion does not require the buyer meet a &quot;threshold&quot; before the offer takes effect. With markdown promotions, all the buyer needs to do is purchase the item to receive the promotion benefit. Important: You can create item price markdown promotions only for specific listings. For complete details, see Promotions Manager requirements and restrictions. In addition, we recommend you list items at competitive prices before including them in your markdown promotions. For an extensive list of pricing recommendations, see the Growth tab in Seller Hub. There are two ways to add items to markdown promotions: Key-based promotions select items using either the listing IDs or inventory reference IDs of the items you want to promote. Note that if you use inventory reference IDs, you must specify both the inventoryReferenceId and the associated inventoryReferenceType of the item(s) you want to include the promotion. Rule-based promotions select items using a list of eBay category IDs or seller Store category IDs. Rules can further constrain items in a promotion by minimum and maximum prices, brands, and item conditions. New promotions must be created in either a DRAFT or a SCHEDULED state. Use the DRAFT state when you are initially creating a promotion and you want to be sure it's correctly configured before scheduling it to run. When you create a promotion, the promotion ID is returned in the Location response header. Use this ID to reference the promotion in subsequent requests (such as to schedule a promotion that's in a DRAFT state). Tip: Refer to Promotions Manager in the Selling Integration Guide for details and examples showing how to create and manage seller promotions. Markdown promotions are available on all eBay marketplaces. For more information, see Promotions Manager requirements and restrictions.
-		/// CreateItemPriceMarkdownPromotion /item_price_markdown
+		/// CreateItemPriceMarkdownPromotion item_price_markdown
 		/// </summary>
 		/// <param name="requestBody">This type defines the fields that describe an item price markdown promotion.</param>
 		public async Task CreateItemPriceMarkdownPromotionAsync(ItemPriceMarkdown requestBody)
 		{
-			var requestUri = "/item_price_markdown";
+			var requestUri = "item_price_markdown";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3615,12 +3615,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an item price markdown promotion (know simply as a &quot;markdown promotion&quot;) where a discount amount is applied directly to the items included the promotion. Discounts can be specified as either a monetary amount or a percentage off the standard sales price. eBay highlights promoted items by placing teasers for the items throughout the online sales flows. Unlike an item promotion, a markdown promotion does not require the buyer meet a &quot;threshold&quot; before the offer takes effect. With markdown promotions, all the buyer needs to do is purchase the item to receive the promotion benefit. Important: You can create item price markdown promotions only for specific listings. For complete details, see Promotions Manager requirements and restrictions. In addition, we recommend you list items at competitive prices before including them in your markdown promotions. For an extensive list of pricing recommendations, see the Growth tab in Seller Hub. There are two ways to add items to markdown promotions: Key-based promotions select items using either the listing IDs or inventory reference IDs of the items you want to promote. Note that if you use inventory reference IDs, you must specify both the inventoryReferenceId and the associated inventoryReferenceType of the item(s) you want to include the promotion. Rule-based promotions select items using a list of eBay category IDs or seller Store category IDs. Rules can further constrain items in a promotion by minimum and maximum prices, brands, and item conditions. New promotions must be created in either a DRAFT or a SCHEDULED state. Use the DRAFT state when you are initially creating a promotion and you want to be sure it's correctly configured before scheduling it to run. When you create a promotion, the promotion ID is returned in the Location response header. Use this ID to reference the promotion in subsequent requests (such as to schedule a promotion that's in a DRAFT state). Tip: Refer to Promotions Manager in the Selling Integration Guide for details and examples showing how to create and manage seller promotions. Markdown promotions are available on all eBay marketplaces. For more information, see Promotions Manager requirements and restrictions.
-		/// CreateItemPriceMarkdownPromotion /item_price_markdown
+		/// CreateItemPriceMarkdownPromotion item_price_markdown
 		/// </summary>
 		/// <param name="requestBody">This type defines the fields that describe an item price markdown promotion.</param>
 		public void CreateItemPriceMarkdownPromotion(ItemPriceMarkdown requestBody)
 		{
-			var requestUri = "/item_price_markdown";
+			var requestUri = "item_price_markdown";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3640,13 +3640,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns the complete details of the item price markdown promotion that's indicated by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions.
-		/// GetItemPriceMarkdownPromotion /item_price_markdown/{promotion_id}
+		/// GetItemPriceMarkdownPromotion item_price_markdown/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to retrieve. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		/// <returns>Success</returns>
 		public async Task<ItemPriceMarkdown> GetItemPriceMarkdownPromotionAsync(string promotion_id)
 		{
-			var requestUri = "/item_price_markdown/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_price_markdown/"+Uri.EscapeDataString(promotion_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3666,13 +3666,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns the complete details of the item price markdown promotion that's indicated by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions.
-		/// GetItemPriceMarkdownPromotion /item_price_markdown/{promotion_id}
+		/// GetItemPriceMarkdownPromotion item_price_markdown/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to retrieve. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		/// <returns>Success</returns>
 		public ItemPriceMarkdown GetItemPriceMarkdownPromotion(string promotion_id)
 		{
-			var requestUri = "/item_price_markdown/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_price_markdown/"+Uri.EscapeDataString(promotion_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3692,14 +3692,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates the specified item price markdown promotion with the new configuration that you supply in the payload of the request. Specify the promotion you want to update using the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. When updating a promotion, supply all the fields that you used to configure the original promotion (and not just the fields you are updating). eBay replaces the specified promotion with the values you supply in the update request and if you don't pass a field that currently has a value, the update request fails. The parameters you are allowed to update with this request depend on the status of the promotion you're updating: DRAFT or SCHEDULED promotions: You can update any of the parameters in these promotions that have not yet started to run, including the discountRules. RUNNING promotions: You can change the endDate and the item's inventory but you cannot change the promotional discount or the promotion's start date. ENDED promotions: Nothing can be changed.
-		/// UpdateItemPriceMarkdownPromotion /item_price_markdown/{promotion_id}
+		/// UpdateItemPriceMarkdownPromotion item_price_markdown/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to update. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		/// <param name="requestBody">This type defines the fields that describe an item price markdown promotion.</param>
 		/// <returns>Success</returns>
 		public async Task<string> UpdateItemPriceMarkdownPromotionAsync(string promotion_id, ItemPriceMarkdown requestBody)
 		{
-			var requestUri = "/item_price_markdown/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_price_markdown/"+Uri.EscapeDataString(promotion_id);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3724,14 +3724,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates the specified item price markdown promotion with the new configuration that you supply in the payload of the request. Specify the promotion you want to update using the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. When updating a promotion, supply all the fields that you used to configure the original promotion (and not just the fields you are updating). eBay replaces the specified promotion with the values you supply in the update request and if you don't pass a field that currently has a value, the update request fails. The parameters you are allowed to update with this request depend on the status of the promotion you're updating: DRAFT or SCHEDULED promotions: You can update any of the parameters in these promotions that have not yet started to run, including the discountRules. RUNNING promotions: You can change the endDate and the item's inventory but you cannot change the promotional discount or the promotion's start date. ENDED promotions: Nothing can be changed.
-		/// UpdateItemPriceMarkdownPromotion /item_price_markdown/{promotion_id}
+		/// UpdateItemPriceMarkdownPromotion item_price_markdown/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to update. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		/// <param name="requestBody">This type defines the fields that describe an item price markdown promotion.</param>
 		/// <returns>Success</returns>
 		public string UpdateItemPriceMarkdownPromotion(string promotion_id, ItemPriceMarkdown requestBody)
 		{
-			var requestUri = "/item_price_markdown/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_price_markdown/"+Uri.EscapeDataString(promotion_id);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3756,12 +3756,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes the item price markdown promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. You can delete any promotion with the exception of those that are currently active (RUNNING). To end a running promotion, call updateItemPriceMarkdownPromotion and adjust the endDate field as appropriate.
-		/// DeleteItemPriceMarkdownPromotion /item_price_markdown/{promotion_id}
+		/// DeleteItemPriceMarkdownPromotion item_price_markdown/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to delete. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		public async Task DeleteItemPriceMarkdownPromotionAsync(string promotion_id)
 		{
-			var requestUri = "/item_price_markdown/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_price_markdown/"+Uri.EscapeDataString(promotion_id);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -3775,12 +3775,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes the item price markdown promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. You can delete any promotion with the exception of those that are currently active (RUNNING). To end a running promotion, call updateItemPriceMarkdownPromotion and adjust the endDate field as appropriate.
-		/// DeleteItemPriceMarkdownPromotion /item_price_markdown/{promotion_id}
+		/// DeleteItemPriceMarkdownPromotion item_price_markdown/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to delete. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		public void DeleteItemPriceMarkdownPromotion(string promotion_id)
 		{
-			var requestUri = "/item_price_markdown/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_price_markdown/"+Uri.EscapeDataString(promotion_id);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -3811,12 +3811,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an item promotion (known casually as a &quot;threshold promotion&quot;) where the buyer receives a discount when they meet the buying criteria that's set for the promotion. eBay highlights promoted items by placing teasers for the items throughout the online sales flows. Discounts can be specified as either a monetary amount or a percentage off the standard sales price. This gives you the ability offer discounts such as &quot;Buy 1 Get 1&quot;, or &quot;Buy $50, get 20% off&quot;. You can also create volume pricing promotions, where the discount amount increases as the buyer increases the quantity they purchase. There are two ways to add items to a threshold promotion: Key-based promotions select items using either the listing IDs or inventory reference IDs of the items you want to promote. Note that if you use inventory reference IDs, you must specify both the inventoryReferenceId and the associated inventoryReferenceType of the item(s) you want to include the promotion. Rule-based promotions select items using a list of eBay category IDs or seller Store category IDs. Rules can further constrain items in a promotion by minimum and maximum prices, brands, and item conditions. You must create a new promotion either a DRAFT or SCHEDULED state. Use the DRAFT state when you are initially creating a promotion and you want to be sure it's correctly configured before scheduling it to run. When you create a promotion, the promotion ID is returned in the Location response header. Use this ID to reference the promotion in subsequent requests. Tip: Refer to the Selling Integration Guide for details and examples showing how to create and manage threshold promotions using the Promotions Manager. For information on the eBay marketplaces that support item promotions, see Promotions Manager requirements and restrictions.
-		/// CreateItemPromotion /item_promotion
+		/// CreateItemPromotion item_promotion
 		/// </summary>
 		/// <param name="requestBody">This type defines the fields that describe an item promotion.</param>
 		public async Task CreateItemPromotionAsync(ItemPromotion requestBody)
 		{
-			var requestUri = "/item_promotion";
+			var requestUri = "item_promotion";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3836,12 +3836,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method creates an item promotion (known casually as a &quot;threshold promotion&quot;) where the buyer receives a discount when they meet the buying criteria that's set for the promotion. eBay highlights promoted items by placing teasers for the items throughout the online sales flows. Discounts can be specified as either a monetary amount or a percentage off the standard sales price. This gives you the ability offer discounts such as &quot;Buy 1 Get 1&quot;, or &quot;Buy $50, get 20% off&quot;. You can also create volume pricing promotions, where the discount amount increases as the buyer increases the quantity they purchase. There are two ways to add items to a threshold promotion: Key-based promotions select items using either the listing IDs or inventory reference IDs of the items you want to promote. Note that if you use inventory reference IDs, you must specify both the inventoryReferenceId and the associated inventoryReferenceType of the item(s) you want to include the promotion. Rule-based promotions select items using a list of eBay category IDs or seller Store category IDs. Rules can further constrain items in a promotion by minimum and maximum prices, brands, and item conditions. You must create a new promotion either a DRAFT or SCHEDULED state. Use the DRAFT state when you are initially creating a promotion and you want to be sure it's correctly configured before scheduling it to run. When you create a promotion, the promotion ID is returned in the Location response header. Use this ID to reference the promotion in subsequent requests. Tip: Refer to the Selling Integration Guide for details and examples showing how to create and manage threshold promotions using the Promotions Manager. For information on the eBay marketplaces that support item promotions, see Promotions Manager requirements and restrictions.
-		/// CreateItemPromotion /item_promotion
+		/// CreateItemPromotion item_promotion
 		/// </summary>
 		/// <param name="requestBody">This type defines the fields that describe an item promotion.</param>
 		public void CreateItemPromotion(ItemPromotion requestBody)
 		{
-			var requestUri = "/item_promotion";
+			var requestUri = "item_promotion";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3861,13 +3861,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns the complete details of the threshold promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions.
-		/// GetItemPromotion /item_promotion/{promotion_id}
+		/// GetItemPromotion item_promotion/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to retrieve. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		/// <returns>Success</returns>
 		public async Task<ItemPromotionResponse> GetItemPromotionAsync(string promotion_id)
 		{
-			var requestUri = "/item_promotion/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_promotion/"+Uri.EscapeDataString(promotion_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3887,13 +3887,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns the complete details of the threshold promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions.
-		/// GetItemPromotion /item_promotion/{promotion_id}
+		/// GetItemPromotion item_promotion/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to retrieve. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		/// <returns>Success</returns>
 		public ItemPromotionResponse GetItemPromotion(string promotion_id)
 		{
-			var requestUri = "/item_promotion/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_promotion/"+Uri.EscapeDataString(promotion_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3913,14 +3913,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates the specified threshold promotion with the new configuration that you supply in the request. Indicate the promotion you want to update using the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. When updating a promotion, supply all the fields that you used to configure the original promotion (and not just the fields you are updating). eBay replaces the specified promotion with the values you supply in the update request and if you don't pass a field that currently has a value, the update request will fail. The parameters you are allowed to update with this request depend on the status of the promotion you're updating: DRAFT or SCHEDULED promotions: You can update any of the parameters in these promotions that have not yet started to run, including the discountRules. RUNNING or PAUSED promotions: You can change the endDate and the item's inventory but you cannot change the promotional discount or the promotion's start date. ENDED promotions: Nothing can be changed. Tip: When updating a RUNNING or PAUSED promotion, set the status field to SCHEDULED for the update request. When the promotion is updated, the previous status (either RUNNING or PAUSED) will be reset.
-		/// UpdateItemPromotion /item_promotion/{promotion_id}
+		/// UpdateItemPromotion item_promotion/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to update. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		/// <param name="requestBody">This type defines the fields that describe an item promotion.</param>
 		/// <returns>Success</returns>
 		public async Task<BaseResponse> UpdateItemPromotionAsync(string promotion_id, ItemPromotion requestBody)
 		{
-			var requestUri = "/item_promotion/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_promotion/"+Uri.EscapeDataString(promotion_id);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3946,14 +3946,14 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method updates the specified threshold promotion with the new configuration that you supply in the request. Indicate the promotion you want to update using the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. When updating a promotion, supply all the fields that you used to configure the original promotion (and not just the fields you are updating). eBay replaces the specified promotion with the values you supply in the update request and if you don't pass a field that currently has a value, the update request will fail. The parameters you are allowed to update with this request depend on the status of the promotion you're updating: DRAFT or SCHEDULED promotions: You can update any of the parameters in these promotions that have not yet started to run, including the discountRules. RUNNING or PAUSED promotions: You can change the endDate and the item's inventory but you cannot change the promotional discount or the promotion's start date. ENDED promotions: Nothing can be changed. Tip: When updating a RUNNING or PAUSED promotion, set the status field to SCHEDULED for the update request. When the promotion is updated, the previous status (either RUNNING or PAUSED) will be reset.
-		/// UpdateItemPromotion /item_promotion/{promotion_id}
+		/// UpdateItemPromotion item_promotion/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to update. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		/// <param name="requestBody">This type defines the fields that describe an item promotion.</param>
 		/// <returns>Success</returns>
 		public BaseResponse UpdateItemPromotion(string promotion_id, ItemPromotion requestBody)
 		{
-			var requestUri = "/item_promotion/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_promotion/"+Uri.EscapeDataString(promotion_id);
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -3979,12 +3979,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes the threshold promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. You can delete any promotion with the exception of those that are currently active (RUNNING). To end a running threshold promotion, call updateItemPromotion and adjust the endDate field as appropriate.
-		/// DeleteItemPromotion /item_promotion/{promotion_id}
+		/// DeleteItemPromotion item_promotion/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to delete. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		public async Task DeleteItemPromotionAsync(string promotion_id)
 		{
-			var requestUri = "/item_promotion/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_promotion/"+Uri.EscapeDataString(promotion_id);
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
@@ -3998,12 +3998,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method deletes the threshold promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. You can delete any promotion with the exception of those that are currently active (RUNNING). To end a running threshold promotion, call updateItemPromotion and adjust the endDate field as appropriate.
-		/// DeleteItemPromotion /item_promotion/{promotion_id}
+		/// DeleteItemPromotion item_promotion/{promotion_id}
 		/// </summary>
 		/// <param name="promotion_id">The ID of the promotion you want to delete. The promotion ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		public void DeleteItemPromotion(string promotion_id)
 		{
-			var requestUri = "/item_promotion/"+Uri.EscapeDataString(promotion_id);
+			var requestUri = "item_promotion/"+Uri.EscapeDataString(promotion_id);
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
@@ -4034,7 +4034,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns the set of listings associated with the promotion_id specified in the path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. The listing details are returned in a paginated set and you can control and results returned using the following query parameters: limit, offset, q, sort, and status. Maximum associated listings returned: 200 Default number of listings returned: 200
-		/// GetListingSet /promotion/{promotion_id}/get_listing_set
+		/// GetListingSet promotion/{promotion_id}/get_listing_set
 		/// </summary>
 		/// <param name="limit">Specifies the maximum number of promotions returned on a page from the result set. Default: 200 Maximum: 200</param>
 		/// <param name="offset">Specifies the number of promotions to skip in the result set before returning the first promotion in the paginated response. Combine offset with the limit query parameter to control the items returned in the response. For example, if you supply an offset of 0 and a limit of 10, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If offset is 10 and limit is 20, the first page of the response contains items 11-30 from the complete result set. Default: 0</param>
@@ -4044,7 +4044,7 @@ namespace MyNS
 		/// <param name="status">This query parameter applies only to markdown promotions. It filters the response based on the indicated status of the promotion. Currently, the only supported value for this parameter is MARKED_DOWN, which indicates active markdown promotions. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/marketing/types/ItemMarkdownStatusEnum.html</param>
 		public async Task GetListingSetAsync(string limit, string offset, string promotion_id, string q, string sort, string status)
 		{
-			var requestUri = "/promotion/{promotion_id}/get_listing_set?limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_id=" + Uri.EscapeDataString(promotion_id)+"&q=" + Uri.EscapeDataString(q)+"&sort=" + Uri.EscapeDataString(sort)+"&status=" + Uri.EscapeDataString(status);
+			var requestUri = "promotion/"+Uri.EscapeDataString(promotion_id)+"/get_listing_set?limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&q=" + Uri.EscapeDataString(q)+"&sort=" + Uri.EscapeDataString(sort)+"&status=" + Uri.EscapeDataString(status);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4058,7 +4058,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns the set of listings associated with the promotion_id specified in the path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. The listing details are returned in a paginated set and you can control and results returned using the following query parameters: limit, offset, q, sort, and status. Maximum associated listings returned: 200 Default number of listings returned: 200
-		/// GetListingSet /promotion/{promotion_id}/get_listing_set
+		/// GetListingSet promotion/{promotion_id}/get_listing_set
 		/// </summary>
 		/// <param name="limit">Specifies the maximum number of promotions returned on a page from the result set. Default: 200 Maximum: 200</param>
 		/// <param name="offset">Specifies the number of promotions to skip in the result set before returning the first promotion in the paginated response. Combine offset with the limit query parameter to control the items returned in the response. For example, if you supply an offset of 0 and a limit of 10, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If offset is 10 and limit is 20, the first page of the response contains items 11-30 from the complete result set. Default: 0</param>
@@ -4068,7 +4068,7 @@ namespace MyNS
 		/// <param name="status">This query parameter applies only to markdown promotions. It filters the response based on the indicated status of the promotion. Currently, the only supported value for this parameter is MARKED_DOWN, which indicates active markdown promotions. For implementation help, refer to eBay API documentation at https://developer.ebay.com/devzone/rest/api-ref/marketing/types/ItemMarkdownStatusEnum.html</param>
 		public void GetListingSet(string limit, string offset, string promotion_id, string q, string sort, string status)
 		{
-			var requestUri = "/promotion/{promotion_id}/get_listing_set?limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_id=" + Uri.EscapeDataString(promotion_id)+"&q=" + Uri.EscapeDataString(q)+"&sort=" + Uri.EscapeDataString(sort)+"&status=" + Uri.EscapeDataString(status);
+			var requestUri = "promotion/"+Uri.EscapeDataString(promotion_id)+"/get_listing_set?limit=" + Uri.EscapeDataString(limit)+"&offset=" + Uri.EscapeDataString(offset)+"&q=" + Uri.EscapeDataString(q)+"&sort=" + Uri.EscapeDataString(sort)+"&status=" + Uri.EscapeDataString(status);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4082,7 +4082,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns a list of a seller's undeleted promotions. The call returns up to 200 currently-available promotions on the specified marketplace. While the response body does not include the promotion's discountRules or inventoryCriterion containers, it does include the promotionHref (which you can use to retrieve the complete details of the promotion). Use query parameters to sort and filter the results by the number of promotions to return, the promotion state or type, and the eBay marketplace. You can also supply keywords to limit the response to the promotions that contain that keywords in the title of the promotion. Maximum returned: 200
-		/// GetPromotions /promotion
+		/// GetPromotions promotion
 		/// </summary>
 		/// <param name="limit">Specifies the maximum number of promotions returned on a page from the result set. Default: 200 Maximum: 200</param>
 		/// <param name="marketplace_id">The eBay marketplace ID of the site where the promotion is hosted. Valid values: EBAY_AU = Australia EBAY_DE = Germany EBAY_ES = Spain EBAY_FR = France EBAY_GB = Great Britain EBAY_IT = Italy EBAY_US = United States</param>
@@ -4094,7 +4094,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<PromotionsPagedCollection> GetPromotionsAsync(string limit, string marketplace_id, string offset, string promotion_status, string promotion_type, string q, string sort)
 		{
-			var requestUri = "/promotion?limit=" + Uri.EscapeDataString(limit)+"&marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_status=" + Uri.EscapeDataString(promotion_status)+"&promotion_type=" + Uri.EscapeDataString(promotion_type)+"&q=" + Uri.EscapeDataString(q)+"&sort=" + Uri.EscapeDataString(sort);
+			var requestUri = "promotion?limit=" + Uri.EscapeDataString(limit)+"&marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_status=" + Uri.EscapeDataString(promotion_status)+"&promotion_type=" + Uri.EscapeDataString(promotion_type)+"&q=" + Uri.EscapeDataString(q)+"&sort=" + Uri.EscapeDataString(sort);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4114,7 +4114,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method returns a list of a seller's undeleted promotions. The call returns up to 200 currently-available promotions on the specified marketplace. While the response body does not include the promotion's discountRules or inventoryCriterion containers, it does include the promotionHref (which you can use to retrieve the complete details of the promotion). Use query parameters to sort and filter the results by the number of promotions to return, the promotion state or type, and the eBay marketplace. You can also supply keywords to limit the response to the promotions that contain that keywords in the title of the promotion. Maximum returned: 200
-		/// GetPromotions /promotion
+		/// GetPromotions promotion
 		/// </summary>
 		/// <param name="limit">Specifies the maximum number of promotions returned on a page from the result set. Default: 200 Maximum: 200</param>
 		/// <param name="marketplace_id">The eBay marketplace ID of the site where the promotion is hosted. Valid values: EBAY_AU = Australia EBAY_DE = Germany EBAY_ES = Spain EBAY_FR = France EBAY_GB = Great Britain EBAY_IT = Italy EBAY_US = United States</param>
@@ -4126,7 +4126,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public PromotionsPagedCollection GetPromotions(string limit, string marketplace_id, string offset, string promotion_status, string promotion_type, string q, string sort)
 		{
-			var requestUri = "/promotion?limit=" + Uri.EscapeDataString(limit)+"&marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_status=" + Uri.EscapeDataString(promotion_status)+"&promotion_type=" + Uri.EscapeDataString(promotion_type)+"&q=" + Uri.EscapeDataString(q)+"&sort=" + Uri.EscapeDataString(sort);
+			var requestUri = "promotion?limit=" + Uri.EscapeDataString(limit)+"&marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_status=" + Uri.EscapeDataString(promotion_status)+"&promotion_type=" + Uri.EscapeDataString(promotion_type)+"&q=" + Uri.EscapeDataString(q)+"&sort=" + Uri.EscapeDataString(sort);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4146,12 +4146,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method pauses a currently-active (RUNNING) threshold promotion and changes the state of the promotion from RUNNING to PAUSED. Pausing a promotion makes the promotion temporarily unavailable to buyers and any currently-incomplete transactions will not receive the promotional offer until the promotion is resumed. Also, promotion teasers are not displayed when a promotion is paused. Pass the ID of the promotion you want to pause using the promotion_id path parameter. Call getPromotions to retrieve the IDs of the seller's promotions. Note: You can only pause threshold promotions (you cannot pause markdown promotions).
-		/// PausePromotion /promotion/{promotion_id}/pause
+		/// PausePromotion promotion/{promotion_id}/pause
 		/// </summary>
 		/// <param name="promotion_id">Identifier of the promotion you want to pause. The ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		public async Task PausePromotionAsync(string promotion_id)
 		{
-			var requestUri = "/promotion/"+Uri.EscapeDataString(promotion_id)+"/pause";
+			var requestUri = "promotion/"+Uri.EscapeDataString(promotion_id)+"/pause";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -4165,12 +4165,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method pauses a currently-active (RUNNING) threshold promotion and changes the state of the promotion from RUNNING to PAUSED. Pausing a promotion makes the promotion temporarily unavailable to buyers and any currently-incomplete transactions will not receive the promotional offer until the promotion is resumed. Also, promotion teasers are not displayed when a promotion is paused. Pass the ID of the promotion you want to pause using the promotion_id path parameter. Call getPromotions to retrieve the IDs of the seller's promotions. Note: You can only pause threshold promotions (you cannot pause markdown promotions).
-		/// PausePromotion /promotion/{promotion_id}/pause
+		/// PausePromotion promotion/{promotion_id}/pause
 		/// </summary>
 		/// <param name="promotion_id">Identifier of the promotion you want to pause. The ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		public void PausePromotion(string promotion_id)
 		{
-			var requestUri = "/promotion/"+Uri.EscapeDataString(promotion_id)+"/pause";
+			var requestUri = "promotion/"+Uri.EscapeDataString(promotion_id)+"/pause";
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -4184,12 +4184,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method restarts a threshold promotion that was previously paused and changes the state of the promotion from PAUSED to RUNNING. Only promotions that have been previously paused can be resumed. Resuming a promotion reinstates the promotional teasers and any transactions that were in motion before the promotion was paused will again be eligible for the promotion. Pass the ID of the promotion you want to resume using the promotion_id path parameter. Call getPromotions to retrieve the IDs of the seller's promotions.
-		/// ResumePromotion /promotion/{promotion_id}/resume
+		/// ResumePromotion promotion/{promotion_id}/resume
 		/// </summary>
 		/// <param name="promotion_id">Identifier of the promotion you want to make active. The ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		public async Task ResumePromotionAsync(string promotion_id)
 		{
-			var requestUri = "/promotion/"+Uri.EscapeDataString(promotion_id)+"/resume";
+			var requestUri = "promotion/"+Uri.EscapeDataString(promotion_id)+"/resume";
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -4203,12 +4203,12 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method restarts a threshold promotion that was previously paused and changes the state of the promotion from PAUSED to RUNNING. Only promotions that have been previously paused can be resumed. Resuming a promotion reinstates the promotional teasers and any transactions that were in motion before the promotion was paused will again be eligible for the promotion. Pass the ID of the promotion you want to resume using the promotion_id path parameter. Call getPromotions to retrieve the IDs of the seller's promotions.
-		/// ResumePromotion /promotion/{promotion_id}/resume
+		/// ResumePromotion promotion/{promotion_id}/resume
 		/// </summary>
 		/// <param name="promotion_id">Identifier of the promotion you want to make active. The ID is a unique eBay-assigned value that's generated when the promotion is created.</param>
 		public void ResumePromotion(string promotion_id)
 		{
-			var requestUri = "/promotion/"+Uri.EscapeDataString(promotion_id)+"/resume";
+			var requestUri = "promotion/"+Uri.EscapeDataString(promotion_id)+"/resume";
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -4239,7 +4239,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method generates a report that lists the seller's running, paused, and ended promotions for the specified eBay marketplace. The result set can be filtered by the promotion status and the number of results to return. You can also supply keywords to limit the report to promotions that contain the specified keywords. Specify the eBay marketplace for which you want the report run using the marketplace_id query parameter. Supply additional query parameters to control the report as needed.
-		/// GetPromotionReports /promotion_report
+		/// GetPromotionReports promotion_report
 		/// </summary>
 		/// <param name="limit">Specifies the maximum number of promotions returned on a page from the result set. Default: 200 Maximum: 200</param>
 		/// <param name="marketplace_id">The eBay marketplace ID of the site for which you want the promotions report. Valid values: EBAY_AU = Australia EBAY_DE = Germany EBAY_ES = Spain EBAY_FR = France EBAY_GB = Great Britain EBAY_IT = Italy EBAY_US = United States</param>
@@ -4250,7 +4250,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public async Task<PromotionsReportPagedCollection> GetPromotionReportsAsync(string limit, string marketplace_id, string offset, string promotion_status, string promotion_type, string q)
 		{
-			var requestUri = "/promotion_report?limit=" + Uri.EscapeDataString(limit)+"&marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_status=" + Uri.EscapeDataString(promotion_status)+"&promotion_type=" + Uri.EscapeDataString(promotion_type)+"&q=" + Uri.EscapeDataString(q);
+			var requestUri = "promotion_report?limit=" + Uri.EscapeDataString(limit)+"&marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_status=" + Uri.EscapeDataString(promotion_status)+"&promotion_type=" + Uri.EscapeDataString(promotion_type)+"&q=" + Uri.EscapeDataString(q);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4270,7 +4270,7 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method generates a report that lists the seller's running, paused, and ended promotions for the specified eBay marketplace. The result set can be filtered by the promotion status and the number of results to return. You can also supply keywords to limit the report to promotions that contain the specified keywords. Specify the eBay marketplace for which you want the report run using the marketplace_id query parameter. Supply additional query parameters to control the report as needed.
-		/// GetPromotionReports /promotion_report
+		/// GetPromotionReports promotion_report
 		/// </summary>
 		/// <param name="limit">Specifies the maximum number of promotions returned on a page from the result set. Default: 200 Maximum: 200</param>
 		/// <param name="marketplace_id">The eBay marketplace ID of the site for which you want the promotions report. Valid values: EBAY_AU = Australia EBAY_DE = Germany EBAY_ES = Spain EBAY_FR = France EBAY_GB = Great Britain EBAY_IT = Italy EBAY_US = United States</param>
@@ -4281,7 +4281,7 @@ namespace MyNS
 		/// <returns>Success</returns>
 		public PromotionsReportPagedCollection GetPromotionReports(string limit, string marketplace_id, string offset, string promotion_status, string promotion_type, string q)
 		{
-			var requestUri = "/promotion_report?limit=" + Uri.EscapeDataString(limit)+"&marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_status=" + Uri.EscapeDataString(promotion_status)+"&promotion_type=" + Uri.EscapeDataString(promotion_type)+"&q=" + Uri.EscapeDataString(q);
+			var requestUri = "promotion_report?limit=" + Uri.EscapeDataString(limit)+"&marketplace_id=" + Uri.EscapeDataString(marketplace_id)+"&offset=" + Uri.EscapeDataString(offset)+"&promotion_status=" + Uri.EscapeDataString(promotion_status)+"&promotion_type=" + Uri.EscapeDataString(promotion_type)+"&q=" + Uri.EscapeDataString(q);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4318,13 +4318,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method generates a report that summarizes the seller's promotions for the specified eBay marketplace. The report returns information on RUNNING, PAUSED, and ENDED promotions (deleted reports are not returned) and summarizes the seller's campaign performance for all promotions on a given site. For information about summary reports, see Reading the item promotion Summary report.
-		/// GetPromotionSummaryReport /promotion_summary_report
+		/// GetPromotionSummaryReport promotion_summary_report
 		/// </summary>
 		/// <param name="marketplace_id">The eBay marketplace ID of the site you for which you want a promotion summary report. Valid values: EBAY_AU = Australia EBAY_DE = Germany EBAY_ES = Spain EBAY_FR = France EBAY_GB = Great Britain EBAY_IT = Italy EBAY_US = United States</param>
 		/// <returns>Success</returns>
 		public async Task<SummaryReportResponse> GetPromotionSummaryReportAsync(string marketplace_id)
 		{
-			var requestUri = "/promotion_summary_report?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
+			var requestUri = "promotion_summary_report?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -4344,13 +4344,13 @@ namespace MyNS
 		
 		/// <summary>
 		/// This method generates a report that summarizes the seller's promotions for the specified eBay marketplace. The report returns information on RUNNING, PAUSED, and ENDED promotions (deleted reports are not returned) and summarizes the seller's campaign performance for all promotions on a given site. For information about summary reports, see Reading the item promotion Summary report.
-		/// GetPromotionSummaryReport /promotion_summary_report
+		/// GetPromotionSummaryReport promotion_summary_report
 		/// </summary>
 		/// <param name="marketplace_id">The eBay marketplace ID of the site you for which you want a promotion summary report. Valid values: EBAY_AU = Australia EBAY_DE = Germany EBAY_ES = Spain EBAY_FR = France EBAY_GB = Great Britain EBAY_IT = Italy EBAY_US = United States</param>
 		/// <returns>Success</returns>
 		public SummaryReportResponse GetPromotionSummaryReport(string marketplace_id)
 		{
-			var requestUri = "/promotion_summary_report?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
+			var requestUri = "promotion_summary_report?marketplace_id=" + Uri.EscapeDataString(marketplace_id);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{

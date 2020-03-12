@@ -61,13 +61,13 @@ namespace MyNS
 		/// <summary>
 		/// Finds Pets by status
 		/// Multiple status values can be provided with comma separated strings
-		/// FindPetsByStatus /pet/findByStatus
+		/// FindPetsByStatus pet/findByStatus
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
 		public async Task<Pet[]> FindPetsByStatusAsync(string status)
 		{
-			var requestUri = "/pet/findByStatus?status=" + Uri.EscapeDataString(status);
+			var requestUri = "pet/findByStatus?status=" + Uri.EscapeDataString(status);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -88,13 +88,13 @@ namespace MyNS
 		/// <summary>
 		/// Finds Pets by status
 		/// Multiple status values can be provided with comma separated strings
-		/// FindPetsByStatus /pet/findByStatus
+		/// FindPetsByStatus pet/findByStatus
 		/// </summary>
 		/// <param name="status">Status values that need to be considered for filter</param>
 		/// <returns>successful operation</returns>
 		public Pet[] FindPetsByStatus(string status)
 		{
-			var requestUri = "/pet/findByStatus?status=" + Uri.EscapeDataString(status);
+			var requestUri = "pet/findByStatus?status=" + Uri.EscapeDataString(status);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{

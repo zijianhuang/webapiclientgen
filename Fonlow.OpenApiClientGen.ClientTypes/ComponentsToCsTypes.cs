@@ -100,8 +100,8 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 
 			foreach (var item in components.Schemas)
 			{
-				var typeName = ToTitleCase(item.Key);
-				Debug.WriteLine("clientClass: " + typeName);
+				currentTypeName = ToTitleCase(item.Key);
+				Debug.WriteLine("clientClass: " + currentTypeName);
 				var schema = item.Value;
 				var type = schema.Type;
 				var allOfBaseTypeSchemaList = schema.AllOf; //maybe empty
@@ -113,7 +113,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				{
 					if (schema.Properties.Count > 0 || (schema.Properties.Count == 0 && allOfBaseTypeSchemaList.Count > 1))
 					{
-						typeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, typeName);
+						typeDeclaration = PodGenHelper.CreatePodClientClass(ClientNamespace, currentTypeName);
 						if (String.IsNullOrEmpty(type) && allOfBaseTypeSchemaList.Count > 0)
 						{
 							var allOfRef = allOfBaseTypeSchemaList[0];
@@ -125,14 +125,13 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 						}
 
 						CreateTypeOrMemberDocComment(item, typeDeclaration);
-						//	typeDeclarationDic.Add(typeName, typeDeclaration);
 
 						AddProperties(typeDeclaration, schema);
 					}
 					else if (type == "array") // wrapper of array
 					{
 						var itemsRef = schema.Items.Reference;
-						TypeAliasDic.Instance.Add(typeName, $"{itemsRef.Id}[]");
+						TypeAliasDic.Instance.Add(currentTypeName, $"{itemsRef.Id}[]");
 					}
 					else // type alias
 					{
@@ -144,7 +143,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				}
 				else
 				{
-					typeDeclaration = PodGenHelper.CreatePodClientEnum(ClientNamespace, typeName);
+					typeDeclaration = PodGenHelper.CreatePodClientEnum(ClientNamespace, currentTypeName);
 					CreateTypeOrMemberDocComment(item, typeDeclaration);
 					AddEnumMembers(typeDeclaration, enumTypeList);
 				}
@@ -188,11 +187,18 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 			}
 		}
 
+		string currentTypeName;
+
 		void AddProperties(CodeTypeDeclaration typeDeclaration, OpenApiSchema schema)
 		{
 			foreach (var p in schema.Properties)
 			{
 				var propertyName = ToTitleCase(p.Key);
+				if (propertyName == currentTypeName)
+				{
+					propertyName += "1";
+				}
+
 				var propertySchema = p.Value;
 				var primitivePropertyType = propertySchema.Type;
 				var isPrimitiveType = nameComposer.IsPrimitiveType(primitivePropertyType);

@@ -164,6 +164,12 @@ namespace SwagTests
             });
         }
 
+        [Fact]
+        public void TestEBaySellAccount()
+        {
+            GenerateAndAssert("SwagMock\\sell_account_v1_oas3.json", "Results\\PetStore.txt");
+        }
+
 
 
 

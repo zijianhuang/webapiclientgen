@@ -45,6 +45,7 @@
     <None Remove="SwagMock\petStoreExpanded.yaml" />
     <None Remove="SwagMock\petTypes.json" />
     <None Remove="SwagMock\Required.json" />
+    <None Remove="SwagMock\sell_account_v1_oas3.json" />
     <None Remove="SwagMock\SimpleOrder.json" />
     <None Remove="SwagMock\SimplePet.json" />
     <None Remove="SwagMock\SimplePetCat.json" />
@@ -131,6 +132,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\mcp.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\sell_account_v1_oas3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\uspto.yaml">

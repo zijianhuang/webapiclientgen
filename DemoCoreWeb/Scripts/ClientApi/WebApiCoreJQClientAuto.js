@@ -818,3 +818,4 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
+//# sourceMappingURL=WebApiCoreJQClientAuto.js.map

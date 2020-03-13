@@ -31,6 +31,20 @@
 		/// </summary>
 		public int? CherryPickingMethods { get; set; }
 
+		public DataModel[] DataModels { get; set; }
+
+	}
+
+	public class DataModel
+	{
+		public string AssemblyName { get; set; }
+
+		///// <summary>
+		///// Which namespace to pick up. Empty means all namespaces.
+		///// </summary>
+		//public string Namespace { get; set; }
+		
+		public int? CherryPickingMethods { get; set; }
 	}
 
 	/// <summary>

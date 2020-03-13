@@ -5,13 +5,13 @@
     <AssemblyName>Fonlow.WebApiClientGenCore.Abstract</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NeutralLanguage>en</NeutralLanguage>
-    <Description>Abstract classes for plugins to derive.</Description>
+    <Description>Allow different cherry picking methods for different data model assemblies.</Description>
     <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
     <Authors>Zijian Huang</Authors>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <Version>1.3</Version>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3.1</Version>
+    <AssemblyVersion>1.3.1.0</AssemblyVersion>
+    <FileVersion>1.3.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>Changes for the DIFriendly option</PackageReleaseNotes>
   </PropertyGroup>

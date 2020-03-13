@@ -133,17 +133,32 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		void GenerateTsFromPoco()
 		{
-			if (apiSelections.DataModelAssemblyNames == null)
-				return;
-
-			var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-			var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
-			var cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-			foreach (var assembly in assemblies)
+			if (apiSelections.DataModelAssemblyNames != null)
 			{
-				var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
-				var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-				poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix);
+				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+				var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
+				var cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+				foreach (var assembly in assemblies)
+				{
+					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
+					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
+					poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix);
+				}
+			}
+			if (apiSelections.DataModels != null)
+			{
+				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+				foreach (var dm in apiSelections.DataModels)
+				{
+					var assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dm.AssemblyName, StringComparison.CurrentCultureIgnoreCase));
+					if (assembly != null)
+					{
+						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
+						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
+						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+						poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix);
+					}
+				}
 			}
 		}
 

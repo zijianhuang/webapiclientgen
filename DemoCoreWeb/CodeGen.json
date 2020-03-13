@@ -5,9 +5,21 @@
 			"DemoWebApi.Controllers.FileUpload"
 		],
 
-		"DataModelAssemblyNames": [
-			"DemoWebApi.DemoDataCore",
-			"DemoCoreWeb"
+		//"DataModelAssemblyNames": [
+		//	"DemoWebApi.DemoDataCore",
+		//	"DemoCoreWeb"
+		//],
+
+		"DataModels": [
+			{
+				"AssemblyName": "DemoWebApi.DemoDataCore",
+				"CherryPickingMethods": 3
+			},
+
+			{
+				"AssemblyName": "DemoCoreWeb",
+				"CherryPickingMethods": 3
+			}
 		],
 
 		"CherryPickingMethods": 3

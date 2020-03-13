@@ -88,6 +88,16 @@
 		public string ClientLibraryFileName { get; set; } = "OpenApiClientAuto.cs";
 
 		/// <summary>
+		/// Generated data types will be decorated with DataContractAttribute and DataMemberAttribute.
+		/// </summary>
+		public bool DecorateDataModelWithDataContract { get; set; }
+
+		/// <summary>
+		/// When DecorateDataModelWithDataContract is true, this is the namespace of DataContractAttribute. For example, "http://mybusiness.com/09/2019
+		/// </summary>
+		public string DataContractNamespace { get; set; }
+
+		/// <summary>
 		/// For .NET client, generate both async and sync functions for each Web API function
 		/// </summary>
 		public bool GenerateBothAsyncAndSync { get; set; }

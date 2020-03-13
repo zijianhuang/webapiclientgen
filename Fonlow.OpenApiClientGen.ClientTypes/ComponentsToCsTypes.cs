@@ -127,18 +127,20 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 						CreateTypeOrMemberDocComment(item, typeDeclaration);
 
 						AddProperties(typeDeclaration, schema);
+
+						if (settings.DecorateDataModelWithDataContract)
+						{
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContractAttribute", new CodeAttributeArgument("Name", new CodeSnippetExpression(settings.DataContractNamespace))));
+						}
 					}
-					else if (type == "array") // wrapper of array
+					else if (type == "array") // wrapper of array. Microsoft OpenApi library could not intepret this as type alias, so I have to register the alias myself.
 					{
 						var itemsRef = schema.Items.Reference;
 						TypeAliasDic.Instance.Add(currentTypeName, $"{itemsRef.Id}[]");
 					}
-					else // type alias
+					else
 					{
-						//var typeFormat = schema.Format; No need to do C# Type Alias, since OpenApi.NET will translate the alias to the real type.
-						//var realTypeName = nameComposer.PrimitiveSwaggerTypeToClrType(type, typeFormat);
-						//CodeNamespaceImport cd = new CodeNamespaceImport($"{typeName} = {realTypeName}");
-						//clientNamespace.Imports.Add(cd);
+						Trace.TraceInformation($"Type Alias {currentTypeName} is skipped:.");
 					}
 				}
 				else
@@ -146,6 +148,11 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					typeDeclaration = PodGenHelper.CreatePodClientEnum(ClientNamespace, currentTypeName);
 					CreateTypeOrMemberDocComment(item, typeDeclaration);
 					AddEnumMembers(typeDeclaration, enumTypeList);
+
+					if (settings.DecorateDataModelWithDataContract)
+					{
+						typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContractAttribute", new CodeAttributeArgument("Name", new CodeSnippetExpression(settings.DataContractNamespace))));
+					}
 				}
 			}
 
@@ -166,6 +173,11 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 						Name = memberName,
 						InitExpression = new CodePrimitiveExpression(intValue),
 					};
+
+					if (settings.DecorateDataModelWithDataContract)
+					{
+						clientField.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMemberAttribute"));
+					}
 
 					typeDeclaration.Members.Add(clientField);
 					k++;
@@ -204,7 +216,7 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 				var isPrimitiveType = nameComposer.IsPrimitiveType(primitivePropertyType);
 				var isRequired = schema.Required.Contains(p.Key); //compare with the original key
 
-
+				//Debug.Assert(propertyName != "HuntingSkill");
 				CodeMemberField clientProperty;
 				if (String.IsNullOrEmpty(primitivePropertyType)) // for custom type, pointing to a custom time "$ref": "#/components/schemas/PhoneType"
 				{
@@ -281,6 +293,20 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 						var casualEnumTypeDeclaration = PodGenHelper.CreatePodClientEnum(ClientNamespace, casualEnumName);
 						AddEnumMembers(casualEnumTypeDeclaration, propertySchema.Enum);
 						clientProperty = CreateProperty(propertyName, casualEnumName);
+
+						if (isRequired)
+						{
+							clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+						}
+
+						if (settings.DecorateDataModelWithDataContract)
+						{
+							clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMemberAttribute"));
+						}
+
+						CreateTypeOrMemberDocComment(p, clientProperty);
+						typeDeclaration.Members.Add(clientProperty);
+						continue;
 					}
 				}
 
@@ -289,8 +315,12 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
 				}
 
-				CreateTypeOrMemberDocComment(p, clientProperty);
+				if (settings.DecorateDataModelWithDataContract)
+				{
+					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMemberAttribute"));
+				}
 
+				CreateTypeOrMemberDocComment(p, clientProperty);
 				typeDeclaration.Members.Add(clientProperty);
 			}
 		}

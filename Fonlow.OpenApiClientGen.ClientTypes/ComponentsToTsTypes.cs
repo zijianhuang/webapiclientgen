@@ -132,12 +132,9 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 						var itemsRef = schema.Items.Reference;
 						TypeAliasDic.Instance.Add(typeName, $"{itemsRef.Id}[]");
 					}
-					else // type alias
+					else
 					{
-						//var typeFormat = schema.Format; No need to do C# Type Alias, since OpenApi.NET will translate the alias to the real type.
-						//var realTypeName = nameComposer.PrimitiveSwaggerTypeToClrType(type, typeFormat);
-						//CodeNamespaceImport cd = new CodeNamespaceImport($"{typeName} = {realTypeName}");
-						//clientNamespace.Imports.Add(cd);
+						Trace.TraceInformation($"Type Alias {typeName} is skipped:.");
 					}
 				}
 				else

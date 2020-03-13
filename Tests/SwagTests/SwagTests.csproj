@@ -27,6 +27,12 @@
     <None Remove="NG2Results\sell_negotiation.txt" />
     <None Remove="NG2Results\Uspto.txt" />
     <None Remove="NG2Results\ValuesPaths.txt" />
+    <None Remove="Results\buy_browse.txt" />
+    <None Remove="Results\buy_feed.txt" />
+    <None Remove="Results\buy_marketing.txt" />
+    <None Remove="Results\buy_marketplace_insights.txt" />
+    <None Remove="Results\buy_offer.txt" />
+    <None Remove="Results\buy_order.txt" />
     <None Remove="Results\mcp.txt" />
     <None Remove="Results\Pet.txt" />
     <None Remove="Results\PetDelete.txt" />
@@ -49,6 +55,12 @@
     <None Remove="Results\SimplePet.txt" />
     <None Remove="Results\Uspto.txt" />
     <None Remove="Results\ValuesPaths.txt" />
+    <None Remove="SwagMock\buy_browse_v1_beta_oas3.json" />
+    <None Remove="SwagMock\buy_feed_v1_beta_oas3.json" />
+    <None Remove="SwagMock\buy_marketing_v1_beta_oas3.yaml" />
+    <None Remove="SwagMock\buy_marketplace_insights_v1_beta_oas3.yaml" />
+    <None Remove="SwagMock\buy_offer_v1_beta_oas3.yaml" />
+    <None Remove="SwagMock\buy_order_v1_beta_oas3.json" />
     <None Remove="SwagMock\CasualEnum.json" />
     <None Remove="SwagMock\CustomTypeArray.json" />
     <None Remove="SwagMock\IntEnum.json" />
@@ -146,6 +158,24 @@
     <Content Include="NG2Results\ValuesPaths.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Results\buy_browse.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\buy_feed.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\buy_marketing.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\buy_marketplace_insights.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\buy_offer.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\buy_order.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Results\mcp.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -210,6 +240,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\ValuesPaths.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\buy_browse_v1_beta_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\buy_feed_v1_beta_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\buy_marketing_v1_beta_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\buy_marketplace_insights_v1_beta_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\buy_offer_v1_beta_oas3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\buy_order_v1_beta_oas3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\IntEnum.json">

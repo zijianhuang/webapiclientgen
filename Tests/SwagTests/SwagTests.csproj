@@ -33,6 +33,10 @@
     <None Remove="Results\buy_marketplace_insights.txt" />
     <None Remove="Results\buy_offer.txt" />
     <None Remove="Results\buy_order.txt" />
+    <None Remove="Results\commerce_catalog.txt" />
+    <None Remove="Results\commerce_identity.txt" />
+    <None Remove="Results\commerce_taxonomy.txt" />
+    <None Remove="Results\commerce_translation.txt" />
     <None Remove="Results\mcp.txt" />
     <None Remove="Results\Pet.txt" />
     <None Remove="Results\PetDelete.txt" />
@@ -62,6 +66,10 @@
     <None Remove="SwagMock\buy_offer_v1_beta_oas3.yaml" />
     <None Remove="SwagMock\buy_order_v1_beta_oas3.json" />
     <None Remove="SwagMock\CasualEnum.json" />
+    <None Remove="SwagMock\commerce_catalog_v1_beta_oas3.json" />
+    <None Remove="SwagMock\commerce_identity_v1_oas3.json" />
+    <None Remove="SwagMock\commerce_taxonomy_v1_beta_oas3.json" />
+    <None Remove="SwagMock\commerce_translation_v1_oas3.json" />
     <None Remove="SwagMock\CustomTypeArray.json" />
     <None Remove="SwagMock\IntEnum.json" />
     <None Remove="SwagMock\mcp.yaml" />
@@ -176,6 +184,18 @@
     <Content Include="Results\buy_order.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Results\commerce_catalog.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\commerce_identity.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\commerce_taxonomy.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\commerce_translation.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Results\mcp.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -258,6 +278,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\buy_order_v1_beta_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\commerce_catalog_v1_beta_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\commerce_identity_v1_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\commerce_taxonomy_v1_beta_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\commerce_translation_v1_oas3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\IntEnum.json">

@@ -291,10 +291,15 @@ namespace SwagTests
 			GenerateAndAssert("SwagMock\\commerce_translation_v1_oas3.json", "Results\\commerce_translation.txt");
 		}
 
+		[Fact]
+		public void TestEBay_developer_analytics()
+		{
+			GenerateAndAssert("SwagMock\\developer_analytics_v1_beta_oas3.json", "Results\\developer_analytics.txt");
+		}
 		//[Fact]
 		//public void TestEBay_()
 		//{
-		//    GenerateAndAssert("SwagMock\\.json", "Results\\.txt");
+		//	GenerateAndAssert("SwagMock\\.json", "Results\\.txt");
 		//}
 
 

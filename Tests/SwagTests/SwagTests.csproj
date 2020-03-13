@@ -37,6 +37,7 @@
     <None Remove="Results\commerce_identity.txt" />
     <None Remove="Results\commerce_taxonomy.txt" />
     <None Remove="Results\commerce_translation.txt" />
+    <None Remove="Results\developer_analytics.txt" />
     <None Remove="Results\mcp.txt" />
     <None Remove="Results\Pet.txt" />
     <None Remove="Results\PetDelete.txt" />
@@ -71,6 +72,7 @@
     <None Remove="SwagMock\commerce_taxonomy_v1_beta_oas3.json" />
     <None Remove="SwagMock\commerce_translation_v1_oas3.json" />
     <None Remove="SwagMock\CustomTypeArray.json" />
+    <None Remove="SwagMock\developer_analytics_v1_beta_oas3.json" />
     <None Remove="SwagMock\IntEnum.json" />
     <None Remove="SwagMock\mcp.yaml" />
     <None Remove="SwagMock\mcp3.yaml" />
@@ -196,6 +198,9 @@
     <Content Include="Results\commerce_translation.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Results\developer_analytics.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Results\mcp.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -290,6 +295,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\commerce_translation_v1_oas3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SwagMock\developer_analytics_v1_beta_oas3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SwagMock\IntEnum.json">

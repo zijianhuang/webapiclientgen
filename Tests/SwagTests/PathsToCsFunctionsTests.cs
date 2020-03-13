@@ -65,6 +65,22 @@ namespace SwagTests
 		}
 
 		[Fact]
+		public void TestPetWithDataContractAttribute()
+		{
+			GenerateAndAssert("SwagMock\\pet.yaml", "Results\\PetDataContracts.txt", new Settings()
+			{
+				ClientNamespace = "MyNS",
+				PathPrefixToRemove = "/api",
+				ContainerClassName = "Misc",
+				ContainerNameStrategy = ContainerNameStrategy.Tags,
+				GenerateBothAsyncAndSync = true,
+				DecorateDataModelWithDataContract=true,
+				DataContractNamespace="http://openapidemo.com/09/2019",
+				DecorateDataModelWithSerializable=true
+			});
+		}
+
+		[Fact]
 		public void TestPetWithPathAsContainerName()
 		{
 			GenerateAndAssert("SwagMock\\pet.yaml", "Results\\PetPathAsContainer.txt", new Settings()

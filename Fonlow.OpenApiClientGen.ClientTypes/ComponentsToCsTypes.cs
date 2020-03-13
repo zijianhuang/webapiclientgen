@@ -130,7 +130,12 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 
 						if (settings.DecorateDataModelWithDataContract)
 						{
-							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContractAttribute", new CodeAttributeArgument("Name", new CodeSnippetExpression(settings.DataContractNamespace))));
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContractAttribute", new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
+						}
+
+						if (settings.DecorateDataModelWithSerializable)
+						{
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
 						}
 					}
 					else if (type == "array") // wrapper of array. Microsoft OpenApi library could not intepret this as type alias, so I have to register the alias myself.
@@ -151,7 +156,12 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 
 					if (settings.DecorateDataModelWithDataContract)
 					{
-						typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContractAttribute", new CodeAttributeArgument("Name", new CodeSnippetExpression(settings.DataContractNamespace))));
+						typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContractAttribute", new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
+					}
+
+					if (settings.DecorateDataModelWithSerializable)
+					{
+						typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
 					}
 				}
 			}
@@ -301,7 +311,13 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 
 						if (settings.DecorateDataModelWithDataContract)
 						{
+							casualEnumTypeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContractAttribute", new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
 							clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMemberAttribute"));
+						}
+
+						if (settings.DecorateDataModelWithSerializable)
+						{
+							casualEnumTypeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
 						}
 
 						CreateTypeOrMemberDocComment(p, clientProperty);

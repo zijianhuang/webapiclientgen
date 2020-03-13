@@ -97,6 +97,8 @@
 		/// </summary>
 		public string DataContractNamespace { get; set; }
 
+		public bool DecorateDataModelWithSerializable { get; set; }
+
 		/// <summary>
 		/// For .NET client, generate both async and sync functions for each Web API function
 		/// </summary>

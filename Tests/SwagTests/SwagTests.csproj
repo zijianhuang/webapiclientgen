@@ -40,6 +40,7 @@
     <None Remove="Results\developer_analytics.txt" />
     <None Remove="Results\mcp.txt" />
     <None Remove="Results\Pet.txt" />
+    <None Remove="Results\PetDataContracts.txt" />
     <None Remove="Results\PetDelete.txt" />
     <None Remove="Results\PetFindByStatus.txt" />
     <None Remove="Results\PetGodClass.txt" />
@@ -202,6 +203,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\mcp.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Results\PetDataContracts.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Results\sell_account.txt">

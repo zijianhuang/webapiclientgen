@@ -104,7 +104,8 @@ namespace Fonlow.CodeDom.Web.Ts
 						if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
 
-						return CreateControllerClientClass(clientNamespace, d.ControllerName);
+						string containerClassName = GetContainerClassName(d.ControllerName);
+						return CreateControllerClientClass(clientNamespace, containerClassName);
 					}).Where(d => d != null).ToArray();//add classes into the namespace
 			}
 
@@ -116,7 +117,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
 					continue;
 
-				var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, controllerName);
+				var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
 				var apiFunction = apiFunctionGen.CreateApiFunction(d, poco2TsGen, this.jsOutput.StringAsString);
@@ -136,7 +137,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (apiSelections.DataModelAssemblyNames != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase))).ToArray();
+				var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
+					.OrderBy(n=>n.FullName)
+					.ToArray();
 				var cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 				foreach (var assembly in assemblies)
 				{
@@ -162,13 +165,18 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 		}
 
+		string GetContainerClassName(string controllerName)
+		{
+			return controllerName + (jsOutput.ContainerNameSuffix ?? String.Empty);
+		}
+
 		/// <summary>
 		/// Lookup existing CodeTypeDeclaration created.
 		/// </summary>
 		/// <param name="clrNamespaceText"></param>
-		/// <param name="controllerName"></param>
+		/// <param name="containerClassName"></param>
 		/// <returns></returns>
-		CodeTypeDeclaration LookupExistingClassInCodeDom(string clrNamespaceText, string controllerName)
+		CodeTypeDeclaration LookupExistingClassInCodeDom(string clrNamespaceText, string containerClassName)
 		{
 			var refined = (clrNamespaceText + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
 			for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
@@ -179,7 +187,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					for (int k = 0; k < ns.Types.Count; k++)
 					{
 						var c = ns.Types[k];
-						if (c.Name == controllerName)
+						if (c.Name == containerClassName)
 							return c;
 					}
 				}

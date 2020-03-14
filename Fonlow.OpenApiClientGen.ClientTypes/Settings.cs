@@ -73,9 +73,9 @@
 		public string ContainerClassName { get; set; } = "Misc";
 
 		/// <summary>
-		/// Suffix of container class name if ContainerNameStrategy is not None. The default is Client
+		/// Suffix of container class name if ContainerNameStrategy is not None. The default is "Client".
 		/// </summary>
-		public string SuffixOfContainerName { get; set; } = "Client";
+		public string ContainerNameSuffix { get; set; } = "Client";
 
 		/// <summary>
 		/// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.

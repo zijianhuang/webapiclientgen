@@ -113,7 +113,7 @@ namespace SwagTests
 				ClientNamespace = "MyNS",
 				PathPrefixToRemove = "/api",
 				ContainerClassName = "Misc",
-				SuffixOfContainerName = "",
+				ContainerNameSuffix = "",
 				GenerateBothAsyncAndSync = true
 			});
 		}

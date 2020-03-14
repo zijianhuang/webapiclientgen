@@ -117,11 +117,11 @@ namespace Fonlow.OpenApiClientGen.ClientTypes
 			switch (settings.ContainerNameStrategy)
 			{
 				case ContainerNameStrategy.Path:
-					return PathToActionOrContainerName(path) + settings.SuffixOfContainerName;
+					return PathToActionOrContainerName(path) + settings.ContainerNameSuffix;
 				case ContainerNameStrategy.Tags:
 					if (op.Tags != null && op.Tags.Count > 0)
 					{
-						return ToTitleCase(op.Tags[0].Name) + settings.SuffixOfContainerName;//todo: concanate multiple ones?
+						return ToTitleCase(op.Tags[0].Name) + settings.ContainerNameSuffix;//todo: concanate multiple ones?
 					}
 					else
 					{

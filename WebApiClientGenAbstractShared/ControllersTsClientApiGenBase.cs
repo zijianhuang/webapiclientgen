@@ -74,7 +74,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			if (descriptions == null)
 			{
-				throw new ArgumentNullException("descriptions");
+				throw new ArgumentNullException(nameof(descriptions));
 			}
 
 			AddBasicReferences();
@@ -126,9 +126,16 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			RefineOverloadingFunctions();
 
-			foreach (var c in newControllerClassesCreated)
+			if (newControllerClassesCreated != null) //If no controllers is picked up, this could be null.
 			{
-				AddHelperFunctionsInClass(c);
+				foreach (var c in newControllerClassesCreated)
+				{
+					AddHelperFunctionsInClass(c);
+				}
+			}
+			else
+			{
+				System.Diagnostics.Trace.TraceWarning("No client API is created since no controller is picked up.");
 			}
 		}
 

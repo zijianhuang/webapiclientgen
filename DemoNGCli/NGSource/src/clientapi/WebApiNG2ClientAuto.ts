@@ -435,6 +435,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(): Observable<Response> {
+			return this.http.get<Response>(this.baseUri + 'api/SuperDemo/AnonymousDynamic2');
+		}
+
+		/**
 		 * GET api/SuperDemo/AnonymousObject
 		 */
 		getAnonymousObject(): Observable<Response> {

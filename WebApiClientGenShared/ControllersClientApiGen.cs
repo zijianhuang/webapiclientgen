@@ -101,7 +101,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 				var assemblies = allAssemblies.Where(d => codeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
-					.OrderBy(n=>n.FullName)
+					.OrderBy(n => n.FullName)
 					.ToArray();
 				var cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 				foreach (var assembly in assemblies)
@@ -110,7 +110,8 @@ namespace Fonlow.CodeDom.Web.Cs
 					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix);
 				}
-			} else if (codeGenParameters.ApiSelections.DataModels != null)
+			}
+			else if (codeGenParameters.ApiSelections.DataModels != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 				foreach (var dm in codeGenParameters.ApiSelections.DataModels)
@@ -161,7 +162,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				});
 
 				var newClassesCreated = grouppedControllerDescriptions
-					.OrderBy(d=>d.ControllerName)
+					.OrderBy(d => d.ControllerName)
 					.Select(d =>
 					{
 						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;

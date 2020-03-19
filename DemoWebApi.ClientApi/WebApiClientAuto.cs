@@ -1644,6 +1644,52 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/SuperDemo/AnonymousDynamic2
+		/// </summary>
+		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamic2Async()
+		{
+			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousDynamic2");
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/AnonymousDynamic2
+		/// </summary>
+		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic2()
+		{
+			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousDynamic2");
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// GET api/SuperDemo/AnonymousObject
 		/// </summary>
 		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObjectAsync()

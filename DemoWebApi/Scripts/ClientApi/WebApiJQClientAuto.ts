@@ -431,6 +431,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(callback: (data : any) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/AnonymousDynamic2', callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * GET api/SuperDemo/AnonymousObject
 		 */
 		getAnonymousObject(callback: (data : any) => any) {

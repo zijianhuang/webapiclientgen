@@ -212,6 +212,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 				if (returnType != null)
 				{
+					Debug.Assert(!returnType.FullName.Contains("JObject"));
 					AddReturnStatement(method.Statements);
 				}
 			}
@@ -224,6 +225,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				//Statement: return something;
 				if (returnType != null)
 				{
+					Debug.Assert(!returnType.FullName.Contains("JObject"));
 					AddReturnStatement(try1.TryStatements);
 				}
 

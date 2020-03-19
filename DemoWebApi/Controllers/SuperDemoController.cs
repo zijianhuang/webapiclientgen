@@ -374,6 +374,17 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpGet]
+		[Route("AnonymousDynamic2")]
+		public async Task<dynamic> GetAnonymousDynamic2()
+		{
+			return new
+			{
+				Id = 12345,
+				Name = "Something",
+			};
+		}
+
+		[HttpGet]
 		[Route("AnonymousObject")]
 		public object GetAnonymousObject()
 		{

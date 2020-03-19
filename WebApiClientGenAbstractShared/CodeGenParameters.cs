@@ -23,15 +23,17 @@
 		/// <summary>
 		/// Assembly names without file extension
 		/// </summary>
-		public string[] DataModelAssemblyNames
-		{ get; set; }
+		public string[] DataModelAssemblyNames { get; set; }
+
+		/// <summary>
+		/// Similar to DataModelAssemblyNames however, each assembly could have a CherryPickingMethods. An assembly should appear in either DataModelAssemblyNames or DataModels.
+		/// </summary>
+		public DataModel[] DataModels { get; set; }
 
 		/// <summary>
 		/// Cherry picking methods of POCO classes
 		/// </summary>
 		public int? CherryPickingMethods { get; set; }
-
-		public DataModel[] DataModels { get; set; }
 
 	}
 
@@ -51,6 +53,11 @@
 		/// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
 		/// </summary>
 		public string ClientLibraryProjectFolderName { get; set; }
+
+		/// <summary>
+		/// File to be generated under ClientLibraryProjectFolder. The default is WebApiClientAuto.cs.
+		/// </summary>
+		public string FileName { get; set; } = "WebApiClientAuto.cs";
 
 		/// <summary>
 		/// For .NET client, generate both async and sync functions for each Web API function
@@ -121,6 +128,9 @@
 
 		public string TargetDir { get; set; }
 
+		/// <summary>
+		/// Name of TypeScript file to be geneated under TargetDir.
+		/// </summary>
 		public string TSFile { get; set; }
 
 		/// <summary>

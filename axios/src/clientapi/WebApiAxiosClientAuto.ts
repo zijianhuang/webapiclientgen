@@ -431,6 +431,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(): Promise<AxiosResponse> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/AnonymousDynamic2', { responseType: 'text' });
+		}
+
+		/**
 		 * GET api/SuperDemo/AnonymousObject
 		 */
 		getAnonymousObject(): Promise<AxiosResponse> {

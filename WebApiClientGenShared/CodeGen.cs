@@ -25,7 +25,7 @@ namespace Fonlow.CodeDom.Web
 						Description = $"{csharpClientProjectDir} not exist while current directory is {currentDir}"
 					};
 
-				var path = System.IO.Path.Combine(csharpClientProjectDir, "WebApiClientAuto.cs");
+				var path = System.IO.Path.Combine(csharpClientProjectDir, settings.ClientApiOutputs.FileName);
 				var gen = new Cs.ControllersClientApiGen(settings);
 				gen.ForBothAsyncAndSync = settings.ClientApiOutputs.GenerateBothAsyncAndSync;
 				gen.CreateCodeDom(webApiDescriptions);

@@ -434,6 +434,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(): Promise<Response> {
+			return this.http.get('api/SuperDemo/AnonymousDynamic2');
+		}
+
+		/**
 		 * GET api/SuperDemo/AnonymousObject
 		 */
 		getAnonymousObject(): Promise<Response> {

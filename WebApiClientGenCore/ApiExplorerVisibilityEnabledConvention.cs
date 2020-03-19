@@ -4,6 +4,9 @@ namespace Fonlow.CodeDom.Web
 {
 	/// <summary>
 	/// To be added to MVC option convensions in startup.cs to make api explorers of controllers become visible.
+	/// Opt-out approach comparing with ApiExplorerAttribute.
+	/// Visible controlers are still subject to the filter defined in ApiSelections/ExcludedControllerNames in the POST payload of CodeGen.
+	/// Thus controllers defined in the array will be excluded from generating client codes.
 	/// </summary>
 	public class ApiExplorerVisibilityEnabledConvention : IApplicationModelConvention
 	{

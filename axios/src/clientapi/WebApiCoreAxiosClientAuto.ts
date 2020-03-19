@@ -236,6 +236,13 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SpecialTypes/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(): Promise<AxiosResponse> {
+			return Axios.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', { responseType: 'text' });
+		}
+
+		/**
 		 * GET api/SpecialTypes/AnonymousObject
 		 */
 		getAnonymousObject(): Promise<AxiosResponse> {
@@ -243,10 +250,24 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SpecialTypes/AnonymousObject2
+		 */
+		getAnonymousObject2(): Promise<AxiosResponse> {
+			return Axios.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { responseType: 'text' });
+		}
+
+		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
 		postAnonymousObject(obj: any): Promise<AxiosResponse> {
 			return Axios.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		}
+
+		/**
+		 * POST api/SpecialTypes/AnonymousObject2
+		 */
+		postAnonymousObject2(obj: any): Promise<AxiosResponse> {
+			return Axios.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
 		}
 	}
 
@@ -262,6 +283,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		createPerson(p: DemoWebApi_DemoData_Client.Person): Promise<number> {
 			return Axios.post(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as number);
+		}
+
+		/**
+		 * POST api/Entities/createPerson2
+		 */
+		createPerson2(p: DemoWebApi_DemoData_Client.Person): Promise<DemoWebApi_DemoData_Client.Person> {
+			return Axios.post(this.baseUri + 'api/Entities/createPerson2', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as DemoWebApi_DemoData_Client.Person);
 		}
 
 		/**
@@ -308,6 +336,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getPerson(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
 			return Axios.get(this.baseUri + 'api/Entities/getPerson/' + id).then(d => d.data as DemoWebApi_DemoData_Client.Person);
+		}
+
+		/**
+		 * GET api/Entities/getPerson2/{id}
+		 */
+		getPerson2(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
+			return Axios.get(this.baseUri + 'api/Entities/getPerson2/' + id).then(d => d.data as DemoWebApi_DemoData_Client.Person);
 		}
 
 		/**
@@ -1074,6 +1109,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getById(id: number): Promise<string> {
 			return Axios.get(this.baseUri + 'api/Values/' + id, { responseType: 'text' }).then(d => d.data as string);
+		}
+
+		/**
+		 * GET api/Values/Get2
+		 */
+		get2(): Promise<Array<string>> {
+			return Axios.get(this.baseUri + 'api/Values/Get2').then(d => d.data as Array<string>);
 		}
 
 		/**

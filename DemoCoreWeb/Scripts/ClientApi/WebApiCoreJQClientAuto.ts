@@ -236,6 +236,13 @@ namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SpecialTypes/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(callback: (data : any) => any) {
+			this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * GET api/SpecialTypes/AnonymousObject
 		 */
 		getAnonymousObject(callback: (data : any) => any) {
@@ -243,10 +250,24 @@ namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SpecialTypes/AnonymousObject2
+		 */
+		getAnonymousObject2(callback: (data : any) => any) {
+			this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
 		postAnonymousObject(obj: any, callback: (data : any) => any) {
 			this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * POST api/SpecialTypes/AnonymousObject2
+		 */
+		postAnonymousObject2(obj: any, callback: (data : any) => any) {
+			this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, callback, this.error, this.statusCode);
 		}
 	}
 
@@ -262,6 +283,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		createPerson(p: DemoWebApi_DemoData_Client.Person, callback: (data : number) => any) {
 			this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * POST api/Entities/createPerson2
+		 */
+		createPerson2(p: DemoWebApi_DemoData_Client.Person, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
+			this.httpClient.post(this.baseUri + 'api/Entities/createPerson2', p, callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -308,6 +336,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		getPerson(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
 			this.httpClient.get(this.baseUri + 'api/Entities/getPerson/' + id, callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/Entities/getPerson2/{id}
+		 */
+		getPerson2(id: number, callback: (data : DemoWebApi_DemoData_Client.Person) => any) {
+			this.httpClient.get(this.baseUri + 'api/Entities/getPerson2/' + id, callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -1074,6 +1109,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		getById(id: number, callback: (data : string) => any) {
 			this.httpClient.get(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/Values/Get2
+		 */
+		get2(callback: (data : Array<string>) => any) {
+			this.httpClient.get(this.baseUri + 'api/Values/Get2', callback, this.error, this.statusCode);
 		}
 
 		/**

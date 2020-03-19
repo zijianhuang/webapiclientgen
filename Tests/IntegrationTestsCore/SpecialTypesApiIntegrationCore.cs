@@ -83,5 +83,33 @@ namespace IntegrationTests
 
 		}
 
+		[Fact]
+		public void TestGetAnonymousDynamic2()
+		{
+			var d = api.GetAnonymousDynamic2();
+			Assert.Equal("12345", d["id"].ToString());
+			Assert.Equal("Something", d["name"].ToString());
+		}
+
+		[Fact]
+		public void TestGetAnonymousObject2()
+		{
+			var d = api.GetAnonymousObject2();
+			Assert.Equal("12345", d["id"].ToString());
+			Assert.Equal("Something", d["name"].ToString());
+		}
+
+		[Fact]
+		public void TestPostAnonymousObject2()
+		{
+			var d = new Newtonsoft.Json.Linq.JObject();
+			d["Id"] = "12345";
+			d["Name"] = "Something";
+			var r = api.PostAnonymousObject2(d);
+			Assert.Equal("123451", r["Id"].ToString());
+			Assert.Equal("Something1", r["Name"].ToString());
+
+		}
+
 	}
 }

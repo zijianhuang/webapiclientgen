@@ -17,6 +17,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		string methodName;
 		protected Type returnType;
 		bool returnTypeIsStream;
+		bool returnTypeIsDynamicObject;
 		CodeMemberMethod method;
 		readonly Fonlow.Poco2Client.IPoco2Client poco2CsGen;
 
@@ -46,6 +47,8 @@ namespace Fonlow.CodeDom.Web.Cs
 				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult"))
 				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult"))
 				);
+
+			returnTypeIsDynamicObject = returnType != null && returnType.FullName!=null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
 		}
 
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
@@ -242,12 +245,29 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
 				return;
 			}
+			else if (returnTypeIsDynamicObject) // .NET Core ApiExplorer could get return type out of Task<> in most cases, however, not for dynamic and anynomous, while .NET Framework ApiExplorer is fine.
+			{
+				statementCollection.Add(new CodeSnippetStatement(forAsync ?
+					"\t\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
+					: "\t\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+				statementCollection.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+						new CodeSnippetExpression("jsonReader"))));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));
+
+				return;
+			}
 			else if (returnType.IsGenericType)
 			{
 				Type genericTypeDefinition = returnType.GetGenericTypeDefinition();
 				if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
 				{
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("responseMessage")));
+					Trace.TraceWarning("There could be something to improve: " + returnType.GenericTypeArguments[0].ToString());
 					return;
 				}
 			}

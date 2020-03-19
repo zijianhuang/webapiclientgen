@@ -394,6 +394,52 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/SpecialTypes/AnonymousDynamic2
+		/// </summary>
+		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamic2Async()
+		{
+			var requestUri = "api/SpecialTypes/AnonymousDynamic2";
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SpecialTypes/AnonymousDynamic2
+		/// </summary>
+		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic2()
+		{
+			var requestUri = "api/SpecialTypes/AnonymousDynamic2";
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// GET api/SpecialTypes/AnonymousObject
 		/// </summary>
 		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObjectAsync()
@@ -422,6 +468,52 @@ namespace DemoCoreWeb.Controllers.Client
 		public Newtonsoft.Json.Linq.JObject GetAnonymousObject()
 		{
 			var requestUri = "api/SpecialTypes/AnonymousObject";
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SpecialTypes/AnonymousObject2
+		/// </summary>
+		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObject2Async()
+		{
+			var requestUri = "api/SpecialTypes/AnonymousObject2";
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SpecialTypes/AnonymousObject2
+		/// </summary>
+		public Newtonsoft.Json.Linq.JObject GetAnonymousObject2()
+		{
+			var requestUri = "api/SpecialTypes/AnonymousObject2";
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -474,6 +566,64 @@ namespace DemoCoreWeb.Controllers.Client
 		public Newtonsoft.Json.Linq.JObject PostAnonymousObject(Newtonsoft.Json.Linq.JObject obj)
 		{
 			var requestUri = "api/SpecialTypes/AnonymousObject";
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, obj);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/SpecialTypes/AnonymousObject2
+		/// </summary>
+		public async Task<Newtonsoft.Json.Linq.JObject> PostAnonymousObject2Async(Newtonsoft.Json.Linq.JObject obj)
+		{
+			var requestUri = "api/SpecialTypes/AnonymousObject2";
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, obj);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = await client.PostAsync(requestUri, content);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/SpecialTypes/AnonymousObject2
+		/// </summary>
+		public Newtonsoft.Json.Linq.JObject PostAnonymousObject2(Newtonsoft.Json.Linq.JObject obj)
+		{
+			var requestUri = "api/SpecialTypes/AnonymousObject2";
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -570,6 +720,64 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				return System.Int64.Parse(jsonReader.ReadAsString());
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/createPerson2
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Person> CreatePerson2Async(DemoWebApi.DemoData.Client.Person p)
+		{
+			var requestUri = "api/Entities/createPerson2";
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, p);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = await client.PostAsync(requestUri, content);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/createPerson2
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Person CreatePerson2(DemoWebApi.DemoData.Client.Person p)
+		{
+			var requestUri = "api/Entities/createPerson2";
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, p);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
 				}
 			}
 			finally
@@ -870,6 +1078,52 @@ namespace DemoWebApi.Controllers.Client
 		public DemoWebApi.DemoData.Client.Person GetPerson(long id)
 		{
 			var requestUri = "api/Entities/getPerson/"+id;
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Entities/getPerson2/{id}
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Person> GetPerson2Async(long id)
+		{
+			var requestUri = "api/Entities/getPerson2/"+id;
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Entities/getPerson2/{id}
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Person GetPerson2(long id)
+		{
+			var requestUri = "api/Entities/getPerson2/"+id;
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -6009,6 +6263,52 @@ namespace DemoWebApi.Controllers.Client
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
 				return streamReader.ReadToEnd();;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Values/Get2
+		/// </summary>
+		public async Task<string[]> Get2Async()
+		{
+			var requestUri = "api/Values/Get2";
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<string[]>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Values/Get2
+		/// </summary>
+		public string[] Get2()
+		{
+			var requestUri = "api/Values/Get2";
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCode();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<string[]>(jsonReader);
 				}
 			}
 			finally

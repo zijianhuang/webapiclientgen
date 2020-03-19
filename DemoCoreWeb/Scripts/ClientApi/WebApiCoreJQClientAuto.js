@@ -56,16 +56,34 @@ var DemoCoreWeb_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', callback, this.error, this.statusCode);
         }
         /**
+         * GET api/SpecialTypes/AnonymousDynamic2
+         */
+        getAnonymousDynamic2(callback) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', callback, this.error, this.statusCode);
+        }
+        /**
          * GET api/SpecialTypes/AnonymousObject
          */
         getAnonymousObject(callback) {
             this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', callback, this.error, this.statusCode);
         }
         /**
+         * GET api/SpecialTypes/AnonymousObject2
+         */
+        getAnonymousObject2(callback) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', callback, this.error, this.statusCode);
+        }
+        /**
          * POST api/SpecialTypes/AnonymousObject
          */
         postAnonymousObject(obj, callback) {
             this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, callback, this.error, this.statusCode);
+        }
+        /**
+         * POST api/SpecialTypes/AnonymousObject2
+         */
+        postAnonymousObject2(obj, callback) {
+            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, callback, this.error, this.statusCode);
         }
     }
     DemoCoreWeb_Controllers_Client.SpecialTypes = SpecialTypes;
@@ -84,6 +102,12 @@ var DemoWebApi_Controllers_Client;
          */
         createPerson(p, callback) {
             this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode);
+        }
+        /**
+         * POST api/Entities/createPerson2
+         */
+        createPerson2(p, callback) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPerson2', p, callback, this.error, this.statusCode);
         }
         /**
          * DELETE api/Entities/{id}
@@ -124,6 +148,12 @@ var DemoWebApi_Controllers_Client;
          */
         getPerson(id, callback) {
             this.httpClient.get(this.baseUri + 'api/Entities/getPerson/' + id, callback, this.error, this.statusCode);
+        }
+        /**
+         * GET api/Entities/getPerson2/{id}
+         */
+        getPerson2(id, callback) {
+            this.httpClient.get(this.baseUri + 'api/Entities/getPerson2/' + id, callback, this.error, this.statusCode);
         }
         /**
          * PUT api/Entities/link?id={id}&relationship={relationship}
@@ -801,6 +831,12 @@ var DemoWebApi_Controllers_Client;
          */
         getById(id, callback) {
             this.httpClient.get(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode);
+        }
+        /**
+         * GET api/Values/Get2
+         */
+        get2(callback) {
+            this.httpClient.get(this.baseUri + 'api/Values/Get2', callback, this.error, this.statusCode);
         }
         /**
          * POST api/Values

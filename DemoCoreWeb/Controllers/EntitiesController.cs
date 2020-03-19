@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace DemoWebApi.Controllers
 {
@@ -30,6 +31,19 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
+		[HttpGet]
+		[Route("getPerson2/{id}")]
+		public async Task<Person> GetPerson2(long id)
+		{
+			return new Person()
+			{
+				Surname = "Huang",
+				GivenName = "Z",
+				Name = "Z Huang",
+				DOB = DateTime.Now.AddYears(-20),
+			};
+		}
+
 		[HttpPost]
 		[Route("createPerson")]
 		public long CreatePerson([FromBody] Person p)
@@ -41,6 +55,19 @@ namespace DemoWebApi.Controllers
 
 			Debug.WriteLine("Create " + p);
 			return 1000;
+		}
+
+		[HttpPost]
+		[Route("createPerson2")]
+		public async Task<Person> CreatePerson2([FromBody] Person p)
+		{
+			Debug.WriteLine("CreatePerson: " + p.Name);
+
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			Debug.WriteLine("Create " + p);
+			return p;
 		}
 
 		[HttpPut]

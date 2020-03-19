@@ -234,6 +234,13 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SpecialTypes/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(): Promise<Response> {
+			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', {method: 'get'});
+		}
+
+		/**
 		 * GET api/SpecialTypes/AnonymousObject
 		 */
 		getAnonymousObject(): Promise<Response> {
@@ -241,10 +248,24 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SpecialTypes/AnonymousObject2
+		 */
+		getAnonymousObject2(): Promise<Response> {
+			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject2', {method: 'get'});
+		}
+
+		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
 		postAnonymousObject(obj: any): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject', {method: 'post', headers: { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(obj) });
+		}
+
+		/**
+		 * POST api/SpecialTypes/AnonymousObject2
+		 */
+		postAnonymousObject2(obj: any): Promise<Response> {
+			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject2', {method: 'post', headers: { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(obj) });
 		}
 	}
 
@@ -260,6 +281,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		createPerson(p: DemoWebApi_DemoData_Client.Person): Promise<number> {
 			return fetch(this.baseUri + 'api/Entities/createPerson', {method: 'post', headers: { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Entities/createPerson2
+		 */
+		createPerson2(p: DemoWebApi_DemoData_Client.Person): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/createPerson2', {method: 'post', headers: { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => d.json());
 		}
 
 		/**
@@ -306,6 +334,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getPerson(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/Entities/getPerson/' + id, {method: 'get'}).then(d => d.json());
+		}
+
+		/**
+		 * GET api/Entities/getPerson2/{id}
+		 */
+		getPerson2(id: number): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/getPerson2/' + id, {method: 'get'}).then(d => d.json());
 		}
 
 		/**
@@ -1072,6 +1107,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getById(id: number): Promise<string> {
 			return fetch(this.baseUri + 'api/Values/' + id, {method: 'get'}).then(d => d.text());
+		}
+
+		/**
+		 * GET api/Values/Get2
+		 */
+		get2(): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/Values/Get2', {method: 'get'}).then(d => d.json());
 		}
 
 		/**

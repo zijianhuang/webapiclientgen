@@ -238,6 +238,13 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SpecialTypes/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(): Observable<Response> {
+			return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2');
+		}
+
+		/**
 		 * GET api/SpecialTypes/AnonymousObject
 		 */
 		getAnonymousObject(): Observable<Response> {
@@ -245,10 +252,24 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SpecialTypes/AnonymousObject2
+		 */
+		getAnonymousObject2(): Observable<Response> {
+			return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject2');
+		}
+
+		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
 		postAnonymousObject(obj: any): Observable<Response> {
 			return this.http.post<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * POST api/SpecialTypes/AnonymousObject2
+		 */
+		postAnonymousObject2(obj: any): Observable<Response> {
+			return this.http.post<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
 
@@ -265,6 +286,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number> {
 			return this.http.post<number>(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * POST api/Entities/createPerson2
+		 */
+		createPerson2(p: DemoWebApi_DemoData_Client.Person): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/createPerson2', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**
@@ -311,6 +339,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
 			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson/' + id);
+		}
+
+		/**
+		 * GET api/Entities/getPerson2/{id}
+		 */
+		getPerson2(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson2/' + id);
 		}
 
 		/**
@@ -1081,6 +1116,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getById(id: number): Observable<string> {
 			return this.http.get(this.baseUri + 'api/Values/' + id, { responseType: 'text' });
+		}
+
+		/**
+		 * GET api/Values/Get2
+		 */
+		get2(): Observable<Array<string>> {
+			return this.http.get<Array<string>>(this.baseUri + 'api/Values/Get2');
 		}
 
 		/**

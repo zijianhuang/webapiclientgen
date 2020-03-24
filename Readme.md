@@ -13,6 +13,7 @@ This project delivers these products:
 **Hints:**
 
 * The packages could be used independently as long as the usages conform to the dependencies.
+* [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) based on key components of WebApiClientGen is for generating client API codes in C# and TypeScript according to a definition file of Swagger/Open API Specification.
 
 # Key Features
 1. Client API codes generated are directly mapped from the Web API controller methods, .NET primitive types and POCO classes. This is similar to what svcutil.exe in WCF has offered.

@@ -23,7 +23,8 @@ namespace DemoCoreWeb
 					options.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
 #endif
 				}
-			).AddNewtonsoftJson();
+			)
+				.AddNewtonsoftJson();//needed for some special data types which .net core 3.x json lib could not handle well.
 
 			services.AddRouting();
 			services.AddCors();

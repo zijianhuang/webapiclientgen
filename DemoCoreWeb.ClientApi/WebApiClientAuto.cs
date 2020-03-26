@@ -106,6 +106,7 @@ namespace DemoWebApi.DemoData.Client
 		
 		/// <summary>
 		/// Name of the entity.
+		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Name { get; set; }

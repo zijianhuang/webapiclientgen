@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using Fonlow.Reflection;
 using Fonlow.DocComment;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Text;
 
 namespace Fonlow.Poco2Client
 {
@@ -324,7 +327,7 @@ namespace Fonlow.Poco2Client
 			{
 				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
 				var dm = docLookup.GetMember("P:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments);
+				AddDocComments(dm, codeField.Comments, GenerateCommentsFromAttributes(propertyInfo));
 			}
 		}
 
@@ -334,11 +337,11 @@ namespace Fonlow.Poco2Client
 			{
 				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
 				var dm = docLookup.GetMember("F:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments);
+				AddDocComments(dm, codeField.Comments, GenerateCommentsFromAttributes(fieldInfo));
 			}
 		}
 
-		static void AddDocComments(docMember member, CodeCommentStatementCollection comments)
+		static void AddDocComments(docMember member, CodeCommentStatementCollection comments, string[] extra = null)
 		{
 			if (member != null && comments != null)
 			{
@@ -354,6 +357,23 @@ namespace Fonlow.Poco2Client
 						}
 					}
 
+					if (extra != null && extra.Length > 0)
+					{
+						foreach(var c in extra)
+						{
+							comments.Add(new CodeCommentStatement(c, true));
+						}
+					}
+
+					comments.Add(new CodeCommentStatement("</summary>", true));
+				}
+				else if (extra!=null && extra.Length>0)
+				{
+					comments.Add(new CodeCommentStatement("<summary>", true));
+					foreach (var c in extra)
+					{
+						comments.Add(new CodeCommentStatement(c, true));
+					}
 					comments.Add(new CodeCommentStatement("</summary>", true));
 				}
 			}
@@ -562,6 +582,77 @@ namespace Fonlow.Poco2Client
 			return typeReference;
 		}
 
+		string[] GenerateCommentsFromAttributes(MemberInfo property)
+		{
+			List<string> ss = new List<string>();
+			var attributes = property.GetCustomAttributes().ToList();
+			attributes.Sort((x, y) =>
+			{
+				// Special-case RequiredAttribute so that it shows up on top
+				if (x is RequiredAttribute)
+				{
+					return -1;
+				}
+				if (y is RequiredAttribute)
+				{
+					return 1;
+				}
+
+				return 0;
+			});
+
+			foreach (Attribute attribute in attributes)
+			{
+				Func<object, string> textGenerator;
+				if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out textGenerator))
+				{
+					ss.Add(textGenerator(attribute));
+				}
+			}
+
+			return ss.ToArray();
+		}
+
+		readonly IDictionary<Type, Func<object, string>> AnnotationTextGenerator = new Dictionary<Type, Func<object, string>>
+		{
+			{ typeof(RequiredAttribute), a => "Required" },
+			{ typeof(RangeAttribute), a =>
+				{
+					RangeAttribute range = (RangeAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "Range: inclusive between {0} and {1}", range.Minimum, range.Maximum);
+				}
+			},
+			{ typeof(MaxLengthAttribute), a =>
+				{
+					MaxLengthAttribute maxLength = (MaxLengthAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "Max length: {0}", maxLength.Length);
+				}
+			},
+			{ typeof(MinLengthAttribute), a =>
+				{
+					MinLengthAttribute minLength = (MinLengthAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "Min length: {0}", minLength.Length);
+				}
+			},
+			{ typeof(StringLengthAttribute), a =>
+				{
+					StringLengthAttribute strLength = (StringLengthAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "String length: inclusive between {0} and {1}", strLength.MinimumLength, strLength.MaximumLength);
+				}
+			},
+			{ typeof(DataTypeAttribute), a =>
+				{
+					DataTypeAttribute dataType = (DataTypeAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "Data type: {0}", dataType.CustomDataType ?? dataType.DataType.ToString());
+				}
+			},
+			{ typeof(RegularExpressionAttribute), a =>
+				{
+					RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}", regularExpression.Pattern);
+				}
+			},
+		};
 	}
 
 }

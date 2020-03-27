@@ -202,6 +202,7 @@ namespace Fonlow.Poco2Client
 							//clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
 							//clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
+							AddValidationAttributes(propertyInfo, clientProperty, isRequired);
 							CreatePropertyDocComment(propertyInfo, clientProperty);
 
 							typeDeclaration.Members.Add(clientProperty);
@@ -248,6 +249,7 @@ namespace Fonlow.Poco2Client
 								//clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
 								//clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
+								AddValidationAttributes(fieldInfo, clientProperty, isRequired);
 								CreateFieldDocComment(fieldInfo, clientProperty);
 
 								typeDeclaration.Members.Add(clientProperty);
@@ -343,10 +345,8 @@ namespace Fonlow.Poco2Client
 
 		static void AddDocComments(docMember member, CodeCommentStatementCollection comments, string[] extra = null)
 		{
-			if (member != null && comments != null)
+			if (member != null && member.summary != null)
 			{
-				if (member.summary != null)
-				{
 					comments.Add(new CodeCommentStatement("<summary>", true));
 					var noIndent = StringFunctions.TrimTrimIndentsOfArray(member.summary.Text);
 					if (noIndent != null)
@@ -359,23 +359,22 @@ namespace Fonlow.Poco2Client
 
 					if (extra != null && extra.Length > 0)
 					{
-						foreach(var c in extra)
+						foreach (var c in extra)
 						{
 							comments.Add(new CodeCommentStatement(c, true));
 						}
 					}
 
-					comments.Add(new CodeCommentStatement("</summary>", true));
-				}
-				else if (extra!=null && extra.Length>0)
+					comments.Add(new CodeCommentStatement("</summary>", true));			
+			}
+			else if (extra != null && extra.Length > 0)
+			{
+				comments.Add(new CodeCommentStatement("<summary>", true));
+				foreach (var c in extra)
 				{
-					comments.Add(new CodeCommentStatement("<summary>", true));
-					foreach (var c in extra)
-					{
-						comments.Add(new CodeCommentStatement(c, true));
-					}
-					comments.Add(new CodeCommentStatement("</summary>", true));
+					comments.Add(new CodeCommentStatement(c, true));
 				}
+				comments.Add(new CodeCommentStatement("</summary>", true));
 			}
 		}
 
@@ -653,6 +652,127 @@ namespace Fonlow.Poco2Client
 				}
 			},
 		};
+
+		void AddValidationAttributes(MemberInfo property, CodeTypeMember codeTypeMember, bool requiredAdded)
+		{
+			var attributes = property.GetCustomAttributes().ToList();
+			attributes.Sort((x, y) =>
+			{
+				// Special-case RequiredAttribute so that it shows up on top
+				if (x is RequiredAttribute)
+				{
+					return -1;
+				}
+				if (y is RequiredAttribute)
+				{
+					return 1;
+				}
+
+				return 0;
+			});
+
+			foreach (Attribute attribute in attributes)
+			{
+				Func<Attribute, CodeAttributeDeclaration> textGenerator;
+				var attributeType = attribute.GetType();
+				if (attributeType == typeof(RequiredAttribute) && requiredAdded)
+				{
+					continue;
+				}
+
+				if (AttributeDeclarationGenerator.TryGetValue(attributeType, out textGenerator))
+				{
+					codeTypeMember.CustomAttributes.Add(textGenerator(attribute));
+				}
+			}
+		}
+
+		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> AttributeDeclarationGenerator = new Dictionary<Type, Func<Attribute, CodeAttributeDeclaration>>
+		{
+			{ typeof(RequiredAttribute), a => new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute") },
+			{ typeof(RangeAttribute), a =>
+				{
+					var obj = a as RangeAttribute;
+					var operandType = new CodeSnippetExpression($"typeof({obj.OperandType.FullName})");
+					var min = new CodeSnippetExpression($"\"{obj.Minimum}\"");
+					var max = new CodeSnippetExpression($"\"{obj.Maximum}\"");
+					var isNumber = obj.GetType()== typeof(int) || obj.GetType()==typeof(double);
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
+					attributeParams.Add(new CodeAttributeArgument(operandType));
+					attributeParams.Add(new CodeAttributeArgument(min));
+					attributeParams.Add(new CodeAttributeArgument(max));
+					if (!String.IsNullOrEmpty(obj.ErrorMessage))
+					{
+					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
+					}
+
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RangeAttribute", attributeParams.ToArray());
+				}
+			},
+			{ typeof(MaxLengthAttribute), a =>
+				{
+					var obj= a as MaxLengthAttribute;
+					var len = new CodeSnippetExpression(obj.Length.ToString());
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
+					attributeParams.Add(new CodeAttributeArgument(len));
+					if (!String.IsNullOrEmpty(obj.ErrorMessage))
+					{
+					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
+					}
+
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.MaxLengthAttribute", attributeParams.ToArray());
+				}
+			},
+			{ typeof(MinLengthAttribute), a =>
+				{
+					var obj= a as MinLengthAttribute;
+					var len = new CodeSnippetExpression(obj.Length.ToString());
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
+					attributeParams.Add(new CodeAttributeArgument(len));
+					if (!String.IsNullOrEmpty(obj.ErrorMessage))
+					{
+					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
+					}
+
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.MinLengthAttribute", attributeParams.ToArray());
+				}
+			},
+			{ typeof(StringLengthAttribute), a =>
+				{
+					var obj= a as StringLengthAttribute;
+					var max = new CodeSnippetExpression(obj.MaximumLength.ToString());
+					var min = new CodeSnippetExpression(obj.MinimumLength.ToString());
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
+					attributeParams.Add(new CodeAttributeArgument(max));
+					attributeParams.Add(new CodeAttributeArgument("MinimumLength", min));
+					if (!String.IsNullOrEmpty(obj.ErrorMessage))
+					{
+					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
+					}
+
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.StringLengthAttribute", attributeParams.ToArray());
+				}
+			},
+			//{ typeof(DataTypeAttribute), a =>
+			//	{
+			//		DataTypeAttribute dataType = (DataTypeAttribute)a;
+			//		return String.Format(CultureInfo.CurrentCulture, "Data type: {0}", dataType.CustomDataType ?? dataType.DataType.ToString());
+			//	}
+			//},
+			//{ typeof(RegularExpressionAttribute), a =>
+			//	{
+			//		RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
+			//		return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}", regularExpression.Pattern);
+			//	}
+			//},
+
+		};
+
+
 	}
 
 }

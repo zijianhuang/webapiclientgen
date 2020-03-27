@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace DemoWebApi.DemoData
 {
@@ -261,6 +262,10 @@ namespace DemoWebApi.DemoData
 
         [DataMember]
         public string Tag { get; set; }
+
+        [DataMember]
+        [Range(10, 100, ErrorMessage = "SomeError")]
+        public int KK { get; set; }
     }
 
     [DataContract(Namespace = Constants.DataNamespace)]

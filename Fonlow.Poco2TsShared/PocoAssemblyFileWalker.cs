@@ -18,7 +18,7 @@ namespace Fonlow.Poco2Ts
 		/// <param name="tsFilePath">TypeScript output file path.</param>
 		/// <param name="methods"></param>
 		/// <param name="clientNamespaceSuffix"></param>
-		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods, string clientNamespaceSuffix)
+		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods, string clientNamespaceSuffix, bool dataAnnotationsToComments)
 		{
 			var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);
 			var assembly = LoadAssembly(absolutePath);
@@ -27,7 +27,7 @@ namespace Fonlow.Poco2Ts
 
 			var lookup = Fonlow.DocComment.DocCommentLookup.Create(DocComment.DocCommentLookup.GetXmlPath(assembly));
 			var gen = new Poco2TsGen();
-			gen.CreateCodeDom(assembly, methods, lookup, clientNamespaceSuffix);
+			gen.CreateCodeDom(assembly, methods, lookup, clientNamespaceSuffix, dataAnnotationsToComments);
 			gen.SaveCodeToFile(tsFilePath);
 			var msg = $"{tsFilePath} is generated.";
 			Console.WriteLine(msg);

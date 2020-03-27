@@ -91,6 +91,21 @@
 		/// </summary>
 		public string ContainerNameSuffix { get; set; }
 
+		/// <summary>
+		/// System.ComponentModel.DataAnnotations attributes are to be copied over, including Required, Range, MaxLength, MinLength and StringLength
+		/// </summary>
+		public bool DataAnnotationsEnabled { get; set; }
+
+		/// <summary>
+		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
+		/// </summary>
+		public bool DataAnnotationsToComments { get; set; }
+
+		/// <summary>
+		/// Replace EnsureSuccessStatusCode with EnsureSuccessStatusCodeEx for specific unsuccessful HTTP status handling, which throws YourClientWebApiRequestException.
+		/// </summary>
+		public bool UseEnsureSuccessStatusCodeEx { get; set; }
+
 		public JSPlugin[] Plugins { get; set; }
 	}
 
@@ -120,6 +135,11 @@
 		public string ClientNamespaceSuffix { get; set; } = ".Client";
 
 		public string ContainerNameSuffix { get; set; }
+
+		/// <summary>
+		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
+		/// </summary>
+		public bool DataAnnotationsToComments { get; set; }
 	}
 
 	public class JSPlugin
@@ -146,5 +166,11 @@
 		public string ClientNamespaceSuffix { get; set; } = ".Client";
 
 		public string ContainerNameSuffix { get; set; }
+
+		/// <summary>
+		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
+		/// </summary>
+		public bool DataAnnotationsToComments { get; set; }
+
 	}
 }

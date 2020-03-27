@@ -19,13 +19,13 @@ namespace Fonlow.CodeDom.Web.Cs
 		bool returnTypeIsStream;
 		bool returnTypeIsDynamicObject;
 		CodeMemberMethod method;
-		readonly Fonlow.Poco2Client.IPoco2Client poco2CsGen;
+		readonly Poco2Client.Poco2CsGen poco2CsGen;
 
 		bool forAsync;
 		bool stringAsString;
 		bool diFriendly;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly)
+		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly)
 		{
 			this.description = description;
 			this.sharedContext = sharedContext;
@@ -57,7 +57,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Fonlow.Poco2Client.IPoco2Client poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly)
+		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly)
 		{
 			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync, diFriendly);
 			return gen.CreateApiFunction();

@@ -152,7 +152,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-					poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix);
+					poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix, jsOutput.DataAnnotationsToComments);
 				}
 			}
 			if (apiSelections.DataModels != null)
@@ -166,7 +166,7 @@ namespace Fonlow.CodeDom.Web.Ts
 						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-						poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix);
+						poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix, jsOutput.DataAnnotationsToComments);
 					}
 				}
 			}

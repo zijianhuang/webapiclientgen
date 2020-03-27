@@ -44,7 +44,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			poco2CsGen = new Poco2CsGen(targetUnit);
 		}
 
-		IPoco2Client poco2CsGen;
+		Poco2CsGen poco2CsGen;
 
 		///// <summary>
 		///// Save C# codes into a file.
@@ -108,7 +108,8 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix);
+					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix,
+							codeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, codeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
 				}
 			}
 			else if (codeGenParameters.ApiSelections.DataModels != null)
@@ -122,7 +123,8 @@ namespace Fonlow.CodeDom.Web.Cs
 						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix);
+						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix, 
+							codeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, codeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
 					}
 				}
 			}

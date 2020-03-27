@@ -17,7 +17,7 @@ namespace Fonlow.Poco2Client
 	/// <summary>
 	/// POCO to C# client data types generator, with CSharp CodeDOM provider.
 	/// </summary>
-	public class Poco2CsGen : IPoco2Client
+	public class Poco2CsGen
 	{
 		CodeCompileUnit codeCompileUnit;
 
@@ -94,10 +94,14 @@ namespace Fonlow.Poco2Client
 
 		string clientNamespaceSuffix;
 
-		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, string clientNamespaceSuffix)
+		bool dataAnnotationsEnabled; bool dataAnnotationsToComments;
+
+		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, string clientNamespaceSuffix, bool dataAnnotationsEnabled, bool dataAnnotationsToComments)
 		{
 			this.docLookup = docLookup;
 			this.clientNamespaceSuffix = clientNamespaceSuffix;
+			this.dataAnnotationsEnabled = dataAnnotationsEnabled;
+			this.dataAnnotationsToComments = dataAnnotationsToComments;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
 			CreateCodeDom(cherryTypes, methods, clientNamespaceSuffix);
 		}
@@ -202,7 +206,11 @@ namespace Fonlow.Poco2Client
 							//clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
 							//clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
-							AddValidationAttributes(propertyInfo, clientProperty, isRequired);
+							if (dataAnnotationsEnabled)
+							{
+								AddValidationAttributes(propertyInfo, clientProperty, isRequired);
+							}
+
 							CreatePropertyDocComment(propertyInfo, clientProperty);
 
 							typeDeclaration.Members.Add(clientProperty);
@@ -249,7 +257,11 @@ namespace Fonlow.Poco2Client
 								//clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
 								//clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
-								AddValidationAttributes(fieldInfo, clientProperty, isRequired);
+								if (dataAnnotationsEnabled)
+								{
+									AddValidationAttributes(fieldInfo, clientProperty, isRequired);
+								}
+
 								CreateFieldDocComment(fieldInfo, clientProperty);
 
 								typeDeclaration.Members.Add(clientProperty);
@@ -329,7 +341,7 @@ namespace Fonlow.Poco2Client
 			{
 				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
 				var dm = docLookup.GetMember("P:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments, GenerateCommentsFromAttributes(propertyInfo));
+				AddDocComments(dm, codeField.Comments, GenerateCommentsFromAttributes(propertyInfo)); // if no doc comments totally, no comments from attributes either.
 			}
 		}
 
@@ -343,12 +355,12 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
-		static void AddDocComments(docMember member, CodeCommentStatementCollection comments, string[] extra = null)
+		static void AddDocComments(docMember dm, CodeCommentStatementCollection comments, string[] extra = null)
 		{
-			if (member != null && member.summary != null)
+			if (dm != null && dm.summary != null)
 			{
 					comments.Add(new CodeCommentStatement("<summary>", true));
-					var noIndent = StringFunctions.TrimTrimIndentsOfArray(member.summary.Text);
+					var noIndent = StringFunctions.TrimTrimIndentsOfArray(dm.summary.Text);
 					if (noIndent != null)
 					{
 						foreach (var item in noIndent)
@@ -583,6 +595,11 @@ namespace Fonlow.Poco2Client
 
 		string[] GenerateCommentsFromAttributes(MemberInfo property)
 		{
+			if (!dataAnnotationsToComments)
+			{
+				return null;
+			}
+
 			List<string> ss = new List<string>();
 			var attributes = property.GetCustomAttributes().ToList();
 			attributes.Sort((x, y) =>
@@ -757,19 +774,7 @@ namespace Fonlow.Poco2Client
 					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.StringLengthAttribute", attributeParams.ToArray());
 				}
 			},
-			//{ typeof(DataTypeAttribute), a =>
-			//	{
-			//		DataTypeAttribute dataType = (DataTypeAttribute)a;
-			//		return String.Format(CultureInfo.CurrentCulture, "Data type: {0}", dataType.CustomDataType ?? dataType.DataType.ToString());
-			//	}
-			//},
-			//{ typeof(RegularExpressionAttribute), a =>
-			//	{
-			//		RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
-			//		return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}", regularExpression.Pattern);
-			//	}
-			//},
-
+			// not to support DataTypeAttribute and RegularExpressionAttribute since they are more of UI constraints.
 		};
 
 

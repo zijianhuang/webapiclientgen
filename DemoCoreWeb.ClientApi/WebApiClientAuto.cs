@@ -106,7 +106,6 @@ namespace DemoWebApi.DemoData.Client
 		
 		/// <summary>
 		/// Name of the entity.
-		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Name { get; set; }
@@ -119,10 +118,6 @@ namespace DemoWebApi.DemoData.Client
 	public class MimsPackage : object
 	{
 		
-		/// <summary>
-		/// Range: inclusive between 10 and 100
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RangeAttribute(typeof(System.Int32), "10", "100", ErrorMessage="SomeError")]
 		public int KK { get; set; }
 		
 		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
@@ -247,34 +242,16 @@ namespace DemoWebApi.Models.Client
 	public class AddExternalLoginBindingModel : object
 	{
 		
-		/// <summary>
-		/// Required
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string ExternalAccessToken { get; set; }
 	}
 	
 	public class ChangePasswordBindingModel : object
 	{
 		
-		/// <summary>
-		/// Data type: Password
-		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// String length: inclusive between 6 and 100
-		/// Data type: Password
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		[System.ComponentModel.DataAnnotations.StringLengthAttribute(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		public string NewPassword { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// Data type: Password
-		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string OldPassword { get; set; }
 	}
@@ -282,68 +259,32 @@ namespace DemoWebApi.Models.Client
 	public class RegisterBindingModel : object
 	{
 		
-		/// <summary>
-		/// Data type: Password
-		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Email { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// String length: inclusive between 6 and 100
-		/// Data type: Password
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		[System.ComponentModel.DataAnnotations.StringLengthAttribute(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		public string Password { get; set; }
 	}
 	
 	public class RegisterExternalBindingModel : object
 	{
 		
-		/// <summary>
-		/// Required
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Email { get; set; }
 	}
 	
 	public class RemoveLoginBindingModel : object
 	{
 		
-		/// <summary>
-		/// Required
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string LoginProvider { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string ProviderKey { get; set; }
 	}
 	
 	public class SetPasswordBindingModel : object
 	{
 		
-		/// <summary>
-		/// Data type: Password
-		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// String length: inclusive between 6 and 100
-		/// Data type: Password
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		[System.ComponentModel.DataAnnotations.StringLengthAttribute(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		public string NewPassword { get; set; }
 	}
 }

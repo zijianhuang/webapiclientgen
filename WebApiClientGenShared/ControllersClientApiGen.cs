@@ -86,7 +86,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					using (var fileWriter = new StreamWriter(fileName))
 					{
 						var s = stringReader.ReadToEnd();
-						fileWriter.Write(s.Replace("//;", ""));
+						fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
 					}
 				}
 			}
@@ -161,6 +161,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				new CodeNamespaceImport("System.Threading.Tasks"),
 				new CodeNamespaceImport("System.Net.Http"),
 				new CodeNamespaceImport("Newtonsoft.Json"),
+				new CodeNamespaceImport("Fonlow.Net.Http"),
 				});
 
 				var newClassesCreated = grouppedControllerDescriptions
@@ -176,6 +177,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					}
 					)
 					.ToArray();//add classes into the namespace
+
 			}
 
 			foreach (var d in descriptions)
@@ -189,14 +191,17 @@ namespace Fonlow.CodeDom.Web.Cs
 				var existingClientClass = LookupExistingClass(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, true, codeGenParameters.ClientApiOutputs.DIFriendly);
+				var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, true, 
+					codeGenParameters.ClientApiOutputs.DIFriendly, codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx);
 				existingClientClass.Members.Add(apiFunction);
 				if (ForBothAsyncAndSync)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, false, codeGenParameters.ClientApiOutputs.DIFriendly));
+					existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, false, 
+						codeGenParameters.ClientApiOutputs.DIFriendly, codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx));
 				}
 			}
 
+			CreateDummyOfEnsureSuccessStatusCodeEx();
 		}
 
 		string GetContainerClassName(string controllerName)
@@ -320,6 +325,52 @@ namespace Fonlow.CodeDom.Web.Cs
 			targetClass.Members.Add(constructor);
 		}
 
+		void CreateDummyOfEnsureSuccessStatusCodeEx()
+		{
+			targetUnit.Namespaces.Add(new CodeNamespace("EnsureSuccessStatusCodeExDummy"));
+		}
+
+		const string blockOfEnsureSuccessStatusCodeEx =
+		@"
+namespace Fonlow.Net.Http
+{
+	using System.Net.Http;
+
+	public class WebApiRequestException : HttpRequestException
+	{
+		public System.Net.HttpStatusCode StatusCode { get; private set; }
+
+		public string Response { get; private set; }
+
+		public System.Net.Http.Headers.MediaTypeHeaderValue ContentType { get; private set; }
+
+		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.MediaTypeHeaderValue contentType) : base(message)
+		{
+			StatusCode = statusCode;
+			Response = response;
+			ContentType = contentType;
+		}
+	}
+
+	public static class ResponseMessageExtensions
+	{
+		public static void EnsureSuccessStatusCodeEx(this HttpResponseMessage responseMessage)
+		{
+			if (!responseMessage.IsSuccessStatusCode)
+			{
+				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
+				var contentType = responseMessage.Content.Headers.ContentType;
+				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, contentType);
+			}
+		}
+	}
+}";
+		const string dummyBlock =
+			@"
+namespace EnsureSuccessStatusCodeExDummy
+{
+	
+}";
 	}
 
 

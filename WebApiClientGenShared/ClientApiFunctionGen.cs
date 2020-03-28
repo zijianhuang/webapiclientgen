@@ -24,8 +24,12 @@ namespace Fonlow.CodeDom.Web.Cs
 		bool forAsync;
 		bool stringAsString;
 		bool diFriendly;
+		bool useEnsureSuccessStatusCodeEx;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly)
+		string statementOfEnsureSuccessStatusCode;
+
+		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, 
+			bool diFriendly, bool useEnsureSuccessStatusCodeEx)
 		{
 			this.description = description;
 			this.sharedContext = sharedContext;
@@ -33,7 +37,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			this.forAsync = forAsync;
 			this.stringAsString = stringAsString;
 			this.diFriendly = diFriendly;
-
+			this.useEnsureSuccessStatusCodeEx = useEnsureSuccessStatusCodeEx;
+			statementOfEnsureSuccessStatusCode = useEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCodeEx";
 			methodName = description.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async"))
 				methodName = methodName.Substring(0, methodName.Length - 5);
@@ -57,9 +62,9 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly)
+		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly, bool useEnsureSuccessStatusCodeEx)
 		{
-			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync, diFriendly);
+			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync, diFriendly, useEnsureSuccessStatusCodeEx);
 			return gen.CreateApiFunction();
 		}
 
@@ -211,7 +216,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			//Statement: result.EnsureSuccessStatusCode();
 			if (returnTypeIsStream)
 			{
-				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
 
 				if (returnType != null)
 				{
@@ -222,7 +227,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			else
 			{
 				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
-				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
 				method.Statements.Add(try1);
 
 				//Statement: return something;
@@ -484,7 +489,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (returnTypeIsStream)
 			{
-				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
 
 				//Statement: return something;
 				if (returnType != null)
@@ -496,7 +501,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
 				method.Statements.Add(try1);
-				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, "EnsureSuccessStatusCode"));
+				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
 
 				//Statement: return something;
 				if (returnType != null)

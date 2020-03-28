@@ -38,7 +38,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			this.stringAsString = stringAsString;
 			this.diFriendly = diFriendly;
 			this.useEnsureSuccessStatusCodeEx = useEnsureSuccessStatusCodeEx;
-			statementOfEnsureSuccessStatusCode = useEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCodeEx";
+			statementOfEnsureSuccessStatusCode = useEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
 			methodName = description.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async"))
 				methodName = methodName.Substring(0, methodName.Length - 5);
@@ -62,7 +62,8 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, bool diFriendly, bool useEnsureSuccessStatusCodeEx)
+		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, 
+			bool diFriendly, bool useEnsureSuccessStatusCodeEx)
 		{
 			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync, diFriendly, useEnsureSuccessStatusCodeEx);
 			return gen.CreateApiFunction();

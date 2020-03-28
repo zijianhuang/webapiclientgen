@@ -86,7 +86,14 @@ namespace Fonlow.CodeDom.Web.Cs
 					using (var fileWriter = new StreamWriter(fileName))
 					{
 						var s = stringReader.ReadToEnd();
-						fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
+						if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+						{
+							fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
+						}
+						else
+						{
+							fileWriter.Write(s.Replace("//;", ""));
+						}
 					}
 				}
 			}
@@ -161,8 +168,12 @@ namespace Fonlow.CodeDom.Web.Cs
 				new CodeNamespaceImport("System.Threading.Tasks"),
 				new CodeNamespaceImport("System.Net.Http"),
 				new CodeNamespaceImport("Newtonsoft.Json"),
-				new CodeNamespaceImport("Fonlow.Net.Http"),
 				});
+
+				if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+				{
+					clientNamespace.Imports.Add(new CodeNamespaceImport("Fonlow.Net.Http"));
+				}
 
 				var newClassesCreated = grouppedControllerDescriptions
 					.OrderBy(d => d.ControllerName)
@@ -201,7 +212,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 			}
 
-			CreateDummyOfEnsureSuccessStatusCodeEx();
+			if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+			{
+				CreateDummyOfEnsureSuccessStatusCodeEx();
+			}
 		}
 
 		string GetContainerClassName(string controllerName)

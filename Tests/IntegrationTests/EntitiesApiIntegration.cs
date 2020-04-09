@@ -67,23 +67,23 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetNotFound()
 		{
-			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+			var ex = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() =>
 			{
 				var person = api.GetPersonNotFound(100);
 			});
 
-			Assert.Contains("404", ex.Message);
+			Assert.Equal(System.Net.HttpStatusCode.NotFound, ex.StatusCode);
 		}
 
 		[Fact]
 		public void TestGetActionNotFound()
 		{
-			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+			var ex = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() =>
 			{
 				var person = api.GetPersonActionNotFound(100);
 			});
 
-			Assert.Contains("404", ex.Message);
+			Assert.Equal(System.Net.HttpStatusCode.NotFound, ex.StatusCode);
 		}
 	}
 }

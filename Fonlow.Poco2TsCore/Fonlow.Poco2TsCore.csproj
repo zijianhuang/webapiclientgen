@@ -14,7 +14,12 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
-    <PackageReleaseNotes>Make some internal classes become public for OpenApiClientGen.</PackageReleaseNotes>
+    <PackageReleaseNotes>translate System.ComponentModel.DataAnnotations attributes into doc comment.
+[System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 8)]
+[System.ComponentModel.DataAnnotations.Range(1, int.MaxValue)]
+[System.ComponentModel.DataAnnotations.MaxLength(20)]
+[System.ComponentModel.DataAnnotations.MinLength(1)]
+[System.ComponentModel.DataAnnotations.RegularExpression(@"/(?=.[a-z])(?=.[A-Z])(?=.*[0-9])/")]</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <AssemblyVersion>2.7.0.0</AssemblyVersion>
     <FileVersion>2.7.0.0</FileVersion>

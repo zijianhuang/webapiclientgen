@@ -24,8 +24,6 @@ namespace Fonlow.CodeDom.Web.Cs
 		bool forAsync;
 		bool stringAsString;
 		bool diFriendly;
-		bool useEnsureSuccessStatusCodeEx;
-
 		string statementOfEnsureSuccessStatusCode;
 
 		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, 
@@ -37,7 +35,6 @@ namespace Fonlow.CodeDom.Web.Cs
 			this.forAsync = forAsync;
 			this.stringAsString = stringAsString;
 			this.diFriendly = diFriendly;
-			this.useEnsureSuccessStatusCodeEx = useEnsureSuccessStatusCodeEx;
 			statementOfEnsureSuccessStatusCode = useEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
 			methodName = description.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async"))

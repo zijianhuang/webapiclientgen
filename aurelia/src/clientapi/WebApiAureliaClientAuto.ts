@@ -102,6 +102,7 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface MimsPackage {
+		kk?: number;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string;
 	}

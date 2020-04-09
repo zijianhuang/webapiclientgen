@@ -34,7 +34,8 @@ namespace IntegrationTests
 			Assert.True(id > 0);
 		}
 
-		//This one works for ASP.NET Web API, but .NET Core Web API is not chking the RequiredAttribute, as described at https://www.strathweb.com/2017/12/required-and-bindrequired-in-asp-net-core-mvc/
+		//This one works for ASP.NET Web API, but .NET Core Web API is not checking the RequiredAttribute, as described at https://www.strathweb.com/2017/12/required-and-bindrequired-in-asp-net-core-mvc/
+		// Application developer may follow the 2nd part of the article.
 		//[Fact]
 		//public void TestCreatePersonWithEmptyName()
 		//{
@@ -56,7 +57,7 @@ namespace IntegrationTests
 		//	  }},
 		//	};
 
-		//	var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() => api.CreatePerson(person));
+		//	var ex = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.CreatePerson(person));
 		//	System.Diagnostics.Debug.WriteLine(ex.ToString());
 		//}
 
@@ -81,7 +82,7 @@ namespace IntegrationTests
 			  }},
 			};
 
-			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() => api.CreatePerson(person));
+			var ex = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.CreatePerson(person));
 			System.Diagnostics.Debug.WriteLine(ex.ToString());
 		}
 
@@ -145,14 +146,29 @@ namespace IntegrationTests
 			var c = api.GetMims(new MimsPackage
 			{
 				Tag = "Hello",
+				KK=99,
 				Result = new MimsResult<decimal>
 				{
-					Result = 123.45m
+					Result = 123.45m,
 				}
 			});
 
 			Assert.Equal("Hello", c.Message);
 			Assert.Equal("123.45", c.Result);
+		}
+
+		[Fact]
+		public void TestGetMimsStringWithInvalidKK()
+		{
+			var r = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.GetMims(new MimsPackage
+			{
+				Tag = "Hello",
+				Result = new MimsResult<decimal>
+				{
+					Result = 123.45m
+				}
+			}));
+			Console.WriteLine(r.Message);
 		}
 
 		[Fact]

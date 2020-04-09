@@ -139,6 +139,7 @@ namespace DemoWebApi.DemoData.Client
 		
 		/// <summary>
 		/// Name of the entity.
+		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Name { get; set; }
@@ -150,6 +151,11 @@ namespace DemoWebApi.DemoData.Client
 	
 	public class MimsPackage : object
 	{
+		
+		/// <summary>
+		/// Range: inclusive between 10 and 100
+		/// </summary>
+		public int KK { get; set; }
 		
 		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
 		
@@ -273,16 +279,31 @@ namespace DemoWebApi.Models.Client
 	public class AddExternalLoginBindingModel : object
 	{
 		
+		/// <summary>
+		/// Required
+		/// </summary>
 		public string ExternalAccessToken { get; set; }
 	}
 	
 	public class ChangePasswordBindingModel : object
 	{
 		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
 		public string NewPassword { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// Data type: Password
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string OldPassword { get; set; }
 	}
@@ -290,32 +311,60 @@ namespace DemoWebApi.Models.Client
 	public class RegisterBindingModel : object
 	{
 		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// </summary>
 		public string Email { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
 		public string Password { get; set; }
 	}
 	
 	public class RegisterExternalBindingModel : object
 	{
 		
+		/// <summary>
+		/// Required
+		/// </summary>
 		public string Email { get; set; }
 	}
 	
 	public class RemoveLoginBindingModel : object
 	{
 		
+		/// <summary>
+		/// Required
+		/// </summary>
 		public string LoginProvider { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// </summary>
 		public string ProviderKey { get; set; }
 	}
 	
 	public class SetPasswordBindingModel : object
 	{
 		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
 		public string NewPassword { get; set; }
 	}
 }
@@ -326,6 +375,7 @@ namespace DemoWebApi.Controllers.Client
 	using System.Threading.Tasks;
 	using System.Net.Http;
 	using Newtonsoft.Json;
+	using Fonlow.Net.Http;
 	
 	
 	public partial class Entities
@@ -361,7 +411,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -389,7 +439,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -412,7 +462,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 			}
 			finally
 			{
@@ -429,7 +479,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 			}
 			finally
 			{
@@ -446,7 +496,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -469,7 +519,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -497,7 +547,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -526,7 +576,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -555,7 +605,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -584,7 +634,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -613,7 +663,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -642,7 +692,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -670,7 +720,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -697,7 +747,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -720,7 +770,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -743,7 +793,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -766,7 +816,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -789,7 +839,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -817,7 +867,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PutAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -845,7 +895,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PutAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -873,7 +923,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -902,7 +952,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -931,7 +981,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -960,7 +1010,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -989,7 +1039,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1017,7 +1067,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1045,7 +1095,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PutAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1073,7 +1123,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PutAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1116,7 +1166,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 			}
 			finally
 			{
@@ -1133,7 +1183,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 			}
 			finally
 			{
@@ -1151,7 +1201,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1175,7 +1225,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1199,7 +1249,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1223,7 +1273,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1247,7 +1297,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1270,7 +1320,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1292,7 +1342,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1315,7 +1365,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1339,7 +1389,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1363,7 +1413,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1392,7 +1442,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PutAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1422,7 +1472,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PutAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1449,7 +1499,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1475,7 +1525,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1516,7 +1566,7 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
 			var responseMessage = await client.GetAsync(requestUri);
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 		}
 		
@@ -1527,7 +1577,7 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 		}
 		
@@ -1538,7 +1588,7 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult2");
 			var responseMessage = await client.GetAsync(requestUri);
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 		}
 		
@@ -1549,7 +1599,7 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult2");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 		}
 		
@@ -1562,7 +1612,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1584,7 +1634,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1606,7 +1656,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1629,7 +1679,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1652,7 +1702,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1675,7 +1725,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1698,7 +1748,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1721,7 +1771,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1744,7 +1794,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1766,7 +1816,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1788,7 +1838,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1810,7 +1860,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1832,7 +1882,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1855,7 +1905,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1878,7 +1928,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1901,7 +1951,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1924,7 +1974,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1947,7 +1997,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1971,7 +2021,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -1995,7 +2045,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2018,7 +2068,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2041,7 +2091,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2064,7 +2114,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2087,7 +2137,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2110,7 +2160,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2133,7 +2183,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2156,7 +2206,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2179,7 +2229,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2202,7 +2252,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2225,7 +2275,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2248,7 +2298,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2271,7 +2321,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2294,7 +2344,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2316,7 +2366,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2339,7 +2389,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2362,7 +2412,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2384,7 +2434,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2406,7 +2456,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2428,7 +2478,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2450,7 +2500,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2472,7 +2522,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2495,7 +2545,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2518,7 +2568,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2541,7 +2591,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2564,7 +2614,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2587,7 +2637,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2610,7 +2660,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2633,7 +2683,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2656,7 +2706,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2679,7 +2729,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2702,7 +2752,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2724,7 +2774,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2746,7 +2796,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2769,7 +2819,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2792,7 +2842,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2815,7 +2865,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2838,7 +2888,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2861,7 +2911,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2884,7 +2934,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2907,7 +2957,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2930,7 +2980,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2953,7 +3003,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2976,7 +3026,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -2999,7 +3049,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3022,7 +3072,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3045,7 +3095,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3068,7 +3118,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3091,7 +3141,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3115,7 +3165,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3139,7 +3189,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3162,7 +3212,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3185,7 +3235,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3208,7 +3258,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3230,7 +3280,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3252,7 +3302,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3275,7 +3325,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3298,7 +3348,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3321,7 +3371,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3344,7 +3394,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3366,7 +3416,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3388,7 +3438,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3410,7 +3460,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3430,7 +3480,7 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
 			var responseMessage = await client.GetAsync(requestUri);
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 		}
 		
@@ -3441,7 +3491,7 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
 			var responseMessage = this.client.GetAsync(requestUri).Result;
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 		}
 		
@@ -3454,7 +3504,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3476,7 +3526,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3498,7 +3548,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3520,7 +3570,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3542,7 +3592,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3564,7 +3614,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3584,7 +3634,7 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 		}
 		
@@ -3595,7 +3645,7 @@ namespace DemoWebApi.Controllers.Client
 		{
 			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 		}
 		
@@ -3611,7 +3661,7 @@ namespace DemoWebApi.Controllers.Client
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = await client.PostAsync(requestUri, content);
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 			}
 		}
@@ -3628,7 +3678,7 @@ namespace DemoWebApi.Controllers.Client
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 			}
 		}
@@ -3645,7 +3695,7 @@ namespace DemoWebApi.Controllers.Client
 			requestSerializer.Serialize(requestWriter, person);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = await client.PostAsync(requestUri, content);
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 			}
 		}
@@ -3662,7 +3712,7 @@ namespace DemoWebApi.Controllers.Client
 			requestSerializer.Serialize(requestWriter, person);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
-			responseMessage.EnsureSuccessStatusCode();
+			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 			}
 		}
@@ -3681,7 +3731,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3710,7 +3760,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3739,7 +3789,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3767,7 +3817,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3796,7 +3846,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3825,7 +3875,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3853,7 +3903,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3881,7 +3931,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3909,7 +3959,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3937,7 +3987,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3965,7 +4015,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -3994,7 +4044,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4023,7 +4073,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4051,7 +4101,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4079,7 +4129,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4107,7 +4157,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4135,7 +4185,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4163,7 +4213,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4191,7 +4241,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4219,7 +4269,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4247,7 +4297,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4275,7 +4325,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4303,7 +4353,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4331,7 +4381,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4359,7 +4409,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4387,7 +4437,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4415,7 +4465,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4443,7 +4493,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4471,7 +4521,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4500,7 +4550,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4524,7 +4574,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4547,7 +4597,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4570,7 +4620,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4593,7 +4643,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4641,7 +4691,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4670,7 +4720,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4694,7 +4744,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4717,7 +4767,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4740,7 +4790,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4763,7 +4813,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4786,7 +4836,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4809,7 +4859,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4832,7 +4882,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4855,7 +4905,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4878,7 +4928,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4901,7 +4951,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4924,7 +4974,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4947,7 +4997,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4970,7 +5020,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -4993,7 +5043,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5016,7 +5066,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5039,7 +5089,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5062,7 +5112,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5085,7 +5135,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5108,7 +5158,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5131,7 +5181,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5159,7 +5209,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5188,7 +5238,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5217,7 +5267,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5246,7 +5296,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5275,7 +5325,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5304,7 +5354,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5333,7 +5383,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5362,7 +5412,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5391,7 +5441,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5420,7 +5470,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5449,7 +5499,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5478,7 +5528,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5507,7 +5557,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5536,7 +5586,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5565,7 +5615,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5594,7 +5644,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5623,7 +5673,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5651,7 +5701,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5679,7 +5729,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5707,7 +5757,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5735,7 +5785,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5763,7 +5813,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5791,7 +5841,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5819,7 +5869,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5847,7 +5897,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5875,7 +5925,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5903,7 +5953,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5931,7 +5981,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5959,7 +6009,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -5987,7 +6037,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6015,7 +6065,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6043,7 +6093,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6086,7 +6136,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.DeleteAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 			}
 			finally
 			{
@@ -6103,7 +6153,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.DeleteAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 			}
 			finally
 			{
@@ -6120,7 +6170,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6143,7 +6193,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6166,7 +6216,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6188,7 +6238,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6210,7 +6260,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6232,7 +6282,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6254,7 +6304,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6276,7 +6326,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6303,7 +6353,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PostAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6331,7 +6381,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PostAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
@@ -6359,7 +6409,7 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = await client.PutAsync(requestUri, content);
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 			}
 			finally
 			{
@@ -6382,12 +6432,45 @@ namespace DemoWebApi.Controllers.Client
 			var responseMessage = this.client.PutAsync(requestUri, content).Result;
 			try
 			{
-				responseMessage.EnsureSuccessStatusCode();
+				responseMessage.EnsureSuccessStatusCodeEx();
 			}
 			finally
 			{
 				responseMessage.Dispose();
 			}
+			}
+		}
+	}
+}
+namespace Fonlow.Net.Http
+{
+	using System.Net.Http;
+
+	public class WebApiRequestException : HttpRequestException
+	{
+		public System.Net.HttpStatusCode StatusCode { get; private set; }
+
+		public string Response { get; private set; }
+
+		public System.Net.Http.Headers.MediaTypeHeaderValue ContentType { get; private set; }
+
+		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.MediaTypeHeaderValue contentType) : base(message)
+		{
+			StatusCode = statusCode;
+			Response = response;
+			ContentType = contentType;
+		}
+	}
+
+	public static class ResponseMessageExtensions
+	{
+		public static void EnsureSuccessStatusCodeEx(this HttpResponseMessage responseMessage)
+		{
+			if (!responseMessage.IsSuccessStatusCode)
+			{
+				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
+				var contentType = responseMessage.Content.Headers.ContentType;
+				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, contentType);
 			}
 		}
 	}

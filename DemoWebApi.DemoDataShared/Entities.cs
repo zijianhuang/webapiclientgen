@@ -264,7 +264,7 @@ namespace DemoWebApi.DemoData
         public string Tag { get; set; }
 
         [DataMember]
-        [Range(10, 100, ErrorMessage = "SomeError")]
+        [Range(10, 100, ErrorMessage = "KK has to be between 10 and 100.")]
         public int KK { get; set; }
     }
 

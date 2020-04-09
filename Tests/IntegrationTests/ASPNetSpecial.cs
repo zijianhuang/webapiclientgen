@@ -109,7 +109,7 @@ namespace IntegrationTests
 		{
 			var dtStart = DateTime.Today;
 			var dtEnd = dtStart.AddDays(5);
-			var ex = Assert.Throws<System.Net.Http.HttpRequestException>(() =>
+			var ex = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() =>
 			 api.SearchDateRange(null, dtEnd));
 			ex.Message.Contains("400");
 		}

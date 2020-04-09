@@ -36,7 +36,7 @@ For all classes, properties and fields
             AppDomain appDomain = AppDomain.CurrentDomain;
             appDomain.AssemblyResolve += AppDomain_AssemblyResolve;
             Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = true;
-            PocoAssemblyFileWalker.Walk(assemblyName, tsFileName, methods, ".Client");
+            PocoAssemblyFileWalker.Walk(assemblyName, tsFileName, methods, ".Client", true);
         }
 
         static CherryPickingMethods ReadMethods(string s)

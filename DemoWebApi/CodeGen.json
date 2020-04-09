@@ -18,6 +18,8 @@
 		"GenerateBothAsyncAndSync": true,
 		"CamelCase": true,
 		"CSClientNamespaceSuffix": ".Client",
+		"UseEnsureSuccessStatusCodeEx": true,
+		"DataAnnotationsToComments": true,
 
 		"Plugins": [
 			{

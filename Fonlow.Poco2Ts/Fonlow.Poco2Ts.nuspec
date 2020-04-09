@@ -11,12 +11,19 @@
     <iconUrl>https://webapiclientgen.codeplex.com</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</description>
-    <releaseNotes>Make some internal classes become public for OpenApiClientGen.</releaseNotes>
+    <releaseNotes>
+      translate System.ComponentModel.DataAnnotations attributes into doc comment.
+      [System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 8)]
+      [System.ComponentModel.DataAnnotations.Range(1, int.MaxValue)]
+      [System.ComponentModel.DataAnnotations.MaxLength(20)]
+      [System.ComponentModel.DataAnnotations.MinLength(1)]
+      [System.ComponentModel.DataAnnotations.RegularExpression(@"/(?=.[a-z])(?=.[A-Z])(?=.*[0-9])/")]
+    </releaseNotes>
     <copyright>Copyright © Fonlow 2015-2020</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi</tags>
     <dependencies>
       <group>
-        <dependency id="Fonlow.TypeScriptCodeDOM" version="2.2.0" />
+        <dependency id="Fonlow.TypeScriptCodeDOM" version="2.3.0" />
       </group>
     </dependencies>  
   </metadata>

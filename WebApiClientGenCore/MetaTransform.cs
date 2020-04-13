@@ -115,7 +115,11 @@ namespace Fonlow.Web.Meta
 						}
 
 						var parameterType = descriptor.ParameterType;
-						if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsValueType(parameterType) && !TypeHelper.IsNullablePrimitive(parameterType))
+						var isValueType = TypeHelper.IsValueType(parameterType);
+						var isNullablePrimitive = TypeHelper.IsNullablePrimitive(parameterType);
+						var isArrayType = TypeHelper.IsSimpleListType(parameterType) || TypeHelper.IsSimpleArrayType(parameterType);
+						if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) &&
+							(!isValueType && !isNullablePrimitive && !isArrayType))
 						{
 							throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterType.ToString()}.");
 						}

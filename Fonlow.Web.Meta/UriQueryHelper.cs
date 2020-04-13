@@ -24,17 +24,20 @@ namespace Fonlow.CodeDom.Web
 			{
 				var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-				Debug.Assert(d != null);
-
-				newUriText = UriTemplateTransform.Transform(newUriText, d);
+				if ((d != null))
+				{
+					newUriText = UriTemplateTransform.Transform(newUriText, d);
+				}
 			}
 
 			for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
 			{
 				var name = template.QueryValueVariableNames[i];
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-				Debug.Assert(d != null);
-				newUriText = UriTemplateTransform.Transform(newUriText, d);
+				if (d != null)
+				{
+					newUriText = UriTemplateTransform.Transform(newUriText, d);
+				}
 			}
 
 			return newUriText;
@@ -53,16 +56,20 @@ namespace Fonlow.CodeDom.Web
 			{
 				var name = template.PathSegmentVariableNames[i];//PathSegmentVariableNames[i] always give uppercase
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-				Debug.Assert(d != null);
-				newUriText = UriTemplateTransform.TransformForTs(newUriText, d);
+				if ((d != null))
+				{
+					newUriText = UriTemplateTransform.TransformForTs(newUriText, d);
+				}
 			}
 
 			for (int i = 0; i < template.QueryValueVariableNames.Count; i++)
 			{
 				var name = template.QueryValueVariableNames[i];
 				var d = parameterDescriptions.FirstOrDefault(r => r.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-				Debug.Assert(d != null);
-				newUriText = UriTemplateTransform.TransformForTs(newUriText, d);
+				if ((d != null))
+				{
+					newUriText = UriTemplateTransform.TransformForTs(newUriText, d);
+				}
 			}
 
 			return newUriText;

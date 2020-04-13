@@ -53,5 +53,47 @@ namespace IntegrationTests
 
 		DemoWebApi.Controllers.Client.SuperDemo api;
 
+		[Fact]
+		public void TestGetIntArrayQ()
+		{
+			var d = api.GetIntArrayQ(new int[] { 3, 4, 5 });
+			Assert.Equal(3, d.Length);
+			Assert.Equal(5, d[2]);
+		}
+
+		[Fact]
+		public void TestGetIntArrayQ2()
+		{
+			var d = api.GetIntArrayQ2(new long[] { 3, 4, 5 });
+			Assert.Equal(3, d.Length);
+			Assert.Equal(5, d[2]);
+		}
+
+		[Fact]
+		public void TestGetDecimalArrayQ()
+		{
+			var d = api.GetDecimalArrayQ(new decimal[] { 3.5m, 4.6m, 5.7m });
+			Assert.Equal(3, d.Length);
+			Assert.Equal(5.7m, d[2]);
+		}
+
+		[Fact]
+		public void TestGetStringArrayQ()
+		{
+			var d = api.GetStringArrayQ(new string[] { "Abc", "Eft", "hi" });
+			Assert.Equal(3, d.Length);
+			Assert.Equal("hi", d[2]);
+		}
+
+		[Fact]
+		public void TestGetStringArrayQ2()
+		{
+			var d = api.GetStringArrayQ2(new string[] { "Abc", "Eft", "hi" });
+			Assert.Equal(3, d.Length);
+			Assert.Equal("hi", d[2]);
+		}
+
+
+
 	}
 }

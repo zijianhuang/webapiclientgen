@@ -9,7 +9,7 @@ namespace Fonlow.Reflection
     {
         static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
-        static readonly System.Collections.Generic.HashSet<string> arrayTypeNames = new System.Collections.Generic.HashSet<string>(
+        static readonly HashSet<string> arrayTypeNames = new HashSet<string>(
         new string[] {
             typeof(IEnumerable<>).FullName,
             typeof(IList<>).FullName,
@@ -21,6 +21,32 @@ namespace Fonlow.Reflection
             typeof(IReadOnlyCollection<>).FullName,
             "System.Collections.Generic.IAsyncEnumerable`1",
            typeof(System.Collections.ObjectModel.ObservableCollection<>).FullName,
+       }
+       );
+
+        static readonly HashSet<string> simpleListTypeNames = new HashSet<string>(
+        new string[] {
+            typeof(IEnumerable<>).Name,
+            typeof(IList<>).Name,
+            typeof(ICollection<>).Name,
+            typeof(IQueryable<>).Name,
+            typeof(IReadOnlyList<>).Name,
+            typeof(List<>).Name,
+            typeof(System.Collections.ObjectModel.Collection<>).Name,
+            typeof(IReadOnlyCollection<>).Name,
+            "System.Collections.Generic.IAsyncEnumerable`1",
+           typeof(System.Collections.ObjectModel.ObservableCollection<>).Name,
+       }
+       );
+
+        static readonly HashSet<string> simpleArrayTypeNames = new HashSet<string>(
+        new string[] {
+           "Int32[]",
+           "Int64[]",
+           "Decimal[]",
+           "Double[]",
+           "Single[]",
+           "String[]",
        }
        );
 
@@ -114,6 +140,16 @@ namespace Fonlow.Reflection
         public static bool IsArrayType(Type type)
         {
             return arrayTypeNames.Contains(type.FullName);//Could be using IsAssignableFrom() if many people need this.
+        }
+
+        public static bool IsSimpleListType(Type type)
+        {
+            return simpleListTypeNames.Contains(type.Name) && IsSimpleType(type.GenericTypeArguments[0]);
+        }
+
+        public static bool IsSimpleArrayType(Type type)
+        {
+            return simpleArrayTypeNames.Contains(type.Name) ;
         }
 
         public static int IsTuple(Type type)

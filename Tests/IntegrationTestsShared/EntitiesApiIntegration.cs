@@ -158,20 +158,6 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestGetMimsStringWithInvalidKK()
-		{
-			var r = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.GetMims(new MimsPackage
-			{
-				Tag = "Hello",
-				Result = new MimsResult<decimal>
-				{
-					Result = 123.45m
-				}
-			}));
-			Console.WriteLine(r.Message);
-		}
-
-		[Fact]
 		public void TestMyGeneric()
 		{
 			var c = api.GetMyGeneric(new MyGeneric<string, decimal, double>

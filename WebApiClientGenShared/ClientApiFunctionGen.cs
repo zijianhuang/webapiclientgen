@@ -26,7 +26,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		bool diFriendly;
 		string statementOfEnsureSuccessStatusCode;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, 
+		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync,
 			bool diFriendly, bool useEnsureSuccessStatusCodeEx)
 		{
 			this.description = description;
@@ -41,16 +41,16 @@ namespace Fonlow.CodeDom.Web.Cs
 				methodName = methodName.Substring(0, methodName.Length - 5);
 
 			returnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
-			returnTypeIsStream = returnType!=null && ( (returnType.FullName == typeNameOfHttpResponseMessage) 
-				|| (returnType.FullName == typeOfIHttpActionResult) 
-				|| (returnType.FullName == typeOfIActionResult) 
+			returnTypeIsStream = returnType != null && ((returnType.FullName == typeNameOfHttpResponseMessage)
+				|| (returnType.FullName == typeOfIHttpActionResult)
+				|| (returnType.FullName == typeOfIActionResult)
 				|| (returnType.FullName == typeOfActionResult)
 				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult")) // .net core is not translating Task<IActionResult> properly.
 				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult"))
 				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult"))
 				);
 
-			returnTypeIsDynamicObject = returnType != null && returnType.FullName!=null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
+			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
 		}
 
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
@@ -59,7 +59,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync, 
+		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync,
 			bool diFriendly, bool useEnsureSuccessStatusCodeEx)
 		{
 			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync, diFriendly, useEnsureSuccessStatusCodeEx);
@@ -375,7 +375,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 				var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
 				string uriText;
-				
+
 				if (diFriendly)
 				{
 					uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
@@ -514,14 +514,21 @@ namespace Fonlow.CodeDom.Web.Cs
 				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
-		static string RemoveTrialEmptyString(string s)
+		private static string RemoveTrialEmptyString(string s)
 		{
 			var p = s.IndexOf("+\"\"");
-			if (p == -1)
+			if (p >= 0)
 			{
-				return s;
+				return s.Remove(p, 3);
 			}
-			return s.Remove(p, 3);
+
+			var p2 = s.IndexOf("))\"");
+			if (p2 >= 0)
+			{
+				return s.Remove(p2 + 2, 1);
+			}
+
+			return s;
 		}
 
 	}

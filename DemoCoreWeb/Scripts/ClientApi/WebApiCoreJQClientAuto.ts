@@ -511,6 +511,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/decimalArrayQ?a={a}
+		 */
+		getDecimalArrayQ(a: Array<number>, callback: (data : Array<number>) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?a=' + a, callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * GET api/SuperDemo/decimal/{d}
 		 */
 		getDecimalSquare(d: number, callback: (data : number) => any) {
@@ -600,6 +607,20 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		getIntArray(callback: (data : Array<number>) => any) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/intArray', callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/SuperDemo/intArrayQ?a={a}
+		 */
+		getIntArrayQ(a: Array<number>, callback: (data : Array<number>) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?a=' + a, callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/SuperDemo/intArrayQ2?a={a}
+		 */
+		getIntArrayQ2(a: Array<number>, callback: (data : Array<number>) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?a=' + a, callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -712,6 +733,20 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		getShort(callback: (data : number) => any) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/short', callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/SuperDemo/stringArrayQ?a={a}
+		 */
+		getStringArrayQ(a: Array<string>, callback: (data : Array<string>) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?a=' + a, callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/SuperDemo/stringArrayQ2?a={a}
+		 */
+		getStringArrayQ2(a: Array<string>, callback: (data : Array<string>) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?a=' + a, callback, this.error, this.statusCode);
 		}
 
 		/**

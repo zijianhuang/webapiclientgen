@@ -509,6 +509,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/decimalArrayQ?a={a}
+		 */
+		getDecimalArrayQ(a: Array<number>): Promise<Array<number>> {
+			return fetch(this.baseUri + 'api/SuperDemo/decimalArrayQ?a=' + a, {method: 'get'}).then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/decimal/{d}
 		 */
 		getDecimalSquare(d: number): Promise<number> {
@@ -598,6 +605,20 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getIntArray(): Promise<Array<number>> {
 			return fetch(this.baseUri + 'api/SuperDemo/intArray', {method: 'get'}).then(d => d.json());
+		}
+
+		/**
+		 * GET api/SuperDemo/intArrayQ?a={a}
+		 */
+		getIntArrayQ(a: Array<number>): Promise<Array<number>> {
+			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ?a=' + a, {method: 'get'}).then(d => d.json());
+		}
+
+		/**
+		 * GET api/SuperDemo/intArrayQ2?a={a}
+		 */
+		getIntArrayQ2(a: Array<number>): Promise<Array<number>> {
+			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ2?a=' + a, {method: 'get'}).then(d => d.json());
 		}
 
 		/**
@@ -710,6 +731,20 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getShort(): Promise<number> {
 			return fetch(this.baseUri + 'api/SuperDemo/short', {method: 'get'}).then(d => d.json());
+		}
+
+		/**
+		 * GET api/SuperDemo/stringArrayQ?a={a}
+		 */
+		getStringArrayQ(a: Array<string>): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ?a=' + a, {method: 'get'}).then(d => d.json());
+		}
+
+		/**
+		 * GET api/SuperDemo/stringArrayQ2?a={a}
+		 */
+		getStringArrayQ2(a: Array<string>): Promise<Array<string>> {
+			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ2?a=' + a, {method: 'get'}).then(d => d.json());
 		}
 
 		/**

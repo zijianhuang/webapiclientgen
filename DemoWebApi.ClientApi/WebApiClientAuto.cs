@@ -371,6 +371,7 @@ namespace DemoWebApi.Models.Client
 namespace DemoWebApi.Controllers.Client
 {
 	using System;
+	using System.Linq;
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
 	using System.Net.Http;

@@ -24,7 +24,7 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpGet("decimal/{d}")]
-	//    [Route("decimal/{d}")]
+		//    [Route("decimal/{d}")]
 		public async Task<decimal> GetDecimalSquare(decimal d)
 		{
 			return await Task.Run(() => d * d);
@@ -90,7 +90,7 @@ namespace DemoWebApi.Controllers
 		[Route("DateTimeOffset")]
 		public bool PostDateTimeOffset([FromBody] DateTimeOffset d)
 		{
-			return  (DateTimeOffset.Now- d)< TimeSpan.FromSeconds(2);
+			return (DateTimeOffset.Now - d) < TimeSpan.FromSeconds(2);
 		}
 
 		[HttpPost]
@@ -124,7 +124,7 @@ namespace DemoWebApi.Controllers
 			var b = 0.2f;
 			var c = 0.3f;
 			return a + b - c;//in all version update to VS 2015, this is a non-zero result done by the runtime.
-		  //  return 0.1f + 0.2f - 0.3f;//in VS 2015 update 2. this is a zero result done by the compiler in IL code.
+							 //  return 0.1f + 0.2f - 0.3f;//in VS 2015 update 2. this is a zero result done by the compiler in IL code.
 		}
 
 		/// <summary>
@@ -347,6 +347,41 @@ namespace DemoWebApi.Controllers
 		public int[] GetIntArray()
 		{
 			return new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+		}
+
+		[HttpGet]
+		[Route("intArrayQ")]
+		public int[] GetIntArrayQ([FromQuery] int[] a)
+		{
+			return a.ToArray();
+		}
+
+		[HttpGet]
+		[Route("intArrayQ2")]
+		public long[] GetIntArrayQ2([FromQuery] IEnumerable<long> a)
+		{
+			return a.ToArray();
+		}
+
+		[HttpGet]
+		[Route("decimalArrayQ")]
+		public decimal[] GetDecimalArrayQ([FromQuery] decimal[] a)
+		{
+			return a.ToArray();
+		}
+
+		[HttpGet]
+		[Route("stringArrayQ")]
+		public string[] GetStringArrayQ([FromQuery] string[] a)
+		{
+			return a;
+		}
+
+		[HttpGet]
+		[Route("stringArrayQ2")]
+		public string[] GetStringArrayQ2([FromQuery] List<string> a)
+		{
+			return a.ToArray();
 		}
 
 		[HttpGet]

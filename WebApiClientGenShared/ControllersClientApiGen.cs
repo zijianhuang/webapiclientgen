@@ -164,6 +164,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 				clientNamespace.Imports.AddRange(new CodeNamespaceImport[]{
 				new CodeNamespaceImport("System"),
+				new CodeNamespaceImport("System.Linq"),
 				new CodeNamespaceImport("System.Collections.Generic"),
 				new CodeNamespaceImport("System.Threading.Tasks"),
 				new CodeNamespaceImport("System.Net.Http"),

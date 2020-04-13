@@ -91,7 +91,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			Method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
 		}
 
-		protected static string RemoveTrialEmptyString(string s)
+		protected string RemoveTrialEmptyString(string s)
 		{
 			var p = s.IndexOf(" + ''");
 			//Debug.Assert(p > -1, "Must match the end string in RemoveTrialEmptyString");

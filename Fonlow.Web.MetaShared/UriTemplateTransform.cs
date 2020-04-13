@@ -78,8 +78,6 @@ namespace Fonlow.CodeDom.Web
 				}
 				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
-					//int[] kk=new int[] { };
-					//var v = String.Join("&", kk.Select(k => $"{d.ParameterDescriptor.ParameterName}={Uri.EscapeDataString(k.ToString())}"));
 					var arrayQuery = $"String.Join(\"&\", {d.ParameterDescriptor.ParameterName}.Select(k => $\"{d.ParameterDescriptor.ParameterName}={{Uri.EscapeDataString(k.ToString())}}\"))";
 					var placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}&";
 					return newUriText.Replace(placeHolder, "\"+" + arrayQuery);
@@ -121,8 +119,6 @@ namespace Fonlow.CodeDom.Web
 				}
 				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
-					//int[] kk=new int[] { };
-					//var v = String.Join("&", kk.Select(k => $"{d.ParameterDescriptor.ParameterName}={Uri.EscapeDataString(k.ToString())}"));
 					var arrayQuery = $"String.Join(\"&\", {d.ParameterDescriptor.ParameterName}.Select(k => $\"{d.ParameterDescriptor.ParameterName}={{Uri.EscapeDataString(k.ToString())}}\"))";
 					var placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
 					return newUriText.Replace(placeHolder, "\"+" + arrayQuery);
@@ -148,6 +144,12 @@ namespace Fonlow.CodeDom.Web
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
 					return newUriText+= $"{d.Name}=' + {d.Name}.toISOString() + '";
+				}
+				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
+				{
+					var arrayQuery = $"{d.ParameterDescriptor.ParameterName}.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&'))";
+					var placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
+					return newUriText.Replace(placeHolder, "'+" + arrayQuery);
 				}
 				else
 				{
@@ -183,6 +185,12 @@ namespace Fonlow.CodeDom.Web
 					}
 
 					return replaced;
+				}
+				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
+				{
+					var arrayQuery = $"{d.ParameterDescriptor.ParameterName}.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&'))";
+					var placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
+					return newUriText.Replace(placeHolder, "'+" + arrayQuery);
 				}
 				else
 				{

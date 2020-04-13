@@ -518,7 +518,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number>): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/decimalArrayQ?a=' + a).then(d => d.json());
+			return this.http.get('api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
 		}
 
 		/**
@@ -617,14 +617,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number>): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/intArrayQ?a=' + a).then(d => d.json());
+			return this.http.get('api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/intArrayQ2?a=' + a).then(d => d.json());
+			return this.http.get('api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
 		}
 
 		/**
@@ -743,14 +743,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string>): Promise<Array<string>> {
-			return this.http.get('api/SuperDemo/stringArrayQ?a=' + a).then(d => d.json());
+			return this.http.get('api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>): Promise<Array<string>> {
-			return this.http.get('api/SuperDemo/stringArrayQ2?a=' + a).then(d => d.json());
+			return this.http.get('api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
 		}
 
 		/**

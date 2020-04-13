@@ -519,7 +519,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number>): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/decimalArrayQ?a=' + a);
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
 		}
 
 		/**
@@ -618,14 +618,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number>): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ?a=' + a);
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
 		}
 
 		/**
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ2?a=' + a);
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
 		}
 
 		/**
@@ -744,14 +744,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string>): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ?a=' + a);
+			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
 		}
 
 		/**
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ2?a=' + a);
+			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
 		}
 
 		/**

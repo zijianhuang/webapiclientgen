@@ -842,10 +842,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/enumPost?d={d}
+		 * POST api/SuperDemo/enumPost?d={d}
 		 */
 		postDay(d: number, d2: number, callback: (data : Array<DemoWebApi_DemoData_Client.Days>) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, callback, this.error, this.statusCode);
+			this.httpClient.post(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, d2, callback, this.error, this.statusCode);
 		}
 
 		/**

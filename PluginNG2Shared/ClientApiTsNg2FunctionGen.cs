@@ -32,7 +32,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeMemberMethod CreateMethodName()
 		{
-			Debug.Assert(ReturnType==null || ReturnType.Name != "DayOfWeek[]");
+			//Debug.Assert(ReturnType==null || ReturnType.Name != "DayOfWeek[]");
 			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")

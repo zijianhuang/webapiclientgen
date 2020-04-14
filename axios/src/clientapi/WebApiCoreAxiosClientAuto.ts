@@ -15,7 +15,7 @@ export namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: void;
+		type?: number;
 
 		/**
 		 * It is a field
@@ -113,7 +113,7 @@ export namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: void;
+		phoneType?: number;
 	}
 
 
@@ -504,6 +504,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/enumGet?d={d}
+		 */
+		getDay(d: number): Promise<number> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d).then(d => d.data as number);
+		}
+
+		/**
 		 * GET api/SuperDemo/decimal
 		 */
 		getDecimal(): Promise<number> {
@@ -568,10 +575,17 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/enumArrayDays?a={a}
+		 */
+		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'))').then(d => d.data as Array<DemoWebApi_DemoData_Client.Days>);
+		}
+
+		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
-		getEnumArrayQ2(a: Array<void>): Promise<Array<void>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))').then(d => d.data as Array<void>);
+		getEnumArrayQ2(a: Array<number>): Promise<Array<number>> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))').then(d => d.data as Array<number>);
 		}
 
 		/**
@@ -825,6 +839,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postDateTimeOffsetNullable(d: Date): Promise<boolean> {
 			return Axios.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as boolean);
+		}
+
+		/**
+		 * POST api/SuperDemo/enumPost?d={d}
+		 */
+		postDay(d: number, d2: number): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+			return Axios.post(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as Array<DemoWebApi_DemoData_Client.Days>);
 		}
 
 		/**

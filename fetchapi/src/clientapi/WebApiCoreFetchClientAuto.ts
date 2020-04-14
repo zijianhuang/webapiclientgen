@@ -13,7 +13,7 @@ export namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: void;
+		type?: number;
 
 		/**
 		 * It is a field
@@ -111,7 +111,7 @@ export namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: void;
+		phoneType?: number;
 	}
 
 
@@ -502,6 +502,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/enumGet?d={d}
+		 */
+		getDay(d: number): Promise<number> {
+			return fetch(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, {method: 'get'}).then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/decimal
 		 */
 		getDecimal(): Promise<number> {
@@ -566,9 +573,16 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/enumArrayDays?a={a}
+		 */
+		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+			return fetch(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'))', {method: 'get'}).then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
-		getEnumArrayQ2(a: Array<void>): Promise<Array<void>> {
+		getEnumArrayQ2(a: Array<number>): Promise<Array<number>> {
 			return fetch(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))', {method: 'get'}).then(d => d.json());
 		}
 
@@ -823,6 +837,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postDateTimeOffsetNullable(d: Date): Promise<boolean> {
 			return fetch(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', {method: 'post', headers: { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/SuperDemo/enumPost?d={d}
+		 */
+		postDay(d: number, d2: number): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+			return fetch(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, {method: 'post', headers: { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d2) }).then(d => d.json());
 		}
 
 		/**

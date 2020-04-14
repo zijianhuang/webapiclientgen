@@ -15,7 +15,7 @@ export namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: void;
+		type?: number;
 
 		/**
 		 * It is a field
@@ -113,7 +113,7 @@ export namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: void;
+		phoneType?: number;
 	}
 
 
@@ -508,6 +508,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/enumGet?d={d}
+		 */
+		getDay(d: number): Promise<number> {
+			return this.http.get('api/SuperDemo/enumGet?d=' + d).then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/decimal
 		 */
 		getDecimal(): Promise<number> {
@@ -572,9 +579,16 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/enumArrayDays?a={a}
+		 */
+		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+			return this.http.get('api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'))').then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
-		getEnumArrayQ2(a: Array<void>): Promise<Array<void>> {
+		getEnumArrayQ2(a: Array<number>): Promise<Array<number>> {
 			return this.http.get('api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))').then(d => d.json());
 		}
 
@@ -829,6 +843,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postDateTimeOffsetNullable(d: Date): Promise<boolean> {
 			return this.http.post('api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/SuperDemo/enumPost?d={d}
+		 */
+		postDay(d: number, d2: number): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+			return this.http.post('api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**

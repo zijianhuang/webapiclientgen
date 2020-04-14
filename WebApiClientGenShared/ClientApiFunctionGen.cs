@@ -218,7 +218,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 				if (returnType != null)
 				{
-					Debug.Assert(!returnType.FullName.Contains("JObject"));
+					//Debug.Assert(!returnType.FullName.Contains("JObject"));
 					AddReturnStatement(method.Statements);
 				}
 			}
@@ -231,7 +231,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				//Statement: return something;
 				if (returnType != null)
 				{
-					Debug.Assert(!returnType.FullName.Contains("JObject"));
+					//Debug.Assert(!returnType.FullName.Contains("JObject"));
 					AddReturnStatement(try1.TryStatements);
 				}
 
@@ -328,6 +328,17 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
+			}
+			else if (returnType.IsEnum)
+			{
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+				statementCollection.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+						new CodeSnippetExpression("jsonReader"))));
+
 			}
 			else
 			{

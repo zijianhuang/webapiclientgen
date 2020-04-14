@@ -71,7 +71,7 @@ namespace Fonlow.Web.Meta
 				else
 				{
 					Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor actionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
-					Debug.Assert(actionDescriptor != null);
+					Debug.Assert(actionDescriptor != null, "is it possible?");
 					responseType = actionDescriptor.MethodInfo.ReturnType;// in .net core 2.1, IActionResult is not in SupportedResponseTypes anymore, so I have to get it here.
 					if (responseType.Equals(typeof(void)))
 					{

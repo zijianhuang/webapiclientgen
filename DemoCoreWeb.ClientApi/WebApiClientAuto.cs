@@ -2151,6 +2151,10 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days>(jsonReader);
 				}
 			}
 			finally
@@ -2170,6 +2174,10 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days>(jsonReader);
 				}
 			}
 			finally

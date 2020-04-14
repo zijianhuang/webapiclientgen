@@ -227,7 +227,7 @@ namespace Fonlow.CodeDom.Web.Ts
 						foreach (var candidateName in candidates)
 						{
 							var overloadingMethods = methods.Where(d => d.Name == candidateName).ToArray();
-							System.Diagnostics.Debug.Assert(overloadingMethods.Length > 1);
+							//System.Diagnostics.Debug.Assert(overloadingMethods.Length > 1);
 							foreach (var item in overloadingMethods) //Wow, 5 nested loops, plus 2 linq expressions
 							{
 								RenameCodeMemberMethodWithParameterNames(item);

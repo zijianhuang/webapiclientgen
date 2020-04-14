@@ -110,6 +110,21 @@ namespace IntegrationTests
 			Assert.Equal(Days.Wed, d[2]);
 		}
 
+		[Fact]
+		public void TestGetDay()
+		{
+			var d = api.GetDay(Days.Fri);
+			Assert.Equal(Days.Fri, d);
+		}
+
+		[Fact]
+		public void TestPostDay()
+		{
+			var d = api.PostDay(Days.Fri, Days.Sat);
+			Assert.Equal(2, d.Length);
+			Assert.Equal(Days.Sat, d[1]);
+		}
+
 
 
 	}

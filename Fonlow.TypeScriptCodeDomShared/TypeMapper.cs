@@ -97,7 +97,7 @@ namespace Fonlow.TypeScriptCodeDom
 				}
 
 				var elementTypeName = MapCodeTypeReferenceToTsText(codeTypeReference.ArrayElementType);
-				System.Diagnostics.Debug.Assert(elementTypeName != "void", "Hey");
+				//System.Diagnostics.Debug.Assert(elementTypeName != "void", "Hey");
 				return $"Array<{elementTypeName}>";
 			}
 

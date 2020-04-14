@@ -45,8 +45,7 @@ namespace Fonlow.DocComment
                 using (var fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
                 {
                     XmlDoc = serializer.Deserialize(fs) as doc;
-                    System.Diagnostics.Debug.Assert(XmlDoc != null);
-                    return true;
+                    return XmlDoc != null;
                 }
 
             }

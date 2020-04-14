@@ -384,6 +384,41 @@ namespace DemoWebApi.Controllers
 			return a.ToArray();
 		}
 
+		//[HttpGet]
+		//[Route("enumArrayQ")]
+		//public DayOfWeek[] GetEnumArrayQ([FromQuery] DayOfWeek[] a)
+		//{
+		//	return a;
+		//}
+
+		[HttpGet]
+		[Route("enumArrayQ2")]
+		public DayOfWeek[] GetEnumArrayQ2([FromQuery] List<DayOfWeek> a)
+		{
+			return a.ToArray();
+		}
+
+		[HttpGet]
+		[Route("enumArrayDays")]
+		public DemoData.Days[] GetEnumArrayDays([FromQuery] IEnumerable<DemoData.Days> a)
+		{
+			return a.ToArray();
+		}
+
+		[HttpGet]
+		[Route("enumGet")]
+		public DemoData.Days GetDay([FromQuery] DemoData.Days d)
+		{
+			return d;
+		}
+
+		[HttpPost]
+		[Route("enumPost")]
+		public DemoData.Days[] PostDay([FromQuery] DemoData.Days d, [FromBody] DemoData.Days d2)
+		{
+			return new DemoData.Days[] { d, d2 };
+		}
+
 		[HttpGet]
 		[Route("StringStringDic")]
 		public IDictionary<string, string> GetDictionary()

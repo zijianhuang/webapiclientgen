@@ -15,7 +15,7 @@ export namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: DemoWebApi_DemoData_Client.AddressType;
+		type?: void;
 
 		/**
 		 * It is a field
@@ -113,7 +113,7 @@ export namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+		phoneType?: void;
 	}
 
 
@@ -565,6 +565,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getEmptyString(): Promise<string> {
 			return Axios.get(this.baseUri + 'api/SuperDemo/EmptyString', { responseType: 'text' }).then(d => d.data as string);
+		}
+
+		/**
+		 * GET api/SuperDemo/enumArrayQ2?a={a}
+		 */
+		getEnumArrayQ2(a: Array<void>): Promise<Array<void>> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))').then(d => d.data as Array<void>);
 		}
 
 		/**

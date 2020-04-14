@@ -68,6 +68,11 @@ namespace Fonlow.TypeScriptCodeDom
 			if (typeMap.TryGetValue(type.FullName, out tsTypeName))
 				return tsTypeName;
 
+			if (type.BaseType!=null && type.BaseType.FullName == "System.Enum")
+			{
+				return "number";
+			}
+
 			return null;
 		}
 
@@ -90,7 +95,9 @@ namespace Fonlow.TypeScriptCodeDom
 				{
 					return codeTypeReference.BaseType + new System.Text.StringBuilder().Insert(0, "[]", rank).ToString();
 				}
+
 				var elementTypeName = MapCodeTypeReferenceToTsText(codeTypeReference.ArrayElementType);
+				System.Diagnostics.Debug.Assert(elementTypeName != "void", "Hey");
 				return $"Array<{elementTypeName}>";
 			}
 
@@ -107,7 +114,7 @@ namespace Fonlow.TypeScriptCodeDom
 			if (codeTypeReference.TypeArguments.Count == 0)
 			{
 				var codeSnipetTypeReference = codeTypeReference as CodeSnipetTypeReference;
-				if (codeSnipetTypeReference!=null)
+				if (codeSnipetTypeReference != null)
 				{
 					return codeSnipetTypeReference.BaseType;
 				}
@@ -120,8 +127,8 @@ namespace Fonlow.TypeScriptCodeDom
 				System.Diagnostics.Debug.Assert(codeTypeReference.TypeArguments.Count == 2);
 				var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
 				var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
-				return TsCodeGenerationOptions.Instance.CamelCase ? 
-					$"{{key: {keyTypeReferenceText}, value: {valueTypeReferenceText} }}" 
+				return TsCodeGenerationOptions.Instance.CamelCase ?
+					$"{{key: {keyTypeReferenceText}, value: {valueTypeReferenceText} }}"
 					: $"{{Key: {keyTypeReferenceText}, Value: {valueTypeReferenceText} }}";
 			}
 
@@ -174,7 +181,7 @@ namespace Fonlow.TypeScriptCodeDom
 			{
 				var typeName = MapCodeTypeReferenceToTsText(collection[i]);
 				var propertyName = (i < 7) ? "Item" + (i + 1).ToString() : "Rest";
-				ss[i] = (TsCodeGenerationOptions.Instance.CamelCase? Fonlow.Text.StringExtensions.ToCamelCase( propertyName) : propertyName) 
+				ss[i] = (TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(propertyName) : propertyName)
 					+ ": " + typeName;
 			}
 			return String.Join(", ", ss);

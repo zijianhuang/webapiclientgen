@@ -16,7 +16,7 @@ export namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: DemoWebApi_DemoData_Client.AddressType;
+		type?: number;
 
 		/**
 		 * It is a field
@@ -114,7 +114,7 @@ export namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+		phoneType?: number;
 	}
 
 
@@ -509,6 +509,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/enumGet?d={d}
+		 */
+		getDay(d: number): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/enumGet?d=' + d);
+		}
+
+		/**
 		 * GET api/SuperDemo/decimal
 		 */
 		getDecimal(): Observable<number> {
@@ -570,6 +577,20 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getEmptyString(): Observable<string> {
 			return this.http.get(this.baseUri + 'api/SuperDemo/EmptyString', { responseType: 'text' });
+		}
+
+		/**
+		 * GET api/SuperDemo/enumArrayDays?a={a}
+		 */
+		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'));
+		}
+
+		/**
+		 * GET api/SuperDemo/enumArrayQ2?a={a}
+		 */
+		getEnumArrayQ2(a: Array<number>): Observable<Array<number>> {
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'));
 		}
 
 		/**
@@ -823,6 +844,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postDateTimeOffsetNullable(d: Date): Observable<boolean> {
 			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * POST api/SuperDemo/enumPost?d={d}
+		 */
+		postDay(d: number, d2: number): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
+			return this.http.post<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 
 		/**

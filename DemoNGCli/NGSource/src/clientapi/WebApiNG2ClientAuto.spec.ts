@@ -6,6 +6,8 @@ import * as namespaces from './WebApiCoreNG2ClientAuto';
 //const apiBaseUri = 'http://localhost:10965/'; // for DemoWebApi
 const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
+import DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
+
 export function valuesClientFactory(http: HttpClient) {
 	return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
 }
@@ -908,6 +910,57 @@ describe('SuperDemo API', () => {
 	}
 	);
 
+
+	it('getEnumArrayQ2', (done) => {
+		service.getEnumArrayQ2([3, 4, 5]).subscribe(
+			data => {
+				expect(data.length).toBe(3);
+				expect(data[2]).toBe(5);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getEnumArrayDaysWithInt', (done) => {
+		service.getEnumArrayDays([3, 4, 5]).subscribe(
+			data => {
+				expect(data.length).toBe(3);
+				expect(data[2]).toBe(5);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getEnumArrayDaysWithEnum', (done) => {
+		service.getEnumArrayDays([DemoWebApi_DemoData_Client.Days.Mon, DemoWebApi_DemoData_Client.Days.Sat, DemoWebApi_DemoData_Client.Days.Wed]).subscribe(
+			data => {
+				expect(data.length).toBe(3);
+				expect(data[2]).toBe(DemoWebApi_DemoData_Client.Days.Wed);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+
+
 	it('postWithQueryButEmptyBody', (done) => {
 		service.postWithQueryButEmptyBody('abc', 123).subscribe(
 			data => {
@@ -923,6 +976,38 @@ describe('SuperDemo API', () => {
 
 	}
 	);
+
+	it('postDay', (done) => {
+		service.postDay(3, 5).subscribe(
+			data => {
+				expect(data.length).toBe(2);
+				expect(data[1]).toBe(5);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getDay', (done) => {
+		service.getDay(3).subscribe(
+			data => {
+				expect(data).toBe(3);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
 
 	it('postGuids', (done) => {
 		service.postGuids(["08d7be8b-4805-459e-849a-fcd5c64a33ee", "08d7be8b-47fb-44a5-86a8-a6f4fe928fa9"]).subscribe(

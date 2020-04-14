@@ -106,7 +106,6 @@ namespace DemoWebApi.DemoData.Client
 		
 		/// <summary>
 		/// Name of the entity.
-		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Name { get; set; }
@@ -119,9 +118,6 @@ namespace DemoWebApi.DemoData.Client
 	public class MimsPackage : object
 	{
 		
-		/// <summary>
-		/// Range: inclusive between 10 and 100
-		/// </summary>
 		public int KK { get; set; }
 		
 		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
@@ -246,31 +242,16 @@ namespace DemoWebApi.Models.Client
 	public class AddExternalLoginBindingModel : object
 	{
 		
-		/// <summary>
-		/// Required
-		/// </summary>
 		public string ExternalAccessToken { get; set; }
 	}
 	
 	public class ChangePasswordBindingModel : object
 	{
 		
-		/// <summary>
-		/// Data type: Password
-		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// String length: inclusive between 6 and 100
-		/// Data type: Password
-		/// </summary>
 		public string NewPassword { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// Data type: Password
-		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string OldPassword { get; set; }
 	}
@@ -278,60 +259,32 @@ namespace DemoWebApi.Models.Client
 	public class RegisterBindingModel : object
 	{
 		
-		/// <summary>
-		/// Data type: Password
-		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// </summary>
 		public string Email { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// String length: inclusive between 6 and 100
-		/// Data type: Password
-		/// </summary>
 		public string Password { get; set; }
 	}
 	
 	public class RegisterExternalBindingModel : object
 	{
 		
-		/// <summary>
-		/// Required
-		/// </summary>
 		public string Email { get; set; }
 	}
 	
 	public class RemoveLoginBindingModel : object
 	{
 		
-		/// <summary>
-		/// Required
-		/// </summary>
 		public string LoginProvider { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// </summary>
 		public string ProviderKey { get; set; }
 	}
 	
 	public class SetPasswordBindingModel : object
 	{
 		
-		/// <summary>
-		/// Data type: Password
-		/// </summary>
 		public string ConfirmPassword { get; set; }
 		
-		/// <summary>
-		/// Required
-		/// String length: inclusive between 6 and 100
-		/// Data type: Password
-		/// </summary>
 		public string NewPassword { get; set; }
 	}
 }
@@ -2141,6 +2094,44 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/SuperDemo/enumGet?d={d}
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Days> GetDayAsync(DemoWebApi.DemoData.Client.Days d)
+		{
+			var requestUri = "api/SuperDemo/enumGet?d="+d;
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/enumGet?d={d}
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Days GetDay(DemoWebApi.DemoData.Client.Days d)
+		{
+			var requestUri = "api/SuperDemo/enumGet?d="+d;
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// GET api/SuperDemo/decimal
 		/// </summary>
 		public async Task<decimal> GetDecimalAsync()
@@ -2542,6 +2533,98 @@ namespace DemoWebApi.Controllers.Client
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
 				return streamReader.ReadToEnd();;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/enumArrayDays?a={a}
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Days[]> GetEnumArrayDaysAsync(DemoWebApi.DemoData.Client.Days[] a)
+		{
+			var requestUri = "api/SuperDemo/enumArrayDays?"+String.Join("&", a.Select(k => $"a={Uri.EscapeDataString(k.ToString())}"));
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/enumArrayDays?a={a}
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Days[] GetEnumArrayDays(DemoWebApi.DemoData.Client.Days[] a)
+		{
+			var requestUri = "api/SuperDemo/enumArrayDays?"+String.Join("&", a.Select(k => $"a={Uri.EscapeDataString(k.ToString())}"));
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/enumArrayQ2?a={a}
+		/// </summary>
+		public async Task<System.DayOfWeek[]> GetEnumArrayQ2Async(System.DayOfWeek[] a)
+		{
+			var requestUri = "api/SuperDemo/enumArrayQ2?"+String.Join("&", a.Select(k => $"a={Uri.EscapeDataString(k.ToString())}"));
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<System.DayOfWeek[]>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/enumArrayQ2?a={a}
+		/// </summary>
+		public System.DayOfWeek[] GetEnumArrayQ2(System.DayOfWeek[] a)
+		{
+			var requestUri = "api/SuperDemo/enumArrayQ2?"+String.Join("&", a.Select(k => $"a={Uri.EscapeDataString(k.ToString())}"));
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<System.DayOfWeek[]>(jsonReader);
 				}
 			}
 			finally
@@ -4141,6 +4224,64 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				return System.Boolean.Parse(jsonReader.ReadAsString());
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/SuperDemo/enumPost?d={d}
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Days[]> PostDayAsync(DemoWebApi.DemoData.Client.Days d, DemoWebApi.DemoData.Client.Days d2)
+		{
+			var requestUri = "api/SuperDemo/enumPost?d="+d;
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, d2);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = await client.PostAsync(requestUri, content);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/SuperDemo/enumPost?d={d}
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Days[] PostDay(DemoWebApi.DemoData.Client.Days d, DemoWebApi.DemoData.Client.Days d2)
+		{
+			var requestUri = "api/SuperDemo/enumPost?d="+d;
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create();
+			requestSerializer.Serialize(requestWriter, d2);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
 				}
 			}
 			finally

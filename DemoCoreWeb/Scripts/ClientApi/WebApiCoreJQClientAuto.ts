@@ -15,7 +15,7 @@ namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: DemoWebApi_DemoData_Client.AddressType;
+		type?: number;
 
 		/**
 		 * It is a field
@@ -113,7 +113,7 @@ namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+		phoneType?: number;
 	}
 
 
@@ -504,6 +504,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/enumGet?d={d}
+		 */
+		getDay(d: number, callback: (data : number) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, callback, this.error, this.statusCode);
+		}
+
+		/**
 		 * GET api/SuperDemo/decimal
 		 */
 		getDecimal(callback: (data : number) => any) {
@@ -565,6 +572,20 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		getEmptyString(callback: (data : string) => any) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/EmptyString', callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/SuperDemo/enumArrayDays?a={a}
+		 */
+		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, callback: (data : Array<DemoWebApi_DemoData_Client.Days>) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'))', callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/SuperDemo/enumArrayQ2?a={a}
+		 */
+		getEnumArrayQ2(a: Array<number>, callback: (data : Array<number>) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))', callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -818,6 +839,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		postDateTimeOffsetNullable(d: Date, callback: (data : boolean) => any) {
 			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', d, callback, this.error, this.statusCode);
+		}
+
+		/**
+		 * GET api/SuperDemo/enumPost?d={d}
+		 */
+		postDay(d: number, d2: number, callback: (data : Array<DemoWebApi_DemoData_Client.Days>) => any) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, callback, this.error, this.statusCode);
 		}
 
 		/**

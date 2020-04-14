@@ -121,6 +121,7 @@ namespace Fonlow.Web.Meta
 						if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) &&
 							(!isValueType && !isNullablePrimitive && !isArrayType))
 						{
+							//var kk = TypeHelper.IsSimpleListType(parameterType);
 							throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterType.ToString()}.");
 						}
 

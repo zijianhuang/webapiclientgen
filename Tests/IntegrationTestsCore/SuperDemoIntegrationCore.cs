@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using DemoWebApi.DemoData.Client;
 
 namespace IntegrationTests
 {
@@ -91,6 +92,22 @@ namespace IntegrationTests
 			var d = api.GetStringArrayQ2(new string[] { "Abc", "Eft", "hi" });
 			Assert.Equal(3, d.Length);
 			Assert.Equal("hi", d[2]);
+		}
+
+		[Fact]
+		public void TestGetEnumArrayQ2()
+		{
+			var d = api.GetEnumArrayQ2(new DayOfWeek[] { DayOfWeek.Monday, DayOfWeek.Sunday, DayOfWeek.Saturday });
+			Assert.Equal(3, d.Length);
+			Assert.Equal(DayOfWeek.Saturday, d[2]);
+		}
+
+		[Fact]
+		public void TestGetEnumArrayDays()
+		{
+			var d = api.GetEnumArrayDays(new Days[] { Days.Mon, Days.Tue, Days.Wed });
+			Assert.Equal(3, d.Length);
+			Assert.Equal(Days.Wed, d[2]);
 		}
 
 

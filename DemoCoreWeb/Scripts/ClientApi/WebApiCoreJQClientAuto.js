@@ -301,10 +301,22 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/DateTimeOffset', callback, this.error, this.statusCode);
         }
         /**
+         * GET api/SuperDemo/enumGet?d={d}
+         */
+        getDay(d, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, callback, this.error, this.statusCode);
+        }
+        /**
          * GET api/SuperDemo/decimal
          */
         getDecimal(callback) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/decimal', callback, this.error, this.statusCode);
+        }
+        /**
+         * GET api/SuperDemo/decimalArrayQ?a={a}
+         */
+        getDecimalArrayQ(a, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/decimal/{d}
@@ -350,6 +362,20 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/EmptyString', callback, this.error, this.statusCode);
         }
         /**
+         * GET api/SuperDemo/enumArrayDays?a={a}
+         */
+        getEnumArrayDays(a, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?' + a.map(z => `a=${z}`).join('&')), callback, this.error, this.statusCode;
+            ;
+        }
+        /**
+         * GET api/SuperDemo/enumArrayQ2?a={a}
+         */
+        getEnumArrayQ2(a, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + a.map(z => `a=${z}`).join('&')), callback, this.error, this.statusCode;
+            ;
+        }
+        /**
          * GET api/SuperDemo/FloatZero
          */
         getFloatZero(callback) {
@@ -384,6 +410,20 @@ var DemoWebApi_Controllers_Client;
          */
         getIntArray(callback) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/intArray', callback, this.error, this.statusCode);
+        }
+        /**
+         * GET api/SuperDemo/intArrayQ?a={a}
+         */
+        getIntArrayQ(a, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode;
+            ;
+        }
+        /**
+         * GET api/SuperDemo/intArrayQ2?a={a}
+         */
+        getIntArrayQ2(a, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode;
+            ;
         }
         /**
          * GET api/SuperDemo/int/{d}
@@ -482,6 +522,20 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/short', callback, this.error, this.statusCode);
         }
         /**
+         * GET api/SuperDemo/stringArrayQ?a={a}
+         */
+        getStringArrayQ(a, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode;
+            ;
+        }
+        /**
+         * GET api/SuperDemo/stringArrayQ2?a={a}
+         */
+        getStringArrayQ2(a, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode;
+            ;
+        }
+        /**
          * GET api/SuperDemo/TextStream
          */
         getTextStream(callback) {
@@ -541,6 +595,12 @@ var DemoWebApi_Controllers_Client;
          */
         postDateTimeOffsetNullable(d, callback) {
             this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', d, callback, this.error, this.statusCode);
+        }
+        /**
+         * POST api/SuperDemo/enumPost?d={d}
+         */
+        postDay(d, d2, callback) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, d2, callback, this.error, this.statusCode);
         }
         /**
          * POST api/SuperDemo/StringPersonDic

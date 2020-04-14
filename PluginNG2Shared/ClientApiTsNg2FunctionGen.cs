@@ -76,7 +76,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
 			var hasArrayJoin = jsUriQuery !=null && jsUriQuery.Contains(".join(");
 			var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
-				RemoveTrialEmptyString(hasArrayJoin? $"this.baseUri + '{jsUriQuery}": $"this.baseUri + '{jsUriQuery}'");
+				RemoveTrialEmptyString(hasArrayJoin? $"this.baseUri + '{jsUriQuery})": $"this.baseUri + '{jsUriQuery}'");
 
 			// var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
 

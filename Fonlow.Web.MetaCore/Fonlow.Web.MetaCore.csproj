@@ -9,11 +9,11 @@
     <Authors>Zijian Huang</Authors>
     <Company></Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Some changes for OpenApiClientGen.</PackageReleaseNotes>
+    <PackageReleaseNotes>for enum in http query</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.5</Version>
-    <AssemblyVersion>1.5.0.0</AssemblyVersion>
-    <FileVersion>1.5.0.0</FileVersion>
+    <Version>1.5.1</Version>
+    <AssemblyVersion>1.5.1.0</AssemblyVersion>
+    <FileVersion>1.5.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

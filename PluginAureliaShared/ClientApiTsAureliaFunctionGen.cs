@@ -66,8 +66,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			Method.Parameters.AddRange(parameters.ToArray());
 
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
+			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
 			var uriText = jsUriQuery == null ? $"'{Description.RelativePath}'" :
-				RemoveTrialEmptyString($"'{jsUriQuery}'");
+				RemoveTrialEmptyString(hasArrayJoin?$"'{jsUriQuery})": $"'{jsUriQuery}'");
 
 			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
@@ -180,7 +181,15 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).then(d => d.json());"));
+					if (hasArrayJoin)
+					{
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}.then(d => d.json());"));
+					}
+					else
+					{
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}).then(d => d.json());"));
+					}
+					
 					return;
 				}
 

@@ -15,7 +15,7 @@ namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: number;
+		type?: DemoWebApi_DemoData_Client.AddressType;
 
 		/**
 		 * It is a field
@@ -113,7 +113,7 @@ namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: number;
+		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
 	}
 
 
@@ -506,7 +506,7 @@ namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
-		getDay(d: number, callback: (data : number) => any) {
+		getDay(d: DemoWebApi_DemoData_Client.Days, callback: (data : DemoWebApi_DemoData_Client.Days) => any) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, callback, this.error, this.statusCode);
 		}
 
@@ -521,7 +521,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number>, callback: (data : Array<number>) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))', callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -578,14 +578,14 @@ namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, callback: (data : Array<DemoWebApi_DemoData_Client.Days>) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'))', callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode);
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
 		getEnumArrayQ2(a: Array<number>, callback: (data : Array<number>) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))', callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -634,14 +634,14 @@ namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number>, callback: (data : Array<number>) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))', callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
 		}
 
 		/**
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>, callback: (data : Array<number>) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))', callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -760,14 +760,14 @@ namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string>, callback: (data : Array<string>) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))', callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
 		}
 
 		/**
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>, callback: (data : Array<string>) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))', callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -844,7 +844,7 @@ namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/SuperDemo/enumPost?d={d}
 		 */
-		postDay(d: number, d2: number, callback: (data : Array<DemoWebApi_DemoData_Client.Days>) => any) {
+		postDay(d: DemoWebApi_DemoData_Client.Days, d2: DemoWebApi_DemoData_Client.Days, callback: (data : Array<DemoWebApi_DemoData_Client.Days>) => any) {
 			this.httpClient.post(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, d2, callback, this.error, this.statusCode);
 		}
 

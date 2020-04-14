@@ -3,6 +3,7 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 import * as namespaces from './clientapi/WebApiCoreAureliaClientAuto';
 //import * as namespaces from './clientapi/WebApiAureliaClientAuto';
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
+const DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
 
 import * as moment from 'moment';
 
@@ -790,6 +791,53 @@ describe('SuperDemo API', () => {
     service.postIntArray([1, 2, 3, 4, 5, 6, 7, 8]).then(
       data => {
         expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postIntArrayQ', (done) => {
+    service.getIntArrayQ([6, 7, 8]).then(
+      data => {
+        expect(data.length).toBe(3);
+        expect(data[2]).toBe(8);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getDay', (done) => {
+    service.getDay(DemoWebApi_DemoData_Client.Days.Sat).then(
+      data => {
+        expect(data).toBe(DemoWebApi_DemoData_Client.Days.Sat);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postDay', (done) => {
+    service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Sat).then(
+      data => {
+        expect(data.length).toBe(2);
+        expect(data[1]).toBe(DemoWebApi_DemoData_Client.Days.Sat);
         done();
       },
       error => {

@@ -5,7 +5,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.7</Version>
+    <Version>2.7.1</Version>
     <Authors>Zijian Huang</Authors>
     <Company />
     <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
@@ -14,15 +14,10 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
-    <PackageReleaseNotes>translate System.ComponentModel.DataAnnotations attributes into doc comment.
-[System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 8)]
-[System.ComponentModel.DataAnnotations.Range(1, int.MaxValue)]
-[System.ComponentModel.DataAnnotations.MaxLength(20)]
-[System.ComponentModel.DataAnnotations.MinLength(1)]
-[System.ComponentModel.DataAnnotations.RegularExpression(@"/(?=.[a-z])(?=.[A-Z])(?=.*[0-9])/")]</PackageReleaseNotes>
+    <PackageReleaseNotes>for enum in http query</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>2.7.0.0</AssemblyVersion>
-    <FileVersion>2.7.0.0</FileVersion>
+    <AssemblyVersion>2.7.1.0</AssemblyVersion>
+    <FileVersion>2.7.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

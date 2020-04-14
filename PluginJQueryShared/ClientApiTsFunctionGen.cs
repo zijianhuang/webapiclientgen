@@ -51,8 +51,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			Method.Parameters.AddRange(parameters.ToArray());
 
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
+			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
 			var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
-				RemoveTrialEmptyString($"this.baseUri + '{jsUriQuery}'");
+				RemoveTrialEmptyString(hasArrayJoin ? $"this.baseUri + '{jsUriQuery}" : $"this.baseUri + '{jsUriQuery}'");
 
 			if (httpMethod == "get" || httpMethod == "delete")
 			{

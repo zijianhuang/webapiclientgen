@@ -978,6 +978,22 @@ describe('SuperDemo API', () => {
 	);
 
 	it('postDay', (done) => {
+		service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Mon).subscribe(
+			data => {
+				expect(data.length).toBe(2);
+				expect(data[1]).toBe(DemoWebApi_DemoData_Client.Days.Mon);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDay2', (done) => {
 		service.postDay(3, 5).subscribe(
 			data => {
 				expect(data.length).toBe(2);

@@ -15,7 +15,7 @@ export namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: number;
+		type?: DemoWebApi_DemoData_Client.AddressType;
 
 		/**
 		 * It is a field
@@ -113,7 +113,7 @@ export namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: number;
+		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
 	}
 
 
@@ -510,7 +510,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
-		getDay(d: number): Promise<number> {
+		getDay(d: DemoWebApi_DemoData_Client.Days): Promise<DemoWebApi_DemoData_Client.Days> {
 			return this.http.get('api/SuperDemo/enumGet?d=' + d).then(d => d.json());
 		}
 
@@ -525,7 +525,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number>): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
+			return this.http.get('api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')).then(d => d.json());
 		}
 
 		/**
@@ -582,14 +582,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
-			return this.http.get('api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'))').then(d => d.json());
+			return this.http.get('api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&')).then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
 		getEnumArrayQ2(a: Array<number>): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))').then(d => d.json());
+			return this.http.get('api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&')).then(d => d.json());
 		}
 
 		/**
@@ -638,14 +638,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number>): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
+			return this.http.get('api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')).then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>): Promise<Array<number>> {
-			return this.http.get('api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
+			return this.http.get('api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')).then(d => d.json());
 		}
 
 		/**
@@ -764,14 +764,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string>): Promise<Array<string>> {
-			return this.http.get('api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
+			return this.http.get('api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')).then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>): Promise<Array<string>> {
-			return this.http.get('api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.json());
+			return this.http.get('api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')).then(d => d.json());
 		}
 
 		/**
@@ -848,7 +848,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/SuperDemo/enumPost?d={d}
 		 */
-		postDay(d: number, d2: number): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+		postDay(d: DemoWebApi_DemoData_Client.Days, d2: DemoWebApi_DemoData_Client.Days): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
 			return this.http.post('api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 

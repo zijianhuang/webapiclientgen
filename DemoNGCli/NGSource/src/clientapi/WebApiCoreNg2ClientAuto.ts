@@ -16,7 +16,7 @@ export namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: number;
+		type?: DemoWebApi_DemoData_Client.AddressType;
 
 		/**
 		 * It is a field
@@ -114,7 +114,7 @@ export namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: number;
+		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
 	}
 
 
@@ -511,8 +511,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
-		getDay(d: number): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/enumGet?d=' + d);
+		getDay(d: DemoWebApi_DemoData_Client.Days): Observable<DemoWebApi_DemoData_Client.Days> {
+			return this.http.get<DemoWebApi_DemoData_Client.Days>(this.baseUri + 'api/SuperDemo/enumGet?d=' + d);
 		}
 
 		/**
@@ -849,7 +849,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/SuperDemo/enumPost?d={d}
 		 */
-		postDay(d: number, d2: number): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
+		postDay(d: DemoWebApi_DemoData_Client.Days, d2: DemoWebApi_DemoData_Client.Days): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
 			return this.http.post<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 

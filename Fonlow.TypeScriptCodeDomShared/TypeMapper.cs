@@ -68,7 +68,7 @@ namespace Fonlow.TypeScriptCodeDom
 			if (typeMap.TryGetValue(type.FullName, out tsTypeName))
 				return tsTypeName;
 
-			if (type.BaseType!=null && type.BaseType.FullName == "System.Enum")
+			if (type.IsEnum) // Generally this is .net System. enum types.
 			{
 				return "number";
 			}

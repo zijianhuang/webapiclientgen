@@ -15,7 +15,7 @@ export namespace DemoWebApi_DemoData_Client {
 		state?: string;
 		street1?: string;
 		street2?: string;
-		type?: number;
+		type?: DemoWebApi_DemoData_Client.AddressType;
 
 		/**
 		 * It is a field
@@ -113,7 +113,7 @@ export namespace DemoWebApi_DemoData_Client {
 		entityId?: string;
 		fullNumber?: string;
 		id?: string;
-		phoneType?: number;
+		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
 	}
 
 
@@ -506,8 +506,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
-		getDay(d: number): Promise<number> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d).then(d => d.data as number);
+		getDay(d: DemoWebApi_DemoData_Client.Days): Promise<DemoWebApi_DemoData_Client.Days> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d).then(d => d.data as DemoWebApi_DemoData_Client.Days);
 		}
 
 		/**
@@ -521,7 +521,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number>): Promise<Array<number>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.data as Array<number>);
+			return Axios.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')').then(d => d.data as Array<number>);
 		}
 
 		/**
@@ -578,14 +578,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'))').then(d => d.data as Array<DemoWebApi_DemoData_Client.Days>);
+			return Axios.get(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&')').then(d => d.data as Array<DemoWebApi_DemoData_Client.Days>);
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
 		getEnumArrayQ2(a: Array<number>): Promise<Array<number>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'))').then(d => d.data as Array<number>);
+			return Axios.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&')').then(d => d.data as Array<number>);
 		}
 
 		/**
@@ -634,14 +634,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number>): Promise<Array<number>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.data as Array<number>);
+			return Axios.get(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')').then(d => d.data as Array<number>);
 		}
 
 		/**
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>): Promise<Array<number>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.data as Array<number>);
+			return Axios.get(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')').then(d => d.data as Array<number>);
 		}
 
 		/**
@@ -760,14 +760,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string>): Promise<Array<string>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.data as Array<string>);
+			return Axios.get(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')').then(d => d.data as Array<string>);
 		}
 
 		/**
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>): Promise<Array<string>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'))').then(d => d.data as Array<string>);
+			return Axios.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')').then(d => d.data as Array<string>);
 		}
 
 		/**
@@ -844,7 +844,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/SuperDemo/enumPost?d={d}
 		 */
-		postDay(d: number, d2: number): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
+		postDay(d: DemoWebApi_DemoData_Client.Days, d2: DemoWebApi_DemoData_Client.Days): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
 			return Axios.post(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as Array<DemoWebApi_DemoData_Client.Days>);
 		}
 

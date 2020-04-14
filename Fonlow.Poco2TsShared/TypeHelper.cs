@@ -148,7 +148,7 @@ namespace Fonlow.Reflection
 
 		public static bool IsSimpleListType(Type type)
 		{
-			return simpleListTypeNames.Contains(type.Name) && IsSimpleType(type.GenericTypeArguments[0]);
+			return simpleListTypeNames.Contains(type.Name) && (IsSimpleType(type.GenericTypeArguments[0]) || type.GenericTypeArguments[0].IsEnum);
 		}
 
 		public static bool IsSimpleArrayType(Type type)
@@ -163,9 +163,14 @@ namespace Fonlow.Reflection
 
 		static readonly Type typeOfString = typeof(string);
 
+		/// <summary>
+		/// Primitive, or string, or .NET System. enum types
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public static bool IsSimpleType(Type type)
 		{
-			return type.IsPrimitive || type.Equals(typeOfString) || type.BaseType?.FullName == "System.Enum";
+			return type.IsPrimitive || type.Equals(typeOfString) || (type.IsEnum && type.FullName.StartsWith("System."));
 		}
 
 		public static bool IsComplexType(Type type)

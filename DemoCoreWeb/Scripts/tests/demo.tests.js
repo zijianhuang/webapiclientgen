@@ -1,5 +1,4 @@
 /// <reference path="../typings/jquery/jquery.d.ts"/>
-/// <chutzpah_reference path="../qunit-2.6.1.js" />
 /// <reference path="../typings/qunit/qunit.d.ts"/>
 /// <reference path="../ClientApi/WebApiCoreJQClientAuto.ts"/>
 // Make sure chutzpah.json is updated with  reference to the jQuery lib when the lib is upgraded.
@@ -391,6 +390,22 @@ var CommonCases;
             let done = assert.async();
             superDemoApi.postIntArray([1, 2, 3, 4, 5, 6, 7, 8], (data) => {
                 assert.ok(data);
+                done();
+            });
+        });
+        QUnit.test("getIntArrayQ", function (assert) {
+            let done = assert.async();
+            superDemoApi.getIntArrayQ([6, 7, 8], (data) => {
+                assert.equal(data.length, 3);
+                assert.equal(data[2], 8);
+                done();
+            });
+        });
+        QUnit.test("postDay", function (assert) {
+            let done = assert.async();
+            superDemoApi.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Mon, (data) => {
+                assert.equal(data.length, 2);
+                assert.equal(data[1], DemoWebApi_DemoData_Client.Days.Mon);
                 done();
             });
         });

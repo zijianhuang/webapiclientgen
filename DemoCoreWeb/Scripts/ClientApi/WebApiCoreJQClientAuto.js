@@ -365,15 +365,13 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/enumArrayDays?a={a}
          */
         getEnumArrayDays(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?' + a.map(z => `a=${z}`).join('&')), callback, this.error, this.statusCode;
-            ;
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?' + a.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/enumArrayQ2?a={a}
          */
         getEnumArrayQ2(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + a.map(z => `a=${z}`).join('&')), callback, this.error, this.statusCode;
-            ;
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + a.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/FloatZero
@@ -415,15 +413,13 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/intArrayQ?a={a}
          */
         getIntArrayQ(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode;
-            ;
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/intArrayQ2?a={a}
          */
         getIntArrayQ2(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode;
-            ;
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/int/{d}
@@ -525,15 +521,13 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/stringArrayQ?a={a}
          */
         getStringArrayQ(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode;
-            ;
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/stringArrayQ2?a={a}
          */
         getStringArrayQ2(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode;
-            ;
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/TextStream

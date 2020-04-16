@@ -55,16 +55,34 @@ var DemoCoreWeb_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { responseType: 'text' });
         };
         /**
+         * GET api/SpecialTypes/AnonymousDynamic2
+         */
+        SpecialTypes.prototype.getAnonymousDynamic2 = function () {
+            return axios_1["default"].get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', { responseType: 'text' });
+        };
+        /**
          * GET api/SpecialTypes/AnonymousObject
          */
         SpecialTypes.prototype.getAnonymousObject = function () {
             return axios_1["default"].get(this.baseUri + 'api/SpecialTypes/AnonymousObject', { responseType: 'text' });
         };
         /**
+         * GET api/SpecialTypes/AnonymousObject2
+         */
+        SpecialTypes.prototype.getAnonymousObject2 = function () {
+            return axios_1["default"].get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { responseType: 'text' });
+        };
+        /**
          * POST api/SpecialTypes/AnonymousObject
          */
         SpecialTypes.prototype.postAnonymousObject = function (obj) {
             return axios_1["default"].post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+        };
+        /**
+         * POST api/SpecialTypes/AnonymousObject2
+         */
+        SpecialTypes.prototype.postAnonymousObject2 = function (obj) {
+            return axios_1["default"].post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
         };
         return SpecialTypes;
     }());
@@ -82,6 +100,12 @@ var DemoWebApi_Controllers_Client;
          */
         Entities.prototype.createPerson = function (p) {
             return axios_1["default"].post(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+        };
+        /**
+         * POST api/Entities/createPerson2
+         */
+        Entities.prototype.createPerson2 = function (p) {
+            return axios_1["default"].post(this.baseUri + 'api/Entities/createPerson2', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * DELETE api/Entities/{id}
@@ -122,6 +146,12 @@ var DemoWebApi_Controllers_Client;
          */
         Entities.prototype.getPerson = function (id) {
             return axios_1["default"].get(this.baseUri + 'api/Entities/getPerson/' + id).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/Entities/getPerson2/{id}
+         */
+        Entities.prototype.getPerson2 = function (id) {
+            return axios_1["default"].get(this.baseUri + 'api/Entities/getPerson2/' + id).then(function (d) { return d.data; });
         };
         /**
          * PUT api/Entities/link?id={id}&relationship={relationship}
@@ -267,10 +297,22 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/DateTimeOffset').then(function (d) { return d.data; });
         };
         /**
+         * GET api/SuperDemo/enumGet?d={d}
+         */
+        SuperDemo.prototype.getDay = function (d) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d).then(function (d) { return d.data; });
+        };
+        /**
          * GET api/SuperDemo/decimal
          */
         SuperDemo.prototype.getDecimal = function () {
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/decimal').then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/SuperDemo/decimalArrayQ?a={a}
+         */
+        SuperDemo.prototype.getDecimalArrayQ = function (a) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/decimalArrayQ?' + a.map(function (z) { return "a=" + encodeURIComponent(z); }).join('&')).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/decimal/{d}
@@ -316,6 +358,18 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/EmptyString', { responseType: 'text' }).then(function (d) { return d.data; });
         };
         /**
+         * GET api/SuperDemo/enumArrayDays?a={a}
+         */
+        SuperDemo.prototype.getEnumArrayDays = function (a) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/enumArrayDays?' + a.map(function (z) { return "a=" + z; }).join('&')).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/SuperDemo/enumArrayQ2?a={a}
+         */
+        SuperDemo.prototype.getEnumArrayQ2 = function (a) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + a.map(function (z) { return "a=" + z; }).join('&')).then(function (d) { return d.data; });
+        };
+        /**
          * GET api/SuperDemo/FloatZero
          */
         SuperDemo.prototype.getFloatZero = function () {
@@ -350,6 +404,18 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.getIntArray = function () {
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/intArray').then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/SuperDemo/intArrayQ?a={a}
+         */
+        SuperDemo.prototype.getIntArrayQ = function (a) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/intArrayQ?' + a.map(function (z) { return "a=" + encodeURIComponent(z); }).join('&')).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/SuperDemo/intArrayQ2?a={a}
+         */
+        SuperDemo.prototype.getIntArrayQ2 = function (a) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/intArrayQ2?' + a.map(function (z) { return "a=" + encodeURIComponent(z); }).join('&')).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/int/{d}
@@ -448,6 +514,18 @@ var DemoWebApi_Controllers_Client;
             return axios_1["default"].get(this.baseUri + 'api/SuperDemo/short').then(function (d) { return d.data; });
         };
         /**
+         * GET api/SuperDemo/stringArrayQ?a={a}
+         */
+        SuperDemo.prototype.getStringArrayQ = function (a) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/stringArrayQ?' + a.map(function (z) { return "a=" + encodeURIComponent(z); }).join('&')).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/SuperDemo/stringArrayQ2?a={a}
+         */
+        SuperDemo.prototype.getStringArrayQ2 = function (a) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + a.map(function (z) { return "a=" + encodeURIComponent(z); }).join('&')).then(function (d) { return d.data; });
+        };
+        /**
          * GET api/SuperDemo/TextStream
          */
         SuperDemo.prototype.getTextStream = function () {
@@ -507,6 +585,12 @@ var DemoWebApi_Controllers_Client;
          */
         SuperDemo.prototype.postDateTimeOffsetNullable = function (d) {
             return axios_1["default"].post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+        };
+        /**
+         * POST api/SuperDemo/enumPost?d={d}
+         */
+        SuperDemo.prototype.postDay = function (d, d2) {
+            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * POST api/SuperDemo/StringPersonDic
@@ -795,6 +879,12 @@ var DemoWebApi_Controllers_Client;
          */
         Values.prototype.getById = function (id) {
             return axios_1["default"].get(this.baseUri + 'api/Values/' + id, { responseType: 'text' }).then(function (d) { return d.data; });
+        };
+        /**
+         * GET api/Values/Get2
+         */
+        Values.prototype.get2 = function () {
+            return axios_1["default"].get(this.baseUri + 'api/Values/Get2').then(function (d) { return d.data; });
         };
         /**
          * POST api/Values

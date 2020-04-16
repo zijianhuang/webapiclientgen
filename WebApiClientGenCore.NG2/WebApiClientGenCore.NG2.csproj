@@ -5,7 +5,8 @@
     <PackageId>Fonlow.WebApiClientGenCore.NG2</PackageId>
     <Authors>Zijian Huang</Authors>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</Description>
-    <PackageReleaseNotes>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Enum in HTTP query
+* Array of primitive types and enum in HTTP query</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
@@ -13,9 +14,10 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.NG2</AssemblyName>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
-    <Version>1.1.1</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2</Version>
+    <PackageTags>Angular</PackageTags>
   </PropertyGroup>
 
   <Import Project="..\PluginNG2Shared\PluginNG2Shared.projitems" Label="Shared" />

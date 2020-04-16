@@ -1,6 +1,6 @@
 import * as moment from 'moment';
-//import * as namespaces from './clientapi/WebApiCoreFetchClientAuto';
-import * as namespaces from './clientapi/WebApiFetchClientAuto';
+import * as namespaces from './clientapi/WebApiCoreFetchClientAuto';
+//import * as namespaces from './clientapi/WebApiFetchClientAuto';
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 
 describe('Basic', ()=>{
@@ -17,7 +17,7 @@ describe('Basic', ()=>{
 
 });
 
-const forDotNetCore=false;
+const forDotNetCore=true;
 const baseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
 
 describe('Values', ()=>{
@@ -783,6 +783,38 @@ describe('SuperDemo API', () => {
     service.postIntArray([1, 2, 3, 4, 5, 6, 7, 8]).then(
       data => {
         expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getIntArrayQ', (done) => {
+    service.getIntArrayQ([6, 7, 8]).then(
+      data => {
+        expect(data.length).toBe(3);
+        expect(data[2]).toBe(8);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postDay', (done) => {
+    service.postDay(namespaces.DemoWebApi_DemoData_Client.Days.Fri, namespaces.DemoWebApi_DemoData_Client.Days.Mon).then(
+      data => {
+        expect(data.length).toBe(2);
+        expect(data[1]).toBe(namespaces.DemoWebApi_DemoData_Client.Days.Mon);
         done();
       },
       error => {

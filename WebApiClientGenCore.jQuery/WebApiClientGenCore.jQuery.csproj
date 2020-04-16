@@ -5,17 +5,19 @@
     <PackageId>Fonlow.WebApiClientGenCore.jQuery</PackageId>
     <Authors>Zijian Huang</Authors>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <Copyright>Copyright © Zijian Huang 2015-2019</Copyright>
+    <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with jQuery. This requires a HttpClient library at https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/HttpClient.ts.</Description>
-    <PackageReleaseNotes>Generate client API codes with jQuery.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Enum in HTTP query
+* Array of primitive types and enum in HTTP query</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.jQuery</AssemblyName>
-    <Version>1.1.1</Version>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
+    <Version>1.2</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <PackageTags>jQuery</PackageTags>
   </PropertyGroup>
 
   <Import Project="..\PluginJQueryShared\PluginJQueryShared.projitems" Label="Shared" />

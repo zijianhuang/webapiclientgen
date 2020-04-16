@@ -519,7 +519,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number>): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')', {method: 'get'}).then(d => d.json());
+			return fetch(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), {method: 'get'}).then(d => d.json());
 		}
 
 		/**
@@ -576,14 +576,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
-			return fetch(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&')', {method: 'get'}).then(d => d.json());
+			return fetch(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'), {method: 'get'}).then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
 		getEnumArrayQ2(a: Array<number>): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&')', {method: 'get'}).then(d => d.json());
+			return fetch(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'), {method: 'get'}).then(d => d.json());
 		}
 
 		/**
@@ -632,14 +632,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number>): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')', {method: 'get'}).then(d => d.json());
+			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), {method: 'get'}).then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>): Promise<Array<number>> {
-			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')', {method: 'get'}).then(d => d.json());
+			return fetch(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), {method: 'get'}).then(d => d.json());
 		}
 
 		/**
@@ -758,14 +758,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string>): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')', {method: 'get'}).then(d => d.json());
+			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), {method: 'get'}).then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>): Promise<Array<string>> {
-			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&')', {method: 'get'}).then(d => d.json());
+			return fetch(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), {method: 'get'}).then(d => d.json());
 		}
 
 		/**

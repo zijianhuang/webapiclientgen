@@ -1,35 +1,21 @@
 import AXIOS from 'axios';
-import * as namespaces from './clientapi/WebApiAxiosClientAuto';
-//import * as namespaces from './clientapi/WebApiCoreAxiosClientAuto';
+//import * as namespaces from './clientapi/WebApiAxiosClientAuto';
+import * as namespaces from './clientapi/WebApiCoreAxiosClientAuto';
 
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-const apiBaseUri = 'http://localhost:10965/';
-
-it('simple axios', async () => {
-	const data = await AXIOS.get('https://fonlow.com');
-	expect(data).toBeDefined();
-});
-
-it('simple axios not reachable', async () => {
-	try {
-		const data = await AXIOS.get('https://fonlowkkkk.com');
-		expect(true).toBeFalsy();
-	} catch (e) {
-		//do nothing
-	}
-});
+const apiBaseUri = 'http://localhost:5000/';
 
 describe("values api", () => {
 	const valuesApi = new DemoWebApi_Controllers_Client.Values(apiBaseUri);
 	console.debug('created');
 	it('get', async () => {
-		const data = await AXIOS.get('http://localhost:10965/api/values')
+		const data = await AXIOS.get('http://localhost:5000/api/values')
 		const v: Array<string> = data.data;
 		expect(v[1]).toEqual('value2');
 	});
 
 	test('get2', async () => {
-		const data = await AXIOS.get('http://localhost:10965/api/values').then(d => d.data as Array<string>);
+		const data = await AXIOS.get('http://localhost:5000/api/values').then(d => d.data as Array<string>);
 		expect(data[1]).toEqual('value2');
 	});
 

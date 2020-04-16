@@ -1,13 +1,13 @@
 import { AxiosAdapter, AxiosResponse, AxiosError } from 'axios';
-import * as namespaces from './clientapi/WebApiAxiosClientAuto';
-//import * as namespaces from './clientapi/WebApiCoreAxiosClientAuto';
+//import * as namespaces from './clientapi/WebApiAxiosClientAuto';
+import * as namespaces from './clientapi/WebApiCoreAxiosClientAuto';
 
 // JEST provides a few ways of handling async code. This test suite use callbacks, 
 // since it is a simple hack from the test suite initially written for Angular 2.
 
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
-const apiBaseUri = 'http://localhost:10965/';
-//const apiBaseUri = 'http://localhost:5000/';
+//const apiBaseUri = 'http://localhost:10965/';
+const apiBaseUri = 'http://localhost:5000/';
 
 function instanceOfAxiosError(obj: any): obj is AxiosError {
 	return 'isAxiosError' in obj;
@@ -121,7 +121,7 @@ describe('Heroes API', () => {
   const service= new namespaces.DemoWebApi_Controllers_Client.Heroes(apiBaseUri);
 
    it('getAll', (done) => {
-    service.get().then(
+    service.getHeros().then(
       data => {
         console.debug(data.length);
         expect(data.length).toBeGreaterThan(0);
@@ -455,8 +455,8 @@ describe('SuperDemo API', () => {
   it('getDateTimeNull', (done) => {
     service.getDateTime(false).then(
       data => {
-        expect(data).toBeNull();
-		//expect(data).toBe(''); // .net core return 204 nocontent empty body
+        //expect(data).toBeNull();
+		expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -486,8 +486,8 @@ describe('SuperDemo API', () => {
   it('getNullableDecimalNull', (done) => {
     service.getNullableDecimal(false).then(
       data => {
-        expect(data).toBeNull();
-		//expect(data).toBe(''); // .net core return 204 nocontent empty body
+        //expect(data).toBeNull();
+		expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -502,8 +502,8 @@ describe('SuperDemo API', () => {
   it('getNullString', (done) => {
     service.getNullString().then(
       data => {
-        expect(data).toBeNull();
-        //expect(data).toBe(''); // .net core return 204 nocontent empty body
+        //expect(data).toBeNull();
+        expect(data).toBe(''); // .net core return 204 nocontent empty body
             done();
       },
       error => {
@@ -518,8 +518,8 @@ describe('SuperDemo API', () => {
   it('getNullPerson', (done) => {
     service.getNullPerson().then(
       data => {
-        expect(data).toBeNull();
-		//expect(data).toBe(''); // .net core return 204 nocontent empty body
+        //expect(data).toBeNull();
+		expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -546,30 +546,29 @@ describe('SuperDemo API', () => {
   }
   );
 
-  it('getTextStream', (done) => {
-    service.getTextStream().then(
-      data => {
-		  console.debug('getTextStream');
-		  console.debug(data); // abcdefg
-		  expect(data).toBe('abcdefg');
+  // it('getTextStream', (done) => {
+  //   service.getTextStream().then(
+  //     data => {
+	// 	  console.debug('getTextStream');
+	// 	  console.debug(data); // abcdefg
+	// 	  expect(data).toBe('abcdefg');
 
+  //   //  const reader = new FileReader();//axios actually give string rather than a blob structure
+  //   //  reader.onload = () => {
+  //   //  expect(reader.result).toBe('abcdefg'); 
+  //   //  };
+  //   //  reader.readAsText(data.data);
 
-		// const reader = new FileReader();//axios actually give string rather than a blob structure
-        // reader.onload = () => {
-	    //   expect(reader.result).toBe('abcdefg'); 
-        // };
-        // reader.readAsText(data.data);
+  //       done();
+  //     },
+  //     error => {
+  //       fail(errorResponseToString(error));
+  //       done();
+  //     }
+  //   );
 
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
+  // }
+  // );
 
   it('getActionResult', (done) => {
     service.getActionResult().then(
@@ -756,6 +755,38 @@ describe('SuperDemo API', () => {
     service.postIntArray([1, 2, 3, 4, 5, 6, 7, 8]).then(
       data => {
         expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postIntArrayQ', (done) => {
+    service.getIntArrayQ([6, 7, 8]).then(
+      data => {
+        expect(data.length).toBe(3);
+        expect(data[2]).toBe(8);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postDay', (done) => {
+    service.postDay(namespaces.DemoWebApi_DemoData_Client.Days.Fri, namespaces.DemoWebApi_DemoData_Client.Days.Mon).then(
+      data => {
+        expect(data.length).toBe(2);
+        expect(data[1]).toBe(namespaces.DemoWebApi_DemoData_Client.Days.Mon);
         done();
       },
       error => {

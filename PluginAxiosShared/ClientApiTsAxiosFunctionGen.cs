@@ -68,8 +68,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			Method.Parameters.AddRange(parameters.ToArray());
 
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
+			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
 			var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
-				RemoveTrialEmptyString($"this.baseUri + '{jsUriQuery}'");
+				RemoveTrialEmptyString(hasArrayJoin ? $"this.baseUri + '{jsUriQuery})" : $"this.baseUri + '{jsUriQuery}'");
 
 			// var mapFunction = returnTypeText == ReactHttpResponse ? String.Empty : ".map(response=> response.json())";
 
@@ -229,7 +230,15 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}).then(d => d.data as {returnTypeText});"));
+					if (hasArrayJoin)
+					{
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}.then(d => d.data as {returnTypeText});"));
+					}
+					else
+					{
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}).then(d => d.data as {returnTypeText});"));
+					}
+
 					return;
 				}
 

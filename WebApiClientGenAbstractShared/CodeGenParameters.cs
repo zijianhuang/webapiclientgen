@@ -45,12 +45,12 @@
 	}
 
 	/// <summary>
-	/// Client APIs as output for C#, jQuery and NG etc. Mapped to "ClientApiOutputs" in CodeGen.json.
+	/// Client APIs as output for C#. Mapped to "ClientApiOutputs" in CodeGen.json.
 	/// </summary>
 	public class CodeGenOutputs
 	{
 		/// <summary>
-		/// Assuming the client API project is the sibling of Web API project. Relative path to the WebApi project should be fine.
+		/// Assuming the client API project is the sibling of Web API project. Relative path to the running instance of the WebApi project should be fine.
 		/// </summary>
 		public string ClientLibraryProjectFolderName { get; set; }
 
@@ -92,12 +92,13 @@
 		public string ContainerNameSuffix { get; set; }
 
 		/// <summary>
-		/// System.ComponentModel.DataAnnotations attributes are to be copied over, including Required, Range, MaxLength, MinLength and StringLength
+		/// System.ComponentModel.DataAnnotations attributes are to be copied over, including Required, Range, MaxLength, MinLength and StringLength.
 		/// </summary>
 		public bool DataAnnotationsEnabled { get; set; }
 
 		/// <summary>
-		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
+		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
+		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression..
 		/// </summary>
 		public bool DataAnnotationsToComments { get; set; }
 
@@ -142,6 +143,9 @@
 		public bool DataAnnotationsToComments { get; set; }
 	}
 
+	/// <summary>
+	/// Mapped to Plugins[] of CodeGen.json.
+	/// </summary>
 	public class JSPlugin
 	{
 		public string AssemblyName { get; set; }

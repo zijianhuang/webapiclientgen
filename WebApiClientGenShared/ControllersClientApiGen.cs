@@ -357,13 +357,13 @@ namespace Fonlow.Net.Http
 
 		public string Response { get; private set; }
 
-		public System.Net.Http.Headers.MediaTypeHeaderValue ContentType { get; private set; }
+		public System.Net.Http.Headers.HttpResponseHeaders Headers { get; private set; }
 
-		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.MediaTypeHeaderValue contentType) : base(message)
+		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.HttpResponseHeaders headers) : base(message)
 		{
 			StatusCode = statusCode;
 			Response = response;
-			ContentType = contentType;
+			Headers = headers;
 		}
 	}
 
@@ -375,7 +375,7 @@ namespace Fonlow.Net.Http
 			{
 				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
 				var contentType = responseMessage.Content.Headers.ContentType;
-				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, contentType);
+				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, responseMessage.Headers);
 			}
 		}
 	}

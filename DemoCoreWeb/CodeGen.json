@@ -33,6 +33,7 @@
 		"CamelCase": true,
 		"CSClientNamespaceSuffix": ".Client",
 		"UseEnsureSuccessStatusCodeEx": true,
+		"DataAnnotationsEnabled": true,
 		"DataAnnotationsToComments": true,
 
 		"Plugins": [

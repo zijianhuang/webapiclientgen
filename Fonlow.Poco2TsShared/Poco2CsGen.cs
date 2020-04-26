@@ -706,14 +706,14 @@ namespace Fonlow.Poco2Client
 
 		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> AttributeDeclarationGenerator = new Dictionary<Type, Func<Attribute, CodeAttributeDeclaration>>
 		{
-			{ typeof(RequiredAttribute), a => new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute") },
+			{ typeof(RequiredAttribute), a => new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Required") },
 			{ typeof(RangeAttribute), a =>
 				{
 					var obj = a as RangeAttribute;
 					var operandType = new CodeSnippetExpression($"typeof({obj.OperandType.FullName})");
 					var min = new CodeSnippetExpression($"\"{obj.Minimum}\"");
 					var max = new CodeSnippetExpression($"\"{obj.Maximum}\"");
-					var isNumber = obj.GetType()== typeof(int) || obj.GetType()==typeof(double);
+					//var isNumber = obj.GetType()== typeof(int) || obj.GetType()==typeof(double);
 					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
 					attributeParams.Add(new CodeAttributeArgument(operandType));
 					attributeParams.Add(new CodeAttributeArgument(min));
@@ -724,7 +724,7 @@ namespace Fonlow.Poco2Client
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RangeAttribute", attributeParams.ToArray());
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Range", attributeParams.ToArray());
 				}
 			},
 			{ typeof(MaxLengthAttribute), a =>
@@ -739,7 +739,7 @@ namespace Fonlow.Poco2Client
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.MaxLengthAttribute", attributeParams.ToArray());
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.MaxLength", attributeParams.ToArray());
 				}
 			},
 			{ typeof(MinLengthAttribute), a =>
@@ -754,7 +754,7 @@ namespace Fonlow.Poco2Client
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.MinLengthAttribute", attributeParams.ToArray());
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.MinLength", attributeParams.ToArray());
 				}
 			},
 			{ typeof(StringLengthAttribute), a =>
@@ -771,7 +771,7 @@ namespace Fonlow.Poco2Client
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.StringLengthAttribute", attributeParams.ToArray());
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.StringLength", attributeParams.ToArray());
 				}
 			},
 			// not to support DataTypeAttribute and RegularExpressionAttribute since they are more of UI constraints.

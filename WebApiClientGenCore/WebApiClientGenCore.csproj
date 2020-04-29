@@ -11,7 +11,8 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore jquery angular</PackageTags>
-    <PackageReleaseNotes>for enum, enum array and simple type array in http query</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Support DefaultValueAttribute.
+2. WebApiRequestException exposes response headers.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion>3.11.0.0</AssemblyVersion>

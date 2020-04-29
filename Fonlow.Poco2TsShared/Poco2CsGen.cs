@@ -11,6 +11,7 @@ using Fonlow.DocComment;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text;
+using System.ComponentModel;
 
 namespace Fonlow.Poco2Client
 {
@@ -179,7 +180,7 @@ namespace Fonlow.Poco2Client
 							//todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
 							tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
 							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
-
+							var defaultValue = GetDefaultValue(propertyInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
 
 							//var clientProperty = new CodeMemberProperty() //orthodox way of creating property, but resulting in verbose generated codes
 							//{
@@ -187,7 +188,7 @@ namespace Fonlow.Poco2Client
 							// Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
 							// Attributes = MemberAttributes.Public | MemberAttributes.Final,
 							//};
-							var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType); //hacky way of creating clean getter and writter.
+							var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType, defaultValue); //hacky way of creating clean getter and writter.
 
 							var isRequired = cherryType == CherryType.BigCherry;
 							if (isRequired)
@@ -227,6 +228,7 @@ namespace Fonlow.Poco2Client
 
 							tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
 							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
+							var defaultValue = GetDefaultValue(fieldInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
 
 							//public fields of a class will be translated into properties
 							if (type.IsClass)
@@ -238,7 +240,7 @@ namespace Fonlow.Poco2Client
 								// Attributes = MemberAttributes.Public | MemberAttributes.Final,
 								//};
 
-								var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType); //hacky way of creating clean getter and writter.
+								var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType, defaultValue); //hacky way of creating clean getter and writter.
 
 								var isRequired = cherryType == CherryType.BigCherry;
 								if (isRequired)
@@ -359,25 +361,25 @@ namespace Fonlow.Poco2Client
 		{
 			if (dm != null && dm.summary != null)
 			{
-					comments.Add(new CodeCommentStatement("<summary>", true));
-					var noIndent = StringFunctions.TrimTrimIndentsOfArray(dm.summary.Text);
-					if (noIndent != null)
+				comments.Add(new CodeCommentStatement("<summary>", true));
+				var noIndent = StringFunctions.TrimTrimIndentsOfArray(dm.summary.Text);
+				if (noIndent != null)
+				{
+					foreach (var item in noIndent)
 					{
-						foreach (var item in noIndent)
-						{
-							comments.Add(new CodeCommentStatement(item, true));
-						}
+						comments.Add(new CodeCommentStatement(item, true));
 					}
+				}
 
-					if (extra != null && extra.Length > 0)
+				if (extra != null && extra.Length > 0)
+				{
+					foreach (var c in extra)
 					{
-						foreach (var c in extra)
-						{
-							comments.Add(new CodeCommentStatement(c, true));
-						}
+						comments.Add(new CodeCommentStatement(c, true));
 					}
+				}
 
-					comments.Add(new CodeCommentStatement("</summary>", true));			
+				comments.Add(new CodeCommentStatement("</summary>", true));
 			}
 			else if (extra != null && extra.Length > 0)
 			{
@@ -390,13 +392,13 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
-		CodeMemberField CreateProperty(string name, Type type)
+		CodeMemberField CreateProperty(string name, Type type, string defaultValue)
 		{
 			// This is a little hack. Since you cant create auto properties in CodeDOM,
 			//  we make the getter and setter part of the member name.
 			// This leaves behind a trailing semicolon that we comment out.
 			//  Later, we remove the commented out semicolons.
-			string memberName = name + " { get; set; }//";
+			string memberName = name + (defaultValue == null || !dataAnnotationsEnabled ? " { get; set; }//" : $" {{ get; set; }} = {defaultValue};//");
 
 			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(type), Name = memberName };
 			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
@@ -702,6 +704,32 @@ namespace Fonlow.Poco2Client
 					codeTypeMember.CustomAttributes.Add(textGenerator(attribute));
 				}
 			}
+		}
+
+		static readonly Type typeOfDefaultValueAttribute = typeof(DefaultValueAttribute);
+
+		static readonly Type[] supportedTypes = new Type[] { typeof(double), typeof(int), typeof(long), typeof(char), typeof(float), typeof(short), typeof(byte) };
+
+		string GetDefaultValue(DefaultValueAttribute a)
+		{
+			if (a == null)
+			{
+				return null;
+			}
+
+			var type = a.Value.GetType();
+			if (type == typeof(string))
+			{
+				return "\"" + a.Value.ToString() + "\"";
+			}
+
+
+			if (supportedTypes.Any(t => t == type))
+			{
+				return a.Value.ToString();
+			}
+
+			return null;//not supported
 		}
 
 		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> AttributeDeclarationGenerator = new Dictionary<Type, Func<Attribute, CodeAttributeDeclaration>>

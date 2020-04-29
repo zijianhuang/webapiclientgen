@@ -127,6 +127,7 @@ namespace DemoWebApi.DemoData
         public string PostalCode { get; set; }
 
         [DataMember]
+        [System.ComponentModel.DefaultValue("Australia")]
         public string Country { get; set; }
 
         [DataMember]
@@ -258,13 +259,14 @@ namespace DemoWebApi.DemoData
     public class MimsPackage
     {
         [DataMember]
-        public MimsResult<Decimal> Result { get; set; }
+        public MimsResult<decimal> Result { get; set; }
 
         [DataMember]
         public string Tag { get; set; }
 
         [DataMember]
         [Range(10, 100, ErrorMessage = "KK has to be between 10 and 100.")]
+        [System.ComponentModel.DefaultValue(20)]
         public int KK { get; set; }
     }
 

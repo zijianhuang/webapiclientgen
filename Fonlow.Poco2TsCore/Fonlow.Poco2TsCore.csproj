@@ -5,7 +5,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.7.1</Version>
+    <Version>2.8</Version>
     <Authors>Zijian Huang</Authors>
     <Company />
     <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
@@ -14,10 +14,10 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
-    <PackageReleaseNotes>for enum in http query</PackageReleaseNotes>
+    <PackageReleaseNotes>Support DefaultValueAttribute.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>2.7.1.0</AssemblyVersion>
-    <FileVersion>2.7.1.0</FileVersion>
+    <AssemblyVersion>2.8.0.0</AssemblyVersion>
+    <FileVersion>2.8.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

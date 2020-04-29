@@ -16,7 +16,7 @@ namespace DemoWebApi.DemoData.Client
 		
 		public string City { get; set; }
 		
-		public string Country { get; set; }
+		public string Country { get; set; } = "Australia";
 		
 		public DemoWebApi.DemoData.Client.Entity Entity { get; set; }
 		
@@ -123,7 +123,7 @@ namespace DemoWebApi.DemoData.Client
 		/// Range: inclusive between 10 and 100
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "10", "100", ErrorMessage="KK has to be between 10 and 100.")]
-		public int KK { get; set; }
+		public int KK { get; set; } = 20;
 		
 		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
 		

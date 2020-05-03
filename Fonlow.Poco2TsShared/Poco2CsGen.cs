@@ -168,10 +168,12 @@ namespace Fonlow.Poco2Client
 
 						CreateTypeDocComment(type, typeDeclaration);
 
+						var typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);
+						bool withDataContract = (typeCherryMethods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract;
 						var typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
 						foreach (var propertyInfo in typeProperties)
 						{
-							var cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods);
+							var cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods, withDataContract);
 							if (cherryType == CherryType.None)
 								continue;
 							string tsPropertyName;
@@ -220,7 +222,7 @@ namespace Fonlow.Poco2Client
 						var typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
 						foreach (var fieldInfo in typeFields)
 						{
-							var cherryType = CherryPicking.GetMemberCherryType(fieldInfo, methods);
+							var cherryType = CherryPicking.GetMemberCherryType(fieldInfo, methods, withDataContract);
 							if (cherryType == CherryType.None)
 								continue;
 							string tsPropertyName;

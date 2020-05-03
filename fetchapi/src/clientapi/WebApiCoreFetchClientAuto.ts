@@ -2,12 +2,6 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 		city?: string;
 		country?: string;
-		entity?: DemoWebApi_DemoData_Client.Entity;
-
-		/**
-		 * Foreign key to Entity
-		 */
-		entityId?: string;
 		id?: string;
 		postalCode?: string;
 		state?: string;
@@ -108,9 +102,7 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface PhoneNumber {
-		entityId?: string;
 		fullNumber?: string;
-		id?: string;
 		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
 	}
 

@@ -18,13 +18,6 @@ namespace DemoWebApi.DemoData.Client
 		
 		public string Country { get; set; } = "Australia";
 		
-		public DemoWebApi.DemoData.Client.Entity Entity { get; set; }
-		
-		/// <summary>
-		/// Foreign key to Entity
-		/// </summary>
-		public System.Guid EntityId { get; set; }
-		
 		public System.Guid Id { get; set; }
 		
 		public string PostalCode { get; set; }
@@ -185,11 +178,7 @@ namespace DemoWebApi.DemoData.Client
 	public class PhoneNumber : object
 	{
 		
-		public System.Guid EntityId { get; set; }
-		
 		public string FullNumber { get; set; }
-		
-		public System.Guid Id { get; set; }
 		
 		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
 	}

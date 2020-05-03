@@ -47,7 +47,35 @@ namespace Fonlow.Poco2Client
             return r0 | r1 | r2 | r3 | r4;
         }
 
-        public static CherryType GetMemberCherryType(MemberInfo memberInfo, CherryPickingMethods methods)
+        /// <summary>
+        /// How the type was cherry picked.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static CherryPickingMethods GetTypeCherryMethods(Type type)
+        {
+            CherryPickingMethods r1, r2, r3;
+            r1 = r2 = r3 = CherryPickingMethods.All;
+
+            if (TypeHelper.ReadAttribute<DataContractAttribute>(type) != null)
+            {
+                r1 = CherryPickingMethods.DataContract;
+            }
+
+            if (TypeHelper.AttributeExists(type, "Newtonsoft.Json.JsonObjectAttribute") != null)
+            {
+                r2 = CherryPickingMethods.NewtonsoftJson;
+            }
+
+            if (TypeHelper.ReadAttribute<SerializableAttribute>(type) != null)
+            {
+                r3 = CherryPickingMethods.Serializable;
+            }
+
+            return r1 | r2 | r3;
+        }
+
+        public static CherryType GetMemberCherryType(MemberInfo memberInfo, CherryPickingMethods methods, bool typeIsWithDataContract)
         {
             CherryType[] r = { CherryType.None, CherryType.None, CherryType.None, CherryType.None, CherryType.None };
 
@@ -62,6 +90,10 @@ namespace Fonlow.Poco2Client
                 else
                     r[1]= a.IsRequired ? CherryType.BigCherry : CherryType.Cherry;
 
+                if (typeIsWithDataContract)
+                {
+                    return r[1];
+                }
             }
 
             //opt-in for NewtonsoftJson through JsonPropertyAttribute,  , and the type may or may not be decorated by JsonObjectAttribute.

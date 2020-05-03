@@ -49,14 +49,7 @@ namespace DemoWebApi.DemoData.Client
 		
 		public string City { get; set; }
 		
-		public string Country { get; set; }
-		
-		public DemoWebApi.DemoData.Client.Entity Entity { get; set; }
-		
-		/// <summary>
-		/// Foreign key to Entity
-		/// </summary>
-		public System.Guid EntityId { get; set; }
+		public string Country { get; set; } = "Australia";
 		
 		public System.Guid Id { get; set; }
 		
@@ -155,7 +148,8 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// Range: inclusive between 10 and 100
 		/// </summary>
-		public int KK { get; set; }
+		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "10", "100", ErrorMessage="KK has to be between 10 and 100.")]
+		public int KK { get; set; } = 20;
 		
 		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
 		
@@ -217,11 +211,7 @@ namespace DemoWebApi.DemoData.Client
 	public class PhoneNumber : object
 	{
 		
-		public System.Guid EntityId { get; set; }
-		
 		public string FullNumber { get; set; }
-		
-		public System.Guid Id { get; set; }
 		
 		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
 	}
@@ -282,6 +272,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string ExternalAccessToken { get; set; }
 	}
 	
@@ -298,6 +289,8 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		public string NewPassword { get; set; }
 		
 		/// <summary>
@@ -319,6 +312,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string Email { get; set; }
 		
 		/// <summary>
@@ -326,6 +320,8 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		public string Password { get; set; }
 	}
 	
@@ -335,6 +331,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string Email { get; set; }
 	}
 	
@@ -344,11 +341,13 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string LoginProvider { get; set; }
 		
 		/// <summary>
 		/// Required
 		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string ProviderKey { get; set; }
 	}
 	
@@ -365,6 +364,8 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		public string NewPassword { get; set; }
 	}
 }
@@ -6443,6 +6444,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 }
+
 namespace Fonlow.Net.Http
 {
 	using System.Net.Http;
@@ -6453,12 +6455,15 @@ namespace Fonlow.Net.Http
 
 		public string Response { get; private set; }
 
+		public System.Net.Http.Headers.HttpResponseHeaders Headers { get; private set; }
+
 		public System.Net.Http.Headers.MediaTypeHeaderValue ContentType { get; private set; }
 
-		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.MediaTypeHeaderValue contentType) : base(message)
+		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.HttpResponseHeaders headers, System.Net.Http.Headers.MediaTypeHeaderValue contentType) : base(message)
 		{
 			StatusCode = statusCode;
 			Response = response;
+			Headers = headers;
 			ContentType = contentType;
 		}
 	}
@@ -6471,7 +6476,7 @@ namespace Fonlow.Net.Http
 			{
 				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
 				var contentType = responseMessage.Content.Headers.ContentType;
-				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, contentType);
+				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, responseMessage.Headers, contentType);
 			}
 		}
 	}

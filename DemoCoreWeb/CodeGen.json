@@ -18,11 +18,11 @@
 
 			{
 				"AssemblyName": "DemoCoreWeb",
-				"CherryPickingMethods": 3
+				"CherryPickingMethods": 1
 			}
-		],
+		]
 
-		"CherryPickingMethods": 3
+		//"CherryPickingMethods": 3
 	},
 
 	"ClientApiOutputs": {

@@ -159,7 +159,7 @@ var DemoWebApi_Controllers_Client;
          * PUT api/Entities/link?id={id}&relationship={relationship}
          */
         linkPerson(id, relationship, person, callback) {
-            this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
+            this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), person, callback, this.error, this.statusCode);
         }
         /**
          * PUT api/Entities/updatePerson
@@ -213,7 +213,7 @@ var DemoWebApi_Controllers_Client;
          * POST api/Heroes/q?name={name}
          */
         postWithQuery(name, callback) {
-            this.httpClient.post(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), null, callback, this.error, this.statusCode);
+            this.httpClient.post(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, callback, this.error, this.statusCode);
         }
         /**
          * Update hero.
@@ -229,7 +229,7 @@ var DemoWebApi_Controllers_Client;
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         search(name, callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes/search/' + encodeURIComponent(name), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Heroes/search/' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
         }
     }
     DemoWebApi_Controllers_Client.Heroes = Heroes;
@@ -239,6 +239,12 @@ var DemoWebApi_Controllers_Client;
             this.httpClient = httpClient;
             this.error = error;
             this.statusCode = statusCode;
+        }
+        /**
+         * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+         */
+        athletheSearch(take, skip, order, sort, search, callback) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/ActionResult
@@ -497,7 +503,7 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
          */
         getPrimitiveNullable(location, dd, de, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + encodeURIComponent(location) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
         }
         /**
          * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
@@ -872,13 +878,13 @@ var DemoWebApi_Controllers_Client;
          * GET api/Values/{id}?name={name}
          */
         getByIdAndName(id, name, callback) {
-            this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
         }
         /**
          * GET api/Values?name={name}
          */
         getByName(name, callback) {
-            this.httpClient.get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+            this.httpClient.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
         }
         /**
          * GET api/Values/{id}

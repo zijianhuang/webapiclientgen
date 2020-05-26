@@ -54,7 +54,7 @@ namespace Fonlow.CodeDom.Web
 
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					return newUriText += $"{d.Name}=\" + Uri.EscapeDataString({d.Name})+\"";
+					return newUriText += $"({d.Name} == null ? \"\" : {d.Name}=\" + Uri.EscapeDataString({d.Name}))+\"";
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
@@ -95,7 +95,7 @@ namespace Fonlow.CodeDom.Web
 			{
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					return newUriText.Replace($"{{{d.Name}}}", $"\"+Uri.EscapeDataString({d.Name})+\"");
+					return newUriText.Replace($"{{{d.Name}}}", $"\"+({d.Name} == null ? \"\" : Uri.EscapeDataString({d.Name}))+\"");
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
@@ -143,7 +143,7 @@ namespace Fonlow.CodeDom.Web
 
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					return newUriText+=$"{d.Name}=' + encodeURIComponent({d.Name}) + '";
+					return newUriText+=$"({d.Name} == null ? '' : {d.Name}=' + encodeURIComponent({d.Name})) + '";
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
@@ -164,7 +164,7 @@ namespace Fonlow.CodeDom.Web
 			{
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					return newUriText.Replace($"{{{d.Name}}}", $"' + encodeURIComponent({d.Name}) + '");
+					return newUriText.Replace($"{{{d.Name}}}", $"' + ({d.Name} == null ? '' : encodeURIComponent({d.Name})) + '");
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{

@@ -157,7 +157,7 @@ var DemoWebApi_Controllers_Client;
          * PUT api/Entities/link?id={id}&relationship={relationship}
          */
         Entities.prototype.linkPerson = function (id, relationship, person) {
-            return axios_1["default"].put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+            return axios_1["default"].put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * PUT api/Entities/updatePerson
@@ -210,7 +210,7 @@ var DemoWebApi_Controllers_Client;
          * POST api/Heroes/q?name={name}
          */
         Heroes.prototype.postWithQuery = function (name) {
-            return axios_1["default"].post(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(function (d) { return d.data; });
         };
         /**
          * Update hero.
@@ -226,7 +226,7 @@ var DemoWebApi_Controllers_Client;
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
         Heroes.prototype.search = function (name) {
-            return axios_1["default"].get(this.baseUri + 'api/Heroes/search/' + encodeURIComponent(name)).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Heroes/search/' + (name == null ? '' : encodeURIComponent(name))).then(function (d) { return d.data; });
         };
         return Heroes;
     }());
@@ -236,6 +236,12 @@ var DemoWebApi_Controllers_Client;
             if (baseUri === void 0) { baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'; }
             this.baseUri = baseUri;
         }
+        /**
+         * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+         */
+        SuperDemo.prototype.athletheSearch = function (take, skip, order, sort, search) {
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { responseType: 'text' }).then(function (d) { return d.data; });
+        };
         /**
          * GET api/SuperDemo/ActionResult
          */
@@ -493,7 +499,7 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
          */
         SuperDemo.prototype.getPrimitiveNullable = function (location, dd, de) {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + encodeURIComponent(location) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : '')).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : '')).then(function (d) { return d.data; });
         };
         /**
          * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
@@ -866,13 +872,13 @@ var DemoWebApi_Controllers_Client;
          * GET api/Values/{id}?name={name}
          */
         Values.prototype.getByIdAndName = function (id, name) {
-            return axios_1["default"].get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name), { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), { responseType: 'text' }).then(function (d) { return d.data; });
         };
         /**
          * GET api/Values?name={name}
          */
         Values.prototype.getByName = function (name) {
-            return axios_1["default"].get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name), { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), { responseType: 'text' }).then(function (d) { return d.data; });
         };
         /**
          * GET api/Values/{id}

@@ -342,7 +342,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PUT api/Entities/link?id={id}&relationship={relationship}
 		 */
 		linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Promise<boolean> {
-			return Axios.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as boolean);
+			return Axios.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as boolean);
 		}
 
 		/**
@@ -399,7 +399,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes/q?name={name}
 		 */
 		postWithQuery(name: string): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return Axios.post(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as DemoWebApi_Controllers_Client.Hero);
+			return Axios.post(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data as DemoWebApi_Controllers_Client.Hero);
 		}
 
 		/**
@@ -417,12 +417,19 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
 		 */
 		search(name: string): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return Axios.get(this.baseUri + 'api/Heroes/search/' + encodeURIComponent(name)).then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
+			return Axios.get(this.baseUri + 'api/Heroes/search/' + (name == null ? '' : encodeURIComponent(name))).then(d => d.data as Array<DemoWebApi_Controllers_Client.Hero>);
 		}
 	}
 
 	export class SuperDemo {
 		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
+		}
+
+		/**
+		 * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 */
+		athletheSearch(take: number, skip: number, order: string, sort: string, search: string): Promise<string> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { responseType: 'text' }).then(d => d.data as string);
 		}
 
 		/**
@@ -724,7 +731,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		 */
 		getPrimitiveNullable(location: string, dd: number, de: number): Promise<{item1: string, item2: number, item3: number}> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + encodeURIComponent(location) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : '')).then(d => d.data as {item1: string, item2: number, item3: number});
+			return Axios.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : '')).then(d => d.data as {item1: string, item2: number, item3: number});
 		}
 
 		/**
@@ -1150,14 +1157,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Values/{id}?name={name}
 		 */
 		getByIdAndName(id: number, name: string): Promise<string> {
-			return Axios.get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name), { responseType: 'text' }).then(d => d.data as string);
+			return Axios.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), { responseType: 'text' }).then(d => d.data as string);
 		}
 
 		/**
 		 * GET api/Values?name={name}
 		 */
 		getByName(name: string): Promise<string> {
-			return Axios.get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name), { responseType: 'text' }).then(d => d.data as string);
+			return Axios.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), { responseType: 'text' }).then(d => d.data as string);
 		}
 
 		/**

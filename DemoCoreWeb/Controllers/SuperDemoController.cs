@@ -680,6 +680,11 @@ namespace DemoWebApi.Controllers
 			return guids;
 		}
 
-
+		[HttpGet]
+		[Route("AthletheSearch")]
+		public string AthletheSearch([FromQuery] int? take = 10, [FromQuery]int skip = 0, [FromQuery] string order = null, [FromQuery] string sort = null, [FromQuery] string search = null)
+		{
+			return (take.HasValue ? take.Value.ToString() : String.Empty) + skip.ToString() + (String.IsNullOrEmpty(order) ? "" : order) + (String.IsNullOrEmpty(sort) ? "" : sort) + (String.IsNullOrEmpty(search) ? "" : search);
+		}
 	}
 }

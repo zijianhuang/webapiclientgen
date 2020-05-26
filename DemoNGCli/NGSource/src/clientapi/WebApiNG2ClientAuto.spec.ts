@@ -1282,7 +1282,83 @@ describe('SuperDemo API', () => {
 	);
 
 
+	it('TestAthletheSearch', (done) => {
+		service.athletheSearch(32, 0, undefined, null, null).subscribe(
+			data => {
+				expect(data).toBe('"320"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	})
 
+	it('TestAthletheSearch2', (done) => {
+		service.athletheSearch(32, 0, undefined, null, 'Search').subscribe(
+			data => {
+				expect(data).toBe('"320Search"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	})
+
+	it('TestAthletheSearch3', (done) => {
+		service.athletheSearch(32, 0, undefined, 'Sort', 'Search').subscribe(
+			data => {
+				expect(data).toBe('"320SortSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	})
+
+	it('TestAthletheSearch4', (done) => {
+		service.athletheSearch(32, 0, 'Order', 'Sort', 'Search').subscribe(
+			data => {
+				expect(data).toBe('"320OrderSortSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	})
+
+	it('TestAthletheSearch5', (done) => {
+		service.athletheSearch(32, 0, 'Order', null, 'Search').subscribe(
+			data => {
+				expect(data).toBe('"320OrderSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	})
+
+	it('TestAthletheSearch6', (done) => {
+		service.athletheSearch(32, 0, 'Order', "", 'Search').subscribe(
+			data => {
+				expect(data).toBe('"320OrderSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	})
 
 
 

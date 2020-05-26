@@ -1200,7 +1200,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> LinkPersonAsync(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship);
+			var requestUri = "api/Entities/link?id="+id+"&relationship="+(relationship == null ? "" : Uri.EscapeDataString(relationship));
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1228,7 +1228,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool LinkPerson(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship);
+			var requestUri = "api/Entities/link?id="+id+"&relationship="+(relationship == null ? "" : Uri.EscapeDataString(relationship));
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1564,7 +1564,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name)
 		{
-			var requestUri = "api/Heroes/q?name="+Uri.EscapeDataString(name);
+			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -1588,7 +1588,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name)
 		{
-			var requestUri = "api/Heroes/q?name="+Uri.EscapeDataString(name);
+			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -1674,7 +1674,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <returns>Hero array matching the keyword.</returns>
 		public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
 		{
-			var requestUri = "api/Heroes/search/"+Uri.EscapeDataString(name);
+			var requestUri = "api/Heroes/search/"+(name == null ? "" : Uri.EscapeDataString(name));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1700,7 +1700,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <returns>Hero array matching the keyword.</returns>
 		public DemoWebApi.Controllers.Client.Hero[] Search(string name)
 		{
-			var requestUri = "api/Heroes/search/"+Uri.EscapeDataString(name);
+			var requestUri = "api/Heroes/search/"+(name == null ? "" : Uri.EscapeDataString(name));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -1733,6 +1733,50 @@ namespace DemoWebApi.Controllers.Client
 				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		/// </summary>
+		public async Task<string> AthletheSearchAsync(System.Nullable<int> take, int skip, string order, string sort, string search)
+		{
+			var requestUri = "api/SuperDemo/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			var responseMessage = await client.GetAsync(requestUri);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+				return streamReader.ReadToEnd();;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		/// </summary>
+		public string AthletheSearch(System.Nullable<int> take, int skip, string order, string sort, string search)
+		{
+			var requestUri = "api/SuperDemo/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			var responseMessage = this.client.GetAsync(requestUri).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+				{
+				return streamReader.ReadToEnd();;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
 		}
 		
 		/// <summary>
@@ -3608,7 +3652,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullableAsync(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
 		{
-			var requestUri = "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
+			var requestUri = "api/SuperDemo/DoubleNullable?location="+(location == null ? "" : Uri.EscapeDataString(location))+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3631,7 +3675,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
 		{
-			var requestUri = "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
+			var requestUri = "api/SuperDemo/DoubleNullable?location="+(location == null ? "" : Uri.EscapeDataString(location))+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -6623,7 +6667,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetAsync(int id, string name)
 		{
-			var requestUri = "api/Values/"+id+"?name="+Uri.EscapeDataString(name);
+			var requestUri = "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -6646,7 +6690,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string Get(int id, string name)
 		{
-			var requestUri = "api/Values/"+id+"?name="+Uri.EscapeDataString(name);
+			var requestUri = "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -6668,7 +6712,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetAsync(string name)
 		{
-			var requestUri = "api/Values?name="+Uri.EscapeDataString(name);
+			var requestUri = "api/Values?name="+(name == null ? "" : Uri.EscapeDataString(name));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -6690,7 +6734,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string Get(string name)
 		{
-			var requestUri = "api/Values?name="+Uri.EscapeDataString(name);
+			var requestUri = "api/Values?name="+(name == null ? "" : Uri.EscapeDataString(name));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{

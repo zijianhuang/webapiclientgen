@@ -78,7 +78,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, {{ responseType: 'text' }}).then(d => d.data as {returnTypeText});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, {{ responseType: 'text' }}).then(d => d.data);"));
 					return;
 				}
 
@@ -102,11 +102,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {{headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {{headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}).then(d => d.data);"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}).then(d => d.data);"));
 					}
 
 					return;
@@ -119,7 +119,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, {optionForStream}).then(d => d.data as {returnTypeText});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, {optionForStream}).then(d => d.data);"));
 					return;
 				}
 
@@ -143,11 +143,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {optionForStream}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {optionForStream}).then(d => d.data);"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {optionForStream}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {optionForStream}).then(d => d.data);"));
 					}
 
 					return;
@@ -160,7 +160,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, {optionForActionResult}).then(d => d.data as {returnTypeText});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, {optionForActionResult}).then(d => d.data);"));
 					return;
 				}
 
@@ -179,11 +179,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {optionForActionResult}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {optionForActionResult}).then(d => d.data);"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}).then(d => d.data);"));
 					}
 
 					return;
@@ -232,11 +232,11 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					if (hasArrayJoin)
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}.then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}.then(d => d.data);"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}).then(d => d.data);"));
 					}
 
 					return;
@@ -262,11 +262,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {{ headers: {{ 'Content-Type': '{contentType}' }} }}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {{ headers: {{ 'Content-Type': '{contentType}' }} }}).then(d => d.data);"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }} }}).then(d => d.data as {returnTypeText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }} }}).then(d => d.data);"));
 					}
 
 					return;

@@ -436,14 +436,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/ActionResult
 		 */
 		getActionResult(): Promise<AxiosResponse<string>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/ActionResult', { responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/SuperDemo/ActionResult', { responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SuperDemo/ActionResult2
 		 */
 		getActionResult2(): Promise<AxiosResponse<string>> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' });
 		}
 
 		/**
@@ -801,7 +801,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/ActionResult
 		 */
 		postActionResult(): Promise<AxiosResponse<string>> {
-			return Axios.post(this.baseUri + 'api/SuperDemo/ActionResult', null, { responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/SuperDemo/ActionResult', null, { responseType: 'text' });
 		}
 
 		/**
@@ -815,7 +815,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/PostActionResult3
 		 */
 		postActionResult3(person: DemoWebApi_DemoData_Client.Person): Promise<AxiosResponse<string>> {
-			return Axios.post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
 		}
 
 		/**

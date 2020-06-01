@@ -4,14 +4,15 @@
 		"sourceMap": true,
 		"declaration": false,
 		"moduleResolution": "node",
+		"module": "commonjs",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"target": "es2015",
+		"target": "ES2015",
 		"typeRoots": [
 			"node_modules/@types"
 		],
 		"lib": [
-			"es2015"
+			"ES2020", "DOM"
 		],
 		"skipLibCheck": true
 	}

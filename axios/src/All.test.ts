@@ -10,29 +10,29 @@ const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 const apiBaseUri = 'http://localhost:5000/';
 
 function instanceOfAxiosError(obj: any): obj is AxiosError {
-	return 'isAxiosError' in obj;
+  return 'isAxiosError' in obj;
 }
 
 export function errorResponseToString(error: AxiosError | any, ): string {
-	let errMsg: string;
-	if (instanceOfAxiosError(error)) {
-	  if (error.response.status === 0) {
-		errMsg = 'No response from backend. Connection is unavailable.';
-	  } else {
-		if (error.message) {
-		  errMsg = `${error.response.status} - ${error.response.statusText}: ${error.message}`;
-		} else {
-		  errMsg = `${error.response.status} - ${error.response.statusText}`;
-		}
-	  }
-  
-	  errMsg += error.message ? (' ' + JSON.stringify(error.message)) : '';
-	  return errMsg;
-	} else {
-	  errMsg = error.message ? error.message : error.toString();
-	  return errMsg;
-	}
+  let errMsg: string;
+  if (instanceOfAxiosError(error)) {
+    if (error.response.status === 0) {
+      errMsg = 'No response from backend. Connection is unavailable.';
+    } else {
+      if (error.message) {
+        errMsg = `${error.response.status} - ${error.response.statusText}: ${error.message}`;
+      } else {
+        errMsg = `${error.response.status} - ${error.response.statusText}`;
+      }
+    }
+
+    errMsg += error.message ? (' ' + JSON.stringify(error.message)) : '';
+    return errMsg;
+  } else {
+    errMsg = error.message ? error.message : error.toString();
+    return errMsg;
   }
+}
 
 describe('Values API', () => {
   const service = new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri);
@@ -118,9 +118,9 @@ describe('Values API', () => {
 
 
 describe('Heroes API', () => {
-  const service= new namespaces.DemoWebApi_Controllers_Client.Heroes(apiBaseUri);
+  const service = new namespaces.DemoWebApi_Controllers_Client.Heroes(apiBaseUri);
 
-   it('getAll', (done) => {
+  it('getAll', (done) => {
     service.getHeros().then(
       data => {
         console.debug(data.length);
@@ -215,15 +215,15 @@ describe('entities API', () => {
 
     client.createPerson(newPerson)
       .then(
-      data => {
-        id = data;
-        expect(data).toBeTruthy();
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
+        data => {
+          id = data;
+          expect(data).toBeTruthy();
+          done();
+        },
+        error => {
+          fail(errorResponseToString(error));
+          done();
+        }
       );
 
   }
@@ -240,15 +240,15 @@ describe('entities API', () => {
 
     client.getMims(c)
       .then(
-      data => {
-        expect(data.message).toBe('Hello');
-        expect(data.result).toBe('123.45');
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
+        data => {
+          expect(data.message).toBe('Hello');
+          expect(data.result).toBe('123.45');
+          done();
+        },
+        error => {
+          fail(errorResponseToString(error));
+          done();
+        }
       );
 
   }
@@ -263,7 +263,7 @@ describe('entities API', () => {
     };
 
     const c: namespaces.DemoWebApi_DemoData_Client.MyGeneric<string, number, namespaces.DemoWebApi_DemoData_Client.Person> = {
-      myK:123.456,
+      myK: 123.456,
       myT: 'abc',
       myU: newPerson,
       status: 'OK',
@@ -271,15 +271,15 @@ describe('entities API', () => {
 
     client.getMyGenericPerson(c)
       .then(
-      data => {
-        expect(data.myU.name).toBe('John Smith');
-        expect(data.status).toBe('OK');
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
+        data => {
+          expect(data.myU.name).toBe('John Smith');
+          expect(data.status).toBe('OK');
+          done();
+        },
+        error => {
+          fail(errorResponseToString(error));
+          done();
+        }
       );
 
   }
@@ -290,7 +290,7 @@ describe('entities API', () => {
 
 
 describe('SuperDemo API', () => {
-  const service=new namespaces.DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri);
+  const service = new namespaces.DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri);
 
   it('getBool', (done) => {
     service.getBool().then(
@@ -456,7 +456,7 @@ describe('SuperDemo API', () => {
     service.getDateTime(false).then(
       data => {
         //expect(data).toBeNull();
-		expect(data).toBe(''); // .net core return 204 nocontent empty body
+        expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -487,7 +487,7 @@ describe('SuperDemo API', () => {
     service.getNullableDecimal(false).then(
       data => {
         //expect(data).toBeNull();
-		expect(data).toBe(''); // .net core return 204 nocontent empty body
+        expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -504,7 +504,7 @@ describe('SuperDemo API', () => {
       data => {
         //expect(data).toBeNull();
         expect(data).toBe(''); // .net core return 204 nocontent empty body
-            done();
+        done();
       },
       error => {
         fail(errorResponseToString(error));
@@ -519,7 +519,7 @@ describe('SuperDemo API', () => {
     service.getNullPerson().then(
       data => {
         //expect(data).toBeNull();
-		expect(data).toBe(''); // .net core return 204 nocontent empty body
+        expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -534,7 +534,7 @@ describe('SuperDemo API', () => {
   it('getByteArray', (done) => {
     service.getByteArray().then(
       data => {
-		expect(data.length).toBeGreaterThan(0);
+        expect(data.length).toBeGreaterThan(0);
         done();
       },
       error => {
@@ -549,9 +549,9 @@ describe('SuperDemo API', () => {
   // it('getTextStream', (done) => {
   //   service.getTextStream().then(
   //     data => {
-	// 	  console.debug('getTextStream');
-	// 	  console.debug(data); // abcdefg
-	// 	  expect(data).toBe('abcdefg');
+  // 	  console.debug('getTextStream');
+  // 	  console.debug(data); // abcdefg
+  // 	  expect(data).toBe('abcdefg');
 
   //   //  const reader = new FileReader();//axios actually give string rather than a blob structure
   //   //  reader.onload = () => {
@@ -572,12 +572,9 @@ describe('SuperDemo API', () => {
 
   it('getActionResult', (done) => {
     service.getActionResult().then(
-      data => {
-		console.debug('getActionResult');
-		console.debug(data); // abcdefg
-		expect(data).toBe('abcdefg'); //axios give string directly rather than a response structure
-		// expect(data.status).toBe(200);
-        // expect(data.data).toBe('"abcdefg"');
+      response => {
+        expect(response.status).toBe(200);
+        expect(response.data).toBe('abcdefg');
 
         done();
       },
@@ -869,7 +866,7 @@ describe('SuperDemo API', () => {
         fail(errorResponseToString(error));
         done();
       }
-      );
+    );
 
   }
   );
@@ -961,7 +958,7 @@ describe('SuperDemo API', () => {
     service.getNextHourNullable(2, null).then(
       data => {
         let dt = new Date(data);
-        expect(dt.getHours()%24).toEqual((now.getHours() + 2)%24)
+        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
         done();
       },
       error => {
@@ -1064,9 +1061,9 @@ describe('SuperDemo API', () => {
 });
 
 describe('Tuple API', () => {
-  const service= new namespaces.DemoWebApi_Controllers_Client.Tuple(apiBaseUri);
+  const service = new namespaces.DemoWebApi_Controllers_Client.Tuple(apiBaseUri);
 
- 
+
   it('getTuple2', (done) => {
     service.getTuple2().then(
       data => {
@@ -1190,7 +1187,7 @@ describe('Tuple API', () => {
         fail(errorResponseToString(error));
         done();
       }
-      );
+    );
   }
   );
 

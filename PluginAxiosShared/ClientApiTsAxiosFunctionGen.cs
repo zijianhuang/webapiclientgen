@@ -160,7 +160,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, {optionForActionResult}).then(d => d.data);"));
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, {optionForActionResult});"));
 					return;
 				}
 
@@ -179,11 +179,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {optionForActionResult}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, null, {optionForActionResult});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }});"));
 					}
 
 					return;

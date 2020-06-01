@@ -246,13 +246,13 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/ActionResult
          */
         SuperDemo.prototype.getActionResult = function () {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult', { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult', { responseType: 'text' });
         };
         /**
          * GET api/SuperDemo/ActionResult2
          */
         SuperDemo.prototype.getActionResult2 = function () {
-            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].get(this.baseUri + 'api/SuperDemo/ActionResult2', { responseType: 'text' });
         };
         /**
          * GET api/SuperDemo/ActionStringResult
@@ -559,7 +559,7 @@ var DemoWebApi_Controllers_Client;
          * POST api/SuperDemo/ActionResult
          */
         SuperDemo.prototype.postActionResult = function () {
-            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/ActionResult', null, { responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/ActionResult', null, { responseType: 'text' });
         };
         /**
          * POST api/SuperDemo/PostActionResult2
@@ -571,7 +571,7 @@ var DemoWebApi_Controllers_Client;
          * POST api/SuperDemo/PostActionResult3
          */
         SuperDemo.prototype.postActionResult3 = function (person) {
-            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' }).then(function (d) { return d.data; });
+            return axios_1["default"].post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
         };
         /**
          * POST api/SuperDemo/Collection

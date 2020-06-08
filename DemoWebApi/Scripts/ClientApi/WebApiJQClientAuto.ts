@@ -290,7 +290,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * PUT api/Entities/link?id={id}&relationship={relationship}
 		 */
 		linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person, callback: (data : boolean) => any) {
-			this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), person, callback, this.error, this.statusCode);
+			this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), person, callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -361,7 +361,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes?name={name}
 		 */
 		post(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any) {
-			this.httpClient.post(this.baseUri + 'api/Heroes?name=' + encodeURIComponent(name), null, callback, this.error, this.statusCode);
+			this.httpClient.post(this.baseUri + 'api/Heroes?name=' + (name == null ? '' : encodeURIComponent(name)), null, callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -369,7 +369,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes/q?name={name}
 		 */
 		postWithQuery(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any) {
-			this.httpClient.post(this.baseUri + 'api/Heroes/q?name=' + encodeURIComponent(name), null, callback, this.error, this.statusCode);
+			this.httpClient.post(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -387,7 +387,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
 		 */
 		search(name: string, callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any) {
-			this.httpClient.get(this.baseUri + 'api/Heroes/search?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/Heroes/search?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
 		}
 	}
 
@@ -675,7 +675,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		 */
 		getPrimitiveNullable(location: string, dd: number, de: number, callback: (data : {item1: string, item2: number, item3: number}) => any) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + encodeURIComponent(location) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -858,7 +858,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/PostEmpty?s={s}&i={i}
 		 */
 		postWithQueryButEmptyBody(s: string, i: number, callback: (data : {item1: string, item2: number}) => any) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, callback, this.error, this.statusCode);
+			this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + (s == null ? '' : encodeURIComponent(s)) + '&i=' + i, null, callback, this.error, this.statusCode);
 		}
 
 		/**
@@ -1085,14 +1085,14 @@ namespace DemoWebApi_Controllers_Client {
 		 * GET api/Values/{id}?name={name}
 		 */
 		getByIdAndName(id: number, name: string, callback: (data : string) => any) {
-			this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
 		}
 
 		/**
 		 * GET api/Values?name={name}
 		 */
 		getByName(name: string, callback: (data : string) => any) {
-			this.httpClient.get(this.baseUri + 'api/Values?name=' + encodeURIComponent(name), callback, this.error, this.statusCode);
+			this.httpClient.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
 		}
 
 		/**

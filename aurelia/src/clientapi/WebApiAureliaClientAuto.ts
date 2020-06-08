@@ -291,7 +291,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PUT api/Entities/link?id={id}&relationship={relationship}
 		 */
 		linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Promise<boolean> {
-			return this.http.put('api/Entities/link?id=' + id + '&relationship=' + encodeURIComponent(relationship), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+			return this.http.put('api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
@@ -363,7 +363,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes?name={name}
 		 */
 		post(name: string): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post('api/Heroes?name=' + encodeURIComponent(name), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+			return this.http.post('api/Heroes?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
@@ -371,7 +371,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes/q?name={name}
 		 */
 		postWithQuery(name: string): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post('api/Heroes/q?name=' + encodeURIComponent(name), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+			return this.http.post('api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
@@ -389,7 +389,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
 		 */
 		search(name: string): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return this.http.get('api/Heroes/search?name=' + encodeURIComponent(name)).then(d => d.json());
+			return this.http.get('api/Heroes/search?name=' + (name == null ? '' : encodeURIComponent(name))).then(d => d.json());
 		}
 	}
 
@@ -678,7 +678,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		 */
 		getPrimitiveNullable(location: string, dd: number, de: number): Promise<{item1: string, item2: number, item3: number}> {
-			return this.http.get('api/SuperDemo/DoubleNullable?location=' + encodeURIComponent(location) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : '')).then(d => d.json());
+			return this.http.get('api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : '')).then(d => d.json());
 		}
 
 		/**
@@ -861,7 +861,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/PostEmpty?s={s}&i={i}
 		 */
 		postWithQueryButEmptyBody(s: string, i: number): Promise<{item1: string, item2: number}> {
-			return this.http.post('api/SuperDemo/PostEmpty?s=' + encodeURIComponent(s) + '&i=' + i, null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+			return this.http.post('api/SuperDemo/PostEmpty?s=' + (s == null ? '' : encodeURIComponent(s)) + '&i=' + i, null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
@@ -1090,14 +1090,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Values/{id}?name={name}
 		 */
 		getByIdAndName(id: number, name: string): Promise<string> {
-			return this.http.get('api/Values/' + id + '?name=' + encodeURIComponent(name)).then(d => d.json());
+			return this.http.get('api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name))).then(d => d.json());
 		}
 
 		/**
 		 * GET api/Values?name={name}
 		 */
 		getByName(name: string): Promise<string> {
-			return this.http.get('api/Values?name=' + encodeURIComponent(name)).then(d => d.json());
+			return this.http.get('api/Values?name=' + (name == null ? '' : encodeURIComponent(name))).then(d => d.json());
 		}
 
 		/**

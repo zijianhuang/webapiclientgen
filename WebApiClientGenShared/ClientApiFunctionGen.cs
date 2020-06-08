@@ -139,21 +139,21 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void CreateDocComments()
 		{
-			Action<string, string> CreateDocComment = (elementName, doc) =>
+			void CreateDocComment(string elementName, string doc)
 			{
 				if (string.IsNullOrWhiteSpace(doc))
 					return;
 
 				method.Comments.Add(new CodeCommentStatement("<" + elementName + ">" + doc + "</" + elementName + ">", true));
-			};
+			}
 
-			Action<string, string> CreateParamDocComment = (paramName, doc) =>
+			void CreateParamDocComment(string paramName, string doc)
 			{
 				if (String.IsNullOrWhiteSpace(doc))
 					return;
 
 				method.Comments.Add(new CodeCommentStatement("<param name=\"" + paramName + "\">" + doc + "</param>", true));
-			};
+			}
 
 			method.Comments.Add(new CodeCommentStatement("<summary>", true));
 			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(description.Documentation);
@@ -358,16 +358,6 @@ namespace Fonlow.CodeDom.Web.Cs
 			}).ToArray();
 			method.Parameters.AddRange(parameters);
 
-			//var uriQueryParameters = description.ParameterDescriptions.Where(d =>
-			//	(d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromBody && d.ParameterDescriptor.ParameterBinder != ParameterBinder.FromForm && TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
-			//	|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-			//	|| (d.ParameterDescriptor.ParameterType.IsValueType && d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-			//	).Select(d => new CodeParameterDeclarationExpression()
-			//	{
-			//		Name = d.Name,
-			//		Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
-			//	}).ToArray();
-
 			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
 			if (fromBodyParameterDescriptions.Length > 1)
@@ -380,7 +370,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-			Action AddRequestUriWithQueryAssignmentStatement = () =>
+			void AddRequestUriWithQueryAssignmentStatement()
 			{
 
 				var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
@@ -399,47 +389,18 @@ namespace Fonlow.CodeDom.Web.Cs
 				method.Statements.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "requestUri",
 					new CodeSnippetExpression(uriText)));
-			};
+			}
 
-			//Action AddRequestUriAssignmentStatement = () =>
-			//{
-			//	var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-			//	string uriText;
-
-			//	if (diFriendly)
-			//	{
-			//		uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
-			//	}
-			//	else
-			//	{
-			//		uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
-			//		RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
-			//	}
-
-			//	method.Statements.Add(new CodeVariableDeclarationStatement(
-			//		new CodeTypeReference("var"), "requestUri",
-			//		new CodeSnippetExpression(uriText)));
-
-			//};
-
-			Action<CodeExpression> AddPostStatement = (httpMethodInvokeExpression) =>
+			void AddPostStatement(CodeExpression httpMethodInvokeExpression)
 			{
 				//Statement: var task = this.client.GetAsync(requestUri.ToString());
 				method.Statements.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "responseMessage", httpMethodInvokeExpression));
 
-			};
+			}
 
 
 			AddRequestUriWithQueryAssignmentStatement();
-			//if (uriQueryParameters.Length > 0)
-			//{
-			//	AddRequestUriWithQueryAssignmentStatement();
-			//}
-			//else
-			//{
-			//	AddRequestUriAssignmentStatement();
-			//}
 
 			if (singleFromBodyParameterDescription != null)
 			{

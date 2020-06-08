@@ -860,7 +860,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<bool> LinkPersonAsync(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship));
+			var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+(relationship == null ? "" : Uri.EscapeDataString(relationship)));
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -888,7 +888,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public bool LinkPerson(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+Uri.EscapeDataString(relationship));
+			var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+(relationship == null ? "" : Uri.EscapeDataString(relationship)));
 			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create();
@@ -1340,7 +1340,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Heroes?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -1363,7 +1363,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero Post(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Heroes?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -1387,7 +1387,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -1411,7 +1411,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -1497,7 +1497,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <returns>Hero array matching the keyword.</returns>
 		public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/search?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Heroes/search?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -1523,7 +1523,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <returns>Hero array matching the keyword.</returns>
 		public DemoWebApi.Controllers.Client.Hero[] Search(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/search?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Heroes/search?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -3300,7 +3300,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullableAsync(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+(location == null ? "" : Uri.EscapeDataString(location))+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -3323,7 +3323,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+Uri.EscapeDataString(location)+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
+			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+(location == null ? "" : Uri.EscapeDataString(location))+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -4572,7 +4572,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync(string s, int i)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty?s="+Uri.EscapeDataString(s)+"&i="+i);
+			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty?s="+(s == null ? "" : Uri.EscapeDataString(s))+"&i="+i);
 			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
 			try
 			{
@@ -4595,7 +4595,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public System.Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty?s="+Uri.EscapeDataString(s)+"&i="+i);
+			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty?s="+(s == null ? "" : Uri.EscapeDataString(s))+"&i="+i);
 			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
 			try
 			{
@@ -6214,7 +6214,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetAsync(int id, string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id+"?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -6236,7 +6236,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string Get(int id, string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id+"?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{
@@ -6258,7 +6258,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public async Task<string> GetAsync(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Values?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = await client.GetAsync(requestUri);
 			try
 			{
@@ -6280,7 +6280,7 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		public string Get(string name)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values?name="+Uri.EscapeDataString(name));
+			var requestUri = new Uri(this.baseUri, "api/Values?name="+(name == null ? "" : Uri.EscapeDataString(name)));
 			var responseMessage = this.client.GetAsync(requestUri).Result;
 			try
 			{

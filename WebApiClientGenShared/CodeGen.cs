@@ -35,7 +35,7 @@ namespace Fonlow.CodeDom.Web
 			}
 
 
-			Func<string, string, string> CreateTsPath = (folder, fileName) =>
+			string CreateTsPath(string folder, string fileName)
 			{
 				if (!string.IsNullOrEmpty(folder))
 				{
@@ -66,7 +66,7 @@ namespace Fonlow.CodeDom.Web
 				};
 
 				return null;
-			};
+			}
 
 			if (settings.ClientApiOutputs.Plugins != null)
 			{

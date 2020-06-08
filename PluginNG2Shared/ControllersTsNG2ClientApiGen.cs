@@ -40,9 +40,10 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void AddConstructor(CodeTypeDeclaration targetClass)
 		{
-			CodeConstructor constructor = new CodeConstructor();
-			constructor.Attributes =
-				MemberAttributes.Public | MemberAttributes.Final;
+			CodeConstructor constructor = new CodeConstructor
+			{
+				Attributes = MemberAttributes.Public | MemberAttributes.Final
+			};
 
 			// Add parameters.
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(

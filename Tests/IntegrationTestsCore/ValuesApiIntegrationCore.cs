@@ -10,8 +10,10 @@ namespace IntegrationTests
 		{
 			var baseUri = new Uri("http://localhost:5000/");
 
-			httpClient = new System.Net.Http.HttpClient();
-			httpClient.BaseAddress = baseUri;
+			httpClient = new System.Net.Http.HttpClient
+			{
+				BaseAddress = baseUri
+			};
 			//httpClient.DefaultRequestHeaders
 			//  .Accept
 			//  .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//.net core has different behavior as described at https://github.com/zijianhuang/webapiclientgen/issues/26

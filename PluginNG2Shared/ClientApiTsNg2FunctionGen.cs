@@ -18,7 +18,6 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// </summary>
 	public class ClientApiTsNG2FunctionGen : ClientApiTsFunctionGenBase
 	{
-		const string NG2HttpResponse = "Response";
 		const string NG2HttpBlobResponse = "HttpResponse<Blob>";
 		const string NG2HttpStringResponse = "HttpResponse<string>";
 

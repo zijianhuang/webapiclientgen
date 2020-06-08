@@ -9,11 +9,7 @@ namespace DemoWebApi.Areas.HelpPage
     {
         public TextSample(string text)
         {
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
-            Text = text;
+			Text = text ?? throw new ArgumentNullException("text");
         }
 
         public string Text { get; private set; }

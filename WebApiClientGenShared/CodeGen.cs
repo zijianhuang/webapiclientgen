@@ -26,8 +26,10 @@ namespace Fonlow.CodeDom.Web
 					};
 
 				var path = System.IO.Path.Combine(csharpClientProjectDir, settings.ClientApiOutputs.FileName);
-				var gen = new Cs.ControllersClientApiGen(settings);
-				gen.ForBothAsyncAndSync = settings.ClientApiOutputs.GenerateBothAsyncAndSync;
+				var gen = new Cs.ControllersClientApiGen(settings)
+				{
+					ForBothAsyncAndSync = settings.ClientApiOutputs.GenerateBothAsyncAndSync
+				};
 				gen.CreateCodeDom(webApiDescriptions);
 				gen.Save(path);
 			}

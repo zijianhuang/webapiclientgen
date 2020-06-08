@@ -57,7 +57,6 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			if (type == null)
 				throw new ArgumentNullException(nameof(type));
-			string tsTypeName;
 
 			if (String.IsNullOrEmpty(type.FullName)) //Custom generic type has fullname empty at this point, since it is just a template defined in the assembly.
 			{
@@ -65,7 +64,7 @@ namespace Fonlow.TypeScriptCodeDom
 				return type.ToString();
 			}
 
-			if (typeMap.TryGetValue(type.FullName, out tsTypeName))
+			if (typeMap.TryGetValue(type.FullName, out string tsTypeName))
 				return tsTypeName;
 
 			if (type.IsEnum) // Generally this is .net System. enum types.
@@ -106,8 +105,7 @@ namespace Fonlow.TypeScriptCodeDom
 			//	return "HttpResponse<Blob>";
 			//}
 
-			string tsTypeName;
-			if (typeMap.TryGetValue(codeTypeReference.BaseType, out tsTypeName))
+			if (typeMap.TryGetValue(codeTypeReference.BaseType, out string tsTypeName))
 				return tsTypeName;
 
 

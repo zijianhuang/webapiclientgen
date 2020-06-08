@@ -36,8 +36,7 @@ namespace DemoWebApi.Controllers
 		[ActionName("GetHero")]
 		public Hero Get(long id)
 		{
-			Hero r;
-			_ = HeroesData.Instance.Dic.TryGetValue(id, out r);
+			_ = HeroesData.Instance.Dic.TryGetValue(id, out Hero r);
 			return r;
 		}
 

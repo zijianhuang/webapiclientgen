@@ -10,8 +10,10 @@ namespace IntegrationTests
 		{
 			var baseUri = new Uri("http://localhost:5000/");
 
-			httpClient = new System.Net.Http.HttpClient();
-			httpClient.BaseAddress = baseUri;
+			httpClient = new System.Net.Http.HttpClient
+			{
+				BaseAddress = baseUri
+			};
 			Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient);
 		}
 

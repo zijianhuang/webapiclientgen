@@ -13,11 +13,7 @@ namespace DemoWebApi.Areas.HelpPage
         /// <param name="src">The URL of an image.</param>
         public ImageSample(string src)
         {
-            if (src == null)
-            {
-                throw new ArgumentNullException("src");
-            }
-            Src = src;
+			Src = src ?? throw new ArgumentNullException("src");
         }
 
         public string Src { get; private set; }

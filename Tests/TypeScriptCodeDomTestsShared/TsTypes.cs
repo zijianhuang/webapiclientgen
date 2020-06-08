@@ -28,9 +28,11 @@ namespace TypeScriptCodeDomTests
         [Fact]
         public void TestCodeTypeDeclaration()
         {
-            CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType");
-            newType.TypeAttributes = System.Reflection.TypeAttributes.NotPublic;
-            AssertCodeTypeDeclaration(newType,
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+			AssertCodeTypeDeclaration(newType,
 @"	class TestType {
 	}
 ");
@@ -40,9 +42,11 @@ namespace TypeScriptCodeDomTests
         [Fact]
         public void TestCodeTypeDeclarationWithBaseType()
         {
-            CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType");
-            newType.TypeAttributes = System.Reflection.TypeAttributes.NotPublic;
-            newType.BaseTypes.Add("BaseType");
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+			newType.BaseTypes.Add("BaseType");
             AssertCodeTypeDeclaration(newType,
 @"	class TestType extends BaseType {
 	}
@@ -63,9 +67,11 @@ namespace TypeScriptCodeDomTests
         [Fact]
         public void TestCodeTypeDeclarationWithMembers()
         {
-            CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType");
-            newType.TypeAttributes = System.Reflection.TypeAttributes.NotPublic;
-            newType.Members.Add(new CodeMemberField("string", "name"));
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+			newType.Members.Add(new CodeMemberField("string", "name"));
             AssertCodeTypeDeclaration(newType,
 @"	class TestType {
 		name: string;

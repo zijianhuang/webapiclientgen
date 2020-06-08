@@ -35,10 +35,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
 		public ControllersClientApiGen(CodeGenSettings codeGenParameters)
 		{
-			if (codeGenParameters == null)
-				throw new System.ArgumentNullException(nameof(codeGenParameters));
-
-			this.CodeGenParameters = codeGenParameters;
+			this.CodeGenParameters = codeGenParameters ?? throw new System.ArgumentNullException(nameof(codeGenParameters));
 			TargetUnit = new CodeCompileUnit();
 			SharedContext = new SharedContext();
 			poco2CsGen = new Poco2CsGen(TargetUnit);
@@ -73,9 +70,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
 			{
-				CodeGeneratorOptions options = new CodeGeneratorOptions();
-				options.BracingStyle = "C";
-				options.IndentString = "\t";
+				CodeGeneratorOptions options = new CodeGeneratorOptions
+				{
+					BracingStyle = "C",
+					IndentString = "\t"
+				};
 				using (var stream = new MemoryStream())
 				using (StreamWriter writer = new StreamWriter(stream))
 				{
@@ -275,18 +274,22 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddLocalFields(CodeTypeDeclaration targetClass)
 		{
-			CodeMemberField clientField = new CodeMemberField();
-			clientField.Attributes = MemberAttributes.Private;
-			clientField.Name = "client";
-			clientField.Type = new CodeTypeReference("System.Net.Http.HttpClient");
+			CodeMemberField clientField = new CodeMemberField
+			{
+				Attributes = MemberAttributes.Private,
+				Name = "client",
+				Type = new CodeTypeReference("System.Net.Http.HttpClient")
+			};
 			targetClass.Members.Add(clientField);
 
 			if (!CodeGenParameters.ClientApiOutputs.DIFriendly)
 			{
-				CodeMemberField baseUriField = new CodeMemberField();
-				baseUriField.Attributes = MemberAttributes.Private;
-				baseUriField.Name = "baseUri";
-				baseUriField.Type = new CodeTypeReference("System.Uri");
+				CodeMemberField baseUriField = new CodeMemberField
+				{
+					Attributes = MemberAttributes.Private,
+					Name = "baseUri",
+					Type = new CodeTypeReference("System.Uri")
+				};
 				targetClass.Members.Add(baseUriField);
 			}
 
@@ -294,9 +297,11 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddConstructor(CodeTypeDeclaration targetClass)
 		{
-			CodeConstructor constructor = new CodeConstructor();
-			constructor.Attributes =
-				MemberAttributes.Public | MemberAttributes.Final;
+			CodeConstructor constructor = new CodeConstructor
+			{
+				Attributes =
+				MemberAttributes.Public | MemberAttributes.Final
+			};
 
 			// Add parameters.
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
@@ -320,9 +325,11 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddConstructorWithHttpClient(CodeTypeDeclaration targetClass)
 		{
-			CodeConstructor constructor = new CodeConstructor();
-			constructor.Attributes =
-				MemberAttributes.Public | MemberAttributes.Final;
+			CodeConstructor constructor = new CodeConstructor
+			{
+				Attributes =
+				MemberAttributes.Public | MemberAttributes.Final
+			};
 
 			// Add parameters.
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(

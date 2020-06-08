@@ -10,8 +10,10 @@ namespace IntegrationTests
 		{
 			var baseUri = new Uri("http://localhost:5000/");
 
-			httpClient = new System.Net.Http.HttpClient();
-			httpClient.BaseAddress = baseUri;
+			httpClient = new System.Net.Http.HttpClient
+			{
+				BaseAddress = baseUri
+			};
 
 			Api = new DemoCoreWeb.Controllers.Client.SpecialTypes(httpClient);
 		}
@@ -74,9 +76,11 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostAnonymousObject()
 		{
-			var d = new Newtonsoft.Json.Linq.JObject();
-			d["Id"] = "12345";
-			d["Name"] = "Something";
+			var d = new Newtonsoft.Json.Linq.JObject
+			{
+				["Id"] = "12345",
+				["Name"] = "Something"
+			};
 			var r = api.PostAnonymousObject(d);
 			Assert.Equal("123451", r["Id"].ToString());
 			Assert.Equal("Something1", r["Name"].ToString());
@@ -102,9 +106,11 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostAnonymousObject2()
 		{
-			var d = new Newtonsoft.Json.Linq.JObject();
-			d["Id"] = "12345";
-			d["Name"] = "Something";
+			var d = new Newtonsoft.Json.Linq.JObject
+			{
+				["Id"] = "12345",
+				["Name"] = "Something"
+			};
 			var r = api.PostAnonymousObject2(d);
 			Assert.Equal("123451", r["Id"].ToString());
 			Assert.Equal("Something1", r["Name"].ToString());

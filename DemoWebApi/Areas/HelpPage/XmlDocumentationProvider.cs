@@ -14,7 +14,7 @@ namespace DemoWebApi.Areas.HelpPage
     /// </summary>
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
     {
-        private XPathNavigator _documentNavigator;
+        private readonly XPathNavigator _documentNavigator;
         private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
         private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
         private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
@@ -49,22 +49,21 @@ namespace DemoWebApi.Areas.HelpPage
 
         public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
-            ReflectedHttpParameterDescriptor reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
-            if (reflectedParameterDescriptor != null)
-            {
-                XPathNavigator methodNode = GetMethodNode(reflectedParameterDescriptor.ActionDescriptor);
-                if (methodNode != null)
-                {
-                    string parameterName = reflectedParameterDescriptor.ParameterInfo.Name;
-                    XPathNavigator parameterNode = methodNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture, ParameterExpression, parameterName));
-                    if (parameterNode != null)
-                    {
-                        return parameterNode.Value.Trim();
-                    }
-                }
-            }
+			if (parameterDescriptor is ReflectedHttpParameterDescriptor reflectedParameterDescriptor)
+			{
+				XPathNavigator methodNode = GetMethodNode(reflectedParameterDescriptor.ActionDescriptor);
+				if (methodNode != null)
+				{
+					string parameterName = reflectedParameterDescriptor.ParameterInfo.Name;
+					XPathNavigator parameterNode = methodNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture, ParameterExpression, parameterName));
+					if (parameterNode != null)
+					{
+						return parameterNode.Value.Trim();
+					}
+				}
+			}
 
-            return null;
+			return null;
         }
 
         public string GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
@@ -90,14 +89,13 @@ namespace DemoWebApi.Areas.HelpPage
 
         private XPathNavigator GetMethodNode(HttpActionDescriptor actionDescriptor)
         {
-            ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
-            if (reflectedActionDescriptor != null)
-            {
-                string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
-                return _documentNavigator.SelectSingleNode(selectExpression);
-            }
+			if (actionDescriptor is ReflectedHttpActionDescriptor reflectedActionDescriptor)
+			{
+				string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
+				return _documentNavigator.SelectSingleNode(selectExpression);
+			}
 
-            return null;
+			return null;
         }
 
         private static string GetMemberName(MethodInfo method)

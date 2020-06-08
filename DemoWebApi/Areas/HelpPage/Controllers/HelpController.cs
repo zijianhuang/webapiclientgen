@@ -50,12 +50,11 @@ namespace DemoWebApi.Areas.HelpPage.Controllers
             if (!String.IsNullOrEmpty(modelName))
             {
                 ModelDescriptionGenerator modelDescriptionGenerator = Configuration.GetModelDescriptionGenerator();
-                ModelDescription modelDescription;
-                if (modelDescriptionGenerator.GeneratedModels.TryGetValue(modelName, out modelDescription))
-                {
-                    return View(modelDescription);
-                }
-            }
+				if (modelDescriptionGenerator.GeneratedModels.TryGetValue(modelName, out ModelDescription modelDescription))
+				{
+					return View(modelDescription);
+				}
+			}
 
             return View(ErrorViewName);
         }

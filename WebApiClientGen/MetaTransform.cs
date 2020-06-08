@@ -23,7 +23,7 @@ namespace Fonlow.Web.Meta
 			if (a is FromBodyAttribute)
 				return ParameterBinder.FromBody;
 
-			throw new ArgumentException($"How can it be with this ParameterBindingAttribute {a.ToString()}", nameof(a));
+			throw new ArgumentException($"How can it be with this ParameterBindingAttribute {a}", nameof(a));
 		}
 
 		public static WebApiDescription GetWebApiDescription(ApiDescription description)
@@ -69,7 +69,7 @@ namespace Fonlow.Web.Meta
 					var parameterName = d.ParameterDescriptor.ParameterName;
 					if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) && !TypeHelper.IsValueType(parameterType) && !TypeHelper.IsNullablePrimitive(parameterType))
 					{
-						throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterName}:{parameterType.ToString()} in {controllerName}/{actionName}.");
+						throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterName}:{parameterType} in {controllerName}/{actionName}.");
 					}
 
 					return new ParameterDescription()

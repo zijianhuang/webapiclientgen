@@ -17,7 +17,7 @@ namespace DemoWebApi.Controllers
 	[Route("api/[controller]")]
 	public class FileUploadController : ControllerBase
 	{
-		static readonly string ServerUploadFolder = Path.GetTempPath();
+		//static readonly string ServerUploadFolder = Path.GetTempPath();
 
 		/// <summary>
 		/// Post the avatar file with the userId.

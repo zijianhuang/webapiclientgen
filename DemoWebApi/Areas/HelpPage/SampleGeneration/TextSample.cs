@@ -20,9 +20,8 @@ namespace DemoWebApi.Areas.HelpPage
 
         public override bool Equals(object obj)
         {
-            TextSample other = obj as TextSample;
-            return other != null && Text == other.Text;
-        }
+			return obj is TextSample other && Text == other.Text;
+		}
 
         public override int GetHashCode()
         {

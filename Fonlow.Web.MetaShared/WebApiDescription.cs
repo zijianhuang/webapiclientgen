@@ -139,8 +139,7 @@ namespace Fonlow.Web.Meta
 
 		public override bool Equals(object obj)
 		{
-			var a = obj as ControllerDescriptor;
-			if (a == null)
+			if (!(obj is ControllerDescriptor a))
 				return false;
 
 			return a.ControllerName == ControllerName && a.ControllerType == ControllerType;

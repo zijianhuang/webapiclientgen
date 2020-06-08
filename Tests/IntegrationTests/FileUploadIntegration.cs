@@ -62,9 +62,11 @@ namespace IntegrationTests
 				{
 
 					// Create Multipart form data content, add our submitter data and our stream content
-					MultipartFormDataContent formData = new MultipartFormDataContent();
-					formData.Add(new StringContent("Me"), "submitter");
-					formData.Add(streamContent, "filename", _filename);
+					MultipartFormDataContent formData = new MultipartFormDataContent
+					{
+						{ new StringContent("Me"), "submitter" },
+						{ streamContent, "filename", _filename }
+					};
 
 					// Post the MIME multipart form data upload with the file
 					HttpResponseMessage response = await client.PostAsync(requestUri, formData);

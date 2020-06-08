@@ -113,8 +113,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (codeTypeReference.TypeArguments.Count == 0)
 			{
-				var codeSnipetTypeReference = codeTypeReference as CodeSnipetTypeReference;
-				if (codeSnipetTypeReference != null)
+				if (codeTypeReference is CodeSnipetTypeReference codeSnipetTypeReference)
 				{
 					return codeSnipetTypeReference.BaseType;
 				}

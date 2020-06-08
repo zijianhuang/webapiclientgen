@@ -24,9 +24,8 @@ namespace DemoWebApi.Areas.HelpPage
 
         public override bool Equals(object obj)
         {
-            ImageSample other = obj as ImageSample;
-            return other != null && Src == other.Src;
-        }
+			return obj is ImageSample other && Src == other.Src;
+		}
 
         public override int GetHashCode()
         {

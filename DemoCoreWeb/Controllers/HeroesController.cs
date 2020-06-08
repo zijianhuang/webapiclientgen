@@ -37,15 +37,14 @@ namespace DemoWebApi.Controllers
 		public Hero Get(long id)
 		{
 			Hero r;
-			HeroesData.Instance.Dic.TryGetValue(id, out r);
+			_ = HeroesData.Instance.Dic.TryGetValue(id, out r);
 			return r;
 		}
 
 		[HttpDelete("{id}")]
 		public void Delete(long id)
 		{
-			Hero r;
-			HeroesData.Instance.Dic.TryRemove(id, out r);
+			_ = HeroesData.Instance.Dic.TryRemove(id, out _);
 		}
 
 		/// <summary>
@@ -58,7 +57,7 @@ namespace DemoWebApi.Controllers
 		{
 			var max = HeroesData.Instance.Dic.Keys.Max();
 			var hero = new Hero { Id = max + 1, Name = name };
-			HeroesData.Instance.Dic.TryAdd(max + 1, hero);
+			_ = HeroesData.Instance.Dic.TryAdd(max + 1, hero);
 			return hero;
 		}
 
@@ -67,7 +66,7 @@ namespace DemoWebApi.Controllers
 		{
 			var max = HeroesData.Instance.Dic.Keys.Max();
 			var hero = new Hero { Id = max + 1, Name = name };
-			HeroesData.Instance.Dic.TryAdd(max + 1, hero);
+			_ = HeroesData.Instance.Dic.TryAdd(max + 1, hero);
 			return hero;
 		}
 

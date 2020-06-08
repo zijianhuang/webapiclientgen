@@ -12,19 +12,18 @@ namespace Fonlow.CodeDom.Web.Cs
 	/// </summary>
 	internal class ClientApiFunctionGen
 	{
-		SharedContext sharedContext;
-		WebApiDescription description;
-		string methodName;
+		readonly SharedContext sharedContext;
+		readonly WebApiDescription description;
+		readonly string methodName;
 		protected Type returnType;
-		bool returnTypeIsStream;
-		bool returnTypeIsDynamicObject;
+		readonly bool returnTypeIsStream;
+		readonly bool returnTypeIsDynamicObject;
 		CodeMemberMethod method;
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
-
-		bool forAsync;
-		bool stringAsString;
-		bool diFriendly;
-		string statementOfEnsureSuccessStatusCode;
+		readonly bool forAsync;
+		readonly bool stringAsString;
+		readonly bool diFriendly;
+		readonly string statementOfEnsureSuccessStatusCode;
 
 		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync,
 			bool diFriendly, bool useEnsureSuccessStatusCodeEx)

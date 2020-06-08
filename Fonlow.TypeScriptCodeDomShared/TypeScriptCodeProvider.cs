@@ -16,7 +16,7 @@ namespace Fonlow.TypeScriptCodeDom
             generator = new TsCodeGenerator(asModule);
         }
 
-        ICodeGenerator generator;
+		readonly ICodeGenerator generator;
 
         [Obsolete("Callers should not use the ICodeCompiler interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.")]
         public override ICodeCompiler CreateCompiler()

@@ -122,7 +122,7 @@ namespace Fonlow.Web.Meta
 							(!isValueType && !isNullablePrimitive && !isArrayType && !parameterType.IsEnum))
 						{
 							//var kk = TypeHelper.IsSimpleListType(parameterType);
-							throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterType.ToString()}.");
+							throw new ArgumentException($"Not support ParameterBinder {parameterBinder} with a class parameter {parameterType}.");
 						}
 
 						return new ParameterDescription()

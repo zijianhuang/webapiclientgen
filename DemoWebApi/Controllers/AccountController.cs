@@ -428,10 +428,12 @@ namespace DemoWebApi.Controllers
 
             public IList<Claim> GetClaims()
             {
-                IList<Claim> claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider));
+				IList<Claim> claims = new List<Claim>
+				{
+					new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider)
+				};
 
-                if (UserName != null)
+				if (UserName != null)
                 {
                     claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));
                 }
@@ -470,7 +472,7 @@ namespace DemoWebApi.Controllers
 
         private static class RandomOAuthStateGenerator
         {
-            private static RandomNumberGenerator _random = new RNGCryptoServiceProvider();
+            private static readonly RandomNumberGenerator _random = new RNGCryptoServiceProvider();
 
             public static string Generate(int strengthInBits)
             {

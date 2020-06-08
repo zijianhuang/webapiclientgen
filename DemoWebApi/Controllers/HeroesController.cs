@@ -31,15 +31,13 @@ namespace DemoWebApi.Controllers
 		[ActionName("GetHero")]
 		public Hero Get(long id)
 		{
-			Hero r;
-			HeroesData.Instance.Dic.TryGetValue(id, out r);
+			HeroesData.Instance.Dic.TryGetValue(id, out Hero r);
 			return r;
 		}
 
 		public void Delete(long id)
 		{
-			Hero r;
-			HeroesData.Instance.Dic.TryRemove(id, out r);
+			HeroesData.Instance.Dic.TryRemove(id, out Hero r);
 		}
 
 		/// <summary>

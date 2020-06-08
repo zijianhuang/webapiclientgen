@@ -18,7 +18,7 @@ namespace IntegrationTests
 
 		public DemoCoreWeb.Controllers.Client.SpecialTypes Api { get; private set; }
 
-		System.Net.Http.HttpClient httpClient;
+		readonly System.Net.Http.HttpClient httpClient;
 
 		#region IDisposable pattern
 		bool disposed;
@@ -53,7 +53,7 @@ namespace IntegrationTests
 			api = fixture.Api;
 		}
 
-		DemoCoreWeb.Controllers.Client.SpecialTypes api;
+		readonly DemoCoreWeb.Controllers.Client.SpecialTypes api;
 
 		[Fact]
 		public void TestGetAnonymousDynamic()

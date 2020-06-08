@@ -29,7 +29,7 @@ namespace IntegrationTests
 
 		public DemoWebApi.Controllers.Client.Entities Api { get; private set; }
 
-		System.Net.Http.HttpClient httpClient;
+		readonly System.Net.Http.HttpClient httpClient;
 
 		#region IDisposable pattern
 		bool disposed;
@@ -63,7 +63,7 @@ namespace IntegrationTests
 			api = fixture.Api;
 		}
 
-		DemoWebApi.Controllers.Client.Entities api;
+		readonly DemoWebApi.Controllers.Client.Entities api;
 
 	}
 }

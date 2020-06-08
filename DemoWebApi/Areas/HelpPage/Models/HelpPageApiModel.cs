@@ -86,23 +86,21 @@ namespace DemoWebApi.Areas.HelpPage.Models
 
         private static IList<ParameterDescription> GetParameterDescriptions(ModelDescription modelDescription)
         {
-            ComplexTypeModelDescription complexTypeModelDescription = modelDescription as ComplexTypeModelDescription;
-            if (complexTypeModelDescription != null)
-            {
-                return complexTypeModelDescription.Properties;
-            }
+			if (modelDescription is ComplexTypeModelDescription complexTypeModelDescription)
+			{
+				return complexTypeModelDescription.Properties;
+			}
 
-            CollectionModelDescription collectionModelDescription = modelDescription as CollectionModelDescription;
-            if (collectionModelDescription != null)
-            {
-                complexTypeModelDescription = collectionModelDescription.ElementDescription as ComplexTypeModelDescription;
-                if (complexTypeModelDescription != null)
-                {
-                    return complexTypeModelDescription.Properties;
-                }
-            }
+			if (modelDescription is CollectionModelDescription collectionModelDescription)
+			{
+				complexTypeModelDescription = collectionModelDescription.ElementDescription as ComplexTypeModelDescription;
+				if (complexTypeModelDescription != null)
+				{
+					return complexTypeModelDescription.Properties;
+				}
+			}
 
-            return null;
+			return null;
         }
     }
 }

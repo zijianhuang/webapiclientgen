@@ -21,7 +21,7 @@ namespace IntegrationTests
 
 		public DemoWebApi.Controllers.Client.Heroes Api { get; private set; }
 
-		System.Net.Http.HttpClient httpClient;
+		readonly System.Net.Http.HttpClient httpClient;
 
 		#region IDisposable pattern
 		bool disposed;
@@ -56,7 +56,7 @@ namespace IntegrationTests
 			api = fixture.Api;
 		}
 
-		DemoWebApi.Controllers.Client.Heroes api;
+		readonly DemoWebApi.Controllers.Client.Heroes api;
 
 
 		[Fact]

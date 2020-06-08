@@ -11,7 +11,7 @@ namespace IntegrationTests
 			api = fixture.Api;
 		}
 
-		DemoWebApi.Controllers.Client.SuperDemo api;
+		readonly DemoWebApi.Controllers.Client.SuperDemo api;
 
 		[Fact]
 		public void TestGetDictionary()

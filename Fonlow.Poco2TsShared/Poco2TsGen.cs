@@ -19,7 +19,7 @@ namespace Fonlow.Poco2Ts
 	/// </summary>
 	public class Poco2TsGen : IPoco2Client
 	{
-		CodeCompileUnit targetUnit;
+		readonly CodeCompileUnit targetUnit;
 
 		/// <summary>
 		/// Init with its own CodeCompileUnit.
@@ -375,7 +375,7 @@ namespace Fonlow.Poco2Ts
 			return null;
 		}
 
-		List<Type> pendingTypes;
+		readonly List<Type> pendingTypes;
 
 		CodeTypeReference TranslateGenericToTsTypeReference(Type type)
 		{

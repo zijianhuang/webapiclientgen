@@ -44,7 +44,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			poco2CsGen = new Poco2CsGen(TargetUnit);
 		}
 
-		Poco2CsGen poco2CsGen;
+		readonly Poco2CsGen poco2CsGen;
 
 		///// <summary>
 		///// Save C# codes into a file.

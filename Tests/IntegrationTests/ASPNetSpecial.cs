@@ -12,7 +12,7 @@ namespace IntegrationTests
 			api = fixture.Api;
 		}
 
-		DemoWebApi.Controllers.Client.SuperDemo api;
+		readonly DemoWebApi.Controllers.Client.SuperDemo api;
 
 
 		[Fact]
@@ -34,9 +34,11 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostAnonymousObject()
 		{
-			var d = new Newtonsoft.Json.Linq.JObject();
-			d["Id"] = "12345";
-			d["Name"] = "Something";
+			var d = new Newtonsoft.Json.Linq.JObject
+			{
+				["Id"] = "12345",
+				["Name"] = "Something"
+			};
 			var r = api.PostAnonymousObject(d);
 			Assert.Equal("123451", r["Id"].ToString());
 			Assert.Equal("Something1", r["Name"].ToString());

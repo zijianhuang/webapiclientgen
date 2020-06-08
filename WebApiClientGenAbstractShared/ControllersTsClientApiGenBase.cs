@@ -17,10 +17,9 @@ namespace Fonlow.CodeDom.Web.Ts
 	{
 		protected CodeCompileUnit TargetUnit { get; private set; }
 
-		CodeGenConfig apiSelections;
+		readonly CodeGenConfig apiSelections;
 		protected JSOutput jsOutput;
-
-		ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
+		readonly ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
 
 		/// <summary>
 		/// 
@@ -52,7 +51,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <returns></returns>
 		abstract protected IPoco2Client CreatePoco2TsGen();
 
-		IPoco2Client poco2TsGen;
+		readonly IPoco2Client poco2TsGen;
 
 		/// <summary>
 		/// Save C# codes into a file.
@@ -214,8 +213,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					List<CodeMemberMethod> methods = new List<CodeMemberMethod>();
 					for (int m = 0; m < c.Members.Count; m++)
 					{
-						var method = c.Members[m] as CodeMemberMethod;
-						if (method != null)
+						if (c.Members[m] is CodeMemberMethod method)
 						{
 							methods.Add(method);
 						}

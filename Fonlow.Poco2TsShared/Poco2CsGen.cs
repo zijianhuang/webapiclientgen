@@ -20,7 +20,7 @@ namespace Fonlow.Poco2Client
 	/// </summary>
 	public class Poco2CsGen
 	{
-		CodeCompileUnit codeCompileUnit;
+		readonly CodeCompileUnit codeCompileUnit;
 
 		/// <summary>
 		/// Init with its own CodeCompileUnit.
@@ -110,7 +110,7 @@ namespace Fonlow.Poco2Client
 		/// <summary>
 		/// To store all custom types of the service app
 		/// </summary>
-		List<Type> pendingTypes;
+		readonly List<Type> pendingTypes;
 
 		/// <summary>
 		/// Create TypeScript CodeDOM for POCO types. 
@@ -742,10 +742,9 @@ namespace Fonlow.Poco2Client
 					var min = new CodeSnippetExpression($"\"{obj.Minimum}\"");
 					var max = new CodeSnippetExpression($"\"{obj.Maximum}\"");
 					//var isNumber = obj.GetType()== typeof(int) || obj.GetType()==typeof(double);
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
-					attributeParams.Add(new CodeAttributeArgument(operandType));
-					attributeParams.Add(new CodeAttributeArgument(min));
-					attributeParams.Add(new CodeAttributeArgument(max));
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(operandType),
+					new CodeAttributeArgument(min),
+					new CodeAttributeArgument(max) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
 					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
@@ -759,8 +758,7 @@ namespace Fonlow.Poco2Client
 				{
 					var obj= a as MaxLengthAttribute;
 					var len = new CodeSnippetExpression(obj.Length.ToString());
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
-					attributeParams.Add(new CodeAttributeArgument(len));
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(len) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
 					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
@@ -774,8 +772,7 @@ namespace Fonlow.Poco2Client
 				{
 					var obj= a as MinLengthAttribute;
 					var len = new CodeSnippetExpression(obj.Length.ToString());
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
-					attributeParams.Add(new CodeAttributeArgument(len));
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(len) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
 					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
@@ -790,9 +787,8 @@ namespace Fonlow.Poco2Client
 					var obj= a as StringLengthAttribute;
 					var max = new CodeSnippetExpression(obj.MaximumLength.ToString());
 					var min = new CodeSnippetExpression(obj.MinimumLength.ToString());
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument>();
-					attributeParams.Add(new CodeAttributeArgument(max));
-					attributeParams.Add(new CodeAttributeArgument("MinimumLength", min));
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(max),
+					new CodeAttributeArgument("MinimumLength", min) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
 					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");

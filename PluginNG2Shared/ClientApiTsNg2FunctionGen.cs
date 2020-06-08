@@ -37,7 +37,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
 			{
-				returnTypeText = NG2HttpResponse;
+				returnTypeText = NG2HttpStringResponse;
 			}
 			else if (returnTypeText == "response")
 			{

@@ -56,7 +56,7 @@ namespace Fonlow.TypeScriptCodeDom
 		public static string MapToTsBasicType(Type type)
 		{
 			if (type == null)
-				throw new ArgumentNullException("type");
+				throw new ArgumentNullException(nameof(type));
 			string tsTypeName;
 
 			if (String.IsNullOrEmpty(type.FullName)) //Custom generic type has fullname empty at this point, since it is just a template defined in the assembly.
@@ -175,7 +175,7 @@ namespace Fonlow.TypeScriptCodeDom
 		internal static string MapCodeTypeReferenceCollectionToTupleTsText(CodeTypeReferenceCollection collection)
 		{
 			if (collection.Count > 8)
-				throw new ArgumentException("Current supports only up to 8 members for tuple.", "collection");
+				throw new ArgumentException("Current supports only up to 8 members for tuple.", nameof(collection));
 			string[] ss = new string[collection.Count];
 			for (int i = 0; i < collection.Count; i++)
 			{

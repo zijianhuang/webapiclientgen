@@ -549,8 +549,7 @@ namespace Fonlow.Poco2Ts
 
 			foreach (Attribute attribute in attributes)
 			{
-				Func<object, string> textGenerator;
-				if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out textGenerator))
+				if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out Func<object, string> textGenerator))
 				{
 					ss.Add(textGenerator(attribute));
 				}

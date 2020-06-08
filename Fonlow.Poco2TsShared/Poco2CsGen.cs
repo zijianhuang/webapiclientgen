@@ -623,8 +623,7 @@ namespace Fonlow.Poco2Client
 
 			foreach (Attribute attribute in attributes)
 			{
-				Func<object, string> textGenerator;
-				if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out textGenerator))
+				if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out Func<object, string> textGenerator))
 				{
 					ss.Add(textGenerator(attribute));
 				}
@@ -694,14 +693,13 @@ namespace Fonlow.Poco2Client
 
 			foreach (Attribute attribute in attributes)
 			{
-				Func<Attribute, CodeAttributeDeclaration> textGenerator;
 				var attributeType = attribute.GetType();
 				if (attributeType == typeof(RequiredAttribute) && requiredAdded)
 				{
 					continue;
 				}
 
-				if (AttributeDeclarationGenerator.TryGetValue(attributeType, out textGenerator))
+				if (AttributeDeclarationGenerator.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
 				{
 					codeTypeMember.CustomAttributes.Add(textGenerator(attribute));
 				}

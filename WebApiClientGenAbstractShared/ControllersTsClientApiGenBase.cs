@@ -42,7 +42,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
 			options.BracingStyle = "JS";
 			options.IndentString = "\t";
-			options.CamelCase = jsOutput.CamelCase.HasValue ? jsOutput.CamelCase.Value : false;
+			options.CamelCase = jsOutput.CamelCase ?? false;
 
 		}
 

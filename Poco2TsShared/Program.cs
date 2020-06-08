@@ -42,11 +42,10 @@ For all classes, properties and fields
         static CherryPickingMethods ReadMethods(string s)
         {
             var r = s.Remove(0, 1);
-            int m = 1;
-            if (int.TryParse(r, out m))
-                return (CherryPickingMethods)m;
+			if (int.TryParse(r, out int m))
+				return (CherryPickingMethods)m;
 
-            return CherryPickingMethods.DataContract;
+			return CherryPickingMethods.DataContract;
         }
 
         private static System.Reflection.Assembly AppDomain_AssemblyResolve(object sender, ResolveEventArgs args)

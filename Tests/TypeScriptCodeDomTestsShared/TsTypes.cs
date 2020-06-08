@@ -75,13 +75,13 @@ namespace TypeScriptCodeDomTests
         }  
 
 
-        [Fact]
-        public void TestTypeOfType()
-        {
-            Type companyType = typeof(DemoWebApi.DemoData.Company);
-            var s = companyType.ToString();
-            Type typeOfType = companyType.GetType();
-            var s2 = typeOfType.ToString();
-        }
+        //[Fact]
+        //public void TestTypeOfType()
+        //{
+        //    Type companyType = typeof(DemoWebApi.DemoData.Company);
+        //    var s = companyType.ToString();
+        //    Type typeOfType = companyType.GetType();
+        //    var s2 = typeOfType.ToString();
+        //}
     }
 }

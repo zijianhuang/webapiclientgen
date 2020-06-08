@@ -53,7 +53,7 @@ namespace Fonlow.TypeScriptCodeDom
         public static void ValidateIdentifier(string value)
         {
             if (keywords.Contains(value))
-                throw new ArgumentException($"Keyword {value} cannot be used as an identifier.", "value");
+                throw new ArgumentException($"Keyword {value} cannot be used as an identifier.", nameof(value));
         }
 
     }

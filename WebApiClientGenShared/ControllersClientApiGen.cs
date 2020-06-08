@@ -14,8 +14,8 @@ namespace Fonlow.CodeDom.Web.Cs
 	/// </summary>
 	internal class SharedContext
 	{
-		internal CodeFieldReferenceExpression clientReference { get; set; }
-		internal CodeFieldReferenceExpression baseUriReference { get; set; }
+		internal CodeFieldReferenceExpression ClientReference { get; set; }
+		internal CodeFieldReferenceExpression BaseUriReference { get; set; }
 	}
 
 
@@ -24,9 +24,9 @@ namespace Fonlow.CodeDom.Web.Cs
 	/// </summary>
 	public class ControllersClientApiGen
 	{
-		CodeCompileUnit targetUnit { get; set; }
-		SharedContext sharedContext { get; set; }
-		CodeGenSettings codeGenParameters { get; set; }
+		CodeCompileUnit TargetUnit { get; set; }
+		SharedContext SharedContext { get; set; }
+		CodeGenSettings CodeGenParameters { get; set; }
 
 		/// <summary>
 		/// 
@@ -38,10 +38,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (codeGenParameters == null)
 				throw new System.ArgumentNullException(nameof(codeGenParameters));
 
-			this.codeGenParameters = codeGenParameters;
-			targetUnit = new CodeCompileUnit();
-			sharedContext = new SharedContext();
-			poco2CsGen = new Poco2CsGen(targetUnit);
+			this.CodeGenParameters = codeGenParameters;
+			TargetUnit = new CodeCompileUnit();
+			SharedContext = new SharedContext();
+			poco2CsGen = new Poco2CsGen(TargetUnit);
 		}
 
 		Poco2CsGen poco2CsGen;
@@ -79,14 +79,14 @@ namespace Fonlow.CodeDom.Web.Cs
 				using (var stream = new MemoryStream())
 				using (StreamWriter writer = new StreamWriter(stream))
 				{
-					provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+					provider.GenerateCodeFromCompileUnit(TargetUnit, writer, options);
 					writer.Flush();
 					stream.Position = 0;
 					using (var stringReader = new StreamReader(stream))
 					using (var fileWriter = new StreamWriter(fileName))
 					{
 						var s = stringReader.ReadToEnd();
-						if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+						if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
 						{
 							fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
 						}
@@ -104,25 +104,25 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void GenerateCsFromPoco()
 		{
-			if (codeGenParameters.ApiSelections.DataModelAssemblyNames != null)
+			if (CodeGenParameters.ApiSelections.DataModelAssemblyNames != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				var assemblies = allAssemblies.Where(d => codeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
+				var assemblies = allAssemblies.Where(d => CodeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
 					.OrderBy(n => n.FullName)
 					.ToArray();
-				var cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+				var cherryPickingMethods = CodeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)CodeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 				foreach (var assembly in assemblies)
 				{
 					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix,
-							codeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, codeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
+					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix,
+							CodeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, CodeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
 				}
 			}
-			else if (codeGenParameters.ApiSelections.DataModels != null)
+			else if (CodeGenParameters.ApiSelections.DataModels != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				foreach (var dm in codeGenParameters.ApiSelections.DataModels)
+				foreach (var dm in CodeGenParameters.ApiSelections.DataModels)
 				{
 					var assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dm.AssemblyName, StringComparison.CurrentCultureIgnoreCase));
 					if (assembly != null)
@@ -130,8 +130,8 @@ namespace Fonlow.CodeDom.Web.Cs
 						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix, 
-							codeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, codeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
+						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix, 
+							CodeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, CodeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
 					}
 				}
 			}
@@ -158,9 +158,9 @@ namespace Fonlow.CodeDom.Web.Cs
 			//Create client classes mapping to controller classes
 			foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
-				var clientNamespaceText = grouppedControllerDescriptions.Key + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix;
+				var clientNamespaceText = grouppedControllerDescriptions.Key + CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix;
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
-				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+				TargetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
 				clientNamespace.Imports.AddRange(new CodeNamespaceImport[]{
 				new CodeNamespaceImport("System"),
@@ -171,7 +171,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				new CodeNamespaceImport("Newtonsoft.Json"),
 				});
 
-				if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+				if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
 				{
 					clientNamespace.Imports.Add(new CodeNamespaceImport("Fonlow.Net.Http"));
 				}
@@ -181,7 +181,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					.Select(d =>
 					{
 						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
-						if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+						if (CodeGenParameters.ApiSelections.ExcludedControllerNames != null && CodeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
 
 						string containerClassName = GetContainerClassName(d.ControllerName);
@@ -197,23 +197,23 @@ namespace Fonlow.CodeDom.Web.Cs
 				var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
 				var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
 				var controllerFullName = controllerNamespace + "." + controllerName;
-				if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+				if (CodeGenParameters.ApiSelections.ExcludedControllerNames != null && CodeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 					continue;
 
 				var existingClientClass = LookupExistingClass(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, true, 
-					codeGenParameters.ClientApiOutputs.DIFriendly, codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx);
+				var apiFunction = ClientApiFunctionGen.Create(SharedContext, d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs.StringAsString, true, 
+					CodeGenParameters.ClientApiOutputs.DIFriendly, CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx);
 				existingClientClass.Members.Add(apiFunction);
 				if (ForBothAsyncAndSync)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(sharedContext, d, poco2CsGen, this.codeGenParameters.ClientApiOutputs.StringAsString, false, 
-						codeGenParameters.ClientApiOutputs.DIFriendly, codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx));
+					existingClientClass.Members.Add(ClientApiFunctionGen.Create(SharedContext, d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs.StringAsString, false, 
+						CodeGenParameters.ClientApiOutputs.DIFriendly, CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx));
 				}
 			}
 
-			if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+			if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
 			{
 				CreateDummyOfEnsureSuccessStatusCodeEx();
 			}
@@ -221,7 +221,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		string GetContainerClassName(string controllerName)
 		{
-			return controllerName + (codeGenParameters.ClientApiOutputs.ContainerNameSuffix ?? String.Empty);
+			return controllerName + (CodeGenParameters.ClientApiOutputs.ContainerNameSuffix ?? String.Empty);
 		}
 
 		/// <summary>
@@ -232,10 +232,10 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <returns></returns>
 		CodeTypeDeclaration LookupExistingClass(string namespaceText, string containerClassName)
 		{
-			for (int i = 0; i < targetUnit.Namespaces.Count; i++)
+			for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
 			{
-				var ns = targetUnit.Namespaces[i];
-				if (ns.Name == namespaceText + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix)
+				var ns = TargetUnit.Namespaces[i];
+				if (ns.Name == namespaceText + CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix)
 				{
 					for (int k = 0; k < ns.Types.Count; k++)
 					{
@@ -260,7 +260,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			ns.Types.Add(targetClass);
 			AddLocalFields(targetClass);
-			if (codeGenParameters.ClientApiOutputs.DIFriendly)
+			if (CodeGenParameters.ClientApiOutputs.DIFriendly)
 			{
 				AddConstructorWithHttpClient(targetClass);
 			}
@@ -281,7 +281,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			clientField.Type = new CodeTypeReference("System.Net.Http.HttpClient");
 			targetClass.Members.Add(clientField);
 
-			if (!codeGenParameters.ClientApiOutputs.DIFriendly)
+			if (!CodeGenParameters.ClientApiOutputs.DIFriendly)
 			{
 				CodeMemberField baseUriField = new CodeMemberField();
 				baseUriField.Attributes = MemberAttributes.Private;
@@ -311,10 +311,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				throw new ArgumentNullException(""Null baseUri"", ""baseUri"");
 "));
 			// Add field initialization logic
-			sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
-			constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));
-			sharedContext.baseUriReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "baseUri");
-			constructor.Statements.Add(new CodeAssignStatement(sharedContext.baseUriReference, new CodeArgumentReferenceExpression("baseUri")));
+			SharedContext.ClientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
+			constructor.Statements.Add(new CodeAssignStatement(SharedContext.ClientReference, new CodeArgumentReferenceExpression("client")));
+			SharedContext.BaseUriReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "baseUri");
+			constructor.Statements.Add(new CodeAssignStatement(SharedContext.BaseUriReference, new CodeArgumentReferenceExpression("baseUri")));
 			targetClass.Members.Add(constructor);
 		}
 
@@ -335,14 +335,14 @@ namespace Fonlow.CodeDom.Web.Cs
 				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
 "));
 			// Add field initialization logic
-			sharedContext.clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
-			constructor.Statements.Add(new CodeAssignStatement(sharedContext.clientReference, new CodeArgumentReferenceExpression("client")));
+			SharedContext.ClientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
+			constructor.Statements.Add(new CodeAssignStatement(SharedContext.ClientReference, new CodeArgumentReferenceExpression("client")));
 			targetClass.Members.Add(constructor);
 		}
 
 		void CreateDummyOfEnsureSuccessStatusCodeEx()
 		{
-			targetUnit.Namespaces.Add(new CodeNamespace("EnsureSuccessStatusCodeExDummy"));
+			TargetUnit.Namespaces.Add(new CodeNamespace("EnsureSuccessStatusCodeExDummy"));
 		}
 
 		const string blockOfEnsureSuccessStatusCodeEx =

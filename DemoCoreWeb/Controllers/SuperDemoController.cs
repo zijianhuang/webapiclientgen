@@ -172,7 +172,7 @@ namespace DemoWebApi.Controllers
 		{
 			var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg"));// don't dispose this and the following disposable objects
 			{
-				var content = new StreamContent(stream);
+				//var content = new StreamContent(stream);
 				return new FileStreamResult(stream, new Microsoft.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream"));
 			}
 		}

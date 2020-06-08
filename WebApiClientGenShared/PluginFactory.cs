@@ -23,7 +23,7 @@ namespace Fonlow.CodeDom.Web
 		/// <returns>ICommand object. Null if not found</returns>
 		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput)
 		{
-			Assembly assembly = null;
+			Assembly assembly;
 			try
 			{
 				assembly = Assembly.Load(assemblyName);

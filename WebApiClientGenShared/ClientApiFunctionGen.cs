@@ -79,26 +79,26 @@ namespace Fonlow.CodeDom.Web.Cs
 					if (forAsync)
 					{
 						RenderGetOrDeleteImplementation(
-							new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "GetAsync", new CodeSnippetExpression("requestUri")));
+							new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.ClientReference.FieldName), "GetAsync", new CodeSnippetExpression("requestUri")));
 					}
 					else
 					{
 						RenderGetOrDeleteImplementation(
 							new CodePropertyReferenceExpression(
-							new CodeMethodInvokeExpression(sharedContext.clientReference, "GetAsync", new CodeSnippetExpression("requestUri")), "Result"));
+							new CodeMethodInvokeExpression(sharedContext.ClientReference, "GetAsync", new CodeSnippetExpression("requestUri")), "Result"));
 					}
 					break;
 				case "DELETE":
 					if (forAsync)
 					{
 						RenderGetOrDeleteImplementation(
-							new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), "DeleteAsync", new CodeSnippetExpression("requestUri")));
+							new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.ClientReference.FieldName), "DeleteAsync", new CodeSnippetExpression("requestUri")));
 					}
 					else
 					{
 						RenderGetOrDeleteImplementation(
 							new CodePropertyReferenceExpression(
-							new CodeMethodInvokeExpression(sharedContext.clientReference, "DeleteAsync", new CodeSnippetExpression("requestUri"))
+							new CodeMethodInvokeExpression(sharedContext.ClientReference, "DeleteAsync", new CodeSnippetExpression("requestUri"))
 							, "Result"));
 					}
 					break;
@@ -461,14 +461,14 @@ namespace Fonlow.CodeDom.Web.Cs
 				if (forAsync)
 				{
 					AddPostStatement(
-					new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ?
+					new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.ClientReference.FieldName), isPost ?
 					"PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri")
 			  , new CodeSnippetExpression("content")));
 				}
 				else
 				{
 					AddPostStatement(new CodePropertyReferenceExpression(
-					new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ?
+					new CodeMethodInvokeExpression(sharedContext.ClientReference, isPost ?
 					"PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri")
 			  , new CodeSnippetExpression("content"))
 					, "Result"));
@@ -479,14 +479,14 @@ namespace Fonlow.CodeDom.Web.Cs
 				if (forAsync)
 				{
 					AddPostStatement(
-						new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.clientReference.FieldName), isPost ? "PostAsync" : "PutAsync"
+						new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.ClientReference.FieldName), isPost ? "PostAsync" : "PutAsync"
 						, new CodeSnippetExpression("requestUri")
 						, new CodeSnippetExpression("new StringContent(String.Empty)")));
 				}
 				else
 				{
 					AddPostStatement(new CodePropertyReferenceExpression(
-						new CodeMethodInvokeExpression(sharedContext.clientReference, isPost ? "PostAsync" : "PutAsync"
+						new CodeMethodInvokeExpression(sharedContext.ClientReference, isPost ? "PostAsync" : "PutAsync"
 						, new CodeSnippetExpression("requestUri")
 						, new CodeSnippetExpression("new StringContent(String.Empty)"))
 						, "Result"));

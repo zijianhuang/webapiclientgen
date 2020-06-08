@@ -226,43 +226,43 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * GET api/SpecialTypes/AnonymousDynamic
 		 * @return {any} dyanmic things
 		 */
-		getAnonymousDynamic(): Observable<Response> {
-			return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousDynamic');
+		getAnonymousDynamic(): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SpecialTypes/AnonymousDynamic2
 		 */
-		getAnonymousDynamic2(): Observable<Response> {
-			return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2');
+		getAnonymousDynamic2(): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', { observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SpecialTypes/AnonymousObject
 		 */
-		getAnonymousObject(): Observable<Response> {
-			return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject');
+		getAnonymousObject(): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', { observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SpecialTypes/AnonymousObject2
 		 */
-		getAnonymousObject2(): Observable<Response> {
-			return this.http.get<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject2');
+		getAnonymousObject2(): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
-		postAnonymousObject(obj: any): Observable<Response> {
-			return this.http.post<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postAnonymousObject(obj: any): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * POST api/SpecialTypes/AnonymousObject2
 		 */
-		postAnonymousObject2(obj: any): Observable<Response> {
-			return this.http.post<Response>(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postAnonymousObject2(obj: any): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
 		}
 	}
 
@@ -291,8 +291,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * DELETE api/Entities/{id}
 		 */
-		delete(id: number): Observable<Response> {
-			return this.http.delete<Response>(this.baseUri + 'api/Entities/' + id);
+		delete(id: number): Observable<HttpResponse<string>> {
+			return this.http.delete(this.baseUri + 'api/Entities/' + id, { observe: 'response', responseType: 'text' });
 		}
 
 		/**
@@ -364,8 +364,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * DELETE api/Heroes/{id}
 		 */
-		delete(id: number): Observable<Response> {
-			return this.http.delete<Response>(this.baseUri + 'api/Heroes/' + id);
+		delete(id: number): Observable<HttpResponse<string>> {
+			return this.http.delete(this.baseUri + 'api/Heroes/' + id, { observe: 'response', responseType: 'text' });
 		}
 
 		/**
@@ -1147,8 +1147,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * DELETE api/Values/{id}
 		 */
-		delete(id: number): Observable<Response> {
-			return this.http.delete<Response>(this.baseUri + 'api/Values/' + id);
+		delete(id: number): Observable<HttpResponse<string>> {
+			return this.http.delete(this.baseUri + 'api/Values/' + id, { observe: 'response', responseType: 'text' });
 		}
 
 		/**
@@ -1199,8 +1199,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Update with valjue
 		 * PUT api/Values/{id}
 		 */
-		put(id: number, value: string): Observable<Response> {
-			return this.http.put<Response>(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		put(id: number, value: string): Observable<HttpResponse<string>> {
+			return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
 		}
 	}
 

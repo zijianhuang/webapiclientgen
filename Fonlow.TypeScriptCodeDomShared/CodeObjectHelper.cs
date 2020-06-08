@@ -171,7 +171,7 @@ namespace Fonlow.TypeScriptCodeDom
                 return;
             }
 
-            Trace.TraceWarning($"CodeExpression not supported: {e.ToString()}");
+            Trace.TraceWarning($"CodeExpression not supported: {e}");
         }
 
         internal static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
@@ -212,7 +212,7 @@ namespace Fonlow.TypeScriptCodeDom
             if (WriteCodeVariableDeclarationStatement(e as CodeVariableDeclarationStatement, w, o))
                 return;
 
-            Trace.TraceWarning($"CodeStatement not supported: {e.ToString()}");
+            Trace.TraceWarning($"CodeStatement not supported: {e}");
         }
 
         #endregion
@@ -715,7 +715,7 @@ namespace Fonlow.TypeScriptCodeDom
             w.WriteLine("}");
 
             if (tryCatchFinallyStatement.CatchClauses.Count > 1)
-                throw new ArgumentException("Javascript does not support multiple CatchClauses.", "tryCatchFinallyStatement");
+                throw new ArgumentException("Javascript does not support multiple CatchClauses.", nameof(tryCatchFinallyStatement));
 
             if (tryCatchFinallyStatement.CatchClauses.Count > 0)
             {

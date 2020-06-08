@@ -10,7 +10,9 @@
     <projectUrl>https://github.com/zijianhuang/webapiclientgen</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</description>
-    <releaseNotes>Released with WebApiClientGen 3.0.</releaseNotes>
+    <releaseNotes>
+      * If service function return type is void, the client API return is Observable HttpResponse string, so client codes could handle response details.
+    </releaseNotes>
     <copyright>Copyright © Fonlow 2015-2020</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi Angular</tags>
     <dependencies>

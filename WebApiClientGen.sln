@@ -35,6 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{571408D0-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A209BA4-555C-45E6-979B-05F702889260}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		CreateAspNetCoreClientApi.ps1 = CreateAspNetCoreClientApi.ps1
 		CreateClientApi.ps1 = CreateClientApi.ps1
 		Fonlow.ruleset = Fonlow.ruleset

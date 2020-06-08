@@ -123,13 +123,13 @@ namespace IntegrationTests
 		}
 
 
-		[Fact]
-		public void TestTupleCreate()
-		{
-			var t = Tuple.Create<string, string, int>("One", "Two", 2);
-			var s = JsonConvert.SerializeObject(t);
+		//[Fact]
+		//public void TestTupleCreate()
+		//{
+		//	var t = Tuple.Create<string, string, int>("One", "Two", 2);
+		//	var s = JsonConvert.SerializeObject(t);
 			
-		}
+		//}
 
 		[Fact]
 		public void TestJsonSerializer()

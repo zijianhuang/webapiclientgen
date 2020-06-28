@@ -57,7 +57,7 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			if (e.Arguments.Count > 0)
 			{
-				throw new NotImplementedException("Not yet support decorator with arguments");
+				throw new NotImplementedException($"Not yet support decorator with CodeTypeDeclaration {e.Name} with arguments.");
 			}
 
 			w.WriteLine($"{o.IndentString}@{e.Name}()");
@@ -362,8 +362,9 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (commentStatement.Comment.DocComment)
 			{
-				w.Write(o.IndentString + "/**");
-				if (commentStatement.Comment.Text.Contains('\n'))
+				var hasMultiLines = commentStatement.Comment.Text.Contains('\n');
+				w.Write(o.IndentString + (hasMultiLines ? "/**": "/** "));
+				if (hasMultiLines)
 				{
 					w.WriteLine();
 					var lines = commentStatement.Comment.Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);

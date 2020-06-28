@@ -15,9 +15,9 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.3.1</Version>
-    <AssemblyVersion>2.3.1.0</AssemblyVersion>
-    <FileVersion>2.3.1.0</FileVersion>
+    <Version>2.3.2</Version>
+    <AssemblyVersion>2.3.2.0</AssemblyVersion>
+    <FileVersion>2.3.2.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>https://raw.githubusercontent.com/zijianhuang/webapiclientgen/master/Doc/icons/TypeScriptCodeDOM64.png</PackageIconUrl>
   </PropertyGroup>

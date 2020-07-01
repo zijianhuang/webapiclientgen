@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
-import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
+import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 
 @Component({
   moduleId: module.id,

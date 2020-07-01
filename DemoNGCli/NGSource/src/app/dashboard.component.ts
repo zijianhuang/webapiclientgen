@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
+import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 
 @Component({
 	selector: 'my-dashboard',

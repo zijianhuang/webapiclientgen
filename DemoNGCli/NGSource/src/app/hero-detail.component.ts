@@ -1,7 +1,7 @@
 import { Component, OnInit , Inject} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
+import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 
 @Component({
 	moduleId: module.id,

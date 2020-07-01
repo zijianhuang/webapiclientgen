@@ -10,7 +10,7 @@ import { HeroesComponent } from './heroes.component';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroSearchComponent } from './hero-search.component';
 
-import * as namespaces from '../clientapi/WebApiNG2ClientAuto';
+import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 
 import { SiteConfigConstants, environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';

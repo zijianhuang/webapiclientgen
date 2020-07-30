@@ -24,17 +24,18 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly bool stringAsString;
 		readonly bool diFriendly;
 		readonly string statementOfEnsureSuccessStatusCode;
+		readonly CodeGenOutputs settings;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync,
-			bool diFriendly, bool useEnsureSuccessStatusCodeEx)
+		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
 			this.description = description;
 			this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
+			this.settings = settings;
 			this.forAsync = forAsync;
-			this.stringAsString = stringAsString;
-			this.diFriendly = diFriendly;
-			statementOfEnsureSuccessStatusCode = useEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
+			this.stringAsString = settings.StringAsString;
+			this.diFriendly = settings.DIFriendly;
+			statementOfEnsureSuccessStatusCode = settings.UseEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
 			methodName = description.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async"))
 				methodName = methodName.Substring(0, methodName.Length - 5);
@@ -58,10 +59,9 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, bool stringAsString, bool forAsync,
-			bool diFriendly, bool useEnsureSuccessStatusCodeEx)
+		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
-			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, stringAsString, forAsync, diFriendly, useEnsureSuccessStatusCodeEx);
+			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, settings, forAsync);
 			return gen.CreateApiFunction();
 		}
 
@@ -71,43 +71,17 @@ namespace Fonlow.CodeDom.Web.Cs
 			method = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 
 			CreateDocComments();
-
+			System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
 			switch (description.HttpMethod)
 			{
 				case "GET":
-					if (forAsync)
-					{
-						RenderGetOrDeleteImplementation(
-							new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.ClientReference.FieldName), "GetAsync", new CodeSnippetExpression("requestUri")));
-					}
-					else
-					{
-						RenderGetOrDeleteImplementation(
-							new CodePropertyReferenceExpression(
-							new CodeMethodInvokeExpression(sharedContext.ClientReference, "GetAsync", new CodeSnippetExpression("requestUri")), "Result"));
-					}
-					break;
 				case "DELETE":
-					if (forAsync)
-					{
-						RenderGetOrDeleteImplementation(
-							new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.ClientReference.FieldName), "DeleteAsync", new CodeSnippetExpression("requestUri")));
-					}
-					else
-					{
-						RenderGetOrDeleteImplementation(
-							new CodePropertyReferenceExpression(
-							new CodeMethodInvokeExpression(sharedContext.ClientReference, "DeleteAsync", new CodeSnippetExpression("requestUri"))
-							, "Result"));
-					}
+					RenderGetOrDeleteImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()), forAsync);
 					break;
 				case "POST":
-					RenderPostOrPutImplementation(true);
-					break;
 				case "PUT":
-					RenderPostOrPutImplementation(false);
+					RenderPostOrPutImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()), forAsync);
 					break;
-
 				default:
 					Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
 					break;
@@ -174,17 +148,23 @@ namespace Fonlow.CodeDom.Web.Cs
 			CreateDocComment("returns", description.ResponseDescription.Documentation);
 		}
 
-		void RenderGetOrDeleteImplementation(CodeExpression httpMethodInvokeExpression)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="httpMethod">GET, DELETE, POST, PUT</param>
+		/// <param name="forAsync"></param>
+		void RenderGetOrDeleteImplementation(string httpMethod, bool forAsync)
 		{
-			//Create function parameters
-			var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
-			{
-				Name = d.Name,
-				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
-
-			}).ToArray();
-
+			CodeParameterDeclarationExpression[] parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery)
+				.Select(d =>
+				new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name))
+				.ToArray();
 			method.Parameters.AddRange(parameters);
+			if (settings.HandleHttpRequestHeaders)
+			{
+				method.Parameters.Add(new CodeParameterDeclarationExpression(
+					"Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
+			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
 			string uriText;
@@ -202,13 +182,27 @@ namespace Fonlow.CodeDom.Web.Cs
 				new CodeTypeReference("var"), "requestUri",
 				new CodeSnippetExpression(uriText)));
 
-			//Statement: var result = this.client.GetAsync(requestUri.ToString()).Result;
+			method.Statements.Add(new CodeSnippetStatement(
+			$@"			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri))
+			{{"
+			));
+
+			if (settings.HandleHttpRequestHeaders)
+			{
+				method.Statements.Add(new CodeSnippetStatement(
+				$@"			if (handleHeaders != null)
+			{{
+				handleHeaders(httpRequestMessage.Headers);
+			}}
+"
+				));
+			}
+
 			method.Statements.Add(new CodeVariableDeclarationStatement(
-				new CodeTypeReference("var"), "responseMessage", httpMethodInvokeExpression));
+				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
 
 
-			////Statement: var result = task.Result;
-			var resultReference = new CodeVariableReferenceExpression("responseMessage");
+			CodeVariableReferenceExpression resultReference = new CodeVariableReferenceExpression("responseMessage");
 
 			//Statement: result.EnsureSuccessStatusCode();
 			if (returnTypeIsStream)
@@ -220,6 +214,8 @@ namespace Fonlow.CodeDom.Web.Cs
 					//Debug.Assert(!returnType.FullName.Contains("JObject"));
 					AddReturnStatement(method.Statements);
 				}
+
+				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 			}
 			else
 			{
@@ -235,6 +231,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
+				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 			}
 		}
 
@@ -347,7 +344,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));
 		}
 
-		void RenderPostOrPutImplementation(bool isPost)
+		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
 		{
 			//Create function parameters in prototype
 			var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
@@ -357,6 +354,12 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			}).ToArray();
 			method.Parameters.AddRange(parameters);
+
+			if (settings.HandleHttpRequestHeaders)
+			{
+				method.Parameters.Add(new CodeParameterDeclarationExpression(
+				"Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
+			}
 
 			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
@@ -391,23 +394,19 @@ namespace Fonlow.CodeDom.Web.Cs
 					new CodeSnippetExpression(uriText)));
 			}
 
-			void AddPostStatement(CodeExpression httpMethodInvokeExpression)
-			{
-				//Statement: var task = this.client.GetAsync(requestUri.ToString());
-				method.Statements.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "responseMessage", httpMethodInvokeExpression));
-
-			}
-
-
 			AddRequestUriWithQueryAssignmentStatement();
+
+			method.Statements.Add(new CodeSnippetStatement(
+				$@"			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri))
+			{{"
+				));
 
 			if (singleFromBodyParameterDescription != null)
 			{
 				method.Statements.Add(new CodeSnippetStatement(
 @"			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();"
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
 ));
 				method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
 					new CodeSnippetExpression("requestWriter"),
@@ -418,40 +417,23 @@ namespace Fonlow.CodeDom.Web.Cs
 @"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
 					));
 
-				if (forAsync)
+				if (settings.HandleHttpRequestHeaders)
 				{
-					AddPostStatement(
-					new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.ClientReference.FieldName), isPost ?
-					"PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri")
-			  , new CodeSnippetExpression("content")));
+					method.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+"));
 				}
-				else
-				{
-					AddPostStatement(new CodePropertyReferenceExpression(
-					new CodeMethodInvokeExpression(sharedContext.ClientReference, isPost ?
-					"PostAsync" : "PutAsync", new CodeSnippetExpression("requestUri")
-			  , new CodeSnippetExpression("content"))
-					, "Result"));
-				}
+
+				method.Statements.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
 			}
 			else
 			{
-				if (forAsync)
-				{
-					AddPostStatement(
-						new CodeMethodInvokeExpression(new CodeSnippetExpression("await " + sharedContext.ClientReference.FieldName), isPost ? "PostAsync" : "PutAsync"
-						, new CodeSnippetExpression("requestUri")
-						, new CodeSnippetExpression("new StringContent(String.Empty)")));
-				}
-				else
-				{
-					AddPostStatement(new CodePropertyReferenceExpression(
-						new CodeMethodInvokeExpression(sharedContext.ClientReference, isPost ? "PostAsync" : "PutAsync"
-						, new CodeSnippetExpression("requestUri")
-						, new CodeSnippetExpression("new StringContent(String.Empty)"))
-						, "Result"));
-				}
-
+				method.Statements.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
 			}
 
 			var resultReference = new CodeVariableReferenceExpression("responseMessage");
@@ -483,6 +465,8 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (singleFromBodyParameterDescription != null)
 				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
+
+			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
 		private static string RemoveTrialEmptyString(string s)

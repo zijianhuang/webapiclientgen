@@ -107,6 +107,11 @@
 		/// </summary>
 		public bool UseEnsureSuccessStatusCodeEx { get; set; }
 
+		/// <summary>
+		/// Function parameters contain a callback to handle HTTP request headers
+		/// </summary>
+		public bool HandleHttpRequestHeaders { get; set; }
+
 		public JSPlugin[] Plugins { get; set; }
 	}
 

@@ -28,13 +28,14 @@
 	"ClientApiOutputs": {
 		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApi",
 		"GenerateBothAsyncAndSync": true,
-		"DIFriendly": true,
+		"DIFriendly": false,
 		"StringAsString": true,
 		"CamelCase": true,
 		"CSClientNamespaceSuffix": ".Client",
 		"UseEnsureSuccessStatusCodeEx": true,
 		"DataAnnotationsEnabled": true,
 		"DataAnnotationsToComments": true,
+		"HandleHttpRequestHeaders": true,
 
 		"Plugins": [
 			{

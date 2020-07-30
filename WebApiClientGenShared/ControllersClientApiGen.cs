@@ -16,6 +16,7 @@ namespace Fonlow.CodeDom.Web.Cs
 	{
 		internal CodeFieldReferenceExpression ClientReference { get; set; }
 		internal CodeFieldReferenceExpression BaseUriReference { get; set; }
+		internal CodeFieldReferenceExpression JsonSettingsReference { get; set; }
 	}
 
 
@@ -202,13 +203,11 @@ namespace Fonlow.CodeDom.Web.Cs
 				var existingClientClass = LookupExistingClass(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = ClientApiFunctionGen.Create(SharedContext, d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs.StringAsString, true, 
-					CodeGenParameters.ClientApiOutputs.DIFriendly, CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx);
+				var apiFunction = ClientApiFunctionGen.Create(SharedContext, d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs, true);
 				existingClientClass.Members.Add(apiFunction);
 				if (ForBothAsyncAndSync)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(SharedContext, d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs.StringAsString, false, 
-						CodeGenParameters.ClientApiOutputs.DIFriendly, CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx));
+					existingClientClass.Members.Add(ClientApiFunctionGen.Create(SharedContext, d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs, false));
 				}
 			}
 
@@ -282,6 +281,14 @@ namespace Fonlow.CodeDom.Web.Cs
 			};
 			targetClass.Members.Add(clientField);
 
+			CodeMemberField jsonSettingsField = new CodeMemberField
+			{
+				Attributes = MemberAttributes.Private,
+				Name = "jsonSerializerSettings",
+				Type = new CodeTypeReference("JsonSerializerSettings")
+			};
+			targetClass.Members.Add(jsonSettingsField);
+
 			if (!CodeGenParameters.ClientApiOutputs.DIFriendly)
 			{
 				CodeMemberField baseUriField = new CodeMemberField
@@ -307,19 +314,20 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Net.Http.HttpClient", "client"));
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"System.Uri", "baseUri"));
+				"JsonSerializerSettings", "jsonSerializerSettings=null"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
 				throw new ArgumentNullException(""Null HttpClient."", ""client"");
 "));
-			constructor.Statements.Add(new CodeSnippetStatement(@"			if (baseUri == null)
-				throw new ArgumentNullException(""Null baseUri"", ""baseUri"");
+			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client.BaseAddress == null)
+				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
 "));
+
 			// Add field initialization logic
 			SharedContext.ClientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
 			constructor.Statements.Add(new CodeAssignStatement(SharedContext.ClientReference, new CodeArgumentReferenceExpression("client")));
-			SharedContext.BaseUriReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "baseUri");
-			constructor.Statements.Add(new CodeAssignStatement(SharedContext.BaseUriReference, new CodeArgumentReferenceExpression("baseUri")));
+			SharedContext.JsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
+			constructor.Statements.Add(new CodeAssignStatement(SharedContext.JsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
 			targetClass.Members.Add(constructor);
 		}
 

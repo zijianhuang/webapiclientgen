@@ -22,7 +22,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
 		readonly bool forAsync;
 		readonly bool stringAsString;
-		readonly bool diFriendly;
+		//readonly bool diFriendly;
 		readonly string statementOfEnsureSuccessStatusCode;
 		readonly CodeGenOutputs settings;
 
@@ -34,7 +34,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			this.settings = settings;
 			this.forAsync = forAsync;
 			this.stringAsString = settings.StringAsString;
-			this.diFriendly = settings.DIFriendly;
+			//this.diFriendly = settings.DIFriendly;
 			statementOfEnsureSuccessStatusCode = settings.UseEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
 			methodName = description.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async"))
@@ -155,11 +155,13 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <param name="forAsync"></param>
 		void RenderGetOrDeleteImplementation(string httpMethod, bool forAsync)
 		{
-			CodeParameterDeclarationExpression[] parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery)
+			CodeParameterDeclarationExpression[] parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
+			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.None)
 				.Select(d =>
 				new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name))
 				.ToArray();
 			method.Parameters.AddRange(parameters);
+
 			if (settings.HandleHttpRequestHeaders)
 			{
 				method.Parameters.Add(new CodeParameterDeclarationExpression(
@@ -167,16 +169,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-			string uriText;
-			if (diFriendly)
-			{
-				uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
-			}
-			else
-			{
-				uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
-					RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
-			}
+			string uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
+
 
 			method.Statements.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "requestUri",
@@ -233,6 +227,121 @@ namespace Fonlow.CodeDom.Web.Cs
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
 				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 			}
+		}
+
+		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
+		{
+			//Create function parameters in prototype
+			var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
+			{
+				Name = d.Name,
+				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
+
+			}).ToArray();
+			method.Parameters.AddRange(parameters);
+
+			if (settings.HandleHttpRequestHeaders)
+			{
+				method.Parameters.Add(new CodeParameterDeclarationExpression(
+				"Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
+			}
+
+			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+			if (fromBodyParameterDescriptions.Length > 1)
+			{
+				throw new CodeGenException("Bad Api Definition")
+				{
+					Description = String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName)
+				};
+			}
+
+			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+
+			void AddRequestUriWithQueryAssignmentStatement()
+			{
+
+				var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+				string uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
+
+				method.Statements.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "requestUri",
+					new CodeSnippetExpression(uriText)));
+			}
+
+			AddRequestUriWithQueryAssignmentStatement();
+
+			method.Statements.Add(new CodeSnippetStatement(
+				$@"			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri))
+			{{"
+				));
+
+			if (singleFromBodyParameterDescription != null)
+			{
+				method.Statements.Add(new CodeSnippetStatement(
+@"			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
+));
+				method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
+					new CodeSnippetExpression("requestWriter"),
+					new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
+
+
+				method.Statements.Add(new CodeSnippetStatement(
+@"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
+					));
+
+				if (settings.HandleHttpRequestHeaders)
+				{
+					method.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+"));
+				}
+
+				method.Statements.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
+			}
+			else
+			{
+				method.Statements.Add(new CodeVariableDeclarationStatement(
+					new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
+			}
+
+			var resultReference = new CodeVariableReferenceExpression("responseMessage");
+
+			if (returnTypeIsStream)
+			{
+				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
+
+				//Statement: return something;
+				if (returnType != null)
+				{
+					AddReturnStatement(method.Statements);
+				}
+			}
+			else
+			{
+				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
+				method.Statements.Add(try1);
+				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
+
+				//Statement: return something;
+				if (returnType != null)
+				{
+					AddReturnStatement(try1.TryStatements);
+				}
+
+				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
+			}
+
+			if (singleFromBodyParameterDescription != null)
+				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
+
+			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
 		const string typeNameOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
@@ -342,131 +451,6 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));
-		}
-
-		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
-		{
-			//Create function parameters in prototype
-			var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
-			{
-				Name = d.Name,
-				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
-
-			}).ToArray();
-			method.Parameters.AddRange(parameters);
-
-			if (settings.HandleHttpRequestHeaders)
-			{
-				method.Parameters.Add(new CodeParameterDeclarationExpression(
-				"Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
-			}
-
-			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-			if (fromBodyParameterDescriptions.Length > 1)
-			{
-				throw new CodeGenException("Bad Api Definition")
-				{
-					Description = String.Format("This API function {0} has more than 1 FromBody bindings in parameters", description.ActionDescriptor.ActionName)
-				};
-			}
-
-			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-			void AddRequestUriWithQueryAssignmentStatement()
-			{
-
-				var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-				string uriText;
-
-				if (diFriendly)
-				{
-					uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
-				}
-				else
-				{
-					uriText = jsUriQuery == null ? $"new Uri(this.baseUri, \"{description.RelativePath}\")" :
-					RemoveTrialEmptyString($"new Uri(this.baseUri, \"{jsUriQuery}\")");
-				}
-
-				method.Statements.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "requestUri",
-					new CodeSnippetExpression(uriText)));
-			}
-
-			AddRequestUriWithQueryAssignmentStatement();
-
-			method.Statements.Add(new CodeSnippetStatement(
-				$@"			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri))
-			{{"
-				));
-
-			if (singleFromBodyParameterDescription != null)
-			{
-				method.Statements.Add(new CodeSnippetStatement(
-@"			using (var requestWriter = new System.IO.StringWriter())
-			{
-			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
-));
-				method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
-					new CodeSnippetExpression("requestWriter"),
-					new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
-
-
-				method.Statements.Add(new CodeSnippetStatement(
-@"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
-					));
-
-				if (settings.HandleHttpRequestHeaders)
-				{
-					method.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;
-			if (handleHeaders != null)
-			{
-				handleHeaders(httpRequestMessage.Headers);
-			}
-"));
-				}
-
-				method.Statements.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
-			}
-			else
-			{
-				method.Statements.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
-			}
-
-			var resultReference = new CodeVariableReferenceExpression("responseMessage");
-
-			if (returnTypeIsStream)
-			{
-				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
-
-				//Statement: return something;
-				if (returnType != null)
-				{
-					AddReturnStatement(method.Statements);
-				}
-			}
-			else
-			{
-				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
-				method.Statements.Add(try1);
-				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
-
-				//Statement: return something;
-				if (returnType != null)
-				{
-					AddReturnStatement(try1.TryStatements);
-				}
-
-				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
-			}
-
-			if (singleFromBodyParameterDescription != null)
-				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
-
-			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
 		private static string RemoveTrialEmptyString(string s)

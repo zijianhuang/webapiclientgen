@@ -4,53 +4,53 @@ using Xunit;
 namespace IntegrationTests
 {
 	public class ValuesFixture : IDisposable
-    {
-        public ValuesFixture()
-        {
+	{
+		public ValuesFixture()
+		{
 			var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-            httpClient = new System.Net.Http.HttpClient();
-            Api = new DemoWebApi.Controllers.Client.Values(httpClient, baseUri);
-        }
+			httpClient = new System.Net.Http.HttpClient() { BaseAddress = baseUri };
+			Api = new DemoWebApi.Controllers.Client.Values(httpClient);
+		}
 
-        public DemoWebApi.Controllers.Client.Values Api { get; private set; }
+		public DemoWebApi.Controllers.Client.Values Api { get; private set; }
 
 		readonly System.Net.Http.HttpClient httpClient;
 
-        #region IDisposable pattern
-        bool disposed;
+		#region IDisposable pattern
+		bool disposed;
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    httpClient.Dispose();
-                }
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposed)
+			{
+				if (disposing)
+				{
+					httpClient.Dispose();
+				}
 
-                disposed = true;
-            }
-        }
-        #endregion
-    }
+				disposed = true;
+			}
+		}
+		#endregion
+	}
 
 
-    [Collection(TestConstants.IisExpressAndInit)]
-    public partial class ValuesApiIntegration : IClassFixture<ValuesFixture>
-    {
-        public ValuesApiIntegration(ValuesFixture fixture)
-        {
-            api = fixture.Api;
-        }
+	[Collection(TestConstants.IisExpressAndInit)]
+	public partial class ValuesApiIntegration : IClassFixture<ValuesFixture>
+	{
+		public ValuesApiIntegration(ValuesFixture fixture)
+		{
+			api = fixture.Api;
+		}
 
 		readonly DemoWebApi.Controllers.Client.Values api;
 
 
-    }
+	}
 }

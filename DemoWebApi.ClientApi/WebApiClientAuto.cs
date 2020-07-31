@@ -385,32 +385,40 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
+		private JsonSerializerSettings jsonSerializerSettings;
 		
-		public Entities(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public Entities(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings=null)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
+			this.jsonSerializerSettings = jsonSerializerSettings;
 		}
 		
 		/// <summary>
 		/// POST api/Entities/createPerson
 		/// </summary>
-		public async Task<long> CreatePersonAsync(DemoWebApi.DemoData.Client.Person p)
+		public async Task<long> CreatePersonAsync(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/createPerson");
+			var requestUri = "api/Entities/createPerson";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -425,20 +433,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/createPerson
 		/// </summary>
-		public long CreatePerson(DemoWebApi.DemoData.Client.Person p)
+		public long CreatePerson(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/createPerson");
+			var requestUri = "api/Entities/createPerson";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -453,15 +470,23 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// DELETE api/Entities/{id}
 		/// </summary>
-		public async Task DeleteAsync(long id)
+		public async Task DeleteAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/"+id);
-			var responseMessage = await client.DeleteAsync(requestUri);
+			var requestUri = "api/Entities/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -470,15 +495,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// DELETE api/Entities/{id}
 		/// </summary>
-		public void Delete(long id)
+		public void Delete(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/"+id);
-			var responseMessage = this.client.DeleteAsync(requestUri).Result;
+			var requestUri = "api/Entities/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -486,16 +519,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/Entities/Company?id={id}
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Company> GetCompanyAsync(long id)
+		public async Task<DemoWebApi.DemoData.Client.Company> GetCompanyAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/Company?id="+id);
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Entities/Company?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -510,15 +551,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Entities/Company?id={id}
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Company GetCompany(long id)
+		public DemoWebApi.DemoData.Client.Company GetCompany(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/Company?id="+id);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Entities/Company?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -532,21 +581,30 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/Mims
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.MimsResult<string>> GetMimsAsync(DemoWebApi.DemoData.Client.MimsPackage p)
+		public async Task<DemoWebApi.DemoData.Client.MimsResult<string>> GetMimsAsync(DemoWebApi.DemoData.Client.MimsPackage p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
+			var requestUri = "api/Entities/Mims";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -562,20 +620,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/Mims
 		/// </summary>
-		public DemoWebApi.DemoData.Client.MimsResult<string> GetMims(DemoWebApi.DemoData.Client.MimsPackage p)
+		public DemoWebApi.DemoData.Client.MimsResult<string> GetMims(DemoWebApi.DemoData.Client.MimsPackage p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/Mims");
+			var requestUri = "api/Entities/Mims";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -591,20 +658,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/MyGeneric
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>> GetMyGenericAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s)
+		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>> GetMyGenericAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/MyGeneric");
+			var requestUri = "api/Entities/MyGeneric";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -620,20 +696,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/MyGeneric
 		/// </summary>
-		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> GetMyGeneric(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s)
+		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> GetMyGeneric(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/MyGeneric");
+			var requestUri = "api/Entities/MyGeneric";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -649,20 +734,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/MyGenericPerson
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>> GetMyGenericPersonAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s)
+		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>> GetMyGenericPersonAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/MyGenericPerson");
+			var requestUri = "api/Entities/MyGenericPerson";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -678,20 +772,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/MyGenericPerson
 		/// </summary>
-		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> GetMyGenericPerson(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s)
+		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> GetMyGenericPerson(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/MyGenericPerson");
+			var requestUri = "api/Entities/MyGenericPerson";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -700,6 +803,42 @@ namespace DemoWebApi.Controllers.Client
 				{
 				var serializer = new JsonSerializer();
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+			}
+		}
+		
+		/// <summary>
+		/// Get a person
+		/// so to know the person
+		/// GET api/Entities/getPerson?id={id}
+		/// </summary>
+		/// <param name="id">unique id of that guy</param>
+		/// <returns>person in db</returns>
+		public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/getPerson?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
 				}
 			}
 			finally
@@ -716,37 +855,17 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		/// <param name="id">unique id of that guy</param>
 		/// <returns>person in db</returns>
-		public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id)
+		public DemoWebApi.DemoData.Client.Person GetPerson(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/getPerson?id="+id);
-			var responseMessage = await client.GetAsync(requestUri);
-			try
+			var requestUri = "api/Entities/getPerson?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
 			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
-				}
-			}
-			finally
+			if (handleHeaders != null)
 			{
-				responseMessage.Dispose();
+				handleHeaders(httpRequestMessage.Headers);
 			}
-		}
-		
-		/// <summary>
-		/// Get a person
-		/// so to know the person
-		/// GET api/Entities/getPerson?id={id}
-		/// </summary>
-		/// <param name="id">unique id of that guy</param>
-		/// <returns>person in db</returns>
-		public DemoWebApi.DemoData.Client.Person GetPerson(long id)
-		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/getPerson?id="+id);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -760,16 +879,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/Entities/PersonActionNotFound?id={id}
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> GetPersonActionNotFoundAsync(long id)
+		public async Task<DemoWebApi.DemoData.Client.Person> GetPersonActionNotFoundAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/PersonActionNotFound?id="+id);
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Entities/PersonActionNotFound?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -783,16 +910,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/Entities/PersonActionNotFound?id={id}
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person GetPersonActionNotFound(long id)
+		public DemoWebApi.DemoData.Client.Person GetPersonActionNotFound(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/PersonActionNotFound?id="+id);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Entities/PersonActionNotFound?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -807,15 +942,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Entities/PersonNotFound?id={id}
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> GetPersonNotFoundAsync(long id)
+		public async Task<DemoWebApi.DemoData.Client.Person> GetPersonNotFoundAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/PersonNotFound?id="+id);
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Entities/PersonNotFound?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -830,15 +973,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Entities/PersonNotFound?id={id}
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person GetPersonNotFound(long id)
+		public DemoWebApi.DemoData.Client.Person GetPersonNotFound(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/PersonNotFound?id="+id);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Entities/PersonNotFound?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -852,21 +1003,30 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// PUT api/Entities/link?id={id}&relationship={relationship}
 		/// </summary>
-		public async Task<bool> LinkPersonAsync(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
+		public async Task<bool> LinkPersonAsync(long id, string relationship, DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+(relationship == null ? "" : Uri.EscapeDataString(relationship)));
+			var requestUri = "api/Entities/link?id="+id+"&relationship="+(relationship == null ? "" : Uri.EscapeDataString(relationship));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, person);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PutAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -881,20 +1041,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// PUT api/Entities/link?id={id}&relationship={relationship}
 		/// </summary>
-		public bool LinkPerson(long id, string relationship, DemoWebApi.DemoData.Client.Person person)
+		public bool LinkPerson(long id, string relationship, DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/link?id="+id+"&relationship="+(relationship == null ? "" : Uri.EscapeDataString(relationship)));
+			var requestUri = "api/Entities/link?id="+id+"&relationship="+(relationship == null ? "" : Uri.EscapeDataString(relationship));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, person);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PutAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -909,20 +1078,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/linkNewDecimal?id={id}
 		/// </summary>
-		public async Task<System.Guid> LinkWithNewDecimalAsync(decimal id, DemoWebApi.DemoData.Client.Person p)
+		public async Task<System.Guid> LinkWithNewDecimalAsync(decimal id, DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/linkNewDecimal?id="+id);
+			var requestUri = "api/Entities/linkNewDecimal?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -938,20 +1116,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/linkNewDecimal?id={id}
 		/// </summary>
-		public System.Guid LinkWithNewDecimal(decimal id, DemoWebApi.DemoData.Client.Person p)
+		public System.Guid LinkWithNewDecimal(decimal id, DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/linkNewDecimal?id="+id);
+			var requestUri = "api/Entities/linkNewDecimal?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -967,20 +1154,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/linkNewGuid?id={id}
 		/// </summary>
-		public async Task<System.Guid> LinkWithNewGuidAsync(System.Guid id, DemoWebApi.DemoData.Client.Person p)
+		public async Task<System.Guid> LinkWithNewGuidAsync(System.Guid id, DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/linkNewGuid?id="+id);
+			var requestUri = "api/Entities/linkNewGuid?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -996,20 +1192,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/linkNewGuid?id={id}
 		/// </summary>
-		public System.Guid LinkWithNewGuid(System.Guid id, DemoWebApi.DemoData.Client.Person p)
+		public System.Guid LinkWithNewGuid(System.Guid id, DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/linkNewGuid?id="+id);
+			var requestUri = "api/Entities/linkNewGuid?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1023,6 +1228,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -1030,15 +1236,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Entities/linkLong?id={id}
 		/// </summary>
-		public async Task<long> LinkWithNewLongAsync(long id, DemoWebApi.DemoData.Client.Person p)
+		public async Task<long> LinkWithNewLongAsync(long id, DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/linkLong?id="+id);
+			var requestUri = "api/Entities/linkLong?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1053,20 +1267,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Entities/linkLong?id={id}
 		/// </summary>
-		public long LinkWithNewLong(long id, DemoWebApi.DemoData.Client.Person p)
+		public long LinkWithNewLong(long id, DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/linkLong?id="+id);
+			var requestUri = "api/Entities/linkLong?id="+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, p);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1081,20 +1304,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// PUT api/Entities/updatePerson
 		/// </summary>
-		public async Task<string> UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person)
+		public async Task<string> UpdatePersonAsync(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
+			var requestUri = "api/Entities/updatePerson";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, person);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PutAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1109,20 +1341,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// PUT api/Entities/updatePerson
 		/// </summary>
-		public string UpdatePerson(DemoWebApi.DemoData.Client.Person person)
+		public string UpdatePerson(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Entities/updatePerson");
+			var requestUri = "api/Entities/updatePerson";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, person);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PutAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1135,6 +1376,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -1145,27 +1387,34 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
+		private JsonSerializerSettings jsonSerializerSettings;
 		
-		public Heroes(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public Heroes(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings=null)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
+			this.jsonSerializerSettings = jsonSerializerSettings;
 		}
 		
 		/// <summary>
 		/// DELETE api/Heroes/{id}
 		/// </summary>
-		public async Task DeleteAsync(long id)
+		public async Task DeleteAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
-			var responseMessage = await client.DeleteAsync(requestUri);
+			var requestUri = "api/Heroes/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1174,15 +1423,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// DELETE api/Heroes/{id}
 		/// </summary>
-		public void Delete(long id)
+		public void Delete(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
-			var responseMessage = this.client.DeleteAsync(requestUri).Result;
+			var requestUri = "api/Heroes/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1190,6 +1447,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
@@ -1197,10 +1455,17 @@ namespace DemoWebApi.Controllers.Client
 		/// Get a hero.
 		/// GET api/Heroes/{id}
 		/// </summary>
-		public async Task<DemoWebApi.Controllers.Client.Hero> GetHeroAsync(long id)
+		public async Task<DemoWebApi.Controllers.Client.Hero> GetHeroAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Heroes/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1215,16 +1480,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// Get a hero.
 		/// GET api/Heroes/{id}
 		/// </summary>
-		public DemoWebApi.Controllers.Client.Hero GetHero(long id)
+		public DemoWebApi.Controllers.Client.Hero GetHero(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/"+id);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Heroes/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1239,16 +1512,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// Get all heroes.
 		/// GET api/Heroes
 		/// </summary>
-		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetHerosAsync()
+		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetHerosAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Heroes";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1263,16 +1544,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// Get all heroes.
 		/// GET api/Heroes
 		/// </summary>
-		public DemoWebApi.Controllers.Client.Hero[] GetHeros()
+		public DemoWebApi.Controllers.Client.Hero[] GetHeros(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Heroes";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1287,16 +1576,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
 		/// GET api/Heroes/invalid
 		/// </summary>
-		public async Task<string> GetSomethingInvalidAsync(DemoWebApi.Controllers.Client.Hero h)
+		public async Task<string> GetSomethingInvalidAsync(DemoWebApi.Controllers.Client.Hero h, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/invalid");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Heroes/invalid";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1310,16 +1607,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
 		/// GET api/Heroes/invalid
 		/// </summary>
-		public string GetSomethingInvalid(DemoWebApi.Controllers.Client.Hero h)
+		public string GetSomethingInvalid(DemoWebApi.Controllers.Client.Hero h, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/invalid");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Heroes/invalid";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1333,15 +1638,18 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Heroes?name={name}
 		/// </summary>
-		public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name)
+		public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			var requestUri = "api/Heroes?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1356,15 +1664,18 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Heroes?name={name}
 		/// </summary>
-		public DemoWebApi.Controllers.Client.Hero Post(string name)
+		public DemoWebApi.Controllers.Client.Hero Post(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			var requestUri = "api/Heroes?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1379,16 +1690,19 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// Add a hero
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
-		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name)
+		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1403,49 +1717,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// Add a hero
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
-		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name)
+		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// Update hero.
-		/// PUT api/Heroes
-		/// </summary>
-		public async Task<DemoWebApi.Controllers.Client.Hero> PutAsync(DemoWebApi.Controllers.Client.Hero hero)
-		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
-			using (var requestWriter = new System.IO.StringWriter())
-			{
-			var requestSerializer = JsonSerializer.Create();
-			requestSerializer.Serialize(requestWriter, hero);
-			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PutAsync(requestUri, content);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = new JsonSerializer();
@@ -1463,15 +1751,62 @@ namespace DemoWebApi.Controllers.Client
 		/// Update hero.
 		/// PUT api/Heroes
 		/// </summary>
-		public DemoWebApi.Controllers.Client.Hero Put(DemoWebApi.Controllers.Client.Hero hero)
+		public async Task<DemoWebApi.Controllers.Client.Hero> PutAsync(DemoWebApi.Controllers.Client.Hero hero, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes");
+			var requestUri = "api/Heroes";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, hero);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PutAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+			}
+		}
+		
+		/// <summary>
+		/// Update hero.
+		/// PUT api/Heroes
+		/// </summary>
+		public DemoWebApi.Controllers.Client.Hero Put(DemoWebApi.Controllers.Client.Hero hero, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Heroes";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri))
+			{
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, hero);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1480,6 +1815,41 @@ namespace DemoWebApi.Controllers.Client
 				{
 				var serializer = new JsonSerializer();
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+			}
+		}
+		
+		/// <summary>
+		/// Search heroes
+		/// GET api/Heroes/search?name={name}
+		/// </summary>
+		/// <param name="name">keyword contained in hero name.</param>
+		/// <returns>Hero array matching the keyword.</returns>
+		public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Heroes/search?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
 				}
 			}
 			finally
@@ -1495,36 +1865,17 @@ namespace DemoWebApi.Controllers.Client
 		/// </summary>
 		/// <param name="name">keyword contained in hero name.</param>
 		/// <returns>Hero array matching the keyword.</returns>
-		public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name)
+		public DemoWebApi.Controllers.Client.Hero[] Search(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/search?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = await client.GetAsync(requestUri);
-			try
+			var requestUri = "api/Heroes/search?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
 			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
-				}
-			}
-			finally
+			if (handleHeaders != null)
 			{
-				responseMessage.Dispose();
+				handleHeaders(httpRequestMessage.Headers);
 			}
-		}
-		
-		/// <summary>
-		/// Search heroes
-		/// GET api/Heroes/search?name={name}
-		/// </summary>
-		/// <param name="name">keyword contained in hero name.</param>
-		/// <returns>Hero array matching the keyword.</returns>
-		public DemoWebApi.Controllers.Client.Hero[] Search(string name)
-		{
-			var requestUri = new Uri(this.baseUri, "api/Heroes/search?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1538,6 +1889,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 	}
@@ -1547,71 +1899,110 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
+		private JsonSerializerSettings jsonSerializerSettings;
 		
-		public SuperDemo(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public SuperDemo(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings=null)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
+			this.jsonSerializerSettings = jsonSerializerSettings;
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ActionResult
 		/// </summary>
-		public async Task<System.Net.Http.HttpResponseMessage> GetActionResultAsync()
+		public async Task<System.Net.Http.HttpResponseMessage> GetActionResultAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/ActionResult";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ActionResult
 		/// </summary>
-		public System.Net.Http.HttpResponseMessage GetActionResult()
+		public System.Net.Http.HttpResponseMessage GetActionResult(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/ActionResult";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ActionResult2
 		/// </summary>
-		public async Task<System.Net.Http.HttpResponseMessage> GetActionResult2Async()
+		public async Task<System.Net.Http.HttpResponseMessage> GetActionResult2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult2");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/ActionResult2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ActionResult2
 		/// </summary>
-		public System.Net.Http.HttpResponseMessage GetActionResult2()
+		public System.Net.Http.HttpResponseMessage GetActionResult2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult2");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/ActionResult2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ActionStringResult
 		/// </summary>
-		public async Task<string> GetActionStringResultAsync()
+		public async Task<string> GetActionStringResultAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionStringResult");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/ActionStringResult";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1625,15 +2016,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ActionStringResult
 		/// </summary>
-		public string GetActionStringResult()
+		public string GetActionStringResult(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionStringResult");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/ActionStringResult";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1647,61 +2046,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
-		}
-		
-		/// <summary>
-		/// GET api/SuperDemo/AnonymousDynamic
-		/// </summary>
-		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamicAsync()
-		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousDynamic");
-			var responseMessage = await client.GetAsync(requestUri);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/AnonymousDynamic
 		/// </summary>
-		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic()
+		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamicAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousDynamic");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
-			try
+			var requestUri = "api/SuperDemo/AnonymousDynamic";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
 			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
-				}
-			}
-			finally
+			if (handleHeaders != null)
 			{
-				responseMessage.Dispose();
+				handleHeaders(httpRequestMessage.Headers);
 			}
-		}
-		
-		/// <summary>
-		/// GET api/SuperDemo/AnonymousDynamic2
-		/// </summary>
-		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamic2Async()
-		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousDynamic2");
-			var responseMessage = await client.GetAsync(requestUri);
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1716,15 +2077,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
-		/// GET api/SuperDemo/AnonymousDynamic2
+		/// GET api/SuperDemo/AnonymousDynamic
 		/// </summary>
-		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic2()
+		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousDynamic2");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/AnonymousDynamic";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1739,15 +2108,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
-		/// GET api/SuperDemo/AnonymousObject
+		/// GET api/SuperDemo/AnonymousDynamic2
 		/// </summary>
-		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObjectAsync()
+		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamic2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/AnonymousDynamic2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1762,15 +2139,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
-		/// GET api/SuperDemo/AnonymousObject
+		/// GET api/SuperDemo/AnonymousDynamic2
 		/// </summary>
-		public Newtonsoft.Json.Linq.JObject GetAnonymousObject()
+		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/AnonymousDynamic2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1784,16 +2169,86 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/AnonymousObject
+		/// </summary>
+		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObjectAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/AnonymousObject";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/AnonymousObject
+		/// </summary>
+		public Newtonsoft.Json.Linq.JObject GetAnonymousObject(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/AnonymousObject";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/bool
 		/// </summary>
-		public async Task<bool> GetBoolAsync()
+		public async Task<bool> GetBoolAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/bool");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/bool";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1807,15 +2262,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/bool
 		/// </summary>
-		public bool GetBool()
+		public bool GetBool(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/bool");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/bool";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1829,15 +2292,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/byte
 		/// </summary>
-		public async Task<byte> GetbyteAsync()
+		public async Task<byte> GetbyteAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/byte");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/byte";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1851,15 +2322,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/byte
 		/// </summary>
-		public byte Getbyte()
+		public byte Getbyte(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/byte");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/byte";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1872,16 +2351,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ByteArray
 		/// </summary>
-		public async Task<byte[]> GetByteArrayAsync()
+		public async Task<byte[]> GetByteArrayAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ByteArray");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/ByteArray";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1896,15 +2383,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ByteArray
 		/// </summary>
-		public byte[] GetByteArray()
+		public byte[] GetByteArray(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ByteArray");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/ByteArray";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1919,15 +2414,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/char
 		/// </summary>
-		public async Task<char> GetCharAsync()
+		public async Task<char> GetCharAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/char");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/char";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1942,15 +2445,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/char
 		/// </summary>
-		public char GetChar()
+		public char GetChar(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/char");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/char";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1965,15 +2476,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/Collection
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person[]> GetCollectionAsync()
+		public async Task<DemoWebApi.DemoData.Client.Person[]> GetCollectionAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/Collection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -1988,15 +2507,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/Collection
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person[] GetCollection()
+		public DemoWebApi.DemoData.Client.Person[] GetCollection(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/Collection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2011,16 +2538,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// True to return now, false to return null
 		/// GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
 		/// </summary>
-		public async Task<System.Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue)
+		public async Task<System.Nullable<System.DateTime>> GetDateTimeAsync(bool hasValue, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime?hasValue="+hasValue);
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/NullableDatetime?hasValue="+hasValue;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2035,16 +2570,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// True to return now, false to return null
 		/// GET api/SuperDemo/NullableDatetime?hasValue={hasValue}
 		/// </summary>
-		public System.Nullable<System.DateTime> GetDateTime(bool hasValue)
+		public System.Nullable<System.DateTime> GetDateTime(bool hasValue, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDatetime?hasValue="+hasValue);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/NullableDatetime?hasValue="+hasValue;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2059,15 +2602,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/DateTimeOffset
 		/// </summary>
-		public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync()
+		public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/DateTimeOffset";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2082,15 +2633,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/DateTimeOffset
 		/// </summary>
-		public System.DateTimeOffset GetDateTimeOffset()
+		public System.DateTimeOffset GetDateTimeOffset(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/DateTimeOffset";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2105,61 +2664,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
-		}
-		
-		/// <summary>
-		/// GET api/SuperDemo/decimal
-		/// </summary>
-		public async Task<decimal> GetDecimalAsync()
-		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
-			var responseMessage = await client.GetAsync(requestUri);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<decimal>(jsonReader);
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/decimal
 		/// </summary>
-		public decimal GetDecimal()
+		public async Task<decimal> GetDecimalAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
-			try
+			var requestUri = "api/SuperDemo/decimal";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
 			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<decimal>(jsonReader);
-				}
-			}
-			finally
+			if (handleHeaders != null)
 			{
-				responseMessage.Dispose();
+				handleHeaders(httpRequestMessage.Headers);
 			}
-		}
-		
-		/// <summary>
-		/// GET api/SuperDemo/decimal?d={d}
-		/// </summary>
-		public async Task<decimal> GetDecimalSquareAsync(decimal d)
-		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal?d="+d);
-			var responseMessage = await client.GetAsync(requestUri);
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2174,15 +2695,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
-		/// GET api/SuperDemo/decimal?d={d}
+		/// GET api/SuperDemo/decimal
 		/// </summary>
-		public decimal GetDecimalSquare(decimal d)
+		public decimal GetDecimal(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/decimal?d="+d);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/decimal";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2197,15 +2726,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
-		/// GET api/SuperDemo/DecimalZero
+		/// GET api/SuperDemo/decimal?d={d}
 		/// </summary>
-		public async Task<decimal> GetDecimalZeroAsync()
+		public async Task<decimal> GetDecimalSquareAsync(decimal d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DecimalZero");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/decimal?d="+d;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2220,15 +2757,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
-		/// GET api/SuperDemo/DecimalZero
+		/// GET api/SuperDemo/decimal?d={d}
 		/// </summary>
-		public decimal GetDecimalZero()
+		public decimal GetDecimalSquare(decimal d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DecimalZero");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/decimal?d="+d;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2242,16 +2787,86 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/DecimalZero
+		/// </summary>
+		public async Task<decimal> GetDecimalZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/DecimalZero";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<decimal>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/DecimalZero
+		/// </summary>
+		public decimal GetDecimalZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/DecimalZero";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<decimal>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/StringStringDic
 		/// </summary>
-		public async Task<System.Collections.Generic.Dictionary<string, string>> GetDictionaryAsync()
+		public async Task<System.Collections.Generic.Dictionary<string, string>> GetDictionaryAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringStringDic");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/StringStringDic";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2266,15 +2881,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/StringStringDic
 		/// </summary>
-		public System.Collections.Generic.Dictionary<string, string> GetDictionary()
+		public System.Collections.Generic.Dictionary<string, string> GetDictionary(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringStringDic");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/StringStringDic";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2289,15 +2912,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/StringPersonDic
 		/// </summary>
-		public async Task<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>> GetDictionaryOfPeopleAsync()
+		public async Task<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>> GetDictionaryOfPeopleAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/StringPersonDic";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2312,15 +2943,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/StringPersonDic
 		/// </summary>
-		public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> GetDictionaryOfPeople()
+		public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> GetDictionaryOfPeople(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/StringPersonDic";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2335,15 +2974,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/doulbe
 		/// </summary>
-		public async Task<double> GetdoubleAsync()
+		public async Task<double> GetdoubleAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/doulbe");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/doulbe";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2357,15 +3004,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/doulbe
 		/// </summary>
-		public double Getdouble()
+		public double Getdouble(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/doulbe");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/doulbe";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2379,16 +3034,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
-		public async Task<double> GetDoubleZeroAsync()
+		public async Task<double> GetDoubleZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleZero");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/DoubleZero";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2402,16 +3065,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
-		public double GetDoubleZero()
+		public double GetDoubleZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleZero");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/DoubleZero";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2424,16 +3095,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/EmptyString
 		/// </summary>
-		public async Task<string> GetEmptyStringAsync()
+		public async Task<string> GetEmptyStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/EmptyString");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/EmptyString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2447,15 +3126,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/EmptyString
 		/// </summary>
-		public string GetEmptyString()
+		public string GetEmptyString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/EmptyString");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/EmptyString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2469,15 +3156,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/FloatZero
 		/// </summary>
-		public async Task<float> GetFloatZeroAsync()
+		public async Task<float> GetFloatZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/FloatZero");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/FloatZero";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2491,15 +3186,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/FloatZero
 		/// </summary>
-		public float GetFloatZero()
+		public float GetFloatZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/FloatZero");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/FloatZero";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2513,15 +3216,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ICollection
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person[]> GetICollectionAsync()
+		public async Task<DemoWebApi.DemoData.Client.Person[]> GetICollectionAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/ICollection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2536,15 +3247,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ICollection
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person[] GetICollection()
+		public DemoWebApi.DemoData.Client.Person[] GetICollection(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/ICollection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2559,15 +3278,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/IList
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIListAsync()
+		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIListAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/IList";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2582,15 +3309,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/IList
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person[] GetIList()
+		public DemoWebApi.DemoData.Client.Person[] GetIList(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/IList";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2604,16 +3339,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/int2d
 		/// </summary>
-		public async Task<int[,]> GetInt2DAsync()
+		public async Task<int[,]> GetInt2DAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/int2d";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2628,15 +3371,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/int2d
 		/// </summary>
-		public int[,] GetInt2D()
+		public int[,] GetInt2D(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/int2d";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2651,15 +3402,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/int2dJagged
 		/// </summary>
-		public async Task<int[][]> GetInt2DJaggedAsync()
+		public async Task<int[][]> GetInt2DJaggedAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2dJagged");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/int2dJagged";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2674,15 +3433,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/int2dJagged
 		/// </summary>
-		public int[][] GetInt2DJagged()
+		public int[][] GetInt2DJagged(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2dJagged");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/int2dJagged";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2697,15 +3464,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/intArray
 		/// </summary>
-		public async Task<int[]> GetIntArrayAsync()
+		public async Task<int[]> GetIntArrayAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/intArray";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2720,15 +3495,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/intArray
 		/// </summary>
-		public int[] GetIntArray()
+		public int[] GetIntArray(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/intArray";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2743,15 +3526,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/int?d={d}
 		/// </summary>
-		public async Task<int> GetIntSquareAsync(int d)
+		public async Task<int> GetIntSquareAsync(int d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int?d="+d);
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/int?d="+d;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2765,15 +3556,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/int?d={d}
 		/// </summary>
-		public int GetIntSquare(int d)
+		public int GetIntSquare(int d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int?d="+d);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/int?d="+d;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2787,15 +3586,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/IReadOnlyCollection
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyCollectionAsync()
+		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyCollectionAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/IReadOnlyCollection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2810,15 +3617,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/IReadOnlyCollection
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyCollection()
+		public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyCollection(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/IReadOnlyCollection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2833,15 +3648,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/IReadOnlyList
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyListAsync()
+		public async Task<DemoWebApi.DemoData.Client.Person[]> GetIReadOnlyListAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/IReadOnlyList";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2856,15 +3679,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/IReadOnlyList
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyList()
+		public DemoWebApi.DemoData.Client.Person[] GetIReadOnlyList(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/IReadOnlyList";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2878,16 +3709,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/KeyValuePair
 		/// </summary>
-		public async Task<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>> GetKeyhValuePairAsync()
+		public async Task<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>> GetKeyhValuePairAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/KeyValuePair");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/KeyValuePair";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2902,15 +3741,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/KeyValuePair
 		/// </summary>
-		public System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person> GetKeyhValuePair()
+		public System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person> GetKeyhValuePair(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/KeyValuePair");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/KeyValuePair";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2925,15 +3772,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/List
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person[]> GetListAsync()
+		public async Task<DemoWebApi.DemoData.Client.Person[]> GetListAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/List";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2948,15 +3803,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/List
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person[] GetList()
+		public DemoWebApi.DemoData.Client.Person[] GetList(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/List";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -2971,38 +3834,54 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
-		}
-		
-		/// <summary>
-		/// GET api/SuperDemo/NextHour?dt={dt}
-		/// </summary>
-		public async Task<System.DateTimeOffset> GetNextHourAsync(System.DateTimeOffset dt)
-		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
-			var responseMessage = await client.GetAsync(requestUri);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				var serializer = new JsonSerializer();
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NextHour?dt={dt}
 		/// </summary>
-		public System.DateTimeOffset GetNextHour(System.DateTimeOffset dt)
+		public async Task<System.DateTimeOffset> GetNextHourAsync(System.DateTimeOffset dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHour?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/NextHour?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/NextHour?dt={dt}
+		/// </summary>
+		public System.DateTimeOffset GetNextHour(System.DateTimeOffset dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/NextHour?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3016,16 +3895,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
 		/// </summary>
-		public async Task<System.DateTimeOffset> GetNextHourNullableAsync(int n, System.Nullable<System.DateTimeOffset> dt)
+		public async Task<System.DateTimeOffset> GetNextHourNullableAsync(int n, System.Nullable<System.DateTimeOffset> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3039,16 +3926,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
 		/// </summary>
-		public System.DateTimeOffset GetNextHourNullable(int n, System.Nullable<System.DateTimeOffset> dt)
+		public System.DateTimeOffset GetNextHourNullable(int n, System.Nullable<System.DateTimeOffset> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/NextHourNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3063,15 +3958,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NextYear?dt={dt}
 		/// </summary>
-		public async Task<System.DateTime> GetNextYearAsync(System.DateTime dt)
+		public async Task<System.DateTime> GetNextYearAsync(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/NextYear?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3086,15 +3989,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NextYear?dt={dt}
 		/// </summary>
-		public System.DateTime GetNextYear(System.DateTime dt)
+		public System.DateTime GetNextYear(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/NextYear?dt="+dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3109,15 +4020,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
 		/// </summary>
-		public async Task<System.DateTime> GetNextYearNullableAsync(int n, System.Nullable<System.DateTime> dt)
+		public async Task<System.DateTime> GetNextYearNullableAsync(int n, System.Nullable<System.DateTime> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3132,15 +4051,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
 		/// </summary>
-		public System.DateTime GetNextYearNullable(int n, System.Nullable<System.DateTime> dt)
+		public System.DateTime GetNextYearNullable(int n, System.Nullable<System.DateTime> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/NextYearNullable?n="+n+(dt.HasValue?"&dt="+dt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3154,6 +4081,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
@@ -3161,10 +4089,17 @@ namespace DemoWebApi.Controllers.Client
 		/// True to return 100, and false to return null
 		/// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
 		/// </summary>
-		public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue)
+		public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal?hasValue="+hasValue);
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/NullableDecimal?hasValue="+hasValue;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3179,16 +4114,24 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// True to return 100, and false to return null
 		/// GET api/SuperDemo/NullableDecimal?hasValue={hasValue}
 		/// </summary>
-		public System.Nullable<decimal> GetNullableDecimal(bool hasValue)
+		public System.Nullable<decimal> GetNullableDecimal(bool hasValue, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullableDecimal?hasValue="+hasValue);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/NullableDecimal?hasValue="+hasValue;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3203,15 +4146,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync()
+		public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullObject");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/NullObject";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3226,15 +4177,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person GetNullPerson()
+		public DemoWebApi.DemoData.Client.Person GetNullPerson(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullObject");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/NullObject";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3249,15 +4208,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NullString
 		/// </summary>
-		public async Task<string> GetNullStringAsync()
+		public async Task<string> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullString");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/NullString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3271,15 +4238,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/NullString
 		/// </summary>
-		public string GetNullString()
+		public string GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NullString");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/NullString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3293,15 +4268,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		/// </summary>
-		public async Task<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullableAsync(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
+		public async Task<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullableAsync(string location, System.Nullable<double> dd, System.Nullable<decimal> de, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+(location == null ? "" : Uri.EscapeDataString(location))+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/DoubleNullable?location="+(location == null ? "" : Uri.EscapeDataString(location))+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3316,15 +4299,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		/// </summary>
-		public System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable(string location, System.Nullable<double> dd, System.Nullable<decimal> de)
+		public System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable(string location, System.Nullable<double> dd, System.Nullable<decimal> de, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable?location="+(location == null ? "" : Uri.EscapeDataString(location))+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/DoubleNullable?location="+(location == null ? "" : Uri.EscapeDataString(location))+(dd.HasValue?"&dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3339,15 +4330,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
 		/// </summary>
-		public async Task<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullable2Async(System.Nullable<double> dd, System.Nullable<decimal> de)
+		public async Task<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>> GetPrimitiveNullable2Async(System.Nullable<double> dd, System.Nullable<decimal> de, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3362,15 +4361,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
 		/// </summary>
-		public System.Tuple<System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable2(System.Nullable<double> dd, System.Nullable<decimal> de)
+		public System.Tuple<System.Nullable<double>, System.Nullable<decimal>> GetPrimitiveNullable2(System.Nullable<double> dd, System.Nullable<decimal> de, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/DoubleNullable2?"+(dd.HasValue?"dd="+dd.Value.ToString():String.Empty)+(de.HasValue?"&de="+de.Value.ToString():String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3385,15 +4392,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/sbyte
 		/// </summary>
-		public async Task<sbyte> GetsbyteAsync()
+		public async Task<sbyte> GetsbyteAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/sbyte");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/sbyte";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3407,15 +4422,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/sbyte
 		/// </summary>
-		public sbyte Getsbyte()
+		public sbyte Getsbyte(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/sbyte");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/sbyte";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3429,15 +4452,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/short
 		/// </summary>
-		public async Task<short> GetShortAsync()
+		public async Task<short> GetShortAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/short");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/short";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3451,15 +4482,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/short
 		/// </summary>
-		public short GetShort()
+		public short GetShort(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/short");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/short";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3473,37 +4512,61 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/TextStream
 		/// </summary>
-		public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync()
+		public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/TextStream";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/TextStream
 		/// </summary>
-		public System.Net.Http.HttpResponseMessage GetTextStream()
+		public System.Net.Http.HttpResponseMessage GetTextStream(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/TextStream");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/TextStream";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/uint
 		/// </summary>
-		public async Task<uint> GetUintAsync()
+		public async Task<uint> GetUintAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/uint");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/uint";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3517,15 +4580,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/uint
 		/// </summary>
-		public uint GetUint()
+		public uint GetUint(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/uint");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/uint";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3539,15 +4610,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ulong
 		/// </summary>
-		public async Task<ulong> GetulongAsync()
+		public async Task<ulong> GetulongAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ulong");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/ulong";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3561,15 +4640,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ulong
 		/// </summary>
-		public ulong Getulong()
+		public ulong Getulong(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ulong");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/ulong";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3583,15 +4670,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ushort
 		/// </summary>
-		public async Task<ushort> GetUShortAsync()
+		public async Task<ushort> GetUShortAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ushort");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/ushort";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3605,15 +4700,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/ushort
 		/// </summary>
-		public ushort GetUShort()
+		public ushort GetUShort(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ushort");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/ushort";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3627,42 +4730,32 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/ActionResult
 		/// </summary>
-		public async Task<System.Net.Http.HttpResponseMessage> PostActionResultAsync()
+		public async Task<System.Net.Http.HttpResponseMessage> PostActionResultAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
-			responseMessage.EnsureSuccessStatusCodeEx();
-			return responseMessage;
-		}
-		
-		/// <summary>
-		/// POST api/SuperDemo/ActionResult
-		/// </summary>
-		public System.Net.Http.HttpResponseMessage PostActionResult()
-		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ActionResult");
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
-			responseMessage.EnsureSuccessStatusCodeEx();
-			return responseMessage;
-		}
-		
-		/// <summary>
-		/// POST api/SuperDemo/PostActionResult2
-		/// </summary>
-		public async Task<System.Net.Http.HttpResponseMessage> PostActionResult2Async(string s)
-		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult2");
-			using (var requestWriter = new System.IO.StringWriter())
+			var requestUri = "api/SuperDemo/ActionResult";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
 			{
-			var requestSerializer = JsonSerializer.Create();
-			requestSerializer.Serialize(requestWriter, s);
-			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			responseMessage.EnsureSuccessStatusCodeEx();
+			return responseMessage;
+			}
+		}
+		
+		/// <summary>
+		/// POST api/SuperDemo/ActionResult
+		/// </summary>
+		public System.Net.Http.HttpResponseMessage PostActionResult(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/ActionResult";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
 			}
@@ -3671,66 +4764,127 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/PostActionResult2
 		/// </summary>
-		public System.Net.Http.HttpResponseMessage PostActionResult2(string s)
+		public async Task<System.Net.Http.HttpResponseMessage> PostActionResult2Async(string s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult2");
+			var requestUri = "api/SuperDemo/PostActionResult2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, s);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/SuperDemo/PostActionResult2
+		/// </summary>
+		public System.Net.Http.HttpResponseMessage PostActionResult2(string s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/PostActionResult2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, s);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			responseMessage.EnsureSuccessStatusCodeEx();
+			return responseMessage;
+			}
 			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/PostActionResult3
 		/// </summary>
-		public async Task<System.Net.Http.HttpResponseMessage> PostActionResult3Async(DemoWebApi.DemoData.Client.Person person)
+		public async Task<System.Net.Http.HttpResponseMessage> PostActionResult3Async(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult3");
+			var requestUri = "api/SuperDemo/PostActionResult3";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, person);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
 			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/PostActionResult3
 		/// </summary>
-		public System.Net.Http.HttpResponseMessage PostActionResult3(DemoWebApi.DemoData.Client.Person person)
+		public System.Net.Http.HttpResponseMessage PostActionResult3(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostActionResult3");
+			var requestUri = "api/SuperDemo/PostActionResult3";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, person);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			responseMessage.EnsureSuccessStatusCodeEx();
 			return responseMessage;
+			}
 			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/AnonymousObject
 		/// </summary>
-		public async Task<Newtonsoft.Json.Linq.JObject> PostAnonymousObjectAsync(Newtonsoft.Json.Linq.JObject obj)
+		public async Task<Newtonsoft.Json.Linq.JObject> PostAnonymousObjectAsync(Newtonsoft.Json.Linq.JObject obj, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
+			var requestUri = "api/SuperDemo/AnonymousObject";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, obj);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3746,20 +4900,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/AnonymousObject
 		/// </summary>
-		public Newtonsoft.Json.Linq.JObject PostAnonymousObject(Newtonsoft.Json.Linq.JObject obj)
+		public Newtonsoft.Json.Linq.JObject PostAnonymousObject(Newtonsoft.Json.Linq.JObject obj, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/AnonymousObject");
+			var requestUri = "api/SuperDemo/AnonymousObject";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, obj);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3775,20 +4938,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/Collection
 		/// </summary>
-		public async Task<int> PostCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
+		public async Task<int> PostCollectionAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
+			var requestUri = "api/SuperDemo/Collection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3803,20 +4975,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/Collection
 		/// </summary>
-		public int PostCollection(DemoWebApi.DemoData.Client.Person[] list)
+		public int PostCollection(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Collection");
+			var requestUri = "api/SuperDemo/Collection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3829,6 +5010,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -3837,15 +5019,23 @@ namespace DemoWebApi.Controllers.Client
 		/// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		/// POST api/SuperDemo/DateTimeOffset
 		/// </summary>
-		public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d)
+		public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
+			var requestUri = "api/SuperDemo/DateTimeOffset";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, d);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3858,6 +5048,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -3866,15 +5057,23 @@ namespace DemoWebApi.Controllers.Client
 		/// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		/// POST api/SuperDemo/DateTimeOffset
 		/// </summary>
-		public bool PostDateTimeOffset(System.DateTimeOffset d)
+		public bool PostDateTimeOffset(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffset");
+			var requestUri = "api/SuperDemo/DateTimeOffset";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, d);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3889,20 +5088,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/DateTimeOffsetNullable
 		/// </summary>
-		public async Task<bool> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d)
+		public async Task<bool> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
+			var requestUri = "api/SuperDemo/DateTimeOffsetNullable";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, d);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3917,20 +5125,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/DateTimeOffsetNullable
 		/// </summary>
-		public bool PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d)
+		public bool PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/DateTimeOffsetNullable");
+			var requestUri = "api/SuperDemo/DateTimeOffsetNullable";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, d);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3945,20 +5162,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/StringPersonDic
 		/// </summary>
-		public async Task<int> PostDictionaryAsync(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
+		public async Task<int> PostDictionaryAsync(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
+			var requestUri = "api/SuperDemo/StringPersonDic";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, dic);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3973,20 +5199,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/StringPersonDic
 		/// </summary>
-		public int PostDictionary(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic)
+		public int PostDictionary(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/StringPersonDic");
+			var requestUri = "api/SuperDemo/StringPersonDic";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, dic);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -3999,6 +5234,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4006,15 +5242,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/Guids
 		/// </summary>
-		public async Task<System.Guid[]> PostGuidsAsync(System.Guid[] guids)
+		public async Task<System.Guid[]> PostGuidsAsync(System.Guid[] guids, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Guids");
+			var requestUri = "api/SuperDemo/Guids";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, guids);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4030,20 +5274,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/Guids
 		/// </summary>
-		public System.Guid[] PostGuids(System.Guid[] guids)
+		public System.Guid[] PostGuids(System.Guid[] guids, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/Guids");
+			var requestUri = "api/SuperDemo/Guids";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, guids);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4059,20 +5312,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/ICollection
 		/// </summary>
-		public async Task<int> PostICollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
+		public async Task<int> PostICollectionAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
+			var requestUri = "api/SuperDemo/ICollection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4087,20 +5349,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/ICollection
 		/// </summary>
-		public int PostICollection(DemoWebApi.DemoData.Client.Person[] list)
+		public int PostICollection(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/ICollection");
+			var requestUri = "api/SuperDemo/ICollection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4113,6 +5384,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4120,15 +5392,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/IList
 		/// </summary>
-		public async Task<int> PostIListAsync(DemoWebApi.DemoData.Client.Person[] list)
+		public async Task<int> PostIListAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
+			var requestUri = "api/SuperDemo/IList";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4141,6 +5421,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4148,15 +5429,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/IList
 		/// </summary>
-		public int PostIList(DemoWebApi.DemoData.Client.Person[] list)
+		public int PostIList(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IList");
+			var requestUri = "api/SuperDemo/IList";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4169,6 +5458,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4176,15 +5466,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/int2d
 		/// </summary>
-		public async Task<bool> PostInt2DAsync(int[,] a)
+		public async Task<bool> PostInt2DAsync(int[,] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
+			var requestUri = "api/SuperDemo/int2d";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, a);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4197,6 +5495,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4204,15 +5503,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/int2d
 		/// </summary>
-		public bool PostInt2D(int[,] a)
+		public bool PostInt2D(int[,] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2d");
+			var requestUri = "api/SuperDemo/int2d";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, a);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4225,6 +5532,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4232,15 +5540,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/int2djagged
 		/// </summary>
-		public async Task<bool> PostInt2DJaggedAsync(int[][] a)
+		public async Task<bool> PostInt2DJaggedAsync(int[][] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2djagged");
+			var requestUri = "api/SuperDemo/int2djagged";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, a);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4253,6 +5569,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4260,15 +5577,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/int2djagged
 		/// </summary>
-		public bool PostInt2DJagged(int[][] a)
+		public bool PostInt2DJagged(int[][] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/int2djagged");
+			var requestUri = "api/SuperDemo/int2djagged";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, a);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4281,6 +5606,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4288,15 +5614,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/intArray
 		/// </summary>
-		public async Task<bool> PostIntArrayAsync(int[] a)
+		public async Task<bool> PostIntArrayAsync(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
+			var requestUri = "api/SuperDemo/intArray";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, a);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4309,6 +5643,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4316,15 +5651,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/intArray
 		/// </summary>
-		public bool PostIntArray(int[] a)
+		public bool PostIntArray(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/intArray");
+			var requestUri = "api/SuperDemo/intArray";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, a);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4339,20 +5682,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/IReadOnlyCollection
 		/// </summary>
-		public async Task<int> PostIReadOnlyCollectionAsync(DemoWebApi.DemoData.Client.Person[] list)
+		public async Task<int> PostIReadOnlyCollectionAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
+			var requestUri = "api/SuperDemo/IReadOnlyCollection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4367,20 +5719,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/IReadOnlyCollection
 		/// </summary>
-		public int PostIReadOnlyCollection(DemoWebApi.DemoData.Client.Person[] list)
+		public int PostIReadOnlyCollection(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyCollection");
+			var requestUri = "api/SuperDemo/IReadOnlyCollection";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4393,6 +5754,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4400,15 +5762,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/IReadOnlyList
 		/// </summary>
-		public async Task<int> PostIReadOnlyListAsync(DemoWebApi.DemoData.Client.Person[] list)
+		public async Task<int> PostIReadOnlyListAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
+			var requestUri = "api/SuperDemo/IReadOnlyList";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4421,6 +5791,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4428,15 +5799,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/IReadOnlyList
 		/// </summary>
-		public int PostIReadOnlyList(DemoWebApi.DemoData.Client.Person[] list)
+		public int PostIReadOnlyList(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/IReadOnlyList");
+			var requestUri = "api/SuperDemo/IReadOnlyList";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4451,20 +5830,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/List
 		/// </summary>
-		public async Task<int> PostListAsync(DemoWebApi.DemoData.Client.Person[] list)
+		public async Task<int> PostListAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
+			var requestUri = "api/SuperDemo/List";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4479,20 +5867,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/List
 		/// </summary>
-		public int PostList(DemoWebApi.DemoData.Client.Person[] list)
+		public int PostList(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/List");
+			var requestUri = "api/SuperDemo/List";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, list);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4505,6 +5902,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -4512,15 +5910,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/NextYear
 		/// </summary>
-		public async Task<System.DateTime> PostNextYearAsync(System.DateTime dt)
+		public async Task<System.DateTime> PostNextYearAsync(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
+			var requestUri = "api/SuperDemo/NextYear";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, dt);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4536,20 +5942,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/NextYear
 		/// </summary>
-		public System.DateTime PostNextYear(System.DateTime dt)
+		public System.DateTime PostNextYear(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/NextYear");
+			var requestUri = "api/SuperDemo/NextYear";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, dt);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4565,15 +5980,18 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/PostEmpty?s={s}&i={i}
 		/// </summary>
-		public async Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync(string s, int i)
+		public async Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync(string s, int i, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty?s="+(s == null ? "" : Uri.EscapeDataString(s))+"&i="+i);
-			var responseMessage = await client.PostAsync(requestUri, new StringContent(String.Empty));
+			var requestUri = "api/SuperDemo/PostEmpty?s="+(s == null ? "" : Uri.EscapeDataString(s))+"&i="+i;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4588,15 +6006,18 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/SuperDemo/PostEmpty?s={s}&i={i}
 		/// </summary>
-		public System.Tuple<string, int> PostWithQueryButEmptyBody(string s, int i)
+		public System.Tuple<string, int> PostWithQueryButEmptyBody(string s, int i, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/PostEmpty?s="+(s == null ? "" : Uri.EscapeDataString(s))+"&i="+i);
-			var responseMessage = this.client.PostAsync(requestUri, new StringContent(String.Empty)).Result;
+			var requestUri = "api/SuperDemo/PostEmpty?s="+(s == null ? "" : Uri.EscapeDataString(s))+"&i="+i;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4611,15 +6032,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
 		/// </summary>
-		public async Task<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>> SearchDateRangeAsync(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate)
+		public async Task<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>> SearchDateRangeAsync(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/SuperDemo/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4634,15 +6063,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
 		/// </summary>
-		public System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>> SearchDateRange(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate)
+		public System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>> SearchDateRange(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/SuperDemo/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/SuperDemo/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4656,6 +6093,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 	}
@@ -4665,32 +6103,40 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
+		private JsonSerializerSettings jsonSerializerSettings;
 		
-		public Tuple(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public Tuple(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings=null)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
+			this.jsonSerializerSettings = jsonSerializerSettings;
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/ChangeName
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> ChangeNameAsync(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d)
+		public async Task<DemoWebApi.DemoData.Client.Person> ChangeNameAsync(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/ChangeName");
+			var requestUri = "api/Tuple/ChangeName";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, d);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4706,20 +6152,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/ChangeName
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person ChangeName(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d)
+		public DemoWebApi.DemoData.Client.Person ChangeName(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/ChangeName");
+			var requestUri = "api/Tuple/ChangeName";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, d);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4735,15 +6190,23 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
-		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async()
+		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/PeopleCompany4";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4758,15 +6221,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
-		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4()
+		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/PeopleCompany4";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4781,15 +6252,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
-		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async()
+		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/PeopleCompany5";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4804,15 +6283,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
-		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5()
+		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/PeopleCompany5";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4827,15 +6314,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple1
 		/// </summary>
-		public async Task<System.Tuple<int>> GetTuple1Async()
+		public async Task<System.Tuple<int>> GetTuple1Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/Tuple1";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4850,15 +6345,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple1
 		/// </summary>
-		public System.Tuple<int> GetTuple1()
+		public System.Tuple<int> GetTuple1(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/Tuple1";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4873,15 +6376,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple2
 		/// </summary>
-		public async Task<System.Tuple<string, int>> GetTuple2Async()
+		public async Task<System.Tuple<string, int>> GetTuple2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/Tuple2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4896,15 +6407,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple2
 		/// </summary>
-		public System.Tuple<string, int> GetTuple2()
+		public System.Tuple<string, int> GetTuple2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/Tuple2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4919,15 +6438,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple3
 		/// </summary>
-		public async Task<System.Tuple<string, string, int>> GetTuple3Async()
+		public async Task<System.Tuple<string, string, int>> GetTuple3Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/Tuple3";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4942,15 +6469,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple3
 		/// </summary>
-		public System.Tuple<string, string, int> GetTuple3()
+		public System.Tuple<string, string, int> GetTuple3(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/Tuple3";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4965,15 +6500,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple4
 		/// </summary>
-		public async Task<System.Tuple<string, string, string, int>> GetTuple4Async()
+		public async Task<System.Tuple<string, string, string, int>> GetTuple4Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/Tuple4";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -4988,15 +6531,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple4
 		/// </summary>
-		public System.Tuple<string, string, string, int> GetTuple4()
+		public System.Tuple<string, string, string, int> GetTuple4(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/Tuple4";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5011,15 +6562,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple5
 		/// </summary>
-		public async Task<System.Tuple<string, string, string, string, int>> GetTuple5Async()
+		public async Task<System.Tuple<string, string, string, string, int>> GetTuple5Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/Tuple5";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5034,15 +6593,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple5
 		/// </summary>
-		public System.Tuple<string, string, string, string, int> GetTuple5()
+		public System.Tuple<string, string, string, string, int> GetTuple5(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/Tuple5";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5057,15 +6624,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple6
 		/// </summary>
-		public async Task<System.Tuple<string, string, string, string, string, int>> GetTuple6Async()
+		public async Task<System.Tuple<string, string, string, string, string, int>> GetTuple6Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/Tuple6";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5080,15 +6655,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple6
 		/// </summary>
-		public System.Tuple<string, string, string, string, string, int> GetTuple6()
+		public System.Tuple<string, string, string, string, string, int> GetTuple6(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/Tuple6";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5103,15 +6686,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple7
 		/// </summary>
-		public async Task<System.Tuple<string, string, string, string, string, long, int>> GetTuple7Async()
+		public async Task<System.Tuple<string, string, string, string, string, long, int>> GetTuple7Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/Tuple7";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5126,15 +6717,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple7
 		/// </summary>
-		public System.Tuple<string, string, string, string, string, long, int> GetTuple7()
+		public System.Tuple<string, string, string, string, string, long, int> GetTuple7(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/Tuple7";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5149,15 +6748,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple8
 		/// </summary>
-		public async Task<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>> GetTuple8Async()
+		public async Task<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>> GetTuple8Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Tuple/Tuple8";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5172,15 +6779,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Tuple/Tuple8
 		/// </summary>
-		public System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>> GetTuple8()
+		public System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>> GetTuple8(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Tuple/Tuple8";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5195,20 +6810,29 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany2
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany2Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany2Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany2");
+			var requestUri = "api/Tuple/PeopleCompany2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5224,20 +6848,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany2
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany2(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany2(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany2");
+			var requestUri = "api/Tuple/PeopleCompany2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5251,6 +6884,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5258,15 +6892,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany3
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany3Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany3Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany3");
+			var requestUri = "api/Tuple/PeopleCompany3";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5280,6 +6922,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5287,15 +6930,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany3
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany3(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany3(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany3");
+			var requestUri = "api/Tuple/PeopleCompany3";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5309,6 +6960,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5316,15 +6968,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany4
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany4Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany4Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
+			var requestUri = "api/Tuple/PeopleCompany4";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5338,6 +6998,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5345,15 +7006,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany4
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany4(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany4(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany4");
+			var requestUri = "api/Tuple/PeopleCompany4";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5367,6 +7036,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5374,15 +7044,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany5
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany5Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany5Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
+			var requestUri = "api/Tuple/PeopleCompany5";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5396,6 +7074,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5403,15 +7082,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany5
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany5(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany5(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany5");
+			var requestUri = "api/Tuple/PeopleCompany5";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5425,6 +7112,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5432,15 +7120,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany6
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany6Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany6Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany6");
+			var requestUri = "api/Tuple/PeopleCompany6";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5454,6 +7150,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5461,15 +7158,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany6
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany6(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany6(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany6");
+			var requestUri = "api/Tuple/PeopleCompany6";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5483,6 +7188,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5490,15 +7196,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany7
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany7");
+			var requestUri = "api/Tuple/PeopleCompany7";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5512,6 +7226,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5519,15 +7234,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany7
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany7");
+			var requestUri = "api/Tuple/PeopleCompany7";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5543,20 +7266,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany8
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany8Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany8Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany8");
+			var requestUri = "api/Tuple/PeopleCompany8";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5572,20 +7304,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/PeopleCompany8
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany8(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany8(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PeopleCompany8");
+			var requestUri = "api/Tuple/PeopleCompany8";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5601,20 +7342,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/PersonCompany1
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> LinkPersonCompany1Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public async Task<DemoWebApi.DemoData.Client.Person> LinkPersonCompany1Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PersonCompany1");
+			var requestUri = "api/Tuple/PersonCompany1";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5630,20 +7380,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/PersonCompany1
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person LinkPersonCompany1(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany)
+		public DemoWebApi.DemoData.Client.Person LinkPersonCompany1(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/PersonCompany1");
+			var requestUri = "api/Tuple/PersonCompany1";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, peopleAndCompany);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5657,6 +7416,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5664,15 +7424,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple1
 		/// </summary>
-		public async Task<int> PostTuple1Async(System.Tuple<int> tuple)
+		public async Task<int> PostTuple1Async(System.Tuple<int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
+			var requestUri = "api/Tuple/Tuple1";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5687,20 +7455,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/Tuple1
 		/// </summary>
-		public int PostTuple1(System.Tuple<int> tuple)
+		public int PostTuple1(System.Tuple<int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple1");
+			var requestUri = "api/Tuple/Tuple1";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5715,20 +7492,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/Tuple2
 		/// </summary>
-		public async Task<string> PostTuple2Async(System.Tuple<string, int> tuple)
+		public async Task<string> PostTuple2Async(System.Tuple<string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
+			var requestUri = "api/Tuple/Tuple2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5743,20 +7529,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/Tuple2
 		/// </summary>
-		public string PostTuple2(System.Tuple<string, int> tuple)
+		public string PostTuple2(System.Tuple<string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple2");
+			var requestUri = "api/Tuple/Tuple2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5769,6 +7564,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5776,15 +7572,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple3
 		/// </summary>
-		public async Task<string> PostTuple3Async(System.Tuple<string, string, int> tuple)
+		public async Task<string> PostTuple3Async(System.Tuple<string, string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
+			var requestUri = "api/Tuple/Tuple3";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5797,6 +7601,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5804,15 +7609,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple3
 		/// </summary>
-		public string PostTuple3(System.Tuple<string, string, int> tuple)
+		public string PostTuple3(System.Tuple<string, string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple3");
+			var requestUri = "api/Tuple/Tuple3";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5825,6 +7638,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5832,15 +7646,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple4
 		/// </summary>
-		public async Task<string> PostTuple4Async(System.Tuple<string, string, string, int> tuple)
+		public async Task<string> PostTuple4Async(System.Tuple<string, string, string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
+			var requestUri = "api/Tuple/Tuple4";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5853,6 +7675,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5860,15 +7683,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple4
 		/// </summary>
-		public string PostTuple4(System.Tuple<string, string, string, int> tuple)
+		public string PostTuple4(System.Tuple<string, string, string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple4");
+			var requestUri = "api/Tuple/Tuple4";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5881,6 +7712,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5888,15 +7720,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple5
 		/// </summary>
-		public async Task<string> PostTuple5Async(System.Tuple<string, string, string, string, int> tuple)
+		public async Task<string> PostTuple5Async(System.Tuple<string, string, string, string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
+			var requestUri = "api/Tuple/Tuple5";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5909,6 +7749,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5916,15 +7757,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple5
 		/// </summary>
-		public string PostTuple5(System.Tuple<string, string, string, string, int> tuple)
+		public string PostTuple5(System.Tuple<string, string, string, string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple5");
+			var requestUri = "api/Tuple/Tuple5";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5937,6 +7786,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5944,15 +7794,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple6
 		/// </summary>
-		public async Task<string> PostTuple6Async(System.Tuple<string, string, string, string, string, int> tuple)
+		public async Task<string> PostTuple6Async(System.Tuple<string, string, string, string, string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
+			var requestUri = "api/Tuple/Tuple6";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5965,6 +7823,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -5972,15 +7831,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/Tuple/Tuple6
 		/// </summary>
-		public string PostTuple6(System.Tuple<string, string, string, string, string, int> tuple)
+		public string PostTuple6(System.Tuple<string, string, string, string, string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple6");
+			var requestUri = "api/Tuple/Tuple6";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -5995,20 +7862,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/Tuple7
 		/// </summary>
-		public async Task<string> PostTuple7Async(System.Tuple<string, string, string, string, string, long, int> tuple)
+		public async Task<string> PostTuple7Async(System.Tuple<string, string, string, string, string, long, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
+			var requestUri = "api/Tuple/Tuple7";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6023,20 +7899,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/Tuple7
 		/// </summary>
-		public string PostTuple7(System.Tuple<string, string, string, string, string, long, int> tuple)
+		public string PostTuple7(System.Tuple<string, string, string, string, string, long, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple7");
+			var requestUri = "api/Tuple/Tuple7";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6051,20 +7936,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/Tuple8
 		/// </summary>
-		public async Task<string> PostTuple8Async(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
+		public async Task<string> PostTuple8Async(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
+			var requestUri = "api/Tuple/Tuple8";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6079,20 +7973,29 @@ namespace DemoWebApi.Controllers.Client
 				responseMessage.Dispose();
 			}
 			}
+			}
 		}
 		
 		/// <summary>
 		/// POST api/Tuple/Tuple8
 		/// </summary>
-		public string PostTuple8(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple)
+		public string PostTuple8(System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Tuple/Tuple8");
+			var requestUri = "api/Tuple/Tuple8";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, tuple);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6105,6 +8008,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -6115,27 +8019,34 @@ namespace DemoWebApi.Controllers.Client
 		
 		private System.Net.Http.HttpClient client;
 		
-		private System.Uri baseUri;
+		private JsonSerializerSettings jsonSerializerSettings;
 		
-		public Values(System.Net.Http.HttpClient client, System.Uri baseUri)
+		public Values(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings=null)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
 
-			if (baseUri == null)
-				throw new ArgumentNullException("Null baseUri", "baseUri");
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
 
 			this.client = client;
-			this.baseUri = baseUri;
+			this.jsonSerializerSettings = jsonSerializerSettings;
 		}
 		
 		/// <summary>
 		/// DELETE api/Values/{id}
 		/// </summary>
-		public async Task DeleteAsync(int id)
+		public async Task DeleteAsync(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
-			var responseMessage = await client.DeleteAsync(requestUri);
+			var requestUri = "api/Values/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6144,15 +8055,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// DELETE api/Values/{id}
 		/// </summary>
-		public void Delete(int id)
+		public void Delete(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
-			var responseMessage = this.client.DeleteAsync(requestUri).Result;
+			var requestUri = "api/Values/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6160,16 +8079,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/Values
 		/// </summary>
-		public async Task<string[]> GetAsync()
+		public async Task<string[]> GetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values");
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Values";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6184,15 +8111,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
+			}
 		}
 		
 		/// <summary>
 		/// GET api/Values
 		/// </summary>
-		public string[] Get()
+		public string[] Get(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values");
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Values";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6207,37 +8142,53 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
-		}
-		
-		/// <summary>
-		/// GET api/Values/{id}?name={name}
-		/// </summary>
-		public async Task<string> GetAsync(int id, string name)
-		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = await client.GetAsync(requestUri);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				return jsonReader.ReadAsString();
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
 			}
 		}
 		
 		/// <summary>
 		/// GET api/Values/{id}?name={name}
 		/// </summary>
-		public string Get(int id, string name)
+		public async Task<string> GetAsync(int id, string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				return jsonReader.ReadAsString();
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Values/{id}?name={name}
+		/// </summary>
+		public string Get(int id, string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6250,16 +8201,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/Values?name={name}
 		/// </summary>
-		public async Task<string> GetAsync(string name)
+		public async Task<string> GetAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = await client.GetAsync(requestUri);
+			var requestUri = "api/Values?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6272,16 +8231,24 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 		}
 		
 		/// <summary>
 		/// GET api/Values?name={name}
 		/// </summary>
-		public string Get(string name)
+		public string Get(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values?name="+(name == null ? "" : Uri.EscapeDataString(name)));
-			var responseMessage = this.client.GetAsync(requestUri).Result;
+			var requestUri = "api/Values?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6295,64 +8262,23 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.Dispose();
 			}
-		}
-		
-		/// <summary>
-		/// GET api/Values/{id}
-		/// </summary>
-		public async Task<string> GetAsync(int id)
-		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
-			var responseMessage = await client.GetAsync(requestUri);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				return jsonReader.ReadAsString();
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
 			}
 		}
 		
 		/// <summary>
 		/// GET api/Values/{id}
 		/// </summary>
-		public string Get(int id)
+		public async Task<string> GetAsync(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
-			var responseMessage = this.client.GetAsync(requestUri).Result;
-			try
+			var requestUri = "api/Values/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
 			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
-				{
-				return jsonReader.ReadAsString();
-				}
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
 			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// POST api/Values
-		/// </summary>
-		public async Task<string> PostAsync(string value)
-		{
-			var requestUri = new Uri(this.baseUri, "api/Values");
-			using (var requestWriter = new System.IO.StringWriter())
-			{
-			var requestSerializer = JsonSerializer.Create();
-			requestSerializer.Serialize(requestWriter, value);
-			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync(requestUri, content);
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6370,17 +8296,19 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// POST api/Values
+		/// GET api/Values/{id}
 		/// </summary>
-		public string Post(string value)
+		public string Get(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values");
-			using (var requestWriter = new System.IO.StringWriter())
+			var requestUri = "api/Values/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
 			{
-			var requestSerializer = JsonSerializer.Create();
-			requestSerializer.Serialize(requestWriter, value);
-			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PostAsync(requestUri, content).Result;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6393,6 +8321,80 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Values
+		/// </summary>
+		public async Task<string> PostAsync(string value, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Values";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, value);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				return jsonReader.ReadAsString();
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Values
+		/// </summary>
+		public string Post(string value, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Values";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, value);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				return jsonReader.ReadAsString();
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -6400,15 +8402,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// PUT api/Values/{id}
 		/// </summary>
-		public async Task PutAsync(int id, string value)
+		public async Task PutAsync(int id, string value, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
+			var requestUri = "api/Values/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, value);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = await client.PutAsync(requestUri, content);
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6416,6 +8426,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}
@@ -6423,15 +8434,23 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// PUT api/Values/{id}
 		/// </summary>
-		public void Put(int id, string value)
+		public void Put(int id, string value, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = new Uri(this.baseUri, "api/Values/"+id);
+			var requestUri = "api/Values/"+id;
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri))
+			{
 			using (var requestWriter = new System.IO.StringWriter())
 			{
-			var requestSerializer = JsonSerializer.Create();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
 			requestSerializer.Serialize(requestWriter, value);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			var responseMessage = this.client.PutAsync(requestUri, content).Result;
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
@@ -6439,6 +8458,7 @@ namespace DemoWebApi.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
 			}
 			}
 		}

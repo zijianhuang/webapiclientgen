@@ -66,11 +66,11 @@ namespace Fonlow.CodeDom.Web.Ts
 															   //deal with parameters
 			var parameters = Description.ParameterDescriptions.Select(d =>
 				 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
-			).ToList();
+			).ToArray();
 
 			//parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
 
-			Method.Parameters.AddRange(parameters.ToArray());
+			Method.Parameters.AddRange(parameters);
 
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
 			var hasArrayJoin = jsUriQuery !=null && jsUriQuery.Contains(".join(");

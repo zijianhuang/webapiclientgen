@@ -20,8 +20,8 @@ namespace IntegrationTests
 		public EntitiesFixture()
 		{
 			var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-			httpClient = new System.Net.Http.HttpClient();
-			Api = new DemoWebApi.Controllers.Client.Entities(httpClient, baseUri);
+			httpClient = new System.Net.Http.HttpClient() { BaseAddress = baseUri };
+			Api = new DemoWebApi.Controllers.Client.Entities(httpClient);
 		}
 
 		public DemoWebApi.Controllers.Client.Entities Api { get; private set; }

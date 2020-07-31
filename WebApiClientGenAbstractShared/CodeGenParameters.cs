@@ -64,10 +64,10 @@
 		/// </summary>
 		public bool GenerateBothAsyncAndSync { get; set; }
 
-		/// <summary>
-		/// Container class's constructor is with HttpClient parameter only and the HttpClient should be initialized with BaseAddress in app codes
-		/// </summary>
-		public bool DIFriendly { get; set; }
+		///// <summary>
+		///// Container class's constructor is with HttpClient parameter only and the HttpClient should be initialized with BaseAddress in app codes
+		///// </summary>
+		//public bool DIFriendly { get; set; }
 
 		/// <summary>
 		/// Whether the Web API return string as string, rather than JSON object which is a double quoted string.

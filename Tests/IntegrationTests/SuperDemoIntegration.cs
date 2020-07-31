@@ -8,8 +8,8 @@ namespace IntegrationTests
 		public SuperDemoFixture()
 		{
 			var baseUri = new Uri(System.Configuration.ConfigurationManager.AppSettings["Testing_BaseUrl"]);
-			httpClient = new System.Net.Http.HttpClient();
-			Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, baseUri);
+			httpClient = new System.Net.Http.HttpClient() { BaseAddress = baseUri };
+			Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient);
 		}
 
 		public DemoWebApi.Controllers.Client.SuperDemo Api { get; private set; }

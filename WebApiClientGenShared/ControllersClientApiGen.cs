@@ -130,7 +130,7 @@ namespace Fonlow.CodeDom.Web.Cs
 						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix, 
+						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix,
 							CodeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, CodeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
 					}
 				}
@@ -258,15 +258,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			ns.Types.Add(targetClass);
 			AddLocalFields(targetClass);
-			if (CodeGenParameters.ClientApiOutputs.DIFriendly)
-			{
-				AddConstructorWithHttpClient(targetClass);
-			}
-			else
-			{
-				AddConstructor(targetClass);
-			}
-
+			AddConstructorWithHttpClient(targetClass);
 			return targetClass;
 		}
 
@@ -288,18 +280,6 @@ namespace Fonlow.CodeDom.Web.Cs
 				Type = new CodeTypeReference("JsonSerializerSettings")
 			};
 			targetClass.Members.Add(jsonSettingsField);
-
-			if (!CodeGenParameters.ClientApiOutputs.DIFriendly)
-			{
-				CodeMemberField baseUriField = new CodeMemberField
-				{
-					Attributes = MemberAttributes.Private,
-					Name = "baseUri",
-					Type = new CodeTypeReference("System.Uri")
-				};
-				targetClass.Members.Add(baseUriField);
-			}
-
 		}
 
 		void AddConstructor(CodeTypeDeclaration targetClass)
@@ -342,6 +322,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			// Add parameters.
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Net.Http.HttpClient", "client"));
+			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
+				"JsonSerializerSettings", "jsonSerializerSettings=null"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
 				throw new ArgumentNullException(""Null HttpClient."", ""client"");
@@ -352,6 +334,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			// Add field initialization logic
 			SharedContext.ClientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
 			constructor.Statements.Add(new CodeAssignStatement(SharedContext.ClientReference, new CodeArgumentReferenceExpression("client")));
+			SharedContext.JsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
+			constructor.Statements.Add(new CodeAssignStatement(SharedContext.JsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
 			targetClass.Members.Add(constructor);
 		}
 

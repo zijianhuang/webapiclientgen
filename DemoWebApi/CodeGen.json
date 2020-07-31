@@ -21,6 +21,7 @@
 		"UseEnsureSuccessStatusCodeEx": true,
 		"DataAnnotationsEnabled": true,
 		"DataAnnotationsToComments": true,
+		"HandleHttpRequestHeaders": true,
 
 		"Plugins": [
 			{

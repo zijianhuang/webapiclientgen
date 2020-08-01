@@ -364,7 +364,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes?name={name}
 		 */
 		post(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes?name=' + (name == null ? '' : encodeURIComponent(name)), null);
 		}
 
 		/**
@@ -372,7 +372,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes/q?name={name}
 		 */
 		postWithQuery(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null);
 		}
 
 		/**
@@ -862,7 +862,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/PostEmpty?s={s}&i={i}
 		 */
 		postWithQueryButEmptyBody(s: string, i: number): Observable<{item1: string, item2: number}> {
-			return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + (s == null ? '' : encodeURIComponent(s)) + '&i=' + i, null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+			return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty?s=' + (s == null ? '' : encodeURIComponent(s)) + '&i=' + i, null);
 		}
 
 		/**

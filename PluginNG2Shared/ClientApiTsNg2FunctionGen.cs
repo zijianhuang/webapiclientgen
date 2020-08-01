@@ -10,6 +10,7 @@ using Fonlow.TypeScriptCodeDom;
 using Fonlow.Poco2Ts;
 using Fonlow.Reflection;
 using Fonlow.Web.Meta;
+using Fonlow.CodeDom.Web;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -21,12 +22,50 @@ namespace Fonlow.CodeDom.Web.Ts
 		const string NG2HttpBlobResponse = "HttpResponse<Blob>";
 		const string NG2HttpStringResponse = "HttpResponse<string>";
 
-		string returnTypeText = null;
-		string contentType;
+		readonly string OptionsForBlob;
+		readonly string OptionsForResponse;
 
-		public ClientApiTsNG2FunctionGen(string contentType) : base()
+		readonly string Options;
+
+		readonly string ContentOptionsForString;
+		readonly string ContentOptionsForResponse;
+
+		readonly string OptionsForString;
+		//readonly string ContentOptionsForBlob;
+		readonly string OptionsWithContent;
+
+		string returnTypeText = null;
+		//string contentType;
+		readonly bool handleHttpRequestHeaders;
+
+		public ClientApiTsNG2FunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
 		{
-			this.contentType = contentType;
+			this.handleHttpRequestHeaders = handleHttpRequestHeaders;
+			if (String.IsNullOrEmpty(contentType))
+			{
+				contentType = "application/json;charset=UTF-8";
+			}
+
+			string contentOptionsWithHeadersHandlerForString = $"{{ headers: headersHandler ? headersHandler().append('Content-Type', '{contentType}') : new HttpHeaders({{ 'Content-Type': '{contentType}' }}),  responseType: 'text' }}";
+			ContentOptionsForString = handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForString : $"{{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }}";
+
+			string contentOptionsWithHeadersHandlerForResponse = $"{{ headers: headersHandler ? headersHandler().append('Content-Type', '{contentType}') : new HttpHeaders({{ 'Content-Type': '{contentType}' }}), observe: 'response', responseType: 'text' }}";
+			ContentOptionsForResponse = handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForResponse : $"{{ headers: {{ 'Content-Type': '{contentType}' }}, observe: 'response', responseType: 'text' }}";
+
+			string optionsWithHeadersHandlerAndContent = $"{{ headers: headersHandler ? headersHandler().append('Content-Type', '{contentType}') : new HttpHeaders({{ 'Content-Type': '{contentType}' }}) }}";
+			OptionsWithContent = handleHttpRequestHeaders ? optionsWithHeadersHandlerAndContent : $"{{ headers: {{ 'Content-Type': '{contentType}' }} }}";
+
+			const string optionsWithHeadersHandlerForString = "{ headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }";
+			OptionsForString = handleHttpRequestHeaders ? optionsWithHeadersHandlerForString : "{ responseType: 'text' }";
+
+			const string optionsWithHeadersHandlerForResponse = "{ headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' }";
+			OptionsForResponse = handleHttpRequestHeaders ? optionsWithHeadersHandlerForResponse : "{ observe: 'response', responseType: 'text' }";
+
+			const string optionsWithHeadersHandlerForBlob = "{ headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'blob' }";
+			OptionsForBlob = handleHttpRequestHeaders ? optionsWithHeadersHandlerForBlob : "{ observe: 'response', responseType: 'blob' }";
+
+			string optionsWithHeadersHandler = ", { headers: headersHandler ? headersHandler() : undefined }";
+			Options = handleHttpRequestHeaders ? optionsWithHeadersHandler : "";
 		}
 
 		protected override CodeMemberMethod CreateMethodName()
@@ -68,14 +107,18 @@ namespace Fonlow.CodeDom.Web.Ts
 				 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
 			).ToArray();
 
-			//parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
-
 			Method.Parameters.AddRange(parameters);
+
+			if (handleHttpRequestHeaders)
+			{
+				Method.Parameters.Add(new CodeParameterDeclarationExpression(
+					"() => HttpHeaders", "headersHandler?"));
+			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
 			var hasArrayJoin = jsUriQuery !=null && jsUriQuery.Contains(".join(");
 			var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
-				RemoveTrialEmptyString(hasArrayJoin? $"this.baseUri + '{jsUriQuery})": $"this.baseUri + '{jsUriQuery}'");
+				RemoveTrialEmptyString(hasArrayJoin? $"this.baseUri + '{jsUriQuery}": $"this.baseUri + '{jsUriQuery}'");
 
 			// var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
 
@@ -83,7 +126,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {{ responseType: 'text' }});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {OptionsForString});"));
 					return;
 				}
 
@@ -100,18 +143,13 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-					if (String.IsNullOrEmpty(contentType))
-					{
-						contentType = "application/json;charset=UTF-8";
-					}
-
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {{headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {OptionsForString});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, responseType: 'text' }});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString});"));
 					}
 
 					return;
@@ -120,11 +158,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == NG2HttpBlobResponse)//translated from blobresponse to this
 			{
-				const string optionForStream = "{ observe: 'response', responseType: 'blob' }";
-
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {optionForStream});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {OptionsForBlob});"));
 					return;
 				}
 
@@ -143,11 +179,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {optionForStream});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {OptionsForBlob});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {optionForStream});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {OptionsForBlob});"));
 					}
 
 					return;
@@ -156,11 +192,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == NG2HttpStringResponse)//translated from response to this
 			{
-				const string optionForActionResult = "{ observe: 'response', responseType: 'text' }";
-
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {optionForActionResult});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {OptionsForResponse});"));
 					return;
 				}
 
@@ -179,11 +213,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {optionForActionResult});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {OptionsForResponse});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }}, observe: 'response', responseType: 'text' }});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
 					}
 
 					return;
@@ -192,16 +226,19 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else
 			{
+				string returnTypeCast = returnTypeText == null ? String.Empty : $"<{returnTypeText}>";
+
 				if (httpMethod == "get" || httpMethod == "delete")
 				{
-					if (hasArrayJoin)
+					if (returnTypeText == null)
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText};"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, {OptionsForResponse});")); //only http response needed
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}{returnTypeCast}({uriText}{Options});"));
 					}
+
 					return;
 				}
 
@@ -218,18 +255,27 @@ namespace Fonlow.CodeDom.Web.Ts
 
 					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-					if (String.IsNullOrEmpty(contentType))
+					if (returnTypeText == null)//http response
 					{
-						contentType = "application/json;charset=UTF-8";
+						if (dataToPost == "null")//no content body
+						{
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {OptionsForResponse});"));
+						}
+						else
+						{
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
+						}
 					}
-
-					if (dataToPost == "null")
+					else // type is returned
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, null, {{ headers: {{ 'Content-Type': '{contentType}' }} }});"));
-					}
-					else
-					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}<{returnTypeText}>({uriText}, JSON.stringify({dataToPost}), {{ headers: {{ 'Content-Type': '{contentType}' }} }});"));
+						if (dataToPost == "null") // no body
+						{
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}{returnTypeCast}({uriText}, null{Options});"));
+						}
+						else
+						{
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}{returnTypeCast}({uriText}, JSON.stringify({dataToPost}), {OptionsWithContent});"));
+						}
 					}
 
 					return;

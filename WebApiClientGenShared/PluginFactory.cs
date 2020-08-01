@@ -21,7 +21,7 @@ namespace Fonlow.CodeDom.Web
 		/// and the class must have a constructor without parameter that calls a base constructor with proper options type and parameters type.</param>
 		/// <param name="jsOutput"></param>
 		/// <returns>ICommand object. Null if not found</returns>
-		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput)
+		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput, bool handleHttpRequestHeaders)
 		{
 			Assembly assembly;
 			try
@@ -58,7 +58,7 @@ namespace Fonlow.CodeDom.Web
 				{
 					if (type.IsClass && type.IsSubclassOf(typeof(ControllersTsClientApiGenBase)))
 					{
-						controllersTsClientApiGen = (ControllersTsClientApiGenBase)Activator.CreateInstance(type, jsOutput);
+						controllersTsClientApiGen = (ControllersTsClientApiGenBase)Activator.CreateInstance(type, jsOutput, handleHttpRequestHeaders);
 						break;
 					}
 				}

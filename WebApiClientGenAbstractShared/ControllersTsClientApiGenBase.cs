@@ -141,7 +141,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 				var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
-					.OrderBy(n=>n.FullName)
+					.OrderBy(n => n.FullName)
 					.ToArray();
 				var cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 				foreach (var assembly in assemblies)
@@ -244,9 +244,10 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (method.Parameters.Count == 0)
 				return;
 
-			var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Select(d => ToTitleCase(d.Name)).ToList();
-			var lastParameter = parameterNamesInTitleCase[parameterNamesInTitleCase.Count - 1];
-			if ("callback".Equals(lastParameter, StringComparison.CurrentCultureIgnoreCase))//for JQ output
+			var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Where(k => k.Name != "headersHandler?").Select(d => ToTitleCase(d.Name)).ToList();
+
+			var lastParameter = parameterNamesInTitleCase.LastOrDefault();//for JQ output
+			if ("callback".Equals(lastParameter, StringComparison.CurrentCultureIgnoreCase))
 			{
 				parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
 			}

@@ -226,43 +226,43 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * GET api/SpecialTypes/AnonymousDynamic
 		 * @return {any} dyanmic things
 		 */
-		getAnonymousDynamic(): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { observe: 'response', responseType: 'text' });
+		getAnonymousDynamic(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SpecialTypes/AnonymousDynamic2
 		 */
-		getAnonymousDynamic2(): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', { observe: 'response', responseType: 'text' });
+		getAnonymousDynamic2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SpecialTypes/AnonymousObject
 		 */
-		getAnonymousObject(): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', { observe: 'response', responseType: 'text' });
+		getAnonymousObject(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SpecialTypes/AnonymousObject2
 		 */
-		getAnonymousObject2(): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { observe: 'response', responseType: 'text' });
+		getAnonymousObject2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
-		postAnonymousObject(obj: any): Observable<HttpResponse<string>> {
-			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
+		postAnonymousObject(obj: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * POST api/SpecialTypes/AnonymousObject2
 		 */
-		postAnonymousObject2(obj: any): Observable<HttpResponse<string>> {
-			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
+		postAnonymousObject2(obj: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 	}
 
@@ -277,50 +277,50 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/Entities/createPerson
 		 */
-		createPerson(p: DemoWebApi_DemoData_Client.Person): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		createPerson(p: DemoWebApi_DemoData_Client.Person, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Entities/createPerson', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Entities/createPerson2
 		 */
-		createPerson2(p: DemoWebApi_DemoData_Client.Person): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/createPerson2', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		createPerson2(p: DemoWebApi_DemoData_Client.Person, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/createPerson2', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * DELETE api/Entities/{id}
 		 */
-		delete(id: number): Observable<HttpResponse<string>> {
-			return this.http.delete(this.baseUri + 'api/Entities/' + id, { observe: 'response', responseType: 'text' });
+		delete(id: number, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.delete(this.baseUri + 'api/Entities/' + id, { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/Entities/Company/{id}
 		 */
-		getCompany(id: number): Observable<DemoWebApi_DemoData_Client.Company> {
-			return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company/' + id);
+		getCompany(id: number, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Company> {
+			return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/Company/' + id, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * POST api/Entities/Mims
 		 */
-		getMims(p: DemoWebApi_DemoData_Client.MimsPackage): Observable<DemoWebApi_DemoData_Client.MimsResult<string>> {
-			return this.http.post<DemoWebApi_DemoData_Client.MimsResult<string>>(this.baseUri + 'api/Entities/Mims', JSON.stringify(p), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		getMims(p: DemoWebApi_DemoData_Client.MimsPackage, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MimsResult<string>> {
+			return this.http.post<DemoWebApi_DemoData_Client.MimsResult<string>>(this.baseUri + 'api/Entities/Mims', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Entities/MyGeneric
 		 */
-		getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number>): Observable<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>> {
-			return this.http.post<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>>(this.baseUri + 'api/Entities/MyGeneric', JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number>, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>> {
+			return this.http.post<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>>(this.baseUri + 'api/Entities/MyGeneric', JSON.stringify(s), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Entities/MyGenericPerson
 		 */
-		getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>): Observable<DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>> {
-			return this.http.post<DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/Entities/MyGenericPerson', JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>> {
+			return this.http.post<DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/Entities/MyGenericPerson', JSON.stringify(s), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
@@ -330,29 +330,29 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {number} id unique id of that guy
 		 * @return {DemoWebApi_DemoData_Client.Person} person in db
 		 */
-		getPerson(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson/' + id);
+		getPerson(id: number, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson/' + id, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Entities/getPerson2/{id}
 		 */
-		getPerson2(id: number): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson2/' + id);
+		getPerson2(id: number, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/getPerson2/' + id, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * PUT api/Entities/link?id={id}&relationship={relationship}
 		 */
-		linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person): Observable<boolean> {
-			return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person, headersHandler?: () => HttpHeaders): Observable<boolean> {
+			return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
-		updatePerson(person: DemoWebApi_DemoData_Client.Person): Observable<string> {
-			return this.http.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		updatePerson(person: DemoWebApi_DemoData_Client.Person, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 	}
 
@@ -364,54 +364,54 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * DELETE api/Heroes/{id}
 		 */
-		delete(id: number): Observable<HttpResponse<string>> {
-			return this.http.delete(this.baseUri + 'api/Heroes/' + id, { observe: 'response', responseType: 'text' });
+		delete(id: number, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.delete(this.baseUri + 'api/Heroes/' + id, { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/Heroes/asyncHeroes
 		 */
-		getAsyncHeroes(): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/asyncHeroes');
+		getAsyncHeroes(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/asyncHeroes', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
-		getHero(id: number): Observable<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.get<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/' + id);
+		getHero(id: number, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_Controllers_Client.Hero> {
+			return this.http.get<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/' + id, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * Get all heroes.
 		 * GET api/Heroes
 		 */
-		getHeros(): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes');
+		getHeros(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * POST api/Heroes
 		 */
-		post(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(name), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		post(name: string, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_Controllers_Client.Hero> {
+			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(name), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * Add a hero
 		 * POST api/Heroes/q?name={name}
 		 */
-		postWithQuery(name: string): Observable<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null);
+		postWithQuery(name: string, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_Controllers_Client.Hero> {
+			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * Update hero.
 		 * PUT api/Heroes
 		 */
-		put(hero: DemoWebApi_Controllers_Client.Hero): Observable<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.put<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		put(hero: DemoWebApi_Controllers_Client.Hero, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_Controllers_Client.Hero> {
+			return this.http.put<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes', JSON.stringify(hero), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
@@ -420,8 +420,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * @param {string} name keyword contained in hero name.
 		 * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
 		 */
-		search(name: string): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
-			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/search/' + (name == null ? '' : encodeURIComponent(name)));
+		search(name: string, headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/search/' + (name == null ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined });
 		}
 	}
 
@@ -433,514 +433,514 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		 */
-		athletheSearch(take: number, skip: number, order: string, sort: string, search: string): Observable<string> {
-			return this.http.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { responseType: 'text' });
+		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SuperDemo/ActionResult
 		 */
-		getActionResult(): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { observe: 'response', responseType: 'text' });
+		getActionResult(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SuperDemo/ActionResult2
 		 */
-		getActionResult2(): Observable<HttpResponse<string>> {
-			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult2', { observe: 'response', responseType: 'text' });
+		getActionResult2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/ActionResult2', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SuperDemo/ActionStringResult
 		 */
-		getActionStringResult(): Observable<string> {
-			return this.http.get(this.baseUri + 'api/SuperDemo/ActionStringResult', { responseType: 'text' });
+		getActionStringResult(headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/ActionStringResult', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SuperDemo/bool
 		 */
-		getBool(): Observable<boolean> {
-			return this.http.get<boolean>(this.baseUri + 'api/SuperDemo/bool');
+		getBool(headersHandler?: () => HttpHeaders): Observable<boolean> {
+			return this.http.get<boolean>(this.baseUri + 'api/SuperDemo/bool', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/byte
 		 */
-		getbyte(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/byte');
+		getbyte(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/byte', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/ByteArray
 		 */
-		getByteArray(): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/ByteArray');
+		getByteArray(headersHandler?: () => HttpHeaders): Observable<Array<number>> {
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/ByteArray', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/char
 		 */
-		getChar(): Observable<string> {
-			return this.http.get<string>(this.baseUri + 'api/SuperDemo/char');
+		getChar(headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get<string>(this.baseUri + 'api/SuperDemo/char', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/Collection
 		 */
-		getCollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
-			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/Collection');
+		getCollection(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/Collection', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/NullableDatetime/{hasValue}
 		 */
-		getDateTime(hasValue: boolean): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue);
+		getDateTime(hasValue: boolean, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/DateTimeOffset
 		 */
-		getDateTimeOffset(): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffset');
+		getDateTimeOffset(headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffset', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
-		getDay(d: DemoWebApi_DemoData_Client.Days): Observable<DemoWebApi_DemoData_Client.Days> {
-			return this.http.get<DemoWebApi_DemoData_Client.Days>(this.baseUri + 'api/SuperDemo/enumGet?d=' + d);
+		getDay(d: DemoWebApi_DemoData_Client.Days, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Days> {
+			return this.http.get<DemoWebApi_DemoData_Client.Days>(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/decimal
 		 */
-		getDecimal(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal');
+		getDecimal(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
-		getDecimalArrayQ(a: Array<number>): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
+		getDecimalArrayQ(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/decimalArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/decimal/{d}
 		 */
-		getDecimalSquare(d: number): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal/' + d);
+		getDecimalSquare(d: number, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/decimal/' + d, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/DecimalZero
 		 */
-		getDecimalZero(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/DecimalZero');
+		getDecimalZero(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/DecimalZero', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/StringStringDic
 		 */
-		getDictionary(): Observable<{[id: string]: string }> {
-			return this.http.get<{[id: string]: string }>(this.baseUri + 'api/SuperDemo/StringStringDic');
+		getDictionary(headersHandler?: () => HttpHeaders): Observable<{[id: string]: string }> {
+			return this.http.get<{[id: string]: string }>(this.baseUri + 'api/SuperDemo/StringStringDic', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/StringPersonDic
 		 */
-		getDictionaryOfPeople(): Observable<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
-			return this.http.get<{[id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic');
+		getDictionaryOfPeople(headersHandler?: () => HttpHeaders): Observable<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
+			return this.http.get<{[id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/doulbe
 		 */
-		getdouble(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/doulbe');
+		getdouble(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/doulbe', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * Result of 0.1d + 0.2d - 0.3d
 		 * GET api/SuperDemo/DoubleZero
 		 */
-		getDoubleZero(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/DoubleZero');
+		getDoubleZero(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/DoubleZero', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/EmptyString
 		 */
-		getEmptyString(): Observable<string> {
-			return this.http.get(this.baseUri + 'api/SuperDemo/EmptyString', { responseType: 'text' });
+		getEmptyString(headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/EmptyString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
-		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
-			return this.http.get<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'));
+		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumArrayDays?'+a.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/enumArrayQ2?a={a}
 		 */
-		getEnumArrayQ2(a: Array<number>): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'));
+		getEnumArrayQ2(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/enumArrayQ2?'+a.map(z => `a=${z}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/FloatZero
 		 */
-		getFloatZero(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/FloatZero');
+		getFloatZero(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/FloatZero', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/ICollection
 		 */
-		getICollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
-			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/ICollection');
+		getICollection(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/ICollection', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/IList
 		 */
-		getIList(): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
-			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IList');
+		getIList(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IList', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/int2d
 		 */
-		getInt2D(): Observable<number[][]> {
-			return this.http.get<number[][]>(this.baseUri + 'api/SuperDemo/int2d');
+		getInt2D(headersHandler?: () => HttpHeaders): Observable<number[][]> {
+			return this.http.get<number[][]>(this.baseUri + 'api/SuperDemo/int2d', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/int2dJagged
 		 */
-		getInt2DJagged(): Observable<Array<Array<number>>> {
-			return this.http.get<Array<Array<number>>>(this.baseUri + 'api/SuperDemo/int2dJagged');
+		getInt2DJagged(headersHandler?: () => HttpHeaders): Observable<Array<Array<number>>> {
+			return this.http.get<Array<Array<number>>>(this.baseUri + 'api/SuperDemo/int2dJagged', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/intArray
 		 */
-		getIntArray(): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArray');
+		getIntArray(headersHandler?: () => HttpHeaders): Observable<Array<number>> {
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArray', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
-		getIntArrayQ(a: Array<number>): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
+		getIntArrayQ(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
-		getIntArrayQ2(a: Array<number>): Observable<Array<number>> {
-			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
+		getIntArrayQ2(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
+			return this.http.get<Array<number>>(this.baseUri + 'api/SuperDemo/intArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/int/{d}
 		 */
-		getIntSquare(d: number): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/int/' + d);
+		getIntSquare(d: number, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/int/' + d, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/IReadOnlyCollection
 		 */
-		getIReadOnlyCollection(): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
-			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection');
+		getIReadOnlyCollection(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/IReadOnlyList
 		 */
-		getIReadOnlyList(): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
-			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IReadOnlyList');
+		getIReadOnlyList(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/IReadOnlyList', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/KeyValuePair
 		 */
-		getKeyhValuePair(): Observable<{key: string, value: DemoWebApi_DemoData_Client.Person }> {
-			return this.http.get<{key: string, value: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/KeyValuePair');
+		getKeyhValuePair(headersHandler?: () => HttpHeaders): Observable<{key: string, value: DemoWebApi_DemoData_Client.Person }> {
+			return this.http.get<{key: string, value: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/KeyValuePair', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/List
 		 */
-		getList(): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
-			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/List');
+		getList(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Person>> {
+			return this.http.get<Array<DemoWebApi_DemoData_Client.Person>>(this.baseUri + 'api/SuperDemo/List', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/NextHour/{dt}
 		 */
-		getNextHour(dt: Date): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString());
+		getNextHour(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString(), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
 		 */
-		getNextHourNullable(n: number, dt: Date): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''));
+		getNextHourNullable(n: number, dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/NextYear/{dt}
 		 */
-		getNextYear(dt: Date): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString());
+		getNextYear(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString(), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
 		 */
-		getNextYearNullable(n: number, dt: Date): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''));
+		getNextYearNullable(n: number, dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
-		getNullableDecimal(hasValue: boolean): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue);
+		getNullableDecimal(hasValue: boolean, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/NullObject
 		 */
-		getNullPerson(): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/SuperDemo/NullObject');
+		getNullPerson(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/SuperDemo/NullObject', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/NullString
 		 */
-		getNullString(): Observable<string> {
-			return this.http.get(this.baseUri + 'api/SuperDemo/NullString', { responseType: 'text' });
+		getNullString(headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		 */
-		getPrimitiveNullable(location: string, dd: number, de: number): Observable<{item1: string, item2: number, item3: number}> {
-			return this.http.get<{item1: string, item2: number, item3: number}>(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''));
+		getPrimitiveNullable(location: string, dd: number, de: number, headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: number, item3: number}> {
+			return this.http.get<{item1: string, item2: number, item3: number}>(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
 		 */
-		getPrimitiveNullable2(dd: number, de: number): Observable<{item1: number, item2: number}> {
-			return this.http.get<{item1: number, item2: number}>(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd ? 'dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''));
+		getPrimitiveNullable2(dd: number, de: number, headersHandler?: () => HttpHeaders): Observable<{item1: number, item2: number}> {
+			return this.http.get<{item1: number, item2: number}>(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd ? 'dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/sbyte
 		 */
-		getsbyte(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/sbyte');
+		getsbyte(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/sbyte', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/short
 		 */
-		getShort(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/short');
+		getShort(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/short', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
-		getStringArrayQ(a: Array<string>): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
+		getStringArrayQ(a: Array<string>, headersHandler?: () => HttpHeaders): Observable<Array<string>> {
+			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
-		getStringArrayQ2(a: Array<string>): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'));
+		getStringArrayQ2(a: Array<string>, headersHandler?: () => HttpHeaders): Observable<Array<string>> {
+			return this.http.get<Array<string>>(this.baseUri + 'api/SuperDemo/stringArrayQ2?'+a.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/TextStream
 		 */
-		getTextStream(): Observable<HttpResponse<Blob>> {
-			return this.http.get(this.baseUri + 'api/SuperDemo/TextStream', { observe: 'response', responseType: 'blob' });
+		getTextStream(headersHandler?: () => HttpHeaders): Observable<HttpResponse<Blob>> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/TextStream', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'blob' });
 		}
 
 		/**
 		 * GET api/SuperDemo/uint
 		 */
-		getUint(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/uint');
+		getUint(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/uint', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/ulong
 		 */
-		getulong(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/ulong');
+		getulong(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/ulong', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/SuperDemo/ushort
 		 */
-		getUShort(): Observable<number> {
-			return this.http.get<number>(this.baseUri + 'api/SuperDemo/ushort');
+		getUShort(headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/SuperDemo/ushort', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * POST api/SuperDemo/ActionResult
 		 */
-		postActionResult(): Observable<HttpResponse<string>> {
-			return this.http.post(this.baseUri + 'api/SuperDemo/ActionResult', null, { observe: 'response', responseType: 'text' });
+		postActionResult(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/SuperDemo/ActionResult', null, { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * POST api/SuperDemo/PostActionResult2
 		 */
-		postActionResult2(s: string): Observable<HttpResponse<Blob>> {
-			return this.http.post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { observe: 'response', responseType: 'blob' });
+		postActionResult2(s: string, headersHandler?: () => HttpHeaders): Observable<HttpResponse<Blob>> {
+			return this.http.post(this.baseUri + 'api/SuperDemo/PostActionResult2', JSON.stringify(s), { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'blob' });
 		}
 
 		/**
 		 * POST api/SuperDemo/PostActionResult3
 		 */
-		postActionResult3(person: DemoWebApi_DemoData_Client.Person): Observable<HttpResponse<string>> {
-			return this.http.post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
+		postActionResult3(person: DemoWebApi_DemoData_Client.Person, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/SuperDemo/PostActionResult3', JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * POST api/SuperDemo/Collection
 		 */
-		postCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postCollection(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		 * POST api/SuperDemo/DateTimeOffset
 		 */
-		postDateTimeOffset(d: Date): Observable<boolean> {
-			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postDateTimeOffset(d: Date, headersHandler?: () => HttpHeaders): Observable<boolean> {
+			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/DateTimeOffsetNullable
 		 */
-		postDateTimeOffsetNullable(d: Date): Observable<boolean> {
-			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postDateTimeOffsetNullable(d: Date, headersHandler?: () => HttpHeaders): Observable<boolean> {
+			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/enumPost?d={d}
 		 */
-		postDay(d: DemoWebApi_DemoData_Client.Days, d2: DemoWebApi_DemoData_Client.Days): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
-			return this.http.post<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postDay(d: DemoWebApi_DemoData_Client.Days, d2: DemoWebApi_DemoData_Client.Days, headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
+			return this.http.post<Array<DemoWebApi_DemoData_Client.Days>>(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, JSON.stringify(d2), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/StringPersonDic
 		 */
-		postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/SuperDemo/StringPersonDic', JSON.stringify(dic), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/Guids
 		 */
-		postGuids(guids: Array<string>): Observable<Array<string>> {
-			return this.http.post<Array<string>>(this.baseUri + 'api/SuperDemo/Guids', JSON.stringify(guids), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postGuids(guids: Array<string>, headersHandler?: () => HttpHeaders): Observable<Array<string>> {
+			return this.http.post<Array<string>>(this.baseUri + 'api/SuperDemo/Guids', JSON.stringify(guids), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/ICollection
 		 */
-		postICollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postICollection(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/SuperDemo/ICollection', JSON.stringify(list), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/IList
 		 */
-		postIList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postIList(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/SuperDemo/IList', JSON.stringify(list), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/int2d
 		 */
-		postInt2D(a: number[][]): Observable<boolean> {
-			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postInt2D(a: number[][], headersHandler?: () => HttpHeaders): Observable<boolean> {
+			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2d', JSON.stringify(a), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/int2djagged
 		 */
-		postInt2DJagged(a: Array<Array<number>>): Observable<boolean> {
-			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postInt2DJagged(a: Array<Array<number>>, headersHandler?: () => HttpHeaders): Observable<boolean> {
+			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/int2djagged', JSON.stringify(a), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/intArray
 		 */
-		postIntArray(a: Array<number>): Observable<boolean> {
-			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postIntArray(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<boolean> {
+			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/intArray', JSON.stringify(a), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/IReadOnlyCollection
 		 */
-		postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', JSON.stringify(list), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/IReadOnlyList
 		 */
-		postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/SuperDemo/IReadOnlyList', JSON.stringify(list), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/List
 		 */
-		postList(list: Array<DemoWebApi_DemoData_Client.Person>): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postList(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/SuperDemo/List', JSON.stringify(list), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/NextYear
 		 */
-		postNextYear(dt: Date): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postNextYear(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/PostEmpty/{i}
 		 */
-		postWithQueryButEmptyBody(s: string, i: number): Observable<{item1: string, item2: number}> {
-			return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postWithQueryButEmptyBody(s: string, i: number, headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: number}> {
+			return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
 		 */
-		searchDateRange(startDate: Date, endDate: Date): Observable<{item1: Date, item2: Date}> {
-			return this.http.get<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''));
+		searchDateRange(startDate: Date, endDate: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
+			return this.http.get<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 	}
 
@@ -952,190 +952,190 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/Tuple/ChangeName
 		 */
-		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/ChangeName', JSON.stringify(d), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/ChangeName', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * GET api/Tuple/PeopleCompany4
 		 */
-		getPeopleCompany4(): Observable<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}> {
-			return this.http.get<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany4');
+		getPeopleCompany4(headersHandler?: () => HttpHeaders): Observable<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}> {
+			return this.http.get<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany4', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/PeopleCompany5
 		 */
-		getPeopleCompany5(): Observable<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}> {
-			return this.http.get<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany5');
+		getPeopleCompany5(headersHandler?: () => HttpHeaders): Observable<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}> {
+			return this.http.get<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}>(this.baseUri + 'api/Tuple/PeopleCompany5', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple1
 		 */
-		getTuple1(): Observable<{item1: number}> {
-			return this.http.get<{item1: number}>(this.baseUri + 'api/Tuple/Tuple1');
+		getTuple1(headersHandler?: () => HttpHeaders): Observable<{item1: number}> {
+			return this.http.get<{item1: number}>(this.baseUri + 'api/Tuple/Tuple1', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple2
 		 */
-		getTuple2(): Observable<{item1: string, item2: number}> {
-			return this.http.get<{item1: string, item2: number}>(this.baseUri + 'api/Tuple/Tuple2');
+		getTuple2(headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: number}> {
+			return this.http.get<{item1: string, item2: number}>(this.baseUri + 'api/Tuple/Tuple2', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple3
 		 */
-		getTuple3(): Observable<{item1: string, item2: string, item3: number}> {
-			return this.http.get<{item1: string, item2: string, item3: number}>(this.baseUri + 'api/Tuple/Tuple3');
+		getTuple3(headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: string, item3: number}> {
+			return this.http.get<{item1: string, item2: string, item3: number}>(this.baseUri + 'api/Tuple/Tuple3', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple4
 		 */
-		getTuple4(): Observable<{item1: string, item2: string, item3: string, item4: number}> {
-			return this.http.get<{item1: string, item2: string, item3: string, item4: number}>(this.baseUri + 'api/Tuple/Tuple4');
+		getTuple4(headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: string, item3: string, item4: number}> {
+			return this.http.get<{item1: string, item2: string, item3: string, item4: number}>(this.baseUri + 'api/Tuple/Tuple4', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple5
 		 */
-		getTuple5(): Observable<{item1: string, item2: string, item3: string, item4: string, item5: number}> {
-			return this.http.get<{item1: string, item2: string, item3: string, item4: string, item5: number}>(this.baseUri + 'api/Tuple/Tuple5');
+		getTuple5(headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: string, item3: string, item4: string, item5: number}> {
+			return this.http.get<{item1: string, item2: string, item3: string, item4: string, item5: number}>(this.baseUri + 'api/Tuple/Tuple5', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple6
 		 */
-		getTuple6(): Observable<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}> {
-			return this.http.get<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}>(this.baseUri + 'api/Tuple/Tuple6');
+		getTuple6(headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}> {
+			return this.http.get<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}>(this.baseUri + 'api/Tuple/Tuple6', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple7
 		 */
-		getTuple7(): Observable<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}> {
-			return this.http.get<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}>(this.baseUri + 'api/Tuple/Tuple7');
+		getTuple7(headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}> {
+			return this.http.get<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}>(this.baseUri + 'api/Tuple/Tuple7', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Tuple/Tuple8
 		 */
-		getTuple8(): Observable<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}> {
-			return this.http.get<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}>(this.baseUri + 'api/Tuple/Tuple8');
+		getTuple8(headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}> {
+			return this.http.get<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}>(this.baseUri + 'api/Tuple/Tuple8', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany2
 		 */
-		linkPeopleCompany2(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPeopleCompany2(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany2', JSON.stringify(peopleAndCompany), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany3
 		 */
-		linkPeopleCompany3(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPeopleCompany3(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany3', JSON.stringify(peopleAndCompany), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany4
 		 */
-		linkPeopleCompany4(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPeopleCompany4(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany4', JSON.stringify(peopleAndCompany), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany5
 		 */
-		linkPeopleCompany5(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPeopleCompany5(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany5', JSON.stringify(peopleAndCompany), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany6
 		 */
-		linkPeopleCompany6(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPeopleCompany6(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany6', JSON.stringify(peopleAndCompany), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany7
 		 */
-		linkPeopleCompany7(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPeopleCompany7(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany7', JSON.stringify(peopleAndCompany), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/PeopleCompany8
 		 */
-		linkPeopleCompany8(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Person, rest: DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPeopleCompany8(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Person, rest: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PeopleCompany8', JSON.stringify(peopleAndCompany), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/PersonCompany1
 		 */
-		linkPersonCompany1(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company}): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		linkPersonCompany1(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Tuple/PersonCompany1', JSON.stringify(peopleAndCompany), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple1
 		 */
-		postTuple1(tuple: {item1: number}): Observable<number> {
-			return this.http.post<number>(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' } });
+		postTuple1(tuple: {item1: number}, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Tuple/Tuple1', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple2
 		 */
-		postTuple2(tuple: {item1: string, item2: number}): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		postTuple2(tuple: {item1: string, item2: number}, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple3
 		 */
-		postTuple3(tuple: {item1: string, item2: string, item3: number}): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		postTuple3(tuple: {item1: string, item2: string, item3: number}, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple4
 		 */
-		postTuple4(tuple: {item1: string, item2: string, item3: string, item4: number}): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		postTuple4(tuple: {item1: string, item2: string, item3: string, item4: number}, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple5
 		 */
-		postTuple5(tuple: {item1: string, item2: string, item3: string, item4: string, item5: number}): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		postTuple5(tuple: {item1: string, item2: string, item3: string, item4: string, item5: number}, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple6
 		 */
-		postTuple6(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		postTuple6(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple7
 		 */
-		postTuple7(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		postTuple7(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Tuple/Tuple8
 		 */
-		postTuple8(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}}): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		postTuple8(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}}, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 	}
 
@@ -1147,60 +1147,60 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * DELETE api/Values/{id}
 		 */
-		delete(id: number): Observable<HttpResponse<string>> {
-			return this.http.delete(this.baseUri + 'api/Values/' + id, { observe: 'response', responseType: 'text' });
+		delete(id: number, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.delete(this.baseUri + 'api/Values/' + id, { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * Get a list of value
 		 * GET api/Values
 		 */
-		get(): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/Values');
+		get(headersHandler?: () => HttpHeaders): Observable<Array<string>> {
+			return this.http.get<Array<string>>(this.baseUri + 'api/Values', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * Get by both Id and name
 		 * GET api/Values/{id}?name={name}
 		 */
-		getByIdAndName(id: number, name: string): Observable<string> {
-			return this.http.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), { responseType: 'text' });
+		getByIdAndName(id: number, name: string, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/Values?name={name}
 		 */
-		getByName(name: string): Observable<string> {
-			return this.http.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), { responseType: 'text' });
+		getByName(name: string, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/Values/{id}
 		 */
-		getById(id: number): Observable<string> {
-			return this.http.get(this.baseUri + 'api/Values/' + id, { responseType: 'text' });
+		getById(id: number, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/Values/' + id, { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/Values/Get2
 		 */
-		get2(): Observable<Array<string>> {
-			return this.http.get<Array<string>>(this.baseUri + 'api/Values/Get2');
+		get2(headersHandler?: () => HttpHeaders): Observable<Array<string>> {
+			return this.http.get<Array<string>>(this.baseUri + 'api/Values/Get2', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * POST api/Values
 		 */
-		post(value: string): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, responseType: 'text' });
+		post(value: string, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 
 		/**
 		 * Update with valjue
 		 * PUT api/Values/{id}
 		 */
-		put(id: number, value: string): Observable<HttpResponse<string>> {
-			return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: { 'Content-Type': 'application/json;charset=UTF-8' }, observe: 'response', responseType: 'text' });
+		put(id: number, value: string, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 	}
 

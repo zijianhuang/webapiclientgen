@@ -626,6 +626,23 @@ describe('SuperDemo API', () => {
   }
   );
 
+  it('getActionResult2', (done) => {
+    service.getActionResult2().then(
+      data => {
+
+        expect(data).toBe('abcdefg');
+
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
   it('getbyte', (done) => {
     service.getbyte().then(
       data => {

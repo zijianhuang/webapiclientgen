@@ -13,16 +13,18 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// </summary>
 	public class ClientApiTsFetchFunctionGen : ClientApiTsFunctionGenBase
 	{
-		const string AureliaHttpResponse = "Response";
-		const string AureliatHttpBlobResponse = "Blob";
-		const string AureliaHttpStringResponse = "string";
+		const string FetchHttpResponse = "Response";
+		const string FetchtHttpBlobResponse = "Blob";
+		const string FetchHttpStringResponse = "string";
 
 		string returnTypeText = null;
 		string contentType;
+		readonly bool handleHttpRequestHeaders;
 
-		public ClientApiTsFetchFunctionGen(string contentType) : base()
+		public ClientApiTsFetchFunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
 		{
-			this.contentType = contentType;
+			this.contentType = String.IsNullOrEmpty(contentType) ? "application/json;charset=UTF-8" : contentType;
+			this.handleHttpRequestHeaders = handleHttpRequestHeaders;
 		}
 
 		protected override CodeMemberMethod CreateMethodName()
@@ -31,15 +33,15 @@ namespace Fonlow.CodeDom.Web.Ts
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
 			{
-				returnTypeText = AureliaHttpResponse;
+				returnTypeText = FetchHttpResponse;
 			}
 			else if (returnTypeText == "response")
 			{
-				returnTypeText = AureliaHttpStringResponse;
+				returnTypeText = FetchHttpStringResponse;
 			}
 			else if (returnTypeText == "blobresponse")
 			{
-				returnTypeText = AureliatHttpBlobResponse;
+				returnTypeText = FetchtHttpBlobResponse;
 			}
 
 			var callbackTypeText = $"Promise<{returnTypeText}>";
@@ -57,13 +59,48 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			var httpMethod = Description.HttpMethod.ToLower(); //Method is always uppercase.
-															   //deal with parameters
+			var httpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase.
+
+			var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+				|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+			if (fromBodyParameterDescriptions.Length > 1)
+			{
+				throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
+			}
+			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+
+			var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+
+			string contentOptionsWithHeadersHandlerForString = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+			var ContentOptionsForString = handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForString : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+
+			string contentOptionsWithHeadersHandlerForResponse = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+			var ContentOptionsForResponse = handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForResponse : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+
+			string optionsWithHeadersHandlerAndContent = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+			var OptionsWithContent = handleHttpRequestHeaders ? optionsWithHeadersHandlerAndContent : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+
+			string optionsWithHeadersHandlerForString = $"{{ method: '{httpMethodName}', headers: headersHandler ? headersHandler() : undefined }}";
+			var OptionsForString = handleHttpRequestHeaders ? optionsWithHeadersHandlerForString : $"{{ method: '{httpMethodName}' }}";
+
+			string optionsWithHeadersHandlerForResponse = $"{{ method: '{httpMethodName}', headers: headersHandler ? headersHandler() : undefined }}";
+			var OptionsForResponse = handleHttpRequestHeaders ? optionsWithHeadersHandlerForResponse : $"{{ method: '{httpMethodName}' }}";
+
+			string optionsWithHeadersHandler = $"{{ method: '{httpMethodName}', headers: headersHandler ? headersHandler() : undefined }}";
+			var Options = handleHttpRequestHeaders ? optionsWithHeadersHandler : $"{{ method: '{httpMethodName}' }}";
+			//deal with parameters
 			var parameters = Description.ParameterDescriptions.Select(d =>
 				 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
 			).ToList();
 
 			Method.Parameters.AddRange(parameters.ToArray());
+
+			if (handleHttpRequestHeaders)
+			{
+				Method.Parameters.Add(new CodeParameterDeclarationExpression(
+					"() => {[header: string]: string}", "headersHandler?"));
+			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
 			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
@@ -72,159 +109,116 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
-				if (httpMethod == "get" || httpMethod == "delete")
+				if (httpMethodName == "get" || httpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}'}}).then(d => d.text());"));
+					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => d.text());")); //todo: type cast is not really needed.
 					return;
 				}
 
-				if (httpMethod == "post" || httpMethod == "put")
+				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
-					if (String.IsNullOrEmpty(contentType))
-					{
-						contentType = "application/json;charset=UTF-8";
-					}
-
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}', headers: {{ 'Content-Type': '{contentType}' }} }}).then(d => d.text());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => d.text());"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}).then(d => d.text());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {ContentOptionsForString}).then(d => d.text());"));
+					}
+
+					return;
+				}
+			}
+			else if (returnTypeText == FetchtHttpBlobResponse)//translated from blobresponse to this
+			{
+				if (httpMethodName == "get" || httpMethodName == "delete")
+				{
+					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => d.blob());")); //todo: type cast is not really needed.
+					return;
+				}
+
+				if (httpMethodName == "post" || httpMethodName == "put")
+				{
+					if (dataToPost == "null")
+					{
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => d.blob());"));
+					}
+					else
+					{
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {ContentOptionsForString}).then(d => d.blob());"));
 					}
 
 					return;
 				}
 
 			}
-			else if (returnTypeText == AureliatHttpBlobResponse)//translated from blobresponse to this
+			else if (returnTypeText == FetchHttpResponse) // client should care about only status
 			{
-				if (httpMethod == "get" || httpMethod == "delete")
+				if (httpMethodName == "get" || httpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}'}}).then(d => d.blob());"));
+					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options});"));
 					return;
 				}
 
-				if (httpMethod == "post" || httpMethod == "put")
+				if (httpMethodName == "post" || httpMethodName == "put")
 				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}'}}).then(d => d.blob());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}', body: JSON.stringify({dataToPost})}}).then(d => d.blob());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsWithContent});"));
 					}
 
 					return;
 				}
-
-			}
-			else if (returnTypeText == AureliaHttpResponse) // client should care about only status
-			{
-				if (httpMethod == "get" || httpMethod == "delete")
-				{
-					Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}'}});"));
-					return;
-				}
-
-				if (httpMethod == "post" || httpMethod == "put")
-				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
-					if (dataToPost == "null")
-					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}'}});"));
-					}
-					else
-					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }});"));
-					}
-
-					return;
-				}
-
 			}
 			else
 			{
-				if (httpMethod == "get" || httpMethod == "delete")
+				string returnTypeCast = returnTypeText == null ? String.Empty : $"<{returnTypeText}>";
+
+				if (httpMethodName == "get" || httpMethodName == "delete")
 				{
-					if (hasArrayJoin)
+					if (returnTypeText == null)
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}'}}).then(d => d.json());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForResponse});")); //only http response needed
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}'}}).then(d => d.json());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => d.json());"));
 					}
-
-					return;
 				}
-
-				if (httpMethod == "post" || httpMethod == "put")
+				else if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
 				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
+					if (returnTypeText == null)//http response
 					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
+						if (dataToPost == "null")
+						{
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForResponse});"));
+						}
+						else
+						{
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {ContentOptionsForResponse});"));
+						}
 					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
-					if (String.IsNullOrEmpty(contentType))
+					else // type is returned
 					{
-						contentType = "application/json;charset=UTF-8";
+						if (dataToPost == "null")
+						{
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => d.json());"));
+						}
+						else
+						{
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsWithContent}).then(d => d.json());"));
+						}
 					}
-
-					if (dataToPost == "null")
-					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}', headers: {{ 'Content-Type': '{contentType}' }} }}).then(d => d.json());"));
-					}
-					else
-					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {{method: '{httpMethod}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}).then(d => d.json());"));
-					}
-
-					return;
+				}
+				else
+				{
+					Debug.Assert(false, $"How come with {httpMethodName}?");
 				}
 			}
-
-			Debug.Assert(false, "How come?");
 		}
 
 	}

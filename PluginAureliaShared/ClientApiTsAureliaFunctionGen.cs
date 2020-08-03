@@ -39,22 +39,22 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			string contentOptionsWithHeadersHandlerForString = $"{{ headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }} }}";
-			ContentOptionsForString = this.handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForString : $"{{ headers: {{ 'Content-Type': '{contentType}' }} }}";
+			ContentOptionsForString = handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForString : $"{{ headers: {{ 'Content-Type': '{contentType}' }} }}";
 
 			string contentOptionsWithHeadersHandlerForResponse = $"{{ headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }} }}";
-			ContentOptionsForResponse = this.handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForResponse : $"{{ headers: {{ 'Content-Type': '{contentType}' }} }}";
+			ContentOptionsForResponse = handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForResponse : $"{{ headers: {{ 'Content-Type': '{contentType}' }} }}";
 
 			string optionsWithHeadersHandlerAndContent = $"{{ headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }} }}";
-			OptionsWithContent = this.handleHttpRequestHeaders ? optionsWithHeadersHandlerAndContent : $"{{ headers: {{ 'Content-Type': '{contentType}' }} }}";
+			OptionsWithContent = handleHttpRequestHeaders ? optionsWithHeadersHandlerAndContent : $"{{ headers: {{ 'Content-Type': '{contentType}' }} }}";
 
 			const string optionsWithHeadersHandlerForString = ", { headers: headersHandler ? headersHandler() : undefined }";
-			OptionsForString = this.handleHttpRequestHeaders ? optionsWithHeadersHandlerForString : "";
+			OptionsForString = handleHttpRequestHeaders ? optionsWithHeadersHandlerForString : "";
 
 			const string optionsWithHeadersHandlerForResponse = ", { headers: headersHandler ? headersHandler() : undefined }";
-			OptionsForResponse = this.handleHttpRequestHeaders ? optionsWithHeadersHandlerForResponse : "";
+			OptionsForResponse = handleHttpRequestHeaders ? optionsWithHeadersHandlerForResponse : "";
 
 			string optionsWithHeadersHandler = ", { headers: headersHandler ? headersHandler() : undefined }";
-			Options = this.handleHttpRequestHeaders ? optionsWithHeadersHandler : "";
+			Options = handleHttpRequestHeaders ? optionsWithHeadersHandler : "";
 		}
 
 		protected override CodeMemberMethod CreateMethodName()

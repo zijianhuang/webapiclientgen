@@ -75,6 +75,7 @@ var CommonCases;
         QUnit.test('GetMimsString', function (assert) {
             const c = {
                 tag: 'Hello',
+                kk: 30,
                 result: {
                     result: 123.45
                 }
@@ -101,7 +102,8 @@ var CommonCases;
             };
             let done = assert.async();
             entitiesApi.getMyGenericPerson(c, data => {
-                assert.strictEqual(data.status, 'OK');
+                console.debug('myGenericPerson: ' + JSON.stringify(data));
+                assert.equal(data.status, 'OK');
                 assert.equal(data.myU.name, 'John Smith');
                 done();
             });

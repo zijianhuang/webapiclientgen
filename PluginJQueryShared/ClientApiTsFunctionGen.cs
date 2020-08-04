@@ -15,9 +15,13 @@ namespace Fonlow.CodeDom.Web.Ts
 	public class ClientApiTsFunctionGen : ClientApiTsFunctionGenBase
 	{
 
-		public ClientApiTsFunctionGen() : base()
+		readonly bool handleHttpRequestHeaders;
+		readonly string contentType;
+
+		public ClientApiTsFunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
 		{
-			
+			this.contentType = String.IsNullOrEmpty(contentType) ? "application/json;charset=UTF-8" : contentType;
+			this.handleHttpRequestHeaders = handleHttpRequestHeaders;
 		}
 
 		protected override CodeMemberMethod CreateMethodName()
@@ -31,7 +35,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			var httpMethod = Description.HttpMethod.ToLower(); //Method is always uppercase.
+			var httpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase.
 			//deal with parameters
 			var parameters = Description.ParameterDescriptions.Select(d =>
 				 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
@@ -50,18 +54,24 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			Method.Parameters.AddRange(parameters.ToArray());
 
+			if (handleHttpRequestHeaders)
+			{
+				Method.Parameters.Add(new CodeParameterDeclarationExpression(
+					"() => {[header: string]: string}", "headersHandler?"));
+			}
+
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
 			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
 			var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
 				RemoveTrialEmptyString(hasArrayJoin ? $"this.baseUri + '{jsUriQuery}" : $"this.baseUri + '{jsUriQuery}'");
 
-			if (httpMethod == "get" || httpMethod == "delete")
-			{
-				Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethod}({uriText}, callback, this.error, this.statusCode);"));
-				return;
-			}
+			string headerHandlerCall = handleHttpRequestHeaders ? ", headersHandler" : String.Empty;
 
-			if (httpMethod == "post" || httpMethod == "put")
+			if (httpMethodName == "get" || httpMethodName == "delete")
+			{
+				Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethodName}({uriText}, callback, this.error, this.statusCode{headerHandlerCall});"));
+			}
+			else if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
 			{
 				var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 					|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
@@ -74,15 +84,21 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
-				Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethod}({uriText}, {dataToPost}, callback, this.error, this.statusCode);"));
-				return;
+				if (dataToPost == "null")
+				{
+					Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethodName}({uriText}, null, callback, this.error, this.statusCode, '{contentType}'{headerHandlerCall});"));
+				}
+				else
+				{
+					Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethodName}({uriText}, {dataToPost}, callback, this.error, this.statusCode, '{contentType}'{headerHandlerCall});"));
+				}
+
 			}
-
-			Debug.Assert(false, "How come?");
+			else
+			{
+				Debug.Assert(false, $"How come with {httpMethodName}?");
+			}
 		}
-
-
-
 	}
 
 }

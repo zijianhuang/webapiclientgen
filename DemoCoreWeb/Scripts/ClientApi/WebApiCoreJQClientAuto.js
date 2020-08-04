@@ -52,38 +52,38 @@ var DemoCoreWeb_Controllers_Client;
          * GET api/SpecialTypes/AnonymousDynamic
          * @return {any} dyanmic things
          */
-        getAnonymousDynamic(callback) {
-            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', callback, this.error, this.statusCode);
+        getAnonymousDynamic(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SpecialTypes/AnonymousDynamic2
          */
-        getAnonymousDynamic2(callback) {
-            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', callback, this.error, this.statusCode);
+        getAnonymousDynamic2(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SpecialTypes/AnonymousObject
          */
-        getAnonymousObject(callback) {
-            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', callback, this.error, this.statusCode);
+        getAnonymousObject(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SpecialTypes/AnonymousObject2
          */
-        getAnonymousObject2(callback) {
-            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', callback, this.error, this.statusCode);
+        getAnonymousObject2(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * POST api/SpecialTypes/AnonymousObject
          */
-        postAnonymousObject(obj, callback) {
-            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, callback, this.error, this.statusCode);
+        postAnonymousObject(obj, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SpecialTypes/AnonymousObject2
          */
-        postAnonymousObject2(obj, callback) {
-            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, callback, this.error, this.statusCode);
+        postAnonymousObject2(obj, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
     }
     DemoCoreWeb_Controllers_Client.SpecialTypes = SpecialTypes;
@@ -100,44 +100,44 @@ var DemoWebApi_Controllers_Client;
         /**
          * POST api/Entities/createPerson
          */
-        createPerson(p, callback) {
-            this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode);
+        createPerson(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPerson', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Entities/createPerson2
          */
-        createPerson2(p, callback) {
-            this.httpClient.post(this.baseUri + 'api/Entities/createPerson2', p, callback, this.error, this.statusCode);
+        createPerson2(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPerson2', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * DELETE api/Entities/{id}
          */
-        delete(id, callback) {
-            this.httpClient.delete(this.baseUri + 'api/Entities/' + id, callback, this.error, this.statusCode);
+        delete(id, callback, headersHandler) {
+            this.httpClient.delete(this.baseUri + 'api/Entities/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Entities/Company/{id}
          */
-        getCompany(id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Entities/Company/' + id, callback, this.error, this.statusCode);
+        getCompany(id, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Entities/Company/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * POST api/Entities/Mims
          */
-        getMims(p, callback) {
-            this.httpClient.post(this.baseUri + 'api/Entities/Mims', p, callback, this.error, this.statusCode);
+        getMims(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/Mims', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Entities/MyGeneric
          */
-        getMyGeneric(s, callback) {
-            this.httpClient.post(this.baseUri + 'api/Entities/MyGeneric', s, callback, this.error, this.statusCode);
+        getMyGeneric(s, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGeneric', s, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Entities/MyGenericPerson
          */
-        getMyGenericPerson(s, callback) {
-            this.httpClient.post(this.baseUri + 'api/Entities/MyGenericPerson', s, callback, this.error, this.statusCode);
+        getMyGenericPerson(s, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/MyGenericPerson', s, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * Get a person
@@ -146,26 +146,26 @@ var DemoWebApi_Controllers_Client;
          * @param {number} id unique id of that guy
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
-        getPerson(id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Entities/getPerson/' + id, callback, this.error, this.statusCode);
+        getPerson(id, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Entities/getPerson/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Entities/getPerson2/{id}
          */
-        getPerson2(id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Entities/getPerson2/' + id, callback, this.error, this.statusCode);
+        getPerson2(id, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Entities/getPerson2/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * PUT api/Entities/link?id={id}&relationship={relationship}
          */
-        linkPerson(id, relationship, person, callback) {
-            this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), person, callback, this.error, this.statusCode);
+        linkPerson(id, relationship, person, callback, headersHandler) {
+            this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), person, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * PUT api/Entities/updatePerson
          */
-        updatePerson(person, callback) {
-            this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode);
+        updatePerson(person, callback, headersHandler) {
+            this.httpClient.put(this.baseUri + 'api/Entities/updatePerson', person, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
     }
     DemoWebApi_Controllers_Client.Entities = Entities;
@@ -179,48 +179,48 @@ var DemoWebApi_Controllers_Client;
         /**
          * DELETE api/Heroes/{id}
          */
-        delete(id, callback) {
-            this.httpClient.delete(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
+        delete(id, callback, headersHandler) {
+            this.httpClient.delete(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Heroes/asyncHeroes
          */
-        getAsyncHeroes(callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes/asyncHeroes', callback, this.error, this.statusCode);
+        getAsyncHeroes(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Heroes/asyncHeroes', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get a hero.
          * GET api/Heroes/{id}
          */
-        getHero(id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode);
+        getHero(id, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Heroes/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get all heroes.
          * GET api/Heroes
          */
-        getHeros(callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode);
+        getHeros(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Heroes', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * POST api/Heroes
          */
-        post(name, callback) {
-            this.httpClient.post(this.baseUri + 'api/Heroes', name, callback, this.error, this.statusCode);
+        post(name, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Heroes', name, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * Add a hero
          * POST api/Heroes/q?name={name}
          */
-        postWithQuery(name, callback) {
-            this.httpClient.post(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, callback, this.error, this.statusCode);
+        postWithQuery(name, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * Update hero.
          * PUT api/Heroes
          */
-        put(hero, callback) {
-            this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode);
+        put(hero, callback, headersHandler) {
+            this.httpClient.put(this.baseUri + 'api/Heroes', hero, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * Search heroes
@@ -228,8 +228,8 @@ var DemoWebApi_Controllers_Client;
          * @param {string} name keyword contained in hero name.
          * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
          */
-        search(name, callback) {
-            this.httpClient.get(this.baseUri + 'api/Heroes/search/' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
+        search(name, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Heroes/search/' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
     }
     DemoWebApi_Controllers_Client.Heroes = Heroes;
@@ -243,442 +243,442 @@ var DemoWebApi_Controllers_Client;
         /**
          * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
          */
-        athletheSearch(take, skip, order, sort, search, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode);
+        athletheSearch(take, skip, order, sort, search, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/ActionResult
          */
-        getActionResult(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode);
+        getActionResult(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/ActionResult2
          */
-        getActionResult2(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult2', callback, this.error, this.statusCode);
+        getActionResult2(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionResult2', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/ActionStringResult
          */
-        getActionStringResult(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode);
+        getActionStringResult(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/bool
          */
-        getBool(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/bool', callback, this.error, this.statusCode);
+        getBool(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/bool', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/byte
          */
-        getbyte(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/byte', callback, this.error, this.statusCode);
+        getbyte(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/byte', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/ByteArray
          */
-        getByteArray(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/ByteArray', callback, this.error, this.statusCode);
+        getByteArray(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ByteArray', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/char
          */
-        getChar(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/char', callback, this.error, this.statusCode);
+        getChar(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/char', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/Collection
          */
-        getCollection(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/Collection', callback, this.error, this.statusCode);
+        getCollection(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/Collection', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/NullableDatetime/{hasValue}
          */
-        getDateTime(hasValue, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue, callback, this.error, this.statusCode);
+        getDateTime(hasValue, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/DateTimeOffset
          */
-        getDateTimeOffset(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/DateTimeOffset', callback, this.error, this.statusCode);
+        getDateTimeOffset(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DateTimeOffset', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/enumGet?d={d}
          */
-        getDay(d, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, callback, this.error, this.statusCode);
+        getDay(d, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumGet?d=' + d, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/decimal
          */
-        getDecimal(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimal', callback, this.error, this.statusCode);
+        getDecimal(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimal', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/decimalArrayQ?a={a}
          */
-        getDecimalArrayQ(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
+        getDecimalArrayQ(a, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/decimal/{d}
          */
-        getDecimalSquare(d, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimal/' + d, callback, this.error, this.statusCode);
+        getDecimalSquare(d, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimal/' + d, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/DecimalZero
          */
-        getDecimalZero(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/DecimalZero', callback, this.error, this.statusCode);
+        getDecimalZero(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DecimalZero', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/StringStringDic
          */
-        getDictionary(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/StringStringDic', callback, this.error, this.statusCode);
+        getDictionary(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/StringStringDic', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/StringPersonDic
          */
-        getDictionaryOfPeople(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/StringPersonDic', callback, this.error, this.statusCode);
+        getDictionaryOfPeople(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/StringPersonDic', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/doulbe
          */
-        getdouble(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/doulbe', callback, this.error, this.statusCode);
+        getdouble(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/doulbe', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Result of 0.1d + 0.2d - 0.3d
          * GET api/SuperDemo/DoubleZero
          */
-        getDoubleZero(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleZero', callback, this.error, this.statusCode);
+        getDoubleZero(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleZero', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/EmptyString
          */
-        getEmptyString(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/EmptyString', callback, this.error, this.statusCode);
+        getEmptyString(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/EmptyString', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/enumArrayDays?a={a}
          */
-        getEnumArrayDays(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?' + a.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode);
+        getEnumArrayDays(a, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?' + a.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/enumArrayQ2?a={a}
          */
-        getEnumArrayQ2(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + a.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode);
+        getEnumArrayQ2(a, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + a.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/FloatZero
          */
-        getFloatZero(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/FloatZero', callback, this.error, this.statusCode);
+        getFloatZero(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/FloatZero', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/ICollection
          */
-        getICollection(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/ICollection', callback, this.error, this.statusCode);
+        getICollection(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ICollection', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/IList
          */
-        getIList(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/IList', callback, this.error, this.statusCode);
+        getIList(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/IList', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/int2d
          */
-        getInt2D(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/int2d', callback, this.error, this.statusCode);
+        getInt2D(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/int2d', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/int2dJagged
          */
-        getInt2DJagged(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/int2dJagged', callback, this.error, this.statusCode);
+        getInt2DJagged(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/int2dJagged', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/intArray
          */
-        getIntArray(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArray', callback, this.error, this.statusCode);
+        getIntArray(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArray', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/intArrayQ?a={a}
          */
-        getIntArrayQ(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
+        getIntArrayQ(a, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/intArrayQ2?a={a}
          */
-        getIntArrayQ2(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
+        getIntArrayQ2(a, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/int/{d}
          */
-        getIntSquare(d, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/int/' + d, callback, this.error, this.statusCode);
+        getIntSquare(d, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/int/' + d, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/IReadOnlyCollection
          */
-        getIReadOnlyCollection(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', callback, this.error, this.statusCode);
+        getIReadOnlyCollection(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/IReadOnlyList
          */
-        getIReadOnlyList(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/IReadOnlyList', callback, this.error, this.statusCode);
+        getIReadOnlyList(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/IReadOnlyList', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/KeyValuePair
          */
-        getKeyhValuePair(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/KeyValuePair', callback, this.error, this.statusCode);
+        getKeyhValuePair(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/KeyValuePair', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/List
          */
-        getList(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/List', callback, this.error, this.statusCode);
+        getList(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/List', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/NextHour/{dt}
          */
-        getNextHour(dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString(), callback, this.error, this.statusCode);
+        getNextHour(dt, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString(), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
          */
-        getNextHourNullable(n, dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
+        getNextHourNullable(n, dt, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/NextYear/{dt}
          */
-        getNextYear(dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString(), callback, this.error, this.statusCode);
+        getNextYear(dt, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString(), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
          */
-        getNextYearNullable(n, dt, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode);
+        getNextYearNullable(n, dt, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/NullableDecimal/{hasValue}
          */
-        getNullableDecimal(hasValue, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, callback, this.error, this.statusCode);
+        getNullableDecimal(hasValue, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/NullObject
          */
-        getNullPerson(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullObject', callback, this.error, this.statusCode);
+        getNullPerson(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullObject', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/NullString
          */
-        getNullString(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullString', callback, this.error, this.statusCode);
+        getNullString(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullString', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
          */
-        getPrimitiveNullable(location, dd, de, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
+        getPrimitiveNullable(location, dd, de, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
          */
-        getPrimitiveNullable2(dd, de, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd ? 'dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode);
+        getPrimitiveNullable2(dd, de, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd ? 'dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/sbyte
          */
-        getsbyte(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/sbyte', callback, this.error, this.statusCode);
+        getsbyte(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/sbyte', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/short
          */
-        getShort(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/short', callback, this.error, this.statusCode);
+        getShort(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/short', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/stringArrayQ?a={a}
          */
-        getStringArrayQ(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
+        getStringArrayQ(a, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/stringArrayQ2?a={a}
          */
-        getStringArrayQ2(a, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode);
+        getStringArrayQ2(a, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + a.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/TextStream
          */
-        getTextStream(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/TextStream', callback, this.error, this.statusCode);
+        getTextStream(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/TextStream', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/uint
          */
-        getUint(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/uint', callback, this.error, this.statusCode);
+        getUint(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/uint', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/ulong
          */
-        getulong(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/ulong', callback, this.error, this.statusCode);
+        getulong(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ulong', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/ushort
          */
-        getUShort(callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/ushort', callback, this.error, this.statusCode);
+        getUShort(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/ushort', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * POST api/SuperDemo/ActionResult
          */
-        postActionResult(callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/ActionResult', null, callback, this.error, this.statusCode);
+        postActionResult(callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/ActionResult', null, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/PostActionResult2
          */
-        postActionResult2(s, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostActionResult2', s, callback, this.error, this.statusCode);
+        postActionResult2(s, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostActionResult2', s, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/PostActionResult3
          */
-        postActionResult3(person, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostActionResult3', person, callback, this.error, this.statusCode);
+        postActionResult3(person, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostActionResult3', person, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/Collection
          */
-        postCollection(list, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/Collection', list, callback, this.error, this.statusCode);
+        postCollection(list, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/Collection', list, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
          * POST api/SuperDemo/DateTimeOffset
          */
-        postDateTimeOffset(d, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', d, callback, this.error, this.statusCode);
+        postDateTimeOffset(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/DateTimeOffsetNullable
          */
-        postDateTimeOffsetNullable(d, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', d, callback, this.error, this.statusCode);
+        postDateTimeOffsetNullable(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/enumPost?d={d}
          */
-        postDay(d, d2, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, d2, callback, this.error, this.statusCode);
+        postDay(d, d2, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/enumPost?d=' + d, d2, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/StringPersonDic
          */
-        postDictionary(dic, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/StringPersonDic', dic, callback, this.error, this.statusCode);
+        postDictionary(dic, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/StringPersonDic', dic, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/Guids
          */
-        postGuids(guids, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/Guids', guids, callback, this.error, this.statusCode);
+        postGuids(guids, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/Guids', guids, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/ICollection
          */
-        postICollection(list, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/ICollection', list, callback, this.error, this.statusCode);
+        postICollection(list, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/ICollection', list, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/IList
          */
-        postIList(list, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/IList', list, callback, this.error, this.statusCode);
+        postIList(list, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/IList', list, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/int2d
          */
-        postInt2D(a, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/int2d', a, callback, this.error, this.statusCode);
+        postInt2D(a, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/int2d', a, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/int2djagged
          */
-        postInt2DJagged(a, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/int2djagged', a, callback, this.error, this.statusCode);
+        postInt2DJagged(a, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/int2djagged', a, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/intArray
          */
-        postIntArray(a, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/intArray', a, callback, this.error, this.statusCode);
+        postIntArray(a, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/intArray', a, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/IReadOnlyCollection
          */
-        postIReadOnlyCollection(list, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', list, callback, this.error, this.statusCode);
+        postIReadOnlyCollection(list, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/IReadOnlyCollection', list, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/IReadOnlyList
          */
-        postIReadOnlyList(list, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/IReadOnlyList', list, callback, this.error, this.statusCode);
+        postIReadOnlyList(list, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/IReadOnlyList', list, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/List
          */
-        postList(list, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/List', list, callback, this.error, this.statusCode);
+        postList(list, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/List', list, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/NextYear
          */
-        postNextYear(dt, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/NextYear', dt, callback, this.error, this.statusCode);
+        postNextYear(dt, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/NextYear', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/SuperDemo/PostEmpty/{i}
          */
-        postWithQueryButEmptyBody(s, i, callback) {
-            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, s, callback, this.error, this.statusCode);
+        postWithQueryButEmptyBody(s, i, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, s, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
          */
-        searchDateRange(startDate, endDate, callback) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode);
+        searchDateRange(startDate, endDate, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
         }
     }
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
@@ -692,164 +692,164 @@ var DemoWebApi_Controllers_Client;
         /**
          * POST api/Tuple/ChangeName
          */
-        changeName(d, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/ChangeName', d, callback, this.error, this.statusCode);
+        changeName(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/ChangeName', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * GET api/Tuple/PeopleCompany4
          */
-        getPeopleCompany4(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/PeopleCompany4', callback, this.error, this.statusCode);
+        getPeopleCompany4(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/PeopleCompany4', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/PeopleCompany5
          */
-        getPeopleCompany5(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/PeopleCompany5', callback, this.error, this.statusCode);
+        getPeopleCompany5(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/PeopleCompany5', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/Tuple1
          */
-        getTuple1(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple1', callback, this.error, this.statusCode);
+        getTuple1(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple1', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/Tuple2
          */
-        getTuple2(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple2', callback, this.error, this.statusCode);
+        getTuple2(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple2', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/Tuple3
          */
-        getTuple3(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple3', callback, this.error, this.statusCode);
+        getTuple3(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple3', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/Tuple4
          */
-        getTuple4(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple4', callback, this.error, this.statusCode);
+        getTuple4(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple4', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/Tuple5
          */
-        getTuple5(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple5', callback, this.error, this.statusCode);
+        getTuple5(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple5', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/Tuple6
          */
-        getTuple6(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple6', callback, this.error, this.statusCode);
+        getTuple6(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple6', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/Tuple7
          */
-        getTuple7(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple7', callback, this.error, this.statusCode);
+        getTuple7(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple7', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Tuple/Tuple8
          */
-        getTuple8(callback) {
-            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple8', callback, this.error, this.statusCode);
+        getTuple8(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Tuple/Tuple8', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * POST api/Tuple/PeopleCompany2
          */
-        linkPeopleCompany2(peopleAndCompany, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany2', peopleAndCompany, callback, this.error, this.statusCode);
+        linkPeopleCompany2(peopleAndCompany, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany2', peopleAndCompany, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/PeopleCompany3
          */
-        linkPeopleCompany3(peopleAndCompany, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany3', peopleAndCompany, callback, this.error, this.statusCode);
+        linkPeopleCompany3(peopleAndCompany, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany3', peopleAndCompany, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/PeopleCompany4
          */
-        linkPeopleCompany4(peopleAndCompany, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany4', peopleAndCompany, callback, this.error, this.statusCode);
+        linkPeopleCompany4(peopleAndCompany, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany4', peopleAndCompany, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/PeopleCompany5
          */
-        linkPeopleCompany5(peopleAndCompany, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany5', peopleAndCompany, callback, this.error, this.statusCode);
+        linkPeopleCompany5(peopleAndCompany, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany5', peopleAndCompany, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/PeopleCompany6
          */
-        linkPeopleCompany6(peopleAndCompany, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany6', peopleAndCompany, callback, this.error, this.statusCode);
+        linkPeopleCompany6(peopleAndCompany, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany6', peopleAndCompany, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/PeopleCompany7
          */
-        linkPeopleCompany7(peopleAndCompany, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany7', peopleAndCompany, callback, this.error, this.statusCode);
+        linkPeopleCompany7(peopleAndCompany, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany7', peopleAndCompany, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/PeopleCompany8
          */
-        linkPeopleCompany8(peopleAndCompany, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany8', peopleAndCompany, callback, this.error, this.statusCode);
+        linkPeopleCompany8(peopleAndCompany, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/PeopleCompany8', peopleAndCompany, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/PersonCompany1
          */
-        linkPersonCompany1(peopleAndCompany, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/PersonCompany1', peopleAndCompany, callback, this.error, this.statusCode);
+        linkPersonCompany1(peopleAndCompany, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/PersonCompany1', peopleAndCompany, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/Tuple1
          */
-        postTuple1(tuple, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple1', tuple, callback, this.error, this.statusCode);
+        postTuple1(tuple, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple1', tuple, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/Tuple2
          */
-        postTuple2(tuple, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple2', tuple, callback, this.error, this.statusCode);
+        postTuple2(tuple, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple2', tuple, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/Tuple3
          */
-        postTuple3(tuple, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple3', tuple, callback, this.error, this.statusCode);
+        postTuple3(tuple, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple3', tuple, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/Tuple4
          */
-        postTuple4(tuple, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple4', tuple, callback, this.error, this.statusCode);
+        postTuple4(tuple, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple4', tuple, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/Tuple5
          */
-        postTuple5(tuple, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple5', tuple, callback, this.error, this.statusCode);
+        postTuple5(tuple, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple5', tuple, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/Tuple6
          */
-        postTuple6(tuple, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple6', tuple, callback, this.error, this.statusCode);
+        postTuple6(tuple, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple6', tuple, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/Tuple7
          */
-        postTuple7(tuple, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple7', tuple, callback, this.error, this.statusCode);
+        postTuple7(tuple, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple7', tuple, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Tuple/Tuple8
          */
-        postTuple8(tuple, callback) {
-            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple8', tuple, callback, this.error, this.statusCode);
+        postTuple8(tuple, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Tuple/Tuple8', tuple, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
     }
     DemoWebApi_Controllers_Client.Tuple = Tuple;
@@ -863,54 +863,55 @@ var DemoWebApi_Controllers_Client;
         /**
          * DELETE api/Values/{id}
          */
-        delete(id, callback) {
-            this.httpClient.delete(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode);
+        delete(id, callback, headersHandler) {
+            this.httpClient.delete(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get a list of value
          * GET api/Values
          */
-        get(callback) {
-            this.httpClient.get(this.baseUri + 'api/Values', callback, this.error, this.statusCode);
+        get(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Values', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get by both Id and name
          * GET api/Values/{id}?name={name}
          */
-        getByIdAndName(id, name, callback) {
-            this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
+        getByIdAndName(id, name, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Values?name={name}
          */
-        getByName(name, callback) {
-            this.httpClient.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode);
+        getByName(name, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Values/{id}
          */
-        getById(id, callback) {
-            this.httpClient.get(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode);
+        getById(id, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Values/Get2
          */
-        get2(callback) {
-            this.httpClient.get(this.baseUri + 'api/Values/Get2', callback, this.error, this.statusCode);
+        get2(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Values/Get2', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * POST api/Values
          */
-        post(value, callback) {
-            this.httpClient.post(this.baseUri + 'api/Values', value, callback, this.error, this.statusCode);
+        post(value, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Values', value, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * Update with valjue
          * PUT api/Values/{id}
          */
-        put(id, value, callback) {
-            this.httpClient.put(this.baseUri + 'api/Values/' + id, value, callback, this.error, this.statusCode);
+        put(id, value, callback, headersHandler) {
+            this.httpClient.put(this.baseUri + 'api/Values/' + id, value, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
     }
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
+//# sourceMappingURL=WebApiCoreJQClientAuto.js.map

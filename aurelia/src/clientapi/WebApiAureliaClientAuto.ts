@@ -363,7 +363,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes?name={name}
 		 */
 		post(name: string): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post('api/Heroes?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+			return this.http.post('api/Heroes?name=' + (name == null ? '' : encodeURIComponent(name)), null).then(d => d.json());
 		}
 
 		/**
@@ -371,7 +371,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Heroes/q?name={name}
 		 */
 		postWithQuery(name: string): Promise<DemoWebApi_Controllers_Client.Hero> {
-			return this.http.post('api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+			return this.http.post('api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null).then(d => d.json());
 		}
 
 		/**
@@ -734,7 +734,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/ActionResult
 		 */
 		postActionResult(): Promise<string> {
-			return this.http.post('api/SuperDemo/ActionResult', null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+			return this.http.post('api/SuperDemo/ActionResult', null).then(d => d.json());
 		}
 
 		/**
@@ -861,7 +861,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/SuperDemo/PostEmpty?s={s}&i={i}
 		 */
 		postWithQueryButEmptyBody(s: string, i: number): Promise<{item1: string, item2: number}> {
-			return this.http.post('api/SuperDemo/PostEmpty?s=' + (s == null ? '' : encodeURIComponent(s)) + '&i=' + i, null, { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+			return this.http.post('api/SuperDemo/PostEmpty?s=' + (s == null ? '' : encodeURIComponent(s)) + '&i=' + i, null).then(d => d.json());
 		}
 
 		/**

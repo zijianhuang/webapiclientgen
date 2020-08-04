@@ -1,22 +1,20 @@
-/// <reference path="../typings/jquery/jquery.d.ts" />
 class HttpClient {
     /**
     **/
-    get(url, callback, errorCalback, statusCodeCallback) {
-        this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback);
+    get(url, callback, errorCalback, statusCodeCallback, headersHandler) {
+        this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
-    post(url, dataToSave, callback, errorCalback, statusCodeCallback) {
-        this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback);
+    post(url, dataToSave, callback, errorCalback, statusCodeCallback, contentType, headersHandler) {
+        this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
-    put(url, dataToSave, callback, errorCalback, statusCodeCallback) {
-        this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback);
+    put(url, dataToSave, callback, errorCalback, statusCodeCallback, contentType, headersHandler) {
+        this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
-    delete(url, callback, errorCalback, statusCodeCallback) {
-        this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback);
+    delete(url, callback, errorCalback, statusCodeCallback, headersHandler) {
+        this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
-    executeAjax(url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback) {
-        //http://api.jquery.com/jquery.ajax/
-        $.ajax(url, {
+    executeAjax(url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback, contentType, headersHandler) {
+        jQuery.ajax(url, {
             data: JSON.stringify(dataToSave),
             type: httpVerb,
             success: (data, textStatus, jqXHR) => {
@@ -30,10 +28,8 @@ class HttpClient {
                 }
             },
             statusCode: statusCodeCallback,
-            contentType: 'application/json; charset=UTF-8',
-            headers: {
-                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
-            }
+            contentType: contentType,
+            headers: headersHandler ? headersHandler() : undefined
         });
     }
 }
@@ -42,23 +38,21 @@ class HttpClient {
 **/
 HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
 class AuthHttpClient {
-    /**
-    **/
-    get(url, callback, errorCalback, statusCodeCallback) {
-        this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback);
+    get(url, callback, errorCalback, statusCodeCallback, headersHandler) {
+        this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
-    post(url, dataToSave, callback, errorCalback, statusCodeCallback) {
-        this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback);
+    post(url, dataToSave, callback, errorCalback, statusCodeCallback, contentType, headersHandler) {
+        this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
-    put(url, dataToSave, callback, errorCalback, statusCodeCallback) {
-        this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback);
+    put(url, dataToSave, callback, errorCalback, statusCodeCallback, contentType, headersHandler) {
+        this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
-    delete(url, callback, errorCalback, statusCodeCallback) {
-        this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback);
+    delete(url, callback, errorCalback, statusCodeCallback, headersHandler) {
+        this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
-    executeAjax(url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback) {
-        //http://api.jquery.com/jquery.ajax/
-        $.ajax(url, {
+    executeAjax(url, dataToSave, httpVerb, callback, errorCallback, statusCodeCallback, contentType, headersHandler) {
+        //http://api.jquery.com/JQ.ajax/
+        jQuery.ajax(url, {
             data: JSON.stringify(dataToSave),
             type: httpVerb,
             success: (data, textStatus, jqXHR) => {
@@ -72,10 +66,8 @@ class AuthHttpClient {
                 }
             },
             statusCode: statusCodeCallback,
-            contentType: 'application/json; charset=UTF-8',
-            headers: {
-                Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
-            },
+            contentType: contentType,
+            headers: headersHandler ? headersHandler() : undefined,
             beforeSend: (xhr, settings) => {
                 xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('access_token'));
             }
@@ -85,7 +77,7 @@ class AuthHttpClient {
     * Get oAuth token through username and password. The token will be saved in sessionStorage.
     */
     getToken(url, username, password, callback, errorCallback, statusCodeCallback) {
-        $.ajax(url + 'token', {
+        jQuery.ajax(url + 'token', {
             data: {
                 'grant_type': 'password',
                 'username': username,
@@ -118,3 +110,4 @@ class AuthHttpClient {
   location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
 **/
 AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
+//# sourceMappingURL=HttpClient.js.map

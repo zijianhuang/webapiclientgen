@@ -1,33 +1,30 @@
-﻿/// <reference path="../typings/jquery/jquery.d.ts" />
-
-interface HttpClientBase {
+﻿interface HttpClientBase {
     get(url: string,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: Object
+        statusCodeCallback: Object, headersHandler?: () => { [header: string]: string }
     );
 
     post(url: string,
         dataToSave: any,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     );
 
     put(url: string,
         dataToSave: any,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     );
 
     delete(url: string,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, headersHandler?: () => { [header: string]: string }
     );
 }
-
 
 class HttpClient implements HttpClientBase {
     /**
@@ -40,35 +37,35 @@ class HttpClient implements HttpClientBase {
     get(url: string,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: Object
+        statusCodeCallback: Object, headersHandler?: () => { [header: string]: string }
     ) {
-        this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback);
+        this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
 
     post(url: string,
         dataToSave: any,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     ) {
-        this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback);
+        this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
 
     put(url: string,
         dataToSave: any,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     ) {
-        this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback);
+        this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
 
     delete(url: string,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, headersHandler?: () => { [header: string]: string }
     ) {
-        this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback);
+        this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
 
     private executeAjax(url: string,
@@ -76,10 +73,11 @@ class HttpClient implements HttpClientBase {
         httpVerb: string,
         callback: (data: any) => any,
         errorCallback: (xhr, ajaxOptions, thrown) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; },
+        contentType: string,
+        headersHandler?: () => { [header: string]: string }
     ) {
-        //http://api.jquery.com/jquery.ajax/
-        $.ajax(url,
+        jQuery.ajax(url,
             {
                 data: JSON.stringify(dataToSave),
                 type: httpVerb,
@@ -95,14 +93,8 @@ class HttpClient implements HttpClientBase {
                 },
 
                 statusCode: statusCodeCallback,
-                contentType: 'application/json; charset=UTF-8',
-                headers: {
-                    Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
-
-                }
-
-
-
+                contentType: contentType,
+                headers: headersHandler ? headersHandler() : undefined
             });
     }
 }
@@ -114,40 +106,38 @@ class AuthHttpClient implements HttpClientBase {
     **/
     public static locationOrigin: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
 
-    /**
-    **/
     get(url: string,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: Object
+        statusCodeCallback: Object, headersHandler?: () => { [header: string]: string }
     ) {
-        this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback);
+        this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
 
     post(url: string,
         dataToSave: any,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     ) {
-        this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback);
+        this.executeAjax(url, dataToSave, "POST", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
 
     put(url: string,
         dataToSave: any,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     ) {
-        this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback);
+        this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
 
     delete(url: string,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; }, headersHandler?: () => { [header: string]: string }
     ) {
-        this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback);
+        this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
 
     private executeAjax(url: string,
@@ -155,10 +145,12 @@ class AuthHttpClient implements HttpClientBase {
         httpVerb: string,
         callback: (data: any) => any,
         errorCallback: (xhr, ajaxOptions, thrown) => any,
-        statusCodeCallback: { [key: string]: any; }
+        statusCodeCallback: { [key: string]: any; },
+        contentType: string,
+        headersHandler?: () => { [header: string]: string }
     ) {
-        //http://api.jquery.com/jquery.ajax/
-        $.ajax(url,
+        //http://api.jquery.com/JQ.ajax/
+        jQuery.ajax(url,
             {
                 data: JSON.stringify(dataToSave),
                 type: httpVerb,
@@ -174,11 +166,8 @@ class AuthHttpClient implements HttpClientBase {
                 },
 
                 statusCode: statusCodeCallback,
-                contentType: 'application/json; charset=UTF-8',
-                headers: {
-                    Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
-
-                },
+                contentType: contentType,
+                headers: headersHandler ? headersHandler() : undefined,
 
                 beforeSend: (xhr, settings) => {
                     xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('access_token'));
@@ -192,7 +181,7 @@ class AuthHttpClient implements HttpClientBase {
     getToken(url: string, username: string, password: string, callback: (data: any) => any,
         errorCallback: (xhr, ajaxOptions, thrown) => any,
         statusCodeCallback: { [key: string]: any; }) {
-        $.ajax(url + 'token',
+        jQuery.ajax(url + 'token',
             {
                 data: {
                     'grant_type': 'password',

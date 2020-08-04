@@ -18,7 +18,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		const string FetchHttpStringResponse = "string";
 
 		string returnTypeText = null;
-		string contentType;
+		readonly string contentType;
 		readonly bool handleHttpRequestHeaders;
 
 		public ClientApiTsFetchFunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
@@ -61,9 +61,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			var httpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase.
 
-			var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-				|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+			var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody).ToArray();
 			if (fromBodyParameterDescriptions.Length > 1)
 			{
 				throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));

@@ -8,19 +8,19 @@ using System.Web.Http;
 namespace DemoWebApi.Controllers
 {
    // [Authorize]
-    public class ValuesController : ApiController
-    {
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+	public class ValuesController : ApiController
+	{
+		// GET api/values
+		public IEnumerable<string> Get()
+		{
+			return new string[] { "value1", "value2" };
+		}
 
-        // GET api/values/5
-        public string Get(int id, string name)
-        {
-            return name + id.ToString();
-        }
+		// GET api/values/5
+		public string Get(int id, string name)
+		{
+			return name + id.ToString();
+		}
 
 		public string Get(string name)
 		{
@@ -33,21 +33,21 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpPost]
-        public string Post([FromBody]string value)
-        {
-            System.Diagnostics.Debug.WriteLine("received POST value: "+value);
-            return value.ToUpper();
-        }
+		public string Post([FromBody]string value)
+		{
+			System.Diagnostics.Debug.WriteLine("received POST value: "+value);
+			return value.ToUpper();
+		}
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-            System.Diagnostics.Debug.WriteLine("Put " + id.ToString() + value);
-        }
+		// PUT api/values/5
+		public void Put(int id, [FromBody]string value)
+		{
+			System.Diagnostics.Debug.WriteLine("Put " + id.ToString() + value);
+		}
 
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
-        }
-    }
+		// DELETE api/values/5
+		public void Delete(int id)
+		{
+		}
+	}
 }

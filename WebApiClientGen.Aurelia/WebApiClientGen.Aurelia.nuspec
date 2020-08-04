@@ -10,7 +10,10 @@
     <projectUrl>https://github.com/zijianhuang/webapiclientgen</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Aurelia.</description>
-    <releaseNotes>Released with WebApiClientGen 3.0.</releaseNotes>
+    <releaseNotes>
+      * Support Http Method Patch
+      * HeadersHandler with option HandleHttpRequestHeaders
+    </releaseNotes>
     <copyright>Copyright © Fonlow 2015-2020</copyright>
     <tags>TypeScript CodeDOM API Web Client webapi restful aspnet aspnetwebapi Aurelia</tags>
     <dependencies>

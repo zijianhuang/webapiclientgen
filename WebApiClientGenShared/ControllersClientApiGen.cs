@@ -10,23 +10,12 @@ using Fonlow.Poco2Client;
 namespace Fonlow.CodeDom.Web.Cs
 {
 	/// <summary>
-	/// Store CodeDom references shared by all functions of the client API class.
-	/// </summary>
-	internal class SharedContext
-	{
-		internal CodeFieldReferenceExpression ClientReference { get; set; }
-		internal CodeFieldReferenceExpression BaseUriReference { get; set; }
-		internal CodeFieldReferenceExpression JsonSettingsReference { get; set; }
-	}
-
-
-	/// <summary>
 	/// Generate .NET codes of the client API of the controllers
 	/// </summary>
 	public class ControllersClientApiGen
 	{
 		CodeCompileUnit TargetUnit { get; set; }
-		SharedContext SharedContext { get; set; }
+		//SharedContext SharedContext { get; set; }
 		CodeGenSettings CodeGenParameters { get; set; }
 
 		/// <summary>
@@ -38,29 +27,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			this.CodeGenParameters = codeGenParameters ?? throw new System.ArgumentNullException(nameof(codeGenParameters));
 			TargetUnit = new CodeCompileUnit();
-			SharedContext = new SharedContext();
+			//SharedContext = new SharedContext();
 			poco2CsGen = new Poco2CsGen(TargetUnit);
 		}
 
 		readonly Poco2CsGen poco2CsGen;
-
-		///// <summary>
-		///// Save C# codes into a file.
-		///// </summary>
-		///// <param name="fileName"></param>
-		//public void Save(string fileName)
-		//{
-		//	using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
-		//	{
-		//		CodeGeneratorOptions options = new CodeGeneratorOptions();
-		//		options.BracingStyle = "C";
-		//		options.IndentString = "\t";
-		//		using (StreamWriter writer = new StreamWriter(fileName))
-		//		{
-		//			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
-		//		}
-		//	}
-		//}
 
 		/// <summary>
 		/// Save C# codes into a file.
@@ -203,11 +174,11 @@ namespace Fonlow.CodeDom.Web.Cs
 				var existingClientClass = LookupExistingClass(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = ClientApiFunctionGen.Create(SharedContext, d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs, true);
+				var apiFunction = ClientApiFunctionGen.Create(d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs, true);
 				existingClientClass.Members.Add(apiFunction);
 				if (ForBothAsyncAndSync)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(SharedContext, d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs, false));
+					existingClientClass.Members.Add(ClientApiFunctionGen.Create(d, poco2CsGen, this.CodeGenParameters.ClientApiOutputs, false));
 				}
 			}
 
@@ -247,7 +218,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			return null;
 		}
 
-		CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
+		static CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
 		{
 			var targetClass = new CodeTypeDeclaration(className)
 			{
@@ -282,36 +253,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			targetClass.Members.Add(jsonSettingsField);
 		}
 
-//		void AddConstructor(CodeTypeDeclaration targetClass) not used after DI Friendly only
-//		{
-//			CodeConstructor constructor = new CodeConstructor
-//			{
-//				Attributes =
-//				MemberAttributes.Public | MemberAttributes.Final
-//			};
-
-//			// Add parameters.
-//			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-//				"System.Net.Http.HttpClient", "client"));
-//			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-//				"JsonSerializerSettings", "jsonSerializerSettings=null"));
-
-//			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
-//				throw new ArgumentNullException(""Null HttpClient."", ""client"");
-//"));
-//			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client.BaseAddress == null)
-//				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
-//"));
-
-//			// Add field initialization logic
-//			SharedContext.ClientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
-//			constructor.Statements.Add(new CodeAssignStatement(SharedContext.ClientReference, new CodeArgumentReferenceExpression("client")));
-//			SharedContext.JsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
-//			constructor.Statements.Add(new CodeAssignStatement(SharedContext.JsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
-//			targetClass.Members.Add(constructor);
-//		}
-
-		void AddConstructorWithHttpClient(CodeTypeDeclaration targetClass)
+		static void AddConstructorWithHttpClient(CodeTypeDeclaration targetClass)
 		{
 			CodeConstructor constructor = new CodeConstructor
 			{
@@ -332,10 +274,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
 "));
 			// Add field initialization logic
-			SharedContext.ClientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
-			constructor.Statements.Add(new CodeAssignStatement(SharedContext.ClientReference, new CodeArgumentReferenceExpression("client")));
-			SharedContext.JsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
-			constructor.Statements.Add(new CodeAssignStatement(SharedContext.JsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
+			var clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
+			constructor.Statements.Add(new CodeAssignStatement(clientReference, new CodeArgumentReferenceExpression("client")));
+			var jsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
+			constructor.Statements.Add(new CodeAssignStatement(jsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
 			targetClass.Members.Add(constructor);
 		}
 

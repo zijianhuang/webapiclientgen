@@ -40,14 +40,4 @@ $procTscArgs = @{
 }
 $processTsc = Start-Process @procTscArgs
 
-# Compile for axios, if the app is coded on JS
-$procTscArgs = @{
-    FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.8\tsc.js`" $PSScriptRoot\axios\src\clientapi\WebApiCoreAxiosClientAuto.ts"
-    PassThru         = $false
-    
-}
-$processTsc = Start-Process @procTscArgs
-
-
 Stop-Process $process

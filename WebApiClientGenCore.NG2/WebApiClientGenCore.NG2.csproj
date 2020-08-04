@@ -5,7 +5,8 @@
     <PackageId>Fonlow.WebApiClientGenCore.NG2</PackageId>
     <Authors>Zijian Huang</Authors>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</Description>
-    <PackageReleaseNotes>* If service function return type is void, the client API return is Observable&lt;HttpResponse&lt;string&gt;&gt; so client codes could handle response details.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Support Http Method Patch
+* HeadersHandler with option HandleHttpRequestHeaders</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
@@ -13,9 +14,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.NG2</AssemblyName>
-    <AssemblyVersion>1.2.1.0</AssemblyVersion>
-    <FileVersion>1.2.1.0</FileVersion>
-    <Version>1.2.1</Version>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3</Version>
     <PackageTags>Angular</PackageTags>
   </PropertyGroup>
 

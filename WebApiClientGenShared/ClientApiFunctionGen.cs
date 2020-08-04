@@ -12,7 +12,6 @@ namespace Fonlow.CodeDom.Web.Cs
 	/// </summary>
 	internal class ClientApiFunctionGen
 	{
-		readonly SharedContext sharedContext;
 		readonly WebApiDescription description;
 		readonly string methodName;
 		protected Type returnType;
@@ -22,14 +21,13 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
 		readonly bool forAsync;
 		readonly bool stringAsString;
-		//readonly bool diFriendly;
 		readonly string statementOfEnsureSuccessStatusCode;
 		readonly CodeGenOutputs settings;
 
-		public ClientApiFunctionGen(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
+		public ClientApiFunctionGen(WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
 			this.description = description;
-			this.sharedContext = sharedContext;
+			//this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
 			this.settings = settings;
 			this.forAsync = forAsync;
@@ -59,9 +57,9 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(SharedContext sharedContext, WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
+		public static CodeMemberMethod Create(WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
-			var gen = new ClientApiFunctionGen(sharedContext, description, poco2CsGen, settings, forAsync);
+			var gen = new ClientApiFunctionGen(description, poco2CsGen, settings, forAsync);
 			return gen.CreateApiFunction();
 		}
 
@@ -80,6 +78,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					break;
 				case "POST":
 				case "PUT":
+				case "PATCH":
 					RenderPostOrPutImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()), forAsync);
 					break;
 				default:

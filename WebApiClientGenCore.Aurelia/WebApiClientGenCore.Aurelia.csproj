@@ -8,16 +8,16 @@
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Aurelia.</Description>
     <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
     <PackageTags>aurelia TypeScript</PackageTags>
-    <PackageReleaseNotes>* Enum in HTTP query
-* Array of primitive types and enum in HTTP query</PackageReleaseNotes>
+    <PackageReleaseNotes>* Support Http Method Patch
+* HeadersHandler with option HandleHttpRequestHeaders</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.Aurelia</AssemblyName>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
-    <Version>1.2</Version>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3</Version>
   </PropertyGroup>
 
   <Import Project="..\PluginAureliaShared\PluginAureliaShared.projitems" Label="Shared" />

@@ -5,6 +5,8 @@ using System.CodeDom;
 using System.Diagnostics;
 using System.Text;
 using Fonlow.Poco2Client;
+using System.Linq;
+using Fonlow.Reflection;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -101,6 +103,20 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			return s;
+		}
+
+		protected string GetDataToPost()
+		{
+			var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
+				|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
+			if (fromBodyParameterDescriptions.Length > 1)
+			{
+				throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
+			}
+			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+
+			return singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 		}
 
 		protected abstract CodeMemberMethod CreateMethodName();

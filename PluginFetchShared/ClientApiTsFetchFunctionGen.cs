@@ -1,6 +1,5 @@
 ﻿using Fonlow.Reflection;
 using Fonlow.TypeScriptCodeDom;
-using Fonlow.Web.Meta;
 using System;
 using System.CodeDom;
 using System.Diagnostics;
@@ -61,23 +60,23 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			var httpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase.
 
-			var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody).ToArray();
-			if (fromBodyParameterDescriptions.Length > 1)
+			string GetContentOptionsForString(string dataToPost)
 			{
-				throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
+				string contentOptionsWithHeadersHandlerForString = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+				return handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForString : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
 			}
-			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-			var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+			string GetContentOptionsForResponse(string dataToPost)
+			{
+				string contentOptionsWithHeadersHandlerForResponse = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+				return handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForResponse : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+			}
 
-			string contentOptionsWithHeadersHandlerForString = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
-			var ContentOptionsForString = handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForString : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
-
-			string contentOptionsWithHeadersHandlerForResponse = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
-			var ContentOptionsForResponse = handleHttpRequestHeaders ? contentOptionsWithHeadersHandlerForResponse : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
-
-			string optionsWithHeadersHandlerAndContent = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
-			var OptionsWithContent = handleHttpRequestHeaders ? optionsWithHeadersHandlerAndContent : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+			string GetOptionsWithContent(string dataToPost)
+			{
+				string optionsWithHeadersHandlerAndContent = $"{{ method: '{httpMethodName}', headers: headersHandler ? Object.assign(headersHandler(), {{ 'Content-Type': '{contentType}' }}): {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+				return handleHttpRequestHeaders ? optionsWithHeadersHandlerAndContent : $"{{ method: '{httpMethodName}', headers: {{ 'Content-Type': '{contentType}' }}, body: JSON.stringify({dataToPost}) }}";
+			}
 
 			string optionsWithHeadersHandlerForString = $"{{ method: '{httpMethodName}', headers: headersHandler ? headersHandler() : undefined }}";
 			var OptionsForString = handleHttpRequestHeaders ? optionsWithHeadersHandlerForString : $"{{ method: '{httpMethodName}' }}";
@@ -115,13 +114,15 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
+					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => d.text());"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {ContentOptionsForString}).then(d => d.text());"));
+						var contentOptions = GetContentOptionsForString(dataToPost);
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => d.text());"));
 					}
 
 					return;
@@ -137,13 +138,15 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
+					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsForString}).then(d => d.blob());"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {ContentOptionsForString}).then(d => d.blob());"));
+						var contentOptions = GetContentOptionsForString(dataToPost);
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => d.blob());"));
 					}
 
 					return;
@@ -160,13 +163,15 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethodName == "post" || httpMethodName == "put")
 				{
+					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsWithContent});"));
+						var contentOptions = GetOptionsWithContent(dataToPost);
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions});"));
 					}
 
 					return;
@@ -189,6 +194,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 				else if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
 				{
+					var dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response
 					{
 						if (dataToPost == "null")
@@ -197,7 +203,8 @@ namespace Fonlow.CodeDom.Web.Ts
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {ContentOptionsForResponse});"));
+							var contentOptions = GetContentOptionsForResponse(dataToPost);
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions});"));
 						}
 					}
 					else // type is returned
@@ -208,7 +215,8 @@ namespace Fonlow.CodeDom.Web.Ts
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {OptionsWithContent}).then(d => d.json());"));
+							var contentOptions = GetOptionsWithContent(dataToPost);
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => d.json());"));
 						}
 					}
 				}

@@ -1,16 +1,9 @@
-﻿using System;
-using System.CodeDom;
-using System.Linq;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-
-using System.Diagnostics;
-using System.Text;
+﻿using Fonlow.Reflection;
 using Fonlow.TypeScriptCodeDom;
-using Fonlow.Poco2Ts;
-using Fonlow.Reflection;
-using Fonlow.Web.Meta;
-using Fonlow.CodeDom.Web;
+using System;
+using System.CodeDom;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -132,17 +125,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethod == "post" || httpMethod == "put")
 				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
+					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {OptionsForString});"));
@@ -166,17 +149,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethod == "post" || httpMethod == "put")
 				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
+					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {OptionsForBlob});"));
@@ -200,17 +173,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethod == "post" || httpMethod == "put")
 				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
+					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethod}({uriText}, null, {OptionsForResponse});"));
@@ -244,17 +207,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (httpMethod == "post" || httpMethod == "put")
 				{
-					var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-						|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
-						|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
-					if (fromBodyParameterDescriptions.Length > 1)
-					{
-						throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
-					}
-					var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
-
-					var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
-
+					var dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response
 					{
 						if (dataToPost == "null")//no content body

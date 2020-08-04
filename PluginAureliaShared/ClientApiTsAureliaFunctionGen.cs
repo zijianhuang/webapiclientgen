@@ -115,7 +115,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put")
+				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
@@ -138,7 +138,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put")
+				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
@@ -161,7 +161,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put")
+				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
@@ -185,7 +185,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put")
+				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")

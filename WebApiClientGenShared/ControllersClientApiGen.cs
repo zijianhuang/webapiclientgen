@@ -263,7 +263,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 
-		void AddLocalFields(CodeTypeDeclaration targetClass)
+		static void AddLocalFields(CodeTypeDeclaration targetClass)
 		{
 			CodeMemberField clientField = new CodeMemberField
 			{
@@ -282,34 +282,34 @@ namespace Fonlow.CodeDom.Web.Cs
 			targetClass.Members.Add(jsonSettingsField);
 		}
 
-		void AddConstructor(CodeTypeDeclaration targetClass)
-		{
-			CodeConstructor constructor = new CodeConstructor
-			{
-				Attributes =
-				MemberAttributes.Public | MemberAttributes.Final
-			};
+//		void AddConstructor(CodeTypeDeclaration targetClass) not used after DI Friendly only
+//		{
+//			CodeConstructor constructor = new CodeConstructor
+//			{
+//				Attributes =
+//				MemberAttributes.Public | MemberAttributes.Final
+//			};
 
-			// Add parameters.
-			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"System.Net.Http.HttpClient", "client"));
-			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"JsonSerializerSettings", "jsonSerializerSettings=null"));
+//			// Add parameters.
+//			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
+//				"System.Net.Http.HttpClient", "client"));
+//			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
+//				"JsonSerializerSettings", "jsonSerializerSettings=null"));
 
-			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
-				throw new ArgumentNullException(""Null HttpClient."", ""client"");
-"));
-			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client.BaseAddress == null)
-				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
-"));
+//			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
+//				throw new ArgumentNullException(""Null HttpClient."", ""client"");
+//"));
+//			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client.BaseAddress == null)
+//				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
+//"));
 
-			// Add field initialization logic
-			SharedContext.ClientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
-			constructor.Statements.Add(new CodeAssignStatement(SharedContext.ClientReference, new CodeArgumentReferenceExpression("client")));
-			SharedContext.JsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
-			constructor.Statements.Add(new CodeAssignStatement(SharedContext.JsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
-			targetClass.Members.Add(constructor);
-		}
+//			// Add field initialization logic
+//			SharedContext.ClientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");
+//			constructor.Statements.Add(new CodeAssignStatement(SharedContext.ClientReference, new CodeArgumentReferenceExpression("client")));
+//			SharedContext.JsonSettingsReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "jsonSerializerSettings");
+//			constructor.Statements.Add(new CodeAssignStatement(SharedContext.JsonSettingsReference, new CodeArgumentReferenceExpression("jsonSerializerSettings")));
+//			targetClass.Members.Add(constructor);
+//		}
 
 		void AddConstructorWithHttpClient(CodeTypeDeclaration targetClass)
 		{

@@ -70,9 +70,30 @@ namespace DemoWebApi.Controllers
 			return p;
 		}
 
+		[HttpPost]
+		[Route("createPerson3")]
+		public async Task<Person> CreatePerson3([FromBody] Person p, [FromHeader] string middle)
+		{
+			p.GivenName = middle;
+			Debug.WriteLine("CreatePerson: " + p.Name);
+
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			Debug.WriteLine("Create " + p);
+			return p;
+		}
+
 		[HttpPut]
 		[Route("updatePerson")]
 		public string UpdatePerson([FromBody] Person person)
+		{
+			return person.Name;
+		}
+
+		[HttpPatch]
+		[Route("patchPerson")]
+		public string PatchPerson([FromBody] Person person)
 		{
 			return person.Name;
 		}

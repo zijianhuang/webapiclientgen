@@ -21,7 +21,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected CodeMemberMethod Method { get; private set; }
 		protected IPoco2Client Poco2TsGen { get; private set; }
 		protected bool StringAsString { get; private set; }
-
+		protected string HttpMethodName { get; private set; }
 		protected ClientApiTsFunctionGenAbstract()
 		{
 
@@ -33,6 +33,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.Poco2TsGen = poco2TsGen;
 			this.StringAsString = stringAsString;
 
+			HttpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase. 
 			MethodName = TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
 			if (MethodName.EndsWith("Async"))
 				MethodName = MethodName.Substring(0, MethodName.Length - 5);//HTTP does not care about the server side async.
@@ -50,6 +51,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				case "DELETE":
 				case "POST":
 				case "PUT":
+				case "PATCH":
 					RenderImplementation();
 					break;
 				default:
@@ -117,6 +119,29 @@ namespace Fonlow.CodeDom.Web.Ts
 			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
 			return singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+		}
+
+		protected void RenderMethodPrototype()
+		{
+			var parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
+				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
+					 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
+				).ToArray();
+
+			Method.Parameters.AddRange(parameters);
+		}
+
+		/// <summary>
+		/// If the caller expect full uri path rather than relative path.
+		/// </summary>
+		/// <returns></returns>
+		protected string GetFullUriText()
+		{
+			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
+			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
+			return jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
+				RemoveTrialEmptyString(hasArrayJoin ? $"this.baseUri + '{jsUriQuery}" : $"this.baseUri + '{jsUriQuery}'");
 		}
 
 		protected abstract CodeMemberMethod CreateMethodName();

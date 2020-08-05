@@ -259,5 +259,8 @@ namespace Fonlow.Web.Meta
 		[EnumMember]
 		FromForm,
 
+		[EnumMember]
+		FromHeader,
+
 	}
 }

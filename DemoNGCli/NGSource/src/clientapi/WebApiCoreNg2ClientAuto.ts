@@ -289,6 +289,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/Entities/createPerson3
+		 */
+		createPerson3(p: DemoWebApi_DemoData_Client.Person, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/createPerson3', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
 		 * DELETE api/Entities/{id}
 		 */
 		delete(id: number, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
@@ -346,6 +353,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		linkPerson(id: number, relationship: string, person: DemoWebApi_DemoData_Client.Person, headersHandler?: () => HttpHeaders): Observable<boolean> {
 			return this.http.put<boolean>(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * PATCH api/Entities/patchPerson
+		 */
+		patchPerson(person: DemoWebApi_DemoData_Client.Person, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.patch(this.baseUri + 'api/Entities/patchPerson', JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 
 		/**

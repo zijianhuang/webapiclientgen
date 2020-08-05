@@ -94,45 +94,33 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			var httpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase.
-															   //deal with parameters
-			var parameters = Description.ParameterDescriptions.Select(d =>
-				 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
-			).ToArray();
-
-			Method.Parameters.AddRange(parameters);
-
+			RenderMethodPrototype();
 			if (handleHttpRequestHeaders)
 			{
 				Method.Parameters.Add(new CodeParameterDeclarationExpression(
 					"() => HttpHeaders", "headersHandler?"));
 			}
 
-			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
-			var hasArrayJoin = jsUriQuery !=null && jsUriQuery.Contains(".join(");
-			var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
-				RemoveTrialEmptyString(hasArrayJoin? $"this.baseUri + '{jsUriQuery}": $"this.baseUri + '{jsUriQuery}'");
-
-			// var mapFunction = returnTypeText == NG2HttpResponse ? String.Empty : ".map(response=> response.json())";
+			var uriText = GetFullUriText();
 
 			if (ReturnType!=null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, {OptionsForString});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, {OptionsForString});"));
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {OptionsForString});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null, {OptionsForString});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString});"));
 					}
 
 					return;
@@ -141,22 +129,22 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == NG2HttpBlobResponse)//translated from blobresponse to this
 			{
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, {OptionsForBlob});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, {OptionsForBlob});"));
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {OptionsForBlob});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null, {OptionsForBlob});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {OptionsForBlob});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {OptionsForBlob});"));
 					}
 
 					return;
@@ -165,22 +153,22 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == NG2HttpStringResponse)//translated from response to this
 			{
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, {OptionsForResponse});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, {OptionsForResponse});"));
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {OptionsForResponse});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null, {OptionsForResponse});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
 					}
 
 					return;
@@ -191,43 +179,43 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				string returnTypeCast = returnTypeText == null ? String.Empty : $"<{returnTypeText}>";
 
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
 					if (returnTypeText == null)
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, {OptionsForResponse});")); //only http response needed
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, {OptionsForResponse});")); //only http response needed
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}{returnTypeCast}({uriText}{Options});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}{returnTypeCast}({uriText}{Options});"));
 					}
 
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response
 					{
 						if (dataToPost == "null")//no content body
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, null, {OptionsForResponse});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null, {OptionsForResponse});"));
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
 						}
 					}
 					else // type is returned
 					{
 						if (dataToPost == "null") // no body
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}{returnTypeCast}({uriText}, null{Options});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}{returnTypeCast}({uriText}, null{Options});"));
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{httpMethodName}{returnTypeCast}({uriText}, JSON.stringify({dataToPost}), {OptionsWithContent});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}{returnTypeCast}({uriText}, JSON.stringify({dataToPost}), {OptionsWithContent});"));
 						}
 					}
 

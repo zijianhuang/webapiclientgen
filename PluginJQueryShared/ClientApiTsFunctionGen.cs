@@ -35,11 +35,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			var httpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase.
-			//deal with parameters
-			var parameters = Description.ParameterDescriptions.Select(d =>
-				 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
-			).ToList();
+			var parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
+				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
+					 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
+				).ToList();
 
 			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			if (returnTypeReference.BaseType == "response")//response is for NG2 with better built-in support for typing, and get translated to HttpResponse<Blob>
@@ -60,18 +60,15 @@ namespace Fonlow.CodeDom.Web.Ts
 					"() => {[header: string]: string}", "headersHandler?"));
 			}
 
-			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
-			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
-			var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
-				RemoveTrialEmptyString(hasArrayJoin ? $"this.baseUri + '{jsUriQuery}" : $"this.baseUri + '{jsUriQuery}'");
+			var uriText = GetFullUriText();
 
 			string headerHandlerCall = handleHttpRequestHeaders ? ", headersHandler" : String.Empty;
 
-			if (httpMethodName == "get" || httpMethodName == "delete")
+			if (HttpMethodName == "get" || HttpMethodName == "delete")
 			{
-				Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethodName}({uriText}, callback, this.error, this.statusCode{headerHandlerCall});"));
+				Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{HttpMethodName}({uriText}, callback, this.error, this.statusCode{headerHandlerCall});"));
 			}
-			else if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+			else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 			{
 				var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 					|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
@@ -86,17 +83,17 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (dataToPost == "null")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethodName}({uriText}, null, callback, this.error, this.statusCode, '{contentType}'{headerHandlerCall});"));
+					Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{HttpMethodName}({uriText}, null, callback, this.error, this.statusCode, '{contentType}'{headerHandlerCall});"));
 				}
 				else
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{httpMethodName}({uriText}, {dataToPost}, callback, this.error, this.statusCode, '{contentType}'{headerHandlerCall});"));
+					Method.Statements.Add(new CodeSnippetStatement($"this.httpClient.{HttpMethodName}({uriText}, {dataToPost}, callback, this.error, this.statusCode, '{contentType}'{headerHandlerCall});"));
 				}
 
 			}
 			else
 			{
-				Debug.Assert(false, $"How come with {httpMethodName}?");
+				Debug.Assert(false, $"How come with {HttpMethodName}?");
 			}
 		}
 	}

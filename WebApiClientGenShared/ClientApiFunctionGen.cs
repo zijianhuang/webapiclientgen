@@ -231,7 +231,9 @@ namespace Fonlow.CodeDom.Web.Cs
 		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
 		{
 			//Create function parameters in prototype
-			var parameters = description.ParameterDescriptions.Select(d => new CodeParameterDeclarationExpression()
+			var parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
+			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody 
+			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => new CodeParameterDeclarationExpression()
 			{
 				Name = d.Name,
 				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),

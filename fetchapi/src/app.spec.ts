@@ -176,6 +176,30 @@ describe('entities API', () => {
   }
   );
 
+it('addWthHeadersHandling', (done) => {
+  let id: number;
+  const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
+    name: 'John Smith' + Date.now().toString(),
+    givenName: 'John',
+    surname: 'Smith',
+    dob: new Date('1977-12-28')
+  };
+
+  client.createPerson3(newPerson, ()=>{return {middle: 'Hey'};})
+    .then(
+    data => {
+      expect(data.givenName).toBe('Hey');
+      done();
+    },
+    error => {
+
+      done();
+    }
+    );
+
+}
+);
+
 });
 
 describe('Tuple API', () => {

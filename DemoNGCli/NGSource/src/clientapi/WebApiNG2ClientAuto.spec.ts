@@ -1,5 +1,5 @@
 import { async, inject, TestBed } from '@angular/core/testing';
-import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 //import * as namespaces from './WebApiNG2ClientAuto';
 import * as namespaces from './WebApiCoreNG2ClientAuto';
@@ -290,6 +290,30 @@ describe('entities API', () => {
 				data => {
 					id = data;
 					expect(data).toBeTruthy();
+					done();
+				},
+				error => {
+					fail(errorResponseToString(error));
+					done();
+				}
+			);
+
+	}
+	);
+
+	it('addWithHeadersHandling', (done) => {
+		let id: number;
+		const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
+			name: 'John Smith' + Date.now().toString(),
+			givenName: 'John',
+			surname: 'Smith',
+			dob: new Date('1977-12-28')
+		};
+
+		client.createPerson3(newPerson, () => new HttpHeaders({middle: 'HaHa'}))
+			.subscribe(
+				data => {
+					expect(data.givenName).toBe('HaHa');
 					done();
 				},
 				error => {

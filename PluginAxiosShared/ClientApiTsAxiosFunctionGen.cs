@@ -96,47 +96,33 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			var httpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase.
-															   //deal with parameters
-			var parameters = Description.ParameterDescriptions.Select(d =>
-				 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
-			).ToList();
-
-			//parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
-
-			Method.Parameters.AddRange(parameters.ToArray());
-
+			RenderMethodPrototype();
 			if (handleHttpRequestHeaders)
 			{
 				Method.Parameters.Add(new CodeParameterDeclarationExpression(
 					"() => {[header: string]: string}", "headersHandler?"));
 			}
 
-			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
-			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
-			var uriText = jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
-				RemoveTrialEmptyString(hasArrayJoin ? $"this.baseUri + '{jsUriQuery}" : $"this.baseUri + '{jsUriQuery}'");
-
-			// var mapFunction = returnTypeText == ReactHttpResponse ? String.Empty : ".map(response=> response.json())";
+			var uriText = GetFullUriText();
 
 			if (ReturnType!=null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, {OptionsForString}).then(d => d.data);")); //todo: type cast is not really needed.
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, {OptionsForString}).then(d => d.data);")); //todo: type cast is not really needed.
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, null, {OptionsForString}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForString}).then(d => d.data);"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString}).then(d => d.data);"));
 					}
 
 					return;
@@ -144,22 +130,22 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == AxiostHttpBlobResponse)//translated from blobresponse to this
 			{
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, {OptionsForBlob}).then(d => d.data);")); //todo: type cast is not really needed.
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, {OptionsForBlob}).then(d => d.data);")); //todo: type cast is not really needed.
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, null, {OptionsForBlob}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForBlob}).then(d => d.data);"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForBlob}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForBlob}).then(d => d.data);"));
 					}
 
 					return;
@@ -167,22 +153,22 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == AxiosHttpStringResponse)//translated from response to this
 			{
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, {OptionsForResponse});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, {OptionsForResponse});"));
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, null, {OptionsForResponse});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForResponse});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
 					}
 
 					return;
@@ -190,22 +176,22 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (returnTypeText == AxiosHttpResponse) // client should care about only status
 			{
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}{Options});"));
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}{Options});"));
 					return;
 				}
 
-				if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, null{Options});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null{Options});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString});"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString});"));
 					}
 
 					return;
@@ -215,46 +201,46 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				string returnTypeCast = returnTypeText == null ? String.Empty : $"<{returnTypeText}>";
 
-				if (httpMethodName == "get" || httpMethodName == "delete")
+				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
 					if (returnTypeText == null)
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, {OptionsForResponse});")); //only http response needed
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, {OptionsForResponse});")); //only http response needed
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}{returnTypeCast}({uriText}{Options}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}{Options}).then(d => d.data);"));
 					}
 				}
-				else if (httpMethodName == "post" || httpMethodName == "put" || httpMethodName == "patch")
+				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
 					var dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response
 					{
 						if (dataToPost == "null")
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, null, {OptionsForResponse});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForResponse});"));
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
+							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForResponse});"));
 						}
 					}
 					else // type is returned
 					{
 						if (dataToPost == "null")
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}{returnTypeCast}({uriText}, null{Options}).then(d => d.data);"));
+							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}, null{Options}).then(d => d.data);"));
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{httpMethodName}{returnTypeCast}({uriText}, JSON.stringify({dataToPost}), {OptionsWithContent}).then(d => d.data);"));
+							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}, JSON.stringify({dataToPost}), {OptionsWithContent}).then(d => d.data);"));
 						}
 					}
 				}
 				else
 				{
-					Debug.Assert(false, $"How come with {httpMethodName}?");
+					Debug.Assert(false, $"How come with {HttpMethodName}?");
 				}
 			}
 		}

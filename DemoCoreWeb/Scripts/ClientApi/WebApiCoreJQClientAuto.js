@@ -110,6 +110,12 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/Entities/createPerson2', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * POST api/Entities/createPerson3
+         */
+        createPerson3(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPerson3', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * DELETE api/Entities/{id}
          */
         delete(id, callback, headersHandler) {
@@ -160,6 +166,12 @@ var DemoWebApi_Controllers_Client;
          */
         linkPerson(id, relationship, person, callback, headersHandler) {
             this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (relationship == null ? '' : encodeURIComponent(relationship)), person, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * PATCH api/Entities/patchPerson
+         */
+        patchPerson(person, callback, headersHandler) {
+            this.httpClient.patch(this.baseUri + 'api/Entities/patchPerson', person, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * PUT api/Entities/updatePerson

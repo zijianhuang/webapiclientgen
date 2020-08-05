@@ -19,6 +19,13 @@
         statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     );
 
+    patch(url: string,
+        dataToSave: any,
+        callback: (data: any) => any,
+        errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
+    );
+
     delete(url: string,
         callback: (data: any) => any,
         errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
@@ -58,6 +65,15 @@ class HttpClient implements HttpClientBase {
         statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     ) {
         this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
+    }
+
+    patch(url: string,
+        dataToSave: any,
+        callback: (data: any) => any,
+        errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
+    ) {
+        this.executeAjax(url, dataToSave, "PATCH", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
 
     delete(url: string,
@@ -130,6 +146,15 @@ class AuthHttpClient implements HttpClientBase {
         statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
     ) {
         this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
+    }
+
+    patch(url: string,
+        dataToSave: any,
+        callback: (data: any) => any,
+        errorCalback: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any,
+        statusCodeCallback: { [key: string]: any; }, contentType: string, headersHandler?: () => { [header: string]: string }
+    ) {
+        this.executeAjax(url, dataToSave, "PATCH", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
 
     delete(url: string,

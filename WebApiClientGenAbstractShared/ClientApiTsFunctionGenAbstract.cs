@@ -98,7 +98,6 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected string RemoveTrialEmptyString(string s)
 		{
 			var p = s.IndexOf(" + ''");
-			//Debug.Assert(p > -1, "Must match the end string in RemoveTrialEmptyString");
 			if (p > -1)
 			{
 				return s.Remove(p, 5);

@@ -10,6 +10,9 @@ class HttpClient {
     put(url, dataToSave, callback, errorCalback, statusCodeCallback, contentType, headersHandler) {
         this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
+    patch(url, dataToSave, callback, errorCalback, statusCodeCallback, contentType, headersHandler) {
+        this.executeAjax(url, dataToSave, "PATCH", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
+    }
     delete(url, callback, errorCalback, statusCodeCallback, headersHandler) {
         this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
@@ -46,6 +49,9 @@ class AuthHttpClient {
     }
     put(url, dataToSave, callback, errorCalback, statusCodeCallback, contentType, headersHandler) {
         this.executeAjax(url, dataToSave, "PUT", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
+    }
+    patch(url, dataToSave, callback, errorCalback, statusCodeCallback, contentType, headersHandler) {
+        this.executeAjax(url, dataToSave, "PATCH", callback, errorCalback, statusCodeCallback, contentType, headersHandler);
     }
     delete(url, callback, errorCalback, statusCodeCallback, headersHandler) {
         this.executeAjax(url, null, "DELETE", callback, errorCalback, statusCodeCallback, null, headersHandler);
@@ -110,3 +116,4 @@ class AuthHttpClient {
   location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
 **/
 AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
+//# sourceMappingURL=HttpClient.js.map

@@ -12,7 +12,6 @@ This project delivers these products:
 
 **Hints:**
 
-* The packages could be used independently as long as the usages conform to the dependencies.
 * [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) based on key components of WebApiClientGen is a spin-off for generating client API codes in C# and TypeScript according to a definition file of Swagger/Open API Specification.
 
 # Key Features

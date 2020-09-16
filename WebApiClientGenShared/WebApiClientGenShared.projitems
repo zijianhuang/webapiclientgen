@@ -13,5 +13,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)CodeGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControllersClientApiGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Poco2CsGen.cs" />
   </ItemGroup>
 </Project>

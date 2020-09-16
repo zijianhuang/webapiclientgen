@@ -1,18 +1,9 @@
-﻿using System.Reflection;
-using System.IO;
+﻿using System;
 using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Linq;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System;
-using Fonlow.Poco2Client;
-using Fonlow.Reflection;
-using Fonlow.DocComment;
 
 namespace Fonlow.Poco2Ts
 {
-    public class PocoToTsNgGen : Poco2TsGen
+	public class PocoToTsNgGen : Poco2TsGen
     {
         public PocoToTsNgGen(CodeCompileUnit codeCompileUnit) : base(codeCompileUnit)
         {

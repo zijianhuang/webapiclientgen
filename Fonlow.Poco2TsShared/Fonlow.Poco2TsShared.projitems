@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CherryPicking.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CherryPickingMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModelGenOutputs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Poco2CsGen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPoco2Client.cs" />

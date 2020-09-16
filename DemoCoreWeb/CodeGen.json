@@ -35,6 +35,9 @@
 		"DataAnnotationsEnabled": true,
 		"DataAnnotationsToComments": true,
 		"HandleHttpRequestHeaders": true,
+		"DecorateDataModelWithDataContract": true,
+		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
+		"DecorateDataModelWithSerializable": true,
 
 		"Plugins": [
 			{

@@ -86,8 +86,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix,
-							CodeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, CodeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
+					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs);
 				}
 			}
 			else if (CodeGenParameters.ApiSelections.DataModels != null)
@@ -101,8 +100,7 @@ namespace Fonlow.CodeDom.Web.Cs
 						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix,
-							CodeGenParameters.ClientApiOutputs.DataAnnotationsEnabled, CodeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
+						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs);
 					}
 				}
 			}

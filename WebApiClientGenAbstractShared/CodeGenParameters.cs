@@ -47,7 +47,7 @@
 	/// <summary>
 	/// Client APIs as output for C#. Mapped to "ClientApiOutputs" in CodeGen.json.
 	/// </summary>
-	public class CodeGenOutputs
+	public class CodeGenOutputs : Fonlow.Poco2Ts.ModelGenOutputs
 	{
 		/// <summary>
 		/// Assuming the client API project is the sibling of Web API project. Relative path to the running instance of the WebApi project should be fine.
@@ -82,25 +82,12 @@
 		/// </summary>
 		public bool? CamelCase { get; set; }
 
-		public string CSClientNamespaceSuffix { get; set; } = ".Client";
-
 		/// <summary>
 		/// Each controller is mapped into a container class to contain client API functions matching controller operations.
 		/// By default the container is named after the controller name, for example, service class ValuesController will result in client container class Values.
 		/// You may define a container name suffix such as "Client", so the generated container class name may become ValuesClient.
 		/// </summary>
 		public string ContainerNameSuffix { get; set; }
-
-		/// <summary>
-		/// System.ComponentModel.DataAnnotations attributes are to be copied over, including Required, Range, MaxLength, MinLength and StringLength.
-		/// </summary>
-		public bool DataAnnotationsEnabled { get; set; }
-
-		/// <summary>
-		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
-		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression..
-		/// </summary>
-		public bool DataAnnotationsToComments { get; set; }
 
 		/// <summary>
 		/// Replace EnsureSuccessStatusCode with EnsureSuccessStatusCodeEx for specific unsuccessful HTTP status handling, which throws YourClientWebApiRequestException.

@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text;
 using System.ComponentModel;
+using Fonlow.Poco2Ts;
 
 namespace Fonlow.Poco2Client
 {
@@ -93,18 +94,15 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
-		string clientNamespaceSuffix;
 
-		bool dataAnnotationsEnabled; bool dataAnnotationsToComments;
+		ModelGenOutputs settings;
 
-		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, string clientNamespaceSuffix, bool dataAnnotationsEnabled, bool dataAnnotationsToComments)
+		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, ModelGenOutputs codeGenOutputs)
 		{
 			this.docLookup = docLookup;
-			this.clientNamespaceSuffix = clientNamespaceSuffix;
-			this.dataAnnotationsEnabled = dataAnnotationsEnabled;
-			this.dataAnnotationsToComments = dataAnnotationsToComments;
+			this.settings = codeGenOutputs;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
-			CreateCodeDom(cherryTypes, methods, clientNamespaceSuffix);
+			CreateCodeDom(cherryTypes, methods, settings.CSClientNamespaceSuffix);
 		}
 
 		/// <summary>
@@ -209,12 +207,17 @@ namespace Fonlow.Poco2Client
 							//clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
 							//clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
-							if (dataAnnotationsEnabled)
+							if (settings.DataAnnotationsEnabled)
 							{
 								AddValidationAttributes(propertyInfo, clientProperty, isRequired);
 							}
 
 							CreatePropertyDocComment(propertyInfo, clientProperty);
+
+							if (settings.DecorateDataModelWithDataContract)
+							{
+								clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
+							}
 
 							typeDeclaration.Members.Add(clientProperty);
 						}
@@ -261,12 +264,17 @@ namespace Fonlow.Poco2Client
 								//clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
 								//clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
-								if (dataAnnotationsEnabled)
+								if (settings.DataAnnotationsEnabled)
 								{
 									AddValidationAttributes(fieldInfo, clientProperty, isRequired);
 								}
 
 								CreateFieldDocComment(fieldInfo, clientProperty);
+
+								if (settings.DecorateDataModelWithDataContract)
+								{
+									clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
+								}
 
 								typeDeclaration.Members.Add(clientProperty);
 							}
@@ -282,8 +290,23 @@ namespace Fonlow.Poco2Client
 
 								CreateFieldDocComment(fieldInfo, clientField);
 
+								if (settings.DecorateDataModelWithDataContract)
+								{
+									clientField.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
+								}
+
 								typeDeclaration.Members.Add(clientField);
 							}
+						}
+
+						if (settings.DecorateDataModelWithDataContract)
+						{
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
+						}
+
+						if (settings.DecorateDataModelWithSerializable)
+						{
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
 						}
 					}
 					else if (type.IsEnum)
@@ -309,10 +332,24 @@ namespace Fonlow.Poco2Client
 
 							CreateFieldDocComment(fieldInfo, clientField);
 
+							if (settings.DecorateDataModelWithDataContract)
+							{
+								clientField.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMemberAttribute"));
+							}
+
 							typeDeclaration.Members.Add(clientField);
 							k++;
 						}
 
+						if (settings.DecorateDataModelWithDataContract)
+						{
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
+						}
+
+						if (settings.DecorateDataModelWithSerializable)
+						{
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
+						}
 					}
 					else
 					{
@@ -400,7 +437,7 @@ namespace Fonlow.Poco2Client
 			//  we make the getter and setter part of the member name.
 			// This leaves behind a trailing semicolon that we comment out.
 			//  Later, we remove the commented out semicolons.
-			string memberName = name + (defaultValue == null || !dataAnnotationsEnabled ? " { get; set; }//" : $" {{ get; set; }} = {defaultValue};//");
+			string memberName = name + (defaultValue == null || !settings.DataAnnotationsEnabled ? " { get; set; }//" : $" {{ get; set; }} = {defaultValue};//");
 
 			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(type), Name = memberName };
 			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
@@ -570,7 +607,7 @@ namespace Fonlow.Poco2Client
 
 		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace + this.clientNamespaceSuffix + "." + t.Name;
+			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
 		}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
@@ -599,7 +636,7 @@ namespace Fonlow.Poco2Client
 
 		string[] GenerateCommentsFromAttributes(MemberInfo property)
 		{
-			if (!dataAnnotationsToComments)
+			if (!settings.DataAnnotationsToComments)
 			{
 				return null;
 			}

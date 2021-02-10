@@ -13,12 +13,12 @@ namespace Poco2TsTests
         [Fact]
         public void TestReadDocComment()
         {
-            var d = DocCommentLookup.Create(@"C:\VsProjects\webapiclientgen\DemoWebApi\App_Data\xmlDocument.xml");
+            var d = DocCommentLookup.Create(@"C:\VsProjects\webapiclientgen\DemoCoreWeb\bin\Debug\net5.0\DemoCoreWeb.xml");
             Assert.NotNull(d);
-            Assert.Equal("DemoWebApi", d.XmlDoc.assembly.name);
-            var summary = d.GetMember("T:DemoWebApi.Areas.HelpPage.HelpPageConfig").summary;
+            Assert.Equal("DemoCoreWeb", d.XmlDoc.assembly.name);
+            var summary = d.GetMember("T:DemoWebApi.Controllers.HeroesController").summary;
 
-            const string expected = "\n            Use this class to customize the Help Page.\n            For example you can set a custom ";
+            const string expected = "\n            Heroes operations\n            ";
             Assert.Equal(expected, summary.Text[0]);
 
         }

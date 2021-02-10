@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
 
@@ -10,6 +10,8 @@
     <OutputType>Library</OutputType>
 
     <StartupObject />
+
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

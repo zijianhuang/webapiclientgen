@@ -18,6 +18,7 @@ This project delivers these products:
 
 * The development had started in year 2015 supporting .NET Framework, then .NET Core 2. And Tag "LastCore31" is to mark the last snapshot supporting .NET Framework 4.6.2 and .NET Core 3.1.
 * Starting from 2021-02-10, the development will support only .NET 5 and onward.
+* Wiki contents about .NET Framework will be kept in foreseeable future.
 
 # Key Features
 1. Client API codes generated are directly mapped from the Web API controller methods, .NET primitive types and POCO classes. This is similar to what svcutil.exe in WCF has offered.

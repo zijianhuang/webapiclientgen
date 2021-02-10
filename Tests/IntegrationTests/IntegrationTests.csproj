@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\xunit.runner.visualstudio.2.4.2\build\net452\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.4.2\build\net452\xunit.runner.visualstudio.props')" />
+  <Import Project="..\..\packages\xunit.runner.visualstudio.2.4.3\build\net452\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.4.3\build\net452\xunit.runner.visualstudio.props')" />
   <Import Project="..\..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props" Condition="Exists('..\..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props')" />
   <Import Project="..\..\packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.4.1\build\xunit.core.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -41,8 +41,8 @@
     <Reference Include="Essential.Diagnostics">
       <HintPath>..\..\3rdParty\EssentialDiagnostics\Essential.Diagnostics.dll</HintPath>
     </Reference>
-    <Reference Include="Fonlow.Testing.Http, Version=1.1.2.0, Culture=neutral, PublicKeyToken=cf59ce9d94b04b8a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fonlow.Testing.Http.1.1.2\lib\net452\Fonlow.Testing.Http.dll</HintPath>
+    <Reference Include="Fonlow.Testing.Http, Version=1.2.0.0, Culture=neutral, PublicKeyToken=cf59ce9d94b04b8a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fonlow.Testing.Http.1.2.0\lib\net452\Fonlow.Testing.Http.dll</HintPath>
     </Reference>
     <Reference Include="Fonlow.Testing.Service, Version=2.6.2.0, Culture=neutral, PublicKeyToken=cf59ce9d94b04b8a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fonlow.Testing.Service.2.6.2\lib\net452\Fonlow.Testing.Service.dll</HintPath>
@@ -112,7 +112,7 @@
     <Error Condition="!Exists('..\..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('..\..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
     <Error Condition="!Exists('..\..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props'))" />
-    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.4.2\build\net452\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.4.2\build\net452\xunit.runner.visualstudio.props'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.4.3\build\net452\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.4.3\build\net452\xunit.runner.visualstudio.props'))" />
   </Target>
   <Import Project="..\..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

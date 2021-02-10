@@ -29,11 +29,11 @@
   <Import Project="..\Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.CodeDom" Version="4.7.0" />
+    <PackageReference Include="System.CodeDom" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

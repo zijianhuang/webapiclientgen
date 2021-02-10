@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.8.3</Version>
+    <Version>2.9</Version>
     <Authors>Zijian Huang</Authors>
     <Company />
-    <Copyright>Copyright © Zijian Huang 2015-2020</Copyright>
+    <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>
     <Product>Fonlow POCO to TypeScript for .NET Core</Product>
     <Description>Simple build of Fonlow.Poco2Ts for .NET Core. Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -16,8 +16,8 @@
     <PackageTags>TypeScript,Code DOM</PackageTags>
     <PackageReleaseNotes>Support DefaultValueAttribute.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>2.8.3.0</AssemblyVersion>
-    <FileVersion>2.8.3.0</FileVersion>
+    <AssemblyVersion>2.9.0.0</AssemblyVersion>
+    <FileVersion>2.9.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

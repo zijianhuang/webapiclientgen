@@ -1,9 +1,7 @@
 import { async, inject, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
-//import * as namespaces from './WebApiNG2ClientAuto';
 import * as namespaces from './WebApiCoreNG2ClientAuto';
-//const apiBaseUri = 'http://localhost:10965/'; // for DemoWebApi
 const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
 
 import DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
@@ -29,7 +27,7 @@ export function tupleClientFactory(http: HttpClient) {
 }
 
 
-export function errorResponseToString(error: HttpErrorResponse | any, ): string {
+export function errorResponseToString(error: HttpErrorResponse | any,): string {
 	let errMsg: string;
 	if (error instanceof HttpErrorResponse) {
 		if (error.status === 0) {
@@ -310,7 +308,7 @@ describe('entities API', () => {
 			dob: new Date('1977-12-28')
 		};
 
-		client.createPerson3(newPerson, () => new HttpHeaders({middle: 'HaHa'}))
+		client.createPerson3(newPerson, () => new HttpHeaders({ middle: 'HaHa' }))
 			.subscribe(
 				data => {
 					expect(data.givenName).toBe('HaHa');

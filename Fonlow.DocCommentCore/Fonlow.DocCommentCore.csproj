@@ -5,7 +5,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Version>1.5</Version>
     <Description>Basic functions of accessing XML Doc Comments.</Description>
-    <PackageReleaseNotes>For .NET 5</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
     <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>

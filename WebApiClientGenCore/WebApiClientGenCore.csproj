@@ -11,7 +11,8 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore jquery angular</PackageTags>
-    <PackageReleaseNotes>* Support settings DecorateDataModelWithDataContract, DataContractNamespace, DecorateDataModelWithSerializable.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Support setting IncludeEnsureSuccessStatusCodeExBlock.
+* Build with .NET 5</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion>5.0.0.0</AssemblyVersion>

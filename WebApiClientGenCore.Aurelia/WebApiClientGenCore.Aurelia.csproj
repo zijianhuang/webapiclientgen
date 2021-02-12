@@ -8,8 +8,7 @@
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Aurelia.</Description>
     <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>
     <PackageTags>aurelia TypeScript</PackageTags>
-    <PackageReleaseNotes>* Support Http Method Patch
-* HeadersHandler with option HandleHttpRequestHeaders</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

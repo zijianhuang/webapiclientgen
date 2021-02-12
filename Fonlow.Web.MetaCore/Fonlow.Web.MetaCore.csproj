@@ -9,7 +9,7 @@
     <Authors>Zijian Huang</Authors>
     <Company></Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>for enum in http query</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.7</Version>
     <AssemblyVersion>1.7.0.0</AssemblyVersion>

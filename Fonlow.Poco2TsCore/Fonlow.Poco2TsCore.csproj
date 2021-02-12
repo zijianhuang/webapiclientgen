@@ -14,7 +14,7 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
-    <PackageReleaseNotes>Support DefaultValueAttribute.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <AssemblyVersion>2.9.0.0</AssemblyVersion>
     <FileVersion>2.9.0.0</FileVersion>

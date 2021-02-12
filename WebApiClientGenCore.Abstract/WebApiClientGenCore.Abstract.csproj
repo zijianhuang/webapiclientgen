@@ -13,7 +13,7 @@
     <AssemblyVersion>1.7.0.0</AssemblyVersion>
     <FileVersion>1.7.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Adjust settings structure.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

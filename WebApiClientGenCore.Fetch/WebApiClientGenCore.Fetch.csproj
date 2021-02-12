@@ -7,8 +7,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>Fetch TypeScript</PackageTags>
-    <PackageReleaseNotes>* Support Http Method Patch
-* HeadersHandler with option HandleHttpRequestHeaders</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</Description>
     <NeutralLanguage>en</NeutralLanguage>
     <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>

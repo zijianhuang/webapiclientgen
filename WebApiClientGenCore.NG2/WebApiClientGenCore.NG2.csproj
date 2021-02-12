@@ -5,8 +5,7 @@
     <PackageId>Fonlow.WebApiClientGenCore.NG2</PackageId>
     <Authors>Zijian Huang</Authors>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</Description>
-    <PackageReleaseNotes>* Support Http Method Patch
-* HeadersHandler with option HandleHttpRequestHeaders</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>

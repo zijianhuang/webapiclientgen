@@ -8,8 +8,7 @@
     <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with jQuery. This requires a HttpClient library at https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/HttpClient.ts.</Description>
-    <PackageReleaseNotes>* Support Http Method Patch
-* HeadersHandler with option HandleHttpRequestHeaders</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

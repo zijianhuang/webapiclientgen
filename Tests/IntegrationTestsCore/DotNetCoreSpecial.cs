@@ -61,7 +61,7 @@ namespace IntegrationTests
 			var dtEnd = dtStart.AddDays(5);
 			var r= api.SearchDateRange(null, dtEnd);
 			Assert.Null(r.Item1);
-			Assert.Equal(dtEnd, r.Item2);
+			Assert.Equal(dtEnd.ToUniversalTime(), r.Item2);
 		}
 
 

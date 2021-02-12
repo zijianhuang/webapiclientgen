@@ -31,7 +31,7 @@ namespace IntegrationTests
 		public void TestGetNextYear()
 		{
 			var dtNow = DateTime.Now;
-			Assert.Equal(dtNow.AddYears(1), api.GetNextYear(dtNow));
+			Assert.Equal(dtNow.AddYears(1).ToUniversalTime(), api.GetNextYear(dtNow));
 		}
 
 		[Fact]
@@ -52,7 +52,7 @@ namespace IntegrationTests
 		public void TestGetNextYearNullable()
 		{
 			var dtNow = DateTime.Now;
-			Assert.Equal(dtNow.AddYears(2), api.GetNextYearNullable(2, dtNow));
+			Assert.Equal(dtNow.AddYears(2).ToUniversalTime(), api.GetNextYearNullable(2, dtNow));
 		}
 
 
@@ -84,8 +84,8 @@ namespace IntegrationTests
 			var dtStart = DateTime.Today;
 			var dtEnd = dtStart.AddDays(5);
 			var t = api.SearchDateRange(dtStart, dtEnd);
-			Assert.Equal(dtStart, t.Item1);
-			Assert.Equal(dtEnd, t.Item2);
+			Assert.Equal(dtStart.ToUniversalTime(), t.Item1);
+			Assert.Equal(dtEnd.ToUniversalTime(), t.Item2);
 		}
 
 		[Fact]
@@ -94,7 +94,7 @@ namespace IntegrationTests
 			var dtStart = DateTime.Today;
 			//var dtEnd = dtStart.AddDays(5);
 			var t = api.SearchDateRange(dtStart, null);
-			Assert.Equal(dtStart, t.Item1);
+			Assert.Equal(dtStart.ToUniversalTime(), t.Item1);
 			Assert.False(t.Item2.HasValue);
 		}
 

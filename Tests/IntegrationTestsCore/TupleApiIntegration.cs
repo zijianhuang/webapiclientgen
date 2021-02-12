@@ -1,13 +1,65 @@
-﻿using Newtonsoft.Json;
+﻿using DemoWebApi.DemoData.Client;
+using Newtonsoft.Json;
 using System;
 using Xunit;
-using DemoWebApi.DemoData.Client;
 
 namespace IntegrationTests
 {
-
-	public partial class TupleApiIntegration 
+	public class TupleFixture : IDisposable
 	{
+		public TupleFixture()
+		{
+			var baseUri = new Uri("http://localhost:5000/");
+
+			httpClient = new System.Net.Http.HttpClient
+			{
+				BaseAddress = baseUri
+			};
+			//httpClient.DefaultRequestHeaders
+			//  .Accept
+			//  .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//.net core has different behavior as described at https://github.com/zijianhuang/webapiclientgen/issues/26
+
+			Api = new DemoWebApi.Controllers.Client.Tuple(httpClient);
+		}
+
+		public DemoWebApi.Controllers.Client.Tuple Api { get; private set; }
+
+		readonly System.Net.Http.HttpClient httpClient;
+
+		#region IDisposable pattern
+		bool disposed;
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposed)
+			{
+				if (disposing)
+				{
+					httpClient.Dispose();
+				}
+
+				disposed = true;
+			}
+		}
+		#endregion
+	}
+
+	[Collection(TestConstants.LaunchWebApiAndInit)]
+	public partial class TupleApiIntegration : IClassFixture<TupleFixture>
+	{
+		public TupleApiIntegration(TupleFixture fixture)
+		{
+			api = fixture.Api;
+		}
+
+		readonly DemoWebApi.Controllers.Client.Tuple api;
+
 		[Fact]
 		public void TestTuple1()
 		{
@@ -118,7 +170,7 @@ namespace IntegrationTests
 		public void TestPostTuple8()
 		{
 			var r = api.PostTuple8(new Tuple<string, string, string, string, string, string, string, Tuple<string, string, string>>(
-				"abc", "", "","", "", "", "", new Tuple<string, string, string>("ok", "yes", "no")));
+				"abc", "", "", "", "", "", "", new Tuple<string, string, string>("ok", "yes", "no")));
 			Assert.Equal("ok", r);
 		}
 
@@ -128,7 +180,7 @@ namespace IntegrationTests
 		//{
 		//	var t = Tuple.Create<string, string, int>("One", "Two", 2);
 		//	var s = JsonConvert.SerializeObject(t);
-			
+
 		//}
 
 		[Fact]
@@ -188,6 +240,5 @@ namespace IntegrationTests
 			var r = api.ChangeName(Tuple.Create("Me", p));
 			Assert.Equal("Me", r.Name);
 		}
-
 	}
 }

@@ -1,14 +1,124 @@
-﻿using DemoWebApi.DemoData.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using Xunit;
+using DemoWebApi.DemoData.Client;
 
 namespace IntegrationTests
 {
-	public partial class EntitiesApiIntegration
+	/*
+	And make sure the testApi credential exists through
+	POST to http://localhost:10965/api/Account/Register
+	Content-Type: application/json
+
 	{
+	Email: 'testapi@test.com',
+	Password: 'Tttttttt_8',
+	ConfirmPassword:  'Tttttttt_8'
+	}
+
+	*/
+	public class EntitiesFixture : IDisposable
+	{
+		public EntitiesFixture()
+		{
+			var baseUri = new Uri("http://localhost:5000/");
+
+			httpClient = new System.Net.Http.HttpClient
+			{
+				BaseAddress = baseUri
+			};
+			Api = new DemoWebApi.Controllers.Client.Entities(httpClient);
+		}
+
+		public DemoWebApi.Controllers.Client.Entities Api { get; private set; }
+
+		readonly System.Net.Http.HttpClient httpClient;
+
+		#region IDisposable pattern
+		bool disposed;
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposed)
+			{
+				if (disposing)
+				{
+					httpClient.Dispose();
+				}
+
+				disposed = true;
+			}
+		}
+		#endregion
+	}
+
+
+	[Collection(TestConstants.LaunchWebApiAndInit)]
+	public partial class EntitiesApiIntegration : IClassFixture<EntitiesFixture>
+	{
+		public EntitiesApiIntegration(EntitiesFixture fixture)
+		{
+			api = fixture.Api;
+		}
+
+		readonly DemoWebApi.Controllers.Client.Entities api;
+
+
+		[Fact]
+		public void TestCreatePerson3()
+		{
+			Person person = new Person()
+			{
+				Name = "Some One",
+				Surname = "One",
+				GivenName = "Some",
+				DOB = DateTime.Now.AddYears(-20),
+				Addresses = new Address[]{new Address(){
+					City="Brisbane",
+					State="QLD",
+					Street1="Somewhere",
+					Street2="Over the rainbow",
+					PostalCode="4000",
+					Country="Australia",
+					Type= AddressType.Postal,
+					Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+				}},
+			};
+
+			var a = api.CreatePerson3(person, (headers)=> { headers.Add("middle", "Hey"); });
+			Assert.Equal("Hey", a.GivenName);
+		}
+
+		[Fact]
+		public void TestPatch()
+		{
+			var r = api.PatchPerson(new Person()
+			{
+				Name = "Some One",
+				Surname = "One",
+				GivenName = "Some",
+				DOB = DateTime.Now.AddYears(-20),
+				Addresses = new Address[]{new Address(){
+					City="Brisbane",
+					State="QLD",
+					Street1="Somewhere",
+					Street2="Over the rainbow",
+					PostalCode="4000",
+					Country="Australia",
+					Type= AddressType.Postal,
+				}},
+			}
+			);
+
+			Assert.Equal("Some One", r);
+		}
+
+
 		[Fact]
 		public void TestCreatePerson()
 		{
@@ -33,33 +143,6 @@ namespace IntegrationTests
 			var id = api.CreatePerson(person);
 			Assert.True(id > 0);
 		}
-
-		//This one works for ASP.NET Web API, but .NET Core Web API is not checking the RequiredAttribute, as described at https://www.strathweb.com/2017/12/required-and-bindrequired-in-asp-net-core-mvc/
-		// Application developer may follow the 2nd part of the article.
-		//[Fact]
-		//public void TestCreatePersonWithEmptyName()
-		//{
-		//	Person person = new Person()
-		//	{
-		//		Name = null,
-		//		Surname = "One",
-		//		GivenName = "Some",
-		//		DOB = DateTime.Now.AddYears(-20),
-		//		Addresses = new Address[]{new Address(){
-		//			City="Brisbane",
-		//			State="QLD",
-		//			Street1="Somewhere",
-		//			Street2="Over the rainbow",
-		//			PostalCode="4000",
-		//			Country="Australia",
-		//			Type= AddressType.Postal,
-		//			Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
-		//	  }},
-		//	};
-
-		//	var ex = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.CreatePerson(person));
-		//	System.Diagnostics.Debug.WriteLine(ex.ToString());
-		//}
 
 		[Fact]
 		public void TestCreatePersonWithExceptionName()
@@ -126,7 +209,6 @@ namespace IntegrationTests
 			Assert.Equal(DateTime.Now.Year - 20, person.DOB.Value.Year);
 		}
 
-
 		[Fact]
 		public void TestGetCompany()
 		{
@@ -146,7 +228,7 @@ namespace IntegrationTests
 			var c = api.GetMims(new MimsPackage
 			{
 				Tag = "Hello",
-				KK=99,
+				KK = 99,
 				Result = new MimsResult<decimal>
 				{
 					Result = 123.45m,
@@ -162,9 +244,9 @@ namespace IntegrationTests
 		{
 			var c = api.GetMyGeneric(new MyGeneric<string, decimal, double>
 			{
-				MyK= 123.456m,
+				MyK = 123.456m,
 				MyT = "abc",
-				MyU=123e10,
+				MyU = 123e10,
 			});
 
 			Assert.Equal("abc", c.MyT);
@@ -179,11 +261,11 @@ namespace IntegrationTests
 			{
 				MyK = 123.456m,
 				MyT = "abc",
-				MyU= new Person
+				MyU = new Person
 				{
-					Name="Somebody",
+					Name = "Somebody",
 				},
-				Status="OK"
+				Status = "OK"
 
 			});
 

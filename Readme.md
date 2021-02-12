@@ -16,7 +16,7 @@ This project delivers these products:
 
 **Remarks:**
 
-* The development had started in year 2015 supporting .NET Framework, then .NET Core 2. And Tag "LastCore31" is to mark the last snapshot supporting .NET Framework 4.6.2 and .NET Core 3.1.
+* The development had started in year 2015 supporting .NET Framework, then .NET Core 2. And Tag "[LastCore31](https://github.com/zijianhuang/webapiclientgen/tree/LastCore31)" is to mark the last snapshot supporting .NET Framework 4.6.2 and .NET Core 3.1.
 * Starting from 2021-02-10, the development will support only .NET 5 and onward.
 * Wiki contents about .NET Framework will be kept in foreseeable future.
 
@@ -36,12 +36,12 @@ This project delivers these products:
 
 # Examples (to be adjusted)
 
-1. [POCO classes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.DemoData/Entities.cs)
-1. [Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Controllers/EntitiesController.cs)
-1. [Generated client API C# codes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.ClientApi/WebApiClientAuto.cs)
-1. [Client codes using the generated library in C#](https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTests/EntitiesApiIntegration.cs)
-1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/WebApiClientAuto.ts), [for Angular 2](https://github.com/zijianhuang/webapiclientgen/tree/master/DemoAngular2/clientapi/WebApiNG2ClientAuto.ts), [for Aurelia](https://github.com/zijianhuang/webapiclientgen/blob/master/aurelia/src/clientapi/WebApiAureliaClientAuto.ts) and [for Axios](https://github.com/zijianhuang/webapiclientgen/blob/master/axios/src/clientapi/WebApiAxiosClientAuto.ts)
-1. [Client codes using the generated library in TypeScript](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/tests/demo.tests.ts)
+1. [POCO classes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.DemoDataCore/Entities.cs)
+1. [Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Controllers/EntitiesController.cs)
+1. [Generated client API C# codes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb.ClientApi/WebApiClientAuto.cs)
+1. [Client codes using the generated library in C#](https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTestsCore/EntitiesApiIntegration.cs)
+1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/WebApiClientAuto.ts), [for Angular 2](https://github.com/zijianhuang/webapiclientgen/tree/master/DemoAngular2/clientapi/WebApiNG2ClientAuto.ts), [for Aurelia](https://github.com/zijianhuang/webapiclientgen/blob/master/aurelia/src/clientapi/WebApiAureliaClientAuto.ts) and [for Axios](https://github.com/zijianhuang/webapiclientgen/blob/master/axios/src/clientapi/WebApiAxiosClientAuto.ts)
+1. [Client codes using the generated library in TypeScript](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/tests/demo.tests.ts)
 
 **Remarks:**
 1. JavaScript codes compiled from generated TypeScript codes could be used in JS applications, however, obviously no type info will be available, while application programmers may still enjoy intellisense and abstraction from AJAX details.
@@ -49,15 +49,7 @@ This project delivers these products:
 
 # Downloads
 
-### Plugins for TypeScript/JavaScript Frameworks/Libraries
 
-1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGen.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/HttpClient.ts)
-1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGen.NG2/)
-1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Axios/)
-1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Aurelia/)
-1. [Fetch API](https://www.nuget.org/packages/Fonlow.WebApiClientGen.Fetch/)
-
-## For .NET
 1. [Strongly Typed Client API Generators for ASP.NET Core Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/).
 1. [TypeScript CodeDOM](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore)
 1. [Fonlow.Poco2TS](https://www.nuget.org/packages/Fonlow.Poco2TsCore) 

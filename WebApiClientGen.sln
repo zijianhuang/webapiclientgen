@@ -30,53 +30,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNGCli", "DemoNGCli\Demo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.DocCommentCore", "Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj", "{145F4C1A-8768-4B7F-BB57-8E5FCF4D88ED}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Fonlow.DocCommentShared", "Fonlow.DocCommentShared\Fonlow.DocCommentShared.shproj", "{102DC29C-52DB-4005-94FB-E251B822FDE3}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Fonlow.TypeScriptCodeDomShared", "Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.shproj", "{BE7D561B-0116-4D1B-96DB-26DF121BCFFF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.TypeScriptCodeDomCore", "Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj", "{21455EDF-F3DB-490A-AAB6-4E6EC7149B96}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Fonlow.Poco2TsShared", "Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.shproj", "{7B0E02B0-E517-4D55-BD96-EF4EE4E5AB48}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.Poco2TsCore", "Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj", "{1BBA1BA3-3B25-4EB9-9A8B-0A67DCC90E43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco2TsCore", "Poco2TsCore\Poco2TsCore.csproj", "{01F9884C-A284-4822-8340-0A7E3CBEFD8E}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Poco2TsShared", "Poco2TsShared\Poco2TsShared.shproj", "{582C3A1C-0AF7-4265-8603-EF206BAE832D}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeScriptCodeDomTestsShared", "Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.shproj", "{F54AF91A-678B-4F48-AB6F-5327B276C0FC}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DemoWebApi.DemoDataShared", "DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.shproj", "{3CA753F3-B771-4BCE-9406-1708B44F907B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoWebApi.DemoDataCore", "DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj", "{33C271FF-E057-4FFA-AC85-B92EC4878189}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Poco2TsTestsShared", "Tests\Poco2TsTestsShared\Poco2TsTestsShared.shproj", "{1635485E-6519-427B-AF3F-829CFB105E53}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco2TsTestsCore", "Tests\Poco2TsTestsCore\Poco2TsTestsCore.csproj", "{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Fonlow.Web.MetaShared", "Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.shproj", "{6BCAF276-923F-413A-A9C9-8B84F6592911}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.Web.MetaCore", "Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj", "{290B9F28-D0AE-4732-8576-4F186B81FE43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoCoreWeb", "DemoCoreWeb\DemoCoreWeb.csproj", "{FF2C1A74-2993-4B88-8995-809BB997AD7A}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebApiClientGenShared", "WebApiClientGenShared\WebApiClientGenShared.shproj", "{BBE56B7D-2CC9-47A7-AF3B-F3CB4F070F61}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClientGenCore", "WebApiClientGenCore\WebApiClientGenCore.csproj", "{B18D9A51-1570-4385-AEE2-549D3EEF5C3A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedCodes", "SharedCodes", "{09419770-F282-4257-B14B-BC907EF7F858}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoCoreWeb.ClientApi", "DemoCoreWeb.ClientApi\DemoCoreWeb.ClientApi.csproj", "{7380B7A5-0179-48C6-9FB4-0910F40C6D01}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IntegrationTestsShared", "Tests\IntegrationTestsShared\IntegrationTestsShared.shproj", "{EB9EE874-F621-4A9F-AB17-7E29E392F26A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTestsCore", "Tests\IntegrationTestsCore\IntegrationTestsCore.csproj", "{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeScriptCodeDomTestsCore", "Tests\TypeScriptCodeDomTestsCore\TypeScriptCodeDomTestsCore.csproj", "{62CE4EAA-BFBE-4DA5-9722-5844CAD60C3C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClientGenCore.Abstract", "WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj", "{DCE3EEF8-685A-403A-9970-2E3B4D203E51}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebApiClientGenAbstractShared", "WebApiClientGenAbstractShared\WebApiClientGenAbstractShared.shproj", "{13CF8067-57FC-4C15-B14C-F01268A37366}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClientGenCore.jQuery", "WebApiClientGenCore.jQuery\WebApiClientGenCore.jQuery.csproj", "{377CBB18-1CA1-42EE-99E1-7BC8A1CC9547}"
 EndProject
@@ -86,55 +62,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClientGenCore.Aurelia
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClientGenCore.Axios", "WebApiClientGenCore.Axios\WebApiClientGenCore.Axios.csproj", "{9327380D-C29C-4D62-8F3F-04A1FB45BB31}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PluginAureliaShared", "PluginAureliaShared\PluginAureliaShared.shproj", "{13D3A41C-5F3B-427F-92A3-A4EFD9FFF5BD}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PluginNG2Shared", "PluginNG2Shared\PluginNG2Shared.shproj", "{0B76F691-F9CB-4282-BC32-968C44526C38}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PluginJQueryShared", "PluginJQueryShared\PluginJQueryShared.shproj", "{F31FBC55-F69C-494F-B725-A683D516550D}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PluginAxiosShared", "PluginAxiosShared\PluginAxiosShared.shproj", "{67B73A45-B57B-4D33-AD6A-781EA4D472AB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{614A5235-971F-427D-8B62-F7542B34E12C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClientGenCore.Fetch", "WebApiClientGenCore.Fetch\WebApiClientGenCore.Fetch.csproj", "{9CFF2654-7A6C-4AC0-964C-D4F4839C83A1}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PluginFetchShared", "PluginFetchShared\PluginFetchShared.shproj", "{83D4A5B0-FEF0-401F-B7F0-33BF5D78074F}"
-EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Poco2TsShared\Poco2TsShared.projitems*{01f9884c-a284-4822-8340-0a7e3cbefd8e}*SharedItemsImports = 5
-		PluginNG2Shared\PluginNG2Shared.projitems*{0b76f691-f9cb-4282-bc32-968c44526c38}*SharedItemsImports = 13
-		Fonlow.DocCommentShared\Fonlow.DocCommentShared.projitems*{102dc29c-52db-4005-94fb-e251b822fde3}*SharedItemsImports = 13
-		WebApiClientGenAbstractShared\WebApiClientGenAbstractShared.projitems*{13cf8067-57fc-4c15-b14c-f01268a37366}*SharedItemsImports = 13
-		PluginAureliaShared\PluginAureliaShared.projitems*{13d3a41c-5f3b-427f-92a3-a4efd9fff5bd}*SharedItemsImports = 13
-		Fonlow.DocCommentShared\Fonlow.DocCommentShared.projitems*{145f4c1a-8768-4b7f-bb57-8e5fcf4d88ed}*SharedItemsImports = 5
-		Tests\Poco2TsTestsShared\Poco2TsTestsShared.projitems*{1635485e-6519-427b-af3f-829cfb105e53}*SharedItemsImports = 13
-		Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems*{1bba1ba3-3b25-4eb9-9a8b-0a67dcc90e43}*SharedItemsImports = 5
-		Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems*{21455edf-f3db-490a-aab6-4e6ec7149b96}*SharedItemsImports = 5
-		Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems*{290b9f28-d0ae-4732-8576-4f186b81fe43}*SharedItemsImports = 5
-		DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.projitems*{33c271ff-e057-4ffa-ac85-b92ec4878189}*SharedItemsImports = 5
-		PluginJQueryShared\PluginJQueryShared.projitems*{377cbb18-1ca1-42ee-99e1-7bc8a1cc9547}*SharedItemsImports = 5
-		DemoWebApi.DemoDataShared\DemoWebApi.DemoDataShared.projitems*{3ca753f3-b771-4bce-9406-1708b44f907b}*SharedItemsImports = 13
-		Poco2TsShared\Poco2TsShared.projitems*{582c3a1c-0af7-4265-8603-ef206bae832d}*SharedItemsImports = 13
-		Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.projitems*{62ce4eaa-bfbe-4da5-9722-5844cad60c3c}*SharedItemsImports = 5
-		PluginAxiosShared\PluginAxiosShared.projitems*{67b73a45-b57b-4d33-ad6a-781ea4d472ab}*SharedItemsImports = 13
-		Fonlow.Web.MetaShared\Fonlow.Web.MetaShared.projitems*{6bcaf276-923f-413a-a9c9-8b84f6592911}*SharedItemsImports = 13
-		Tests\IntegrationTestsShared\IntegrationTestsShared.projitems*{7abdf101-df5b-423a-ae80-2a7a79de4c37}*SharedItemsImports = 5
-		Fonlow.Poco2TsShared\Fonlow.Poco2TsShared.projitems*{7b0e02b0-e517-4d55-bd96-ef4ee4e5ab48}*SharedItemsImports = 13
-		PluginFetchShared\PluginFetchShared.projitems*{83d4a5b0-fef0-401f-b7f0-33bf5d78074f}*SharedItemsImports = 13
-		Tests\Poco2TsTestsShared\Poco2TsTestsShared.projitems*{9324dcfb-c323-4fde-bc5c-9bbe82699bf8}*SharedItemsImports = 5
-		PluginAxiosShared\PluginAxiosShared.projitems*{9327380d-c29c-4d62-8f3f-04a1fb45bb31}*SharedItemsImports = 5
-		PluginFetchShared\PluginFetchShared.projitems*{9cff2654-7a6c-4ac0-964c-d4f4839c83a1}*SharedItemsImports = 5
-		PluginAureliaShared\PluginAureliaShared.projitems*{afc8d1e5-77ea-46b7-912b-56d524322fe8}*SharedItemsImports = 5
-		WebApiClientGenShared\WebApiClientGenShared.projitems*{b18d9a51-1570-4385-aee2-549d3eef5c3a}*SharedItemsImports = 5
-		WebApiClientGenShared\WebApiClientGenShared.projitems*{bbe56b7d-2cc9-47a7-af3b-f3cb4f070f61}*SharedItemsImports = 13
-		Fonlow.TypeScriptCodeDomShared\Fonlow.TypeScriptCodeDomShared.projitems*{be7d561b-0116-4d1b-96db-26df121bcfff}*SharedItemsImports = 13
-		PluginNG2Shared\PluginNG2Shared.projitems*{c3443078-2c5e-4c44-be3f-da6229328d1a}*SharedItemsImports = 5
-		WebApiClientGenAbstractShared\WebApiClientGenAbstractShared.projitems*{dce3eef8-685a-403a-9970-2e3b4d203e51}*SharedItemsImports = 5
-		Tests\IntegrationTestsShared\IntegrationTestsShared.projitems*{eb9ee874-f621-4a9f-ab17-7e29e392f26a}*SharedItemsImports = 13
-		PluginJQueryShared\PluginJQueryShared.projitems*{f31fbc55-f69c-494f-b725-a683d516550d}*SharedItemsImports = 13
-		Tests\TypeScriptCodeDomTestsShared\TypeScriptCodeDomTestsShared.projitems*{f54af91a-678b-4f48-ab6f-5327b276c0fc}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -455,36 +387,20 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A2F5FCEF-26A1-4D28-8C94-C01756502CFD} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
 		{231ED5C6-EC39-455C-8F1F-30B69520F67B} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
-		{102DC29C-52DB-4005-94FB-E251B822FDE3} = {09419770-F282-4257-B14B-BC907EF7F858}
-		{BE7D561B-0116-4D1B-96DB-26DF121BCFFF} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{21455EDF-F3DB-490A-AAB6-4E6EC7149B96} = {EEC1F84C-642A-4EAA-A57D-9A6A865AD5DF}
-		{7B0E02B0-E517-4D55-BD96-EF4EE4E5AB48} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{1BBA1BA3-3B25-4EB9-9A8B-0A67DCC90E43} = {EEC1F84C-642A-4EAA-A57D-9A6A865AD5DF}
 		{01F9884C-A284-4822-8340-0A7E3CBEFD8E} = {EEC1F84C-642A-4EAA-A57D-9A6A865AD5DF}
-		{582C3A1C-0AF7-4265-8603-EF206BAE832D} = {09419770-F282-4257-B14B-BC907EF7F858}
-		{F54AF91A-678B-4F48-AB6F-5327B276C0FC} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
-		{3CA753F3-B771-4BCE-9406-1708B44F907B} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
 		{33C271FF-E057-4FFA-AC85-B92EC4878189} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
-		{1635485E-6519-427B-AF3F-829CFB105E53} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 		{9324DCFB-C323-4FDE-BC5C-9BBE82699BF8} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
-		{6BCAF276-923F-413A-A9C9-8B84F6592911} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{FF2C1A74-2993-4B88-8995-809BB997AD7A} = {571408D0-78B2-46A1-8EF0-E336ABBE76AA}
-		{BBE56B7D-2CC9-47A7-AF3B-F3CB4F070F61} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{7380B7A5-0179-48C6-9FB4-0910F40C6D01} = {A2F5FCEF-26A1-4D28-8C94-C01756502CFD}
-		{EB9EE874-F621-4A9F-AB17-7E29E392F26A} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 		{7ABDF101-DF5B-423A-AE80-2A7A79DE4C37} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
 		{62CE4EAA-BFBE-4DA5-9722-5844CAD60C3C} = {DBC9CAF6-2B63-417C-90E8-A2E7A468697C}
-		{13CF8067-57FC-4C15-B14C-F01268A37366} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{377CBB18-1CA1-42EE-99E1-7BC8A1CC9547} = {614A5235-971F-427D-8B62-F7542B34E12C}
 		{C3443078-2C5E-4C44-BE3F-DA6229328D1A} = {614A5235-971F-427D-8B62-F7542B34E12C}
 		{AFC8D1E5-77EA-46B7-912B-56D524322FE8} = {614A5235-971F-427D-8B62-F7542B34E12C}
 		{9327380D-C29C-4D62-8F3F-04A1FB45BB31} = {614A5235-971F-427D-8B62-F7542B34E12C}
-		{13D3A41C-5F3B-427F-92A3-A4EFD9FFF5BD} = {09419770-F282-4257-B14B-BC907EF7F858}
-		{0B76F691-F9CB-4282-BC32-968C44526C38} = {09419770-F282-4257-B14B-BC907EF7F858}
-		{F31FBC55-F69C-494F-B725-A683D516550D} = {09419770-F282-4257-B14B-BC907EF7F858}
-		{67B73A45-B57B-4D33-AD6A-781EA4D472AB} = {09419770-F282-4257-B14B-BC907EF7F858}
 		{9CFF2654-7A6C-4AC0-964C-D4F4839C83A1} = {614A5235-971F-427D-8B62-F7542B34E12C}
-		{83D4A5B0-FEF0-401F-B7F0-33BF5D78074F} = {09419770-F282-4257-B14B-BC907EF7F858}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18214E93-9A86-4818-9CB5-C5F2917B153A}

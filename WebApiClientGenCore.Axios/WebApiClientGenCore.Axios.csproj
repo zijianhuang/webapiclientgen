@@ -19,8 +19,6 @@
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
-  <Import Project="..\PluginAxiosShared\PluginAxiosShared.projitems" Label="Shared" />
-
   <ItemGroup>
     <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
     <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />

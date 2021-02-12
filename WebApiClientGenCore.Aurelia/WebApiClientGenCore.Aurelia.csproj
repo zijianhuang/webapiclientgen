@@ -20,8 +20,6 @@
     <Version>2.0</Version>
   </PropertyGroup>
 
-  <Import Project="..\PluginAureliaShared\PluginAureliaShared.projitems" Label="Shared" />
-
   <ItemGroup>
     <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
     <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />

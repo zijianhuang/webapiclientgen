@@ -20,6 +20,13 @@
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
-  <Import Project="..\Fonlow.DocCommentShared\Fonlow.DocCommentShared.projitems" Label="Shared" />
+  <ItemGroup>
+    <Compile Update="TypeScriptCodeProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="xmldocument.cs">
+      <DependentUpon>XmlDocument.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
 </Project>

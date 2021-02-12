@@ -16,8 +16,6 @@
     <PackageReleaseNotes>Adjust settings structure.</PackageReleaseNotes>
   </PropertyGroup>
 
-  <Import Project="..\WebApiClientGenAbstractShared\WebApiClientGenAbstractShared.projitems" Label="Shared" />
-
   <ItemGroup>
     <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
   </ItemGroup>

@@ -45,6 +45,4 @@
     <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
   </ItemGroup>
 
-  <Import Project="..\WebApiClientGenShared\WebApiClientGenShared.projitems" Label="Shared" />
-
 </Project>

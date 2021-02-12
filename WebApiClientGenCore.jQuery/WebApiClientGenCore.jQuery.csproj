@@ -20,8 +20,6 @@
     <PackageTags>jQuery</PackageTags>
   </PropertyGroup>
 
-  <Import Project="..\PluginJQueryShared\PluginJQueryShared.projitems" Label="Shared" />
-
   <ItemGroup>
     <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
     <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />

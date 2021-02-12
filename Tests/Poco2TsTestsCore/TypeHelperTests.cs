@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Xunit;
+using Fonlow.Reflection;
+using System;
 
 namespace Poco2TsTests
 {
@@ -17,6 +19,14 @@ namespace Poco2TsTests
 		{
 			System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
 			Assert.Equal("Get", textInfo.ToTitleCase("GET".ToLower()));
+		}
+
+		[Fact]
+		public void TestGuid()
+		{
+			var type = typeof(Guid);
+			Assert.True(TypeHelper.IsValueType(type));
+			Assert.False(!TypeHelper.IsValueType(type) && !TypeHelper.IsNullablePrimitive(type));
 		}
 
 	}

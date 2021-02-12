@@ -42,6 +42,4 @@
     <ProjectReference Include="..\..\DemoCoreWeb.ClientApi\DemoCoreWeb.ClientApi.csproj" />
   </ItemGroup>
 
-  <Import Project="..\IntegrationTestsShared\IntegrationTestsShared.projitems" Label="Shared" />
-
 </Project>

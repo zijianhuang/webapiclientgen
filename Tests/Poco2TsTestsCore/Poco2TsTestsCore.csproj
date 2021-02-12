@@ -24,6 +24,4 @@
     <ProjectReference Include="..\..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
   </ItemGroup>
 
-  <Import Project="..\Poco2TsTestsShared\Poco2TsTestsShared.projitems" Label="Shared" />
-
 </Project>

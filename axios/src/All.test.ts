@@ -1,5 +1,4 @@
 import { AxiosAdapter, AxiosResponse, AxiosError } from 'axios';
-//import * as namespaces from './clientapi/WebApiAxiosClientAuto';
 import * as namespaces from './clientapi/WebApiCoreAxiosClientAuto';
 
 // JEST provides a few ways of handling async code. This test suite use callbacks, 

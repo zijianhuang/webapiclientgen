@@ -1,7 +1,6 @@
 import { initialize } from 'aurelia-pal-browser';
 import {HttpClient, json} from 'aurelia-fetch-client';
 import * as namespaces from './clientapi/WebApiCoreAureliaClientAuto';
-//import * as namespaces from './clientapi/WebApiAureliaClientAuto';
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 const DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
 

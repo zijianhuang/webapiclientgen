@@ -40,7 +40,7 @@ This project delivers these products:
 1. [Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Controllers/EntitiesController.cs)
 1. [Generated client API C# codes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb.ClientApi/WebApiClientAuto.cs)
 1. [Client codes using the generated library in C#](https://github.com/zijianhuang/webapiclientgen/blob/master/Tests/IntegrationTestsCore/EntitiesApiIntegration.cs)
-1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/WebApiClientAuto.ts), [for Angular 2](https://github.com/zijianhuang/webapiclientgen/tree/master/DemoAngular2/clientapi/WebApiNG2ClientAuto.ts), [for Aurelia](https://github.com/zijianhuang/webapiclientgen/blob/master/aurelia/src/clientapi/WebApiAureliaClientAuto.ts) and [for Axios](https://github.com/zijianhuang/webapiclientgen/blob/master/axios/src/clientapi/WebApiAxiosClientAuto.ts)
+1. [Generated client data models and API in TypeScript for jQuery](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/WebApiCoreJQClientAuto.ts), [for Angular 2](https://github.com/zijianhuang/webapiclientgen/tree/master/DemoNGCli/NGSource/src/clientapi/WebApiNG2ClientAuto.ts), [for Aurelia](https://github.com/zijianhuang/webapiclientgen/blob/master/aurelia/src/clientapi/WebApiCoreAureliaClientAuto.ts) and [for Axios](https://github.com/zijianhuang/webapiclientgen/blob/master/axios/src/clientapi/WebApiCoreAxiosClientAuto.ts)
 1. [Client codes using the generated library in TypeScript](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/tests/demo.tests.ts)
 
 **Remarks:**

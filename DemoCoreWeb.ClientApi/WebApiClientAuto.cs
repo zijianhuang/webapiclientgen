@@ -170,7 +170,6 @@ namespace DemoWebApi.DemoData.Client
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class MimsResult<T> : object
-	
 	{
 		
 		[System.Runtime.Serialization.DataMember()]
@@ -189,9 +188,6 @@ namespace DemoWebApi.DemoData.Client
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class MyGeneric<T, K, U> : object
-	
-	
-	
 	{
 		
 		[System.Runtime.Serialization.DataMember()]

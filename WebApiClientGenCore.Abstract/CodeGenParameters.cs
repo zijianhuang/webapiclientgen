@@ -123,6 +123,13 @@
 		public bool UseEnsureSuccessStatusCodeEx { get; set; }
 
 		/// <summary>
+		/// Default  is true so the code block is included in the generated codes.
+		/// Defined if UseEnsureSuccessStatusCodeEx is true. Respective code block will be included the code gen output. However, if you have a few client APIs generated to be used in the same application,
+		/// and you may want these client APIs share the same code block, then put the WebApiRequestException code block to an assembly or a standalone CS file.
+		/// </summary>
+		public bool IncludeEnsureSuccessStatusCodeExBlock { get; set; } = true;
+
+		/// <summary>
 		/// Function parameters contain a callback to handle HTTP request headers
 		/// </summary>
 		public bool HandleHttpRequestHeaders { get; set; }

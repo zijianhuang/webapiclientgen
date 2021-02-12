@@ -57,7 +57,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					using (var fileWriter = new StreamWriter(fileName))
 					{
 						var s = stringReader.ReadToEnd();
-						if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+						if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && CodeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 						{
 							fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
 						}
@@ -180,7 +180,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 			}
 
-			if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+			if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && CodeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 			{
 				CreateDummyOfEnsureSuccessStatusCodeEx();
 			}

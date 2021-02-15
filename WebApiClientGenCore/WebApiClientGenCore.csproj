@@ -12,11 +12,12 @@
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore jquery angular</PackageTags>
     <PackageReleaseNotes>* Support setting IncludeEnsureSuccessStatusCodeExBlock.
-* Build with .NET 5</PackageReleaseNotes>
+* Build with .NET 5
+* Name in DataMemberAttribute may be copied to client models if DecorateDataModelWithDataContract is true.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <FileVersion>5.0.0.0</FileVersion>
+    <AssemblyVersion>5.1.0.0</AssemblyVersion>
+    <FileVersion>5.1.0.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <Authors>Zijian Huang</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -52,10 +52,8 @@ namespace DemoWebApi.DemoData.Client
 	public enum AddressType
 	{
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Postal,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Residential,
 	}
 	
@@ -67,7 +65,7 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// BusinessNumber to be serialized as BusinessNum
 		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
+		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
 		public string BusinessNumber { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
@@ -91,28 +89,21 @@ namespace DemoWebApi.DemoData.Client
 	public enum Days
 	{
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Sat = 1,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Sun = 2,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Mon = 3,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Tue = 4,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Wed = 5,
 		
 		/// <summary>
 		/// Thursday
 		/// </summary>
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Thu = 6,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Fri = 7,
 	}
 	
@@ -262,19 +253,15 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// Land line
 		/// </summary>
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Tel,
 		
 		/// <summary>
 		/// Mobile phone
 		/// </summary>
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Mobile,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Skype,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Fax,
 	}
 }
@@ -295,13 +282,11 @@ namespace DemoWebApi.DemoData.Another.Client
 		/// <summary>
 		/// X
 		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
 		public double X;
 		
 		/// <summary>
 		/// Y
 		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
 		public double Y;
 	}
 }
@@ -318,7 +303,6 @@ namespace DemoWebApi.Models.Client
 		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
-		[System.Runtime.Serialization.DataMember()]
 		public string ExternalAccessToken { get; set; }
 	}
 	
@@ -330,7 +314,6 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Data type: Password
 		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
@@ -340,7 +323,6 @@ namespace DemoWebApi.Models.Client
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
-		[System.Runtime.Serialization.DataMember()]
 		public string NewPassword { get; set; }
 		
 		/// <summary>
@@ -348,7 +330,6 @@ namespace DemoWebApi.Models.Client
 		/// Data type: Password
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		[System.Runtime.Serialization.DataMember()]
 		public string OldPassword { get; set; }
 	}
 	
@@ -360,14 +341,12 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Data type: Password
 		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
 		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
-		[System.Runtime.Serialization.DataMember()]
 		public string Email { get; set; }
 		
 		/// <summary>
@@ -377,7 +356,6 @@ namespace DemoWebApi.Models.Client
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
-		[System.Runtime.Serialization.DataMember()]
 		public string Password { get; set; }
 	}
 	
@@ -390,7 +368,6 @@ namespace DemoWebApi.Models.Client
 		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
-		[System.Runtime.Serialization.DataMember()]
 		public string Email { get; set; }
 	}
 	
@@ -403,14 +380,12 @@ namespace DemoWebApi.Models.Client
 		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
-		[System.Runtime.Serialization.DataMember()]
 		public string LoginProvider { get; set; }
 		
 		/// <summary>
 		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
-		[System.Runtime.Serialization.DataMember()]
 		public string ProviderKey { get; set; }
 	}
 	
@@ -422,7 +397,6 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Data type: Password
 		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
 		public string ConfirmPassword { get; set; }
 		
 		/// <summary>
@@ -432,8 +406,34 @@ namespace DemoWebApi.Models.Client
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
-		[System.Runtime.Serialization.DataMember()]
 		public string NewPassword { get; set; }
+	}
+	
+	/// <summary>
+	/// Auth token
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class TokenResponseModel : object
+	{
+		
+		[System.Runtime.Serialization.DataMember(Name="access_token")]
+		public string AccessToken { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="expires")]
+		public string Expires { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="expires_in")]
+		public int ExpiresIn { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="issued")]
+		public string Issued { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="token_type")]
+		public string TokenType { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="username")]
+		public string Username { get; set; }
 	}
 }
 namespace DemoWebApi.Controllers.Client

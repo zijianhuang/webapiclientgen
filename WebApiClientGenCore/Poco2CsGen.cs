@@ -81,6 +81,10 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
 		public void WriteCode(TextWriter writer)
 		{
 			if (writer == null)
@@ -96,6 +100,13 @@ namespace Fonlow.Poco2Client
 
 		ModelGenOutputs settings;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="assembly"></param>
+		/// <param name="methods"></param>
+		/// <param name="docLookup"></param>
+		/// <param name="codeGenOutputs"></param>
 		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, ModelGenOutputs codeGenOutputs)
 		{
 			this.docLookup = docLookup;
@@ -215,7 +226,7 @@ namespace Fonlow.Poco2Client
 
 							if (settings.DecorateDataModelWithDataContract)
 							{
-								clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
+								AddDataMemberAttribute(propertyInfo, clientProperty);
 							}
 
 							typeDeclaration.Members.Add(clientProperty);
@@ -272,7 +283,7 @@ namespace Fonlow.Poco2Client
 
 								if (settings.DecorateDataModelWithDataContract)
 								{
-									clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
+									AddDataMemberAttribute(fieldInfo, clientProperty);
 								}
 
 								typeDeclaration.Members.Add(clientProperty);
@@ -291,7 +302,7 @@ namespace Fonlow.Poco2Client
 
 								if (settings.DecorateDataModelWithDataContract)
 								{
-									clientField.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
+									AddDataMemberAttribute(fieldInfo, clientField);
 								}
 
 								typeDeclaration.Members.Add(clientField);
@@ -333,7 +344,7 @@ namespace Fonlow.Poco2Client
 
 							if (settings.DecorateDataModelWithDataContract)
 							{
-								clientField.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMemberAttribute"));
+								AddEnumMemberAttribute(fieldInfo, clientField);
 							}
 
 							typeDeclaration.Members.Add(clientField);
@@ -362,6 +373,40 @@ namespace Fonlow.Poco2Client
 			}
 
 
+		}
+
+		void AddDataMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		{
+			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);// memberField.GetCustomAttribute<System.Runtime.Serialization.DataMemberAttribute>();
+			if (dataMemberAttribute != null)
+			{
+				var n = dataMemberAttribute.Name;
+				if (String.IsNullOrEmpty(n))
+				{
+					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
+				}
+				else
+				{
+					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember", new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{n}\""))));
+				}
+			}
+		}
+
+		void AddEnumMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		{
+			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);// memberField.GetCustomAttribute<System.Runtime.Serialization.DataMemberAttribute>();
+			if (dataMemberAttribute != null)
+			{
+				var n = dataMemberAttribute.Name;
+				if (String.IsNullOrEmpty(n))
+				{
+					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMember"));
+				}
+				else
+				{
+					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMember", new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{n}\""))));
+				}
+			}
 		}
 
 		DocCommentLookup docLookup;

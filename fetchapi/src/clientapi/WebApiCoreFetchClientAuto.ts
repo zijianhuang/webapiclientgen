@@ -181,6 +181,19 @@ export namespace DemoWebApi_Models_Client {
 		newPassword?: string;
 	}
 
+
+	/**
+	 * Auth token
+	 */
+	export interface TokenResponseModel {
+		access_token?: string;
+		expires?: string;
+		expires_in?: number;
+		issued?: string;
+		token_type?: string;
+		username?: string;
+	}
+
 }
 
 export namespace DemoWebApi_Controllers_Client {

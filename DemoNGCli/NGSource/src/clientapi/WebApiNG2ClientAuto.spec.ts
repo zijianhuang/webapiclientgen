@@ -1,8 +1,8 @@
-import { async, inject, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-
+import { async, TestBed } from '@angular/core/testing';
 import * as namespaces from './WebApiCoreNG2ClientAuto';
-const apiBaseUri = 'http://localhost:5000/'; //for DemoCoreWeb
+
+const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb
 
 import DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
 
@@ -27,7 +27,7 @@ export function tupleClientFactory(http: HttpClient) {
 }
 
 
-export function errorResponseToString(error: HttpErrorResponse | any,): string {
+export function errorResponseToString(error: HttpErrorResponse | any, ): string {
 	let errMsg: string;
 	if (error instanceof HttpErrorResponse) {
 		if (error.status === 0) {
@@ -238,7 +238,6 @@ describe('Heroes API', () => {
 
 });
 
-
 describe('entities API', () => {
 	let client: namespaces.DemoWebApi_Controllers_Client.Entities;
 
@@ -258,21 +257,6 @@ describe('entities API', () => {
 
 		client = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Entities);
 	}));
-
-	// it('getPersonNotFound', (done) => {
-	//    client.getPersonNotFound(123)
-	//        .subscribe(
-	//        data => {
-	//            fail('That is bad. Should be 404.');
-	//            done();
-	//        },
-	//        error => {
-	//            expect(errorResponseToString(error)).toContain('404');
-	//            done();
-	//        }
-	//        );
-	// }
-	// );
 
 	it('add', (done) => {
 		let id: number;
@@ -300,7 +284,6 @@ describe('entities API', () => {
 	);
 
 	it('addWithHeadersHandling', (done) => {
-		let id: number;
 		const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
 			name: 'John Smith' + Date.now().toString(),
 			givenName: 'John',
@@ -324,7 +307,6 @@ describe('entities API', () => {
 	);
 
 	it('mimsString', (done) => {
-		let id: number;
 		const c: namespaces.DemoWebApi_DemoData_Client.MimsPackage = {
 			tag: 'Hello',
 			result: {
@@ -1048,10 +1030,10 @@ describe('SuperDemo API', () => {
 
 
 	it('postGuids', (done) => {
-		service.postGuids(["08d7be8b-4805-459e-849a-fcd5c64a33ee", "08d7be8b-47fb-44a5-86a8-a6f4fe928fa9"]).subscribe(
+		service.postGuids(['08d7be8b-4805-459e-849a-fcd5c64a33ee', '08d7be8b-47fb-44a5-86a8-a6f4fe928fa9']).subscribe(
 			data => {
 				expect(data.length).toBe(2);
-				expect(data[0]).toBe("08d7be8b-4805-459e-849a-fcd5c64a33ee");
+				expect(data[0]).toBe('08d7be8b-4805-459e-849a-fcd5c64a33ee');
 				done();
 			},
 			error => {
@@ -1315,7 +1297,7 @@ describe('SuperDemo API', () => {
 				done();
 			}
 		);
-	})
+	});
 
 	it('TestAthletheSearch2', (done) => {
 		service.athletheSearch(32, 0, undefined, null, 'Search').subscribe(
@@ -1328,7 +1310,7 @@ describe('SuperDemo API', () => {
 				done();
 			}
 		);
-	})
+	});
 
 	it('TestAthletheSearch3', (done) => {
 		service.athletheSearch(32, 0, undefined, 'Sort', 'Search').subscribe(
@@ -1341,7 +1323,7 @@ describe('SuperDemo API', () => {
 				done();
 			}
 		);
-	})
+	});
 
 	it('TestAthletheSearch4', (done) => {
 		service.athletheSearch(32, 0, 'Order', 'Sort', 'Search').subscribe(
@@ -1354,7 +1336,7 @@ describe('SuperDemo API', () => {
 				done();
 			}
 		);
-	})
+	});
 
 	it('TestAthletheSearch5', (done) => {
 		service.athletheSearch(32, 0, 'Order', null, 'Search').subscribe(
@@ -1367,10 +1349,10 @@ describe('SuperDemo API', () => {
 				done();
 			}
 		);
-	})
+	});
 
 	it('TestAthletheSearch6', (done) => {
-		service.athletheSearch(32, 0, 'Order', "", 'Search').subscribe(
+		service.athletheSearch(32, 0, 'Order', '', 'Search').subscribe(
 			data => {
 				expect(data).toBe('"320OrderSearch"');
 				done();
@@ -1380,7 +1362,7 @@ describe('SuperDemo API', () => {
 				done();
 			}
 		);
-	})
+	});
 
 
 

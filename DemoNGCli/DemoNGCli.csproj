@@ -103,7 +103,6 @@
     <TypeScriptCompile Include="NGSource\src\app\heroes.component.ts" />
     <TypeScriptCompile Include="NGSource\src\clientapi\WebApiCoreNg2ClientAuto.ts" />
     <TypeScriptCompile Include="NGSource\src\clientapi\WebApiNG2ClientAuto.spec.ts" />
-    <TypeScriptCompile Include="NGSource\src\clientapi\WebApiNG2ClientAuto.ts" />
     <TypeScriptCompile Include="NGSource\src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="NGSource\src\environments\environment.ts" />
     <TypeScriptCompile Include="NGSource\src\main.ts" />

@@ -1,5 +1,6 @@
-import { Component, OnInit , Inject} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 
@@ -11,23 +12,42 @@ import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 })
 export class HeroDetailComponent implements OnInit {
 	hero: namespaces.DemoWebApi_Controllers_Client.Hero;
+	heroForm: FormGroup; // Strongly typed FormGroup may be coming in NG 12
 	constructor(
 		@Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
 		private route: ActivatedRoute,
 		private location: Location
-	) { }
+	) {
+		this.heroForm = this.CreateModelForm();
+	}
 	ngOnInit(): void {
 		this.route.params.forEach((params: Params) => {
-			let id = +params['id'];
+			const id = +params['id'];
 			this.heroService.getHero(id).subscribe(
-				hero => this.hero = hero,
-				error => console.error(error)
+				hero => {
+					this.hero = hero;
+					this.heroForm.patchValue(hero);
+				},
+				error => alert(error)
 			);
 		});
 	}
+
+	private CreateModelForm() {
+		return new FormGroup({
+			id: new FormControl(undefined),
+			name: new FormControl(undefined)
+		});
+	}
+
 	save(): void {
-		this.heroService.put(this.hero)
-			.subscribe(() => this.goBack());
+		const raw = this.heroForm.getRawValue();
+		this.heroService.put(raw).subscribe(
+			() => {
+				this.goBack();
+			},
+			error => alert(error)
+		);
 	}
 	goBack(): void {
 		this.location.back();

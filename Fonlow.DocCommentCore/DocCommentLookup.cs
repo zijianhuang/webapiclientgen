@@ -80,7 +80,7 @@ namespace Fonlow.DocComment
 
         static string GetAssemblyDirectory(Assembly assembly)
         {
-            string codeBase = assembly.CodeBase;
+            string codeBase = assembly.Location;
             UriBuilder uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
             return Path.GetDirectoryName(path);

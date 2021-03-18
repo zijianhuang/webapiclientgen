@@ -9433,7 +9433,7 @@ namespace Fonlow.Net.Http
 
 	public class WebApiRequestException : HttpRequestException
 	{
-		public System.Net.HttpStatusCode StatusCode { get; private set; }
+		public new System.Net.HttpStatusCode StatusCode { get; private set; }
 
 		public string Response { get; private set; }
 

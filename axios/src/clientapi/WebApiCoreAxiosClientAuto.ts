@@ -68,6 +68,8 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export interface MimsPackage {
 		kk?: number;
+		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType;
+		optionalInt?: number;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string;
 	}
@@ -78,6 +80,8 @@ export namespace DemoWebApi_DemoData_Client {
 		result?: T;
 		success?: boolean;
 	}
+
+	export enum MyEnumType { First = 1, Two = 2 }
 
 	export interface MyGeneric<T, K, U> {
 		myK?: K;

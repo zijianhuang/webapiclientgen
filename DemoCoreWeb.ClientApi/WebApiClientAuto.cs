@@ -152,6 +152,12 @@ namespace DemoWebApi.DemoData.Client
 		public int KK { get; set; } = 20;
 		
 		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<DemoWebApi.DemoData.Client.MyEnumType> OptionalEnum { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<int> OptionalInt { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
 		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
@@ -174,6 +180,16 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public bool Success { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum MyEnumType
+	{
+		
+		First = 1,
+		
+		Two = 2,
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]

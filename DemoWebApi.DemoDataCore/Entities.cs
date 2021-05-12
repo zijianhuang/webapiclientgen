@@ -20,7 +20,8 @@ namespace DemoWebApi.DemoData
         [EnumMember]
         Residential,
     };
-  
+
+    [DataContract(Namespace = Constants.DataNamespace)]
     public enum MyEnumType
     {
         [EnumMember]
@@ -268,6 +269,12 @@ namespace DemoWebApi.DemoData
         [Range(10, 100, ErrorMessage = "KK has to be between 10 and 100.")]
         [System.ComponentModel.DefaultValue(20)]
         public int KK { get; set; }
+
+        [DataMember]
+        public int? OptionalInt { get; set; }
+
+        [DataMember]
+        public MyEnumType? OptionalEnum { get; set; }
     }
 
     [DataContract(Namespace = Constants.DataNamespace)]
@@ -285,8 +292,6 @@ namespace DemoWebApi.DemoData
         [DataMember]
         public string Status { get; set; }
     }
-
-
 }
 
 namespace DemoWebApi.DemoData.Another

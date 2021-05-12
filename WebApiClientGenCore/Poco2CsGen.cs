@@ -325,6 +325,18 @@ namespace Fonlow.Poco2Client
 
 						CreateTypeDocComment(type, typeDeclaration);
 
+						var newtonJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "Newtonsoft.Json.JsonConverterAttribute");
+						if (newtonJsonConverterAttributeData != null)
+						{
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("Newtonsoft.Json.JsonConverterAttribute", new CodeAttributeArgument(new CodeSnippetExpression("typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
+						}
+
+						var systemJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Text.Json.Serialization.JsonConverterAttribute");
+						if (systemJsonConverterAttributeData != null)
+						{
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonConverter", new CodeAttributeArgument(new CodeSnippetExpression("typeof(System.Text.Json.Serialization.JsonStringEnumConverter)"))));
+						}
+
 						int k = 0;
 						foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))//not to sort
 						{
@@ -394,17 +406,17 @@ namespace Fonlow.Poco2Client
 
 		void AddEnumMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
 		{
-			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);// memberField.GetCustomAttribute<System.Runtime.Serialization.DataMemberAttribute>();
+			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.EnumMemberAttribute>(memberField);
 			if (dataMemberAttribute != null)
 			{
-				var n = dataMemberAttribute.Name;
-				if (String.IsNullOrEmpty(n))
+				var v = dataMemberAttribute.Value;
+				if (String.IsNullOrEmpty(v))
 				{
 					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMember"));
 				}
 				else
 				{
-					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMember", new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{n}\""))));
+					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMember", new CodeAttributeArgument("Value", new CodeSnippetExpression($"\"{v}\""))));
 				}
 			}
 		}

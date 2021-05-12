@@ -285,20 +285,52 @@ namespace Fonlow.Poco2Ts
 						foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
 						{
 							var name = fieldInfo.Name;
-							var intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
-							Debug.WriteLine(name + " -- " + intValue);
-							var isInitialized = intValue != k;
 
-							var clientField = new CodeMemberField()
+							var enumMemberAttributeData = fieldInfo.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Runtime.Serialization.EnumMemberAttribute");
+							void AddFieldWithoutEnumMemberAttribute()
 							{
-								Name = name,
-								Type = new CodeTypeReference(fieldInfo.FieldType),
-								InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
-							};
+								var intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
+								Debug.WriteLine(name + " -- " + intValue);
+								var isInitialized = intValue != k;
 
-							CreateFieldDocComment(fieldInfo, clientField);
+								var clientField = new CodeMemberField()
+								{
+									Name = name,
+									Type = new CodeTypeReference(fieldInfo.FieldType),
+									InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
+								};
 
-							typeDeclaration.Members.Add(clientField);
+								CreateFieldDocComment(fieldInfo, clientField);
+								typeDeclaration.Members.Add(clientField);
+							}
+
+							if (enumMemberAttributeData == null)
+							{
+								AddFieldWithoutEnumMemberAttribute();
+							}
+							else
+							{
+								var vm = enumMemberAttributeData.NamedArguments.FirstOrDefault(k => k.MemberName == "Value");
+
+								if (vm.TypedValue.Value != null)
+								{
+									var mField = new CodeMemberField()
+									{
+										Name = name,
+										Type = new CodeTypeReference(fieldInfo.FieldType),
+										InitExpression = new CodePrimitiveExpression(vm.TypedValue),
+									};
+
+									CreateFieldDocComment(fieldInfo, mField);
+									typeDeclaration.Members.Add(mField);
+								}
+								else
+								{
+									AddFieldWithoutEnumMemberAttribute();
+								}
+
+							}
+
 							k++;
 						}
 

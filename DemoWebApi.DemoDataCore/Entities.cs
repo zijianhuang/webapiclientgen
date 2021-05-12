@@ -292,6 +292,42 @@ namespace DemoWebApi.DemoData
         [DataMember]
         public string Status { get; set; }
     }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum MedicalContraindiationResponseTypeReason
+    {
+
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "Mm")]
+        M = 0,
+
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "Ss")]
+        S = 1,
+
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "Pp")]
+        P = 2,
+
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "I")]
+        I = 3,
+
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "A")]
+        A = 4,
+    }
+
+    [DataContract(Namespace = Constants.DataNamespace)]
+    [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+    public enum MedicalContraindiationResponseTypeTypeCode
+    {
+
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "P")]
+        P = 0,
+
+        [System.Runtime.Serialization.EnumMemberAttribute(Value = "Tt")]
+        T = 1,
+    }
+
+
+
 }
 
 namespace DemoWebApi.DemoData.Another

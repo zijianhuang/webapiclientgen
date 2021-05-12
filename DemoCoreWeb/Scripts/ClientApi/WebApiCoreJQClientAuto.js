@@ -20,6 +20,24 @@ var DemoWebApi_DemoData_Client;
         Days[Days["Thu"] = 6] = "Thu";
         Days[Days["Fri"] = 7] = "Fri";
     })(Days = DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
+    let MedicalContraindiationResponseTypeReason;
+    (function (MedicalContraindiationResponseTypeReason) {
+        MedicalContraindiationResponseTypeReason["M"] = "Mm";
+        MedicalContraindiationResponseTypeReason["S"] = "Ss";
+        MedicalContraindiationResponseTypeReason["P"] = "Pp";
+        MedicalContraindiationResponseTypeReason["I"] = "I";
+        MedicalContraindiationResponseTypeReason["A"] = "A";
+    })(MedicalContraindiationResponseTypeReason = DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeReason || (DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeReason = {}));
+    let MedicalContraindiationResponseTypeTypeCode;
+    (function (MedicalContraindiationResponseTypeTypeCode) {
+        MedicalContraindiationResponseTypeTypeCode["P"] = "P";
+        MedicalContraindiationResponseTypeTypeCode["T"] = "Tt";
+    })(MedicalContraindiationResponseTypeTypeCode = DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeTypeCode || (DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeTypeCode = {}));
+    let MyEnumType;
+    (function (MyEnumType) {
+        MyEnumType[MyEnumType["First"] = 1] = "First";
+        MyEnumType[MyEnumType["Two"] = 2] = "Two";
+    })(MyEnumType = DemoWebApi_DemoData_Client.MyEnumType || (DemoWebApi_DemoData_Client.MyEnumType = {}));
     /**
      * Phone type
      * Tel, Mobile, Skyp and Fax

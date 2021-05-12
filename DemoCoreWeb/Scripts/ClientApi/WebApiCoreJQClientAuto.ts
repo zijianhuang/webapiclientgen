@@ -66,6 +66,10 @@ namespace DemoWebApi_DemoData_Client {
 		web?: string;
 	}
 
+	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
+
+	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
+
 	export interface MimsPackage {
 		kk?: number;
 		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType;

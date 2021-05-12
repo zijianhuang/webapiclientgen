@@ -52,8 +52,10 @@ namespace DemoWebApi.DemoData.Client
 	public enum AddressType
 	{
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Postal,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Residential,
 	}
 	
@@ -89,21 +91,28 @@ namespace DemoWebApi.DemoData.Client
 	public enum Days
 	{
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Sat = 1,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Sun = 2,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Mon = 3,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Tue = 4,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Wed = 5,
 		
 		/// <summary>
 		/// Thursday
 		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
 		Thu = 6,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Fri = 7,
 	}
 	
@@ -137,6 +146,41 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public System.Uri Web { get; set; }
+	}
+	
+	[Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum MedicalContraindiationResponseTypeReason
+	{
+		
+		[System.Runtime.Serialization.EnumMember(Value="Mm")]
+		M,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Ss")]
+		S,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Pp")]
+		P,
+		
+		[System.Runtime.Serialization.EnumMember(Value="I")]
+		I,
+		
+		[System.Runtime.Serialization.EnumMember(Value="A")]
+		A,
+	}
+	
+	[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum MedicalContraindiationResponseTypeTypeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMember(Value="P")]
+		P,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Tt")]
+		T,
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -187,8 +231,10 @@ namespace DemoWebApi.DemoData.Client
 	public enum MyEnumType
 	{
 		
+		[System.Runtime.Serialization.EnumMember()]
 		First = 1,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Two = 2,
 	}
 	
@@ -269,15 +315,19 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// Land line
 		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
 		Tel,
 		
 		/// <summary>
 		/// Mobile phone
 		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
 		Mobile,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Skype,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Fax,
 	}
 }

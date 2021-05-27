@@ -131,6 +131,7 @@ namespace DemoWebApi.DemoData
         [System.ComponentModel.DefaultValue("Australia")]
         public string Country { get; set; }
 
+        [System.ComponentModel.DefaultValue(AddressType.Residential)]
         [DataMember]
         public AddressType Type { get; set; }
 
@@ -269,6 +270,13 @@ namespace DemoWebApi.DemoData
         [Range(10, 100, ErrorMessage = "KK has to be between 10 and 100.")]
         [System.ComponentModel.DefaultValue(20)]
         public int KK { get; set; }
+
+        /// <summary>
+        /// Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time, 
+        /// and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+        /// </summary>
+        [DataMember]
+        public int KK2 { get; set; } = 2;
 
         [DataMember]
         public int? OptionalInt { get; set; }

@@ -19,6 +19,7 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public string City { get; set; }
 		
+		[System.ComponentModel.DefaultValueAttribute("Australia")]
 		[System.Runtime.Serialization.DataMember()]
 		public string Country { get; set; } = "Australia";
 		
@@ -37,8 +38,9 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public string Street2 { get; set; }
 		
+		[System.ComponentModel.DefaultValueAttribute(AddressType.Residential)]
 		[System.Runtime.Serialization.DataMember()]
-		public DemoWebApi.DemoData.Client.AddressType Type { get; set; }
+		public DemoWebApi.DemoData.Client.AddressType Type { get; set; } = AddressType.Residential;
 		
 		/// <summary>
 		/// It is a field
@@ -191,9 +193,17 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// Range: inclusive between 10 and 100
 		/// </summary>
+		[System.ComponentModel.DefaultValueAttribute(20)]
 		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "10", "100", ErrorMessage="KK has to be between 10 and 100.")]
 		[System.Runtime.Serialization.DataMember()]
 		public int KK { get; set; } = 20;
+		
+		/// <summary>
+		/// Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
+		/// and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public int KK2 { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<DemoWebApi.DemoData.Client.MyEnumType> OptionalEnum { get; set; }

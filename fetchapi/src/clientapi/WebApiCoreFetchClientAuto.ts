@@ -70,6 +70,12 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export interface MimsPackage {
 		kk?: number;
+
+		/**
+		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
+		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		 */
+		kK2?: number;
 		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType;
 		optionalInt?: number;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;

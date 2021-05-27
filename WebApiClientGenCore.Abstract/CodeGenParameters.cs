@@ -18,15 +18,18 @@
 	/// </summary>
 	public class CodeGenConfig
 	{
+		/// <summary>
+		/// To exclude some controllers. For example, [My.Namespace.Home, My.Namespace.FileUpload] for My.Namespace.HomeController and My.Namespace.FileUploadController.
+		/// </summary>
 		public string[] ExcludedControllerNames { get; set; }
 
 		/// <summary>
-		/// Assembly names without file extension
+		/// To include assemblies containing data models. Assembly names should be without file extension.
 		/// </summary>
 		public string[] DataModelAssemblyNames { get; set; }
 
 		/// <summary>
-		/// Similar to DataModelAssemblyNames however, each assembly could have a CherryPickingMethods. An assembly should appear in either DataModelAssemblyNames or DataModels.
+		/// Similar to DataModelAssemblyNames however, each assembly could have a CherryPickingMethods. An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
 		/// </summary>
 		public DataModel[] DataModels { get; set; }
 
@@ -46,6 +49,9 @@
 
 	public class ModelGenOutputs
 	{
+		/// <summary>
+		/// The naming of namespace is after the controller's namespace. To distinguish from the server side namespace, it is better to add a suffix like ".Client". The default is ".Client".
+		/// </summary>
 		public string CSClientNamespaceSuffix { get; set; } = ".Client";
 
 		/// <summary>
@@ -113,7 +119,7 @@
 		/// <summary>
 		/// Each controller is mapped into a container class to contain client API functions matching controller operations.
 		/// By default the container is named after the controller name, for example, service class ValuesController will result in client container class Values.
-		/// You may define a container name suffix such as "Client", so the generated container class name may become ValuesClient.
+		/// You may define a container name suffix such as "Client" or "Proxy", so the generated container class name may become ValuesClient.
 		/// </summary>
 		public string ContainerNameSuffix { get; set; }
 

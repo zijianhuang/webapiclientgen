@@ -199,7 +199,6 @@ namespace Fonlow.Poco2Client
 							// Attributes = MemberAttributes.Public | MemberAttributes.Final,
 							//};
 							var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType, defaultValue); //hacky way of creating clean getter and writter.
-
 							var isRequired = cherryType == CherryType.BigCherry;
 							if (isRequired)
 							{
@@ -244,7 +243,7 @@ namespace Fonlow.Poco2Client
 							tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
 							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
 							var defaultValue = GetDefaultValue(fieldInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
-
+							
 							//public fields of a class will be translated into properties
 							if (type.IsClass)
 							{
@@ -256,7 +255,6 @@ namespace Fonlow.Poco2Client
 								//};
 
 								var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType, defaultValue); //hacky way of creating clean getter and writter.
-
 								var isRequired = cherryType == CherryType.BigCherry;
 								if (isRequired)
 								{
@@ -497,6 +495,13 @@ namespace Fonlow.Poco2Client
 
 			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(type), Name = memberName };
 			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+
+			if (!String.IsNullOrEmpty(defaultValue))
+			{
+				result.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DefaultValueAttribute", new CodeAttributeArgument(new CodeSnippetExpression(defaultValue))));
+			}
+
+
 			return result;
 		}
 
@@ -820,6 +825,11 @@ namespace Fonlow.Poco2Client
 			if (supportedTypes.Any(t => t == type))
 			{
 				return a.Value.ToString();
+			}
+
+			if (type.IsEnum)
+			{
+				return type.Name + "." + a.Value.ToString();
 			}
 
 			return null;//not supported

@@ -84,7 +84,7 @@
 	public class CodeGenOutputs : ModelGenOutputs
 	{
 		/// <summary>
-		/// Assuming the client API project is the sibling of Web API project. Relative path to the running instance of the WebApi project should be fine.
+		/// Assuming the C# client API project is the sibling of Web API project. Relative path to the running instance of the WebApi project should be fine.
 		/// </summary>
 		public string ClientLibraryProjectFolderName { get; set; }
 
@@ -94,14 +94,9 @@
 		public string FileName { get; set; } = "WebApiClientAuto.cs";
 
 		/// <summary>
-		/// For .NET client, generate both async and sync functions for each Web API function
+		/// For .NET client, generate both async and sync functions for each Web API function, while by default create only async functions.
 		/// </summary>
 		public bool GenerateBothAsyncAndSync { get; set; }
-
-		///// <summary>
-		///// Container class's constructor is with HttpClient parameter only and the HttpClient should be initialized with BaseAddress in app codes
-		///// </summary>
-		//public bool DIFriendly { get; set; }
 
 		/// <summary>
 		/// Whether the Web API return string as string, rather than JSON object which is a double quoted string.
@@ -112,7 +107,6 @@
 		/// Whether to conform to the camel casing convention of javascript and JSON.
 		/// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
 		/// If CamelCasePropertyNamesContractResolver is presented, camelCasing will be used. If not, no camelCasing transformation will be used.
-		/// The default is ".Client".
 		/// </summary>
 		public bool? CamelCase { get; set; }
 

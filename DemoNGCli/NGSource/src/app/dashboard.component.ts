@@ -9,7 +9,7 @@ import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 export class DashboardComponent implements OnInit {
 	heroes: namespaces.DemoWebApi_Controllers_Client.Hero[] = [];
 
-	constructor( @Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes) { }
+	constructor(private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes) { }
 
 	ngOnInit(): void {
 		this.heroService.getHeros().subscribe(

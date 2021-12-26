@@ -14,7 +14,7 @@ export class HeroDetailComponent implements OnInit {
 	hero: namespaces.DemoWebApi_Controllers_Client.Hero;
 	heroForm: FormGroup; // Strongly typed FormGroup may be coming in NG 12
 	constructor(
-		@Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
+		private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
 		private route: ActivatedRoute,
 		private location: Location
 	) {

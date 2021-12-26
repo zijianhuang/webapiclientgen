@@ -12,7 +12,7 @@ export class HeroesComponent implements OnInit {
 	heroes: namespaces.DemoWebApi_Controllers_Client.Hero[];
 	selectedHero: namespaces.DemoWebApi_Controllers_Client.Hero;
 	constructor(
-		@Inject(namespaces.DemoWebApi_Controllers_Client.Heroes) private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
+		private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
 		private router: Router) { }
 	getHeroes(): void {
 		this.heroService

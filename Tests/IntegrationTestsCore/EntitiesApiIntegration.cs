@@ -26,7 +26,10 @@ namespace IntegrationTests
 			{
 				BaseAddress = baseUri
 			};
-			Api = new DemoWebApi.Controllers.Client.Entities(httpClient);
+			Api = new DemoWebApi.Controllers.Client.Entities(httpClient, new Newtonsoft.Json.JsonSerializerSettings() //just to test if DemoCoreWeb is OK with this, while other tests have no such setting
+			{
+				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
+			});
 		}
 
 		public DemoWebApi.Controllers.Client.Entities Api { get; private set; }

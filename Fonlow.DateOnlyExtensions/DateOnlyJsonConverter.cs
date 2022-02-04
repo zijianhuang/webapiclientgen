@@ -11,7 +11,7 @@ namespace Fonlow.DateOnlyExtensions
 	{
 		public override void WriteJson(JsonWriter writer, DateOnly value, JsonSerializer serializer)
 		{
-			writer.WriteValue(value.ToString("yyyy-MM-dd"));
+			writer.WriteValue(value.ToString("O"));
 		}
 
 		public override DateOnly ReadJson(JsonReader reader, Type objectType, DateOnly existingValue, bool hasExistingValue,
@@ -27,7 +27,7 @@ namespace Fonlow.DateOnlyExtensions
 		{
 			if (value.HasValue)
 			{
-				writer.WriteValue(value.Value.ToString("yyyy-MM-dd"));
+				writer.WriteValue(value.Value.ToString("O"));
 			}
 		}
 

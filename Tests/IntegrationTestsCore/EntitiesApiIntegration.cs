@@ -27,7 +27,8 @@ namespace IntegrationTests
 			{
 				BaseAddress = baseUri,
 			};
-			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings() //just to test if DemoCoreWeb is OK with this, while other tests have no such setting
+
+			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings() 
 			{
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};

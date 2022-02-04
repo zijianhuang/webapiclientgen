@@ -868,6 +868,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/SuperDemo/DateOnly
+		 */
+		postDateOnly(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateOnly', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
 		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		 * POST api/SuperDemo/DateTimeOffset
 		 */

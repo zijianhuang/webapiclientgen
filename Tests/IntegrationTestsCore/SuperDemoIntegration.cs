@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
+using Fonlow.DateOnlyExtensions;
 
 namespace IntegrationTests
 {
@@ -15,7 +16,17 @@ namespace IntegrationTests
 			{
 				BaseAddress = baseUri
 			};
-			Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient);
+
+			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+			{
+				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+			};
+
+			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+
+			Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, jsonSerializerSettings);
 		}
 
 		public DemoWebApi.Controllers.Client.SuperDemo Api { get; private set; }
@@ -354,6 +365,15 @@ namespace IntegrationTests
 			var r = api.PostDateTimeOffsetNullable(null);
 			Assert.False(r);
 		}
+
+		[Fact]
+		public void TestPostDateOnly()
+		{
+			var dateOnly = new DateOnly(1988, 12, 23);
+			var r = api.PostDateOnly(dateOnly);
+			Assert.Equal(dateOnly, r);
+		}
+
 
 		[Fact]
 		public void TestGetNullableDecimal()

@@ -868,6 +868,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/SuperDemo/DateOnly
+		 */
+		postDateOnly(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return Axios.post<Date>(this.baseUri + 'api/SuperDemo/DateOnly', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data);
+		}
+
+		/**
 		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		 * POST api/SuperDemo/DateTimeOffset
 		 */

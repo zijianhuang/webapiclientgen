@@ -100,6 +100,13 @@ namespace DemoWebApi.Controllers
 			return d.HasValue;
 		}
 
+		[HttpPost]
+		[Route("DateOnly")]
+		public DateOnly PostDateOnly([FromBody] DateOnly d)
+		{
+			return d;
+		}
+
 		[HttpGet]
 		[Route("NullableDecimal/{hasValue}")]
 		public async Task<Decimal?> GetNullableDecimal(bool hasValue)

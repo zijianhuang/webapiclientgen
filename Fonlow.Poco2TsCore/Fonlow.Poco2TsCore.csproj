@@ -5,20 +5,19 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.10</Version>
+    <Version>3.0</Version>
     <Authors>Zijian Huang</Authors>
     <Company />
-    <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>
+    <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
     <Product>Fonlow POCO to TypeScript for .NET Core</Product>
     <Description>Simple build of Fonlow.Poco2Ts for .NET Core. Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
-    <PackageReleaseNotes>* Support  string enum for data models decorated by   [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))] or [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-</PackageReleaseNotes>
+    <PackageReleaseNotes>* .NET 6; * Support DateOnly, and DataTypeAttribute(DataType.Date)</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>2.10.0.0</AssemblyVersion>
-    <FileVersion>2.10.0.0</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

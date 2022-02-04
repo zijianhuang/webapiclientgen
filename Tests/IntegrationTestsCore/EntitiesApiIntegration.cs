@@ -1,6 +1,7 @@
 ﻿using System;
 using Xunit;
 using DemoWebApi.DemoData.Client;
+using Fonlow.DateOnlyExtensions;
 
 namespace IntegrationTests
 {
@@ -24,12 +25,18 @@ namespace IntegrationTests
 
 			httpClient = new System.Net.Http.HttpClient
 			{
-				BaseAddress = baseUri
+				BaseAddress = baseUri,
 			};
-			Api = new DemoWebApi.Controllers.Client.Entities(httpClient, new Newtonsoft.Json.JsonSerializerSettings() //just to test if DemoCoreWeb is OK with this, while other tests have no such setting
+			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings() //just to test if DemoCoreWeb is OK with this, while other tests have no such setting
 			{
-				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
-			});
+				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+			};
+
+			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+
+			Api = new DemoWebApi.Controllers.Client.Entities(httpClient, jsonSerializerSettings);
 		}
 
 		public DemoWebApi.Controllers.Client.Entities Api { get; private set; }
@@ -80,7 +87,8 @@ namespace IntegrationTests
 				Name = "Some One",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = DateTime.Now.AddYears(-20),
+				DOB = new DateOnly(1988, 11, 23),
+				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
 					State="QLD",
@@ -105,7 +113,7 @@ namespace IntegrationTests
 				Name = "Some One",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = DateTime.Now.AddYears(-20),
+				DOB = new DateOnly(1988, 11, 23),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
 					State="QLD",
@@ -130,7 +138,8 @@ namespace IntegrationTests
 				Name = "Some One",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = DateTime.Now.AddYears(-20),
+				DOB = new DateOnly(1988, 11, 23),
+				Baptised= DateTimeOffset.Now.Date.AddYears(-20),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
 					State="QLD",
@@ -155,7 +164,7 @@ namespace IntegrationTests
 				Name = "Exception",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = DateTime.Now.AddYears(-20),
+				DOB = new DateOnly(1988, 11, 23),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
 					State="QLD",
@@ -186,7 +195,7 @@ namespace IntegrationTests
 				Name = "Some One",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = DateTime.Now.AddYears(-20),
+				DOB = new DateOnly(1988, 11, 23),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
 					State="QLD",

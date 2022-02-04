@@ -768,7 +768,7 @@ namespace Fonlow.Poco2Client
 					RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}", regularExpression.Pattern);
 				}
-			},
+			}
 		};
 
 		void AddValidationAttributes(MemberInfo property, CodeTypeMember codeTypeMember, bool requiredAdded)
@@ -901,7 +901,21 @@ namespace Fonlow.Poco2Client
 					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.StringLength", attributeParams.ToArray());
 				}
 			},
-			// not to support DataTypeAttribute and RegularExpressionAttribute since they are more of UI constraints.
+			{ typeof(DataTypeAttribute), a =>
+				{
+					var obj= a as DataTypeAttribute;
+					var dataType = new CodeSnippetExpression("System.ComponentModel.DataAnnotations.DataType." + obj.DataType.ToString());
+					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(dataType) };
+					if (!String.IsNullOrEmpty(obj.ErrorMessage))
+					{
+					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
+					}
+
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.DataType", attributeParams.ToArray());
+				}
+			},
+			// not to support RegularExpressionAttribute since they are more of UI constraints.
 		};
 
 

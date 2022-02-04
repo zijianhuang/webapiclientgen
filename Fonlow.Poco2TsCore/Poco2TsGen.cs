@@ -21,23 +21,28 @@ namespace Fonlow.Poco2Ts
 	{
 		readonly CodeCompileUnit targetUnit;
 
+		readonly string ClientNamespaceSuffix;
+
 		/// <summary>
 		/// Init with its own CodeCompileUnit.
 		/// </summary>
-		public Poco2TsGen()
+		public Poco2TsGen(string clientNamespaceSuffix)
 		{
 			targetUnit = new CodeCompileUnit();
 			pendingTypes = new List<Type>();
+			this.ClientNamespaceSuffix = clientNamespaceSuffix;
 		}
 
 		/// <summary>
 		/// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.
 		/// </summary>
 		/// <param name="codeCompileUnit"></param>
-		public Poco2TsGen(CodeCompileUnit codeCompileUnit)
+		/// <param name="clientNamespaceSuffix"></param>
+		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix)
 		{
 			targetUnit = codeCompileUnit;
 			pendingTypes = new List<Type>();
+			this.ClientNamespaceSuffix = clientNamespaceSuffix;
 		}
 
 
@@ -86,16 +91,14 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
-		string clientNamespaceSuffix;
 		bool dataAnnotationsToComments;
 
-		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, string clientNamespaceSuffix, bool dataAnnotationsToComments)
+		public void CreateCodeDomInAssembly(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, bool dataAnnotationsToComments)
 		{
 			this.docLookup = docLookup;
-			this.clientNamespaceSuffix = clientNamespaceSuffix;
 			this.dataAnnotationsToComments = dataAnnotationsToComments;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
-			CreateCodeDom(cherryTypes, methods, clientNamespaceSuffix);
+			CreateCodeDom(cherryTypes, methods);
 		}
 
 		DocCommentLookup docLookup;
@@ -157,8 +160,7 @@ namespace Fonlow.Poco2Ts
 		/// </summary>
 		/// <param name="types">POCO types.</param>
 		/// <param name="methods"></param>
-		/// <param name="clientNamespaceSuffix"></param>
-		public void CreateCodeDom(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
+		public void CreateCodeDom(Type[] types, CherryPickingMethods methods)
 		{
 			if (types == null)
 				throw new ArgumentNullException("types", "types is not defined.");
@@ -170,7 +172,7 @@ namespace Fonlow.Poco2Ts
 			var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
 			foreach (var groupedTypes in typeGroupedByNamespace)
 			{
-				var clientNamespaceText = (groupedTypes.Key + clientNamespaceSuffix).Replace('.', '_');
+				var clientNamespaceText = (groupedTypes.Key + ClientNamespaceSuffix).Replace('.', '_');
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
 				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
@@ -528,7 +530,7 @@ namespace Fonlow.Poco2Ts
 
 		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace.Replace('.', '_') + clientNamespaceSuffix.Replace('.', '_') + "." + t.Name;
+			return t.Namespace.Replace('.', '_') + ClientNamespaceSuffix.Replace('.', '_') + "." + t.Name;
 		}
 
 		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)

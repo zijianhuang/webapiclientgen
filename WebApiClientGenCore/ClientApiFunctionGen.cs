@@ -362,7 +362,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
@@ -406,7 +406,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
 			}
 			else if (returnType.IsPrimitive)
@@ -420,7 +420,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
@@ -430,7 +430,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
@@ -440,7 +440,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("new JsonSerializer()")));
+					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));

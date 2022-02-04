@@ -6,18 +6,18 @@
     <Authors>Zijian Huang</Authors>
     <Company />
     <Product>Fonlow TypeScript CodeDOM for .NET Core</Product>
-    <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>
+    <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
     <Description>Simple build of Fonlow.TypeScriptCodeDOM for .NET Core. TypeScript CodeDOM has TypeScriptCodeProvider implementing ICodeGenerator which has been used in POCO2TS.exe and Strongly Typed Client API for Web API. Help: https://github.com/zijianhuang/webapiclientgen/wiki/TypeScript-CodeDOM</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
-    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
+    <PackageReleaseNotes>* .NET 6; * Support DateOnly</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.5</Version>
-    <AssemblyVersion>2.5.0.0</AssemblyVersion>
-    <FileVersion>2.5.0.0</FileVersion>
+    <Version>2.6</Version>
+    <AssemblyVersion>2.6.0.0</AssemblyVersion>
+    <FileVersion>2.6.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>https://raw.githubusercontent.com/zijianhuang/webapiclientgen/master/Doc/icons/TypeScriptCodeDOM64.png</PackageIconUrl>
   </PropertyGroup>

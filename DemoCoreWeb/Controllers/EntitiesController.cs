@@ -27,7 +27,7 @@ namespace DemoWebApi.Controllers
 				Surname = "Huang",
 				GivenName = "Z",
 				Name = "Z Huang",
-				DOB = DateTime.Now.AddYears(-20),
+				DOB = new DateOnly(1988,12, 31),
 			};
 		}
 
@@ -40,7 +40,7 @@ namespace DemoWebApi.Controllers
 				Surname = "Huang",
 				GivenName = "Z",
 				Name = "Z Huang",
-				DOB = DateTime.Now.AddYears(-20),
+				DOB = new DateOnly(2013, 11,24),
 			};
 		}
 

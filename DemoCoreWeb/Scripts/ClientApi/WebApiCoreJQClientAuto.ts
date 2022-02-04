@@ -107,6 +107,7 @@ namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface Person extends DemoWebApi_DemoData_Client.Entity {
+		baptised?: Date;
 
 		/**
 		 * Date of Birth.

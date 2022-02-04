@@ -27,8 +27,8 @@ namespace Fonlow.Poco2Ts
 				return;
 
 			var lookup = Fonlow.DocComment.DocCommentLookup.Create(DocComment.DocCommentLookup.GetXmlPath(assembly));
-			var gen = new Poco2TsGen();
-			gen.CreateCodeDom(assembly, methods, lookup, clientNamespaceSuffix, dataAnnotationsToComments);
+			var gen = new Poco2TsGen(clientNamespaceSuffix);
+			gen.CreateCodeDomInAssembly(assembly, methods, lookup, dataAnnotationsToComments);
 			gen.SaveCodeToFile(tsFilePath);
 			var msg = $"{tsFilePath} is generated.";
 			Console.WriteLine(msg);

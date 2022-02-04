@@ -17,8 +17,8 @@ namespace Poco2TsTests
 	{
 		static void Verify(Type type, string expected)
 		{
-			var gen = new Poco2TsGen();
-			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract, ".Client");
+			var gen = new Poco2TsGen(".Client");
+			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
 			using (var writer = new StringWriter())
 			{
 				gen.WriteCode(writer);
@@ -29,8 +29,8 @@ namespace Poco2TsTests
 
 		static void VerifyJson(Type type, string expected)
 		{
-			var gen = new Poco2TsGen();
-			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson, ".Client");
+			var gen = new Poco2TsGen(".Client");
+			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson);
 			using (var writer = new StringWriter())
 			{
 				gen.WriteCode(writer);
@@ -45,6 +45,23 @@ namespace Poco2TsTests
 			Verify(typeof(DemoWebApi.DemoData.AddressType),
 @"export namespace DemoWebApi_DemoData_Client {
 	export enum AddressType { Postal, Residential }
+
+}
+
+");
+		}
+
+		[Fact]
+		public void TestPerson()
+		{
+			Verify(typeof(DemoWebApi.DemoData.Person),
+@"export namespace DemoWebApi_DemoData_Client {
+	export interface Person extends DemoWebApi_DemoData_Client.Entity {
+		Baptised?: Date;
+		DOB?: Date;
+		GivenName?: string;
+		Surname?: string;
+	}
 
 }
 
@@ -133,6 +150,21 @@ namespace Poco2TsTests
 			Assert.False(t.IsGenericTypeDefinition);
 			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
 			Assert.Equal(typeof(DateTime), t.GetGenericArguments()[0]);
+			Assert.True(IsNullablePrimitive(t));
+
+		}
+
+		[Fact]
+		public void TestNullableDateOnly()
+		{
+			var t = typeof(DateOnly?);
+			Assert.True(t.IsGenericType);
+			Assert.False(t.IsGenericTypeDefinition);
+			var nullableType = typeof(Nullable<>);
+			Assert.True(t.IsGenericType);
+			Assert.False(t.IsGenericTypeDefinition);
+			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
+			Assert.Equal(typeof(DateOnly), t.GetGenericArguments()[0]);
 			Assert.True(IsNullablePrimitive(t));
 
 		}

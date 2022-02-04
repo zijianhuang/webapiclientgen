@@ -16,9 +16,9 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 		}
 
-		protected override Fonlow.Poco2Client.IPoco2Client CreatePoco2TsGen()
+		protected override Fonlow.Poco2Client.IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix)
 		{
-			return new Fonlow.Poco2Ts.PocoToTsNgGen(TargetUnit);
+			return new Fonlow.Poco2Ts.PocoToTsNgGen(TargetUnit, clientNamespaceSuffix);
 		}
 
 		protected override void AddBasicReferences()

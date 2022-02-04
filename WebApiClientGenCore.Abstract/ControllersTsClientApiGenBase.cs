@@ -33,7 +33,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.apiFunctionGen = apiFunctionGen;
 			this.apiSelections = jsOutput.ApiSelections;
 			TargetUnit = new CodeCompileUnit();
-			poco2TsGen = CreatePoco2TsGen();
+			poco2TsGen = CreatePoco2TsGen(jsOutput.ClientNamespaceSuffix);
 
 			TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
 			options.BracingStyle = "JS";
@@ -46,7 +46,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// jQuery and NG@ have slightly different fine grained types for returns
 		/// </summary>
 		/// <returns></returns>
-		abstract protected IPoco2Client CreatePoco2TsGen();
+		abstract protected IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix);
 
 		readonly IPoco2Client poco2TsGen;
 
@@ -148,7 +148,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-					poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix, jsOutput.DataAnnotationsToComments);
+					poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, jsOutput.DataAnnotationsToComments);
 				}
 			}
 			if (apiSelections.DataModels != null)
@@ -162,7 +162,7 @@ namespace Fonlow.CodeDom.Web.Ts
 						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-						poco2TsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, jsOutput.ClientNamespaceSuffix, jsOutput.DataAnnotationsToComments);
+						poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, jsOutput.DataAnnotationsToComments);
 					}
 				}
 			}

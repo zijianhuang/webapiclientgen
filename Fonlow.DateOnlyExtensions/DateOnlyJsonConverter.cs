@@ -7,7 +7,12 @@ using System.Reflection;
 
 namespace Fonlow.DateOnlyExtensions
 {
-	public sealed class DateOnlyJsonConverter : JsonConverter<DateOnly> //thanks to https://kevsoft.net/2021/05/22/formatting-dateonly-types-as-iso-8601-in-asp-net-core-responses.html
+	///thanks to https://kevsoft.net/2021/05/22/formatting-dateonly-types-as-iso-8601-in-asp-net-core-responses.html
+	///However, not really working probably because Kevin wrote the article with .NET 6 Preview which behaves differently from .NET 6 official release.
+
+
+
+	public sealed class DateOnlyJsonConverter : JsonConverter<DateOnly>
 	{
 		public override void WriteJson(JsonWriter writer, DateOnly value, JsonSerializer serializer)
 		{
@@ -21,13 +26,19 @@ namespace Fonlow.DateOnlyExtensions
 				return existingValue;
 			}
 
-			var v = reader.Value; // string
+			var v = reader.Value;
 			if (v == null)
 			{
 				return DateOnly.MinValue;
 			}
 
-			return DateOnly.Parse((string)v);
+			var vType = v.GetType();
+			if (vType == typeof(string))
+			{
+				return DateOnly.Parse((string)v);
+			}
+
+			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
 		}
 	}
 
@@ -49,13 +60,62 @@ namespace Fonlow.DateOnlyExtensions
 				return existingValue;
 			}
 
-			var v = reader.Value; // string
+			var v = reader.Value;
 			if (v == null)
 			{
 				return null;
 			}
 
-			return DateOnly.Parse((string)v);
+			var vType = v.GetType();
+			if (vType == typeof(string))
+			{
+				return DateOnly.Parse((string)v);
+			}
+
+			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
+		}
+	}
+
+	public sealed class DateTimeOffsetJsonConverter : JsonConverter<DateTimeOffset>
+	{
+		public override void WriteJson(JsonWriter writer, DateTimeOffset value, JsonSerializer serializer)
+		{
+			if (value.TimeOfDay == TimeSpan.Zero)
+			{
+				writer.WriteValue(value.ToString("yyyy-MM-dd"));
+			}
+			else
+			{
+				writer.WriteValue(value.ToString("O"));
+			}
+		}
+
+		public override DateTimeOffset ReadJson(JsonReader reader, Type objectType, DateTimeOffset existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			if (hasExistingValue)
+			{
+				return existingValue;
+			}
+
+			var v = reader.Value;
+			if (v == null)
+			{
+				return DateTimeOffset.MinValue;
+			}
+
+			var vType = v.GetType();
+
+			if (vType == typeof(DateTime)) //when the object is from a property
+			{
+				return new DateTimeOffset((DateTime)v);
+			}
+
+			if (vType == typeof(string)) // when the object is from a standalone DateTimeOffset object
+			{
+				return DateTimeOffset.Parse((string)v);
+			}
+
+			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
 		}
 	}
 
@@ -79,37 +139,30 @@ namespace Fonlow.DateOnlyExtensions
 		public override DateTimeOffset? ReadJson(JsonReader reader, Type objectType, DateTimeOffset? existingValue, bool hasExistingValue,
 			JsonSerializer serializer)
 		{
+			if (hasExistingValue)
+			{
+				return existingValue;
+			}
+
 			var v = reader.Value;
 			if (v == null)
 			{
 				return null;
 			}
-			return new DateTimeOffset((DateTime)v);
-		}
-	}
 
-	public sealed class DateTimeOffsetJsonConverter : JsonConverter<DateTimeOffset>
-	{
-		public override void WriteJson(JsonWriter writer, DateTimeOffset value, JsonSerializer serializer)
-		{
-			if (value.TimeOfDay == TimeSpan.Zero)
-			{
-				writer.WriteValue(value.ToString("yyyy-MM-dd"));
-			}
-			else
-			{
-				writer.WriteValue(value.ToString("O"));
-			}
-		}
+			var vType = v.GetType();
 
-		public override DateTimeOffset ReadJson(JsonReader reader, Type objectType, DateTimeOffset existingValue, bool hasExistingValue, JsonSerializer serializer)
-		{
-			var v = reader.Value;
-			if (v == null)
+			if (vType == typeof(DateTime))
 			{
-				return DateTimeOffset.MinValue;
+				return new DateTimeOffset((DateTime)v);
 			}
-			return new DateTimeOffset((DateTime)v);
+
+			if (vType == typeof(string))
+			{
+				return DateTimeOffset.Parse((string)v);
+			}
+
+			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
 		}
 	}
 

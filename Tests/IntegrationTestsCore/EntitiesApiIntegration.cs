@@ -33,10 +33,10 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
-			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-			//jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
-			//jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
-			//jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
 
 			Api = new DemoWebApi.Controllers.Client.Entities(httpClient, jsonSerializerSettings);
 		}
@@ -105,6 +105,8 @@ namespace IntegrationTests
 
 			var a = api.CreatePerson3(person, (headers)=> { headers.Add("middle", "Hey"); });
 			Assert.Equal("Hey", a.GivenName);
+			Assert.Equal(person.DOB, a.DOB);
+			Assert.Equal(person.Baptised, a.Baptised);
 		}
 
 		[Fact]
@@ -220,7 +222,7 @@ namespace IntegrationTests
 			Assert.NotNull(person);
 			Assert.Equal("Huang", person.Surname);
 			Assert.True(person.DOB.HasValue);
-			Assert.Equal(2014, person.Baptised.Value.Year);
+			Assert.Null(person.Baptised);
 			Assert.Equal(1988, person.DOB.Value.Year);
 		}
 

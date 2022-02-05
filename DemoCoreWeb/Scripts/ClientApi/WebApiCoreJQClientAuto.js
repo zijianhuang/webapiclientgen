@@ -614,6 +614,18 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/SuperDemo/Collection', list, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * POST api/SuperDemo/DateOnly
+         */
+        postDateOnly(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/DateOnly', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/SuperDemo/DateOnlyNullable
+         */
+        postDateOnlyNullable(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/DateOnlyNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
          * POST api/SuperDemo/DateTimeOffset
          */

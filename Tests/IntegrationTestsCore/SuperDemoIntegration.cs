@@ -363,7 +363,7 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestPostDateTimeOffsetWithNull()
+		public void TestPostDateTimeOffsetNullableWithNull()
 		{
 			var r = api.PostDateTimeOffsetNullable(null);
 			Assert.Null(r);
@@ -377,6 +377,20 @@ namespace IntegrationTests
 			Assert.Equal(dateOnly, r);
 		}
 
+		[Fact]
+		public void TestPostDateOnlyNullable()
+		{
+			var dateOnly = new DateOnly(1988, 12, 23);
+			var r = api.PostDateOnlyNullable(dateOnly);
+			Assert.Equal(dateOnly, r);
+		}
+
+		[Fact]
+		public void TestPostDateOnlyNullableWithNull()
+		{
+			var r = api.PostDateOnlyNullable(null);
+			Assert.Null(r);
+		}
 
 		[Fact]
 		public void TestGetNullableDecimal()

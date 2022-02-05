@@ -873,6 +873,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/SuperDemo/DateOnlyNullable
+		 */
+		postDateOnlyNullable(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/SuperDemo/DateOnlyNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
 		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		 * POST api/SuperDemo/DateTimeOffset
 		 */

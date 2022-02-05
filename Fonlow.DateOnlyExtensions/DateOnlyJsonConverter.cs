@@ -14,10 +14,20 @@ namespace Fonlow.DateOnlyExtensions
 			writer.WriteValue(value.ToString("O"));
 		}
 
-		public override DateOnly ReadJson(JsonReader reader, Type objectType, DateOnly existingValue, bool hasExistingValue,
-			JsonSerializer serializer)
+		public override DateOnly ReadJson(JsonReader reader, Type objectType, DateOnly existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			return DateOnly.FromDateTime(reader.ReadAsDateTime().Value);
+			if (hasExistingValue)
+			{
+				return existingValue;
+			}
+
+			var v = reader.Value; // string
+			if (v == null)
+			{
+				return DateOnly.MinValue;
+			}
+
+			return DateOnly.Parse((string)v);
 		}
 	}
 
@@ -34,12 +44,18 @@ namespace Fonlow.DateOnlyExtensions
 		public override DateOnly? ReadJson(JsonReader reader, Type objectType, DateOnly? existingValue, bool hasExistingValue,
 			JsonSerializer serializer)
 		{
-			if (existingValue.HasValue)
+			if (hasExistingValue)
 			{
-				return DateOnly.FromDateTime(reader.ReadAsDateTime().Value);
+				return existingValue;
 			}
 
-			return null;
+			var v = reader.Value; // string
+			if (v == null)
+			{
+				return null;
+			}
+
+			return DateOnly.Parse((string)v);
 		}
 	}
 
@@ -68,10 +84,7 @@ namespace Fonlow.DateOnlyExtensions
 			{
 				return null;
 			}
-#pragma warning disable CS8605 // Unboxing a possibly null value.
 			return new DateTimeOffset((DateTime)v);
-#pragma warning restore CS8605 // Unboxing a possibly null value.
-
 		}
 	}
 
@@ -96,9 +109,7 @@ namespace Fonlow.DateOnlyExtensions
 			{
 				return DateTimeOffset.MinValue;
 			}
-#pragma warning disable CS8605 // Unboxing a possibly null value.
 			return new DateTimeOffset((DateTime)v);
-#pragma warning restore CS8605 // Unboxing a possibly null value.
 		}
 	}
 

@@ -33,6 +33,11 @@ namespace Fonlow.DateOnlyExtensions
 			}
 
 			var vType = v.GetType();
+			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
+			{
+				return DateOnly.FromDateTime((DateTime)v);
+			}
+
 			if (vType == typeof(string))
 			{
 				return DateOnly.Parse((string)v);
@@ -67,6 +72,11 @@ namespace Fonlow.DateOnlyExtensions
 			}
 
 			var vType = v.GetType();
+			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
+			{
+				return DateOnly.FromDateTime((DateTime)v);
+			}
+
 			if (vType == typeof(string))
 			{
 				return DateOnly.Parse((string)v);
@@ -105,12 +115,12 @@ namespace Fonlow.DateOnlyExtensions
 
 			var vType = v.GetType();
 
-			if (vType == typeof(DateTime)) //when the object is from a property
+			if (vType == typeof(DateTime)) //when the object is from a property in POST body
 			{
 				return new DateTimeOffset((DateTime)v);
 			}
 
-			if (vType == typeof(string)) // when the object is from a standalone DateTimeOffset object
+			if (vType == typeof(string)) // when the object is from a standalone DateTimeOffset object in POST body
 			{
 				return DateTimeOffset.Parse((string)v);
 			}

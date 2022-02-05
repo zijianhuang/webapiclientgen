@@ -560,6 +560,100 @@ describe('SuperDemo API', () => {
 	}
 	);
 
+	it('postDateTimeOffset', (done) => {
+		const dt = new Date(Date.now());
+		service.postDateTimeOffset(dt).subscribe(
+			data => {
+				expect(new Date(data)).toEqual(dt);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateTimeOffsetWithNull', (done) => {
+		service.postDateTimeOffset(null).subscribe(
+			data => {
+				expect(data).not.toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateTimeOffsetNullable', (done) => {
+		const dt = new Date(Date.now());
+		service.postDateTimeOffsetNullable(dt).subscribe(
+			data => {
+				expect(new Date(data)).toEqual(dt);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateTimeOffsetNullableWithNull', (done) => {
+		service.postDateTimeOffsetNullable(null).subscribe(
+			data => {
+				expect(data).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateTimeOffsetNullableWithUndefined', (done) => {
+		service.postDateTimeOffsetNullable(undefined).subscribe(
+			data => {
+				expect(data).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateOnly', (done) => {
+		const dt = new Date(Date.parse('2018-12-23'));
+		service.postDateOnly(dt).subscribe(
+			data => {
+				expect(data).toEqual(dt);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+
 	it('getNullableDecimal', (done) => {
 		service.getNullableDecimal(true).subscribe(
 			data => {

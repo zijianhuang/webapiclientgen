@@ -264,7 +264,8 @@ describe('entities API', () => {
 			name: 'John Smith' + Date.now().toString(),
 			givenName: 'John',
 			surname: 'Smith',
-			dob: new Date('1977-12-28')
+			dob: new Date('1969-12-28'),
+			baptised: new Date('1980-01-31'),
 		};
 
 		client.createPerson(newPerson)
@@ -288,13 +289,18 @@ describe('entities API', () => {
 			name: 'John Smith' + Date.now().toString(),
 			givenName: 'John',
 			surname: 'Smith',
-			dob: new Date('1977-12-28')
+			dob: new Date('1969-12-28'),
+			baptised: new Date('1980-01-30'),
 		};
 
 		client.createPerson3(newPerson, () => new HttpHeaders({ middle: 'HaHa' }))
 			.subscribe(
 				data => {
 					expect(data.givenName).toBe('HaHa');
+					const d1: any = data.dob;
+					const d2: any = data.baptised;
+					expect(d1).toEqual('1969-12-28');
+					expect(d2).toEqual('1980-01-30');
 					done();
 				},
 				error => {
@@ -638,10 +644,11 @@ describe('SuperDemo API', () => {
 	);
 
 	it('postDateOnly', (done) => {
-		const dt = new Date(Date.parse('2018-12-23'));
+		const dt = new Date(Date.parse('2018-12-23')); //JS will serialize it to 2018-12-23T00:00:00.000Z.
 		service.postDateOnly(dt).subscribe(
 			data => {
-				expect(data).toEqual(dt);
+				const v: any = data; //string 2008-12-23
+				expect(v).toEqual('2018-12-23');
 				done();
 			},
 			error => {
@@ -653,6 +660,68 @@ describe('SuperDemo API', () => {
 	}
 	);
 
+	it('postDateOnlyWithNull', (done) => {
+		service.postDateOnly(null).subscribe(
+			data => {
+				const v: any = data;
+				expect(v).toEqual('0001-01-01');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateOnlyNullable', (done) => {
+		const dt = new Date(Date.parse('2018-12-23'));
+		service.postDateOnlyNullable(dt).subscribe(
+			data => {
+				const v: any = data;
+				expect(v).toEqual('2018-12-23');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateOnlyNullableWithNull', (done) => {
+		service.postDateOnlyNullable(null).subscribe(
+			data => {
+				expect(data).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateOnlyNullableWithUndefined', (done) => {
+		service.postDateOnlyNullable(null).subscribe(
+			data => {
+				expect(data).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
 
 	it('getNullableDecimal', (done) => {
 		service.getNullableDecimal(true).subscribe(

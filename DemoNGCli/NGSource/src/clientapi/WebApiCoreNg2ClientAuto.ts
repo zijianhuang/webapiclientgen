@@ -883,15 +883,15 @@ export namespace DemoWebApi_Controllers_Client {
 		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		 * POST api/SuperDemo/DateTimeOffset
 		 */
-		postDateTimeOffset(d: Date, headersHandler?: () => HttpHeaders): Observable<boolean> {
-			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		postDateTimeOffset(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/DateTimeOffsetNullable
 		 */
-		postDateTimeOffsetNullable(d: Date, headersHandler?: () => HttpHeaders): Observable<boolean> {
-			return this.http.post<boolean>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		postDateTimeOffsetNullable(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**

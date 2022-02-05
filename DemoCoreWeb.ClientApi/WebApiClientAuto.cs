@@ -5979,7 +5979,7 @@ namespace DemoWebApi.Controllers.Client
 		/// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		/// POST api/SuperDemo/DateTimeOffset
 		/// </summary>
-		public async Task<bool> PostDateTimeOffsetAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<System.DateTimeOffset> PostDateTimeOffsetAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DateTimeOffset";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -6002,7 +6002,8 @@ namespace DemoWebApi.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-				return System.Boolean.Parse(jsonReader.ReadAsString());
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -6017,7 +6018,7 @@ namespace DemoWebApi.Controllers.Client
 		/// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		/// POST api/SuperDemo/DateTimeOffset
 		/// </summary>
-		public bool PostDateTimeOffset(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public System.DateTimeOffset PostDateTimeOffset(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DateTimeOffset";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -6040,7 +6041,8 @@ namespace DemoWebApi.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-				return System.Boolean.Parse(jsonReader.ReadAsString());
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -6054,7 +6056,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/DateTimeOffsetNullable
 		/// </summary>
-		public async Task<bool> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<System.Nullable<System.DateTimeOffset>> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DateTimeOffsetNullable";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -6077,7 +6079,8 @@ namespace DemoWebApi.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-				return System.Boolean.Parse(jsonReader.ReadAsString());
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader);
 				}
 			}
 			finally
@@ -6091,7 +6094,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/DateTimeOffsetNullable
 		/// </summary>
-		public bool PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public System.Nullable<System.DateTimeOffset> PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DateTimeOffsetNullable";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -6114,7 +6117,8 @@ namespace DemoWebApi.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
-				return System.Boolean.Parse(jsonReader.ReadAsString());
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader);
 				}
 			}
 			finally

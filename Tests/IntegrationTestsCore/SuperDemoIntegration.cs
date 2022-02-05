@@ -24,6 +24,7 @@ namespace IntegrationTests
 
 			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
 
 			Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, jsonSerializerSettings);
@@ -348,22 +349,24 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostDateTimeOffset()
 		{
-			var r = api.PostDateTimeOffset(DateTimeOffset.Now);
-			Assert.True(r);
+			var p = DateTimeOffset.Now;
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
 		}
 
 		[Fact]
 		public void TestPostDateTimeOffsetNullable()
 		{
-			var r = api.PostDateTimeOffsetNullable(DateTimeOffset.Now);
-			Assert.True(r);
+			var p = DateTimeOffset.Now;
+			var r = api.PostDateTimeOffsetNullable(p);
+			Assert.Equal(p, r);
 		}
 
 		[Fact]
 		public void TestPostDateTimeOffsetWithNull()
 		{
 			var r = api.PostDateTimeOffsetNullable(null);
-			Assert.False(r);
+			Assert.Null(r);
 		}
 
 		[Fact]

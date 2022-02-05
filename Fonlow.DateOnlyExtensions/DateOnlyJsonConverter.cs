@@ -21,7 +21,7 @@ namespace Fonlow.DateOnlyExtensions
 		}
 	}
 
-	public sealed class DateOnlyNullableJsonConverter : JsonConverter<DateOnly?> 
+	public sealed class DateOnlyNullableJsonConverter : JsonConverter<DateOnly?>
 	{
 		public override void WriteJson(JsonWriter writer, DateOnly? value, JsonSerializer serializer)
 		{
@@ -63,12 +63,15 @@ namespace Fonlow.DateOnlyExtensions
 		public override DateTimeOffset? ReadJson(JsonReader reader, Type objectType, DateTimeOffset? existingValue, bool hasExistingValue,
 			JsonSerializer serializer)
 		{
-			if (existingValue.HasValue)
+			var v = reader.Value;
+			if (v == null)
 			{
-				return reader.ReadAsDateTimeOffset();
+				return null;
 			}
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+			return new DateTimeOffset((DateTime)v);
+#pragma warning restore CS8605 // Unboxing a possibly null value.
 
-			return null;
 		}
 	}
 
@@ -86,10 +89,16 @@ namespace Fonlow.DateOnlyExtensions
 			}
 		}
 
-		public override DateTimeOffset ReadJson(JsonReader reader, Type objectType, DateTimeOffset existingValue, bool hasExistingValue,
-			JsonSerializer serializer)
+		public override DateTimeOffset ReadJson(JsonReader reader, Type objectType, DateTimeOffset existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			return reader.ReadAsDateTimeOffset().Value;
+			var v = reader.Value;
+			if (v == null)
+			{
+				return DateTimeOffset.MinValue;
+			}
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+			return new DateTimeOffset((DateTime)v);
+#pragma warning restore CS8605 // Unboxing a possibly null value.
 		}
 	}
 

@@ -41,6 +41,7 @@ namespace DemoWebApi.Controllers
 				GivenName = "Z",
 				Name = "Z Huang",
 				DOB = new DateOnly(2013, 11,24),
+				Baptised= DateTimeOffset.Parse("2014-11-23"),
 			};
 		}
 

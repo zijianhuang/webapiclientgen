@@ -33,9 +33,10 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
-			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			//jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			//jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
+			//jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
 
 			Api = new DemoWebApi.Controllers.Client.Entities(httpClient, jsonSerializerSettings);
 		}
@@ -219,7 +220,8 @@ namespace IntegrationTests
 			Assert.NotNull(person);
 			Assert.Equal("Huang", person.Surname);
 			Assert.True(person.DOB.HasValue);
-			Assert.Equal(DateTime.Now.Year - 20, person.DOB.Value.Year);
+			Assert.Equal(2014, person.Baptised.Value.Year);
+			Assert.Equal(1988, person.DOB.Value.Year);
 		}
 
 		[Fact]

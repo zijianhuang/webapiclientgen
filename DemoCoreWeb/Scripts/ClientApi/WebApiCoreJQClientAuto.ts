@@ -878,14 +878,14 @@ namespace DemoWebApi_Controllers_Client {
 		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
 		 * POST api/SuperDemo/DateTimeOffset
 		 */
-		postDateTimeOffset(d: Date, callback: (data : boolean) => any, headersHandler?: () => {[header: string]: string}) {
+		postDateTimeOffset(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**
 		 * POST api/SuperDemo/DateTimeOffsetNullable
 		 */
-		postDateTimeOffsetNullable(d: Date, callback: (data : boolean) => any, headersHandler?: () => {[header: string]: string}) {
+		postDateTimeOffsetNullable(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 

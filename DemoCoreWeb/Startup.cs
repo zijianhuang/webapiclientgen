@@ -18,7 +18,7 @@ namespace DemoCoreWeb
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc(
+			services.AddControllers(
 				options =>
 				{
 #if DEBUG
@@ -26,13 +26,15 @@ namespace DemoCoreWeb
 #endif
 				}
 			)
-			.AddNewtonsoftJson(options =>
-			{
-				options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-				options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
-				options.SerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
-				options.SerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
-			});//needed for some special data types which .net core 3.x json lib could not handle well.
+			.AddNewtonsoftJson(
+				options =>
+				{
+					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+					options.SerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
+					options.SerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+				}
+			);//needed for some special data types which .net core 3.x json lib could not handle well.
 
 			services.AddRouting();
 			services.AddCors();

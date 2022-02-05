@@ -88,16 +88,16 @@ namespace DemoWebApi.Controllers
 		/// <returns></returns>
 		[HttpPost]
 		[Route("DateTimeOffset")]
-		public bool PostDateTimeOffset([FromBody] DateTimeOffset d)
+		public DateTimeOffset PostDateTimeOffset([FromBody] DateTimeOffset d)
 		{
-			return (DateTimeOffset.Now - d) < TimeSpan.FromSeconds(2);
+			return d;
 		}
 
 		[HttpPost]
 		[Route("DateTimeOffsetNullable")]
-		public bool PostDateTimeOffsetNullable([FromBody] DateTimeOffset? d)
+		public DateTimeOffset? PostDateTimeOffsetNullable([FromBody] DateTimeOffset? d)
 		{
-			return d.HasValue;
+			return d;
 		}
 
 		[HttpPost]

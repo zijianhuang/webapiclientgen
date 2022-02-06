@@ -26,6 +26,8 @@ namespace DemoWebApi_DemoData_Client {
 		 */
 		BusinessNum?: string;
 		businessNumberType?: string;
+		foundDate?: Date;
+		registerDate?: Date;
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;
@@ -297,6 +299,13 @@ namespace DemoCoreWeb_Controllers_Client {
 namespace DemoWebApi_Controllers_Client {
 	export class Entities {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
+		}
+
+		/**
+		 * POST api/Entities/createCompany
+		 */
+		createCompany(p: DemoWebApi_DemoData_Client.Company, callback: (data : DemoWebApi_DemoData_Client.Company) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/Entities/createCompany', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**

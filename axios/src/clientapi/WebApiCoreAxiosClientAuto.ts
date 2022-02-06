@@ -26,6 +26,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		BusinessNum?: string;
 		businessNumberType?: string;
+		foundDate?: Date;
+		registerDate?: Date;
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;
@@ -297,6 +299,13 @@ export namespace DemoCoreWeb_Controllers_Client {
 export namespace DemoWebApi_Controllers_Client {
 	export class Entities {
 		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
+		}
+
+		/**
+		 * POST api/Entities/createCompany
+		 */
+		createCompany(p: DemoWebApi_DemoData_Client.Company, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {
+			return Axios.post<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/createCompany', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data);
 		}
 
 		/**

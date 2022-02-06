@@ -110,6 +110,38 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestCreateCompany()
+		{
+			DateOnly regDate = DateOnly.FromDateTime(DateTime.Today.AddDays(-1));
+			DateTimeOffset foundDate = DateTimeOffset.Now.Date.AddDays(-2);
+			Company c = new Company
+			{
+				Name = "Super Co",
+				FoundDate = foundDate,
+				RegisterDate = regDate,
+			};
+
+			var a = api.CreateCompany(c);
+			Assert.NotNull(a.Id);
+			Assert.Equal(regDate, a.RegisterDate);
+			Assert.Equal(foundDate, a.FoundDate);
+		}
+
+		[Fact]
+		public void TestCreateCompany2()
+		{
+			Company c = new Company
+			{
+				Name = "Super Co",
+			};
+
+			var a = api.CreateCompany(c);
+			Assert.NotNull(a.Id);
+			Assert.Equal(DateOnly.MinValue, a.RegisterDate);
+			Assert.Equal(DateTimeOffset.MinValue, a.FoundDate);
+		}
+
+		[Fact]
 		public void TestPatch()
 		{
 			var r = api.PatchPerson(new Person()

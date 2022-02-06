@@ -151,6 +151,14 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
+		[HttpPost]
+		[Route("createCompany")]
+		public async Task<Company> CreateCompany([FromBody] Company p)
+		{
+			p.Id = Guid.NewGuid();
+			return p;
+		}
+
 
 		//[HttpGet]
 		//[Route("PersonActionNotFound")]

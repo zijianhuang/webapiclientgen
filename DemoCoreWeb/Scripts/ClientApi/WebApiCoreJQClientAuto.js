@@ -116,6 +116,12 @@ var DemoWebApi_Controllers_Client;
             this.statusCode = statusCode;
         }
         /**
+         * POST api/Entities/createCompany
+         */
+        createCompany(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createCompany', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * POST api/Entities/createPerson
          */
         createPerson(p, callback, headersHandler) {

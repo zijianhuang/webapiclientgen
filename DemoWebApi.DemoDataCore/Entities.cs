@@ -154,7 +154,7 @@ namespace DemoWebApi.DemoData
 		}
 
 		[DataMember]
-		public Guid Id { get; set; }
+		public Guid? Id { get; set; }
 
 		/// <summary>
 		/// Name of the entity.
@@ -232,6 +232,13 @@ namespace DemoWebApi.DemoData
 
 		[DataMember]
 		public IEnumerable<string> Lines;
+
+		[DataMember]
+		public DateOnly RegisterDate { get; set; }
+
+		[DataMember]
+		[DataType(DataType.Date)]
+		public DateTimeOffset FoundDate { get; set; }
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]

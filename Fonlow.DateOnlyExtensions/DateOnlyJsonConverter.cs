@@ -20,11 +20,6 @@ namespace Fonlow.DateOnlyExtensions
 
 		public override DateOnly ReadJson(JsonReader reader, Type objectType, DateOnly existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			if (hasExistingValue)
-			{
-				return existingValue;
-			}
-
 			var v = reader.Value;
 			if (v == null)
 			{
@@ -39,7 +34,7 @@ namespace Fonlow.DateOnlyExtensions
 
 			if (vType == typeof(string))
 			{
-				return DateOnly.Parse((string)v);
+				return DateOnly.Parse((string)v); //DateOnly can parse 00001-01-01
 			}
 
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
@@ -101,11 +96,6 @@ namespace Fonlow.DateOnlyExtensions
 
 		public override DateTimeOffset ReadJson(JsonReader reader, Type objectType, DateTimeOffset existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			if (hasExistingValue)
-			{
-				return existingValue;
-			}
-
 			var v = reader.Value;
 			if (v == null)
 			{
@@ -121,7 +111,13 @@ namespace Fonlow.DateOnlyExtensions
 
 			if (vType == typeof(string)) // when the object is from a standalone DateTimeOffset object in POST body
 			{
-				return DateTimeOffset.Parse((string)v);
+				var vs = (string)v;
+				if (vs == "0001-01-01")
+				{
+					return DateTimeOffset.MinValue;
+				}
+
+				return DateTimeOffset.Parse(vs);
 			}
 
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
@@ -168,7 +164,13 @@ namespace Fonlow.DateOnlyExtensions
 
 			if (vType == typeof(string))
 			{
-				return DateTimeOffset.Parse((string)v);
+				var vs = (string)v;
+				if (vs == "0001-01-01")
+				{
+					return DateTimeOffset.MinValue;
+				}
+
+				return DateTimeOffset.Parse(vs);
 			}
 
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");

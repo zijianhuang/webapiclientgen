@@ -27,6 +27,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		BusinessNum?: string;
 		businessNumberType?: string;
+		foundDate?: Date;
+		registerDate?: Date;
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;
@@ -300,6 +302,13 @@ export namespace DemoWebApi_Controllers_Client {
 	@Injectable()
 	export class Entities {
 		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Entities/createCompany
+		 */
+		createCompany(p: DemoWebApi_DemoData_Client.Company, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Company> {
+			return this.http.post<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/createCompany', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**

@@ -26,6 +26,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		BusinessNum?: string;
 		businessNumberType?: string;
+		foundDate?: Date;
+		registerDate?: Date;
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;
@@ -299,6 +301,13 @@ export namespace DemoWebApi_Controllers_Client {
 	@autoinject()
 	export class Entities {
 		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Entities/createCompany
+		 */
+		createCompany(p: DemoWebApi_DemoData_Client.Company, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {
+			return this.http.post('api/Entities/createCompany', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**

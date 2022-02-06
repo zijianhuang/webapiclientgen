@@ -4,6 +4,16 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Zijian Huang</Authors>
+    <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
+    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+    <PackageTags>DateOnly DataTimeOffset</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

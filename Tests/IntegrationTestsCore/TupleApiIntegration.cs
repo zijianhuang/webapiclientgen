@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using Xunit;
+using Fonlow.DateOnlyExtensions;
 
 namespace IntegrationTests
 {
@@ -15,11 +16,17 @@ namespace IntegrationTests
 			{
 				BaseAddress = baseUri
 			};
-			//httpClient.DefaultRequestHeaders
-			//  .Accept
-			//  .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));//.net core has different behavior as described at https://github.com/zijianhuang/webapiclientgen/issues/26
+			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+			{
+				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+			};
 
-			Api = new DemoWebApi.Controllers.Client.Tuple(httpClient);
+			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+
+			Api = new DemoWebApi.Controllers.Client.Tuple(httpClient, jsonSerializerSettings);
 		}
 
 		public DemoWebApi.Controllers.Client.Tuple Api { get; private set; }
@@ -205,7 +212,9 @@ namespace IntegrationTests
 
 			Company c = new Company
 			{
-				Name = "My Co"
+				Name = "My Co",
+				FoundDate = DateTime.Now,
+				RegisterDate=new DateOnly(2020, 12, 23),
 			};
 
 			var r = api.LinkPersonCompany1(Tuple.Create(p, c));

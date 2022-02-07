@@ -195,7 +195,7 @@ namespace Fonlow.Reflection
 
 		public static bool IsValueType(Type t)
 		{
-			return t.IsPrimitive || t.Equals(typeOfString) || t.IsEnum || t.Equals(typeof(decimal)) || t.Equals(typeof(DateTime)) || t.Equals(typeof(DateTimeOffset)) || t.IsValueType;
+			return t.IsPrimitive || t.Equals(typeOfString) || t.IsEnum || t.Equals(typeof(decimal)) || t.Equals(typeof(DateTime)) || t.Equals(typeof(DateTimeOffset)) || t.Equals(typeof(DateOnly)) || t.IsValueType;
 		}
 
 		public static bool IsNullablePrimitive(Type t)

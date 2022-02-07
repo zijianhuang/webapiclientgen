@@ -1002,6 +1002,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/DateOnlyStringQuery?d={d}
+		 */
+		queryDateOnlyAsString(d: string, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
 		 * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
 		 */
 		searchDateRange(startDate: Date, endDate: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {

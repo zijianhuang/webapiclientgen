@@ -114,6 +114,20 @@ namespace DemoWebApi.Controllers
 			return d;
 		}
 
+		//[HttpGet]
+		//[Route("DateOnly")] until .NET 7? after ASP.NET core team fix the issue.
+		//public DateOnly QueryDateOnly([FromQuery] DateOnly d)
+		//{
+		//	return d;
+		//}
+
+		[HttpGet]
+		[Route("DateOnlyStringQuery")]
+		public DateOnly QueryDateOnlyAsString([FromQuery] string d)
+		{
+			return DateOnly.Parse(d);
+		}
+
 		[HttpGet]
 		[Route("NullableDecimal/{hasValue}")]
 		public async Task<Decimal?> GetNullableDecimal(bool hasValue)

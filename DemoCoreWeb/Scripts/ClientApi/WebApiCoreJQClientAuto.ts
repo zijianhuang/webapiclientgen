@@ -997,6 +997,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/DateOnlyStringQuery?d={d}
+		 */
+		queryDateOnlyAsString(d: string, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
 		 * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
 		 */
 		searchDateRange(startDate: Date, endDate: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {

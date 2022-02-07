@@ -769,6 +769,21 @@ namespace IntegrationTests
 			Assert.Equal(id1, r[0]);
 		}
 
+		//[Fact]
+		//public async void TestQueryDateOnly()
+		//{
+		//	DateOnly d = new DateOnly(2008, 12, 18);
+		//	var r = await api.QueryDateOnlyAsync(d);
+		//	Assert.Equal(d, r);
+		//}
+
+		[Fact]
+		public async void TestQueryDateOnlyString()
+		{
+			DateOnly d = new DateOnly(2008, 12, 18);
+			var r = await api.QueryDateOnlyAsStringAsync(d.ToString("O"));
+			Assert.Equal(d, r);
+		}
 
 
 	}

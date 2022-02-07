@@ -43,6 +43,8 @@ namespace Fonlow.CodeDom.Web
 		static readonly Type typeofDateTimeNullable = typeof(DateTime?);
 		static readonly Type typeofDateTimeOffset = typeof(DateTimeOffset);
 		static readonly Type typeofDateTimeOffsetNullable = typeof(DateTimeOffset?);
+		static readonly Type typeofDateOnly = typeof(DateOnly);
+		static readonly Type typeofDateOnlyNullable = typeof(DateOnly?);
 		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
 		public static string Transform(string newUriText, ParameterDescription d)
@@ -66,6 +68,20 @@ namespace Fonlow.CodeDom.Web
 					if (replaced == newUriText)
 					{
 						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
+					}
+
+					return replaced;
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateOnly)
+				{
+					return newUriText += $"{d.Name}=\" + {d.Name}.ToString(\"O\")+\"";
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateOnlyNullable)
+				{
+					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString(\"O\"):String.Empty)+\"");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToString(\"O\"):String.Empty)+\"");
 					}
 
 					return replaced;
@@ -107,6 +123,20 @@ namespace Fonlow.CodeDom.Web
 					if (replaced == newUriText)
 					{
 						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToUniversalTime().ToString(\"yyyy-MM-ddTHH:mm:ss.fffffffZ\"):String.Empty)+\"");
+					}
+
+					return replaced;
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateOnly)
+				{
+					return newUriText.Replace($"{{{d.Name}}}", $"\"+{d.Name}.ToString(\"O\")+\"");
+				}
+				else if (d.ParameterDescriptor.ParameterType == typeofDateOnlyNullable)
+				{
+					var replaced = newUriText.Replace($"\"&{d.Name}={{{d.Name}}}", $"({d.Name}.HasValue?\"&{d.Name}=\"+{d.Name}.Value.ToString(\"O\"):String.Empty)+\"");
+					if (replaced == newUriText)
+					{
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"\"+({d.Name}.HasValue?\"{d.Name}=\"+{d.Name}.Value.ToString(\"O\"):String.Empty)+\"");
 					}
 
 					return replaced;

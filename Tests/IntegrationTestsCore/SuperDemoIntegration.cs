@@ -257,6 +257,7 @@ namespace IntegrationTests
 		public void TestIsDateTimeDate()
 		{
 			var d = new DateTime(2022, 2, 13); //Kind unspecified. So it works for Date
+			Assert.Equal(DateTimeKind.Unspecified, d.Kind);
 			Assert.Equal(TimeSpan.Zero, d.TimeOfDay);
 			var dr = api.IsDateTimeDate(d);
 			Assert.Equal(d, dr.Item2);
@@ -267,10 +268,22 @@ namespace IntegrationTests
 		public void TestIsDateTimeOffsetDate()
 		{
 			var d = new DateTime(2022, 2, 13);
+			Assert.Equal(DateTimeKind.Unspecified, d.Kind);
 			Assert.Equal(TimeSpan.Zero, d.TimeOfDay);
-			var dr = api.IsDateTimeOffsetDate(d);
-			Assert.Equal(d, dr.Item2);
+			DateTimeOffset ds = new DateTimeOffset(d, TimeSpan.Zero);
+			var dr = api.IsDateTimeOffsetDate(ds);
 			Assert.Equal(d.Day, dr.Item1.Day);
+			Assert.Equal(ds.Day, dr.Item1.Day);
+			//Assert.Equal(ds, dr.Item2); if client and server are at different timezone, this will fail.
+		}
+
+		[Fact]
+		public void TestIsDateTimeOffsetDate2()
+		{
+			DateTimeOffset ds = new DateTimeOffset(2022, 2, 13, 0, 0, 0, TimeSpan.Zero);
+			var dr = api.IsDateTimeOffsetDate(ds);
+			Assert.Equal(ds.Day, dr.Item1.Day);
+			//Assert.Equal(ds, dr.Item2); if client and server are at different timezone, this will fail.
 		}
 
 		[Fact]

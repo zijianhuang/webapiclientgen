@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xunit;
+using Fonlow.Testing;
 
 namespace IntegrationTests
 {
-	public class ValuesFixture : IDisposable
+	public class ValuesFixture : DefaultHttpClient
 	{
 		public ValuesFixture()
 		{
-			var baseUri = new Uri("http://localhost:5000/");
-
 			httpClient = new System.Net.Http.HttpClient
 			{
-				BaseAddress = baseUri
+				BaseAddress = base.BaseUri
 			};
 			//httpClient.DefaultRequestHeaders
 			//  .Accept

@@ -1,18 +1,16 @@
 ﻿using System;
 using Xunit;
-
+using Fonlow.Testing;
 
 namespace IntegrationTests
 {
-	public class SpecialTypesFixture : IDisposable
+	public class SpecialTypesFixture : DefaultHttpClient
 	{
 		public SpecialTypesFixture()
 		{
-			var baseUri = new Uri("http://localhost:5000/");
-
 			httpClient = new System.Net.Http.HttpClient
 			{
-				BaseAddress = baseUri
+				BaseAddress = base.BaseUri
 			};
 
 			Api = new DemoCoreWeb.Controllers.Client.SpecialTypes(httpClient);

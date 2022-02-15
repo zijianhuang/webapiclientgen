@@ -849,6 +849,21 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Client should send DateTime.Date
+		 * POST api/SuperDemo/IsDateTimeDate
+		 */
+		isDateTimeDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return Axios.post<Date>(this.baseUri + 'api/SuperDemo/IsDateTimeDate', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data);
+		}
+
+		/**
+		 * POST api/SuperDemo/IsDateTimeOffsetDate
+		 */
+		isDateTimeOffsetDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return Axios.post<Date>(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data);
+		}
+
+		/**
 		 * POST api/SuperDemo/ActionResult
 		 */
 		postActionResult(headersHandler?: () => {[header: string]: string}): Promise<AxiosResponse<string>> {
@@ -1001,6 +1016,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		queryDateOnlyAsString(d: string, headersHandler?: () => {[header: string]: string}): Promise<Date> {
 			return Axios.get<Date>(this.baseUri + 'api/SuperDemo/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.data);
+		}
+
+		/**
+		 * GET api/SuperDemo/RouteDateTimeOffset/{d}
+		 */
+		routeDateTimeOffset(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return Axios.get<Date>(this.baseUri + 'api/SuperDemo/RouteDateTimeOffset/' + d.toISOString(), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.data);
 		}
 
 		/**

@@ -3,18 +3,17 @@ using Newtonsoft.Json;
 using System;
 using Xunit;
 using Fonlow.DateOnlyExtensions;
+using Fonlow.Testing;
 
 namespace IntegrationTests
 {
-	public class TupleFixture : IDisposable
+	public class TupleFixture : DefaultHttpClient
 	{
 		public TupleFixture()
 		{
-			var baseUri = new Uri("http://localhost:5000/");
-
 			httpClient = new System.Net.Http.HttpClient
 			{
-				BaseAddress = baseUri
+				BaseAddress = base.BaseUri
 			};
 			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
 			{
@@ -25,6 +24,8 @@ namespace IntegrationTests
 			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateTimeNullableJsonConverter());
 
 			Api = new DemoWebApi.Controllers.Client.Tuple(httpClient, jsonSerializerSettings);
 		}

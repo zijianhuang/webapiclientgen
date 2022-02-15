@@ -83,7 +83,7 @@ namespace DemoWebApi.DemoData.Client
 		public System.DateTimeOffset FoundDate { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
-		public System.DateOnly RegisterDate { get; set; }
+		public System.DateTimeOffset RegisterDate { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string[][] TextMatrix { get; set; }
@@ -182,7 +182,7 @@ namespace DemoWebApi.DemoData.Client
 		A,
 	}
 	
-	[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+	[Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public enum MedicalContraindiationResponseTypeTypeCode
@@ -308,7 +308,7 @@ namespace DemoWebApi.DemoData.Client
 		/// This is optional.
 		/// </summary>
 		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.DateOnly> DOB { get; set; }
+		public System.Nullable<System.DateTimeOffset> DOB { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string GivenName { get; set; }
@@ -1879,80 +1879,6 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				return System.Boolean.Parse(jsonReader.ReadAsString());
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-			}
-			}
-		}
-		
-		/// <summary>
-		/// PATCH api/Entities/patchPerson
-		/// </summary>
-		public async Task<string> PatchPersonAsync(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/Entities/patchPerson";
-			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri))
-			{
-			using (var requestWriter = new System.IO.StringWriter())
-			{
-			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
-			requestSerializer.Serialize(requestWriter, person);
-			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			httpRequestMessage.Content = content;
-			if (handleHeaders != null)
-			{
-				handleHeaders(httpRequestMessage.Headers);
-			}
-
-			var responseMessage = await client.SendAsync(httpRequestMessage);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-				{
-				return streamReader.ReadToEnd();;
-				}
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-			}
-			}
-		}
-		
-		/// <summary>
-		/// PATCH api/Entities/patchPerson
-		/// </summary>
-		public string PatchPerson(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/Entities/patchPerson";
-			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri))
-			{
-			using (var requestWriter = new System.IO.StringWriter())
-			{
-			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
-			requestSerializer.Serialize(requestWriter, person);
-			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			httpRequestMessage.Content = content;
-			if (handleHeaders != null)
-			{
-				handleHeaders(httpRequestMessage.Headers);
-			}
-
-			var responseMessage = client.SendAsync(httpRequestMessage).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-				{
-				return streamReader.ReadToEnd();;
 				}
 			}
 			finally
@@ -5783,7 +5709,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Client should send DateTime.Date
 		/// POST api/SuperDemo/IsDateTimeDate
 		/// </summary>
-		public async Task<System.DateOnly> IsDateTimeDateAsync(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<System.DateTimeOffset> IsDateTimeDateAsync(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/IsDateTimeDate";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -5807,7 +5733,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -5822,7 +5748,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Client should send DateTime.Date
 		/// POST api/SuperDemo/IsDateTimeDate
 		/// </summary>
-		public System.DateOnly IsDateTimeDate(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public System.DateTimeOffset IsDateTimeDate(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/IsDateTimeDate";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -5846,7 +5772,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -5860,7 +5786,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/IsDateTimeOffsetDate
 		/// </summary>
-		public async Task<System.DateOnly> IsDateTimeOffsetDateAsync(System.DateTimeOffset dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<System.DateTimeOffset> IsDateTimeOffsetDateAsync(System.DateTimeOffset dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/IsDateTimeOffsetDate";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -5884,7 +5810,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -5898,7 +5824,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/IsDateTimeOffsetDate
 		/// </summary>
-		public System.DateOnly IsDateTimeOffsetDate(System.DateTimeOffset dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public System.DateTimeOffset IsDateTimeOffsetDate(System.DateTimeOffset dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/IsDateTimeOffsetDate";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -5922,7 +5848,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -6140,11 +6066,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// POST api/SuperDemo/DateOnly
+		/// POST api/SuperDemo/DateTimeOffset
 		/// </summary>
-		public async Task<System.DateOnly> PostDateOnlyAsync(System.DateOnly d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<System.DateTimeOffset> PostDateOnlyAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = "api/SuperDemo/DateOnly";
+			var requestUri = "api/SuperDemo/DateTimeOffset";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
 			{
 			using (var requestWriter = new System.IO.StringWriter())
@@ -6166,7 +6092,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -6178,11 +6104,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// POST api/SuperDemo/DateOnly
+		/// POST api/SuperDemo/DateTimeOffset
 		/// </summary>
-		public System.DateOnly PostDateOnly(System.DateOnly d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public System.DateTimeOffset PostDateOnly(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = "api/SuperDemo/DateOnly";
+			var requestUri = "api/SuperDemo/DateTimeOffset";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
 			{
 			using (var requestWriter = new System.IO.StringWriter())
@@ -6204,7 +6130,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -6218,7 +6144,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/DateOnlyNullable
 		/// </summary>
-		public async Task<System.Nullable<System.DateOnly>> PostDateOnlyNullableAsync(System.Nullable<System.DateOnly> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<System.Nullable<System.DateTimeOffset>> PostDateOnlyNullableAsync(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DateOnlyNullable";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -6242,7 +6168,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<System.DateOnly>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader);
 				}
 			}
 			finally
@@ -6256,7 +6182,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// POST api/SuperDemo/DateOnlyNullable
 		/// </summary>
-		public System.Nullable<System.DateOnly> PostDateOnlyNullable(System.Nullable<System.DateOnly> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public System.Nullable<System.DateTimeOffset> PostDateOnlyNullable(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DateOnlyNullable";
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
@@ -6280,7 +6206,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<System.DateOnly>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader);
 				}
 			}
 			finally
@@ -7418,7 +7344,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/DateOnlyStringQuery?d={d}
 		/// </summary>
-		public async Task<System.DateOnly> QueryDateOnlyAsStringAsync(string d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<System.DateTimeOffset> QueryDateOnlyAsStringAsync(string d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DateOnlyStringQuery?d="+(d == null ? "" : Uri.EscapeDataString(d));
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
@@ -7436,7 +7362,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally
@@ -7449,7 +7375,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/DateOnlyStringQuery?d={d}
 		/// </summary>
-		public System.DateOnly QueryDateOnlyAsString(string d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public System.DateTimeOffset QueryDateOnlyAsString(string d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DateOnlyStringQuery?d="+(d == null ? "" : Uri.EscapeDataString(d));
 			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
@@ -7467,7 +7393,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
 				}
 			}
 			finally

@@ -93,9 +93,45 @@ namespace DemoWebApi.Controllers
 			return d;
 		}
 
+		/// <summary>
+		/// Client should send DateTime.Date
+		/// </summary>
+		/// <param name="dt"></param>
+		/// <returns></returns>
+		[HttpPost("IsDateTimeDate")]
+		public DateOnly IsDateTimeDate([FromBody] DateTime dt)
+		{
+			var isDate = dt.TimeOfDay == TimeSpan.Zero;
+			if (isDate)
+			{
+				return DateOnly.FromDateTime(dt);
+			}
+
+			throw new ArgumentException("Expect DateTime with Date only.");
+		}
+
+		[HttpPost("IsDateTimeOffsetDate")]
+		public DateOnly IsDateTimeOffsetDate([FromBody] DateTimeOffset dt)
+		{
+			var isDate = dt.TimeOfDay == TimeSpan.Zero;
+			if (isDate)
+			{
+				return DateOnly.FromDateTime(dt.DateTime);
+			}
+
+			throw new ArgumentException("Expect DateTimeOffset with Date only.");
+		}
+
 		[HttpPost]
 		[Route("DateTimeOffsetNullable")]
 		public DateTimeOffset? PostDateTimeOffsetNullable([FromBody] DateTimeOffset? d)
+		{
+			return d;
+		}
+
+		[HttpGet]
+		[Route("RouteDateTimeOffset/{d}")]
+		public DateTimeOffset RouteDateTimeOffset([FromRoute] DateTimeOffset d)
 		{
 			return d;
 		}

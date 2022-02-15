@@ -849,6 +849,21 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Client should send DateTime.Date
+		 * POST api/SuperDemo/IsDateTimeDate
+		 */
+		isDateTimeDate(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/SuperDemo/IsDateTimeDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/SuperDemo/IsDateTimeOffsetDate
+		 */
+		isDateTimeOffsetDate(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
 		 * POST api/SuperDemo/ActionResult
 		 */
 		postActionResult(callback: (data : any) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1001,6 +1016,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		queryDateOnlyAsString(d: string, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/SuperDemo/RouteDateTimeOffset/{d}
+		 */
+		routeDateTimeOffset(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/RouteDateTimeOffset/' + d.toISOString(), callback, this.error, this.statusCode, headersHandler);
 		}
 
 		/**

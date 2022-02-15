@@ -33,6 +33,8 @@ namespace DemoCoreWeb
 					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 					options.SerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
 					options.SerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+					options.SerializerSettings.Converters.Add(new DateTimeJsonConverter());
+					options.SerializerSettings.Converters.Add(new DateTimeNullableJsonConverter());
 				}
 			);//needed for some special data types which .net core 3.x json lib could not handle well.
 

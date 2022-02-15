@@ -596,6 +596,19 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ushort', callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * Client should send DateTime.Date
+         * POST api/SuperDemo/IsDateTimeDate
+         */
+        isDateTimeDate(dt, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/IsDateTimeDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/SuperDemo/IsDateTimeOffsetDate
+         */
+        isDateTimeOffsetDate(dt, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * POST api/SuperDemo/ActionResult
          */
         postActionResult(callback, headersHandler) {
@@ -721,6 +734,18 @@ var DemoWebApi_Controllers_Client;
          */
         postWithQueryButEmptyBody(s, i, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, s, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * GET api/SuperDemo/DateOnlyStringQuery?d={d}
+         */
+        queryDateOnlyAsString(d, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * GET api/SuperDemo/RouteDateTimeOffset/{d}
+         */
+        routeDateTimeOffset(d, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/RouteDateTimeOffset/' + d.toISOString(), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}

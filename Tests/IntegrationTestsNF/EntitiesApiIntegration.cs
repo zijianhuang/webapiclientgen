@@ -32,8 +32,6 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
-			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeJsonConverter());
@@ -71,7 +69,6 @@ namespace IntegrationTests
 	}
 
 
-	[Collection(TestConstants.LaunchWebApiAndInit)]
 	public partial class EntitiesApiIntegration : IClassFixture<EntitiesFixture>
 	{
 		public EntitiesApiIntegration(EntitiesFixture fixture)
@@ -90,7 +87,7 @@ namespace IntegrationTests
 				Name = "Some One",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = new DateOnly(1988, 11, 23),
+				DOB = new DateTimeOffset(1988, 11, 23, 0, 0, 0, 0, TimeSpan.Zero),
 				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
@@ -106,14 +103,14 @@ namespace IntegrationTests
 
 			var a = api.CreatePerson3(person, (headers)=> { headers.Add("middle", "Hey"); });
 			Assert.Equal("Hey", a.GivenName);
-			Assert.Equal(person.DOB, a.DOB);
+			Assert.Equal(person.DOB.Value.Date, a.DOB.Value.Date);
 			Assert.Equal(person.Baptised, a.Baptised);
 		}
 
 		[Fact]
 		public void TestCreateCompany()
 		{
-			DateOnly regDate = DateOnly.FromDateTime(DateTime.Today.AddDays(-1));
+			var regDate = DateTime.Today.AddDays(-1);
 			DateTimeOffset foundDate = DateTimeOffset.Now.Date.AddDays(-2);
 			Company c = new Company
 			{
@@ -138,34 +135,9 @@ namespace IntegrationTests
 
 			var a = api.CreateCompany(c);
 			Assert.NotNull(a.Id);
-			Assert.Equal(DateOnly.MinValue, a.RegisterDate);
+			Assert.Equal(DateTimeOffset.MinValue, a.RegisterDate);
 			Assert.Equal(DateTimeOffset.MinValue, a.FoundDate);
 		}
-
-		[Fact]
-		public void TestPatch()
-		{
-			var r = api.PatchPerson(new Person()
-			{
-				Name = "Some One",
-				Surname = "One",
-				GivenName = "Some",
-				DOB = new DateOnly(1988, 11, 23),
-				Addresses = new Address[]{new Address(){
-					City="Brisbane",
-					State="QLD",
-					Street1="Somewhere",
-					Street2="Over the rainbow",
-					PostalCode="4000",
-					Country="Australia",
-					Type= AddressType.Postal,
-				}},
-			}
-			);
-
-			Assert.Equal("Some One", r);
-		}
-
 
 		[Fact]
 		public void TestCreatePerson()
@@ -175,7 +147,7 @@ namespace IntegrationTests
 				Name = "Some One",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = new DateOnly(1988, 11, 23),
+				DOB = new DateTimeOffset(1988, 11, 23, 0, 0, 0, TimeSpan.Zero),
 				Baptised= DateTimeOffset.Now.Date.AddYears(-20),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
@@ -201,7 +173,7 @@ namespace IntegrationTests
 				Name = "Exception",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = new DateOnly(1988, 11, 23),
+				DOB = new DateTimeOffset(1988, 11, 23, 0, 0, 0, TimeSpan.Zero),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
 					State="QLD",
@@ -232,7 +204,7 @@ namespace IntegrationTests
 				Name = "Some One",
 				Surname = "One",
 				GivenName = "Some",
-				DOB = new DateOnly(1988, 11, 23),
+				DOB = new DateTimeOffset(1988, 11, 23, 0, 0, 0, TimeSpan.Zero),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
 					State="QLD",

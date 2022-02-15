@@ -852,14 +852,14 @@ namespace DemoWebApi_Controllers_Client {
 		 * Client should send DateTime.Date
 		 * POST api/SuperDemo/IsDateTimeDate
 		 */
-		isDateTimeDate(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+		isDateTimeDate(dt: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/SuperDemo/IsDateTimeDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**
 		 * POST api/SuperDemo/IsDateTimeOffsetDate
 		 */
-		isDateTimeOffsetDate(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+		isDateTimeOffsetDate(dt: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
@@ -906,7 +906,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
+		 * POST api/SuperDemo/DateTime
+		 */
+		postDateTime(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTime', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
 		 * POST api/SuperDemo/DateTimeOffset
 		 */
 		postDateTimeOffset(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {

@@ -21,7 +21,7 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
-			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverters());
 			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
@@ -256,19 +256,21 @@ namespace IntegrationTests
 		[Fact]
 		public void TestIsDateTimeDate()
 		{
-			var d = DateTime.Now.Date;
+			var d = new DateTime(2022, 2, 13); //Kind unspecified. So it works for Date
 			Assert.Equal(TimeSpan.Zero, d.TimeOfDay);
 			var dr = api.IsDateTimeDate(d);
-			Assert.Equal(d.Day, dr.Day);
+			Assert.Equal(d, dr.Item2);
+			Assert.Equal(d.Day, dr.Item1.Day);
 		}
 
 		[Fact]
 		public void TestIsDateTimeOffsetDate()
 		{
-			var d = DateTime.Now.Date;
+			var d = new DateTime(2022, 2, 13);
 			Assert.Equal(TimeSpan.Zero, d.TimeOfDay);
 			var dr = api.IsDateTimeOffsetDate(d);
-			Assert.Equal(d.Day, dr.Day);
+			Assert.Equal(d, dr.Item2);
+			Assert.Equal(d.Day, dr.Item1.Day);
 		}
 
 		[Fact]
@@ -374,6 +376,22 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestPostDateTimeOffsetDate()
+		{
+			var p = DateTimeOffset.Now.Date;
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetMin()
+		{
+			var p = DateTimeOffset.MinValue;
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
+		}
+
+		[Fact]
 		public void TestPostDateTimeOffsetNullable()
 		{
 			var p = DateTimeOffset.Now;
@@ -393,6 +411,30 @@ namespace IntegrationTests
 		{
 			var p = DateTimeOffset.Now;
 			var r = api.RouteDateTimeOffset(p);
+			Assert.Equal(p, r);
+		}
+
+		[Fact]
+		public void TestPostDateTime()
+		{
+			var p = DateTime.Now;
+			var r = api.PostDateTime(p);
+			Assert.Equal(p, r);
+		}
+
+		[Fact]
+		public void TestPostDateTimeDate()
+		{
+			var p = DateTime.Now.Date;
+			var r = api.PostDateTime(p);
+			Assert.Equal(p, r);
+		}
+
+		[Fact]
+		public void TestPostDateTimeMin()
+		{
+			var p = DateTime.MinValue;
+			var r = api.PostDateTime(p);
 			Assert.Equal(p, r);
 		}
 

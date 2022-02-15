@@ -856,14 +856,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Client should send DateTime.Date
 		 * POST api/SuperDemo/IsDateTimeDate
 		 */
-		isDateTimeDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+		isDateTimeDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
 			return this.http.post('api/SuperDemo/IsDateTimeDate', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
 		 * POST api/SuperDemo/IsDateTimeOffsetDate
 		 */
-		isDateTimeOffsetDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+		isDateTimeOffsetDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
 			return this.http.post('api/SuperDemo/IsDateTimeOffsetDate', JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
@@ -910,7 +910,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
+		 * POST api/SuperDemo/DateTime
+		 */
+		postDateTime(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return this.http.post('api/SuperDemo/DateTime', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
 		 * POST api/SuperDemo/DateTimeOffset
 		 */
 		postDateTimeOffset(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {

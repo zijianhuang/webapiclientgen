@@ -20,7 +20,7 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
-			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverters());
 			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());

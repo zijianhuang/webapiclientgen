@@ -857,15 +857,15 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Client should send DateTime.Date
 		 * POST api/SuperDemo/IsDateTimeDate
 		 */
-		isDateTimeDate(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/IsDateTimeDate', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		isDateTimeDate(dt: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
+			return this.http.post<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo/IsDateTimeDate', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
 		 * POST api/SuperDemo/IsDateTimeOffsetDate
 		 */
-		isDateTimeOffsetDate(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		isDateTimeOffsetDate(dt: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
+			return this.http.post<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
@@ -911,7 +911,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
+		 * POST api/SuperDemo/DateTime
+		 */
+		postDateTime(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/DateTime', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
 		 * POST api/SuperDemo/DateTimeOffset
 		 */
 		postDateTimeOffset(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {

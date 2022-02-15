@@ -29,7 +29,7 @@ namespace DemoCoreWeb
 			.AddNewtonsoftJson(
 				options =>
 				{
-					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverters());
 					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 					options.SerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
 					options.SerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());

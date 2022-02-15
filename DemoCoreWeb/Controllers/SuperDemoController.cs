@@ -81,14 +81,16 @@ namespace DemoWebApi.Controllers
 			return DateTimeOffset.Now;
 		}
 
-		/// <summary>
-		/// DateTime and DateTimeOffset may not be represented well in URL, so must put them into the POST body.
-		/// </summary>
-		/// <param name="d"></param>
-		/// <returns></returns>
 		[HttpPost]
 		[Route("DateTimeOffset")]
 		public DateTimeOffset PostDateTimeOffset([FromBody] DateTimeOffset d)
+		{
+			return d;
+		}
+
+		[HttpPost]
+		[Route("DateTime")]
+		public DateTime PostDateTime([FromBody] DateTime d)
 		{
 			return d;
 		}
@@ -99,27 +101,15 @@ namespace DemoWebApi.Controllers
 		/// <param name="dt"></param>
 		/// <returns></returns>
 		[HttpPost("IsDateTimeDate")]
-		public DateOnly IsDateTimeDate([FromBody] DateTime dt)
+		public Tuple<DateOnly, DateTime> IsDateTimeDate([FromBody] DateTime dt)
 		{
-			var isDate = dt.TimeOfDay == TimeSpan.Zero;
-			if (isDate)
-			{
-				return DateOnly.FromDateTime(dt);
-			}
-
-			throw new ArgumentException("Expect DateTime with Date only.");
+			return Tuple.Create(DateOnly.FromDateTime(dt), dt);
 		}
 
 		[HttpPost("IsDateTimeOffsetDate")]
-		public DateOnly IsDateTimeOffsetDate([FromBody] DateTimeOffset dt)
+		public Tuple<DateOnly, DateTimeOffset> IsDateTimeOffsetDate([FromBody] DateTimeOffset dt)
 		{
-			var isDate = dt.TimeOfDay == TimeSpan.Zero;
-			if (isDate)
-			{
-				return DateOnly.FromDateTime(dt.DateTime);
-			}
-
-			throw new ArgumentException("Expect DateTimeOffset with Date only.");
+			return Tuple.Create(DateOnly.FromDateTime(dt.DateTime), dt);
 		}
 
 		[HttpPost]

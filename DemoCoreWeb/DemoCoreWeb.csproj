@@ -13,7 +13,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1705;1591;1998;IDE0060</NoWarn>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <DocumentationFile>bin\Debug\net5.0\DemoCoreWeb.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
 

@@ -32,7 +32,7 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
-			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverters());
 			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
@@ -139,6 +139,7 @@ namespace IntegrationTests
 			var a = api.CreateCompany(c);
 			Assert.NotNull(a.Id);
 			Assert.Equal(DateOnly.MinValue, a.RegisterDate);
+			Assert.Equal(c.FoundDate, a.FoundDate);
 			Assert.Equal(DateTimeOffset.MinValue, a.FoundDate);
 		}
 

@@ -300,6 +300,132 @@ export namespace DemoCoreWeb_Controllers_Client {
 
 export namespace DemoWebApi_Controllers_Client {
 	@Injectable()
+	export class DateTypes {
+		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * GET api/DateTypes/NullableDatetime/{hasValue}
+		 */
+		getDateTime(hasValue: boolean, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/NullableDatetime/' + hasValue, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/DateTypes/ForDateTimeOffset
+		 */
+		getDateTimeOffset(headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/ForDateTimeOffset', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/DateTypes/NextHour/{dt}
+		 */
+		getNextHour(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/NextHour/' + dt.toISOString(), { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
+		 */
+		getNextHourNullable(n: number, dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/DateTypes/NextYear/{dt}
+		 */
+		getNextYear(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/NextYear/' + dt.toISOString(), { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
+		 */
+		getNextYearNullable(n: number, dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Client should send DateTime.Date
+		 * POST api/DateTypes/IsDateTimeDate
+		 */
+		isDateTimeDate(dt: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
+			return this.http.post<{item1: Date, item2: Date}>(this.baseUri + 'api/DateTypes/IsDateTimeDate', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/DateTypes/IsDateTimeOffsetDate
+		 */
+		isDateTimeOffsetDate(dt: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
+			return this.http.post<{item1: Date, item2: Date}>(this.baseUri + 'api/DateTypes/IsDateTimeOffsetDate', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateOnly
+		 */
+		postDateOnly(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/DateTypes/ForDateOnly', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/DateTypes/DateOnlyNullable
+		 */
+		postDateOnlyNullable(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/DateTypes/DateOnlyNullable', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateTime
+		 */
+		postDateTime(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/DateTypes/ForDateTime', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateTimeOffset
+		 */
+		postDateTimeOffset(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/DateTypes/ForDateTimeOffset', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/DateTypes/DateTimeOffsetNullable
+		 */
+		postDateTimeOffsetNullable(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/DateTypes/DateTimeOffsetNullable', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/DateTypes/NextYear
+		 */
+		postNextYear(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.post<Date>(this.baseUri + 'api/DateTypes/NextYear', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * GET api/DateTypes/DateOnlyStringQuery?d={d}
+		 */
+		queryDateOnlyAsString(d: string, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/DateTypes/RouteDateTimeOffset/{d}
+		 */
+		routeDateTimeOffset(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/RouteDateTimeOffset/' + d.toISOString(), { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
+		 */
+		searchDateRange(startDate: Date, endDate: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
+			return this.http.get<{item1: Date, item2: Date}>(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
+		}
+	}
+
+	@Injectable()
 	export class Entities {
 		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
 		}
@@ -545,20 +671,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/NullableDatetime/{hasValue}
-		 */
-		getDateTime(hasValue: boolean, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue, { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * GET api/SuperDemo/DateTimeOffset
-		 */
-		getDateTimeOffset(headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffset', { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
 		getDay(d: DemoWebApi_DemoData_Client.Days, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Days> {
@@ -735,34 +847,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/NextHour/{dt}
-		 */
-		getNextHour(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString(), { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
-		 */
-		getNextHourNullable(n: number, dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * GET api/SuperDemo/NextYear/{dt}
-		 */
-		getNextYear(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString(), { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
-		 */
-		getNextYearNullable(n: number, dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
 		getNullableDecimal(hasValue: boolean, headersHandler?: () => HttpHeaders): Observable<number> {
@@ -854,21 +938,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Client should send DateTime.Date
-		 * POST api/SuperDemo/IsDateTimeDate
-		 */
-		isDateTimeDate(dt: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
-			return this.http.post<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo/IsDateTimeDate', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
-		 * POST api/SuperDemo/IsDateTimeOffsetDate
-		 */
-		isDateTimeOffsetDate(dt: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
-			return this.http.post<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
 		 * POST api/SuperDemo/ActionResult
 		 */
 		postActionResult(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
@@ -894,41 +963,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postCollection(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
 			return this.http.post<number>(this.baseUri + 'api/SuperDemo/Collection', JSON.stringify(list), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
-		 * POST api/SuperDemo/DateOnly
-		 */
-		postDateOnly(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/DateOnly', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
-		 * POST api/SuperDemo/DateOnlyNullable
-		 */
-		postDateOnlyNullable(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/DateOnlyNullable', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTime
-		 */
-		postDateTime(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/DateTime', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTimeOffset
-		 */
-		postDateTimeOffset(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffset', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTimeOffsetNullable
-		 */
-		postDateTimeOffsetNullable(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**
@@ -1009,38 +1043,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * POST api/SuperDemo/NextYear
-		 */
-		postNextYear(dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.post<Date>(this.baseUri + 'api/SuperDemo/NextYear', JSON.stringify(dt), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
 		 * POST api/SuperDemo/PostEmpty/{i}
 		 */
 		postWithQueryButEmptyBody(s: string, i: number, headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: number}> {
 			return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
-
-		/**
-		 * GET api/SuperDemo/DateOnlyStringQuery?d={d}
-		 */
-		queryDateOnlyAsString(d: string, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * GET api/SuperDemo/RouteDateTimeOffset/{d}
-		 */
-		routeDateTimeOffset(d: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
-			return this.http.get<Date>(this.baseUri + 'api/SuperDemo/RouteDateTimeOffset/' + d.toISOString(), { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
-		 */
-		searchDateRange(startDate: Date, endDate: Date, headersHandler?: () => HttpHeaders): Observable<{item1: Date, item2: Date}> {
-			return this.http.get<{item1: Date, item2: Date}>(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 	}
 

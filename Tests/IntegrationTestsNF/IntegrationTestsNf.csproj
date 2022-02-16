@@ -63,7 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DateOnlyJsonConverter.cs" />
+    <Compile Include="DateTypesIntegration.cs" />
     <Compile Include="EntitiesApiIntegration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SuperDemoIntegration.cs" />
@@ -76,6 +76,10 @@
     <ProjectReference Include="..\..\DemoCoreWeb.ClientApiNF\DemoCoreWeb.ClientApiNF.csproj">
       <Project>{cf79f0bd-2905-4858-8f06-631a8f0d27fe}</Project>
       <Name>DemoCoreWeb.ClientApiNF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fonlow.DateOnlyExtensionsNF\Fonlow.DateOnlyExtensionsNF.csproj">
+      <Project>{0a916473-14a4-4739-a8a3-7bda20596206}</Project>
+      <Name>Fonlow.DateOnlyExtensionsNF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

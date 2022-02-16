@@ -34,6 +34,11 @@ namespace Fonlow.DateOnlyExtensions
 				return DateOnly.Parse((string)v); //DateOnly can parse 00001-01-01
 			}
 
+			//if (vType == typeof(DateTimeOffset)) //apparently never this type??
+			//{
+			//	return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
+			//}
+
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
 		}
 	}
@@ -72,6 +77,11 @@ namespace Fonlow.DateOnlyExtensions
 			{
 				return DateOnly.Parse((string)v);
 			}
+
+			//if (vType == typeof(DateTimeOffset))
+			//{
+			//	return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
+			//}
 
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
 		}

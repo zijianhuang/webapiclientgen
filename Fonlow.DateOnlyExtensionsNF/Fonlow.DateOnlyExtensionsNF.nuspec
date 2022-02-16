@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Fonlow.DateOnlyExtensionsNF</id>
+    <version>$version$</version>
+    <title>JSON converters for presenting date only situations with DateTime and DateTimeOffset</title>
+    <authors>Zijian Huang</authors>
+    <owners>Zijian Huang</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/zijianhuang/FonlowTesting</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Handle date only situations with DateTime, DateTimeOffset and DateOnly on the server coded in .NET 6.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright © Fonlow 2015-2022</copyright>
+    <tags>xunit nunit mstest unittesting iisexpress iis webapi restful</tags>
+     <dependencies>
+    </dependencies>	
+  </metadata>
+</package>

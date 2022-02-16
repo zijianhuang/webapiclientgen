@@ -4,17 +4,23 @@
 		"outDir": "./dist/out-tsc",
 		"sourceMap": true,
 		"declaration": false,
+		"strict": false,
+		"allowSyntheticDefaultImports": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"strictPropertyInitialization": false,
+		"module": "ES2020",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
+		"target": "es2015",
 		"typeRoots": [
 			"node_modules/@types"
 		],
-		"target": "es2015",
 		"lib": [
 			"ES2020",
 			"dom"
-		]
+		],
+		"skipLibCheck": true
 	}
-
 }

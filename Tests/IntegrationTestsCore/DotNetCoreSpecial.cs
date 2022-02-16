@@ -53,18 +53,5 @@ namespace IntegrationTests
 			Assert.Equal(0, api.GetDecimalZero());
 
 		}
-
-		[Fact]
-		public void TestSearcDateRangeWithStartDateNull()//asp.net web api won't accept such call.
-		{
-			var dtStart = DateTime.Today;
-			var dtEnd = dtStart.AddDays(5);
-			var r= api.SearchDateRange(null, dtEnd);
-			Assert.Null(r.Item1);
-			Assert.Equal(dtEnd.ToUniversalTime(), r.Item2);
-		}
-
-
-
 	}
 }

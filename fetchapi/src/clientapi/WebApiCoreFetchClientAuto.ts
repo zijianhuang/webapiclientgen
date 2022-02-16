@@ -295,6 +295,131 @@ export namespace DemoCoreWeb_Controllers_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
+	export class DateTypes {
+		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
+		}
+
+		/**
+		 * GET api/DateTypes/NullableDatetime/{hasValue}
+		 */
+		getDateTime(hasValue: boolean, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NullableDatetime/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/DateTypes/ForDateTimeOffset
+		 */
+		getDateTimeOffset(headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffset', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/DateTypes/NextHour/{dt}
+		 */
+		getNextHour(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextHour/' + dt.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
+		 */
+		getNextHourNullable(n: number, dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/DateTypes/NextYear/{dt}
+		 */
+		getNextYear(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextYear/' + dt.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
+		 */
+		getNextYearNullable(n: number, dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * Client should send DateTime.Date
+		 * POST api/DateTypes/IsDateTimeDate
+		 */
+		isDateTimeDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
+			return fetch(this.baseUri + 'api/DateTypes/IsDateTimeDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/DateTypes/IsDateTimeOffsetDate
+		 */
+		isDateTimeOffsetDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
+			return fetch(this.baseUri + 'api/DateTypes/IsDateTimeOffsetDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateOnly
+		 */
+		postDateOnly(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/ForDateOnly', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/DateTypes/DateOnlyNullable
+		 */
+		postDateOnlyNullable(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/DateOnlyNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateTime
+		 */
+		postDateTime(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/ForDateTime', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateTimeOffset
+		 */
+		postDateTimeOffset(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/ForDateTimeOffset', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/DateTypes/DateTimeOffsetNullable
+		 */
+		postDateTimeOffsetNullable(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/DateTimeOffsetNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/DateTypes/NextYear
+		 */
+		postNextYear(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/NextYear', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/DateTypes/DateOnlyStringQuery?d={d}
+		 */
+		queryDateOnlyAsString(d: string, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/DateTypes/RouteDateTimeOffset/{d}
+		 */
+		routeDateTimeOffset(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+			return fetch(this.baseUri + 'api/DateTypes/RouteDateTimeOffset/' + d.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
+		 */
+		searchDateRange(startDate: Date, endDate: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
+			return fetch(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+	}
+
 	export class Entities {
 		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
 		}
@@ -538,20 +663,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/NullableDatetime/{hasValue}
-		 */
-		getDateTime(hasValue: boolean, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/DateTimeOffset
-		 */
-		getDateTimeOffset(headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/DateTimeOffset', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
 		getDay(d: DemoWebApi_DemoData_Client.Days, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Days> {
@@ -728,34 +839,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/NextHour/{dt}
-		 */
-		getNextHour(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
-		 */
-		getNextHourNullable(n: number, dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/NextYear/{dt}
-		 */
-		getNextYear(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
-		 */
-		getNextYearNullable(n: number, dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
 		getNullableDecimal(hasValue: boolean, headersHandler?: () => {[header: string]: string}): Promise<number> {
@@ -847,21 +930,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Client should send DateTime.Date
-		 * POST api/SuperDemo/IsDateTimeDate
-		 */
-		isDateTimeDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
-			return fetch(this.baseUri + 'api/SuperDemo/IsDateTimeDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => d.json());
-		}
-
-		/**
-		 * POST api/SuperDemo/IsDateTimeOffsetDate
-		 */
-		isDateTimeOffsetDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
-			return fetch(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => d.json());
-		}
-
-		/**
 		 * POST api/SuperDemo/ActionResult
 		 */
 		postActionResult(headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -887,41 +955,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postCollection(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => {[header: string]: string}): Promise<number> {
 			return fetch(this.baseUri + 'api/SuperDemo/Collection', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(list) }).then(d => d.json());
-		}
-
-		/**
-		 * POST api/SuperDemo/DateOnly
-		 */
-		postDateOnly(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/DateOnly', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
-		}
-
-		/**
-		 * POST api/SuperDemo/DateOnlyNullable
-		 */
-		postDateOnlyNullable(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/DateOnlyNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTime
-		 */
-		postDateTime(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/DateTime', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTimeOffset
-		 */
-		postDateTimeOffset(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/DateTimeOffset', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTimeOffsetNullable
-		 */
-		postDateTimeOffsetNullable(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
 		}
 
 		/**
@@ -1002,38 +1035,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * POST api/SuperDemo/NextYear
-		 */
-		postNextYear(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/NextYear', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(dt) }).then(d => d.json());
-		}
-
-		/**
 		 * POST api/SuperDemo/PostEmpty/{i}
 		 */
 		postWithQueryButEmptyBody(s: string, i: number, headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: number}> {
 			return fetch(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(s) }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/DateOnlyStringQuery?d={d}
-		 */
-		queryDateOnlyAsString(d: string, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/RouteDateTimeOffset/{d}
-		 */
-		routeDateTimeOffset(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
-			return fetch(this.baseUri + 'api/SuperDemo/RouteDateTimeOffset/' + d.toISOString(), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
-		 */
-		searchDateRange(startDate: Date, endDate: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
-			return fetch(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 	}
 

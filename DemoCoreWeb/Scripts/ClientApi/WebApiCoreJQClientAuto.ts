@@ -297,6 +297,131 @@ namespace DemoCoreWeb_Controllers_Client {
 }
 
 namespace DemoWebApi_Controllers_Client {
+	export class DateTypes {
+		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
+		}
+
+		/**
+		 * GET api/DateTypes/NullableDatetime/{hasValue}
+		 */
+		getDateTime(hasValue: boolean, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/NullableDatetime/' + hasValue, callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/DateTypes/ForDateTimeOffset
+		 */
+		getDateTimeOffset(callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/ForDateTimeOffset', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/DateTypes/NextHour/{dt}
+		 */
+		getNextHour(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/NextHour/' + dt.toISOString(), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
+		 */
+		getNextHourNullable(n: number, dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/DateTypes/NextYear/{dt}
+		 */
+		getNextYear(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/NextYear/' + dt.toISOString(), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
+		 */
+		getNextYearNullable(n: number, dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * Client should send DateTime.Date
+		 * POST api/DateTypes/IsDateTimeDate
+		 */
+		isDateTimeDate(dt: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/IsDateTimeDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/DateTypes/IsDateTimeOffsetDate
+		 */
+		isDateTimeOffsetDate(dt: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/IsDateTimeOffsetDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateOnly
+		 */
+		postDateOnly(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/ForDateOnly', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/DateTypes/DateOnlyNullable
+		 */
+		postDateOnlyNullable(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/DateOnlyNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateTime
+		 */
+		postDateTime(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/ForDateTime', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/DateTypes/ForDateTimeOffset
+		 */
+		postDateTimeOffset(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/ForDateTimeOffset', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/DateTypes/DateTimeOffsetNullable
+		 */
+		postDateTimeOffsetNullable(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/DateTimeOffsetNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/DateTypes/NextYear
+		 */
+		postNextYear(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/NextYear', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * GET api/DateTypes/DateOnlyStringQuery?d={d}
+		 */
+		queryDateOnlyAsString(d: string, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/DateTypes/RouteDateTimeOffset/{d}
+		 */
+		routeDateTimeOffset(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/RouteDateTimeOffset/' + d.toISOString(), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
+		 */
+		searchDateRange(startDate: Date, endDate: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
+		}
+	}
+
 	export class Entities {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
@@ -540,20 +665,6 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/NullableDatetime/{hasValue}
-		 */
-		getDateTime(hasValue: boolean, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/NullableDatetime/' + hasValue, callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/SuperDemo/DateTimeOffset
-		 */
-		getDateTimeOffset(callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/DateTimeOffset', callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
 		 * GET api/SuperDemo/enumGet?d={d}
 		 */
 		getDay(d: DemoWebApi_DemoData_Client.Days, callback: (data : DemoWebApi_DemoData_Client.Days) => any, headersHandler?: () => {[header: string]: string}) {
@@ -730,34 +841,6 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/NextHour/{dt}
-		 */
-		getNextHour(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHour/' + dt.toISOString(), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/SuperDemo/NextHourNullable?n={n}&dt={dt}
-		 */
-		getNextHourNullable(n: number, dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/SuperDemo/NextYear/{dt}
-		 */
-		getNextYear(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYear/' + dt.toISOString(), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/SuperDemo/NextYearNullable?n={n}&dt={dt}
-		 */
-		getNextYearNullable(n: number, dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
 		getNullableDecimal(hasValue: boolean, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -849,21 +932,6 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Client should send DateTime.Date
-		 * POST api/SuperDemo/IsDateTimeDate
-		 */
-		isDateTimeDate(dt: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/IsDateTimeDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * POST api/SuperDemo/IsDateTimeOffsetDate
-		 */
-		isDateTimeOffsetDate(dt: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/IsDateTimeOffsetDate', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
 		 * POST api/SuperDemo/ActionResult
 		 */
 		postActionResult(callback: (data : any) => any, headersHandler?: () => {[header: string]: string}) {
@@ -889,41 +957,6 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		postCollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/SuperDemo/Collection', list, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * POST api/SuperDemo/DateOnly
-		 */
-		postDateOnly(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateOnly', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * POST api/SuperDemo/DateOnlyNullable
-		 */
-		postDateOnlyNullable(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateOnlyNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTime
-		 */
-		postDateTime(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTime', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTimeOffset
-		 */
-		postDateTimeOffset(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffset', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * POST api/SuperDemo/DateTimeOffsetNullable
-		 */
-		postDateTimeOffsetNullable(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/DateTimeOffsetNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**
@@ -1004,38 +1037,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * POST api/SuperDemo/NextYear
-		 */
-		postNextYear(dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/SuperDemo/NextYear', dt, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
 		 * POST api/SuperDemo/PostEmpty/{i}
 		 */
 		postWithQueryButEmptyBody(s: string, i: number, callback: (data : {item1: string, item2: number}) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, s, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * GET api/SuperDemo/DateOnlyStringQuery?d={d}
-		 */
-		queryDateOnlyAsString(d: string, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/DateOnlyStringQuery?d=' + (d == null ? '' : encodeURIComponent(d)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/SuperDemo/RouteDateTimeOffset/{d}
-		 */
-		routeDateTimeOffset(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/RouteDateTimeOffset/' + d.toISOString(), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/SuperDemo/SearchDateRange?startDate={startDate}&endDate={endDate}
-		 */
-		searchDateRange(startDate: Date, endDate: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/SuperDemo/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
 		}
 	}
 

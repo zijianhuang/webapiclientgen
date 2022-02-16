@@ -280,21 +280,21 @@ module CommonCases {
 			});
 		});
 
-		QUnit.test("GetDateTime", function (assert) {
-			let done = assert.async();
-			superDemoApi.getDateTime(true, (data) => {
-				assert.ok(data);
-				done();
-			});
-		});
+		//QUnit.test("GetDateTime", function (assert) {
+		//	let done = assert.async();
+		//	superDemoApi.getDateTime(true, (data) => {
+		//		assert.ok(data);
+		//		done();
+		//	});
+		//});
 
-		QUnit.test("GetDateTimeNull", function (assert) {
-			let done = assert.async();
-			superDemoApi.getDateTime(false, (data) => {
-				assert.ok(data == undefined);
-				done();
-			});
-		});
+		//QUnit.test("GetDateTimeNull", function (assert) {
+		//	let done = assert.async();
+		//	superDemoApi.getDateTime(false, (data) => {
+		//		assert.ok(data == undefined);
+		//		done();
+		//	});
+		//});
 
 		QUnit.test("GetNullableDecimal", function (assert) {
 			let done = assert.async();

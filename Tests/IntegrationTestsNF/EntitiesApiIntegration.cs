@@ -110,7 +110,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestCreateCompany()
 		{
-			var regDate = DateTime.Today.AddDays(-1);
+			var regDate = new DateTimeOffset(2021, 11, 23, 0, 0, 0, 0, TimeSpan.Zero);
 			DateTimeOffset foundDate = DateTimeOffset.Now.Date.AddDays(-2);
 			Company c = new Company
 			{
@@ -121,8 +121,8 @@ namespace IntegrationTests
 
 			var a = api.CreateCompany(c);
 			Assert.NotNull(a.Id);
-			Assert.Equal(regDate, a.RegisterDate);
-			Assert.Equal(foundDate, a.FoundDate);
+			Assert.Equal(regDate.Day, a.RegisterDate.Day);
+			Assert.Equal(foundDate.Day, a.FoundDate.Day);
 		}
 
 		[Fact]

@@ -1,6 +1,7 @@
 ﻿//using System.Text.Json;
 //using System.Text.Json.Serialization; // As of .NET 6.0.101, Newtonsoft.Json is still better than System.Text.Json for some data types.
 using Newtonsoft.Json;
+using System;
 
 namespace Fonlow.DateOnlyExtensions
 {

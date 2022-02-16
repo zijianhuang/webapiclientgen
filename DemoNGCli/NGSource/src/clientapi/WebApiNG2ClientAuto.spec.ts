@@ -370,16 +370,15 @@ describe('entities API', () => {
 
 });
 
-
-describe('SuperDemo API', () => {
-	let service: namespaces.DemoWebApi_Controllers_Client.SuperDemo;
+describe('DateTypes API', () => {
+	let service: namespaces.DemoWebApi_Controllers_Client.DateTypes;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.SuperDemo,
+					provide: namespaces.DemoWebApi_Controllers_Client.DateTypes,
 					useFactory: superDemoClientFactory,
 					deps: [HttpClient],
 
@@ -388,23 +387,9 @@ describe('SuperDemo API', () => {
 			]
 		});
 
-		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.SuperDemo);
+		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.DateTypes);
 	}));
 
-	it('getBool', (done) => {
-		service.getBool().subscribe(
-			data => {
-				expect(data).toBeTruthy();
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
 
 	it('GetNextHour', (done) => {
 		const dt = new Date(Date.now());
@@ -449,82 +434,6 @@ describe('SuperDemo API', () => {
 			data => {
 				const dd = new Date(data);
 				expect(dd.getFullYear()).toBe(h + 1);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-
-	it('getFloatZero', (done) => {
-		service.getFloatZero().subscribe(
-			data => {
-				expect(data).toBeLessThan(0.000001);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-	it('getDoubleZero', (done) => {
-		service.getDoubleZero().subscribe(
-			data => {
-				expect(data).not.toBe(0);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-	it('getDecimalZero', (done) => {
-		service.getDecimalZero().subscribe(
-			data => {
-				expect(data).toBe(0);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-	it('getIntSquare', (done) => {
-		service.getIntSquare(100).subscribe(
-			data => {
-				expect(data).toBe(10000);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-	it('getDecimalSquare', (done) => {
-		service.getDecimalSquare(100).subscribe(
-			data => {
-				expect(data).toBe(10000);
 				done();
 			},
 			error => {
@@ -712,6 +621,267 @@ describe('SuperDemo API', () => {
 		service.postDateOnlyNullable(null).subscribe(
 			data => {
 				expect(data).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getNextYearNullable', (done) => {
+		const now = new Date(Date.now());
+		service.getNextYearNullable(2, now).subscribe(
+			data => {
+				const dt = new Date(data); // data is actually string, NG HttpClient does not translate it to Date
+				expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getNextHourNullable', (done) => {
+		const now = new Date(Date.now());
+		service.getNextHourNullable(2, now).subscribe(
+			data => {
+				const dt = new Date(data);
+				expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getNextYearNullable2', (done) => {
+		const now = new Date(Date.now());
+		service.getNextYearNullable(2, undefined).subscribe(
+			data => {
+				const dt = new Date(data);
+				expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getNextHourNullable2', (done) => {
+		const now = new Date(Date.now());
+		service.getNextHourNullable(2, null).subscribe(
+			data => {
+				const dt = new Date(data);
+				expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+
+	it('searchDateRange', (done) => {
+		const startDt = new Date(Date.now());
+		const endDt = new Date(Date.now() + 100000);
+		service.searchDateRange(startDt, endDt).subscribe(
+			data => {
+				expect(new Date(data.item1)).toEqual(startDt);
+				expect(new Date(data.item2)).toEqual(endDt);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+
+	it('searchDateRangeEndUndefined', (done) => {
+		const startDt = new Date(Date.now());
+		const endDt = new Date(Date.now() + 100000);
+		service.searchDateRange(startDt, undefined).subscribe(
+			data => {
+				expect(new Date(data.item1)).toEqual(startDt);
+				expect(data.item2).toBeNull(); // OK with null rather than undefined
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+
+	it('searchDateRangeStartUndefined', (done) => {
+		const startDt = new Date(Date.now());
+		const endDt = new Date(Date.now() + 100000);
+		service.searchDateRange(undefined, endDt).subscribe(
+			data => {
+				// fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
+				expect(data.item1).toBeNull();
+				expect(new Date(data.item2)).toEqual(endDt);
+				done();
+			},
+			error => {
+				const errorText = errorResponseToString(error);
+				if (errorText.indexOf('400') < 0) {
+					fail(errorText);
+				}
+				expect(true).toBeTruthy();
+				done();
+			}
+		);
+
+	}
+	);
+
+
+	it('searchDateRangeBotNull', (done) => {
+		const startDt = new Date(Date.now());
+		const endDt = new Date(Date.now() + 100000);
+		service.searchDateRange(null, undefined).subscribe(
+			data => {
+				expect(data.item1).toBeNull();
+				expect(data.item1).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+});
+
+describe('SuperDemo API', () => {
+	let service: namespaces.DemoWebApi_Controllers_Client.SuperDemo;
+
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			imports: [HttpClientModule],
+			providers: [
+				{
+					provide: namespaces.DemoWebApi_Controllers_Client.SuperDemo,
+					useFactory: superDemoClientFactory,
+					deps: [HttpClient],
+
+				},
+
+			]
+		});
+
+		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.SuperDemo);
+	}));
+
+	it('getBool', (done) => {
+		service.getBool().subscribe(
+			data => {
+				expect(data).toBeTruthy();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getFloatZero', (done) => {
+		service.getFloatZero().subscribe(
+			data => {
+				expect(data).toBeLessThan(0.000001);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getDoubleZero', (done) => {
+		service.getDoubleZero().subscribe(
+			data => {
+				expect(data).not.toBe(0);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getDecimalZero', (done) => {
+		service.getDecimalZero().subscribe(
+			data => {
+				expect(data).toBe(0);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getIntSquare', (done) => {
+		service.getIntSquare(100).subscribe(
+			data => {
+				expect(data).toBe(10000);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getDecimalSquare', (done) => {
+		service.getDecimalSquare(100).subscribe(
+			data => {
+				expect(data).toBe(10000);
 				done();
 			},
 			error => {
@@ -1298,156 +1468,6 @@ describe('SuperDemo API', () => {
 
 	}
 	);
-
-	it('getNextYearNullable', (done) => {
-		const now = new Date(Date.now());
-		service.getNextYearNullable(2, now).subscribe(
-			data => {
-				const dt = new Date(data); // data is actually string, NG HttpClient does not translate it to Date
-				expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-	it('getNextHourNullable', (done) => {
-		const now = new Date(Date.now());
-		service.getNextHourNullable(2, now).subscribe(
-			data => {
-				const dt = new Date(data);
-				expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-	it('getNextYearNullable2', (done) => {
-		const now = new Date(Date.now());
-		service.getNextYearNullable(2, undefined).subscribe(
-			data => {
-				const dt = new Date(data);
-				expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-	it('getNextHourNullable2', (done) => {
-		const now = new Date(Date.now());
-		service.getNextHourNullable(2, null).subscribe(
-			data => {
-				const dt = new Date(data);
-				expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-
-	it('searchDateRange', (done) => {
-		const startDt = new Date(Date.now());
-		const endDt = new Date(Date.now() + 100000);
-		service.searchDateRange(startDt, endDt).subscribe(
-			data => {
-				expect(new Date(data.item1)).toEqual(startDt);
-				expect(new Date(data.item2)).toEqual(endDt);
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-
-	it('searchDateRangeEndUndefined', (done) => {
-		const startDt = new Date(Date.now());
-		const endDt = new Date(Date.now() + 100000);
-		service.searchDateRange(startDt, undefined).subscribe(
-			data => {
-				expect(new Date(data.item1)).toEqual(startDt);
-				expect(data.item2).toBeNull(); // OK with null rather than undefined
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
-
-	it('searchDateRangeStartUndefined', (done) => {
-		const startDt = new Date(Date.now());
-		const endDt = new Date(Date.now() + 100000);
-		service.searchDateRange(undefined, endDt).subscribe(
-			data => {
-				// fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-				expect(data.item1).toBeNull();
-				expect(new Date(data.item2)).toEqual(endDt);
-				done();
-			},
-			error => {
-				const errorText = errorResponseToString(error);
-				if (errorText.indexOf('400') < 0) {
-					fail(errorText);
-				}
-				expect(true).toBeTruthy();
-				done();
-			}
-		);
-
-	}
-	);
-
-
-	it('searchDateRangeBotNull', (done) => {
-		const startDt = new Date(Date.now());
-		const endDt = new Date(Date.now() + 100000);
-		service.searchDateRange(null, undefined).subscribe(
-			data => {
-				expect(data.item1).toBeNull();
-				expect(data.item1).toBeNull();
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
 
 	it('TestAthletheSearch', (done) => {
 		service.athletheSearch(32, 0, undefined, null, null).subscribe(

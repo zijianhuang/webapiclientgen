@@ -86,7 +86,4 @@ namespace Fonlow.DateOnlyExtensions
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
 		}
 	}
-
-
-
 }

@@ -6,6 +6,7 @@ This project delivers these products:
 1. [TypeScript CodeDOM](https://github.com/zijianhuang/webapiclientgen/wiki/TypeScript-CodeDOM), a CodeDOM component for TypeScript, derived from CodeDOM of .NET Framework.
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.
+1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5324502/DateOnly-in-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. A .NET Framework package is also available.
 
 
 ![Packages](/Doc/WebApiClientGen.PNG)
@@ -26,15 +27,15 @@ This project delivers these products:
 
 # Key Benefits
 
-1. WebApiClientGen is seamlessly integrated with ASP.NET Web API with very little steps/overheads to setup, maintain and synchronize between Web API and client APIs, during RAD or Agile Software Development.
+1. WebApiClientGen is seamlessly integrated with ASP.NET Core Web API with very little steps/overheads to setup, maintain and synchronize between Web API and client APIs, during RAD or Agile Software Development.
 1. Support all .NET primitive types including decimal.
-1. Support DataTime, DataTimeOffset, Array, Tuple, Dynamic Object, Dictionary and KeyValuePair
+1. Support DataTime, DataTimeOffset, DateOnly, Array, Tuple, Dynamic Object, Dictionary and KeyValuePair
 1. Strongly typed generated codes are subject to design time type checking and compile time type checking.
-1. Provide high level of abstraction, shielding application developers from repetitive technical details of RESTful practices and traditional AJAX calls.  
+1. Provide high level of abstraction, shielding application developers from repetitive technical details of RESTful practices and traditional codes of AJAX calls.  
 1. Rich meta info including doc comments make IDE intellisense more helpful, so application developers have less need of reading separated API documents.
 
 
-# Examples (to be adjusted)
+# Examples
 
 1. [POCO classes](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi.DemoDataCore/Entities.cs)
 1. [Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Controllers/EntitiesController.cs)
@@ -70,7 +71,7 @@ This project delivers these products:
 # Prerequisites
 
 **Server side:**
-1. .NET 5
+1. .NET 5-6
 
 **.NET client side:**
 1. .NET Framework 4.5.2, or Universal Windows, or Mono.Android, or Xamarin.iOS, or .NET Core 2.0/2.1/3 and .NET 5
@@ -81,7 +82,7 @@ This project delivers these products:
 **TypeScript client side:**
 1. TypeScript compiler
 1. jQuery
-1. Angular 2-9
+1. Angular 6-13
 1. Aurelia
 1. Axios
 1. Fetch API

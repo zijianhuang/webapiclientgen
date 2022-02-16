@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@a
 import { async, TestBed } from '@angular/core/testing';
 import * as namespaces from './WebApiCoreNG2ClientAuto';
 
+//const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
 const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb
 
 import DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
@@ -20,6 +21,9 @@ export function entitiesClientFactory(http: HttpClient) {
 
 export function superDemoClientFactory(http: HttpClient) {
 	return new namespaces.DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri, http);
+}
+export function dateTypesClientFactory(http: HttpClient) {
+	return new namespaces.DemoWebApi_Controllers_Client.DateTypes(apiBaseUri, http);
 }
 
 export function tupleClientFactory(http: HttpClient) {
@@ -379,7 +383,7 @@ describe('DateTypes API', () => {
 			providers: [
 				{
 					provide: namespaces.DemoWebApi_Controllers_Client.DateTypes,
-					useFactory: superDemoClientFactory,
+					useFactory: dateTypesClientFactory,
 					deps: [HttpClient],
 
 				},
@@ -621,6 +625,40 @@ describe('DateTypes API', () => {
 		service.postDateOnlyNullable(null).subscribe(
 			data => {
 				expect(data).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('IsDateTimeOffsetDate', (done) => {
+		const dt = new Date(Date.parse('2018-12-23'));
+		service.isDateTimeOffsetDate(dt).subscribe(
+			data => {
+				const v: any = data.item1;
+				expect(v).toEqual('2018-12-23');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('IsDateTimeDate', (done) => {
+		const dt = new Date(Date.parse('2018-12-23'));
+		service.isDateTimeDate(dt).subscribe(
+			data => {
+				const v: any = data.item1;
+				expect(v).toEqual('2018-12-23');
 				done();
 			},
 			error => {

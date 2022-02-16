@@ -8,7 +8,7 @@ namespace Fonlow.DateOnlyExtensions
 	///However, not really working probably because Kevin wrote the article when .NET 6 Preview had behaved differently from .NET 6 official release.
 	///As of .NET 6.0.101, DateOnly is not working well in ASP.NET Web API. According to .NET runtime team, they will address this in .NET 7.
 
-	public sealed class DateOnlyJsonConverters : JsonConverter<DateOnly>
+	public sealed class DateOnlyJsonConverter : JsonConverter<DateOnly>
 	{
 		public override void WriteJson(JsonWriter writer, DateOnly value, JsonSerializer serializer)
 		{

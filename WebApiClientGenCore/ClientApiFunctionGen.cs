@@ -191,9 +191,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				));
 			}
 
-			method.Statements.Add(new CodeVariableDeclarationStatement(
-				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
-
+			AddResponseMessageSendAsync(method);
 
 			CodeVariableReferenceExpression resultReference = new CodeVariableReferenceExpression("responseMessage");
 
@@ -233,11 +231,17 @@ namespace Fonlow.CodeDom.Web.Cs
 			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
+		void AddResponseMessageSendAsync(CodeMemberMethod method)
+		{
+			method.Statements.Add(new CodeVariableDeclarationStatement(
+				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
+		}
+
 		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
 		{
 			//Create function parameters in prototype
 			var parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
-			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody 
+			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => new CodeParameterDeclarationExpression()
 			{
 				Name = d.Name,
@@ -308,14 +312,9 @@ namespace Fonlow.CodeDom.Web.Cs
 "));
 				}
 
-				method.Statements.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
 			}
-			else
-			{
-				method.Statements.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
-			}
+
+			AddResponseMessageSendAsync(method);
 
 			var resultReference = new CodeVariableReferenceExpression("responseMessage");
 
@@ -425,7 +424,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				if (this.stringAsString)
 				{
 					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
-					Add4TStartBacket(statementCollection); 
+					Add4TStartBacket(statementCollection);
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
 				}
 				else

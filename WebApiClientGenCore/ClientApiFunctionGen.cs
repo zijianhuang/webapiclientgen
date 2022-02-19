@@ -455,14 +455,14 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (returnType != null && TypeHelper.IsStringType(returnType))
 			{
-				//if (this.stringAsString)
-				//{
-				//	statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(streamKK))"));
-				//	Add4TStartBacket(statementCollection);
-				//	statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
-				//	Add4TEndBacket(statementCollection);
-				//}
-				//else
+				if (this.stringAsString)
+				{
+					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
+					Add4TStartBacket(statementCollection);
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
+					Add4TEndBacket(statementCollection);
+				}
+				else
 				{
 					if (settings.UseSystemTextJson)
 					{

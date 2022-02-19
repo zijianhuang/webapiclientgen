@@ -43,4 +43,6 @@
     <ProjectReference Include="..\..\Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj" />
   </ItemGroup>
 
+  <Import Project="..\IntegrationTestShared\IntegrationTestShared.projitems" Label="Shared" />
+
 </Project>

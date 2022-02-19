@@ -290,7 +290,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				if (settings.UseSystemTextJson)
 				{
-					method.Statements.Add(new CodeSnippetStatement("\t\t\t" + @"var contentJson = JsonSerializer.Serialize(requestBody, jsonSerializerSettings);"));
+					method.Statements.Add(new CodeSnippetStatement("\t\t\t" + @$"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
 					method.Statements.Add(new CodeSnippetStatement("\t\t\t" + @"var content = new StringContent(contentJson, System.Text.Encoding.UTF8, ""application/json"");"));
 				}
 				else
@@ -422,13 +422,13 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 			else if (returnTypeIsDynamicObject) // .NET Core ApiExplorer could get return type out of Task<> in most cases, however, not for dynamic and anynomous, while .NET Framework ApiExplorer is fine.
 			{
+				AddResponseMessageRead(statementCollection);
 				if (settings.UseSystemTextJson)
 				{
 					DeserializeContentString(statementCollection); //todo: may not be good
 				}
 				else
 				{
-					AddResponseMessageRead(statementCollection);
 					AddNewtonSoftJsonTextReader(statementCollection);
 					Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
@@ -455,14 +455,14 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (returnType != null && TypeHelper.IsStringType(returnType))
 			{
-				if (this.stringAsString)
-				{
-					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
-					Add4TStartBacket(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
-					Add4TEndBacket(statementCollection);
-				}
-				else
+				//if (this.stringAsString)
+				//{
+				//	statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(streamKK))"));
+				//	Add4TStartBacket(statementCollection);
+				//	statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
+				//	Add4TEndBacket(statementCollection);
+				//}
+				//else
 				{
 					if (settings.UseSystemTextJson)
 					{

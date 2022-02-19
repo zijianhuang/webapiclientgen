@@ -373,6 +373,13 @@ namespace Fonlow.CodeDom.Web.Cs
 				new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 		}
 
+		void AddNewtonSoftJsonSerializerDeserialize(CodeStatementCollection statementCollection)
+		{
+			statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+				new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+					new CodeSnippetExpression("jsonReader"))));
+		}
+
 		const string typeNameOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
 
 		void AddReturnStatement(CodeStatementCollection statementCollection)
@@ -446,28 +453,21 @@ namespace Fonlow.CodeDom.Web.Cs
 				AddNewtonSoftJsonTextReader(statementCollection);
 				Add4TStartBacket(statementCollection);
 				AddNewtonSoftJsonSerializer(statementCollection);
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-						new CodeSnippetExpression("jsonReader"))));
+				AddNewtonSoftJsonSerializerDeserialize(statementCollection);
 			}
 			else if (TypeHelper.IsComplexType(returnType))
 			{
 				AddNewtonSoftJsonTextReader(statementCollection);
 				Add4TStartBacket(statementCollection);
 				AddNewtonSoftJsonSerializer(statementCollection);
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-						new CodeSnippetExpression("jsonReader"))));
+				AddNewtonSoftJsonSerializerDeserialize(statementCollection);
 			}
 			else if (returnType.IsEnum)
 			{
 				AddNewtonSoftJsonTextReader(statementCollection);
 				Add4TStartBacket(statementCollection);
 				AddNewtonSoftJsonSerializer(statementCollection);
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-						new CodeSnippetExpression("jsonReader"))));
-
+				AddNewtonSoftJsonSerializerDeserialize(statementCollection);
 			}
 			else
 			{

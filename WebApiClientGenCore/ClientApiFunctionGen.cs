@@ -288,30 +288,38 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (singleFromBodyParameterDescription != null)
 			{
-				method.Statements.Add(new CodeSnippetStatement(
-@"			using (var requestWriter = new System.IO.StringWriter())
+				if (settings.UseSystemTextJson)
+				{
+					method.Statements.Add(new CodeSnippetStatement("\t\t\t" + @"var contentJson = JsonSerializer.Serialize(requestBody, jsonSerializerSettings);"));
+					method.Statements.Add(new CodeSnippetStatement("\t\t\t" + @"var content = new StringContent(contentJson, System.Text.Encoding.UTF8, ""application/json"");"));
+				}
+				else
+				{
+					method.Statements.Add(new CodeSnippetStatement(
+	@"			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
-));
-				method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
-					new CodeSnippetExpression("requestWriter"),
-					new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
+	));
+					method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
+						new CodeSnippetExpression("requestWriter"),
+						new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
 
 
-				method.Statements.Add(new CodeSnippetStatement(
-@"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
-					));
+					method.Statements.Add(new CodeSnippetStatement(
+	@"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
+						));
 
-				method.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;"));
-				if (settings.HandleHttpRequestHeaders)
-				{
-					method.Statements.Add(new CodeSnippetStatement(@"			if (handleHeaders != null)
+					method.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;"));
+					if (settings.HandleHttpRequestHeaders)
+					{
+						method.Statements.Add(new CodeSnippetStatement(@"			if (handleHeaders != null)
 			{
 				handleHeaders(httpRequestMessage.Headers);
 			}
 "));
-				}
+					}
 
+				}
 			}
 
 			AddResponseMessageSendAsync(method);
@@ -343,7 +351,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
 			}
 
-			if (singleFromBodyParameterDescription != null)
+			if (singleFromBodyParameterDescription != null && !settings.UseSystemTextJson)
 			{
 				Add3TEndBacket(method);
 			}
@@ -379,6 +387,14 @@ namespace Fonlow.CodeDom.Web.Cs
 				new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 		}
 
+		void DeserializeContentString(CodeStatementCollection statementCollection)
+		{
+			statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+				new CodeMethodReferenceExpression(
+				new CodeVariableReferenceExpression("JsonSerializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+				new CodeSnippetExpression("contentString"), new CodeSnippetExpression("jsonSerializerSettings"))));
+		}
+
 		void AddResponseMessageRead(CodeStatementCollection statementCollection)
 		{
 			if (settings.UseSystemTextJson)
@@ -406,14 +422,21 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 			else if (returnTypeIsDynamicObject) // .NET Core ApiExplorer could get return type out of Task<> in most cases, however, not for dynamic and anynomous, while .NET Framework ApiExplorer is fine.
 			{
-				AddResponseMessageRead(statementCollection);
-				AddNewtonSoftJsonTextReader(statementCollection);
-				Add4TStartBacket(statementCollection);
-				AddNewtonSoftJsonSerializer(statementCollection);
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-						new CodeSnippetExpression("jsonReader"))));
-				Add4TEndBacket(statementCollection);
+				if (settings.UseSystemTextJson)
+				{
+					DeserializeContentString(statementCollection); //todo: may not be good
+				}
+				else
+				{
+					AddResponseMessageRead(statementCollection);
+					AddNewtonSoftJsonTextReader(statementCollection);
+					Add4TStartBacket(statementCollection);
+					AddNewtonSoftJsonSerializer(statementCollection);
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+						new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+							new CodeSnippetExpression("jsonReader"))));
+					Add4TEndBacket(statementCollection);
+				}
 
 				return;
 			}
@@ -437,37 +460,70 @@ namespace Fonlow.CodeDom.Web.Cs
 					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
 					Add4TStartBacket(statementCollection);
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
+					Add4TEndBacket(statementCollection);
+				}
+				else
+				{
+					if (settings.UseSystemTextJson)
+					{
+						statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+							new CodeMethodReferenceExpression(
+								new CodeVariableReferenceExpression("JsonSerializer"), "Deserialize", new CodeTypeReference(typeof(System.String))),
+							new CodeSnippetExpression("contentString"),
+							new CodeSnippetExpression("jsonSerializerSettings"))));
+					}
+					else
+					{
+						AddNewtonSoftJsonTextReader(statementCollection);
+						Add4TStartBacket(statementCollection);
+						statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
+						Add4TEndBacket(statementCollection);
+					}
+				}
+			}
+			else if (returnType == typeOfChar)
+			{
+				if (settings.UseSystemTextJson)
+				{
+					DeserializeContentString(statementCollection);
 				}
 				else
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
 					Add4TStartBacket(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
+					AddNewtonSoftJsonSerializer(statementCollection);
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
+					Add4TEndBacket(statementCollection);
 				}
-				Add4TEndBacket(statementCollection);
-			}
-			else if (returnType == typeOfChar)
-			{
-				AddNewtonSoftJsonTextReader(statementCollection);
-				Add4TStartBacket(statementCollection);
-				AddNewtonSoftJsonSerializer(statementCollection);
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
-				Add4TEndBacket(statementCollection);
 			}
 			else if (returnType.IsPrimitive)
 			{
-				AddNewtonSoftJsonTextReader(statementCollection);
-				Add4TStartBacket(statementCollection);
-				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
-				Add4TEndBacket(statementCollection);
+				if (settings.UseSystemTextJson)
+				{
+					DeserializeContentString(statementCollection);
+				}
+				else
+				{
+					AddNewtonSoftJsonTextReader(statementCollection);
+					Add4TStartBacket(statementCollection);
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
+					Add4TEndBacket(statementCollection);
+				}
 			}
 			else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType) || returnType.IsEnum)
 			{
-				AddNewtonSoftJsonTextReader(statementCollection);
-				Add4TStartBacket(statementCollection);
-				AddNewtonSoftJsonSerializer(statementCollection);
-				AddNewtonSoftJsonSerializerDeserialize(statementCollection);
-				Add4TEndBacket(statementCollection);
+				if (settings.UseSystemTextJson)
+				{
+					DeserializeContentString(statementCollection);
+				}
+				else
+				{
+					AddNewtonSoftJsonTextReader(statementCollection);
+					Add4TStartBacket(statementCollection);
+					AddNewtonSoftJsonSerializer(statementCollection);
+					AddNewtonSoftJsonSerializerDeserialize(statementCollection);
+					Add4TEndBacket(statementCollection);
+				}
 			}
 			else
 			{

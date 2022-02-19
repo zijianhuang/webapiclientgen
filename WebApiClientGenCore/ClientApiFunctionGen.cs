@@ -444,6 +444,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					Add4TStartBacket(statementCollection);
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
 				}
+				Add4TEndBacket(statementCollection);
 			}
 			else if (returnType == typeOfChar)
 			{
@@ -451,12 +452,14 @@ namespace Fonlow.CodeDom.Web.Cs
 				Add4TStartBacket(statementCollection);
 				AddNewtonSoftJsonSerializer(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
+				Add4TEndBacket(statementCollection);
 			}
 			else if (returnType.IsPrimitive)
 			{
 				AddNewtonSoftJsonTextReader(statementCollection);
 				Add4TStartBacket(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
+				Add4TEndBacket(statementCollection);
 			}
 			else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType) || returnType.IsEnum)
 			{
@@ -464,13 +467,12 @@ namespace Fonlow.CodeDom.Web.Cs
 				Add4TStartBacket(statementCollection);
 				AddNewtonSoftJsonSerializer(statementCollection);
 				AddNewtonSoftJsonSerializerDeserialize(statementCollection);
+				Add4TEndBacket(statementCollection);
 			}
 			else
 			{
 				Trace.TraceWarning("This type is not yet supported: {0}", returnType.FullName);
 			}
-
-			Add4TEndBacket(statementCollection);
 		}
 
 		private static string RemoveTrialEmptyString(string s)

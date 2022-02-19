@@ -1,9 +1,5 @@
-﻿using DemoWebApi.DemoData.Client;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using Xunit;
-using Fonlow.DateOnlyExtensions;
-using Fonlow.Testing;
 
 namespace IntegrationTests
 {

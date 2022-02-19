@@ -2,8 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using Xunit;
-using Fonlow.DateOnlyExtensions;
-using Fonlow.Testing;
 
 namespace IntegrationTests
 {

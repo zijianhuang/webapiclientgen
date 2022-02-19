@@ -1,6 +1,5 @@
-﻿using System;
-using Xunit;
-using Fonlow.Testing;
+﻿using Fonlow.Testing;
+using System;
 
 namespace IntegrationTests
 {

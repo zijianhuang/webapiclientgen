@@ -1,9 +1,6 @@
-﻿using DemoWebApi.DemoData.Client;
-using Newtonsoft.Json;
-using System;
-using Xunit;
-using Fonlow.DateOnlyExtensions;
+﻿using Fonlow.DateOnlyExtensions;
 using Fonlow.Testing;
+using System;
 
 namespace IntegrationTests
 {

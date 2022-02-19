@@ -94,6 +94,7 @@ For more details, please check [WIKI](https://github.com/zijianhuang/webapiclien
 1. [Generate TypeScript Client API for ASP.NET Web API](https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api)
 1. [ASP.NET Web API, Angular2, TypeScript and WebApiClientGen](https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie)
 1. [Generate C# Client API for ASP.NET Core Web API](https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP)
+1. [DateOnly in ASP.NET Core 6](https://www.codeproject.com/Articles/5324502/DateOnly-in-ASP-NET-Core-6)
 
 # Demo Applications
 

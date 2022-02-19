@@ -208,7 +208,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					AddReturnStatement(method.Statements);
 				}
 
-				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
+				Add3TEndBacket(method);
 			}
 			else
 			{
@@ -224,8 +224,13 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
-				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
+				Add3TEndBacket(method);
 			}
+		}
+
+		void Add3TEndBacket(CodeMemberMethod method)
+		{
+			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
 		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
@@ -340,9 +345,32 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			if (singleFromBodyParameterDescription != null)
-				method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
+			{
+				Add3TEndBacket(method);
+			}
 
-			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
+			Add3TEndBacket(method);
+		}
+
+		static void Add4TEndBacket(CodeStatementCollection statementCollection)
+		{
+			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));
+		}
+
+		static void Add4TStartBacket(CodeStatementCollection statementCollection)
+		{
+			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+		}
+
+		static void AddNewtonSoftJsonTextReader(CodeStatementCollection statementCollection)
+		{
+			statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+		}
+
+		static void AddNewtonSoftJsonSerializer(CodeStatementCollection statementCollection)
+		{
+			statementCollection.Add(new CodeVariableDeclarationStatement(
+				new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 		}
 
 		const string typeNameOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
@@ -359,14 +387,13 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeSnippetStatement(forAsync ?
 					"\t\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
 					: "\t\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
-				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
+				AddNewtonSoftJsonTextReader(statementCollection);
+				Add4TStartBacket(statementCollection);
+				AddNewtonSoftJsonSerializer(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));
+				Add4TEndBacket(statementCollection);
 
 				return;
 			}
@@ -391,56 +418,52 @@ namespace Fonlow.CodeDom.Web.Cs
 				if (this.stringAsString)
 				{
 					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
-					statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+					Add4TStartBacket(statementCollection); 
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
 				}
 				else
 				{
-					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-					statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+					AddNewtonSoftJsonTextReader(statementCollection);
+					Add4TStartBacket(statementCollection);
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
 				}
 			}
 			else if (returnType == typeOfChar)
 			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
-				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
+				AddNewtonSoftJsonTextReader(statementCollection);
+				Add4TStartBacket(statementCollection);
+				AddNewtonSoftJsonSerializer(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
 			}
 			else if (returnType.IsPrimitive)
 			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
+				AddNewtonSoftJsonTextReader(statementCollection);
+				Add4TStartBacket(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
 			}
 			else if (returnType.IsGenericType)
 			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
-				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
+				AddNewtonSoftJsonTextReader(statementCollection);
+				Add4TStartBacket(statementCollection);
+				AddNewtonSoftJsonSerializer(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
 			}
 			else if (TypeHelper.IsComplexType(returnType))
 			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
-				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
+				AddNewtonSoftJsonTextReader(statementCollection);
+				Add4TStartBacket(statementCollection);
+				AddNewtonSoftJsonSerializer(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
 			}
 			else if (returnType.IsEnum)
 			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
-				statementCollection.Add(new CodeVariableDeclarationStatement(
-					new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
+				AddNewtonSoftJsonTextReader(statementCollection);
+				Add4TStartBacket(statementCollection);
+				AddNewtonSoftJsonSerializer(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 					new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 						new CodeSnippetExpression("jsonReader"))));
@@ -451,7 +474,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				Trace.TraceWarning("This type is not yet supported: {0}", returnType.FullName);
 			}
 
-			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));
+			Add4TEndBacket(statementCollection);
 		}
 
 		private static string RemoveTrialEmptyString(string s)

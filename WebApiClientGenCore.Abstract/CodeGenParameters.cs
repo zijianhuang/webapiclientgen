@@ -111,6 +111,11 @@
 		public bool? CamelCase { get; set; }
 
 		/// <summary>
+		/// Use System.Text.Json instead of Newtonsoft.Json
+		/// </summary>
+		public bool UseSystemTextJson { get; set; }
+
+		/// <summary>
 		/// Each controller is mapped into a container class to contain client API functions matching controller operations.
 		/// By default the container is named after the controller name, for example, service class ValuesController will result in client container class Values.
 		/// You may define a container name suffix such as "Client" or "Proxy", so the generated container class name may become ValuesClient.

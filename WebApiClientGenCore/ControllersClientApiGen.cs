@@ -131,14 +131,24 @@ namespace Fonlow.CodeDom.Web.Cs
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
 				TargetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
-				clientNamespace.Imports.AddRange(new CodeNamespaceImport[]{
-				new CodeNamespaceImport("System"),
-				new CodeNamespaceImport("System.Linq"),
-				new CodeNamespaceImport("System.Collections.Generic"),
-				new CodeNamespaceImport("System.Threading.Tasks"),
-				new CodeNamespaceImport("System.Net.Http"),
-				new CodeNamespaceImport("Newtonsoft.Json"),
+				clientNamespace.Imports.AddRange(
+					new CodeNamespaceImport[]{
+						new CodeNamespaceImport("System"),
+						new CodeNamespaceImport("System.Linq"),
+						new CodeNamespaceImport("System.Collections.Generic"),
+						new CodeNamespaceImport("System.Threading.Tasks"),
+						new CodeNamespaceImport("System.Net.Http"),
 				});
+
+				if (CodeGenParameters.ClientApiOutputs.UseSystemTextJson)
+				{
+					clientNamespace.Imports.Add(new CodeNamespaceImport("System.Text.Json"));
+					clientNamespace.Imports.Add(new CodeNamespaceImport("System.Text.Json.Serialization"));
+				}
+				else
+				{
+					clientNamespace.Imports.Add(new CodeNamespaceImport("Newtonsoft.Json"));
+				}
 
 				if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
 				{
@@ -216,7 +226,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			return null;
 		}
 
-		static CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
+		CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
 		{
 			var targetClass = new CodeTypeDeclaration(className)
 			{
@@ -232,7 +242,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 
-		static void AddLocalFields(CodeTypeDeclaration targetClass)
+		void AddLocalFields(CodeTypeDeclaration targetClass)
 		{
 			CodeMemberField clientField = new CodeMemberField
 			{
@@ -246,12 +256,12 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Private,
 				Name = "jsonSerializerSettings",
-				Type = new CodeTypeReference("JsonSerializerSettings")
+				Type = CodeGenParameters.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions") : new CodeTypeReference("JsonSerializerSettings")
 			};
 			targetClass.Members.Add(jsonSettingsField);
 		}
 
-		static void AddConstructorWithHttpClient(CodeTypeDeclaration targetClass)
+		void AddConstructorWithHttpClient(CodeTypeDeclaration targetClass)
 		{
 			CodeConstructor constructor = new CodeConstructor
 			{
@@ -263,7 +273,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Net.Http.HttpClient", "client"));
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"JsonSerializerSettings", "jsonSerializerSettings=null"));
+				CodeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" : "JsonSerializerSettings", "jsonSerializerSettings=null"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
 				throw new ArgumentNullException(""Null HttpClient."", ""client"");

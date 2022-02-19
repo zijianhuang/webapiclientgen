@@ -226,7 +226,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 		}
 
-		void Add3TEndBacket(CodeMemberMethod method)
+		static void Add3TEndBacket(CodeMemberMethod method)
 		{
 			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
@@ -366,17 +366,33 @@ namespace Fonlow.CodeDom.Web.Cs
 			statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
 		}
 
+		void AddNewtonSoftJsonSerializerDeserialize(CodeStatementCollection statementCollection)
+		{
+			statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+				new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+					new CodeSnippetExpression("jsonReader"))));
+		}
+
 		static void AddNewtonSoftJsonSerializer(CodeStatementCollection statementCollection)
 		{
 			statementCollection.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "serializer", new CodeSnippetExpression("JsonSerializer.Create(jsonSerializerSettings)")));
 		}
 
-		void AddNewtonSoftJsonSerializerDeserialize(CodeStatementCollection statementCollection)
+		void AddResponseMessageRead(CodeStatementCollection statementCollection)
 		{
-			statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-				new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-					new CodeSnippetExpression("jsonReader"))));
+			if (settings.UseSystemTextJson)
+			{
+				statementCollection.Add(new CodeSnippetStatement(forAsync
+					? "\t\t\t\tvar contentString = await responseMessage.Content.ReadAsStringAsync();"
+					: "\t\t\t\tvar contentString = responseMessage.Content.ReadAsStringAsync().Result;"));
+			}
+			else
+			{
+				statementCollection.Add(new CodeSnippetStatement(forAsync
+					? "\t\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
+					: "\t\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
+			}
 		}
 
 		const string typeNameOfHttpResponseMessage = "System.Net.Http.HttpResponseMessage";
@@ -390,9 +406,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 			else if (returnTypeIsDynamicObject) // .NET Core ApiExplorer could get return type out of Task<> in most cases, however, not for dynamic and anynomous, while .NET Framework ApiExplorer is fine.
 			{
-				statementCollection.Add(new CodeSnippetStatement(forAsync ?
-					"\t\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
-					: "\t\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
+				AddResponseMessageRead(statementCollection);
 				AddNewtonSoftJsonTextReader(statementCollection);
 				Add4TStartBacket(statementCollection);
 				AddNewtonSoftJsonSerializer(statementCollection);
@@ -414,10 +428,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 			}
 
-			statementCollection.Add(new CodeSnippetStatement(forAsync ?
-				"\t\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
-				: "\t\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
-			//  statementCollection.Add(new CodeSnippetStatement("            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))"));
+			AddResponseMessageRead(statementCollection);
 
 			if (returnType != null && TypeHelper.IsStringType(returnType))
 			{
@@ -447,21 +458,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				Add4TStartBacket(statementCollection);
 				statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
 			}
-			else if (returnType.IsGenericType)
-			{
-				AddNewtonSoftJsonTextReader(statementCollection);
-				Add4TStartBacket(statementCollection);
-				AddNewtonSoftJsonSerializer(statementCollection);
-				AddNewtonSoftJsonSerializerDeserialize(statementCollection);
-			}
-			else if (TypeHelper.IsComplexType(returnType))
-			{
-				AddNewtonSoftJsonTextReader(statementCollection);
-				Add4TStartBacket(statementCollection);
-				AddNewtonSoftJsonSerializer(statementCollection);
-				AddNewtonSoftJsonSerializerDeserialize(statementCollection);
-			}
-			else if (returnType.IsEnum)
+			else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType) || returnType.IsEnum)
 			{
 				AddNewtonSoftJsonTextReader(statementCollection);
 				Add4TStartBacket(statementCollection);

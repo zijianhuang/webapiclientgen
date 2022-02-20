@@ -399,9 +399,18 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			if (settings.UseSystemTextJson)
 			{
-				statementCollection.Add(new CodeSnippetStatement(forAsync
+				if (returnType != null && TypeHelper.IsStringType(returnType) && this.stringAsString)
+				{
+					statementCollection.Add(new CodeSnippetStatement(forAsync
+					? "\t\t\t\tvar stream = await responseMessage.Content.ReadAsStreamAsync();"
+					: "\t\t\t\tvar stream = responseMessage.Content.ReadAsStreamAsync().Result;"));
+				}
+				else
+				{
+					statementCollection.Add(new CodeSnippetStatement(forAsync
 					? "\t\t\t\tvar contentString = await responseMessage.Content.ReadAsStringAsync();"
 					: "\t\t\t\tvar contentString = responseMessage.Content.ReadAsStringAsync().Result;"));
+				}
 			}
 			else
 			{

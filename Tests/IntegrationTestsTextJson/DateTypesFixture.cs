@@ -16,7 +16,8 @@ namespace IntegrationTests
 			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
-				PropertyNameCaseInsensitive = true
+				PropertyNameCaseInsensitive = true,
+				
 			};
 
 			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());

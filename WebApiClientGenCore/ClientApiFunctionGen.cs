@@ -308,17 +308,16 @@ namespace Fonlow.CodeDom.Web.Cs
 					method.Statements.Add(new CodeSnippetStatement(
 	@"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
 						));
+				}
 
-					method.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;"));
-					if (settings.HandleHttpRequestHeaders)
-					{
-						method.Statements.Add(new CodeSnippetStatement(@"			if (handleHeaders != null)
+				method.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;"));
+				if (settings.HandleHttpRequestHeaders)
+				{
+					method.Statements.Add(new CodeSnippetStatement(@"			if (handleHeaders != null)
 			{
 				handleHeaders(httpRequestMessage.Headers);
 			}
 "));
-					}
-
 				}
 			}
 

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Fonlow.DateOnlyExtensions
+namespace Fonlow.Text.Json.DateOnlyExtensions
 {
 	public sealed class DateTimeOffsetJsonConverter : JsonConverter<DateTimeOffset>
 	{
@@ -19,11 +19,17 @@ namespace Fonlow.DateOnlyExtensions
 
 	public sealed class DateTimeOffsetNullableJsonConverter : JsonConverter<DateTimeOffset?>
 	{
+		//public override bool HandleNull => true;
+
 		public override void Write(Utf8JsonWriter writer, DateTimeOffset? value, JsonSerializerOptions options)
 		{
 			if (value.HasValue)
 			{
 				writer.WriteStringValue(value.Value.ToString("O"));
+			}
+			else
+			{
+				writer.WriteNullValue();
 			}
 		}
 

@@ -1,4 +1,4 @@
-﻿using Fonlow.DateOnlyExtensions;
+﻿using Fonlow.Text.Json.DateOnlyExtensions;
 using Fonlow.Testing;
 using System;
 
@@ -16,8 +16,7 @@ namespace IntegrationTests
 			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
-				PropertyNameCaseInsensitive = true,
-				
+				PropertyNameCaseInsensitive = true,				
 			};
 
 			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());

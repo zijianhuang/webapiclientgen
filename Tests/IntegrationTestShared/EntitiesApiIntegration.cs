@@ -37,7 +37,63 @@ namespace IntegrationTests
 				}},
 			};
 
-			var a = api.CreatePerson3(person, (headers)=> { headers.Add("middle", "Hey"); });
+			var a = api.CreatePerson3(person, (headers) => { headers.Add("middle", "Hey"); });
+			Assert.Equal("Hey", a.GivenName);
+			Assert.Equal(person.DOB, a.DOB);
+			Assert.Equal(person.Baptised, a.Baptised);
+		}
+
+		[Fact]
+		public void TestCreatePerson3DobNotDefined()
+		{
+			Person person = new Person()
+			{
+				Name = "Some One",
+				Surname = "One",
+				GivenName = "Some",
+				//DOB = null,// new DateOnly(1988, 11, 23),
+				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
+				Addresses = new Address[]{new Address(){
+					City="Brisbane",
+					State="QLD",
+					Street1="Somewhere",
+					Street2="Over the rainbow",
+					PostalCode="4000",
+					Country="Australia",
+					Type= AddressType.Postal,
+					Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+				}},
+			};
+
+			var a = api.CreatePerson3(person, (headers) => { headers.Add("middle", "Hey"); });
+			Assert.Equal("Hey", a.GivenName);
+			Assert.Equal(person.DOB, a.DOB);
+			Assert.Equal(person.Baptised, a.Baptised);
+		}
+
+		[Fact]
+		public void TestCreatePerson3DobAssignedNull()
+		{
+			Person person = new Person()
+			{
+				Name = "Some One",
+				Surname = "One",
+				GivenName = "Some",
+				DOB = null,
+				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
+				Addresses = new Address[]{new Address(){
+					City="Brisbane",
+					State="QLD",
+					Street1="Somewhere",
+					Street2="Over the rainbow",
+					PostalCode="4000",
+					Country="Australia",
+					Type= AddressType.Postal,
+					Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+				}},
+			};
+
+			var a = api.CreatePerson3(person, (headers) => { headers.Add("middle", "Hey"); });
 			Assert.Equal("Hey", a.GivenName);
 			Assert.Equal(person.DOB, a.DOB);
 			Assert.Equal(person.Baptised, a.Baptised);

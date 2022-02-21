@@ -51,6 +51,10 @@ namespace Fonlow.DateOnlyExtensions
 			{
 				writer.WriteValue(value.Value.ToString("O"));
 			}
+			else
+			{
+				writer.WriteNull();
+			}
 		}
 
 		public override DateOnly? ReadJson(JsonReader reader, Type objectType, DateOnly? existingValue, bool hasExistingValue,

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Fonlow.DateOnlyExtensions;
+//using Fonlow.Text.Json.DateOnlyExtensions;
 
 namespace DemoCoreWeb
 {
@@ -23,9 +24,21 @@ namespace DemoCoreWeb
 				{
 #if DEBUG
 					options.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
+
 #endif
 				}
 			)
+			//.AddJsonOptions(
+			//options =>
+			//{
+			//	options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+			//	options.JsonSerializerOptions.Converters.Add(new DateOnlyNullableJsonConverter());
+			//	options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetJsonConverter());
+			//	options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetNullableJsonConverter());
+			//	options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
+			//	options.JsonSerializerOptions.Converters.Add(new DateTimeNullableJsonConverter());
+
+			//});
 			.AddNewtonsoftJson(
 				options =>
 				{

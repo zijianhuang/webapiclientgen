@@ -64,6 +64,10 @@ namespace Fonlow.DateOnlyExtensions
 					writer.WriteValue(value.Value.ToString("O"));
 				}
 			}
+			else
+			{
+				writer.WriteNull();
+			}
 		}
 
 		public override DateTimeOffset? ReadJson(JsonReader reader, Type objectType, DateTimeOffset? existingValue, bool hasExistingValue,

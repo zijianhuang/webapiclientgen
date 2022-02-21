@@ -1,10 +1,12 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Fonlow.DateOnlyExtensions
+namespace Fonlow.Text.Json.DateOnlyExtensions
 {
 	public sealed class DateTimeJsonConverter : JsonConverter<DateTime>
 	{
+		public override bool HandleNull => true;
+
 		public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
 		{
 			writer.WriteStringValue(value.ToString("O"));
@@ -19,11 +21,17 @@ namespace Fonlow.DateOnlyExtensions
 
 	public sealed class DateTimeNullableJsonConverter : JsonConverter<DateTime?>
 	{
+		public override bool HandleNull => true;
+
 		public override void Write(Utf8JsonWriter writer, DateTime? value, JsonSerializerOptions options)
 		{
 			if (value.HasValue)
 			{
 				writer.WriteStringValue(value.Value.ToString("O"));
+			}
+			else
+			{
+				writer.WriteNullValue();
 			}
 		}
 

@@ -15,16 +15,23 @@ namespace DemoWebApi.Controllers
 		[Route("NullableDatetime/{hasValue}")]
 		public async Task<DateTime?> GetDateTime(bool hasValue)
 		{
-			return await Task.Run(() =>
-			{
-				DateTime? dt;
-				if (hasValue)
-					dt = DateTime.Now;
-				else
-					dt = null;
+			//return await Task.Run(() =>
+			//{
+			//	DateTime? dt;
+			//	if (hasValue)
+			//		dt = DateTime.Now;
+			//	else
+			//		dt = null;
 
-				return dt;
-			});
+			//	return dt;
+			//});
+			DateTime? dt;
+			if (hasValue)
+				dt = DateTime.Now;
+			else
+				dt = null;
+
+			return dt; //without converter, system.text.json serialize will give empty string, and system.text.json deserialze will intepret it wrong.
 		}
 
 		[HttpGet]
@@ -161,7 +168,7 @@ namespace DemoWebApi.Controllers
 		[HttpGet("SearchDateRange")]
 		public Tuple<DateTime?, DateTime?> SearchDateRange([FromQuery] DateTime? startDate = null, [FromQuery] DateTime? endDate = null)
 		{
-			return new Tuple<DateTime?, DateTime?>(startDate, endDate);
+			return Tuple.Create(startDate, endDate);
 		}
 
 

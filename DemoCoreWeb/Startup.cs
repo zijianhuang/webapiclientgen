@@ -28,7 +28,7 @@ namespace DemoCoreWeb
 #endif
 				}
 			)
-			//.AddJsonOptions(
+			//.AddJsonOptions(//revisit this in .NET 7
 			//options =>
 			//{
 			//	options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());

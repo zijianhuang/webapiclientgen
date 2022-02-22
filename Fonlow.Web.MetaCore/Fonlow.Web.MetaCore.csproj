@@ -9,11 +9,9 @@
     <Authors>Zijian Huang</Authors>
     <Company></Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
+    <PackageReleaseNotes>* Build with .NET 6</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.8</Version>
-    <AssemblyVersion>1.8.0.0</AssemblyVersion>
-    <FileVersion>1.8.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

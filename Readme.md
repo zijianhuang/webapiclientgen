@@ -3,10 +3,10 @@ Strongly Typed Client API Generators generate strongly typed client API in C# co
 This project delivers these products:
 1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET and Xamarin.Forms. 
 1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2, Aurelia, Axios and Fetch API.
-1. [TypeScript CodeDOM](https://github.com/zijianhuang/webapiclientgen/wiki/TypeScript-CodeDOM), a CodeDOM component for TypeScript, derived from CodeDOM of .NET Framework.
+1. [TypeScript CodeDOM](https://github.com/zijianhuang/webapiclientgen/wiki/TypeScript-CodeDOM), a CodeDOM component for TypeScript, derived from CodeDOM of .NET.
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.
-1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5324502/DateOnly-in-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. A .NET Framework package is also available.
+1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. A .NET Framework package is also available.
 
 
 ![Packages](/Doc/WebApiClientGen.PNG)
@@ -71,7 +71,7 @@ This project delivers these products:
 # Prerequisites
 
 **Server side:**
-1. .NET 5-6
+1. .NET 6
 
 **.NET client side:**
 1. .NET Framework 4.5.2, or Universal Windows, or Mono.Android, or Xamarin.iOS, or .NET Core 2.0/2.1/3 and .NET 5
@@ -94,7 +94,7 @@ For more details, please check [WIKI](https://github.com/zijianhuang/webapiclien
 1. [Generate TypeScript Client API for ASP.NET Web API](https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api)
 1. [ASP.NET Web API, Angular2, TypeScript and WebApiClientGen](https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie)
 1. [Generate C# Client API for ASP.NET Core Web API](https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP)
-1. [DateOnly in ASP.NET Core 6](https://www.codeproject.com/Articles/5324502/DateOnly-in-ASP-NET-Core-6)
+1. [DateOnly in ASP.NET Core 6](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6)
 
 # Demo Applications
 

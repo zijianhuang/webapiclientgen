@@ -29,7 +29,7 @@ namespace IntegrationTests
 		}
 
 
-		[Fact]
+		//[Fact]
 		public async void TestUpload()
 		{
 			var r = await SendFiles(_filename);

@@ -387,6 +387,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/DateTypes/ForDateTimeOffsetForO
+		 */
+		postDateTimeOffsetForO(d: Date, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return Axios.post(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForO', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+		}
+
+		/**
 		 * POST api/DateTypes/DateTimeOffsetNullable
 		 */
 		postDateTimeOffsetNullable(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
@@ -606,6 +613,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return Axios.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+		}
+
+		/**
+		 * GET api/SuperDemo/String
+		 */
+		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return Axios.get(this.baseUri + 'api/SuperDemo/String', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
 		}
 
 		/**

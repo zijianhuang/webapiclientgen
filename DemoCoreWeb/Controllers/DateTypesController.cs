@@ -70,6 +70,13 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpPost]
+		[Route("ForDateTimeOffsetForO")]
+		public string PostDateTimeOffsetForO([FromBody] DateTimeOffset d)
+		{
+			return d.ToString("O");
+		}
+
+		[HttpPost]
 		[Route("ForDateTime")]
 		public DateTime PostDateTime([FromBody] DateTime d)
 		{

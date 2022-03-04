@@ -81,6 +81,13 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpGet]
+		[Route("String")]
+		public string GetABCDE()
+		{
+			return "ABCDE";
+		}
+
+		[HttpGet]
 		[Route("EmptyString")]
 		public string GetEmptyString()
 		{

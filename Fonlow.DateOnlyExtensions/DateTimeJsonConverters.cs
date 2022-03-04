@@ -7,7 +7,7 @@ namespace Fonlow.DateOnlyExtensions
 	{
 		public override void WriteJson(JsonWriter writer, DateTime value, JsonSerializer serializer)
 		{
-			if (value == DateTime.MinValue)
+			if (value.TimeOfDay == TimeSpan.Zero && value != DateTime.MinValue)
 			{
 				writer.WriteValue(value.ToString("yyyy-MM-dd"));
 			}
@@ -53,7 +53,7 @@ namespace Fonlow.DateOnlyExtensions
 		{
 			if (value.HasValue)
 			{
-				if (value.Value == DateTime.MinValue)
+				if (value.Value.TimeOfDay == TimeSpan.Zero && value.Value != DateTime.MinValue)
 				{
 					writer.WriteValue(value.Value.ToString("yyyy-MM-dd"));
 				}

@@ -387,6 +387,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/DateTypes/ForDateTimeOffsetForO
+		 */
+		postDateTimeOffsetForO(d: Date, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForO', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
 		 * POST api/DateTypes/DateTimeOffsetNullable
 		 */
 		postDateTimeOffsetNullable(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
@@ -606,6 +613,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/SuperDemo/String
+		 */
+		getABCDE(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/String', callback, this.error, this.statusCode, headersHandler);
 		}
 
 		/**

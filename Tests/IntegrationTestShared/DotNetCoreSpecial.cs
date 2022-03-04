@@ -30,6 +30,12 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestGetABCDE()
+		{
+			Assert.Equal("\"ABCDE\"", api.GetABCDE());
+		}
+
+		[Fact]
 		public void TestGetEmptyString()
 		{
 			Assert.Equal("\"\"", api.GetEmptyString());

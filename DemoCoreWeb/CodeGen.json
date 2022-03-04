@@ -26,8 +26,8 @@
 	},
 
 	"ClientApiOutputs": {
-//		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApi",
-		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
+		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApi",
+		//"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
 		"GenerateBothAsyncAndSync": true,
 		"StringAsString": true,
 		"CamelCase": true,
@@ -39,7 +39,7 @@
 		"DecorateDataModelWithDataContract": true,
 		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
 		"DecorateDataModelWithSerializable": true,
-		"UseSystemTextJson": true,
+		//"UseSystemTextJson": true,
 
 		"Plugins": [
 			{

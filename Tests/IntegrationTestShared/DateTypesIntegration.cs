@@ -160,6 +160,7 @@ namespace IntegrationTests
 		{
 			var dt = api.GetDateTimeOffset();
 			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
+			Assert.Equal(TimeSpan.FromHours(10), dt.Offset);
 		}
 
 		[Fact]
@@ -168,6 +169,25 @@ namespace IntegrationTests
 			var p = DateTimeOffset.Now;
 			var r = api.PostDateTimeOffset(p);
 			Assert.Equal(p, r);
+			Assert.Equal(p.Offset, r.Offset);
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetForO()
+		{
+			var p = DateTimeOffset.Now;
+			var r = api.PostDateTimeOffsetForO(p);
+			Assert.Equal("\"" + p.ToString("O") + "\"", r);
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetUtcNow()
+		{
+			var p = DateTimeOffset.UtcNow;
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
+			Assert.Equal(TimeSpan.Zero, p.Offset);
+			Assert.Equal(TimeSpan.FromHours(10), r.Offset); //I am in Australia AEST.
 		}
 
 		[Fact]

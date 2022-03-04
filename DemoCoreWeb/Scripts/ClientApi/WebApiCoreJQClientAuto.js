@@ -189,6 +189,12 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/DateTypes/ForDateTimeOffset', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * POST api/DateTypes/ForDateTimeOffsetForO
+         */
+        postDateTimeOffsetForO(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForO', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * POST api/DateTypes/DateTimeOffsetNullable
          */
         postDateTimeOffsetNullable(d, callback, headersHandler) {
@@ -393,6 +399,12 @@ var DemoWebApi_Controllers_Client;
          */
         athletheSearch(take, skip, order, sort, search, callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * GET api/SuperDemo/String
+         */
+        getABCDE(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/String', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/ActionResult

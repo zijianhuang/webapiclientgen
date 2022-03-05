@@ -604,22 +604,41 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
-	export class SuperDemo {
+	export class StringData {
 		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
 		}
 
 		/**
-		 * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
 		}
 
 		/**
-		 * GET api/SuperDemo/String
+		 * GET api/StringData/String
 		 */
 		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/String', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/StringData/String', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+		}
+
+		/**
+		 * GET api/StringData/EmptyString
+		 */
+		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return Axios.get(this.baseUri + 'api/StringData/EmptyString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+		}
+
+		/**
+		 * GET api/StringData/NullString
+		 */
+		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return Axios.get(this.baseUri + 'api/StringData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+		}
+	}
+
+	export class SuperDemo {
+		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
 		}
 
 		/**
@@ -743,13 +762,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/EmptyString
-		 */
-		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/EmptyString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
-		}
-
-		/**
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
@@ -866,13 +878,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getNullPerson(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
 			return Axios.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/SuperDemo/NullObject', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.data);
-		}
-
-		/**
-		 * GET api/SuperDemo/NullString
-		 */
-		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
 		}
 
 		/**

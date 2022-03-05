@@ -602,22 +602,41 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
-	export class SuperDemo {
+	export class StringData {
 		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
 		}
 
 		/**
-		 * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+			return fetch(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
 		}
 
 		/**
-		 * GET api/SuperDemo/String
+		 * GET api/StringData/String
 		 */
 		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/String', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+			return fetch(this.baseUri + 'api/StringData/String', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+
+		/**
+		 * GET api/StringData/EmptyString
+		 */
+		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return fetch(this.baseUri + 'api/StringData/EmptyString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+
+		/**
+		 * GET api/StringData/NullString
+		 */
+		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return fetch(this.baseUri + 'api/StringData/NullString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+	}
+
+	export class SuperDemo {
+		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
 		}
 
 		/**
@@ -741,13 +760,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/EmptyString
-		 */
-		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/EmptyString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
-		}
-
-		/**
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
@@ -864,13 +876,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getNullPerson(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
 			return fetch(this.baseUri + 'api/SuperDemo/NullObject', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/NullString
-		 */
-		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/SuperDemo/NullString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
 		}
 
 		/**

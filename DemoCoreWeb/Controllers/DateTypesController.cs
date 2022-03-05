@@ -9,7 +9,7 @@ namespace DemoWebApi.Controllers
 	/// </summary>
 	[Produces("application/json")]
 	[Route("api/[controller]")]
-	public class DateTypesController : Controller
+	public class DateTypesController : ControllerBase
 	{
 		[HttpGet]
 		[Route("NullableDatetime/{hasValue}")]

@@ -180,6 +180,9 @@ namespace IntegrationTests
 			Assert.Equal("\"" + p.ToString("O") + "\"", r);
 		}
 
+		/// <summary>
+		/// So with Utc, the server return local DateTimeOffset of client timezone.
+		/// </summary>
 		[Fact]
 		public void TestPostDateTimeOffsetUtcNow()
 		{
@@ -187,7 +190,7 @@ namespace IntegrationTests
 			var r = api.PostDateTimeOffset(p);
 			Assert.Equal(p, r);
 			Assert.Equal(TimeSpan.Zero, p.Offset);
-			Assert.Equal(TimeSpan.FromHours(10), r.Offset); //I am in Australia AEST.
+			//Assert.Equal(TimeSpan.FromHours(10), r.Offset); //I am in Australia AEST.
 		}
 
 		[Fact]

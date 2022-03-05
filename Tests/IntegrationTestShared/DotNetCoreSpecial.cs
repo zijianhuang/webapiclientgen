@@ -30,24 +30,6 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestGetABCDE()
-		{
-			Assert.Equal("\"ABCDE\"", api.GetABCDE());
-		}
-
-		[Fact]
-		public void TestGetEmptyString()
-		{
-			Assert.Equal("\"\"", api.GetEmptyString());
-		}
-
-		[Fact]
-		public void TestGetNullString()
-		{
-			Assert.Equal(String.Empty, api.GetNullString());
-		}
-
-		[Fact]
 		public void TestZeroWithFloatDoubleAndDecimal()
 		{
 			// Assert.NotEqual(0f, 0.1f + 0.2f - 0.3f);//In VS 2015 update 2, compiler makes it zeror.

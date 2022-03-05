@@ -12,7 +12,7 @@ namespace DemoWebApi.Controllers
 	/// </summary>
 	[Produces("application/json")]
 	[Route("api/[controller]")]
-	public class SuperDemoController : Controller
+	public class SuperDemoController : ControllerBase
 	{
 		[HttpGet]
 		[Route("int/{d}")]
@@ -71,27 +71,6 @@ namespace DemoWebApi.Controllers
 		public decimal GetDecimalZero()
 		{
 			return 0.1m + 0.2m - 0.3m;
-		}
-
-		[HttpGet]
-		[Route("NullString")]
-		public string GetNullString()
-		{
-			return null;
-		}
-
-		[HttpGet]
-		[Route("String")]
-		public string GetABCDE()
-		{
-			return "ABCDE";
-		}
-
-		[HttpGet]
-		[Route("EmptyString")]
-		public string GetEmptyString()
-		{
-			return String.Empty;
 		}
 
 		[HttpGet]
@@ -578,11 +557,5 @@ namespace DemoWebApi.Controllers
 			return guids;
 		}
 
-		[HttpGet]
-		[Route("AthletheSearch")]
-		public string AthletheSearch([FromQuery] int? take = 10, [FromQuery]int skip = 0, [FromQuery] string order = null, [FromQuery] string sort = null, [FromQuery] string search = null)
-		{
-			return (take.HasValue ? take.Value.ToString() : String.Empty) + skip.ToString() + (String.IsNullOrEmpty(order) ? "" : order) + (String.IsNullOrEmpty(sort) ? "" : sort) + (String.IsNullOrEmpty(search) ? "" : search);
-		}
 	}
 }

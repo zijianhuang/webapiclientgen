@@ -609,22 +609,42 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 
 	@autoinject()
-	export class SuperDemo {
+	export class StringData {
 		constructor(private http: HttpClient) {
 		}
 
 		/**
-		 * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return this.http.get('api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+			return this.http.get('api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
 		}
 
 		/**
-		 * GET api/SuperDemo/String
+		 * GET api/StringData/String
 		 */
 		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return this.http.get('api/SuperDemo/String', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+			return this.http.get('api/StringData/String', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+
+		/**
+		 * GET api/StringData/EmptyString
+		 */
+		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/StringData/EmptyString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+
+		/**
+		 * GET api/StringData/NullString
+		 */
+		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/StringData/NullString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+	}
+
+	@autoinject()
+	export class SuperDemo {
+		constructor(private http: HttpClient) {
 		}
 
 		/**
@@ -748,13 +768,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * GET api/SuperDemo/EmptyString
-		 */
-		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return this.http.get('api/SuperDemo/EmptyString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
-		}
-
-		/**
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_DemoData_Client.Days>> {
@@ -871,13 +884,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		getNullPerson(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
 			return this.http.get('api/SuperDemo/NullObject', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
-		}
-
-		/**
-		 * GET api/SuperDemo/NullString
-		 */
-		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return this.http.get('api/SuperDemo/NullString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
 		}
 
 		/**

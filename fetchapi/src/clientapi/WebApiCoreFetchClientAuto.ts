@@ -1061,6 +1061,39 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+	export class TextData {
+		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
+		}
+
+		/**
+		 * GET api/TextData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 */
+		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return fetch(this.baseUri + 'api/TextData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+
+		/**
+		 * GET api/TextData/String
+		 */
+		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return fetch(this.baseUri + 'api/TextData/String', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+
+		/**
+		 * GET api/TextData/EmptyString
+		 */
+		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return fetch(this.baseUri + 'api/TextData/EmptyString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+
+		/**
+		 * GET api/TextData/NullString
+		 */
+		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return fetch(this.baseUri + 'api/TextData/NullString', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.text());
+		}
+	}
+
 	export class Tuple {
 		constructor(private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/') {
 		}

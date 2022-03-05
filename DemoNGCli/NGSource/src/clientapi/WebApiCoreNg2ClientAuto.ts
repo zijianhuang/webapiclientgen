@@ -1071,6 +1071,40 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 
 	@Injectable()
+	export class TextData {
+		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * GET api/TextData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 */
+		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/TextData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+		}
+
+		/**
+		 * GET api/TextData/String
+		 */
+		getABCDE(headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/TextData/String', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+		}
+
+		/**
+		 * GET api/TextData/EmptyString
+		 */
+		getEmptyString(headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/TextData/EmptyString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+		}
+
+		/**
+		 * GET api/TextData/NullString
+		 */
+		getNullString(headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.get(this.baseUri + 'api/TextData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
+		}
+	}
+
+	@Injectable()
 	export class Tuple {
 		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
 		}

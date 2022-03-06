@@ -1,4 +1,4 @@
-import { AxiosAdapter, AxiosResponse, AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import * as namespaces from './clientapi/WebApiCoreAxiosClientAuto';
 
 // JEST provides a few ways of handling async code. This test suite use callbacks, 
@@ -312,6 +312,217 @@ describe('entities API', () => {
 });
 
 
+describe('StringData API', () => {
+	const service = new namespaces.DemoWebApi_Controllers_Client.StringData(apiBaseUri);
+
+	it('TestAthletheSearch', (done) => {
+		service.athletheSearch(32, 0, null, null, null).then(
+			data => {
+				expect(data).toBe('320');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch2', (done) => {
+		service.athletheSearch(32, 0, null, null, "Search").then(
+			data => {
+				expect(data).toBe('320Search');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch3', (done) => {
+		service.athletheSearch(32, 0, null, "Sort", "Search").then(
+			data => {
+				expect(data).toBe('320SortSearch');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch4', (done) => {
+		service.athletheSearch(32, 0, "Order", "Sort", "Search").then(
+			data => {
+				expect(data).toBe('320OrderSortSearch');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch5', (done) => {
+		service.athletheSearch(32, 0, "Order", null, "Search").then(
+			data => {
+				expect(data).toBe('320OrderSearch');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch6', (done) => {
+		service.athletheSearch(32, 0, "Order", "", "Search").then(
+			data => {
+				expect(data).toBe('320OrderSearch');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('getABCDE', (done) => {
+		service.getABCDE().then(
+			data => {
+				expect(data).toBe('ABCDE'); // AxiosResponse.data is smart to remove double quotes from the string json object, though I ask for text.
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('getEmptyString', (done) => {
+		service.getEmptyString().then(
+			data => {
+				expect(data).toBe('');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	/**
+	 * Angular HttpClient could identify null value.
+	 */
+	it('getNullString', (done) => {
+		service.getNullString().then(
+			data => {
+				expect(data).toBe(null);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+});
+
+describe('TextData API', () => {
+	const service = new namespaces.DemoWebApi_Controllers_Client.TextData(apiBaseUri);
+
+	it('TestAthletheSearch', (done) => {
+		service.athletheSearch(32, 0, null, null, null).then(
+			data => {
+				expect(data).toBe(320); // somehow data is number rather than string. AxiosResponse.data is too smart?
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch2', (done) => {
+		service.athletheSearch(32, 0, null, null, 'Search').then(
+			data => {
+				expect(data).toBe('320Search');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('getABCDE', (done) => {
+		service.getABCDE().then(
+			data => {
+				expect(data).toBe('ABCDE');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('getEmptyString', (done) => {
+		service.getEmptyString().then(
+			data => {
+				expect(data).toBe('');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	/**
+	 * Angular HttpClient could identify null value.
+	 */
+	it('getNullString', (done) => {
+		service.getNullString().then(
+			data => {
+				expect(data).toBe(null);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+});
+
 describe('SuperDemo API', () => {
   const service = new namespaces.DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri);
 
@@ -329,61 +540,6 @@ describe('SuperDemo API', () => {
 
   }
   );
-
-  it('GetNextHour', (done) => {
-    const dt = new Date(Date.now());
-    const h = dt.getHours();
-    service.getNextHour(dt).then(
-      data => {
-        const dd = new Date(data);
-        expect(dd.getHours()).toBe(h + 1);
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('GetNextYear', (done) => {
-    const dt = new Date(Date.now());
-    const h = dt.getFullYear();
-    service.getNextYear(dt).then(
-      data => {
-        const dd = new Date(data);
-        expect(dd.getFullYear()).toBe(h + 1);
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('PostNextYear', (done) => {
-    const dt = new Date(Date.now());
-    const h = dt.getFullYear();
-    service.postNextYear(dt).then(
-      data => {
-        const dd = new Date(data);
-        expect(dd.getFullYear()).toBe(h + 1);
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
 
   it('getFloatZero', (done) => {
     service.getFloatZero().then(
@@ -460,37 +616,6 @@ describe('SuperDemo API', () => {
   }
   );
 
-  it('getDateTime', (done) => {
-    service.getDateTime(true).then(
-      data => {
-        expect(data).toBeDefined();
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getDateTimeNull', (done) => {
-    service.getDateTime(false).then(
-      data => {
-        //expect(data).toBeNull();
-        expect(data).toBe(''); // .net core return 204 nocontent empty body
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
   it('getNullableDecimal', (done) => {
     service.getNullableDecimal(true).then(
       data => {
@@ -508,22 +633,6 @@ describe('SuperDemo API', () => {
 
   it('getNullableDecimalNull', (done) => {
     service.getNullableDecimal(false).then(
-      data => {
-        //expect(data).toBeNull();
-        expect(data).toBe(''); // .net core return 204 nocontent empty body
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNullString', (done) => {
-    service.getNullString().then(
       data => {
         //expect(data).toBeNull();
         expect(data).toBe(''); // .net core return 204 nocontent empty body
@@ -924,160 +1033,6 @@ describe('SuperDemo API', () => {
 
   }
   );
-
-  it('getNextYearNullable', (done) => {
-    let now = new Date(Date.now());
-    service.getNextYearNullable(2, now).then(
-      data => {
-        let dt = new Date(data);//data is actually string, NG HttpClient does not translate it to Date
-        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextHourNullable', (done) => {
-    let now = new Date(Date.now());
-    service.getNextHourNullable(2, now).then(
-      data => {
-        let dt = new Date(data);
-        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextYearNullable2', (done) => {
-    let now = new Date(Date.now());
-    service.getNextYearNullable(2, undefined).then(
-      data => {
-        let dt = new Date(data);
-        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextHourNullable2', (done) => {
-    let now = new Date(Date.now());
-    service.getNextHourNullable(2, null).then(
-      data => {
-        let dt = new Date(data);
-        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRange', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(startDt, endDt).then(
-      data => {
-        expect(new Date(data.item1)).toEqual(startDt);
-        expect(new Date(data.item2)).toEqual(endDt);
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRangeEndUndefined', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(startDt, undefined).then(
-      data => {
-        expect(new Date(data.item1)).toEqual(startDt);
-        expect(data.item2).toBeNull(); //OK with null rather than undefined
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRangeStartUndefined', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(undefined, endDt).then(
-      data => {
-        //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-        expect(data.item1).toBeNull();
-        expect(new Date(data.item2)).toEqual(endDt);
-        done();
-      },
-      error => {
-        let errorText = errorResponseToString(error);
-        if (errorText.indexOf('400') < 0) {
-          fail(errorText);
-        }
-        expect(true).toBeTruthy();
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRangeBotNull', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(null, undefined).then(
-      data => {
-        expect(data.item1).toBeNull();
-        expect(data.item1).toBeNull();
-        done();
-      },
-      error => {
-        fail(errorResponseToString(error));
-        done();
-      }
-    );
-
-  }
-  );
-
-
-
-
-
 
 
 

@@ -390,7 +390,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/DateTypes/ForDateTimeOffsetForO
 		 */
 		postDateTimeOffsetForO(d: Date, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForO', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/DateTypes/ForDateTimeOffsetForO', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
@@ -533,14 +533,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * PATCH api/Entities/patchPerson
 		 */
 		patchPerson(person: DemoWebApi_DemoData_Client.Person, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.patch(this.baseUri + 'api/Entities/patchPerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.patch(this.baseUri + 'api/Entities/patchPerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * PUT api/Entities/updatePerson
 		 */
 		updatePerson(person: DemoWebApi_DemoData_Client.Person, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 	}
 
@@ -620,14 +620,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * GET api/StringData/String
 		 */
 		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/StringData/String', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/StringData/String', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
@@ -635,7 +635,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/StringData/EmptyString
 		 */
 		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/StringData/EmptyString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/StringData/EmptyString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
@@ -643,7 +643,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/StringData/NullString
 		 */
 		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/StringData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/StringData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 	}
 
@@ -669,7 +669,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/ActionStringResult
 		 */
 		getActionStringResult(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/SuperDemo/ActionStringResult', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/SuperDemo/ActionStringResult', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
@@ -1081,14 +1081,14 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/TextData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/TextData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/TextData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * GET api/TextData/String
 		 */
 		getABCDE(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/TextData/String', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/TextData/String', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
@@ -1096,7 +1096,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/TextData/EmptyString
 		 */
 		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/TextData/EmptyString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/TextData/EmptyString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
@@ -1104,7 +1104,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/TextData/NullString
 		 */
 		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/TextData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/TextData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 	}
 
@@ -1256,49 +1256,49 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Tuple/Tuple2
 		 */
 		postTuple2(tuple: {item1: string, item2: number}, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/Tuple/Tuple2', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * POST api/Tuple/Tuple3
 		 */
 		postTuple3(tuple: {item1: string, item2: string, item3: number}, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/Tuple/Tuple3', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * POST api/Tuple/Tuple4
 		 */
 		postTuple4(tuple: {item1: string, item2: string, item3: string, item4: number}, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/Tuple/Tuple4', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * POST api/Tuple/Tuple5
 		 */
 		postTuple5(tuple: {item1: string, item2: string, item3: string, item4: string, item5: number}, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/Tuple/Tuple5', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * POST api/Tuple/Tuple6
 		 */
 		postTuple6(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number}, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/Tuple/Tuple6', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * POST api/Tuple/Tuple7
 		 */
 		postTuple7(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/Tuple/Tuple7', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * POST api/Tuple/Tuple8
 		 */
 		postTuple8(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: string, rest: {item1: string, item2: string, item3: string}}, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 	}
 
@@ -1326,21 +1326,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/Values/{id}?name={name}
 		 */
 		getByIdAndName(id: number, name: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/Values/' + id + '?name=' + (name == null ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * GET api/Values?name={name}
 		 */
 		getByName(name: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/Values?name=' + (name == null ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
 		 * GET api/Values/{id}
 		 */
 		getById(id: number, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.get(this.baseUri + 'api/Values/' + id, { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.data);
+			return Axios.get(this.baseUri + 'api/Values/' + id, { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
@@ -1354,7 +1354,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * POST api/Values
 		 */
 		post(value: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.data);
+			return Axios.post(this.baseUri + 'api/Values', JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**

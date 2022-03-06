@@ -32,6 +32,9 @@ module CommonCases {
 	let superDemoApi = new DemoWebApi_Controllers_Client.SuperDemo(baseUri);
 	let tupleApi = new DemoWebApi_Controllers_Client.Tuple(baseUri);
 	let heroesApi = new DemoWebApi_Controllers_Client.Heroes(baseUri);
+	let stringDataApi = new DemoWebApi_Controllers_Client.StringData(baseUri);
+	let textDataApi = new DemoWebApi_Controllers_Client.TextData(baseUri);
+	let dateTypesApi = new DemoWebApi_Controllers_Client.DateTypes(baseUri);
 
 	//This should always work since it is a simple unit test.
 	QUnit.test("data compare", function (assert) {
@@ -86,10 +89,233 @@ module CommonCases {
 				done();
 			});
 		});
+	});
+
+	QUnit.module("StringData", function () {
+		QUnit.test("TestAthletheSearch", function (assert) {
+			let done = assert.async();
+			stringDataApi.athletheSearch(32, 0, null, null, null, data => {
+				assert.equal(data, '320');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch2", function (assert) {
+			let done = assert.async();
+			stringDataApi.athletheSearch(32, 0, null, null, 'Search', data => {
+				assert.equal(data, '320Search');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch3", function (assert) {
+			let done = assert.async();
+			stringDataApi.athletheSearch(32, 0, null, 'Sort', 'Search', data => {
+				assert.equal(data, '320SortSearch');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch4", function (assert) {
+			let done = assert.async();
+			stringDataApi.athletheSearch(32, 0, 'Order', 'Sort', 'Search', data => {
+				assert.equal(data, '320OrderSortSearch');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch5", function (assert) {
+			let done = assert.async();
+			stringDataApi.athletheSearch(32, 0, 'Order', null, 'Search', data => {
+				assert.equal(data, '320OrderSearch');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch6", function (assert) {
+			let done = assert.async();
+			stringDataApi.athletheSearch(32, 0, 'Order', '', 'Search', data => {
+				assert.equal(data, '320OrderSearch');
+				done();
+			});
+		});
+
+		QUnit.test("getABCDE", function (assert) {
+			let done = assert.async();
+			stringDataApi.getABCDE(data => {
+				assert.equal(data, 'ABCDE'); //HttpClient based on JQueryXHR is smart enough to intepret JSON string object as plain text.
+				done();
+			});
+		});
+
+		QUnit.test("getEmptyString", function (assert) {
+			let done = assert.async();
+			stringDataApi.getEmptyString(data => {
+				assert.equal(data, '');
+				done();
+			});
+		});
+
+		QUnit.test("getNullString", function (assert) {
+			let done = assert.async();
+			stringDataApi.getNullString(data => {
+				assert.equal(data, null);
+				done();
+			});
+		});
 
 
 	});
 
+	QUnit.module("TextData", function () {
+		QUnit.test("TestAthletheSearch1", function (assert) {
+			let done = assert.async();
+			textDataApi.athletheSearch(32, 0, null, null, null, data => {
+				assert.equal(data, '320');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch2", function (assert) {
+			let done = assert.async();
+			textDataApi.athletheSearch(32, 0, null, null, 'Search', data => {
+				assert.equal(data, '320Search');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch3", function (assert) {
+			let done = assert.async();
+			textDataApi.athletheSearch(32, 0, null, 'Sort', 'Search', data => {
+				assert.equal(data, '320SortSearch');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch4", function (assert) {
+			let done = assert.async();
+			textDataApi.athletheSearch(32, 0, 'Order', 'Sort', 'Search', data => {
+				assert.equal(data, '320OrderSortSearch');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch5", function (assert) {
+			let done = assert.async();
+			textDataApi.athletheSearch(32, 0, 'Order', null, 'Search', data => {
+				assert.equal(data, '320OrderSearch');
+				done();
+			});
+		});
+
+		QUnit.test("TestAthletheSearch6", function (assert) {
+			let done = assert.async();
+			textDataApi.athletheSearch(32, 0, 'Order', '', 'Search', data => {
+				assert.equal(data, '320OrderSearch');
+				done();
+			});
+		});
+
+		QUnit.test("getABCDE", function (assert) {
+			let done = assert.async();
+			textDataApi.getABCDE(data => {
+				assert.equal(data, 'ABCDE');
+				done();
+			});
+		});
+
+		QUnit.test("getEmptyString", function (assert) {
+			let done = assert.async();
+			textDataApi.getEmptyString(data => {
+				assert.equal(data, '');
+				done();
+			});
+		});
+
+		QUnit.test("getNullString", function (assert) {
+			let done = assert.async();
+			textDataApi.getNullString(data => {
+				assert.equal(data, null);
+				done();
+			});
+		});
+
+
+	});
+
+	QUnit.module("DateTypes", function () {
+		QUnit.test("GetNextHour", function (assert) {  //the runner of chutzpah apparently intepret toISOString() as toString()
+			let done = assert.async();
+			let dt = new Date(Date.now());
+			let h = dt.getHours();
+			dateTypesApi.getNextHour(dt, (data) => {
+				assert.equal(data.getHours(), h + 1);
+				done();
+			});
+		});
+
+		QUnit.test("GetDateTime", function (assert) {
+			let done = assert.async();
+			dateTypesApi.getDateTime(true, (data) => {
+				assert.ok(data);
+				done();
+			});
+		});
+
+		QUnit.test("GetDateTimeNull", function (assert) {
+			let done = assert.async();
+			dateTypesApi.getDateTime(false, (data) => {
+				assert.equal(data, null);
+				done();
+			});
+		});
+
+		QUnit.test("postDateTimeOffset", function (assert) {
+			const dt = new Date(Date.now());
+			let done = assert.async();
+			dateTypesApi.postDateTimeOffset(dt, (data) => {
+				assert.ok(data === dt);
+				done();
+			});
+		});
+
+		QUnit.test("postDateTimeOffsetNullable", function (assert) {
+			const dt = new Date(Date.now());
+			let done = assert.async();
+			dateTypesApi.postDateTimeOffsetNullable(dt, (data) => {
+				assert.equal(data, dt);
+				done();
+			});
+		});
+
+		QUnit.test("postDateTimeOffsetNullableWithNull", function (assert) {
+			let done = assert.async();
+			dateTypesApi.postDateTimeOffsetNullable(null, (data) => {
+				assert.equal(data, null);
+				done();
+			});
+		});
+
+		QUnit.test("postDateTimeOffsetNullableWithUndefined", function (assert) {
+			let done = assert.async();
+			dateTypesApi.postDateTimeOffsetNullable(undefined, (data) => {
+				assert.equal(data, null);
+				done();
+			});
+		});
+
+		QUnit.test("postDateOnly", function (assert) {
+			const dt = new Date(Date.parse('2018-12-23')); //JS will serialize it to 2018-12-23T00:00:00.000Z.
+			let done = assert.async();
+			dateTypesApi.postDateOnly(dt, (data) => {
+				assert.equal(data, '2018-12-23');
+				done();
+			});
+		});
+
+
+
+	});
 
 	QUnit.module('Entities', function () {
 		QUnit.test('GetMimsString', function (assert) {
@@ -253,16 +479,6 @@ module CommonCases {
 		});
 
 
-		//QUnit.test("GetNextHour", function (assert) { the runner of chutzpah apparently intepret toISOString() as toString()
-		//	let done = assert.async();
-		//	let dt = new Date(Date.now());
-		//	let h = dt.getHours();
-		//	superDemoApi.getNextHour(dt, (data) => {
-		//		assert.equal(data.getHours(), h + 1);
-		//		done();
-		//	});
-		//});
-
 
 		QUnit.test("GetIntSquare", function (assert) {
 			let done = assert.async();
@@ -279,22 +495,6 @@ module CommonCases {
 				done();
 			});
 		});
-
-		//QUnit.test("GetDateTime", function (assert) {
-		//	let done = assert.async();
-		//	superDemoApi.getDateTime(true, (data) => {
-		//		assert.ok(data);
-		//		done();
-		//	});
-		//});
-
-		//QUnit.test("GetDateTimeNull", function (assert) {
-		//	let done = assert.async();
-		//	superDemoApi.getDateTime(false, (data) => {
-		//		assert.ok(data == undefined);
-		//		done();
-		//	});
-		//});
 
 		QUnit.test("GetNullableDecimal", function (assert) {
 			let done = assert.async();

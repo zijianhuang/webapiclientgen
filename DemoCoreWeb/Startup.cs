@@ -73,7 +73,14 @@ namespace DemoCoreWeb
 				endpoints.MapControllers();
 			});
 #if DEBUG  // This is for running the QUnit cases with tests.html. The CodeGenSetting should be "TypeScriptJQFolder": "..\\..\\..\\Scripts\\ClientApi" without StaticFiles
-			app.UseStaticFiles(); //"TypeScriptJQFolder": "..\\..\\..\\..\\Scripts\\ClientApi" because of wwwwroot in play
+			app.UseStaticFiles(new StaticFileOptions
+			{
+				OnPrepareResponse = ctx =>
+				{
+					ctx.Context.Response.Headers.Add(
+						 "Cache-Control", "no-cache");
+				}
+			}); //"TypeScriptJQFolder": "..\\..\\..\\..\\Scripts\\ClientApi" because of wwwwroot in play
 #endif
 		}
 	}

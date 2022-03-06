@@ -1709,7 +1709,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearch2', (done) => {
-		service.athletheSearch(32, 0, null, null, "Search").subscribe(
+		service.athletheSearch(32, 0, null, null, 'Search').subscribe(
 			data => {
 				expect(data).toBe('"320Search"');
 				done();
@@ -1723,7 +1723,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearch3', (done) => {
-		service.athletheSearch(32, 0, null, "Sort", "Search").subscribe(
+		service.athletheSearch(32, 0, null, 'Sort', 'Search').subscribe(
 			data => {
 				expect(data).toBe('"320SortSearch"');
 				done();
@@ -1737,7 +1737,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearch4', (done) => {
-		service.athletheSearch(32, 0, "Order", "Sort", "Search").subscribe(
+		service.athletheSearch(32, 0, 'Order', 'Sort', 'Search').subscribe(
 			data => {
 				expect(data).toBe('"320OrderSortSearch"');
 				done();
@@ -1751,7 +1751,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearch5', (done) => {
-		service.athletheSearch(32, 0, "Order", null, "Search").subscribe(
+		service.athletheSearch(32, 0, 'Order', null, 'Search').subscribe(
 			data => {
 				expect(data).toBe('"320OrderSearch"');
 				done();
@@ -1765,7 +1765,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearch6', (done) => {
-		service.athletheSearch(32, 0, "Order", "", "Search").subscribe(
+		service.athletheSearch(32, 0, 'Order', '', 'Search').subscribe(
 			data => {
 				expect(data).toBe('"320OrderSearch"');
 				done();

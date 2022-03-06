@@ -18,10 +18,12 @@
 
 
   <ItemGroup>
+    <None Remove="README.md" />
     <None Remove="tests.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="README.md" />
     <Content Include="tests.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

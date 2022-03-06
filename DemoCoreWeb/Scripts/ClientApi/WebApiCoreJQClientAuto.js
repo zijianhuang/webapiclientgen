@@ -288,6 +288,13 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/Entities/MyGenericPerson', s, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * Return empty body, status 204.
+         * GET api/Entities/NullCompany
+         */
+        getNullCompany(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Entities/NullCompany', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
          * Get a person
          * so to know the person
          * GET api/Entities/getPerson/{id}
@@ -407,12 +414,14 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/StringData/String', callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * Return empty string JSON object. Status 200.
          * GET api/StringData/EmptyString
          */
         getEmptyString(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/StringData/EmptyString', callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * Return empty body with status 204 No Content.
          * GET api/StringData/NullString
          */
         getNullString(callback, headersHandler) {
@@ -810,12 +819,14 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/TextData/String', callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * Return empty body with status 200.
          * GET api/TextData/EmptyString
          */
         getEmptyString(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/TextData/EmptyString', callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * Return empty body with status 204 No Content.
          * GET api/TextData/NullString
          */
         getNullString(callback, headersHandler) {

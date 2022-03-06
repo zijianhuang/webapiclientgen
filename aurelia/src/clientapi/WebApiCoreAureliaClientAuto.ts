@@ -500,6 +500,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body, status 204.
 		 * GET api/Entities/NullCompany
 		 */
 		getNullCompany(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {

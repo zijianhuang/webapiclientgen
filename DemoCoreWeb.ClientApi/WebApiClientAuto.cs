@@ -1894,6 +1894,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -1931,6 +1932,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -2946,6 +2948,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body, status 204.
 		/// GET api/Entities/NullCompany
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Company> GetNullCompanyAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -2977,6 +2980,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body, status 204.
 		/// GET api/Entities/NullCompany
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Company GetNullCompany(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3236,6 +3240,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -3273,6 +3278,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -3310,6 +3316,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -3347,6 +3354,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -3934,6 +3942,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -3964,6 +3973,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -3994,6 +4004,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -4024,6 +4035,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -4055,6 +4067,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -4086,6 +4099,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -4117,6 +4131,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -4148,6 +4163,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -4274,6 +4290,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -4304,6 +4321,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -7952,6 +7970,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -7982,6 +8001,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -8012,6 +8032,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -8042,6 +8063,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -8073,6 +8095,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -8104,6 +8127,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -8135,6 +8159,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -8166,6 +8191,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9600,6 +9626,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9637,6 +9664,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9674,6 +9702,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9711,6 +9740,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9748,6 +9778,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9785,6 +9816,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9822,6 +9854,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9859,6 +9892,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9896,6 +9930,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9933,6 +9968,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -9970,6 +10006,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10007,6 +10044,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10044,6 +10082,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10081,6 +10120,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10247,6 +10287,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10278,6 +10319,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10308,6 +10350,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10338,6 +10381,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10368,6 +10412,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10398,6 +10443,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10496,6 +10542,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
@@ -10533,6 +10580,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{

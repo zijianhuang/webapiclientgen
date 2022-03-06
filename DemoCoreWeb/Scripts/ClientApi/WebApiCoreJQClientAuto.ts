@@ -497,6 +497,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body, status 204.
 		 * GET api/Entities/NullCompany
 		 */
 		getNullCompany(callback: (data : DemoWebApi_DemoData_Client.Company) => any, headersHandler?: () => {[header: string]: string}) {

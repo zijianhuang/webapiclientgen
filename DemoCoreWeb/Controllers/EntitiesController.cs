@@ -112,6 +112,16 @@ namespace DemoWebApi.Controllers
 			Debug.WriteLine("Delete " + id);
 		}
 
+		/// <summary>
+		/// Return empty body, status 204.
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet("NullCompany")]
+		public Company GetNullCompany()
+		{
+			return null;
+		}
+
 		[Route("Company/{id}")]
 		[HttpGet]
 		public Company GetCompany(long id)

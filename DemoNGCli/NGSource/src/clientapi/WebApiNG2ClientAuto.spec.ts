@@ -30,8 +30,16 @@ export function tupleClientFactory(http: HttpClient) {
 	return new namespaces.DemoWebApi_Controllers_Client.Tuple(apiBaseUri, http);
 }
 
+export function stringDataClientFactory(http: HttpClient) {
+	return new namespaces.DemoWebApi_Controllers_Client.StringData(apiBaseUri, http);
+}
 
-export function errorResponseToString(error: HttpErrorResponse | any, ): string {
+export function textDataClientFactory(http: HttpClient) {
+	return new namespaces.DemoWebApi_Controllers_Client.TextData(apiBaseUri, http);
+}
+
+
+export function errorResponseToString(error: HttpErrorResponse | any,): string {
 	let errMsg: string;
 	if (error instanceof HttpErrorResponse) {
 		if (error.status === 0) {
@@ -371,6 +379,18 @@ describe('entities API', () => {
 	}
 	);
 
+	it('getNullCompany', (done) => {
+		client.getNullCompany().subscribe(
+			data => {
+				expect(data).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	});
 
 });
 
@@ -961,21 +981,6 @@ describe('SuperDemo API', () => {
 	}
 	);
 
-	it('getNullString', (done) => {
-		service.getNullString().subscribe(
-			data => {
-				expect(data).toBeNull();
-				done();
-			},
-			error => {
-				fail(errorResponseToString(error));
-				done();
-			}
-		);
-
-	}
-	);
-
 	it('getNullPerson', (done) => {
 		service.getNullPerson().subscribe(
 			data => {
@@ -1032,7 +1037,7 @@ describe('SuperDemo API', () => {
 		service.getActionResult().subscribe(
 			data => {
 				expect(data.status).toBe(200);
-				expect(data.body).toBe('"abcdefg"');
+				expect(data.body).toBe('abcdefg');
 
 				done();
 			},
@@ -1662,6 +1667,259 @@ describe('Tuple API', () => {
 
 
 
+
+});
+
+describe('StringData API', () => {
+	let service: namespaces.DemoWebApi_Controllers_Client.StringData;
+
+	beforeEach(async(() => {
+
+		TestBed.configureTestingModule({
+			imports: [HttpClientModule],
+			providers: [
+				{
+					provide: namespaces.DemoWebApi_Controllers_Client.StringData,
+					useFactory: stringDataClientFactory,
+					deps: [HttpClient],
+
+				},
+
+			]
+		});
+
+		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.StringData);
+	}));
+
+	afterEach(function () {
+	});
+
+	it('TestAthletheSearch', (done) => {
+		service.athletheSearch(32, 0, null, null, null).subscribe(
+			data => {
+				expect(data).toBe('"320"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch2', (done) => {
+		service.athletheSearch(32, 0, null, null, "Search").subscribe(
+			data => {
+				expect(data).toBe('"320Search"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch3', (done) => {
+		service.athletheSearch(32, 0, null, "Sort", "Search").subscribe(
+			data => {
+				expect(data).toBe('"320SortSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch4', (done) => {
+		service.athletheSearch(32, 0, "Order", "Sort", "Search").subscribe(
+			data => {
+				expect(data).toBe('"320OrderSortSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch5', (done) => {
+		service.athletheSearch(32, 0, "Order", null, "Search").subscribe(
+			data => {
+				expect(data).toBe('"320OrderSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch6', (done) => {
+		service.athletheSearch(32, 0, "Order", "", "Search").subscribe(
+			data => {
+				expect(data).toBe('"320OrderSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('getABCDE', (done) => {
+		service.getABCDE().subscribe(
+			data => {
+				expect(data).toBe('"ABCDE"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('getEmptyString', (done) => {
+		service.getEmptyString().subscribe(
+			data => {
+				expect(data).toBe('""');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	/**
+	 * Angular HttpClient could identify null value.
+	 */
+	it('getNullString', (done) => {
+		service.getNullString().subscribe(
+			data => {
+				expect(data).toBe(null);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+});
+
+describe('TextData API', () => {
+	let service: namespaces.DemoWebApi_Controllers_Client.TextData;
+
+	beforeEach(async(() => {
+
+		TestBed.configureTestingModule({
+			imports: [HttpClientModule],
+			providers: [
+				{
+					provide: namespaces.DemoWebApi_Controllers_Client.TextData,
+					useFactory: textDataClientFactory,
+					deps: [HttpClient],
+
+				},
+
+			]
+		});
+
+		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.TextData);
+	}));
+
+	afterEach(function () {
+	});
+
+	it('TestAthletheSearch', (done) => {
+		service.athletheSearch(32, 0, null, null, null).subscribe(
+			data => {
+				expect(data).toBe('320');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearch2', (done) => {
+		service.athletheSearch(32, 0, null, null, 'Search').subscribe(
+			data => {
+				expect(data).toBe('320Search');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('getABCDE', (done) => {
+		service.getABCDE().subscribe(
+			data => {
+				expect(data).toBe('ABCDE');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('getEmptyString', (done) => {
+		service.getEmptyString().subscribe(
+			data => {
+				expect(data).toBe('');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	/**
+	 * Angular HttpClient could identify null value.
+	 */
+	it('getNullString', (done) => {
+		service.getNullString().subscribe(
+			data => {
+				expect(data).toBe(null);
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
 
 });
 

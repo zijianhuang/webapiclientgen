@@ -500,6 +500,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Entities/NullCompany
+		 */
+		getNullCompany(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {
+			return this.http.get('api/Entities/NullCompany', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
@@ -628,6 +635,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty string JSON object. Status 200.
 		 * GET api/StringData/EmptyString
 		 */
 		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -635,6 +643,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 204 No Content.
 		 * GET api/StringData/NullString
 		 */
 		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -1089,6 +1098,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 200.
 		 * GET api/TextData/EmptyString
 		 */
 		getEmptyString(headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -1096,6 +1106,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 204 No Content.
 		 * GET api/TextData/NullString
 		 */
 		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {

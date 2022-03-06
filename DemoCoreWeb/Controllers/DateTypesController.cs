@@ -7,7 +7,6 @@ namespace DemoWebApi.Controllers
 	/// <summary>
 	/// For testing different commbinations of parameters and returns
 	/// </summary>
-	[Produces("application/json")]
 	[Route("api/[controller]")]
 	public class DateTypesController : ControllerBase
 	{

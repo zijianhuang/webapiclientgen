@@ -9,9 +9,9 @@
     <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
     <Authors>Zijian Huang</Authors>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <Version>1.8.1</Version>
+    <Version>1.9</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>* .NET 6; * Support DateOnly, and DataTypeAttribute(DataType.Date)</PackageReleaseNotes>
+    <PackageReleaseNotes>StringAsString default to true</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

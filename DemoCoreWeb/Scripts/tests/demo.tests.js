@@ -254,13 +254,6 @@ var CommonCases;
                 done();
             });
         });
-        QUnit.test("GetNullString", function (assert) {
-            let done = assert.async();
-            superDemoApi.getNullString((data) => {
-                assert.ok(data == null);
-                done();
-            });
-        });
         QUnit.test("GetNullPerson", function (assert) {
             let done = assert.async();
             superDemoApi.getNullPerson((data) => {

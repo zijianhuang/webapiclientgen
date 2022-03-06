@@ -477,7 +477,7 @@ namespace IntegrationTests
 			var m = await api.PostActionResultAsync();
 			Assert.Equal(System.Net.HttpStatusCode.OK, m.StatusCode);
 			var s = await m.Content.ReadAsStringAsync();
-			Assert.Equal("\"abcdefg\"", s);
+			Assert.Equal("abcdefg", s);
 		}
 
 		[Fact]
@@ -486,7 +486,7 @@ namespace IntegrationTests
 			var m = await api.GetActionResultAsync();
 			Assert.Equal(System.Net.HttpStatusCode.OK, m.StatusCode);
 			var s = await m.Content.ReadAsStringAsync();
-			Assert.Equal("\"abcdefg\"", s);
+			Assert.Equal("abcdefg", s);
 
 		}
 
@@ -496,7 +496,7 @@ namespace IntegrationTests
 			var m = await api.GetActionResult2Async();
 			Assert.Equal(System.Net.HttpStatusCode.OK, m.StatusCode);
 			var s = await m.Content.ReadAsStringAsync();
-			Assert.Equal("\"abcdefg\"", s);
+			Assert.Equal("abcdefg", s);
 
 		}
 

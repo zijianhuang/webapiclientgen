@@ -99,9 +99,9 @@
 		public bool GenerateBothAsyncAndSync { get; set; }
 
 		/// <summary>
-		/// Whether the Web API return string as string, rather than JSON object which is a double quoted string.
+		/// Whether the Web API return string as string, rather than JSON object which is a double quoted string. Default true.
 		/// </summary>
-		public bool StringAsString { get; set; }
+		public bool StringAsString { get; set; } = true;
 
 		/// <summary>
 		/// Whether to conform to the camel casing convention of javascript and JSON.

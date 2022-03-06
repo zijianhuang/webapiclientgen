@@ -29,7 +29,7 @@
 		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApi",
 		//"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
 		"GenerateBothAsyncAndSync": true,
-		"StringAsString": true,
+		//"StringAsString": true,
 		"CamelCase": true,
 		"CSClientNamespaceSuffix": ".Client",
 		"UseEnsureSuccessStatusCodeEx": true,

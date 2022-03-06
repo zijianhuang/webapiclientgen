@@ -263,6 +263,13 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestGetNullCompany()
+		{
+			var c = api.GetNullCompany();
+			Assert.Null(c);
+		}
+
+		[Fact]
 		public void TestGetMimsString()
 		{
 			var c = api.GetMims(new MimsPackage

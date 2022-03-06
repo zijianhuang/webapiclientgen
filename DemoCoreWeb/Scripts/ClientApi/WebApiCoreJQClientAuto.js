@@ -387,7 +387,7 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.Heroes = Heroes;
-    class SuperDemo {
+    class StringData {
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -395,16 +395,37 @@ var DemoWebApi_Controllers_Client;
             this.statusCode = statusCode;
         }
         /**
-         * GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+         * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
          */
         athletheSearch(take, skip, order, sort, search, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
-         * GET api/SuperDemo/String
+         * GET api/StringData/String
          */
         getABCDE(callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/String', callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/StringData/String', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * GET api/StringData/EmptyString
+         */
+        getEmptyString(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/StringData/EmptyString', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * GET api/StringData/NullString
+         */
+        getNullString(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/StringData/NullString', callback, this.error, this.statusCode, headersHandler);
+        }
+    }
+    DemoWebApi_Controllers_Client.StringData = StringData;
+    class SuperDemo {
+        constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
+            this.baseUri = baseUri;
+            this.httpClient = httpClient;
+            this.error = error;
+            this.statusCode = statusCode;
         }
         /**
          * GET api/SuperDemo/ActionResult
@@ -510,12 +531,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/DoubleZero', callback, this.error, this.statusCode, headersHandler);
         }
         /**
-         * GET api/SuperDemo/EmptyString
-         */
-        getEmptyString(callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/EmptyString', callback, this.error, this.statusCode, headersHandler);
-        }
-        /**
          * GET api/SuperDemo/enumArrayDays?a={a}
          */
         getEnumArrayDays(a, callback, headersHandler) {
@@ -616,12 +631,6 @@ var DemoWebApi_Controllers_Client;
          */
         getNullPerson(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/NullObject', callback, this.error, this.statusCode, headersHandler);
-        }
-        /**
-         * GET api/SuperDemo/NullString
-         */
-        getNullString(callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/NullString', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
@@ -781,6 +790,39 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
+    class TextData {
+        constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
+            this.baseUri = baseUri;
+            this.httpClient = httpClient;
+            this.error = error;
+            this.statusCode = statusCode;
+        }
+        /**
+         * GET api/TextData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+         */
+        athletheSearch(take, skip, order, sort, search, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/TextData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * GET api/TextData/String
+         */
+        getABCDE(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/TextData/String', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * GET api/TextData/EmptyString
+         */
+        getEmptyString(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/TextData/EmptyString', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * GET api/TextData/NullString
+         */
+        getNullString(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/TextData/NullString', callback, this.error, this.statusCode, headersHandler);
+        }
+    }
+    DemoWebApi_Controllers_Client.TextData = TextData;
     class Tuple {
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;

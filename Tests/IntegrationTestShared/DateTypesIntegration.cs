@@ -177,7 +177,7 @@ namespace IntegrationTests
 		{
 			var p = DateTimeOffset.Now;
 			var r = api.PostDateTimeOffsetForO(p);
-			Assert.Equal("\"" + p.ToString("O") + "\"", r);
+			Assert.Equal(p.ToString("O"), r);
 		}
 
 		/// <summary>

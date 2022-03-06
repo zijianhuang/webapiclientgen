@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
-	/// For testing posting and getting string data
+	/// For testing posting and getting string data. Returned string is JSON object.
 	/// </summary>
 	[Produces("application/json")]
 	[Route("api/[controller]")]
@@ -18,6 +18,10 @@ namespace DemoWebApi.Controllers
 			return (take.HasValue ? take.Value.ToString() : String.Empty) + skip.ToString() + (String.IsNullOrEmpty(order) ? "" : order) + (String.IsNullOrEmpty(sort) ? "" : sort) + (String.IsNullOrEmpty(search) ? "" : search);
 		}
 
+		/// <summary>
+		/// Return empty body with status 204 No Content.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("NullString")]
 		public string GetNullString()
@@ -32,6 +36,10 @@ namespace DemoWebApi.Controllers
 			return "ABCDE";
 		}
 
+		/// <summary>
+		/// Return empty string JSON object. Status 200.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("EmptyString")]
 		public string GetEmptyString()

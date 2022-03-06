@@ -497,6 +497,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Entities/NullCompany
+		 */
+		getNullCompany(callback: (data : DemoWebApi_DemoData_Client.Company) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/Entities/NullCompany', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
@@ -623,6 +630,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty string JSON object. Status 200.
 		 * GET api/StringData/EmptyString
 		 */
 		getEmptyString(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
@@ -630,6 +638,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 204 No Content.
 		 * GET api/StringData/NullString
 		 */
 		getNullString(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1082,6 +1091,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 200.
 		 * GET api/TextData/EmptyString
 		 */
 		getEmptyString(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1089,6 +1099,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 204 No Content.
 		 * GET api/TextData/NullString
 		 */
 		getNullString(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DemoCoreWeb.Controllers
 {
-	[Produces("application/json")] //.net core difference: .net core 2.0 does not support these.let's see 2.1 upcoming. issue #40
 	[Route("api/SpecialTypes")]
 	public class SpecialTypesController : ControllerBase
 	{

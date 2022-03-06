@@ -501,6 +501,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Entities/NullCompany
+		 */
+		getNullCompany(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Company> {
+			return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/NullCompany', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
@@ -629,6 +636,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty string JSON object. Status 200.
 		 * GET api/StringData/EmptyString
 		 */
 		getEmptyString(headersHandler?: () => HttpHeaders): Observable<string> {
@@ -636,6 +644,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 204 No Content.
 		 * GET api/StringData/NullString
 		 */
 		getNullString(headersHandler?: () => HttpHeaders): Observable<string> {
@@ -1090,6 +1099,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 200.
 		 * GET api/TextData/EmptyString
 		 */
 		getEmptyString(headersHandler?: () => HttpHeaders): Observable<string> {
@@ -1097,6 +1107,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return empty body with status 204 No Content.
 		 * GET api/TextData/NullString
 		 */
 		getNullString(headersHandler?: () => HttpHeaders): Observable<string> {

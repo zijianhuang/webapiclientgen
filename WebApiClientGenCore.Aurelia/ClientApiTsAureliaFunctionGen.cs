@@ -104,7 +104,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}{OptionsForString}).then(d => d.text());")); //todo: type cast is not really needed.
+					Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}{OptionsForString}).then(d => d.status == 204 ? null : d.text());")); //todo: type cast is not really needed.
 					return;
 				}
 
@@ -113,11 +113,11 @@ namespace Fonlow.CodeDom.Web.Ts
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForString}).then(d => d.text());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForString}).then(d => d.status == 204 ? null : d.text());"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString}).then(d => d.text());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString}).then(d => d.status == 204 ? null : d.text());"));
 					}
 
 					return;

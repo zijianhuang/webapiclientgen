@@ -1,20 +1,20 @@
+import { HttpClient } from 'aurelia-fetch-client';
 import { initialize } from 'aurelia-pal-browser';
-import {HttpClient, json} from 'aurelia-fetch-client';
+import * as moment from 'moment';
 import * as namespaces from './clientapi/WebApiCoreAureliaClientAuto';
 const DemoWebApi_Controllers_Client = namespaces.DemoWebApi_Controllers_Client;
 const DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
 
-import * as moment from 'moment';
 
 initialize(); // as described at https://discourse.aurelia.io/t/problem-with-unit-testing-and-mocking-api-call/2405
 
-describe('Basic', ()=>{
-  it('simple 1', done=>{
+describe('Basic', () => {
+  it('simple 1', done => {
     expect(true).toBeTruthy();
     done();
   });
 
-  it('simple 2', done=>{
+  it('simple 2', done => {
 
     expect(true).toBeTruthy();
     done();
@@ -22,20 +22,20 @@ describe('Basic', ()=>{
 
 });
 
-const forDotNetCore=true;
+const forDotNetCore = true;
 const baseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
 const http = new HttpClient();
 http.baseUrl = baseUri;
 
-describe('Values', ()=>{
+describe('Values', () => {
   const api = new DemoWebApi_Controllers_Client.Values(http);
 
-  it('getById', (done)=>{
+  it('getById', (done) => {
     api.getById(3).then(
-      d=> {
+      d => {
         expect(d).toBe('3');
         done();
-    }
+      }
     );
   });
 
@@ -47,7 +47,7 @@ describe('Values', ()=>{
         done();
       },
       error => {
-       // fail(errorResponseToString(error));
+        // 
         done();
       }
     );
@@ -62,7 +62,7 @@ describe('Values', ()=>{
         done();
       },
       error => {
-      //  fail(errorResponseToString(error));
+        //  
         done();
       }
     );
@@ -71,9 +71,9 @@ describe('Values', ()=>{
 });
 
 describe('Heroes API', () => {
-  const service= new namespaces.DemoWebApi_Controllers_Client.Heroes(http);
+  const service = new namespaces.DemoWebApi_Controllers_Client.Heroes(http);
 
-   it('getAll', (done) => {
+  it('getAll', (done) => {
     service.getHeros().then(
       data => {
         console.debug(data.length);
@@ -92,7 +92,7 @@ describe('Heroes API', () => {
   it('Add', (done) => {
     service.post('somebody').then(
       data => {
-        console.info('Add hero: '+JSON.stringify(data));
+        console.info('Add hero: ' + JSON.stringify(data));
         expect(data.name).toBe('somebody');
         done();
       },
@@ -169,15 +169,15 @@ describe('entities API', () => {
 
     client.createPerson(newPerson)
       .then(
-      data => {
-        id = data;
-        expect(data).toBeTruthy();
-        done();
-      },
-      error => {
+        data => {
+          id = data;
+          expect(data).toBeTruthy();
+          done();
+        },
+        error => {
 
-        done();
-      }
+          done();
+        }
       );
 
   }
@@ -191,27 +191,27 @@ describe('entities API', () => {
       surname: 'Smith',
       dob: new Date('1977-12-28')
     };
-  
-    client.createPerson3(newPerson, ()=>{return {middle: 'Hey'};})
+
+    client.createPerson3(newPerson, () => { return { middle: 'Hey' }; })
       .then(
-      data => {
-        expect(data.givenName).toBe('Hey');
-        done();
-      },
-      error => {
-  
-        done();
-      }
+        data => {
+          expect(data.givenName).toBe('Hey');
+          done();
+        },
+        error => {
+
+          done();
+        }
       );
-  
+
   }
   );
 });
 
 describe('Tuple API', () => {
-  const service= new namespaces.DemoWebApi_Controllers_Client.Tuple(http);
+  const service = new namespaces.DemoWebApi_Controllers_Client.Tuple(http);
 
- 
+
   it('getTuple2', (done) => {
     service.getTuple2().then(
       data => {
@@ -335,31 +335,14 @@ describe('Tuple API', () => {
 
         done();
       }
-      );
+    );
   }
   );
 
 });
 
-
-
-describe('SuperDemo API', () => {
-  const service=new namespaces.DemoWebApi_Controllers_Client.SuperDemo(http);
-
-  it('getBool', (done) => {
-    service.getBool().then(
-      data => {
-        expect(data).toBeTruthy();
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
+describe("DateTypes API", () => {
+  const service = new namespaces.DemoWebApi_Controllers_Client.DateTypes(http);
 
   it('GetNextHour', (done) => {
     const dt = new Date(Date.now());
@@ -419,6 +402,551 @@ describe('SuperDemo API', () => {
   }
   );
 
+  it('getDateTimeNull', (done) => {
+    service.getDateTime(false).then(
+      data => {
+        expect(data).toBeNull();// Aurelia httpclient throws error upon 204.
+        done();
+      },
+      error => {
+        expect(true).toBeTruthy();
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getDateTime', (done) => {
+    service.getDateTime(true).then(
+      data => {
+        expect(data).toBeDefined();
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNextYearNullable', (done) => {
+    let now = new Date(Date.now());
+    service.getNextYearNullable(2, now).then(
+      data => {
+        const m = moment(data);
+        let dt = m.toDate();
+        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNextHourNullable', (done) => {
+    let now = new Date(Date.now());
+    service.getNextHourNullable(2, now).then(
+      data => {
+        const m = moment(data);
+        let dt = m.toDate();
+        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNextYearNullable2', (done) => {
+    let now = new Date(Date.now());
+    service.getNextYearNullable(2, undefined).then(
+      data => {
+        const m = moment(data);
+        let dt = m.toDate();
+        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getNextHourNullable2', (done) => {
+    let now = new Date(Date.now());
+    service.getNextHourNullable(2, null).then(
+      data => {
+        const m = moment(data);
+        let dt = m.toDate();
+        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('searchDateRange', (done) => {
+    let startDt = new Date(Date.now());
+    let endDt = new Date(Date.now() + 100000);
+    service.searchDateRange(startDt, endDt).then(
+      data => {
+        const m1 = moment(data.item1);
+        const m2 = moment(data.item2);
+        expect(m1.toDate()).toEqual(startDt);
+        expect(m2.toDate()).toEqual(endDt);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('searchDateRangeEndUndefined', (done) => {
+    let startDt = new Date(Date.now());
+    let endDt = new Date(Date.now() + 100000);
+    service.searchDateRange(startDt, undefined).then(
+      data => {
+        const m1 = moment(data.item1);
+        expect(m1.toDate()).toEqual(startDt);
+        expect(data.item2).toBeNull(); //OK with null rather than undefined
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('searchDateRangeStartUndefined', (done) => {
+    let startDt = new Date(Date.now());
+    let endDt = new Date(Date.now() + 100000);
+    service.searchDateRange(undefined, endDt).then(
+      data => {
+        //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
+        forDotNetCore ? expect(data.item1).toBeNull() : expect(data.item1).toBeUndefined();
+        const m = moment(data.item2);
+        expect(m.toDate().getHours()).toEqual(endDt.getHours());
+        done();
+      },
+      error => {
+        // let errorText = errorResponseToString(error);
+        // if (errorText.indexOf('400') < 0) {
+        //   fail(errorText);
+        // }
+        expect(true).toBeTruthy();
+        done();
+      }
+    );
+
+  }
+  );
+
+
+  it('searchDateRangeBotNull', (done) => {
+    let startDt = new Date(Date.now());
+    let endDt = new Date(Date.now() + 100000);
+    service.searchDateRange(null, undefined).then(
+      data => {
+        expect(data.item1).toBeNull();
+        expect(data.item1).toBeNull();
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postDateOnly', (done) => {
+    const dt = new Date(Date.parse('2018-12-23')); //JS will serialize it to 2018-12-23T00:00:00.000Z.
+    service.postDateOnly(dt).then(
+      data => {
+        const v: any = data; //string 2008-12-23
+        expect(v).toEqual('2018-12-23');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postDateOnlyWithNull', (done) => {
+    service.postDateOnly(null).then(
+      data => {
+        const v: any = data;
+        expect(v).toEqual('0001-01-01');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postDateOnlyNullable', (done) => {
+    const dt = new Date(Date.parse('2018-12-23'));
+    service.postDateOnlyNullable(dt).then(
+      data => {
+        const v: any = data;
+        expect(v).toEqual('2018-12-23');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postDateOnlyNullableWithNull', (done) => {
+    service.postDateOnlyNullable(null).then(
+      data => {
+        expect(data).toBeNull();
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('postDateOnlyNullableWithUndefined', (done) => {
+    service.postDateOnlyNullable(null).then(
+      data => {
+        expect(data).toBeNull();
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('IsDateTimeOffsetDate', (done) => {
+    const dt = new Date(Date.parse('2018-12-23'));
+    service.isDateTimeOffsetDate(dt).then(
+      data => {
+        const v: any = data.item1;
+        expect(v).toEqual('2018-12-23');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('IsDateTimeDate', (done) => {
+    const dt = new Date(Date.parse('2018-12-23'));
+    service.isDateTimeDate(dt).then(
+      data => {
+        const v: any = data.item1;
+        expect(v).toEqual('2018-12-23');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+
+});
+
+describe('TextData API', () => {
+  const service = new namespaces.DemoWebApi_Controllers_Client.TextData(http);
+
+  it('TestAthletheSearch', (done) => {
+    service.athletheSearch(32, 0, null, null, null).then(
+      data => {
+        expect(data).toBe('320');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('TestAthletheSearch2', (done) => {
+    service.athletheSearch(32, 0, null, null, 'Search').then(
+      data => {
+        expect(data).toBe('320Search');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('getABCDE', (done) => {
+    service.getABCDE().then(
+      data => {
+        expect(data).toBe('ABCDE');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('getEmptyString', (done) => {
+    service.getEmptyString().then(
+      data => {
+        expect(data).toBe('');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  /**
+   * 
+   */
+  it('getNullString', (done) => {
+    service.getNullString().then(
+      data => {
+        expect(data).toBe(null);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+});
+
+describe('StringData API', () => {
+  const service = new namespaces.DemoWebApi_Controllers_Client.StringData(http);
+
+  it('getNullString', (done) => {
+    service.getNullString().then(
+      data => {
+        expect(data).toBeNull();
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('TestAthletheSearch', (done) => {
+    service.athletheSearch(32, 0, null, null, null).then(
+      data => {
+        expect(data).toBe('"320"');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('TestAthletheSearch2', (done) => {
+    service.athletheSearch(32, 0, null, null, "Search").then(
+      data => {
+        expect(data).toBe('"320Search"');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('TestAthletheSearch3', (done) => {
+    service.athletheSearch(32, 0, null, "Sort", "Search").then(
+      data => {
+        expect(data).toBe('"320SortSearch"');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('TestAthletheSearch4', (done) => {
+    service.athletheSearch(32, 0, "Order", "Sort", "Search").then(
+      data => {
+        expect(data).toBe('"320OrderSortSearch"');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('TestAthletheSearch5', (done) => {
+    service.athletheSearch(32, 0, "Order", null, "Search").then(
+      data => {
+        expect(data).toBe('"320OrderSearch"');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('TestAthletheSearch6', (done) => {
+    service.athletheSearch(32, 0, "Order", "", "Search").then(
+      data => {
+        expect(data).toBe('"320OrderSearch"');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('getABCDE', (done) => {
+    service.getABCDE().then(
+      data => {
+        expect(data).toBe('"ABCDE"');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  it('getEmptyString', (done) => {
+    service.getEmptyString().then(
+      data => {
+        expect(data).toBe('""');
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+
+  /**
+   * Angular HttpClient could identify null value.
+   */
+  it('getNullString', (done) => {
+    service.getNullString().then(
+      data => {
+        expect(data).toBe(null);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+  }
+  );
+});
+
+describe('SuperDemo API', () => {
+  const service = new namespaces.DemoWebApi_Controllers_Client.SuperDemo(http);
+
+  it('getBool', (done) => {
+    service.getBool().then(
+      data => {
+        expect(data).toBeTruthy();
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
 
   it('getFloatZero', (done) => {
     service.getFloatZero().then(
@@ -495,37 +1023,6 @@ describe('SuperDemo API', () => {
   }
   );
 
-  it('getDateTime', (done) => {
-    service.getDateTime(true).then(
-      data => {
-        expect(data).toBeDefined();
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('getDateTimeNull', (done) => {
-    service.getDateTime(false).then(
-      data => {
-        expect(data).toBeNull();// Aurelia httpclient throws error upon 204.
-        done();
-      },
-      error => {
-        expect(true).toBeTruthy();
-        done();
-      }
-    );
-
-  }
-  );
-
   it('getNullableDecimal', (done) => {
     service.getNullableDecimal(true).then(
       data => {
@@ -548,23 +1045,8 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-        console.debug('getNullableDecimalNull: '+ JSON.stringify(error));
+        console.debug('getNullableDecimalNull: ' + JSON.stringify(error));
         expect(true).toBeTruthy();
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNullString', (done) => {
-    service.getNullString().then(
-      data => {
-        forDotNetCore? expect(data).toBe(''):expect(data).toBeNull();
-            done();
-      },
-      error => {
-
         done();
       }
     );
@@ -576,7 +1058,7 @@ describe('SuperDemo API', () => {
     service.getNullPerson().then(
       data => {
         expect(data).toBeNull(); //Aurelia httpclient throws error upon service statuscode 204
-		//expect(data).toBe(''); // .net core return 204 nocontent empty body
+        //expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -591,7 +1073,7 @@ describe('SuperDemo API', () => {
   it('getByteArray', (done) => {
     service.getByteArray().then(
       data => {
-		expect(data.length).toBeGreaterThan(0);
+        expect(data.length).toBeGreaterThan(0);
         done();
       },
       error => {
@@ -602,21 +1084,21 @@ describe('SuperDemo API', () => {
 
   }
   );
-  
-  
-  
-  
+
+
+
+
   it('getTextStream', (done) => {
     service.getTextStream().then(
       data => {
-		  console.debug('getTextStream');
-		  console.debug(data); // abcdefg
+        console.debug('getTextStream');
+        console.debug(data); // abcdefg
 
-  expect(data.size).toBe(7);
+        expect(data.size).toBe(7);
 
-		const reader = new FileReader();//axios actually give string rather than a blob structure
+        const reader = new FileReader();//axios actually give string rather than a blob structure
         reader.onload = () => {
-	      expect(reader.result).toBe('abcdefg'); 
+          expect(reader.result).toBe('abcdefg');
         };
         reader.readAsText(data);
 
@@ -959,7 +1441,7 @@ describe('SuperDemo API', () => {
 
         done();
       }
-      );
+    );
 
   }
   );
@@ -984,163 +1466,6 @@ describe('SuperDemo API', () => {
     service.getBool().then(
       data => {
         expect(data).toBeTruthy();
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextYearNullable', (done) => {
-    let now = new Date(Date.now());
-    service.getNextYearNullable(2, now).then(
-      data => {
-        const m = moment(data);
-        let dt = m.toDate();
-        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextHourNullable', (done) => {
-    let now = new Date(Date.now());
-    service.getNextHourNullable(2, now).then(
-      data => {
-        const m = moment(data);
-        let dt = m.toDate();
-        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextYearNullable2', (done) => {
-    let now = new Date(Date.now());
-    service.getNextYearNullable(2, undefined).then(
-      data => {
-        const m = moment(data);
-        let dt = m.toDate();
-        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextHourNullable2', (done) => {
-    let now = new Date(Date.now());
-    service.getNextHourNullable(2, null).then(
-      data => {
-        const m = moment(data);
-        let dt = m.toDate();
-        expect(dt.getHours()%24).toEqual((now.getHours() + 2)%24)
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRange', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(startDt, endDt).then(
-      data => {
-        const m1 = moment(data.item1);
-        const m2 = moment(data.item2);
-        expect(m1.toDate()).toEqual(startDt);
-        expect(m2.toDate()).toEqual(endDt);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRangeEndUndefined', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(startDt, undefined).then(
-      data => {
-        const m1 = moment(data.item1);
-        expect(m1.toDate()).toEqual(startDt);
-        expect(data.item2).toBeNull(); //OK with null rather than undefined
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRangeStartUndefined', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(undefined, endDt).then(
-      data => {
-        //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-        forDotNetCore?expect(data.item1).toBeNull():expect(data.item1).toBeUndefined();
-        const m = moment(data.item2);
-        expect(m.toDate().getHours()).toEqual(endDt.getHours());
-        done();
-      },
-      error => {
-        // let errorText = errorResponseToString(error);
-        // if (errorText.indexOf('400') < 0) {
-        //   fail(errorText);
-        // }
-        expect(true).toBeTruthy();
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRangeBotNull', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(null, undefined).then(
-      data => {
-        expect(data.item1).toBeNull();
-        expect(data.item1).toBeNull();
         done();
       },
       error => {

@@ -63,14 +63,6 @@ namespace IntegrationTests
 			Assert.Equal(dtNow.AddYears(2).Year, api.GetNextYearNullable(2, null).Year);
 		}
 
-
-		[Fact]
-		public void TestGetNextHourNullable2()
-		{
-			var dtNow = DateTimeOffset.Now;
-			Assert.Equal(dtNow.AddHours(2).Hour, api.GetNextHourNullable(2, null).Hour);
-		}
-
 		[Fact]
 		public void TestIsDateTimeDate()
 		{
@@ -160,9 +152,19 @@ namespace IntegrationTests
 		{
 			var dt = api.GetDateTimeOffset();
 			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
-			Assert.Equal(TimeSpan.FromHours(10), dt.Offset);
 		}
 
+		[Fact(Skip = "Used for Host in Hawaii")]
+		public void TestGetDateTimeOffsetWithHawaiiHost()
+		{
+			var dt = api.GetDateTimeOffset(); // Now in Hawaii is with -10 offset.
+			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
+			Assert.Equal(TimeSpan.FromHours(-10), dt.Offset); //my dev machine is in +10 timezone
+		}
+
+		/// <summary>
+		/// The service keept the original Offset even if the host is in Hawaii.
+		/// </summary>
 		[Fact]
 		public void TestPostDateTimeOffset()
 		{

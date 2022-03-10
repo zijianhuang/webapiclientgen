@@ -10,3 +10,7 @@ The TS files in Scripts are compiled into `./wwwroot/scripts/` according to `tsc
 
 After launching DemoCoreWeb, run `tests.html`.
 
+
+**Hints**
+When using the DEBUG build hosting in IIS, you need to modify `DemoCoreWeb.staticwebassets.runtime.json` and change CurrentRoots to:
+`"ContentRoots":["C:\\inetpub\\wwwroot\\DemoCoreWebService\\wwwroot\\"]` or alike, absolute path needed.

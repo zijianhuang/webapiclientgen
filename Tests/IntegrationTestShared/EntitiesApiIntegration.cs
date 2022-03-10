@@ -41,6 +41,7 @@ namespace IntegrationTests
 			Assert.Equal("Hey", a.GivenName);
 			Assert.Equal(person.DOB, a.DOB);
 			Assert.Equal(person.Baptised, a.Baptised);
+			Assert.Equal(person.Baptised.Value.Offset, a.Baptised.Value.Offset); //Even if the host is in Hawaii.
 		}
 
 		[Fact]

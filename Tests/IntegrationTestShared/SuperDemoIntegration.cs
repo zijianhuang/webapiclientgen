@@ -305,6 +305,20 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestGetBadRequest()
+		{
+			var ex = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.GetBadRequest());
+			Assert.Equal("{\"DemoKey\":[\"Some description\"]}", ex.Response);
+		}
+
+		[Fact]
+		public void TestGetBadRequest2()
+		{
+			var ex = Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.GetBadRequest2());
+			Assert.Equal("{\"DemoKey\":[\"Some description\"]}", ex.Response);
+		}
+
+		[Fact]
 		public void TestDictionary()
 		{
 			var dic = new Dictionary<string, Person>()

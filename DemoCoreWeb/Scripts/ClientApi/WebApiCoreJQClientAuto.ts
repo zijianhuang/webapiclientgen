@@ -673,6 +673,20 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/BadRequest
+		 */
+		getBadRequest(callback: (data : any) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/BadRequest', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
+		 * GET api/SuperDemo/BadRequest2
+		 */
+		getBadRequest2(callback: (data : any) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/BadRequest2', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
 		 * GET api/SuperDemo/bool
 		 */
 		getBool(callback: (data : boolean) => any, headersHandler?: () => {[header: string]: string}) {

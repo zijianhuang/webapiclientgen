@@ -60,6 +60,22 @@ export function errorResponseToString(error: HttpErrorResponse | any,): string {
 	}
 }
 
+export function errorResponseBodyToString(error: HttpErrorResponse | any,): string {
+	let errMsg: string;
+	if (error instanceof HttpErrorResponse) {
+		if (error.status === 0) {
+			errMsg = 'No response from backend. Connection is unavailable.';
+		} else {
+			errMsg = JSON.stringify(error.error);
+		}
+
+		return errMsg;
+	} else {
+		errMsg = error.message ? error.message : error.toString();
+		return errMsg;
+	}
+}
+
 
 describe('Values API', () => {
 	let service: namespaces.DemoWebApi_Controllers_Client.Values;
@@ -656,7 +672,7 @@ describe('DateTypes API', () => {
 	}
 	);
 
-	it('IsDateTimeOffsetDate', (done) => {
+	it('isDateTimeOffsetDate', (done) => {
 		const dt = new Date(Date.parse('2018-12-23'));
 		service.isDateTimeOffsetDate(dt).subscribe(
 			data => {
@@ -673,7 +689,7 @@ describe('DateTypes API', () => {
 	}
 	);
 
-	it('IsDateTimeDate', (done) => {
+	it('isDateTimeDate', (done) => {
 		const dt = new Date(Date.parse('2018-12-23'));
 		service.isDateTimeDate(dt).subscribe(
 			data => {
@@ -1026,6 +1042,38 @@ describe('SuperDemo API', () => {
 			},
 			error => {
 				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('getBadRequest', (done) => {
+		service.getBadRequest().subscribe(
+			data => {
+				fail('Should never be OK');
+				done();
+			},
+			error => {
+				error.error.text().then(t => { //error.error is blob as observed.
+					expect(t).toBe('{"DemoKey":["Some description"]}');
+					done();
+				});
+			}
+		);
+
+	}
+	);
+
+	it('getBadRequest2', (done) => {
+		service.getBadRequest2().subscribe(
+			data => {
+				fail('Should never be OK');
+				done();
+			},
+			error => {
+				expect(error.error).toBe('{"DemoKey":["Some description"]}');
 				done();
 			}
 		);

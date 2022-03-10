@@ -6,6 +6,7 @@ This Web service contains rich data types and Web API prototypes for covering ma
 
 This CS project contains TS codes for testing client API for jQuery, and the test platform is QUnit. And the JS test suites is hosted in the same Web service.
 
+The TS files in Scripts are compiled into `./wwwroot/scripts/` according to `tsconfig.json` when saving, then run "UpdateJqTests.bat" to copy to `bin/Debug/Net6.0/wwwroot'.
+
 After launching DemoCoreWeb, run `tests.html`.
 
-When saving the TS files, the compilation is done according to tsconfig.json. However, for testing alone with DemoCoreWeb hosted in IIS Express, the JS files are to be copied to wwwroot. And this step is implemented through post build events. Therefore, building after modifying TS files is convenient to refresh the tests running in browser.

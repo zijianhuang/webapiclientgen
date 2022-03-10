@@ -679,6 +679,20 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/BadRequest
+		 */
+		getBadRequest(headersHandler?: () => {[header: string]: string}): Promise<Blob> {
+			return this.http.get('api/SuperDemo/BadRequest', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.blob());
+		}
+
+		/**
+		 * GET api/SuperDemo/BadRequest2
+		 */
+		getBadRequest2(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/SuperDemo/BadRequest2', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/bool
 		 */
 		getBool(headersHandler?: () => {[header: string]: string}): Promise<boolean> {

@@ -4336,6 +4336,82 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/SuperDemo/BadRequest
+		/// </summary>
+		public async Task<System.Net.Http.HttpResponseMessage> GetBadRequestAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/BadRequest";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			responseMessage.EnsureSuccessStatusCodeEx();
+			return responseMessage;
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/BadRequest
+		/// </summary>
+		public System.Net.Http.HttpResponseMessage GetBadRequest(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/BadRequest";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			responseMessage.EnsureSuccessStatusCodeEx();
+			return responseMessage;
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/BadRequest2
+		/// </summary>
+		public async Task<System.Net.Http.HttpResponseMessage> GetBadRequest2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/BadRequest2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			responseMessage.EnsureSuccessStatusCodeEx();
+			return responseMessage;
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/BadRequest2
+		/// </summary>
+		public System.Net.Http.HttpResponseMessage GetBadRequest2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/BadRequest2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			responseMessage.EnsureSuccessStatusCodeEx();
+			return responseMessage;
+			}
+		}
+		
+		/// <summary>
 		/// GET api/SuperDemo/bool
 		/// </summary>
 		public async Task<bool> GetBoolAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

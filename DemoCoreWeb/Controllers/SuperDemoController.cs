@@ -90,6 +90,20 @@ namespace DemoWebApi.Controllers
 			}
 		}
 
+		[HttpGet("BadRequest")]
+		public ActionResult GetBadRequest()
+		{
+			ModelState.AddModelError("DemoKey", "Some description");
+			return BadRequest(ModelState);
+		}
+
+		[HttpGet("BadRequest2")]
+		public IActionResult GetBadRequest2()
+		{
+			ModelState.AddModelError("DemoKey", "Some description");
+			return BadRequest(ModelState);
+		}
+
 		[HttpGet]
 		[Route("ByteArray")]
 		public byte[] GetByteArray()

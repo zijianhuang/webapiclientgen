@@ -680,6 +680,20 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/BadRequest
+		 */
+		getBadRequest(headersHandler?: () => HttpHeaders): Observable<HttpResponse<Blob>> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/BadRequest', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'blob' });
+		}
+
+		/**
+		 * GET api/SuperDemo/BadRequest2
+		 */
+		getBadRequest2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.get(this.baseUri + 'api/SuperDemo/BadRequest2', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
+		}
+
+		/**
 		 * GET api/SuperDemo/bool
 		 */
 		getBool(headersHandler?: () => HttpHeaders): Observable<boolean> {

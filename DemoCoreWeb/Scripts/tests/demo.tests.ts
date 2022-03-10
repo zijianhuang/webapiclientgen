@@ -244,12 +244,15 @@ module CommonCases {
 	});
 
 	QUnit.module("DateTypes", function () {
-		QUnit.test("GetNextHour", function (assert) {  //the runner of chutzpah apparently intepret toISOString() as toString()
+		QUnit.test("GetNextHour", function (assert) {
 			let done = assert.async();
 			let dt = new Date(Date.now());
 			let h = dt.getHours();
 			dateTypesApi.getNextHour(dt, (data) => {
-				assert.equal(data.getHours(), h + 1);
+				const dataHour = new Date(data).getHours(); //data is regarded by jQ as string
+				const expectedH = h + 1;
+				assert.equal(dataHour, expectedH);
+				//assert.ok(true);
 				done();
 			});
 		});
@@ -274,7 +277,7 @@ module CommonCases {
 			const dt = new Date(Date.now());
 			let done = assert.async();
 			dateTypesApi.postDateTimeOffset(dt, (data) => {
-				assert.ok(data === dt);
+				assert.deepEqual(new Date(data), dt);
 				done();
 			});
 		});
@@ -283,7 +286,7 @@ module CommonCases {
 			const dt = new Date(Date.now());
 			let done = assert.async();
 			dateTypesApi.postDateTimeOffsetNullable(dt, (data) => {
-				assert.equal(data, dt);
+				assert.deepEqual(new Date(data), dt);
 				done();
 			});
 		});
@@ -313,7 +316,58 @@ module CommonCases {
 			});
 		});
 
+		QUnit.test("postDateOnlyWithNull", function (assert) {
+			let done = assert.async();
+			dateTypesApi.postDateOnly(null, (data) => {
+				assert.equal(data, '0001-01-01');
+				done();
+			});
+		});
 
+		QUnit.test("postDateOnlyNullable", function (assert) {
+			const dt = new Date(Date.parse('2018-12-23')); //JS will serialize it to 2018-12-23T00:00:00.000Z.
+			let done = assert.async();
+			dateTypesApi.postDateOnlyNullable(dt, (data) => {
+				assert.equal(data, '2018-12-23');
+				done();
+			});
+		});
+
+		QUnit.test("postDateOnlyNullableWithNull", function (assert) {
+			let done = assert.async();
+			dateTypesApi.postDateOnlyNullable(null, (data) => {
+				assert.equal(data, null);
+				done();
+			});
+		});
+
+		QUnit.test("postDateOnlyNullableWithUndefined", function (assert) {
+			let done = assert.async();
+			dateTypesApi.postDateOnlyNullable(undefined, (data) => {
+				assert.equal(data, null);
+				done();
+			});
+		});
+
+		QUnit.test("isDateTimeOffsetDate", function (assert) {
+			const dt = new Date(Date.parse('2018-12-23')); //JS will serialize it to 2018-12-23T00:00:00.000Z.
+			let done = assert.async();
+			dateTypesApi.isDateTimeOffsetDate(dt, (data) => {
+				const v: any = data.item1;
+				assert.equal(data.item1, '2018-12-23');
+				done();
+			});
+		});
+
+		QUnit.test("isDateTimeDate", function (assert) {
+			const dt = new Date(Date.parse('2018-12-23')); //JS will serialize it to 2018-12-23T00:00:00.000Z.
+			let done = assert.async();
+			dateTypesApi.isDateTimeDate(dt, (data) => {
+				const v: any = data.item1;
+				assert.equal(data.item1, '2018-12-23');
+				done();
+			});
+		});
 
 	});
 

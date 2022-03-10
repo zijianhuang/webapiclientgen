@@ -111,6 +111,7 @@ class HttpClient implements HttpClientBase {
                 statusCode: statusCodeCallback,
                 contentType: contentType,
                 headers: headersHandler ? headersHandler() : undefined
+
             });
     }
 }

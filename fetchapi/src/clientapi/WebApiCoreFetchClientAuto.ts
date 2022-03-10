@@ -671,6 +671,20 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/BadRequest
+		 */
+		getBadRequest(headersHandler?: () => {[header: string]: string}): Promise<Blob> {
+			return fetch(this.baseUri + 'api/SuperDemo/BadRequest', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.blob());
+		}
+
+		/**
+		 * GET api/SuperDemo/BadRequest2
+		 */
+		getBadRequest2(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return fetch(this.baseUri + 'api/SuperDemo/BadRequest2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/bool
 		 */
 		getBool(headersHandler?: () => {[header: string]: string}): Promise<boolean> {

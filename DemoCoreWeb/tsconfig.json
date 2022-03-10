@@ -1,6 +1,7 @@
 ﻿{
 	"compileOnSave": true,
 	"compilerOptions": {
+		"outDir": "./wwwroot/scripts/",
 		"sourceMap": true,
 		"declaration": false,
 		"moduleResolution": "node",

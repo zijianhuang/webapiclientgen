@@ -32,7 +32,7 @@ namespace Fonlow.WebApiClientGen
 		/// <param name="settings"></param>
 		/// <returns>OK if OK</returns>
 		[HttpPost]
-		public ActionResult TriggerCodeGen([FromBody] CodeGenSettings settings)
+		public IActionResult TriggerCodeGen([FromBody] CodeGenSettings settings)
 		{
 			if (settings == null)
 				return BadRequest("No settings");
@@ -62,7 +62,7 @@ namespace Fonlow.WebApiClientGen
 			{
 				settings.ClientApiOutputs.CamelCase = true;
 			}
-
+			
 			try
 			{
 				CodeGen.GenerateClientAPIs(this.webRootPath, settings, apiDescriptions);

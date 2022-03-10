@@ -59,7 +59,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy scripts\*.js wwwroot\scripts\ /s /d /y&#xD;&#xA;xcopy tests.html wwwroot\ /d /y&#xD;&#xA;xcopy wwwroot\*.* $(OutDir)wwwroot\ /s /d /y" />
+    <Exec Command="xcopy tests.html wwwroot\ /d /y&#xD;&#xA;xcopy wwwroot\*.* $(OutDir)wwwroot\ /s /d /y" />
   </Target>
 
 </Project>

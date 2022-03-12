@@ -20,11 +20,6 @@ namespace IntegrationTests
 
 			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
 			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeNullableJsonConverter());
-
 			Api = new DemoWebApi.Controllers.Client.SuperDemo(httpClient, jsonSerializerSettings);
 		}
 

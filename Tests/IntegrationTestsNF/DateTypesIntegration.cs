@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
-using Fonlow.DateOnlyExtensions;
 using Fonlow.Testing;
 
 namespace IntegrationTests
@@ -20,11 +19,6 @@ namespace IntegrationTests
 			{
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
-
-			//jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
-			//jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
-			//jsonSerializerSettings.Converters.Add(new DateTimeJsonConverter());
-			//jsonSerializerSettings.Converters.Add(new DateTimeNullableJsonConverter());
 
 			Api = new DemoWebApi.Controllers.Client.DateTypes(httpClient, jsonSerializerSettings);
 		}
@@ -208,7 +202,8 @@ namespace IntegrationTests
 			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
 		}
 
-		[Fact(Skip = "Used for Host in Hawaii")]
+		//[Fact(Skip = "Used for Host in Hawaii")]
+		[Fact]
 		public void TestGetDateTimeOffsetWithHawaiiHost()
 		{
 			var dt = api.GetDateTimeOffset(); // Now in Hawaii is with -10 offset.
@@ -361,12 +356,22 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestPostDateOnlyMin()
+		{
+			var dateOnly = DateTimeOffset.MinValue;
+			var r = api.PostDateOnly(dateOnly);
+			Assert.Equal(dateOnly.Date, r.Date);
+			Assert.Equal(DateTimeOffset.Now.Offset, r.Offset); //Local date start, because the return  object is "1988-12-23". no matter the client sends "2022-03-12" or "2022-03-12T00:00:00+00:00" or "2022-03-12T00:00:00Z"
+			Assert.Equal(TimeSpan.Zero, r.TimeOfDay);
+		}
+
+		[Fact]
 		public void TestPostDateOnlyNullable()
 		{
 			var dateOnly = new DateTimeOffset(1988, 12, 23, 0, 0, 0, TimeSpan.Zero);
 			var r = api.PostDateOnlyNullable(dateOnly);
 			Assert.Equal(dateOnly.Date, r.Value.Date);
-			Assert.Equal(DateTimeOffset.Now.Offset, r.Value.Offset); //Because the return  object is "1988-12-23". no matter the client sends "2022-03-12" or "2022-03-12T00:00:00+00:00" or "2022-03-12T00:00:00Z"
+			Assert.Equal(DateTimeOffset.Now.Offset, r.Value.Offset); //Because the return  object is "1988-12-23". no matter the client sends "2022-03-12" or "2022-03-12T00:00:00+00:00" or "2022-03-12T00:00:00Z" (JavaScript)
 			Assert.Equal(TimeSpan.Zero, r.Value.TimeOfDay);
 		}
 

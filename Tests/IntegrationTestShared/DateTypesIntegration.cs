@@ -154,8 +154,8 @@ namespace IntegrationTests
 			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
 		}
 
-		[Fact(Skip = "Used for Host in Hawaii")]
-		//[Fact]
+		//[Fact(Skip = "Used for Host in Hawaii")]
+		[Fact]
 		public void TestGetDateTimeOffsetWithHawaiiHost()
 		{
 			var dt = api.GetDateTimeOffset(); // Now in Hawaii is with -10 offset.
@@ -301,6 +301,14 @@ namespace IntegrationTests
 		public void TestPostDateOnly()
 		{
 			var dateOnly = new DateOnly(1988, 12, 23);
+			var r = api.PostDateOnly(dateOnly);
+			Assert.Equal(dateOnly, r);
+		}
+
+		[Fact]
+		public void TestPostDateOnlyMin()
+		{
+			var dateOnly = DateOnly.MinValue;
 			var r = api.PostDateOnly(dateOnly);
 			Assert.Equal(dateOnly, r);
 		}

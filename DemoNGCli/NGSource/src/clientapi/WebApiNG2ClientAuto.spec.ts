@@ -328,7 +328,7 @@ describe('entities API', () => {
 					const d1: any = data.dob;
 					const d2: any = data.baptised;
 					expect(d1).toEqual('1969-12-28'); //string
-					expect(d2).toEqual('1980-01-30'); //string
+					expect(d2).toEqual('1980-01-30T00:00:00+00:00'); //string
 					done();
 				},
 				error => {

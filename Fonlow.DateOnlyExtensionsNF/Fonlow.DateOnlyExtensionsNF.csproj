@@ -44,12 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Fonlow.DateOnlyExtensions\DateTimeJsonConverters.cs">
-      <Link>DateTimeJsonConverters.cs</Link>
-    </Compile>
-    <Compile Include="..\Fonlow.DateOnlyExtensions\DateTimeOffsetJsonConverters.cs">
-      <Link>DateTimeOffsetJsonConverters.cs</Link>
-    </Compile>
+    <Compile Include="DateTimeJsonConverters.cs" />
+    <Compile Include="DateTimeOffsetJsonConverters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

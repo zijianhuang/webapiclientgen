@@ -1,8 +1,7 @@
-﻿using DemoWebApi.DemoData.Client;
-using System;
-using System.Collections.Generic;
-using Xunit;
+﻿using Fonlow.DateOnlyExtensions;
 using Fonlow.Testing;
+using System;
+using Xunit;
 
 namespace IntegrationTests
 {
@@ -20,6 +19,9 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
+			jsonSerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //needed to make sure JSON serializers assume DateTimeOffset rather than DateTime.
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter()); //needed to handle DateOnly.MinValue
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter()); //needed to handle DateOnly.MinValue
 			Api = new DemoWebApi.Controllers.Client.DateTypes(httpClient, jsonSerializerSettings);
 		}
 
@@ -355,13 +357,16 @@ namespace IntegrationTests
 			Assert.Equal(TimeSpan.Zero, r.TimeOfDay);
 		}
 
+		/// <summary>
+		/// Need DateTimeOffsetConverter to handle DateOnly.MinValue from the server as "0001-01-01"
+		/// </summary>
 		[Fact]
 		public void TestPostDateOnlyMin()
 		{
-			var dateOnly = DateTimeOffset.MinValue;
+			var dateOnly = DateTimeOffset.MinValue; //timezone zero.
 			var r = api.PostDateOnly(dateOnly);
 			Assert.Equal(dateOnly.Date, r.Date);
-			Assert.Equal(DateTimeOffset.Now.Offset, r.Offset); //Local date start, because the return  object is "1988-12-23". no matter the client sends "2022-03-12" or "2022-03-12T00:00:00+00:00" or "2022-03-12T00:00:00Z"
+			Assert.Equal(TimeSpan.Zero, r.Offset);
 			Assert.Equal(TimeSpan.Zero, r.TimeOfDay);
 		}
 

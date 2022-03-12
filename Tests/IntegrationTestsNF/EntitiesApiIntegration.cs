@@ -2,6 +2,7 @@
 using Xunit;
 using DemoWebApi.DemoData.Client;
 using Fonlow.Testing;
+using Fonlow.DateOnlyExtensions;
 
 namespace IntegrationTests
 {
@@ -19,6 +20,9 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
+			jsonSerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //optional
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter()); //needed to handle DateOnly.MinValue
+			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter()); //needed to handle DateOnly.MinValue
 			Api = new DemoWebApi.Controllers.Client.Entities(httpClient, jsonSerializerSettings);
 		}
 
@@ -107,6 +111,9 @@ namespace IntegrationTests
 			Assert.Equal(foundDate.Day, a.FoundDate.Day);
 		}
 
+		/// <summary>
+		/// Need DateTimeOffsetConverter to handle DateOnly.MinValue from the server as "0001-01-01"
+		/// </summary>
 		[Fact]
 		public void TestCreateCompany2()
 		{
@@ -213,6 +220,9 @@ namespace IntegrationTests
 			Assert.Equal(1988, person.DOB.Value.Year);
 		}
 
+		/// <summary>
+		/// Need DateTimeOffsetConverter to handle DateOnly.MinValue from the server as "0001-01-01"
+		/// </summary>
 		[Fact]
 		public void TestGetCompany()
 		{
@@ -223,7 +233,7 @@ namespace IntegrationTests
 			Assert.Equal(AddressType.Residential, c.Addresses[1].Type);
 			Assert.Equal(8, c.Int2D[1, 3]);
 			Assert.Equal(8, c.Int2DJagged[1][3]);
-
+			Assert.Equal(DateTimeOffset.MinValue, c.RegisterDate);
 		}
 
 		[Fact]

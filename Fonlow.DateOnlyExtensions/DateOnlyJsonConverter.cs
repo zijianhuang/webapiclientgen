@@ -18,19 +18,19 @@ namespace Fonlow.DateOnlyExtensions
 			}
 
 			var vType = v.GetType();
-			if (vType == typeof(DateTimeOffset)) //when the object is from a property in POST body
+			if (vType == typeof(DateTimeOffset)) //when the object is from a property in POST body. When used in service, better to have options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset;
 			{
 				return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
-			}
-
-			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
-			{
-				return DateOnly.FromDateTime((DateTime)v);
 			}
 
 			if (vType == typeof(string))
 			{
 				return DateOnly.Parse((string)v); //DateOnly can parse 00001-01-01
+			}
+
+			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
+			{
+				return DateOnly.FromDateTime((DateTime)v);
 			}
 
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
@@ -71,14 +71,14 @@ namespace Fonlow.DateOnlyExtensions
 				return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
 			}
 
-			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
-			{
-				return DateOnly.FromDateTime((DateTime)v);
-			}
-
 			if (vType == typeof(string))
 			{
 				return DateOnly.Parse((string)v);
+			}
+
+			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
+			{
+				return DateOnly.FromDateTime((DateTime)v);
 			}
 
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");

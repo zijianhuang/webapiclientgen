@@ -155,6 +155,7 @@ namespace IntegrationTests
 		}
 
 		[Fact(Skip = "Used for Host in Hawaii")]
+		//[Fact]
 		public void TestGetDateTimeOffsetWithHawaiiHost()
 		{
 			var dt = api.GetDateTimeOffset(); // Now in Hawaii is with -10 offset.

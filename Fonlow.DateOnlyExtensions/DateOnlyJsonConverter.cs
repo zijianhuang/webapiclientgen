@@ -18,6 +18,11 @@ namespace Fonlow.DateOnlyExtensions
 			}
 
 			var vType = v.GetType();
+			if (vType == typeof(DateTimeOffset)) //when the object is from a property in POST body
+			{
+				return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
+			}
+
 			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
 			{
 				return DateOnly.FromDateTime((DateTime)v);
@@ -27,11 +32,6 @@ namespace Fonlow.DateOnlyExtensions
 			{
 				return DateOnly.Parse((string)v); //DateOnly can parse 00001-01-01
 			}
-
-			//if (vType == typeof(DateTimeOffset)) //apparently never this type??
-			//{
-			//	return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
-			//}
 
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
 		}
@@ -66,6 +66,11 @@ namespace Fonlow.DateOnlyExtensions
 			}
 
 			var vType = v.GetType();
+			if (vType == typeof(DateTimeOffset)) //when the object is from a property in POST body
+			{
+				return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
+			}
+
 			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
 			{
 				return DateOnly.FromDateTime((DateTime)v);
@@ -75,11 +80,6 @@ namespace Fonlow.DateOnlyExtensions
 			{
 				return DateOnly.Parse((string)v);
 			}
-
-			//if (vType == typeof(DateTimeOffset))
-			//{
-			//	return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
-			//}
 
 			throw new NotSupportedException($"Not yet support {vType} in {this.GetType()}.");
 		}

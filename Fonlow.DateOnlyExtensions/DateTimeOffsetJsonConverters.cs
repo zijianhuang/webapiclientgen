@@ -27,6 +27,11 @@ namespace Fonlow.DateOnlyExtensions
 
 			var vType = v.GetType();
 
+			if (vType == typeof(DateTimeOffset)) //when the object is from a property in POST body
+			{
+				return (DateTimeOffset)v;
+			}
+
 			if (vType == typeof(DateTime)) //when the object is from a property in POST body
 			{
 				return new DateTimeOffset((DateTime)v);
@@ -83,6 +88,11 @@ namespace Fonlow.DateOnlyExtensions
 			}
 
 			var vType = v.GetType();
+
+			if (vType == typeof(DateTimeOffset)) //when the object is from a property in POST body
+			{
+				return (DateTimeOffset)v;
+			}
 
 			if (vType == typeof(DateTime))
 			{

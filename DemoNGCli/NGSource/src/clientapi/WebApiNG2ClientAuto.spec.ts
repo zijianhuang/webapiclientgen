@@ -327,8 +327,8 @@ describe('entities API', () => {
 					expect(data.givenName).toBe('HaHa');
 					const d1: any = data.dob;
 					const d2: any = data.baptised;
-					expect(d1).toEqual('1969-12-28');
-					expect(d2).toEqual('1980-01-30');
+					expect(d1).toEqual('1969-12-28'); //string
+					expect(d2).toEqual('1980-01-30'); //string
 					done();
 				},
 				error => {

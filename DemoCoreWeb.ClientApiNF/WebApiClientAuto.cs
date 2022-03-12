@@ -182,7 +182,6 @@ namespace DemoWebApi.DemoData.Client
 		A,
 	}
 
-	[Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 	[System.Runtime.Serialization.DataContract(Namespace = "http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public enum MedicalContraindiationResponseTypeTypeCode
@@ -1104,6 +1103,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 
 		/// <summary>
+		/// return DateTimeOffset.Now
 		/// GET api/DateTypes/ForDateTimeOffset
 		/// </summary>
 		public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1135,6 +1135,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 
 		/// <summary>
+		/// return DateTimeOffset.Now
 		/// GET api/DateTypes/ForDateTimeOffset
 		/// </summary>
 		public System.DateTimeOffset GetDateTimeOffset(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1796,6 +1797,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 
 		/// <summary>
+		/// return d;
 		/// POST api/DateTypes/ForDateTimeOffset
 		/// </summary>
 		public async Task<System.DateTimeOffset> PostDateTimeOffsetAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1834,6 +1836,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 
 		/// <summary>
+		/// return d;
 		/// POST api/DateTypes/ForDateTimeOffset
 		/// </summary>
 		public System.DateTimeOffset PostDateTimeOffset(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1861,6 +1864,160 @@ namespace DemoWebApi.Controllers.Client
 						{
 							var serializer = JsonSerializer.Create(jsonSerializerSettings);
 							return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+						}
+					}
+					finally
+					{
+						responseMessage.Dispose();
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// return d.ToString("O")
+		/// POST api/DateTypes/ForDateTimeOffsetForO
+		/// </summary>
+		public async Task<string> PostDateTimeOffsetForOAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/DateTypes/ForDateTimeOffsetForO";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+				using (var requestWriter = new System.IO.StringWriter())
+				{
+					var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+					requestSerializer.Serialize(requestWriter, d);
+					var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+					httpRequestMessage.Content = content;
+					if (handleHeaders != null)
+					{
+						handleHeaders(httpRequestMessage.Headers);
+					}
+
+					var responseMessage = await client.SendAsync(httpRequestMessage);
+					try
+					{
+						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+						var stream = await responseMessage.Content.ReadAsStreamAsync();
+						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+						{
+							return streamReader.ReadToEnd(); ;
+						}
+					}
+					finally
+					{
+						responseMessage.Dispose();
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// return d.ToString("O")
+		/// POST api/DateTypes/ForDateTimeOffsetForO
+		/// </summary>
+		public string PostDateTimeOffsetForO(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/DateTypes/ForDateTimeOffsetForO";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+				using (var requestWriter = new System.IO.StringWriter())
+				{
+					var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+					requestSerializer.Serialize(requestWriter, d);
+					var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+					httpRequestMessage.Content = content;
+					if (handleHeaders != null)
+					{
+						handleHeaders(httpRequestMessage.Headers);
+					}
+
+					var responseMessage = client.SendAsync(httpRequestMessage).Result;
+					try
+					{
+						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+						{
+							return streamReader.ReadToEnd(); ;
+						}
+					}
+					finally
+					{
+						responseMessage.Dispose();
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// POST api/DateTypes/ForDateTimeOffsetForOffset
+		/// </summary>
+		public async Task<System.TimeSpan> PostDateTimeOffsetForOffsetAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/DateTypes/ForDateTimeOffsetForOffset";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+				using (var requestWriter = new System.IO.StringWriter())
+				{
+					var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+					requestSerializer.Serialize(requestWriter, d);
+					var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+					httpRequestMessage.Content = content;
+					if (handleHeaders != null)
+					{
+						handleHeaders(httpRequestMessage.Headers);
+					}
+
+					var responseMessage = await client.SendAsync(httpRequestMessage);
+					try
+					{
+						responseMessage.EnsureSuccessStatusCodeEx();
+						var stream = await responseMessage.Content.ReadAsStreamAsync();
+						using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+						{
+							var serializer = JsonSerializer.Create(jsonSerializerSettings);
+							return serializer.Deserialize<System.TimeSpan>(jsonReader);
+						}
+					}
+					finally
+					{
+						responseMessage.Dispose();
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// POST api/DateTypes/ForDateTimeOffsetForOffset
+		/// </summary>
+		public System.TimeSpan PostDateTimeOffsetForOffset(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/DateTypes/ForDateTimeOffsetForOffset";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+				using (var requestWriter = new System.IO.StringWriter())
+				{
+					var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+					requestSerializer.Serialize(requestWriter, d);
+					var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+					httpRequestMessage.Content = content;
+					if (handleHeaders != null)
+					{
+						handleHeaders(httpRequestMessage.Headers);
+					}
+
+					var responseMessage = client.SendAsync(httpRequestMessage).Result;
+					try
+					{
+						responseMessage.EnsureSuccessStatusCodeEx();
+						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+						using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+						{
+							var serializer = JsonSerializer.Create(jsonSerializerSettings);
+							return serializer.Deserialize<System.TimeSpan>(jsonReader);
 						}
 					}
 					finally
@@ -1937,6 +2094,82 @@ namespace DemoWebApi.Controllers.Client
 						{
 							var serializer = JsonSerializer.Create(jsonSerializerSettings);
 							return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader);
+						}
+					}
+					finally
+					{
+						responseMessage.Dispose();
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// POST api/DateTypes/ForDateTimeOffsetStringForOffset
+		/// </summary>
+		public async Task<System.TimeSpan> PostDateTimeOffsetStringForOffsetAsync(string s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/DateTypes/ForDateTimeOffsetStringForOffset";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+				using (var requestWriter = new System.IO.StringWriter())
+				{
+					var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+					requestSerializer.Serialize(requestWriter, s);
+					var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+					httpRequestMessage.Content = content;
+					if (handleHeaders != null)
+					{
+						handleHeaders(httpRequestMessage.Headers);
+					}
+
+					var responseMessage = await client.SendAsync(httpRequestMessage);
+					try
+					{
+						responseMessage.EnsureSuccessStatusCodeEx();
+						var stream = await responseMessage.Content.ReadAsStreamAsync();
+						using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+						{
+							var serializer = JsonSerializer.Create(jsonSerializerSettings);
+							return serializer.Deserialize<System.TimeSpan>(jsonReader);
+						}
+					}
+					finally
+					{
+						responseMessage.Dispose();
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// POST api/DateTypes/ForDateTimeOffsetStringForOffset
+		/// </summary>
+		public System.TimeSpan PostDateTimeOffsetStringForOffset(string s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/DateTypes/ForDateTimeOffsetStringForOffset";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+				using (var requestWriter = new System.IO.StringWriter())
+				{
+					var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+					requestSerializer.Serialize(requestWriter, s);
+					var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+					httpRequestMessage.Content = content;
+					if (handleHeaders != null)
+					{
+						handleHeaders(httpRequestMessage.Headers);
+					}
+
+					var responseMessage = client.SendAsync(httpRequestMessage).Result;
+					try
+					{
+						responseMessage.EnsureSuccessStatusCodeEx();
+						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+						using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+						{
+							var serializer = JsonSerializer.Create(jsonSerializerSettings);
+							return serializer.Deserialize<System.TimeSpan>(jsonReader);
 						}
 					}
 					finally
@@ -2872,6 +3105,70 @@ namespace DemoWebApi.Controllers.Client
 		}
 
 		/// <summary>
+		/// Return empty body, status 204.
+		/// GET api/Entities/NullCompany
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Company> GetNullCompanyAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/NullCompany";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+					{
+						var serializer = JsonSerializer.Create(jsonSerializerSettings);
+						return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty body, status 204.
+		/// GET api/Entities/NullCompany
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Company GetNullCompany(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/NullCompany";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+					{
+						var serializer = JsonSerializer.Create(jsonSerializerSettings);
+						return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
 		/// Get a person
 		/// so to know the person
 		/// GET api/Entities/getPerson/{id}
@@ -3100,6 +3397,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -3137,6 +3435,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -3688,6 +3987,278 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 
+	public partial class StringData
+	{
+
+		private System.Net.Http.HttpClient client;
+
+		private JsonSerializerSettings jsonSerializerSettings;
+
+		public StringData(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings = null)
+		{
+			if (client == null)
+				throw new ArgumentNullException("Null HttpClient.", "client");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+
+		/// <summary>
+		/// GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		/// </summary>
+		public async Task<string> AthletheSearchAsync(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/StringData/AthletheSearch?" + (take.HasValue ? "take=" + take.Value.ToString() : String.Empty) + "&skip=" + skip + "&order=" + (order == null ? "" : Uri.EscapeDataString(order)) + "&sort=" + (sort == null ? "" : Uri.EscapeDataString(sort)) + "&search=" + (search == null ? "" : Uri.EscapeDataString(search));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		/// </summary>
+		public string AthletheSearch(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/StringData/AthletheSearch?" + (take.HasValue ? "take=" + take.Value.ToString() : String.Empty) + "&skip=" + skip + "&order=" + (order == null ? "" : Uri.EscapeDataString(order)) + "&sort=" + (sort == null ? "" : Uri.EscapeDataString(sort)) + "&search=" + (search == null ? "" : Uri.EscapeDataString(search));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// GET api/StringData/String
+		/// </summary>
+		public async Task<string> GetABCDEAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/StringData/String";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// GET api/StringData/String
+		/// </summary>
+		public string GetABCDE(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/StringData/String";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty string JSON object. Status 200.
+		/// GET api/StringData/EmptyString
+		/// </summary>
+		public async Task<string> GetEmptyStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/StringData/EmptyString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty string JSON object. Status 200.
+		/// GET api/StringData/EmptyString
+		/// </summary>
+		public string GetEmptyString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/StringData/EmptyString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty body with status 204 No Content.
+		/// GET api/StringData/NullString
+		/// </summary>
+		public async Task<string> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/StringData/NullString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty body with status 204 No Content.
+		/// GET api/StringData/NullString
+		/// </summary>
+		public string GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/StringData/NullString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+	}
+
 	public partial class SuperDemo
 	{
 
@@ -3705,66 +4276,6 @@ namespace DemoWebApi.Controllers.Client
 
 			this.client = client;
 			this.jsonSerializerSettings = jsonSerializerSettings;
-		}
-
-		/// <summary>
-		/// GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
-		/// </summary>
-		public async Task<string> AthletheSearchAsync(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/SuperDemo/AthletheSearch?" + (take.HasValue ? "take=" + take.Value.ToString() : String.Empty) + "&skip=" + skip + "&order=" + (order == null ? "" : Uri.EscapeDataString(order)) + "&sort=" + (sort == null ? "" : Uri.EscapeDataString(sort)) + "&search=" + (search == null ? "" : Uri.EscapeDataString(search));
-			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
-			{
-				if (handleHeaders != null)
-				{
-					handleHeaders(httpRequestMessage.Headers);
-				}
-
-				var responseMessage = await client.SendAsync(httpRequestMessage);
-				try
-				{
-					responseMessage.EnsureSuccessStatusCodeEx();
-					var stream = await responseMessage.Content.ReadAsStreamAsync();
-					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-					{
-						return streamReader.ReadToEnd(); ;
-					}
-				}
-				finally
-				{
-					responseMessage.Dispose();
-				}
-			}
-		}
-
-		/// <summary>
-		/// GET api/SuperDemo/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
-		/// </summary>
-		public string AthletheSearch(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/SuperDemo/AthletheSearch?" + (take.HasValue ? "take=" + take.Value.ToString() : String.Empty) + "&skip=" + skip + "&order=" + (order == null ? "" : Uri.EscapeDataString(order)) + "&sort=" + (sort == null ? "" : Uri.EscapeDataString(sort)) + "&search=" + (search == null ? "" : Uri.EscapeDataString(search));
-			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
-			{
-				if (handleHeaders != null)
-				{
-					handleHeaders(httpRequestMessage.Headers);
-				}
-
-				var responseMessage = client.SendAsync(httpRequestMessage).Result;
-				try
-				{
-					responseMessage.EnsureSuccessStatusCodeEx();
-					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-					{
-						return streamReader.ReadToEnd(); ;
-					}
-				}
-				finally
-				{
-					responseMessage.Dispose();
-				}
-			}
 		}
 
 		/// <summary>
@@ -3860,6 +4371,7 @@ namespace DemoWebApi.Controllers.Client
 				try
 				{
 					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 					var stream = await responseMessage.Content.ReadAsStreamAsync();
 					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 					{
@@ -3890,6 +4402,7 @@ namespace DemoWebApi.Controllers.Client
 				try
 				{
 					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 					{
@@ -3900,6 +4413,82 @@ namespace DemoWebApi.Controllers.Client
 				{
 					responseMessage.Dispose();
 				}
+			}
+		}
+
+		/// <summary>
+		/// GET api/SuperDemo/BadRequest
+		/// </summary>
+		public async Task<System.Net.Http.HttpResponseMessage> GetBadRequestAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/BadRequest";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				responseMessage.EnsureSuccessStatusCodeEx();
+				return responseMessage;
+			}
+		}
+
+		/// <summary>
+		/// GET api/SuperDemo/BadRequest
+		/// </summary>
+		public System.Net.Http.HttpResponseMessage GetBadRequest(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/BadRequest";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				responseMessage.EnsureSuccessStatusCodeEx();
+				return responseMessage;
+			}
+		}
+
+		/// <summary>
+		/// GET api/SuperDemo/BadRequest2
+		/// </summary>
+		public async Task<System.Net.Http.HttpResponseMessage> GetBadRequest2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/BadRequest2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				responseMessage.EnsureSuccessStatusCodeEx();
+				return responseMessage;
+			}
+		}
+
+		/// <summary>
+		/// GET api/SuperDemo/BadRequest2
+		/// </summary>
+		public System.Net.Http.HttpResponseMessage GetBadRequest2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/BadRequest2";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				responseMessage.EnsureSuccessStatusCodeEx();
+				return responseMessage;
 			}
 		}
 
@@ -4756,66 +5345,6 @@ namespace DemoWebApi.Controllers.Client
 					using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 					{
 						return System.Double.Parse(jsonReader.ReadAsString());
-					}
-				}
-				finally
-				{
-					responseMessage.Dispose();
-				}
-			}
-		}
-
-		/// <summary>
-		/// GET api/SuperDemo/EmptyString
-		/// </summary>
-		public async Task<string> GetEmptyStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/SuperDemo/EmptyString";
-			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
-			{
-				if (handleHeaders != null)
-				{
-					handleHeaders(httpRequestMessage.Headers);
-				}
-
-				var responseMessage = await client.SendAsync(httpRequestMessage);
-				try
-				{
-					responseMessage.EnsureSuccessStatusCodeEx();
-					var stream = await responseMessage.Content.ReadAsStreamAsync();
-					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-					{
-						return streamReader.ReadToEnd(); ;
-					}
-				}
-				finally
-				{
-					responseMessage.Dispose();
-				}
-			}
-		}
-
-		/// <summary>
-		/// GET api/SuperDemo/EmptyString
-		/// </summary>
-		public string GetEmptyString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/SuperDemo/EmptyString";
-			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
-			{
-				if (handleHeaders != null)
-				{
-					handleHeaders(httpRequestMessage.Headers);
-				}
-
-				var responseMessage = client.SendAsync(httpRequestMessage).Result;
-				try
-				{
-					responseMessage.EnsureSuccessStatusCodeEx();
-					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-					{
-						return streamReader.ReadToEnd(); ;
 					}
 				}
 				finally
@@ -5866,66 +6395,6 @@ namespace DemoWebApi.Controllers.Client
 					{
 						var serializer = JsonSerializer.Create(jsonSerializerSettings);
 						return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
-					}
-				}
-				finally
-				{
-					responseMessage.Dispose();
-				}
-			}
-		}
-
-		/// <summary>
-		/// GET api/SuperDemo/NullString
-		/// </summary>
-		public async Task<string> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/SuperDemo/NullString";
-			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
-			{
-				if (handleHeaders != null)
-				{
-					handleHeaders(httpRequestMessage.Headers);
-				}
-
-				var responseMessage = await client.SendAsync(httpRequestMessage);
-				try
-				{
-					responseMessage.EnsureSuccessStatusCodeEx();
-					var stream = await responseMessage.Content.ReadAsStreamAsync();
-					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-					{
-						return streamReader.ReadToEnd(); ;
-					}
-				}
-				finally
-				{
-					responseMessage.Dispose();
-				}
-			}
-		}
-
-		/// <summary>
-		/// GET api/SuperDemo/NullString
-		/// </summary>
-		public string GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/SuperDemo/NullString";
-			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
-			{
-				if (handleHeaders != null)
-				{
-					handleHeaders(httpRequestMessage.Headers);
-				}
-
-				var responseMessage = client.SendAsync(httpRequestMessage).Result;
-				try
-				{
-					responseMessage.EnsureSuccessStatusCodeEx();
-					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
-					{
-						return streamReader.ReadToEnd(); ;
 					}
 				}
 				finally
@@ -7622,6 +8091,278 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 
+	public partial class TextData
+	{
+
+		private System.Net.Http.HttpClient client;
+
+		private JsonSerializerSettings jsonSerializerSettings;
+
+		public TextData(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings = null)
+		{
+			if (client == null)
+				throw new ArgumentNullException("Null HttpClient.", "client");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException("HttpClient has no BaseAddress", "client");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+
+		/// <summary>
+		/// GET api/TextData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		/// </summary>
+		public async Task<string> AthletheSearchAsync(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/TextData/AthletheSearch?" + (take.HasValue ? "take=" + take.Value.ToString() : String.Empty) + "&skip=" + skip + "&order=" + (order == null ? "" : Uri.EscapeDataString(order)) + "&sort=" + (sort == null ? "" : Uri.EscapeDataString(sort)) + "&search=" + (search == null ? "" : Uri.EscapeDataString(search));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// GET api/TextData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		/// </summary>
+		public string AthletheSearch(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/TextData/AthletheSearch?" + (take.HasValue ? "take=" + take.Value.ToString() : String.Empty) + "&skip=" + skip + "&order=" + (order == null ? "" : Uri.EscapeDataString(order)) + "&sort=" + (sort == null ? "" : Uri.EscapeDataString(sort)) + "&search=" + (search == null ? "" : Uri.EscapeDataString(search));
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// GET api/TextData/String
+		/// </summary>
+		public async Task<string> GetABCDEAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/TextData/String";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// GET api/TextData/String
+		/// </summary>
+		public string GetABCDE(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/TextData/String";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty body with status 200.
+		/// GET api/TextData/EmptyString
+		/// </summary>
+		public async Task<string> GetEmptyStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/TextData/EmptyString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty body with status 200.
+		/// GET api/TextData/EmptyString
+		/// </summary>
+		public string GetEmptyString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/TextData/EmptyString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty body with status 204 No Content.
+		/// GET api/TextData/NullString
+		/// </summary>
+		public async Task<string> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/TextData/NullString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = await client.SendAsync(httpRequestMessage);
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = await responseMessage.Content.ReadAsStreamAsync();
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return empty body with status 204 No Content.
+		/// GET api/TextData/NullString
+		/// </summary>
+		public string GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/TextData/NullString";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
+			{
+				if (handleHeaders != null)
+				{
+					handleHeaders(httpRequestMessage.Headers);
+				}
+
+				var responseMessage = client.SendAsync(httpRequestMessage).Result;
+				try
+				{
+					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
+					{
+						return streamReader.ReadToEnd(); ;
+					}
+				}
+				finally
+				{
+					responseMessage.Dispose();
+				}
+			}
+		}
+	}
+
 	public partial class Tuple
 	{
 
@@ -9042,6 +9783,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9079,6 +9821,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9116,6 +9859,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9153,6 +9897,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9190,6 +9935,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9227,6 +9973,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9264,6 +10011,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9301,6 +10049,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9338,6 +10087,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9375,6 +10125,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9412,6 +10163,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9449,6 +10201,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9486,6 +10239,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9523,6 +10277,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9689,6 +10444,7 @@ namespace DemoWebApi.Controllers.Client
 				try
 				{
 					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 					var stream = await responseMessage.Content.ReadAsStreamAsync();
 					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 					{
@@ -9720,6 +10476,7 @@ namespace DemoWebApi.Controllers.Client
 				try
 				{
 					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 					{
@@ -9750,6 +10507,7 @@ namespace DemoWebApi.Controllers.Client
 				try
 				{
 					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 					var stream = await responseMessage.Content.ReadAsStreamAsync();
 					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 					{
@@ -9780,6 +10538,7 @@ namespace DemoWebApi.Controllers.Client
 				try
 				{
 					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 					{
@@ -9810,6 +10569,7 @@ namespace DemoWebApi.Controllers.Client
 				try
 				{
 					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 					var stream = await responseMessage.Content.ReadAsStreamAsync();
 					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 					{
@@ -9840,6 +10600,7 @@ namespace DemoWebApi.Controllers.Client
 				try
 				{
 					responseMessage.EnsureSuccessStatusCodeEx();
+					if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 					var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 					using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 					{
@@ -9938,6 +10699,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = await responseMessage.Content.ReadAsStreamAsync();
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{
@@ -9975,6 +10737,7 @@ namespace DemoWebApi.Controllers.Client
 					try
 					{
 						responseMessage.EnsureSuccessStatusCodeEx();
+						if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 						var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 						using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 						{

@@ -54,6 +54,10 @@ namespace DemoWebApi.Controllers
 			return dt.AddYears(1);
 		}
 
+		/// <summary>
+		/// return DateTimeOffset.Now
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("ForDateTimeOffset")]
 		public DateTimeOffset GetDateTimeOffset()
@@ -61,6 +65,11 @@ namespace DemoWebApi.Controllers
 			return DateTimeOffset.Now;
 		}
 
+		/// <summary>
+		/// return d;
+		/// </summary>
+		/// <param name="d"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("ForDateTimeOffset")]
 		public DateTimeOffset PostDateTimeOffset([FromBody] DateTimeOffset d)
@@ -69,10 +78,30 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpPost]
+		[Route("ForDateTimeOffsetStringForOffset")]
+		public TimeSpan PostDateTimeOffsetStringForOffset([FromBody] string s)
+		{
+			var dt = DateTimeOffset.Parse(s);
+			return dt.Offset;
+		}
+
+		/// <summary>
+		/// return d.ToString("O")
+		/// </summary>
+		/// <param name="d"></param>
+		/// <returns></returns>
+		[HttpPost]
 		[Route("ForDateTimeOffsetForO")]
 		public string PostDateTimeOffsetForO([FromBody] DateTimeOffset d)
 		{
 			return d.ToString("O");
+		}
+
+		[HttpPost]
+		[Route("ForDateTimeOffsetForOffset")]
+		public TimeSpan PostDateTimeOffsetForOffset([FromBody] DateTimeOffset d)
+		{
+			return d.Offset;
 		}
 
 		[HttpPost]

@@ -117,14 +117,6 @@ namespace IntegrationTests
 			Assert.Equal(dtNow.AddYears(2).Year, api.GetNextYearNullable(2, null).Year);
 		}
 
-
-		[Fact]
-		public void TestGetNextHourNullable2()
-		{
-			var dtNow = DateTimeOffset.Now;
-			Assert.Equal(dtNow.AddHours(2).Hour, api.GetNextHourNullable(2, null).Hour);
-		}
-
 		[Fact]
 		public void TestIsDateTimeDate()
 		{
@@ -216,10 +208,97 @@ namespace IntegrationTests
 			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
 		}
 
+		[Fact(Skip = "Used for Host in Hawaii")]
+		public void TestGetDateTimeOffsetWithHawaiiHost()
+		{
+			var dt = api.GetDateTimeOffset(); // Now in Hawaii is with -10 offset.
+			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
+			Assert.Equal(TimeSpan.FromHours(-10), dt.Offset); //my dev machine is in +10 timezone
+		}
+
+		/// <summary>
+		/// The .net run time may change back to local Offset even if the host is in Hawaii.
+		/// </summary>
 		[Fact]
 		public void TestPostDateTimeOffset()
 		{
 			var p = DateTimeOffset.Now;
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
+			Assert.Equal(p.Offset, r.Offset);
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetWithSpecificOffset()
+		{
+			var span = TimeSpan.FromHours(5);
+			DateTimeOffset p = DateTimeOffset.Now;
+			p = p.ToOffset(span); //ToOffset does not change the value, but return a new object.
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
+			Assert.Equal(p.Offset, r.Offset);
+		}
+
+		/// <summary>
+		/// For client in +10 and server in -10,
+		/// </summary>
+		[Fact]
+		public void TestPostDateTimeOffsetForOffset()
+		{
+			var span = TimeSpan.FromHours(5);
+			DateTimeOffset p = DateTimeOffset.Now;
+			p = p.ToOffset(span); //ToOffset does not change the value, but return a new object.
+			Assert.Equal(span, p.Offset);
+			var r = api.PostDateTimeOffsetForOffset(p);
+			Assert.Equal(span, r); //this may fail when client and server on different timezones.
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetStringForOffset()
+		{
+			var span = TimeSpan.FromHours(5);
+			DateTimeOffset p = DateTimeOffset.Now;
+			p = p.ToOffset(span); //ToOffset does not change the value, but return a new object.
+			Assert.Equal(span, p.Offset);
+			var r = api.PostDateTimeOffsetStringForOffset(p.ToString("O")); //the object returned is created in service through parsing.
+			Assert.Equal(p.Offset, r);
+			Assert.Equal(span, r);
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetForO()
+		{
+			var p = DateTimeOffset.Now;
+			var r = api.PostDateTimeOffsetForO(p);
+			Assert.Equal(p.ToString("O"), r);
+		}
+
+		/// <summary>
+		/// So with Utc, the server return local DateTimeOffset of client timezone.
+		/// </summary>
+		[Fact]
+		public void TestPostDateTimeOffsetUtcNow()
+		{
+			var p = DateTimeOffset.UtcNow;
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
+			Assert.Equal(TimeSpan.Zero, p.Offset);
+			//Assert.Equal(TimeSpan.FromHours(10), r.Offset); //I am in Australia AEST.
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetDate()
+		{
+			DateTimeOffset p = DateTimeOffset.Now.Date;
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
+			Assert.Equal(p.Offset, r.Offset);
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetMin()
+		{
+			var p = DateTimeOffset.MinValue;
 			var r = api.PostDateTimeOffset(p);
 			Assert.Equal(p, r);
 		}
@@ -248,21 +327,37 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestPostDateTime()
+		{
+			var p = DateTime.Now;
+			var r = api.PostDateTime(p);
+			Assert.Equal(p, r);
+		}
+
+		[Fact]
+		public void TestPostDateTimeDate()
+		{
+			var p = DateTime.Now.Date;
+			var r = api.PostDateTime(p);
+			Assert.Equal(p, r);
+		}
+
+		[Fact]
+		public void TestPostDateTimeMin()
+		{
+			var p = DateTime.MinValue;
+			var r = api.PostDateTime(p);
+			Assert.Equal(p, r);
+		}
+
+		[Fact]
 		public void TestPostDateOnly()
 		{
 			var dateOnly = new DateTimeOffset(1988, 12, 23, 0, 0, 0, TimeSpan.Zero);
 			var r = api.PostDateOnly(dateOnly);
-			Assert.Equal(23, r.Day);
-			//Assert.Equal(dateOnly, r);
-		}
-
-		[Fact]
-		public void TestPostDateOnlyWithDateTime()
-		{
-			var dateOnly = new DateTime(1988, 12, 23, 0, 0, 0, DateTimeKind.Utc);
-			var r = api.PostDateOnly(dateOnly);
-			Assert.Equal(23, r.Day);
-			//Assert.Equal(dateOnly, r);
+			Assert.Equal(dateOnly.Date, r.Date);
+			Assert.Equal(DateTimeOffset.Now.Offset, r.Offset); //Local date start, because the return  object is "1988-12-23". no matter the client sends "2022-03-12" or "2022-03-12T00:00:00+00:00" or "2022-03-12T00:00:00Z"
+			Assert.Equal(TimeSpan.Zero, r.TimeOfDay);
 		}
 
 		[Fact]
@@ -270,17 +365,9 @@ namespace IntegrationTests
 		{
 			var dateOnly = new DateTimeOffset(1988, 12, 23, 0, 0, 0, TimeSpan.Zero);
 			var r = api.PostDateOnlyNullable(dateOnly);
-			Assert.Equal(23, r.Value.Day);
-			//Assert.Equal(dateOnly, r.Value);
-		}
-
-		[Fact]
-		public void TestPostDateOnlyNullableWithDateTime()
-		{
-			var dateOnly = new DateTime(1988, 12, 23, 0, 0, 0, DateTimeKind.Utc);
-			var r = api.PostDateOnlyNullable(dateOnly);
-			Assert.Equal(23, r.Value.Day);
-			//Assert.Equal(dateOnly, r.Value);
+			Assert.Equal(dateOnly.Date, r.Value.Date);
+			Assert.Equal(DateTimeOffset.Now.Offset, r.Value.Offset); //Because the return  object is "1988-12-23". no matter the client sends "2022-03-12" or "2022-03-12T00:00:00+00:00" or "2022-03-12T00:00:00Z"
+			Assert.Equal(TimeSpan.Zero, r.Value.TimeOfDay);
 		}
 
 		[Fact]
@@ -290,15 +377,25 @@ namespace IntegrationTests
 			Assert.Null(r);
 		}
 
-
 		[Fact]
 		public async void TestQueryDateOnlyString()
 		{
-			var d = new DateTime(2008, 12, 18);
-			var r = await api.QueryDateOnlyAsStringAsync(d.ToString("O"));
-			Assert.Equal(d, r);
-			Assert.Equal(18, r.Day);
+			DateTimeOffset d = new DateTimeOffset(2008, 12, 18, 0, 0, 0, TimeSpan.Zero);
+			var r = await api.QueryDateOnlyAsStringAsync(d.ToString("yyyy-MM-dd"));
+			Assert.Equal(DateTimeOffset.Now.Offset, r.Offset); //Local date start, because the return  object is "1988-12-23". no matter the client sends "2022-03-12" or "2022-03-12T00:00:00+00:00" or "2022-03-12T00:00:00Z"
+			Assert.Equal(TimeSpan.Zero, r.TimeOfDay);
 		}
+
+		[Fact]
+		public void TestSearcDateRangeWithStartDateNull()//asp.net web api won't accept such call.
+		{
+			var dtStart = DateTime.Today;
+			var dtEnd = dtStart.AddDays(5);
+			var r = api.SearchDateRange(null, dtEnd);
+			Assert.Null(r.Item1);
+			Assert.Equal(dtEnd.ToUniversalTime(), r.Item2);
+		}
+
 
 
 	}

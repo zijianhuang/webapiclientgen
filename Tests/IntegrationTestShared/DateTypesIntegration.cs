@@ -163,7 +163,7 @@ namespace IntegrationTests
 		}
 
 		/// <summary>
-		/// The service keept the original Offset even if the host is in Hawaii.
+		/// The .net run time may change back to local Offset even if the host is in Hawaii.
 		/// </summary>
 		[Fact]
 		public void TestPostDateTimeOffset()
@@ -172,6 +172,43 @@ namespace IntegrationTests
 			var r = api.PostDateTimeOffset(p);
 			Assert.Equal(p, r);
 			Assert.Equal(p.Offset, r.Offset);
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetWithSpecificOffset()
+		{
+			var span = TimeSpan.FromHours(5);
+			DateTimeOffset p = DateTimeOffset.Now;
+			p = p.ToOffset(span); //ToOffset does not change the value, but return a new object.
+			var r = api.PostDateTimeOffset(p);
+			Assert.Equal(p, r);
+			Assert.Equal(p.Offset, r.Offset);
+		}
+
+		/// <summary>
+		/// For client in +10 and server in -10,
+		/// </summary>
+		[Fact]
+		public void TestPostDateTimeOffsetForOffset()
+		{
+			var span = TimeSpan.FromHours(5);
+			DateTimeOffset p = DateTimeOffset.Now;
+			p = p.ToOffset(span); //ToOffset does not change the value, but return a new object.
+			Assert.Equal(span, p.Offset);
+			var r = api.PostDateTimeOffsetForOffset(p);
+			Assert.Equal(span, r); //this may fail when client and server on different timezones.
+		}
+
+		[Fact]
+		public void TestPostDateTimeOffsetStringForOffset()
+		{
+			var span = TimeSpan.FromHours(5);
+			DateTimeOffset p = DateTimeOffset.Now;
+			p = p.ToOffset(span); //ToOffset does not change the value, but return a new object.
+			Assert.Equal(span, p.Offset);
+			var r = api.PostDateTimeOffsetStringForOffset(p.ToString("O")); //the object returned is created in service through parsing.
+			Assert.Equal(p.Offset, r);
+			Assert.Equal(span, r);
 		}
 
 		[Fact]
@@ -198,9 +235,10 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostDateTimeOffsetDate()
 		{
-			var p = DateTimeOffset.Now.Date;
+			DateTimeOffset p = DateTimeOffset.Now.Date;
 			var r = api.PostDateTimeOffset(p);
 			Assert.Equal(p, r);
+			Assert.Equal(p.Offset, r.Offset);
 		}
 
 		[Fact]

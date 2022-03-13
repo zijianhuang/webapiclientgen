@@ -39,7 +39,7 @@ namespace DemoCoreWeb
 			.AddNewtonsoftJson(
 				options =>
 				{
-					options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this
+					options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this for cross-timezone minValue and .NET Framework clients.
 					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
 					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 				}

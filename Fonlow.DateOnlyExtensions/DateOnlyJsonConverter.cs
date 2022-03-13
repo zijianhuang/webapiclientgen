@@ -4,6 +4,10 @@ namespace Fonlow.DateOnlyExtensions
 {
 	public sealed class DateOnlyJsonConverter : JsonConverter<DateOnly>
 	{
+		static readonly Type typeOfDateTime = typeof(DateTime);
+		static readonly Type typeOfDateTimeOffset = typeof(DateTimeOffset);
+		static readonly Type typeOfString = typeof(string);
+
 		public override void WriteJson(JsonWriter writer, DateOnly value, JsonSerializer serializer)
 		{
 			writer.WriteValue(value.ToString("O"));
@@ -18,17 +22,17 @@ namespace Fonlow.DateOnlyExtensions
 			}
 
 			var vType = v.GetType();
-			if (vType == typeof(DateTimeOffset)) //when the object is from a property in POST body. When used in service, better to have options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset;
+			if (vType == typeOfDateTimeOffset) //when the object is from a property in POST body. When used in service, better to have options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset;
 			{
 				return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
 			}
 
-			if (vType == typeof(string))
+			if (vType == typeOfString)
 			{
 				return DateOnly.Parse((string)v); //DateOnly can parse 00001-01-01
 			}
 
-			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
+			if (vType == typeOfDateTime) //when the object is from a property in POST body from a TS client
 			{
 				return DateOnly.FromDateTime((DateTime)v);
 			}
@@ -39,6 +43,10 @@ namespace Fonlow.DateOnlyExtensions
 
 	public sealed class DateOnlyNullableJsonConverter : JsonConverter<DateOnly?>
 	{
+		static readonly Type typeOfDateTime = typeof(DateTime);
+		static readonly Type typeOfDateTimeOffset = typeof(DateTimeOffset);
+		static readonly Type typeOfString = typeof(string);
+
 		public override void WriteJson(JsonWriter writer, DateOnly? value, JsonSerializer serializer)
 		{
 			if (value.HasValue)
@@ -66,17 +74,17 @@ namespace Fonlow.DateOnlyExtensions
 			}
 
 			var vType = v.GetType();
-			if (vType == typeof(DateTimeOffset)) //when the object is from a property in POST body
+			if (vType == typeOfDateTimeOffset) //when the object is from a property in POST body
 			{
 				return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
 			}
 
-			if (vType == typeof(string))
+			if (vType == typeOfString)
 			{
 				return DateOnly.Parse((string)v);
 			}
 
-			if (vType == typeof(DateTime)) //when the object is from a property in POST body from a TS client
+			if (vType == typeOfDateTime) //when the object is from a property in POST body from a TS client
 			{
 				return DateOnly.FromDateTime((DateTime)v);
 			}

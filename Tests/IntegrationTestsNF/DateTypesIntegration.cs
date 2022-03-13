@@ -210,7 +210,7 @@ namespace IntegrationTests
 		{
 			var dt = api.GetDateTimeOffset(); // Now in Hawaii is with -10 offset.
 			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
-			Assert.Equal(TimeSpan.FromHours(-10), dt.Offset); //my dev machine is in +10 timezone
+			Assert.Equal(TimeSpan.FromHours(-10), dt.Offset); //my dev machine is in +10 timezone. Pass only with DateParseHandling.DateTimeOffset
 		}
 
 		/// <summary>
@@ -233,7 +233,7 @@ namespace IntegrationTests
 			p = p.ToOffset(span); //ToOffset does not change the value, but return a new object.
 			var r = api.PostDateTimeOffset(p);
 			Assert.Equal(p, r);
-			Assert.Equal(p.Offset, r.Offset);
+			Assert.Equal(p.Offset, r.Offset);//Pass only with DateParseHandling.DateTimeOffset
 		}
 
 		/// <summary>
@@ -247,7 +247,7 @@ namespace IntegrationTests
 			p = p.ToOffset(span); //ToOffset does not change the value, but return a new object.
 			Assert.Equal(span, p.Offset);
 			var r = api.PostDateTimeOffsetForOffset(p);
-			Assert.Equal(span, r); //this may fail when client and server on different timezones.
+			Assert.Equal(span, r);
 		}
 
 		[Fact]

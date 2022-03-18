@@ -24,7 +24,7 @@
 		public string[] ExcludedControllerNames { get; set; }
 
 		/// <summary>
-		/// To include assemblies containing data models. Assembly names should be without file extension.
+		/// To include assemblies containing data models. Assembly names should be without file extension. An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
 		/// </summary>
 		public string[] DataModelAssemblyNames { get; set; }
 
@@ -45,6 +45,13 @@
 		public string AssemblyName { get; set; }
 
 		public int? CherryPickingMethods { get; set; }
+
+		/// <summary>
+		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
+		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
+		/// If defined, overwrite the global setting in ModelGenOutputs; if not defined, follow the global setting.
+		/// </summary>
+		public bool? DataAnnotationsToComments { get; set; }
 	}
 
 	public class ModelGenOutputs
@@ -61,7 +68,7 @@
 
 		/// <summary>
 		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
-		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression..
+		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
 		/// </summary>
 		public bool DataAnnotationsToComments { get; set; }
 

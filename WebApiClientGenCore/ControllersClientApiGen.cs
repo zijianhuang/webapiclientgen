@@ -86,10 +86,11 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs);
+					poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs, null);
 				}
 			}
-			else if (CodeGenParameters.ApiSelections.DataModels != null)
+			
+			if (CodeGenParameters.ApiSelections.DataModels != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 				foreach (var dm in CodeGenParameters.ApiSelections.DataModels)
@@ -100,7 +101,9 @@ namespace Fonlow.CodeDom.Web.Cs
 						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs);
+						var dataAnnotationsToComments = (dm.DataAnnotationsToComments.HasValue && dm.DataAnnotationsToComments.Value) // dm explicitly tell to do
+							|| (!dm.DataAnnotationsToComments.HasValue && CodeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
+						poco2CsGen.CreateCodeDom(assembly, cherryPickingMethods, docLookup, CodeGenParameters.ClientApiOutputs, dataAnnotationsToComments);
 					}
 				}
 			}

@@ -107,13 +107,17 @@ namespace Fonlow.Poco2Client
 		/// <param name="methods"></param>
 		/// <param name="docLookup"></param>
 		/// <param name="codeGenOutputs"></param>
-		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, ModelGenOutputs codeGenOutputs)
+		/// <param name="dataAnnotationsToComments">Optional</param>
+		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, ModelGenOutputs codeGenOutputs, bool? dataAnnotationsToComments)
 		{
 			this.docLookup = docLookup;
 			this.settings = codeGenOutputs;
+			this.dataAnnotationsToComments = dataAnnotationsToComments;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
 			CreateCodeDom(cherryTypes, methods, settings.CSClientNamespaceSuffix);
 		}
+
+		bool? dataAnnotationsToComments;
 
 		/// <summary>
 		/// To store all custom types of the service app
@@ -697,7 +701,8 @@ namespace Fonlow.Poco2Client
 
 		string[] GenerateCommentsFromAttributes(MemberInfo property)
 		{
-			if (!settings.DataAnnotationsToComments)
+			if ((dataAnnotationsToComments.HasValue && !dataAnnotationsToComments.Value) || //dataModel.dataAnnotationsToComments explicitly tells not to
+				(!dataAnnotationsToComments.HasValue && !settings.DataAnnotationsToComments)) // dataModel.dataAnnotationsToComments does not tell, and global setting tells not to
 			{
 				return null;
 			}

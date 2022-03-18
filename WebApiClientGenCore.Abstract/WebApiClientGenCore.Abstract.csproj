@@ -9,9 +9,9 @@
     <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
     <Authors>Zijian Huang</Authors>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <Version>1.9</Version>
+    <Version>2.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>StringAsString default to true</PackageReleaseNotes>
+    <PackageReleaseNotes>DataAnnotationsToComments for a data model assembly</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

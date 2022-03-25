@@ -146,6 +146,11 @@
 		/// </summary>
 		public bool HandleHttpRequestHeaders { get; set; }
 
+		/// <summary>
+		/// Allow cancellation in Send
+		/// </summary>
+		public bool CancellationTokenEnabled { get; set; }
+
 		public JSPlugin[] Plugins { get; set; }
 	}
 

@@ -9,9 +9,9 @@
     <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
     <Authors>Zijian Huang</Authors>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <Version>2.0</Version>
+    <Version>2.1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>DataAnnotationsToComments for a data model assembly</PackageReleaseNotes>
+    <PackageReleaseNotes>CancellationTokenEnabled</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

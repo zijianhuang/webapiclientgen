@@ -161,10 +161,14 @@ namespace Fonlow.CodeDom.Web.Cs
 				.ToArray();
 			method.Parameters.AddRange(parameters);
 
+			if (settings.CancellationTokenEnabled)
+			{
+				method.Parameters.Add(new CodeParameterDeclarationExpression("System.Threading.CancellationToken", "cancellationToken"));
+			}
+
 			if (settings.HandleHttpRequestHeaders)
 			{
-				method.Parameters.Add(new CodeParameterDeclarationExpression(
-					"Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
+				method.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
 			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
@@ -233,8 +237,9 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddResponseMessageSendAsync(CodeMemberMethod method)
 		{
+			var cancellationToken = settings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty; 
 			method.Statements.Add(new CodeVariableDeclarationStatement(
-				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression("await client.SendAsync(httpRequestMessage)") : new CodeSnippetExpression("client.SendAsync(httpRequestMessage).Result")));
+				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression($"await client.SendAsync(httpRequestMessage{cancellationToken})") : new CodeSnippetExpression($"client.SendAsync(httpRequestMessage{cancellationToken}).Result")));
 		}
 
 		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
@@ -250,10 +255,14 @@ namespace Fonlow.CodeDom.Web.Cs
 			}).ToArray();
 			method.Parameters.AddRange(parameters);
 
+			if (settings.CancellationTokenEnabled)
+			{
+				method.Parameters.Add(new CodeParameterDeclarationExpression("System.Threading.CancellationToken", "cancellationToken"));
+			}
+
 			if (settings.HandleHttpRequestHeaders)
 			{
-				method.Parameters.Add(new CodeParameterDeclarationExpression(
-				"Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
+				method.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
 			}
 
 			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody

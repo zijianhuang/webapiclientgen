@@ -1,5 +1,4 @@
 ﻿using Fonlow.Testing;
-using System;
 
 namespace IntegrationTests
 {
@@ -7,39 +6,9 @@ namespace IntegrationTests
 	{
 		public SpecialTypesFixture()
 		{
-			httpClient = new System.Net.Http.HttpClient
-			{
-				BaseAddress = base.BaseUri
-			};
-
-			Api = new DemoCoreWeb.Controllers.Client.SpecialTypes(httpClient);
+			Api = new DemoCoreWeb.Controllers.Client.SpecialTypes(HttpClient);
 		}
 
 		public DemoCoreWeb.Controllers.Client.SpecialTypes Api { get; private set; }
-
-		readonly System.Net.Http.HttpClient httpClient;
-
-		#region IDisposable pattern
-		bool disposed;
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposed)
-			{
-				if (disposing)
-				{
-					httpClient.Dispose();
-				}
-
-				disposed = true;
-			}
-		}
-		#endregion
 	}
 }

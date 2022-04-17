@@ -73,6 +73,18 @@ This project delivers these products:
 **Server side:**
 1. .NET 6
 
+And in the service startup codes, ensure the following:
+```c#
+services.AddControllers(
+	options =>
+	{
+#if DEBUG
+		options.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());
+#endif
+	}
+)
+```
+
 **.NET client side:**
 1. .NET Framework 4.5.2, or Universal Windows, or Mono.Android, or Xamarin.iOS, or .NET Core 2.0/2.1/3 and .NET 5
 1. ASP.NET Web API 2.2 Client Libraries

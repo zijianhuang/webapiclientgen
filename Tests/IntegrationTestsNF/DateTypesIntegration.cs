@@ -9,11 +9,6 @@ namespace IntegrationTests
 	{
 		public DateTypesFixture()
 		{
-			httpClient = new System.Net.Http.HttpClient
-			{
-				BaseAddress = base.BaseUri
-			};
-
 			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
 			{
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
@@ -22,35 +17,10 @@ namespace IntegrationTests
 			jsonSerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //needed to make sure JSON serializers assume DateTimeOffset rather than DateTime.
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter()); //needed to handle DateOnly.MinValue
 			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter()); //needed to handle DateOnly.MinValue
-			Api = new DemoWebApi.Controllers.Client.DateTypes(httpClient, jsonSerializerSettings);
+			Api = new DemoWebApi.Controllers.Client.DateTypes(HttpClient, jsonSerializerSettings);
 		}
 
 		public DemoWebApi.Controllers.Client.DateTypes Api { get; private set; }
-
-		readonly System.Net.Http.HttpClient httpClient;
-
-		#region IDisposable pattern
-		bool disposed;
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposed)
-			{
-				if (disposing)
-				{
-					httpClient.Dispose();
-				}
-
-				disposed = true;
-			}
-		}
-		#endregion
 	}
 
 

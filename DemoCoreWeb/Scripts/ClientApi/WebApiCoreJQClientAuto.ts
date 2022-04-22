@@ -68,6 +68,18 @@ namespace DemoWebApi_DemoData_Client {
 		web?: string;
 	}
 
+
+	/**
+	 * To test different serializations against Guid
+	 */
+	export interface IdMap {
+		id?: string;
+		idNotEmitDefaultValue?: string;
+		nullableId?: string;
+		requiredName: string;
+		text?: string;
+	}
+
 	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
 
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
@@ -551,6 +563,13 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		patchPerson(person: DemoWebApi_DemoData_Client.Person, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.patch(this.baseUri + 'api/Entities/patchPerson', person, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
+		 * POST api/Entities/IdMap
+		 */
+		postIdMap(idMap: DemoWebApi_DemoData_Client.IdMap, callback: (data : DemoWebApi_DemoData_Client.IdMap) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/Entities/IdMap', idMap, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**

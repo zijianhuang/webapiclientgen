@@ -40,6 +40,7 @@ namespace DemoCoreWeb
 				options =>
 				{
 					options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this for cross-timezone minValue and .NET Framework clients.
+					options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; //So when controller will ignore null fileds when returing data
 					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
 					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 				}

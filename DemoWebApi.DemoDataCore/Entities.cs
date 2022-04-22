@@ -345,7 +345,27 @@ namespace DemoWebApi.DemoData
 		T = 1,
 	}
 
+	/// <summary>
+	/// To test different serializations against Guid
+	/// </summary>
+	[DataContract(Namespace = Constants.DataNamespace)]
+	public class IdMap
+	{
+		[DataMember]
+		public Guid Id { get; set; }
 
+		[DataMember]
+		public Guid? NullableId { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public Guid IdNotEmitDefaultValue { get; set; }
+
+		[DataMember(IsRequired =true)]
+		public string RequiredName { get; set; }
+
+		[DataMember()]
+		public string Text { get; set; }
+	}
 
 }
 

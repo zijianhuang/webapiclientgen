@@ -150,7 +150,7 @@ namespace DemoWebApi.DemoData.Client
 		/// Required
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		[System.Runtime.Serialization.DataMember()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string Name { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
@@ -158,6 +158,31 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public System.Uri Web { get; set; }
+	}
+	
+	/// <summary>
+	/// To test different serializations against Guid
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class IdMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(EmitDefaultValue=false)]
+		public System.Guid IdNotEmitDefaultValue { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.Guid> NullableId { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public string RequiredName { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Text { get; set; }
 	}
 	
 	[Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
@@ -3440,6 +3465,82 @@ namespace DemoWebApi.Controllers.Client
 				using (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))
 				{
 				return streamReader.ReadToEnd();;
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/IdMap
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.IdMap> PostIdMapAsync(DemoWebApi.DemoData.Client.IdMap idMap, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/IdMap";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, idMap);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.IdMap>(jsonReader);
+				}
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+			}
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/IdMap
+		/// </summary>
+		public DemoWebApi.DemoData.Client.IdMap PostIdMap(DemoWebApi.DemoData.Client.IdMap idMap, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/IdMap";
+			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri))
+			{
+			using (var requestWriter = new System.IO.StringWriter())
+			{
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, idMap);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			if (handleHeaders != null)
+			{
+				handleHeaders(httpRequestMessage.Headers);
+			}
+
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
+				{
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.IdMap>(jsonReader);
 				}
 			}
 			finally

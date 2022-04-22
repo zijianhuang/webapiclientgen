@@ -216,7 +216,11 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
-
+		[HttpPost("IdMap")]
+		public IdMap PostIdMap([FromBody] IdMap idMap)
+		{
+			return idMap;
+		}
 
 
 	}

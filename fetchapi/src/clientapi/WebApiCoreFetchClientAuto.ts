@@ -66,6 +66,18 @@ export namespace DemoWebApi_DemoData_Client {
 		web?: string;
 	}
 
+
+	/**
+	 * To test different serializations against Guid
+	 */
+	export interface IdMap {
+		id?: string;
+		idNotEmitDefaultValue?: string;
+		nullableId?: string;
+		requiredName: string;
+		text?: string;
+	}
+
 	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
 
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
@@ -549,6 +561,13 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		patchPerson(person: DemoWebApi_DemoData_Client.Person, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/Entities/patchPerson', { method: 'patch', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(person) }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * POST api/Entities/IdMap
+		 */
+		postIdMap(idMap: DemoWebApi_DemoData_Client.IdMap, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.IdMap> {
+			return fetch(this.baseUri + 'api/Entities/IdMap', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(idMap) }).then(d => d.json());
 		}
 
 		/**

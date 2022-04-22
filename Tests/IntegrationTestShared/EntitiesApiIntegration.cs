@@ -320,5 +320,28 @@ namespace IntegrationTests
 			Assert.Equal("Somebody", c.MyU.Name);
 			Assert.Equal("OK", c.Status);
 		}
+
+		[Fact]
+		public void TestPostIdMap_MissingRequiredName()
+		{
+			var d = new IdMap
+			{
+
+			};
+			var r = api.PostIdMap(d);  //payload is {"Id":"00000000-0000-0000-0000-000000000000"}, while RequiredName is with IsRequired=true;
+			Assert.Null(r); // The service binding will fail to deserialize sicne RequiredName has to be presented in payload,
+		}
+
+		[Fact]
+		public void TestPostIdMap()
+		{
+			var d = new IdMap
+			{
+				RequiredName="Hey"
+			};
+			var r = api.PostIdMap(d);  //payload is {"Id":"00000000-0000-0000-0000-000000000000"}, while RequiredName is with IsRequired=true;
+			Assert.Equal(Guid.Empty, r.Id);
+			Assert.Equal(Guid.Empty, r.IdNotEmitDefaultValue);
+		}
 	}
 }

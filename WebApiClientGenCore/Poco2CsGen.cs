@@ -391,17 +391,38 @@ namespace Fonlow.Poco2Client
 
 		void AddDataMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
 		{
-			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);// memberField.GetCustomAttribute<System.Runtime.Serialization.DataMemberAttribute>();
+			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);
 			if (dataMemberAttribute != null)
 			{
-				var n = dataMemberAttribute.Name;
-				if (String.IsNullOrEmpty(n))
+				List<CodeAttributeArgument> arguments = new();
+				if (!String.IsNullOrEmpty(dataMemberAttribute.Name))
+				{
+					arguments.Add(new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{dataMemberAttribute.Name}\"")));
+				}
+
+				if (!dataMemberAttribute.EmitDefaultValue)
+				{
+					arguments.Add(new CodeAttributeArgument("EmitDefaultValue", new CodeSnippetExpression("false")));
+				}
+
+				if (dataMemberAttribute.IsRequired)
+				{
+					arguments.Add(new CodeAttributeArgument("IsRequired ", new CodeSnippetExpression("true")));
+				}
+
+				if (dataMemberAttribute.Order>-1) //it seems the default is -1
+				{
+					arguments.Add(new CodeAttributeArgument("Order", new CodeSnippetExpression(dataMemberAttribute.Order.ToString())));
+				}
+
+
+				if (arguments.Count==0)
 				{
 					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
 				}
 				else
 				{
-					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember", new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{n}\""))));
+					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember", arguments.ToArray()));
 				}
 			}
 		}

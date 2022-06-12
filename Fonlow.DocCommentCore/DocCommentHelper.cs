@@ -8,8 +8,8 @@ namespace Fonlow.DocComment
 	/// <summary>
 	/// Helper functions of accessing doc comments of a method
 	/// </summary>
-    public class DocCommentHelper
-    {
+	public class DocCommentHelper
+	{
 		public static string GetSummary(docMember m)
 		{
 			if (m == null || m.summary == null || m.summary.Text == null || m.summary.Text.Length == 0)

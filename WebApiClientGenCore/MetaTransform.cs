@@ -186,7 +186,7 @@ namespace Fonlow.Web.Meta
 			{
 				methodFullName += "(" + descriptor.Parameters.Select(d => d.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
 			}
-
+			Console.WriteLine(methodFullName);
 			return lookup.GetMember("M:" + methodFullName);
 		}
 

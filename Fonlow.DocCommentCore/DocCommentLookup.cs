@@ -18,23 +18,6 @@ namespace Fonlow.DocComment
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filePath">XML file of doc comment.</param>
-        /// <returns></returns>
-        public static DocCommentLookup Create(string filePath)
-        {
-            var lookup = new DocCommentLookup();
-            var r = lookup.Load(filePath);
-            if (r)
-            {
-                return lookup;
-            }
-
-            return null;
-        }
-
         public doc XmlDoc { get; private set; }
 
         bool Load(string filePath)
@@ -64,6 +47,23 @@ namespace Fonlow.DocComment
         public docMember GetMember(string name)
         {
             return XmlDoc.members.SingleOrDefault(d => d.name == name);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath">XML file of doc comment.</param>
+        /// <returns></returns>
+        public static DocCommentLookup Create(string filePath)
+        {
+            var lookup = new DocCommentLookup();
+            var r = lookup.Load(filePath);
+            if (r)
+            {
+                return lookup;
+            }
+
+            return null;
         }
 
         /// <summary>

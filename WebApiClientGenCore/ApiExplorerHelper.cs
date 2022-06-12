@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Fonlow.CodeDom.Web
 {
@@ -25,6 +26,25 @@ namespace Fonlow.CodeDom.Web
 				{
 					list.Add(d);
 				}
+			}
+
+			var first = list.FirstOrDefault(d =>
+			{
+				var controllerActionDescriptor = d.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+				if (controllerActionDescriptor == null)
+				{
+					return false;
+				}
+
+				return true;
+			});
+
+			if (first != null)
+			{
+				var firstControllerActionDescriptor = first.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+				var xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(firstControllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
+				var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlFilePath);
+				WebApiDocSingleton.InitOnce(docLookup);
 			}
 
 			return list.ToArray();

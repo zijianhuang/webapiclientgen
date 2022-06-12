@@ -1179,6 +1179,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get Tuple in return
 		 * GET api/Tuple/PeopleCompany4
 		 */
 		getPeopleCompany4(headersHandler?: () => HttpHeaders): Observable<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}> {

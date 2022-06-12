@@ -9,6 +9,11 @@ namespace DemoWebApi.Controllers
 	[Route("api/[controller]")]
 	public class TupleController : ControllerBase
 	{
+		/// <summary>
+		/// Post tuple
+		/// </summary>
+		/// <param name="d"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("ChangeName")]
 		public DemoData.Person ChangeName([FromBody] Tuple<string, DemoData.Person> d)
@@ -45,6 +50,10 @@ namespace DemoWebApi.Controllers
 			return peopleAndCompany.Item1;
 		}
 
+		/// <summary>
+		/// Get Tuple in return
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("PeopleCompany4")]
 		public Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> GetPeopleCompany4()

@@ -90,9 +90,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			foreach (var item in Description.ParameterDescriptions)
 			{
 				var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(item.ParameterDescriptor.ParameterType);
-				if (!String.IsNullOrEmpty(item.Documentation))
+				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, item.Name);
+				if (!String.IsNullOrEmpty(parameterComment))
 				{
-					var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, item.Name);
 					builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {parameterComment}");
 				}
 			}

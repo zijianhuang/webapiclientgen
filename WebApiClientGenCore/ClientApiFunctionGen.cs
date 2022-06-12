@@ -154,7 +154,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			foreach (var item in description.ParameterDescriptions)
 			{
 				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, item.Name);
-				CreateParamDocComment(item.Name, parameterComment);
+				if (!String.IsNullOrEmpty(parameterComment))
+				{
+					CreateParamDocComment(item.Name, parameterComment);
+				}
 			}
 
 			var returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);

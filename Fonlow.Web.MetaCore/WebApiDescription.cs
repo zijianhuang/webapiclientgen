@@ -162,9 +162,9 @@ namespace Fonlow.Web.Meta
 	[DataContract(Namespace = Constants.NS)]
 	public class ParameterDescription
 	{
-		[DataMember]
-		public string Documentation
-		{ get; set; }
+		//[DataMember]
+		//public string Documentation
+		//{ get; set; }
 
 		[DataMember]
 		public string Name

@@ -355,7 +355,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Client should send DateTime.Date
 		 * POST api/DateTypes/IsDateTimeDate
 		 */
 		isDateTimeDate(dt: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
@@ -391,7 +390,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * return d;
 		 * POST api/DateTypes/ForDateTimeOffset
 		 */
 		postDateTimeOffset(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
@@ -399,7 +397,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * return d.ToString("O")
 		 * POST api/DateTypes/ForDateTimeOffsetForO
 		 */
 		postDateTimeOffsetForO(d: Date, headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -532,8 +529,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get a person
-		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
 		 * @param {number} id unique id of that guy
 		 * @return {DemoWebApi_DemoData_Client.Person} person in db
@@ -597,7 +592,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
 		getHero(id: number, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
@@ -605,7 +599,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get all heroes.
 		 * GET api/Heroes
 		 */
 		getHeros(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
@@ -620,7 +613,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Add a hero
 		 * POST api/Heroes/q?name={name}
 		 */
 		postWithQuery(name: string, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
@@ -628,7 +620,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Update hero.
 		 * PUT api/Heroes
 		 */
 		put(hero: DemoWebApi_Controllers_Client.Hero, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
@@ -636,7 +627,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Search heroes
 		 * GET api/Heroes/search/{name}
 		 * @param {string} name keyword contained in hero name.
 		 * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
@@ -1371,7 +1361,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get by both Id and name
 		 * GET api/Values/{id}?name={name}
 		 */
 		getByIdAndName(id: number, name: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -1407,7 +1396,6 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Update with valjue
 		 * PUT api/Values/{id}
 		 */
 		put(id: number, value: string, headersHandler?: () => {[header: string]: string}): Promise<Response> {

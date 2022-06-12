@@ -64,13 +64,24 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		void CreateDocComments()
 		{
-			StringBuilder builder = new StringBuilder();
-			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Description.Documentation);
-			if (noIndent != null)
+			var methodFullName = Description.ActionDescriptor.MethodFullName;
+			if (Description.ParameterDescriptions.Length > 0)
 			{
-				foreach (var item in noIndent)
+				methodFullName += "(" + Description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
+			}
+			Console.WriteLine(methodFullName);
+			StringBuilder builder = new StringBuilder();
+
+			if (WebApiDocSingleton.Instance.Lookup != null)
+			{
+				var methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);
+				var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
+				if (noIndent != null)
 				{
-					builder.AppendLine(item);
+					foreach (var item in noIndent)
+					{
+						builder.AppendLine(item);
+					}
 				}
 			}
 

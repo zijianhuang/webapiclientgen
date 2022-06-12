@@ -91,6 +91,7 @@ namespace Fonlow.Web.Meta
 					ActionDescriptor = new ActionDescriptor()
 					{
 						ActionName = controllerActionDescriptor.ActionName,
+						MethodFullName = controllerActionDescriptor.MethodInfo.DeclaringType.FullName + "." + controllerActionDescriptor.MethodInfo.Name,
 						ReturnType = responseType,
 						ControllerDescriptor = new ControllerDescriptor()
 						{
@@ -100,7 +101,6 @@ namespace Fonlow.Web.Meta
 					},
 
 					HttpMethod = description.HttpMethod,
-					Documentation = DocCommentHelper.GetSummary(methodComments),
 					RelativePath = description.RelativePath + BuildQuery(description.ParameterDescriptions),
 					ResponseDescription = new ResponseDescription()
 					{
@@ -186,7 +186,7 @@ namespace Fonlow.Web.Meta
 			{
 				methodFullName += "(" + descriptor.Parameters.Select(d => d.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
 			}
-			Console.WriteLine(methodFullName);
+			//Console.WriteLine(methodFullName);
 			return lookup.GetMember("M:" + methodFullName);
 		}
 

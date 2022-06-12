@@ -129,12 +129,22 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			method.Comments.Add(new CodeCommentStatement("<summary>", true));
-			var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(description.Documentation);
-			if (noIndent != null)
+			var methodFullName = description.ActionDescriptor.MethodFullName;
+			if (description.ParameterDescriptions.Length > 0)
 			{
-				foreach (var item in noIndent)
+				methodFullName += "(" + description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
+			}
+
+			if (WebApiDocSingleton.Instance.Lookup != null)
+			{
+				var methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);
+				var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
+				if (noIndent != null)
 				{
-					method.Comments.Add(new CodeCommentStatement(item, true));
+					foreach (var item in noIndent)
+					{
+						method.Comments.Add(new CodeCommentStatement(item, true));
+					}
 				}
 			}
 

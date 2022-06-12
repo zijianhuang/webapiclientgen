@@ -31,9 +31,9 @@ namespace Fonlow.Web.Meta
 	[DataContract(Namespace = Constants.NS)]
 	public class WebApiDescription
 	{
-		[DataMember]
-		public string Documentation
-		{ get; set; }
+		//[DataMember]
+		//public string MethodSummary
+		//{ get; set; }
 
 		[DataMember]
 		public string ID
@@ -74,6 +74,13 @@ namespace Fonlow.Web.Meta
 		/// </summary>
 		[DataMember]
 		public string ActionName
+		{ get; set; }
+
+		/// <summary>
+		/// Used to match doc comments.
+		/// </summary>
+		[DataMember]
+		public string MethodFullName
 		{ get; set; }
 
 		/// <summary>

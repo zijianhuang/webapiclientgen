@@ -222,9 +222,9 @@ namespace Fonlow.Web.Meta
 			set { }
 		}
 
-		[DataMember]
-		public string Documentation
-		{ get; set; }
+		//[DataMember]
+		//public string Documentation
+		//{ get; set; }
 
 		/// <summary>
 		/// It may be null

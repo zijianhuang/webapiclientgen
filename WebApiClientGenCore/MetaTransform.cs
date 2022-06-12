@@ -104,7 +104,6 @@ namespace Fonlow.Web.Meta
 					RelativePath = description.RelativePath + BuildQuery(description.ParameterDescriptions),
 					ResponseDescription = new ResponseDescription()
 					{
-						Documentation = DocCommentHelper.GetReturnComment(methodComments),
 						ResponseType = responseType,
 					},
 

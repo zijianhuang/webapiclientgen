@@ -72,9 +72,10 @@ namespace Fonlow.CodeDom.Web.Ts
 			Console.WriteLine(methodFullName);
 			StringBuilder builder = new StringBuilder();
 
+			Fonlow.DocComment.docMember methodComments=null;
 			if (WebApiDocSingleton.Instance.Lookup != null)
 			{
-				var methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);
+				methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);
 				var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
 				if (noIndent != null)
 				{
@@ -98,9 +99,11 @@ namespace Fonlow.CodeDom.Web.Ts
 			Type responseType = Description.ResponseDescription.ResponseType ?? Description.ResponseDescription.DeclaredType;
 			var tsResponseType = Poco2TsGen.TranslateToClientTypeReference(responseType);
 			var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
-			if (!String.IsNullOrEmpty(Description.ResponseDescription.Documentation))
+
+			var returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);
+			if (returnComment != null)
 			{
-				builder.AppendLine($"@return {{{returnTypeOfResponse}}} {Description.ResponseDescription.Documentation}");
+				builder.AppendLine($"@return {{{returnTypeOfResponse}}} {returnComment}");
 			}
 
 			Method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));

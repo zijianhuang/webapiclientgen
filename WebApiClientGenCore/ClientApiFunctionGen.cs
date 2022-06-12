@@ -135,9 +135,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				methodFullName += "(" + description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
 			}
 
+			Fonlow.DocComment.docMember methodComments = null;
 			if (WebApiDocSingleton.Instance.Lookup != null)
 			{
-				var methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);
+				methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);
 				var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
 				if (noIndent != null)
 				{
@@ -154,7 +155,12 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				CreateParamDocComment(item.Name, item.Documentation);
 			}
-			CreateDocComment("returns", description.ResponseDescription.Documentation);
+
+			var returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);
+			if (returnComment != null)
+			{
+				CreateDocComment("returns", returnComment);
+			}
 		}
 
 		/// <summary>

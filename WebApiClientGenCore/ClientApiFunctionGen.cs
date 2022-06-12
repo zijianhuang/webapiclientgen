@@ -153,7 +153,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			method.Comments.Add(new CodeCommentStatement("</summary>", true));
 			foreach (var item in description.ParameterDescriptions)
 			{
-				CreateParamDocComment(item.Name, item.Documentation);
+				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, item.Name);
+				CreateParamDocComment(item.Name, parameterComment);
 			}
 
 			var returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);

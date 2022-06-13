@@ -1193,6 +1193,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post tuple
 		 * POST api/Tuple/ChangeName
 		 */
 		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
@@ -1306,6 +1307,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post long tuple
 		 * POST api/Tuple/PeopleCompany7
 		 */
 		linkPeopleCompany7(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company}, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {

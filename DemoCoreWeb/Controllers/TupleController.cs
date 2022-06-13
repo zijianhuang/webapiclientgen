@@ -82,6 +82,11 @@ namespace DemoWebApi.Controllers
 			return peopleAndCompany.Item1;
 		}
 
+		/// <summary>
+		/// Post long tuple
+		/// </summary>
+		/// <param name="peopleAndCompany"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("PeopleCompany7")]
 		public DemoData.Person LinkPeopleCompany7([FromBody] Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> peopleAndCompany)

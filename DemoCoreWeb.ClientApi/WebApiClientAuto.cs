@@ -8602,6 +8602,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post tuple
 		/// POST api/Tuple/ChangeName
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> ChangeNameAsync(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8640,6 +8641,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post tuple
 		/// POST api/Tuple/ChangeName
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person ChangeName(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -9680,6 +9682,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post long tuple
 		/// POST api/Tuple/PeopleCompany7
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -9718,6 +9721,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post long tuple
 		/// POST api/Tuple/PeopleCompany7
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

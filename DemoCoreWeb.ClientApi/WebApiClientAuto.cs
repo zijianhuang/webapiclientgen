@@ -6100,6 +6100,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo IEnumerable long
 		/// GET api/SuperDemo/intArrayQ2?a={a}
 		/// </summary>
 		public async Task<long[]> GetIntArrayQ2Async(long[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6131,6 +6132,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo IEnumerable long
 		/// GET api/SuperDemo/intArrayQ2?a={a}
 		/// </summary>
 		public long[] GetIntArrayQ2(long[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6902,6 +6904,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo List string
 		/// GET api/SuperDemo/stringArrayQ2?a={a}
 		/// </summary>
 		public async Task<string[]> GetStringArrayQ2Async(string[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6933,6 +6936,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo List string
 		/// GET api/SuperDemo/stringArrayQ2?a={a}
 		/// </summary>
 		public string[] GetStringArrayQ2(string[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

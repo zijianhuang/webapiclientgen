@@ -758,8 +758,14 @@ namespace Fonlow.Poco2Client
 			if (TypeHelper.IsArrayType(genericTypeDefinition))
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
+				var arrayTypeFullName = genericTypeDefinition.FullName;
+				if (arrayTypeFullName.EndsWith("`1"))
+				{
+					arrayTypeFullName = arrayTypeFullName.Remove(arrayTypeFullName.Length - 2, 2);
+				}
+
 				var elementType = type.GenericTypeArguments[0];
-				return CSharpCodeDomProvider.GetTypeOutput(CreateArrayTypeReference(elementType, 1));
+				return $"{arrayTypeFullName}{{{TranslateToClientTypeReferenceText(elementType)}}}";
 			}
 
 			var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);

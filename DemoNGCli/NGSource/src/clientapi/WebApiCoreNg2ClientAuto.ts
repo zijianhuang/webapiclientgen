@@ -834,6 +834,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo IEnumerable Days
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_DemoData_Client.Days>> {
@@ -898,6 +899,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo IEnumerable long
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
@@ -990,6 +992,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo List string
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>, headersHandler?: () => HttpHeaders): Observable<Array<string>> {
@@ -1046,6 +1049,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post a collection of person
 		 * POST api/SuperDemo/Collection
 		 */
 		postCollection(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
@@ -1074,6 +1078,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post ICollection of person
 		 * POST api/SuperDemo/ICollection
 		 */
 		postICollection(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
@@ -1081,6 +1086,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post IList of person
 		 * POST api/SuperDemo/IList
 		 */
 		postIList(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
@@ -1111,6 +1117,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post IReadOnlyCollection of person
 		 * POST api/SuperDemo/IReadOnlyCollection
 		 */
 		postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
@@ -1118,6 +1125,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post e of person
 		 * POST api/SuperDemo/IReadOnlyList
 		 */
 		postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {
@@ -1125,6 +1133,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post a list of person
 		 * POST api/SuperDemo/List
 		 */
 		postList(list: Array<DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<number> {

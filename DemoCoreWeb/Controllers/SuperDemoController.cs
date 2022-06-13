@@ -539,7 +539,11 @@ namespace DemoWebApi.Controllers
 			return new System.Collections.ObjectModel.Collection<DemoData.Person>(GetList());
 		}
 
-
+		/// <summary>
+		/// Post ICollection of person
+		/// </summary>
+		/// <param name="list"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("ICollection")]
 		public int PostICollection([FromBody] ICollection<DemoData.Person> list)
@@ -547,6 +551,11 @@ namespace DemoWebApi.Controllers
 			return list.Count;
 		}
 
+		/// <summary>
+		/// Post IList of person
+		/// </summary>
+		/// <param name="list"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("IList")]
 		public int PostIList([FromBody] IList<DemoData.Person> list)
@@ -554,6 +563,11 @@ namespace DemoWebApi.Controllers
 			return list.Count;
 		}
 
+		/// <summary>
+		/// Post e of person
+		/// </summary>
+		/// <param name="list"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("IReadOnlyList")]
 		public int PostIReadOnlyList([FromBody] IReadOnlyList<DemoData.Person> list)
@@ -561,6 +575,11 @@ namespace DemoWebApi.Controllers
 			return list.Count;
 		}
 
+		/// <summary>
+		/// Post IReadOnlyCollection of person
+		/// </summary>
+		/// <param name="list"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("IReadOnlyCollection")]
 		public int PostIReadOnlyCollection([FromBody] IReadOnlyCollection<DemoData.Person> list)
@@ -568,7 +587,11 @@ namespace DemoWebApi.Controllers
 			return list.Count;
 		}
 
-
+		/// <summary>
+		/// Post a list of person
+		/// </summary>
+		/// <param name="list"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("List")]
 		public int PostList([FromBody] List<DemoData.Person> list)
@@ -576,6 +599,11 @@ namespace DemoWebApi.Controllers
 			return list.Count;
 		}
 
+		/// <summary>
+		/// Post a collection of person
+		/// </summary>
+		/// <param name="list"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("Collection")]
 		public int PostCollection([FromBody] System.Collections.ObjectModel.Collection<DemoData.Person> list)

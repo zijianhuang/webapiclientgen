@@ -336,6 +336,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * If Dt is not defined, add a hour from now
 		 * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		 */
 		getNextHourNullable(n: number, dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
@@ -350,6 +351,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * If Dt is not defined, add a year from now
 		 * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		 */
 		getNextYearNullable(n: number, dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
@@ -357,6 +359,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Client should send DateTime.Date
 		 * POST api/DateTypes/IsDateTimeDate
 		 */
 		isDateTimeDate(dt: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
@@ -392,6 +395,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * return d;
 		 * POST api/DateTypes/ForDateTimeOffset
 		 */
 		postDateTimeOffset(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
@@ -399,6 +403,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * return d.ToString("O")
 		 * POST api/DateTypes/ForDateTimeOffsetForO
 		 */
 		postDateTimeOffsetForO(d: Date, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
@@ -509,6 +514,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post MyGeneric string, decimal, double
 		 * POST api/Entities/MyGeneric
 		 */
 		getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, number>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -516,6 +522,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post MyGeneric string, decimal, Person
 		 * POST api/Entities/MyGenericPerson
 		 */
 		getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -531,6 +538,8 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get a person
+		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
 		 * @param {number} id unique id of that guy
 		 * @return {DemoWebApi_DemoData_Client.Person} person in db
@@ -594,6 +603,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get a hero.
 		 * GET api/Heroes/{id}
 		 */
 		getHero(id: number, callback: (data : DemoWebApi_Controllers_Client.Hero) => any, headersHandler?: () => {[header: string]: string}) {
@@ -601,6 +611,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get all heroes.
 		 * GET api/Heroes
 		 */
 		getHeros(callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -615,6 +626,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Add a hero
 		 * POST api/Heroes/q?name={name}
 		 */
 		postWithQuery(name: string, callback: (data : DemoWebApi_Controllers_Client.Hero) => any, headersHandler?: () => {[header: string]: string}) {
@@ -622,6 +634,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Update hero.
 		 * PUT api/Heroes
 		 */
 		put(hero: DemoWebApi_Controllers_Client.Hero, callback: (data : DemoWebApi_Controllers_Client.Hero) => any, headersHandler?: () => {[header: string]: string}) {
@@ -629,6 +642,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Search heroes
 		 * GET api/Heroes/search/{name}
 		 * @param {string} name keyword contained in hero name.
 		 * @return {Array<DemoWebApi_Controllers_Client.Hero>} Hero array matching the keyword.
@@ -643,7 +657,9 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Athlethe Search
 		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 * @param {number} take Generic optional parameter.
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
@@ -762,6 +778,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number>, callback: (data : Array<number>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -812,6 +829,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo IEnumerable Days
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, callback: (data : Array<DemoWebApi_DemoData_Client.Days>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -868,6 +886,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo int[];
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number>, callback: (data : Array<number>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -875,6 +894,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo IEnumerable long
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>, callback: (data : Array<number>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -959,6 +979,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo string array
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string>, callback: (data : Array<string>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -966,6 +987,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo List string
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>, callback: (data : Array<string>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1022,6 +1044,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post a collection of person
 		 * POST api/SuperDemo/Collection
 		 */
 		postCollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1036,6 +1059,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo Dic string and person
 		 * POST api/SuperDemo/StringPersonDic
 		 */
 		postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1050,6 +1074,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post ICollection of person
 		 * POST api/SuperDemo/ICollection
 		 */
 		postICollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1057,6 +1082,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post IList of person
 		 * POST api/SuperDemo/IList
 		 */
 		postIList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1071,6 +1097,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo int[][]
 		 * POST api/SuperDemo/int2djagged
 		 */
 		postInt2DJagged(a: Array<Array<number>>, callback: (data : boolean) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1078,6 +1105,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo int[]
 		 * POST api/SuperDemo/intArray
 		 */
 		postIntArray(a: Array<number>, callback: (data : boolean) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1085,6 +1113,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post IReadOnlyCollection of person
 		 * POST api/SuperDemo/IReadOnlyCollection
 		 */
 		postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1092,6 +1121,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post e of person
 		 * POST api/SuperDemo/IReadOnlyList
 		 */
 		postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1099,6 +1129,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post a list of person
 		 * POST api/SuperDemo/List
 		 */
 		postList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1153,6 +1184,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post tuple
 		 * POST api/Tuple/ChangeName
 		 */
 		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}, callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1266,6 +1298,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post long tuple
 		 * POST api/Tuple/PeopleCompany7
 		 */
 		linkPeopleCompany7(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company}, callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1363,6 +1396,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get by both Id and name
 		 * GET api/Values/{id}?name={name}
 		 */
 		getByIdAndName(id: number, name: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1398,6 +1432,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Update with valjue
 		 * PUT api/Values/{id}
 		 */
 		put(id: number, value: string, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {

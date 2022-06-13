@@ -5,7 +5,7 @@
     <PackageId>Fonlow.WebApiClientGenCore.Axios</PackageId>
     <Authors>Zijian Huang</Authors>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with AXIOS.</Description>
-    <PackageReleaseNotes>* .NET 6; * Support DateOnly, and DataTypeAttribute(DataType.Date)</PackageReleaseNotes>
+    <PackageReleaseNotes>Doc comments for generic parameters</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
@@ -14,8 +14,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.Axios</AssemblyName>
-    <Version>3.0</Version>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <Version>3.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

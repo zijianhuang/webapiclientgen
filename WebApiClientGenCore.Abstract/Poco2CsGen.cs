@@ -690,6 +690,7 @@ namespace Fonlow.Poco2Client
 
 			}
 
+			// This is for custom generic type, which may want .Client suffix or alike.
 			return new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray());
 
 		}
@@ -828,11 +829,6 @@ namespace Fonlow.Poco2Client
 
 		string RefineCustomComplexTypeText(Type t)
 		{
-			if (this.settings == null) // When used by TS generator, this.setting is null, since CreateCodeDom() is not called.
-			{
-				return t.Namespace + "." + t.Name;
-			}
-
 			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name; //todo: find out this.settings sometimes becomes null???
 		}
 

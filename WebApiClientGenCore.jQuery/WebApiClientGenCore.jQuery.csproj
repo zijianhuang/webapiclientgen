@@ -8,14 +8,12 @@
     <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with jQuery. This requires a HttpClient library at https://github.com/zijianhuang/webapiclientgen/blob/master/DemoWebApi/Scripts/ClientApi/HttpClient.ts.</Description>
-    <PackageReleaseNotes>* .NET 6; * Support DateOnly, and DataTypeAttribute(DataType.Date)</PackageReleaseNotes>
+    <PackageReleaseNotes>Doc comments for generic parameters</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.jQuery</AssemblyName>
-    <Version>3.0</Version>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.1</Version>
     <PackageTags>jQuery</PackageTags>
   </PropertyGroup>
 

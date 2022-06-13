@@ -707,7 +707,7 @@ namespace Fonlow.Poco2Client
 				return null;// new CodeTypeReference("void");
 
 			if (pendingTypes.Contains(type))
-				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(RefineCustomComplexTypeText(type)));
+				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(RefineCustomComplexTypeTextForDocComments(type)));
 			else if (type.IsGenericType)
 			{
 				return TranslateGenericToTypeReferenceText(type);
@@ -761,7 +761,7 @@ namespace Fonlow.Poco2Client
 				var arrayTypeFullName = genericTypeDefinition.FullName;
 				if (arrayTypeFullName.EndsWith("`1"))
 				{
-					arrayTypeFullName = arrayTypeFullName.Remove(arrayTypeFullName.Length - 2, 2);
+					arrayTypeFullName = arrayTypeFullName.Remove(arrayTypeFullName.Length - 2, 2); //hack out of the suffix
 				}
 
 				var elementType = type.GenericTypeArguments[0];
@@ -799,27 +799,32 @@ namespace Fonlow.Poco2Client
 
 			if (genericArguments.Length == 2)
 			{
+				var tName = genericTypeDefinition.FullName;
+				tName = tName.Remove(tName.Length - 2, 2);
 				if (genericTypeDefinition == typeof(IDictionary<,>))
 				{
-					return $"{typeof(Dictionary<,>).FullName},{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
+					return $"{tName}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
 				}
 
 				Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
 				if (closedDictionaryType.IsAssignableFrom(type))
 				{
-					return $"{typeof(Dictionary<,>).FullName},{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
+					return $"{tName}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
 				}
 
 				if (genericTypeDefinition == typeof(KeyValuePair<,>))
 				{
-					return $"{typeof(KeyValuePair<,>).FullName},{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
+					return $"{tName}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
 				}
-
-
 			}
 
-			return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray()));
+			return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(RefineCustomComplexTypeTextForDocComments(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray()));
 
+		}
+
+		string RefineCustomComplexTypeTextForDocComments(Type t)
+		{
+			return t.Namespace + "." + t.Name;
 		}
 
 		string RefineCustomComplexTypeText(Type t)

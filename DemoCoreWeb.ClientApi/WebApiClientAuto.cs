@@ -5542,6 +5542,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo IEnumerable Days
 		/// GET api/SuperDemo/enumArrayDays?a={a}
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Days[]> GetEnumArrayDaysAsync(DemoWebApi.DemoData.Client.Days[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5573,6 +5574,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo IEnumerable Days
 		/// GET api/SuperDemo/enumArrayDays?a={a}
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Days[] GetEnumArrayDays(DemoWebApi.DemoData.Client.Days[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7318,6 +7320,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post a collection of person
 		/// POST api/SuperDemo/Collection
 		/// </summary>
 		public async Task<int> PostCollectionAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7355,6 +7358,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post a collection of person
 		/// POST api/SuperDemo/Collection
 		/// </summary>
 		public int PostCollection(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7468,6 +7472,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo Dic string and person
 		/// POST api/SuperDemo/StringPersonDic
 		/// </summary>
 		public async Task<int> PostDictionaryAsync(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7505,6 +7510,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo Dic string and person
 		/// POST api/SuperDemo/StringPersonDic
 		/// </summary>
 		public int PostDictionary(System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> dic, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7618,6 +7624,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post ICollection of person
 		/// POST api/SuperDemo/ICollection
 		/// </summary>
 		public async Task<int> PostICollectionAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7655,6 +7662,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post ICollection of person
 		/// POST api/SuperDemo/ICollection
 		/// </summary>
 		public int PostICollection(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7692,6 +7700,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post IList of person
 		/// POST api/SuperDemo/IList
 		/// </summary>
 		public async Task<int> PostIListAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7729,6 +7738,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post IList of person
 		/// POST api/SuperDemo/IList
 		/// </summary>
 		public int PostIList(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7992,6 +8002,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post IReadOnlyCollection of person
 		/// POST api/SuperDemo/IReadOnlyCollection
 		/// </summary>
 		public async Task<int> PostIReadOnlyCollectionAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8029,6 +8040,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post IReadOnlyCollection of person
 		/// POST api/SuperDemo/IReadOnlyCollection
 		/// </summary>
 		public int PostIReadOnlyCollection(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8066,6 +8078,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post e of person
 		/// POST api/SuperDemo/IReadOnlyList
 		/// </summary>
 		public async Task<int> PostIReadOnlyListAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8103,6 +8116,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post e of person
 		/// POST api/SuperDemo/IReadOnlyList
 		/// </summary>
 		public int PostIReadOnlyList(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8140,6 +8154,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post a list of person
 		/// POST api/SuperDemo/List
 		/// </summary>
 		public async Task<int> PostListAsync(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8177,6 +8192,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post a list of person
 		/// POST api/SuperDemo/List
 		/// </summary>
 		public int PostList(DemoWebApi.DemoData.Client.Person[] list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

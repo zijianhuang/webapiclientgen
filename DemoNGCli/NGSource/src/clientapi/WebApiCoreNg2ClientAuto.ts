@@ -1064,6 +1064,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo Dic string and person
 		 * POST api/SuperDemo/StringPersonDic
 		 */
 		postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }, headersHandler?: () => HttpHeaders): Observable<number> {

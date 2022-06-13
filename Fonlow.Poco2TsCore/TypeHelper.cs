@@ -65,15 +65,9 @@ namespace Fonlow.Reflection
 				typeof(Tuple<,,,,,>).FullName,
 				typeof(Tuple<,,,,,,>).FullName,
 				typeof(Tuple<,,,,,,,>).FullName //Tuple<T1, T2, T3, T4, T5, T6, T7, TRest>
-			});
+			}
+			);
 
-
-		//        static readonly System.Collections.Generic.HashSet<string> primitiveTypeNames = new System.Collections.Generic.HashSet<string>(
-		//            new string[] {
-		//"System.Boolean", "System.Byte", "System.SByte", "System.Int16", "System.UInt16", "System.Int32", "System.UInt32", "System.Int64",
-		//"System.UInt64", "System.IntPtr", "System.UIntPtr", "System.Char", "System.Double", "System.Single"
-		//            }
-		//        );
 
 		public static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
 		{

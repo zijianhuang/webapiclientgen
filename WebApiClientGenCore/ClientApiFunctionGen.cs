@@ -4,6 +4,7 @@ using System.Linq;
 using System.Diagnostics;
 using Fonlow.Reflection;
 using Fonlow.Web.Meta;
+using System.Collections.Generic;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -132,7 +133,25 @@ namespace Fonlow.CodeDom.Web.Cs
 			var methodFullName = description.ActionDescriptor.MethodFullName;
 			if (description.ParameterDescriptions.Length > 0)
 			{
-				methodFullName += "(" + description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
+				methodFullName += "(" + description.ParameterDescriptions.Select(d =>
+				{
+					string typeText;
+					if (TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
+					{
+						typeText = d.ParameterDescriptor.ParameterType.FullName;
+					}
+					else if (d.ParameterDescriptor.ParameterType.IsGenericType)
+					{
+						var typeReference = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType);
+						typeText = poco2CsGen.CSharpCodeDomProvider.GetTypeOutput(typeReference);
+					}
+					else
+					{
+						typeText = d.ParameterDescriptor.ParameterType.FullName;
+					};
+
+					return typeText;
+				}).Aggregate((c, n) => c + "," + n) + ")";
 			}
 
 			Fonlow.DocComment.docMember methodComments = null;
@@ -166,6 +185,37 @@ namespace Fonlow.CodeDom.Web.Cs
 				CreateDocComment("returns", returnComment);
 			}
 		}
+
+		//string GetTypeOutput(Type type)
+		//{
+		//	string typeText;
+		//	if (TypeHelper.IsSimpleType(type))
+		//	{
+		//		typeText = type.FullName;
+		//	}
+		//	else if (type.IsGenericType)
+		//	{
+		//		var typeReference = poco2CsGen.TranslateToClientTypeReference(type);
+		//		typeText = typeReference.BaseType;
+		//		List<string> argTexts = new List<string>();
+		//		for (int i = 0; i < typeReference.TypeArguments.Count; i++)
+		//		{
+		//			var arg = typeReference.TypeArguments[i];
+		//			var text = GetTypeOutput(arg.type);
+		//			argTexts.Add(text);
+		//		}
+
+		//		var argsList = String.Join(",", argTexts);
+		//		var r = $"{typeText}{{{argsList}}}";
+		//		return r;
+		//	}
+		//	else
+		//	{
+		//		typeText = type.FullName;
+		//	};
+
+		//	return typeText;
+		//}
 
 		/// <summary>
 		/// 
@@ -257,7 +307,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddResponseMessageSendAsync(CodeMemberMethod method)
 		{
-			var cancellationToken = settings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty; 
+			var cancellationToken = settings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty;
 			method.Statements.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression($"await client.SendAsync(httpRequestMessage{cancellationToken})") : new CodeSnippetExpression($"client.SendAsync(httpRequestMessage{cancellationToken}).Result")));
 		}

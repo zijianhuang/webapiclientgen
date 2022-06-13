@@ -11,6 +11,15 @@ namespace DemoWebApi.Controllers
 	[Route("api/[controller]")]
 	public class StringDataController : ControllerBase
 	{
+		/// <summary>
+		/// Athlethe Search
+		/// </summary>
+		/// <param name="take">Generic optional parameter.</param>
+		/// <param name="skip"></param>
+		/// <param name="order"></param>
+		/// <param name="sort"></param>
+		/// <param name="search"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("AthletheSearch")]
 		public string AthletheSearch([FromQuery] int? take = 10, [FromQuery] int skip = 0, [FromQuery] string order = null, [FromQuery] string sort = null, [FromQuery] string search = null)

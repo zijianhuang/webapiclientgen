@@ -18,9 +18,11 @@ namespace Fonlow.Poco2Client
 	/// <summary>
 	/// POCO to C# client data types generator, with CSharp CodeDOM provider.
 	/// </summary>
-	public class Poco2CsGen
+	public class Poco2CsGen : IDisposable
 	{
 		readonly CodeCompileUnit codeCompileUnit;
+
+		public CodeDomProvider CSharpCodeDomProvider { get; private set; }
 
 		/// <summary>
 		/// Init with its own CodeCompileUnit.
@@ -28,6 +30,7 @@ namespace Fonlow.Poco2Client
 		public Poco2CsGen()
 		{
 			codeCompileUnit = new CodeCompileUnit();
+			CSharpCodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
 			pendingTypes = new List<Type>();
 		}
 
@@ -38,6 +41,7 @@ namespace Fonlow.Poco2Client
 		public Poco2CsGen(CodeCompileUnit codeCompileUnit)
 		{
 			this.codeCompileUnit = codeCompileUnit;
+			CSharpCodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
 			pendingTypes = new List<Type>();
 		}
 
@@ -90,11 +94,9 @@ namespace Fonlow.Poco2Client
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
 
-			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
-			{
-				CodeGeneratorOptions options = new CodeGeneratorOptions();
-				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
-			}
+			CodeGeneratorOptions options = new CodeGeneratorOptions();
+			CSharpCodeDomProvider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
+
 		}
 
 
@@ -247,7 +249,7 @@ namespace Fonlow.Poco2Client
 							tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
 							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
 							var defaultValue = GetDefaultValue(fieldInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
-							
+
 							//public fields of a class will be translated into properties
 							if (type.IsClass)
 							{
@@ -410,13 +412,13 @@ namespace Fonlow.Poco2Client
 					arguments.Add(new CodeAttributeArgument("IsRequired ", new CodeSnippetExpression("true")));
 				}
 
-				if (dataMemberAttribute.Order>-1) //it seems the default is -1
+				if (dataMemberAttribute.Order > -1) //it seems the default is -1
 				{
 					arguments.Add(new CodeAttributeArgument("Order", new CodeSnippetExpression(dataMemberAttribute.Order.ToString())));
 				}
 
 
-				if (arguments.Count==0)
+				if (arguments.Count == 0)
 				{
 					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
 				}
@@ -445,6 +447,7 @@ namespace Fonlow.Poco2Client
 		}
 
 		DocCommentLookup docLookup;
+		private bool disposedValue;
 
 		void CreateTypeDocComment(Type type, CodeTypeDeclaration typeDeclaration)
 		{
@@ -944,7 +947,34 @@ namespace Fonlow.Poco2Client
 			// not to support RegularExpressionAttribute since they are more of UI constraints.
 		};
 
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					CSharpCodeDomProvider.Dispose();
+				}
 
+				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
+				// TODO: set large fields to null
+				disposedValue = true;
+			}
+		}
+
+		// // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+		// ~Poco2CsGen()
+		// {
+		//     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+		//     Dispose(disposing: false);
+		// }
+
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
+		}
 	}
 
 }

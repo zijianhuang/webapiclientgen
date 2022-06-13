@@ -707,7 +707,7 @@ namespace Fonlow.Poco2Client
 				return null;// new CodeTypeReference("void");
 
 			if (pendingTypes.Contains(type))
-				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(RefineCustomComplexTypeTextForDocComments(type)));
+				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(type.FullName));
 			else if (type.IsGenericType)
 			{
 				return TranslateGenericToTypeReferenceText(type);
@@ -818,13 +818,12 @@ namespace Fonlow.Poco2Client
 				}
 			}
 
-			return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(RefineCustomComplexTypeTextForDocComments(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray()));
+			var anyGenericTypeName = genericTypeDefinition.FullName;
+			var idx = anyGenericTypeName.IndexOf('`');
+			anyGenericTypeName= anyGenericTypeName.Substring(0, idx);
+			var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t)).ToArray());
+			return $"{anyGenericTypeName}{{{genericParamsText}}}";
 
-		}
-
-		string RefineCustomComplexTypeTextForDocComments(Type t)
-		{
-			return t.Namespace + "." + t.Name;
 		}
 
 		string RefineCustomComplexTypeText(Type t)

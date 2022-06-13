@@ -518,6 +518,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post MyGeneric string, decimal, double
 		 * POST api/Entities/MyGeneric
 		 */
 		getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number>, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MyGeneric<string, number, number>> {
@@ -525,6 +526,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post MyGeneric string, decimal, Person
 		 * POST api/Entities/MyGenericPerson
 		 */
 		getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>> {

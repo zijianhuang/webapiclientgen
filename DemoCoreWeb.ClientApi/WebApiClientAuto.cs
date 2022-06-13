@@ -2982,6 +2982,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post MyGeneric string, decimal, double
 		/// POST api/Entities/MyGeneric
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>> GetMyGenericAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3020,6 +3021,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post MyGeneric string, decimal, double
 		/// POST api/Entities/MyGeneric
 		/// </summary>
 		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> GetMyGeneric(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3058,6 +3060,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post MyGeneric string, decimal, Person
 		/// POST api/Entities/MyGenericPerson
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>> GetMyGenericPersonAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3096,6 +3099,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post MyGeneric string, decimal, Person
 		/// POST api/Entities/MyGenericPerson
 		/// </summary>
 		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> GetMyGenericPerson(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

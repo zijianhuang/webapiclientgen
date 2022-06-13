@@ -190,6 +190,11 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Post MyGeneric string, decimal, double
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("MyGeneric")]
 		public MyGeneric<string, decimal, double> GetMyGeneric([FromBody] MyGeneric<string, decimal, double> s)
@@ -203,6 +208,11 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Post MyGeneric string, decimal, Person
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("MyGenericPerson")]
 		public MyGeneric<string, decimal, Person> GetMyGenericPerson([FromBody] MyGeneric<string, decimal, Person> s)

@@ -142,8 +142,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					}
 					else if (d.ParameterDescriptor.ParameterType.IsGenericType)
 					{
-						var typeReference = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType);
-						typeText = poco2CsGen.CSharpCodeDomProvider.GetTypeOutput(typeReference);
+						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
 					}
 					else
 					{
@@ -185,37 +184,6 @@ namespace Fonlow.CodeDom.Web.Cs
 				CreateDocComment("returns", returnComment);
 			}
 		}
-
-		//string GetTypeOutput(Type type)
-		//{
-		//	string typeText;
-		//	if (TypeHelper.IsSimpleType(type))
-		//	{
-		//		typeText = type.FullName;
-		//	}
-		//	else if (type.IsGenericType)
-		//	{
-		//		var typeReference = poco2CsGen.TranslateToClientTypeReference(type);
-		//		typeText = typeReference.BaseType;
-		//		List<string> argTexts = new List<string>();
-		//		for (int i = 0; i < typeReference.TypeArguments.Count; i++)
-		//		{
-		//			var arg = typeReference.TypeArguments[i];
-		//			var text = GetTypeOutput(arg.type);
-		//			argTexts.Add(text);
-		//		}
-
-		//		var argsList = String.Join(",", argTexts);
-		//		var r = $"{typeText}{{{argsList}}}";
-		//		return r;
-		//	}
-		//	else
-		//	{
-		//		typeText = type.FullName;
-		//	};
-
-		//	return typeText;
-		//}
 
 		/// <summary>
 		/// 

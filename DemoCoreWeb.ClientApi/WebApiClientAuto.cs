@@ -1254,6 +1254,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// If Dt is not defined, add a hour from now
 		/// GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		/// </summary>
 		public async Task<System.DateTimeOffset> GetNextHourNullableAsync(int n, System.Nullable<System.DateTimeOffset> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1285,6 +1286,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// If Dt is not defined, add a hour from now
 		/// GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		/// </summary>
 		public System.DateTimeOffset GetNextHourNullable(int n, System.Nullable<System.DateTimeOffset> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1378,6 +1380,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// If Dt is not defined, add a year from now
 		/// GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		/// </summary>
 		public async Task<System.DateTime> GetNextYearNullableAsync(int n, System.Nullable<System.DateTime> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1409,6 +1412,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// If Dt is not defined, add a year from now
 		/// GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		/// </summary>
 		public System.DateTime GetNextYearNullable(int n, System.Nullable<System.DateTime> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4184,8 +4188,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Athlethe Search
 		/// GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		/// </summary>
+		/// <param name="take">Generic optional parameter.</param>
 		public async Task<string> AthletheSearchAsync(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
@@ -4215,8 +4221,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Athlethe Search
 		/// GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		/// </summary>
+		/// <param name="take">Generic optional parameter.</param>
 		public string AthletheSearch(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));

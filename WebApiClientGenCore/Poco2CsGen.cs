@@ -694,6 +694,128 @@ namespace Fonlow.Poco2Client
 
 		}
 
+		/// <summary>
+		/// Generate type text suitable for matching what in doc comment XML, especially for generic types. For example, Nullable int in doc comment is Nullable{System.Int32}.
+		/// CSharpCodeProvider always give Nullable int, and there's no built-in way to alter.
+		/// This function reassembles TranslateToClientTypeReference, however, make sure that basic types of CLR will have something like System.Int32, and also curly baskets for generics.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		public string TranslateToClientTypeReferenceText(Type type)
+		{
+			if (type == null)
+				return null;// new CodeTypeReference("void");
+
+			if (pendingTypes.Contains(type))
+				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(RefineCustomComplexTypeText(type)));
+			else if (type.IsGenericType)
+			{
+				return TranslateGenericToTypeReferenceText(type);
+			}
+			else if (type.IsArray)
+			{
+				Debug.Assert(type.Name.EndsWith("]"));
+				var elementType = type.GetElementType();
+				var arrayRank = type.GetArrayRank();
+				return CSharpCodeDomProvider.GetTypeOutput(CreateArrayTypeReference(elementType, arrayRank));
+			}
+			else
+			{
+				if (type.FullName == "System.Web.Http.IHttpActionResult")
+					return "System.Net.Http.HttpResponseMessage";
+
+				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
+					return "System.Net.Http.HttpResponseMessage";
+
+				if (type.FullName == "System.Net.Http.HttpResponseMessage")
+					return "System.Net.Http.HttpResponseMessage";
+
+				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+					return "Newtonsoft.Json.Linq.JObject";
+			}
+
+
+			return type.FullName;
+
+		}
+
+		string TranslateGenericToTypeReferenceText(Type type)
+		{
+			Type genericTypeDefinition = type.GetGenericTypeDefinition();
+			Type[] genericArguments = type.GetGenericArguments();
+
+			if (genericTypeDefinition == typeof(Nullable<>))
+			{
+				return $"{typeof(Nullable).FullName}{{{TranslateToClientTypeReferenceText(genericArguments[0])}}}";
+			}
+
+			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
+			{
+				return CSharpCodeDomProvider.GetTypeOutput(TranslateToClientTypeReference(genericArguments[0]));
+			}
+
+			//Handle array types
+			if (TypeHelper.IsArrayType(genericTypeDefinition))
+			{
+				Debug.Assert(type.GenericTypeArguments.Length == 1);
+				var elementType = type.GenericTypeArguments[0];
+				return CSharpCodeDomProvider.GetTypeOutput(CreateArrayTypeReference(elementType, 1));
+			}
+
+			var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
+			if (tupleTypeIndex >= 0)
+			{
+				switch (tupleTypeIndex)
+				{
+					case 0:
+						return $"{TypeHelper.TupleTypeNames[0]}{{{TranslateToClientTypeReferenceText(genericArguments[0])}}}";
+					case 1:
+						Debug.Assert(genericArguments.Length == 2);
+						return $"{TypeHelper.TupleTypeNames[1]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
+					case 2:
+						return $"{TypeHelper.TupleTypeNames[2]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])}}}";
+					case 3:
+						return $"{TypeHelper.TupleTypeNames[3]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])}}}";
+					case 4:
+						return $"{TypeHelper.TupleTypeNames[4]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])},{TranslateToClientTypeReferenceText(genericArguments[4])}}}";
+					case 5:
+						return $"{TypeHelper.TupleTypeNames[5]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])},{TranslateToClientTypeReferenceText(genericArguments[4])},{TranslateToClientTypeReferenceText(genericArguments[5])}}}";
+					case 6:
+						return $"{TypeHelper.TupleTypeNames[6]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])},{TranslateToClientTypeReferenceText(genericArguments[4])},{TranslateToClientTypeReferenceText(genericArguments[5])},{TranslateToClientTypeReferenceText(genericArguments[6])}}}";
+					case 7:
+						return $"{TypeHelper.TupleTypeNames[7]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])},{TranslateToClientTypeReferenceText(genericArguments[4])},{TranslateToClientTypeReferenceText(genericArguments[5])},{TranslateToClientTypeReferenceText(genericArguments[6])},{TranslateToClientTypeReferenceText(genericArguments[7])}}}";
+
+					default:
+						throw new InvalidOperationException("Hey, what Tuple");
+				}
+			}
+
+
+			if (genericArguments.Length == 2)
+			{
+				if (genericTypeDefinition == typeof(IDictionary<,>))
+				{
+					return $"{typeof(Dictionary<,>).FullName},{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
+				}
+
+				Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
+				if (closedDictionaryType.IsAssignableFrom(type))
+				{
+					return $"{typeof(Dictionary<,>).FullName},{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
+				}
+
+				if (genericTypeDefinition == typeof(KeyValuePair<,>))
+				{
+					return $"{typeof(KeyValuePair<,>).FullName},{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
+				}
+
+
+			}
+
+			return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray()));
+
+		}
+
 		string RefineCustomComplexTypeText(Type t)
 		{
 			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;

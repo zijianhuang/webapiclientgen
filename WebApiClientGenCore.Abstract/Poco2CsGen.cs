@@ -818,9 +818,7 @@ namespace Fonlow.Poco2Client
 
 		string RefineCustomComplexTypeText(Type t)
 		{
-			//Console.WriteLine(t.FullName);
-			//Debug.Assert(this.settings != null);
-			if (this.settings == null)
+			if (this.settings == null) // When used by TS generator, this.setting is null, since CreateCodeDom() is not called.
 			{
 				return t.Namespace + "." + t.Name;
 			}

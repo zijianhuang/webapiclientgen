@@ -5108,6 +5108,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo
 		/// GET api/SuperDemo/decimalArrayQ?a={a}
 		/// </summary>
 		public async Task<decimal[]> GetDecimalArrayQAsync(decimal[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5139,6 +5140,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo
 		/// GET api/SuperDemo/decimalArrayQ?a={a}
 		/// </summary>
 		public decimal[] GetDecimalArrayQ(decimal[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6034,6 +6036,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[];
 		/// GET api/SuperDemo/intArrayQ?a={a}
 		/// </summary>
 		public async Task<int[]> GetIntArrayQAsync(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6065,6 +6068,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[];
 		/// GET api/SuperDemo/intArrayQ?a={a}
 		/// </summary>
 		public int[] GetIntArrayQ(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6834,6 +6838,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo string array
 		/// GET api/SuperDemo/stringArrayQ?a={a}
 		/// </summary>
 		public async Task<string[]> GetStringArrayQAsync(string[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6865,6 +6870,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo string array
 		/// GET api/SuperDemo/stringArrayQ?a={a}
 		/// </summary>
 		public string[] GetStringArrayQ(string[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7830,6 +7836,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[][]
 		/// POST api/SuperDemo/int2djagged
 		/// </summary>
 		public async Task<bool> PostInt2DJaggedAsync(int[][] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7867,6 +7874,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[][]
 		/// POST api/SuperDemo/int2djagged
 		/// </summary>
 		public bool PostInt2DJagged(int[][] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7904,6 +7912,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[]
 		/// POST api/SuperDemo/intArray
 		/// </summary>
 		public async Task<bool> PostIntArrayAsync(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7941,6 +7950,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[]
 		/// POST api/SuperDemo/intArray
 		/// </summary>
 		public bool PostIntArray(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

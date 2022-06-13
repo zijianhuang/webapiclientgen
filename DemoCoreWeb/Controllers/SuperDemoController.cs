@@ -247,6 +247,11 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Demo integer array 2D.
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("int2d")]
 		public bool PostInt2D([FromBody] int[,] a)
@@ -254,6 +259,11 @@ namespace DemoWebApi.Controllers
 			return a[1, 3] == 8;
 		}
 
+		/// <summary>
+		/// Demo int[][]
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("int2djagged")]
 		public bool PostInt2DJagged([FromBody] int[][] a)
@@ -261,7 +271,11 @@ namespace DemoWebApi.Controllers
 			return a[1][3] == 8;
 		}
 
-
+		/// <summary>
+		/// Demo int[]
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("intArray")]
 		public bool PostIntArray([FromBody] int[] a)
@@ -276,6 +290,11 @@ namespace DemoWebApi.Controllers
 			return new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 		}
 
+		/// <summary>
+		/// Demo int[];
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("intArrayQ")]
 		public int[] GetIntArrayQ([FromQuery] int[] a)
@@ -283,6 +302,11 @@ namespace DemoWebApi.Controllers
 			return a.ToArray();
 		}
 
+		/// <summary>
+		/// Demo IEnumerable long
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("intArrayQ2")]
 		public long[] GetIntArrayQ2([FromQuery] IEnumerable<long> a)
@@ -290,6 +314,11 @@ namespace DemoWebApi.Controllers
 			return a.ToArray();
 		}
 
+		/// <summary>
+		/// Demo 
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("decimalArrayQ")]
 		public decimal[] GetDecimalArrayQ([FromQuery] decimal[] a)
@@ -297,6 +326,11 @@ namespace DemoWebApi.Controllers
 			return a.ToArray();
 		}
 
+		/// <summary>
+		/// Demo string array
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("stringArrayQ")]
 		public string[] GetStringArrayQ([FromQuery] string[] a)
@@ -304,6 +338,11 @@ namespace DemoWebApi.Controllers
 			return a;
 		}
 
+		/// <summary>
+		/// Demo List string
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("stringArrayQ2")]
 		public string[] GetStringArrayQ2([FromQuery] List<string> a)
@@ -325,6 +364,11 @@ namespace DemoWebApi.Controllers
 			return a.ToArray();
 		}
 
+		/// <summary>
+		/// Demo IEnumerable Days
+		/// </summary>
+		/// <param name="a"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("enumArrayDays")]
 		public DemoData.Days[] GetEnumArrayDays([FromQuery] IEnumerable<DemoData.Days> a)
@@ -402,6 +446,11 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Demo Dic string and person
+		/// </summary>
+		/// <param name="dic"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("StringPersonDic")]
 		public int PostDictionary([FromBody] IDictionary<string, DemoData.Person> dic)

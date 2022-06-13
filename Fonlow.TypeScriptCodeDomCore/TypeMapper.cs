@@ -97,14 +97,8 @@ namespace Fonlow.TypeScriptCodeDom
 				}
 
 				var elementTypeName = MapCodeTypeReferenceToTsText(codeTypeReference.ArrayElementType);
-				//System.Diagnostics.Debug.Assert(elementTypeName != "void", "Hey");
 				return $"Array<{elementTypeName}>";
 			}
-
-			//if (codeTypeReference.BaseType.Equals("response")) //This must be before the next one
-			//{
-			//	return "HttpResponse<Blob>";
-			//}
 
 			if (typeMap.TryGetValue(codeTypeReference.BaseType, out string tsTypeName))
 				return tsTypeName;

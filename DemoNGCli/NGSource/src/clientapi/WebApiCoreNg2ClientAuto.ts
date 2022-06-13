@@ -783,6 +783,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo
 		 * GET api/SuperDemo/decimalArrayQ?a={a}
 		 */
 		getDecimalArrayQ(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
@@ -889,6 +890,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo int[];
 		 * GET api/SuperDemo/intArrayQ?a={a}
 		 */
 		getIntArrayQ(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<Array<number>> {
@@ -980,6 +982,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo string array
 		 * GET api/SuperDemo/stringArrayQ?a={a}
 		 */
 		getStringArrayQ(a: Array<string>, headersHandler?: () => HttpHeaders): Observable<Array<string>> {
@@ -1092,6 +1095,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo int[][]
 		 * POST api/SuperDemo/int2djagged
 		 */
 		postInt2DJagged(a: Array<Array<number>>, headersHandler?: () => HttpHeaders): Observable<boolean> {
@@ -1099,6 +1103,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo int[]
 		 * POST api/SuperDemo/intArray
 		 */
 		postIntArray(a: Array<number>, headersHandler?: () => HttpHeaders): Observable<boolean> {

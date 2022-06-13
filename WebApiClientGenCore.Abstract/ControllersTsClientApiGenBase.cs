@@ -13,12 +13,13 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// <summary>
 	/// Generate TypeScript codes of the client API of the controllers
 	/// </summary>
-	public abstract class ControllersTsClientApiGenBase
+	public abstract class ControllersTsClientApiGenBase : IDisposable
 	{
 		protected CodeCompileUnit TargetUnit { get; private set; }
 
 		readonly CodeGenConfig apiSelections;
 		protected JSOutput jsOutput;
+		private bool disposedValue;
 		readonly ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
 
 		/// <summary>
@@ -34,6 +35,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.apiSelections = jsOutput.ApiSelections;
 			TargetUnit = new CodeCompileUnit();
 			poco2TsGen = CreatePoco2TsGen(jsOutput.ClientNamespaceSuffix);
+			poco2CsGen = new Poco2CsGen(TargetUnit); //for doc comments
 
 			TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
 			options.BracingStyle = "JS";
@@ -49,6 +51,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		abstract protected IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix);
 
 		readonly IPoco2Client poco2TsGen;
+
+		readonly Poco2CsGen poco2CsGen;
 
 		/// <summary>
 		/// Save C# codes into a file.
@@ -116,7 +120,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = apiFunctionGen.CreateApiFunction(d, poco2TsGen, this.jsOutput.StringAsString);
+				var apiFunction = apiFunctionGen.CreateApiFunction(d, poco2TsGen, poco2CsGen, this.jsOutput.StringAsString);
 				existingClientClass.Members.Add(apiFunction);
 			}
 
@@ -290,6 +294,35 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected virtual void AddHelperFunctionsInClass(CodeTypeDeclaration c)
 		{
 			//do nothing.
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					poco2CsGen.Dispose();
+				}
+
+				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
+				// TODO: set large fields to null
+				disposedValue = true;
+			}
+		}
+
+		// // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+		// ~ControllersTsClientApiGenBase()
+		// {
+		//     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+		//     Dispose(disposing: false);
+		// }
+
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
 		}
 	}
 

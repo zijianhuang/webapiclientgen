@@ -78,10 +78,6 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IntegrationTestShared", "Tests\IntegrationTestShared\IntegrationTestShared.shproj", "{60B7393D-9285-4D0A-A368-877ED60C6C11}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Tests\IntegrationTestShared\IntegrationTestShared.projitems*{60b7393d-9285-4d0a-a368-877ed60c6c11}*SharedItemsImports = 13
-		Tests\IntegrationTestShared\IntegrationTestShared.projitems*{7abdf101-df5b-423a-ae80-2a7a79de4c37}*SharedItemsImports = 5
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -502,5 +498,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18214E93-9A86-4818-9CB5-C5F2917B153A}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Tests\IntegrationTestShared\IntegrationTestShared.projitems*{60b7393d-9285-4d0a-a368-877ed60c6c11}*SharedItemsImports = 13
+		Tests\IntegrationTestShared\IntegrationTestShared.projitems*{7abdf101-df5b-423a-ae80-2a7a79de4c37}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

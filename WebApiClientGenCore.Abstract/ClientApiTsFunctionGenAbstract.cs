@@ -22,15 +22,19 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected IPoco2Client Poco2TsGen { get; private set; }
 		protected bool StringAsString { get; private set; }
 		protected string HttpMethodName { get; private set; }
+
+		Poco2CsGen poco2CsGen;
+
 		protected ClientApiTsFunctionGenAbstract()
 		{
 
 		}
 
-		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, bool stringAsString)
+		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, Poco2CsGen  poco2CsGen, bool stringAsString)
 		{
 			this.Description = description;
 			this.Poco2TsGen = poco2TsGen;
+			this.poco2CsGen = poco2CsGen;	
 			this.StringAsString = stringAsString;
 
 			HttpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase. 
@@ -67,10 +71,27 @@ namespace Fonlow.CodeDom.Web.Ts
 			var methodFullName = Description.ActionDescriptor.MethodFullName;
 			if (Description.ParameterDescriptions.Length > 0)
 			{
-				methodFullName += "(" + Description.ParameterDescriptions.Select(d => d.ParameterDescriptor.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
+				methodFullName += "(" + Description.ParameterDescriptions.Select(d =>
+				{
+					string typeText;
+					if (TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
+					{
+						typeText = d.ParameterDescriptor.ParameterType.FullName;
+					}
+					else if (d.ParameterDescriptor.ParameterType.IsGenericType)
+					{
+						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
+					}
+					else
+					{
+						typeText = d.ParameterDescriptor.ParameterType.FullName;
+					};
+
+					return typeText;
+				}).Aggregate((c, n) => c + "," + n) + ")";
 			}
-			Console.WriteLine(methodFullName);
-			StringBuilder builder = new StringBuilder();
+
+			StringBuilder builder = new();
 
 			Fonlow.DocComment.docMember methodComments=null;
 			if (WebApiDocSingleton.Instance.Lookup != null)

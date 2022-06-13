@@ -818,7 +818,14 @@ namespace Fonlow.Poco2Client
 
 		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
+			//Console.WriteLine(t.FullName);
+			//Debug.Assert(this.settings != null);
+			if (this.settings == null)
+			{
+				return t.Namespace + "." + t.Name;
+			}
+
+			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name; //todo: find out this.settings sometimes becomes null???
 		}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)

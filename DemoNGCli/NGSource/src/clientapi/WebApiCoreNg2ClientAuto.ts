@@ -339,6 +339,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * If Dt is not defined, add a hour from now
 		 * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		 */
 		getNextHourNullable(n: number, dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
@@ -353,6 +354,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * If Dt is not defined, add a year from now
 		 * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		 */
 		getNextYearNullable(n: number, dt: Date, headersHandler?: () => HttpHeaders): Observable<Date> {
@@ -659,7 +661,9 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Athlethe Search
 		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 * @param {number} take Generic optional parameter.
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });

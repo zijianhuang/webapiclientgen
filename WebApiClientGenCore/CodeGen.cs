@@ -87,7 +87,7 @@ namespace Fonlow.CodeDom.Web
 						DataAnnotationsToComments=plugin.DataAnnotationsToComments,
 					};
 
-					var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders);
+					using var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders);
 					if (tsGen != null)
 					{
 						tsGen.CreateCodeDom(webApiDescriptions);

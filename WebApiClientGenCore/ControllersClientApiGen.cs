@@ -27,7 +27,6 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			this.CodeGenParameters = codeGenParameters ?? throw new System.ArgumentNullException(nameof(codeGenParameters));
 			TargetUnit = new CodeCompileUnit();
-			//SharedContext = new SharedContext();
 			poco2CsGen = new Poco2CsGen(TargetUnit);
 		}
 

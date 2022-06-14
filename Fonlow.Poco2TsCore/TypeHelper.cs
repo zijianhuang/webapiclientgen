@@ -9,7 +9,7 @@ namespace Fonlow.Reflection
 	{
 		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
-		static readonly HashSet<string> arrayTypeNames = new HashSet<string>(
+		static readonly HashSet<string> arrayTypeFullNames = new HashSet<string>(
 		new string[] {
 			typeof(IEnumerable<>).FullName,
 			typeof(IList<>).FullName,
@@ -19,7 +19,6 @@ namespace Fonlow.Reflection
 			typeof(List<>).FullName,
 			typeof(System.Collections.ObjectModel.Collection<>).FullName,
 			typeof(IReadOnlyCollection<>).FullName,
-			"System.Collections.Generic.IAsyncEnumerable`1",
 		   typeof(System.Collections.ObjectModel.ObservableCollection<>).FullName,
 	   }
 	   );
@@ -34,7 +33,6 @@ namespace Fonlow.Reflection
 			typeof(List<>).Name,
 			typeof(System.Collections.ObjectModel.Collection<>).Name,
 			typeof(IReadOnlyCollection<>).Name,
-			"System.Collections.Generic.IAsyncEnumerable`1",
 		   typeof(System.Collections.ObjectModel.ObservableCollection<>).Name,
 	   }
 	   );
@@ -137,7 +135,7 @@ namespace Fonlow.Reflection
 
 		public static bool IsArrayType(Type type)
 		{
-			return arrayTypeNames.Contains(type.FullName);//Could be using IsAssignableFrom() if many people need this.
+			return arrayTypeFullNames.Contains(type.FullName);//Could be using IsAssignableFrom() if many people need this.
 		}
 
 		public static bool IsSimpleListType(Type type)

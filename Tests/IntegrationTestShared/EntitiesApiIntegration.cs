@@ -255,7 +255,7 @@ namespace IntegrationTests
 		{
 			var c = api.GetCompany(1);
 			Assert.Equal("Super Co", c.Name);
-			Assert.Equal(2, c.Addresses.Length);
+			Assert.Equal(2, c.Addresses.Count);
 			Assert.Equal(AddressType.Postal, c.Addresses[0].Type);
 			Assert.Equal(AddressType.Residential, c.Addresses[1].Type);
 			Assert.Equal(8, c.Int2D[1, 3]);

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Xunit;
-
+using System.Linq;
 namespace IntegrationTests
 {
 	[Collection(TestConstants.LaunchWebApiAndInit)]
@@ -19,7 +19,7 @@ namespace IntegrationTests
 			//var task = authorizedClient.GetStringAsync(new Uri(baseUri, "api/Values"));
 			//var text = task.Result;
 			//var array = JArray.Parse(text);
-			var array = api.Get();
+			var array = api.Get().ToArray();
 			Assert.Equal("value2", array[1]);
 		}
 

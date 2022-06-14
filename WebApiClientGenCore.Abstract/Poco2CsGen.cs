@@ -581,10 +581,30 @@ namespace Fonlow.Poco2Client
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
 
-			if (genericTypeDefinition == typeof(Nullable<>))
+			CodeTypeReference CreateGenericType()
 			{
-				return new CodeTypeReference(typeof(Nullable).FullName
-					, TranslateToClientTypeReference(genericArguments[0]));
+				var anyGenericTypeName = genericTypeDefinition.FullName;
+				var idx = anyGenericTypeName.IndexOf('`');
+				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
+				var genericParams = genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray();
+				return new CodeTypeReference(anyGenericTypeName, genericParams);
+			}
+
+			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
+				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) ||
+				TypeHelper.IsArrayType(genericTypeDefinition))
+			{
+				return CreateGenericType();
+			}
+
+			// Cover IDictionary derived types
+			if (genericArguments.Length == 2)
+			{
+				Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
+				if (closedDictionaryType.IsAssignableFrom(type))
+				{
+					return CreateGenericType();
+				}
 			}
 
 			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
@@ -592,102 +612,12 @@ namespace Fonlow.Poco2Client
 				return TranslateToClientTypeReference(genericArguments[0]);
 			}
 
-			//Handle array types
-			if (TypeHelper.IsArrayType(genericTypeDefinition))
+			////Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
+			if (genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1")
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
 				var elementType = type.GenericTypeArguments[0];
 				return CreateArrayTypeReference(elementType, 1);
-			}
-
-			var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
-			if (tupleTypeIndex >= 0)
-			{
-				switch (tupleTypeIndex)
-				{
-					case 0:
-						Debug.Assert(genericArguments.Length == 1);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[0]
-							, TranslateToClientTypeReference(genericArguments[0]));
-					case 1:
-						Debug.Assert(genericArguments.Length == 2);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[1]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1]));
-					case 2:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[2]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2]));
-					case 3:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[3]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3]));
-					case 4:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[4]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4]));
-					case 5:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[5]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5]));
-					case 6:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[6]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5])
-							, TranslateToClientTypeReference(genericArguments[6]));
-					case 7:
-						Debug.Assert(genericArguments.Length == 8);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[7]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5])
-							, TranslateToClientTypeReference(genericArguments[6])
-							, TranslateToClientTypeReference(genericArguments[7]));
-					default:
-						throw new InvalidOperationException("Hey, what Tuple");
-				}
-			}
-
-
-			if (genericArguments.Length == 2)
-			{
-				if (genericTypeDefinition == typeof(IDictionary<,>))
-				{
-					return new CodeTypeReference(typeof(Dictionary<,>).FullName,
-						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
-				}
-
-				Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
-				if (closedDictionaryType.IsAssignableFrom(type))
-				{
-					return new CodeTypeReference(typeof(Dictionary<,>).FullName,
-						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
-				}
-
-				if (genericTypeDefinition == typeof(KeyValuePair<,>))
-				{
-					return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
-						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
-				}
-
-
 			}
 
 			// This is for custom generic type, which may want .Client suffix or alike.
@@ -821,7 +751,7 @@ namespace Fonlow.Poco2Client
 
 			var anyGenericTypeName = genericTypeDefinition.FullName;
 			var idx = anyGenericTypeName.IndexOf('`');
-			anyGenericTypeName= anyGenericTypeName.Substring(0, idx);
+			anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
 			var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t)).ToArray());
 			return $"{anyGenericTypeName}{{{genericParamsText}}}";
 

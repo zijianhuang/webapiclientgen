@@ -429,7 +429,7 @@ namespace Fonlow.Poco2Ts
 				return TranslateToClientTypeReference(genericArguments[0]);
 			}
 
-			if (TypeHelper.IsArrayType(genericTypeDefinition))
+			if (TypeHelper.IsArrayType(genericTypeDefinition) || genericTypeDefinition.FullName== "System.Collections.Generic.IAsyncEnumerable`1")
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
 				var elementType = type.GenericTypeArguments[0];

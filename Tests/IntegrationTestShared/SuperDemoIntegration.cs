@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
+using System.Linq;
 
 namespace IntegrationTests
 {
@@ -50,7 +51,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetStringArrayQ2()
 		{
-			var d = api.GetStringArrayQ2(new string[] { "Abc", "Eft", "hi" });
+			var d = api.GetStringArrayQ2(new List<string> { "Abc", "Eft", "hi" });
 			Assert.Equal(3, d.Length);
 			Assert.Equal("hi", d[2]);
 		}
@@ -58,7 +59,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetEnumArrayQ2()
 		{
-			var d = api.GetEnumArrayQ2(new DayOfWeek[] { DayOfWeek.Monday, DayOfWeek.Sunday, DayOfWeek.Saturday });
+			var d = api.GetEnumArrayQ2(new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Sunday, DayOfWeek.Saturday });
 			Assert.Equal(3, d.Length);
 			Assert.Equal(DayOfWeek.Saturday, d[2]);
 		}
@@ -379,7 +380,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetICollection()
 		{
-			var r = api.GetICollection();
+			var r = api.GetICollection().ToArray();
 			Assert.Equal("Peter Parker", r[1].Name);
 		}
 
@@ -407,7 +408,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetIReadOnlyCollection()
 		{
-			var r = api.GetIReadOnlyCollection();
+			var r = api.GetIReadOnlyCollection().ToArray();
 			Assert.Equal("Peter Parker", r[1].Name);
 		}
 
@@ -422,6 +423,27 @@ namespace IntegrationTests
 		static Person[] GetPersonList()
 		{
 			return new Person[] {
+				new Person()
+				{
+					Name= "Tony Stark",
+					Surname="Stark",
+					GivenName="Tony"
+				},
+
+				new Person() {
+					Name="Peter Parker",
+					Addresses= new Address[] { new Address() {
+							City="New York"
+
+						} },
+				}
+
+			};
+		}
+
+		static System.Collections.ObjectModel.Collection<Person> GetPersonCollection()
+		{
+			return new System.Collections.ObjectModel.Collection<Person> {
 				new Person()
 				{
 					Name= "Tony Stark",
@@ -456,13 +478,13 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostCollection()
 		{
-			Assert.Equal(2, api.PostCollection(GetPersonList()));
+			Assert.Equal(2, api.PostCollection(GetPersonCollection()));
 		}
 
 		[Fact]
 		public void TestPostList()
 		{
-			Assert.Equal(2, api.PostList(GetPersonList()));
+			Assert.Equal(2, api.PostList(GetPersonList().ToList()));
 		}
 
 		[Fact]

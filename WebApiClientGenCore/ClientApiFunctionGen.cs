@@ -144,6 +144,10 @@ namespace Fonlow.CodeDom.Web.Cs
 					{
 						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
 					}
+					else if (d.ParameterDescriptor.ParameterType.IsArray)
+					{
+						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
+					}
 					else
 					{
 						typeText = d.ParameterDescriptor.ParameterType.FullName;
@@ -151,6 +155,8 @@ namespace Fonlow.CodeDom.Web.Cs
 
 					return typeText;
 				}).Aggregate((c, n) => c + "," + n) + ")";
+
+				Console.WriteLine("FullName: " + methodFullName);
 			}
 
 			Fonlow.DocComment.docMember methodComments = null;

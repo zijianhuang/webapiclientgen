@@ -171,20 +171,6 @@ namespace Fonlow.Web.Meta
 
 			return "?" + qs.Aggregate((c, n) => c + "&" + n); ;
 		}
-
-		//static docMember GetMethodDocComment(DocCommentLookup lookup, Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor descriptor)
-		//{
-		//	var methodInfo = descriptor.MethodInfo;
-		//	var methodFullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
-		//	if (descriptor.Parameters.Count > 0)
-		//	{
-		//		methodFullName += "(" + descriptor.Parameters.Select(d => d.ParameterType.FullName).Aggregate((c, n) => c + "," + n) + ")";
-		//	}
-
-		//	return lookup.GetMember("M:" + methodFullName);
-		//}
-
-
 	}
 
 }

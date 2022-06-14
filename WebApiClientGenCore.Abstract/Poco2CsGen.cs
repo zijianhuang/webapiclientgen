@@ -646,9 +646,8 @@ namespace Fonlow.Poco2Client
 			else if (type.IsArray)
 			{
 				Debug.Assert(type.Name.EndsWith("]"));
-				var elementType = type.GetElementType();
-				var arrayRank = type.GetArrayRank();
-				return CSharpCodeDomProvider.GetTypeOutput(CreateArrayTypeReference(elementType, arrayRank));
+				var elementTypeText = TranslateToClientTypeReferenceText(type.GetElementType());
+				return $"{elementTypeText}[]";
 			}
 			else
 			{
@@ -666,7 +665,7 @@ namespace Fonlow.Poco2Client
 			}
 
 
-			return type.FullName;
+			return type.FullName; // for simpleType, it should be something like System.Int32.
 
 		}
 

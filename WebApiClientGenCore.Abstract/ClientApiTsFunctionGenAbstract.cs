@@ -82,6 +82,10 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
 					}
+					else if (d.ParameterDescriptor.ParameterType.IsArray)
+					{
+						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
+					}
 					else
 					{
 						typeText = d.ParameterDescriptor.ParameterType.FullName;

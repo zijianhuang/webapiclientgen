@@ -1199,6 +1199,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * PUT api/Tuple/A1TupleArray
+		 */
+		a1TupleArray(idAndOrderArray: Array<{item1: string, item2: number}>, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
 		 * Post tuple
 		 * POST api/Tuple/ChangeName
 		 */
@@ -1271,6 +1278,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post nested tuple
 		 * GET api/Tuple/Tuple8
 		 */
 		getTuple8(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}> {
@@ -1342,6 +1350,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post tuple string int
 		 * POST api/Tuple/Tuple2
 		 */
 		postTuple2(tuple: {item1: string, item2: number}, headersHandler?: () => {[header: string]: string}): Promise<string> {

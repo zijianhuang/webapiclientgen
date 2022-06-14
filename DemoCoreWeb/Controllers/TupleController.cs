@@ -10,6 +10,26 @@ namespace DemoWebApi.Controllers
 	public class TupleController : ControllerBase
 	{
 		/// <summary>
+		/// Update in a transaction
+		/// </summary>
+		/// <param name="idAndOrderArray"></param>
+		[HttpPut("A1TupleArray")]
+		public void A1TupleArray([FromBody] Tuple<Guid, int>[] idAndOrderArray)
+		{
+			//do nothing
+		}
+
+		/// <summary>
+		/// Update IEnumerable Tuple in a transaction
+		/// </summary>
+		/// <param name="idAndOrderArray"></param>
+		[HttpPut("A1TupleArray")]
+		public void A2TupleIEnumerable([FromBody] System.Collections.Generic.IEnumerable<Tuple<Guid, int>> idAndOrderArray)
+		{
+			//do nothing
+		}
+
+		/// <summary>
 		/// Post tuple
 		/// </summary>
 		/// <param name="d"></param>
@@ -124,6 +144,11 @@ namespace DemoWebApi.Controllers
 			return Tuple.Create<string, int>("Two", 2);
 		}
 
+		/// <summary>
+		/// Post tuple string int
+		/// </summary>
+		/// <param name="tuple"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("Tuple2")]
 		public string PostTuple2([FromBody] Tuple<string, int> tuple)
@@ -202,6 +227,10 @@ namespace DemoWebApi.Controllers
 			return tuple.Item1;
 		}
 
+		/// <summary>
+		/// Post nested tuple
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("Tuple8")]
 		public Tuple<string, string, string, string, string, string, int, Tuple<string, string, string>> GetTuple8()

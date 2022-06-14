@@ -1200,6 +1200,22 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Update in a transaction
+		 * PUT api/Tuple/A1TupleArray
+		 */
+		a1TupleArray(idAndOrderArray: Array<{item1: string, item2: number}>, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.put(this.baseUri + 'api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * Update IEnumerable Tuple in a transaction
+		 * PUT api/Tuple/A1TupleArray
+		 */
+		a2TupleIEnumerable(idAndOrderArray: Array<{item1: string, item2: number}>, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.put(this.baseUri + 'api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+
+		/**
 		 * Post tuple
 		 * POST api/Tuple/ChangeName
 		 */
@@ -1272,6 +1288,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post nested tuple
 		 * GET api/Tuple/Tuple8
 		 */
 		getTuple8(headersHandler?: () => HttpHeaders): Observable<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}} | null> {
@@ -1343,6 +1360,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post tuple string int
 		 * POST api/Tuple/Tuple2
 		 */
 		postTuple2(tuple: {item1: string, item2: number}, headersHandler?: () => HttpHeaders): Observable<string | null> {

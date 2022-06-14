@@ -1191,6 +1191,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * PUT api/Tuple/A1TupleArray
+		 */
+		a1TupleArray(idAndOrderArray: Array<{item1: string, item2: number}>, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.put(this.baseUri + 'api/Tuple/A1TupleArray', idAndOrderArray, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
 		 * Post tuple
 		 * POST api/Tuple/ChangeName
 		 */
@@ -1263,6 +1270,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post nested tuple
 		 * GET api/Tuple/Tuple8
 		 */
 		getTuple8(callback: (data : {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number, rest: {item1: string, item2: string, item3: string}}) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1334,6 +1342,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post tuple string int
 		 * POST api/Tuple/Tuple2
 		 */
 		postTuple2(tuple: {item1: string, item2: number}, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {

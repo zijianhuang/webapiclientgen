@@ -5,7 +5,7 @@
     <PackageId>Fonlow.WebApiClientGenCore.NG2</PackageId>
     <Authors>Zijian Huang</Authors>
     <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</Description>
-    <PackageReleaseNotes>Doc comments for generic parameters</PackageReleaseNotes>
+    <PackageReleaseNotes>Doc comments for generic parameters; option HelpStrictMode for giving potential null signals to TypeScript strict mode.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>

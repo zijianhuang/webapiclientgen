@@ -14,7 +14,7 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
-    <PackageReleaseNotes>* .NET 6; * Support DateOnly, and DataTypeAttribute(DataType.Date)</PackageReleaseNotes>
+    <PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>

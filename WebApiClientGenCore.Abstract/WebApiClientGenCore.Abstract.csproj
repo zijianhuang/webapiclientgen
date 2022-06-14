@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <Version>2.2</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Doc comments for generic parameters</PackageReleaseNotes>
+    <PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

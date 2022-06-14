@@ -9,7 +9,7 @@
     <Authors>Zijian Huang</Authors>
     <Company></Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>* Build with .NET 6</PackageReleaseNotes>
+    <PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.9</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

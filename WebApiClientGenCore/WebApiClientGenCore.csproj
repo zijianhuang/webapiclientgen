@@ -11,7 +11,7 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore jquery angular</PackageTags>
-    <PackageReleaseNotes>Doc comments for generic parameters</PackageReleaseNotes>
+    <PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <NeutralLanguage>en</NeutralLanguage>

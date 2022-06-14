@@ -27,6 +27,12 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+## Running Heros App
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+1. Use buildIISExpress.bat to build a dev build output to folder NG.
+2. Run StartNGCli.ps1 to launch IIS Express which will read Web.config that redirect to folder NG.
+
+**Remarks**
+
+buildProd.bat is for production build to be deployed to IIS.
+

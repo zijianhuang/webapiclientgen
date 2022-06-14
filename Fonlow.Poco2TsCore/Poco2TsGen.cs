@@ -436,71 +436,21 @@ namespace Fonlow.Poco2Ts
 				return CreateArrayTypeReference(elementType, 1);
 			}
 
-			var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
-			if (tupleTypeIndex >= 0)
+			CodeTypeReference CreateGenericType()
 			{
-				switch (tupleTypeIndex)
-				{
-					case 0:
-						Debug.Assert(genericArguments.Length == 1);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[0]
-							, TranslateToClientTypeReference(genericArguments[0]));
-					case 1:
-						Debug.Assert(genericArguments.Length == 2);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[1]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1]));
-					case 2:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[2]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2]));
-					case 3:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[3]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3]));
-					case 4:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[4]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4]));
-					case 5:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[5]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5]));
-					case 6:
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[6]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5])
-							, TranslateToClientTypeReference(genericArguments[6]));
-					case 7:
-						Debug.Assert(genericArguments.Length == 8);
-						return new CodeTypeReference(TypeHelper.TupleTypeNames[7]
-							, TranslateToClientTypeReference(genericArguments[0])
-							, TranslateToClientTypeReference(genericArguments[1])
-							, TranslateToClientTypeReference(genericArguments[2])
-							, TranslateToClientTypeReference(genericArguments[3])
-							, TranslateToClientTypeReference(genericArguments[4])
-							, TranslateToClientTypeReference(genericArguments[5])
-							, TranslateToClientTypeReference(genericArguments[6])
-							, TranslateToClientTypeReference(genericArguments[7]));
-					default:
-						throw new InvalidOperationException("Hey, what Tuple");
-				}
+				var anyGenericTypeName = genericTypeDefinition.FullName;
+				var idx = anyGenericTypeName.IndexOf('`');
+				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
+				var genericParams = genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray();
+				return new CodeTypeReference(anyGenericTypeName, genericParams);
 			}
 
+			if (TypeHelper.IsTuple(genericTypeDefinition) >= 0 || genericTypeDefinition == typeof(KeyValuePair<,>))
+			{
+				return CreateGenericType();
+			}
+
+			// Cover IDictionary derived types
 			if (genericArguments.Length == 2)
 			{
 				if (genericTypeDefinition == typeof(IDictionary<,>))
@@ -516,16 +466,15 @@ namespace Fonlow.Poco2Ts
 						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
 				}
 
-				if (genericTypeDefinition == typeof(KeyValuePair<,>))
-				{
-					return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
-						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
-				}
+				//if (genericTypeDefinition == typeof(KeyValuePair<,>))
+				//{
+				//	return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
+				//		TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
+				//}
 
 			}
 
 			return new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray());
-
 		}
 
 		string RefineCustomComplexTypeText(Type t)

@@ -598,8 +598,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/Heroes/asyncHeroes
 		 */
-		getAsyncHeroes(headersHandler?: () => {[header: string]: string}): Promise<System_Collections_Generic_Client.IAsyncEnumerable<DemoWebApi_Controllers_Client.Hero>> {
-			return Axios.get<System_Collections_Generic_Client.IAsyncEnumerable<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/asyncHeroes', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.data);
+		getAsyncHeroes(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+			return Axios.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/asyncHeroes', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.data);
 		}
 
 		/**

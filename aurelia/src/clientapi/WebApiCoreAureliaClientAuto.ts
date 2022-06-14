@@ -602,7 +602,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/Heroes/asyncHeroes
 		 */
-		getAsyncHeroes(headersHandler?: () => {[header: string]: string}): Promise<System_Collections_Generic_Client.IAsyncEnumerable<DemoWebApi_Controllers_Client.Hero>> {
+		getAsyncHeroes(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
 			return this.http.get('api/Heroes/asyncHeroes', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 

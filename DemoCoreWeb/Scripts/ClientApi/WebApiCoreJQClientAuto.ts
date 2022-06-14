@@ -598,7 +598,7 @@ namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/Heroes/asyncHeroes
 		 */
-		getAsyncHeroes(callback: (data : System_Collections_Generic_Client.IAsyncEnumerable<DemoWebApi_Controllers_Client.Hero>) => any, headersHandler?: () => {[header: string]: string}) {
+		getAsyncHeroes(callback: (data : Array<DemoWebApi_Controllers_Client.Hero>) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/Heroes/asyncHeroes', callback, this.error, this.statusCode, headersHandler);
 		}
 

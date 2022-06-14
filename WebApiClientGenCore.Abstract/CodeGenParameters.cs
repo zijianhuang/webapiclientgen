@@ -160,45 +160,6 @@
 	}
 
 	/// <summary>
-	/// A DTO class, not part of the CodeGen.json 
-	/// </summary>
-	public class JSOutput : CodeGenSettingsBase
-	{
-		/// <summary>
-		/// Whether to conform to the camel casing convention of javascript and JSON.
-		/// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
-		/// If CamelCasePropertyNamesContractResolver is presented, camelCasing will be used. If not, no camelCasing transformation will be used.
-		/// </summary>
-		public bool? CamelCase { get; set; }
-
-		public string JSPath { get; set; }
-
-		public bool AsModule { get; set; }
-
-		/// <summary>
-		/// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
-		/// </summary>
-		public string ContentType { get; set; }
-
-		public bool StringAsString { get; set; }
-
-		public string ClientNamespaceSuffix { get; set; } = ".Client";
-
-		public string ContainerNameSuffix { get; set; }
-
-		/// <summary>
-		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
-		/// </summary>
-		public bool DataAnnotationsToComments { get; set; }
-
-		/// <summary>
-		/// Give TypeScript strict mode more signal for null value.
-		/// The returned types and parameters may be null. And some primitive types in data model / interface may be null.
-		/// </summary>
-		public bool HelpStrictMode { get; set; }
-	}
-
-	/// <summary>
 	/// Mapped to Plugins[] of CodeGen.json.
 	/// </summary>
 	public class JSPlugin
@@ -231,5 +192,42 @@
 		/// </summary>
 		public bool DataAnnotationsToComments { get; set; }
 
+		/// <summary>
+		/// Give TypeScript strict mode more signal for null value.
+		/// The returned types and parameters may be null. And some primitive types in data model / interface may be null.
+		/// </summary>
+		public bool HelpStrictMode { get; set; }
+	}
+
+	/// <summary>
+	/// A DTO class, not part of the CodeGen.json, but to aggregrate common settings and specific plugin settings.
+	/// </summary>
+	public class JSOutput : CodeGenSettingsBase
+	{
+		/// <summary>
+		/// Whether to conform to the camel casing convention of javascript and JSON.
+		/// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
+		/// If CamelCasePropertyNamesContractResolver is presented, camelCasing will be used. If not, no camelCasing transformation will be used.
+		/// </summary>
+		public bool? CamelCase { get; set; }
+
+		public string JSPath { get; set; }
+
+		public bool AsModule { get; set; }
+
+		/// <summary>
+		/// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
+		/// </summary>
+		public string ContentType { get; set; }
+
+		public bool StringAsString { get; set; }
+
+		public string ClientNamespaceSuffix { get; set; } = ".Client";
+
+		public string ContainerNameSuffix { get; set; }
+
+		public bool DataAnnotationsToComments { get; set; }
+
+		public bool HelpStrictMode { get; set; }
 	}
 }

@@ -85,6 +85,7 @@ namespace Fonlow.CodeDom.Web
 						ClientNamespaceSuffix=plugin.ClientNamespaceSuffix,
 						ContainerNameSuffix=plugin.ContainerNameSuffix,
 						DataAnnotationsToComments=plugin.DataAnnotationsToComments,
+						HelpStrictMode=plugin.HelpStrictMode,
 					};
 
 					using var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders);

@@ -1826,6 +1826,34 @@ describe('StringData API', () => {
 	}
 	);
 
+	it('TestAthletheSearchWithNullInt', (done) => {
+		service.athletheSearch(null, null, 'Order', '', 'Search').subscribe(
+			data => {
+				expect(data).toBe('"100OrderSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
+	it('TestAthletheSearchWithUndefinedInt', (done) => {
+		service.athletheSearch(undefined, undefined, 'Order', '', 'Search').subscribe(
+			data => {
+				expect(data).toBe('"100OrderSearch"');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+	}
+	);
+
 	it('getABCDE', (done) => {
 		service.getABCDE().subscribe(
 			data => {

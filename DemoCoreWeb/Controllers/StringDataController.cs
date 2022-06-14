@@ -14,9 +14,9 @@ namespace DemoWebApi.Controllers
 		/// <summary>
 		/// Athlethe Search
 		/// </summary>
-		/// <param name="take">Generic optional parameter.</param>
-		/// <param name="skip"></param>
-		/// <param name="order"></param>
+		/// <param name="take">Generic optional parameter. Default 10</param>
+		/// <param name="skip">Default 0</param>
+		/// <param name="order">default null</param>
 		/// <param name="sort"></param>
 		/// <param name="search"></param>
 		/// <returns></returns>

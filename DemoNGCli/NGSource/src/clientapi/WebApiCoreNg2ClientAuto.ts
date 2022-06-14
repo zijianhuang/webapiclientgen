@@ -665,7 +665,9 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Athlethe Search
 		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
-		 * @param {number} take Generic optional parameter.
+		 * @param {number} take Generic optional parameter. Default 10
+		 * @param {number} skip Default 0
+		 * @param {string} order default null
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });

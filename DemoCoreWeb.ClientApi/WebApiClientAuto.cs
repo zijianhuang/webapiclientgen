@@ -4195,7 +4195,9 @@ namespace DemoWebApi.Controllers.Client
 		/// Athlethe Search
 		/// GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		/// </summary>
-		/// <param name="take">Generic optional parameter.</param>
+		/// <param name="take">Generic optional parameter. Default 10</param>
+		/// <param name="skip">Default 0</param>
+		/// <param name="order">default null</param>
 		public async Task<string> AthletheSearchAsync(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
@@ -4228,7 +4230,9 @@ namespace DemoWebApi.Controllers.Client
 		/// Athlethe Search
 		/// GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		/// </summary>
-		/// <param name="take">Generic optional parameter.</param>
+		/// <param name="take">Generic optional parameter. Default 10</param>
+		/// <param name="skip">Default 0</param>
+		/// <param name="order">default null</param>
 		public string AthletheSearch(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));

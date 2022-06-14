@@ -592,7 +592,7 @@ namespace Fonlow.Poco2Client
 
 			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
 				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) ||
-				TypeHelper.IsArrayType(genericTypeDefinition))
+				(TypeHelper.IsArrayType(genericTypeDefinition) && !settings.IEnumerableToArray))
 			{
 				return CreateGenericType();
 			}
@@ -612,8 +612,8 @@ namespace Fonlow.Poco2Client
 				return TranslateToClientTypeReference(genericArguments[0]);
 			}
 
-			////Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
-			if (genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1")
+			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) || 
+				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
 				var elementType = type.GenericTypeArguments[0];

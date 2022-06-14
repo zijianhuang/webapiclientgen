@@ -83,6 +83,11 @@
 		public string DataContractNamespace { get; set; }
 
 		public bool DecorateDataModelWithSerializable { get; set; }
+
+		/// <summary>
+		/// Default true.
+		/// </summary>
+		public bool IEnumerableToArray { get; set; } = true;
 	}
 
 	/// <summary>

@@ -40,6 +40,7 @@
 		"DecorateDataModelWithDataContract": true,
 		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
 		"DecorateDataModelWithSerializable": true,
+		"IEnumerableToArray": false,
 		//"UseSystemTextJson": true,
 
 		"Plugins": [

@@ -104,8 +104,8 @@ describe('Values API', () => {
 	it('get', (done) => {
 		service.get().subscribe(
 			data => {
-				console.debug(data.length);
-				expect(data[1]).toBe('value2');
+				console.debug(data!.length);
+				expect(data![1]).toBe('value2');
 				done();
 			},
 			error => {
@@ -119,7 +119,7 @@ describe('Values API', () => {
 	it('getByIdAndName', (done) => {
 		service.getByIdAndName(1, 'Abc').subscribe(
 			data => {
-				console.debug(data.length);
+				console.debug(data!.length);
 				expect(data).toBe('Abc1');
 				done();
 			},
@@ -134,7 +134,7 @@ describe('Values API', () => {
 	it('getByName', (done) => {
 		service.getByName('Abc').subscribe(
 			data => {
-				console.debug(data.length);
+				console.debug(data!.length);
 				expect(data).toBe('ABC');
 				done();
 			},
@@ -149,7 +149,7 @@ describe('Values API', () => {
 	it('Post', (done) => {
 		service.post('Abc').subscribe(
 			data => {
-				console.debug(data.length);
+				console.debug(data!.length);
 				expect(data).toBe('ABC');
 				done();
 			},
@@ -164,7 +164,7 @@ describe('Values API', () => {
 	it('getByIdAndChinese', (done) => {
 		service.getByIdAndName(1, 'something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"').subscribe(
 			data => {
-				console.debug(data.length);
+				console.debug(data!.length);
 				expect(data).toBe('something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"1');
 				done();
 			},
@@ -204,8 +204,8 @@ describe('Heroes API', () => {
 	it('getAll', (done) => {
 		service.getHeros().subscribe(
 			data => {
-				console.debug(data.length);
-				expect(data.length).toBeGreaterThan(0);
+				console.debug(data!.length);
+				expect(data!.length).toBeGreaterThan(0);
 				done();
 			},
 			error => {
@@ -220,7 +220,7 @@ describe('Heroes API', () => {
 	it('Add', (done) => {
 		service.post('somebody').subscribe(
 			data => {
-				expect(data.name).toBe('somebody');
+				expect(data!.name).toBe('somebody');
 				done();
 			},
 			error => {
@@ -235,7 +235,7 @@ describe('Heroes API', () => {
 	it('PostWithQuery', (done) => {
 		service.postWithQuery('somebodyqqq').subscribe(
 			data => {
-				expect(data.name).toBe('somebodyqqq');
+				expect(data!.name).toBe('somebodyqqq');
 				done();
 			},
 			error => {
@@ -250,9 +250,9 @@ describe('Heroes API', () => {
 	it('search', (done) => {
 		service.search('Torna').subscribe(
 			data => {
-				console.debug(data.length);
-				expect(data.length).toBe(1);
-				expect(data[0].name).toBe('Tornado');
+				console.debug(data!.length);
+				expect(data!.length).toBe(1);
+				expect(data![0].name).toBe('Tornado');
 				done();
 			},
 			error => {
@@ -287,7 +287,7 @@ describe('entities API', () => {
 	}));
 
 	it('add', (done) => {
-		let id: number;
+		let id: number | null;
 		const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
 			name: 'John Smith' + Date.now().toString(),
 			givenName: 'John',
@@ -324,9 +324,9 @@ describe('entities API', () => {
 		client.createPerson3(newPerson, () => new HttpHeaders({ middle: 'HaHa' }))
 			.subscribe(
 				data => {
-					expect(data.givenName).toBe('HaHa');
-					const d1: any = data.dob;
-					const d2: any = data.baptised;
+					expect(data!.givenName).toBe('HaHa');
+					const d1: any = data!.dob;
+					const d2: any = data!.baptised;
 					expect(d1).toEqual('1969-12-28'); //string
 					expect(d2).toEqual('1980-01-30T00:00:00+00:00'); //string
 					done();
@@ -351,8 +351,8 @@ describe('entities API', () => {
 		client.getMims(c)
 			.subscribe(
 				data => {
-					expect(data.message).toBe('Hello');
-					expect(data.result).toBeCloseTo(123.45);
+					expect(data!.message).toBe('Hello');
+					expect(data!.result).toBeCloseTo(123.45);
 					done();
 				},
 				error => {
@@ -382,8 +382,8 @@ describe('entities API', () => {
 		client.getMyGenericPerson(c)
 			.subscribe(
 				data => {
-					expect(data.myU.name).toBe('John Smith');
-					expect(data.status).toBe('OK');
+					expect(data!.myU?.name).toBe('John Smith');
+					expect(data!.status).toBe('OK');
 					done();
 				},
 				error => {
@@ -436,7 +436,7 @@ describe('DateTypes API', () => {
 		const h = dt.getHours();
 		service.getNextHour(dt).subscribe(
 			data => {
-				const dd = new Date(data);
+				const dd = new Date(data!);
 				expect(dd.getHours()).toBe(h + 1);
 				done();
 			},
@@ -454,7 +454,7 @@ describe('DateTypes API', () => {
 		const h = dt.getFullYear();
 		service.getNextYear(dt).subscribe(
 			data => {
-				const dd = new Date(data);
+				const dd = new Date(data!);
 				expect(dd.getFullYear()).toBe(h + 1);
 				done();
 			},
@@ -472,7 +472,7 @@ describe('DateTypes API', () => {
 		const h = dt.getFullYear();
 		service.postNextYear(dt).subscribe(
 			data => {
-				const dd = new Date(data);
+				const dd = new Date(data!);
 				expect(dd.getFullYear()).toBe(h + 1);
 				done();
 			},
@@ -519,7 +519,7 @@ describe('DateTypes API', () => {
 		const dt = new Date(Date.now());
 		service.postDateTimeOffset(dt).subscribe(
 			data => {
-				expect(new Date(data)).toEqual(dt);
+				expect(new Date(data!)).toEqual(dt);
 				done();
 			},
 			error => {
@@ -532,7 +532,7 @@ describe('DateTypes API', () => {
 	);
 
 	it('postDateTimeOffsetWithNull', (done) => {
-		service.postDateTimeOffset(null).subscribe(
+		service.postDateTimeOffset(null!).subscribe(
 			data => {
 				expect(data).not.toBeNull();
 				done();
@@ -550,7 +550,11 @@ describe('DateTypes API', () => {
 		const dt = new Date(Date.now());
 		service.postDateTimeOffsetNullable(dt).subscribe(
 			data => {
-				expect(new Date(data)).toEqual(dt);
+				if (data) {
+					expect(new Date(data)).toEqual(dt);
+				} else {
+					expect(new Date(data!)).toEqual(dt); //strict mode happy
+				}
 				done();
 			},
 			error => {
@@ -578,7 +582,7 @@ describe('DateTypes API', () => {
 	);
 
 	it('postDateTimeOffsetNullableWithUndefined', (done) => {
-		service.postDateTimeOffsetNullable(undefined).subscribe(
+		service.postDateTimeOffsetNullable(undefined!).subscribe(
 			data => {
 				expect(data).toBeNull();
 				done();
@@ -610,7 +614,7 @@ describe('DateTypes API', () => {
 	);
 
 	it('postDateOnlyWithNull', (done) => {
-		service.postDateOnly(null).subscribe(
+		service.postDateOnly(null!).subscribe( //strict mode happy
 			data => {
 				const v: any = data;
 				expect(v).toEqual('0001-01-01');
@@ -676,7 +680,7 @@ describe('DateTypes API', () => {
 		const dt = new Date(Date.parse('2018-12-23'));
 		service.isDateTimeOffsetDate(dt).subscribe(
 			data => {
-				const v: any = data.item1;
+				const v: any = data!.item1;
 				expect(v).toEqual('2018-12-23');
 				done();
 			},
@@ -693,7 +697,7 @@ describe('DateTypes API', () => {
 		const dt = new Date(Date.parse('2018-12-23'));
 		service.isDateTimeDate(dt).subscribe(
 			data => {
-				const v: any = data.item1;
+				const v: any = data!.item1;
 				expect(v).toEqual('2018-12-23');
 				done();
 			},
@@ -710,7 +714,7 @@ describe('DateTypes API', () => {
 		const now = new Date(Date.now());
 		service.getNextYearNullable(2, now).subscribe(
 			data => {
-				const dt = new Date(data); // data is actually string, NG HttpClient does not translate it to Date
+				const dt = new Date(data!); // data is actually string, NG HttpClient does not translate it to Date
 				expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
 				done();
 			},
@@ -727,7 +731,7 @@ describe('DateTypes API', () => {
 		const now = new Date(Date.now());
 		service.getNextHourNullable(2, now).subscribe(
 			data => {
-				const dt = new Date(data);
+				const dt = new Date(data!);
 				expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
 				done();
 			},
@@ -742,9 +746,9 @@ describe('DateTypes API', () => {
 
 	it('getNextYearNullable2', (done) => {
 		const now = new Date(Date.now());
-		service.getNextYearNullable(2, undefined).subscribe(
+		service.getNextYearNullable(2, undefined!).subscribe(
 			data => {
-				const dt = new Date(data);
+				const dt = new Date(data!);
 				expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
 				done();
 			},
@@ -761,7 +765,7 @@ describe('DateTypes API', () => {
 		const now = new Date(Date.now());
 		service.getNextHourNullable(2, null).subscribe(
 			data => {
-				const dt = new Date(data);
+				const dt = new Date(data!);
 				expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24);
 				done();
 			},
@@ -780,8 +784,12 @@ describe('DateTypes API', () => {
 		const endDt = new Date(Date.now() + 100000);
 		service.searchDateRange(startDt, endDt).subscribe(
 			data => {
-				expect(new Date(data.item1)).toEqual(startDt);
-				expect(new Date(data.item2)).toEqual(endDt);
+				if (data!.item1 && data!.item2) {
+					expect(new Date(data!.item1)).toEqual(startDt);
+					expect(new Date(data!.item2)).toEqual(endDt);
+				} else {
+					fail('I expect item1 and 2');
+				}
 				done();
 			},
 			error => {
@@ -797,10 +805,15 @@ describe('DateTypes API', () => {
 	it('searchDateRangeEndUndefined', (done) => {
 		const startDt = new Date(Date.now());
 		const endDt = new Date(Date.now() + 100000);
-		service.searchDateRange(startDt, undefined).subscribe(
+		service.searchDateRange(startDt, undefined!).subscribe(
 			data => {
-				expect(new Date(data.item1)).toEqual(startDt);
-				expect(data.item2).toBeNull(); // OK with null rather than undefined
+				if (data!.item1) {
+					expect(new Date(data!.item1)).toEqual(startDt); //strict mode happy
+				} else {
+					fail('I expect item1.');
+				}
+
+				expect(data!.item2).toBeNull(); // OK with null rather than undefined
 				done();
 			},
 			error => {
@@ -816,11 +829,15 @@ describe('DateTypes API', () => {
 	it('searchDateRangeStartUndefined', (done) => {
 		const startDt = new Date(Date.now());
 		const endDt = new Date(Date.now() + 100000);
-		service.searchDateRange(undefined, endDt).subscribe(
+		service.searchDateRange(undefined!, endDt).subscribe(
 			data => {
 				// fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-				expect(data.item1).toBeNull();
-				expect(new Date(data.item2)).toEqual(endDt);
+				expect(data!.item1).toBeNull();
+				if (data!.item2) {
+					expect(new Date(data!.item2)).toEqual(endDt);
+				} else {
+					fail('I expect item2');
+				}
 				done();
 			},
 			error => {
@@ -840,10 +857,10 @@ describe('DateTypes API', () => {
 	it('searchDateRangeBotNull', (done) => {
 		const startDt = new Date(Date.now());
 		const endDt = new Date(Date.now() + 100000);
-		service.searchDateRange(null, undefined).subscribe(
+		service.searchDateRange(null, undefined!).subscribe(
 			data => {
-				expect(data.item1).toBeNull();
-				expect(data.item1).toBeNull();
+				expect(data!.item1).toBeNull();
+				expect(data!.item1).toBeNull();
 				done();
 			},
 			error => {
@@ -1015,7 +1032,7 @@ describe('SuperDemo API', () => {
 	it('getByteArray', (done) => {
 		service.getByteArray().subscribe(
 			data => {
-				expect(data.length).toBeGreaterThan(0);
+				expect(data!.length).toBeGreaterThan(0);
 				done();
 			},
 			error => {
@@ -1030,13 +1047,13 @@ describe('SuperDemo API', () => {
 	it('getTextStream', (done) => {
 		service.getTextStream().subscribe(
 			data => {
-				expect(data.body.size).toBe(7);
+				expect(data.body!.size).toBe(7);
 
 				const reader = new FileReader();
 				reader.onload = () => {
 					expect(reader.result).toBe('abcdefg');
 				};
-				reader.readAsText(data.body);
+				reader.readAsText(data.body!);
 
 				done();
 			},
@@ -1056,7 +1073,7 @@ describe('SuperDemo API', () => {
 				done();
 			},
 			error => {
-				error.error.text().then(t => { //error.error is blob as observed.
+				error.error.text().then((t: any) => { //error.error is blob as observed.
 					expect(t).toBe('{"DemoKey":["Some description"]}');
 					done();
 				});
@@ -1209,10 +1226,10 @@ describe('SuperDemo API', () => {
 	it('getInt2D', (done) => {
 		service.getInt2D().subscribe(
 			data => {
-				expect(data[0][0]).toBe(1);
-				expect(data[0][3]).toBe(4);
-				expect(data[1][0]).toBe(5);
-				expect(data[1][3]).toBe(8);
+				expect(data![0][0]).toBe(1);
+				expect(data![0][3]).toBe(4);
+				expect(data![1][0]).toBe(5);
+				expect(data![1][3]).toBe(8);
 				done();
 			},
 			error => {
@@ -1228,10 +1245,10 @@ describe('SuperDemo API', () => {
 	it('getInt2DJagged', (done) => {
 		service.getInt2DJagged().subscribe(
 			data => {
-				expect(data[0][0]).toBe(1);
-				expect(data[0][3]).toBe(4);
-				expect(data[1][0]).toBe(5);
-				expect(data[1][3]).toBe(8);
+				expect(data![0][0]).toBe(1);
+				expect(data![0][3]).toBe(4);
+				expect(data![1][0]).toBe(5);
+				expect(data![1][3]).toBe(8);
 				done();
 			},
 			error => {
@@ -1277,8 +1294,8 @@ describe('SuperDemo API', () => {
 	it('getIntArrayQ', (done) => {
 		service.getIntArrayQ([3, 4, 5]).subscribe(
 			data => {
-				expect(data.length).toBe(3);
-				expect(data[2]).toBe(5);
+				expect(data!.length).toBe(3);
+				expect(data![2]).toBe(5);
 				done();
 			},
 			error => {
@@ -1293,8 +1310,8 @@ describe('SuperDemo API', () => {
 	it('getIntArrayQ2', (done) => {
 		service.getIntArrayQ2([3, 4, 5]).subscribe(
 			data => {
-				expect(data.length).toBe(3);
-				expect(data[2]).toBe(5);
+				expect(data!.length).toBe(3);
+				expect(data![2]).toBe(5);
 				done();
 			},
 			error => {
@@ -1309,8 +1326,8 @@ describe('SuperDemo API', () => {
 	it('getStringArrayQ', (done) => {
 		service.getStringArrayQ(['abc', 'EFG', 'hi']).subscribe(
 			data => {
-				expect(data.length).toBe(3);
-				expect(data[2]).toBe('hi');
+				expect(data!.length).toBe(3);
+				expect(data![2]).toBe('hi');
 				done();
 			},
 			error => {
@@ -1325,8 +1342,8 @@ describe('SuperDemo API', () => {
 	it('getStringArrayQ2', (done) => {
 		service.getStringArrayQ2(['abc', 'EFG', 'hi']).subscribe(
 			data => {
-				expect(data.length).toBe(3);
-				expect(data[2]).toBe('hi');
+				expect(data!.length).toBe(3);
+				expect(data![2]).toBe('hi');
 				done();
 			},
 			error => {
@@ -1342,8 +1359,8 @@ describe('SuperDemo API', () => {
 	it('getEnumArrayQ2', (done) => {
 		service.getEnumArrayQ2([3, 4, 5]).subscribe(
 			data => {
-				expect(data.length).toBe(3);
-				expect(data[2]).toBe(5);
+				expect(data!.length).toBe(3);
+				expect(data![2]).toBe(5);
 				done();
 			},
 			error => {
@@ -1358,8 +1375,8 @@ describe('SuperDemo API', () => {
 	it('getEnumArrayDaysWithInt', (done) => {
 		service.getEnumArrayDays([3, 4, 5]).subscribe(
 			data => {
-				expect(data.length).toBe(3);
-				expect(data[2]).toBe(5);
+				expect(data!.length).toBe(3);
+				expect(data![2]).toBe(5);
 				done();
 			},
 			error => {
@@ -1374,8 +1391,8 @@ describe('SuperDemo API', () => {
 	it('getEnumArrayDaysWithEnum', (done) => {
 		service.getEnumArrayDays([DemoWebApi_DemoData_Client.Days.Mon, DemoWebApi_DemoData_Client.Days.Sat, DemoWebApi_DemoData_Client.Days.Wed]).subscribe(
 			data => {
-				expect(data.length).toBe(3);
-				expect(data[2]).toBe(DemoWebApi_DemoData_Client.Days.Wed);
+				expect(data!.length).toBe(3);
+				expect(data![2]).toBe(DemoWebApi_DemoData_Client.Days.Wed);
 				done();
 			},
 			error => {
@@ -1392,8 +1409,8 @@ describe('SuperDemo API', () => {
 	it('postWithQueryButEmptyBody', (done) => {
 		service.postWithQueryButEmptyBody('abc', 123).subscribe(
 			data => {
-				expect(data.item1).toBe('abc');
-				expect(data.item2).toBe(123);
+				expect(data!.item1).toBe('abc');
+				expect(data!.item2).toBe(123);
 				done();
 			},
 			error => {
@@ -1408,8 +1425,8 @@ describe('SuperDemo API', () => {
 	it('postDay', (done) => {
 		service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Mon).subscribe(
 			data => {
-				expect(data.length).toBe(2);
-				expect(data[1]).toBe(DemoWebApi_DemoData_Client.Days.Mon);
+				expect(data!.length).toBe(2);
+				expect(data![1]).toBe(DemoWebApi_DemoData_Client.Days.Mon);
 				done();
 			},
 			error => {
@@ -1424,8 +1441,8 @@ describe('SuperDemo API', () => {
 	it('postDay2', (done) => {
 		service.postDay(3, 5).subscribe(
 			data => {
-				expect(data.length).toBe(2);
-				expect(data[1]).toBe(5);
+				expect(data!.length).toBe(2);
+				expect(data![1]).toBe(5);
 				done();
 			},
 			error => {
@@ -1456,8 +1473,8 @@ describe('SuperDemo API', () => {
 	it('postGuids', (done) => {
 		service.postGuids(['08d7be8b-4805-459e-849a-fcd5c64a33ee', '08d7be8b-47fb-44a5-86a8-a6f4fe928fa9']).subscribe(
 			data => {
-				expect(data.length).toBe(2);
-				expect(data[0]).toBe('08d7be8b-4805-459e-849a-fcd5c64a33ee');
+				expect(data!.length).toBe(2);
+				expect(data![0]).toBe('08d7be8b-4805-459e-849a-fcd5c64a33ee');
 				done();
 			},
 			error => {
@@ -1472,12 +1489,12 @@ describe('SuperDemo API', () => {
 	it('getDictionaryOfPeople', (done) => {
 		service.getDictionaryOfPeople().subscribe(
 			data => {
-				let p = data['spider Man']; // ASP.NET Web API with NewtonSoftJson made it camcel;
+				let p = data!['spider Man']; // ASP.NET Web API with NewtonSoftJson made it camcel;
 				if (!p) {
-					p = data['Spider Man']; // .NET Core is OK
+					p = data!['Spider Man']; // .NET Core is OK
 				}
 				expect(p.name).toBe('Peter Parker');
-				expect(p.addresses[0].city).toBe('New York');
+				expect(p.addresses![0].city).toBe('New York');
 				done();
 			},
 			error => {
@@ -1507,8 +1524,8 @@ describe('SuperDemo API', () => {
 						'id': '00000000-0000-0000-0000-000000000000',
 						'city': 'New York',
 						state: 'Somewhere',
-						'postalCode': null,
-						'country': null,
+						'postalCode': null!, //strict mode, forced to have null
+						'country': null!,
 						'type': 0,
 						location: { x: 100, y: 200 }
 
@@ -1532,8 +1549,8 @@ describe('SuperDemo API', () => {
 	it('getKeyhValuePair', (done) => {
 		service.getKeyhValuePair().subscribe(
 			data => {
-				expect(data.key).toBe('Spider Man');
-				expect(data.value.addresses[0].city).toBe('New York');
+				expect(data!.key).toBe('Spider Man');
+				expect(data!.value.addresses![0].city).toBe('New York');
 				done();
 			},
 			error => {
@@ -1589,8 +1606,8 @@ describe('Tuple API', () => {
 	it('getTuple2', (done) => {
 		service.getTuple2().subscribe(
 			data => {
-				expect(data.item1).toBe('Two');
-				expect(data.item2).toBe(2);
+				expect(data!.item1).toBe('Two');
+				expect(data!.item2).toBe(2);
 				done();
 			},
 			error => {
@@ -1618,8 +1635,8 @@ describe('Tuple API', () => {
 	it('getTuple7', (done) => {
 		service.getTuple7().subscribe(
 			data => {
-				expect(data.item1).toBe('Seven');
-				expect(data.item7).toBe(7);
+				expect(data!.item1).toBe('Seven');
+				expect(data!.item7).toBe(7);
 				done();
 			},
 			error => {
@@ -1633,8 +1650,8 @@ describe('Tuple API', () => {
 	it('getTuple2', (done) => {
 		service.getTuple2().subscribe(
 			data => {
-				expect(data.item1).toBe('Two');
-				expect(data.item2).toBe(2);
+				expect(data!.item1).toBe('Two');
+				expect(data!.item2).toBe(2);
 				done();
 			},
 			error => {
@@ -1662,8 +1679,8 @@ describe('Tuple API', () => {
 	it('getTuple8', (done) => {
 		service.getTuple8().subscribe(
 			data => {
-				expect(data.item1).toBe('Nested');
-				expect(data.rest.item1).toBe('nine');
+				expect(data!.item1).toBe('Nested');
+				expect(data!.rest.item1).toBe('nine');
 				done();
 			},
 			error => {
@@ -1702,7 +1719,7 @@ describe('Tuple API', () => {
 			}
 		}).subscribe(
 			data => {
-				expect(data.name).toBe('someone');
+				expect(data!.name).toBe('someone');
 				done();
 			},
 			error => {
@@ -1743,7 +1760,7 @@ describe('StringData API', () => {
 	});
 
 	it('TestAthletheSearch', (done) => {
-		service.athletheSearch(32, 0, null, null, null).subscribe(
+		service.athletheSearch(32, 0, null!, null!, undefined!).subscribe(
 			data => {
 				expect(data).toBe('"320"');
 				done();
@@ -1757,7 +1774,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearch2', (done) => {
-		service.athletheSearch(32, 0, null, null, 'Search').subscribe(
+		service.athletheSearch(32, 0, null!, undefined!, 'Search').subscribe(
 			data => {
 				expect(data).toBe('"320Search"');
 				done();
@@ -1771,7 +1788,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearch3', (done) => {
-		service.athletheSearch(32, 0, null, 'Sort', 'Search').subscribe(
+		service.athletheSearch(32, 0, null!, 'Sort', 'Search').subscribe( //generally string not available should be undefined.
 			data => {
 				expect(data).toBe('"320SortSearch"');
 				done();
@@ -1799,7 +1816,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearch5', (done) => {
-		service.athletheSearch(32, 0, 'Order', null, 'Search').subscribe(
+		service.athletheSearch(32, 0, 'Order', null!, 'Search').subscribe(
 			data => {
 				expect(data).toBe('"320OrderSearch"');
 				done();
@@ -1827,7 +1844,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearchWithNullInt', (done) => {
-		service.athletheSearch(null, null, 'Order', '', 'Search').subscribe(
+		service.athletheSearch(null, null!, 'Order', '', 'Search').subscribe(
 			data => {
 				expect(data).toBe('"100OrderSearch"');
 				done();
@@ -1841,7 +1858,7 @@ describe('StringData API', () => {
 	);
 
 	it('TestAthletheSearchWithUndefinedInt', (done) => {
-		service.athletheSearch(undefined, undefined, 'Order', '', 'Search').subscribe(
+		service.athletheSearch(null, undefined!, 'Order', '', 'Search').subscribe(
 			data => {
 				expect(data).toBe('"100OrderSearch"');
 				done();
@@ -1925,7 +1942,7 @@ describe('TextData API', () => {
 	});
 
 	it('TestAthletheSearch', (done) => {
-		service.athletheSearch(32, 0, null, null, null).subscribe(
+		service.athletheSearch(32, 0, null!, undefined!, null!).subscribe(
 			data => {
 				expect(data).toBe('320');
 				done();
@@ -1939,7 +1956,7 @@ describe('TextData API', () => {
 	);
 
 	it('TestAthletheSearch2', (done) => {
-		service.athletheSearch(32, 0, null, null, 'Search').subscribe(
+		service.athletheSearch(32, 0, null!, null!, 'Search').subscribe(
 			data => {
 				expect(data).toBe('320Search');
 				done();

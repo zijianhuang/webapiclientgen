@@ -2058,6 +2058,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Returned is DateTimeOffset?
 		/// POST api/DateTypes/DateTimeOffsetNullable
 		/// </summary>
 		public async Task<System.Nullable<System.DateTimeOffset>> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -2096,6 +2097,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Returned is DateTimeOffset?
 		/// POST api/DateTypes/DateTimeOffsetNullable
 		/// </summary>
 		public System.Nullable<System.DateTimeOffset> PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -2410,8 +2412,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return Tuple DateTime?, DateTime?
 		/// GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
 		/// </summary>
+		/// <param name="startDate">DateTime? startDate = null</param>
+		/// <param name="endDate">DateTime? endDate = null</param>
 		public async Task<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>> SearchDateRangeAsync(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/DateTypes/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
@@ -2441,8 +2446,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return Tuple DateTime?, DateTime?
 		/// GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
 		/// </summary>
+		/// <param name="startDate">DateTime? startDate = null</param>
+		/// <param name="endDate">DateTime? endDate = null</param>
 		public System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>> SearchDateRange(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/DateTypes/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
@@ -6978,6 +6986,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// ActionResult with FileStreamResult
 		/// GET api/SuperDemo/TextStream
 		/// </summary>
 		public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6997,6 +7006,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// ActionResult with FileStreamResult
 		/// GET api/SuperDemo/TextStream
 		/// </summary>
 		public System.Net.Http.HttpResponseMessage GetTextStream(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

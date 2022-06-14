@@ -128,6 +128,11 @@ namespace DemoWebApi.Controllers
 			return Tuple.Create(DateOnly.FromDateTime(dt.DateTime), dt);
 		}
 
+		/// <summary>
+		/// Returned is DateTimeOffset?
+		/// </summary>
+		/// <param name="d"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("DateTimeOffsetNullable")]
 		public DateTimeOffset? PostDateTimeOffsetNullable([FromBody] DateTimeOffset? d)
@@ -195,10 +200,10 @@ namespace DemoWebApi.Controllers
 		}
 
 		/// <summary>
-		/// 
+		/// Return Tuple DateTime?, DateTime?
 		/// </summary>
-		/// <param name="startDate"></param>
-		/// <param name="endDate"></param>
+		/// <param name="startDate"> DateTime? startDate = null</param>
+		/// <param name="endDate">DateTime? endDate = null</param>
 		/// <returns></returns>
 		[HttpGet("SearchDateRange")]
 		public Tuple<DateTime?, DateTime?> SearchDateRange([FromQuery] DateTime? startDate = null, [FromQuery] DateTime? endDate = null)

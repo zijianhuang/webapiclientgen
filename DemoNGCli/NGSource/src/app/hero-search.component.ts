@@ -12,7 +12,7 @@ import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 	styleUrls: ['hero-search.component.css'],
 })
 export class HeroSearchComponent implements OnInit {
-	heroes: Observable<namespaces.DemoWebApi_Controllers_Client.Hero[]>;
+	heroes: Observable<namespaces.DemoWebApi_Controllers_Client.Hero[] | null>;
 	private searchTerms = new Subject<string>();
 	constructor(
 		private heroSearchService: namespaces.DemoWebApi_Controllers_Client.Heroes,

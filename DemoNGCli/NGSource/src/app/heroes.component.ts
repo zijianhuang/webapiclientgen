@@ -10,30 +10,35 @@ import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 })
 export class HeroesComponent implements OnInit {
 	heroes: namespaces.DemoWebApi_Controllers_Client.Hero[];
-	selectedHero: namespaces.DemoWebApi_Controllers_Client.Hero;
+	selectedHero?: namespaces.DemoWebApi_Controllers_Client.Hero;
 	constructor(
 		private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
 		private router: Router) { }
 	getHeroes(): void {
-		this.heroService
-			.getHeros()
-			.subscribe(heroes => this.heroes = heroes);
+		this.heroService.getHeros().subscribe(
+			heroes => {
+				if (heroes) {
+					this.heroes = heroes;
+				}
+			}
+		);
 	}
 	add(name: string): void {
 		name = name.trim();
 		if (!name) { return; }
-		this.heroService.post(name)
-			.subscribe(hero => {
-				this.heroes.push(hero);
-				this.selectedHero = null;
+		this.heroService.post(name).subscribe(
+			hero => {
+				if (hero) {
+					this.heroes.push(hero);
+					this.selectedHero = undefined;
+				}
 			});
 	}
 	delete(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
-		this.heroService
-			.delete(hero.id)
-			.subscribe(() => {
+		this.heroService.delete(hero.id!).subscribe(
+			() => {
 				this.heroes = this.heroes.filter(h => h !== hero);
-				if (this.selectedHero === hero) { this.selectedHero = null; }
+				if (this.selectedHero === hero) { this.selectedHero = undefined; }
 			});
 	}
 	ngOnInit(): void {
@@ -43,6 +48,6 @@ export class HeroesComponent implements OnInit {
 		this.selectedHero = hero;
 	}
 	gotoDetail(): void {
-		this.router.navigate(['/detail', this.selectedHero.id]);
+		this.router.navigate(['/detail', this.selectedHero?.id]);
 	}
 }

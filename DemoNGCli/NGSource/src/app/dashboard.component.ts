@@ -13,8 +13,14 @@ export class DashboardComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.heroService.getHeros().subscribe(
-			heroes => this.heroes = heroes.slice(1, 5),
-			error => console.error(error)
+			{
+				next: heroes => {
+					if (heroes) {
+						this.heroes = heroes.slice(1, 5);
+					}
+				},
+				error: error => console.error(error)
+			}
 		);
 	}
 }

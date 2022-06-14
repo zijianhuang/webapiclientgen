@@ -4,7 +4,7 @@
 		"outDir": "./dist/out-tsc",
 		"sourceMap": true,
 		"declaration": false,
-		"strict": false,
+		"strict": true,
 		"allowSyntheticDefaultImports": true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
@@ -13,12 +13,12 @@
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"target": "es2015",
+		"target": "es2021",
 		"typeRoots": [
 			"node_modules/@types"
 		],
 		"lib": [
-			"ES2020",
+			"ES2021",
 			"dom"
 		],
 		"skipLibCheck": true

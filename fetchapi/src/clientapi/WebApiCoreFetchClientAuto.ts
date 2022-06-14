@@ -56,7 +56,7 @@ export namespace DemoWebApi_DemoData_Client {
 		 * Multiple addresses
 		 */
 		addresses?: Array<DemoWebApi_DemoData_Client.Address>;
-		id?: string;
+		id?: string | null;
 
 		/**
 		 * Name of the entity.
@@ -73,7 +73,7 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface IdMap {
 		id?: string;
 		idNotEmitDefaultValue?: string;
-		nullableId?: string;
+		nullableId?: string | null;
 		requiredName: string;
 		text?: string;
 	}
@@ -90,8 +90,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
 		 */
 		kK2?: number;
-		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType;
-		optionalInt?: number;
+		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
+		optionalInt?: number | null;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string;
 	}
@@ -119,13 +119,13 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface Person extends DemoWebApi_DemoData_Client.Entity {
-		baptised?: Date;
+		baptised?: Date | null;
 
 		/**
 		 * Date of Birth.
 		 * This is optional.
 		 */
-		dob?: Date;
+		dob?: Date | null;
 		givenName?: string;
 		surname?: string;
 	}
@@ -314,7 +314,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/DateTypes/NullableDatetime/{hasValue}
 		 */
-		getDateTime(hasValue: boolean, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+		getDateTime(hasValue: boolean, headersHandler?: () => {[header: string]: string}): Promise<Date | null> {
 			return fetch(this.baseUri + 'api/DateTypes/NullableDatetime/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -337,7 +337,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * If Dt is not defined, add a hour from now
 		 * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		 */
-		getNextHourNullable(n: number, dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+		getNextHourNullable(n: number, dt: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
 			return fetch(this.baseUri + 'api/DateTypes/NextHourNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -352,7 +352,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * If Dt is not defined, add a year from now
 		 * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		 */
-		getNextYearNullable(n: number, dt: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+		getNextYearNullable(n: number, dt: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date> {
 			return fetch(this.baseUri + 'api/DateTypes/NextYearNullable?n=' + n + (dt ? '&dt=' + dt.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -381,7 +381,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/DateTypes/DateOnlyNullable
 		 */
-		postDateOnlyNullable(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+		postDateOnlyNullable(d: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date | null> {
 			return fetch(this.baseUri + 'api/DateTypes/DateOnlyNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
 		}
 
@@ -416,9 +416,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Returned is DateTimeOffset?
 		 * POST api/DateTypes/DateTimeOffsetNullable
 		 */
-		postDateTimeOffsetNullable(d: Date, headersHandler?: () => {[header: string]: string}): Promise<Date> {
+		postDateTimeOffsetNullable(d: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date | null> {
 			return fetch(this.baseUri + 'api/DateTypes/DateTimeOffsetNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
 		}
 
@@ -451,9 +452,12 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return Tuple DateTime?, DateTime?
 		 * GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
+		 * @param {Date | null} startDate DateTime? startDate = null
+		 * @param {Date | null} endDate DateTime? endDate = null
 		 */
-		searchDateRange(startDate: Date, endDate: Date, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date, item2: Date}> {
+		searchDateRange(startDate: Date | null, endDate: Date | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: Date | null, item2: Date | null}> {
 			return fetch(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 	}
@@ -657,11 +661,11 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Athlethe Search
 		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
-		 * @param {number} take Generic optional parameter. Default 10
+		 * @param {number | null} take Generic optional parameter. Default 10
 		 * @param {number} skip Default 0
 		 * @param {string} order default null
 		 */
-		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		athletheSearch(take: number | null, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 
@@ -939,7 +943,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
-		getNullableDecimal(hasValue: boolean, headersHandler?: () => {[header: string]: string}): Promise<number> {
+		getNullableDecimal(hasValue: boolean, headersHandler?: () => {[header: string]: string}): Promise<number | null> {
 			return fetch(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -953,14 +957,14 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/DoubleNullable?location={location}&dd={dd}&de={de}
 		 */
-		getPrimitiveNullable(location: string, dd: number, de: number, headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: number, item3: number}> {
+		getPrimitiveNullable(location: string, dd: number | null, de: number | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: number | null, item3: number | null}> {
 			return fetch(this.baseUri + 'api/SuperDemo/DoubleNullable?location=' + (location == null ? '' : encodeURIComponent(location)) + (dd ? '&dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
 		/**
 		 * GET api/SuperDemo/DoubleNullable2?dd={dd}&de={de}
 		 */
-		getPrimitiveNullable2(dd: number, de: number, headersHandler?: () => {[header: string]: string}): Promise<{item1: number, item2: number}> {
+		getPrimitiveNullable2(dd: number | null, de: number | null, headersHandler?: () => {[header: string]: string}): Promise<{item1: number | null, item2: number | null}> {
 			return fetch(this.baseUri + 'api/SuperDemo/DoubleNullable2?' + (dd ? 'dd=' + dd.toString() : '') + (de ? '&de=' + de.toString() : ''), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -995,6 +999,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * ActionResult with FileStreamResult
 		 * GET api/SuperDemo/TextStream
 		 */
 		getTextStream(headersHandler?: () => {[header: string]: string}): Promise<Blob> {
@@ -1151,7 +1156,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/TextData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		 */
-		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		athletheSearch(take: number | null, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/TextData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 

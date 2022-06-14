@@ -79,6 +79,10 @@ namespace DemoWebApi.Controllers
 			return null;
 		}
 
+		/// <summary>
+		/// ActionResult with FileStreamResult
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("TextStream")]
 		public ActionResult GetTextStream()

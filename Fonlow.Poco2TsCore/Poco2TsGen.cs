@@ -235,7 +235,6 @@ namespace Fonlow.Poco2Ts
 							{
 								Name = tsPropertyName + (isRequired ? String.Empty : "?"),
 								Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
-								//                     Attributes = MemberAttributes.Public,
 
 							};
 
@@ -384,12 +383,6 @@ namespace Fonlow.Poco2Ts
 			if (tsBasicTypeText != null)
 				return new CodeTypeReference(tsBasicTypeText);
 
-			//if (String.IsNullOrEmpty(type.FullName))
-			//{
-			//    Debug.WriteLine("In TsPodGen, The type is an argument of a generic definition: " + type.ToString());
-			//    return new CodeTypeReference(type.ToString());
-			//}
-
 			var actionResultTypeReference = TranslateActionResultToClientTypeReference(type);
 			if (actionResultTypeReference != null)
 			{
@@ -419,6 +412,9 @@ namespace Fonlow.Poco2Ts
 			{
 				var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
 				Debug.Assert(genericTypeReferences.Length == 1);
+				var isNullablePrimitiveType = TypeHelper.IsNullablePrimitive(type);
+				var baseType = genericTypeReferences[0].BaseType + " | null";
+				genericTypeReferences[0].BaseType = baseType;
 				return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
 			}
 

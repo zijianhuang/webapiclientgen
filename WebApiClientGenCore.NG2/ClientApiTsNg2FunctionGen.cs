@@ -78,6 +78,13 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				returnTypeText = NG2HttpBlobResponse;
 			}
+			else
+			{
+				if (!returnTypeText.EndsWith(" | null"))
+				{
+					returnTypeText += " | null";
+				}
+			}
 
 			var callbackTypeText = $"Observable<{returnTypeText}>";
 			Debug.WriteLine("callback: " + callbackTypeText);

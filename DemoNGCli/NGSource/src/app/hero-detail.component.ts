@@ -25,8 +25,10 @@ export class HeroDetailComponent implements OnInit {
 			const id = +params['id'];
 			this.heroService.getHero(id).subscribe(
 				hero => {
-					this.hero = hero;
-					this.heroForm.patchValue(hero);
+					if (hero) {
+						this.hero = hero;
+						this.heroForm.patchValue(hero);
+					}
 				},
 				error => alert(error)
 			);

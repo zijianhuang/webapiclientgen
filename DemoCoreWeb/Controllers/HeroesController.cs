@@ -52,6 +52,7 @@ namespace DemoWebApi.Controllers
 		/// <param name="name"></param>
 		/// <returns></returns>
 		[HttpPost("q")]
+		[return: System.Diagnostics.CodeAnalysis.NotNull]
 		public Hero PostWithQuery([FromQuery] string name)//.net core difference: requires explicit decorattion. Also the path can not be identical to any existing one.
 		{
 			var max = HeroesData.Instance.Dic.Keys.Max();

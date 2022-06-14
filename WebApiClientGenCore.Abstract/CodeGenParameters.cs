@@ -190,6 +190,12 @@
 		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
 		/// </summary>
 		public bool DataAnnotationsToComments { get; set; }
+
+		/// <summary>
+		/// Give TypeScript strict mode more signal for null value.
+		/// The returned types and parameters may be null. And some primitive types in data model / interface may be null.
+		/// </summary>
+		public bool HelpStrictMode { get; set; }
 	}
 
 	/// <summary>

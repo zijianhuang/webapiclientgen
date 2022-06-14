@@ -5,7 +5,7 @@ namespace Fonlow.Poco2Ts
 {
 	public class PocoToTsNgGen : Poco2TsGen
 	{
-		public PocoToTsNgGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix) : base(codeCompileUnit, clientNamespaceSuffix)
+		public PocoToTsNgGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode) : base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode)
 		{
 
 		}

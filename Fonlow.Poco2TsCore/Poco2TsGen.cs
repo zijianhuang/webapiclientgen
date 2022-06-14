@@ -23,14 +23,16 @@ namespace Fonlow.Poco2Ts
 
 		readonly string ClientNamespaceSuffix;
 
+		readonly bool helpStrictMode;
 		/// <summary>
 		/// Init with its own CodeCompileUnit.
 		/// </summary>
-		public Poco2TsGen(string clientNamespaceSuffix)
+		public Poco2TsGen(string clientNamespaceSuffix, bool helpStrictMode)
 		{
 			targetUnit = new CodeCompileUnit();
 			pendingTypes = new List<Type>();
 			this.ClientNamespaceSuffix = clientNamespaceSuffix;
+			this.helpStrictMode = helpStrictMode;
 		}
 
 		/// <summary>
@@ -38,11 +40,13 @@ namespace Fonlow.Poco2Ts
 		/// </summary>
 		/// <param name="codeCompileUnit"></param>
 		/// <param name="clientNamespaceSuffix"></param>
-		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix)
+		/// <param name="helpStrictMode"></param>
+		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode)
 		{
 			targetUnit = codeCompileUnit;
 			pendingTypes = new List<Type>();
 			this.ClientNamespaceSuffix = clientNamespaceSuffix;
+			this.helpStrictMode = helpStrictMode;
 		}
 
 
@@ -413,7 +417,7 @@ namespace Fonlow.Poco2Ts
 				var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
 				Debug.Assert(genericTypeReferences.Length == 1);
 				var isNullablePrimitiveType = TypeHelper.IsNullablePrimitive(type);
-				var baseType = genericTypeReferences[0].BaseType + " | null";
+				var baseType = genericTypeReferences[0].BaseType + (helpStrictMode ? " | null" : String.Empty);
 				genericTypeReferences[0].BaseType = baseType;
 				return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
 			}
@@ -425,7 +429,7 @@ namespace Fonlow.Poco2Ts
 				return TranslateToClientTypeReference(genericArguments[0]);
 			}
 
-			if (TypeHelper.IsArrayType(genericTypeDefinition) || genericTypeDefinition.FullName== "System.Collections.Generic.IAsyncEnumerable`1")
+			if (TypeHelper.IsArrayType(genericTypeDefinition) || genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1")
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
 				var elementType = type.GenericTypeArguments[0];

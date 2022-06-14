@@ -17,7 +17,7 @@ namespace Poco2TsTests
 	{
 		static void Verify(Type type, string expected)
 		{
-			var gen = new Poco2TsGen(".Client");
+			var gen = new Poco2TsGen(".Client", false);
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
 			using (var writer = new StringWriter())
 			{
@@ -29,7 +29,7 @@ namespace Poco2TsTests
 
 		static void VerifyJson(Type type, string expected)
 		{
-			var gen = new Poco2TsGen(".Client");
+			var gen = new Poco2TsGen(".Client", false);
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson);
 			using (var writer = new StringWriter())
 			{

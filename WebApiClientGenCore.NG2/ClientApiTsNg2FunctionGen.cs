@@ -31,8 +31,12 @@ namespace Fonlow.CodeDom.Web.Ts
 		//string contentType;
 		readonly bool handleHttpRequestHeaders;
 
-		public ClientApiTsNG2FunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
+		readonly JSOutput jsOutput;
+
+		public ClientApiTsNG2FunctionGen(JSOutput jsOutput, bool handleHttpRequestHeaders) : base()
 		{
+			this.jsOutput = jsOutput;
+			string contentType = jsOutput.ContentType;
 			this.handleHttpRequestHeaders = handleHttpRequestHeaders;
 			if (String.IsNullOrEmpty(contentType))
 			{
@@ -80,7 +84,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else
 			{
-				if (!returnTypeText.EndsWith(" | null"))
+				if (jsOutput.HelpStrictMode && !returnTypeText.EndsWith(" | null"))
 				{
 					returnTypeText += " | null";
 				}

@@ -30,8 +30,12 @@ namespace Fonlow.CodeDom.Web.Ts
 		string returnTypeText = null;
 		readonly bool handleHttpRequestHeaders;
 
-		public ClientApiTsAureliaFunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
+		readonly JSOutput jsOutput;
+
+		public ClientApiTsAureliaFunctionGen(JSOutput jsOutput, bool handleHttpRequestHeaders) : base()
 		{
+			this.jsOutput = jsOutput;
+			string contentType = jsOutput.ContentType;
 			this.handleHttpRequestHeaders = handleHttpRequestHeaders;
 			if (String.IsNullOrEmpty(contentType))
 			{
@@ -72,6 +76,13 @@ namespace Fonlow.CodeDom.Web.Ts
 			else if (returnTypeText == "blobresponse")
 			{
 				returnTypeText = AureliatHttpBlobResponse;
+			}
+			else
+			{
+				if (jsOutput.HelpStrictMode && !returnTypeText.EndsWith(" | null"))
+				{
+					returnTypeText += " | null";
+				}
 			}
 
 			var callbackTypeText = $"Promise<{returnTypeText}>";

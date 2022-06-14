@@ -20,14 +20,18 @@ namespace Fonlow.CodeDom.Web.Ts
 		readonly string contentType;
 		readonly bool handleHttpRequestHeaders;
 
-		public ClientApiTsFetchFunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
+		readonly JSOutput jsOutput;
+
+		public ClientApiTsFetchFunctionGen(JSOutput jsOutput, bool handleHttpRequestHeaders) : base()
 		{
+			this.jsOutput = jsOutput;
 			this.contentType = String.IsNullOrEmpty(contentType) ? "application/json;charset=UTF-8" : contentType;
 			this.handleHttpRequestHeaders = handleHttpRequestHeaders;
 		}
 
 		protected override CodeMemberMethod CreateMethodName()
 		{
+			string contentType = jsOutput.ContentType;
 			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
@@ -41,6 +45,13 @@ namespace Fonlow.CodeDom.Web.Ts
 			else if (returnTypeText == "blobresponse")
 			{
 				returnTypeText = FetchtHttpBlobResponse;
+			}
+			else
+			{
+				if (jsOutput.HelpStrictMode && !returnTypeText.EndsWith(" | null"))
+				{
+					returnTypeText += " | null";
+				}
 			}
 
 			var callbackTypeText = $"Promise<{returnTypeText}>";

@@ -19,7 +19,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix)
 		{
-			return new Fonlow.Poco2Ts.Poco2TsGen(TargetUnit, clientNamespaceSuffix);
+			return new Fonlow.Poco2Ts.Poco2TsGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode);
 		}
 
 		protected override void AddBasicReferences()
@@ -30,7 +30,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void AddConstructor(CodeTypeDeclaration targetClass)
 		{
-			CodeConstructor constructor = new CodeConstructor
+			CodeConstructor constructor = new()
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final
 			};

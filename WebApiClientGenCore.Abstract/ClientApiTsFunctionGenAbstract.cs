@@ -26,8 +26,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		Poco2CsGen poco2CsGen;
 
-		JSOutput jsOutput;
-
 		protected ClientApiTsFunctionGenAbstract()
 		{
 
@@ -38,7 +36,6 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.Description = description;
 			this.Poco2TsGen = poco2TsGen;
 			this.poco2CsGen = poco2CsGen;
-			this.jsOutput = jsOutput;
 			this.StringAsString = jsOutput.StringAsString;
 
 			HttpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase. 

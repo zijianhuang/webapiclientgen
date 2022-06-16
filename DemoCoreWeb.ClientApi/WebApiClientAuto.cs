@@ -3776,7 +3776,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Get a hero.
+		/// Get a hero. Nullable reference.
 		/// GET api/Heroes/{id}
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> GetHeroAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3808,7 +3808,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Get a hero.
+		/// Get a hero. Nullable reference.
 		/// GET api/Heroes/{id}
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero GetHero(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3980,9 +3980,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Add a hero
+		/// Add a hero. The client will not expect null.
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
+		/// <returns>Always object.</returns>
 		[return: System.Diagnostics.CodeAnalysis.NotNullAttribute()]
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
@@ -4008,9 +4009,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Add a hero
+		/// Add a hero. The client will not expect null.
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
+		/// <returns>Always object.</returns>
 		[return: System.Diagnostics.CodeAnalysis.NotNullAttribute()]
 		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{

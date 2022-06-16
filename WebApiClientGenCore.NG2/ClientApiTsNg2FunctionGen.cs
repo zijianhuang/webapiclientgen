@@ -89,10 +89,6 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						returnTypeText += " | null";
 					}
-					else if (jsOutput.SupportNullReferenceTypeOnMethodReturn)
-					{
-
-					}
 				}
 			}
 

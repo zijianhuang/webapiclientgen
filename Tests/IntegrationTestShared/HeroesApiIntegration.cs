@@ -23,16 +23,30 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestGet()
+		public void TestGetHeroes()
 		{
 			var array = api.GetHeros();
 			Assert.NotEmpty(array);
 		}
 
 		[Fact]
+		public void TestGetHeroNotExists()
+		{
+			var h = api.GetHero(99999);
+			Assert.Null(h);
+		}
+
+		[Fact]
 		public void TestPost()
 		{
 			var hero = api.Post("Abc");
+			Assert.Equal("Abc", hero.Name);
+		}
+
+		[Fact]
+		public void TestPostWithNull()
+		{
+			var hero = api.Post(null);
 			Assert.Equal("Abc", hero.Name);
 		}
 

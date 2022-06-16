@@ -638,8 +638,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Add a hero
 		 * POST api/Heroes/q?name={name}
 		 */
-		postWithQuery(name: string, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_Controllers_Client.Hero | null> {
-			return this.http.post<DemoWebApi_Controllers_Client.Hero | null>(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: headersHandler ? headersHandler() : undefined });
+		postWithQuery(name: string, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_Controllers_Client.Hero> {
+			return this.http.post<DemoWebApi_Controllers_Client.Hero>(this.baseUri + 'api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**

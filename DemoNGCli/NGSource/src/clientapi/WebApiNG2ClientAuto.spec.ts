@@ -217,6 +217,21 @@ describe('Heroes API', () => {
 	}
 	);
 
+	it('getHero', (done) => {
+		service.getHero(9999).subscribe(
+			data => {
+				expect(data).toBeNull();
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
 	it('Add', (done) => {
 		service.post('somebody').subscribe(
 			data => {
@@ -232,10 +247,13 @@ describe('Heroes API', () => {
 	}
 	);
 
+	/**
+	 * The service always returns an object and the return is decorated with NotNullAttribute.
+	 */
 	it('PostWithQuery', (done) => {
 		service.postWithQuery('somebodyqqq').subscribe(
 			data => {
-				expect(data!.name).toBe('somebodyqqq');
+				expect(data.name).toBe('somebodyqqq');
 				done();
 			},
 			error => {

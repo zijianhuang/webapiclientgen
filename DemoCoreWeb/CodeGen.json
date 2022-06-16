@@ -26,7 +26,7 @@
 	},
 
 	"ClientApiOutputs": {
-		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApi",
+		"ClientLibraryProjectFolderName": "..\\..\\DemoCoreWeb.ClientApi",
 		//"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
 		"GenerateBothAsyncAndSync": true,
 		//"StringAsString": true,
@@ -41,50 +41,19 @@
 		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
 		"DecorateDataModelWithSerializable": true,
 		"IEnumerableToArray": false,
+		"NotNullAttributeOnMethod": true,
 		//"UseSystemTextJson": true,
 
 		"Plugins": [
 			{
-				"AssemblyName": "Fonlow.WebApiClientGenCore.jQuery",
-				"TargetDir": "..\\..\\..\\..\\Scripts\\ClientApi",
-				"TSFile": "WebApiCoreJQClientAuto.ts",
-				"AsModule": false,
-				"ContentType": "application/json;charset=UTF-8"
-			},
-
-			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.NG2",
-				"TargetDir": "..\\..\\..\\..\\..\\DemoNGCli\\NGSource\\src\\ClientApi",
+				"TargetDir": "..\\..\\DemoNGCli\\NGSource\\src\\ClientApi",
 				"TSFile": "WebApiCoreNG2ClientAuto.ts",
 				"AsModule": true,
 				"ContentType": "application/json;charset=UTF-8",
 				"ClientNamespaceSuffix": ".Client",
 				"ContainerNameSuffix": "",
-				"HelpStrictMode":  true
-			},
-
-			{
-				"AssemblyName": "Fonlow.WebApiClientGenCore.Axios",
-				"TargetDir": "..\\..\\..\\..\\..\\axios\\src\\clientapi",
-				"TSFile": "WebApiCoreAxiosClientAuto.ts",
-				"AsModule": true,
-				"ContentType": "application/json;charset=UTF-8"
-			},
-
-			{
-				"AssemblyName": "Fonlow.WebApiClientGenCore.Aurelia",
-				"TargetDir": "..\\..\\..\\..\\..\\aurelia\\src\\clientapi",
-				"TSFile": "WebApiCoreAureliaClientAuto.ts",
-				"AsModule": true,
-				"ContentType": "application/json;charset=UTF-8"
-			},
-
-			{
-				"AssemblyName": "Fonlow.WebApiClientGenCore.Fetch",
-				"TargetDir": "..\\..\\..\\..\\..\\fetchapi\\src\\clientapi",
-				"TSFile": "WebApiCoreFetchClientAuto.ts",
-				"AsModule": true,
-				"ContentType": "application/json;charset=UTF-8"
+				"HelpStrictMode": true
 			}
 
 		]

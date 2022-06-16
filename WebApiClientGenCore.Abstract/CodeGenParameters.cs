@@ -88,6 +88,21 @@
 		/// Default true.
 		/// </summary>
 		public bool IEnumerableToArray { get; set; } = true;
+
+		/// <summary>
+		/// If NotNull decorates return
+		/// CS Codes will have NotNull copied over.	TS codes will not have null as optional type for return, when HelpStrictMode is true.
+		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
+		/// </summary>
+		public bool NotNullAttributeOnMethod { get; set; }
+
+		/// <summary>
+		/// The C# client codes are to have NullReferenceTypes turn on, and the return type will follow what in the service codes.
+		/// The TS codes will have null as optional type for return.
+		/// Exclusive to NotNullAttributeOnMethod.
+		/// </summary>
+		public bool SupportNullReferenceTypeOnMethodReturn { get; set; }
+
 	}
 
 	/// <summary>
@@ -229,5 +244,10 @@
 		public bool DataAnnotationsToComments { get; set; }
 
 		public bool HelpStrictMode { get; set; }
+
+		public bool NotNullAttributeOnMethod { get; set; }
+
+		public bool SupportNullReferenceTypeOnMethodReturn { get; set; }
+
 	}
 }

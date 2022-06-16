@@ -6,10 +6,11 @@ using System.Runtime.Serialization;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
+#nullable enable
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
-	/// Heroes operations
+	/// Heroes operations. Decorated by nullable directive.
 	/// </summary>
 	//[ApiController] for opt-in without ApiExplorerVisibilityEnabledConvention
 	[Route("api/[controller]")]
@@ -28,15 +29,15 @@ namespace DemoWebApi.Controllers
 		}
 
 		/// <summary>
-		/// Get a hero.
+		/// Get a hero. Nullable reference.
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
 		[HttpGet("{id}")]
 		[ActionName("GetHero")]
-		public Hero Get(long id)
+		public Hero? Get(long id)
 		{
-			_ = HeroesData.Instance.Dic.TryGetValue(id, out Hero r);
+			_ = HeroesData.Instance.Dic.TryGetValue(id, out Hero? r);
 			return r;
 		}
 
@@ -47,25 +48,28 @@ namespace DemoWebApi.Controllers
 		}
 
 		/// <summary>
-		/// Add a hero
+		/// Add a hero. The client will not expect null.
 		/// </summary>
 		/// <param name="name"></param>
-		/// <returns></returns>
+		/// <returns>Always object.</returns>
 		[HttpPost("q")]
 		[return: System.Diagnostics.CodeAnalysis.NotNull]
 		public Hero PostWithQuery([FromQuery] string name)//.net core difference: requires explicit decorattion. Also the path can not be identical to any existing one.
 		{
-			var max = HeroesData.Instance.Dic.Keys.Max();
-			var hero = new Hero { Id = max + 1, Name = name };
-			_ = HeroesData.Instance.Dic.TryAdd(max + 1, hero);
-			return hero;
+			return CreateHero(name);
 		}
 
 		[HttpPost]
-		public Hero Post([FromBody] string name)//.net core difference: requires explicit decorattion
+		public Hero Post([FromBody] string name)
+		{
+			return CreateHero(name);
+		}
+
+		[return: System.Diagnostics.CodeAnalysis.NotNull]
+		Hero CreateHero(string name)
 		{
 			var max = HeroesData.Instance.Dic.Keys.Max();
-			var hero = new Hero { Id = max + 1, Name = name };
+			var hero = new Hero(max + 1, name);
 			_ = HeroesData.Instance.Dic.TryAdd(max + 1, hero);
 			return hero;
 		}
@@ -91,8 +95,7 @@ namespace DemoWebApi.Controllers
 		public Hero[] Search(string name)
 		{
 			return HeroesData.Instance.Dic.Values
-				.Where(d => 
-				d.Name.Contains(name)).ToArray();
+				.Where(d => d.Name.Contains(name)).ToArray();
 		}
 
 		[HttpGet("asyncHeroes")]
@@ -105,28 +108,6 @@ namespace DemoWebApi.Controllers
 			}
 		}
 
-		///// <summary>
-		///// This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
-		///// </summary>
-		///// <param name="h"></param>
-		///// <returns></returns>
-		//[HttpGet("invalid")]
-		//public IActionResult GetSomethingInvalid(DemoWebApi.DemoData.Person h)//Person is considered as ModelMetadata.IsComplexType
-		//{
-		//    return new StatusCodeResult(200);
-		//}
-
-		///// <summary>
-		///// This should triger error: System.ArgumentException: Web API Heroes/GetSomethingInvalid is defined with invalid parameters: Not support ParameterBinder FromQuery or FromUri with a class parameter.
-		///// </summary>
-		///// <param name="h"></param>
-		///// <returns></returns>
-		//[HttpGet("invalid")]
-		//public IActionResult GetSomethingInvalid(Hero h) //But Hero is NOT considered as ModelMetadata.IsComplexType
-		//{
-		//    return new StatusCodeResult(200);
-		//}
-
 	}
 
 	/// <summary>
@@ -135,6 +116,12 @@ namespace DemoWebApi.Controllers
 	[DataContract(Namespace = DemoWebApi.DemoData.Constants.DataNamespace)]
 	public class Hero
 	{
+		public Hero(long id, string name)
+		{
+			Id = id;
+			Name = name;
+		}
+
 		[DataMember]
 		public long Id { get; set; }
 
@@ -153,16 +140,16 @@ namespace DemoWebApi.Controllers
 		private HeroesData()
 		{
 			Dic = new ConcurrentDictionary<long, Hero>(new KeyValuePair<long, Hero>[] {
-				new KeyValuePair<long, Hero>(11, new Hero {Id=11, Name="Mr. Nice" }),
-				new KeyValuePair<long, Hero>(12, new Hero {Id=12, Name="Narco" }),
-				new KeyValuePair<long, Hero>(13, new Hero {Id=13, Name="Bombasto" }),
-				new KeyValuePair<long, Hero>(14, new Hero {Id=14, Name="Celeritas" }),
-				new KeyValuePair<long, Hero>(15, new Hero {Id=15, Name="Magneta" }),
-				new KeyValuePair<long, Hero>(16, new Hero {Id=16, Name="RubberMan" }),
-				new KeyValuePair<long, Hero>(17, new Hero {Id=17, Name="Dynama" }),
-				new KeyValuePair<long, Hero>(18, new Hero {Id=18, Name="Dr IQ" }),
-				new KeyValuePair<long, Hero>(19, new Hero {Id=19, Name="Magma" }),
-				new KeyValuePair<long, Hero>(20, new Hero {Id=29, Name="Tornado" }),
+				new KeyValuePair<long, Hero>(11, new Hero(11, "Mr. Nice")),
+				new KeyValuePair<long, Hero>(12, new Hero(12, "Narco")),
+				new KeyValuePair<long, Hero>(13, new Hero(13, "Bombasto")),
+				new KeyValuePair<long, Hero>(14, new Hero(14, "Celeritas")),
+				new KeyValuePair<long, Hero>(15, new Hero(15, "Magneta")),
+				new KeyValuePair<long, Hero>(16, new Hero(16, "RubberMan")),
+				new KeyValuePair<long, Hero>(17, new Hero(17, "Dynama")),
+				new KeyValuePair<long, Hero>(18, new Hero(18, "Dr IQ")),
+				new KeyValuePair<long, Hero>(19, new Hero(19, "Magma")),
+				new KeyValuePair<long, Hero>(20, new Hero(29, "Tornado")),
 
 				});
 		}
@@ -170,3 +157,4 @@ namespace DemoWebApi.Controllers
 		public ConcurrentDictionary<long, Hero> Dic { get; private set; }
 	}
 }
+#nullable disable

@@ -3983,6 +3983,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Add a hero
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.NotNullAttribute()]
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
@@ -4010,6 +4011,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Add a hero
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.NotNullAttribute()]
 		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));

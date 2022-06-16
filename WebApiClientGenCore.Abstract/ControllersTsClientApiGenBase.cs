@@ -120,7 +120,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = apiFunctionGen.CreateApiFunction(d, poco2TsGen, poco2CsGen, this.jsOutput.StringAsString);
+				var apiFunction = apiFunctionGen.CreateApiFunction(d, poco2TsGen, poco2CsGen, this.jsOutput);
 				existingClientClass.Members.Add(apiFunction);
 			}
 

@@ -67,7 +67,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeMemberMethod CreateMethodName()
 		{
-			//Debug.Assert(ReturnType==null || ReturnType.Name != "DayOfWeek[]");
 			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
@@ -84,14 +83,20 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else
 			{
-				if (jsOutput.HelpStrictMode && !returnTypeText.EndsWith(" | null"))
+				if (jsOutput.HelpStrictMode) 
 				{
-					returnTypeText += " | null";
+					if (!returnTypeText.EndsWith(" | null") && !ReturnTypeIsNotNull)
+					{
+						returnTypeText += " | null";
+					}
+					else if (jsOutput.SupportNullReferenceTypeOnMethodReturn)
+					{
+
+					}
 				}
 			}
 
 			var callbackTypeText = $"Observable<{returnTypeText}>";
-			Debug.WriteLine("callback: " + callbackTypeText);
 			var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
 
 			return new CodeMemberMethod()
@@ -114,7 +119,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			var uriText = GetFullUriText();
 
-			if (ReturnType!=null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
+			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{

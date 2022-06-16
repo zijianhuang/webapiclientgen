@@ -18,6 +18,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		protected Type returnType;
 		readonly bool returnTypeIsStream;
 		readonly bool returnTypeIsDynamicObject;
+
+		/// <summary>
+		/// Decorated by NotNullAttribute
+		/// </summary>
+		readonly bool returnTypeIsNotNull=false;
 		CodeMemberMethod method;
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
 		readonly bool forAsync;
@@ -50,6 +55,16 @@ namespace Fonlow.CodeDom.Web.Cs
 				);
 
 			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
+
+
+			if (settings.NotNullAttributeOnMethod)
+			{
+				var methodBase = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
+				if (methodBase != null)
+				{
+					returnTypeIsNotNull = returnType != null && Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+				}
+			}
 		}
 
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
@@ -70,6 +85,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			method = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 
 			CreateDocComments();
+			if (settings.NotNullAttributeOnMethod && returnTypeIsNotNull)
+			{
+				method.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
+			}
+
 			System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
 			switch (description.HttpMethod)
 			{
@@ -86,7 +106,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
 					break;
 			}
-
+			
 			return method;
 		}
 

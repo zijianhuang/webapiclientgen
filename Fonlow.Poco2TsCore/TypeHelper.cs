@@ -71,7 +71,7 @@ namespace Fonlow.Reflection
 		{
 			if (memberInfo == null)
 			{
-				throw new ArgumentNullException("memberInfo");
+				throw new ArgumentNullException(nameof(memberInfo));
 			}
 
 			object[] objects = memberInfo.GetCustomAttributes(typeof(T), false);
@@ -86,7 +86,7 @@ namespace Fonlow.Reflection
 		{
 			if (type == null)
 			{
-				throw new ArgumentNullException("type");
+				throw new ArgumentNullException(nameof(type));
 			}
 
 			object[] objects = type.GetCustomAttributes(typeof(T), false);
@@ -97,21 +97,35 @@ namespace Fonlow.Reflection
 			return null;
 		}
 
+		/// <summary>
+		/// If exists, return the attribute
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="attributeTypeText"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentNullException"></exception>
 		public static Attribute AttributeExists(Type type, string attributeTypeText)
 		{
 			if (type == null)
 			{
-				throw new ArgumentNullException("type");
+				throw new ArgumentNullException(nameof(type));
 			}
 
 			return type.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;
 		}
 
+		/// <summary>
+		/// If exists, return the attribute.
+		/// </summary>
+		/// <param name="memberInfo"></param>
+		/// <param name="attributeTypeText"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentNullException"></exception>
 		public static Attribute AttributeExists(MemberInfo memberInfo, string attributeTypeText)
 		{
 			if (memberInfo == null)
 			{
-				throw new ArgumentNullException("memberInfo");
+				throw new ArgumentNullException(nameof(memberInfo));
 			}
 
 			return memberInfo.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;

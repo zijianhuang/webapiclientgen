@@ -86,6 +86,8 @@ namespace Fonlow.CodeDom.Web
 						ContainerNameSuffix=plugin.ContainerNameSuffix,
 						DataAnnotationsToComments=plugin.DataAnnotationsToComments,
 						HelpStrictMode=plugin.HelpStrictMode,
+						NotNullAttributeOnMethod=settings.ClientApiOutputs.NotNullAttributeOnMethod,
+						SupportNullReferenceTypeOnMethodReturn=settings.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn,
 					};
 
 					using var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders);

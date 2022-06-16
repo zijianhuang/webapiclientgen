@@ -83,11 +83,19 @@ namespace Fonlow.Web.Meta
 		public string MethodFullName
 		{ get; set; }
 
+		[DataMember]
+		public string MethodName
+		{ get; set; }
+
 		/// <summary>
 		/// It may be null
 		/// </summary>
 		[DataMember]
 		public Type ReturnType
+		{ get; set; }
+
+		[DataMember]
+		public Type[] MethodTypes
 		{ get; set; }
 
 		/// <summary>

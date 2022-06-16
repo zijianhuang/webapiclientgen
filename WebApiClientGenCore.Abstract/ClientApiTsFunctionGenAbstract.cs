@@ -22,20 +22,24 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected IPoco2Client Poco2TsGen { get; private set; }
 		protected bool StringAsString { get; private set; }
 		protected string HttpMethodName { get; private set; }
+		protected bool ReturnTypeIsNotNull { get; private set; }
 
 		Poco2CsGen poco2CsGen;
+
+		JSOutput jsOutput;
 
 		protected ClientApiTsFunctionGenAbstract()
 		{
 
 		}
 
-		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, Poco2CsGen  poco2CsGen, bool stringAsString)
+		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, Poco2CsGen poco2CsGen, JSOutput jsOutput)
 		{
 			this.Description = description;
 			this.Poco2TsGen = poco2TsGen;
-			this.poco2CsGen = poco2CsGen;	
-			this.StringAsString = stringAsString;
+			this.poco2CsGen = poco2CsGen;
+			this.jsOutput = jsOutput;
+			this.StringAsString = jsOutput.StringAsString;
 
 			HttpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase. 
 			MethodName = TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
@@ -43,6 +47,31 @@ namespace Fonlow.CodeDom.Web.Ts
 				MethodName = MethodName.Substring(0, MethodName.Length - 5);//HTTP does not care about the server side async.
 
 			ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
+
+			if (jsOutput.HelpStrictMode)
+			{
+				var methodBase = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
+				if (methodBase != null)
+				{
+					if (jsOutput.NotNullAttributeOnMethod)
+					{
+						ReturnTypeIsNotNull = ReturnType != null && Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+					}
+					else if (jsOutput.SupportNullReferenceTypeOnMethodReturn)
+					{
+						ReturnTypeIsNotNull = true;
+						var customAttributes = methodBase.CustomAttributes.ToArray();
+						if (customAttributes.Length > 0)
+						{
+							var nullableContextAttribute = customAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
+							if (nullableContextAttribute != null && (byte)(nullableContextAttribute.ConstructorArguments[0].Value) > 0)
+							{
+								ReturnTypeIsNotNull = false;
+							}
+						}
+					}
+				}
+			}
 
 			//create method
 			Method = CreateMethodName();
@@ -97,7 +126,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			StringBuilder builder = new();
 
-			Fonlow.DocComment.docMember methodComments=null;
+			Fonlow.DocComment.docMember methodComments = null;
 			if (WebApiDocSingleton.Instance.Lookup != null)
 			{
 				methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);

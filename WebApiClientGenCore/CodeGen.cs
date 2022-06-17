@@ -73,6 +73,8 @@ namespace Fonlow.CodeDom.Web
 			{
 				foreach (var plugin in settings.ClientApiOutputs.Plugins)
 				{
+					using var gen = new Cs.ControllersClientApiGen(settings);
+
 					var jsOutput = new JSOutput
 					{
 						CamelCase = settings.ClientApiOutputs.CamelCase,
@@ -90,10 +92,9 @@ namespace Fonlow.CodeDom.Web
 						SupportNullReferenceTypeOnMethodReturn=settings.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn,
 					};
 
-					using var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders);
+					using var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);
 					if (tsGen != null)
 					{
-						Poco2Client.Poco2CsGen gen = new Poco2Client.Poco2CsGen(tsGen.TargetUnit, settings.ClientApiOutputs);
 						tsGen.CreateCodeDom(webApiDescriptions);
 						tsGen.Save();
 					}

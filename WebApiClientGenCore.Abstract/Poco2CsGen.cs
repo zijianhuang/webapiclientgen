@@ -28,8 +28,6 @@ namespace Fonlow.Poco2Client
 		readonly CodeCompileUnit codeCompileUnit;
 
 		readonly ModelGenOutputs settings;
-
-
 		public CodeDomProvider CSharpCodeDomProvider { get; private set; }
 
 		/// <summary>
@@ -105,7 +103,6 @@ namespace Fonlow.Poco2Client
 
 			CodeGeneratorOptions options = new CodeGeneratorOptions();
 			CSharpCodeDomProvider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
-
 		}
 
 		/// <summary>
@@ -132,7 +129,7 @@ namespace Fonlow.Poco2Client
 		readonly List<Type> pendingTypes;
 
 		/// <summary>
-		/// Create TypeScript CodeDOM for POCO types. 
+		/// Create CodeDOM for POCO types. 
 		/// For an enum type, all members will be processed regardless of EnumMemberAttribute.
 		/// </summary>
 		/// <param name="types">POCO types.</param>
@@ -203,29 +200,12 @@ namespace Fonlow.Poco2Client
 							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
 							var defaultValue = GetDefaultValue(propertyInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
 
-							//var clientProperty = new CodeMemberProperty() //orthodox way of creating property, but resulting in verbose generated codes
-							//{
-							// Name = tsPropertyName,
-							// Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
-							// Attributes = MemberAttributes.Public | MemberAttributes.Final,
-							//};
 							var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType, defaultValue); //hacky way of creating clean getter and writter.
 							var isRequired = cherryType == CherryType.BigCherry;
 							if (isRequired)
 							{
 								clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
 							}
-
-							//var privateFieldName = "_" + tsPropertyName;
-
-							//typeDeclaration.Members.Add(new CodeMemberField()
-							//{
-							// Name = privateFieldName,
-							// Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
-							//});
-
-							//clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
-							//clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
 							if (settings.DataAnnotationsEnabled)
 							{
@@ -258,30 +238,12 @@ namespace Fonlow.Poco2Client
 							//public fields of a class will be translated into properties
 							if (type.IsClass)
 							{
-								//var clientProperty = new CodeMemberProperty() //orthodox way of creating property, but resulting in verbose generated codes
-								//{
-								// Name = tsPropertyName,
-								// Type = TranslateToClientTypeReference(fieldInfo.FieldType),
-								// Attributes = MemberAttributes.Public | MemberAttributes.Final,
-								//};
-
 								var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType, defaultValue); //hacky way of creating clean getter and writter.
 								var isRequired = cherryType == CherryType.BigCherry;
 								if (isRequired)
 								{
 									clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
 								}
-
-								//var privateFieldName = "_" + tsPropertyName;
-
-								//typeDeclaration.Members.Add(new CodeMemberField()
-								//{
-								// Name = privateFieldName,
-								// Type = TranslateToClientTypeReference(fieldInfo.FieldType),
-								//});
-
-								//clientProperty.GetStatements.Add(new CodeSnippetStatement($"\t\t\t\treturn {privateFieldName};"));
-								//clientProperty.SetStatements.Add(new CodeSnippetStatement($"\t\t\t\t{privateFieldName} = value;"));
 
 								if (settings.DataAnnotationsEnabled)
 								{
@@ -538,49 +500,6 @@ namespace Fonlow.Poco2Client
 			return result;
 		}
 
-		/// <summary>
-		/// Translate custom types, generic types, array and some special http message types to client code type refernce
-		/// </summary>
-		/// <param name="type"></param>
-		/// <returns></returns>
-		public CodeTypeReference TranslateToClientTypeReference(Type type)
-		{
-			if (type == null)
-				return null;// new CodeTypeReference("void");
-
-			if (pendingTypes.Contains(type))
-				return new CodeTypeReference(RefineCustomComplexTypeText(type));
-			else if (type.IsGenericType)
-			{
-				return TranslateGenericToTypeReference(type);
-			}
-			else if (type.IsArray)
-			{
-				Debug.Assert(type.Name.EndsWith("]"));
-				var elementType = type.GetElementType();
-				var arrayRank = type.GetArrayRank();
-				return CreateArrayTypeReference(elementType, arrayRank);
-			}
-			else
-			{
-				if (type.FullName == "System.Web.Http.IHttpActionResult")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "System.Net.Http.HttpResponseMessage")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
-			}
-
-
-			return new CodeTypeReference(type);
-
-		}
-
 		public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type, bool isNullableReference)
 		{
 			if (type == null)
@@ -676,6 +595,49 @@ namespace Fonlow.Poco2Client
 		}
 
 		/// <summary>
+		/// Translate custom types, generic types, array and some special http message types to client code type refernce
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		public CodeTypeReference TranslateToClientTypeReference(Type type)
+		{
+			if (type == null)
+				return null;// new CodeTypeReference("void");
+
+			if (pendingTypes.Contains(type))
+				return new CodeTypeReference(RefineCustomComplexTypeText(type));
+			else if (type.IsGenericType)
+			{
+				return TranslateGenericToTypeReference(type);
+			}
+			else if (type.IsArray)
+			{
+				Debug.Assert(type.Name.EndsWith("]"));
+				var elementType = type.GetElementType();
+				var arrayRank = type.GetArrayRank();
+				return CreateArrayTypeReference(elementType, arrayRank);
+			}
+			else
+			{
+				if (type.FullName == "System.Web.Http.IHttpActionResult")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "System.Net.Http.HttpResponseMessage")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
+			}
+
+
+			return new CodeTypeReference(type);
+
+		}
+
+		/// <summary>
 		/// Generate type text suitable for matching what in doc comment XML, especially for generic types. For example, Nullable int in doc comment is Nullable{System.Int32}.
 		/// CSharpCodeProvider always give Nullable int, and there's no built-in way to alter.
 		/// This function reassembles TranslateToClientTypeReference, however, make sure that basic types of CLR will have something like System.Int32, and also curly baskets for generics.
@@ -685,7 +647,7 @@ namespace Fonlow.Poco2Client
 		public string TranslateToClientTypeReferenceText(Type type, bool forDocComment)
 		{
 			if (type == null)
-				return null;// new CodeTypeReference("void");
+				return null;
 
 			if (pendingTypes.Contains(type))
 				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(forDocComment?type.FullName: RefineCustomComplexTypeText(type)));

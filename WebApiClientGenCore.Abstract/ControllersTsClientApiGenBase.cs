@@ -15,7 +15,7 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// </summary>
 	public abstract class ControllersTsClientApiGenBase : IDisposable
 	{
-		public CodeCompileUnit TargetUnit { get; private set; }
+		protected CodeCompileUnit TargetUnit { get; private set; }
 
 		readonly CodeGenConfig apiSelections;
 		protected JSOutput jsOutput;

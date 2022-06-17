@@ -22,8 +22,9 @@ namespace Fonlow.CodeDom.Web
 		/// and the class must have a constructor without parameter that calls a base constructor with proper options type and parameters type.</param>
 		/// <param name="jsOutput"></param>
 		/// <param name="handleHttpRequestHeaders"></param>
+		/// <param name="docCommentTranslate"></param>
 		/// <returns>ICommand object. Null if not found</returns>
-		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput, bool handleHttpRequestHeaders)
+		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput, bool handleHttpRequestHeaders, Poco2Client.DocCommentTranslate docCommentTranslate)
 		{
 			Assembly assembly;
 			try
@@ -60,7 +61,7 @@ namespace Fonlow.CodeDom.Web
 				{
 					if (type.IsClass && type.IsSubclassOf(typeof(ControllersTsClientApiGenBase)))
 					{
-						controllersTsClientApiGen = (ControllersTsClientApiGenBase)Activator.CreateInstance(type, jsOutput, handleHttpRequestHeaders);
+						controllersTsClientApiGen = (ControllersTsClientApiGenBase)Activator.CreateInstance(type, jsOutput, handleHttpRequestHeaders, docCommentTranslate);
 						break;
 					}
 				}

@@ -12,7 +12,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// </summary>
 		/// <param name="jsOutput"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		public ControllersTsFetchClientApiGen(JSOutput jsOutput, bool handleHttpRequestHeaders) : base(jsOutput, new ClientApiTsFetchFunctionGen(jsOutput, handleHttpRequestHeaders))
+		public ControllersTsFetchClientApiGen(JSOutput jsOutput, bool handleHttpRequestHeaders, Fonlow.Poco2Client.DocCommentTranslate docCommentTranslate) : base(jsOutput, new ClientApiTsFetchFunctionGen(jsOutput, handleHttpRequestHeaders), docCommentTranslate)
 		{
 		}
 

@@ -15,27 +15,27 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// </summary>
 	public abstract class ControllersTsClientApiGenBase : IDisposable
 	{
-		protected CodeCompileUnit TargetUnit { get; private set; }
+		public CodeCompileUnit TargetUnit { get; private set; }
 
 		readonly CodeGenConfig apiSelections;
 		protected JSOutput jsOutput;
 		private bool disposedValue;
 		readonly ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
-
+		readonly DocCommentTranslate poco2CsGen;
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="jsOutput"></param>
 		/// <param name="apiFunctionGen"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		protected ControllersTsClientApiGenBase(JSOutput jsOutput, ClientApiTsFunctionGenAbstract apiFunctionGen)
+		protected ControllersTsClientApiGenBase(JSOutput jsOutput, ClientApiTsFunctionGenAbstract apiFunctionGen, DocCommentTranslate poco2CsGen)
 		{
-			this.jsOutput = jsOutput ?? throw new ArgumentNullException("jsOutput");
+			this.jsOutput = jsOutput ?? throw new ArgumentNullException(nameof(jsOutput));
 			this.apiFunctionGen = apiFunctionGen;
 			this.apiSelections = jsOutput.ApiSelections;
+			this.poco2CsGen = poco2CsGen;
 			TargetUnit = new CodeCompileUnit();
 			poco2TsGen = CreatePoco2TsGen(jsOutput.ClientNamespaceSuffix);
-			poco2CsGen = new Poco2CsGen(TargetUnit); //for doc comments
 
 			TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
 			options.BracingStyle = "JS";
@@ -51,8 +51,6 @@ namespace Fonlow.CodeDom.Web.Ts
 		abstract protected IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix);
 
 		readonly IPoco2Client poco2TsGen;
-
-		readonly Poco2CsGen poco2CsGen;
 
 		/// <summary>
 		/// Save C# codes into a file.
@@ -302,7 +300,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (disposing)
 				{
-					poco2CsGen.Dispose();
+					//poco2CsGen.Dispose();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override finalizer

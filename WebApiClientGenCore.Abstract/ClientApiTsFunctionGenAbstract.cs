@@ -22,16 +22,16 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected IPoco2Client Poco2TsGen { get; private set; }
 		protected bool StringAsString { get; private set; }
 		protected string HttpMethodName { get; private set; }
-		protected bool ReturnTypeIsNotNull { get; private set; }
+		protected bool ReturnTypeIsNotNullable { get; private set; }
 
-		Poco2CsGen poco2CsGen;
+		DocCommentTranslate poco2CsGen;
 
 		protected ClientApiTsFunctionGenAbstract()
 		{
 
 		}
 
-		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, Poco2CsGen poco2CsGen, JSOutput jsOutput)
+		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, DocCommentTranslate poco2CsGen, JSOutput jsOutput)
 		{
 			this.Description = description;
 			this.Poco2TsGen = poco2TsGen;
@@ -52,18 +52,19 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					if (jsOutput.NotNullAttributeOnMethod)
 					{
-						ReturnTypeIsNotNull = ReturnType != null && Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+						ReturnTypeIsNotNullable = ReturnType != null && Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 					}
 					else if (jsOutput.SupportNullReferenceTypeOnMethodReturn)
 					{
-						ReturnTypeIsNotNull = true;
+						ReturnTypeIsNotNullable = true;
 						var customAttributes = methodBase.CustomAttributes.ToArray();
 						if (customAttributes.Length > 0)
 						{
 							var nullableContextAttribute = customAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
-							if (nullableContextAttribute != null && (byte)(nullableContextAttribute.ConstructorArguments[0].Value) > 0)
+							if (nullableContextAttribute != null)
 							{
-								ReturnTypeIsNotNull = false;
+								var v = (byte)(nullableContextAttribute.ConstructorArguments[0].Value);
+								ReturnTypeIsNotNullable = v == 1;
 							}
 						}
 					}
@@ -106,11 +107,11 @@ namespace Fonlow.CodeDom.Web.Ts
 					}
 					else if (d.ParameterDescriptor.ParameterType.IsGenericType)
 					{
-						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
+						typeText = poco2CsGen.TranslateToClientTypeReferenceTextForDocComment(d.ParameterDescriptor.ParameterType);
 					}
 					else if (d.ParameterDescriptor.ParameterType.IsArray)
 					{
-						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
+						typeText = poco2CsGen.TranslateToClientTypeReferenceTextForDocComment(d.ParameterDescriptor.ParameterType);
 					}
 					else
 					{

@@ -60,6 +60,9 @@ namespace Poco2TsTests
 			var customAttributes = methodBase.CustomAttributes.ToArray();
 			Assert.NotEmpty(customAttributes); //[[System.Runtime.CompilerServices.NullableContextAttribute((Byte)1)]]
 			Assert.True(Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute)));
+
+			Assert.Equal((byte)1, customAttributes[0].ConstructorArguments[0].Value); // return type string is not with ?
+			Assert.Equal("System.Runtime.CompilerServices.NullableContextAttribute", customAttributes[0].AttributeType.FullName);
 		}
 
 		[Fact]
@@ -75,7 +78,7 @@ namespace Poco2TsTests
 			//Assert.True(Attribute.IsDefined(methodBase, typeof(System.Runtime.CompilerServices.NullableContextAttribute))); 
 			//For compiler only.
 			//I can see it in IDE Debugger, but not available in codes according to https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md.
-			Assert.Equal((byte)2, customAttributes[0].ConstructorArguments[0].Value);
+			Assert.Equal((byte)2, customAttributes[0].ConstructorArguments[0].Value); // return type string is with ?
 			Assert.Equal("System.Runtime.CompilerServices.NullableContextAttribute", customAttributes[0].AttributeType.FullName);
 
 
@@ -92,6 +95,9 @@ namespace Poco2TsTests
 			var customAttributes = methodBase.CustomAttributes.ToArray();
 			Assert.NotEmpty(customAttributes); //[[System.Runtime.CompilerServices.NullableContextAttribute((Byte)2)]]
 			Assert.True(Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute)));
+
+			Assert.Equal((byte)2, customAttributes[0].ConstructorArguments[0].Value); // return type A is with ?
+			Assert.Equal("System.Runtime.CompilerServices.NullableContextAttribute", customAttributes[0].AttributeType.FullName);
 		}
 
 		[Fact]
@@ -99,10 +105,10 @@ namespace Poco2TsTests
 		{
 			Type methodContainerType = Type.GetType("Poco2TsTests.Misc");
 			Assert.NotNull(methodContainerType);
-			var methodBase = methodContainerType.GetMethod("GetNotNullString");
+			var methodBase = methodContainerType.GetMethod("GetNotNullString"); // not within nullable directive
 			Assert.NotNull(methodBase);
 			var customAttributes = methodBase.CustomAttributes.ToArray();
-			Assert.Empty(customAttributes);
+			Assert.Empty(customAttributes); //There's no System.Runtime.CompilerServices.NullableContextAttribute at all.
 			Assert.True(Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute)));
 		}
 

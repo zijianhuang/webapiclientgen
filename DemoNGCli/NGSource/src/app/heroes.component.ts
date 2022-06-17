@@ -17,9 +17,7 @@ export class HeroesComponent implements OnInit {
 	getHeroes(): void {
 		this.heroService.getHeros().subscribe(
 			heroes => {
-				if (heroes) {
-					this.heroes = heroes;
-				}
+				this.heroes = heroes;
 			}
 		);
 	}
@@ -28,10 +26,8 @@ export class HeroesComponent implements OnInit {
 		if (!name) { return; }
 		this.heroService.post(name).subscribe(
 			hero => {
-				if (hero) {
-					this.heroes.push(hero);
-					this.selectedHero = undefined;
-				}
+				this.heroes.push(hero);
+				this.selectedHero = undefined;
 			});
 	}
 	delete(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {

@@ -93,6 +93,7 @@ namespace Fonlow.CodeDom.Web
 					using var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders);
 					if (tsGen != null)
 					{
+						Poco2Client.Poco2CsGen gen = new Poco2Client.Poco2CsGen(tsGen.TargetUnit, settings.ClientApiOutputs);
 						tsGen.CreateCodeDom(webApiDescriptions);
 						tsGen.Save();
 					}

@@ -22,8 +22,8 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <summary>
 		/// Decorated by NotNullAttribute
 		/// </summary>
-		readonly bool returnTypeIsNotNull=false;
-		CodeMemberMethod method;
+		readonly bool returnTypeIsNotNullable = false;
+		CodeMemberMethod clientMethod;
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
 		readonly bool forAsync;
 		readonly bool stringAsString;
@@ -56,13 +56,26 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
 
-
-			if (settings.NotNullAttributeOnMethod)
+			var methodBase = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
+			if (methodBase != null)
 			{
-				var methodBase = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
-				if (methodBase != null)
+				if (settings.NotNullAttributeOnMethod)
 				{
-					returnTypeIsNotNull = returnType != null && Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+					returnTypeIsNotNullable = returnType != null && Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+				}
+				else if (settings.SupportNullReferenceTypeOnMethodReturn)
+				{
+					returnTypeIsNotNullable = true;
+					var customAttributes = methodBase.CustomAttributes.ToArray();
+					if (customAttributes.Length > 0)
+					{
+						var nullableContextAttribute = customAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
+						if (nullableContextAttribute != null)
+						{
+							var v = (byte)(nullableContextAttribute.ConstructorArguments[0].Value);
+							returnTypeIsNotNullable = v == 1;
+						}
+					}
 				}
 			}
 		}
@@ -82,12 +95,16 @@ namespace Fonlow.CodeDom.Web.Cs
 		public CodeMemberMethod CreateApiFunction()
 		{
 			//create method
-			method = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
+			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 
 			CreateDocComments();
-			if (settings.NotNullAttributeOnMethod && returnTypeIsNotNull)
+			if (settings.NotNullAttributeOnMethod && returnTypeIsNotNullable)
 			{
-				method.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
+				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
+			}
+			else if (settings.SupportNullReferenceTypeOnMethodReturn)
+			{
+				//clientMethod.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.CompilerServices.NullableContextAttribute", new CodeAttributeArgument(new CodeSnippetExpression(returnTypeIsNotNullable ? "2" : "1")))); Not supported in programming, it is .net internal stuffs
 			}
 
 			System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
@@ -106,8 +123,8 @@ namespace Fonlow.CodeDom.Web.Cs
 					Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
 					break;
 			}
-			
-			return method;
+
+			return clientMethod;
 		}
 
 		CodeMemberMethod CreateMethodBasic()
@@ -116,7 +133,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName,
-				ReturnType = poco2CsGen.TranslateToClientTypeReference(returnType),
+				ReturnType = poco2CsGen.TranslateToClientTypeReferenceForNullableReference(returnType, !returnTypeIsNotNullable),
 			};
 		}
 
@@ -127,7 +144,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName + "Async",
 				ReturnType = returnType == null ? new CodeTypeReference("async Task")
-				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReference(returnType)),
+				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReferenceForNullableReference(returnType, !returnTypeIsNotNullable)),
 			};
 		}
 
@@ -138,7 +155,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				if (string.IsNullOrWhiteSpace(doc))
 					return;
 
-				method.Comments.Add(new CodeCommentStatement("<" + elementName + ">" + doc + "</" + elementName + ">", true));
+				clientMethod.Comments.Add(new CodeCommentStatement("<" + elementName + ">" + doc + "</" + elementName + ">", true));
 			}
 
 			void CreateParamDocComment(string paramName, string doc)
@@ -146,10 +163,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				if (String.IsNullOrWhiteSpace(doc))
 					return;
 
-				method.Comments.Add(new CodeCommentStatement("<param name=\"" + paramName + "\">" + doc + "</param>", true));
+				clientMethod.Comments.Add(new CodeCommentStatement("<param name=\"" + paramName + "\">" + doc + "</param>", true));
 			}
 
-			method.Comments.Add(new CodeCommentStatement("<summary>", true));
+			clientMethod.Comments.Add(new CodeCommentStatement("<summary>", true));
 			var methodFullName = description.ActionDescriptor.MethodFullName;
 			if (description.ParameterDescriptions.Length > 0)
 			{
@@ -162,11 +179,11 @@ namespace Fonlow.CodeDom.Web.Cs
 					}
 					else if (d.ParameterDescriptor.ParameterType.IsGenericType)
 					{
-						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
+						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType, true);
 					}
 					else if (d.ParameterDescriptor.ParameterType.IsArray)
 					{
-						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType);
+						typeText = poco2CsGen.TranslateToClientTypeReferenceText(d.ParameterDescriptor.ParameterType, true);
 					}
 					else
 					{
@@ -188,13 +205,13 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					foreach (var item in noIndent)
 					{
-						method.Comments.Add(new CodeCommentStatement(item, true));
+						clientMethod.Comments.Add(new CodeCommentStatement(item, true));
 					}
 				}
 			}
 
-			method.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
-			method.Comments.Add(new CodeCommentStatement("</summary>", true));
+			clientMethod.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
+			clientMethod.Comments.Add(new CodeCommentStatement("</summary>", true));
 			foreach (var item in description.ParameterDescriptions)
 			{
 				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, item.Name);
@@ -223,34 +240,34 @@ namespace Fonlow.CodeDom.Web.Cs
 				.Select(d =>
 				new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name))
 				.ToArray();
-			method.Parameters.AddRange(parameters);
+			clientMethod.Parameters.AddRange(parameters);
 
 			if (settings.CancellationTokenEnabled)
 			{
-				method.Parameters.Add(new CodeParameterDeclarationExpression("System.Threading.CancellationToken", "cancellationToken"));
+				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("System.Threading.CancellationToken", "cancellationToken"));
 			}
 
 			if (settings.HandleHttpRequestHeaders)
 			{
-				method.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
+				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>" + (settings.SupportNullReferenceTypeOnMethodReturn ? "?" : ""), "handleHeaders = null"));
 			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
 			string uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
 
 
-			method.Statements.Add(new CodeVariableDeclarationStatement(
+			clientMethod.Statements.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "requestUri",
 				new CodeSnippetExpression(uriText)));
 
-			method.Statements.Add(new CodeSnippetStatement(
+			clientMethod.Statements.Add(new CodeSnippetStatement(
 			$@"			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri))
 			{{"
 			));
 
 			if (settings.HandleHttpRequestHeaders)
 			{
-				method.Statements.Add(new CodeSnippetStatement(
+				clientMethod.Statements.Add(new CodeSnippetStatement(
 				$@"			if (handleHeaders != null)
 			{{
 				handleHeaders(httpRequestMessage.Headers);
@@ -259,27 +276,27 @@ namespace Fonlow.CodeDom.Web.Cs
 				));
 			}
 
-			AddResponseMessageSendAsync(method);
+			AddResponseMessageSendAsync(clientMethod);
 
 			CodeVariableReferenceExpression resultReference = new CodeVariableReferenceExpression("responseMessage");
 
 			//Statement: result.EnsureSuccessStatusCode();
 			if (returnTypeIsStream)
 			{
-				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
+				clientMethod.Statements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
 
 				if (returnType != null)
 				{
-					AddReturnStatement(method.Statements);
+					AddReturnStatement(clientMethod.Statements);
 				}
 
-				Add3TEndBacket(method);
+				Add3TEndBacket(clientMethod);
 			}
 			else
 			{
 				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
 				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
-				method.Statements.Add(try1);
+				clientMethod.Statements.Add(try1);
 
 				//Statement: return something;
 				if (returnType != null)
@@ -288,7 +305,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
-				Add3TEndBacket(method);
+				Add3TEndBacket(clientMethod);
 			}
 		}
 
@@ -315,16 +332,16 @@ namespace Fonlow.CodeDom.Web.Cs
 				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
 
 			}).ToArray();
-			method.Parameters.AddRange(parameters);
+			clientMethod.Parameters.AddRange(parameters);
 
 			if (settings.CancellationTokenEnabled)
 			{
-				method.Parameters.Add(new CodeParameterDeclarationExpression("System.Threading.CancellationToken", "cancellationToken"));
+				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("System.Threading.CancellationToken", "cancellationToken"));
 			}
 
 			if (settings.HandleHttpRequestHeaders)
 			{
-				method.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
+				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>" + (settings.SupportNullReferenceTypeOnMethodReturn ? "?" : ""), "handleHeaders = null"));
 			}
 
 			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
@@ -345,14 +362,14 @@ namespace Fonlow.CodeDom.Web.Cs
 				var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
 				string uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
 
-				method.Statements.Add(new CodeVariableDeclarationStatement(
+				clientMethod.Statements.Add(new CodeVariableDeclarationStatement(
 					new CodeTypeReference("var"), "requestUri",
 					new CodeSnippetExpression(uriText)));
 			}
 
 			AddRequestUriWithQueryAssignmentStatement();
 
-			method.Statements.Add(new CodeSnippetStatement(
+			clientMethod.Statements.Add(new CodeSnippetStatement(
 				$@"			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri))
 			{{"
 				));
@@ -361,30 +378,30 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				if (settings.UseSystemTextJson)
 				{
-					method.Statements.Add(new CodeSnippetStatement("\t\t\t" + @$"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
-					method.Statements.Add(new CodeSnippetStatement("\t\t\t" + @"var content = new StringContent(contentJson, System.Text.Encoding.UTF8, ""application/json"");"));
+					clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\t" + @$"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
+					clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\t" + @"var content = new StringContent(contentJson, System.Text.Encoding.UTF8, ""application/json"");"));
 				}
 				else
 				{
-					method.Statements.Add(new CodeSnippetStatement(
+					clientMethod.Statements.Add(new CodeSnippetStatement(
 	@"			using (var requestWriter = new System.IO.StringWriter())
 			{
 			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
 	));
-					method.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
+					clientMethod.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
 						new CodeSnippetExpression("requestWriter"),
 						new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
 
 
-					method.Statements.Add(new CodeSnippetStatement(
+					clientMethod.Statements.Add(new CodeSnippetStatement(
 	@"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
 						));
 				}
 
-				method.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;"));
+				clientMethod.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;"));
 				if (settings.HandleHttpRequestHeaders)
 				{
-					method.Statements.Add(new CodeSnippetStatement(@"			if (handleHeaders != null)
+					clientMethod.Statements.Add(new CodeSnippetStatement(@"			if (handleHeaders != null)
 			{
 				handleHeaders(httpRequestMessage.Headers);
 			}
@@ -392,24 +409,24 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 			}
 
-			AddResponseMessageSendAsync(method);
+			AddResponseMessageSendAsync(clientMethod);
 
 			var resultReference = new CodeVariableReferenceExpression("responseMessage");
 
 			if (returnTypeIsStream)
 			{
-				method.Statements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
+				clientMethod.Statements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
 
 				//Statement: return something;
 				if (returnType != null)
 				{
-					AddReturnStatement(method.Statements);
+					AddReturnStatement(clientMethod.Statements);
 				}
 			}
 			else
 			{
 				CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
-				method.Statements.Add(try1);
+				clientMethod.Statements.Add(try1);
 				try1.TryStatements.Add(new CodeMethodInvokeExpression(resultReference, statementOfEnsureSuccessStatusCode));
 
 				//Statement: return something;
@@ -423,10 +440,10 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (singleFromBodyParameterDescription != null && !settings.UseSystemTextJson)
 			{
-				Add3TEndBacket(method);
+				Add3TEndBacket(clientMethod);
 			}
 
-			Add3TEndBacket(method);
+			Add3TEndBacket(clientMethod);
 		}
 
 		static void Add4TEndBacket(CodeStatementCollection statementCollection)
@@ -446,9 +463,12 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddNewtonSoftJsonSerializerDeserialize(CodeStatementCollection statementCollection)
 		{
-			statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-				new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-					new CodeSnippetExpression("jsonReader"))));
+			//statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
+			//	new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+			//		new CodeSnippetExpression("jsonReader"))));
+
+			statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression($"serializer.Deserialize<{poco2CsGen.TranslateToClientTypeReferenceText(returnType, false)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
+
 		}
 
 		static void AddNewtonSoftJsonSerializer(CodeStatementCollection statementCollection)
@@ -516,9 +536,18 @@ namespace Fonlow.CodeDom.Web.Cs
 					AddNewtonSoftJsonTextReader(statementCollection);
 					Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-						new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-							new CodeSnippetExpression("jsonReader"))));
+					//var invokeExpression = new CodeMethodInvokeExpression(
+					//	new CodeMethodReferenceExpression(
+					//		new CodeVariableReferenceExpression("serializer"),
+					//		"Deserialize",
+					//		poco2CsGen.TranslateToClientTypeReference(returnType)
+					//	),
+
+					//	new CodeSnippetExpression("jsonReader")
+					//);
+					//statementCollection.Add(new CodeMethodReturnStatement(invokeExpression));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression($"serializer.Deserialize<{poco2CsGen.TranslateToClientTypeReferenceText(returnType, false)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
+
 					Add4TEndBacket(statementCollection);
 				}
 
@@ -560,7 +589,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					{
 						AddNewtonSoftJsonTextReader(statementCollection);
 						Add4TStartBacket(statementCollection);
-						statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
+						statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
 						Add4TEndBacket(statementCollection);
 					}
 				}
@@ -576,7 +605,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					AddNewtonSoftJsonTextReader(statementCollection);
 					Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
 					Add4TEndBacket(statementCollection);
 				}
 			}
@@ -590,7 +619,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
 					Add4TStartBacket(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString()){1}", returnType.FullName, ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : "")))));
 					Add4TEndBacket(statementCollection);
 				}
 			}

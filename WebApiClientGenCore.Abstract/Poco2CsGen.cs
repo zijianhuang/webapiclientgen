@@ -15,12 +15,20 @@ using System.Reflection;
 
 namespace Fonlow.Poco2Client
 {
+	public interface DocCommentTranslate
+	{
+		string TranslateToClientTypeReferenceTextForDocComment(Type type);
+	}
+
 	/// <summary>
 	/// POCO to C# client data types generator, with CSharp CodeDOM provider.
 	/// </summary>
-	public class Poco2CsGen : IDisposable
+	public class Poco2CsGen : IDisposable, DocCommentTranslate
 	{
 		readonly CodeCompileUnit codeCompileUnit;
+
+		readonly ModelGenOutputs settings;
+
 
 		public CodeDomProvider CSharpCodeDomProvider { get; private set; }
 
@@ -38,11 +46,12 @@ namespace Fonlow.Poco2Client
 		/// Gen will share the same CodeCompileUnit with other CodeGen components.
 		/// </summary>
 		/// <param name="codeCompileUnit"></param>
-		public Poco2CsGen(CodeCompileUnit codeCompileUnit)
+		public Poco2CsGen(CodeCompileUnit codeCompileUnit, ModelGenOutputs settings)
 		{
 			this.codeCompileUnit = codeCompileUnit;
 			CSharpCodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
 			pendingTypes = new List<Type>();
+			this.settings = settings;
 		}
 
 
@@ -99,9 +108,6 @@ namespace Fonlow.Poco2Client
 
 		}
 
-
-		ModelGenOutputs settings;
-
 		/// <summary>
 		/// 
 		/// </summary>
@@ -110,10 +116,9 @@ namespace Fonlow.Poco2Client
 		/// <param name="docLookup"></param>
 		/// <param name="codeGenOutputs"></param>
 		/// <param name="dataAnnotationsToComments">Optional</param>
-		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, ModelGenOutputs codeGenOutputs, bool? dataAnnotationsToComments)
+		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, bool? dataAnnotationsToComments)
 		{
 			this.docLookup = docLookup;
-			this.settings = codeGenOutputs;
 			this.dataAnnotationsToComments = dataAnnotationsToComments;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
 			CreateCodeDom(cherryTypes, methods, settings.CSClientNamespaceSuffix);
@@ -576,6 +581,51 @@ namespace Fonlow.Poco2Client
 
 		}
 
+		public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type, bool isNullableReference)
+		{
+			if (type == null)
+				return null;// new CodeTypeReference("void");
+
+			if (pendingTypes.Contains(type))
+			{
+				return new CodeTypeReference(RefineCustomComplexTypeTextForNullableReferenceType(type, isNullableReference));
+			}
+			else if (type.IsGenericType)
+			{
+				return TranslateGenericToTypeReference(type);
+			}
+			else if (type.IsArray)
+			{
+				Debug.Assert(type.Name.EndsWith("]"));
+				var elementType = type.GetElementType();
+				var arrayRank = type.GetArrayRank();
+				return CreateArrayTypeReference(elementType, arrayRank);
+			}
+			else
+			{
+				if (type.FullName == "System.Web.Http.IHttpActionResult")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "System.Net.Http.HttpResponseMessage")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
+			}
+
+			if (isNullableReference)
+			{
+				return new CodeTypeReference(type.FullName + "?");
+			}
+			else
+			{
+				return new CodeTypeReference(type);
+			}
+		}
+
 		CodeTypeReference TranslateGenericToTypeReference(Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
@@ -612,7 +662,7 @@ namespace Fonlow.Poco2Client
 				return TranslateToClientTypeReference(genericArguments[0]);
 			}
 
-			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) || 
+			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) ||
 				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
@@ -632,21 +682,21 @@ namespace Fonlow.Poco2Client
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
-		public string TranslateToClientTypeReferenceText(Type type)
+		public string TranslateToClientTypeReferenceText(Type type, bool forDocComment)
 		{
 			if (type == null)
 				return null;// new CodeTypeReference("void");
 
 			if (pendingTypes.Contains(type))
-				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(type.FullName));
+				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(forDocComment?type.FullName: RefineCustomComplexTypeText(type)));
 			else if (type.IsGenericType)
 			{
-				return TranslateGenericToTypeReferenceText(type);
+				return TranslateGenericToTypeReferenceText(type, forDocComment);
 			}
 			else if (type.IsArray)
 			{
 				Debug.Assert(type.Name.EndsWith("]"));
-				var elementTypeText = TranslateToClientTypeReferenceText(type.GetElementType());
+				var elementTypeText = TranslateToClientTypeReferenceText(type.GetElementType(), forDocComment);
 				return $"{elementTypeText}[]";
 			}
 			else
@@ -669,96 +719,37 @@ namespace Fonlow.Poco2Client
 
 		}
 
-		string TranslateGenericToTypeReferenceText(Type type)
+		string TranslateGenericToTypeReferenceText(Type type, bool forDocComment)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
+			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) ||
+	genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
+			{
+				Debug.Assert(type.GenericTypeArguments.Length == 1);
+				//var elementType = type.GenericTypeArguments[0];
+				var elementTypeText = TranslateToClientTypeReferenceText(type.GetElementType(), forDocComment);
+				return $"{elementTypeText}[]";
+			}
 
-			//if (genericTypeDefinition == typeof(Nullable<>))
-			//{
-			//	return $"{typeof(Nullable).FullName}{{{TranslateToClientTypeReferenceText(genericArguments[0])}}}";
-			//}
-
-			//if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
-			//{
-			//	return CSharpCodeDomProvider.GetTypeOutput(TranslateToClientTypeReference(genericArguments[0]));
-			//}
-
-			////Handle array types
-			//if (TypeHelper.IsArrayType(genericTypeDefinition))
-			//{
-			//	Debug.Assert(type.GenericTypeArguments.Length == 1);
-			//	var arrayTypeFullName = genericTypeDefinition.FullName;
-			//	if (arrayTypeFullName.EndsWith("`1"))
-			//	{
-			//		arrayTypeFullName = arrayTypeFullName.Remove(arrayTypeFullName.Length - 2, 2); //hack out of the suffix
-			//	}
-
-			//	var elementType = type.GenericTypeArguments[0];
-			//	return $"{arrayTypeFullName}{{{TranslateToClientTypeReferenceText(elementType)}}}";
-			//}
-
-			//var tupleTypeIndex = TypeHelper.IsTuple(genericTypeDefinition);
-			//if (tupleTypeIndex >= 0)
-			//{
-			//	switch (tupleTypeIndex)
-			//	{
-			//		case 0:
-			//			return $"{TypeHelper.TupleTypeNames[0]}{{{TranslateToClientTypeReferenceText(genericArguments[0])}}}";
-			//		case 1:
-			//			Debug.Assert(genericArguments.Length == 2);
-			//			return $"{TypeHelper.TupleTypeNames[1]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
-			//		case 2:
-			//			return $"{TypeHelper.TupleTypeNames[2]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])}}}";
-			//		case 3:
-			//			return $"{TypeHelper.TupleTypeNames[3]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])}}}";
-			//		case 4:
-			//			return $"{TypeHelper.TupleTypeNames[4]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])},{TranslateToClientTypeReferenceText(genericArguments[4])}}}";
-			//		case 5:
-			//			return $"{TypeHelper.TupleTypeNames[5]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])},{TranslateToClientTypeReferenceText(genericArguments[4])},{TranslateToClientTypeReferenceText(genericArguments[5])}}}";
-			//		case 6:
-			//			return $"{TypeHelper.TupleTypeNames[6]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])},{TranslateToClientTypeReferenceText(genericArguments[4])},{TranslateToClientTypeReferenceText(genericArguments[5])},{TranslateToClientTypeReferenceText(genericArguments[6])}}}";
-			//		case 7:
-			//			return $"{TypeHelper.TupleTypeNames[7]}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])},{TranslateToClientTypeReferenceText(genericArguments[2])},{TranslateToClientTypeReferenceText(genericArguments[3])},{TranslateToClientTypeReferenceText(genericArguments[4])},{TranslateToClientTypeReferenceText(genericArguments[5])},{TranslateToClientTypeReferenceText(genericArguments[6])},{TranslateToClientTypeReferenceText(genericArguments[7])}}}";
-
-			//		default:
-			//			throw new InvalidOperationException("Hey, what Tuple");
-			//	}
-			//}
-
-
-			//if (genericArguments.Length == 2)
-			//{
-			//	var tName = genericTypeDefinition.FullName;
-			//	tName = tName.Remove(tName.Length - 2, 2);
-			//	if (genericTypeDefinition == typeof(IDictionary<,>))
-			//	{
-			//		return $"{tName}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
-			//	}
-
-			//	Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
-			//	if (closedDictionaryType.IsAssignableFrom(type))
-			//	{
-			//		return $"{tName}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
-			//	}
-
-			//	if (genericTypeDefinition == typeof(KeyValuePair<,>))
-			//	{
-			//		return $"{tName}{{{TranslateToClientTypeReferenceText(genericArguments[0])},{TranslateToClientTypeReferenceText(genericArguments[1])}}}";
-			//	}
-			//}
-
-			var anyGenericTypeName = genericTypeDefinition.FullName;
+			var anyGenericTypeName = forDocComment ? genericTypeDefinition.FullName : RefineCustomComplexTypeText(genericTypeDefinition);
 			var idx = anyGenericTypeName.IndexOf('`');
 			anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
-			var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t)).ToArray());
-			return $"{anyGenericTypeName}{{{genericParamsText}}}";
+			var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
+			var left = forDocComment ? "{{":"<";
+			var right = forDocComment ? "}}" : ">";
+			return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 
 		}
 
 		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name; //todo: find out this.settings sometimes becomes null???
+			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
+		}
+
+		string RefineCustomComplexTypeTextForNullableReferenceType(Type t, bool isNullReferenceType)
+		{
+			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name + (isNullReferenceType ? "?" : String.Empty);
 		}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
@@ -1036,6 +1027,11 @@ namespace Fonlow.Poco2Client
 			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
+		}
+
+		public string TranslateToClientTypeReferenceTextForDocComment(Type type)
+		{
+			return TranslateToClientTypeReferenceText(type, true);
 		}
 	}
 

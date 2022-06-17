@@ -15,9 +15,7 @@ export class DashboardComponent implements OnInit {
 		this.heroService.getHeros().subscribe(
 			{
 				next: heroes => {
-					if (heroes) {
 						this.heroes = heroes.slice(1, 5);
-					}
 				},
 				error: error => console.error(error)
 			}

@@ -21,14 +21,14 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected JSOutput jsOutput;
 		private bool disposedValue;
 		readonly ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
-		readonly DocCommentTranslate poco2CsGen;
+		readonly IDocCommentTranslate poco2CsGen;
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="jsOutput"></param>
 		/// <param name="apiFunctionGen"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		protected ControllersTsClientApiGenBase(JSOutput jsOutput, ClientApiTsFunctionGenAbstract apiFunctionGen, DocCommentTranslate poco2CsGen)
+		protected ControllersTsClientApiGenBase(JSOutput jsOutput, ClientApiTsFunctionGenAbstract apiFunctionGen, IDocCommentTranslate poco2CsGen)
 		{
 			this.jsOutput = jsOutput ?? throw new ArgumentNullException(nameof(jsOutput));
 			this.apiFunctionGen = apiFunctionGen;
@@ -58,10 +58,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		public void Save()
 		{
 			var provider = new TypeScriptCodeProvider(jsOutput.AsModule);
-			using (StreamWriter writer = new StreamWriter(jsOutput.JSPath))
-			{
-				provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
-			}
+			using StreamWriter writer = new StreamWriter(jsOutput.JSPath);
+			provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
 		}
 
 		/// <summary>

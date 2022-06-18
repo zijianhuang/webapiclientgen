@@ -1,28 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>Fonlow.WebApiClientGenCore.Abstract</AssemblyName>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Description>Allow different cherry picking methods for different data model assemblies.</Description>
-    <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
-    <Authors>Zijian Huang</Authors>
-    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <Version>2.2.1</Version>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true.</PackageReleaseNotes>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<AssemblyName>Fonlow.WebApiClientGenCore.Abstract</AssemblyName>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Description>Allow different cherry picking methods for different data model assemblies.</Description>
+		<Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
+		<Authors>Zijian Huang</Authors>
+		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+		<Version>2.2.1</Version>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true.</PackageReleaseNotes>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <NoWarn>1701;1702;0057</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
-    <ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
-    <ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
-    <ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <NoWarn>1701;1702;0057</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
+		<ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
+		<ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
+		<ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
+	</ItemGroup>
 
 </Project>

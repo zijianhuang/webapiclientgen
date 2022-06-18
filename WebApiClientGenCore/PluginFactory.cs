@@ -24,7 +24,7 @@ namespace Fonlow.CodeDom.Web
 		/// <param name="handleHttpRequestHeaders"></param>
 		/// <param name="docCommentTranslate"></param>
 		/// <returns>ICommand object. Null if not found</returns>
-		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput, bool handleHttpRequestHeaders, Poco2Client.DocCommentTranslate docCommentTranslate)
+		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput, bool handleHttpRequestHeaders, Poco2Client.IDocCommentTranslate docCommentTranslate)
 		{
 			Assembly assembly;
 			try

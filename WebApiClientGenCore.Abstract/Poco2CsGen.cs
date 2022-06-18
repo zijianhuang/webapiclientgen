@@ -15,33 +15,33 @@ using System.Reflection;
 
 namespace Fonlow.Poco2Client
 {
-	public interface DocCommentTranslate
+	public interface IDocCommentTranslate
 	{
 		string TranslateToClientTypeReferenceTextForDocComment(Type type);
 	}
 
 	/// <summary>
-	/// POCO to C# client data types generator, with CSharp CodeDOM provider.
+	/// POCO to C# client data types generator, with CSharpCodeDomProvider.
 	/// </summary>
-	public class Poco2CsGen : IDisposable, DocCommentTranslate
+	public class Poco2CsGen : IDisposable, IDocCommentTranslate
 	{
 		readonly CodeCompileUnit codeCompileUnit;
 
 		readonly ModelGenOutputs settings;
 		public CodeDomProvider CSharpCodeDomProvider { get; private set; }
 
-		/// <summary>
-		/// Init with its own CodeCompileUnit.
-		/// </summary>
-		public Poco2CsGen()
-		{
-			codeCompileUnit = new CodeCompileUnit();
-			CSharpCodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
-			pendingTypes = new List<Type>();
-		}
+		///// <summary>
+		///// Init with its own CodeCompileUnit.
+		///// </summary>
+		//public Poco2CsGen()
+		//{
+		//	codeCompileUnit = new CodeCompileUnit();
+		//	CSharpCodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
+		//	pendingTypes = new List<Type>();
+		//}
 
 		/// <summary>
-		/// Gen will share the same CodeCompileUnit with other CodeGen components.
+		/// Gen will share the same CodeCompileUnit with other CodeGen components which generate client API codes.
 		/// </summary>
 		/// <param name="codeCompileUnit"></param>
 		public Poco2CsGen(CodeCompileUnit codeCompileUnit, ModelGenOutputs settings)
@@ -64,19 +64,15 @@ namespace Fonlow.Poco2Client
 
 			try
 			{
-				using (var stream = new MemoryStream())
-				using (StreamWriter writer = new StreamWriter(stream))
-				{
-					WriteCode(writer);
-					writer.Flush();
-					stream.Position = 0;
-					using (var stringReader = new StreamReader(stream))
-					using (var fileWriter = new StreamWriter(fileName))
-					{
-						var s = stringReader.ReadToEnd();
-						fileWriter.Write(s.Replace("//;", ""));
-					}
-				}
+				using var stream = new MemoryStream();
+				using StreamWriter writer = new(stream);
+				WriteCode(writer);
+				writer.Flush();
+				stream.Position = 0;
+				using var stringReader = new StreamReader(stream);
+				using var fileWriter = new StreamWriter(fileName);
+				var s = stringReader.ReadToEnd();
+				fileWriter.Write(s.Replace("//;", ""));
 			}
 			catch (IOException e)
 			{
@@ -101,7 +97,7 @@ namespace Fonlow.Poco2Client
 			if (writer == null)
 				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
 
-			CodeGeneratorOptions options = new CodeGeneratorOptions();
+			CodeGeneratorOptions options = new();
 			CSharpCodeDomProvider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 		}
 
@@ -113,12 +109,13 @@ namespace Fonlow.Poco2Client
 		/// <param name="docLookup"></param>
 		/// <param name="codeGenOutputs"></param>
 		/// <param name="dataAnnotationsToComments">Optional</param>
-		public void CreateCodeDom(Assembly assembly, CherryPickingMethods methods, DocCommentLookup docLookup, bool? dataAnnotationsToComments)
+		public void CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods methods, bool? dataAnnotationsToComments)
 		{
-			this.docLookup = docLookup;
+			var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
+			docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 			this.dataAnnotationsToComments = dataAnnotationsToComments;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
-			CreateCodeDom(cherryTypes, methods, settings.CSClientNamespaceSuffix);
+			CreateCodeDomForTypes(cherryTypes, methods, settings.CSClientNamespaceSuffix);
 		}
 
 		bool? dataAnnotationsToComments;
@@ -135,7 +132,7 @@ namespace Fonlow.Poco2Client
 		/// <param name="types">POCO types.</param>
 		/// <param name="methods">How to cherry pick data to be exposed to the clients.</param>
 		/// <param name="clientNamespaceSuffix"></param>
-		public void CreateCodeDom(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
+		void CreateCodeDomForTypes(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
 		{
 			if (types == null)
 				throw new ArgumentNullException(nameof(types), "types is not defined.");
@@ -153,7 +150,7 @@ namespace Fonlow.Poco2Client
 				codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
-				groupedTypes.OrderBy(t => t.Name).Select(type =>
+				CodeTypeDeclaration[] codeTypeDeclarations = groupedTypes.OrderBy(t => t.Name).Select(type =>
 				{
 					var tsName = type.Name;
 					Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
@@ -358,7 +355,7 @@ namespace Fonlow.Poco2Client
 
 		}
 
-		void AddDataMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		static void AddDataMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
 		{
 			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);
 			if (dataMemberAttribute != null)
@@ -396,7 +393,7 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
-		void AddEnumMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		static void AddEnumMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
 		{
 			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.EnumMemberAttribute>(memberField);
 			if (dataMemberAttribute != null)
@@ -488,8 +485,12 @@ namespace Fonlow.Poco2Client
 			//  Later, we remove the commented out semicolons.
 			string memberName = name + (defaultValue == null || !settings.DataAnnotationsEnabled ? " { get; set; }//" : $" {{ get; set; }} = {defaultValue};//");
 
-			CodeMemberField result = new CodeMemberField() { Type = TranslateToClientTypeReference(type), Name = memberName };
-			result.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+			CodeMemberField result = new()
+			{
+				Type = TranslateToClientTypeReference(type),
+				Name = memberName,
+				Attributes = MemberAttributes.Public | MemberAttributes.Final
+			};
 
 			if (!String.IsNullOrEmpty(defaultValue))
 			{
@@ -746,7 +747,7 @@ namespace Fonlow.Poco2Client
 				return null;
 			}
 
-			List<string> ss = new List<string>();
+			List<string> ss = new();
 			var attributes = property.GetCustomAttributes().ToList();
 			attributes.Sort((x, y) =>
 			{
@@ -852,7 +853,7 @@ namespace Fonlow.Poco2Client
 
 		static readonly Type[] supportedTypes = new Type[] { typeof(double), typeof(int), typeof(long), typeof(char), typeof(float), typeof(short), typeof(byte) };
 
-		string GetDefaultValue(DefaultValueAttribute a)
+		static string GetDefaultValue(DefaultValueAttribute a)
 		{
 			if (a == null)
 			{
@@ -889,7 +890,7 @@ namespace Fonlow.Poco2Client
 					var min = new CodeSnippetExpression($"\"{obj.Minimum}\"");
 					var max = new CodeSnippetExpression($"\"{obj.Maximum}\"");
 					//var isNumber = obj.GetType()== typeof(int) || obj.GetType()==typeof(double);
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(operandType),
+					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(operandType),
 					new CodeAttributeArgument(min),
 					new CodeAttributeArgument(max) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
@@ -905,7 +906,7 @@ namespace Fonlow.Poco2Client
 				{
 					var obj= a as MaxLengthAttribute;
 					var len = new CodeSnippetExpression(obj.Length.ToString());
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(len) };
+					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(len) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
 					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
@@ -919,7 +920,7 @@ namespace Fonlow.Poco2Client
 				{
 					var obj= a as MinLengthAttribute;
 					var len = new CodeSnippetExpression(obj.Length.ToString());
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(len) };
+					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(len) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
 					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
@@ -934,7 +935,7 @@ namespace Fonlow.Poco2Client
 					var obj= a as StringLengthAttribute;
 					var max = new CodeSnippetExpression(obj.MaximumLength.ToString());
 					var min = new CodeSnippetExpression(obj.MinimumLength.ToString());
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(max),
+					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(max),
 					new CodeAttributeArgument("MinimumLength", min) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
@@ -949,7 +950,7 @@ namespace Fonlow.Poco2Client
 				{
 					var obj= a as DataTypeAttribute;
 					var dataType = new CodeSnippetExpression("System.ComponentModel.DataAnnotations.DataType." + obj.DataType.ToString());
-					List<CodeAttributeArgument> attributeParams = new List<CodeAttributeArgument> { new CodeAttributeArgument(dataType) };
+					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(dataType) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
 					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");

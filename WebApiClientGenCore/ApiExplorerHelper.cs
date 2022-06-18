@@ -11,7 +11,7 @@ namespace Fonlow.CodeDom.Web
 	public static class ApiExplorerHelper
 	{
 		/// <summary>
-		/// Get a flat list of ApiDescriptions in the api explorer
+		/// Get a flat list of ApiDescriptions in the api explorer. Called once in CodeGenController.
 		/// </summary>
 		/// <param name="explorer"></param>
 		/// <returns></returns>

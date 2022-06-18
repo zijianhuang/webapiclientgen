@@ -24,14 +24,14 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected string HttpMethodName { get; private set; }
 		protected bool ReturnTypeIsNotNullable { get; private set; }
 
-		DocCommentTranslate poco2CsGen;
+		IDocCommentTranslate poco2CsGen;
 
 		protected ClientApiTsFunctionGenAbstract()
 		{
 
 		}
 
-		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, DocCommentTranslate poco2CsGen, JSOutput jsOutput)
+		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, IDocCommentTranslate poco2CsGen, JSOutput jsOutput)
 		{
 			this.Description = description;
 			this.Poco2TsGen = poco2TsGen;

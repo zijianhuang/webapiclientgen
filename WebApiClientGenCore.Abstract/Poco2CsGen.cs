@@ -30,6 +30,16 @@ namespace Fonlow.Poco2Client
 		readonly ModelGenOutputs settings;
 		public CodeDomProvider CSharpCodeDomProvider { get; private set; }
 
+		DocCommentLookup docLookup;
+		private bool disposedValue;
+
+		bool? dataAnnotationsToComments;
+
+		/// <summary>
+		/// To store all custom types of the service app
+		/// </summary>
+		readonly List<Type> pendingTypes;
+
 		///// <summary>
 		///// Init with its own CodeCompileUnit.
 		///// </summary>
@@ -52,55 +62,6 @@ namespace Fonlow.Poco2Client
 			this.settings = settings;
 		}
 
-
-		/// <summary>
-		/// Save TypeScript codes generated into a file.
-		/// </summary>
-		/// <param name="fileName"></param>
-		public void SaveCodeToFile(string fileName)
-		{
-			if (String.IsNullOrEmpty(fileName))
-				throw new ArgumentException("A valid fileName is not defined.", nameof(fileName));
-
-			try
-			{
-				using var stream = new MemoryStream();
-				using StreamWriter writer = new(stream);
-				WriteCode(writer);
-				writer.Flush();
-				stream.Position = 0;
-				using var stringReader = new StreamReader(stream);
-				using var fileWriter = new StreamWriter(fileName);
-				var s = stringReader.ReadToEnd();
-				fileWriter.Write(s.Replace("//;", ""));
-			}
-			catch (IOException e)
-			{
-				Trace.TraceWarning(e.Message);
-			}
-			catch (UnauthorizedAccessException e)
-			{
-				Trace.TraceWarning(e.Message);
-			}
-			catch (System.Security.SecurityException e)
-			{
-				Trace.TraceWarning(e.Message);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="writer"></param>
-		public void WriteCode(TextWriter writer)
-		{
-			if (writer == null)
-				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
-
-			CodeGeneratorOptions options = new();
-			CSharpCodeDomProvider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
-		}
-
 		/// <summary>
 		/// 
 		/// </summary>
@@ -117,13 +78,6 @@ namespace Fonlow.Poco2Client
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
 			CreateCodeDomForTypes(cherryTypes, methods, settings.CSClientNamespaceSuffix);
 		}
-
-		bool? dataAnnotationsToComments;
-
-		/// <summary>
-		/// To store all custom types of the service app
-		/// </summary>
-		readonly List<Type> pendingTypes;
 
 		/// <summary>
 		/// Create CodeDOM for POCO types. 
@@ -409,9 +363,6 @@ namespace Fonlow.Poco2Client
 				}
 			}
 		}
-
-		DocCommentLookup docLookup;
-		private bool disposedValue;
 
 		void CreateTypeDocComment(Type type, CodeTypeDeclaration typeDeclaration)
 		{

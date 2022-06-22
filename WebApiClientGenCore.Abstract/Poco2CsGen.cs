@@ -14,6 +14,9 @@ using System.Reflection;
 
 namespace Fonlow.Poco2Client
 {
+	/// <summary>
+	/// Translation is based on C# format.
+	/// </summary>
 	public interface IDocCommentTranslate
 	{
 		string TranslateToClientTypeReferenceTextForDocComment(Type type);
@@ -56,7 +59,7 @@ namespace Fonlow.Poco2Client
 		/// <param name="methods"></param>
 		/// <param name="docLookup"></param>
 		/// <param name="codeGenOutputs"></param>
-		/// <param name="dataAnnotationsToComments">Optional</param>
+		/// <param name="dataAnnotationsToComments">Optional. This may be independent of the global setting in settings of ModelGenOutputs</param>
 		public void CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods methods, bool? dataAnnotationsToComments)
 		{
 			var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);

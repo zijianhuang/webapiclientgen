@@ -11,7 +11,7 @@ using Fonlow.Reflection;
 namespace Fonlow.CodeDom.Web.Ts
 {
 	/// <summary>
-	/// Generate a client function upon ApiDescription
+	/// Generate a TS client function upon ApiDescription
 	/// </summary>
 	public abstract class ClientApiTsFunctionGenAbstract
 	{
@@ -162,7 +162,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			Method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
 		}
 
-		protected string RemoveTrialEmptyString(string s)
+		protected static string RemoveTrialEmptyString(string s)
 		{
 			var p = s.IndexOf(" + ''");
 			if (p > -1)

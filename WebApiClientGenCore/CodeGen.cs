@@ -26,11 +26,7 @@ namespace Fonlow.CodeDom.Web
 					};
 
 				var path = System.IO.Path.Combine(csharpClientProjectDir, settings.ClientApiOutputs.FileName);
-				using var gen = new Cs.ControllersClientApiGen(settings)
-				{
-					ForBothAsyncAndSync = settings.ClientApiOutputs.GenerateBothAsyncAndSync
-				};
-
+				using var gen = new Cs.ControllersClientApiGen(settings);
 				gen.CreateCodeDom(webApiDescriptions);
 				gen.Save(path);
 			}
@@ -73,7 +69,7 @@ namespace Fonlow.CodeDom.Web
 			{
 				foreach (var plugin in settings.ClientApiOutputs.Plugins)
 				{
-					using var gen = new Cs.ControllersClientApiGen(settings);
+					using var gen = new Cs.ControllersClientApiGen(settings); //TS code gen still needs some features of CS code gen for reading doc comment xml.
 
 					var jsOutput = new JSOutput
 					{
@@ -92,7 +88,7 @@ namespace Fonlow.CodeDom.Web
 						SupportNullReferenceTypeOnMethodReturn=settings.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn,
 					};
 
-					using var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);
+					var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);
 					if (tsGen != null)
 					{
 						tsGen.CreateCodeDom(webApiDescriptions);

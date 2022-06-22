@@ -13,15 +13,16 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// <summary>
 	/// Generate TypeScript codes of the client API of the controllers
 	/// </summary>
-	public abstract class ControllersTsClientApiGenBase : IDisposable
+	public abstract class ControllersTsClientApiGenBase
 	{
 		protected CodeCompileUnit TargetUnit { get; private set; }
 
 		readonly CodeGenConfig apiSelections;
 		protected JSOutput jsOutput;
-		private bool disposedValue;
 		readonly ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
 		readonly IDocCommentTranslate poco2CsGen;
+		readonly IPoco2Client poco2TsGen;
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -50,20 +51,18 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <returns></returns>
 		abstract protected IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix);
 
-		readonly IPoco2Client poco2TsGen;
-
 		/// <summary>
 		/// Save C# codes into a file.
 		/// </summary>
 		public void Save()
 		{
 			var provider = new TypeScriptCodeProvider(jsOutput.AsModule);
-			using StreamWriter writer = new StreamWriter(jsOutput.JSPath);
+			using StreamWriter writer = new(jsOutput.JSPath);
 			provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
 		}
 
 		/// <summary>
-		/// Generate CodeDom of the client API for ApiDescriptions.
+		/// Generate TS CodeDom of the client API for ApiDescriptions.
 		/// </summary>
 		/// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
 		public void CreateCodeDom(WebApiDescription[] descriptions)
@@ -210,7 +209,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				for (int k = 0; k < ns.Types.Count; k++)
 				{
 					var c = ns.Types[k];
-					List<CodeMemberMethod> methods = new List<CodeMemberMethod>();
+					List<CodeMemberMethod> methods = new();
 					for (int m = 0; m < c.Members.Count; m++)
 					{
 						if (c.Members[m] is CodeMemberMethod method)
@@ -290,35 +289,6 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected virtual void AddHelperFunctionsInClass(CodeTypeDeclaration c)
 		{
 			//do nothing.
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposedValue)
-			{
-				if (disposing)
-				{
-					//poco2CsGen.Dispose();
-				}
-
-				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
-				// TODO: set large fields to null
-				disposedValue = true;
-			}
-		}
-
-		// // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-		// ~ControllersTsClientApiGenBase()
-		// {
-		//     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-		//     Dispose(disposing: false);
-		// }
-
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-			Dispose(disposing: true);
-			GC.SuppressFinalize(this);
 		}
 	}
 

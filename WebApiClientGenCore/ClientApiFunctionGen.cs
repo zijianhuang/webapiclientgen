@@ -30,7 +30,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly string statementOfEnsureSuccessStatusCode;
 		readonly CodeGenOutputs settings;
 
-		public ClientApiFunctionGen(WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
+		ClientApiFunctionGen(WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
 			this.description = description;
 			//this.sharedContext = sharedContext;
@@ -92,7 +92,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			return gen.CreateApiFunction();
 		}
 
-		public CodeMemberMethod CreateApiFunction()
+		CodeMemberMethod CreateApiFunction()
 		{
 			//create method
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();

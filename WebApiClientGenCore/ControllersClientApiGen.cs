@@ -14,11 +14,16 @@ namespace Fonlow.CodeDom.Web.Cs
 	/// </summary>
 	public class ControllersClientApiGen : IDisposable
 	{
-		CodeCompileUnit TargetUnit { get; set; }
-		//SharedContext SharedContext { get; set; }
-		CodeGenSettings CodeGenParameters { get; set; }
-		public Poco2CsGen Poco2CsGenerator { get; private set; }
+		CodeCompileUnit targetUnit;
+		CodeGenSettings codeGenParameters;
 		CodeDomProvider provider;
+
+		private bool disposedValue;
+
+		/// <summary>
+		/// Also shared by TS Plugins.
+		/// </summary>
+		public Poco2CsGen Poco2CsGenerator { get; private set; }
 
 		/// <summary>
 		/// 
@@ -27,13 +32,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
 		public ControllersClientApiGen(CodeGenSettings codeGenParameters)
 		{
-			this.CodeGenParameters = codeGenParameters ?? throw new System.ArgumentNullException(nameof(codeGenParameters));
-			TargetUnit = new CodeCompileUnit();
+			this.codeGenParameters = codeGenParameters ?? throw new System.ArgumentNullException(nameof(codeGenParameters));
+			targetUnit = new CodeCompileUnit();
 			provider = CodeDomProvider.CreateProvider("CSharp");
-			Poco2CsGenerator = new Poco2CsGen(TargetUnit, provider, CodeGenParameters.ClientApiOutputs);
+			Poco2CsGenerator = new Poco2CsGen(targetUnit, provider, this.codeGenParameters.ClientApiOutputs);
 		}
-
-		private bool disposedValue;
 
 		/// <summary>
 		/// Save C# codes into a file.
@@ -51,14 +54,14 @@ namespace Fonlow.CodeDom.Web.Cs
 			using (var stream = new MemoryStream())
 			using (StreamWriter writer = new StreamWriter(stream))
 			{
-				provider.GenerateCodeFromCompileUnit(TargetUnit, writer, options);
+				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
 				writer.Flush();
 				stream.Position = 0;
 				using (var stringReader = new StreamReader(stream))
 				using (var fileWriter = new StreamWriter(fileName))
 				{
 					var s = stringReader.ReadToEnd();
-					if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && CodeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
+					if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 					{
 						fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
 					}
@@ -70,35 +73,32 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 		}
 
-		public bool ForBothAsyncAndSync { get; set; }
-
-
 		void GenerateCsFromPoco()
 		{
-			if (CodeGenParameters.ApiSelections.DataModelAssemblyNames != null)
+			if (codeGenParameters.ApiSelections.DataModelAssemblyNames != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				var assemblies = allAssemblies.Where(d => CodeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
+				var assemblies = allAssemblies.Where(d => codeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
 					.OrderBy(n => n.FullName)
 					.ToArray();
-				var cherryPickingMethods = CodeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)CodeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+				var cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 				foreach (var assembly in assemblies)
 				{
 					Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, null);
 				}
 			}
 
-			if (CodeGenParameters.ApiSelections.DataModels != null)
+			if (codeGenParameters.ApiSelections.DataModels != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				foreach (var dm in CodeGenParameters.ApiSelections.DataModels)
+				foreach (var dm in codeGenParameters.ApiSelections.DataModels)
 				{
 					var assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dm.AssemblyName, StringComparison.CurrentCultureIgnoreCase));
 					if (assembly != null)
 					{
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 						var dataAnnotationsToComments = (dm.DataAnnotationsToComments.HasValue && dm.DataAnnotationsToComments.Value) // dm explicitly tell to do
-							|| (!dm.DataAnnotationsToComments.HasValue && CodeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
+							|| (!dm.DataAnnotationsToComments.HasValue && codeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
 						Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, dataAnnotationsToComments);
 					}
 				}
@@ -126,9 +126,9 @@ namespace Fonlow.CodeDom.Web.Cs
 			//Create client classes mapping to controller classes
 			foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
-				var clientNamespaceText = grouppedControllerDescriptions.Key + CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix;
+				var clientNamespaceText = grouppedControllerDescriptions.Key + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix;
 				var clientNamespace = new CodeNamespace(clientNamespaceText);
-				TargetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
 				clientNamespace.Imports.AddRange(
 					new CodeNamespaceImport[]{
@@ -139,7 +139,7 @@ namespace Fonlow.CodeDom.Web.Cs
 						new CodeNamespaceImport("System.Net.Http"),
 				});
 
-				if (CodeGenParameters.ClientApiOutputs.UseSystemTextJson)
+				if (codeGenParameters.ClientApiOutputs.UseSystemTextJson)
 				{
 					clientNamespace.Imports.Add(new CodeNamespaceImport("System.Text.Json"));
 					clientNamespace.Imports.Add(new CodeNamespaceImport("System.Text.Json.Serialization"));
@@ -149,7 +149,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					clientNamespace.Imports.Add(new CodeNamespaceImport("Newtonsoft.Json"));
 				}
 
-				if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+				if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
 				{
 					clientNamespace.Imports.Add(new CodeNamespaceImport("Fonlow.Net.Http"));
 				}
@@ -159,7 +159,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					.Select(d =>
 					{
 						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
-						if (CodeGenParameters.ApiSelections.ExcludedControllerNames != null && CodeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+						if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
 
 						string containerClassName = GetContainerClassName(d.ControllerName);
@@ -175,21 +175,21 @@ namespace Fonlow.CodeDom.Web.Cs
 				var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
 				var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
 				var controllerFullName = controllerNamespace + "." + controllerName;
-				if (CodeGenParameters.ApiSelections.ExcludedControllerNames != null && CodeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+				if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 					continue;
 
 				var existingClientClass = LookupExistingClass(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.CodeGenParameters.ClientApiOutputs, true);
+				var apiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenParameters.ClientApiOutputs, true);
 				existingClientClass.Members.Add(apiFunction);
-				if (ForBothAsyncAndSync)
+				if (codeGenParameters.ClientApiOutputs.GenerateBothAsyncAndSync)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.CodeGenParameters.ClientApiOutputs, false));
+					existingClientClass.Members.Add(ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenParameters.ClientApiOutputs, false));
 				}
 			}
 
-			if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && CodeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
+			if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 			{
 				CreateDummyOfEnsureSuccessStatusCodeEx();
 			}
@@ -197,7 +197,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		string GetContainerClassName(string controllerName)
 		{
-			return controllerName + (CodeGenParameters.ClientApiOutputs.ContainerNameSuffix ?? String.Empty);
+			return controllerName + (codeGenParameters.ClientApiOutputs.ContainerNameSuffix ?? String.Empty);
 		}
 
 		/// <summary>
@@ -208,10 +208,10 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <returns></returns>
 		CodeTypeDeclaration LookupExistingClass(string namespaceText, string containerClassName)
 		{
-			for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
+			for (int i = 0; i < targetUnit.Namespaces.Count; i++)
 			{
-				var ns = TargetUnit.Namespaces[i];
-				if (ns.Name == namespaceText + CodeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix)
+				var ns = targetUnit.Namespaces[i];
+				if (ns.Name == namespaceText + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix)
 				{
 					for (int k = 0; k < ns.Types.Count; k++)
 					{
@@ -255,7 +255,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Private,
 				Name = "jsonSerializerSettings",
-				Type = CodeGenParameters.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions") : new CodeTypeReference("JsonSerializerSettings")
+				Type = codeGenParameters.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions") : new CodeTypeReference("JsonSerializerSettings")
 			};
 			targetClass.Members.Add(jsonSettingsField);
 		}
@@ -272,7 +272,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Net.Http.HttpClient", "client"));
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				CodeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" : "JsonSerializerSettings", "jsonSerializerSettings=null"));
+				codeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" : "JsonSerializerSettings", "jsonSerializerSettings=null"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
 				throw new ArgumentNullException(""Null HttpClient."", ""client"");
@@ -290,7 +290,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void CreateDummyOfEnsureSuccessStatusCodeEx()
 		{
-			TargetUnit.Namespaces.Add(new CodeNamespace("EnsureSuccessStatusCodeExDummy"));
+			targetUnit.Namespaces.Add(new CodeNamespace("EnsureSuccessStatusCodeExDummy"));
 		}
 
 		const string blockOfEnsureSuccessStatusCodeEx =

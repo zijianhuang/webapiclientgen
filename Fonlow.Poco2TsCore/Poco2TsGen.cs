@@ -25,7 +25,7 @@ namespace Fonlow.Poco2Ts
 
 		readonly bool helpStrictMode;
 		/// <summary>
-		/// Init with its own CodeCompileUnit.
+		/// Init with its own CodeCompileUnit. Only for test cases.
 		/// </summary>
 		public Poco2TsGen(string clientNamespaceSuffix, bool helpStrictMode)
 		{

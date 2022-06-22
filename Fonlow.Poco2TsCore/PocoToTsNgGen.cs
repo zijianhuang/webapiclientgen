@@ -3,6 +3,9 @@ using System.CodeDom;
 
 namespace Fonlow.Poco2Ts
 {
+	/// <summary>
+	/// Usecd by plugins sharing similar handlings with ActionResult.
+	/// </summary>
 	public class PocoToTsNgGen : Poco2TsGen
 	{
 		public PocoToTsNgGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode) : base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode)

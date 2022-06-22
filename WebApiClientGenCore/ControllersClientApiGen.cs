@@ -61,9 +61,13 @@ namespace Fonlow.CodeDom.Web.Cs
 				using (var fileWriter = new StreamWriter(fileName))
 				{
 					var s = stringReader.ReadToEnd();
+					if (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn)
+					{
+						s = "#nullable enable\r\n" + s + "\r\n#nullable disable";
+					}
 					if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 					{
-						fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
+						fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? blockOfEnsureSuccessStatusCodeExForNullReferenceTypes : blockOfEnsureSuccessStatusCodeEx));
 					}
 					else
 					{
@@ -255,7 +259,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Private,
 				Name = "jsonSerializerSettings",
-				Type = codeGenParameters.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions") : new CodeTypeReference("JsonSerializerSettings")
+				Type = codeGenParameters.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : "")) : new CodeTypeReference("JsonSerializerSettings" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : ""))
 			};
 			targetClass.Members.Add(jsonSettingsField);
 		}
@@ -272,7 +276,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Net.Http.HttpClient", "client"));
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				codeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" : "JsonSerializerSettings", "jsonSerializerSettings=null"));
+				codeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : "") : "JsonSerializerSettings" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : ""), "jsonSerializerSettings=null"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
 				throw new ArgumentNullException(""Null HttpClient."", ""client"");
@@ -293,6 +297,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			targetUnit.Namespaces.Add(new CodeNamespace("EnsureSuccessStatusCodeExDummy"));
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <remarks>In .NEt 6, StatusCode of HttpRequestException is not there anymore.</remarks>
 		const string blockOfEnsureSuccessStatusCodeEx =
 		@"
 
@@ -332,6 +340,47 @@ namespace Fonlow.Net.Http
 		}
 	}
 }";
+
+		const string blockOfEnsureSuccessStatusCodeExForNullReferenceTypes =
+		@"
+
+namespace Fonlow.Net.Http
+{
+	using System.Net.Http;
+
+	public class WebApiRequestException : HttpRequestException
+	{
+		public new System.Net.HttpStatusCode? StatusCode { get; private set; }
+
+		public string Response { get; private set; }
+
+		public System.Net.Http.Headers.HttpResponseHeaders Headers { get; private set; }
+
+		public System.Net.Http.Headers.MediaTypeHeaderValue? ContentType { get; private set; }
+
+		public WebApiRequestException(string? message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.HttpResponseHeaders headers, System.Net.Http.Headers.MediaTypeHeaderValue? contentType) : base(message)
+		{
+			StatusCode = statusCode;
+			Response = response;
+			Headers = headers;
+			ContentType = contentType;
+		}
+	}
+
+	public static class ResponseMessageExtensions
+	{
+		public static void EnsureSuccessStatusCodeEx(this HttpResponseMessage responseMessage)
+		{
+			if (!responseMessage.IsSuccessStatusCode)
+			{
+				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
+				var contentType = responseMessage.Content.Headers.ContentType;
+				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, responseMessage.Headers, contentType);
+			}
+		}
+	}
+}";
+
 		const string dummyBlock =
 			@"
 namespace EnsureSuccessStatusCodeExDummy

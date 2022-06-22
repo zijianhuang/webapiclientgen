@@ -10826,7 +10826,7 @@ namespace Fonlow.Net.Http
 
 	public class WebApiRequestException : HttpRequestException
 	{
-		public new System.Net.HttpStatusCode StatusCode { get; private set; }
+		public System.Net.HttpStatusCode? StatusCode { get; private set; }
 
 		public string Response { get; private set; }
 

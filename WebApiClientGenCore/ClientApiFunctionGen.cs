@@ -105,7 +105,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			else if (settings.SupportNullReferenceTypeOnMethodReturn)
 			{
 				//clientMethod.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.CompilerServices.NullableContextAttribute", new CodeAttributeArgument(new CodeSnippetExpression(returnTypeIsNotNullable ? "2" : "1")))); Not supported in programming, it is .net internal stuffs
-			}
+	}
 
 			System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
 			switch (description.HttpMethod)

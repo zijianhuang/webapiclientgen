@@ -107,7 +107,7 @@ namespace Fonlow.Poco2Client
 					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
 
 				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
+					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject" + (isNullableReference ? "?" : ""));
 			}
 
 			if (isNullableReference)

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
@@ -17,13 +16,14 @@ namespace DemoWebApi.Controllers
 			return (take.HasValue ? take.Value.ToString() : String.Empty) + skip.ToString() + (String.IsNullOrEmpty(order) ? "" : order) + (String.IsNullOrEmpty(sort) ? "" : sort) + (String.IsNullOrEmpty(search) ? "" : search);
 		}
 
+#nullable enable
 		/// <summary>
 		/// Return empty body with status 204 No Content.
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
 		[Route("NullString")]
-		public string GetNullString()
+		public string? GetNullString()
 		{
 			return null;
 		}
@@ -45,6 +45,6 @@ namespace DemoWebApi.Controllers
 		{
 			return String.Empty;
 		}
-
+#nullable disable
 	}
 }

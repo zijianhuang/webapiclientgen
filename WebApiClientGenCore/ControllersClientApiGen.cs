@@ -51,28 +51,49 @@ namespace Fonlow.CodeDom.Web.Cs
 				BracingStyle = "C",
 				IndentString = "\t"
 			};
-			using (var stream = new MemoryStream())
-			using (StreamWriter writer = new StreamWriter(stream))
+			if (!codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn)
 			{
+				using var stream = new MemoryStream();
+				using StreamWriter writer = new StreamWriter(stream);
 				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
 				writer.Flush();
 				stream.Position = 0;
-				using (var stringReader = new StreamReader(stream))
-				using (var fileWriter = new StreamWriter(fileName))
+				using var stringReader = new StreamReader(stream);
+				using var fileWriter = new StreamWriter(fileName);
+				var s = stringReader.ReadToEnd();
+				if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 				{
-					var s = stringReader.ReadToEnd();
-					if (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn)
-					{
-						s = "#nullable enable\r\n" + s + "\r\n#nullable disable";
-					}
-					if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
-					{
-						fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? blockOfEnsureSuccessStatusCodeExForNullReferenceTypes : blockOfEnsureSuccessStatusCodeEx));
-					}
-					else
-					{
-						fileWriter.Write(s.Replace("//;", ""));
-					}
+					fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? blockOfEnsureSuccessStatusCodeExForNullReferenceTypes : blockOfEnsureSuccessStatusCodeEx));
+				}
+				else
+				{
+					fileWriter.Write(s.Replace("//;", ""));
+				}
+			}
+			else
+			{
+				using var stream = new MemoryStream();
+				using StreamWriter writer = new StreamWriter(stream);
+				for (int i = 0; i < targetUnit.Namespaces.Count; i++)
+				{
+					var ns = targetUnit.Namespaces[i];
+					writer.WriteLine("#nullable enable");
+					provider.GenerateCodeFromNamespace(ns, writer, options);
+					writer.WriteLine("#nullable disable");
+				}
+
+				writer.Flush();
+				stream.Position = 0;
+				using var stringReader = new StreamReader(stream);
+				using var fileWriter = new StreamWriter(fileName);
+				var s = stringReader.ReadToEnd();
+				if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
+				{
+					fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? blockOfEnsureSuccessStatusCodeExForNullReferenceTypes : blockOfEnsureSuccessStatusCodeEx));
+				}
+				else
+				{
+					fileWriter.Write(s.Replace("//;", ""));
 				}
 			}
 		}
@@ -279,10 +300,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				codeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : "") : "JsonSerializerSettings" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : ""), "jsonSerializerSettings=null"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
-				throw new ArgumentNullException(""Null HttpClient."", ""client"");
+				throw new ArgumentNullException(nameof(client), ""Null HttpClient."");
 "));
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client.BaseAddress == null)
-				throw new ArgumentNullException(""HttpClient has no BaseAddress"", ""client"");
+				throw new ArgumentNullException(nameof(client), ""HttpClient has no BaseAddress"");
 "));
 			// Add field initialization logic
 			var clientReference = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "client");

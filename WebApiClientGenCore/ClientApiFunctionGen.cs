@@ -260,20 +260,11 @@ namespace Fonlow.CodeDom.Web.Cs
 				new CodeTypeReference("var"), "requestUri",
 				new CodeSnippetExpression(uriText)));
 
-			clientMethod.Statements.Add(new CodeSnippetStatement(
-			$@"			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri))
-			{{"
-			));
+			clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"using var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri);"));
 
 			if (settings.HandleHttpRequestHeaders)
 			{
-				clientMethod.Statements.Add(new CodeSnippetStatement(
-				$@"			if (handleHeaders != null)
-			{{
-				handleHeaders(httpRequestMessage.Headers);
-			}}
-"
-				));
+				clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\thandleHeaders?.Invoke(httpRequestMessage.Headers);"));
 			}
 
 			AddResponseMessageSendAsync(clientMethod);
@@ -290,7 +281,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					AddReturnStatement(clientMethod.Statements);
 				}
 
-				Add3TEndBacket(clientMethod);
+				//Add3TEndBacket(clientMethod);
 			}
 			else
 			{
@@ -305,7 +296,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
-				Add3TEndBacket(clientMethod);
+				//Add3TEndBacket(clientMethod);
 			}
 		}
 
@@ -313,6 +304,8 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
+
+		string ThreeTabs => "\t\t\t";
 
 		void AddResponseMessageSendAsync(CodeMemberMethod method)
 		{
@@ -370,22 +363,19 @@ namespace Fonlow.CodeDom.Web.Cs
 			AddRequestUriWithQueryAssignmentStatement();
 
 			clientMethod.Statements.Add(new CodeSnippetStatement(
-				$@"			using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri))
-			{{"
-				));
+				ThreeTabs + $"using var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri);"));
 
 			if (singleFromBodyParameterDescription != null)
 			{
 				if (settings.UseSystemTextJson)
 				{
-					clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\t" + @$"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
-					clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\t" + @"var content = new StringContent(contentJson, System.Text.Encoding.UTF8, ""application/json"");"));
+					clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
+					clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + @"var content = new StringContent(contentJson, System.Text.Encoding.UTF8, ""application/json"");"));
 				}
 				else
 				{
 					clientMethod.Statements.Add(new CodeSnippetStatement(
-	@"			using (var requestWriter = new System.IO.StringWriter())
-			{
+	@"			using var requestWriter = new System.IO.StringWriter();
 			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
 	));
 					clientMethod.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
@@ -398,14 +388,10 @@ namespace Fonlow.CodeDom.Web.Cs
 						));
 				}
 
-				clientMethod.Statements.Add(new CodeSnippetStatement(@"			httpRequestMessage.Content = content;"));
+				clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\thttpRequestMessage.Content = content;"));
 				if (settings.HandleHttpRequestHeaders)
 				{
-					clientMethod.Statements.Add(new CodeSnippetStatement(@"			if (handleHeaders != null)
-			{
-				handleHeaders(httpRequestMessage.Headers);
-			}
-"));
+					clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\thandleHeaders?.Invoke(httpRequestMessage.Headers);"));
 				}
 			}
 
@@ -440,10 +426,10 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (singleFromBodyParameterDescription != null && !settings.UseSystemTextJson)
 			{
-				Add3TEndBacket(clientMethod);
+				//Add3TEndBacket(clientMethod);
 			}
 
-			Add3TEndBacket(clientMethod);
+			//Add3TEndBacket(clientMethod);
 		}
 
 		static void Add4TEndBacket(CodeStatementCollection statementCollection)

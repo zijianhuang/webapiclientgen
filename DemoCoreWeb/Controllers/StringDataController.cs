@@ -27,13 +27,14 @@ namespace DemoWebApi.Controllers
 			return (take.HasValue ? take.Value.ToString() : String.Empty) + skip.ToString() + (String.IsNullOrEmpty(order) ? "" : order) + (String.IsNullOrEmpty(sort) ? "" : sort) + (String.IsNullOrEmpty(search) ? "" : search);
 		}
 
+#nullable enable
 		/// <summary>
-		/// Return empty body with status 204 No Content.
+		/// Return empty body with status 204 No Content, even though the default mime type is application/json.
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
 		[Route("NullString")]
-		public string GetNullString()
+		public string? GetNullString()
 		{
 			return null;
 		}
@@ -55,6 +56,6 @@ namespace DemoWebApi.Controllers
 		{
 			return String.Empty;
 		}
-
+#nullable disable
 	}
 }

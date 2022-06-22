@@ -94,8 +94,8 @@ namespace DemoWebApi.Controllers
 		[HttpGet("search/{name}")]
 		public Hero[] Search(string name)
 		{
-			return HeroesData.Instance.Dic.Values
-				.Where(d => d.Name.Contains(name)).ToArray();
+			var values = HeroesData.Instance.Dic.Values;
+			return values.Where(d => d.Name.Contains(name)).ToArray();
 		}
 
 		[HttpGet("asyncHeroes")]
@@ -129,13 +129,9 @@ namespace DemoWebApi.Controllers
 		public string Name { get; set; }
 	}
 
-
 	public sealed class HeroesData
 	{
-		private static readonly Lazy<HeroesData> lazy =
-			new Lazy<HeroesData>(() => new HeroesData());
-
-		public static HeroesData Instance { get { return lazy.Value; } }
+		public ConcurrentDictionary<long, Hero> Dic { get; private set; }
 
 		private HeroesData()
 		{
@@ -154,7 +150,18 @@ namespace DemoWebApi.Controllers
 				});
 		}
 
-		public ConcurrentDictionary<long, Hero> Dic { get; private set; }
+		public static HeroesData Instance { get { return Nested.instance; } }
+
+		private class Nested
+		{
+			// Explicit static constructor to tell C# compiler
+			// not to mark type as beforefieldinit
+			static Nested()
+			{
+			}
+
+			internal static readonly HeroesData instance = new HeroesData();
+		}
 	}
 }
 #nullable disable

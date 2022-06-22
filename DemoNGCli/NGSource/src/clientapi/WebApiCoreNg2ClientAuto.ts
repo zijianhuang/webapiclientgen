@@ -685,7 +685,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Return empty body with status 204 No Content.
 		 * GET api/StringData/NullString
 		 */
-		getNullString(headersHandler?: () => HttpHeaders): Observable<string> {
+		getNullString(headersHandler?: () => HttpHeaders): Observable<string | null> {
 			return this.http.get(this.baseUri + 'api/StringData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 	}
@@ -1168,7 +1168,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Return empty body with status 204 No Content.
 		 * GET api/TextData/NullString
 		 */
-		getNullString(headersHandler?: () => HttpHeaders): Observable<string> {
+		getNullString(headersHandler?: () => HttpHeaders): Observable<string | null> {
 			return this.http.get(this.baseUri + 'api/TextData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 	}

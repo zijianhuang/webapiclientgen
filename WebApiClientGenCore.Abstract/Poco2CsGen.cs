@@ -585,6 +585,17 @@ namespace Fonlow.Poco2Client
 
 		}
 
+		public string TranslateCodeTypeReferenceToCSharp(CodeTypeReference codeTypeReference)
+		{
+			return codeDomProvider.GetTypeOutput(codeTypeReference);
+		}
+
+		public string TranslateTypeToCSharp(Type type)
+		{
+			var codeTypeReference = TranslateToClientTypeReference(type);
+			return codeDomProvider.GetTypeOutput(codeTypeReference);
+		}
+
 		/// <summary>
 		/// Generate type text suitable for matching what in doc comment XML, especially for generic types. For example, Nullable int in doc comment is Nullable{System.Int32}.
 		/// CSharpCodeProvider always give Nullable int, and there's no built-in way to alter.

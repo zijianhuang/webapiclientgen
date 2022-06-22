@@ -105,7 +105,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			else if (settings.SupportNullReferenceTypeOnMethodReturn)
 			{
 				//clientMethod.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.CompilerServices.NullableContextAttribute", new CodeAttributeArgument(new CodeSnippetExpression(returnTypeIsNotNullable ? "2" : "1")))); Not supported in programming, it is .net internal stuffs
-	}
+			}
 
 			System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
 			switch (description.HttpMethod)
@@ -463,11 +463,11 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddNewtonSoftJsonSerializerDeserialize(CodeStatementCollection statementCollection)
 		{
-			statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
-				new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-					new CodeSnippetExpression("jsonReader"))));
+			//statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression( this had been working well, however, there's not built-in way of supporting nullable in codedom.
+			//	new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
+			//		new CodeSnippetExpression("jsonReader"))));
 
-			//statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression($"serializer.Deserialize<{poco2CsGen.TranslateToClientTypeReferenceText(returnType, false)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
+			statementCollection.Add(new CodeSnippetStatement($"\t\t\t\treturn serializer.Deserialize<{poco2CsGen.TranslateTypeToCSharp(returnType)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : "") + ";"));
 
 		}
 

@@ -654,7 +654,7 @@ namespace DemoCoreWeb.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 				}
 			}
 			finally
@@ -687,7 +687,7 @@ namespace DemoCoreWeb.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 				}
 			}
 			finally
@@ -780,7 +780,7 @@ namespace DemoCoreWeb.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 				}
 			}
 			finally
@@ -811,7 +811,7 @@ namespace DemoCoreWeb.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 				}
 			}
 			finally
@@ -910,7 +910,7 @@ namespace DemoCoreWeb.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 				}
 			}
 			finally
@@ -948,7 +948,7 @@ namespace DemoCoreWeb.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 				}
 			}
 			finally
@@ -1087,7 +1087,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<System.DateTime>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<System.DateTime>>(jsonReader)!;
 				}
 			}
 			finally
@@ -1118,7 +1118,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<System.DateTime>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<System.DateTime>>(jsonReader)!;
 				}
 			}
 			finally
@@ -1150,7 +1150,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -1182,7 +1182,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -1213,7 +1213,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -1244,7 +1244,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -1275,7 +1275,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -1306,7 +1306,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -1337,7 +1337,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTime>(jsonReader);
+				return serializer.Deserialize<System.DateTime>(jsonReader)!;
 				}
 			}
 			finally
@@ -1368,7 +1368,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTime>(jsonReader);
+				return serializer.Deserialize<System.DateTime>(jsonReader)!;
 				}
 			}
 			finally
@@ -1399,7 +1399,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTime>(jsonReader);
+				return serializer.Deserialize<System.DateTime>(jsonReader)!;
 				}
 			}
 			finally
@@ -1430,7 +1430,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTime>(jsonReader);
+				return serializer.Deserialize<System.DateTime>(jsonReader)!;
 				}
 			}
 			finally
@@ -1468,7 +1468,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTime>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTime>>(jsonReader)!;
 				}
 			}
 			finally
@@ -1507,7 +1507,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTime>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTime>>(jsonReader)!;
 				}
 			}
 			finally
@@ -1545,7 +1545,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTimeOffset>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTimeOffset>>(jsonReader)!;
 				}
 			}
 			finally
@@ -1583,7 +1583,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTimeOffset>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTimeOffset>>(jsonReader)!;
 				}
 			}
 			finally
@@ -1621,7 +1621,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateOnly>(jsonReader)!;
 				}
 			}
 			finally
@@ -1659,7 +1659,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateOnly>(jsonReader)!;
 				}
 			}
 			finally
@@ -1697,7 +1697,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<System.DateOnly>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<System.DateOnly>>(jsonReader)!;
 				}
 			}
 			finally
@@ -1735,7 +1735,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<System.DateOnly>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<System.DateOnly>>(jsonReader)!;
 				}
 			}
 			finally
@@ -1773,7 +1773,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTime>(jsonReader);
+				return serializer.Deserialize<System.DateTime>(jsonReader)!;
 				}
 			}
 			finally
@@ -1811,7 +1811,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTime>(jsonReader);
+				return serializer.Deserialize<System.DateTime>(jsonReader)!;
 				}
 			}
 			finally
@@ -1850,7 +1850,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -1889,7 +1889,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -2005,7 +2005,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.TimeSpan>(jsonReader);
+				return serializer.Deserialize<System.TimeSpan>(jsonReader)!;
 				}
 			}
 			finally
@@ -2043,7 +2043,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.TimeSpan>(jsonReader);
+				return serializer.Deserialize<System.TimeSpan>(jsonReader)!;
 				}
 			}
 			finally
@@ -2081,7 +2081,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader)!;
 				}
 			}
 			finally
@@ -2119,7 +2119,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader)!;
 				}
 			}
 			finally
@@ -2157,7 +2157,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.TimeSpan>(jsonReader);
+				return serializer.Deserialize<System.TimeSpan>(jsonReader)!;
 				}
 			}
 			finally
@@ -2195,7 +2195,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.TimeSpan>(jsonReader);
+				return serializer.Deserialize<System.TimeSpan>(jsonReader)!;
 				}
 			}
 			finally
@@ -2233,7 +2233,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTime>(jsonReader);
+				return serializer.Deserialize<System.DateTime>(jsonReader)!;
 				}
 			}
 			finally
@@ -2271,7 +2271,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTime>(jsonReader);
+				return serializer.Deserialize<System.DateTime>(jsonReader)!;
 				}
 			}
 			finally
@@ -2303,7 +2303,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateOnly>(jsonReader)!;
 				}
 			}
 			finally
@@ -2334,7 +2334,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateOnly>(jsonReader);
+				return serializer.Deserialize<System.DateOnly>(jsonReader)!;
 				}
 			}
 			finally
@@ -2365,7 +2365,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -2396,7 +2396,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
+				return serializer.Deserialize<System.DateTimeOffset>(jsonReader)!;
 				}
 			}
 			finally
@@ -2427,7 +2427,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>>(jsonReader)!;
 				}
 			}
 			finally
@@ -2458,7 +2458,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>>(jsonReader)!;
 				}
 			}
 			finally
@@ -2515,7 +2515,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader)!;
 				}
 			}
 			finally
@@ -2553,7 +2553,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader)!;
 				}
 			}
 			finally
@@ -2665,7 +2665,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -2703,7 +2703,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -2741,7 +2741,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -2779,7 +2779,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -2861,7 +2861,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader)!;
 				}
 			}
 			finally
@@ -2892,7 +2892,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader)!;
 				}
 			}
 			finally
@@ -2929,7 +2929,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader)!;
 				}
 			}
 			finally
@@ -2967,7 +2967,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader)!;
 				}
 			}
 			finally
@@ -3005,7 +3005,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>>(jsonReader)!;
 				}
 			}
 			finally
@@ -3043,7 +3043,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>>(jsonReader)!;
 				}
 			}
 			finally
@@ -3081,7 +3081,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -3119,7 +3119,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -3152,7 +3152,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader)!;
 				}
 			}
 			finally
@@ -3184,7 +3184,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader)!;
 				}
 			}
 			finally
@@ -3219,7 +3219,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -3254,7 +3254,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -3285,7 +3285,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -3316,7 +3316,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -3503,7 +3503,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.IdMap>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.IdMap>(jsonReader)!;
 				}
 			}
 			finally
@@ -3541,7 +3541,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.IdMap>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.IdMap>(jsonReader)!;
 				}
 			}
 			finally
@@ -3719,7 +3719,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -3750,7 +3750,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -3846,7 +3846,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -3878,7 +3878,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -3915,7 +3915,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader)!;
 				}
 			}
 			finally
@@ -3953,7 +3953,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader)!;
 				}
 			}
 			finally
@@ -3982,7 +3982,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader)!;
 				}
 			}
 			finally
@@ -4010,7 +4010,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader)!;
 				}
 			}
 			finally
@@ -4048,7 +4048,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader)!;
 				}
 			}
 			finally
@@ -4087,7 +4087,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader)!;
 				}
 			}
 			finally
@@ -4122,7 +4122,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -4156,7 +4156,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -4813,7 +4813,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<byte[]>(jsonReader);
+				return serializer.Deserialize<byte[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -4844,7 +4844,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<byte[]>(jsonReader);
+				return serializer.Deserialize<byte[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -4937,7 +4937,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.ObjectModel.Collection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.ObjectModel.Collection<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -4968,7 +4968,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.ObjectModel.Collection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.ObjectModel.Collection<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -4999,7 +4999,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days>(jsonReader)!;
 				}
 			}
 			finally
@@ -5030,7 +5030,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days>(jsonReader)!;
 				}
 			}
 			finally
@@ -5061,7 +5061,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<decimal>(jsonReader);
+				return serializer.Deserialize<decimal>(jsonReader)!;
 				}
 			}
 			finally
@@ -5092,7 +5092,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<decimal>(jsonReader);
+				return serializer.Deserialize<decimal>(jsonReader)!;
 				}
 			}
 			finally
@@ -5124,7 +5124,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<decimal[]>(jsonReader);
+				return serializer.Deserialize<decimal[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5156,7 +5156,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<decimal[]>(jsonReader);
+				return serializer.Deserialize<decimal[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5187,7 +5187,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<decimal>(jsonReader);
+				return serializer.Deserialize<decimal>(jsonReader)!;
 				}
 			}
 			finally
@@ -5218,7 +5218,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<decimal>(jsonReader);
+				return serializer.Deserialize<decimal>(jsonReader)!;
 				}
 			}
 			finally
@@ -5249,7 +5249,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<decimal>(jsonReader);
+				return serializer.Deserialize<decimal>(jsonReader)!;
 				}
 			}
 			finally
@@ -5280,7 +5280,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<decimal>(jsonReader);
+				return serializer.Deserialize<decimal>(jsonReader)!;
 				}
 			}
 			finally
@@ -5311,7 +5311,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, string>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, string>>(jsonReader)!;
 				}
 			}
 			finally
@@ -5342,7 +5342,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, string>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, string>>(jsonReader)!;
 				}
 			}
 			finally
@@ -5373,7 +5373,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -5404,7 +5404,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -5557,7 +5557,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5588,7 +5588,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5619,7 +5619,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DayOfWeek[]>(jsonReader);
+				return serializer.Deserialize<System.DayOfWeek[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5650,7 +5650,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.DayOfWeek[]>(jsonReader);
+				return serializer.Deserialize<System.DayOfWeek[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5741,7 +5741,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.ICollection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.ICollection<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -5772,7 +5772,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.ICollection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.ICollection<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -5803,7 +5803,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -5834,7 +5834,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -5865,7 +5865,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<int[,]>(jsonReader);
+				return serializer.Deserialize<int[,]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5896,7 +5896,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<int[,]>(jsonReader);
+				return serializer.Deserialize<int[,]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5927,7 +5927,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<int[][]>(jsonReader);
+				return serializer.Deserialize<int[][]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5958,7 +5958,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<int[][]>(jsonReader);
+				return serializer.Deserialize<int[][]>(jsonReader)!;
 				}
 			}
 			finally
@@ -5989,7 +5989,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<int[]>(jsonReader);
+				return serializer.Deserialize<int[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6020,7 +6020,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<int[]>(jsonReader);
+				return serializer.Deserialize<int[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6052,7 +6052,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<int[]>(jsonReader);
+				return serializer.Deserialize<int[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6084,7 +6084,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<int[]>(jsonReader);
+				return serializer.Deserialize<int[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6115,7 +6115,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<long[]>(jsonReader);
+				return serializer.Deserialize<long[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6146,7 +6146,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<long[]>(jsonReader);
+				return serializer.Deserialize<long[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6237,7 +6237,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6268,7 +6268,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6299,7 +6299,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6330,7 +6330,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6361,7 +6361,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6392,7 +6392,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6423,7 +6423,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.List<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.List<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6454,7 +6454,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.List<DemoWebApi.DemoData.Client.Person>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.List<DemoWebApi.DemoData.Client.Person>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6485,7 +6485,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<decimal>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<decimal>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6516,7 +6516,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Nullable<decimal>>(jsonReader);
+				return serializer.Deserialize<System.Nullable<decimal>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6547,7 +6547,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -6578,7 +6578,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -6609,7 +6609,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6640,7 +6640,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6671,7 +6671,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6702,7 +6702,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>>(jsonReader)!;
 				}
 			}
 			finally
@@ -6854,7 +6854,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<string[]>(jsonReader);
+				return serializer.Deserialize<string[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6886,7 +6886,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<string[]>(jsonReader);
+				return serializer.Deserialize<string[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6917,7 +6917,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<string[]>(jsonReader);
+				return serializer.Deserialize<string[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -6948,7 +6948,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<string[]>(jsonReader);
+				return serializer.Deserialize<string[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -7411,7 +7411,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -7449,7 +7449,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -7561,7 +7561,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Guid[]>(jsonReader);
+				return serializer.Deserialize<System.Guid[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -7599,7 +7599,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Guid[]>(jsonReader);
+				return serializer.Deserialize<System.Guid[]>(jsonReader)!;
 				}
 			}
 			finally
@@ -8233,7 +8233,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -8271,7 +8271,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -8729,7 +8729,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -8767,7 +8767,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -8800,7 +8800,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader)!;
 				}
 			}
 			finally
@@ -8832,7 +8832,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader)!;
 				}
 			}
 			finally
@@ -8863,7 +8863,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader)!;
 				}
 			}
 			finally
@@ -8894,7 +8894,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader)!;
 				}
 			}
 			finally
@@ -8925,7 +8925,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -8956,7 +8956,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -8987,7 +8987,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9018,7 +9018,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9049,7 +9049,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9080,7 +9080,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9111,7 +9111,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9142,7 +9142,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9173,7 +9173,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9204,7 +9204,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9235,7 +9235,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, string, string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, string, string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9266,7 +9266,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, string, string, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, string, string, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9297,7 +9297,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, string, string, long, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, string, string, long, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9328,7 +9328,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, string, string, long, int>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, string, string, long, int>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9360,7 +9360,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9392,7 +9392,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>>(jsonReader);
+				return serializer.Deserialize<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>>(jsonReader)!;
 				}
 			}
 			finally
@@ -9429,7 +9429,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9467,7 +9467,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9505,7 +9505,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9543,7 +9543,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9581,7 +9581,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9619,7 +9619,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9657,7 +9657,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9695,7 +9695,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9733,7 +9733,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9771,7 +9771,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9809,7 +9809,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9847,7 +9847,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9885,7 +9885,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9923,7 +9923,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9961,7 +9961,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -9999,7 +9999,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
 				}
 			}
 			finally
@@ -10708,7 +10708,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader)!;
 				}
 			}
 			finally
@@ -10740,7 +10740,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader)!;
 				}
 			}
 			finally
@@ -10959,7 +10959,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader)!;
 				}
 			}
 			finally
@@ -10990,7 +10990,7 @@ namespace DemoWebApi.Controllers.Client
 				using (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))
 				{
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
+				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader)!;
 				}
 			}
 			finally

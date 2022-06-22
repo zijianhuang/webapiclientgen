@@ -458,7 +458,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static void AddNewtonSoftJsonTextReader(CodeStatementCollection statementCollection)
 		{
-			statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream)))"));
+			statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));"));
 		}
 
 		void AddNewtonSoftJsonSerializerDeserialize(CodeStatementCollection statementCollection)
@@ -489,7 +489,14 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			if (TypeHelper.IsStringType(returnType)) //ASP.NET Core return null as empty body with status code 204, whether to produce JSON or plain text.
 			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
+				if (settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable)
+				{
+					// no need
+				}
+				else
+				{
+					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
+				}
 			}
 
 			if (settings.UseSystemTextJson)
@@ -534,7 +541,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				else
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
-					Add4TStartBacket(statementCollection);
+					//Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
 					var invokeExpression = new CodeMethodInvokeExpression(
 						new CodeMethodReferenceExpression(
@@ -548,7 +555,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					statementCollection.Add(new CodeMethodReturnStatement(invokeExpression));
 					//statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression($"serializer.Deserialize<{poco2CsGen.TranslateToClientTypeReferenceText(returnType, false)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
 
-					Add4TEndBacket(statementCollection);
+					//Add4TEndBacket(statementCollection);
 				}
 
 				return;
@@ -570,10 +577,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				if (this.stringAsString)
 				{
-					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing (System.IO.StreamReader streamReader = new System.IO.StreamReader(stream))"));
-					Add4TStartBacket(statementCollection);
+					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);"));
+					//Add4TStartBacket(statementCollection); for C# 6, no backets needed
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
-					Add4TEndBacket(statementCollection);
+					//Add4TEndBacket(statementCollection);
 				}
 				else
 				{
@@ -588,9 +595,9 @@ namespace Fonlow.CodeDom.Web.Cs
 					else
 					{
 						AddNewtonSoftJsonTextReader(statementCollection);
-						Add4TStartBacket(statementCollection);
+						//Add4TStartBacket(statementCollection);
 						statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
-						Add4TEndBacket(statementCollection);
+						//Add4TEndBacket(statementCollection);
 					}
 				}
 			}
@@ -603,10 +610,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				else
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
-					Add4TStartBacket(statementCollection);
+					//Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
-					Add4TEndBacket(statementCollection);
+					//Add4TEndBacket(statementCollection);
 				}
 			}
 			else if (returnType.IsPrimitive)
@@ -618,9 +625,9 @@ namespace Fonlow.CodeDom.Web.Cs
 				else
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
-					Add4TStartBacket(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString()){1}", returnType.FullName, ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : "")))));
-					Add4TEndBacket(statementCollection);
+					//Add4TStartBacket(statementCollection);
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString(){1}){1}", returnType.FullName, ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : "")))));
+					//Add4TEndBacket(statementCollection);
 				}
 			}
 			else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType) || returnType.IsEnum)
@@ -632,10 +639,10 @@ namespace Fonlow.CodeDom.Web.Cs
 				else
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
-					Add4TStartBacket(statementCollection);
+					//Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
 					AddNewtonSoftJsonSerializerDeserialize(statementCollection);
-					Add4TEndBacket(statementCollection);
+					//Add4TEndBacket(statementCollection);
 				}
 			}
 			else

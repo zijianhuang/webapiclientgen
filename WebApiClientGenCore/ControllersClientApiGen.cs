@@ -6,7 +6,7 @@ using System.Linq;
 using Fonlow.Web.Meta;
 using System;
 using Fonlow.Poco2Client;
-
+using System.Collections.Generic;
 namespace Fonlow.CodeDom.Web.Cs
 {
 	/// <summary>
@@ -42,64 +42,70 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// Save C# codes into a file.
 		/// </summary>
 		/// <param name="fileName"></param>
+		/// <param name="namespacesOfPoco"></param>
 		// hack inspired by https://csharpcodewhisperer.blogspot.com/2014/10/create-c-class-code-from-datatable.html
-		public void Save(string fileName)
+		public void Save(string fileName, CodeNamespaceEx[] namespacesOfPoco)
 		{
-
 			CodeGeneratorOptions options = new CodeGeneratorOptions
 			{
 				BracingStyle = "C",
 				IndentString = "\t"
 			};
-			if (!codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn)
+
+			using var stream = new MemoryStream();
+			using StreamWriter writer = new StreamWriter(stream);
+			if (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn)
 			{
-				using var stream = new MemoryStream();
-				using StreamWriter writer = new StreamWriter(stream);
-				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
-				writer.Flush();
-				stream.Position = 0;
-				using var stringReader = new StreamReader(stream);
-				using var fileWriter = new StreamWriter(fileName);
-				var s = stringReader.ReadToEnd();
-				if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
+				for (int i = 0; i < targetUnit.Namespaces.Count; i++)
 				{
-					fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? blockOfEnsureSuccessStatusCodeExForNullReferenceTypes : blockOfEnsureSuccessStatusCodeEx));
-				}
-				else
-				{
-					fileWriter.Write(s.Replace("//;", ""));
+					var ns = targetUnit.Namespaces[i] as CodeNamespaceEx;
+					if (!ns.DataModelOnly)
+					{
+						writer.WriteLine("#nullable enable");
+					}
+
+					provider.GenerateCodeFromNamespace(ns, writer, options);
+
+					if (!ns.DataModelOnly)
+					{
+						writer.WriteLine("#nullable disable");
+					}
+
 				}
 			}
 			else
 			{
-				using var stream = new MemoryStream();
-				using StreamWriter writer = new StreamWriter(stream);
-				for (int i = 0; i < targetUnit.Namespaces.Count; i++)
-				{
-					var ns = targetUnit.Namespaces[i];
-					writer.WriteLine("#nullable enable");
-					provider.GenerateCodeFromNamespace(ns, writer, options);
-					writer.WriteLine("#nullable disable");
-				}
+				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+			}
 
-				writer.Flush();
-				stream.Position = 0;
-				using var stringReader = new StreamReader(stream);
-				using var fileWriter = new StreamWriter(fileName);
-				var s = stringReader.ReadToEnd();
-				if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
-				{
-					fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? blockOfEnsureSuccessStatusCodeExForNullReferenceTypes : blockOfEnsureSuccessStatusCodeEx));
-				}
-				else
-				{
-					fileWriter.Write(s.Replace("//;", ""));
-				}
+			writer.Flush();
+			stream.Position = 0;
+			using var stringReader = new StreamReader(stream);
+			using var fileWriter = new StreamWriter(fileName);
+			var s = stringReader.ReadToEnd();
+			if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
+			{
+				fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? blockOfEnsureSuccessStatusCodeExForNullReferenceTypes : blockOfEnsureSuccessStatusCodeEx));
+			}
+			else
+			{
+				fileWriter.Write(s.Replace("//;", ""));
 			}
 		}
 
-		void GenerateCsFromPoco()
+		public void CreateCodeDomAndSaveCsharp(WebApiDescription[] descriptions, string fileName)
 		{
+			var namespacesOfPoco = CreateCodeDom(descriptions);
+			Save(fileName, namespacesOfPoco);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>Namespaces of POCO types.</returns>
+		CodeNamespaceEx[] GenerateCsFromPoco()
+		{
+			List<CodeNamespaceEx> listOfNamespaces = new();
 			if (codeGenParameters.ApiSelections.DataModelAssemblyNames != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -109,7 +115,8 @@ namespace Fonlow.CodeDom.Web.Cs
 				var cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 				foreach (var assembly in assemblies)
 				{
-					Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, null);
+					var namespaces = Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, null);
+					listOfNamespaces.AddRange(namespaces);
 				}
 			}
 
@@ -124,25 +131,28 @@ namespace Fonlow.CodeDom.Web.Cs
 						var cherryPickingMethods = dm.CherryPickingMethods.HasValue ? (CherryPickingMethods)dm.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 						var dataAnnotationsToComments = (dm.DataAnnotationsToComments.HasValue && dm.DataAnnotationsToComments.Value) // dm explicitly tell to do
 							|| (!dm.DataAnnotationsToComments.HasValue && codeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
-						Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, dataAnnotationsToComments);
+						var namespaces = Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, dataAnnotationsToComments);
+						listOfNamespaces.AddRange(namespaces);
 					}
 				}
 			}
+
+			return listOfNamespaces.Distinct(new CodenamespaceComparer()).ToArray();
 		}
 
 		/// <summary>
 		/// Generate CodeDom of the client API for ApiDescriptions.
 		/// </summary>
 		/// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-		public void CreateCodeDom(WebApiDescription[] descriptions)
+		/// <returns>Namespaces of types of POCO.</returns>
+		public CodeNamespaceEx[] CreateCodeDom(WebApiDescription[] descriptions)
 		{
 			if (descriptions == null)
 			{
 				throw new ArgumentNullException(nameof(descriptions));
 			}
 
-			GenerateCsFromPoco();
-			//controllers of ApiDescriptions (functions) grouped by namespace
+			var namespacesOfTypes = GenerateCsFromPoco();
 			var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
 				.Distinct()
 				.GroupBy(d => d.ControllerType.Namespace)
@@ -152,7 +162,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
 				var clientNamespaceText = grouppedControllerDescriptions.Key + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix;
-				var clientNamespace = new CodeNamespace(clientNamespaceText);
+				var clientNamespace = new CodeNamespaceEx(clientNamespaceText, false);
 				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
 				clientNamespace.Imports.AddRange(
@@ -218,6 +228,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				CreateDummyOfEnsureSuccessStatusCodeEx();
 			}
+
+			return namespacesOfTypes;
 		}
 
 		string GetContainerClassName(string controllerName)
@@ -315,7 +327,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void CreateDummyOfEnsureSuccessStatusCodeEx()
 		{
-			targetUnit.Namespaces.Add(new CodeNamespace("EnsureSuccessStatusCodeExDummy"));
+			targetUnit.Namespaces.Add(new CodeNamespaceEx("EnsureSuccessStatusCodeExDummy", false));
 		}
 
 		/// <summary>

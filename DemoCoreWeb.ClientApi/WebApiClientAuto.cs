@@ -1,4 +1,3 @@
-#nullable enable
 namespace DemoWebApi.DemoData.Client
 {
 	
@@ -374,8 +373,6 @@ namespace DemoWebApi.DemoData.Client
 		Fax,
 	}
 }
-#nullable disable
-#nullable enable
 namespace DemoWebApi.DemoData.Another.Client
 {
 	
@@ -401,8 +398,6 @@ namespace DemoWebApi.DemoData.Another.Client
 		public double Y;
 	}
 }
-#nullable disable
-#nullable enable
 namespace DemoWebApi.Models.Client
 {
 	
@@ -556,8 +551,6 @@ namespace DemoWebApi.Models.Client
 		public string Username { get; set; }
 	}
 }
-#nullable disable
-#nullable enable
 namespace DemoWebApi.Controllers.Client
 {
 	
@@ -598,7 +591,6 @@ namespace DemoWebApi.Controllers.Client
 		public string Name { get; set; }
 	}
 }
-#nullable disable
 #nullable enable
 namespace DemoCoreWeb.Controllers.Client
 {
@@ -3428,7 +3420,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Return empty body with status 204 No Content.
+		/// Return empty body with status 204 No Content, even though the default mime type is application/json.
 		/// GET api/StringData/NullString
 		/// </summary>
 		public async Task<System.String?> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
@@ -3452,7 +3444,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Return empty body with status 204 No Content.
+		/// Return empty body with status 204 No Content, even though the default mime type is application/json.
 		/// GET api/StringData/NullString
 		/// </summary>
 		public System.String? GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)

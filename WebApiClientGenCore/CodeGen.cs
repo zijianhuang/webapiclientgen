@@ -27,8 +27,7 @@ namespace Fonlow.CodeDom.Web
 
 				var path = System.IO.Path.Combine(csharpClientProjectDir, settings.ClientApiOutputs.FileName);
 				using var gen = new Cs.ControllersClientApiGen(settings);
-				gen.CreateCodeDom(webApiDescriptions);
-				gen.Save(path);
+				gen.CreateCodeDomAndSaveCsharp(webApiDescriptions, path);
 			}
 
 

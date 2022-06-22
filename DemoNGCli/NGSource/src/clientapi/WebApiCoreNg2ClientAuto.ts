@@ -682,7 +682,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Return empty body with status 204 No Content.
+		 * Return empty body with status 204 No Content, even though the default mime type is application/json.
 		 * GET api/StringData/NullString
 		 */
 		getNullString(headersHandler?: () => HttpHeaders): Observable<string | null> {

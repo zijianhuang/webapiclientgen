@@ -9,7 +9,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -23,15 +22,13 @@ namespace Fonlow.Poco2Client
 	/// <summary>
 	/// POCO to C# client data types generator, with CSharpCodeDomProvider.
 	/// </summary>
-	public class Poco2CsGen : IDisposable, IDocCommentTranslate
+	public class Poco2CsGen : IDocCommentTranslate
 	{
 		readonly CodeCompileUnit codeCompileUnit;
-
 		readonly ModelGenOutputs settings;
-		public CodeDomProvider CSharpCodeDomProvider { get; private set; }
+		readonly CodeDomProvider codeDomProvider;
 
 		DocCommentLookup docLookup;
-		private bool disposedValue;
 
 		bool? dataAnnotationsToComments;
 
@@ -40,24 +37,14 @@ namespace Fonlow.Poco2Client
 		/// </summary>
 		readonly List<Type> pendingTypes;
 
-		///// <summary>
-		///// Init with its own CodeCompileUnit.
-		///// </summary>
-		//public Poco2CsGen()
-		//{
-		//	codeCompileUnit = new CodeCompileUnit();
-		//	CSharpCodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
-		//	pendingTypes = new List<Type>();
-		//}
-
 		/// <summary>
 		/// Gen will share the same CodeCompileUnit with other CodeGen components which generate client API codes.
 		/// </summary>
 		/// <param name="codeCompileUnit"></param>
-		public Poco2CsGen(CodeCompileUnit codeCompileUnit, ModelGenOutputs settings)
+		public Poco2CsGen(CodeCompileUnit codeCompileUnit, CodeDomProvider csharpCodeDomProvider, ModelGenOutputs settings)
 		{
 			this.codeCompileUnit = codeCompileUnit;
-			CSharpCodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
+			codeDomProvider = csharpCodeDomProvider;
 			pendingTypes = new List<Type>();
 			this.settings = settings;
 		}
@@ -77,6 +64,57 @@ namespace Fonlow.Poco2Client
 			this.dataAnnotationsToComments = dataAnnotationsToComments;
 			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
 			CreateCodeDomForTypes(cherryTypes, methods, settings.CSClientNamespaceSuffix);
+		}
+
+
+		public string TranslateToClientTypeReferenceTextForDocComment(Type type)
+		{
+			return TranslateToClientTypeReferenceText(type, true);
+		}
+
+		public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type, bool isNullableReference)
+		{
+			if (type == null)
+				return null;// new CodeTypeReference("void");
+
+			if (pendingTypes.Contains(type))
+			{
+				return new CodeTypeReference(RefineCustomComplexTypeTextForNullableReferenceType(type, isNullableReference));
+			}
+			else if (type.IsGenericType)
+			{
+				return TranslateGenericToTypeReference(type);
+			}
+			else if (type.IsArray)
+			{
+				Debug.Assert(type.Name.EndsWith("]"));
+				var elementType = type.GetElementType();
+				var arrayRank = type.GetArrayRank();
+				return CreateArrayTypeReference(elementType, arrayRank);
+			}
+			else
+			{
+				if (type.FullName == "System.Web.Http.IHttpActionResult")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "System.Net.Http.HttpResponseMessage")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
+			}
+
+			if (isNullableReference)
+			{
+				return new CodeTypeReference(type.FullName + "?");
+			}
+			else
+			{
+				return new CodeTypeReference(type);
+			}
 		}
 
 		/// <summary>
@@ -452,51 +490,6 @@ namespace Fonlow.Poco2Client
 			return result;
 		}
 
-		public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type, bool isNullableReference)
-		{
-			if (type == null)
-				return null;// new CodeTypeReference("void");
-
-			if (pendingTypes.Contains(type))
-			{
-				return new CodeTypeReference(RefineCustomComplexTypeTextForNullableReferenceType(type, isNullableReference));
-			}
-			else if (type.IsGenericType)
-			{
-				return TranslateGenericToTypeReference(type);
-			}
-			else if (type.IsArray)
-			{
-				Debug.Assert(type.Name.EndsWith("]"));
-				var elementType = type.GetElementType();
-				var arrayRank = type.GetArrayRank();
-				return CreateArrayTypeReference(elementType, arrayRank);
-			}
-			else
-			{
-				if (type.FullName == "System.Web.Http.IHttpActionResult")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "System.Net.Http.HttpResponseMessage")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
-			}
-
-			if (isNullableReference)
-			{
-				return new CodeTypeReference(type.FullName + "?");
-			}
-			else
-			{
-				return new CodeTypeReference(type);
-			}
-		}
-
 		CodeTypeReference TranslateGenericToTypeReference(Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
@@ -602,7 +595,7 @@ namespace Fonlow.Poco2Client
 				return null;
 
 			if (pendingTypes.Contains(type))
-				return CSharpCodeDomProvider.GetTypeOutput(new CodeTypeReference(forDocComment?type.FullName: RefineCustomComplexTypeText(type)));
+				return codeDomProvider.GetTypeOutput(new CodeTypeReference(forDocComment ? type.FullName : RefineCustomComplexTypeText(type)));
 			else if (type.IsGenericType)
 			{
 				return TranslateGenericToTypeReferenceText(type, forDocComment);
@@ -638,7 +631,7 @@ namespace Fonlow.Poco2Client
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
 			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) ||
-	genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
+				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
 				//var elementType = type.GenericTypeArguments[0];
@@ -650,7 +643,7 @@ namespace Fonlow.Poco2Client
 			var idx = anyGenericTypeName.IndexOf('`');
 			anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
 			var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
-			var left = forDocComment ? "{{":"<";
+			var left = forDocComment ? "{{" : "<";
 			var right = forDocComment ? "}}" : ">";
 			return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 
@@ -913,40 +906,6 @@ namespace Fonlow.Poco2Client
 			},
 			// not to support RegularExpressionAttribute since they are more of UI constraints.
 		};
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposedValue)
-			{
-				if (disposing)
-				{
-					CSharpCodeDomProvider.Dispose();
-				}
-
-				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
-				// TODO: set large fields to null
-				disposedValue = true;
-			}
-		}
-
-		// // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-		// ~Poco2CsGen()
-		// {
-		//     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-		//     Dispose(disposing: false);
-		// }
-
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-			Dispose(disposing: true);
-			GC.SuppressFinalize(this);
-		}
-
-		public string TranslateToClientTypeReferenceTextForDocComment(Type type)
-		{
-			return TranslateToClientTypeReferenceText(type, true);
-		}
 	}
 
 }

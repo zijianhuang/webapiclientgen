@@ -18,6 +18,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		//SharedContext SharedContext { get; set; }
 		CodeGenSettings CodeGenParameters { get; set; }
 		public Poco2CsGen Poco2CsGenerator { get; private set; }
+		CodeDomProvider provider;
 
 		/// <summary>
 		/// 
@@ -28,7 +29,8 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			this.CodeGenParameters = codeGenParameters ?? throw new System.ArgumentNullException(nameof(codeGenParameters));
 			TargetUnit = new CodeCompileUnit();
-			Poco2CsGenerator = new Poco2CsGen(TargetUnit, CodeGenParameters.ClientApiOutputs);
+			provider = CodeDomProvider.CreateProvider("CSharp");
+			Poco2CsGenerator = new Poco2CsGen(TargetUnit, provider, CodeGenParameters.ClientApiOutputs);
 		}
 
 		private bool disposedValue;
@@ -40,31 +42,29 @@ namespace Fonlow.CodeDom.Web.Cs
 		// hack inspired by https://csharpcodewhisperer.blogspot.com/2014/10/create-c-class-code-from-datatable.html
 		public void Save(string fileName)
 		{
-			using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
+
+			CodeGeneratorOptions options = new CodeGeneratorOptions
 			{
-				CodeGeneratorOptions options = new CodeGeneratorOptions
+				BracingStyle = "C",
+				IndentString = "\t"
+			};
+			using (var stream = new MemoryStream())
+			using (StreamWriter writer = new StreamWriter(stream))
+			{
+				provider.GenerateCodeFromCompileUnit(TargetUnit, writer, options);
+				writer.Flush();
+				stream.Position = 0;
+				using (var stringReader = new StreamReader(stream))
+				using (var fileWriter = new StreamWriter(fileName))
 				{
-					BracingStyle = "C",
-					IndentString = "\t"
-				};
-				using (var stream = new MemoryStream())
-				using (StreamWriter writer = new StreamWriter(stream))
-				{
-					provider.GenerateCodeFromCompileUnit(TargetUnit, writer, options);
-					writer.Flush();
-					stream.Position = 0;
-					using (var stringReader = new StreamReader(stream))
-					using (var fileWriter = new StreamWriter(fileName))
+					var s = stringReader.ReadToEnd();
+					if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && CodeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 					{
-						var s = stringReader.ReadToEnd();
-						if (CodeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && CodeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
-						{
-							fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
-						}
-						else
-						{
-							fileWriter.Write(s.Replace("//;", ""));
-						}
+						fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
+					}
+					else
+					{
+						fileWriter.Write(s.Replace("//;", ""));
 					}
 				}
 			}
@@ -87,7 +87,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, null);
 				}
 			}
-			
+
 			if (CodeGenParameters.ApiSelections.DataModels != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -345,7 +345,7 @@ namespace EnsureSuccessStatusCodeExDummy
 			{
 				if (disposing)
 				{
-					Poco2CsGenerator.Dispose();
+					provider.Dispose();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override finalizer

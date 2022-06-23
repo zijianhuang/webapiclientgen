@@ -2495,7 +2495,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body, status 204.
 		/// GET api/Entities/NullCompany
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Company> GetNullCompanyAsync(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public async Task<DemoWebApi.DemoData.Client.Company?> GetNullCompanyAsync(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Entities/NullCompany";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -2507,7 +2507,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader)!;
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
 			}
 			finally
 			{
@@ -2519,7 +2519,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body, status 204.
 		/// GET api/Entities/NullCompany
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Company GetNullCompany(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public DemoWebApi.DemoData.Client.Company? GetNullCompany(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Entities/NullCompany";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -2531,7 +2531,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader)!;
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
 			}
 			finally
 			{
@@ -5018,7 +5018,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
-		public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public async Task<DemoWebApi.DemoData.Client.Person?> GetNullPersonAsync(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/NullObject";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -5030,7 +5030,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
 			}
 			finally
 			{
@@ -5041,7 +5041,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
-		public DemoWebApi.DemoData.Client.Person GetNullPerson(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public DemoWebApi.DemoData.Client.Person? GetNullPerson(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/NullObject";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -5053,7 +5053,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader)!;
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
 			}
 			finally
 			{

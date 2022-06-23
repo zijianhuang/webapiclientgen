@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+#nullable enable
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
@@ -74,7 +74,7 @@ namespace DemoWebApi.Controllers
 
 		[HttpGet]
 		[Route("NullObject")]
-		public DemoData.Person GetNullPerson()
+		public DemoData.Person? GetNullPerson()
 		{
 			return null;
 		}
@@ -398,6 +398,7 @@ namespace DemoWebApi.Controllers
 		[Route("StringStringDic")]
 		public IDictionary<string, string> GetDictionary()
 		{
+#pragma warning disable CS8604 // Possible null reference argument.
 			return new Dictionary<string, string>()
 		{
 			{typeof(int).FullName, "number"},
@@ -423,6 +424,7 @@ namespace DemoWebApi.Controllers
 			{"System.Array", "Array"},
 
 		};
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[HttpGet]
@@ -653,3 +655,4 @@ namespace DemoWebApi.Controllers
 
 	}
 }
+#nullable disable

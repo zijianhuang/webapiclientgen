@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
+#nullable enable
 namespace DemoWebApi.Controllers
 {
 	// [EnableCors(origins: "*", headers:"*", methods:"*")] set globally in WebApiConfig.cs
@@ -117,7 +117,7 @@ namespace DemoWebApi.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("NullCompany")]
-		public Company GetNullCompany()
+		public Company? GetNullCompany()
 		{
 			return null;
 		}
@@ -235,3 +235,4 @@ namespace DemoWebApi.Controllers
 
 	}
 }
+#nullable disable

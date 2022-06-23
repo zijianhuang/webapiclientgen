@@ -536,8 +536,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Return empty body, status 204.
 		 * GET api/Entities/NullCompany
 		 */
-		getNullCompany(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Company> {
-			return this.http.get<DemoWebApi_DemoData_Client.Company>(this.baseUri + 'api/Entities/NullCompany', { headers: headersHandler ? headersHandler() : undefined });
+		getNullCompany(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Company | null> {
+			return this.http.get<DemoWebApi_DemoData_Client.Company | null>(this.baseUri + 'api/Entities/NullCompany', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
@@ -949,8 +949,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/NullObject
 		 */
-		getNullPerson(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.get<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/SuperDemo/NullObject', { headers: headersHandler ? headersHandler() : undefined });
+		getNullPerson(headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person | null> {
+			return this.http.get<DemoWebApi_DemoData_Client.Person | null>(this.baseUri + 'api/SuperDemo/NullObject', { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**

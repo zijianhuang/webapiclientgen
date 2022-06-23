@@ -528,18 +528,21 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
 					//Add4TStartBacket(statementCollection);
-					AddNewtonSoftJsonSerializer(statementCollection);
-					var invokeExpression = new CodeMethodInvokeExpression(
-						new CodeMethodReferenceExpression(
-							new CodeVariableReferenceExpression("serializer"),
-							"Deserialize",
-							poco2CsGen.TranslateToClientTypeReference(returnType)
-						),
 
-						new CodeSnippetExpression("jsonReader")
-					);
-					statementCollection.Add(new CodeMethodReturnStatement(invokeExpression));
-					//statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression($"serializer.Deserialize<{poco2CsGen.TranslateToClientTypeReferenceText(returnType, false)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
+					AddNewtonSoftJsonSerializer(statementCollection);
+
+					//var invokeExpression = new CodeMethodInvokeExpression(
+					//	new CodeMethodReferenceExpression(
+					//		new CodeVariableReferenceExpression("serializer"),
+					//		"Deserialize",
+					//		poco2CsGen.TranslateToClientTypeReference(returnType)
+					//	),
+
+					//	new CodeSnippetExpression("jsonReader")
+					//);
+					//statementCollection.Add(new CodeMethodReturnStatement(invokeExpression));
+
+					statementCollection.Add(new CodeSnippetStatement($"\t\t\t\treturn serializer.Deserialize<{poco2CsGen.TranslateTypeToCSharp(returnType)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : "") + ";"));
 
 					//Add4TEndBacket(statementCollection);
 				}

@@ -688,7 +688,7 @@ namespace DemoCoreWeb.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 			}
 			finally
 			{
@@ -712,7 +712,7 @@ namespace DemoCoreWeb.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 			}
 			finally
 			{
@@ -782,7 +782,7 @@ namespace DemoCoreWeb.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 			}
 			finally
 			{
@@ -806,7 +806,7 @@ namespace DemoCoreWeb.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 			}
 			finally
 			{
@@ -891,7 +891,7 @@ namespace DemoCoreWeb.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 			}
 			finally
 			{
@@ -920,7 +920,7 @@ namespace DemoCoreWeb.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
+				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader)!;
 			}
 			finally
 			{

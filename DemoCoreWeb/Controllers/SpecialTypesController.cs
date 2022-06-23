@@ -25,6 +25,10 @@ namespace DemoCoreWeb.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Async function returing dynamic
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet] //.net core up to 3.1 does not give correct return type in ApiExplorer.
 		[Route("AnonymousDynamic2")]
 		public async Task<dynamic> GetAnonymousDynamic2()
@@ -47,6 +51,10 @@ namespace DemoCoreWeb.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Async function returning object
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("AnonymousObject2")]
 		public async Task<object> GetAnonymousObject2()
@@ -77,6 +85,11 @@ namespace DemoCoreWeb.Controllers
 			return obj;
 		}
 
+		/// <summary>
+		/// Async returning object, Post dynamic
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("AnonymousObject2")]
 		public async Task<object> PostAnonymousObject2([FromBody] dynamic obj)

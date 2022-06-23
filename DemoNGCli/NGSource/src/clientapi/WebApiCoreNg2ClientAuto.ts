@@ -273,6 +273,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Async function returing dynamic
 		 * GET api/SpecialTypes/AnonymousDynamic2
 		 */
 		getAnonymousDynamic2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
@@ -287,6 +288,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Async function returning object
 		 * GET api/SpecialTypes/AnonymousObject2
 		 */
 		getAnonymousObject2(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
@@ -301,6 +303,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Async returning object, Post dynamic
 		 * POST api/SpecialTypes/AnonymousObject2
 		 */
 		postAnonymousObject2(obj: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {

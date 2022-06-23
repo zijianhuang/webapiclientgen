@@ -673,6 +673,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async function returing dynamic
 		/// GET api/SpecialTypes/AnonymousDynamic2
 		/// </summary>
 		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousDynamic2Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
@@ -696,6 +697,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async function returing dynamic
 		/// GET api/SpecialTypes/AnonymousDynamic2
 		/// </summary>
 		public Newtonsoft.Json.Linq.JObject GetAnonymousDynamic2(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
@@ -765,6 +767,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async function returning object
 		/// GET api/SpecialTypes/AnonymousObject2
 		/// </summary>
 		public async Task<Newtonsoft.Json.Linq.JObject> GetAnonymousObject2Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
@@ -788,6 +791,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async function returning object
 		/// GET api/SpecialTypes/AnonymousObject2
 		/// </summary>
 		public Newtonsoft.Json.Linq.JObject GetAnonymousObject2(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
@@ -867,6 +871,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async returning object, Post dynamic
 		/// POST api/SpecialTypes/AnonymousObject2
 		/// </summary>
 		public async Task<Newtonsoft.Json.Linq.JObject> PostAnonymousObject2Async(Newtonsoft.Json.Linq.JObject obj, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
@@ -895,6 +900,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async returning object, Post dynamic
 		/// POST api/SpecialTypes/AnonymousObject2
 		/// </summary>
 		public Newtonsoft.Json.Linq.JObject PostAnonymousObject2(Newtonsoft.Json.Linq.JObject obj, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)

@@ -13,7 +13,7 @@ namespace Poco2TsTests
 			Assert.Equal("DemoCoreWeb", d.XmlDoc.assembly.name);
 			var summary = d.GetMember("T:DemoWebApi.Controllers.HeroesController").summary;
 
-			const string expected = "\n            Heroes operations\n            ";
+			const string expected = "\n            Heroes operations. Decorated by nullable directive.\n            ";
 			Assert.Equal(expected, summary.Text[0]);
 
 		}

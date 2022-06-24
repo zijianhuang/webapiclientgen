@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Fonlow.CodeDom;
+
 namespace Fonlow.Poco2Client
 {
 	/// <summary>

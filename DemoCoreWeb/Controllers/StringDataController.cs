@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-
+#nullable enable
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
@@ -22,12 +22,12 @@ namespace DemoWebApi.Controllers
 		/// <returns></returns>
 		[HttpGet]
 		[Route("AthletheSearch")]
-		public string AthletheSearch([FromQuery] int? take = 10, [FromQuery] int skip = 0, [FromQuery] string order = null, [FromQuery] string sort = null, [FromQuery] string search = null)
+		public string AthletheSearch([FromQuery] int? take = 10, [FromQuery] int skip = 0, [FromQuery] string? order = null, [FromQuery] string? sort = null, [FromQuery] string? search = null)
 		{
 			return (take.HasValue ? take.Value.ToString() : String.Empty) + skip.ToString() + (String.IsNullOrEmpty(order) ? "" : order) + (String.IsNullOrEmpty(sort) ? "" : sort) + (String.IsNullOrEmpty(search) ? "" : search);
 		}
 
-#nullable enable
+
 		/// <summary>
 		/// Return empty body with status 204 No Content, even though the default mime type is application/json.
 		/// </summary>

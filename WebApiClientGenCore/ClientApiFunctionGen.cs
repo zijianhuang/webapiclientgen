@@ -56,30 +56,19 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
 
-			var methodBase = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
-			if (methodBase != null)
+			var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
+			if (methodInfo != null)
 			{
 				if (settings.NotNullAttributeOnMethod)
 				{
-					returnTypeIsNotNullable = returnType != null && Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+					returnTypeIsNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
 				else if (settings.SupportNullReferenceTypeOnMethodReturn)
 				{
-					returnTypeIsNotNullable = true;
-					var customAttributes = methodBase.CustomAttributes.ToArray();
-					if (customAttributes.Length > 0)
-					{
-						var nullableContextAttribute = customAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
-						if (nullableContextAttribute != null)
-						{
-							var v = (byte)(nullableContextAttribute.ConstructorArguments[0].Value);
-							returnTypeIsNotNullable = v == 1;
-						}
-					}
+					returnTypeIsNotNullable = !MethodHelper.ReturnIsNullableReferenceType(methodInfo);
 				}
 			}
 		}
-
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
 		const string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
 		const string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0

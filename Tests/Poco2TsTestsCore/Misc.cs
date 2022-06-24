@@ -1,35 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 using System.Reflection;
+using Xunit;
 
 namespace Poco2TsTests
 {
 	public class Misc
 	{
-		//[Fact]
-		//public void TestUriTemplate()
-		//{
-		//	UriTemplate template = new UriTemplate("weather/{state}/{city}?forecast={day}");
-		//	Uri prefix = new Uri("http://localhost");
-
-		//	foreach (string name in template.PathSegmentVariableNames)
-		//	{
-		//		Console.WriteLine("     {0}", name);
-		//	}
-
-
-		//	Console.WriteLine("QueryValueVariableNames:");
-		//	foreach (string name in template.QueryValueVariableNames)
-		//	{
-		//		System.Diagnostics.Trace.WriteLine("{0}", name);
-		//	}
-
-		//}
-
 		[Fact]
 		public void TestOfType()
 		{
@@ -59,7 +36,7 @@ namespace Poco2TsTests
 			Assert.NotNull(methodBase);
 			var customAttributes = methodBase.CustomAttributes.ToArray();
 			Assert.NotEmpty(customAttributes); //[[System.Runtime.CompilerServices.NullableContextAttribute((Byte)1)]]
-			Assert.True(Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute)));
+//			Assert.True(Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute)));
 
 			Assert.Equal((byte)1, customAttributes[0].ConstructorArguments[0].Value); // return type string is not with ?
 			Assert.Equal("System.Runtime.CompilerServices.NullableContextAttribute", customAttributes[0].AttributeType.FullName);
@@ -101,6 +78,20 @@ namespace Poco2TsTests
 		}
 
 		[Fact]
+		public void TestAthletheSearch()
+		{
+			Type methodContainerType = Type.GetType("Poco2TsTests.Misc");
+			Assert.NotNull(methodContainerType);
+			var methodBase = methodContainerType.GetMethod("AthletheSearch");
+			Assert.NotNull(methodBase);
+			var customAttributes = methodBase.CustomAttributes.ToArray();
+			Assert.NotEmpty(customAttributes); //[[System.Runtime.CompilerServices.NullableContextAttribute((Byte)1)]]
+			Assert.Equal((byte)1, methodBase.ReturnParameter.CustomAttributes.FirstOrDefault().ConstructorArguments[0].Value);
+			//Assert.Equal((byte)1, customAttributes[0].ConstructorArguments[0].Value); // return type string is not with ?, but actually 2
+			Assert.Equal("System.Runtime.CompilerServices.NullableContextAttribute", customAttributes[0].AttributeType.FullName);
+		}
+
+		[Fact]
 		public void TestNotNullAttribute()
 		{
 			Type methodContainerType = Type.GetType("Poco2TsTests.Misc");
@@ -126,8 +117,8 @@ namespace Poco2TsTests
 		}
 
 #nullable enable
-		[return: System.Diagnostics.CodeAnalysis.NotNull]
-		public string GetNotNullStringOnNullableEnabled()
+		//[return: System.Diagnostics.CodeAnalysis.NotNull]
+		public string GetNotNullStringOnNullableEnabled(string? sort)
 		{
 			return "ABCD";
 		}
@@ -158,6 +149,11 @@ namespace Poco2TsTests
 
 			//return null;
 			return new A();
+		}
+
+		public string AthletheSearch(string? sort, string? search)
+		{
+			return "ABCD";
 		}
 
 #nullable disable

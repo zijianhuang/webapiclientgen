@@ -47,26 +47,16 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (jsOutput.HelpStrictMode)
 			{
-				var methodBase = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
-				if (methodBase != null)
+				var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
+				if (methodInfo != null)
 				{
 					if (jsOutput.NotNullAttributeOnMethod)
 					{
-						ReturnTypeIsNotNullable = ReturnType != null && Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+						ReturnTypeIsNotNullable = ReturnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 					}
 					else if (jsOutput.SupportNullReferenceTypeOnMethodReturn)
 					{
-						ReturnTypeIsNotNullable = true;
-						var customAttributes = methodBase.CustomAttributes.ToArray();
-						if (customAttributes.Length > 0)
-						{
-							var nullableContextAttribute = customAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
-							if (nullableContextAttribute != null)
-							{
-								var v = (byte)(nullableContextAttribute.ConstructorArguments[0].Value);
-								ReturnTypeIsNotNullable = v == 1;
-							}
-						}
+						ReturnTypeIsNotNullable = !MethodHelper.ReturnIsNullableReferenceType(methodInfo);
 					}
 				}
 			}

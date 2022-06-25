@@ -29,6 +29,20 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpGet]
+		[Route("NullableString")]
+		public string? GetNullableString()
+		{
+			if (DateTime.Now > new DateTime(2008, 12, 3))
+			{
+				return "ABCD";
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		[HttpGet]
 		[Route("String")]
 		public string GetABCDE()
 		{
@@ -45,6 +59,6 @@ namespace DemoWebApi.Controllers
 		{
 			return String.Empty;
 		}
-#nullable disable
 	}
 }
+#nullable disable

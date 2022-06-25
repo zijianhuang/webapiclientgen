@@ -56,6 +56,6 @@ namespace DemoWebApi.Controllers
 		{
 			return String.Empty;
 		}
-#nullable disable
 	}
 }
+#nullable disable

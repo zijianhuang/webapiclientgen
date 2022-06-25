@@ -17,7 +17,7 @@ namespace Fonlow.CodeDom.Web
 			var r = Instance;
 			if (r.initialized)
 			{
-				throw new InvalidOperationException("Already initialzied once.");
+				return r;
 			}
 
 			r.initialized = true;

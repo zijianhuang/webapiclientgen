@@ -1778,7 +1778,7 @@ describe('StringData API', () => {
 	});
 
 	it('TestAthletheSearch', (done) => {
-		service.athletheSearch(32, 0, null!, null!, undefined!).subscribe(
+		service.athletheSearch(32, 0, null, null!, undefined!).subscribe(
 			data => {
 				expect(data).toBe('"320"');
 				done();

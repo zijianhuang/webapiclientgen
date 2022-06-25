@@ -41,6 +41,14 @@ namespace DemoWebApi.Controllers
 			return r;
 		}
 
+		[HttpGet("super")]
+		[ActionName("GetSuperHero")]
+		public SuperHero? GetSuper([FromQuery] long id)
+		{
+			_ = HeroesData.Instance.Dic.TryGetValue(id, out Hero? r);
+			return r as SuperHero;
+		}
+
 		[HttpDelete("{id}")]
 		public void Delete(long id)
 		{
@@ -127,6 +135,21 @@ namespace DemoWebApi.Controllers
 
 		[DataMember]
 		public string Name { get; set; }
+	}
+
+	[DataContract(Namespace = DemoWebApi.DemoData.Constants.DataNamespace)]
+	public class SuperHero: Hero
+	{
+		public SuperHero(long id, string name, bool super):base(id, name)
+		{
+			Id = id;
+			Name = name;
+			Super = super;
+		}
+
+		[DataMember]
+		public bool Super { get; set; }
+
 	}
 
 	public sealed class HeroesData

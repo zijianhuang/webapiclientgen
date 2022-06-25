@@ -555,6 +555,33 @@ namespace DemoWebApi.Controllers.Client
 {
 	
 	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class A : DemoWebApi.Controllers.Client.Base
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string P2 { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class B : DemoWebApi.Controllers.Client.A
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string P3 { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Base : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string P1 { get; set; }
+	}
+	
 	/// <summary>
 	/// This class is used to carry the result of various file uploads.
 	/// </summary>
@@ -589,6 +616,15 @@ namespace DemoWebApi.Controllers.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string Name { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class SuperHero : DemoWebApi.Controllers.Client.Hero
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public bool Super { get; set; }
 	}
 }
 #nullable enable
@@ -3058,6 +3094,52 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/Heroes/super?id={id}
+		/// </summary>
+		public async Task<DemoWebApi.Controllers.Client.SuperHero?> GetSuperHeroAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/Heroes/super?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.SuperHero>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Heroes/super?id={id}
+		/// </summary>
+		public DemoWebApi.Controllers.Client.SuperHero? GetSuperHero(long id, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/Heroes/super?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.SuperHero>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// POST api/Heroes
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
@@ -3264,6 +3346,726 @@ namespace DemoWebApi.Controllers.Client
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader)!;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+	}
+	
+	public partial class NullableTypes
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerSettings? jsonSerializerSettings;
+		
+		public NullableTypes(System.Net.Http.HttpClient client, JsonSerializerSettings? jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		/// </summary>
+		public async Task<System.String?> AthletheSearchAsync(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		/// </summary>
+		public System.String? AthletheSearch(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/NullableTypes/GetB
+		/// </summary>
+		public async Task<DemoWebApi.Controllers.Client.B> GetBAsync(DemoWebApi.Controllers.Client.A a, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetB";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, a);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.B>(jsonReader)!;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/NullableTypes/GetB
+		/// </summary>
+		public DemoWebApi.Controllers.Client.B GetB(DemoWebApi.Controllers.Client.A a, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetB";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, a);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.B>(jsonReader)!;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/NullableTypes/GetNullableA
+		/// </summary>
+		public async Task<DemoWebApi.Controllers.Client.A?> GetNullableAAsync(DemoWebApi.Controllers.Client.B b, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableA";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, b);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.A>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/NullableTypes/GetNullableA
+		/// </summary>
+		public DemoWebApi.Controllers.Client.A? GetNullableA(DemoWebApi.Controllers.Client.B b, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableA";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, b);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.Controllers.Client.A>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/NullableString
+		/// </summary>
+		public async Task<System.String?> GetNullableStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/NullableString";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/NullableString
+		/// </summary>
+		public System.String? GetNullableString(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/NullableString";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetNullableStringWith1NullableStringParameter1Normal?sort={sort}&search={search}
+		/// </summary>
+		public async Task<System.String?> GetNullableStringWith1NullableStringParameter1NormalAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableStringWith1NullableStringParameter1Normal?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetNullableStringWith1NullableStringParameter1Normal?sort={sort}&search={search}
+		/// </summary>
+		public System.String? GetNullableStringWith1NullableStringParameter1Normal(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableStringWith1NullableStringParameter1Normal?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetNullableStringWith2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public async Task<System.String?> GetNullableStringWith2NullableStringParametersAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableStringWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetNullableStringWith2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public System.String? GetNullableStringWith2NullableStringParameters(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableStringWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetNullableStringWith2NullableStringParameters1Normal?sort={sort}&search={search}&kk={kk}
+		/// </summary>
+		public async Task<System.String?> GetNullableStringWith2NullableStringParameters1NormalAsync(string sort, string search, string kk, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableStringWith2NullableStringParameters1Normal?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search))+"&kk="+(kk == null ? "" : Uri.EscapeDataString(kk));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetNullableStringWith2NullableStringParameters1Normal?sort={sort}&search={search}&kk={kk}
+		/// </summary>
+		public System.String? GetNullableStringWith2NullableStringParameters1Normal(string sort, string search, string kk, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableStringWith2NullableStringParameters1Normal?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search))+"&kk="+(kk == null ? "" : Uri.EscapeDataString(kk));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public async Task<System.Client.Tuple<DemoWebApi.Controllers.Client.A,DemoWebApi.Controllers.Client.B,System.String>> GetNullableTupleWith2NullableStringParametersAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public System.Client.Tuple<DemoWebApi.Controllers.Client.A,DemoWebApi.Controllers.Client.B,System.String> GetNullableTupleWith2NullableStringParameters(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetString
+		/// </summary>
+		public async Task<string> GetStringAsync(string sort, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetString";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetString
+		/// </summary>
+		public string GetString(string sort, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetString";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetStringWith1NullableStringParameter1Normal?sort={sort}&search={search}
+		/// </summary>
+		public async Task<string> GetStringWith1NullableStringParameter1NormalAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetStringWith1NullableStringParameter1Normal?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetStringWith1NullableStringParameter1Normal?sort={sort}&search={search}
+		/// </summary>
+		public string GetStringWith1NullableStringParameter1Normal(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetStringWith1NullableStringParameter1Normal?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetStringWith2NormalParameters?sort={sort}&search={search}
+		/// </summary>
+		public async Task<string> GetStringWith2NormalParametersAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetStringWith2NormalParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetStringWith2NormalParameters?sort={sort}&search={search}
+		/// </summary>
+		public string GetStringWith2NormalParameters(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetStringWith2NormalParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetStringWith2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public async Task<string> GetStringWith2NullableStringParametersAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetStringWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetStringWith2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public string GetStringWith2NullableStringParameters(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetStringWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetStringWith2NullableStringParameters1Normal?sort={sort}&search={search}&kk={kk}
+		/// </summary>
+		public async Task<string> GetStringWith2NullableStringParameters1NormalAsync(string sort, string search, string kk, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetStringWith2NullableStringParameters1Normal?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search))+"&kk="+(kk == null ? "" : Uri.EscapeDataString(kk));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetStringWith2NullableStringParameters1Normal?sort={sort}&search={search}&kk={kk}
+		/// </summary>
+		public string GetStringWith2NullableStringParameters1Normal(string sort, string search, string kk, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetStringWith2NullableStringParameters1Normal?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search))+"&kk="+(kk == null ? "" : Uri.EscapeDataString(kk));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetTuple2With2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public async Task<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>> GetTuple2With2NullableStringParametersAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetTuple2With2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>>(jsonReader)!;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetTuple2With2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string> GetTuple2With2NullableStringParameters(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetTuple2With2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>>(jsonReader)!;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetTupleWith2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public async Task<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>> GetTupleWith2NullableStringParametersAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetTupleWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>>(jsonReader)!;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/NullableTypes/GetTupleWith2NullableStringParameters?sort={sort}&search={search}
+		/// </summary>
+		public System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string> GetTupleWith2NullableStringParameters(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/NullableTypes/GetTupleWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>>(jsonReader)!;
 			}
 			finally
 			{
@@ -6458,6 +7260,52 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/TextData/NullableString
+		/// </summary>
+		public async Task<System.String?> GetNullableStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/TextData/NullableString";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/TextData/NullableString
+		/// </summary>
+		public System.String? GetNullableString(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		{
+			var requestUri = "api/TextData/NullableString";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// Return empty body with status 204 No Content.
 		/// GET api/TextData/NullString
 		/// </summary>
@@ -6681,7 +7529,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get Tuple in return
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
-		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public async Task<System.Client.Tuple<DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany4";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -6693,7 +7541,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader)!;
+				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
 			}
 			finally
 			{
@@ -6705,7 +7553,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get Tuple in return
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
-		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public System.Client.Tuple<DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Company> GetPeopleCompany4(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany4";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -6717,7 +7565,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader)!;
+				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
 			}
 			finally
 			{
@@ -6728,7 +7576,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
-		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public async Task<System.Client.Tuple<DemoWebApi.DemoData.Client.Person> GetPeopleCompany5Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany5";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -6740,7 +7588,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader)!;
+				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
 			}
 			finally
 			{
@@ -6751,7 +7599,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
-		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public System.Client.Tuple<DemoWebApi.DemoData.Client.Person GetPeopleCompany5(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany5";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -6763,7 +7611,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader)!;
+				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
 			}
 			finally
 			{

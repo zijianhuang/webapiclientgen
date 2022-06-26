@@ -639,23 +639,38 @@ namespace Fonlow.Poco2Client
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
 
+			string CreateGenericTypeText()
+			{
+				var anyGenericTypeName = forDocComment ? genericTypeDefinition.FullName : RefineCustomComplexTypeText(genericTypeDefinition);
+				var idx = anyGenericTypeName.IndexOf('`');
+				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
+				var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
+				var left = forDocComment ? "{{" : "<";
+				var right = forDocComment ? "}}" : ">";
+				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
+			}
+
+			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
+				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) ||
+				(TypeHelper.IsArrayType(genericTypeDefinition) && !settings.IEnumerableToArray))
+			{
+				return CreateGenericTypeText();
+			}
+
+			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
+			{
+				return TranslateToClientTypeReferenceText(genericArguments[0], forDocComment);
+			}
+
 			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) ||
 				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
-				//var elementType = type.GenericTypeArguments[0];
-				var elementTypeText = TranslateToClientTypeReferenceText(type.GetElementType(), forDocComment);
-				return $"{elementTypeText}[]";
+				var elementType = type.GenericTypeArguments[0];
+				return CreateArrayTypeReferenceText(elementType, 1);
 			}
 
-			var anyGenericTypeName = forDocComment ? genericTypeDefinition.FullName : RefineCustomComplexTypeText(genericTypeDefinition);
-			var idx = anyGenericTypeName.IndexOf('`');
-			anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
-			var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
-			var left = forDocComment ? "{{" : "<";
-			var right = forDocComment ? "}}" : ">";
-			return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
-
+			return CreateGenericTypeText();
 		}
 
 		string RefineCustomComplexTypeText(Type t)
@@ -682,6 +697,18 @@ namespace Fonlow.Poco2Client
 			return otherArrayType;
 		}
 
+		string CreateArrayTypeReferenceText(Type elementType, int arrayRank)
+		{
+			if (pendingTypes.Contains(elementType))
+			{
+				return CreateArrayOfCustomTypeReferenceText(elementType, arrayRank);
+			}
+
+			var t = TranslateToClientTypeReference(elementType);
+			string s = new string(',', arrayRank - 1);
+			return $"{t}[{s}]";
+		}
+
 		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
 		{
 			var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
@@ -690,6 +717,13 @@ namespace Fonlow.Poco2Client
 				ArrayElementType = elementTypeReference,
 			};
 			return typeReference;
+		}
+
+		string CreateArrayOfCustomTypeReferenceText(Type elementType, int arrayRank)
+		{
+			var t = RefineCustomComplexTypeText(elementType);
+			string s = new string(',', arrayRank - 1);
+			return $"{t}[{s}]";
 		}
 
 		string[] GenerateCommentsFromAttributes(MemberInfo property)

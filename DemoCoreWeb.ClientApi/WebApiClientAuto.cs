@@ -3718,7 +3718,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort={sort}&search={search}
 		/// </summary>
-		public async Task<System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string>> GetNullableTupleWith2NullableStringParametersAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public async Task<System.Tuple<DemoWebApi.Controllers.Client.A,DemoWebApi.Controllers.Client.B,System.String>?> GetNullableTupleWith2NullableStringParametersAsync(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -3741,7 +3741,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort={sort}&search={search}
 		/// </summary>
-		public System.Tuple<DemoWebApi.Controllers.Client.A, DemoWebApi.Controllers.Client.B, string> GetNullableTupleWith2NullableStringParameters(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public System.Tuple<DemoWebApi.Controllers.Client.A,DemoWebApi.Controllers.Client.B,System.String>? GetNullableTupleWith2NullableStringParameters(string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -7529,7 +7529,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get Tuple in return
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
-		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Company>?> GetPeopleCompany4Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany4";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -7553,7 +7553,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get Tuple in return
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
-		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public System.Tuple<DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Person,DemoWebApi.DemoData.Client.Company>? GetPeopleCompany4(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany4";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -7576,7 +7576,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
-		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person> GetPeopleCompany5Async(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany5";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -7599,7 +7599,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
-		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
+		public System.Tuple<DemoWebApi.DemoData.Client.Person GetPeopleCompany5(Action<System.Net.Http.Headers.HttpRequestHeaders>? handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany5";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);

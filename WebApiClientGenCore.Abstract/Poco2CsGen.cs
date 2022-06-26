@@ -87,14 +87,14 @@ namespace Fonlow.Poco2Client
 			}
 			else if (type.IsGenericType)
 			{
-				return TranslateGenericToTypeReference(type);
+				return isNullableReference ? new CodeTypeReference(TranslateGenericToTypeReferenceText(type, false)+"?") : TranslateGenericToTypeReference(type);
 			}
 			else if (type.IsArray)
 			{
 				Debug.Assert(type.Name.EndsWith("]"));
 				var elementType = type.GetElementType();
 				var arrayRank = type.GetArrayRank();
-				return CreateArrayTypeReference(elementType, arrayRank);
+				return isNullableReference? new CodeTypeReference(CreateArrayTypeReferenceText(elementType, arrayRank) + "?") : CreateArrayTypeReference(elementType, arrayRank);
 			}
 			else
 			{
@@ -650,11 +650,22 @@ namespace Fonlow.Poco2Client
 				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 			}
 
+			string CreateSystemGenericTypeText()
+			{
+				var anyGenericTypeName = genericTypeDefinition.FullName;
+				var idx = anyGenericTypeName.IndexOf('`');
+				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
+				var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
+				var left = forDocComment ? "{{" : "<";
+				var right = forDocComment ? "}}" : ">";
+				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
+			}
+
 			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
 				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) ||
 				(TypeHelper.IsArrayType(genericTypeDefinition) && !settings.IEnumerableToArray))
 			{
-				return CreateGenericTypeText();
+				return CreateSystemGenericTypeText();
 			}
 
 			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))

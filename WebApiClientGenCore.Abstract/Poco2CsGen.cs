@@ -518,16 +518,6 @@ namespace Fonlow.Poco2Client
 				return CreateGenericType();
 			}
 
-			// Cover IDictionary derived types
-			if (genericArguments.Length == 2)
-			{
-				Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
-				if (closedDictionaryType.IsAssignableFrom(type))
-				{
-					return CreateGenericType();
-				}
-			}
-
 			if (genericTypeDefinition == typeof(System.Threading.Tasks.Task<>))
 			{
 				return TranslateToClientTypeReference(genericArguments[0]);
@@ -648,6 +638,7 @@ namespace Fonlow.Poco2Client
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
+
 			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) ||
 				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{

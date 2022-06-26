@@ -48,9 +48,12 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else
 			{
-				if (jsOutput.HelpStrictMode && !returnTypeText.EndsWith(" | null"))
+				if (jsOutput.HelpStrictMode)
 				{
-					returnTypeText += " | null";
+					if (!returnTypeText.EndsWith(" | null") && !ReturnTypeIsNotNullable)
+					{
+						returnTypeText += " | null";
+					}
 				}
 			}
 

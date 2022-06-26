@@ -63,10 +63,6 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					returnTypeIsNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
-				else if (settings.SupportNullReferenceTypeOnMethodReturn)
-				{
-					returnTypeIsNotNullable = !MethodHelper.ReturnIsNullableReferenceType(methodInfo);
-				}
 			}
 		}
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
@@ -90,10 +86,6 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (settings.NotNullAttributeOnMethod && returnTypeIsNotNullable)
 			{
 				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
-			}
-			else if (settings.SupportNullReferenceTypeOnMethodReturn)
-			{
-				//clientMethod.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.CompilerServices.NullableContextAttribute", new CodeAttributeArgument(new CodeSnippetExpression(returnTypeIsNotNullable ? "2" : "1")))); Not supported in programming, it is .net internal stuffs
 			}
 
 			System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
@@ -122,7 +114,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName,
-				ReturnType = poco2CsGen.TranslateToClientTypeReferenceForNullableReference(returnType, !returnTypeIsNotNullable),
+				ReturnType = poco2CsGen.TranslateToClientTypeReference(returnType),
 			};
 		}
 
@@ -133,7 +125,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName + "Async",
 				ReturnType = returnType == null ? new CodeTypeReference("async Task")
-				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReferenceForNullableReference(returnType, !returnTypeIsNotNullable)),
+				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReference(returnType)),
 			};
 		}
 
@@ -238,7 +230,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (settings.HandleHttpRequestHeaders)
 			{
-				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>" + (settings.SupportNullReferenceTypeOnMethodReturn ? "?" : ""), "handleHeaders = null"));
+				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
 			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
@@ -323,7 +315,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (settings.HandleHttpRequestHeaders)
 			{
-				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>" + (settings.SupportNullReferenceTypeOnMethodReturn ? "?" : ""), "handleHeaders = null"));
+				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
 			}
 
 			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
@@ -442,7 +434,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			//	new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
 			//		new CodeSnippetExpression("jsonReader"))));
 
-			statementCollection.Add(new CodeSnippetStatement($"\t\t\t\treturn serializer.Deserialize<{poco2CsGen.TranslateTypeToCSharp(returnType)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : "") + ";"));
+			statementCollection.Add(new CodeSnippetStatement($"\t\t\t\treturn serializer.Deserialize<{poco2CsGen.TranslateTypeToCSharp(returnType)}>(jsonReader);"));
 
 		}
 
@@ -464,14 +456,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			if (TypeHelper.IsStringType(returnType)) //ASP.NET Core return null as empty body with status code 204, whether to produce JSON or plain text.
 			{
-				if (settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable)
-				{
-					// no need
-				}
-				else
-				{
-					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
-				}
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
 			}
 
 			if (settings.UseSystemTextJson)
@@ -531,7 +516,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					//);
 					//statementCollection.Add(new CodeMethodReturnStatement(invokeExpression));
 
-					statementCollection.Add(new CodeSnippetStatement($"\t\t\t\treturn serializer.Deserialize<{poco2CsGen.TranslateTypeToCSharp(returnType)}>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : "") + ";"));
+					statementCollection.Add(new CodeSnippetStatement($"\t\t\t\treturn serializer.Deserialize<{poco2CsGen.TranslateTypeToCSharp(returnType)}>(jsonReader);"));
 
 					//Add4TEndBacket(statementCollection);
 				}
@@ -574,7 +559,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					{
 						AddNewtonSoftJsonTextReader(statementCollection);
 						//Add4TStartBacket(statementCollection);
-						statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
+						statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
 						//Add4TEndBacket(statementCollection);
 					}
 				}
@@ -590,7 +575,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					AddNewtonSoftJsonTextReader(statementCollection);
 					//Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)" + ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : ""))));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader);")));
 					//Add4TEndBacket(statementCollection);
 				}
 			}
@@ -604,7 +589,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
 					//Add4TStartBacket(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString(){1}){1}", returnType.FullName, ((settings.SupportNullReferenceTypeOnMethodReturn && returnTypeIsNotNullable) ? "!" : "")))));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
 					//Add4TEndBacket(statementCollection);
 				}
 			}

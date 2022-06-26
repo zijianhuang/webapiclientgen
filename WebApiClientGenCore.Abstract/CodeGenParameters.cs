@@ -95,14 +95,6 @@
 		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
 		/// </summary>
 		public bool NotNullAttributeOnMethod { get; set; }
-
-		/// <summary>
-		/// The C# client codes are to have NullReferenceTypes turn on, and the return type will follow what in the service codes.
-		/// The TS codes will have null as optional type for return.
-		/// Exclusive to NotNullAttributeOnMethod.
-		/// </summary>
-		public bool SupportNullReferenceTypeOnMethodReturn { get; set; }
-
 	}
 
 	/// <summary>
@@ -246,8 +238,5 @@
 		public bool HelpStrictMode { get; set; }
 
 		public bool NotNullAttributeOnMethod { get; set; }
-
-		public bool SupportNullReferenceTypeOnMethodReturn { get; set; }
-
 	}
 }

@@ -84,7 +84,6 @@ namespace Fonlow.CodeDom.Web
 						DataAnnotationsToComments=plugin.DataAnnotationsToComments,
 						HelpStrictMode=plugin.HelpStrictMode,
 						NotNullAttributeOnMethod=settings.ClientApiOutputs.NotNullAttributeOnMethod,
-						SupportNullReferenceTypeOnMethodReturn=settings.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn,
 					};
 
 					var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);

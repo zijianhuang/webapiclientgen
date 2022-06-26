@@ -76,50 +76,6 @@ namespace Fonlow.Poco2Client
 			return TranslateToClientTypeReferenceText(type, true);
 		}
 
-		public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type, bool isNullableReference)
-		{
-			if (type == null)
-				return null;// new CodeTypeReference("void");
-
-			if (pendingTypes.Contains(type))
-			{
-				return new CodeTypeReference(RefineCustomComplexTypeTextForNullableReferenceType(type, isNullableReference));
-			}
-			else if (type.IsGenericType)
-			{
-				return isNullableReference ? new CodeTypeReference(TranslateGenericToTypeReferenceText(type, false)+"?") : TranslateGenericToTypeReference(type);
-			}
-			else if (type.IsArray)
-			{
-				Debug.Assert(type.Name.EndsWith("]"));
-				var elementType = type.GetElementType();
-				var arrayRank = type.GetArrayRank();
-				return isNullableReference? new CodeTypeReference(CreateArrayTypeReferenceText(elementType, arrayRank) + "?") : CreateArrayTypeReference(elementType, arrayRank);
-			}
-			else
-			{
-				if (type.FullName == "System.Web.Http.IHttpActionResult")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "System.Net.Http.HttpResponseMessage")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject" + (isNullableReference ? "?" : ""));
-			}
-
-			if (isNullableReference)
-			{
-				return new CodeTypeReference(type.FullName + "?");
-			}
-			else
-			{
-				return new CodeTypeReference(type);
-			}
-		}
 
 		/// <summary>
 		/// Create CodeDOM for POCO types. 
@@ -687,11 +643,6 @@ namespace Fonlow.Poco2Client
 		string RefineCustomComplexTypeText(Type t)
 		{
 			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
-		}
-
-		string RefineCustomComplexTypeTextForNullableReferenceType(Type t, bool isNullReferenceType)
-		{
-			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name + (isNullReferenceType ? "?" : String.Empty);
 		}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)

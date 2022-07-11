@@ -54,30 +54,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			using var stream = new MemoryStream();
 			using StreamWriter writer = new StreamWriter(stream);
-			if (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn)
-			{
-				for (int i = 0; i < targetUnit.Namespaces.Count; i++)
-				{
-					var ns = targetUnit.Namespaces[i] as CodeNamespaceEx;
-					if (!ns.DataModelOnly)
-					{
-						writer.WriteLine("#nullable enable");
-					}
-
-					provider.GenerateCodeFromNamespace(ns, writer, options);
-
-					if (!ns.DataModelOnly)
-					{
-						writer.WriteLine("#nullable disable");
-					}
-
-				}
-			}
-			else
-			{
-				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
-			}
-
+			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
 			writer.Flush();
 			stream.Position = 0;
 			using var stringReader = new StreamReader(stream);
@@ -85,7 +62,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			var s = stringReader.ReadToEnd();
 			if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 			{
-				fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? blockOfEnsureSuccessStatusCodeExForNullReferenceTypes : blockOfEnsureSuccessStatusCodeEx));
+				fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
 			}
 			else
 			{
@@ -292,7 +269,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Private,
 				Name = "jsonSerializerSettings",
-				Type = codeGenParameters.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : "")) : new CodeTypeReference("JsonSerializerSettings" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : ""))
+				Type = codeGenParameters.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions") : new CodeTypeReference("JsonSerializerSettings")
 			};
 			targetClass.Members.Add(jsonSettingsField);
 		}
@@ -309,7 +286,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Net.Http.HttpClient", "client"));
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				codeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : "") : "JsonSerializerSettings" + (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn ? "?" : ""), "jsonSerializerSettings=null"));
+				codeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" : "JsonSerializerSettings", "jsonSerializerSettings=null"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
 				throw new ArgumentNullException(nameof(client), ""Null HttpClient."");

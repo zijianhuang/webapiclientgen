@@ -41,8 +41,8 @@
 		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
 		"DecorateDataModelWithSerializable": true,
 		"IEnumerableToArray": false,
-		//"NotNullAttributeOnMethod": true,
-		"SupportNullReferenceTypeOnMethodReturn": true,
+		"NotNullAttributeOnMethod": true,
+		//"SupportNullReferenceTypeOnMethodReturn": false,
 		//"UseSystemTextJson": true,
 
 		"Plugins": [

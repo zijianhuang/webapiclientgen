@@ -54,11 +54,6 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						ReturnTypeIsNotNullable = ReturnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 					}
-					else if (jsOutput.SupportNullReferenceTypeOnMethodReturn)
-					{
-						//Debug.Assert(!methodInfo.Name.Contains("GetNullableTupleWith2NullableStringParameters"));
-						ReturnTypeIsNotNullable = !MethodHelper.ReturnIsNullableReferenceType(methodInfo);
-					}
 				}
 			}
 

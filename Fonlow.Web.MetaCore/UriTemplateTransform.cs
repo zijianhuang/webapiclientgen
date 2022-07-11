@@ -173,15 +173,15 @@ namespace Fonlow.CodeDom.Web
 
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					return newUriText+=$"({d.Name} == null ? '' : {d.Name}=' + encodeURIComponent({d.Name})) + '";
+					return newUriText+=$"(!{d.Name} ? '' : {d.Name}=' + encodeURIComponent({d.Name})) + '";
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
-					return newUriText+= $"{d.Name}=' + {d.Name}.toISOString() + '";
+					return newUriText+= $"{d.Name}=' + {d.Name}?.toISOString() + '";
 				}
 				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
-					var arrayQuery = $"{d.ParameterDescriptor.ParameterName}.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&')";
+					var arrayQuery = $"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&')";
 					var placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
 					return newUriText.Replace(placeHolder, "'+" + arrayQuery);
 				}
@@ -194,18 +194,18 @@ namespace Fonlow.CodeDom.Web
 			{
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					return newUriText.Replace($"{{{d.Name}}}", $"' + ({d.Name} == null ? '' : encodeURIComponent({d.Name})) + '");
+					return newUriText.Replace($"{{{d.Name}}}", $"' + (!{d.Name} ? '' : encodeURIComponent({d.Name})) + '");
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
-					return newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}.toISOString() + '");
+					return newUriText.Replace($"{{{d.Name}}}", $"' + {d.Name}?.toISOString() + '");
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTimeNullable || d.ParameterDescriptor.ParameterType == typeofDateTimeOffsetNullable)
 				{
-					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}.toISOString() : '') + '");
+					var replaced = newUriText.Replace($"'&{d.Name}={{{d.Name}}}", $"({d.Name} ? '&{d.Name}=' + {d.Name}?.toISOString() : '') + '");
 					if (replaced == newUriText)
 					{
-						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}.toISOString() : '') + '");
+						replaced = newUriText.Replace($"{d.Name}={{{d.Name}}}", $"' + ({d.Name} ? '{d.Name}=' + {d.Name}?.toISOString() : '') + '");
 					}
 
 					return replaced;
@@ -224,8 +224,8 @@ namespace Fonlow.CodeDom.Web
 				{
 					var elementBaseTypeIsEnum = d.ParameterDescriptor.ParameterType.GenericTypeArguments.Length>0 && d.ParameterDescriptor.ParameterType.GenericTypeArguments[0].BaseType?.FullName == "System.Enum";
 					var arrayQuery = elementBaseTypeIsEnum?
-						$"{d.ParameterDescriptor.ParameterName}.map(z => `{d.ParameterDescriptor.ParameterName}=${{z}}`).join('&')"
-						: $"{d.ParameterDescriptor.ParameterName}.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&')";
+						$"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{z}}`).join('&')"
+						: $"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&')";
 					var placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";
 					return newUriText.Replace(placeHolder, "'+" + arrayQuery);
 				}

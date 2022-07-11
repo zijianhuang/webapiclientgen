@@ -21,6 +21,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected CodeMemberMethod Method { get; private set; }
 		protected IPoco2Client Poco2TsGen { get; private set; }
 		protected bool StringAsString { get; private set; }
+		protected bool StrictMode { get; private set; }
 		protected string HttpMethodName { get; private set; }
 		protected bool ReturnTypeIsNullable { get; private set; }
 
@@ -37,6 +38,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.Poco2TsGen = poco2TsGen;
 			this.poco2CsGen = poco2CsGen;
 			this.StringAsString = jsOutput.StringAsString;
+			this.StrictMode = jsOutput.HelpStrictMode;
 
 			HttpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase. 
 			MethodName = TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
@@ -181,7 +183,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			var parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
-					 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
+					 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name + (StrictMode ? "?" : String.Empty))
 				).ToArray();
 
 			Method.Parameters.AddRange(parameters);

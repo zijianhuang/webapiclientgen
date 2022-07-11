@@ -364,7 +364,12 @@ namespace Fonlow.Poco2Ts
 			if (type == null)
 				return new CodeTypeReference("void");
 
-			if (TypeHelper.IsSimpleType(type))
+			if (TypeHelper.IsStringType(type))
+			{
+				var typeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
+				return new CodeTypeReference(typeText);
+			}
+			else if (TypeHelper.IsSimpleType(type))
 			{
 				var typeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
 				return new CodeTypeReference(typeText);

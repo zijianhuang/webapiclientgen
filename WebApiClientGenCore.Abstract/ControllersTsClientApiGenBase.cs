@@ -248,6 +248,16 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Where(k => k.Name != "headersHandler?").Select(d => ToTitleCase(d.Name)).ToList();
 
+			parameterNamesInTitleCase= parameterNamesInTitleCase.Select(item =>
+			{
+				if (item.EndsWith('?'))
+				{
+					return item.Substring(0, item.Length - 1);
+				}
+
+				return item;
+			}).ToList();
+
 			var lastParameter = parameterNamesInTitleCase.LastOrDefault();//for JQ output
 			if ("callback".Equals(lastParameter, StringComparison.CurrentCultureIgnoreCase))
 			{

@@ -9,7 +9,7 @@
 		<Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Version>2.3.1</Version>
+		<Version>2.3.2</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true; NotNullAttributeOnMethod</PackageReleaseNotes>
 	</PropertyGroup>

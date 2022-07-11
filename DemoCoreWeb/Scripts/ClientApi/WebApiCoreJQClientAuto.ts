@@ -228,18 +228,6 @@ namespace DemoWebApi_Models_Client {
 }
 
 namespace DemoWebApi_Controllers_Client {
-	export interface A extends DemoWebApi_Controllers_Client.Base {
-		p2?: string;
-	}
-
-	export interface B extends DemoWebApi_Controllers_Client.A {
-		p3?: string;
-	}
-
-	export interface Base {
-		p1?: string;
-	}
-
 
 	/**
 	 * This class is used to carry the result of various file uploads.
@@ -355,6 +343,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * If Dt is not defined, add a hour from now
 		 * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		 */
 		getNextHourNullable(n: number, dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
@@ -369,6 +358,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * If Dt is not defined, add a year from now
 		 * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		 */
 		getNextYearNullable(n: number, dt: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
@@ -435,6 +425,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Returned is DateTimeOffset?
 		 * POST api/DateTypes/DateTimeOffsetNullable
 		 */
 		postDateTimeOffsetNullable(d: Date, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
@@ -470,7 +461,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Return Tuple DateTime?, DateTime?
 		 * GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
+		 * @param {Date} startDate DateTime? startDate = null
+		 * @param {Date} endDate DateTime? endDate = null
 		 */
 		searchDateRange(startDate: Date, endDate: Date, callback: (data : {item1: Date, item2: Date}) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate.toISOString() : '') + (endDate ? '&endDate=' + endDate.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
@@ -531,6 +525,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post MyGeneric string, decimal, double
 		 * POST api/Entities/MyGeneric
 		 */
 		getMyGeneric(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, number>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, number>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -538,6 +533,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post MyGeneric string, decimal, Person
 		 * POST api/Entities/MyGenericPerson
 		 */
 		getMyGenericPerson(s: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>, callback: (data : DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -675,122 +671,16 @@ namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
-	export class NullableTypes {
-		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
-		}
-
-		/**
-		 * GET api/NullableTypes/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
-		 */
-		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * POST api/NullableTypes/GetB
-		 */
-		getB(a: DemoWebApi_Controllers_Client.A, callback: (data : DemoWebApi_Controllers_Client.B) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/NullableTypes/GetB', a, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * POST api/NullableTypes/GetNullableA
-		 */
-		getNullableA(b: DemoWebApi_Controllers_Client.B, callback: (data : DemoWebApi_Controllers_Client.A) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/NullableTypes/GetNullableA', b, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/NullableString
-		 */
-		getNullableString(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/NullableString', callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetNullableStringWith1NullableStringParameter1Normal?sort={sort}&search={search}
-		 */
-		getNullableStringWith1NullableStringParameter1Normal(sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetNullableStringWith1NullableStringParameter1Normal?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetNullableStringWith2NullableStringParameters?sort={sort}&search={search}
-		 */
-		getNullableStringWith2NullableStringParameters(sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetNullableStringWith2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetNullableStringWith2NullableStringParameters1Normal?sort={sort}&search={search}&kk={kk}
-		 */
-		getNullableStringWith2NullableStringParameters1Normal(sort: string, search: string, kk: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetNullableStringWith2NullableStringParameters1Normal?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)) + '&kk=' + (kk == null ? '' : encodeURIComponent(kk)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort={sort}&search={search}
-		 */
-		getNullableTupleWith2NullableStringParameters(sort: string, search: string, callback: (data : {item1: DemoWebApi_Controllers_Client.A, item2: DemoWebApi_Controllers_Client.B, item3: string}) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetString
-		 */
-		getString(sort: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetString', callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetStringWith1NullableStringParameter1Normal?sort={sort}&search={search}
-		 */
-		getStringWith1NullableStringParameter1Normal(sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetStringWith1NullableStringParameter1Normal?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetStringWith2NormalParameters?sort={sort}&search={search}
-		 */
-		getStringWith2NormalParameters(sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetStringWith2NormalParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetStringWith2NullableStringParameters?sort={sort}&search={search}
-		 */
-		getStringWith2NullableStringParameters(sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetStringWith2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetStringWith2NullableStringParameters1Normal?sort={sort}&search={search}&kk={kk}
-		 */
-		getStringWith2NullableStringParameters1Normal(sort: string, search: string, kk: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetStringWith2NullableStringParameters1Normal?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)) + '&kk=' + (kk == null ? '' : encodeURIComponent(kk)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetTuple2With2NullableStringParameters?sort={sort}&search={search}
-		 */
-		getTuple2With2NullableStringParameters(sort: string, search: string, callback: (data : {item1: DemoWebApi_Controllers_Client.A, item2: DemoWebApi_Controllers_Client.B, item3: string}) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetTuple2With2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-
-		/**
-		 * GET api/NullableTypes/GetTupleWith2NullableStringParameters?sort={sort}&search={search}
-		 */
-		getTupleWith2NullableStringParameters(sort: string, search: string, callback: (data : {item1: DemoWebApi_Controllers_Client.A, item2: DemoWebApi_Controllers_Client.B, item3: string}) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.get(this.baseUri + 'api/NullableTypes/GetTupleWith2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
-		}
-	}
-
 	export class StringData {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
 
 		/**
+		 * Athlethe Search
 		 * GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 * @param {number} take Generic optional parameter. Default 10
+		 * @param {number} skip Default 0
+		 * @param {string} order default null
 		 */
 		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/StringData/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), callback, this.error, this.statusCode, headersHandler);
@@ -960,6 +850,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo IEnumerable Days
 		 * GET api/SuperDemo/enumArrayDays?a={a}
 		 */
 		getEnumArrayDays(a: Array<DemoWebApi_DemoData_Client.Days>, callback: (data : Array<DemoWebApi_DemoData_Client.Days>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1024,6 +915,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo IEnumerable long
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
 		getIntArrayQ2(a: Array<number>, callback: (data : Array<number>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1116,6 +1008,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo List string
 		 * GET api/SuperDemo/stringArrayQ2?a={a}
 		 */
 		getStringArrayQ2(a: Array<string>, callback: (data : Array<string>) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1173,6 +1066,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post a collection of person
 		 * POST api/SuperDemo/Collection
 		 */
 		postCollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1187,6 +1081,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Demo Dic string and person
 		 * POST api/SuperDemo/StringPersonDic
 		 */
 		postDictionary(dic: {[id: string]: DemoWebApi_DemoData_Client.Person }, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1201,6 +1096,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post ICollection of person
 		 * POST api/SuperDemo/ICollection
 		 */
 		postICollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1208,6 +1104,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post IList of person
 		 * POST api/SuperDemo/IList
 		 */
 		postIList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1238,6 +1135,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post IReadOnlyCollection of person
 		 * POST api/SuperDemo/IReadOnlyCollection
 		 */
 		postIReadOnlyCollection(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1245,6 +1143,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post e of person
 		 * POST api/SuperDemo/IReadOnlyList
 		 */
 		postIReadOnlyList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1252,6 +1151,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post a list of person
 		 * POST api/SuperDemo/List
 		 */
 		postList(list: Array<DemoWebApi_DemoData_Client.Person>, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1313,6 +1213,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Update in a transaction
 		 * PUT api/Tuple/A1TupleArray
 		 */
 		a1TupleArray(idAndOrderArray: Array<{item1: string, item2: number}>, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1320,6 +1221,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Update IEnumerable Tuple in a transaction
 		 * PUT api/Tuple/A1TupleArray
 		 */
 		a2TupleIEnumerable(idAndOrderArray: Array<{item1: string, item2: number}>, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1327,6 +1229,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post tuple
 		 * POST api/Tuple/ChangeName
 		 */
 		changeName(d: {item1: string, item2: DemoWebApi_DemoData_Client.Person}, callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1441,6 +1344,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post long tuple
 		 * POST api/Tuple/PeopleCompany7
 		 */
 		linkPeopleCompany7(peopleAndCompany: {item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Person, item6: DemoWebApi_DemoData_Client.Person, item7: DemoWebApi_DemoData_Client.Company}, callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1469,6 +1373,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Post tuple string int
 		 * POST api/Tuple/Tuple2
 		 */
 		postTuple2(tuple: {item1: string, item2: number}, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {

@@ -95,6 +95,7 @@
 		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
 		/// </summary>
 		public bool NotNullAttributeOnMethod { get; set; }
+
 	}
 
 	/// <summary>

@@ -114,7 +114,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName,
-				ReturnType = poco2CsGen.TranslateToClientTypeReference(returnType),
+				ReturnType = poco2CsGen.TranslateToClientTypeReferenceForNullableReference(returnType),
 			};
 		}
 
@@ -125,7 +125,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName + "Async",
 				ReturnType = returnType == null ? new CodeTypeReference("async Task")
-				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReference(returnType)),
+				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReferenceForNullableReference(returnType)),
 			};
 		}
 
@@ -456,7 +456,14 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			if (TypeHelper.IsStringType(returnType)) //ASP.NET Core return null as empty body with status code 204, whether to produce JSON or plain text.
 			{
-				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
+				if (returnTypeIsNotNullable)
+				{
+					// no need
+				}
+				else
+				{
+					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
+				}
 			}
 
 			if (settings.UseSystemTextJson)
@@ -575,7 +582,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					AddNewtonSoftJsonTextReader(statementCollection);
 					//Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
-					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader);")));
+					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
 					//Add4TEndBacket(statementCollection);
 				}
 			}

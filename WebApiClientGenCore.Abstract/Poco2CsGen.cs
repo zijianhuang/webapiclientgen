@@ -76,6 +76,43 @@ namespace Fonlow.Poco2Client
 			return TranslateToClientTypeReferenceText(type, true);
 		}
 
+		public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type)
+		{
+			if (type == null)
+				return null;// new CodeTypeReference("void");
+
+			if (pendingTypes.Contains(type))
+			{
+				return new CodeTypeReference(RefineCustomComplexTypeTextForNullableReferenceType(type));
+			}
+			else if (type.IsGenericType)
+			{
+				return TranslateGenericToTypeReference(type);
+			}
+			else if (type.IsArray)
+			{
+				Debug.Assert(type.Name.EndsWith("]"));
+				var elementType = type.GetElementType();
+				var arrayRank = type.GetArrayRank();
+				return CreateArrayTypeReference(elementType, arrayRank);
+			}
+			else
+			{
+				if (type.FullName == "System.Web.Http.IHttpActionResult")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "System.Net.Http.HttpResponseMessage")
+					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
+			}
+
+			return new CodeTypeReference(type);
+		}
 
 		/// <summary>
 		/// Create CodeDOM for POCO types. 
@@ -601,8 +638,8 @@ namespace Fonlow.Poco2Client
 				var idx = anyGenericTypeName.IndexOf('`');
 				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
 				var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
-				var left = forDocComment ? "{{" : "<";
-				var right = forDocComment ? "}}" : ">";
+				var left = forDocComment ? "{" : "<";
+				var right = forDocComment ? "}" : ">";
 				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 			}
 
@@ -612,8 +649,8 @@ namespace Fonlow.Poco2Client
 				var idx = anyGenericTypeName.IndexOf('`');
 				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
 				var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
-				var left = forDocComment ? "{{" : "<";
-				var right = forDocComment ? "}}" : ">";
+				var left = forDocComment ? "{" : "<";
+				var right = forDocComment ? "}" : ">";
 				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 			}
 
@@ -641,6 +678,11 @@ namespace Fonlow.Poco2Client
 		}
 
 		string RefineCustomComplexTypeText(Type t)
+		{
+			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
+		}
+
+		string RefineCustomComplexTypeTextForNullableReferenceType(Type t)
 		{
 			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
 		}

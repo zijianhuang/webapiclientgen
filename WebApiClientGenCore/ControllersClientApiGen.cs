@@ -54,32 +54,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			using var stream = new MemoryStream();
 			using StreamWriter writer = new StreamWriter(stream);
-			//if (codeGenParameters.ClientApiOutputs.SupportNullReferenceTypeOnMethodReturn)
-			//{
-			//	for (int i = 0; i < targetUnit.Namespaces.Count; i++)
-			//	{
-			//		var ns = targetUnit.Namespaces[i] as CodeNamespaceEx;
-			//		if (!ns.DataModelOnly)
-			//		{
-			//			writer.WriteLine("#nullable enable");
-			//		}
-
-			//		provider.GenerateCodeFromNamespace(ns, writer, options);
-
-			//		if (!ns.DataModelOnly)
-			//		{
-			//			writer.WriteLine("#nullable disable");
-			//		}
-
-			//	}
-			//}
-			//else
-			//{
-			//	provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
-			//}
-
 			provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
-
 			writer.Flush();
 			stream.Position = 0;
 			using var stringReader = new StreamReader(stream);
@@ -375,7 +350,6 @@ namespace Fonlow.Net.Http
 		}
 	}
 }";
-
 
 		const string dummyBlock =
 			@"

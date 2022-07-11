@@ -5,7 +5,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.0.1</Version>
+    <Version>3.0.2</Version>
     <Authors>Zijian Huang</Authors>
     <Company />
     <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>

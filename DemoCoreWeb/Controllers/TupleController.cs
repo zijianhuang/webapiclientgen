@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-#nullable enable
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
@@ -71,12 +70,13 @@ namespace DemoWebApi.Controllers
 		}
 
 		/// <summary>
-		/// Get Tuple in return
+		/// Get Tuple in return. MaybeNull
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
 		[Route("PeopleCompany4")]
-		public Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company>? GetPeopleCompany4()
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull]
+		public Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> GetPeopleCompany4()
 		{
 			return null;
 		}
@@ -88,9 +88,14 @@ namespace DemoWebApi.Controllers
 			return peopleAndCompany.Item1;
 		}
 
+		/// <summary>
+		/// MaybeNull
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("PeopleCompany5")]
-		public Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company>? GetPeopleCompany5()
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull]
+		public Tuple<DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Person, DemoData.Company> GetPeopleCompany5()
 		{
 			return null;
 		}
@@ -250,4 +255,3 @@ namespace DemoWebApi.Controllers
 
 	}
 }
-#nullable disable

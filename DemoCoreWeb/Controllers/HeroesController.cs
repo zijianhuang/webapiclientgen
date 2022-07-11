@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-#nullable enable
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
@@ -29,23 +28,30 @@ namespace DemoWebApi.Controllers
 		}
 
 		/// <summary>
-		/// Get a hero. Nullable reference.
+		/// Get a hero. Nullable reference. MaybeNull
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
 		[HttpGet("{id}")]
 		[ActionName("GetHero")]
-		public Hero? Get(long id)
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull]
+		public Hero Get(long id)
 		{
-			_ = HeroesData.Instance.Dic.TryGetValue(id, out Hero? r);
+			_ = HeroesData.Instance.Dic.TryGetValue(id, out Hero r);
 			return r;
 		}
 
+		/// <summary>
+		/// MaybeNull
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		[HttpGet("super")]
 		[ActionName("GetSuperHero")]
-		public SuperHero? GetSuper([FromQuery] long id)
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull]
+		public SuperHero GetSuper([FromQuery] long id)
 		{
-			_ = HeroesData.Instance.Dic.TryGetValue(id, out Hero? r);
+			_ = HeroesData.Instance.Dic.TryGetValue(id, out Hero r);
 			return r as SuperHero;
 		}
 
@@ -56,7 +62,7 @@ namespace DemoWebApi.Controllers
 		}
 
 		/// <summary>
-		/// Add a hero. The client will not expect null.
+		/// Add a hero. The client will not expect null. NotNull
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns>Always object.</returns>
@@ -74,7 +80,7 @@ namespace DemoWebApi.Controllers
 		}
 
 		[return: System.Diagnostics.CodeAnalysis.NotNull]
-		Hero CreateHero(string name)
+		static Hero CreateHero(string name)
 		{
 			var max = HeroesData.Instance.Dic.Keys.Max();
 			var hero = new Hero(max + 1, name);
@@ -187,4 +193,3 @@ namespace DemoWebApi.Controllers
 		}
 	}
 }
-#nullable disable

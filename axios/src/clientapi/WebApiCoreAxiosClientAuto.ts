@@ -541,7 +541,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Return empty body, status 204.
+		 * Return empty body, status 204. MaybeNull
 		 * GET api/Entities/NullCompany
 		 */
 		getNullCompany(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {
@@ -614,7 +614,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get a hero. Nullable reference.
+		 * Get a hero. Nullable reference. MaybeNull
 		 * GET api/Heroes/{id}
 		 */
 		getHero(id: number, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
@@ -630,6 +630,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * MaybeNull
 		 * GET api/Heroes/super?id={id}
 		 */
 		getSuperHero(id: number, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.SuperHero> {
@@ -644,7 +645,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Add a hero. The client will not expect null.
+		 * Add a hero. The client will not expect null. NotNull
 		 * POST api/Heroes/q?name={name}
 		 * @return {DemoWebApi_Controllers_Client.Hero} Always object.
 		 */
@@ -702,7 +703,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Return empty body with status 204 No Content, even though the default mime type is application/json.
+		 * Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
 		 * GET api/StringData/NullString
 		 */
 		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -965,6 +966,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * MaybeNull
 		 * GET api/SuperDemo/NullObject
 		 */
 		getNullPerson(headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
@@ -1193,6 +1195,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * MaybeNull
 		 * GET api/TextData/NullableString
 		 */
 		getNullableString(headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -1237,7 +1240,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get Tuple in return
+		 * Get Tuple in return. MaybeNull
 		 * GET api/Tuple/PeopleCompany4
 		 */
 		getPeopleCompany4(headersHandler?: () => {[header: string]: string}): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Company}> {
@@ -1245,6 +1248,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * MaybeNull
 		 * GET api/Tuple/PeopleCompany5
 		 */
 		getPeopleCompany5(headersHandler?: () => {[header: string]: string}): Promise<{item1: DemoWebApi_DemoData_Client.Person, item2: DemoWebApi_DemoData_Client.Person, item3: DemoWebApi_DemoData_Client.Person, item4: DemoWebApi_DemoData_Client.Person, item5: DemoWebApi_DemoData_Client.Company}> {

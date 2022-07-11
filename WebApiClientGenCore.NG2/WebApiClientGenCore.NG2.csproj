@@ -13,7 +13,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Fonlow.WebApiClientGenCore.NG2</AssemblyName>
-    <Version>3.2</Version>
+    <Version>3.2.1</Version>
     <PackageTags>Angular</PackageTags>
   </PropertyGroup>
 

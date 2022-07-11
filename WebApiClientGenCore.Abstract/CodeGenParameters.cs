@@ -91,7 +91,7 @@
 
 		/// <summary>
 		/// If NotNull decorates return. For scenarios most API may return null. 
-		/// This should be exclusive to MaybeNullAttributeOnMethod.
+		/// This should be exclusive to MaybeNullAttributeOnMethod. if NotNullAttributeOnMethod and MaybeNullAttributeOnMethod are declared, MaybeNullAttributeOnMethod wins.
 		/// CS Codes will have NotNull copied over.	TS codes will not have null as optional type for return, when HelpStrictMode is true.
 		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
 		/// </summary>

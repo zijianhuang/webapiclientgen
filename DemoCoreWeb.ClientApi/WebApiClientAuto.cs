@@ -2525,9 +2525,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Return empty body, status 204.
+		/// Return empty body, status 204. MaybeNull
 		/// GET api/Entities/NullCompany
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<DemoWebApi.DemoData.Client.Company> GetNullCompanyAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/NullCompany";
@@ -2549,9 +2550,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Return empty body, status 204.
+		/// Return empty body, status 204. MaybeNull
 		/// GET api/Entities/NullCompany
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public DemoWebApi.DemoData.Client.Company GetNullCompany(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/NullCompany";
@@ -2999,9 +3001,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Get a hero. Nullable reference.
+		/// Get a hero. Nullable reference. MaybeNull
 		/// GET api/Heroes/{id}
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<DemoWebApi.Controllers.Client.Hero> GetHeroAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/"+id;
@@ -3023,9 +3026,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Get a hero. Nullable reference.
+		/// Get a hero. Nullable reference. MaybeNull
 		/// GET api/Heroes/{id}
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public DemoWebApi.Controllers.Client.Hero GetHero(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/"+id;
@@ -3095,8 +3099,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/Heroes/super?id={id}
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<DemoWebApi.Controllers.Client.SuperHero> GetSuperHeroAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/super?id="+id;
@@ -3118,8 +3124,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/Heroes/super?id={id}
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public DemoWebApi.Controllers.Client.SuperHero GetSuperHero(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/super?id="+id;
@@ -3197,11 +3205,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Add a hero. The client will not expect null.
+		/// Add a hero. The client will not expect null. NotNull
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
 		/// <returns>Always object.</returns>
-		[return: System.Diagnostics.CodeAnalysis.NotNullAttribute()]
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
@@ -3222,11 +3229,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Add a hero. The client will not expect null.
+		/// Add a hero. The client will not expect null. NotNull
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
 		/// <returns>Always object.</returns>
-		[return: System.Diagnostics.CodeAnalysis.NotNullAttribute()]
 		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
@@ -3525,9 +3531,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Return empty body with status 204 No Content, even though the default mime type is application/json.
+		/// Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
 		/// GET api/StringData/NullString
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<string> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/NullString";
@@ -3549,9 +3556,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Return empty body with status 204 No Content, even though the default mime type is application/json.
+		/// Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
 		/// GET api/StringData/NullString
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public string GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/NullString";
@@ -5121,8 +5129,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/NullObject";
@@ -5144,8 +5154,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public DemoWebApi.DemoData.Client.Person GetNullPerson(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/NullObject";
@@ -6585,8 +6597,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/TextData/NullableString
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<string> GetNullableStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/TextData/NullableString";
@@ -6608,8 +6622,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/TextData/NullableString
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public string GetNullableString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/TextData/NullableString";
@@ -6634,6 +6650,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body with status 204 No Content.
 		/// GET api/TextData/NullString
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<string> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/TextData/NullString";
@@ -6658,6 +6675,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body with status 204 No Content.
 		/// GET api/TextData/NullString
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public string GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/TextData/NullString";
@@ -6857,9 +6875,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Get Tuple in return
+		/// Get Tuple in return. MaybeNull
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany4";
@@ -6881,9 +6900,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Get Tuple in return
+		/// Get Tuple in return. MaybeNull
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany4";
@@ -6905,8 +6925,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany5";
@@ -6928,8 +6950,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
 		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany5";

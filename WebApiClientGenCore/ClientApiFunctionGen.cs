@@ -87,7 +87,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 
 			CreateDocComments();
-			if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
+			if (settings.MaybeNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
 			{
 				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.MaybeNullAttribute"));
 			} else if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)

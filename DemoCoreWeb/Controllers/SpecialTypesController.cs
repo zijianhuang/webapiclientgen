@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-#nullable enable
 namespace DemoCoreWeb.Controllers
 {
 	[Route("api/SpecialTypes")]
@@ -111,4 +110,3 @@ namespace DemoCoreWeb.Controllers
 
 	}
 }
-#nullable disable

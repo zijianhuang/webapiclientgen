@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-#nullable enable
+
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
@@ -72,9 +72,14 @@ namespace DemoWebApi.Controllers
 			return 0.1m + 0.2m - 0.3m;
 		}
 
+		/// <summary>
+		/// MaybeNull
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("NullObject")]
-		public DemoData.Person? GetNullPerson()
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull]
+		public DemoData.Person GetNullPerson()
 		{
 			return null;
 		}
@@ -655,4 +660,3 @@ namespace DemoWebApi.Controllers
 
 	}
 }
-#nullable disable

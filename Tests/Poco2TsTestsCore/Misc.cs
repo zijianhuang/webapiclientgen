@@ -116,7 +116,6 @@ namespace Poco2TsTests
 			}
 		}
 
-#nullable enable
 		//[return: System.Diagnostics.CodeAnalysis.NotNull]
 		public string GetNotNullStringOnNullableEnabled(string? sort)
 		{
@@ -156,7 +155,6 @@ namespace Poco2TsTests
 			return "ABCD";
 		}
 
-#nullable disable
 		public class Base
 		{
 			public string P1 { get; set; }

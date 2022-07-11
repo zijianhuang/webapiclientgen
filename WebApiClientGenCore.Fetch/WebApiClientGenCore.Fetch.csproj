@@ -14,7 +14,7 @@
     <Authors>Zijian Huang</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.2</Version>
+    <Version>3.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

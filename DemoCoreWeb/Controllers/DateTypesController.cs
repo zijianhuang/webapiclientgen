@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-#nullable enable
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
@@ -214,4 +213,3 @@ namespace DemoWebApi.Controllers
 
 	}
 }
-#nullable disable

@@ -85,7 +85,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (jsOutput.HelpStrictMode) 
 				{
-					if (!returnTypeText.EndsWith(" | null") && !ReturnTypeIsNotNullable)
+					if (!returnTypeText.EndsWith(" | null") && ReturnTypeIsNullable)
 					{
 						returnTypeText += " | null";
 					}

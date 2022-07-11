@@ -22,7 +22,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected IPoco2Client Poco2TsGen { get; private set; }
 		protected bool StringAsString { get; private set; }
 		protected string HttpMethodName { get; private set; }
-		protected bool ReturnTypeIsNotNullable { get; private set; }
+		protected bool ReturnTypeIsNullable { get; private set; }
 
 		IDocCommentTranslate poco2CsGen;
 
@@ -52,7 +52,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					if (jsOutput.NotNullAttributeOnMethod)
 					{
-						ReturnTypeIsNotNullable = ReturnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+						ReturnTypeIsNullable = ReturnType != null && !Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 					}
 				}
 			}

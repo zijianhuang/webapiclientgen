@@ -96,6 +96,13 @@
 		/// </summary>
 		public bool NotNullAttributeOnMethod { get; set; }
 
+		/// <summary>
+		/// If MaybeNull decorates return. Most if not all API functions are expected to return a not null value. For example, empty array rather than null, or an object rather than null otherwise exception.
+		/// CS Codes will have MaybeNull copied over.	TS codes will not have null as optional type for return, when HelpStrictMode is true.
+		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
+		/// </summary>
+		public bool MaybeNullAttributeOnMethod { get; set; }
+
 	}
 
 	/// <summary>

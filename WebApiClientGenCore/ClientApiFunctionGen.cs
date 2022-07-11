@@ -22,7 +22,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <summary>
 		/// Decorated by NotNullAttribute
 		/// </summary>
-		readonly bool returnTypeIsNotNullable = false;
+		readonly bool returnTypeDecoratedWithNotNullable = false;
 		CodeMemberMethod clientMethod;
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
 		readonly bool forAsync;
@@ -61,7 +61,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				if (settings.NotNullAttributeOnMethod)
 				{
-					returnTypeIsNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+					returnTypeDecoratedWithNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
 			}
 		}
@@ -83,7 +83,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 
 			CreateDocComments();
-			if (settings.NotNullAttributeOnMethod && returnTypeIsNotNullable)
+			if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)
 			{
 				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
 			}
@@ -456,7 +456,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			if (TypeHelper.IsStringType(returnType)) //ASP.NET Core return null as empty body with status code 204, whether to produce JSON or plain text.
 			{
-				if (returnTypeIsNotNullable)
+				if (returnTypeDecoratedWithNotNullable)
 				{
 					// no need
 				}

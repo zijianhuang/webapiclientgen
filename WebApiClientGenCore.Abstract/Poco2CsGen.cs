@@ -638,8 +638,8 @@ namespace Fonlow.Poco2Client
 				var idx = anyGenericTypeName.IndexOf('`');
 				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
 				var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
-				var left = forDocComment ? "{{" : "<";
-				var right = forDocComment ? "}}" : ">";
+				var left = forDocComment ? "{" : "<";
+				var right = forDocComment ? "}" : ">";
 				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 			}
 
@@ -649,8 +649,8 @@ namespace Fonlow.Poco2Client
 				var idx = anyGenericTypeName.IndexOf('`');
 				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
 				var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
-				var left = forDocComment ? "{{" : "<";
-				var right = forDocComment ? "}}" : ">";
+				var left = forDocComment ? "{" : "<";
+				var right = forDocComment ? "}" : ">";
 				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 			}
 

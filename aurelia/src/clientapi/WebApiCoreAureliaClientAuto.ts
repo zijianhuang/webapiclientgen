@@ -228,6 +228,18 @@ export namespace DemoWebApi_Models_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
+	export interface A extends DemoWebApi_Controllers_Client.Base {
+		p2?: string;
+	}
+
+	export interface B extends DemoWebApi_Controllers_Client.A {
+		p3?: string;
+	}
+
+	export interface Base {
+		p1?: string;
+	}
+
 
 	/**
 	 * This class is used to carry the result of various file uploads.
@@ -254,6 +266,10 @@ export namespace DemoWebApi_Controllers_Client {
 		name?: string;
 	}
 
+	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
+		super?: boolean;
+	}
+
 }
 
 export namespace DemoCoreWeb_Controllers_Client {
@@ -272,6 +288,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Async function returing dynamic
 		 * GET api/SpecialTypes/AnonymousDynamic2
 		 */
 		getAnonymousDynamic2(headersHandler?: () => {[header: string]: string}): Promise<Response> {
@@ -286,6 +303,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Async function returning object
 		 * GET api/SpecialTypes/AnonymousObject2
 		 */
 		getAnonymousObject2(headersHandler?: () => {[header: string]: string}): Promise<Response> {
@@ -300,6 +318,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		}
 
 		/**
+		 * Async returning object, Post dynamic
 		 * POST api/SpecialTypes/AnonymousObject2
 		 */
 		postAnonymousObject2(obj: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
@@ -611,7 +630,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Get a hero.
+		 * Get a hero. Nullable reference.
 		 * GET api/Heroes/{id}
 		 */
 		getHero(id: number, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
@@ -627,6 +646,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Heroes/super?id={id}
+		 */
+		getSuperHero(id: number, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.SuperHero> {
+			return this.http.get('api/Heroes/super?id=' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
 		 * POST api/Heroes
 		 */
 		post(name: string, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
@@ -634,8 +660,9 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Add a hero
+		 * Add a hero. The client will not expect null.
 		 * POST api/Heroes/q?name={name}
+		 * @return {DemoWebApi_Controllers_Client.Hero} Always object.
 		 */
 		postWithQuery(name: string, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
 			return this.http.post('api/Heroes/q?name=' + (name == null ? '' : encodeURIComponent(name)), null, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
@@ -657,6 +684,117 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		search(name: string, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
 			return this.http.get('api/Heroes/search/' + (name == null ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+	}
+
+	@autoinject()
+	export class NullableTypes {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * GET api/NullableTypes/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
+		 */
+		athletheSearch(take: number, skip: number, order: string, sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/AthletheSearch?' + (take ? 'take=' + take.toString() : '') + '&skip=' + skip + '&order=' + (order == null ? '' : encodeURIComponent(order)) + '&sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * POST api/NullableTypes/GetB
+		 */
+		getB(a: DemoWebApi_Controllers_Client.A, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.B> {
+			return this.http.post('api/NullableTypes/GetB', JSON.stringify(a), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/NullableTypes/GetNullableA
+		 */
+		getNullableA(b: DemoWebApi_Controllers_Client.B, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.A> {
+			return this.http.post('api/NullableTypes/GetNullableA', JSON.stringify(b), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/NullableTypes/NullableString
+		 */
+		getNullableString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/NullableString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetNullableStringWith1NullableStringParameter1Normal?sort={sort}&search={search}
+		 */
+		getNullableStringWith1NullableStringParameter1Normal(sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/GetNullableStringWith1NullableStringParameter1Normal?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetNullableStringWith2NullableStringParameters?sort={sort}&search={search}
+		 */
+		getNullableStringWith2NullableStringParameters(sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/GetNullableStringWith2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetNullableStringWith2NullableStringParameters1Normal?sort={sort}&search={search}&kk={kk}
+		 */
+		getNullableStringWith2NullableStringParameters1Normal(sort: string, search: string, kk: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/GetNullableStringWith2NullableStringParameters1Normal?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)) + '&kk=' + (kk == null ? '' : encodeURIComponent(kk)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort={sort}&search={search}
+		 */
+		getNullableTupleWith2NullableStringParameters(sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<{item1: DemoWebApi_Controllers_Client.A, item2: DemoWebApi_Controllers_Client.B, item3: string}> {
+			return this.http.get('api/NullableTypes/GetNullableTupleWith2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetString
+		 */
+		getString(sort: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/GetString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetStringWith1NullableStringParameter1Normal?sort={sort}&search={search}
+		 */
+		getStringWith1NullableStringParameter1Normal(sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/GetStringWith1NullableStringParameter1Normal?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetStringWith2NormalParameters?sort={sort}&search={search}
+		 */
+		getStringWith2NormalParameters(sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/GetStringWith2NormalParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetStringWith2NullableStringParameters?sort={sort}&search={search}
+		 */
+		getStringWith2NullableStringParameters(sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/GetStringWith2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetStringWith2NullableStringParameters1Normal?sort={sort}&search={search}&kk={kk}
+		 */
+		getStringWith2NullableStringParameters1Normal(sort: string, search: string, kk: string, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/NullableTypes/GetStringWith2NullableStringParameters1Normal?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)) + '&kk=' + (kk == null ? '' : encodeURIComponent(kk)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetTuple2With2NullableStringParameters?sort={sort}&search={search}
+		 */
+		getTuple2With2NullableStringParameters(sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<{item1: DemoWebApi_Controllers_Client.A, item2: DemoWebApi_Controllers_Client.B, item3: string}> {
+			return this.http.get('api/NullableTypes/GetTuple2With2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
+		 * GET api/NullableTypes/GetTupleWith2NullableStringParameters?sort={sort}&search={search}
+		 */
+		getTupleWith2NullableStringParameters(sort: string, search: string, headersHandler?: () => {[header: string]: string}): Promise<{item1: DemoWebApi_Controllers_Client.A, item2: DemoWebApi_Controllers_Client.B, item3: string}> {
+			return this.http.get('api/NullableTypes/GetTupleWith2NullableStringParameters?sort=' + (sort == null ? '' : encodeURIComponent(sort)) + '&search=' + (search == null ? '' : encodeURIComponent(search)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 	}
 
@@ -692,7 +830,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * Return empty body with status 204 No Content.
+		 * Return empty body with status 204 No Content, even though the default mime type is application/json.
 		 * GET api/StringData/NullString
 		 */
 		getNullString(headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -1185,6 +1323,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/TextData/NullableString
+		 */
+		getNullableString(headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.get('api/TextData/NullableString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
+		}
+
+		/**
 		 * Return empty body with status 204 No Content.
 		 * GET api/TextData/NullString
 		 */
@@ -1199,9 +1344,18 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Update in a transaction
 		 * PUT api/Tuple/A1TupleArray
 		 */
 		a1TupleArray(idAndOrderArray: Array<{item1: string, item2: number}>, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Update IEnumerable Tuple in a transaction
+		 * PUT api/Tuple/A1TupleArray
+		 */
+		a2TupleIEnumerable(idAndOrderArray: Array<{item1: string, item2: number}>, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return this.http.put('api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 

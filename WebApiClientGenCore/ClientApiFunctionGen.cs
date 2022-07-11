@@ -23,6 +23,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// Decorated by NotNullAttribute
 		/// </summary>
 		readonly bool returnTypeDecoratedWithNotNullable = false;
+		readonly bool returnTypeDecoratedWithMaybeNullable = false;
 		CodeMemberMethod clientMethod;
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
 		readonly bool forAsync;
@@ -59,7 +60,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
 			if (methodInfo != null)
 			{
-				if (settings.NotNullAttributeOnMethod)
+				if (settings.MaybeNullAttributeOnMethod)
+				{
+					returnTypeDecoratedWithMaybeNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
+				} else if (settings.NotNullAttributeOnMethod)
 				{
 					returnTypeDecoratedWithNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
@@ -83,7 +87,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 
 			CreateDocComments();
-			if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)
+			if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
+			{
+				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.MaybeNullAttribute"));
+			} else if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)
 			{
 				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
 			}
@@ -456,14 +463,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			if (TypeHelper.IsStringType(returnType)) //ASP.NET Core return null as empty body with status code 204, whether to produce JSON or plain text.
 			{
-				if (returnTypeDecoratedWithNotNullable)
-				{
-					// no need
-				}
-				else
-				{
-					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
-				}
+				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
 			}
 
 			if (settings.UseSystemTextJson)

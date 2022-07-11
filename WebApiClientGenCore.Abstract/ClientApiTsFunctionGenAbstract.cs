@@ -50,7 +50,10 @@ namespace Fonlow.CodeDom.Web.Ts
 				var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
 				if (methodInfo != null)
 				{
-					if (jsOutput.NotNullAttributeOnMethod)
+					if (jsOutput.MaybeNullAttributeOnMethod)
+					{
+						ReturnTypeIsNullable = ReturnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
+					} else if (jsOutput.NotNullAttributeOnMethod)
 					{
 						ReturnTypeIsNullable = ReturnType != null && !Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 					}

@@ -90,14 +90,16 @@
 		public bool IEnumerableToArray { get; set; } = true;
 
 		/// <summary>
-		/// If NotNull decorates return
+		/// If NotNull decorates return. For scenarios most API may return null. 
+		/// This should be exclusive to MaybeNullAttributeOnMethod.
 		/// CS Codes will have NotNull copied over.	TS codes will not have null as optional type for return, when HelpStrictMode is true.
 		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
 		/// </summary>
 		public bool NotNullAttributeOnMethod { get; set; }
 
 		/// <summary>
-		/// If MaybeNull decorates return. Most if not all API functions are expected to return a not null value. For example, empty array rather than null, or an object rather than null otherwise exception.
+		/// If MaybeNull decorates return. For scenarios, most if not all API functions are expected to return a not null value. For example, empty array rather than null, or an object rather than null otherwise exception.
+		/// This should be exclusive to NotNullAttributeOnMethod.
 		/// CS Codes will have MaybeNull copied over.	TS codes will not have null as optional type for return, when HelpStrictMode is true.
 		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
 		/// </summary>
@@ -246,5 +248,7 @@
 		public bool HelpStrictMode { get; set; }
 
 		public bool NotNullAttributeOnMethod { get; set; }
+
+		public bool MaybeNullAttributeOnMethod { get; set; }
 	}
 }

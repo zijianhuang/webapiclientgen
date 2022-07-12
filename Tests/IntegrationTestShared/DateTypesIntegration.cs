@@ -113,7 +113,7 @@ namespace IntegrationTests
 			//var dtEnd = dtStart.AddDays(5);
 			var t = api.SearchDateRange(dtStart, null);
 			Assert.Equal(dtStart.ToUniversalTime(), t.Item1);
-			Assert.False(t.Item2.HasValue);
+			Assert.False(t.Item2.HasValue); //property not presented in json object returned.
 		}
 
 		[Fact]
@@ -121,7 +121,7 @@ namespace IntegrationTests
 		{
 			//var dtStart = DateTime.Today;
 			//var dtEnd = dtStart.AddDays(5);
-			var t = api.SearchDateRange(null, null);
+			var t = api.SearchDateRange(null, null); //empty json object returned
 			Assert.False(t.Item1.HasValue);
 			Assert.False(t.Item2.HasValue);
 		}
@@ -337,13 +337,13 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestSearcDateRangeWithStartDateNull()//asp.net web api won't accept such call.
+		public void TestSearcDateRangeWithStartDateNull()
 		{
 			var dtStart = DateTime.Today;
 			var dtEnd = dtStart.AddDays(5);
 			var r = api.SearchDateRange(null, dtEnd);
 			Assert.Null(r.Item1);
-			Assert.Equal(dtEnd.ToUniversalTime(), r.Item2);
+			Assert.Equal(dtEnd.ToUniversalTime(), r.Item2);//property not presented in json object returned.
 		}
 
 

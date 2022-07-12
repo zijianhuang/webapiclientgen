@@ -2,8 +2,8 @@ import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@a
 import { async, TestBed } from '@angular/core/testing';
 import * as namespaces from './WebApiCoreNG2ClientAuto';
 
-const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
-//const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb
+//const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
+const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb
 
 import DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
 
@@ -831,7 +831,7 @@ describe('DateTypes API', () => {
 					fail('I expect item1.');
 				}
 
-				expect(data!.item2).toBeNull(); // OK with null rather than undefined
+				expect(data!.item2).toBeUndefined(); // OK with null rather than undefined
 				done();
 			},
 			error => {
@@ -850,7 +850,7 @@ describe('DateTypes API', () => {
 		service.searchDateRange(undefined!, endDt).subscribe(
 			data => {
 				// fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-				expect(data!.item1).toBeNull();
+				expect(data!.item1).toBeUndefined();
 				if (data!.item2) {
 					expect(new Date(data!.item2)).toEqual(endDt);
 				} else {
@@ -877,8 +877,8 @@ describe('DateTypes API', () => {
 		const endDt = new Date(Date.now() + 100000);
 		service.searchDateRange(null, undefined!).subscribe(
 			data => {
-				expect(data!.item1).toBeNull();
-				expect(data!.item1).toBeNull();
+				expect(data!.item1).toBeUndefined();
+				expect(data!.item1).toBeUndefined();
 				done();
 			},
 			error => {

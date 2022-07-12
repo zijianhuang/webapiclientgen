@@ -457,6 +457,31 @@ namespace DemoWebApi.Controllers
 			};
 		}
 
+		[HttpGet]
+		[Route("StringPersonDic2")]
+		public Dictionary<string, DemoData.Person> GetDictionaryOfPeople2()
+		{
+			return new Dictionary<string, DemoData.Person>()
+			{
+				{"Iron Man", new DemoData.Person()
+				{
+					Name= "Tony Stark",
+					Surname="Stark",
+					GivenName="Tony"
+				} },
+
+				{"Spider Man", new DemoData.Person() {
+					Name="Peter Parker",
+					Addresses= new List<DemoData.Address>(
+						new DemoData.Address[] { new DemoData.Address() {
+							City="New York"
+
+						} }
+					),
+				} },
+			};
+		}
+
 		/// <summary>
 		/// Demo Dic string and person
 		/// </summary>

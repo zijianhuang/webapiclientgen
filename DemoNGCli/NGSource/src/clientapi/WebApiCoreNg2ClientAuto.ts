@@ -843,6 +843,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/StringPersonDic2
+		 */
+		getDictionaryOfPeople2(headersHandler?: () => HttpHeaders): Observable<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
+			return this.http.get<{[id: string]: DemoWebApi_DemoData_Client.Person }>(this.baseUri + 'api/SuperDemo/StringPersonDic2', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
 		 * GET api/SuperDemo/doulbe
 		 */
 		getdouble(headersHandler?: () => HttpHeaders): Observable<number> {

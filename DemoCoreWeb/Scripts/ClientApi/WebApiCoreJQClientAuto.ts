@@ -836,6 +836,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/StringPersonDic2
+		 */
+		getDictionaryOfPeople2(callback: (data : {[id: string]: DemoWebApi_DemoData_Client.Person }) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/SuperDemo/StringPersonDic2', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
 		 * GET api/SuperDemo/doulbe
 		 */
 		getdouble(callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {

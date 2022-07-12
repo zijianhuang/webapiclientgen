@@ -167,6 +167,27 @@ namespace Fonlow.Reflection
 			return TupleTypeNames.IndexOf(type.FullName);
 		}
 
+		public static bool IsIDictonaryType(Type type)
+		{
+			Type genericTypeDefinition = type.GetGenericTypeDefinition();
+			Type[] genericArguments = type.GetGenericArguments();
+			if (genericArguments.Length == 2)
+			{
+				if (genericTypeDefinition == typeof(IDictionary<,>))
+				{
+					return true;
+				}
+
+				Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
+				if (closedDictionaryType.IsAssignableFrom(type))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		static readonly Type typeOfString = typeof(string);
 
 		/// <summary>

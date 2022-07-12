@@ -834,6 +834,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/SuperDemo/StringPersonDic2
+		 */
+		getDictionaryOfPeople2(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: DemoWebApi_DemoData_Client.Person }> {
+			return fetch(this.baseUri + 'api/SuperDemo/StringPersonDic2', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
 		 * GET api/SuperDemo/doulbe
 		 */
 		getdouble(headersHandler?: () => {[header: string]: string}): Promise<number> {

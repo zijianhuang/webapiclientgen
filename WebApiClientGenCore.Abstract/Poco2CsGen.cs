@@ -505,7 +505,7 @@ namespace Fonlow.Poco2Client
 			}
 
 			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
-				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) ||
+				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictonaryType(type) ||
 				(TypeHelper.IsArrayType(genericTypeDefinition) && !settings.IEnumerableToArray))
 			{
 				return CreateGenericType();
@@ -655,7 +655,7 @@ namespace Fonlow.Poco2Client
 			}
 
 			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
-				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) ||
+				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictonaryType(type) ||
 				(TypeHelper.IsArrayType(genericTypeDefinition) && !settings.IEnumerableToArray))
 			{
 				return CreateSystemGenericTypeText();

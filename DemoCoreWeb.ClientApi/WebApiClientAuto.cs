@@ -4301,6 +4301,52 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/SuperDemo/StringPersonDic2
+		/// </summary>
+		public async Task<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>> GetDictionaryOfPeople2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/StringPersonDic2";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/SuperDemo/StringPersonDic2
+		/// </summary>
+		public System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person> GetDictionaryOfPeople2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/SuperDemo/StringPersonDic2";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// GET api/SuperDemo/doulbe
 		/// </summary>
 		public async Task<double> GetdoubleAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

@@ -90,17 +90,19 @@
 		public bool IEnumerableToArray { get; set; } = true;
 
 		/// <summary>
+		/// For TypeScript strict mode, used together with setting HelpStrictMode.
 		/// If NotNull decorates return. For scenarios most API may return null. 
 		/// This should be exclusive to MaybeNullAttributeOnMethod. if NotNullAttributeOnMethod and MaybeNullAttributeOnMethod are declared, MaybeNullAttributeOnMethod wins.
-		/// CS Codes will have NotNull copied over.	TS codes will not have null as optional type for return, when HelpStrictMode is true.
+		/// CS Codes will have NotNull copied over, however for you to generate TypeScript codes from the C# Client API codes when developing a broker broker service.	TS codes will  not have null as optional type for return, when HelpStrictMode is true.
 		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
 		/// </summary>
 		public bool NotNullAttributeOnMethod { get; set; }
 
 		/// <summary>
+		/// For TypeScript strict mode, used together with setting HelpStrictMode.
 		/// If MaybeNull decorates return. For scenarios, most if not all API functions are expected to return a not null value. For example, empty array rather than null, or an object rather than null otherwise exception.
 		/// This should be exclusive to NotNullAttributeOnMethod.
-		/// CS Codes will have MaybeNull copied over.	TS codes will not have null as optional type for return, when HelpStrictMode is true.
+		/// CS Codes will have NotNull copied over, however for you to generate TypeScript codes from the C# Client API codes when developing a broker broker service. TS codes will not have null as optional type for return, when HelpStrictMode is true.
 		/// Exclusive against SupportNullReferenceTypeOnMethodReturn.
 		/// </summary>
 		public bool MaybeNullAttributeOnMethod { get; set; }

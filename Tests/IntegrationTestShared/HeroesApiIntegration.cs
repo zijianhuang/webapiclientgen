@@ -32,8 +32,13 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetHeroNotExists()
 		{
-			var h = api.GetHero(99999);
+			DemoWebApi.Controllers.Client.Hero h = api.GetHero(99999);
+			//Console.WriteLine(h.Name); //No compiler warning here, since the lib is generated.
 			Assert.Null(h);
+
+			DemoWebApi.Controllers.Client.Hero h2 = GetNullHero();
+			//Console.WriteLine(h2.Name); //no compiler warning here either.
+			//DoSomethingWithHero(h2);
 		}
 
 		[Fact]
@@ -57,14 +62,15 @@ namespace IntegrationTests
 			Assert.Equal("Xyz", hero.Name);
 		}
 
-		//[Fact]
-		//public void TestSearch()
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		DemoWebApi.Controllers.Client.Hero GetNullHero()
+		{
+			return null;
+		}
+
+		//void DoSomethingWithHero([System.Diagnostics.CodeAnalysis.NotNull()] DemoWebApi.Controllers.Client.Hero hero)
 		//{
-		//	var heroes = api.Search("Torna");
-		//	Assert.Single(heroes);
-		//	Assert.Equal("Tornado", heroes[0].Name);
+		//	System.Console.WriteLine(hero.Name);
 		//}
-
-
 	}
 }

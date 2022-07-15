@@ -133,11 +133,21 @@ namespace Fonlow.Reflection
 			return propertyValue.ToString() == expectedValue;
 		}
 
+		/// <summary>
+		/// Used only in API parameters, which generally use a small subset of IEnumerable drived types.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public static bool IsSimpleListType(Type type)
 		{
 			return simpleListTypeNames.Contains(type.Name) && (IsSimpleType(type.GenericTypeArguments[0]) || type.GenericTypeArguments[0].IsEnum);
 		}
 
+		/// <summary>
+		/// Used only in API parameters.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public static bool IsSimpleArrayType(Type type)
 		{
 			return simpleArrayTypeNames.Contains(type.Name);

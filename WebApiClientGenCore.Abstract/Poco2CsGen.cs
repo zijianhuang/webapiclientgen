@@ -519,7 +519,7 @@ namespace Fonlow.Poco2Client
 			if ((TypeHelper.IsIEnumerableType(genericTypeDefinition) && settings.IEnumerableToArray) ||
 				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
-				Debug.Assert(type.GenericTypeArguments.Length == 1);
+				//Debug.Assert(type.GenericTypeArguments.Length == 1);
 				var elementType = type.GenericTypeArguments[0];
 				return CreateArrayTypeReference(elementType, 1);
 			}

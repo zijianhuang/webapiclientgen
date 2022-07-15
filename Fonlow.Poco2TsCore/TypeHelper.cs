@@ -9,20 +9,6 @@ namespace Fonlow.Reflection
 	{
 		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 
-		static readonly HashSet<string> arrayTypeFullNames = new HashSet<string>(
-		new string[] {
-			typeof(IEnumerable<>).FullName,
-			typeof(IList<>).FullName,
-			typeof(ICollection<>).FullName,
-			typeof(IQueryable<>).FullName,
-			typeof(IReadOnlyList<>).FullName,
-			typeof(List<>).FullName,
-			typeof(System.Collections.ObjectModel.Collection<>).FullName,
-			typeof(IReadOnlyCollection<>).FullName,
-		   typeof(System.Collections.ObjectModel.ObservableCollection<>).FullName,
-	   }
-	   );
-
 		static readonly HashSet<string> simpleListTypeNames = new HashSet<string>(
 		new string[] {
 			typeof(IEnumerable<>).Name,
@@ -147,11 +133,6 @@ namespace Fonlow.Reflection
 			return propertyValue.ToString() == expectedValue;
 		}
 
-		public static bool IsArrayType(Type type)
-		{
-			return arrayTypeFullNames.Contains(type.FullName);//Could be using IsAssignableFrom() if many people need this.
-		}
-
 		public static bool IsSimpleListType(Type type)
 		{
 			return simpleListTypeNames.Contains(type.Name) && (IsSimpleType(type.GenericTypeArguments[0]) || type.GenericTypeArguments[0].IsEnum);
@@ -167,7 +148,7 @@ namespace Fonlow.Reflection
 			return TupleTypeNames.IndexOf(type.FullName);
 		}
 
-		public static bool IsIDictonaryType(Type type)
+		public static bool IsIDictionaryType(Type type)
 		{
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
@@ -180,6 +161,27 @@ namespace Fonlow.Reflection
 
 				Type closedDictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArguments[0], genericArguments[1]);
 				if (closedDictionaryType.IsAssignableFrom(type))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public static bool IsIEnumerableType(Type type)
+		{
+			Type genericTypeDefinition = type.GetGenericTypeDefinition();
+			Type[] genericArguments = type.GetGenericArguments();
+			if (genericArguments.Length == 1)
+			{
+				if (genericTypeDefinition == typeof(IEnumerable<>))
+				{
+					return true;
+				}
+
+				Type closedEnumerableType = typeof(IEnumerable<>).MakeGenericType(genericArguments[0]);
+				if (closedEnumerableType.IsAssignableFrom(type))
 				{
 					return true;
 				}

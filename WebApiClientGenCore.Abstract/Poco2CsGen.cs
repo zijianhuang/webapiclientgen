@@ -505,8 +505,8 @@ namespace Fonlow.Poco2Client
 			}
 
 			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
-				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictonaryType(type) ||
-				(TypeHelper.IsArrayType(genericTypeDefinition) && !settings.IEnumerableToArray))
+				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictionaryType(type) ||
+				(TypeHelper.IsIEnumerableType(genericTypeDefinition) && !settings.IEnumerableToArray))
 			{
 				return CreateGenericType();
 			}
@@ -516,7 +516,7 @@ namespace Fonlow.Poco2Client
 				return TranslateToClientTypeReference(genericArguments[0]);
 			}
 
-			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) ||
+			if ((TypeHelper.IsIEnumerableType(genericTypeDefinition) && settings.IEnumerableToArray) ||
 				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
@@ -655,8 +655,8 @@ namespace Fonlow.Poco2Client
 			}
 
 			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
-				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictonaryType(type) ||
-				(TypeHelper.IsArrayType(genericTypeDefinition) && !settings.IEnumerableToArray))
+				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictionaryType(type) ||
+				(TypeHelper.IsIEnumerableType(genericTypeDefinition) && !settings.IEnumerableToArray))
 			{
 				return CreateSystemGenericTypeText();
 			}
@@ -666,7 +666,7 @@ namespace Fonlow.Poco2Client
 				return TranslateToClientTypeReferenceText(genericArguments[0], forDocComment);
 			}
 
-			if ((TypeHelper.IsArrayType(genericTypeDefinition) && settings.IEnumerableToArray) ||
+			if ((TypeHelper.IsIEnumerableType(genericTypeDefinition) && settings.IEnumerableToArray) ||
 				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);

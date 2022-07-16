@@ -1,3 +1,3 @@
 const SITE_CONFIG = {
-	apiBaseuri: "http://heroes.fonlow.net/webapi/"
+	apiBaseuri: "https://heroes.fonlow.net/webapi/"
 }

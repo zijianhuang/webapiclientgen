@@ -17,11 +17,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function clientFactory(http: HttpClient) {
 	if (SiteConfigConstants.apiBaseuri) {
+		console.debug('apiBaseuri:' + SiteConfigConstants.apiBaseuri)
 		return new namespaces.DemoWebApi_Controllers_Client.Heroes(SiteConfigConstants.apiBaseuri, http);
 	}
 
 	const _baseUri = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
-	return new namespaces.DemoWebApi_Controllers_Client.Heroes(_baseUri + 'webapi/', http);
+	const webApiUrl = _baseUri + 'webapi/';
+	console.debug('webApiUrl: ' + webApiUrl);
+	return new namespaces.DemoWebApi_Controllers_Client.Heroes(webApiUrl, http);
 
 }
 

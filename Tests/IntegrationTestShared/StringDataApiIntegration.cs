@@ -71,7 +71,6 @@ namespace IntegrationTests
 		{
 			var s = api.GetNullString();
 			Assert.Null(s);
-			System.Console.WriteLine(s.Substring(1));
 		}
 
 

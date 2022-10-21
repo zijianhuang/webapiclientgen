@@ -11,7 +11,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>2.0</Version>
+    <Version>2.1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
+    <ProjectReference Include="..\UriTemplatesCore\UriTemplatesCore.csproj" />
   </ItemGroup>
 
 </Project>

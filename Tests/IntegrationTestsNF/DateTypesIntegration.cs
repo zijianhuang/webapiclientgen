@@ -174,8 +174,8 @@ namespace IntegrationTests
 			Assert.True((DateTime.Now - dt) < TimeSpan.FromSeconds(2));
 		}
 
-		//[Fact(Skip = "Used for Host in Hawaii")]
-		[Fact]
+		[Fact(Skip = "Used for Host in Hawaii")]
+		//[Fact]
 		public void TestGetDateTimeOffsetWithHawaiiHost()
 		{
 			var dt = api.GetDateTimeOffset(); // Now in Hawaii is with -10 offset.

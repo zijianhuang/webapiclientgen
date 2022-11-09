@@ -1,5 +1,4 @@
-﻿using Fonlow.DateOnlyExtensions;
-using Fonlow.Testing;
+﻿using Fonlow.Testing;
 using System;
 
 namespace IntegrationTests
@@ -13,8 +12,6 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
-			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 			Api = new DemoWebApi.Controllers.Client.SuperDemo(HttpClient, jsonSerializerSettings);
 		}
 

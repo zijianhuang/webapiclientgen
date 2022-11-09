@@ -1,5 +1,5 @@
 ﻿using Fonlow.Testing;
-using System;
+using Fonlow.DateOnlyExtensions;
 
 namespace IntegrationTests
 {
@@ -12,6 +12,8 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
+			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
+			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 			Api = new DemoWebApi.Controllers.Client.Tuple(HttpClient, jsonSerializerSettings);
 		}
 

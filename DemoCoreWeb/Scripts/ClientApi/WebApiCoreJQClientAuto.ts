@@ -321,6 +321,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/DateTypes/GetDateOnlyMin
+		 */
+		getDateOnlyMin(callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.get(this.baseUri + 'api/DateTypes/GetDateOnlyMin', callback, this.error, this.statusCode, headersHandler);
+		}
+
+		/**
 		 * GET api/DateTypes/NullableDatetime/{hasValue}
 		 */
 		getDateTime(hasValue: boolean, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {

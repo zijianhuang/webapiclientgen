@@ -324,6 +324,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/DateTypes/GetDateOnlyMin
+		 */
+		getDateOnlyMin(headersHandler?: () => HttpHeaders): Observable<Date> {
+			return this.http.get<Date>(this.baseUri + 'api/DateTypes/GetDateOnlyMin', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
 		 * GET api/DateTypes/NullableDatetime/{hasValue}
 		 */
 		getDateTime(hasValue?: boolean, headersHandler?: () => HttpHeaders): Observable<Date | null> {

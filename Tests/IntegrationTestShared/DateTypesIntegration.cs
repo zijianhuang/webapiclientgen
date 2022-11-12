@@ -314,6 +314,13 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestGetDateOnlyMin()
+		{
+			var r = api.GetDateOnlyMin();
+			Assert.Equal(DateOnly.MinValue, r);
+		}
+
+		[Fact]
 		public void TestPostDateOnlyNullable()
 		{
 			var dateOnly = new DateOnly(1988, 12, 23);

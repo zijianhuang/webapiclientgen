@@ -153,6 +153,13 @@ namespace DemoWebApi.Controllers
 			return d;
 		}
 
+		[HttpGet]
+		[Route("GetDateOnlyMin")]
+		public DateOnly GetDateOnlyMin()
+		{
+			return DateOnly.MinValue;
+		}
+
 		[HttpPost]
 		[Route("DateOnlyNullable")]
 		public DateOnly? PostDateOnlyNullable([FromBody] DateOnly? d)

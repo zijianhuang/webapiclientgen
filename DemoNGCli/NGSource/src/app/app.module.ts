@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard.component';
 import { HeroesComponent } from './heroes.component';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroSearchComponent } from './hero-search.component';
+import { NGMDModule } from './ngmd.module';
+import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 
@@ -35,7 +37,9 @@ export function clientFactory(http: HttpClient) {
 		ReactiveFormsModule,
 		HttpClientModule,
 		AppRoutingModule,
-		ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+		MatNativeDateModule,
+		NGMDModule,
+		//ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
 	],
 	declarations: [
 		AppComponent,
@@ -51,6 +55,10 @@ export function clientFactory(http: HttpClient) {
 			deps: [HttpClient],
 
 		},
+		//{ provide: DateAdapter, useClass: NativeDateAdapter, deps: [MAT_DATE_LOCALE] },
+		//{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+		//{ provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+
 	],
 
 	bootstrap: [AppComponent]

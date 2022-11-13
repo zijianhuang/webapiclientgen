@@ -594,6 +594,12 @@ namespace DemoWebApi.Controllers.Client
 	{
 		
 		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateOnly> DeathDate { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateOnly DOB { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
 		public long Id { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]

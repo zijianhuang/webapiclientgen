@@ -38,6 +38,7 @@
 							"src/manifest.json"
 						],
 						"styles": [
+							"./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 							"src/styles.css"
 						],
 						"scripts": []

@@ -1,3 +1,3 @@
 const SITE_CONFIG = {
-  apiBaseuri: "https://localhost:5001/"
+  apiBaseuri: "http://localhost:5000/"
 }

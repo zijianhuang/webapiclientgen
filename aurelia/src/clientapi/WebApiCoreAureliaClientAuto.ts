@@ -250,6 +250,8 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface Hero {
+		deathDate?: Date;
+		dob?: Date;
 		id?: number;
 		name?: string;
 	}

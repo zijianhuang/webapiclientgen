@@ -38,7 +38,9 @@ export class HeroDetailComponent implements OnInit {
 	private CreateModelForm() {
 		return new FormGroup({
 			id: new FormControl(undefined),
-			name: new FormControl(undefined)
+			name: new FormControl(undefined),
+			dob: new FormControl(undefined),
+			deathDate: new FormControl(undefined),
 		});
 	}
 

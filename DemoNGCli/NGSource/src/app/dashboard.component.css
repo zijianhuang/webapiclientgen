@@ -1,4 +1,4 @@
-[class*='col-'] {
+/*[class*='col-'] {
   float: left;
 }
 *, *:after, *:before {
@@ -57,7 +57,7 @@ h4 {
 	.module {
 	  min-width: 60px;
 	}
-}
+}*/
 
 
 /*

@@ -3,8 +3,18 @@
   <div><span>id: </span>{{hero.id}}</div>
   <div>
     <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name"/>
+    <input id="hero-name" [(ngModel)]="hero.name" placeholder="Name" />
+    <input id="hero-dob" type="date" [(ngModel)]="hero.dob" placeholder="DOB" />
+    <input id="hero-death" type="date" [(ngModel)]="hero.death" placeholder="Death" />
   </div>
+
+  <!--<div [formGroup]="heroForm">
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" formControlName="name" placeholder="Name" />
+    <input id="hero-dob" type="date" formControlName="dob" placeholder="DOB" />
+    <input id="hero-death" type="date" formControlName="death" placeholder="Death" />
+  </div>-->
+
   <button type="button" (click)="goBack()">go back</button>
   <button type="button" (click)="save()">save</button>
 </div>

@@ -146,7 +146,7 @@ namespace DemoWebApi.Controllers
 		public DateOnly DOB { get; set; }
 
 		[DataMember]
-		public DateOnly? DeathDate { get; set; }
+		public DateOnly? Death { get; set; }
 	}
 
 	[DataContract(Namespace = DemoWebApi.DemoData.Constants.DataNamespace)]

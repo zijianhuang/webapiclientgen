@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import * as namespaces from '../../clientapi/WebApiCoreNg2ClientAuto';
 
 @Component({
   selector: 'app-heroes',
@@ -9,31 +8,42 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[] = [];
-
-  constructor(private heroService: HeroService) { }
-
+  heroes?: namespaces.DemoWebApi_Controllers_Client.Hero[];
+  selectedHero?: namespaces.DemoWebApi_Controllers_Client.Hero;
+  constructor(
+    private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
+    private router: Router) { }
+  getHeroes(): void {
+    this.heroService.getHeros().subscribe(
+      heroes => {
+        this.heroes = heroes;
+      }
+    );
+  }
+  add(name: string): void {
+      name = name.trim();
+      if (!name) { return; }
+      this.heroService.post(name).subscribe(
+        hero => {
+          this.heroes?.push(hero);
+          this.selectedHero = undefined;
+        });
+  }
+  delete(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
+    this.heroService.delete(hero.id!).subscribe(
+      () => {
+        this.heroes = this.heroes?.filter(h => h !== hero);
+        if (this.selectedHero === hero) { this.selectedHero = undefined; }
+      });
+  }
   ngOnInit(): void {
     this.getHeroes();
   }
-
-  getHeroes(): void {
-    this.heroService.getHeroes()
-    .subscribe(heroes => this.heroes = heroes);
+  onSelect(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
+    this.selectedHero = hero;
   }
-
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.heroService.addHero({ name } as Hero)
-      .subscribe(hero => {
-        this.heroes.push(hero);
-      });
-  }
-
-  delete(hero: Hero): void {
-    this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.deleteHero(hero.id).subscribe();
+  gotoDetail(): void {
+    this.router.navigate(['/detail', this.selectedHero?.id]);
   }
 
 }

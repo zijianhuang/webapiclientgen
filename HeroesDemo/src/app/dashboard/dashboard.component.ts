@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import * as namespaces from '../../clientapi/WebApiCoreNg2ClientAuto';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,16 +7,18 @@ import { HeroService } from '../hero.service';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+  heroes: namespaces.DemoWebApi_Controllers_Client.Hero[] = [];
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes) { }
 
   ngOnInit(): void {
-    this.getHeroes();
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+    this.heroService.getHeros().subscribe(
+      {
+        next: heroes => {
+          this.heroes = heroes.slice(1, 5);
+        },
+        error: error => console.error(error)
+      }
+    );
   }
 }

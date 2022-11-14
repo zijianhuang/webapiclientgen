@@ -1,40 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Observable, Subject } from 'rxjs';
-
-import {
-   debounceTime, distinctUntilChanged, switchMap
- } from 'rxjs/operators';
-
-import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { Subject } from 'rxjs';
+import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import * as namespaces from '../../clientapi/WebApiCoreNg2ClientAuto';
 
 @Component({
+  moduleId: module.id,
   selector: 'app-hero-search',
-  templateUrl: './hero-search.component.html',
-  styleUrls: [ './hero-search.component.css' ]
+  templateUrl: 'hero-search.component.html',
+  styleUrls: ['hero-search.component.css'],
 })
 export class HeroSearchComponent implements OnInit {
-  heroes$!: Observable<Hero[]>;
+  heroes?: Observable<namespaces.DemoWebApi_Controllers_Client.Hero[] | null>;
   private searchTerms = new Subject<string>();
-
-  constructor(private heroService: HeroService) {}
-
+  constructor(
+    private heroSearchService: namespaces.DemoWebApi_Controllers_Client.Heroes,
+    private router: Router) { }
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }
-
   ngOnInit(): void {
-    this.heroes$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
-
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => this.heroService.searchHeroes(term)),
-    );
+    this.heroes = this.searchTerms.pipe(
+      debounceTime(300)        // wait for 300ms pause in events
+      , distinctUntilChanged()   // ignore if next search term is same as previous
+      , switchMap((term: string) => {
+        if (term) {
+          return this.heroSearchService.search(term);
+        } else {
+          return of([]);
+        }
+      }));
+  }
+  gotoDetail(hero: namespaces.DemoWebApi_Controllers_Client.Hero): void {
+    const link = ['/detail', hero.id];
+    this.router.navigate(link);
   }
 }

@@ -4,10 +4,20 @@
   <div>
     <label for="hero-name">Hero name: </label>
     <input id="hero-name" [(ngModel)]="hero.name" placeholder="Name" />
-    <input id="hero-dob" type="date" [(ngModel)]="hero.dob" placeholder="DOB" />
+    <!--<input id="hero-dob" type="date" [(ngModel)]="hero.dob" placeholder="DOB" />-->
+    <mat-form-field>
+      <mat-label>Date of Birth</mat-label>
+      <!-- #docregion toggle -->
+      <input matInput [matDatepicker]="picker" [(ngModel)]="hero.dob">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <!-- #enddocregion toggle -->
+    </mat-form-field>
     <input id="hero-death" type="date" [(ngModel)]="hero.death" placeholder="Death" />
   </div>
 
+  <div>{{hero.dob}}</div>
+  <div>{{hero.death}}</div>
   <!--<div [formGroup]="heroForm">
     <label for="hero-name">Hero name: </label>
     <input id="hero-name" formControlName="name" placeholder="Name" />

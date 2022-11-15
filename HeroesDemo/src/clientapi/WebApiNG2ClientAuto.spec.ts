@@ -615,11 +615,11 @@ describe('DateTypes API', () => {
 	);
 
 	it('postDateOnly', (done) => {
-		const dt = new Date(Date.parse('2018-12-23')); //JS will serialize it to 2018-12-23T00:00:00.000Z.
+		const dt = new Date(Date.parse('2018-12-25')); //JS will serialize it to 2018-12-25T00:00:00.000Z.
 		service.postDateOnly(dt).subscribe(
 			data => {
-				const v: any = data; //string 2008-12-23
-				expect(v).toEqual('2018-12-23');
+				const v: any = data; //string 2008-12-25
+				expect(v).toEqual('2018-12-25');
 				done();
 			},
 			error => {
@@ -630,6 +630,92 @@ describe('DateTypes API', () => {
 
 	}
 	);
+
+	it('postDateOnlyWithUtc', (done) => {
+		const dt = new Date(Date.parse('2018-12-25T00:00:00.000Z')); //JS will serialize it to 2018-12-25T00:00:00.000Z.
+		service.postDateOnly(dt).subscribe(
+			data => {
+				const v: any = data; //string 2008-12-25
+				expect(v).toEqual('2018-12-25');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateOnlyWithAusMidnight', (done) => {
+		const dt = new Date(Date.parse('2018-12-24T14:00:00.000Z')); //Angular Material DatePicker by default will give this when picking 2018-12-25
+		service.postDateOnly(dt).subscribe(
+			data => {
+				const v: any = data;
+				expect(v).toEqual('2018-12-24');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateOnlyText', (done) => {
+		let obj: any = '2018-12-25';
+		service.postDateOnly(obj).subscribe(
+			data => {
+				const v: any = data; //string 2008-12-25
+				expect(v).toEqual('2018-12-25');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateOnlyUtcText', (done) => {
+		let obj: any = '2018-12-25T00:00:00.000Z';
+		service.postDateOnly(obj).subscribe(
+			data => {
+				const v: any = data;
+				expect(v).toEqual('2018-12-25');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
+	it('postDateOnlyAusMidnightText', (done) => {
+		let obj: any = '2018-12-24T23:00:01.001Z';
+		service.postDateOnly(obj).subscribe(
+			data => {
+				const v: any = data;
+				expect(v).toEqual('2018-12-24');
+				done();
+			},
+			error => {
+				fail(errorResponseToString(error));
+				done();
+			}
+		);
+
+	}
+	);
+
 
 	it('postDateOnlyWithNull', (done) => {
 		service.postDateOnly(null!).subscribe( //strict mode happy

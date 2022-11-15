@@ -306,6 +306,14 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestUtcStringToDateOnlyThrows()
+		{
+			var xmasDate = new DateTimeOffset(2018, 12, 25, 0, 0, 0, TimeSpan.Zero);
+			var isoDatetime = xmasDate.UtcDateTime.ToString("o");//2018-12-25T00:00:00.0000000Z
+			Assert.Throws<FormatException>(() => DateOnly.Parse(isoDatetime));
+		}
+
+		[Fact]
 		public void TestPostDateOnlyMin()
 		{
 			var dateOnly = DateOnly.MinValue;

@@ -29,6 +29,12 @@ namespace Fonlow.DateOnlyExtensions
 
 			if (vType == typeOfString)
 			{
+				var vs = (string)v;
+				if (String.IsNullOrEmpty(vs))
+				{
+					return DateOnly.MinValue;
+				}
+
 				return DateOnly.Parse((string)v); //DateOnly can parse 00001-01-01
 			}
 
@@ -81,6 +87,12 @@ namespace Fonlow.DateOnlyExtensions
 
 			if (vType == typeOfString)
 			{
+				var vs = (string)v;
+				if (String.IsNullOrEmpty(vs))
+				{
+					return null;
+				}
+
 				return DateOnly.Parse((string)v);
 			}
 

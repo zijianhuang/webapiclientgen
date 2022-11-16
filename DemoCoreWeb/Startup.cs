@@ -40,8 +40,8 @@ namespace DemoCoreWeb
 				{
 					options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this for cross-timezone minValue and .NET Framework clients.
 					options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; //So when controller will ignore null fileds when returing data
-					//options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
-					//options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
+					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 				}
 			);//needed for some special data types which .net core 3.x json lib could not handle well.
 

@@ -77,7 +77,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.DateOnlyExtensionsTe
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IntegrationTestShared", "Tests\IntegrationTestShared\IntegrationTestShared.shproj", "{60B7393D-9285-4D0A-A368-877ED60C6C11}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Heroes", "HeroesDemo\Heroes.esproj", "{FB132137-FD32-4F91-ADC5-1849DF5C34F8}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "HeroesDemo", "HeroesDemo\HeroesDemo.esproj", "{FB132137-FD32-4F91-ADC5-1849DF5C34F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

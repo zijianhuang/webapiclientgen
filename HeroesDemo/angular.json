@@ -26,9 +26,9 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "glob": "**/*",
+                "glob": "siteconfig.js",
                 "input": "src/conf/",
-                "output": "./../conf/"
+                "output": "./conf/"
               }
             ],
             "styles": [
@@ -39,6 +39,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "../ngdist/prod/",
               "budgets": [
                 {
                   "type": "initial",
@@ -60,6 +61,20 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "dev": {
+              "outputPath": "../ngdist/dev/",
+
+              "index": {
+                "input": "src/index.html",
+                "output": "./index.html"
+              },
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,

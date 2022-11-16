@@ -29,7 +29,7 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 	public sealed class DateOnlyNullableJsonConverter : JsonConverter<DateOnly?>
 	{
 		public override bool HandleNull => true;
-		
+
 		public override void Write(Utf8JsonWriter writer, DateOnly? value, JsonSerializerOptions options)
 		{
 			if (value.HasValue)
@@ -44,7 +44,13 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 
 		public override DateOnly? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
-			if (reader.TryGetDateTime(out var v))
+			var s = reader.GetString();
+			if (s == null)
+			{
+				return null;
+			}
+
+			if (DateTime.TryParse(s, out var v))
 			{
 				return DateOnly.FromDateTime(v);
 			}

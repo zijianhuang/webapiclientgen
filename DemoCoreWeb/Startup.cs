@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Fonlow.DateOnlyExtensions;
+using System.Text.Json;
 
 namespace DemoCoreWeb
 {
@@ -28,22 +28,26 @@ namespace DemoCoreWeb
 #endif
 				}
 			)
-			//.AddJsonOptions(//revisit this in .NET 7
-			//options =>
-			//{
-			//	options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-			//	options.JsonSerializerOptions.Converters.Add(new DateOnlyNullableJsonConverter());
+			.AddJsonOptions(//revisit this in .NET 7
+			options =>
+			{
+				//options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+				options.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
+				options.JsonSerializerOptions.AllowTrailingCommas = true;
 
-			//});
-			.AddNewtonsoftJson(
-				options =>
-				{
-					options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this for cross-timezone minValue and .NET Framework clients.
-					options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; //So when controller will ignore null fileds when returing data
-					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
-					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
-				}
-			);//needed for some special data types which .net core 3.x json lib could not handle well.
+				options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyJsonConverter());
+				options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyNullableJsonConverter());
+
+			});
+			//.AddNewtonsoftJson(
+			//	options =>
+			//	{
+			//		options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this for cross-timezone minValue and .NET Framework clients.
+			//		options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; //So when controller will ignore null fileds when returing data
+			//		options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
+			//		options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			//	}
+			//);//needed for some special data types which .net core 3.x json lib could not handle well.
 
 			services.AddRouting();
 			services.AddCors();

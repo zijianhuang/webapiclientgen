@@ -7,9 +7,9 @@ namespace IntegrationTests
 	{
 		public TupleFixture()
 		{
-			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
 			{
-				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
 			};
 
 			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7

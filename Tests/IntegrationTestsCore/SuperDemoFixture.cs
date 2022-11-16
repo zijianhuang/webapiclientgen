@@ -7,9 +7,9 @@ namespace IntegrationTests
 	{
 		public SuperDemoFixture()
 		{
-			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
 			{
-				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
 			};
 
 			Api = new DemoWebApi.Controllers.Client.SuperDemo(HttpClient, jsonSerializerSettings);

@@ -3,17 +3,16 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>1.5</Version>
+    <Version>1.6</Version>
     <Description>Basic functions of accessing XML Doc Comments.</Description>
-    <PackageReleaseNotes>* Build with .NET 5</PackageReleaseNotes>
+    <PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
     <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.5.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
-    <FileVersion>1.5.0.0</FileVersion>
+
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

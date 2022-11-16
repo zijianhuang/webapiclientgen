@@ -9,9 +9,9 @@
 		<Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Version>2.4</Version>
+		<Version>2.5</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true; NotNullAttributeOnMethod</PackageReleaseNotes>
+		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

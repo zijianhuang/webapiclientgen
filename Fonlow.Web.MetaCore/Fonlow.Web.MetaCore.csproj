@@ -9,9 +9,9 @@
     <Authors>Zijian Huang</Authors>
     <Company></Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Doc comments for generic parameters; option IEnumerableToArray, default true.</PackageReleaseNotes>
+    <PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>2.1</Version>
+    <Version>2.2</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

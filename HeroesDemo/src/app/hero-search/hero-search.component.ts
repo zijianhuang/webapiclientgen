@@ -6,7 +6,6 @@ import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import * as namespaces from '../../clientapi/WebApiCoreNg2ClientAuto';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-hero-search',
   templateUrl: 'hero-search.component.html',
   styleUrls: ['hero-search.component.css'],

@@ -175,7 +175,14 @@
 		/// </summary>
 		public bool CancellationTokenEnabled { get; set; }
 
-		public JSPlugin[] Plugins { get; set; }
+
+        /// <summary>
+        /// Replce the Http Client with Refit RestApi Client
+		/// See https://github.com/reactiveui/refit
+        /// </summary>
+        public bool UseRefit { get; set; }
+
+        public JSPlugin[] Plugins { get; set; }
 	}
 
 	/// <summary>

@@ -319,26 +319,10 @@ namespace Fonlow.CodeDom.Web.Cs
             var reqPath = description.RelativePath;
 
             CodeAttributeDeclaration methodDeclaration = null;
-            switch (httpMethod)
+            if (!string.IsNullOrEmpty(httpMethod))
             {
-                case "GET":
-                    methodDeclaration = new CodeAttributeDeclaration("Get", new CodeAttributeArgument(new CodePrimitiveExpression(reqPath)));
-                    break;
-                case "DELETE":
-                    methodDeclaration = new CodeAttributeDeclaration("Delete", new CodeAttributeArgument(new CodePrimitiveExpression(reqPath)));
-                    break;
-                case "POST":
-                    methodDeclaration = new CodeAttributeDeclaration("Post", new CodeAttributeArgument(new CodePrimitiveExpression(reqPath)));
-                    break;
-                case "PUT":
-                    methodDeclaration = new CodeAttributeDeclaration("Put", new CodeAttributeArgument(new CodePrimitiveExpression(reqPath)));
-                    break;
-                case "PATCH":
-                    methodDeclaration = new CodeAttributeDeclaration("Patch", new CodeAttributeArgument(new CodePrimitiveExpression(reqPath)));
-                    break;
-                default:
-                    Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
-                    break;
+                var attribute = httpMethod.Substring(0,1) + httpMethod.ToLower().Substring(1);
+                methodDeclaration = new CodeAttributeDeclaration(attribute, new CodeAttributeArgument(new CodePrimitiveExpression(reqPath)));
             }
             return methodDeclaration;
         }

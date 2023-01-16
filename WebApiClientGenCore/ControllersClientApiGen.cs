@@ -180,7 +180,7 @@ namespace Fonlow.CodeDom.Web.Cs
                             return null;
 
                         string containerClassName = GetContainerClassName(d.ControllerName);
-                        return codeGenParameters.ClientApiOutputs.UseRefit ? CreateControllerClientInterface(clientNamespace, $"{containerClassName}") : CreateControllerClientClass(clientNamespace, containerClassName);
+                        return codeGenParameters.ClientApiOutputs.UseRefit ? CreateControllerClientInterface(clientNamespace, $"I{containerClassName}") : CreateControllerClientClass(clientNamespace, containerClassName);
                     }
                     )
                     .ToArray();//add classes into the namespace
@@ -194,6 +194,9 @@ namespace Fonlow.CodeDom.Web.Cs
                 var controllerFullName = controllerNamespace + "." + controllerName;
                 if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
                     continue;
+
+
+                controllerName = codeGenParameters.ClientApiOutputs.UseRefit ? $"I{d.ActionDescriptor.ControllerDescriptor.ControllerName}" : d.ActionDescriptor.ControllerDescriptor.ControllerName;
 
                 var existingClientClass = LookupExistingClass(controllerNamespace, GetContainerClassName(controllerName));
                 System.Diagnostics.Trace.Assert(existingClientClass != null);
@@ -243,6 +246,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
             return null;
         }
+
 
         CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
         {

@@ -627,7 +627,7 @@ namespace DemoCoreWeb.ControllersRefit.Client
 	using Refit;
 	
 	
-	public interface SpecialTypes
+	public interface ISpecialTypes
 	{
 		
 		/// <summary>
@@ -684,7 +684,7 @@ namespace DemoWebApi.ControllersRefit.Client
 	using Refit;
 	
 	
-	public interface DateTypes
+	public interface IDateTypes
 	{
 		
 		/// <summary>
@@ -824,7 +824,7 @@ namespace DemoWebApi.ControllersRefit.Client
 		Task<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>> SearchDateRangeAsync(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate);
 	}
 	
-	public interface Entities
+	public interface IEntities
 	{
 		
 		/// <summary>
@@ -932,7 +932,7 @@ namespace DemoWebApi.ControllersRefit.Client
 		Task<string> UpdatePersonAsync([Body()] DemoWebApi.DemoDataRefit.Client.Person person);
 	}
 	
-	public interface FileUpload
+	public interface IFileUpload
 	{
 		
 		/// <summary>
@@ -943,7 +943,7 @@ namespace DemoWebApi.ControllersRefit.Client
 		Task<DemoWebApi.ControllersRefit.Client.FileResult> UploadAvatarAsync(string userId, IList<FileInfoPart> files);
 	}
 	
-	public interface Heroes
+	public interface IHeroes
 	{
 		
 		/// <summary>
@@ -1012,7 +1012,7 @@ namespace DemoWebApi.ControllersRefit.Client
 		Task<DemoWebApi.ControllersRefit.Client.Hero[]> SearchAsync(string name);
 	}
 	
-	public interface StringData
+	public interface IStringData
 	{
 		
 		/// <summary>
@@ -1048,7 +1048,7 @@ namespace DemoWebApi.ControllersRefit.Client
 		Task<string> GetNullStringAsync();
 	}
 	
-	public interface SuperDemo
+	public interface ISuperDemo
 	{
 		
 		/// <summary>
@@ -1449,7 +1449,7 @@ namespace DemoWebApi.ControllersRefit.Client
 		Task<System.Tuple<string, int>> PostWithQueryButEmptyBodyAsync([Body()] string s, int i);
 	}
 	
-	public interface TextData
+	public interface ITextData
 	{
 		
 		/// <summary>
@@ -1489,7 +1489,7 @@ namespace DemoWebApi.ControllersRefit.Client
 		Task<string> GetNullStringAsync();
 	}
 	
-	public interface Tuple
+	public interface ITuple
 	{
 		
 		/// <summary>
@@ -1677,7 +1677,7 @@ namespace DemoWebApi.ControllersRefit.Client
 		Task<string> PostTuple8Async([Body()] System.Tuple<string, string, string, string, string, string, string, System.Tuple<string, string, string>> tuple);
 	}
 	
-	public interface Values
+	public interface IValues
 	{
 		
 		/// <summary>

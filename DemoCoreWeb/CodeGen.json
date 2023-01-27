@@ -62,6 +62,7 @@
 				"ContentType": "application/json;charset=UTF-8",
 				"ClientNamespaceSuffix": ".Client",
 				"ContainerNameSuffix": "",
+				"DataAnnotationsToComments": true,
 				"HelpStrictMode": true
 			},
 

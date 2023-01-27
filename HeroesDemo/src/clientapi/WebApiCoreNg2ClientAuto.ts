@@ -27,6 +27,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		BusinessNum?: string;
 		businessNumberType?: string;
+
+		/** Data type: Date */
 		foundDate?: Date;
 		registerDate?: Date;
 		textMatrix?: Array<Array<string>>;
@@ -63,6 +65,7 @@ export namespace DemoWebApi_DemoData_Client {
 
 		/**
 		 * Name of the entity.
+		 * Required
 		 */
 		name: string;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
@@ -86,6 +89,8 @@ export namespace DemoWebApi_DemoData_Client {
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
 
 	export interface MimsPackage {
+
+		/** Range: inclusive between 10 and 100 */
 		kk?: number;
 
 		/**
@@ -122,6 +127,8 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface Person extends DemoWebApi_DemoData_Client.Entity {
+
+		/** Data type: Date */
 		baptised?: Date | null;
 
 		/**
@@ -184,32 +191,71 @@ export namespace DemoWebApi_DemoData_Another_Client {
 
 export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
+
+		/** Required */
 		externalAccessToken?: string;
 	}
 
 	export interface ChangePasswordBindingModel {
+
+		/** Data type: Password */
 		confirmPassword?: string;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
 		newPassword?: string;
+
+		/**
+		 * Required
+		 * Data type: Password
+		 */
 		OldPwd: string;
 	}
 
 	export interface RegisterBindingModel {
+
+		/** Data type: Password */
 		confirmPassword?: string;
+
+		/** Required */
 		email?: string;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
 		password?: string;
 	}
 
 	export interface RegisterExternalBindingModel {
+
+		/** Required */
 		email?: string;
 	}
 
 	export interface RemoveLoginBindingModel {
+
+		/** Required */
 		loginProvider?: string;
+
+		/** Required */
 		providerKey?: string;
 	}
 
 	export interface SetPasswordBindingModel {
+
+		/** Data type: Password */
 		confirmPassword?: string;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
 		newPassword?: string;
 	}
 

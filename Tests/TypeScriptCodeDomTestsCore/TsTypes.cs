@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Fonlow.TypeScriptCodeDom;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Xunit;
-using Fonlow.TypeScriptCodeDom;
 
 
 namespace TypeScriptCodeDomTests
@@ -78,16 +76,16 @@ namespace TypeScriptCodeDomTests
 	}
 ");
 
-		}  
-
-
-		//[Fact]
-		//public void TestTypeOfType()
-		//{
-		//    Type companyType = typeof(DemoWebApi.DemoData.Company);
-		//    var s = companyType.ToString();
-		//    Type typeOfType = companyType.GetType();
-		//    var s2 = typeOfType.ToString();
-		//}
+		}
+
+
+		//[Fact]
+		//public void TestTypeOfType()
+		//{
+		//    Type companyType = typeof(DemoWebApi.DemoData.Company);
+		//    var s = companyType.ToString();
+		//    Type typeOfType = companyType.GetType();
+		//    var s2 = typeOfType.ToString();
+		//}
 	}
 }

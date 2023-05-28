@@ -7,6 +7,8 @@ using Fonlow.Web.Meta;
 using System;
 using Fonlow.Poco2Client;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+
 namespace Fonlow.CodeDom.Web.Cs
 {
 	/// <summary>
@@ -17,6 +19,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		CodeCompileUnit targetUnit;
 		CodeGenSettings codeGenParameters;
 		CodeDomProvider provider;
+
 
 		private bool disposedValue;
 
@@ -350,7 +353,9 @@ namespace Fonlow.Net.Http
 		}
 	}
 }";
-
+		/// <summary>
+		/// The block must be with CRLF (\r\n) for lline break, and tab between {}.
+		/// </summary>
 		const string dummyBlock =
 			@"
 namespace EnsureSuccessStatusCodeExDummy

@@ -45,6 +45,11 @@ namespace DemoWebApi.Controllers
 		[HttpGet("{id}")]
 		public string Get(int id)
 		{
+			if (id == 666)
+			{
+				throw new System.ArgumentException("hehehahahah");
+			}
+
 			return id.ToString();
 		}
 

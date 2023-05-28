@@ -32,7 +32,6 @@
 		//"StringAsString": true,
 		"CamelCase": true,
 		"CSClientNamespaceSuffix": ".Client",
-		"UseEnsureSuccessStatusCodeEx": true,
 		"DataAnnotationsEnabled": true,
 		"DataAnnotationsToComments": true,
 		"HandleHttpRequestHeaders": true,
@@ -42,6 +41,8 @@
 		"DecorateDataModelWithSerializable": true,
 		"IEnumerableToArray": false,
 		"MaybeNullAttributeOnMethod": true,
+		"UseEnsureSuccessStatusCodeEx": true,
+		"IncludeEnsureSuccessStatusCodeExBlock": true,
 		//"NotNullAttributeOnMethod": true,
 		//"UseSystemTextJson": true,
 

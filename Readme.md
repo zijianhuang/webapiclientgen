@@ -113,8 +113,8 @@ For more details, please check [WIKI](https://github.com/zijianhuang/webapiclien
 
 The Demo applications in this repository are mainly for testing WebApiClientGen during development. And there are other demo applications in the following repositories, demostrating how real world applications could utilize WebApiClientGen:
 
-1. [WebApiClientGen Examples](https://github.com/zijianhuang/webapiclientgenexamples)
-2. [.NET Core Demo](https://github.com/zijianhuang/DemoCoreWeb)
+1. [WebApiClientGen Examples](https://github.com/zijianhuang/webapiclientgenexamples) for .NET Framework, .NET Standard, Xamarin, and vue TS.
+2. [.NET Core Demo](https://github.com/zijianhuang/DemoCoreWeb) for ASP.NET Core MVC, Web API, ASP.NET Core + Angular, MAUI, fetchAPI, vue TS and React TS. 
 3. [WebApiClientGen vs Swagger](https://github.com/zijianhuang/DemoCoreWeb/tree/SwaggerDemo)
 
 These demo applications are actively maintained and kept up-to-date with the latest frameworks. If you are still staying with some older frameworks like Angular 4 or 5 or .NET Core 2.0, you may navigate to respective tags of the repositories and checkout.

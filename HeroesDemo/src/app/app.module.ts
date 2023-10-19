@@ -3,8 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
 import { SiteConfigConstants } from '../environments/environment';
@@ -14,7 +12,6 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { MessagesComponent } from './messages/messages.component';
-import { NGMDModule } from './ngmd.module';
 
 export function clientFactory(http: HttpClient) {
   if (SiteConfigConstants.apiBaseuri) {
@@ -48,8 +45,6 @@ export function clientFactory(http: HttpClient) {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
-    NGMDModule,
   ],
   declarations: [
     AppComponent,
@@ -68,12 +63,6 @@ export function clientFactory(http: HttpClient) {
 
     },
     { provide: LOCALE_ID, useValue: window.navigator.language }, //working for DatePipe and Material DatePicker
-    {
-      provide: DateAdapter, useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true, strict: false } },
 
   ]
 })

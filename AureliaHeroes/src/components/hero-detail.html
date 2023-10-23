@@ -1,0 +1,17 @@
+<template>
+  <require from="./hero-detail.css"></require>
+  <div if.bind="hero">
+    <h2>${hero.name} Details</h2>
+    <div><span>id: </span>${hero.id}</div>
+    <div>
+      <label for="hero-name">Hero name: </label>
+      <input id="hero-name" value.bind="hero.name" placeholder="Name" />
+      <input id="hero-dob" type="date" value.bind="hero.dob" placeholder="DOB" />
+
+      <input id="hero-death" type="date" value.bind="hero.death" placeholder="Death" />
+    </div>
+
+    <button type="button" click.delegate="goBack()">go back</button>
+    <button type="button" click.delegate="save()">save</button>
+  </div>
+</template>

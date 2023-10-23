@@ -1,0 +1,110 @@
+{
+  "name": "aurelia-heroes",
+  "description": "An Aurelia client application.",
+  "version": "0.1.0",
+  "repository": {
+    "type": "???",
+    "url": "???"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "aurelia-animator-css": "^1.0.4",
+    "aurelia-bootstrapper": "^2.4.0",
+    "aurelia-fetch-client": "^1.8.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.6",
+    "@types/node": "^20.8.7",
+    "@types/webpack": "^5.28.4",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "app-settings-loader": "^2.0.9",
+    "aurelia-cli": "^3.0.2",
+    "aurelia-loader-nodejs": "^1.1.0",
+    "aurelia-pal-nodejs": "^2.0.0",
+    "aurelia-testing": "^1.1.0",
+    "aurelia-webpack-plugin": "^5.0.6",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.8.1",
+    "duplicate-package-checker-webpack-plugin": "^3.0.0",
+    "eslint": "^8.52.0",
+    "expose-loader": "^4.1.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint-new": "^1.8.4",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
+    "jest-transform-stub": "^2.0.0",
+    "json-loader": "^0.5.7",
+    "mini-css-extract-plugin": "^2.7.6",
+    "minimatch": "^9.0.3",
+    "promise-polyfill": "^8.3.0",
+    "style-loader": "^3.3.3",
+    "tree-kill": "^1.2.2",
+    "ts-jest": "^29.1.1",
+    "ts-loader": "^9.5.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-bundle-analyzer": "^4.9.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "scripts": {
+    "build": "webpack --env production",
+    "start": "webpack server",
+    "build:dev": "webpack",
+    "analyze": "webpack --env production --analyze",
+    "test": "au test"
+  },
+  "engines": {
+    "node": ">=14.15.0"
+  },
+  "overrides": {
+    "chokidar": "^3.0.0",
+    "glob-stream": "^7.0.0",
+    "glob-parent": "^6.0.0",
+    "micromatch": "^4.0.0"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/test/**/*.spec.ts"
+    ],
+    "moduleNameMapper": {
+      "^aurelia-binding$": "<rootDir>/node_modules/aurelia-binding"
+    },
+    "modulePaths": [
+      "<rootDir>/src",
+      "<rootDir>/node_modules"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "transform": {
+      "^.+\\.(css|less|sass|scss|styl|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-transform-stub",
+      "^.+\\.ts$": "ts-jest"
+    },
+    "setupFiles": [
+      "<rootDir>/test/jest-pretest.ts"
+    ],
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,ts}",
+      "!**/*.spec.{js,ts}",
+      "!**/node_modules/**",
+      "!**/test/**"
+    ],
+    "coverageDirectory": "<rootDir>/test/coverage-jest",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "html"
+    ]
+  }
+}

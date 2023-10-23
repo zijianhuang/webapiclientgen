@@ -1,0 +1,23 @@
+<template>
+  <require from="./heroes.css"></require>
+  <h2>My Heroes</h2>
+
+  <div>
+    <label for="new-hero">Hero name: </label>
+    <input id="new-hero" ref="heroName" />
+
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button type="button" class="add-button" click.delegate="addAndClear()">
+      Add hero
+    </button>
+  </div>
+
+  <ul class="heroes">
+    <li repeat.for="hero of heroes">
+      <a route-href="route: detail; params.bind: {id:hero.id}">
+        <span class="badge">${hero.id}</span> ${hero.name}
+      </a>
+      <button type="button" class="delete" title="delete hero" click.delegate="delete(hero)">x</button>
+    </li>
+  </ul>
+</template>

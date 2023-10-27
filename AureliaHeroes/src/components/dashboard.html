@@ -1,9 +1,0 @@
-<template>
-  <require from="./dashboard.css"></require>
-  <h2>Top Heroes</h2>
-  <div class="heroes-menu">
-    <a repeat.for="hero of heroes" route-href="route: detail; params.bind: {id:hero.id}">
-      ${hero.name}
-    </a>
-  </div>
-</template>

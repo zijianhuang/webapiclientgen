@@ -47,7 +47,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			// Add parameters.
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/'", "@Inject('baseUri') private baseUri"));
+				"string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/'", "@Inject('baseUri') private baseUri"));
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"HttpClient", "private http"));
 

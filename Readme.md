@@ -118,3 +118,16 @@ The Demo applications in this repository are mainly for testing WebApiClientGen 
 3. [WebApiClientGen vs Swagger](https://github.com/zijianhuang/DemoCoreWeb/tree/SwaggerDemo)
 
 These demo applications are actively maintained and kept up-to-date with the latest frameworks. If you are still staying with some older frameworks like Angular 4 or 5 or .NET Core 2.0, you may navigate to respective tags of the repositories and checkout.
+
+## Tour of Heroes
+
+[Tour of Heroes](https://angular.io/tutorial/tour-of-heroes) is the official Angular tutorial demo app.
+
+To illustrate the programmer experience of using WebApiClientGen, the following demo apps are crafted with similar architectural design for the same functional features on various development frameworks or libraries, however, talking to a real backend.
+
+1. [Angular 2+](https://github.com/zijianhuang/webapiclientgen/tree/master/HeroesDemo)
+1. [Xamarin](https://github.com/zijianhuang/webapiclientgenexamples/tree/master/Mobile)
+1. [MAUI](https://github.com/zijianhuang/DemoCoreWeb/tree/master/mobile). Migrated from Xamarin Heroes.
+1. [Aurelia](https://github.com/zijianhuang/DemoCoreWeb/tree/master/AureliaHeroes). Integration test suite included.
+1. [React](https://github.com/zijianhuang/DemoCoreWeb/tree/master/ReactHeroes).  Integration test suite included.
+

@@ -1,24 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>Fonlow.WebApiClientGenCore.Fetch</RootNamespace>
-    <AssemblyName>Fonlow.WebApiClientGenCore.Fetch</AssemblyName>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <PackageTags>Fetch TypeScript</PackageTags>
-    <PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
-    <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</Description>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
-    <Authors>Zijian Huang</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.3</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<RootNamespace>Fonlow.WebApiClientGenCore.Fetch</RootNamespace>
+		<AssemblyName>Fonlow.WebApiClientGenCore.Fetch</AssemblyName>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+		<PackageTags>Fetch TypeScript</PackageTags>
+		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
+		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</Description>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Copyright>Copyright © Zijian Huang 2015-2023</Copyright>
+		<Authors>Zijian Huang</Authors>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<Version>3.4</Version>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
+		<None Include="Readme.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 </Project>

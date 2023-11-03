@@ -7,13 +7,21 @@ using System.Diagnostics;
 
 namespace Fonlow.TypeScriptCodeDom
 {
-	public static class CodeObjectHelper
+	/// <summary>
+	/// Output TS codes through TextWriter
+	/// </summary>
+	public class CodeObjectHelper
 	{
 		const string BasicIndent = "\t";
 
+		public CodeObjectHelper()
+		{
+
+		}
+
 		#region public GenerateCodeFromXXX
 
-		internal static void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o, bool asModule)
+		internal void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o, bool asModule)
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
@@ -38,22 +46,22 @@ namespace Fonlow.TypeScriptCodeDom
 			w.WriteLine($"}}");
 		}
 
-		internal static void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		internal void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
 			GenerateCodeFromAttributeDeclarationCollection(e.CustomAttributes, w, o);
 
 			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
-			var typeOfType = CodeObjectHelper.GetTypeOfType(e);
+			var typeOfType = GetTypeOfType(e);
 			var name = e.Name;
-			var typeParametersExpression = CodeObjectHelper.GetTypeParametersExpression(e);
-			var baseTypesExpression = CodeObjectHelper.GetBaseTypeExpression(e);
+			var typeParametersExpression = GetTypeParametersExpression(e);
+			var baseTypesExpression = GetBaseTypeExpression(e);
 			w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}{typeParametersExpression}{baseTypesExpression} {{");
 			WriteTypeMembersAndCloseBracing(e, w, o);
 		}
 
-		static void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (e.Arguments.Count > 0)
 			{
@@ -63,7 +71,7 @@ namespace Fonlow.TypeScriptCodeDom
 			w.WriteLine($"{o.IndentString}@{e.Name}()");
 		}
 
-		static void GenerateCodeFromAttributeDeclarationCollection(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
+		void GenerateCodeFromAttributeDeclarationCollection(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (e.Count == 0)
 				return;
@@ -74,7 +82,7 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		internal static void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
+		internal void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (e == null)
 				return;
@@ -165,7 +173,7 @@ namespace Fonlow.TypeScriptCodeDom
 			Trace.TraceWarning($"CodeExpression not supported: {e}");
 		}
 
-		internal static void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
+		internal void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (WriteCodeAssignStatement(e as CodeAssignStatement, w, o))
 				return;
@@ -214,7 +222,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 		#region WriteCodeXXXX
 
-		static bool WriteCodeArrayIndexerExpression(CodeArrayIndexerExpression arrayIndexerExpression, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeArrayIndexerExpression(CodeArrayIndexerExpression arrayIndexerExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (arrayIndexerExpression == null)
 				return false;
@@ -230,7 +238,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeFieldReferenceExpression(CodeFieldReferenceExpression fieldReferenceExpression, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeFieldReferenceExpression(CodeFieldReferenceExpression fieldReferenceExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (fieldReferenceExpression == null)
 				return false;
@@ -241,7 +249,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeObjectCreateExpression(CodeObjectCreateExpression objectCreateExpression, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeObjectCreateExpression(CodeObjectCreateExpression objectCreateExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (objectCreateExpression == null)
 				return false;
@@ -252,7 +260,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodePrimitiveExpression(CodePrimitiveExpression primitiveExpression, TextWriter w)
+		bool WriteCodePrimitiveExpression(CodePrimitiveExpression primitiveExpression, TextWriter w)
 		{
 			if (primitiveExpression == null)
 				return false;
@@ -265,7 +273,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodePropertyReferenceExpression(CodePropertyReferenceExpression propertyReferenceExpression, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodePropertyReferenceExpression(CodePropertyReferenceExpression propertyReferenceExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (propertyReferenceExpression == null)
 				return false;
@@ -276,7 +284,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeMethodInvokeExpression(CodeMethodInvokeExpression methodInvokeExpression, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeMethodInvokeExpression(CodeMethodInvokeExpression methodInvokeExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (methodInvokeExpression == null)
 				return false;
@@ -289,7 +297,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeIndexerExpression(CodeIndexerExpression indexerExpression, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeIndexerExpression(CodeIndexerExpression indexerExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (indexerExpression == null)
 				return false;
@@ -305,7 +313,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeExpressionStatement(CodeExpressionStatement expressStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeExpressionStatement(CodeExpressionStatement expressStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (expressStatement == null)
 				return false;
@@ -315,7 +323,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeMethodReturnStatement(CodeMethodReturnStatement methodReturnStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeMethodReturnStatement(CodeMethodReturnStatement methodReturnStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (methodReturnStatement == null)
 				return false;
@@ -326,7 +334,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeThrowExceptionStatement(CodeThrowExceptionStatement throwExceptionStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeThrowExceptionStatement(CodeThrowExceptionStatement throwExceptionStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (throwExceptionStatement == null)
 				return false;
@@ -336,7 +344,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeBinaryOperatorExpression(CodeBinaryOperatorExpression binaryOperatorExpression, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeBinaryOperatorExpression(CodeBinaryOperatorExpression binaryOperatorExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (binaryOperatorExpression == null)
 				return false;
@@ -355,7 +363,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="w"></param>
 		/// <param name="o"></param>
 		/// <returns></returns>
-		static bool WriteCodeCommentStatement(CodeCommentStatement commentStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeCommentStatement(CodeCommentStatement commentStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (commentStatement == null)
 				return false;
@@ -393,7 +401,7 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 		//http://www.codebelt.com/typescript/javascript-getters-setters-typescript-accessor-tutorial/
-		static bool WriteCodeMemberProperty(CodeMemberProperty codeMemberProperty, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeMemberProperty(CodeMemberProperty codeMemberProperty, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (codeMemberProperty == null)
 				return false;
@@ -427,7 +435,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeMemberMethod(CodeMemberMethod memberMethod, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeMemberMethod(CodeMemberMethod memberMethod, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (memberMethod == null)
 				return false;
@@ -453,7 +461,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static void WriteCodeExpressionCollection(CodeExpressionCollection collection, TextWriter w, CodeGeneratorOptions o)
+		void WriteCodeExpressionCollection(CodeExpressionCollection collection, TextWriter w, CodeGeneratorOptions o)
 		{
 			for (int i = 0; i < collection.Count; i++)
 			{
@@ -464,7 +472,7 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 
-		static bool WriteCodeArrayCreateExpression(CodeArrayCreateExpression arrayCreateExpression, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeArrayCreateExpression(CodeArrayCreateExpression arrayCreateExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (arrayCreateExpression == null)
 				return false;
@@ -482,7 +490,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeAssignStatement(CodeAssignStatement assignStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeAssignStatement(CodeAssignStatement assignStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (assignStatement == null)
 				return false;
@@ -494,7 +502,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static void WriteTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
+		void WriteTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{
 
 			if (typeDeclaration.IsEnum)
@@ -515,7 +523,7 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		static void WriteEnumMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
+		void WriteEnumMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{
 			var currentIndent = o.IndentString;
 			o.IndentString += BasicIndent;
@@ -573,7 +581,7 @@ namespace Fonlow.TypeScriptCodeDom
 			o.IndentString = currentIndent;
 		}
 
-		static void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
+		void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(ctm.Comments, w, o);
 
@@ -604,7 +612,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="statements"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		static void WriteCodeStatementCollection(CodeStatementCollection statements, TextWriter w, CodeGeneratorOptions o)
+		void WriteCodeStatementCollection(CodeStatementCollection statements, TextWriter w, CodeGeneratorOptions o)
 		{
 			var currentIndent = o.IndentString;
 			o.IndentString += BasicIndent;
@@ -622,7 +630,7 @@ namespace Fonlow.TypeScriptCodeDom
 			o.IndentString = currentIndent;
 		}
 
-		static void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
+		void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
 		{
 			var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>()
 				.Select(d =>
@@ -634,7 +642,7 @@ namespace Fonlow.TypeScriptCodeDom
 			w.Write(String.Join(", ", pairs));
 		}
 
-		static bool WriteCodeCommentStatementCollection(CodeCommentStatementCollection comments, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeCommentStatementCollection(CodeCommentStatementCollection comments, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (comments.Count == 0)
 				return false;
@@ -649,7 +657,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static void WriteCodeMethodReferenceExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)
+		void WriteCodeMethodReferenceExpression(CodeMethodReferenceExpression expression, TextWriter w, CodeGeneratorOptions o)
 		{
 			GenerateCodeFromExpression(expression.TargetObject, w, o);
 			w.Write(".");
@@ -662,7 +670,7 @@ namespace Fonlow.TypeScriptCodeDom
 			w.Write("()");
 		}
 
-		static bool WriteCodeConditionStatement(CodeConditionStatement conditionStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeConditionStatement(CodeConditionStatement conditionStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (conditionStatement == null)
 				return false;
@@ -693,7 +701,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="w"></param>
 		/// <param name="o"></param>
 		/// <returns></returns>
-		static bool WriteCodeTryCatchFinallyStatement(CodeTryCatchFinallyStatement tryCatchFinallyStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeTryCatchFinallyStatement(CodeTryCatchFinallyStatement tryCatchFinallyStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (tryCatchFinallyStatement == null)
 				return false;
@@ -731,7 +739,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="catchClause"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		static void WriteCodeCatchClause(CodeCatchClause catchClause, TextWriter w, CodeGeneratorOptions o)
+		void WriteCodeCatchClause(CodeCatchClause catchClause, TextWriter w, CodeGeneratorOptions o)
 		{
 			w.Write(o.IndentString);
 			w.WriteLine($"catch ({catchClause.LocalName}) {{");
@@ -740,7 +748,7 @@ namespace Fonlow.TypeScriptCodeDom
 			w.WriteLine("}");
 		}
 
-		static bool WriteCodeIterationStatement(CodeIterationStatement iterationStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeIterationStatement(CodeIterationStatement iterationStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (iterationStatement == null)
 				return false;
@@ -761,7 +769,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		static bool WriteCodeSnippetStatement(CodeSnippetStatement snippetStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeSnippetStatement(CodeSnippetStatement snippetStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (snippetStatement == null)
 				return false;
@@ -771,7 +779,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 		}
 
-		static bool WriteCodeVariableDeclarationStatement(CodeVariableDeclarationStatement variableDeclarationStatement, TextWriter w, CodeGeneratorOptions o)
+		bool WriteCodeVariableDeclarationStatement(CodeVariableDeclarationStatement variableDeclarationStatement, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (variableDeclarationStatement == null)
 				return false;
@@ -789,7 +797,7 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 
-		static readonly Type typeOfString = typeof(string);
+		readonly Type typeOfString = typeof(string);
 
 		#endregion
 
@@ -803,7 +811,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// </summary>
 		/// <param name="t"></param>
 		/// <returns></returns>
-		static string GetCodeBinaryOperatorTypeText(CodeBinaryOperatorType t)
+		string GetCodeBinaryOperatorTypeText(CodeBinaryOperatorType t)
 		{
 			switch (t)
 			{
@@ -846,7 +854,7 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		static string GetAccessibilityModifier(MemberAttributes a)
+		string GetAccessibilityModifier(MemberAttributes a)
 		{
 			switch (a)
 			{
@@ -869,7 +877,7 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		static string IndentLines(string s, string indent)
+		string IndentLines(string s, string indent)
 		{
 			if (String.IsNullOrEmpty(s))
 				return String.Empty;
@@ -885,7 +893,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// </summary>
 		/// <param name="typeDeclaration"></param>
 		/// <returns></returns>
-		static string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
+		string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
 		{
 			return typeDeclaration.IsEnum
 				? "enum"
@@ -894,7 +902,7 @@ namespace Fonlow.TypeScriptCodeDom
 					: "class";
 		}
 
-		static string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
+		string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
 		{
 			if (typeDeclaration.TypeParameters.Count == 0)
 				return string.Empty;
@@ -916,7 +924,7 @@ namespace Fonlow.TypeScriptCodeDom
 			return parameterNames.Length == 0 ? String.Empty : $"<{String.Join(", ", parameterNames)}>";
 		}
 
-		static string GetBaseTypeExpression(CodeTypeDeclaration typeDeclaration)
+		string GetBaseTypeExpression(CodeTypeDeclaration typeDeclaration)
 		{
 			var baseTypes = typeDeclaration.BaseTypes
 				.OfType<CodeTypeReference>()
@@ -931,22 +939,22 @@ namespace Fonlow.TypeScriptCodeDom
 			return String.Empty;
 		}
 
-		static string GetEnumMember(CodeMemberField member)
+		string GetEnumMember(CodeMemberField member)
 		{
 			return (!(member.InitExpression is CodePrimitiveExpression initExpression)) ? $"{member.Name}" : $"{member.Name} = {initExpression.Value}";
 		}
 
-		static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
+		string GetCodeMemberFieldText(CodeMemberField codeMemberField)
 		{
 			return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
 		}
 
-		static string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
+		string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
 		{
 			return TypeMapper.MapCodeTypeReferenceToTsText(codeTypeReference);
 		}
 
-		static string RefineNameAndType(string name, string typeName)
+		string RefineNameAndType(string name, string typeName)
 		{
 			return $"{name}: {typeName}";
 		}

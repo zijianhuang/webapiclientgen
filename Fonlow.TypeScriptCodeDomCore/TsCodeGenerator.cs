@@ -10,9 +10,11 @@ namespace Fonlow.TypeScriptCodeDom
 		internal TsCodeGenerator(bool asModule)
 		{
 			this.asModule = asModule;
+			this.codeObjectHelper = new CodeObjectHelper();
 		}
 
 		readonly bool asModule;
+		readonly CodeObjectHelper codeObjectHelper;
 
 		string ICodeGenerator.CreateEscapedIdentifier(string value)
 		{
@@ -40,22 +42,22 @@ namespace Fonlow.TypeScriptCodeDom
 
 		void ICodeGenerator.GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
 		{
-			CodeObjectHelper.GenerateCodeFromExpression(e, w, o);
+			codeObjectHelper.GenerateCodeFromExpression(e, w, o);
 		}
 
 		void ICodeGenerator.GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
-			CodeObjectHelper.GenerateCodeFromNamespace(e, w, o, asModule);
+			codeObjectHelper.GenerateCodeFromNamespace(e, w, o, asModule);
 		}
 
 		void ICodeGenerator.GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
 		{
-			CodeObjectHelper.GenerateCodeFromStatement(e, w, o);
+			codeObjectHelper.GenerateCodeFromStatement(e, w, o);
 		}
 
 		void ICodeGenerator.GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
-			CodeObjectHelper.GenerateCodeFromType(e, w, o);
+			codeObjectHelper.GenerateCodeFromType(e, w, o);
 		}
 
 		string ICodeGenerator.GetTypeOutput(CodeTypeReference type)

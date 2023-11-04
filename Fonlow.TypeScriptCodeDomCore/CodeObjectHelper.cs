@@ -15,15 +15,17 @@ namespace Fonlow.TypeScriptCodeDom
 	{
 		const string BasicIndent = "\t";
 
+		CodeNamespace currentCodeNamespace;
+
 		public CodeObjectHelper()
 		{
-
 		}
 
 		#region public GenerateCodeFromXXX
 
 		internal void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o, bool asModule)
 		{
+			currentCodeNamespace = e;
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
 			var refinedNamespaceText = e.Name.Replace('.', '_');
@@ -54,6 +56,12 @@ namespace Fonlow.TypeScriptCodeDom
 			});
 
 			w.WriteLine($"}}");
+		}
+
+		CodeTypeDeclaration FindCodeTypeDeclaration(string tName)
+		{
+			Console.WriteLine("All TypeDeclarations: " + string.Join("; ", currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().Select(d=>d.Name)));
+			return currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().ToList().Find(t=>currentCodeNamespace.Name + "." + t.Name== tName);
 		}
 
 		internal void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
@@ -640,11 +648,26 @@ namespace Fonlow.TypeScriptCodeDom
 				var currentIndent = o.IndentString;
 				o.IndentString += BasicIndent;
 				w.WriteLine();
+				if (typeDeclaration.BaseTypes.Count > 0)
+				{
+					var parentTypeReference = typeDeclaration.BaseTypes[0];
+					var parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included
+					Console.WriteLine("parentTypeName: " + parentTypeName);
+					var parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
+					if (parentCodeTypeDeclaration != null)
+					{
+						for (int i = 0; i < parentCodeTypeDeclaration.Members.Count; i++)
+						{
+							WriteCodeTypeMemberOfAngularFormGroup(parentCodeTypeDeclaration.Members[i], w, o);
+						};
+					}
+				}
+
 				for (int i = 0; i < typeDeclaration.Members.Count; i++)
 				{
 					WriteCodeTypeMemberOfAngularFormGroup(typeDeclaration.Members[i], w, o);
 				};
-				w.WriteLine(currentIndent + "});");
+				w.WriteLine(currentIndent + BasicIndent + "});");
 				w.WriteLine();
 				o.IndentString = currentIndent;
 			}
@@ -739,6 +762,16 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (ctm is CodeMemberField codeMemberField)
 			{
+				var codeTypeDeclaration = FindCodeTypeDeclaration(codeMemberField.Type.BaseType);
+				if (codeTypeDeclaration != null && !codeTypeDeclaration.IsEnum)
+				{
+					return; // is custom complex type
+				}
+				else if (codeMemberField.Type.ArrayRank > 0)
+				{
+					return;
+				}
+
 				w.Write(o.IndentString);
 				w.WriteLine(GetCodeMemberFieldTextForAngularForm(codeMemberField) + ",");
 				return;
@@ -762,7 +795,17 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			if (ctm is CodeMemberField codeMemberField)
 			{
-				w.Write(o.IndentString);
+				var codeTypeDeclaration = FindCodeTypeDeclaration(codeMemberField.Type.BaseType);
+				if (codeTypeDeclaration != null && !codeTypeDeclaration.IsEnum)
+				{
+					return; // is custom complex type
+				}
+				else if (codeMemberField.Type.ArrayRank>0)
+				{
+					return;
+				}
+
+				w.Write(o.IndentString + BasicIndent);
 				w.WriteLine(GetCodeMemberFieldTextForAngularFormGroup(codeMemberField) + ",");
 				return;
 			}

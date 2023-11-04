@@ -26,6 +26,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			TargetUnit.ReferencedAssemblies.Add("import { Injectable, Inject } from '@angular/core';");
 			TargetUnit.ReferencedAssemblies.Add("import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';");
 			TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs';");
+			TargetUnit.ReferencedAssemblies.Add("import { FormBuilder, FormControl, FormGroup, ValidationErrors } from '@angular/forms';");
 		}
 
 
@@ -45,6 +46,10 @@ namespace Fonlow.CodeDom.Web.Ts
 			targetClass.Members.Add(constructor);
 		}
 
+		/// <summary>
+		/// return @Injectable()
+		/// </summary>
+		/// <returns></returns>
 		protected override CodeAttributeDeclarationCollection CreateClassCustomAttributes()
 		{
 			return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration("Injectable") });

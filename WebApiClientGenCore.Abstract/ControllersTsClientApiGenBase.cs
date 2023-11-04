@@ -272,6 +272,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
 		{
+			//if (String.IsNullOrEmpty(className) || className.Trim()== String.Empty)
+			//{
+			//	return null;
+			//}
+
 			var targetClass = new CodeTypeDeclaration(className)
 			{
 				IsClass = true,
@@ -283,6 +288,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			ns.Types.Add(targetClass);
 			AddConstructor(targetClass);
 
+			Console.WriteLine("controller className: " + className);
 			return targetClass;
 		}
 

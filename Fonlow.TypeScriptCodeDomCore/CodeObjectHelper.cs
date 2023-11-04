@@ -4,6 +4,7 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -40,6 +41,7 @@ namespace Fonlow.TypeScriptCodeDom
 			e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
 			{
 				GenerateCodeFromType(t, w, o);
+				GenerateAngularFormFromType(t, w, o);
 				w.WriteLine();
 			});
 
@@ -59,6 +61,37 @@ namespace Fonlow.TypeScriptCodeDom
 			var baseTypesExpression = GetBaseTypeExpression(e);
 			w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}{typeParametersExpression}{baseTypesExpression} {{");
 			WriteTypeMembersAndCloseBracing(e, w, o);
+		}
+
+		internal void GenerateAngularFormFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (e.IsEnum)
+			{
+				return;
+			}
+
+			WriteCodeCommentStatementCollection(e.Comments, w, o);
+
+			GenerateCodeFromAttributeDeclarationCollection(e.CustomAttributes, w, o);
+
+			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
+			var typeOfType = GetTypeOfType(e);
+			var name = e.Name;
+			var typeParametersExpression = GetTypeParametersExpression(e);
+			var baseTypesExpression = GetBaseTypeExpression(e);
+			if (typeOfType == "interface")
+			{
+				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
+				var isGeneric = extendsExpression.Contains("<");
+				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
+				var extendsExpressionForNg = extendsExpression == String.Empty ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
+				w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}FormProperties{extendsExpressionForNg} {{");
+				WriteAngularFormTypeMembersAndCloseBracing(e, w, o);
+			}
+			else
+			{
+				//do nothing.
+			}
 		}
 
 		void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
@@ -403,7 +436,7 @@ namespace Fonlow.TypeScriptCodeDom
 		//http://www.codebelt.com/typescript/javascript-getters-setters-typescript-accessor-tutorial/
 		bool WriteCodeMemberProperty(CodeMemberProperty codeMemberProperty, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (codeMemberProperty == null)
+			if (codeMemberProperty == null) //todo: it seems this never run
 				return false;
 
 			WriteCodeCommentStatementCollection(codeMemberProperty.Comments, w, o);
@@ -502,6 +535,12 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
+		/// <summary>
+		/// Write members of a type and append close bracing.
+		/// </summary>
+		/// <param name="typeDeclaration"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		void WriteTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{
 
@@ -517,6 +556,28 @@ namespace Fonlow.TypeScriptCodeDom
 				for (int i = 0; i < typeDeclaration.Members.Count; i++)
 				{
 					WriteCodeTypeMember(typeDeclaration.Members[i], w, o);
+				};
+				w.WriteLine(currentIndent + "}");
+				o.IndentString = currentIndent;
+			}
+		}
+
+		void WriteAngularFormTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
+		{
+
+			if (typeDeclaration.IsEnum)
+			{
+				throw new NotSupportedException("Should run to here");
+				//w.WriteLine($"{typeDeclaration.Name}: {typeDeclaration.BaseTypes}");
+			}
+			else
+			{
+				var currentIndent = o.IndentString;
+				o.IndentString += BasicIndent;
+				w.WriteLine();
+				for (int i = 0; i < typeDeclaration.Members.Count; i++)
+				{
+					WriteCodeTypeMemberOfAngularForm(typeDeclaration.Members[i], w, o);
 				};
 				w.WriteLine(currentIndent + "}");
 				o.IndentString = currentIndent;
@@ -597,6 +658,31 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (WriteCodeMemberMethod(ctm as CodeMemberMethod, w, o))
 				return;
+
+			if (ctm is CodeSnippetTypeMember snippetTypeMember)
+			{
+				w.WriteLine(snippetTypeMember.Text);
+				return;
+			}
+
+		}
+
+		void WriteCodeTypeMemberOfAngularForm(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
+		{
+			WriteCodeCommentStatementCollection(ctm.Comments, w, o);
+
+			if (ctm is CodeMemberField codeMemberField)
+			{
+				w.Write(o.IndentString);
+				w.WriteLine(GetCodeMemberFieldTextForAngularForm(codeMemberField) + ",");
+				return;
+			}
+
+			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
+				return;
+
+			//if (WriteCodeMemberMethod(ctm as CodeMemberMethod, w, o))
+			//	return;
 
 			if (ctm is CodeSnippetTypeMember snippetTypeMember)
 			{
@@ -902,6 +988,11 @@ namespace Fonlow.TypeScriptCodeDom
 					: "class";
 		}
 
+		/// <summary>
+		/// return extends type; or empty
+		/// </summary>
+		/// <param name="typeDeclaration"></param>
+		/// <returns></returns>
 		string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
 		{
 			if (typeDeclaration.TypeParameters.Count == 0)
@@ -944,9 +1035,20 @@ namespace Fonlow.TypeScriptCodeDom
 			return (!(member.InitExpression is CodePrimitiveExpression initExpression)) ? $"{member.Name}" : $"{member.Name} = {initExpression.Value}";
 		}
 
+		/// <summary>
+		/// Return name: type;
+		/// </summary>
+		/// <param name="codeMemberField"></param>
+		/// <returns></returns>
 		string GetCodeMemberFieldText(CodeMemberField codeMemberField)
 		{
 			return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
+		}
+
+		string GetCodeMemberFieldTextForAngularForm(CodeMemberField codeMemberField)
+		{
+			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			return $"{fieldName}: FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>";
 		}
 
 		string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)
@@ -954,6 +1056,12 @@ namespace Fonlow.TypeScriptCodeDom
 			return TypeMapper.MapCodeTypeReferenceToTsText(codeTypeReference);
 		}
 
+		/// <summary>
+		/// Return name: type;
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="typeName"></param>
+		/// <returns></returns>
 		string RefineNameAndType(string name, string typeName)
 		{
 			return $"{name}: {typeName}";

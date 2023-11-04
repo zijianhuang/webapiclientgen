@@ -16,6 +16,21 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
 	}
+	export interface AddressFormProperties {
+		city: FormControl<string | null | undefined>,
+		country: FormControl<string | null | undefined>,
+		id: FormControl<string | null | undefined>,
+		postalCode: FormControl<string | null | undefined>,
+		state: FormControl<string | null | undefined>,
+		street1: FormControl<string | null | undefined>,
+		street2: FormControl<string | null | undefined>,
+		type: FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>,
+
+		/**
+		 * It is a field
+		 */
+		location: FormControl<DemoWebApi_DemoData_Another_Client.MyPoint | null | undefined>,
+	}
 
 	export enum AddressType { Postal, Residential }
 
@@ -32,6 +47,20 @@ export namespace DemoWebApi_DemoData_Client {
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;
 		lines?: Array<string>;
+	}
+	export interface CompanyFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
+
+		/**
+		 * BusinessNumber to be serialized as BusinessNum
+		 */
+		BusinessNum: FormControl<string | null | undefined>,
+		businessNumberType: FormControl<string | null | undefined>,
+		foundDate: FormControl<Date | null | undefined>,
+		registerDate: FormControl<Date | null | undefined>,
+		textMatrix: FormControl<Array<Array<string>> | null | undefined>,
+		int2D: FormControl<number[][] | null | undefined>,
+		int2DJagged: FormControl<Array<Array<number>> | null | undefined>,
+		lines: FormControl<Array<string> | null | undefined>,
 	}
 
 	export enum Days {
@@ -68,6 +97,25 @@ export namespace DemoWebApi_DemoData_Client {
 		web?: string;
 	}
 
+	/**
+	 * Base class of company and person
+	 */
+	export interface EntityFormProperties {
+
+		/**
+		 * Multiple addresses
+		 */
+		addresses: FormControl<Array<DemoWebApi_DemoData_Client.Address> | null | undefined>,
+		id: FormControl<string | null | undefined>,
+
+		/**
+		 * Name of the entity.
+		 */
+		name: FormControl<string | null | undefined>,
+		phoneNumbers: FormControl<Array<DemoWebApi_DemoData_Client.PhoneNumber> | null | undefined>,
+		web: FormControl<string | null | undefined>,
+	}
+
 
 	/**
 	 * To test different serializations against Guid
@@ -78,6 +126,17 @@ export namespace DemoWebApi_DemoData_Client {
 		nullableId?: string;
 		requiredName: string;
 		text?: string;
+	}
+
+	/**
+	 * To test different serializations against Guid
+	 */
+	export interface IdMapFormProperties {
+		id: FormControl<string | null | undefined>,
+		idNotEmitDefaultValue: FormControl<string | null | undefined>,
+		nullableId: FormControl<string | null | undefined>,
+		requiredName: FormControl<string | null | undefined>,
+		text: FormControl<string | null | undefined>,
 	}
 
 	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
@@ -97,12 +156,31 @@ export namespace DemoWebApi_DemoData_Client {
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string;
 	}
+	export interface MimsPackageFormProperties {
+		kk: FormControl<number | null | undefined>,
+
+		/**
+		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
+		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		 */
+		kK2: FormControl<number | null | undefined>,
+		optionalEnum: FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | undefined>,
+		optionalInt: FormControl<number | null | undefined>,
+		result: FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>,
+		tag: FormControl<string | null | undefined>,
+	}
 
 	export interface MimsResult<T> {
 		generatedAt?: Date;
 		message?: string;
 		result?: T;
 		success?: boolean;
+	}
+	export interface MimsResultFormProperties<T> {
+		generatedAt: FormControl<Date | null | undefined>,
+		message: FormControl<string | null | undefined>,
+		result: FormControl<T | null | undefined>,
+		success: FormControl<boolean | null | undefined>,
 	}
 
 	export enum MyEnumType { First = 1, Two = 2 }
@@ -113,11 +191,22 @@ export namespace DemoWebApi_DemoData_Client {
 		myU?: U;
 		status?: string;
 	}
+	export interface MyGenericFormProperties<T, K, U> {
+		myK: FormControl<K | null | undefined>,
+		myT: FormControl<T | null | undefined>,
+		myU: FormControl<U | null | undefined>,
+		status: FormControl<string | null | undefined>,
+	}
 
 	export interface MyPeopleDic {
 		anotherDic?: {[id: string]: string };
 		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
 		intDic?: {[id: number]: string };
+	}
+	export interface MyPeopleDicFormProperties {
+		anotherDic: FormControl<{[id: string]: string } | null | undefined>,
+		dic: FormControl<{[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined>,
+		intDic: FormControl<{[id: number]: string } | null | undefined>,
 	}
 
 	export interface Person extends DemoWebApi_DemoData_Client.Entity {
@@ -131,10 +220,25 @@ export namespace DemoWebApi_DemoData_Client {
 		givenName?: string;
 		surname?: string;
 	}
+	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
+		baptised: FormControl<Date | null | undefined>,
+
+		/**
+		 * Date of Birth.
+		 * This is optional.
+		 */
+		dob: FormControl<Date | null | undefined>,
+		givenName: FormControl<string | null | undefined>,
+		surname: FormControl<string | null | undefined>,
+	}
 
 	export interface PhoneNumber {
 		fullNumber?: string;
 		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+	}
+	export interface PhoneNumberFormProperties {
+		fullNumber: FormControl<string | null | undefined>,
+		phoneType: FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>,
 	}
 
 
@@ -179,11 +283,32 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		y: number;
 	}
 
+	/**
+	 * 2D position
+	 * with X and Y
+	 * for Demo
+	 */
+	export interface MyPointFormProperties {
+
+		/**
+		 * X
+		 */
+		x: FormControl<number | null | undefined>,
+
+		/**
+		 * Y
+		 */
+		y: FormControl<number | null | undefined>,
+	}
+
 }
 
 export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
 		externalAccessToken?: string;
+	}
+	export interface AddExternalLoginBindingModelFormProperties {
+		externalAccessToken: FormControl<string | null | undefined>,
 	}
 
 	export interface ChangePasswordBindingModel {
@@ -191,25 +316,46 @@ export namespace DemoWebApi_Models_Client {
 		newPassword?: string;
 		OldPwd: string;
 	}
+	export interface ChangePasswordBindingModelFormProperties {
+		confirmPassword: FormControl<string | null | undefined>,
+		newPassword: FormControl<string | null | undefined>,
+		OldPwd: FormControl<string | null | undefined>,
+	}
 
 	export interface RegisterBindingModel {
 		confirmPassword?: string;
 		email?: string;
 		password?: string;
 	}
+	export interface RegisterBindingModelFormProperties {
+		confirmPassword: FormControl<string | null | undefined>,
+		email: FormControl<string | null | undefined>,
+		password: FormControl<string | null | undefined>,
+	}
 
 	export interface RegisterExternalBindingModel {
 		email?: string;
+	}
+	export interface RegisterExternalBindingModelFormProperties {
+		email: FormControl<string | null | undefined>,
 	}
 
 	export interface RemoveLoginBindingModel {
 		loginProvider?: string;
 		providerKey?: string;
 	}
+	export interface RemoveLoginBindingModelFormProperties {
+		loginProvider: FormControl<string | null | undefined>,
+		providerKey: FormControl<string | null | undefined>,
+	}
 
 	export interface SetPasswordBindingModel {
 		confirmPassword?: string;
 		newPassword?: string;
+	}
+	export interface SetPasswordBindingModelFormProperties {
+		confirmPassword: FormControl<string | null | undefined>,
+		newPassword: FormControl<string | null | undefined>,
 	}
 
 
@@ -223,6 +369,18 @@ export namespace DemoWebApi_Models_Client {
 		issued?: string;
 		token_type?: string;
 		username?: string;
+	}
+
+	/**
+	 * Auth token
+	 */
+	export interface TokenResponseModelFormProperties {
+		access_token: FormControl<string | null | undefined>,
+		expires: FormControl<string | null | undefined>,
+		expires_in: FormControl<number | null | undefined>,
+		issued: FormControl<string | null | undefined>,
+		token_type: FormControl<string | null | undefined>,
+		username: FormControl<string | null | undefined>,
 	}
 
 }
@@ -245,6 +403,22 @@ export namespace DemoWebApi_Controllers_Client {
 		submitter?: string;
 	}
 
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResultFormProperties {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames: FormControl<Array<string> | null | undefined>,
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter: FormControl<string | null | undefined>,
+	}
+
 
 	/**
 	 * Complex hero type
@@ -256,8 +430,21 @@ export namespace DemoWebApi_Controllers_Client {
 		name?: string;
 	}
 
+	/**
+	 * Complex hero type
+	 */
+	export interface HeroFormProperties {
+		death: FormControl<Date | null | undefined>,
+		dob: FormControl<Date | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+	}
+
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
 		super?: boolean;
+	}
+	export interface SuperHeroFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
+		super: FormControl<boolean | null | undefined>,
 	}
 
 }
@@ -315,6 +502,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 			return this.http.post('api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
+	@autoinject()
 
 }
 
@@ -481,6 +669,7 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.get('api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate?.toISOString() : '') + (endDate ? '&endDate=' + endDate?.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 	}
+	@autoinject()
 
 	@autoinject()
 	export class Entities {
@@ -606,6 +795,7 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.put('api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.status == 204 ? null : d.text());
 		}
 	}
+	@autoinject()
 
 	@autoinject()
 	export class Heroes {
@@ -684,6 +874,7 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.get('api/Heroes/search/' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 	}
+	@autoinject()
 
 	@autoinject()
 	export class StringData {
@@ -724,6 +915,7 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.get('api/StringData/NullString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 	}
+	@autoinject()
 
 	@autoinject()
 	export class SuperDemo {
@@ -1189,6 +1381,7 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.post('api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 	}
+	@autoinject()
 
 	@autoinject()
 	export class TextData {
@@ -1233,6 +1426,7 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.get('api/TextData/NullString', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 	}
+	@autoinject()
 
 	@autoinject()
 	export class Tuple {
@@ -1450,6 +1644,7 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.post('api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.status == 204 ? null : d.text());
 		}
 	}
+	@autoinject()
 
 	@autoinject()
 	export class Values {
@@ -1515,6 +1710,7 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.put('api/Values/' + id, JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
+	@autoinject()
 
 }
 

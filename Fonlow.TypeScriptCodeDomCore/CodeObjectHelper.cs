@@ -41,9 +41,13 @@ namespace Fonlow.TypeScriptCodeDom
 			e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
 			{
 				GenerateCodeFromType(t, w, o);
-				if (!t.IsPartial) //controllerClass is partial, as declared in CreateControllerClientClass()
+
+				var typeExpression = GetTypeParametersExpression(t);
+				var isGeneric = typeExpression.Contains("<");
+				if (!t.IsPartial && !isGeneric) //controllerClass is partial, as declared in CreateControllerClientClass()
 				{
 					GenerateAngularFormFromType(t, w, o);
+					GenerateAngularFormGroupFunctionFromType(t, w, o);
 				}
 
 				w.WriteLine();
@@ -89,8 +93,43 @@ namespace Fonlow.TypeScriptCodeDom
 				var isGeneric = extendsExpression.Contains("<");
 				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
 				var extendsExpressionForNg = extendsExpression == String.Empty ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
-				w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}FormProperties{extendsExpressionForNg} {{");
+				var formGroupInterface = $"{name}FormProperties";
+				w.Write($"{o.IndentString}{accessModifier}{typeOfType} {formGroupInterface}{extendsExpressionForNg} {{");
 				WriteAngularFormTypeMembersAndCloseBracing(e, w, o);
+			}
+			else
+			{
+				//do nothing.
+			}
+		}
+
+		internal void GenerateAngularFormGroupFunctionFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (e.IsEnum)
+			{
+				return;
+			}
+
+			//GenerateCodeFromAttributeDeclarationCollection(e.CustomAttributes, w, o);
+
+			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
+			var typeOfType = GetTypeOfType(e);
+			var name = e.Name;
+			var typeParametersExpression = GetTypeParametersExpression(e);
+			var baseTypesExpression = GetBaseTypeExpression(e);
+			if (typeOfType == "interface")
+			{
+				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
+				var isGeneric = extendsExpression.Contains("<");
+				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
+				var extendsExpressionForNg = extendsExpression == String.Empty ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
+				var formGroupInterface = $"{name}FormProperties";
+				w.Write($"{o.IndentString}{accessModifier}function Create{name}FormGroup() {{");
+				w.WriteLine();
+				w.Write($"{o.IndentString}{o.IndentString}return new FormGroup<{formGroupInterface}>({{");
+
+				WriteAngularFormGroupMembersAndCloseBracing(e, w, o);
+				w.WriteLine($"{o.IndentString}}}");
 			}
 			else
 			{
@@ -588,6 +627,29 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
+		void WriteAngularFormGroupMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
+		{
+
+			if (typeDeclaration.IsEnum)
+			{
+				throw new NotSupportedException("Should run to here");
+				//w.WriteLine($"{typeDeclaration.Name}: {typeDeclaration.BaseTypes}");
+			}
+			else
+			{
+				var currentIndent = o.IndentString;
+				o.IndentString += BasicIndent;
+				w.WriteLine();
+				for (int i = 0; i < typeDeclaration.Members.Count; i++)
+				{
+					WriteCodeTypeMemberOfAngularFormGroup(typeDeclaration.Members[i], w, o);
+				};
+				w.WriteLine(currentIndent + "});");
+				w.WriteLine();
+				o.IndentString = currentIndent;
+			}
+		}
+
 		void WriteEnumMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{
 			var currentIndent = o.IndentString;
@@ -679,6 +741,29 @@ namespace Fonlow.TypeScriptCodeDom
 			{
 				w.Write(o.IndentString);
 				w.WriteLine(GetCodeMemberFieldTextForAngularForm(codeMemberField) + ",");
+				return;
+			}
+
+			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
+				return;
+
+			//if (WriteCodeMemberMethod(ctm as CodeMemberMethod, w, o))
+			//	return;
+
+			if (ctm is CodeSnippetTypeMember snippetTypeMember)
+			{
+				w.WriteLine(snippetTypeMember.Text);
+				return;
+			}
+
+		}
+
+		void WriteCodeTypeMemberOfAngularFormGroup(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (ctm is CodeMemberField codeMemberField)
+			{
+				w.Write(o.IndentString);
+				w.WriteLine(GetCodeMemberFieldTextForAngularFormGroup(codeMemberField) + ",");
 				return;
 			}
 
@@ -1053,6 +1138,12 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
 			return $"{fieldName}: FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>";
+		}
+
+		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
+		{
+			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			return $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined)";
 		}
 
 		string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)

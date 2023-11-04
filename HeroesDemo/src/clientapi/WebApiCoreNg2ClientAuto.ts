@@ -596,7 +596,6 @@ export namespace DemoCoreWeb_Controllers_Client {
 			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 	}
-	@Injectable()
 
 }
 
@@ -763,7 +762,6 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.get<{item1: Date | null, item2: Date | null}>(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate?.toISOString() : '') + (endDate ? '&endDate=' + endDate?.toISOString() : ''), { headers: headersHandler ? headersHandler() : undefined });
 		}
 	}
-	@Injectable()
 
 	@Injectable()
 	export class Entities {
@@ -889,7 +887,6 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.put(this.baseUri + 'api/Entities/updatePerson', JSON.stringify(person), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 	}
-	@Injectable()
 
 	@Injectable()
 	export class Heroes {
@@ -968,7 +965,6 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes/search/' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined });
 		}
 	}
-	@Injectable()
 
 	@Injectable()
 	export class StringData {
@@ -1009,7 +1005,6 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.get(this.baseUri + 'api/StringData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 	}
-	@Injectable()
 
 	@Injectable()
 	export class SuperDemo {
@@ -1475,7 +1470,6 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.post<{item1: string, item2: number}>(this.baseUri + 'api/SuperDemo/PostEmpty/' + i, JSON.stringify(s), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 	}
-	@Injectable()
 
 	@Injectable()
 	export class TextData {
@@ -1520,7 +1514,6 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.get(this.baseUri + 'api/TextData/NullString', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 	}
-	@Injectable()
 
 	@Injectable()
 	export class Tuple {
@@ -1738,7 +1731,6 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.post(this.baseUri + 'api/Tuple/Tuple8', JSON.stringify(tuple), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
 		}
 	}
-	@Injectable()
 
 	@Injectable()
 	export class Values {
@@ -1804,7 +1796,6 @@ export namespace DemoWebApi_Controllers_Client {
 			return this.http.put(this.baseUri + 'api/Values/' + id, JSON.stringify(value), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 	}
-	@Injectable()
 
 }
 

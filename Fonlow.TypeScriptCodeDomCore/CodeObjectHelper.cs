@@ -41,7 +41,11 @@ namespace Fonlow.TypeScriptCodeDom
 			e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
 			{
 				GenerateCodeFromType(t, w, o);
-				GenerateAngularFormFromType(t, w, o);
+				if (!t.IsPartial) //controllerClass is partial, as declared in CreateControllerClientClass()
+				{
+					GenerateAngularFormFromType(t, w, o);
+				}
+
 				w.WriteLine();
 			});
 
@@ -404,7 +408,7 @@ namespace Fonlow.TypeScriptCodeDom
 			if (commentStatement.Comment.DocComment)
 			{
 				var hasMultiLines = commentStatement.Comment.Text.Contains('\n');
-				w.Write(o.IndentString + (hasMultiLines ? "/**": "/** "));
+				w.Write(o.IndentString + (hasMultiLines ? "/**" : "/** "));
 				if (hasMultiLines)
 				{
 					w.WriteLine();

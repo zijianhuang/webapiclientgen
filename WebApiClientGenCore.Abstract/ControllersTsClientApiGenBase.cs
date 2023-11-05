@@ -51,12 +51,17 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <returns></returns>
 		abstract protected IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix);
 
+		protected virtual CodeObjectHelper CreateCodeObjectHelper(bool asModule)
+		{
+			return new CodeObjectHelper(asModule);
+		}
+
 		/// <summary>
 		/// Save TS codes into a file.
 		/// </summary>
-		public virtual void Save()
+		public void Save()
 		{
-			var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(new CodeObjectHelper(jsOutput.AsModule)));
+			var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(CreateCodeObjectHelper(jsOutput.AsModule)));
 			using StreamWriter writer = new(jsOutput.JSPath);
 			provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
 		}

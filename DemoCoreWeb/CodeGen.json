@@ -67,6 +67,18 @@
 				"HelpStrictMode": true
 			},
 
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.NG2FormGroup",
+				"TargetDir": "..\\..\\..\\..\\..\\HeroesDemo\\src\\ClientApi",
+				"TSFile": "WebApiCoreNG2FormGroupClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"ClientNamespaceSuffix": ".Client",
+				"ContainerNameSuffix": "",
+				"DataAnnotationsToComments": true,
+				"HelpStrictMode": true
+			}
+
 			//{
 			//	"AssemblyName": "Fonlow.WebApiClientGenCore.Axios",
 			//	"TargetDir": "..\\..\\..\\..\\..\\axios\\src\\clientapi",

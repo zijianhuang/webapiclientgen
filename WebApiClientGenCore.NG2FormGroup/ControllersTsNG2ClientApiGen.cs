@@ -1,4 +1,6 @@
-﻿using System.CodeDom;
+﻿using Fonlow.TypeScriptCodeDom;
+using System.CodeDom;
+using System.IO;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -18,7 +20,14 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override Fonlow.Poco2Client.IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix)
 		{
-			return new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode);
+			return new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg());
+		}
+
+		public override void Save()
+		{
+			var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg()));
+			using StreamWriter writer = new(jsOutput.JSPath);
+			provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
 		}
 
 		protected override void AddBasicReferences()
@@ -26,6 +35,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			TargetUnit.ReferencedAssemblies.Add("import { Injectable, Inject } from '@angular/core';");
 			TargetUnit.ReferencedAssemblies.Add("import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';");
 			TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs';");
+			TargetUnit.ReferencedAssemblies.Add("import { FormBuilder, FormControl, FormGroup, ValidationErrors } from '@angular/forms';");
 		}
 
 

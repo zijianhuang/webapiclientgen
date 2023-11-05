@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fonlow.TypeScriptCodeDom;
+using System;
 using System.CodeDom;
 
 namespace Fonlow.Poco2Ts
@@ -6,12 +7,14 @@ namespace Fonlow.Poco2Ts
 	/// <summary>
 	/// Used by plugins sharing similar handlings with ActionResult.
 	/// </summary>
-	public class PocoToTsNgGen : Poco2TsGen
+	public class PocoToTsResponseGen : Poco2TsGen
 	{
-		public PocoToTsNgGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode) : base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(true))
+		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper=null) 
+			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new TypeScriptCodeDom.CodeObjectHelper(true))
 		{
 
 		}
+
 		protected override CodeTypeReference TranslateActionResultToClientTypeReference(Type type)
 		{
 			if (type.FullName.Contains("System.Web.Http.IHttpActionResult") || type.FullName.Contains("Microsoft.AspNetCore.Mvc.IActionResult"))

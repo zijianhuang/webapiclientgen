@@ -11,8 +11,6 @@ namespace Fonlow.TypeScriptCodeDom
 	/// </summary>
 	public class CodeObjectHelperForNg : CodeObjectHelper
 	{
-		//const string BasicIndent = "\t";
-
 		CodeNamespace currentCodeNamespace;
 
 		public CodeObjectHelperForNg() : base(true)
@@ -40,7 +38,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 			e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
 			{
-				//GenerateCodeFromType(t, w, o);
+				GenerateCodeFromType(t, w, o);
 
 				var typeExpression = GetTypeParametersExpression(t);
 				var isGeneric = typeExpression.Contains("<");

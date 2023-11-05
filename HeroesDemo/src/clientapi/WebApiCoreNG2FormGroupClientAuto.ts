@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 		city?: string;
@@ -16,6 +17,35 @@ export namespace DemoWebApi_DemoData_Client {
 		 * It is a field
 		 */
 		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
+	}
+	export interface AddressFormProperties {
+		city: FormControl<string | null | undefined>,
+		country: FormControl<string | null | undefined>,
+		id: FormControl<string | null | undefined>,
+		postalCode: FormControl<string | null | undefined>,
+		state: FormControl<string | null | undefined>,
+		street1: FormControl<string | null | undefined>,
+		street2: FormControl<string | null | undefined>,
+		type: FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>,
+
+		/**
+		 * It is a field
+		 */
+		location: FormControl<DemoWebApi_DemoData_Another_Client.MyPoint | null | undefined>,
+	}
+	export function CreateAddressFormGroup() {
+		return new FormGroup<AddressFormProperties>({
+			city: new FormControl<string | null | undefined>(undefined),
+			country: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<string | null | undefined>(undefined),
+			postalCode: new FormControl<string | null | undefined>(undefined),
+			state: new FormControl<string | null | undefined>(undefined),
+			street1: new FormControl<string | null | undefined>(undefined),
+			street2: new FormControl<string | null | undefined>(undefined),
+			type: new FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>(undefined),
+			location: new FormControl<DemoWebApi_DemoData_Another_Client.MyPoint | null | undefined>(undefined),
+		});
+
 	}
 
 	export enum AddressType { Postal, Residential }
@@ -35,6 +65,30 @@ export namespace DemoWebApi_DemoData_Client {
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;
 		lines?: Array<string>;
+	}
+	export interface CompanyFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
+
+		/**
+		 * BusinessNumber to be serialized as BusinessNum
+		 */
+		BusinessNum: FormControl<string | null | undefined>,
+		businessNumberType: FormControl<string | null | undefined>,
+
+		/** Data type: Date */
+		foundDate: FormControl<Date | null | undefined>,
+		registerDate: FormControl<Date | null | undefined>,
+	}
+	export function CreateCompanyFormGroup() {
+		return new FormGroup<CompanyFormProperties>({
+			id: new FormControl<string | null | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			web: new FormControl<string | null | undefined>(undefined),
+			BusinessNum: new FormControl<string | null | undefined>(undefined),
+			businessNumberType: new FormControl<string | null | undefined>(undefined),
+			foundDate: new FormControl<Date | null | undefined>(undefined),
+			registerDate: new FormControl<Date | null | undefined>(undefined),
+		});
+
 	}
 
 	export enum Days {
@@ -72,6 +126,32 @@ export namespace DemoWebApi_DemoData_Client {
 		web?: string;
 	}
 
+	/**
+	 * Base class of company and person
+	 */
+	export interface EntityFormProperties {
+
+		/**
+		 * Multiple addresses
+		 */
+		id: FormControl<string | null | null | undefined>,
+
+		/**
+		 * Name of the entity.
+		 * Required
+		 */
+		name: FormControl<string | null | undefined>,
+		web: FormControl<string | null | undefined>,
+	}
+	export function CreateEntityFormGroup() {
+		return new FormGroup<EntityFormProperties>({
+			id: new FormControl<string | null | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			web: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
 
 	/**
 	 * To test different serializations against Guid
@@ -82,6 +162,27 @@ export namespace DemoWebApi_DemoData_Client {
 		nullableId?: string | null;
 		requiredName: string;
 		text?: string;
+	}
+
+	/**
+	 * To test different serializations against Guid
+	 */
+	export interface IdMapFormProperties {
+		id: FormControl<string | null | undefined>,
+		idNotEmitDefaultValue: FormControl<string | null | undefined>,
+		nullableId: FormControl<string | null | null | undefined>,
+		requiredName: FormControl<string | null | undefined>,
+		text: FormControl<string | null | undefined>,
+	}
+	export function CreateIdMapFormGroup() {
+		return new FormGroup<IdMapFormProperties>({
+			id: new FormControl<string | null | undefined>(undefined),
+			idNotEmitDefaultValue: new FormControl<string | null | undefined>(undefined),
+			nullableId: new FormControl<string | null | null | undefined>(undefined),
+			requiredName: new FormControl<string | null | undefined>(undefined),
+			text: new FormControl<string | null | undefined>(undefined),
+		});
+
 	}
 
 	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
@@ -102,6 +203,32 @@ export namespace DemoWebApi_DemoData_Client {
 		optionalInt?: number | null;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string;
+	}
+	export interface MimsPackageFormProperties {
+
+		/** Range: inclusive between 10 and 100 */
+		kk: FormControl<number | null | undefined>,
+
+		/**
+		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
+		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		 */
+		kK2: FormControl<number | null | undefined>,
+		optionalEnum: FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | null | undefined>,
+		optionalInt: FormControl<number | null | null | undefined>,
+		result: FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>,
+		tag: FormControl<string | null | undefined>,
+	}
+	export function CreateMimsPackageFormGroup() {
+		return new FormGroup<MimsPackageFormProperties>({
+			kk: new FormControl<number | null | undefined>(undefined),
+			kK2: new FormControl<number | null | undefined>(undefined),
+			optionalEnum: new FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | null | undefined>(undefined),
+			optionalInt: new FormControl<number | null | null | undefined>(undefined),
+			result: new FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>(undefined),
+			tag: new FormControl<string | null | undefined>(undefined),
+		});
+
 	}
 
 	export interface MimsResult<T> {
@@ -125,6 +252,19 @@ export namespace DemoWebApi_DemoData_Client {
 		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
 		intDic?: {[id: number]: string };
 	}
+	export interface MyPeopleDicFormProperties {
+		anotherDic: FormControl<{[id: string]: string } | null | undefined>,
+		dic: FormControl<{[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined>,
+		intDic: FormControl<{[id: number]: string } | null | undefined>,
+	}
+	export function CreateMyPeopleDicFormGroup() {
+		return new FormGroup<MyPeopleDicFormProperties>({
+			anotherDic: new FormControl<{[id: string]: string } | null | undefined>(undefined),
+			dic: new FormControl<{[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined>(undefined),
+			intDic: new FormControl<{[id: number]: string } | null | undefined>(undefined),
+		});
+
+	}
 
 	export interface Person extends DemoWebApi_DemoData_Client.Entity {
 
@@ -139,10 +279,46 @@ export namespace DemoWebApi_DemoData_Client {
 		givenName?: string;
 		surname?: string;
 	}
+	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
+
+		/** Data type: Date */
+		baptised: FormControl<Date | null | null | undefined>,
+
+		/**
+		 * Date of Birth.
+		 * This is optional.
+		 */
+		dob: FormControl<Date | null | null | undefined>,
+		givenName: FormControl<string | null | undefined>,
+		surname: FormControl<string | null | undefined>,
+	}
+	export function CreatePersonFormGroup() {
+		return new FormGroup<PersonFormProperties>({
+			id: new FormControl<string | null | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			web: new FormControl<string | null | undefined>(undefined),
+			baptised: new FormControl<Date | null | null | undefined>(undefined),
+			dob: new FormControl<Date | null | null | undefined>(undefined),
+			givenName: new FormControl<string | null | undefined>(undefined),
+			surname: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
 
 	export interface PhoneNumber {
 		fullNumber?: string;
 		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+	}
+	export interface PhoneNumberFormProperties {
+		fullNumber: FormControl<string | null | undefined>,
+		phoneType: FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>,
+	}
+	export function CreatePhoneNumberFormGroup() {
+		return new FormGroup<PhoneNumberFormProperties>({
+			fullNumber: new FormControl<string | null | undefined>(undefined),
+			phoneType: new FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>(undefined),
+		});
+
 	}
 
 
@@ -187,6 +363,31 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		y: number;
 	}
 
+	/**
+	 * 2D position
+	 * with X and Y
+	 * for Demo
+	 */
+	export interface MyPointFormProperties {
+
+		/**
+		 * X
+		 */
+		x: FormControl<number | null | undefined>,
+
+		/**
+		 * Y
+		 */
+		y: FormControl<number | null | undefined>,
+	}
+	export function CreateMyPointFormGroup() {
+		return new FormGroup<MyPointFormProperties>({
+			x: new FormControl<number | null | undefined>(undefined),
+			y: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
 }
 
 export namespace DemoWebApi_Models_Client {
@@ -194,6 +395,17 @@ export namespace DemoWebApi_Models_Client {
 
 		/** Required */
 		externalAccessToken?: string;
+	}
+	export interface AddExternalLoginBindingModelFormProperties {
+
+		/** Required */
+		externalAccessToken: FormControl<string | null | undefined>,
+	}
+	export function CreateAddExternalLoginBindingModelFormGroup() {
+		return new FormGroup<AddExternalLoginBindingModelFormProperties>({
+			externalAccessToken: new FormControl<string | null | undefined>(undefined),
+		});
+
 	}
 
 	export interface ChangePasswordBindingModel {
@@ -214,6 +426,32 @@ export namespace DemoWebApi_Models_Client {
 		 */
 		OldPwd: string;
 	}
+	export interface ChangePasswordBindingModelFormProperties {
+
+		/** Data type: Password */
+		confirmPassword: FormControl<string | null | undefined>,
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
+		newPassword: FormControl<string | null | undefined>,
+
+		/**
+		 * Required
+		 * Data type: Password
+		 */
+		OldPwd: FormControl<string | null | undefined>,
+	}
+	export function CreateChangePasswordBindingModelFormGroup() {
+		return new FormGroup<ChangePasswordBindingModelFormProperties>({
+			confirmPassword: new FormControl<string | null | undefined>(undefined),
+			newPassword: new FormControl<string | null | undefined>(undefined),
+			OldPwd: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
 
 	export interface RegisterBindingModel {
 
@@ -230,11 +468,45 @@ export namespace DemoWebApi_Models_Client {
 		 */
 		password?: string;
 	}
+	export interface RegisterBindingModelFormProperties {
+
+		/** Data type: Password */
+		confirmPassword: FormControl<string | null | undefined>,
+
+		/** Required */
+		email: FormControl<string | null | undefined>,
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
+		password: FormControl<string | null | undefined>,
+	}
+	export function CreateRegisterBindingModelFormGroup() {
+		return new FormGroup<RegisterBindingModelFormProperties>({
+			confirmPassword: new FormControl<string | null | undefined>(undefined),
+			email: new FormControl<string | null | undefined>(undefined),
+			password: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
 
 	export interface RegisterExternalBindingModel {
 
 		/** Required */
 		email?: string;
+	}
+	export interface RegisterExternalBindingModelFormProperties {
+
+		/** Required */
+		email: FormControl<string | null | undefined>,
+	}
+	export function CreateRegisterExternalBindingModelFormGroup() {
+		return new FormGroup<RegisterExternalBindingModelFormProperties>({
+			email: new FormControl<string | null | undefined>(undefined),
+		});
+
 	}
 
 	export interface RemoveLoginBindingModel {
@@ -244,6 +516,21 @@ export namespace DemoWebApi_Models_Client {
 
 		/** Required */
 		providerKey?: string;
+	}
+	export interface RemoveLoginBindingModelFormProperties {
+
+		/** Required */
+		loginProvider: FormControl<string | null | undefined>,
+
+		/** Required */
+		providerKey: FormControl<string | null | undefined>,
+	}
+	export function CreateRemoveLoginBindingModelFormGroup() {
+		return new FormGroup<RemoveLoginBindingModelFormProperties>({
+			loginProvider: new FormControl<string | null | undefined>(undefined),
+			providerKey: new FormControl<string | null | undefined>(undefined),
+		});
+
 	}
 
 	export interface SetPasswordBindingModel {
@@ -258,6 +545,25 @@ export namespace DemoWebApi_Models_Client {
 		 */
 		newPassword?: string;
 	}
+	export interface SetPasswordBindingModelFormProperties {
+
+		/** Data type: Password */
+		confirmPassword: FormControl<string | null | undefined>,
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
+		newPassword: FormControl<string | null | undefined>,
+	}
+	export function CreateSetPasswordBindingModelFormGroup() {
+		return new FormGroup<SetPasswordBindingModelFormProperties>({
+			confirmPassword: new FormControl<string | null | undefined>(undefined),
+			newPassword: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
 
 
 	/**
@@ -270,6 +576,29 @@ export namespace DemoWebApi_Models_Client {
 		issued?: string;
 		token_type?: string;
 		username?: string;
+	}
+
+	/**
+	 * Auth token
+	 */
+	export interface TokenResponseModelFormProperties {
+		access_token: FormControl<string | null | undefined>,
+		expires: FormControl<string | null | undefined>,
+		expires_in: FormControl<number | null | undefined>,
+		issued: FormControl<string | null | undefined>,
+		token_type: FormControl<string | null | undefined>,
+		username: FormControl<string | null | undefined>,
+	}
+	export function CreateTokenResponseModelFormGroup() {
+		return new FormGroup<TokenResponseModelFormProperties>({
+			access_token: new FormControl<string | null | undefined>(undefined),
+			expires: new FormControl<string | null | undefined>(undefined),
+			expires_in: new FormControl<number | null | undefined>(undefined),
+			issued: new FormControl<string | null | undefined>(undefined),
+			token_type: new FormControl<string | null | undefined>(undefined),
+			username: new FormControl<string | null | undefined>(undefined),
+		});
+
 	}
 
 }
@@ -292,6 +621,27 @@ export namespace DemoWebApi_Controllers_Client {
 		submitter?: string;
 	}
 
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResultFormProperties {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter: FormControl<string | null | undefined>,
+	}
+	export function CreateFileResultFormGroup() {
+		return new FormGroup<FileResultFormProperties>({
+			submitter: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
 
 	/**
 	 * Complex hero type
@@ -303,8 +653,40 @@ export namespace DemoWebApi_Controllers_Client {
 		name?: string;
 	}
 
+	/**
+	 * Complex hero type
+	 */
+	export interface HeroFormProperties {
+		death: FormControl<Date | null | null | undefined>,
+		dob: FormControl<Date | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+	}
+	export function CreateHeroFormGroup() {
+		return new FormGroup<HeroFormProperties>({
+			death: new FormControl<Date | null | null | undefined>(undefined),
+			dob: new FormControl<Date | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
 		super?: boolean;
+	}
+	export interface SuperHeroFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
+		super: FormControl<boolean | null | undefined>,
+	}
+	export function CreateSuperHeroFormGroup() {
+		return new FormGroup<SuperHeroFormProperties>({
+			death: new FormControl<Date | null | null | undefined>(undefined),
+			dob: new FormControl<Date | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			super: new FormControl<boolean | null | undefined>(undefined),
+		});
+
 	}
 
 }

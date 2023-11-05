@@ -52,7 +52,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		abstract protected IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix);
 
 		/// <summary>
-		/// Save C# codes into a file.
+		/// Save TS codes into a file.
 		/// </summary>
 		public virtual void Save()
 		{

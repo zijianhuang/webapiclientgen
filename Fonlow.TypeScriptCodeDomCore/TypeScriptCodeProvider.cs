@@ -11,9 +11,9 @@ namespace Fonlow.TypeScriptCodeDom
 	/// <remarks>As stated in msdn, when implementing ICodeGenerator, "you must not call the corresponding method of the base class."</remarks>
 	public sealed class TypeScriptCodeProvider : CodeDomProvider, ICodeGenerator
 	{
-		public TypeScriptCodeProvider(bool asModule)
+		public TypeScriptCodeProvider(ICodeGenerator generator)
 		{
-			generator = new TsCodeGenerator(asModule);
+			this.generator = generator;
 		}
 
 		readonly ICodeGenerator generator;

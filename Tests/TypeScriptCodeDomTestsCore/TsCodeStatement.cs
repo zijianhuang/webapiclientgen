@@ -16,7 +16,7 @@ namespace TypeScriptCodeDomTests
             var o = new CodeGeneratorOptions() { IndentString = "\t" };
             using (var w = new StringWriter(builder))
             {
-                var provider = new TypeScriptCodeProvider(false);
+                var provider = new TypeScriptCodeProvider(new TsCodeGenerator(false));
                 provider.GenerateCodeFromStatement(e, w, o);
             }
             var s = builder.ToString();

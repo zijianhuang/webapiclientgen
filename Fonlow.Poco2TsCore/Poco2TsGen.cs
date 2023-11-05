@@ -85,7 +85,7 @@ namespace Fonlow.Poco2Ts
 			if (writer == null)
 				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(true))
+			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(true)))
 			{
 				CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
 				options.BracingStyle = "JS";

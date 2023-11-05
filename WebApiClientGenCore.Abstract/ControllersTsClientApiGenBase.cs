@@ -54,9 +54,9 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <summary>
 		/// Save C# codes into a file.
 		/// </summary>
-		public void Save()
+		public virtual void Save()
 		{
-			var provider = new TypeScriptCodeProvider(jsOutput.AsModule);
+			var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(jsOutput.AsModule));
 			using StreamWriter writer = new(jsOutput.JSPath);
 			provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
 		}

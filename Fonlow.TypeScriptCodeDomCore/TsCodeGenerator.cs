@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
-	internal class TsCodeGenerator : ICodeGenerator
+	public class TsCodeGenerator : ICodeGenerator
 	{
-		internal TsCodeGenerator(bool asModule)
+		public TsCodeGenerator(bool asModule)
 		{
 			this.asModule = asModule;
 			this.codeObjectHelper = new CodeObjectHelper();

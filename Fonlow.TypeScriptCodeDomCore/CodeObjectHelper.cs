@@ -12,16 +12,17 @@ namespace Fonlow.TypeScriptCodeDom
 	/// </summary>
 	public class CodeObjectHelper
 	{
-		const string BasicIndent = "\t";
+		readonly protected string BasicIndent = "\t";
+		readonly protected bool asModule;
 
-		public CodeObjectHelper()
+		public CodeObjectHelper(bool asModule)
 		{
-
+			this.asModule = asModule;
 		}
 
 		#region public GenerateCodeFromXXX
 
-		internal virtual void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o, bool asModule)
+		internal virtual void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 

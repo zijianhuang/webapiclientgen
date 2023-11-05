@@ -7,13 +7,11 @@ namespace Fonlow.TypeScriptCodeDom
 {
 	public class TsCodeGenerator : ICodeGenerator
 	{
-		public TsCodeGenerator(bool asModule)
+		public TsCodeGenerator(CodeObjectHelper codeObjectHelper)
 		{
-			this.asModule = asModule;
-			this.codeObjectHelper = new CodeObjectHelper();
+			this.codeObjectHelper = codeObjectHelper;
 		}
 
-		readonly bool asModule;
 		readonly CodeObjectHelper codeObjectHelper;
 
 		string ICodeGenerator.CreateEscapedIdentifier(string value)
@@ -47,7 +45,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 		void ICodeGenerator.GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
-			codeObjectHelper.GenerateCodeFromNamespace(e, w, o, asModule);
+			codeObjectHelper.GenerateCodeFromNamespace(e, w, o);
 		}
 
 		void ICodeGenerator.GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)

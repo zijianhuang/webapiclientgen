@@ -11,17 +11,17 @@ namespace Fonlow.TypeScriptCodeDom
 	/// </summary>
 	public class CodeObjectHelperForNg : CodeObjectHelper
 	{
-		const string BasicIndent = "\t";
+		//const string BasicIndent = "\t";
 
 		CodeNamespace currentCodeNamespace;
 
-		public CodeObjectHelperForNg()
+		public CodeObjectHelperForNg() : base(true)
 		{
 		}
 
 		#region public GenerateCodeFromXXX
 
-		internal override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o, bool asModule)
+		internal override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
 			currentCodeNamespace = e;
 			WriteCodeCommentStatementCollection(e.Comments, w, o);

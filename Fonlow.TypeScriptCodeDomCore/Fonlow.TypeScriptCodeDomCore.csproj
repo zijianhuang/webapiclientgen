@@ -11,11 +11,11 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
     <PackageTags>TypeScript,Code DOM</PackageTags>
-    <PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
+    <PackageReleaseNotes>DI Changed.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.7</Version>
+    <Version>2.8</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>https://raw.githubusercontent.com/zijianhuang/webapiclientgen/master/Doc/icons/TypeScriptCodeDOM64.png</PackageIconUrl>
   </PropertyGroup>

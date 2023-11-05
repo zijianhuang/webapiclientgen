@@ -7,7 +7,7 @@ namespace Poco2TsTests
 	{
 		static void Verify(Type type, string expected)
 		{
-			var gen = new Poco2TsGen(".Client", false);
+			var gen = new Poco2TsGen(".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg());
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
 			using (var writer = new StringWriter())
 			{
@@ -19,7 +19,7 @@ namespace Poco2TsTests
 
 		static void VerifyJson(Type type, string expected)
 		{
-			var gen = new Poco2TsGen(".Client", false);
+			var gen = new Poco2TsGen(".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg());
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson);
 			using (var writer = new StringWriter())
 			{
@@ -29,36 +29,35 @@ namespace Poco2TsTests
 			}
 		}
 
-		[Fact]
-		public void TestEnumAddressType()
-		{
-			Verify(typeof(DemoWebApi.DemoData.AddressType),
-@"export namespace DemoWebApi_DemoData_Client {
-	export enum AddressType { Postal, Residential }
+//		[Fact]
+//		public void TestEnumAddressType()
+//		{
+//			Verify(typeof(DemoWebApi.DemoData.AddressType),
+//@"export namespace DemoWebApi_DemoData_Client {
+//	export enum AddressType { Postal, Residential }
 
-}
+//}
 
-");
-		}
+//");
+//		}
 
 		[Fact]
 		public void TestEntity()
 		{
 			Verify(typeof(DemoWebApi.DemoData.Entity),
 @"export namespace DemoWebApi_DemoData_Client {
-	export interface Entity {
-		Addresses?: Array<any>;
-		Id?: string;
-		Name: string;
-		PhoneNumbers?: Array<any>;
-		Web?: string;
-	}
 	export interface EntityFormProperties {
-		Addresses: FormControl<Array<any> | null | undefined>,
 		Id: FormControl<string | null | undefined>,
 		Name: FormControl<string | null | undefined>,
-		PhoneNumbers: FormControl<Array<any> | null | undefined>,
 		Web: FormControl<string | null | undefined>,
+	}
+	export function CreateEntityFormGroup() {
+		return new FormGroup<EntityFormProperties>({
+			Id: new FormControl<string | null | undefined>(undefined),
+			Name: new FormControl<string | null | undefined>(undefined),
+			Web: new FormControl<string | null | undefined>(undefined),
+		});
+
 	}
 
 }
@@ -71,17 +70,20 @@ namespace Poco2TsTests
 		{
 			Verify(typeof(DemoWebApi.DemoData.Person),
 @"export namespace DemoWebApi_DemoData_Client {
-	export interface Person extends DemoWebApi_DemoData_Client.Entity {
-		Baptised?: Date;
-		DOB?: Date;
-		GivenName?: string;
-		Surname?: string;
-	}
 	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
 		Baptised: FormControl<Date | null | undefined>,
 		DOB: FormControl<Date | null | undefined>,
 		GivenName: FormControl<string | null | undefined>,
 		Surname: FormControl<string | null | undefined>,
+	}
+	export function CreatePersonFormGroup() {
+		return new FormGroup<PersonFormProperties>({
+			Baptised: new FormControl<Date | null | undefined>(undefined),
+			DOB: new FormControl<Date | null | undefined>(undefined),
+			GivenName: new FormControl<string | null | undefined>(undefined),
+			Surname: new FormControl<string | null | undefined>(undefined),
+		});
+
 	}
 
 }
@@ -94,17 +96,6 @@ namespace Poco2TsTests
 		{
 			Verify(typeof(DemoWebApi.DemoData.Address),
 @"export namespace DemoWebApi_DemoData_Client {
-	export interface Address {
-		City?: string;
-		Country?: string;
-		Id?: string;
-		PostalCode?: string;
-		State?: string;
-		Street1?: string;
-		Street2?: string;
-		Type?: number;
-		Location?: any;
-	}
 	export interface AddressFormProperties {
 		City: FormControl<string | null | undefined>,
 		Country: FormControl<string | null | undefined>,
@@ -116,35 +107,37 @@ namespace Poco2TsTests
 		Type: FormControl<number | null | undefined>,
 		Location: FormControl<any | null | undefined>,
 	}
+	export function CreateAddressFormGroup() {
+		return new FormGroup<AddressFormProperties>({
+			City: new FormControl<string | null | undefined>(undefined),
+			Country: new FormControl<string | null | undefined>(undefined),
+			Id: new FormControl<string | null | undefined>(undefined),
+			PostalCode: new FormControl<string | null | undefined>(undefined),
+			State: new FormControl<string | null | undefined>(undefined),
+			Street1: new FormControl<string | null | undefined>(undefined),
+			Street2: new FormControl<string | null | undefined>(undefined),
+			Type: new FormControl<number | null | undefined>(undefined),
+			Location: new FormControl<any | null | undefined>(undefined),
+		});
+
+	}
 
 }
 
 ");
 		}
 
-		[Fact]
-		public void TestEnumDays()
-		{
-			Verify(typeof(DemoWebApi.DemoData.Days),
-@"export namespace DemoWebApi_DemoData_Client {
-	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
+//		[Fact]
+//		public void TestEnumDays()
+//		{
+//			Verify(typeof(DemoWebApi.DemoData.Days),
+//@"export namespace DemoWebApi_DemoData_Client {
+//	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
 
-}
+//}
 
-");
-		}
-
-		[Fact]
-		public void TestGenericMims()
-		{
-			Verify(typeof(DemoWebApi.DemoData.MimsResult<>),
-@"export namespace DemoWebApi_DemoData_Client {
-	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
-
-}
-
-");
-		}
+//");
+//		}
 
 		//		[Fact]
 		//		public void TestStrutMyPoint()

@@ -56,7 +56,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// </summary>
 		public virtual void Save()
 		{
-			var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(jsOutput.AsModule));
+			var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(new CodeObjectHelper(jsOutput.AsModule)));
 			using StreamWriter writer = new(jsOutput.JSPath);
 			provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
 		}

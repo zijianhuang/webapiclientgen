@@ -11,6 +11,7 @@ using Fonlow.Reflection;
 using Fonlow.DocComment;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using Fonlow.TypeScriptCodeDom;
 
 namespace Fonlow.Poco2Ts
 {
@@ -24,15 +25,18 @@ namespace Fonlow.Poco2Ts
 		readonly string ClientNamespaceSuffix;
 
 		readonly bool helpStrictMode;
+
+		readonly CodeObjectHelper codeObjectHelper;
 		/// <summary>
 		/// Init with its own CodeCompileUnit. Only for test cases.
 		/// </summary>
-		public Poco2TsGen(string clientNamespaceSuffix, bool helpStrictMode)
+		public Poco2TsGen(string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper)
 		{
 			targetUnit = new CodeCompileUnit();
 			pendingTypes = new List<Type>();
 			this.ClientNamespaceSuffix = clientNamespaceSuffix;
 			this.helpStrictMode = helpStrictMode;
+			this.codeObjectHelper = codeObjectHelper;
 		}
 
 		/// <summary>
@@ -41,12 +45,13 @@ namespace Fonlow.Poco2Ts
 		/// <param name="codeCompileUnit"></param>
 		/// <param name="clientNamespaceSuffix"></param>
 		/// <param name="helpStrictMode"></param>
-		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode)
+		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper)
 		{
 			targetUnit = codeCompileUnit;
 			pendingTypes = new List<Type>();
 			this.ClientNamespaceSuffix = clientNamespaceSuffix;
 			this.helpStrictMode = helpStrictMode;
+			this.codeObjectHelper = codeObjectHelper;
 		}
 
 
@@ -80,12 +85,18 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
-		public void WriteCode(TextWriter writer)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		/// <exception cref="ArgumentNullException"></exception>
+		/// <remarks>public only for testing</remarks>
+		public void WriteCode(TextWriter writer) 
 		{
 			if (writer == null)
 				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
 
-			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(true)))
+			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(codeObjectHelper)))
 			{
 				CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
 				options.BracingStyle = "JS";

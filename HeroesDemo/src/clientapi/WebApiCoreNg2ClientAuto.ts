@@ -307,6 +307,11 @@ export namespace DemoWebApi_Controllers_Client {
 		death?: Date | null;
 		dob?: Date;
 		id?: number;
+
+		/**
+		 * Required
+		 * String length: inclusive between 2 and 120
+		 */
 		name?: string;
 	}
 

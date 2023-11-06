@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import * as namespaces from '../../clientapi/WebApiCoreNg2ClientAuto';
+import * as namespaces from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 
 @Component({
   selector: 'app-heroes',

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import * as namespaces from '../clientapi/WebApiCoreNg2ClientAuto';
+import * as namespaces from '../clientapi/WebApiCoreNG2FormGroupClientAuto';
 import { SiteConfigConstants } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';

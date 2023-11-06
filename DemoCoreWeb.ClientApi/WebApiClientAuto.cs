@@ -617,6 +617,12 @@ namespace DemoWebApi.Controllers.Client
 		[System.Runtime.Serialization.DataMember()]
 		public long Id { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 2 and 120
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(120, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Name { get; set; }
 	}

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace DemoWebApi.Controllers
 {
@@ -140,6 +141,8 @@ namespace DemoWebApi.Controllers
 		public long Id { get; set; }
 
 		[DataMember]
+		[Required]
+		[StringLength(120, MinimumLength = 2)]
 		public string Name { get; set; }
 
 		[DataMember]

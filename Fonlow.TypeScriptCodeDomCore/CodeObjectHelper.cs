@@ -22,7 +22,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 		#region public GenerateCodeFromXXX
 
-		internal virtual void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+		public virtual void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
@@ -47,7 +47,7 @@ namespace Fonlow.TypeScriptCodeDom
 			w.WriteLine($"}}");
 		}
 
-		internal void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 

@@ -665,9 +665,14 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	export interface Hero {
 		death?: Date | null;
-		dob?: Date;
-		id?: number;
-		name?: string;
+        dob?: Date | null;
+        id?: number | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 2 and 120
+		 */
+        name?: string | null;
 	}
 
 	/**
@@ -677,6 +682,11 @@ export namespace DemoWebApi_Controllers_Client {
 		death: FormControl<Date | null | null | undefined>,
 		dob: FormControl<Date | null | undefined>,
 		id: FormControl<number | null | undefined>,
+
+		/**
+		 * Required
+		 * String length: inclusive between 2 and 120
+		 */
 		name: FormControl<string | null | undefined>,
 	}
 	export function CreateHeroFormGroup() {
@@ -684,7 +694,7 @@ export namespace DemoWebApi_Controllers_Client {
 			death: new FormControl<Date | null | null | undefined>(undefined),
 			dob: new FormControl<Date | null | undefined>(undefined),
 			id: new FormControl<number | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
 		});
 
 	}
@@ -700,7 +710,7 @@ export namespace DemoWebApi_Controllers_Client {
 			death: new FormControl<Date | null | null | undefined>(undefined),
 			dob: new FormControl<Date | null | undefined>(undefined),
 			id: new FormControl<number | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
 			super: new FormControl<boolean | null | undefined>(undefined),
 		});
 

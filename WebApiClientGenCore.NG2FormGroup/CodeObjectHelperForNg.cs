@@ -20,7 +20,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 		#region public GenerateCodeFromXXX
 
-		internal override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+		public override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
 			currentCodeNamespace = e;
 			WriteCodeCommentStatementCollection(e.Comments, w, o);

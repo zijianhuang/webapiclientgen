@@ -162,6 +162,7 @@ namespace DemoWebApi.DemoData
 		/// </summary>
 		[DataMember(IsRequired =true)]//MVC and Web API does not care
 		[System.ComponentModel.DataAnnotations.Required]//MVC and Web API care about only this
+		[MinLength(2), MaxLength(255)]
 		public string Name { get; set; }
 
 		/// <summary>
@@ -181,6 +182,9 @@ namespace DemoWebApi.DemoData
 
 		[DataMember]
 		public Uri Web { get; set; }
+
+		[DataMember, EmailAddress, MaxLength(255)]
+		public string EmailAddress { get; set; }
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]

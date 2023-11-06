@@ -61,11 +61,16 @@ export namespace DemoWebApi_DemoData_Client {
 		 * Multiple addresses
 		 */
 		addresses?: Array<DemoWebApi_DemoData_Client.Address>;
+
+		/** Max length: 255 */
+		emailAddress?: string;
 		id?: string | null;
 
 		/**
 		 * Name of the entity.
 		 * Required
+		 * Min length: 2
+		 * Max length: 255
 		 */
 		name: string;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;

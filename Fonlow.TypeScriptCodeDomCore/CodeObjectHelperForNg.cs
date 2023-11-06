@@ -135,26 +135,60 @@ namespace Fonlow.TypeScriptCodeDom
 
 		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
 		{
-			var customAttributes = codeMemberField.CustomAttributes;
+			var customAttributes = codeMemberField.UserData["CustomAttributes"] as Attribute[];
 			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
-			if (customAttributes.Count > 0)
+			if (customAttributes?.Length > 0)
 			{
 				//Console.WriteLine("customAttributes: " + string.Join(", ",  customAttributes));
 				var validatorList = new List<string>();
 				Console.Write("CustomAttributes: ");
-				for (int i = 0; i < customAttributes.Count; i++)
+				for (int i = 0; i < customAttributes.Length; i++)
 				{
 					var ca = customAttributes[i];
-					Console.Write(ca.Name + ", ");
-					switch (ca.Name)
+					var attributeType = ca.GetType();
+					var attributeName = ca.GetType().FullName;
+					Console.Write(attributeName + ", ");
+					switch (attributeName)
 					{
-						case "System.ComponentModel.DataAnnotations.Required":
+						case "System.ComponentModel.DataAnnotations.RequiredAttribute":
 							validatorList.Add("Validators.required");
 							break;
-						case "System.ComponentModel.DataAnnotations.MaxLength":
-							var kk = ca.Arguments[0].Value as System.CodeDom.CodeSnippetExpression;
-							var len = kk.Value;
-							validatorList.Add($"Validators.maxLength({len})");
+						case "System.ComponentModel.DataAnnotations.MaxLengthAttribute":
+							var a = ca as System.ComponentModel.DataAnnotations.MaxLengthAttribute;
+							validatorList.Add($"Validators.maxLength({a.Length})");
+							break;
+						case "System.ComponentModel.DataAnnotations.MinLengthAttribute":
+							var am = ca as System.ComponentModel.DataAnnotations.MinLengthAttribute;
+							validatorList.Add($"Validators.minLength({am.Length})");
+							break;
+						case "System.ComponentModel.DataAnnotations.RangeAttribute":
+							var ar = ca as System.ComponentModel.DataAnnotations.RangeAttribute;
+							if (ar.Maximum != null)
+							{
+								validatorList.Add($"Validators.max({ar.Maximum})");
+							}
+
+							if (ar.Minimum != null)
+							{
+								validatorList.Add($"Validators.min({ar.Minimum})");
+							}
+
+							break;
+						case "System.ComponentModel.DataAnnotations.StringLengthAttribute":
+							var ast = ca as System.ComponentModel.DataAnnotations.StringLengthAttribute;
+							if (ast.MaximumLength >0)
+							{
+								validatorList.Add($"Validators.maxLength({ast.MaximumLength})");
+							}
+
+							if (ast.MinimumLength > 0)
+							{
+								validatorList.Add($"Validators.minLength({ast.MinimumLength})");
+							}
+
+							break;
+						case "System.ComponentModel.DataAnnotations.EmailAddressAttribute":
+							validatorList.Add("Validators.email");
 							break;
 						default:
 							break;
@@ -163,7 +197,8 @@ namespace Fonlow.TypeScriptCodeDom
 				Console.WriteLine();
 
 				var text = String.Join(", ", validatorList);
-				return $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined, [{text}])";
+				return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined)" :
+					$"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined, [{text}])";
 			}
 			else
 			{

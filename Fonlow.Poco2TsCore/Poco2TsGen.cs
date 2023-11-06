@@ -254,6 +254,7 @@ namespace Fonlow.Poco2Ts
 							};
 
 							AddValidationAttributesCodeTypeMember(propertyInfo, clientField, false);
+							clientField.UserData.Add("CustomAttributes", propertyInfo.GetCustomAttributes().ToArray());
 
 							CreatePropertyDocComment(propertyInfo, clientField);
 
@@ -288,6 +289,7 @@ namespace Fonlow.Poco2Ts
 								Type = TranslateToClientTypeReference(fieldInfo.FieldType),
 							};
 
+							clientField.UserData.Add("CustomAttributes", fieldInfo.GetCustomAttributes().ToArray());
 							CreateFieldDocComment(fieldInfo, clientField);
 
 							typeDeclaration.Members.Add(clientField);

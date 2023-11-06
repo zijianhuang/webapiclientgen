@@ -39,7 +39,7 @@ namespace DemoWebApi.Models
     [JsonObject]
     public class RegisterBindingModel
     {
-        [Required]
+        [Required, EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -58,7 +58,7 @@ namespace DemoWebApi.Models
     [JsonObject]
     public class RegisterExternalBindingModel
     {
-        [Required]
+        [Required, EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

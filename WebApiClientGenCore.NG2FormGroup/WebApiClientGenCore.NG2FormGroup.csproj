@@ -20,8 +20,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<Compile Include="..\WebApiClientGenCore.NG2\ClientApiTsNg2FunctionGen.cs" Link="ClientApiTsNg2FunctionGen.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
 	<ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
-	  <None Include="Readme.md" Pack="true" PackagePath="\"/>
+	  <None Include="Readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

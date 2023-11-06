@@ -346,6 +346,10 @@ namespace DemoWebApi.DemoData.Client
 	public class PhoneNumber : object
 	{
 		
+		/// <summary>
+		/// Max length: 120
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(120)]
 		[System.Runtime.Serialization.DataMember()]
 		public string FullNumber { get; set; }
 		

@@ -64,6 +64,7 @@ namespace DemoWebApi.DemoData
 
 
 		[DataMember]
+		[MaxLength(120)]
 		public string FullNumber { get; set; }
 
 		[DataMember]

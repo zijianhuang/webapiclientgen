@@ -306,16 +306,20 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface PhoneNumber {
+
+		/** Max length: 120 */
 		fullNumber?: string;
 		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
 	}
 	export interface PhoneNumberFormProperties {
+
+		/** Max length: 120 */
 		fullNumber: FormControl<string | null | undefined>,
 		phoneType: FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>,
 	}
 	export function CreatePhoneNumberFormGroup() {
 		return new FormGroup<PhoneNumberFormProperties>({
-			fullNumber: new FormControl<string | null | undefined>(undefined),
+			fullNumber: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(120)]),
 			phoneType: new FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>(undefined),
 		});
 

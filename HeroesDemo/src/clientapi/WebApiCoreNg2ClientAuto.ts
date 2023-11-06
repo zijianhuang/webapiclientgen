@@ -141,6 +141,8 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface PhoneNumber {
+
+		/** Max length: 120 */
 		fullNumber?: string;
 		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
 	}

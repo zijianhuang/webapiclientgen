@@ -139,19 +139,28 @@ namespace Fonlow.TypeScriptCodeDom
 			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
 			if (customAttributes.Count > 0)
 			{
-				Console.WriteLine("customAttributes: " + customAttributes[0].Name);
+				//Console.WriteLine("customAttributes: " + string.Join(", ",  customAttributes));
 				var validatorList = new List<string>();
+				Console.Write("CustomAttributes: ");
 				for (int i = 0; i < customAttributes.Count; i++)
 				{
-					switch (customAttributes[i].Name)
+					var ca = customAttributes[i];
+					Console.Write(ca.Name + ", ");
+					switch (ca.Name)
 					{
 						case "System.ComponentModel.DataAnnotations.Required":
 							validatorList.Add("Validators.required");
+							break;
+						case "System.ComponentModel.DataAnnotations.MaxLength":
+							var kk = ca.Arguments[0].Value as System.CodeDom.CodeSnippetExpression;
+							var len = kk.Value;
+							validatorList.Add($"Validators.maxLength({len})");
 							break;
 						default:
 							break;
 					}
 				}
+				Console.WriteLine();
 
 				var text = String.Join(", ", validatorList);
 				return $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined, [{text}])";

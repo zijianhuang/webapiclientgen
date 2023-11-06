@@ -10,11 +10,11 @@ namespace Fonlow.TypeScriptCodeDom
 	/// <summary>
 	/// Output TS codes through TextWriter, for Angular FormGroup
 	/// </summary>
-	public class CodeObjectHelperForNg : CodeObjectHelper
+	public class CodeObjectHelperForNg2FormGroup : CodeObjectHelper
 	{
 		CodeNamespace currentCodeNamespace;
 
-		public CodeObjectHelperForNg() : base(true)
+		public CodeObjectHelperForNg2FormGroup() : base(true)
 		{
 		}
 
@@ -61,7 +61,13 @@ namespace Fonlow.TypeScriptCodeDom
 			return currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().ToList().Find(t=>currentCodeNamespace.Name + "." + t.Name== tName);
 		}
 
-		internal void GenerateAngularFormFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		/// <summary>
+		/// Generate TS interface for FormGroup
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
+		void GenerateAngularFormFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (e.IsEnum)
 			{
@@ -93,7 +99,13 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		internal void GenerateAngularFormGroupFunctionFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		/// <summary>
+		/// Generate TS helper function of creating FormGroup object.
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
+		void GenerateAngularFormGroupFunctionFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (e.IsEnum)
 			{
@@ -127,7 +139,7 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		string GetCodeMemberFieldTextForAngularForm(CodeMemberField codeMemberField)
+		string GetCodeMemberFieldTextForAngularFormControl(CodeMemberField codeMemberField)
 		{
 			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
 			return $"{fieldName}: FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>";
@@ -291,7 +303,7 @@ namespace Fonlow.TypeScriptCodeDom
 				}
 
 				w.Write(o.IndentString);
-				w.WriteLine(GetCodeMemberFieldTextForAngularForm(codeMemberField) + ",");
+				w.WriteLine(GetCodeMemberFieldTextForAngularFormControl(codeMemberField) + ",");
 				return;
 			}
 

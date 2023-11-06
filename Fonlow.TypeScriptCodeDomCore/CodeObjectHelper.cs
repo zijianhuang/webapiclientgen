@@ -47,6 +47,12 @@ namespace Fonlow.TypeScriptCodeDom
 			w.WriteLine($"}}");
 		}
 
+		/// <summary>
+		/// Generate TS interface
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
@@ -947,7 +953,10 @@ namespace Fonlow.TypeScriptCodeDom
 
 		string GetCodeMemberFieldText(CodeMemberField codeMemberField)
 		{
-			return RefineNameAndType(codeMemberField.Name, GetCodeTypeReferenceText(codeMemberField.Type));
+			var isOptional = codeMemberField.Name.EndsWith("?");
+			var fieldName = isOptional ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type) + (isOptional ? " | null | undefined" : string.Empty);
+			return RefineNameAndType(fieldName, tsTypeName);
 		}
 
 		protected string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)

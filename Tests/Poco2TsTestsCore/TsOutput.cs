@@ -57,10 +57,10 @@ namespace Poco2TsTests
 			Verify(typeof(DemoWebApi.DemoData.Person),
 @"export namespace DemoWebApi_DemoData_Client {
 	export interface Person extends DemoWebApi_DemoData_Client.Entity {
-		Baptised?: Date;
-		DOB?: Date;
-		GivenName?: string;
-		Surname?: string;
+		Baptised: Date | undefined;
+		DOB: Date | undefined;
+		GivenName: string | undefined;
+		Surname: string | undefined;
 	}
 
 }

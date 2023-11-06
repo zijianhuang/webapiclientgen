@@ -4,19 +4,19 @@ import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
-		city?: string;
-		country?: string;
-		id?: string;
-		postalCode?: string;
-		state?: string;
-		street1?: string;
-		street2?: string;
-		type?: DemoWebApi_DemoData_Client.AddressType;
+		city: string | null | undefined;
+		country: string | null | undefined;
+		id: string | null | undefined;
+		postalCode: string | null | undefined;
+		state: string | null | undefined;
+		street1: string | null | undefined;
+		street2: string | null | undefined;
+		type: DemoWebApi_DemoData_Client.AddressType | null | undefined;
 
 		/**
 		 * It is a field
 		 */
-		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
+		location: DemoWebApi_DemoData_Another_Client.MyPoint | null | undefined;
 	}
 	export interface AddressFormProperties {
 		city: FormControl<string | null | undefined>,
@@ -55,16 +55,16 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
 		 */
-		BusinessNum?: string;
-		businessNumberType?: string;
+		BusinessNum: string | null | undefined;
+		businessNumberType: string | null | undefined;
 
 		/** Data type: Date */
-		foundDate?: Date;
-		registerDate?: Date;
-		textMatrix?: Array<Array<string>>;
-		int2D?: number[][];
-		int2DJagged?: Array<Array<number>>;
-		lines?: Array<string>;
+		foundDate: Date | null | undefined;
+		registerDate: Date | null | undefined;
+		textMatrix: Array<Array<string>> | null | undefined;
+		int2D: number[][] | null | undefined;
+		int2DJagged: Array<Array<number>> | null | undefined;
+		lines: Array<string> | null | undefined;
 	}
 	export interface CompanyFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
 
@@ -115,11 +115,11 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * Multiple addresses
 		 */
-		addresses?: Array<DemoWebApi_DemoData_Client.Address>;
+		addresses: Array<DemoWebApi_DemoData_Client.Address> | null | undefined;
 
 		/** Max length: 255 */
-		emailAddress?: string;
-		id?: string | null;
+		emailAddress: string | null | undefined;
+		id: string | null | null | undefined;
 
 		/**
 		 * Name of the entity.
@@ -128,8 +128,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 * Max length: 255
 		 */
 		name: string;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
-		web?: string;
+		phoneNumbers: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null | undefined;
+		web: string | null | undefined;
 	}
 
 	/**
@@ -169,11 +169,11 @@ export namespace DemoWebApi_DemoData_Client {
 	 * To test different serializations against Guid
 	 */
 	export interface IdMap {
-		id?: string;
-		idNotEmitDefaultValue?: string;
-		nullableId?: string | null;
+		id: string | null | undefined;
+		idNotEmitDefaultValue: string | null | undefined;
+		nullableId: string | null | null | undefined;
 		requiredName: string;
-		text?: string;
+		text: string | null | undefined;
 	}
 
 	/**
@@ -204,17 +204,17 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface MimsPackage {
 
 		/** Range: inclusive between 10 and 100 */
-		kk?: number;
+		kk: number | null | undefined;
 
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
 		 */
-		kK2?: number;
-		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
-		optionalInt?: number | null;
-		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
-		tag?: string;
+		kK2: number | null | undefined;
+		optionalEnum: DemoWebApi_DemoData_Client.MyEnumType | null | null | undefined;
+		optionalInt: number | null | null | undefined;
+		result: DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined;
+		tag: string | null | undefined;
 	}
 	export interface MimsPackageFormProperties {
 
@@ -244,25 +244,25 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface MimsResult<T> {
-		generatedAt?: Date;
-		message?: string;
-		result?: T;
-		success?: boolean;
+		generatedAt: Date | null | undefined;
+		message: string | null | undefined;
+		result: T | null | undefined;
+		success: boolean | null | undefined;
 	}
 
 	export enum MyEnumType { First = 1, Two = 2 }
 
 	export interface MyGeneric<T, K, U> {
-		myK?: K;
-		myT?: T;
-		myU?: U;
-		status?: string;
+		myK: K | null | undefined;
+		myT: T | null | undefined;
+		myU: U | null | undefined;
+		status: string | null | undefined;
 	}
 
 	export interface MyPeopleDic {
-		anotherDic?: {[id: string]: string };
-		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
-		intDic?: {[id: number]: string };
+		anotherDic: {[id: string]: string } | null | undefined;
+		dic: {[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined;
+		intDic: {[id: number]: string } | null | undefined;
 	}
 	export interface MyPeopleDicFormProperties {
 		anotherDic: FormControl<{[id: string]: string } | null | undefined>,
@@ -281,15 +281,15 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface Person extends DemoWebApi_DemoData_Client.Entity {
 
 		/** Data type: Date */
-		baptised?: Date | null;
+		baptised: Date | null | null | undefined;
 
 		/**
 		 * Date of Birth.
 		 * This is optional.
 		 */
-		dob?: Date | null;
-		givenName?: string;
-		surname?: string;
+		dob: Date | null | null | undefined;
+		givenName: string | null | undefined;
+		surname: string | null | undefined;
 	}
 	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
 
@@ -321,8 +321,8 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface PhoneNumber {
 
 		/** Max length: 120 */
-		fullNumber?: string;
-		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
+		fullNumber: string | null | undefined;
+		phoneType: DemoWebApi_DemoData_Client.PhoneType | null | undefined;
 	}
 	export interface PhoneNumberFormProperties {
 
@@ -411,7 +411,7 @@ export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
 
 		/** Required */
-		externalAccessToken?: string;
+		externalAccessToken: string | null | undefined;
 	}
 	export interface AddExternalLoginBindingModelFormProperties {
 
@@ -428,14 +428,14 @@ export namespace DemoWebApi_Models_Client {
 	export interface ChangePasswordBindingModel {
 
 		/** Data type: Password */
-		confirmPassword?: string;
+		confirmPassword: string | null | undefined;
 
 		/**
 		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword?: string;
+		newPassword: string | null | undefined;
 
 		/**
 		 * Required
@@ -473,17 +473,17 @@ export namespace DemoWebApi_Models_Client {
 	export interface RegisterBindingModel {
 
 		/** Data type: Password */
-		confirmPassword?: string;
+		confirmPassword: string | null | undefined;
 
 		/** Required */
-		email?: string;
+		email: string | null | undefined;
 
 		/**
 		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		password?: string;
+		password: string | null | undefined;
 	}
 	export interface RegisterBindingModelFormProperties {
 
@@ -512,7 +512,7 @@ export namespace DemoWebApi_Models_Client {
 	export interface RegisterExternalBindingModel {
 
 		/** Required */
-		email?: string;
+		email: string | null | undefined;
 	}
 	export interface RegisterExternalBindingModelFormProperties {
 
@@ -529,10 +529,10 @@ export namespace DemoWebApi_Models_Client {
 	export interface RemoveLoginBindingModel {
 
 		/** Required */
-		loginProvider?: string;
+		loginProvider: string | null | undefined;
 
 		/** Required */
-		providerKey?: string;
+		providerKey: string | null | undefined;
 	}
 	export interface RemoveLoginBindingModelFormProperties {
 
@@ -553,14 +553,14 @@ export namespace DemoWebApi_Models_Client {
 	export interface SetPasswordBindingModel {
 
 		/** Data type: Password */
-		confirmPassword?: string;
+		confirmPassword: string | null | undefined;
 
 		/**
 		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword?: string;
+		newPassword: string | null | undefined;
 	}
 	export interface SetPasswordBindingModelFormProperties {
 
@@ -587,12 +587,12 @@ export namespace DemoWebApi_Models_Client {
 	 * Auth token
 	 */
 	export interface TokenResponseModel {
-		access_token?: string;
-		expires?: string;
-		expires_in?: number;
-		issued?: string;
-		token_type?: string;
-		username?: string;
+		access_token: string | null | undefined;
+		expires: string | null | undefined;
+		expires_in: number | null | undefined;
+		issued: string | null | undefined;
+		token_type: string | null | undefined;
+		username: string | null | undefined;
 	}
 
 	/**
@@ -630,12 +630,12 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Gets or sets the local path of the file saved on the server.
 		 */
-		fileNames?: Array<string>;
+		fileNames: Array<string> | null | undefined;
 
 		/**
 		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
 		 */
-		submitter?: string;
+		submitter: string | null | undefined;
 	}
 
 	/**
@@ -664,15 +664,15 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface Hero {
-		death?: Date | null;
-        dob?: Date | null;
-        id?: number | null;
+		death: Date | null | null | undefined;
+		dob: Date | null | undefined;
+		id: number | null | undefined;
 
 		/**
 		 * Required
 		 * String length: inclusive between 2 and 120
 		 */
-        name?: string | null;
+		name: string | null | undefined;
 	}
 
 	/**
@@ -700,7 +700,7 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
-		super?: boolean;
+		super: boolean | null | undefined;
 	}
 	export interface SuperHeroFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
 		super: FormControl<boolean | null | undefined>,

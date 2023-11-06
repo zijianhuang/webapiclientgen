@@ -45,6 +45,7 @@ namespace Fonlow.Poco2Ts
 		/// <param name="codeCompileUnit"></param>
 		/// <param name="clientNamespaceSuffix"></param>
 		/// <param name="helpStrictMode"></param>
+		/// <param name="codeObjectHelper"></param>
 		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper)
 		{
 			targetUnit = codeCompileUnit;

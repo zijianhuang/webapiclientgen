@@ -25,7 +25,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeObjectHelper CreateCodeObjectHelper(bool asModule)
 		{
-			return new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg();
+			return new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup();
 		}
 
 		protected override void AddBasicReferences()

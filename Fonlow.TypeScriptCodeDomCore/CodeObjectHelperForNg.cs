@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -56,7 +57,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 		CodeTypeDeclaration FindCodeTypeDeclaration(string tName)
 		{
-			Console.WriteLine("All TypeDeclarations: " + string.Join("; ", currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().Select(d=>d.Name)));
+			//Console.WriteLine("All TypeDeclarations: " + string.Join("; ", currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().Select(d=>d.Name)));
 			return currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().ToList().Find(t=>currentCodeNamespace.Name + "." + t.Name== tName);
 		}
 
@@ -134,8 +135,31 @@ namespace Fonlow.TypeScriptCodeDom
 
 		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
 		{
+			var customAttributes = codeMemberField.CustomAttributes;
 			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
-			return $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined)";
+			if (customAttributes.Count > 0)
+			{
+				Console.WriteLine("customAttributes: " + customAttributes[0].Name);
+				var validatorList = new List<string>();
+				for (int i = 0; i < customAttributes.Count; i++)
+				{
+					switch (customAttributes[i].Name)
+					{
+						case "System.ComponentModel.DataAnnotations.Required":
+							validatorList.Add("Validators.required");
+							break;
+						default:
+							break;
+					}
+				}
+
+				var text = String.Join(", ", validatorList);
+				return $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined, [{text}])";
+			}
+			else
+			{
+				return $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined)";
+			}
 		}
 
 		#endregion
@@ -185,7 +209,7 @@ namespace Fonlow.TypeScriptCodeDom
 				{
 					var parentTypeReference = typeDeclaration.BaseTypes[0];
 					var parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included
-					Console.WriteLine("parentTypeName: " + parentTypeName);
+					//Console.WriteLine("parentTypeName: " + parentTypeName);
 					var parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
 					if (parentCodeTypeDeclaration != null)
 					{

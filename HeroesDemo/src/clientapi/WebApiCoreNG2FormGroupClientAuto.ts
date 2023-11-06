@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 		city?: string;
@@ -81,11 +81,11 @@ export namespace DemoWebApi_DemoData_Client {
 	export function CreateCompanyFormGroup() {
 		return new FormGroup<CompanyFormProperties>({
 			id: new FormControl<string | null | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 			web: new FormControl<string | null | undefined>(undefined),
 			BusinessNum: new FormControl<string | null | undefined>(undefined),
 			businessNumberType: new FormControl<string | null | undefined>(undefined),
-			foundDate: new FormControl<Date | null | undefined>(undefined),
+			foundDate: new FormControl<Date | null | undefined>(undefined, []),
 			registerDate: new FormControl<Date | null | undefined>(undefined),
 		});
 
@@ -146,7 +146,7 @@ export namespace DemoWebApi_DemoData_Client {
 	export function CreateEntityFormGroup() {
 		return new FormGroup<EntityFormProperties>({
 			id: new FormControl<string | null | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 			web: new FormControl<string | null | undefined>(undefined),
 		});
 
@@ -221,7 +221,7 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export function CreateMimsPackageFormGroup() {
 		return new FormGroup<MimsPackageFormProperties>({
-			kk: new FormControl<number | null | undefined>(undefined),
+			kk: new FormControl<number | null | undefined>(undefined, []),
 			kK2: new FormControl<number | null | undefined>(undefined),
 			optionalEnum: new FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | null | undefined>(undefined),
 			optionalInt: new FormControl<number | null | null | undefined>(undefined),
@@ -295,9 +295,9 @@ export namespace DemoWebApi_DemoData_Client {
 	export function CreatePersonFormGroup() {
 		return new FormGroup<PersonFormProperties>({
 			id: new FormControl<string | null | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 			web: new FormControl<string | null | undefined>(undefined),
-			baptised: new FormControl<Date | null | null | undefined>(undefined),
+			baptised: new FormControl<Date | null | null | undefined>(undefined, []),
 			dob: new FormControl<Date | null | null | undefined>(undefined),
 			givenName: new FormControl<string | null | undefined>(undefined),
 			surname: new FormControl<string | null | undefined>(undefined),
@@ -403,7 +403,7 @@ export namespace DemoWebApi_Models_Client {
 	}
 	export function CreateAddExternalLoginBindingModelFormGroup() {
 		return new FormGroup<AddExternalLoginBindingModelFormProperties>({
-			externalAccessToken: new FormControl<string | null | undefined>(undefined),
+			externalAccessToken: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 		});
 
 	}
@@ -446,9 +446,9 @@ export namespace DemoWebApi_Models_Client {
 	}
 	export function CreateChangePasswordBindingModelFormGroup() {
 		return new FormGroup<ChangePasswordBindingModelFormProperties>({
-			confirmPassword: new FormControl<string | null | undefined>(undefined),
-			newPassword: new FormControl<string | null | undefined>(undefined),
-			OldPwd: new FormControl<string | null | undefined>(undefined),
+			confirmPassword: new FormControl<string | null | undefined>(undefined, []),
+			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required]),
+			OldPwd: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 		});
 
 	}
@@ -485,9 +485,9 @@ export namespace DemoWebApi_Models_Client {
 	}
 	export function CreateRegisterBindingModelFormGroup() {
 		return new FormGroup<RegisterBindingModelFormProperties>({
-			confirmPassword: new FormControl<string | null | undefined>(undefined),
-			email: new FormControl<string | null | undefined>(undefined),
-			password: new FormControl<string | null | undefined>(undefined),
+			confirmPassword: new FormControl<string | null | undefined>(undefined, []),
+			email: new FormControl<string | null | undefined>(undefined, [Validators.required]),
+			password: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 		});
 
 	}
@@ -504,7 +504,7 @@ export namespace DemoWebApi_Models_Client {
 	}
 	export function CreateRegisterExternalBindingModelFormGroup() {
 		return new FormGroup<RegisterExternalBindingModelFormProperties>({
-			email: new FormControl<string | null | undefined>(undefined),
+			email: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 		});
 
 	}
@@ -527,8 +527,8 @@ export namespace DemoWebApi_Models_Client {
 	}
 	export function CreateRemoveLoginBindingModelFormGroup() {
 		return new FormGroup<RemoveLoginBindingModelFormProperties>({
-			loginProvider: new FormControl<string | null | undefined>(undefined),
-			providerKey: new FormControl<string | null | undefined>(undefined),
+			loginProvider: new FormControl<string | null | undefined>(undefined, [Validators.required]),
+			providerKey: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 		});
 
 	}
@@ -559,8 +559,8 @@ export namespace DemoWebApi_Models_Client {
 	}
 	export function CreateSetPasswordBindingModelFormGroup() {
 		return new FormGroup<SetPasswordBindingModelFormProperties>({
-			confirmPassword: new FormControl<string | null | undefined>(undefined),
-			newPassword: new FormControl<string | null | undefined>(undefined),
+			confirmPassword: new FormControl<string | null | undefined>(undefined, []),
+			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 		});
 
 	}

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.CodeDom;
-using Xunit;
+﻿using Fonlow.Poco2Client;
 using Fonlow.Poco2Ts;
-using Fonlow.Poco2Client;
 using Fonlow.TypeScriptCodeDom;
-using System.CodeDom.Compiler;
+using System;
+using System.CodeDom;
 using System.IO;
+using Xunit;
 
 
 namespace Poco2TsTests
@@ -17,7 +13,8 @@ namespace Poco2TsTests
 	{
 		static void Verify(Type type, string expected)
 		{
-			var gen = new Poco2TsGen(".Client", false, new CodeObjectHelper(true));
+			var targetUnit = new CodeCompileUnit();
+			var gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
 			using (var writer = new StringWriter())
 			{
@@ -29,7 +26,8 @@ namespace Poco2TsTests
 
 		static void VerifyJson(Type type, string expected)
 		{
-			var gen = new Poco2TsGen(".Client", false, new CodeObjectHelper(true));
+			var targetUnit = new CodeCompileUnit();
+			var gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson);
 			using (var writer = new StringWriter())
 			{
@@ -56,11 +54,11 @@ namespace Poco2TsTests
 		{
 			Verify(typeof(DemoWebApi.DemoData.Person),
 @"export namespace DemoWebApi_DemoData_Client {
-	export interface Person extends DemoWebApi_DemoData_Client.Entity {
-		Baptised: Date | undefined;
-		DOB: Date | undefined;
-		GivenName: string | undefined;
-		Surname: string | undefined;
+	export interface Person extends DemoWebApi.DemoData.Base.Entity {
+		Baptised?: Date | null;
+		DOB?: Date | null;
+		GivenName?: string | null;
+		Surname?: string | null;
 	}
 
 }

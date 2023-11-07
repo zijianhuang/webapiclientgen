@@ -5,10 +5,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.1</Version>
+    <Version>3.2</Version>
     <Authors>Zijian Huang</Authors>
     <Company />
-    <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
+    <Copyright>Copyright © Zijian Huang 2015-2023</Copyright>
     <Product>Fonlow POCO to TypeScript for .NET Core</Product>
     <Description>Simple build of Fonlow.Poco2Ts for .NET Core. Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.</Description>
     <PackageLicenseUrl></PackageLicenseUrl>

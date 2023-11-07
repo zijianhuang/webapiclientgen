@@ -1,0 +1,1 @@
+TypeScript CodeDOM has TypeScriptCodeProvider implementing ICodeGenerator which has been used in POCO2TS.exe and Strongly Typed Client API for Web API. Help: https://github.com/zijianhuang/webapiclientgen/wiki/TypeScript-CodeDOM

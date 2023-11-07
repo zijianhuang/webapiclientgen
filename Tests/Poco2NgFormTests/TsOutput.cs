@@ -1,5 +1,6 @@
 ﻿using Fonlow.Poco2Client;
 using Fonlow.Poco2Ts;
+using System.CodeDom;
 
 namespace Poco2TsTests
 {
@@ -7,7 +8,8 @@ namespace Poco2TsTests
 	{
 		static void Verify(Type type, string expected)
 		{
-			var gen = new Poco2TsGen(".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup());
+			var targetUnit = new CodeCompileUnit();
+			var gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces));
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
 			using (var writer = new StringWriter())
 			{
@@ -19,7 +21,8 @@ namespace Poco2TsTests
 
 		static void VerifyJson(Type type, string expected)
 		{
-			var gen = new Poco2TsGen(".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup());
+			var targetUnit = new CodeCompileUnit();
+			var gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces));
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson);
 			using (var writer = new StringWriter())
 			{
@@ -44,17 +47,27 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestEntity()
 		{
-			Verify(typeof(DemoWebApi.DemoData.Entity),
-@"export namespace DemoWebApi_DemoData_Client {
+			Verify(typeof(DemoWebApi.DemoData.Base.Entity),
+@"export namespace DemoWebApi_DemoData_Base_Client {
+	export interface Entity {
+		Addresses?: Array<any> | null;
+		EmailAddress?: string | null;
+		Id?: string | null;
+		Name: string;
+		PhoneNumbers?: Array<any> | null;
+		Web?: string | null;
+	}
 	export interface EntityFormProperties {
+		EmailAddress: FormControl<string | null | undefined>,
 		Id: FormControl<string | null | undefined>,
 		Name: FormControl<string | null | undefined>,
 		Web: FormControl<string | null | undefined>,
 	}
 	export function CreateEntityFormGroup() {
 		return new FormGroup<EntityFormProperties>({
+			EmailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			Id: new FormControl<string | null | undefined>(undefined),
-			Name: new FormControl<string | null | undefined>(undefined),
+			Name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			Web: new FormControl<string | null | undefined>(undefined),
 		});
 
@@ -70,7 +83,13 @@ namespace Poco2TsTests
 		{
 			Verify(typeof(DemoWebApi.DemoData.Person),
 @"export namespace DemoWebApi_DemoData_Client {
-	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
+	export interface Person extends DemoWebApi.DemoData.Base.Entity {
+		Baptised?: Date | null;
+		DOB?: Date | null;
+		GivenName?: string | null;
+		Surname?: string | null;
+	}
+	export interface PersonFormProperties extends DemoWebApi.DemoData.Base.EntityFormProperties {
 		Baptised: FormControl<Date | null | undefined>,
 		DOB: FormControl<Date | null | undefined>,
 		GivenName: FormControl<string | null | undefined>,
@@ -96,6 +115,17 @@ namespace Poco2TsTests
 		{
 			Verify(typeof(DemoWebApi.DemoData.Address),
 @"export namespace DemoWebApi_DemoData_Client {
+	export interface Address {
+		City?: string | null;
+		Country?: string | null;
+		Id?: string | null;
+		PostalCode?: string | null;
+		State?: string | null;
+		Street1?: string | null;
+		Street2?: string | null;
+		Type?: number | null;
+		Location?: any | null;
+	}
 	export interface AddressFormProperties {
 		City: FormControl<string | null | undefined>,
 		Country: FormControl<string | null | undefined>,

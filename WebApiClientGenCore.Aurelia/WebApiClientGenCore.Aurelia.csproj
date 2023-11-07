@@ -6,7 +6,7 @@
 		<PackageId>Fonlow.WebApiClientGenCore.Aurelia</PackageId>
 		<Authors>Zijian Huang</Authors>
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Aurelia.</Description>
-		<Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
+		<Copyright>Copyright © Zijian Huang 2015-2023</Copyright>
 		<PackageTags>aurelia TypeScript</PackageTags>
 		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
@@ -14,7 +14,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyName>Fonlow.WebApiClientGenCore.Aurelia</AssemblyName>
-		<Version>3.3</Version>
+		<Version>3.4</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 	</PropertyGroup>

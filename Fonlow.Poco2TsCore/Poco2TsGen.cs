@@ -27,17 +27,6 @@ namespace Fonlow.Poco2Ts
 		readonly bool helpStrictMode;
 
 		readonly CodeObjectHelper codeObjectHelper;
-		/// <summary>
-		/// Init with its own CodeCompileUnit. Only for test cases.
-		/// </summary>
-		public Poco2TsGen(string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper)
-		{
-			targetUnit = new CodeCompileUnit();
-			pendingTypes = new List<Type>();
-			this.ClientNamespaceSuffix = clientNamespaceSuffix;
-			this.helpStrictMode = helpStrictMode;
-			this.codeObjectHelper = codeObjectHelper;
-		}
 
 		/// <summary>
 		/// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.

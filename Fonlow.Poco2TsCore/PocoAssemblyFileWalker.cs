@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Diagnostics;
 using Fonlow.Poco2Client;
+using System.CodeDom;
 
 namespace Fonlow.Poco2Ts
 {
@@ -27,7 +28,8 @@ namespace Fonlow.Poco2Ts
 				return;
 
 			var lookup = Fonlow.DocComment.DocCommentLookup.Create(DocComment.DocCommentLookup.GetXmlPath(assembly));
-			var gen = new Poco2TsGen(clientNamespaceSuffix, helpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(true));
+			var targetUnit = new CodeCompileUnit();
+			var gen = new Poco2TsGen(targetUnit, clientNamespaceSuffix, helpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(true));
 			gen.CreateCodeDomInAssembly(assembly, methods, lookup, dataAnnotationsToComments);
 			gen.SaveCodeToFile(tsFilePath);
 			var msg = $"{tsFilePath} is generated.";

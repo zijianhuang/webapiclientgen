@@ -81,7 +81,7 @@ export namespace DemoWebApi_DemoData_Client {
 	export function CreateCompanyFormGroup() {
 		return new FormGroup<CompanyFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
-			id: new FormControl<string | null | null | undefined>(undefined),
+			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined),
 			BusinessNum: new FormControl<string | null | undefined>(undefined),
@@ -143,7 +143,7 @@ export namespace DemoWebApi_DemoData_Client {
 
 		/** Max length: 255 */
 		emailAddress: FormControl<string | null | undefined>,
-		id: FormControl<string | null | null | undefined>,
+		id: FormControl<string | null | undefined>,
 
 		/**
 		 * Name of the entity.
@@ -157,7 +157,7 @@ export namespace DemoWebApi_DemoData_Client {
 	export function CreateEntityFormGroup() {
 		return new FormGroup<EntityFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
-			id: new FormControl<string | null | null | undefined>(undefined),
+			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined),
 		});
@@ -182,7 +182,7 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface IdMapFormProperties {
 		id: FormControl<string | null | undefined>,
 		idNotEmitDefaultValue: FormControl<string | null | undefined>,
-		nullableId: FormControl<string | null | null | undefined>,
+		nullableId: FormControl<string | null | undefined>,
 		requiredName: FormControl<string | null | undefined>,
 		text: FormControl<string | null | undefined>,
 	}
@@ -190,7 +190,7 @@ export namespace DemoWebApi_DemoData_Client {
 		return new FormGroup<IdMapFormProperties>({
 			id: new FormControl<string | null | undefined>(undefined),
 			idNotEmitDefaultValue: new FormControl<string | null | undefined>(undefined),
-			nullableId: new FormControl<string | null | null | undefined>(undefined),
+			nullableId: new FormControl<string | null | undefined>(undefined),
 			requiredName: new FormControl<string | null | undefined>(undefined),
 			text: new FormControl<string | null | undefined>(undefined),
 		});
@@ -226,8 +226,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
 		 */
 		kK2: FormControl<number | null | undefined>,
-		optionalEnum: FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | null | undefined>,
-		optionalInt: FormControl<number | null | null | undefined>,
+		optionalEnum: FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | undefined>,
+		optionalInt: FormControl<number | null | undefined>,
 		result: FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>,
 		tag: FormControl<string | null | undefined>,
 	}
@@ -235,8 +235,8 @@ export namespace DemoWebApi_DemoData_Client {
 		return new FormGroup<MimsPackageFormProperties>({
 			kk: new FormControl<number | null | undefined>(undefined, [Validators.max(100), Validators.min(10)]),
 			kK2: new FormControl<number | null | undefined>(undefined),
-			optionalEnum: new FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | null | undefined>(undefined),
-			optionalInt: new FormControl<number | null | null | undefined>(undefined),
+			optionalEnum: new FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | undefined>(undefined),
+			optionalInt: new FormControl<number | null | undefined>(undefined),
 			result: new FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>(undefined),
 			tag: new FormControl<string | null | undefined>(undefined),
 		});
@@ -294,24 +294,24 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
 
 		/** Data type: Date */
-		baptised: FormControl<Date | null | null | undefined>,
+		baptised: FormControl<Date | null | undefined>,
 
 		/**
 		 * Date of Birth.
 		 * This is optional.
 		 */
-		dob: FormControl<Date | null | null | undefined>,
+		dob: FormControl<Date | null | undefined>,
 		givenName: FormControl<string | null | undefined>,
 		surname: FormControl<string | null | undefined>,
 	}
 	export function CreatePersonFormGroup() {
 		return new FormGroup<PersonFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
-			id: new FormControl<string | null | null | undefined>(undefined),
+			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined),
-			baptised: new FormControl<Date | null | null | undefined>(undefined),
-			dob: new FormControl<Date | null | null | undefined>(undefined),
+			baptised: new FormControl<Date | null | undefined>(undefined),
+			dob: new FormControl<Date | null | undefined>(undefined),
 			givenName: new FormControl<string | null | undefined>(undefined),
 			surname: new FormControl<string | null | undefined>(undefined),
 		});
@@ -679,7 +679,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface HeroFormProperties {
-		death: FormControl<Date | null | null | undefined>,
+		death: FormControl<Date | null | undefined>,
 		dob: FormControl<Date | null | undefined>,
 		id: FormControl<number | null | undefined>,
 
@@ -691,7 +691,7 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 	export function CreateHeroFormGroup() {
 		return new FormGroup<HeroFormProperties>({
-			death: new FormControl<Date | null | null | undefined>(undefined),
+			death: new FormControl<Date | null | undefined>(undefined),
 			dob: new FormControl<Date | null | undefined>(undefined),
 			id: new FormControl<number | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
@@ -707,7 +707,7 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 	export function CreateSuperHeroFormGroup() {
 		return new FormGroup<SuperHeroFormProperties>({
-			death: new FormControl<Date | null | null | undefined>(undefined),
+			death: new FormControl<Date | null | undefined>(undefined),
 			dob: new FormControl<Date | null | undefined>(undefined),
 			id: new FormControl<number | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),

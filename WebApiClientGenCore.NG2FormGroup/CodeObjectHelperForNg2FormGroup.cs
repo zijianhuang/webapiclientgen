@@ -141,8 +141,25 @@ namespace Fonlow.TypeScriptCodeDom
 
 		string GetCodeMemberFieldTextForAngularFormControl(CodeMemberField codeMemberField)
 		{
+			var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
 			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
-			return $"{fieldName}: FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>";
+			return $"{fieldName}: FormControl<{tsTypeName}>";
+		}
+
+		string RefineAngularFormControlTypeName(CodeMemberField codeMemberField)
+		{
+			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
+			var alreadyNullable = tsTypeName.Contains("| null");
+			if (alreadyNullable)
+			{
+				tsTypeName += " | undefined";
+			}
+			else
+			{
+				tsTypeName += " | null | undefined";
+			}
+
+			return tsTypeName;
 		}
 
 		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
@@ -209,12 +226,14 @@ namespace Fonlow.TypeScriptCodeDom
 				Console.WriteLine();
 
 				var text = String.Join(", ", validatorList);
-				return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined)" :
-					$"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined, [{text}])";
+				var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+				return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{tsTypeName}>(undefined)" :
+					$"{fieldName}: new FormControl<{tsTypeName}>(undefined, [{text}])";
 			}
 			else
 			{
-				return $"{fieldName}: new FormControl<{GetCodeTypeReferenceText(codeMemberField.Type)} | null | undefined>(undefined)";
+				var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+				return $"{fieldName}: new FormControl<{tsTypeName}>(undefined)";
 			}
 		}
 

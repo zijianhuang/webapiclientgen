@@ -4,19 +4,19 @@ import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
-		city: string | null | undefined;
-		country: string | null | undefined;
-		id: string | null | undefined;
-		postalCode: string | null | undefined;
-		state: string | null | undefined;
-		street1: string | null | undefined;
-		street2: string | null | undefined;
-		type: DemoWebApi_DemoData_Client.AddressType | null | undefined;
+		city?: string | null;
+		country?: string | null;
+		id?: string | null;
+		postalCode?: string | null;
+		state?: string | null;
+		street1?: string | null;
+		street2?: string | null;
+		type?: DemoWebApi_DemoData_Client.AddressType | null;
 
 		/**
 		 * It is a field
 		 */
-		location: DemoWebApi_DemoData_Another_Client.MyPoint | null | undefined;
+		location?: DemoWebApi_DemoData_Another_Client.MyPoint | null;
 	}
 	export interface AddressFormProperties {
 		city: FormControl<string | null | undefined>,
@@ -55,16 +55,16 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
 		 */
-		BusinessNum: string | null | undefined;
-		businessNumberType: string | null | undefined;
+		BusinessNum?: string | null;
+		businessNumberType?: string | null;
 
 		/** Data type: Date */
-		foundDate: Date | null | undefined;
-		registerDate: Date | null | undefined;
-		textMatrix: Array<Array<string>> | null | undefined;
-		int2D: number[][] | null | undefined;
-		int2DJagged: Array<Array<number>> | null | undefined;
-		lines: Array<string> | null | undefined;
+		foundDate?: Date | null;
+		registerDate?: Date | null;
+		textMatrix?: Array<Array<string>> | null;
+		int2D?: number[][] | null;
+		int2DJagged?: Array<Array<number>> | null;
+		lines?: Array<string> | null;
 	}
 	export interface CompanyFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
 
@@ -115,11 +115,11 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * Multiple addresses
 		 */
-		addresses: Array<DemoWebApi_DemoData_Client.Address> | null | undefined;
+		addresses?: Array<DemoWebApi_DemoData_Client.Address> | null;
 
 		/** Max length: 255 */
-		emailAddress: string | null | undefined;
-		id: string | null | null | undefined;
+		emailAddress?: string | null;
+		id?: string | null;
 
 		/**
 		 * Name of the entity.
@@ -128,8 +128,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 * Max length: 255
 		 */
 		name: string;
-		phoneNumbers: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null | undefined;
-		web: string | null | undefined;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null;
+		web?: string | null;
 	}
 
 	/**
@@ -169,11 +169,11 @@ export namespace DemoWebApi_DemoData_Client {
 	 * To test different serializations against Guid
 	 */
 	export interface IdMap {
-		id: string | null | undefined;
-		idNotEmitDefaultValue: string | null | undefined;
-		nullableId: string | null | null | undefined;
+		id?: string | null;
+		idNotEmitDefaultValue?: string | null;
+		nullableId?: string | null;
 		requiredName: string;
-		text: string | null | undefined;
+		text?: string | null;
 	}
 
 	/**
@@ -204,17 +204,17 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface MimsPackage {
 
 		/** Range: inclusive between 10 and 100 */
-		kk: number | null | undefined;
+		kk?: number | null;
 
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
 		 */
-		kK2: number | null | undefined;
-		optionalEnum: DemoWebApi_DemoData_Client.MyEnumType | null | null | undefined;
-		optionalInt: number | null | null | undefined;
-		result: DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined;
-		tag: string | null | undefined;
+		kK2?: number | null;
+		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
+		optionalInt?: number | null;
+		result?: DemoWebApi_DemoData_Client.MimsResult<number> | null;
+		tag?: string | null;
 	}
 	export interface MimsPackageFormProperties {
 
@@ -244,25 +244,25 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface MimsResult<T> {
-		generatedAt: Date | null | undefined;
-		message: string | null | undefined;
-		result: T | null | undefined;
-		success: boolean | null | undefined;
+		generatedAt?: Date | null;
+		message?: string | null;
+		result?: T | null;
+		success?: boolean | null;
 	}
 
 	export enum MyEnumType { First = 1, Two = 2 }
 
 	export interface MyGeneric<T, K, U> {
-		myK: K | null | undefined;
-		myT: T | null | undefined;
-		myU: U | null | undefined;
-		status: string | null | undefined;
+		myK?: K | null;
+		myT?: T | null;
+		myU?: U | null;
+		status?: string | null;
 	}
 
 	export interface MyPeopleDic {
-		anotherDic: {[id: string]: string } | null | undefined;
-		dic: {[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined;
-		intDic: {[id: number]: string } | null | undefined;
+		anotherDic?: {[id: string]: string } | null;
+		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person } | null;
+		intDic?: {[id: number]: string } | null;
 	}
 	export interface MyPeopleDicFormProperties {
 		anotherDic: FormControl<{[id: string]: string } | null | undefined>,
@@ -281,15 +281,15 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface Person extends DemoWebApi_DemoData_Client.Entity {
 
 		/** Data type: Date */
-		baptised: Date | null | null | undefined;
+		baptised?: Date | null;
 
 		/**
 		 * Date of Birth.
 		 * This is optional.
 		 */
-		dob: Date | null | null | undefined;
-		givenName: string | null | undefined;
-		surname: string | null | undefined;
+		dob?: Date | null;
+		givenName?: string | null;
+		surname?: string | null;
 	}
 	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
 
@@ -321,8 +321,8 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface PhoneNumber {
 
 		/** Max length: 120 */
-		fullNumber: string | null | undefined;
-		phoneType: DemoWebApi_DemoData_Client.PhoneType | null | undefined;
+		fullNumber?: string | null;
+		phoneType?: DemoWebApi_DemoData_Client.PhoneType | null;
 	}
 	export interface PhoneNumberFormProperties {
 
@@ -411,7 +411,7 @@ export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
 
 		/** Required */
-		externalAccessToken: string | null | undefined;
+		externalAccessToken?: string | null;
 	}
 	export interface AddExternalLoginBindingModelFormProperties {
 
@@ -428,14 +428,14 @@ export namespace DemoWebApi_Models_Client {
 	export interface ChangePasswordBindingModel {
 
 		/** Data type: Password */
-		confirmPassword: string | null | undefined;
+		confirmPassword?: string | null;
 
 		/**
 		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword: string | null | undefined;
+		newPassword?: string | null;
 
 		/**
 		 * Required
@@ -473,17 +473,17 @@ export namespace DemoWebApi_Models_Client {
 	export interface RegisterBindingModel {
 
 		/** Data type: Password */
-		confirmPassword: string | null | undefined;
+		confirmPassword?: string | null;
 
 		/** Required */
-		email: string | null | undefined;
+		email?: string | null;
 
 		/**
 		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		password: string | null | undefined;
+		password?: string | null;
 	}
 	export interface RegisterBindingModelFormProperties {
 
@@ -512,7 +512,7 @@ export namespace DemoWebApi_Models_Client {
 	export interface RegisterExternalBindingModel {
 
 		/** Required */
-		email: string | null | undefined;
+		email?: string | null;
 	}
 	export interface RegisterExternalBindingModelFormProperties {
 
@@ -529,10 +529,10 @@ export namespace DemoWebApi_Models_Client {
 	export interface RemoveLoginBindingModel {
 
 		/** Required */
-		loginProvider: string | null | undefined;
+		loginProvider?: string | null;
 
 		/** Required */
-		providerKey: string | null | undefined;
+		providerKey?: string | null;
 	}
 	export interface RemoveLoginBindingModelFormProperties {
 
@@ -553,14 +553,14 @@ export namespace DemoWebApi_Models_Client {
 	export interface SetPasswordBindingModel {
 
 		/** Data type: Password */
-		confirmPassword: string | null | undefined;
+		confirmPassword?: string | null;
 
 		/**
 		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword: string | null | undefined;
+		newPassword?: string | null;
 	}
 	export interface SetPasswordBindingModelFormProperties {
 
@@ -587,12 +587,12 @@ export namespace DemoWebApi_Models_Client {
 	 * Auth token
 	 */
 	export interface TokenResponseModel {
-		access_token: string | null | undefined;
-		expires: string | null | undefined;
-		expires_in: number | null | undefined;
-		issued: string | null | undefined;
-		token_type: string | null | undefined;
-		username: string | null | undefined;
+		access_token?: string | null;
+		expires?: string | null;
+		expires_in?: number | null;
+		issued?: string | null;
+		token_type?: string | null;
+		username?: string | null;
 	}
 
 	/**
@@ -630,12 +630,12 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Gets or sets the local path of the file saved on the server.
 		 */
-		fileNames: Array<string> | null | undefined;
+		fileNames?: Array<string> | null;
 
 		/**
 		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
 		 */
-		submitter: string | null | undefined;
+		submitter?: string | null;
 	}
 
 	/**
@@ -664,15 +664,15 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface Hero {
-		death: Date | null | null | undefined;
-		dob: Date | null | undefined;
-		id: number | null | undefined;
+		death?: Date | null;
+		dob?: Date | null;
+		id?: number | null;
 
 		/**
 		 * Required
 		 * String length: inclusive between 2 and 120
 		 */
-		name: string | null | undefined;
+		name?: string | null;
 	}
 
 	/**
@@ -700,7 +700,7 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
-		super: boolean | null | undefined;
+		super?: boolean | null;
 	}
 	export interface SuperHeroFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
 		super: FormControl<boolean | null | undefined>,

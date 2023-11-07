@@ -953,9 +953,20 @@ namespace Fonlow.TypeScriptCodeDom
 
 		string GetCodeMemberFieldText(CodeMemberField codeMemberField)
 		{
-			var isOptional = codeMemberField.Name.EndsWith("?");
-			var fieldName = isOptional ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
-			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type) + (isOptional ? " | null | undefined" : string.Empty);
+			var isRequired = !codeMemberField.Name.EndsWith("?");
+			var fieldName = codeMemberField.Name;
+			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
+			var alreadyNullable = tsTypeName.Contains("| null");
+			if (isRequired)
+			{
+				return RefineNameAndType(fieldName, tsTypeName);
+			}
+
+			if (!alreadyNullable)
+			{
+				tsTypeName += " | null";
+			}
+
 			return RefineNameAndType(fieldName, tsTypeName);
 		}
 

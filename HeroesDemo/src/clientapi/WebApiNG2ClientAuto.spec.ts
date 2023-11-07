@@ -1,41 +1,40 @@
 import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { async, TestBed } from '@angular/core/testing';
-import * as namespaces from './WebApiCoreNg2ClientAuto';
+import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNG2FormGroupClientAuto';
 
 //const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
 const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb
 
-import DemoWebApi_DemoData_Client = namespaces.DemoWebApi_DemoData_Client;
 
 export function valuesClientFactory(http: HttpClient) {
-	return new namespaces.DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
+	return new DemoWebApi_Controllers_Client.Values(apiBaseUri, http);
 }
 
 export function heroesClientFactory(http: HttpClient) {
-	return new namespaces.DemoWebApi_Controllers_Client.Heroes(apiBaseUri, http);
+	return new DemoWebApi_Controllers_Client.Heroes(apiBaseUri, http);
 }
 
 export function entitiesClientFactory(http: HttpClient) {
-	return new namespaces.DemoWebApi_Controllers_Client.Entities(apiBaseUri, http);
+	return new DemoWebApi_Controllers_Client.Entities(apiBaseUri, http);
 }
 
 export function superDemoClientFactory(http: HttpClient) {
-	return new namespaces.DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri, http);
+	return new DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri, http);
 }
 export function dateTypesClientFactory(http: HttpClient) {
-	return new namespaces.DemoWebApi_Controllers_Client.DateTypes(apiBaseUri, http);
+	return new DemoWebApi_Controllers_Client.DateTypes(apiBaseUri, http);
 }
 
 export function tupleClientFactory(http: HttpClient) {
-	return new namespaces.DemoWebApi_Controllers_Client.Tuple(apiBaseUri, http);
+	return new DemoWebApi_Controllers_Client.Tuple(apiBaseUri, http);
 }
 
 export function stringDataClientFactory(http: HttpClient) {
-	return new namespaces.DemoWebApi_Controllers_Client.StringData(apiBaseUri, http);
+	return new DemoWebApi_Controllers_Client.StringData(apiBaseUri, http);
 }
 
 export function textDataClientFactory(http: HttpClient) {
-	return new namespaces.DemoWebApi_Controllers_Client.TextData(apiBaseUri, http);
+	return new DemoWebApi_Controllers_Client.TextData(apiBaseUri, http);
 }
 
 
@@ -78,7 +77,7 @@ export function errorResponseBodyToString(error: HttpErrorResponse | any,): stri
 
 
 describe('Values API', () => {
-	let service: namespaces.DemoWebApi_Controllers_Client.Values;
+	let service: DemoWebApi_Controllers_Client.Values;
 
 	beforeEach(async(() => {
 
@@ -86,7 +85,7 @@ describe('Values API', () => {
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.Values,
+					provide: DemoWebApi_Controllers_Client.Values,
 					useFactory: valuesClientFactory,
 					deps: [HttpClient],
 
@@ -95,7 +94,7 @@ describe('Values API', () => {
 			]
 		});
 
-		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Values);
+		service = TestBed.get(DemoWebApi_Controllers_Client.Values);
 	}));
 
 	afterEach(function () {
@@ -182,14 +181,14 @@ describe('Values API', () => {
 
 
 describe('Heroes API', () => {
-	let service: namespaces.DemoWebApi_Controllers_Client.Heroes;
+	let service: DemoWebApi_Controllers_Client.Heroes;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.Heroes,
+					provide: DemoWebApi_Controllers_Client.Heroes,
 					useFactory: heroesClientFactory,
 					deps: [HttpClient],
 
@@ -198,7 +197,7 @@ describe('Heroes API', () => {
 			]
 		});
 
-		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Heroes);
+		service = TestBed.get(DemoWebApi_Controllers_Client.Heroes);
 	}));
 
 	it('getAll', (done) => {
@@ -285,7 +284,7 @@ describe('Heroes API', () => {
 });
 
 describe('entities API', () => {
-	let client: namespaces.DemoWebApi_Controllers_Client.Entities;
+	let client: DemoWebApi_Controllers_Client.Entities;
 
 	beforeEach(async(() => {
 
@@ -293,7 +292,7 @@ describe('entities API', () => {
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.Entities,
+					provide: DemoWebApi_Controllers_Client.Entities,
 					useFactory: entitiesClientFactory,
 					deps: [HttpClient],
 				},
@@ -301,12 +300,12 @@ describe('entities API', () => {
 			]
 		});
 
-		client = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Entities);
+		client = TestBed.get(DemoWebApi_Controllers_Client.Entities);
 	}));
 
 	it('add', (done) => {
 		let id: number | null;
-		const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
+		const newPerson: DemoWebApi_DemoData_Client.Person = {
 			name: 'John Smith' + Date.now().toString(),
 			givenName: 'John',
 			surname: 'Smith',
@@ -331,7 +330,7 @@ describe('entities API', () => {
 	);
 
 	it('addWithHeadersHandling', (done) => {
-		const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
+		const newPerson: DemoWebApi_DemoData_Client.Person = {
 			name: 'John Smith' + Date.now().toString(),
 			givenName: 'John',
 			surname: 'Smith',
@@ -359,7 +358,7 @@ describe('entities API', () => {
 	);
 
 	it('mimsString', (done) => {
-		const c: namespaces.DemoWebApi_DemoData_Client.MimsPackage = {
+		const c: DemoWebApi_DemoData_Client.MimsPackage = {
 			tag: 'Hello',
 			result: {
 				result: 123.45
@@ -383,14 +382,14 @@ describe('entities API', () => {
 	);
 
 	it('myGenericPerson', (done) => {
-		const newPerson: namespaces.DemoWebApi_DemoData_Client.Person = {
+		const newPerson: DemoWebApi_DemoData_Client.Person = {
 			name: 'John Smith',
 			givenName: 'John',
 			surname: 'Smith',
 			dob: new Date('1977-12-28')
 		};
 
-		const c: namespaces.DemoWebApi_DemoData_Client.MyGeneric<string, number, namespaces.DemoWebApi_DemoData_Client.Person> = {
+		const c: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person> = {
 			myK: 123.456,
 			myT: 'abc',
 			myU: newPerson,
@@ -429,14 +428,14 @@ describe('entities API', () => {
 });
 
 describe('DateTypes API', () => {
-	let service: namespaces.DemoWebApi_Controllers_Client.DateTypes;
+	let service: DemoWebApi_Controllers_Client.DateTypes;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.DateTypes,
+					provide: DemoWebApi_Controllers_Client.DateTypes,
 					useFactory: dateTypesClientFactory,
 					deps: [HttpClient],
 
@@ -445,7 +444,7 @@ describe('DateTypes API', () => {
 			]
 		});
 
-		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.DateTypes);
+		service = TestBed.get(DemoWebApi_Controllers_Client.DateTypes);
 	}));
 
 
@@ -979,14 +978,14 @@ describe('DateTypes API', () => {
 });
 
 describe('SuperDemo API', () => {
-	let service: namespaces.DemoWebApi_Controllers_Client.SuperDemo;
+	let service: DemoWebApi_Controllers_Client.SuperDemo;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.SuperDemo,
+					provide: DemoWebApi_Controllers_Client.SuperDemo,
 					useFactory: superDemoClientFactory,
 					deps: [HttpClient],
 
@@ -995,7 +994,7 @@ describe('SuperDemo API', () => {
 			]
 		});
 
-		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.SuperDemo);
+		service = TestBed.get(DemoWebApi_Controllers_Client.SuperDemo);
 	}));
 
 	it('getBool', (done) => {
@@ -1684,7 +1683,7 @@ describe('SuperDemo API', () => {
 });
 
 describe('Tuple API', () => {
-	let service: namespaces.DemoWebApi_Controllers_Client.Tuple;
+	let service: DemoWebApi_Controllers_Client.Tuple;
 
 	beforeEach(async(() => {
 
@@ -1692,7 +1691,7 @@ describe('Tuple API', () => {
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.Tuple,
+					provide: DemoWebApi_Controllers_Client.Tuple,
 					useFactory: tupleClientFactory,
 					deps: [HttpClient],
 
@@ -1701,7 +1700,7 @@ describe('Tuple API', () => {
 			]
 		});
 
-		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.Tuple);
+		service = TestBed.get(DemoWebApi_Controllers_Client.Tuple);
 	}));
 
 	afterEach(function () {
@@ -1840,7 +1839,7 @@ describe('Tuple API', () => {
 });
 
 describe('StringData API', () => {
-	let service: namespaces.DemoWebApi_Controllers_Client.StringData;
+	let service: DemoWebApi_Controllers_Client.StringData;
 
 	beforeEach(async(() => {
 
@@ -1848,7 +1847,7 @@ describe('StringData API', () => {
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.StringData,
+					provide: DemoWebApi_Controllers_Client.StringData,
 					useFactory: stringDataClientFactory,
 					deps: [HttpClient],
 
@@ -1857,7 +1856,7 @@ describe('StringData API', () => {
 			]
 		});
 
-		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.StringData);
+		service = TestBed.get(DemoWebApi_Controllers_Client.StringData);
 	}));
 
 	afterEach(function () {
@@ -2022,7 +2021,7 @@ describe('StringData API', () => {
 });
 
 describe('TextData API', () => {
-	let service: namespaces.DemoWebApi_Controllers_Client.TextData;
+	let service: DemoWebApi_Controllers_Client.TextData;
 
 	beforeEach(async(() => {
 
@@ -2030,7 +2029,7 @@ describe('TextData API', () => {
 			imports: [HttpClientModule],
 			providers: [
 				{
-					provide: namespaces.DemoWebApi_Controllers_Client.TextData,
+					provide: DemoWebApi_Controllers_Client.TextData,
 					useFactory: textDataClientFactory,
 					deps: [HttpClient],
 
@@ -2039,7 +2038,7 @@ describe('TextData API', () => {
 			]
 		});
 
-		service = TestBed.get(namespaces.DemoWebApi_Controllers_Client.TextData);
+		service = TestBed.get(DemoWebApi_Controllers_Client.TextData);
 	}));
 
 	afterEach(function () {

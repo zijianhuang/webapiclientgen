@@ -31,7 +31,6 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * It is a field
 		 */
-		location: FormControl<DemoWebApi_DemoData_Another_Client.MyPoint | null | undefined>,
 	}
 	export function CreateAddressFormGroup() {
 		return new FormGroup<AddressFormProperties>({
@@ -43,14 +42,13 @@ export namespace DemoWebApi_DemoData_Client {
 			street1: new FormControl<string | null | undefined>(undefined),
 			street2: new FormControl<string | null | undefined>(undefined),
 			type: new FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>(undefined),
-			location: new FormControl<DemoWebApi_DemoData_Another_Client.MyPoint | null | undefined>(undefined),
 		});
 
 	}
 
 	export enum AddressType { Postal, Residential }
 
-	export interface Company extends DemoWebApi_DemoData_Client.Entity {
+	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
@@ -66,7 +64,7 @@ export namespace DemoWebApi_DemoData_Client {
 		int2DJagged?: Array<Array<number>> | null;
 		lines?: Array<string> | null;
 	}
-	export interface CompanyFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
+	export interface CompanyFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
 
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
@@ -104,64 +102,6 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		Thu = 6,
 		Fri = 7
-	}
-
-
-	/**
-	 * Base class of company and person
-	 */
-	export interface Entity {
-
-		/**
-		 * Multiple addresses
-		 */
-		addresses?: Array<DemoWebApi_DemoData_Client.Address> | null;
-
-		/** Max length: 255 */
-		emailAddress?: string | null;
-		id?: string | null;
-
-		/**
-		 * Name of the entity.
-		 * Required
-		 * Min length: 2
-		 * Max length: 255
-		 */
-		name: string;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null;
-		web?: string | null;
-	}
-
-	/**
-	 * Base class of company and person
-	 */
-	export interface EntityFormProperties {
-
-		/**
-		 * Multiple addresses
-		 */
-
-		/** Max length: 255 */
-		emailAddress: FormControl<string | null | undefined>,
-		id: FormControl<string | null | undefined>,
-
-		/**
-		 * Name of the entity.
-		 * Required
-		 * Min length: 2
-		 * Max length: 255
-		 */
-		name: FormControl<string | null | undefined>,
-		web: FormControl<string | null | undefined>,
-	}
-	export function CreateEntityFormGroup() {
-		return new FormGroup<EntityFormProperties>({
-			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
-			id: new FormControl<string | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			web: new FormControl<string | null | undefined>(undefined),
-		});
-
 	}
 
 
@@ -278,7 +218,7 @@ export namespace DemoWebApi_DemoData_Client {
 
 	}
 
-	export interface Person extends DemoWebApi_DemoData_Client.Entity {
+	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/** Data type: Date */
 		baptised?: Date | null;
@@ -291,7 +231,7 @@ export namespace DemoWebApi_DemoData_Client {
 		givenName?: string | null;
 		surname?: string | null;
 	}
-	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
+	export interface PersonFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
 
 		/** Data type: Date */
 		baptised: FormControl<Date | null | undefined>,
@@ -401,6 +341,67 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		return new FormGroup<MyPointFormProperties>({
 			x: new FormControl<number | null | undefined>(undefined),
 			y: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+}
+
+export namespace DemoWebApi_DemoData_Base_Client {
+
+	/**
+	 * Base class of company and person
+	 */
+	export interface Entity {
+
+		/**
+		 * Multiple addresses
+		 */
+		addresses?: Array<DemoWebApi_DemoData_Client.Address> | null;
+
+		/** Max length: 255 */
+		emailAddress?: string | null;
+		id?: string | null;
+
+		/**
+		 * Name of the entity.
+		 * Required
+		 * Min length: 2
+		 * Max length: 255
+		 */
+		name: string;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null;
+		web?: string | null;
+	}
+
+	/**
+	 * Base class of company and person
+	 */
+	export interface EntityFormProperties {
+
+		/**
+		 * Multiple addresses
+		 */
+
+		/** Max length: 255 */
+		emailAddress: FormControl<string | null | undefined>,
+		id: FormControl<string | null | undefined>,
+
+		/**
+		 * Name of the entity.
+		 * Required
+		 * Min length: 2
+		 * Max length: 255
+		 */
+		name: FormControl<string | null | undefined>,
+		web: FormControl<string | null | undefined>,
+	}
+	export function CreateEntityFormGroup() {
+		return new FormGroup<EntityFormProperties>({
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
+			id: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			web: new FormControl<string | null | undefined>(undefined),
 		});
 
 	}

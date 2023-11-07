@@ -20,7 +20,7 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export enum AddressType { Postal, Residential }
 
-	export interface Company extends DemoWebApi_DemoData_Client.Entity {
+	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
@@ -49,32 +49,6 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		Thu = 6,
 		Fri = 7
-	}
-
-
-	/**
-	 * Base class of company and person
-	 */
-	export interface Entity {
-
-		/**
-		 * Multiple addresses
-		 */
-		addresses?: Array<DemoWebApi_DemoData_Client.Address> | null;
-
-		/** Max length: 255 */
-		emailAddress?: string | null;
-		id?: string | null;
-
-		/**
-		 * Name of the entity.
-		 * Required
-		 * Min length: 2
-		 * Max length: 255
-		 */
-		name: string;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null;
-		web?: string | null;
 	}
 
 
@@ -131,7 +105,7 @@ export namespace DemoWebApi_DemoData_Client {
 		intDic?: {[id: number]: string } | null;
 	}
 
-	export interface Person extends DemoWebApi_DemoData_Client.Entity {
+	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/** Data type: Date */
 		baptised?: Date | null;
@@ -192,6 +166,35 @@ export namespace DemoWebApi_DemoData_Another_Client {
 		 * Y
 		 */
 		y: number;
+	}
+
+}
+
+export namespace DemoWebApi_DemoData_Base_Client {
+
+	/**
+	 * Base class of company and person
+	 */
+	export interface Entity {
+
+		/**
+		 * Multiple addresses
+		 */
+		addresses?: Array<DemoWebApi_DemoData_Client.Address> | null;
+
+		/** Max length: 255 */
+		emailAddress?: string | null;
+		id?: string | null;
+
+		/**
+		 * Name of the entity.
+		 * Required
+		 * Min length: 2
+		 * Max length: 255
+		 */
+		name: string;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null;
+		web?: string | null;
 	}
 
 }

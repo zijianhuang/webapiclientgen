@@ -14,8 +14,11 @@ namespace Fonlow.TypeScriptCodeDom
 	{
 		CodeNamespace currentCodeNamespace;
 
-		public CodeObjectHelperForNg2FormGroup() : base(true)
+		readonly CodeNamespaceCollection codeNamespaceCollection;
+
+		public CodeObjectHelperForNg2FormGroup(CodeNamespaceCollection codeNamespaceCollection) : base(true)
 		{
+			this.codeNamespaceCollection = codeNamespaceCollection;
 		}
 
 		#region public GenerateCodeFromXXX
@@ -58,7 +61,17 @@ namespace Fonlow.TypeScriptCodeDom
 		CodeTypeDeclaration FindCodeTypeDeclaration(string tName)
 		{
 			//Console.WriteLine("All TypeDeclarations: " + string.Join("; ", currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().Select(d=>d.Name)));
-			return currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().ToList().Find(t=>currentCodeNamespace.Name + "." + t.Name== tName);
+			for (int i = 0; i < codeNamespaceCollection.Count; i++)
+			{
+				var ns = codeNamespaceCollection[i];
+				var found = ns.Types.OfType<CodeTypeDeclaration>().ToList().Find(t => ns.Name + "." + t.Name == tName);
+				if (found != null)
+				{
+					return found;
+				}
+			}
+
+			return null;
 		}
 
 		/// <summary>

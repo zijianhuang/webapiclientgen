@@ -4,6 +4,54 @@ using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using DemoWebApi.DemoData.Base;
+
+namespace DemoWebApi.DemoData.Base
+{
+	/// <summary>
+	/// Base class of company and person
+	/// </summary>
+	[DataContract(Namespace = Constants.DataNamespace)]
+	public class Entity
+	{
+		public Entity()
+		{
+			Addresses = new List<Address>();
+		}
+
+		[DataMember]
+		public Guid? Id { get; set; }
+
+		/// <summary>
+		/// Name of the entity.
+		/// </summary>
+		[DataMember(IsRequired = true)]//MVC and Web API does not care
+		[System.ComponentModel.DataAnnotations.Required]//MVC and Web API care about only this
+		[MinLength(2), MaxLength(255)]
+		public string Name { get; set; }
+
+		/// <summary>
+		/// Multiple addresses
+		/// </summary>
+		[DataMember]
+		public IList<Address> Addresses { get; set; }
+
+
+		[DataMember]
+		public virtual ObservableCollection<PhoneNumber> PhoneNumbers { get; set; }
+
+		public override string ToString()
+		{
+			return Name;
+		}
+
+		[DataMember]
+		public Uri Web { get; set; }
+
+		[DataMember, EmailAddress, MaxLength(255)]
+		public string EmailAddress { get; set; }
+	}
+}
 
 namespace DemoWebApi.DemoData
 {
@@ -141,50 +189,6 @@ namespace DemoWebApi.DemoData
 		/// </summary>
 		[DataMember]
 		public DemoWebApi.DemoData.Another.MyPoint Location;
-	}
-
-	/// <summary>
-	/// Base class of company and person
-	/// </summary>
-	[DataContract(Namespace = Constants.DataNamespace)]
-	public class Entity
-	{
-		public Entity()
-		{
-			Addresses = new List<Address>();
-		}
-
-		[DataMember]
-		public Guid? Id { get; set; }
-
-		/// <summary>
-		/// Name of the entity.
-		/// </summary>
-		[DataMember(IsRequired =true)]//MVC and Web API does not care
-		[System.ComponentModel.DataAnnotations.Required]//MVC and Web API care about only this
-		[MinLength(2), MaxLength(255)]
-		public string Name { get; set; }
-
-		/// <summary>
-		/// Multiple addresses
-		/// </summary>
-		[DataMember]
-		public IList<Address> Addresses { get; set; }
-
-
-		[DataMember]
-		public virtual ObservableCollection<PhoneNumber> PhoneNumbers { get; set; }
-
-		public override string ToString()
-		{
-			return Name;
-		}
-
-		[DataMember]
-		public Uri Web { get; set; }
-
-		[DataMember, EmailAddress, MaxLength(255)]
-		public string EmailAddress { get; set; }
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]

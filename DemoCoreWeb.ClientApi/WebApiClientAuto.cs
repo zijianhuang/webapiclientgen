@@ -63,7 +63,7 @@ namespace DemoWebApi.DemoData.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
-	public class Company : DemoWebApi.DemoData.Client.Entity
+	public class Company : DemoWebApi.DemoData.Base.Client.Entity
 	{
 		
 		/// <summary>
@@ -126,49 +126,6 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.EnumMember()]
 		Fri = 7,
-	}
-	
-	/// <summary>
-	/// Base class of company and person
-	/// </summary>
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class Entity : object
-	{
-		
-		/// <summary>
-		/// Multiple addresses
-		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
-		
-		/// <summary>
-		/// Max length: 255
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.MaxLength(255)]
-		[System.Runtime.Serialization.DataMember()]
-		public string EmailAddress { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.Guid> Id { get; set; }
-		
-		/// <summary>
-		/// Name of the entity.
-		/// Required
-		/// Min length: 2
-		/// Max length: 255
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		[System.ComponentModel.DataAnnotations.MinLength(2)]
-		[System.ComponentModel.DataAnnotations.MaxLength(255)]
-		[System.Runtime.Serialization.DataMember(IsRequired =true)]
-		public string Name { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Uri Web { get; set; }
 	}
 	
 	/// <summary>
@@ -328,7 +285,7 @@ namespace DemoWebApi.DemoData.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
-	public class Person : DemoWebApi.DemoData.Client.Entity
+	public class Person : DemoWebApi.DemoData.Base.Client.Entity
 	{
 		
 		/// <summary>
@@ -420,6 +377,53 @@ namespace DemoWebApi.DemoData.Another.Client
 		/// Y
 		/// </summary>
 		public double Y;
+	}
+}
+namespace DemoWebApi.DemoData.Base.Client
+{
+	
+	
+	/// <summary>
+	/// Base class of company and person
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Entity : object
+	{
+		
+		/// <summary>
+		/// Multiple addresses
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
+		
+		/// <summary>
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		[System.Runtime.Serialization.DataMember()]
+		public string EmailAddress { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.Guid> Id { get; set; }
+		
+		/// <summary>
+		/// Name of the entity.
+		/// Required
+		/// Min length: 2
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.MinLength(2)]
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public string Name { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Uri Web { get; set; }
 	}
 }
 namespace DemoWebApi.Models.Client

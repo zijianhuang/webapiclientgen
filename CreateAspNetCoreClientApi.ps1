@@ -32,12 +32,9 @@ catch {
 }
 
 #Step 3: Compile generated TS codes to JS for jQuery. https://www.typescriptlang.org/docs/handbook/compiler-options.html
-$procTscArgs = @{
-    FilePath         = "node"
-    ArgumentList     = "`"C:\Program Files (x86)\Microsoft SDKs\TypeScript\3.8\tsc.js`" --target es2015 $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreJQClientAuto.ts"
-    PassThru         = $true
-    
-}
-$processTsc = Start-Process @procTscArgs
+# make sure TS compiler is installed through npm install -g typescript, then tsc.ps1 is available in C:\Users\YourProfile\AppData\Roaming\npm
+Invoke-Expression "tsc.ps1 --target es2015 $PSScriptRoot\DemoCoreWeb\Scripts\ClientApi\WebApiCoreJQClientAuto.ts"
+Invoke-Expression "tsc.ps1 --target es2015 $PSScriptRoot\DemoCoreWeb\Scripts\tests\demo.tests.ts"
+Invoke-Expression "tsc.ps1 --target es2015 $PSScriptRoot\DemoCoreWeb\Scripts\tests\special.tests.ts"
 
 Stop-Process $process

@@ -533,7 +533,7 @@ describe("DateTypes API", () => {
       data => {
         const m1 = moment(data.item1);
         expect(m1.toDate()).toEqual(startDt);
-        expect(data.item2).toBeNull(); //OK with null rather than undefined
+        expect(data.item2).toBeUndefined(); //OK with null rather than undefined
         done();
       },
       error => {
@@ -551,7 +551,7 @@ describe("DateTypes API", () => {
     service.searchDateRange(undefined, endDt).then(
       data => {
         //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-        forDotNetCore ? expect(data.item1).toBeNull() : expect(data.item1).toBeUndefined();
+        forDotNetCore ? expect(data.item1).toBeUndefined() : expect(data.item1).toBeUndefined();
         const m = moment(data.item2);
         expect(m.toDate().getHours()).toEqual(endDt.getHours());
         done();
@@ -575,8 +575,8 @@ describe("DateTypes API", () => {
     let endDt = new Date(Date.now() + 100000);
     service.searchDateRange(null, undefined).then(
       data => {
-        expect(data.item1).toBeNull();
-        expect(data.item1).toBeNull();
+        expect(data.item1).toBeUndefined();
+        expect(data.item2).toBeUndefined();
         done();
       },
       error => {

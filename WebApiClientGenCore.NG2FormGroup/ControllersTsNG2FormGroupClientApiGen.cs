@@ -1,13 +1,12 @@
 ﻿using Fonlow.TypeScriptCodeDom;
-using System.CodeDom;
-using System.IO;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
 	/// <summary>
 	/// Generate Angular 2 TypeScript codes of the client API of the controllers
 	/// </summary>
-	public class ControllersTsNG2FormGroupClientApiGen : ControllersTsClientApiGenBase
+	public class ControllersTsNG2FormGroupClientApiGen : ControllersTsNG2ClientApiGen
+
 	{
 		/// <summary>
 		/// 
@@ -25,7 +24,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeObjectHelper CreateCodeObjectHelper(bool asModule)
 		{
-			return new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(TargetUnit.Namespaces);
+			return new CodeObjectHelperForNg2FormGroup(TargetUnit.Namespaces);
 		}
 
 		protected override void AddBasicReferences()
@@ -34,32 +33,6 @@ namespace Fonlow.CodeDom.Web.Ts
 			TargetUnit.ReferencedAssemblies.Add("import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';");
 			TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs';");
 			TargetUnit.ReferencedAssemblies.Add("import { FormControl, FormGroup, Validators } from '@angular/forms';");
-		}
-
-
-		protected override void AddConstructor(CodeTypeDeclaration targetClass)
-		{
-			CodeConstructor constructor = new CodeConstructor
-			{
-				Attributes = MemberAttributes.Public | MemberAttributes.Final
-			};
-
-			// Add parameters.
-			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/'", "@Inject('baseUri') private baseUri"));
-			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				"HttpClient", "private http"));
-
-			targetClass.Members.Add(constructor);
-		}
-
-		/// <summary>
-		/// return @Injectable()
-		/// </summary>
-		/// <returns></returns>
-		protected override CodeAttributeDeclarationCollection CreateClassCustomAttributes()
-		{
-			return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration("Injectable") });
 		}
 	}
 

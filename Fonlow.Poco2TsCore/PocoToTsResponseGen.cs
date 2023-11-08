@@ -10,7 +10,7 @@ namespace Fonlow.Poco2Ts
 	public class PocoToTsResponseGen : Poco2TsGen
 	{
 		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper=null) 
-			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new TypeScriptCodeDom.CodeObjectHelper(true))
+			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true))
 		{
 
 		}

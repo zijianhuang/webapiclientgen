@@ -2,65 +2,36 @@
 ///<reference path="HttpClient.ts" />
 namespace DemoWebApi_DemoData_Client {
 	export interface Address {
-		city?: string;
-		country?: string;
-		id?: string;
-		postalCode?: string;
-		state?: string;
-		street1?: string;
-		street2?: string;
-		type?: DemoWebApi_DemoData_Client.AddressType;
+		city?: string | null;
+		country?: string | null;
+		id?: string | null;
+		postalCode?: string | null;
+		state?: string | null;
+		street1?: string | null;
+		street2?: string | null;
+		type?: DemoWebApi_DemoData_Client.AddressType | null;
 
 		/**
 		 * It is a field
 		 */
-		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
-	}
-	export interface AddressFormProperties {
-		city: FormControl<string | null | undefined>,
-		country: FormControl<string | null | undefined>,
-		id: FormControl<string | null | undefined>,
-		postalCode: FormControl<string | null | undefined>,
-		state: FormControl<string | null | undefined>,
-		street1: FormControl<string | null | undefined>,
-		street2: FormControl<string | null | undefined>,
-		type: FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>,
-
-		/**
-		 * It is a field
-		 */
-		location: FormControl<DemoWebApi_DemoData_Another_Client.MyPoint | null | undefined>,
+		location?: DemoWebApi_DemoData_Another_Client.MyPoint | null;
 	}
 
 	export enum AddressType { Postal, Residential }
 
-	export interface Company extends DemoWebApi_DemoData_Client.Entity {
+	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
 		 */
-		BusinessNum?: string;
-		businessNumberType?: string;
-		foundDate?: Date;
-		registerDate?: Date;
-		textMatrix?: Array<Array<string>>;
-		int2D?: number[][];
-		int2DJagged?: Array<Array<number>>;
-		lines?: Array<string>;
-	}
-	export interface CompanyFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
-
-		/**
-		 * BusinessNumber to be serialized as BusinessNum
-		 */
-		BusinessNum: FormControl<string | null | undefined>,
-		businessNumberType: FormControl<string | null | undefined>,
-		foundDate: FormControl<Date | null | undefined>,
-		registerDate: FormControl<Date | null | undefined>,
-		textMatrix: FormControl<Array<Array<string>> | null | undefined>,
-		int2D: FormControl<number[][] | null | undefined>,
-		int2DJagged: FormControl<Array<Array<number>> | null | undefined>,
-		lines: FormControl<Array<string> | null | undefined>,
+		BusinessNum?: string | null;
+		businessNumberType?: string | null;
+		foundDate?: Date | null;
+		registerDate?: Date | null;
+		textMatrix?: Array<Array<string>> | null;
+		int2D?: number[][] | null;
+		int2DJagged?: Array<Array<number>> | null;
+		lines?: Array<string> | null;
 	}
 
 	export enum Days {
@@ -79,64 +50,14 @@ namespace DemoWebApi_DemoData_Client {
 
 
 	/**
-	 * Base class of company and person
-	 */
-	export interface Entity {
-
-		/**
-		 * Multiple addresses
-		 */
-		addresses?: Array<DemoWebApi_DemoData_Client.Address>;
-		id?: string;
-
-		/**
-		 * Name of the entity.
-		 */
-		name: string;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
-		web?: string;
-	}
-
-	/**
-	 * Base class of company and person
-	 */
-	export interface EntityFormProperties {
-
-		/**
-		 * Multiple addresses
-		 */
-		addresses: FormControl<Array<DemoWebApi_DemoData_Client.Address> | null | undefined>,
-		id: FormControl<string | null | undefined>,
-
-		/**
-		 * Name of the entity.
-		 */
-		name: FormControl<string | null | undefined>,
-		phoneNumbers: FormControl<Array<DemoWebApi_DemoData_Client.PhoneNumber> | null | undefined>,
-		web: FormControl<string | null | undefined>,
-	}
-
-
-	/**
 	 * To test different serializations against Guid
 	 */
 	export interface IdMap {
-		id?: string;
-		idNotEmitDefaultValue?: string;
-		nullableId?: string;
+		id?: string | null;
+		idNotEmitDefaultValue?: string | null;
+		nullableId?: string | null;
 		requiredName: string;
-		text?: string;
-	}
-
-	/**
-	 * To test different serializations against Guid
-	 */
-	export interface IdMapFormProperties {
-		id: FormControl<string | null | undefined>,
-		idNotEmitDefaultValue: FormControl<string | null | undefined>,
-		nullableId: FormControl<string | null | undefined>,
-		requiredName: FormControl<string | null | undefined>,
-		text: FormControl<string | null | undefined>,
+		text?: string | null;
 	}
 
 	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
@@ -144,101 +65,56 @@ namespace DemoWebApi_DemoData_Client {
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
 
 	export interface MimsPackage {
-		kk?: number;
+		kk?: number | null;
 
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
 		 */
-		kK2?: number;
-		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType;
-		optionalInt?: number;
-		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
-		tag?: string;
-	}
-	export interface MimsPackageFormProperties {
-		kk: FormControl<number | null | undefined>,
-
-		/**
-		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
-		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
-		 */
-		kK2: FormControl<number | null | undefined>,
-		optionalEnum: FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | undefined>,
-		optionalInt: FormControl<number | null | undefined>,
-		result: FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>,
-		tag: FormControl<string | null | undefined>,
+		kK2?: number | null;
+		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
+		optionalInt?: number | null;
+		result?: DemoWebApi_DemoData_Client.MimsResult<number> | null;
+		tag?: string | null;
 	}
 
 	export interface MimsResult<T> {
-		generatedAt?: Date;
-		message?: string;
-		result?: T;
-		success?: boolean;
-	}
-	export interface MimsResultFormProperties<T> {
-		generatedAt: FormControl<Date | null | undefined>,
-		message: FormControl<string | null | undefined>,
-		result: FormControl<T | null | undefined>,
-		success: FormControl<boolean | null | undefined>,
+		generatedAt?: Date | null;
+		message?: string | null;
+		result?: T | null;
+		success?: boolean | null;
 	}
 
 	export enum MyEnumType { First = 1, Two = 2 }
 
 	export interface MyGeneric<T, K, U> {
-		myK?: K;
-		myT?: T;
-		myU?: U;
-		status?: string;
-	}
-	export interface MyGenericFormProperties<T, K, U> {
-		myK: FormControl<K | null | undefined>,
-		myT: FormControl<T | null | undefined>,
-		myU: FormControl<U | null | undefined>,
-		status: FormControl<string | null | undefined>,
+		myK?: K | null;
+		myT?: T | null;
+		myU?: U | null;
+		status?: string | null;
 	}
 
 	export interface MyPeopleDic {
-		anotherDic?: {[id: string]: string };
-		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
-		intDic?: {[id: number]: string };
-	}
-	export interface MyPeopleDicFormProperties {
-		anotherDic: FormControl<{[id: string]: string } | null | undefined>,
-		dic: FormControl<{[id: string]: DemoWebApi_DemoData_Client.Person } | null | undefined>,
-		intDic: FormControl<{[id: number]: string } | null | undefined>,
+		anotherDic?: {[id: string]: string } | null;
+		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person } | null;
+		intDic?: {[id: number]: string } | null;
 	}
 
-	export interface Person extends DemoWebApi_DemoData_Client.Entity {
-		baptised?: Date;
+	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
+		baptised?: Date | null;
 
 		/**
 		 * Date of Birth.
 		 * This is optional.
 		 */
-		dob?: Date;
-		givenName?: string;
-		surname?: string;
-	}
-	export interface PersonFormProperties extends DemoWebApi_DemoData_Client.EntityFormProperties {
-		baptised: FormControl<Date | null | undefined>,
-
-		/**
-		 * Date of Birth.
-		 * This is optional.
-		 */
-		dob: FormControl<Date | null | undefined>,
-		givenName: FormControl<string | null | undefined>,
-		surname: FormControl<string | null | undefined>,
+		dob?: Date | null;
+		givenName?: string | null;
+		surname?: string | null;
 	}
 
 	export interface PhoneNumber {
-		fullNumber?: string;
-		phoneType?: DemoWebApi_DemoData_Client.PhoneType;
-	}
-	export interface PhoneNumberFormProperties {
-		fullNumber: FormControl<string | null | undefined>,
-		phoneType: FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>,
+		fullNumber?: string | null;
+		phoneType?: DemoWebApi_DemoData_Client.PhoneType | null;
 	}
 
 
@@ -283,79 +159,61 @@ namespace DemoWebApi_DemoData_Another_Client {
 		y: number;
 	}
 
+}
+
+namespace DemoWebApi_DemoData_Base_Client {
+
 	/**
-	 * 2D position
-	 * with X and Y
-	 * for Demo
+	 * Base class of company and person
 	 */
-	export interface MyPointFormProperties {
+	export interface Entity {
 
 		/**
-		 * X
+		 * Multiple addresses
 		 */
-		x: FormControl<number | null | undefined>,
+		addresses?: Array<DemoWebApi_DemoData_Client.Address> | null;
+		emailAddress?: string | null;
+		id?: string | null;
 
 		/**
-		 * Y
+		 * Name of the entity.
 		 */
-		y: FormControl<number | null | undefined>,
+		name: string;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null;
+		web?: string | null;
 	}
 
 }
 
 namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
-		externalAccessToken?: string;
-	}
-	export interface AddExternalLoginBindingModelFormProperties {
-		externalAccessToken: FormControl<string | null | undefined>,
+		externalAccessToken?: string | null;
 	}
 
 	export interface ChangePasswordBindingModel {
-		confirmPassword?: string;
-		newPassword?: string;
+		confirmPassword?: string | null;
+		newPassword?: string | null;
 		OldPwd: string;
-	}
-	export interface ChangePasswordBindingModelFormProperties {
-		confirmPassword: FormControl<string | null | undefined>,
-		newPassword: FormControl<string | null | undefined>,
-		OldPwd: FormControl<string | null | undefined>,
 	}
 
 	export interface RegisterBindingModel {
-		confirmPassword?: string;
-		email?: string;
-		password?: string;
-	}
-	export interface RegisterBindingModelFormProperties {
-		confirmPassword: FormControl<string | null | undefined>,
-		email: FormControl<string | null | undefined>,
-		password: FormControl<string | null | undefined>,
+		confirmPassword?: string | null;
+		email?: string | null;
+		password?: string | null;
 	}
 
 	export interface RegisterExternalBindingModel {
-		email?: string;
-	}
-	export interface RegisterExternalBindingModelFormProperties {
-		email: FormControl<string | null | undefined>,
+		email?: string | null;
 	}
 
 	export interface RemoveLoginBindingModel {
-		loginProvider?: string;
-		providerKey?: string;
-	}
-	export interface RemoveLoginBindingModelFormProperties {
-		loginProvider: FormControl<string | null | undefined>,
-		providerKey: FormControl<string | null | undefined>,
+		loginProvider?: string | null;
+		providerKey?: string | null;
 	}
 
 	export interface SetPasswordBindingModel {
-		confirmPassword?: string;
-		newPassword?: string;
-	}
-	export interface SetPasswordBindingModelFormProperties {
-		confirmPassword: FormControl<string | null | undefined>,
-		newPassword: FormControl<string | null | undefined>,
+		confirmPassword?: string | null;
+		newPassword?: string | null;
 	}
 
 
@@ -363,24 +221,12 @@ namespace DemoWebApi_Models_Client {
 	 * Auth token
 	 */
 	export interface TokenResponseModel {
-		access_token?: string;
-		expires?: string;
-		expires_in?: number;
-		issued?: string;
-		token_type?: string;
-		username?: string;
-	}
-
-	/**
-	 * Auth token
-	 */
-	export interface TokenResponseModelFormProperties {
-		access_token: FormControl<string | null | undefined>,
-		expires: FormControl<string | null | undefined>,
-		expires_in: FormControl<number | null | undefined>,
-		issued: FormControl<string | null | undefined>,
-		token_type: FormControl<string | null | undefined>,
-		username: FormControl<string | null | undefined>,
+		access_token?: string | null;
+		expires?: string | null;
+		expires_in?: number | null;
+		issued?: string | null;
+		token_type?: string | null;
+		username?: string | null;
 	}
 
 }
@@ -395,28 +241,12 @@ namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Gets or sets the local path of the file saved on the server.
 		 */
-		fileNames?: Array<string>;
+		fileNames?: Array<string> | null;
 
 		/**
 		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
 		 */
-		submitter?: string;
-	}
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResultFormProperties {
-
-		/**
-		 * Gets or sets the local path of the file saved on the server.
-		 */
-		fileNames: FormControl<Array<string> | null | undefined>,
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter: FormControl<string | null | undefined>,
+		submitter?: string | null;
 	}
 
 
@@ -424,27 +254,14 @@ namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface Hero {
-		death?: Date;
-		dob?: Date;
-		id?: number;
-		name?: string;
-	}
-
-	/**
-	 * Complex hero type
-	 */
-	export interface HeroFormProperties {
-		death: FormControl<Date | null | undefined>,
-		dob: FormControl<Date | null | undefined>,
-		id: FormControl<number | null | undefined>,
-		name: FormControl<string | null | undefined>,
+		death?: Date | null;
+		dob?: Date | null;
+		id?: number | null;
+		name?: string | null;
 	}
 
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
-		super?: boolean;
-	}
-	export interface SuperHeroFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
-		super: FormControl<boolean | null | undefined>,
+		super?: boolean | null;
 	}
 
 }

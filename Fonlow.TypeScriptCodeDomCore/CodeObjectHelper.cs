@@ -588,6 +588,12 @@ namespace Fonlow.TypeScriptCodeDom
 			o.IndentString = currentIndent;
 		}
 
+		/// <summary>
+		/// ctm could be CodeMemberField, CodeMemberProperty, CodeMemberMethod or CodeSnippetTypeMember
+		/// </summary>
+		/// <param name="ctm"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(ctm.Comments, w, o);
@@ -642,7 +648,10 @@ namespace Fonlow.TypeScriptCodeDom
 			var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>()
 				.Select(d =>
 				{
-					var s = $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}";
+					var isMethodParameter = (d.Type.UserData["IsMethodParameter"] as bool?).HasValue;
+					var typeText = TypeMapper.MapCodeTypeReferenceToTsText(d.Type);
+					var alreadyNullable = typeText.EndsWith("| null");
+					var s = $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}" + (isMethodParameter && !alreadyNullable ? " | null" : string.Empty);
 					Debug.WriteLine("vvvv " + s);
 					return s;
 				});
@@ -962,7 +971,7 @@ namespace Fonlow.TypeScriptCodeDom
 				return RefineNameAndType(fieldName, tsTypeName);
 			}
 
-			if (!alreadyNullable)
+			if (!alreadyNullable)  //todo: refine this after
 			{
 				tsTypeName += " | null";
 			}

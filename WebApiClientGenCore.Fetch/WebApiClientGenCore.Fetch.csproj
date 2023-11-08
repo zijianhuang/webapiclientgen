@@ -14,7 +14,7 @@
 		<Authors>Zijian Huang</Authors>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3.5</Version>
+		<Version>3.5.1</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 	</PropertyGroup>

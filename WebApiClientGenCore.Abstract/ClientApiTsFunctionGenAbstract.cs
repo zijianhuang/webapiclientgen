@@ -182,9 +182,13 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			var parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
-					 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name + (StrictMode ? "?" : String.Empty))
-				).ToArray();
+				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => {
+					var originalType = d.ParameterDescriptor.ParameterType;
+					var originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
+					originalCodeTypeReference.UserData.Add("IsMethodParameter", true); // so I can add | null later
+					//var refinedParameterType = TypeMapper.MapCodeTypeReferenceToTsText(originalCodeTypeReference);// + " | null";
+					return new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
+				}).ToArray();
 
 			Method.Parameters.AddRange(parameters);
 		}

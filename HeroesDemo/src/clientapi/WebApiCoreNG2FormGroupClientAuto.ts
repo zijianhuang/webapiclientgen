@@ -760,7 +760,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
-		postAnonymousObject(obj?: any | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+		postAnonymousObject(obj?: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 
@@ -768,7 +768,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * Async returning object, Post dynamic
 		 * POST api/SpecialTypes/AnonymousObject2
 		 */
-		postAnonymousObject2(obj?: any | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+		postAnonymousObject2(obj?: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 	}

@@ -427,7 +427,8 @@ namespace Fonlow.Poco2Ts
 				var genericTypeReferences = type.GenericTypeArguments.Select(d => TranslateToClientTypeReference(d)).ToArray();
 				Debug.Assert(genericTypeReferences.Length == 1);
 				var isNullablePrimitiveType = TypeHelper.IsNullablePrimitive(type);
-				var baseType = genericTypeReferences[0].BaseType + (helpStrictMode ? " | null" : String.Empty);
+				var isAny = genericTypeReferences[0].BaseType == "any";
+				var baseType = genericTypeReferences[0].BaseType + (helpStrictMode && !isAny ? " | null" : String.Empty);
 				genericTypeReferences[0].BaseType = baseType;
 				return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
 			}

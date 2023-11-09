@@ -12,8 +12,6 @@ namespace Fonlow.TypeScriptCodeDom
 	/// </summary>
 	public class CodeObjectHelperForNg2FormGroup : CodeObjectHelper
 	{
-		CodeNamespace currentCodeNamespace;
-
 		readonly CodeNamespaceCollection codeNamespaceCollection;
 
 		public CodeObjectHelperForNg2FormGroup(CodeNamespaceCollection codeNamespaceCollection) : base(true)
@@ -25,7 +23,6 @@ namespace Fonlow.TypeScriptCodeDom
 
 		public override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
-			currentCodeNamespace = e;
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
 			var refinedNamespaceText = e.Name.Replace('.', '_');
@@ -137,7 +134,6 @@ namespace Fonlow.TypeScriptCodeDom
 				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
 				var isGeneric = extendsExpression.Contains("<");
 				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
-				var extendsExpressionForNg = extendsExpression == String.Empty ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
 				var formGroupInterface = $"{name}FormProperties";
 				w.Write($"{o.IndentString}{accessModifier}function Create{name}FormGroup() {{");
 				w.WriteLine();
@@ -187,7 +183,6 @@ namespace Fonlow.TypeScriptCodeDom
 				for (int i = 0; i < customAttributes.Length; i++)
 				{
 					var ca = customAttributes[i];
-					var attributeType = ca.GetType();
 					var attributeName = ca.GetType().FullName;
 					Console.Write(attributeName + ", ");
 					switch (attributeName)
@@ -374,9 +369,6 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
 				return;
-
-			//if (WriteCodeMemberMethod(ctm as CodeMemberMethod, w, o))
-			//	return;
 
 			if (ctm is CodeSnippetTypeMember snippetTypeMember)
 			{

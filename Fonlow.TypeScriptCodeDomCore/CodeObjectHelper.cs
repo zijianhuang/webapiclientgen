@@ -651,7 +651,8 @@ namespace Fonlow.TypeScriptCodeDom
 					var isMethodParameter = (d.Type.UserData["IsMethodParameter"] as bool?).HasValue;
 					var typeText = TypeMapper.MapCodeTypeReferenceToTsText(d.Type);
 					var alreadyNullable = typeText.EndsWith("| null");
-					var s = $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}" + (isMethodParameter && !alreadyNullable ? " | null" : string.Empty);
+					var isAny = d.Type.BaseType == "any";
+					var s = $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}" + (isMethodParameter && !alreadyNullable && !isAny ? " | null" : string.Empty);
 					Debug.WriteLine("vvvv " + s);
 					return s;
 				});
@@ -964,6 +965,7 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			var isRequired = !codeMemberField.Name.EndsWith("?");
 			var fieldName = codeMemberField.Name;
+			var isAny = codeMemberField.Name == "any";
 			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
 			var alreadyNullable = tsTypeName.Contains("| null");
 			if (isRequired)
@@ -971,7 +973,7 @@ namespace Fonlow.TypeScriptCodeDom
 				return RefineNameAndType(fieldName, tsTypeName);
 			}
 
-			if (!alreadyNullable)  //todo: refine this after
+			if (!alreadyNullable && !isAny)  //todo: refine this after
 			{
 				tsTypeName += " | null";
 			}

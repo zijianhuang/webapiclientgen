@@ -306,7 +306,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		/**
 		 * POST api/SpecialTypes/AnonymousObject
 		 */
-		postAnonymousObject(obj: any | null, headersHandler?: () => {[header: string]: string}): Promise<AxiosResponse> {
+		postAnonymousObject(obj: any, headersHandler?: () => {[header: string]: string}): Promise<AxiosResponse> {
 			return Axios.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' });
 		}
 
@@ -314,7 +314,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * Async returning object, Post dynamic
 		 * POST api/SpecialTypes/AnonymousObject2
 		 */
-		postAnonymousObject2(obj: any | null, headersHandler?: () => {[header: string]: string}): Promise<AxiosResponse> {
+		postAnonymousObject2(obj: any, headersHandler?: () => {[header: string]: string}): Promise<AxiosResponse> {
 			return Axios.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' });
 		}
 	}

@@ -19,8 +19,12 @@ namespace Fonlow.TypeScriptCodeDom
 			this.codeNamespaceCollection = codeNamespaceCollection;
 		}
 
-		#region public GenerateCodeFromXXX
-
+		/// <summary>
+		/// Generate type declarations as interfaces, typed FormGroup declarations as interfaces, 
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		public override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
@@ -55,13 +59,18 @@ namespace Fonlow.TypeScriptCodeDom
 			w.WriteLine($"}}");
 		}
 
-		CodeTypeDeclaration FindCodeTypeDeclaration(string tName)
+		/// <summary>
+		/// Find CodeTypeDeclaration among namespaces in the CodeDOM.
+		/// </summary>
+		/// <param name="typeName">Type name including namespace.</param>
+		/// <returns></returns>
+		CodeTypeDeclaration FindCodeTypeDeclaration(string typeName)
 		{
 			//Console.WriteLine("All TypeDeclarations: " + string.Join("; ", currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().Select(d=>d.Name)));
 			for (int i = 0; i < codeNamespaceCollection.Count; i++)
 			{
 				var ns = codeNamespaceCollection[i];
-				var found = ns.Types.OfType<CodeTypeDeclaration>().ToList().Find(t => ns.Name + "." + t.Name == tName);
+				var found = ns.Types.OfType<CodeTypeDeclaration>().ToList().Find(t => ns.Name + "." + t.Name == typeName);
 				if (found != null)
 				{
 					return found;
@@ -72,7 +81,12 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 		/// <summary>
-		/// Generate TS interface for FormGroup
+		/// Generate TS interface for FormGroup, like:
+		/// 	export interface AddressFormProperties {
+		/// 	city: FormControl<string | null | undefined>,
+		/// 	country: FormControl<string | null | undefined>,
+		///		id: FormControl<string | null | undefined> 
+		///		}
 		/// </summary>
 		/// <param name="e"></param>
 		/// <param name="w"></param>
@@ -148,6 +162,12 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
+		/// <summary>
+		/// Return the text of a FormControl field, like:
+		/// dob : FormControl<Date>
+		/// </summary>
+		/// <param name="codeMemberField"></param>
+		/// <returns></returns>
 		string GetCodeMemberFieldTextForAngularFormControl(CodeMemberField codeMemberField)
 		{
 			var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
@@ -155,6 +175,11 @@ namespace Fonlow.TypeScriptCodeDom
 			return $"{fieldName}: FormControl<{tsTypeName}>";
 		}
 
+		/// <summary>
+		/// Refine the FormControl type of the FormGroup type interface, and add " | null | undefined".
+		/// </summary>
+		/// <param name="codeMemberField"></param>
+		/// <returns></returns>
 		string RefineAngularFormControlTypeName(CodeMemberField codeMemberField)
 		{
 			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
@@ -171,6 +196,11 @@ namespace Fonlow.TypeScriptCodeDom
 			return tsTypeName;
 		}
 
+		/// <summary>
+		/// For FormGroup creation, return something like "name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)])"
+		/// </summary>
+		/// <param name="codeMemberField"></param>
+		/// <returns>Text of FormControl creation.</returns>
 		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
 		{
 			var customAttributes = codeMemberField.UserData["CustomAttributes"] as Attribute[];
@@ -213,7 +243,7 @@ namespace Fonlow.TypeScriptCodeDom
 							break;
 						case "System.ComponentModel.DataAnnotations.StringLengthAttribute":
 							var ast = ca as System.ComponentModel.DataAnnotations.StringLengthAttribute;
-							if (ast.MaximumLength >0)
+							if (ast.MaximumLength > 0)
 							{
 								validatorList.Add($"Validators.maxLength({ast.MaximumLength})");
 							}
@@ -245,13 +275,6 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-		#endregion
-
-
-
-
-
-		#region WriteCodeXXXX
 
 		void WriteAngularFormTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{
@@ -292,7 +315,7 @@ namespace Fonlow.TypeScriptCodeDom
 				{
 					var parentTypeReference = typeDeclaration.BaseTypes[0];
 					var parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included
-					//Console.WriteLine("parentTypeName: " + parentTypeName);
+																									   //Console.WriteLine("parentTypeName: " + parentTypeName);
 					var parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
 					if (parentCodeTypeDeclaration != null)
 					{
@@ -313,6 +336,12 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ctm"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		void WriteCodeTypeMemberOfAngularForm(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(ctm.Comments, w, o);
@@ -337,9 +366,6 @@ namespace Fonlow.TypeScriptCodeDom
 			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
 				return;
 
-			//if (WriteCodeMemberMethod(ctm as CodeMemberMethod, w, o))
-			//	return;
-
 			if (ctm is CodeSnippetTypeMember snippetTypeMember)
 			{
 				w.WriteLine(snippetTypeMember.Text);
@@ -348,6 +374,12 @@ namespace Fonlow.TypeScriptCodeDom
 
 		}
 
+		/// <summary>
+		/// Write FormControl creation codes, for member fields of simple types. Complex types and array types are skipped.
+		/// </summary>
+		/// <param name="ctm"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		void WriteCodeTypeMemberOfAngularFormGroup(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (ctm is CodeMemberField codeMemberField)
@@ -357,7 +389,7 @@ namespace Fonlow.TypeScriptCodeDom
 				{
 					return; // is custom complex type
 				}
-				else if (codeMemberField.Type.ArrayRank>0)
+				else if (codeMemberField.Type.ArrayRank > 0)
 				{
 					return;
 				}
@@ -367,18 +399,15 @@ namespace Fonlow.TypeScriptCodeDom
 				return;
 			}
 
-			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
+			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o)) //todo: this may be redundant. Remove this later
 				return;
 
-			if (ctm is CodeSnippetTypeMember snippetTypeMember)
+			if (ctm is CodeSnippetTypeMember snippetTypeMember) //todo: this may be redundant. Remove this later
 			{
 				w.WriteLine(snippetTypeMember.Text);
 				return;
 			}
-
 		}
-
-		#endregion
 
 	}
 

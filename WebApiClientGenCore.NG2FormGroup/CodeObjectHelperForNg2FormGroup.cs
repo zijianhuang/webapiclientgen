@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -119,7 +120,7 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 			else
 			{
-				//do nothing.
+				throw new ArgumentException("Expect TypeOfType is interface if e is not enum", nameof(e));
 			}
 		}
 
@@ -135,8 +136,6 @@ namespace Fonlow.TypeScriptCodeDom
 			{
 				return;
 			}
-
-			//GenerateCodeFromAttributeDeclarationCollection(e.CustomAttributes, w, o);
 
 			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
 			var typeOfType = GetTypeOfType(e);
@@ -158,13 +157,13 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 			else
 			{
-				//do nothing.
+				throw new ArgumentException("Expect TypeOfType is interface if e is not enum", nameof(e));
 			}
 		}
 
 		/// <summary>
 		/// Return the text of a FormControl field, like:
-		/// dob : FormControl<Date>
+		/// dob : FormControl&lt;Date&gt;
 		/// </summary>
 		/// <param name="codeMemberField"></param>
 		/// <returns></returns>
@@ -197,7 +196,8 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 		/// <summary>
-		/// For FormGroup creation, return something like "name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)])"
+		/// For FormGroup creation, return something like:
+		/// "name: new FormControl&lt;string | null | undefined&gt;(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)])"
 		/// </summary>
 		/// <param name="codeMemberField"></param>
 		/// <returns>Text of FormControl creation.</returns>
@@ -344,8 +344,6 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="o"></param>
 		void WriteCodeTypeMemberOfAngularForm(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
 		{
-			WriteCodeCommentStatementCollection(ctm.Comments, w, o);
-
 			if (ctm is CodeMemberField codeMemberField)
 			{
 				var codeTypeDeclaration = FindCodeTypeDeclaration(codeMemberField.Type.BaseType);
@@ -358,20 +356,23 @@ namespace Fonlow.TypeScriptCodeDom
 					return;
 				}
 
+				WriteCodeCommentStatementCollection(ctm.Comments, w, o);
+
 				w.Write(o.IndentString);
 				w.WriteLine(GetCodeMemberFieldTextForAngularFormControl(codeMemberField) + ",");
 				return;
 			}
 
-			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
-				return;
+			//if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
+			//	return;
 
-			if (ctm is CodeSnippetTypeMember snippetTypeMember)
-			{
-				w.WriteLine(snippetTypeMember.Text);
-				return;
-			}
+			//if (ctm is CodeSnippetTypeMember snippetTypeMember)
+			//{
+			//	w.WriteLine(snippetTypeMember.Text);
+			//	return;
+			//}
 
+			throw new ArgumentException("Expect CodeMemberField", nameof(ctm));
 		}
 
 		/// <summary>
@@ -380,6 +381,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="ctm"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
+		/// <exception cref="ArgumentException">If ctm is not CodeMemberField.</exception>
 		void WriteCodeTypeMemberOfAngularFormGroup(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (ctm is CodeMemberField codeMemberField)
@@ -399,14 +401,9 @@ namespace Fonlow.TypeScriptCodeDom
 				return;
 			}
 
-			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o)) //todo: this may be redundant. Remove this later
-				return;
+			//CodeMemberProperty is not supported
 
-			if (ctm is CodeSnippetTypeMember snippetTypeMember) //todo: this may be redundant. Remove this later
-			{
-				w.WriteLine(snippetTypeMember.Text);
-				return;
-			}
+			throw new ArgumentException("Expect CodeMemberField", nameof(ctm));
 		}
 
 	}

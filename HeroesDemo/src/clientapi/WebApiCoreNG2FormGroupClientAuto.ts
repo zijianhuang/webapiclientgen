@@ -27,10 +27,6 @@ export namespace DemoWebApi_DemoData_Client {
 		street1: FormControl<string | null | undefined>,
 		street2: FormControl<string | null | undefined>,
 		type: FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>,
-
-		/**
-		 * It is a field
-		 */
 	}
 	export function CreateAddressFormGroup() {
 		return new FormGroup<AddressFormProperties>({
@@ -379,10 +375,6 @@ export namespace DemoWebApi_DemoData_Base_Client {
 	 */
 	export interface EntityFormProperties {
 
-		/**
-		 * Multiple addresses
-		 */
-
 		/** Max length: 255 */
 		emailAddress: FormControl<string | null | undefined>,
 		id: FormControl<string | null | undefined>,
@@ -643,10 +635,6 @@ export namespace DemoWebApi_Controllers_Client {
 	 * This class is used to carry the result of various file uploads.
 	 */
 	export interface FileResultFormProperties {
-
-		/**
-		 * Gets or sets the local path of the file saved on the server.
-		 */
 
 		/**
 		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.

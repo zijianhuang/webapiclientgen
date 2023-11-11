@@ -11,7 +11,7 @@ using Fonlow.Web.Meta;
 namespace Fonlow.CodeDom.Web.Ts
 {
 	/// <summary>
-	/// Generate TypeScript codes of the client API of the controllers
+	/// Create CodeDOM based on Web API controllers, and generate TypeScript codes of the client API of the controllers
 	/// </summary>
 	public abstract class ControllersTsClientApiGenBase
 	{
@@ -46,7 +46,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		}
 
 		/// <summary>
-		/// jQuery and NG@ have slightly different fine grained types for returns
+		/// jQuery and NG2 have slightly different fine grained types for returns
 		/// </summary>
 		/// <returns></returns>
 		abstract protected IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix);
@@ -57,7 +57,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		}
 
 		/// <summary>
-		/// Save TS codes into a file.
+		/// Generate and save TS codes into a file.
 		/// </summary>
 		public void Save()
 		{
@@ -206,6 +206,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			return null;
 		}
 
+		/// <summary>
+		/// Find over loading API functions, and rename them according to parameter names, since TS and TS do not support overloading functions.
+		/// </summary>
 		void RefineOverloadingFunctions()
 		{
 			for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
@@ -277,11 +280,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
 		{
-			//if (String.IsNullOrEmpty(className) || className.Trim()== String.Empty)
-			//{
-			//	return null;
-			//}
-
 			var targetClass = new CodeTypeDeclaration(className)
 			{
 				IsClass = true,

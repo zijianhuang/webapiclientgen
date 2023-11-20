@@ -652,7 +652,7 @@ namespace Fonlow.TypeScriptCodeDom
 					var typeText = TypeMapper.MapCodeTypeReferenceToTsText(d.Type);
 					var alreadyNullable = typeText.EndsWith("| null");
 					var isAny = d.Type.BaseType == "any";
-					var s = $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}" + (isMethodParameter && !alreadyNullable && !isAny ? " | null" : string.Empty);
+					var s = $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}" + (isMethodParameter && !alreadyNullable && !isAny ? " | null" : string.Empty); // optional null
 					Debug.WriteLine("vvvv " + s);
 					return s;
 				});
@@ -975,7 +975,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (!alreadyNullable && !isAny)  //todo: refine this after
 			{
-				tsTypeName += " | null";
+				tsTypeName += " | null"; //optional null
 			}
 
 			return RefineNameAndType(fieldName, tsTypeName);

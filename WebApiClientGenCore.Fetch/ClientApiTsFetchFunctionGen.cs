@@ -52,7 +52,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					if (!returnTypeText.EndsWith(" | null") && ReturnTypeIsNullable)
 					{
-						returnTypeText += " | null";
+						returnTypeText += " | null"; // optional null
 					}
 				}
 			}

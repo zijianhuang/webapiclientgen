@@ -185,8 +185,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => {
 					var originalType = d.ParameterDescriptor.ParameterType;
 					var originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
-					originalCodeTypeReference.UserData.Add("IsMethodParameter", true); // so I can add | null later
-					//var refinedParameterType = TypeMapper.MapCodeTypeReferenceToTsText(originalCodeTypeReference);// + " | null";
+					originalCodeTypeReference.UserData.Add("IsMethodParameter", true); // so I can add optional null later
 					return new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
 				}).ToArray();
 

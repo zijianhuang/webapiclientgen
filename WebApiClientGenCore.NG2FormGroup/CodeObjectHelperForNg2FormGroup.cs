@@ -189,7 +189,7 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 			else
 			{
-				tsTypeName += " | null | undefined";
+				tsTypeName += " | null | undefined"; // optional null
 			}
 
 			return tsTypeName;

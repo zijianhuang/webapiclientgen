@@ -428,7 +428,7 @@ namespace Fonlow.Poco2Ts
 				Debug.Assert(genericTypeReferences.Length == 1);
 				var isNullablePrimitiveType = TypeHelper.IsNullablePrimitive(type);
 				var isAny = genericTypeReferences[0].BaseType == "any";
-				var baseType = genericTypeReferences[0].BaseType + (helpStrictMode && !isAny ? " | null" : String.Empty);
+				var baseType = genericTypeReferences[0].BaseType + (helpStrictMode && !isAny ? " | null" : String.Empty);  // Optional null for data type of data field in interface
 				genericTypeReferences[0].BaseType = baseType;
 				return genericTypeReferences[0];//CLR nullable is insigificant in js and ts. The output will be all nullable by default, except those required.
 			}
@@ -476,13 +476,6 @@ namespace Fonlow.Poco2Ts
 					return new CodeTypeReference(typeof(Dictionary<,>).FullName,
 						TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
 				}
-
-				//if (genericTypeDefinition == typeof(KeyValuePair<,>))
-				//{
-				//	return new CodeTypeReference(typeof(KeyValuePair<,>).FullName,
-				//		TranslateToClientTypeReference(genericArguments[0]), TranslateToClientTypeReference(genericArguments[1]));
-				//}
-
 			}
 
 			return new CodeTypeReference(RefineCustomComplexTypeText(genericTypeDefinition), genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray());

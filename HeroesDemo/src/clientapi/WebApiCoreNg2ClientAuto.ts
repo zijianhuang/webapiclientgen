@@ -15,7 +15,7 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * It is a field
 		 */
-		location?: DemoWebApi_DemoData_Another_Client.MyPoint | null;
+		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
 	}
 
 	export enum AddressType { Postal, Residential }
@@ -31,10 +31,10 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Data type: Date */
 		foundDate?: Date | null;
 		registerDate?: Date | null;
-		textMatrix?: Array<Array<string>> | null;
-		int2D?: number[][] | null;
-		int2DJagged?: Array<Array<number>> | null;
-		lines?: Array<string> | null;
+		textMatrix?: Array<Array<string>>;
+		int2D?: number[][];
+		int2DJagged?: Array<Array<number>>;
+		lines?: Array<string>;
 	}
 
 	export enum Days {
@@ -79,23 +79,23 @@ export namespace DemoWebApi_DemoData_Client {
 		kK2?: number | null;
 		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
 		optionalInt?: number | null;
-		result?: DemoWebApi_DemoData_Client.MimsResult<number> | null;
+		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string | null;
 	}
 
 	export interface MimsResult<T> {
 		generatedAt?: Date | null;
 		message?: string | null;
-		result?: T | null;
+		result?: T;
 		success?: boolean | null;
 	}
 
 	export enum MyEnumType { First = 1, Two = 2 }
 
 	export interface MyGeneric<T, K, U> {
-		myK?: K | null;
-		myT?: T | null;
-		myU?: U | null;
+		myK?: K;
+		myT?: T;
+		myU?: U;
 		status?: string | null;
 	}
 
@@ -180,7 +180,7 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		/**
 		 * Multiple addresses
 		 */
-		addresses?: Array<DemoWebApi_DemoData_Client.Address> | null;
+		addresses?: Array<DemoWebApi_DemoData_Client.Address>;
 
 		/** Max length: 255 */
 		emailAddress?: string | null;
@@ -193,7 +193,7 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		 * Max length: 255
 		 */
 		name: string;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
 		web?: string | null;
 	}
 
@@ -294,7 +294,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Gets or sets the local path of the file saved on the server.
 		 */
-		fileNames?: Array<string> | null;
+		fileNames?: Array<string>;
 
 		/**
 		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
@@ -307,7 +307,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface Hero {
-		address?: DemoWebApi_DemoData_Client.Address | null;
+		address?: DemoWebApi_DemoData_Client.Address;
 		death?: Date | null;
 		dob?: Date | null;
 		id?: number | null;
@@ -317,7 +317,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * String length: inclusive between 2 and 120
 		 */
 		name?: string | null;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber> | null;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
 	}
 
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {

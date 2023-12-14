@@ -966,6 +966,8 @@ namespace Fonlow.TypeScriptCodeDom
 			var isRequired = !codeMemberField.Name.EndsWith("?");
 			var fieldName = codeMemberField.Name;
 			var isAny = codeMemberField.Name == "any";
+			var type = codeMemberField.UserData["Type"] as Type;
+			var isComplex = codeMemberField.Type.ArrayRank > 0 || IsComplexType(type);  //for the sake of Angular FormGroup
 			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
 			var alreadyNullable = tsTypeName.Contains("| null");
 			if (isRequired)
@@ -973,12 +975,27 @@ namespace Fonlow.TypeScriptCodeDom
 				return RefineNameAndType(fieldName, tsTypeName);
 			}
 
-			if (!alreadyNullable && !isAny)  //todo: refine this after
+			if (!alreadyNullable && !isAny && !isComplex)  //todo: refine this after
 			{
 				tsTypeName += " | null"; //optional null
 			}
 
 			return RefineNameAndType(fieldName, tsTypeName);
+		}
+
+		/// <summary>
+		/// Primitive, or string, or enum types
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		bool IsSimpleType(Type type)
+		{
+			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum || (!string.IsNullOrEmpty(type.FullName) && type.FullName.StartsWith("System."));
+		}
+
+		bool IsComplexType(Type type)
+		{
+			return !IsSimpleType(type);
 		}
 
 		protected string GetCodeTypeReferenceText(CodeTypeReference codeTypeReference)

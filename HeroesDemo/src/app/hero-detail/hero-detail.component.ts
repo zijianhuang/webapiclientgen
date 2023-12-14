@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
 import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 
 export interface HeroWithNestedFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {

@@ -68,4 +68,15 @@ export class HeroDetailComponent implements OnInit {
         this.location.back();
     }
 
+    addPhoneNumber() {
+        var n = DemoWebApi_DemoData_Client.CreatePhoneNumberFormGroup();
+        this.heroForm.controls.phoneNumbers?.push(n);
+    }
+
+    removePhoneNumber(pg: FormGroup<DemoWebApi_DemoData_Client.PhoneNumberFormProperties>) {
+        const idx = this.heroForm.controls.phoneNumbers?.controls.indexOf(pg);
+        if (idx != undefined) {
+            this.heroForm.controls.phoneNumbers?.removeAt(idx);
+        }
+    }
 }

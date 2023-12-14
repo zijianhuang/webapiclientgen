@@ -25,7 +25,10 @@
         </div>
 
         <div *ngFor="let pg of heroForm.controls.phoneNumbers!.controls" [formGroup]="pg">
-            <input placeholder="number" formControlName="fullNumber" />
+            <input placeholder="number" formControlName="fullNumber" /> <button (click)="removePhoneNumber(pg)">X</button>
+        </div>
+        <div>
+            <button (click)="addPhoneNumber()">Add Phone</button>
         </div>
     </div>
 

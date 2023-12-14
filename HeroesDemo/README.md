@@ -1,3 +1,5 @@
+This is based on the Tour of Heroes demo of NG tutorial, but with ReactiveForms bindings.
+
 # DateOnlyNG
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.

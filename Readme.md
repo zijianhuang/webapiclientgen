@@ -47,10 +47,9 @@ This project delivers these products:
 
 **Remarks:**
 1. JavaScript codes compiled from generated TypeScript codes could be used in JS applications, however, obviously no type info will be available, while application programmers may still enjoy intellisense and abstraction from AJAX details.
-1. React and Vue.js applications typically use Axios for HTTP requests. Currently [babel](https://github.com/babel/babel) does not support namespaces. So you may not do React TSX programming with generated TypeScript codes. However, this may be changed in near future because of [this pull request](https://github.com/babel/babel/pull/9785).
+	1. React and Vue.js applications typically use Axios or Fetch API for HTTP requests. Since June 2019, [babel](https://github.com/babel/babel) has supported namespaces thanks to [this pull request](https://github.com/babel/babel/pull/9785), so you should be able to do React TSX programming with generated TypeScript codes.
 
 # Downloads
-
 
 1. [Strongly Typed Client API Generators for ASP.NET Core Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/).
 1. [TypeScript CodeDOM](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore)
@@ -73,7 +72,7 @@ This project delivers these products:
 # Prerequisites
 
 **Server side:**
-1. .NET 6
+1. .NET 7
 
 And in the service startup codes, ensure the following:
 ```c#
@@ -86,6 +85,11 @@ services.AddControllers(
 	}
 )
 ```
+
+**Remarks:**
+
+Microsoft has been releasing major upgrade of [.NET (Core) every year](https://en.wikipedia.org/wiki/.NET) since 2016, the libraries in this repository generally will follow the latest around half year after.
+
 
 **.NET client side:**
 1. .NET Framework 4.5.2, or Universal Windows, or Mono.Android, or Xamarin.iOS, or .NET Core 2.0/2.1/3 and .NET 5

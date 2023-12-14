@@ -653,6 +653,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface Hero {
+		address?: DemoWebApi_DemoData_Client.Address;
 		death?: Date | null;
 		dob?: Date | null;
 		id?: number | null;
@@ -662,6 +663,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * String length: inclusive between 2 and 120
 		 */
 		name?: string | null;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
 	}
 
 	/**

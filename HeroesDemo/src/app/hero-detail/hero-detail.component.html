@@ -1,23 +1,34 @@
 <div *ngIf="hero">
-  <h2>{{hero.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{hero.id}}</div>
-  <!--<div>
-    <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="hero.name" placeholder="Name" />
-    <input id="hero-dob" type="date" [(ngModel)]="hero.dob" placeholder="DOB" />
+    <h2>{{hero.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{hero.id}}</div>
+    <!--<div>
+      <label for="hero-name">Hero name: </label>
+      <input id="hero-name" [(ngModel)]="hero.name" placeholder="Name" />
+      <input id="hero-dob" type="date" [(ngModel)]="hero.dob" placeholder="DOB" />
 
-    <input id="hero-death" type="date" [(ngModel)]="hero.death" placeholder="Death" />
-  </div>
+      <input id="hero-death" type="date" [(ngModel)]="hero.death" placeholder="Death" />
+    </div>
 
-  <div>{{hero.dob}}</div>
-  <div>{{hero.death}}</div>-->
-  <div [formGroup]="heroForm">
-    <label for="hero-name">Hero name: </label>
-    <input id="hero-name" formControlName="name" placeholder="Name" />
-    <input id="hero-dob" type="date" formControlName="dob" placeholder="DOB" />
-    <input id="hero-death" type="date" formControlName="death" placeholder="Death" />
-  </div>
+    <div>{{hero.dob}}</div>
+    <div>{{hero.death}}</div>-->
+    <div [formGroup]="heroForm">
+        <label for="hero-name">Hero name: </label>
+        <input id="hero-name" formControlName="name" placeholder="Name" />
+        <input id="hero-dob" type="date" formControlName="dob" placeholder="DOB" />
+        <input id="hero-death" type="date" formControlName="death" placeholder="Death" />
 
-  <button type="button" (click)="goBack()">go back</button>
-  <button type="button" (click)="save()">save</button>
+        <div formGroupName="address">
+            <input placeholder="Street" formControlName="street1" />
+            <input placeholder="City" formControlName="city" />
+            <input placeholder="State" formControlName="state" />
+            <input placeholder="Country" formControlName="country" />
+        </div>
+
+        <div *ngFor="let pg of heroForm.controls.phoneNumbers!.controls" [formGroup]="pg">
+            <input placeholder="number" formControlName="fullNumber" />
+        </div>
+    </div>
+
+    <button type="button" (click)="goBack()">go back</button>
+    <button type="button" (click)="save()">save</button>
 </div>

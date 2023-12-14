@@ -613,6 +613,9 @@ namespace DemoWebApi.Controllers.Client
 	{
 		
 		[System.Runtime.Serialization.DataMember()]
+		public DemoWebApi.DemoData.Client.Address Address { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<System.DateOnly> Death { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
@@ -629,6 +632,9 @@ namespace DemoWebApi.Controllers.Client
 		[System.ComponentModel.DataAnnotations.StringLength(120, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Name { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]

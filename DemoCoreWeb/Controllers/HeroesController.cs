@@ -85,6 +85,15 @@ namespace DemoWebApi.Controllers
 		{
 			var max = HeroesData.Instance.Dic.Keys.Max();
 			var hero = new Hero(max + 1, name);
+			hero.PhoneNumbers.Add(new DemoData.PhoneNumber { FullNumber = "33242343242", PhoneType = DemoData.PhoneType.Tel });
+			hero.PhoneNumbers.Add(new DemoData.PhoneNumber { FullNumber = "0898sdf43434", PhoneType = DemoData.PhoneType.Mobile });
+			hero.Address = new DemoData.Address
+			{
+				City="Brisbane",
+				State="Queensland",
+				Country="Australia"
+			};
+
 			_ = HeroesData.Instance.Dic.TryAdd(max + 1, hero);
 			return hero;
 		}
@@ -135,6 +144,7 @@ namespace DemoWebApi.Controllers
 		{
 			Id = id;
 			Name = name;
+			PhoneNumbers = new List<DemoWebApi.DemoData.PhoneNumber>();
 		}
 
 		[DataMember]
@@ -150,6 +160,12 @@ namespace DemoWebApi.Controllers
 
 		[DataMember]
 		public DateOnly? Death { get; set; }
+
+		[DataMember]
+		public DemoWebApi.DemoData.Address Address { get; set; }
+
+		[DataMember]
+		public virtual IList<DemoWebApi.DemoData.PhoneNumber> PhoneNumbers { get; set; }
 	}
 
 	[DataContract(Namespace = DemoWebApi.DemoData.Constants.DataNamespace)]

@@ -1,16 +1,6 @@
 <div *ngIf="hero">
     <h2>{{hero.name | uppercase}} Details</h2>
     <div><span>id: </span>{{hero.id}}</div>
-    <!--<div>
-      <label for="hero-name">Hero name: </label>
-      <input id="hero-name" [(ngModel)]="hero.name" placeholder="Name" />
-      <input id="hero-dob" type="date" [(ngModel)]="hero.dob" placeholder="DOB" />
-
-      <input id="hero-death" type="date" [(ngModel)]="hero.death" placeholder="Death" />
-    </div>
-
-    <div>{{hero.dob}}</div>
-    <div>{{hero.death}}</div>-->
     <div [formGroup]="heroForm">
         <label for="hero-name">Hero name: </label>
         <input id="hero-name" formControlName="name" placeholder="Name" />

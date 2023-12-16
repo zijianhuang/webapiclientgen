@@ -965,16 +965,16 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			var isRequired = !codeMemberField.Name.EndsWith("?");
 			var fieldName = codeMemberField.Name;
-			var isAny = codeMemberField.Name == "any";
-			var type = codeMemberField.UserData["Type"] as Type;
-			var isComplex = codeMemberField.Type.ArrayRank > 0 || IsComplexType(type);  //for the sake of Angular FormGroup
 			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
-			var alreadyNullable = tsTypeName.Contains("| null");
 			if (isRequired)
 			{
 				return RefineNameAndType(fieldName, tsTypeName);
 			}
 
+			var isAny = codeMemberField.Name == "any";
+			var type = codeMemberField.UserData["Type"] as Type;
+			var isComplex = codeMemberField.Type.ArrayRank > 0 || IsComplexType(type);  //for the sake of Angular FormGroup
+			var alreadyNullable = tsTypeName.Contains("| null");
 			if (!alreadyNullable && !isAny && !isComplex)  //todo: refine this after
 			{
 				tsTypeName += " | null"; //optional null

@@ -1,31 +1,42 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>1.6</Version>
-    <Description>Basic functions of accessing XML Doc Comments.</Description>
-    <PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
-    <Copyright>Copyright © Zijian Huang 2015-2021</Copyright>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <NeutralLanguage>en</NeutralLanguage>
+	<TargetFramework>net7.0</TargetFramework>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<Version>1.6.1</Version>
+	<Description>Basic functions of accessing XML Doc Comments.</Description>
+	<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
+	<Copyright>Copyright © Zijian Huang 2015-2023</Copyright>
+	<PackageLicenseUrl></PackageLicenseUrl>
+	<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<NeutralLanguage>en</NeutralLanguage>
 
+	<NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	<Compile Update="TypeScriptCodeProvider.cs">
+	  <SubType>Component</SubType>
+	</Compile>
+	<Compile Update="xmldocument.cs">
+	  <DependentUpon>XmlDocument.xsd</DependentUpon>
+	</Compile>
+  </ItemGroup>
+
   <ItemGroup>
-    <Compile Update="TypeScriptCodeProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="xmldocument.cs">
-      <DependentUpon>XmlDocument.xsd</DependentUpon>
-    </Compile>
+	<None Update="Readme.md">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
   </ItemGroup>
 
 </Project>

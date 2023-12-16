@@ -13,19 +13,24 @@
 		<PackageTags>TypeScript,Code DOM</PackageTags>
 		<PackageReleaseNotes>DI Changed.</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>2.9</Version>
+		<Version>2.9.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/zijianhuang/webapiclientgen/master/Doc/icons/TypeScriptCodeDOM64.png</PackageIconUrl>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn>1701;1702;1705;1591</NoWarn>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="System.CodeDom" Version="7.0.0" />
 	</ItemGroup>

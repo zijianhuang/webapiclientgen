@@ -3,24 +3,25 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<AssemblyName>Fonlow.WebApiClientGenCore.Abstract</AssemblyName>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Description>Abstract classes and common classes shared by WebApiClientGen and its plugins</Description>
 		<Copyright>Copyright © Zijian Huang 2015-2023</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Version>2.6.1</Version>
+		<Version>2.7.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<NoWarn>1701;1702;IDE0057</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <NoWarn>1701;1702;IDE0057</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <NoWarn>1701;1702;IDE0057</NoWarn>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
 
 	<ItemGroup>

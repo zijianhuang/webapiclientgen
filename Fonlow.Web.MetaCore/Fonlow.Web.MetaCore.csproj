@@ -1,22 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <Copyright>Copyright © Zijian Huang 2015-2022</Copyright>
-    <Authors>Zijian Huang</Authors>
-    <Company></Company>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>2.2</Version>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<Copyright>Copyright © Zijian Huang 2015-2023</Copyright>
+		<Authors>Zijian Huang</Authors>
+		<Company></Company>
+		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Version>2.2.1</Version>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<NoWarn>1701;1702;1705;1591</NoWarn>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1705;1591</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<None Update="Readme.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

@@ -81,7 +81,7 @@ namespace Fonlow.Poco2Ts
 		/// <param name="writer"></param>
 		/// <exception cref="ArgumentNullException"></exception>
 		/// <remarks>public only for testing</remarks>
-		public void WriteCode(TextWriter writer) 
+		public void WriteCode(TextWriter writer)
 		{
 			if (writer == null)
 				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
@@ -245,7 +245,12 @@ namespace Fonlow.Poco2Ts
 
 							AddValidationAttributesCodeTypeMember(propertyInfo, clientField, false);
 							clientField.UserData.Add("CustomAttributes", propertyInfo.GetCustomAttributes().ToArray());
-							clientField.Type.UserData.Add("Type", propertyInfo.PropertyType);
+							clientField.Type.UserData.Add("FieldTypeInfo",
+								new FieldTypeInfo
+								{
+									IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
+									IsArray = clientField.Type.ArrayRank > 0
+								}) ;
 
 							CreatePropertyDocComment(propertyInfo, clientField);
 
@@ -281,7 +286,11 @@ namespace Fonlow.Poco2Ts
 							};
 
 							clientField.UserData.Add("CustomAttributes", fieldInfo.GetCustomAttributes().ToArray());
-							clientField.Type.UserData.Add("Type", fieldInfo.FieldType);
+							clientField.Type.UserData.Add("FieldTypeInfo", new FieldTypeInfo
+							{
+								IsComplex = CodeObjectHelper.IsComplexType(fieldInfo.FieldType),
+								IsArray = clientField.Type.ArrayRank > 0
+							});
 							CreateFieldDocComment(fieldInfo, clientField);
 
 							typeDeclaration.Members.Add(clientField);

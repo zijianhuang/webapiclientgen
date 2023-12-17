@@ -972,12 +972,19 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 
 			var isAny = codeMemberField.Name == "any";
-			var type = codeMemberField.Type.UserData["Type"] as Type;
-			var isComplex = codeMemberField.Type.ArrayRank > 0 || (type != null && IsComplexType(type));  //for the sake of Angular FormGroup
-			var alreadyNullable = tsTypeName.Contains("| null");
-			if (!alreadyNullable && !isAny && !isComplex)  //todo: refine this after
+			var fieldTypeInfo = codeMemberField.Type.UserData["FieldTypeInfo"] as FieldTypeInfo;
+			if (fieldTypeInfo != null)
 			{
-				tsTypeName += " | null"; //optional null
+				var isComplex = fieldTypeInfo.IsArray || fieldTypeInfo.IsComplex;
+				var alreadyNullable = tsTypeName.Contains("| null");
+				if (!alreadyNullable && !isAny && !isComplex)  //todo: refine this after
+				{
+					tsTypeName += " | null"; //optional null
+				}
+			}
+			else
+			{
+				Console.Error.WriteLine("No FieldTypeInfo in UserData");
 			}
 
 			return RefineNameAndType(fieldName, tsTypeName);

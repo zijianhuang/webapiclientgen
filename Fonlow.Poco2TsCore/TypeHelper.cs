@@ -140,7 +140,7 @@ namespace Fonlow.Reflection
 		/// <returns></returns>
 		public static bool IsSimpleListType(Type type)
 		{
-			return simpleListTypeNames.Contains(type.Name) && (IsSimpleType(type.GenericTypeArguments[0]) || type.GenericTypeArguments[0].IsEnum);
+			return simpleListTypeNames.Contains(type.Name) && (IsDotNetSimpleType(type.GenericTypeArguments[0]) || type.GenericTypeArguments[0].IsEnum);
 		}
 
 		/// <summary>
@@ -203,18 +203,19 @@ namespace Fonlow.Reflection
 		static readonly Type typeOfString = typeof(string);
 
 		/// <summary>
-		/// Primitive, or string, or .NET System. enum types
+		/// Primitive, or string, or .NET System. enum types. User Defined enum types could be considered as complex type.
+		/// This is different from Fonlow.TypeScriptCodeDom.CodeObjectHelper.IsComplextype.
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
-		public static bool IsSimpleType(Type type)
+		public static bool IsDotNetSimpleType(Type type)
 		{
 			return type.IsPrimitive || type.Equals(typeOfString) || (type.IsEnum && type.FullName.StartsWith("System."));
 		}
 
 		public static bool IsComplexType(Type type)
 		{
-			return !IsSimpleType(type);
+			return !IsDotNetSimpleType(type);
 		}
 
 		public static bool IsStringType(Type type)

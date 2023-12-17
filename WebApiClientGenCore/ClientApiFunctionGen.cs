@@ -161,7 +161,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				methodFullName += "(" + description.ParameterDescriptions.Select(d =>
 				{
 					string typeText;
-					if (TypeHelper.IsSimpleType(d.ParameterDescriptor.ParameterType))
+					if (TypeHelper.IsDotNetSimpleType(d.ParameterDescriptor.ParameterType))
 					{
 						typeText = d.ParameterDescriptor.ParameterType.FullName;
 					}

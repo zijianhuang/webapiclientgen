@@ -47,13 +47,13 @@
 		//"UseSystemTextJson": true,
 
 		"Plugins": [
-			{
-				"AssemblyName": "Fonlow.WebApiClientGenCore.jQuery",
-				"TargetDir": "..\\..\\..\\..\\Scripts\\ClientApi",
-				"TSFile": "WebApiCoreJQClientAuto.ts",
-				"AsModule": false,
-				"ContentType": "application/json;charset=UTF-8"
-			},
+			//{
+			//	"AssemblyName": "Fonlow.WebApiClientGenCore.jQuery",
+			//	"TargetDir": "..\\..\\..\\..\\Scripts\\ClientApi",
+			//	"TSFile": "WebApiCoreJQClientAuto.ts",
+			//	"AsModule": false,
+			//	"ContentType": "application/json;charset=UTF-8"
+			//},
 
 			{
 				"AssemblyName": "Fonlow.WebApiClientGenCore.NG2",

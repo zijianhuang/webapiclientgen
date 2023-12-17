@@ -814,7 +814,7 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 
-		readonly Type typeOfString = typeof(string);
+		static readonly Type typeOfString = typeof(string);
 
 		#endregion
 
@@ -988,12 +988,13 @@ namespace Fonlow.TypeScriptCodeDom
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
-		bool IsSimpleType(Type type)
+		public static bool IsSimpleType(Type type)
 		{
-			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum || (!string.IsNullOrEmpty(type.FullName) && type.FullName.StartsWith("System."));
+			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum
+				|| (!string.IsNullOrEmpty(type.FullName) && type.FullName.StartsWith("System.")); //for System.Guid and System.Date etc.
 		}
 
-		bool IsComplexType(Type type)
+		public static bool IsComplexType(Type type)
 		{
 			return !IsSimpleType(type);
 		}

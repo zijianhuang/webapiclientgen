@@ -376,7 +376,7 @@ namespace Fonlow.Poco2Ts
 				var typeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
 				return new CodeTypeReference(typeText);
 			}
-			else if (TypeHelper.IsSimpleType(type))
+			else if (TypeHelper.IsDotNetSimpleType(type))
 			{
 				var typeText = Fonlow.TypeScriptCodeDom.TypeMapper.MapToTsBasicType(type);
 				return new CodeTypeReference(typeText);

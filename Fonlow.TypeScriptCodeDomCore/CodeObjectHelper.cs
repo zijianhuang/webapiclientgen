@@ -972,8 +972,8 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 
 			var isAny = codeMemberField.Name == "any";
-			var type = codeMemberField.UserData["Type"] as Type;
-			var isComplex = codeMemberField.Type.ArrayRank > 0 || IsComplexType(type);  //for the sake of Angular FormGroup
+			var type = codeMemberField.Type.UserData["Type"] as Type;
+			var isComplex = codeMemberField.Type.ArrayRank > 0 || (type != null && IsComplexType(type));  //for the sake of Angular FormGroup
 			var alreadyNullable = tsTypeName.Contains("| null");
 			if (!alreadyNullable && !isAny && !isComplex)  //todo: refine this after
 			{

@@ -14,10 +14,10 @@
 		<PackageReleaseNotes>DI Changed.</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>2.9.1</Version>
+		<Version>2.9.2</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
-		<PackageIconUrl>https://raw.githubusercontent.com/zijianhuang/webapiclientgen/master/Doc/icons/TypeScriptCodeDOM64.png</PackageIconUrl>
+		<PackageIcon>TypeScriptCodeDOM64.png</PackageIcon>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<NoWarn>1701;1702;1705;1591</NoWarn>
 	</PropertyGroup>
@@ -29,6 +29,8 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<CopyDebugSymbolFilesFromPackages>true</CopyDebugSymbolFilesFromPackages>
+		<CopyDocumentationFilesFromPackages>true</CopyDocumentationFilesFromPackages>
 	</PropertyGroup>
 	
 	<ItemGroup>
@@ -39,7 +41,8 @@
 		<Compile Update="TypeScriptCodeProvider.cs">
 			<SubType>Component</SubType>
 		</Compile>
-		<None Include="Readme.md" Pack="true" PackagePath="\"/>
+		<None Include="Readme.md" Pack="true" PackagePath="\" />
+		<None Include="TypeScriptCodeDOM64.png" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 </Project>

@@ -250,7 +250,7 @@ namespace Fonlow.Poco2Ts
 								{
 									IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
 									IsArray = clientField.Type.ArrayRank > 0
-								}) ;
+								});
 
 							CreatePropertyDocComment(propertyInfo, clientField);
 

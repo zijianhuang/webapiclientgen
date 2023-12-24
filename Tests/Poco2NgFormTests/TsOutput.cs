@@ -50,11 +50,11 @@ namespace Poco2TsTests
 			Verify(typeof(DemoWebApi.DemoData.Base.Entity),
 @"export namespace DemoWebApi_DemoData_Base_Client {
 	export interface Entity {
-		Addresses?: Array<any> | null;
+		Addresses?: Array<any>;
 		EmailAddress?: string | null;
 		Id?: string | null;
 		Name: string;
-		PhoneNumbers?: Array<any> | null;
+		PhoneNumbers?: Array<any>;
 		Web?: string | null;
 	}
 	export interface EntityFormProperties {
@@ -124,7 +124,7 @@ namespace Poco2TsTests
 		Street1?: string | null;
 		Street2?: string | null;
 		Type?: number | null;
-		Location?: any | null;
+		Location?: any;
 	}
 	export interface AddressFormProperties {
 		City: FormControl<string | null | undefined>,

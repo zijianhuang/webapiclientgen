@@ -162,6 +162,10 @@ namespace DemoWebApi.Controllers
 		public DateOnly? Death { get; set; }
 
 		[DataMember]
+		[EmailAddress]
+		public string EmailAddress { get; set; }
+
+		[DataMember]
 		public DemoWebApi.DemoData.Address Address { get; set; }
 
 		[DataMember]

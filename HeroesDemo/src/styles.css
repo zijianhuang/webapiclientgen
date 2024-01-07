@@ -30,27 +30,6 @@ body, input[text] {
 a {
   cursor: pointer;
 }
-button {
-  background-color: #eee;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  color: black;
-  font-size: 1.2rem;
-  padding: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-}
-button:hover {
-  background-color: black;
-  color: white;
-}
-button:disabled {
-  background-color: #eee;
-  color: #aaa;
-  cursor: auto;
-}
 
 /* Navigation link styles */
 nav a {
@@ -74,9 +53,4 @@ nav a.active {
 }
 hr {
   margin: 1.5rem 0;
-}
-input[type="text"] {
-  box-sizing: border-box;
-  width: 100%;
-  padding: .5rem;
 }

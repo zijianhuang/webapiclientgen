@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from '../../clientapi/WebApiCoreNG2FormGroupClientAuto';
 
@@ -18,8 +18,7 @@ export function CreateHeroWithNestedFormGroup() {
 
 @Component({
     selector: 'app-hero-detail',
-    templateUrl: './hero-detail.component.html',
-    styleUrls: ['./hero-detail.component.css']
+    templateUrl: './hero-detail.component.html'
 })
 export class HeroDetailComponent implements OnInit {
     hero?: DemoWebApi_Controllers_Client.Hero;
@@ -65,7 +64,7 @@ export class HeroDetailComponent implements OnInit {
         );
     }
     goBack(): void {
-        this.location.back();
+        this.location.back(); this.heroForm.controls.name.errors
     }
 
     addPhoneNumber() {
@@ -78,5 +77,59 @@ export class HeroDetailComponent implements OnInit {
         if (idx != undefined) {
             this.heroForm.controls.phoneNumbers?.removeAt(idx);
         }
+    }
+
+    getMinLengthErrorsText(errors: ValidationErrors | null) {
+        if (!errors) {
+            return '';
+        }
+
+        if (errors['minlength']) {
+            return 'Min length: ' + errors['minlength']['requiredLength'];
+        }
+
+        return '';
+    }
+
+    getMaxLengthErrorsText(errors: ValidationErrors | null) {
+        if (!errors) {
+            return '';
+        }
+
+        if (errors['maxlength']) {
+            return 'Max length: ' + errors['maxlength']['requiredLength'];
+        }
+
+        return '';
+    }
+
+    getErrorsText(errors: ValidationErrors | null) {
+        if (!errors) {
+            return '';
+        }
+
+        const lines: string[] = [];
+        for (const epn in errors) {
+            switch (epn) {
+                case 'minlength':
+                    lines.push('Min length: ' + errors['minlength']['requiredLength']);
+                    break;
+                case 'maxlength':
+                    lines.push('Max length: ' + errors['maxlength']['requiredLength']);
+                    break;
+                case 'email':
+                    lines.push('Invalid Email address format'); //value is boolean false.
+                    break;
+                case 'pattern':
+                    lines.push('Invalid Web URL'); //value is requiredPattern and actualValue.
+                    break;
+                default:
+                    // print json text of the error during development
+                    break;
+            }
+        }
+
+        return lines.join('; ');
+
     }
 }

@@ -259,6 +259,7 @@ export namespace DemoWebApi_Controllers_Client {
 		id?: number | null;
 		name?: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+		webAddress?: string | null;
 	}
 
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {

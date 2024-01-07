@@ -169,6 +169,12 @@ namespace DemoWebApi.Controllers
 		public DemoWebApi.DemoData.Address Address { get; set; }
 
 		[DataMember]
+		[MinLength(6)] //just for testing multiple validations
+		[RegularExpression(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		public string WebAddress { get; set; }
+
+
+		[DataMember]
 		public virtual IList<DemoWebApi.DemoData.PhoneNumber> PhoneNumbers { get; set; }
 	}
 

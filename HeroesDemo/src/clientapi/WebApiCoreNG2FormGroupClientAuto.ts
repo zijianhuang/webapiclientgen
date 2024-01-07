@@ -665,6 +665,9 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		name?: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+
+		/** Min length: 6 */
+		webAddress?: string | null;
 	}
 
 	/**
@@ -681,6 +684,9 @@ export namespace DemoWebApi_Controllers_Client {
 		 * String length: inclusive between 2 and 120
 		 */
 		name: FormControl<string | null | undefined>,
+
+		/** Min length: 6 */
+		webAddress: FormControl<string | null | undefined>,
 	}
 	export function CreateHeroFormGroup() {
 		return new FormGroup<HeroFormProperties>({
@@ -689,6 +695,7 @@ export namespace DemoWebApi_Controllers_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<number | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
 		});
 
 	}
@@ -706,6 +713,7 @@ export namespace DemoWebApi_Controllers_Client {
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<number | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
 			super: new FormControl<boolean | null | undefined>(undefined),
 		});
 

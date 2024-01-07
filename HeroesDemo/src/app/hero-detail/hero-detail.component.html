@@ -3,25 +3,45 @@
     <div><span>id: </span>{{hero.id}}</div>
     <div [formGroup]="heroForm">
         <label for="hero-name">Hero name: </label>
-        <input id="hero-name" formControlName="name" placeholder="Name" />
-        <input id="hero-dob" type="date" formControlName="dob" placeholder="DOB" />
-        <input id="hero-death" type="date" formControlName="death" placeholder="Death" />
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput id="hero-name" formControlName="name" />
+            <mat-error *ngIf="heroForm.controls.name.hasError">{{getErrorsText(heroForm.controls.name.errors)}}</mat-error>
+        </mat-form-field>
+        <input matInput id="hero-dob" type="date" formControlName="dob" placeholder="DOB" />
+        <input matInput id="hero-death" type="date" formControlName="death" placeholder="Death" />
+
+        <div>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="emailAddress" placeholder="name@domain" />
+                <mat-error *ngIf="heroForm.controls.emailAddress.hasError">{{getErrorsText(heroForm.controls.emailAddress.errors)}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <mat-label>Web</mat-label>
+                <input matInput formControlName="webAddress" />
+                <mat-error *ngIf="heroForm.controls.webAddress.hasError">{{getErrorsText(heroForm.controls.webAddress.errors)}}</mat-error>
+            </mat-form-field>
+        </div>
 
         <div formGroupName="address">
-            <input placeholder="Street" formControlName="street1" />
-            <input placeholder="City" formControlName="city" />
-            <input placeholder="State" formControlName="state" />
-            <input placeholder="Country" formControlName="country" />
+            <input matInput placeholder="Street" formControlName="street1" />
+            <input matInput placeholder="City" formControlName="city" />
+            <input matInput placeholder="State" formControlName="state" />
+            <input matInput placeholder="Country" formControlName="country" />
         </div>
 
         <div *ngFor="let pg of heroForm.controls.phoneNumbers!.controls" [formGroup]="pg">
-            <input placeholder="number" formControlName="fullNumber" /> <button (click)="removePhoneNumber(pg)">X</button>
+            <input matInput placeholder="number" formControlName="fullNumber" /> <button mat-raised-button (click)="removePhoneNumber(pg)">X</button>
         </div>
         <div>
-            <button (click)="addPhoneNumber()">Add Phone</button>
+            <button mat-raised-button (click)="addPhoneNumber()">Add Phone</button>
         </div>
     </div>
 
-    <button type="button" (click)="goBack()">go back</button>
-    <button type="button" (click)="save()" [disabled]="heroForm.invalid">save</button>
+    <button mat-raised-button type="button" (click)="goBack()">go back</button>
+    <button mat-raised-button type="button" (click)="save()" [disabled]="heroForm.invalid">save</button>
 </div>

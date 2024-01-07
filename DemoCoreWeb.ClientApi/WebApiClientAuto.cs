@@ -622,6 +622,9 @@ namespace DemoWebApi.Controllers.Client
 		public System.DateOnly DOB { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
+		public string EmailAddress { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
 		public long Id { get; set; }
 		
 		/// <summary>

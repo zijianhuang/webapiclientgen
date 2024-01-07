@@ -363,8 +363,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				else
 				{
 					clientMethod.Statements.Add(new CodeSnippetStatement(
-	@"			using var requestWriter = new System.IO.StringWriter();
-			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
+	"\t\t\tusing var requestWriter = new System.IO.StringWriter();\r\n\t\t\tvar requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
 	));
 					clientMethod.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
 						new CodeSnippetExpression("requestWriter"),

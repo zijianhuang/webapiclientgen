@@ -257,6 +257,7 @@ export namespace DemoWebApi_Controllers_Client {
 		address?: DemoWebApi_DemoData_Client.Address;
 		death?: Date | null;
 		dob?: Date | null;
+		emailAddress?: string | null;
 		id?: number | null;
 		name?: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;

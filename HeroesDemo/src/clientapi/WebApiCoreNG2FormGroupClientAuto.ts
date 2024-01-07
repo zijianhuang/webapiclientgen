@@ -656,6 +656,7 @@ export namespace DemoWebApi_Controllers_Client {
 		address?: DemoWebApi_DemoData_Client.Address;
 		death?: Date | null;
 		dob?: Date | null;
+		emailAddress?: string | null;
 		id?: number | null;
 
 		/**
@@ -672,6 +673,7 @@ export namespace DemoWebApi_Controllers_Client {
 	export interface HeroFormProperties {
 		death: FormControl<Date | null | undefined>,
 		dob: FormControl<Date | null | undefined>,
+		emailAddress: FormControl<string | null | undefined>,
 		id: FormControl<number | null | undefined>,
 
 		/**
@@ -684,6 +686,7 @@ export namespace DemoWebApi_Controllers_Client {
 		return new FormGroup<HeroFormProperties>({
 			death: new FormControl<Date | null | undefined>(undefined),
 			dob: new FormControl<Date | null | undefined>(undefined),
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<number | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
 		});
@@ -700,6 +703,7 @@ export namespace DemoWebApi_Controllers_Client {
 		return new FormGroup<SuperHeroFormProperties>({
 			death: new FormControl<Date | null | undefined>(undefined),
 			dob: new FormControl<Date | null | undefined>(undefined),
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<number | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
 			super: new FormControl<boolean | null | undefined>(undefined),

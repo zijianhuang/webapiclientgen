@@ -3,12 +3,24 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
+
+		/** String length: inclusive between 2 and 50 */
 		city?: string | null;
+
+		/** String length: inclusive between 2 and 30 */
 		country?: string | null;
 		id?: string | null;
+
+		/** String length: inclusive between 2 and 10 */
 		postalCode?: string | null;
+
+		/** String length: inclusive between 2 and 30 */
 		state?: string | null;
+
+		/** String length: inclusive between 2 and 100 */
 		street1?: string | null;
+
+		/** String length: inclusive between 2 and 100 */
 		street2?: string | null;
 		type?: DemoWebApi_DemoData_Client.AddressType | null;
 

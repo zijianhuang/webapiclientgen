@@ -64,7 +64,7 @@ export class HeroDetailComponent implements OnInit {
         );
     }
     goBack(): void {
-        this.location.back(); this.heroForm.controls.name.errors
+        this.location.back();
     }
 
     addPhoneNumber() {
@@ -103,7 +103,7 @@ export class HeroDetailComponent implements OnInit {
         return '';
     }
 
-    getErrorsText(errors: ValidationErrors | null) {
+    getErrorsText(errors: ValidationErrors | null | undefined) {
         if (!errors) {
             return '';
         }
@@ -130,6 +130,22 @@ export class HeroDetailComponent implements OnInit {
         }
 
         return lines.join('; ');
+    }
 
+    allNestedValid(fg: FormGroup): boolean {
+        for (const cn in fg.controls) {
+            if (fg.controls[cn] instanceof FormGroup) { //also work well with FormArray
+                const r = this.allNestedValid(fg.controls[cn] as FormGroup);
+                if (!r) {
+                    return false;
+                }
+            } else {
+                if (fg.controls[cn].invalid) {
+                    return false;
+                }
+            }
+        }
+
+        return fg.valid;
     }
 }

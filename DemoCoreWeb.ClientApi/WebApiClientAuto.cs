@@ -16,25 +16,49 @@ namespace DemoWebApi.DemoData.Client
 	public class Address : object
 	{
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 50
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string City { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 30
+		/// </summary>
 		[System.ComponentModel.DefaultValueAttribute("Australia")]
+		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Country { get; set; } = "Australia";
 		
 		[System.Runtime.Serialization.DataMember()]
 		public System.Guid Id { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 10
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(10, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string PostalCode { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 30
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string State { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 100
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Street1 { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 100
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Street2 { get; set; }
 		

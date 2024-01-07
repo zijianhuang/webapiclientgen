@@ -163,21 +163,27 @@ namespace DemoWebApi.DemoData
 		public Guid EntityId { get; set; }
 
 		[DataMember]
+		[StringLength(100, MinimumLength = 2)]
 		public string Street1 { get; set; }
 
 		[DataMember]
+		[StringLength(100, MinimumLength = 2)]
 		public string Street2 { get; set; }
 
 		[DataMember]
+		[StringLength(50, MinimumLength = 2)]
 		public string City { get; set; }
 
 		[DataMember]
+		[StringLength(30, MinimumLength = 2)]
 		public string State { get; set; }
 
 		[DataMember]
+		[StringLength(10, MinimumLength = 2)]
 		public string PostalCode { get; set; }
 
 		[DataMember]
+		[StringLength(30, MinimumLength = 2)]
 		[System.ComponentModel.DefaultValue("Australia")]
 		public string Country { get; set; }
 

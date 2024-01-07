@@ -4,12 +4,24 @@ import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
+
+		/** String length: inclusive between 2 and 50 */
 		city?: string | null;
+
+		/** String length: inclusive between 2 and 30 */
 		country?: string | null;
 		id?: string | null;
+
+		/** String length: inclusive between 2 and 10 */
 		postalCode?: string | null;
+
+		/** String length: inclusive between 2 and 30 */
 		state?: string | null;
+
+		/** String length: inclusive between 2 and 100 */
 		street1?: string | null;
+
+		/** String length: inclusive between 2 and 100 */
 		street2?: string | null;
 		type?: DemoWebApi_DemoData_Client.AddressType | null;
 
@@ -19,24 +31,36 @@ export namespace DemoWebApi_DemoData_Client {
 		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
 	}
 	export interface AddressFormProperties {
+
+		/** String length: inclusive between 2 and 50 */
 		city: FormControl<string | null | undefined>,
+
+		/** String length: inclusive between 2 and 30 */
 		country: FormControl<string | null | undefined>,
 		id: FormControl<string | null | undefined>,
+
+		/** String length: inclusive between 2 and 10 */
 		postalCode: FormControl<string | null | undefined>,
+
+		/** String length: inclusive between 2 and 30 */
 		state: FormControl<string | null | undefined>,
+
+		/** String length: inclusive between 2 and 100 */
 		street1: FormControl<string | null | undefined>,
+
+		/** String length: inclusive between 2 and 100 */
 		street2: FormControl<string | null | undefined>,
 		type: FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>,
 	}
 	export function CreateAddressFormGroup() {
 		return new FormGroup<AddressFormProperties>({
-			city: new FormControl<string | null | undefined>(undefined),
-			country: new FormControl<string | null | undefined>(undefined),
+			city: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(50), Validators.minLength(2)]),
+			country: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(30), Validators.minLength(2)]),
 			id: new FormControl<string | null | undefined>(undefined),
-			postalCode: new FormControl<string | null | undefined>(undefined),
-			state: new FormControl<string | null | undefined>(undefined),
-			street1: new FormControl<string | null | undefined>(undefined),
-			street2: new FormControl<string | null | undefined>(undefined),
+			postalCode: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(10), Validators.minLength(2)]),
+			state: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(30), Validators.minLength(2)]),
+			street1: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(100), Validators.minLength(2)]),
+			street2: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(100), Validators.minLength(2)]),
 			type: new FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>(undefined),
 		});
 
@@ -268,7 +292,7 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export function CreatePhoneNumberFormGroup() {
 		return new FormGroup<PhoneNumberFormProperties>({
-			fullNumber: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(120)]),
+			fullNumber: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(16)]),
 			phoneType: new FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>(undefined),
 		});
 

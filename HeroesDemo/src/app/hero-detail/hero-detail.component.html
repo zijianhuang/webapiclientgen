@@ -28,20 +28,40 @@
         </div>
 
         <div formGroupName="address">
-            <input matInput placeholder="Street" formControlName="street1" />
-            <input matInput placeholder="City" formControlName="city" />
-            <input matInput placeholder="State" formControlName="state" />
-            <input matInput placeholder="Country" formControlName="country" />
+            <mat-form-field>
+                <mat-label>Street</mat-label>
+                <input matInput formControlName="street1" />
+                <mat-error *ngIf="heroForm.controls.address?.controls?.street1?.hasError">{{getErrorsText(heroForm.controls.address?.controls?.street1?.errors)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" />
+                <mat-error *ngIf="heroForm.controls.address?.controls?.city?.hasError">{{getErrorsText(heroForm.controls.address?.controls?.city?.errors)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>State</mat-label>
+                <input matInput formControlName="state" />
+                <mat-error *ngIf="heroForm.controls.address?.controls?.state?.hasError">{{getErrorsText(heroForm.controls.address?.controls?.state?.errors)}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Country</mat-label>
+                <input matInput formControlName="country" />
+                <mat-error *ngIf="heroForm.controls.address?.controls?.country?.hasError">{{getErrorsText(heroForm.controls.address?.controls?.country?.errors)}}</mat-error>
+            </mat-form-field>
         </div>
 
         <div *ngFor="let pg of heroForm.controls.phoneNumbers!.controls" [formGroup]="pg">
-            <input matInput placeholder="number" formControlName="fullNumber" /> <button mat-raised-button (click)="removePhoneNumber(pg)">X</button>
+            <mat-form-field>
+                <mat-label>Number</mat-label>
+                <input matInput formControlName="fullNumber" /> <button mat-mini-fab color="any" matSuffix (click)="removePhoneNumber(pg)">X</button>
+                <mat-error *ngIf="pg.hasError">{{getErrorsText(pg.controls.fullNumber.errors)}}</mat-error>
+                </mat-form-field>
         </div>
         <div>
-            <button mat-raised-button (click)="addPhoneNumber()">Add Phone</button>
+            <button mat-raised-button (click)="addPhoneNumber()">Add Phone Number</button>
         </div>
     </div>
 
     <button mat-raised-button type="button" (click)="goBack()">go back</button>
-    <button mat-raised-button type="button" (click)="save()" [disabled]="heroForm.invalid">save</button>
+    <button mat-raised-button type="button" (click)="save()" [disabled]="!allNestedValid(heroForm)">save</button>
 </div>

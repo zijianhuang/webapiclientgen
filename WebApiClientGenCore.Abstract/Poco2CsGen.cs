@@ -42,6 +42,8 @@ namespace Fonlow.Poco2Client
 
 		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
 
+		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declaratinDic;
+
 		/// <summary>
 		/// Gen will share the same CodeCompileUnit with other CodeGen components which generate client API codes.
 		/// </summary>
@@ -54,6 +56,7 @@ namespace Fonlow.Poco2Client
 			this.settings = settings;
 
 			attribueCommentDic = AnnotationTextGenerator.Create();
+			declaratinDic= AnnotationDeclarationGenerator.Create();
 		}
 
 		/// <summary>
@@ -795,7 +798,7 @@ namespace Fonlow.Poco2Client
 					continue;
 				}
 
-				if (AttributeDeclarationGenerator.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
+				if (declaratinDic.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
 				{
 					codeTypeMember.CustomAttributes.Add(textGenerator(attribute));
 				}
@@ -833,88 +836,6 @@ namespace Fonlow.Poco2Client
 			return null;//not supported
 		}
 
-		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> AttributeDeclarationGenerator = new Dictionary<Type, Func<Attribute, CodeAttributeDeclaration>>
-		{
-			{ typeof(RequiredAttribute), a => new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Required") },
-			{ typeof(RangeAttribute), a =>
-				{
-					var obj = a as RangeAttribute;
-					var operandType = new CodeSnippetExpression($"typeof({obj.OperandType.FullName})");
-					var min = new CodeSnippetExpression($"\"{obj.Minimum}\"");
-					var max = new CodeSnippetExpression($"\"{obj.Maximum}\"");
-					//var isNumber = obj.GetType()== typeof(int) || obj.GetType()==typeof(double);
-					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(operandType),
-					new CodeAttributeArgument(min),
-					new CodeAttributeArgument(max) };
-					if (!String.IsNullOrEmpty(obj.ErrorMessage))
-					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
-					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
-					}
-
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Range", attributeParams.ToArray());
-				}
-			},
-			{ typeof(MaxLengthAttribute), a =>
-				{
-					var obj= a as MaxLengthAttribute;
-					var len = new CodeSnippetExpression(obj.Length.ToString());
-					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(len) };
-					if (!String.IsNullOrEmpty(obj.ErrorMessage))
-					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
-					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
-					}
-
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.MaxLength", attributeParams.ToArray());
-				}
-			},
-			{ typeof(MinLengthAttribute), a =>
-				{
-					var obj= a as MinLengthAttribute;
-					var len = new CodeSnippetExpression(obj.Length.ToString());
-					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(len) };
-					if (!String.IsNullOrEmpty(obj.ErrorMessage))
-					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
-					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
-					}
-
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.MinLength", attributeParams.ToArray());
-				}
-			},
-			{ typeof(StringLengthAttribute), a =>
-				{
-					var obj= a as StringLengthAttribute;
-					var max = new CodeSnippetExpression(obj.MaximumLength.ToString());
-					var min = new CodeSnippetExpression(obj.MinimumLength.ToString());
-					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(max),
-					new CodeAttributeArgument("MinimumLength", min) };
-					if (!String.IsNullOrEmpty(obj.ErrorMessage))
-					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
-					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
-					}
-
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.StringLength", attributeParams.ToArray());
-				}
-			},
-			{ typeof(DataTypeAttribute), a =>
-				{
-					var obj= a as DataTypeAttribute;
-					var dataType = new CodeSnippetExpression("System.ComponentModel.DataAnnotations.DataType." + obj.DataType.ToString());
-					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(dataType) };
-					if (!String.IsNullOrEmpty(obj.ErrorMessage))
-					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
-					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
-					}
-
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.DataType", attributeParams.ToArray());
-				}
-			},
-			// not to support RegularExpressionAttribute since they are more of UI constraints.
-		};
 	}
 
 }

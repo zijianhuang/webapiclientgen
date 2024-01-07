@@ -46,6 +46,7 @@ namespace DemoWebApi.DemoData.Base
 		}
 
 		[DataMember]
+		[RegularExpression(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
 		public Uri Web { get; set; }
 
 		[DataMember, EmailAddress, MaxLength(255)]
@@ -112,7 +113,7 @@ namespace DemoWebApi.DemoData
 
 
 		[DataMember]
-		[MaxLength(120)]
+		[MaxLength(120), Phone]
 		public string FullNumber { get; set; }
 
 		[DataMember]

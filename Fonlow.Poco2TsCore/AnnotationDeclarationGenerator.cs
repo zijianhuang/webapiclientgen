@@ -95,8 +95,9 @@ namespace Fonlow.Poco2Client
 			{ typeof(RegularExpressionAttribute), a =>
 				{
 					var obj= a as RegularExpressionAttribute;
-					var len = new CodeSnippetExpression(obj.Pattern);
-					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(len) };
+					var ps = $"@\"{obj.Pattern}\"";
+					var p = new CodeSnippetExpression(ps);
+					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(p) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
 					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");

@@ -47,7 +47,8 @@ namespace Fonlow.Poco2Ts
 			this.helpStrictMode = helpStrictMode;
 			this.codeObjectHelper = codeObjectHelper;
 
-			attribueCommentDic = AnnotationTextGenerator.Create();
+			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator(true);
+			attribueCommentDic = annotationCommentGenerator.Get();
 			declaratinDic = AnnotationDeclarationGenerator.Create();
 		}
 

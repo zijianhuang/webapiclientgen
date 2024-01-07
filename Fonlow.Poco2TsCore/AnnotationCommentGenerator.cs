@@ -5,14 +5,30 @@ using System.Globalization;
 
 namespace Fonlow.Poco2Client
 {
-	public sealed class AnnotationTextGenerator
+	public sealed class AnnotationCommentGenerator
 	{
-		public static IDictionary<Type, Func<object, string>> Create()
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="forTS">JsDoc does not support some regular expression, not even with mechanism of eacaping.</param>
+		public AnnotationCommentGenerator(bool forTS=false)
+		{
+			if (!forTS)
+			{
+				generator.Add(typeof(RegularExpressionAttribute), a =>
+				{
+					RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}", regularExpression.Pattern);
+				});
+			}
+		}
+
+		public IDictionary<Type, Func<object, string>> Get()
 		{
 			return generator;
 		}
 
-		static readonly IDictionary<Type, Func<object, string>> generator = new Dictionary<Type, Func<object, string>>
+		readonly IDictionary<Type, Func<object, string>> generator = new Dictionary<Type, Func<object, string>>
 		{
 			{ typeof(RequiredAttribute), a => "Required" },
 			{ typeof(RangeAttribute), a =>
@@ -43,12 +59,6 @@ namespace Fonlow.Poco2Client
 				{
 					DataTypeAttribute dataType = (DataTypeAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "Data type: {0}", dataType.CustomDataType ?? dataType.DataType.ToString());
-				}
-			},
-			{ typeof(RegularExpressionAttribute), a =>
-				{
-					RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
-					return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}", regularExpression.Pattern);
 				}
 			}
 		};

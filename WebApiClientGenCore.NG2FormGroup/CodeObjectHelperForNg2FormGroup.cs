@@ -256,6 +256,10 @@ namespace Fonlow.TypeScriptCodeDom
 						case "System.ComponentModel.DataAnnotations.EmailAddressAttribute":
 							validatorList.Add("Validators.email");
 							break;
+						case "System.ComponentModel.DataAnnotations.RegularExpressionAttribute":
+							var rp = ca as System.ComponentModel.DataAnnotations.RegularExpressionAttribute;
+							validatorList.Add($"Validators.pattern('{rp.Pattern}')");
+							break;
 						default:
 							break;
 					}

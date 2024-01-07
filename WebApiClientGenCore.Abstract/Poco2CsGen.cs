@@ -55,7 +55,8 @@ namespace Fonlow.Poco2Client
 			pendingTypes = new List<Type>();
 			this.settings = settings;
 
-			attribueCommentDic = AnnotationTextGenerator.Create();
+			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
+			attribueCommentDic = annotationCommentGenerator.Get();
 			declaratinDic= AnnotationDeclarationGenerator.Create();
 		}
 

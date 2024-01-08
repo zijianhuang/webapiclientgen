@@ -33,7 +33,7 @@ namespace Poco2TsTests
 		}
 
 //		[Fact]
-//		public void TestEnumAddressType()
+//		public void TestEnumAddressType()visual 
 //		{
 //			Verify(typeof(DemoWebApi.DemoData.AddressType),
 //@"export namespace DemoWebApi_DemoData_Client {
@@ -68,7 +68,7 @@ namespace Poco2TsTests
 			EmailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			Id: new FormControl<string | null | undefined>(undefined),
 			Name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
-			Web: new FormControl<string | null | undefined>(undefined),
+			Web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
 		});
 
 	}
@@ -139,13 +139,13 @@ namespace Poco2TsTests
 	}
 	export function CreateAddressFormGroup() {
 		return new FormGroup<AddressFormProperties>({
-			City: new FormControl<string | null | undefined>(undefined),
-			Country: new FormControl<string | null | undefined>(undefined),
+			City: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(50), Validators.minLength(2)]),
+			Country: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(30), Validators.minLength(2)]),
 			Id: new FormControl<string | null | undefined>(undefined),
-			PostalCode: new FormControl<string | null | undefined>(undefined),
-			State: new FormControl<string | null | undefined>(undefined),
-			Street1: new FormControl<string | null | undefined>(undefined),
-			Street2: new FormControl<string | null | undefined>(undefined),
+			PostalCode: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(10), Validators.minLength(2)]),
+			State: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(30), Validators.minLength(2)]),
+			Street1: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(100), Validators.minLength(2)]),
+			Street2: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(100), Validators.minLength(2)]),
 			Type: new FormControl<number | null | undefined>(undefined),
 			Location: new FormControl<any | null | undefined>(undefined),
 		});

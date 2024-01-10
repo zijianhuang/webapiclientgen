@@ -4,6 +4,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -258,7 +259,14 @@ namespace Fonlow.TypeScriptCodeDom
 							break;
 						case "System.ComponentModel.DataAnnotations.RegularExpressionAttribute":
 							var rp = ca as System.ComponentModel.DataAnnotations.RegularExpressionAttribute;
-							validatorList.Add($"Validators.pattern('{rp.Pattern}')");
+							var escapedPattern = rp.Pattern
+								.Replace("\\'", "\\\\'") // must run first before escaping single quote
+								.Replace("'", "\\'")
+								.Replace("\\0", "0o")
+								;
+
+							var escapedPattern2 = EscapeRegexCapturingGroup(escapedPattern);
+							validatorList.Add($"Validators.pattern('{escapedPattern2}')");
 							break;
 						default:
 							break;
@@ -278,6 +286,19 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
+		static string EscapeRegexCapturingGroup(string s)
+		{
+			var regex = new Regex("\\\\\\d+");
+			string r = s;
+			MatchCollection matches = regex.Matches(s);
+			foreach (var m in matches.ToArray())
+			{
+				var refinedP = m.Value.Replace("\\", "\\\\");
+				r = r.Replace(m.Value, refinedP);
+			}
+
+			return r;
+		}
 
 		void WriteAngularFormTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{

@@ -292,7 +292,7 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export function CreatePhoneNumberFormGroup() {
 		return new FormGroup<PhoneNumberFormProperties>({
-			fullNumber: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(16)]),
+			fullNumber: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(120)]),
 			phoneType: new FormControl<DemoWebApi_DemoData_Client.PhoneType | null | undefined>(undefined),
 		});
 

@@ -8,12 +8,12 @@
 	  <PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
 	  <NeutralLanguage>en</NeutralLanguage>
 	  <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-	  <Copyright>Copyright © Zijian Huang 2015-2023</Copyright>
+	  <Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <AssemblyName>Fonlow.WebApiClientGenCore.NG2FormGroup</AssemblyName>
-	  <Version>1.3</Version>
+	  <Version>1.3.1</Version>
 	  <PackageTags>Angular</PackageTags>
 	  <PackageReadmeFile>Readme.md</PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>

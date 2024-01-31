@@ -180,12 +180,28 @@ namespace Fonlow.TypeScriptCodeDom
 			Trace.TraceWarning($"CodeExpression not supported: {e}");
 		}
 
+		//CodeAttributeArgument, TS does not support, the closest thing is Angular directive like @Input() and @ViewChild() etc., can be done with code snippet.
+		// not to support CodeAttributeArgumentCollection, CodeCastExpression
+		// CodeCatchClauseCollection, pretty a C# feature
+		// CodeChecksumPragma means nothing to JS/TS
+		// CodeComment is indirectly supported in CodeCommentStatement.
+		// CodeDirective not js/ts
+		// CodeDirectiveCollection no
+		// CodeEntryPointMethod no
+		// CodeIterationStatement not good, for goto
+		// CodeLinePragma no js
+		// CodeMemberEvent not js
+		// CodeNamespaceCollection indirectly supported
+		// CodeSnippetCompileUnit
+		// CodeTypeDelegate
+		// FieldDirection
+
 		internal void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (WriteCodeAssignStatement(e as CodeAssignStatement, w, o))
 				return;
 
-			//CodeAttachEventStatement  TS does not seem to support, Js DOM event better done with code snippet.
+			//CodeAttachEventStatement  TS does not seem to support, Js DOM event better be done with code snippet.
 
 			if (WriteCodeCommentStatement(e as CodeCommentStatement, w, o))
 				return;

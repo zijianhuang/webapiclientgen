@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using static System.Net.WebRequestMethods;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -17,15 +18,18 @@ namespace Fonlow.TypeScriptCodeDom
 			{typeof(ulong).FullName, "number"},
 			{typeof(short).FullName, "number"},
 			{typeof(ushort).FullName, "number"},
+			{typeof(byte).FullName, "number"},
+			{typeof(sbyte).FullName, "number"}, //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types
+
 			{typeof(float).FullName, "number"},
 			{typeof(double).FullName, "number"},
-			{typeof(decimal).FullName, "number"},
-			{typeof(byte).FullName, "number"},
-			{typeof(sbyte).FullName, "number"},
+			{typeof(decimal).FullName, "number"}, //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types
+
 			{typeof(string).FullName, "string"},
 			{typeof(char).FullName, "string"},
+			{typeof(bool).FullName, "boolean"}, //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/built-in-types
+
 			{typeof(Guid).FullName, "string"},
-			{typeof(bool).FullName, "boolean"},
 			{typeof(void).FullName, "void"},
 			{typeof(object).FullName, "any"},
 			{typeof(DateTime).FullName, "Date"},

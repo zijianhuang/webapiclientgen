@@ -38,6 +38,76 @@ namespace Poco2TsTests
 		}
 
 		[Fact]
+		public void TestPersonWithRegions()
+		{
+			var targetUnit = new CodeCompileUnit();
+			var gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
+			gen.CreateCodeDom(new Type[] { typeof(DemoWebApi.DemoData.Person) }, CherryPickingMethods.DataContract);
+			var typeDeclaration = targetUnit.Namespaces[0].Types[0];
+			typeDeclaration.StartDirectives.Add(new CodeRegionDirective(CodeRegionMode.Start, "Type Block"));
+			typeDeclaration.EndDirectives.Add(new CodeRegionDirective(CodeRegionMode.End, string.Empty));
+
+			using (var writer = new StringWriter())
+			{
+				gen.WriteCode(writer);
+				var s = writer.ToString();
+				var expected = @"export namespace DemoWebApi_DemoData_Client {
+
+// #region Type Block
+	export interface Person extends DemoWebApi.DemoData.Base.Entity {
+		Baptised?: Date | null;
+		DOB?: Date | null;
+		GivenName?: string | null;
+		Surname?: string | null;
+	}
+
+// #endregion
+}
+
+";
+				Assert.Equal(expected, s);
+			}
+
+		}
+
+		[Fact]
+		public void Test2TypesWithRegions()
+		{
+			var targetUnit = new CodeCompileUnit();
+			var gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
+			gen.CreateCodeDom(new Type[] { typeof(DemoWebApi.DemoData.Person), typeof(DemoWebApi.DemoData.AddressType) }, CherryPickingMethods.DataContract);
+			var typeDeclaration = targetUnit.Namespaces[0].Types[0];
+			var typeDeclaration1 = targetUnit.Namespaces[0].Types[1];
+			typeDeclaration.StartDirectives.Add(new CodeRegionDirective(CodeRegionMode.Start, "Type Block")); // Address
+			typeDeclaration1.EndDirectives.Add(new CodeRegionDirective(CodeRegionMode.End, string.Empty)); //Person. 
+			//types inside CreateCodeDom are sorted by namespace and type name.
+
+			using (var writer = new StringWriter())
+			{
+				gen.WriteCode(writer);
+				var s = writer.ToString();
+				var expected = @"export namespace DemoWebApi_DemoData_Client {
+
+// #region Type Block
+	export enum AddressType { Postal, Residential }
+
+	export interface Person extends DemoWebApi.DemoData.Base.Entity {
+		Baptised?: Date | null;
+		DOB?: Date | null;
+		GivenName?: string | null;
+		Surname?: string | null;
+	}
+
+// #endregion
+}
+
+";
+				Assert.Equal(expected, s);
+			}
+
+		}
+
+		[Fact]
 		public void TestEnumAddressType()
 		{
 			Verify(typeof(DemoWebApi.DemoData.AddressType),
@@ -92,6 +162,7 @@ namespace Poco2TsTests
 }
 
 ");
+			Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = false;
 		}
 
 		[Fact]

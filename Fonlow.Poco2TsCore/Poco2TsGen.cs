@@ -168,7 +168,7 @@ namespace Fonlow.Poco2Ts
 		}
 
 		/// <summary>
-		/// Create TypeScript CodeDOM for POCO types. 
+		/// Create TypeScript CodeDOM for POCO types. Order by namespaces and type name.
 		/// For an enum type, all members will be processed regardless of EnumMemberAttribute.
 		/// </summary>
 		/// <param name="types">POCO types.</param>

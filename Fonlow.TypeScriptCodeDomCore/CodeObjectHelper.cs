@@ -40,8 +40,10 @@ namespace Fonlow.TypeScriptCodeDom
 
 			e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
 			{
+				WriteCodeRegionDirectives(t.StartDirectives, w);
 				GenerateCodeFromType(t, w, o);
 				w.WriteLine();
+				WriteCodeRegionDirectives(t.EndDirectives, w);
 			});
 
 			w.WriteLine($"}}");
@@ -55,6 +57,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="o"></param>
 		public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
+
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
 			GenerateCodeFromAttributeDeclarationCollection(e.CustomAttributes, w, o);
@@ -112,6 +115,9 @@ namespace Fonlow.TypeScriptCodeDom
 				return;
 			}
 
+			if (WriteCodeCastExpression(e as CodeCastExpression, w, o))
+				return;
+
 			if (WriteCodeBinaryOperatorExpression(e as CodeBinaryOperatorExpression, w, o))
 				return;
 
@@ -136,7 +142,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (e is CodeParameterDeclarationExpression parameterDeclarationExpression)
 			{
-				w.Write($"{parameterDeclarationExpression.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type)}");
+				w.Write($"{parameterDeclarationExpression.Name}: {GetCodeTypeReferenceText(parameterDeclarationExpression.Type)}");
 				return;
 			}
 
@@ -161,13 +167,13 @@ namespace Fonlow.TypeScriptCodeDom
 
 			if (e is CodeTypeOfExpression typeOfExpression)
 			{
-				w.Write("typeof " + TypeMapper.MapCodeTypeReferenceToTsText(typeOfExpression.Type));
+				w.Write("typeof " + GetCodeTypeReferenceText(typeOfExpression.Type));
 				return;
 			}
 
 			if (e is CodeTypeReferenceExpression typeReferenceExpression)
 			{
-				w.Write(TypeMapper.MapCodeTypeReferenceToTsText(typeReferenceExpression.Type));
+				w.Write(GetCodeTypeReferenceText(typeReferenceExpression.Type));
 				return;
 			}
 
@@ -180,28 +186,27 @@ namespace Fonlow.TypeScriptCodeDom
 			Trace.TraceWarning($"CodeExpression not supported: {e}");
 		}
 
-		//CodeAttributeArgument, TS does not support, the closest thing is Angular directive like @Input() and @ViewChild() etc., can be done with code snippet.
-		// not to support CodeAttributeArgumentCollection, CodeCastExpression
-		// CodeCatchClauseCollection, pretty a C# feature
-		// CodeChecksumPragma means nothing to JS/TS
-		// CodeComment is indirectly supported in CodeCommentStatement.
-		// CodeDirective not js/ts
-		// CodeDirectiveCollection no
-		// CodeEntryPointMethod no
-		// CodeIterationStatement not good, for goto
-		// CodeLinePragma no js
-		// CodeMemberEvent not js
-		// CodeNamespaceCollection indirectly supported
-		// CodeSnippetCompileUnit
-		// CodeTypeDelegate
-		// FieldDirection
+		/// <summary>
+		/// For CodeTypeDeclaration, CodeTypeMember (field, proeprty and method), CodeStatement, 
+		/// </summary>
+		/// <param name="directives">CodeDirectiveCollection with CodeRegionDirective</param>
+		/// <param name="w"></param>
+		void WriteCodeRegionDirectives(CodeDirectiveCollection directives, TextWriter w)
+		{
+			if (directives != null && directives.Count > 0)
+			{
+				var codeRegionStartDirectives = directives.OfType<CodeRegionDirective>().ToArray();
+				foreach (var item in codeRegionStartDirectives)
+				{
+					WriteCodeRegionDirective(item, w);
+				}
+			}
+		}
 
 		internal void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (WriteCodeAssignStatement(e as CodeAssignStatement, w, o))
 				return;
-
-			//CodeAttachEventStatement  TS does not seem to support, Js DOM event better be done with code snippet.
 
 			if (WriteCodeCommentStatement(e as CodeCommentStatement, w, o))
 				return;
@@ -213,17 +218,11 @@ namespace Fonlow.TypeScriptCodeDom
 				return;
 
 
-			//todo: CodeGotoStatement, probably not to support
-
 			if (WriteCodeIterationStatement(e as CodeIterationStatement, w, o))
 				return;
 
-			//todo: CodeLabeledStatement, probably not to support
-
 			if (WriteCodeMethodReturnStatement(e as CodeMethodReturnStatement, w, o))
 				return;
-
-			//todo: CodeRemoveEventStatement not to support
 
 			if (WriteCodeThrowExceptionStatement(e as CodeThrowExceptionStatement, w, o))
 				return;
@@ -277,7 +276,7 @@ namespace Fonlow.TypeScriptCodeDom
 			if (objectCreateExpression == null)
 				return false;
 
-			w.Write($"new {TypeMapper.MapCodeTypeReferenceToTsText(objectCreateExpression.CreateType)}(");
+			w.Write($"new {GetCodeTypeReferenceText(objectCreateExpression.CreateType)}(");
 			WriteCodeExpressionCollection(objectCreateExpression.Parameters, w, o);
 			w.Write(")");
 			return true;
@@ -378,6 +377,22 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
+		bool WriteCodeCastExpression(CodeCastExpression codeCastExpression, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (codeCastExpression == null)
+				return false;
+
+			var tsTypeText = GetCodeTypeReferenceText(codeCastExpression.TargetType);
+			w.Write("(");
+			GenerateCodeFromExpression(codeCastExpression.Expression, w, o);
+			w.Write(" as ");
+			w.Write(tsTypeText);
+			w.Write(")");
+			return true;
+		}
+
+
+
 		/// <summary>
 		/// Multi-line doc comment will be split according to JSDoc 3 at http://usejsdoc.org
 		/// Multi-line comment will be split
@@ -432,26 +447,33 @@ namespace Fonlow.TypeScriptCodeDom
 			WriteCodeCommentStatementCollection(codeMemberProperty.Comments, w, o);
 
 			var accessibility = GetAccessibilityModifier(codeMemberProperty.Attributes);
+			if (accessibility=="public"){
+				accessibility = string.Empty;
+			}else{
+				accessibility += " ";
+			}
 
 			var currentIndent = o.IndentString;
-			var propertyType = TypeMapper.MapCodeTypeReferenceToTsText(codeMemberProperty.Type);
+			var propertyType = GetCodeTypeReferenceText(codeMemberProperty.Type);
 			if (codeMemberProperty.GetStatements.Count > 0)
 			{
 				w.Write(o.IndentString);
-				w.WriteLine($"{accessibility} get {codeMemberProperty.Name}(): {propertyType}");
-				w.WriteLine("{");
+				w.WriteLine($"{accessibility}get {codeMemberProperty.Name}(): {propertyType} {{");
 				o.IndentString += BasicIndent;
 				WriteCodeStatementCollection(codeMemberProperty.GetStatements, w, o);
+				w.Write(currentIndent);
+				w.WriteLine("}");
 				o.IndentString = currentIndent;
 			}
 
 			if (codeMemberProperty.SetStatements.Count > 0)
 			{
 				w.Write(o.IndentString);
-				w.WriteLine($"{accessibility} set {codeMemberProperty.Name}(value : {propertyType})");
-				w.WriteLine("{");
+				w.WriteLine($"{accessibility}set {codeMemberProperty.Name}(value: {propertyType}) {{");
 				o.IndentString += BasicIndent;
 				WriteCodeStatementCollection(codeMemberProperty.SetStatements, w, o);
+				w.Write(currentIndent);
+				w.WriteLine("}");
 				o.IndentString = currentIndent;
 			}
 
@@ -469,7 +491,7 @@ namespace Fonlow.TypeScriptCodeDom
 			WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
 			w.Write(")");
 
-			var returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(memberMethod.ReturnType);
+			var returnTypeText = GetCodeTypeReferenceText(memberMethod.ReturnType);
 			if (!(isCodeConstructor || returnTypeText == "void" || memberMethod.ReturnType == null))
 			{
 				w.Write(": " + returnTypeText);
@@ -527,7 +549,6 @@ namespace Fonlow.TypeScriptCodeDom
 
 		void WriteTypeMembersAndCloseBracing(CodeTypeDeclaration typeDeclaration, TextWriter w, CodeGeneratorOptions o)
 		{
-
 			if (typeDeclaration.IsEnum)
 			{
 				WriteEnumMembersAndCloseBracing(typeDeclaration, w, o);
@@ -539,7 +560,10 @@ namespace Fonlow.TypeScriptCodeDom
 				w.WriteLine();
 				for (int i = 0; i < typeDeclaration.Members.Count; i++)
 				{
-					WriteCodeTypeMember(typeDeclaration.Members[i], w, o);
+					var member = typeDeclaration.Members[i];
+					WriteCodeRegionDirectives(member.StartDirectives, w);
+					WriteCodeTypeMember(member, w, o);
+					WriteCodeRegionDirectives(member.EndDirectives, w);
 				};
 				w.WriteLine(currentIndent + "}");
 				o.IndentString = currentIndent;
@@ -652,8 +676,10 @@ namespace Fonlow.TypeScriptCodeDom
 				if (!WriteCodeSnippetStatement(statement as CodeSnippetStatement, w, o) &&
 					!WriteCodeCommentStatement(statement as CodeCommentStatement, w, o))
 				{
+					WriteCodeRegionDirectives(statement.StartDirectives, w);
 					GenerateCodeFromStatement(statement, w, o);
 					w.WriteLine(";");
+					WriteCodeRegionDirectives(statement.EndDirectives, w);
 				}
 			}
 			o.IndentString = currentIndent;
@@ -665,10 +691,10 @@ namespace Fonlow.TypeScriptCodeDom
 				.Select(d =>
 				{
 					var isMethodParameter = (d.Type.UserData["IsMethodParameter"] as bool?).HasValue;
-					var typeText = TypeMapper.MapCodeTypeReferenceToTsText(d.Type);
+					var typeText = GetCodeTypeReferenceText(d.Type);
 					var alreadyNullable = typeText.EndsWith("| null");
 					var isAny = d.Type.BaseType == "any";
-					var s = $"{d.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(d.Type)}" + (isMethodParameter && !alreadyNullable && !isAny ? " | null" : string.Empty); // optional null
+					var s = $"{d.Name}: {GetCodeTypeReferenceText(d.Type)}" + (isMethodParameter && !alreadyNullable && !isAny ? " | null" : string.Empty); // optional null
 					Debug.WriteLine("vvvv " + s);
 					return s;
 				});
@@ -788,7 +814,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 			var currentIndent = o.IndentString;
 			w.Write(o.IndentString);
-			w.Write("for (");
+			w.Write("for (let ");
 			o.IndentString = "";
 			GenerateCodeFromStatement(iterationStatement.InitStatement, w, o);
 			w.Write("; ");
@@ -818,7 +844,7 @@ namespace Fonlow.TypeScriptCodeDom
 				return false;
 
 			w.Write(o.IndentString);
-			w.Write($"var {variableDeclarationStatement.Name}: {TypeMapper.MapCodeTypeReferenceToTsText(variableDeclarationStatement.Type)}");
+			w.Write($"var {variableDeclarationStatement.Name}: {GetCodeTypeReferenceText(variableDeclarationStatement.Type)}");
 
 			if (variableDeclarationStatement.InitExpression != null)
 			{
@@ -827,6 +853,29 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 
 			return true;
+		}
+
+		bool WriteCodeRegionDirective(CodeRegionDirective codeRegionDirective, TextWriter w)
+		{
+			if (codeRegionDirective == null)
+				return false;
+
+			if (codeRegionDirective.RegionMode == CodeRegionMode.None)
+			{
+				return false;
+			}
+
+			if (codeRegionDirective.RegionMode== CodeRegionMode.Start)
+			{
+				w.WriteLine($"\r\n// #region {codeRegionDirective.RegionText}");
+			}
+			else
+			{
+				w.WriteLine("// #endregion");
+			}
+
+			return true;
+
 		}
 
 
@@ -946,7 +995,7 @@ namespace Fonlow.TypeScriptCodeDom
 				if (d.Constraints.Count > 0)
 				{
 					var constraint = d.Constraints.OfType<CodeTypeReference>().First();
-					var type = TypeMapper.MapCodeTypeReferenceToTsText(constraint);
+					var type = GetCodeTypeReferenceText(constraint);
 					typeParameterConstraint = $" extends {type}";
 				}
 
@@ -962,7 +1011,7 @@ namespace Fonlow.TypeScriptCodeDom
 			var baseTypes = typeDeclaration.BaseTypes
 				.OfType<CodeTypeReference>()
 				.Where(reference => TypeMapper.IsValidTypeForDerivation(reference))
-				.Select(reference => TypeMapper.MapCodeTypeReferenceToTsText(reference))
+				.Select(reference => GetCodeTypeReferenceText(reference))
 				.ToList();
 			if (baseTypes.Any() && !typeDeclaration.IsEnum)
 			{

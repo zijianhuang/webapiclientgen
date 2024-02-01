@@ -10,20 +10,20 @@ namespace TypeScriptCodeDomTests
 {
     public class TsCodeStatement
     {
-        static void TestCodeStatement(CodeStatement e, string expected)
-        {
-            var builder = new StringBuilder();
-            var o = new CodeGeneratorOptions() { IndentString = "\t" };
-            using (var w = new StringWriter(builder))
-            {
-                var provider = new TypeScriptCodeProvider(new TsCodeGenerator(new CodeObjectHelper(false)));
-                provider.GenerateCodeFromStatement(e, w, o);
-            }
-            var s = builder.ToString();
-            Assert.Equal(expected, s);
-        }
+		static void TestCodeStatement(CodeStatement e, string expected)
+		{
+			var builder = new StringBuilder();
+			var o = new CodeGeneratorOptions() { IndentString = "\t" };
+			using (var w = new StringWriter(builder))
+			{
+				var provider = new TypeScriptCodeProvider(new TsCodeGenerator(new CodeObjectHelper(false)));
+				provider.GenerateCodeFromStatement(e, w, o);
+			}
+			var s = builder.ToString();
+			Assert.Equal(expected, s);
+		}
 
-        [Fact]
+		[Fact]
         public void TestCodeAssignStatement()
         {
             TestCodeStatement(new CodeAssignStatement(new CodeSnippetExpression("s"), new CodePrimitiveExpression("abc")),
@@ -132,12 +132,12 @@ namespace TypeScriptCodeDomTests
         new CodeVariableReferenceExpression("testInt"), CodeBinaryOperatorType.Add, new CodePrimitiveExpression(1))),
 
     new CodeStatement[] { new CodeExpressionStatement( new CodeMethodInvokeExpression( new CodeMethodReferenceExpression(
-        new CodeTypeReferenceExpression("Console"), "WriteLine" ), new CodeMethodInvokeExpression(
-        new CodeVariableReferenceExpression("testInt"), "ToString" ) ) ) });
+        new CodeTypeReferenceExpression("console"), "info" ), new CodeMethodInvokeExpression(
+        new CodeVariableReferenceExpression("testInt"), "toString" ) ) ) });
 
             TestCodeStatement(statement,
-@"	for (testInt = 1; testInt < 10; testInt = testInt + 1) {
-		Console.WriteLine(testInt.ToString());
+@"	for (let testInt = 1; testInt < 10; testInt = testInt + 1) {
+		console.info(testInt.toString());
 	}
 ");
         }
@@ -232,5 +232,6 @@ namespace TypeScriptCodeDomTests
             TestCodeStatement(new CodeVariableDeclarationStatement("string", "name", new CodePrimitiveExpression("abc 123")),
                 "\tvar name: string = \"abc 123\"");
         }
-    }
+
+	}
 }

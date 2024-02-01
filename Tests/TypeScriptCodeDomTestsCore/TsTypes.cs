@@ -76,16 +76,60 @@ namespace TypeScriptCodeDomTests
 	}
 ");
 
-		}
-
-
-		//[Fact]
-		//public void TestTypeOfType()
-		//{
-		//    Type companyType = typeof(DemoWebApi.DemoData.Company);
-		//    var s = companyType.ToString();
-		//    Type typeOfType = companyType.GetType();
-		//    var s2 = typeOfType.ToString();
-		//}
+		}
+
+		[Fact]
+		public void TestCodeTypeDeclarationWithPropertyMembers()
+		{
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType2")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+
+
+			var p = new CodeMemberProperty()
+			{
+				Name = "Something",
+				Type = new CodeTypeReference(typeof(string)),
+				Attributes= MemberAttributes.Public,
+			};
+
+			p.GetStatements.Add(new CodeCommentStatement("something before returning"));
+			p.GetStatements.Add(new CodeSnippetStatement("return 'abc';"));
+			p.SetStatements.Add(new CodeCommentStatement("do nothing"));
+			p.SetStatements.Add(new CodeCommentStatement("maybe more later"));
+			newType.Members.Add(p);
+			AssertCodeTypeDeclaration(newType,
+@"	class TestType2 {
+		get Something(): string {
+				// something before returning
+				return 'abc';
+		}
+		set Something(value: string) {
+				// do nothing
+				// maybe more later
+		}
+	}
+");
+
+		}
+
+
+		//[Fact]
+
+		//public void TestTypeOfType()
+
+		//{
+
+		//    Type companyType = typeof(DemoWebApi.DemoData.Company);
+
+		//    var s = companyType.ToString();
+
+		//    Type typeOfType = companyType.GetType();
+
+		//    var s2 = typeOfType.ToString();
+
+		//}
+
 	}
 }

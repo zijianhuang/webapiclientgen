@@ -174,11 +174,18 @@ namespace TypeScriptCodeDomTests
                 "MyType");
         }
 
-        [Fact]
-        public void TestCodeVariableReferenceExpression()
-        {
-            TestCodeExpression(new CodeVariableReferenceExpression("myVariable"),
-                "myVariable");
-        }
-    }
+		[Fact]
+		public void TestCodeVariableReferenceExpression()
+		{
+			TestCodeExpression(new CodeVariableReferenceExpression("myVariable"),
+				"myVariable");
+		}
+
+		[Fact]
+		public void TestCodeCastExpression()
+		{
+			TestCodeExpression(new CodeCastExpression("System.Int64", new CodeSnippetExpression("Something") ),
+				"(Something as number)");
+		}
+	}
 }

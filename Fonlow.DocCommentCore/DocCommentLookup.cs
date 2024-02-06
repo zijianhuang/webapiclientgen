@@ -9,7 +9,7 @@ namespace Fonlow.DocComment
 {
     /// <summary>
     /// Lookup doc comment stored in an XML file.
-    /// The xml parser is generated through xsd.exe xmldocument.xsd /language:C# /namespace:Fonlow.DocComment /classes
+    /// The xml parser in "xmldocument.cs" is generated through xsd.exe XmlDocument.xsd /language:C# /namespace:Fonlow.DocComment /classes
     /// </summary>
     public class DocCommentLookup
     {

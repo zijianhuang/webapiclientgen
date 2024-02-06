@@ -199,6 +199,33 @@ namespace DemoWebApi.DemoData
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]
+	public class IntegralEntity : Entity
+	{
+		[DataMember]
+		public sbyte SByte { get; set; }
+
+		[DataMember]
+		public byte Byte { get; set; }
+
+		[DataMember]
+		public short Short { get; set; }
+
+		[DataMember]
+		public ushort UShort { get; set; }
+
+		[DataMember]
+		public int Int { get; set; }
+
+		[DataMember]
+		public uint UInt { get; set; }
+
+		[Range(-1000, 1000000)]
+		[DataMember]
+		public int ItemCount { get; set; }
+	}
+
+
+	[DataContract(Namespace = Constants.DataNamespace)]
 	public class Person : Entity
 	{
 		[DataMember]

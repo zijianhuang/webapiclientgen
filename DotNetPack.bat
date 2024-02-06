@@ -6,4 +6,5 @@ set packCmd=dotnet pack --no-build --output PublishNuGetPackages --configuration
 %packCmd% Fonlow.Web.MetaCore/Fonlow.Web.MetaCore.csproj
 %packCmd% WebApiClientGenCore.Abstract/WebApiClientGenCore.Abstract.csproj
 %packCmd% WebApiClientGenCore/WebApiClientGenCore.csproj
+%packCmd% WebApiClientGenCore.NG2/WebApiClientGenCore.NG2.csproj
 %packCmd% WebApiClientGenCore.NG2FormGroup/WebApiClientGenCore.NG2FormGroup.csproj

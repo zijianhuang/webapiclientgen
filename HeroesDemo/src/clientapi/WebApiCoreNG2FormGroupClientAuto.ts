@@ -54,13 +54,13 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export function CreateAddressFormGroup() {
 		return new FormGroup<AddressFormProperties>({
-			city: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(50), Validators.minLength(2)]),
-			country: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(30), Validators.minLength(2)]),
+			city: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(50)]),
+			country: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(30)]),
 			id: new FormControl<string | null | undefined>(undefined),
-			postalCode: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(10), Validators.minLength(2)]),
-			state: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(30), Validators.minLength(2)]),
-			street1: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(100), Validators.minLength(2)]),
-			street2: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(100), Validators.minLength(2)]),
+			postalCode: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(10)]),
+			state: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(30)]),
+			street1: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(100)]),
+			street2: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(100)]),
 			type: new FormControl<DemoWebApi_DemoData_Client.AddressType | null | undefined>(undefined),
 		});
 
@@ -157,6 +157,45 @@ export namespace DemoWebApi_DemoData_Client {
 
 	}
 
+	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+		byte?: number | null;
+		int?: number | null;
+
+		/** Range: inclusive between -1000 and 1000000 */
+		itemCount?: number | null;
+		sByte?: number | null;
+		short?: number | null;
+		uInt?: number | null;
+		uShort?: number | null;
+	}
+	export interface IntegralEntityFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
+		byte: FormControl<number | null | undefined>,
+		int: FormControl<number | null | undefined>,
+
+		/** Range: inclusive between -1000 and 1000000 */
+		itemCount: FormControl<number | null | undefined>,
+		sByte: FormControl<number | null | undefined>,
+		short: FormControl<number | null | undefined>,
+		uInt: FormControl<number | null | undefined>,
+		uShort: FormControl<number | null | undefined>,
+	}
+	export function CreateIntegralEntityFormGroup() {
+		return new FormGroup<IntegralEntityFormProperties>({
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
+			id: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(256)]),
+			int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
+			itemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
+			sByte: new FormControl<number | null | undefined>(undefined, [Validators.min(-127), Validators.max(127)]),
+			short: new FormControl<number | null | undefined>(undefined, [Validators.min(-32768), Validators.max(32767)]),
+			uInt: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(4294967295)]),
+			uShort: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(65535)]),
+		});
+
+	}
+
 	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
 
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
@@ -193,8 +232,8 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export function CreateMimsPackageFormGroup() {
 		return new FormGroup<MimsPackageFormProperties>({
-			kk: new FormControl<number | null | undefined>(undefined, [Validators.max(100), Validators.min(10)]),
-			kK2: new FormControl<number | null | undefined>(undefined),
+			kk: new FormControl<number | null | undefined>(undefined, [Validators.min(10), Validators.max(100)]),
+			kK2: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			optionalEnum: new FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | undefined>(undefined),
 			optionalInt: new FormControl<number | null | undefined>(undefined),
 			result: new FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>(undefined),
@@ -481,7 +520,7 @@ export namespace DemoWebApi_Models_Client {
 	export function CreateChangePasswordBindingModelFormGroup() {
 		return new FormGroup<ChangePasswordBindingModelFormProperties>({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
-			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(100), Validators.minLength(6)]),
+			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
 			OldPwd: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 		});
 
@@ -521,7 +560,7 @@ export namespace DemoWebApi_Models_Client {
 		return new FormGroup<RegisterBindingModelFormProperties>({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
 			email: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.email]),
-			password: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(100), Validators.minLength(6)]),
+			password: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
 		});
 
 	}
@@ -594,7 +633,7 @@ export namespace DemoWebApi_Models_Client {
 	export function CreateSetPasswordBindingModelFormGroup() {
 		return new FormGroup<SetPasswordBindingModelFormProperties>({
 			confirmPassword: new FormControl<string | null | undefined>(undefined),
-			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(100), Validators.minLength(6)]),
+			newPassword: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(6), Validators.maxLength(100)]),
 		});
 
 	}
@@ -627,7 +666,7 @@ export namespace DemoWebApi_Models_Client {
 		return new FormGroup<TokenResponseModelFormProperties>({
 			access_token: new FormControl<string | null | undefined>(undefined),
 			expires: new FormControl<string | null | undefined>(undefined),
-			expires_in: new FormControl<number | null | undefined>(undefined),
+			expires_in: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
 			issued: new FormControl<string | null | undefined>(undefined),
 			token_type: new FormControl<string | null | undefined>(undefined),
 			username: new FormControl<string | null | undefined>(undefined),
@@ -718,7 +757,7 @@ export namespace DemoWebApi_Controllers_Client {
 			dob: new FormControl<Date | null | undefined>(undefined),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<number | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
 			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
 		});
 
@@ -736,7 +775,7 @@ export namespace DemoWebApi_Controllers_Client {
 			dob: new FormControl<Date | null | undefined>(undefined),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<number | null | undefined>(undefined),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.maxLength(120), Validators.minLength(2)]),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
 			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
 			super: new FormControl<boolean | null | undefined>(undefined),
 		});

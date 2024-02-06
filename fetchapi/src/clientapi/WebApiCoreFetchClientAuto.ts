@@ -58,6 +58,16 @@ export namespace DemoWebApi_DemoData_Client {
 		text?: string | null;
 	}
 
+	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+		byte?: number | null;
+		int?: number | null;
+		itemCount?: number | null;
+		sByte?: number | null;
+		short?: number | null;
+		uInt?: number | null;
+		uShort?: number | null;
+	}
+
 	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
 
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }

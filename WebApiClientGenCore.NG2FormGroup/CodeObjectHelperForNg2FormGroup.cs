@@ -195,6 +195,19 @@ namespace Fonlow.TypeScriptCodeDom
 			return tsTypeName;
 		}
 
+
+		readonly Dictionary<string, string> integralValidatorsDic = new Dictionary<string, string>
+		{
+			{ "System.SByte", "Validators.min(-127), Validators.max(127)" },
+			{ "System.Byte", "Validators.min(0), Validators.max(256)" },
+			{ "System.Int16", "Validators.min(-32768), Validators.max(32767)" },
+			{ "System.UInt16", "Validators.min(0), Validators.max(65535)" },
+			{ "System.Int32", "Validators.min(-2147483648), Validators.max(2147483647)" },
+			{ "System.UInt32", "Validators.min(0), Validators.max(4294967295)" },
+			// for long and unlong, things become tricky, as in JavaScript Number.MAX_SAFE_INTEGER=9007199254740991, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
+			// better let app programmers decide what to do.
+		};
+
 		/// <summary>
 		/// For FormGroup creation, return something like:
 		/// "name: new FormControl&lt;string | null | undefined&gt;(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)])"
@@ -205,6 +218,7 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			var customAttributes = codeMemberField.UserData["CustomAttributes"] as Attribute[];
 			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+
 			if (customAttributes?.Length > 0)
 			{
 				//Console.WriteLine("customAttributes: " + string.Join(", ",  customAttributes));
@@ -230,27 +244,27 @@ namespace Fonlow.TypeScriptCodeDom
 							break;
 						case "System.ComponentModel.DataAnnotations.RangeAttribute":
 							var ar = ca as System.ComponentModel.DataAnnotations.RangeAttribute;
-							if (ar.Maximum != null)
-							{
-								validatorList.Add($"Validators.max({ar.Maximum})");
-							}
-
 							if (ar.Minimum != null)
 							{
 								validatorList.Add($"Validators.min({ar.Minimum})");
 							}
 
+							if (ar.Maximum != null)
+							{
+								validatorList.Add($"Validators.max({ar.Maximum})");
+							}
+
 							break;
 						case "System.ComponentModel.DataAnnotations.StringLengthAttribute":
 							var ast = ca as System.ComponentModel.DataAnnotations.StringLengthAttribute;
-							if (ast.MaximumLength > 0)
-							{
-								validatorList.Add($"Validators.maxLength({ast.MaximumLength})");
-							}
-
 							if (ast.MinimumLength > 0)
 							{
 								validatorList.Add($"Validators.minLength({ast.MinimumLength})");
+							}
+
+							if (ast.MaximumLength > 0)
+							{
+								validatorList.Add($"Validators.maxLength({ast.MaximumLength})");
 							}
 
 							break;
@@ -272,7 +286,19 @@ namespace Fonlow.TypeScriptCodeDom
 							break;
 					}
 				}
-				Console.WriteLine();
+
+				var fieldTypeInfo = codeMemberField.Type.UserData["FieldTypeInfo"] as FieldTypeInfo;
+				if (fieldTypeInfo != null)
+				{
+					var validatorsHasValidatorMinOrMax = validatorList.Exists(d => d.Contains("max(") || d.Contains("min"));
+					if (!validatorsHasValidatorMinOrMax)
+					{
+						if (integralValidatorsDic.TryGetValue(fieldTypeInfo.TypeFullName, out var integralValidators))
+						{
+							validatorList.Add(integralValidators);
+						}
+					}
+				}
 
 				var text = String.Join(", ", validatorList);
 				var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);

@@ -32,17 +32,17 @@ namespace Poco2TsTests
 			}
 		}
 
-//		[Fact]
-//		public void TestEnumAddressType()visual 
-//		{
-//			Verify(typeof(DemoWebApi.DemoData.AddressType),
-//@"export namespace DemoWebApi_DemoData_Client {
-//	export enum AddressType { Postal, Residential }
+		//		[Fact]
+		//		public void TestEnumAddressType()visual 
+		//		{
+		//			Verify(typeof(DemoWebApi.DemoData.AddressType),
+		//@"export namespace DemoWebApi_DemoData_Client {
+		//	export enum AddressType { Postal, Residential }
 
-//}
+		//}
 
-//");
-//		}
+		//");
+		//		}
 
 		[Fact]
 		public void TestEntity()
@@ -69,6 +69,47 @@ namespace Poco2TsTests
 			Id: new FormControl<string | null | undefined>(undefined),
 			Name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			Web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+		});
+
+	}
+
+}
+
+");
+		}
+
+		[Fact]
+		public void TestIntegralEntity()
+		{
+			Verify(typeof(DemoWebApi.DemoData.IntegralEntity),
+@"export namespace DemoWebApi_DemoData_Client {
+	export interface IntegralEntity extends DemoWebApi.DemoData.Base.Entity {
+		Byte?: number | null;
+		Int?: number | null;
+		ItemCount?: number | null;
+		SByte?: number | null;
+		Short?: number | null;
+		UInt?: number | null;
+		UShort?: number | null;
+	}
+	export interface IntegralEntityFormProperties extends DemoWebApi.DemoData.Base.EntityFormProperties {
+		Byte: FormControl<number | null | undefined>,
+		Int: FormControl<number | null | undefined>,
+		ItemCount: FormControl<number | null | undefined>,
+		SByte: FormControl<number | null | undefined>,
+		Short: FormControl<number | null | undefined>,
+		UInt: FormControl<number | null | undefined>,
+		UShort: FormControl<number | null | undefined>,
+	}
+	export function CreateIntegralEntityFormGroup() {
+		return new FormGroup<IntegralEntityFormProperties>({
+			Byte: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(256)]),
+			Int: new FormControl<number | null | undefined>(undefined, [Validators.min(-2147483648), Validators.max(2147483647)]),
+			ItemCount: new FormControl<number | null | undefined>(undefined, [Validators.min(-1000), Validators.max(1000000)]),
+			SByte: new FormControl<number | null | undefined>(undefined, [Validators.min(-127), Validators.max(127)]),
+			Short: new FormControl<number | null | undefined>(undefined, [Validators.min(-32768), Validators.max(32767)]),
+			UInt: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(4294967295)]),
+			UShort: new FormControl<number | null | undefined>(undefined, [Validators.min(0), Validators.max(65535)]),
 		});
 
 	}
@@ -139,13 +180,13 @@ namespace Poco2TsTests
 	}
 	export function CreateAddressFormGroup() {
 		return new FormGroup<AddressFormProperties>({
-			City: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(50), Validators.minLength(2)]),
-			Country: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(30), Validators.minLength(2)]),
+			City: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(50)]),
+			Country: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(30)]),
 			Id: new FormControl<string | null | undefined>(undefined),
-			PostalCode: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(10), Validators.minLength(2)]),
-			State: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(30), Validators.minLength(2)]),
-			Street1: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(100), Validators.minLength(2)]),
-			Street2: new FormControl<string | null | undefined>(undefined, [Validators.maxLength(100), Validators.minLength(2)]),
+			PostalCode: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(10)]),
+			State: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(30)]),
+			Street1: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(100)]),
+			Street2: new FormControl<string | null | undefined>(undefined, [Validators.minLength(2), Validators.maxLength(100)]),
 			Type: new FormControl<number | null | undefined>(undefined),
 			Location: new FormControl<any | null | undefined>(undefined),
 		});

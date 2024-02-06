@@ -177,6 +177,37 @@ namespace DemoWebApi.DemoData.Client
 		public string Text { get; set; }
 	}
 	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class IntegralEntity : DemoWebApi.DemoData.Base.Client.Entity
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public byte Byte { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public int Int { get; set; }
+		
+		/// <summary>
+		/// Range: inclusive between -1000 and 1000000
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "-1000", "1000000")]
+		[System.Runtime.Serialization.DataMember()]
+		public int ItemCount { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public sbyte SByte { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public short Short { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public uint UInt { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public ushort UShort { get; set; }
+	}
+	
 	[Newtonsoft.Json.JsonConverterAttribute(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]

@@ -257,7 +257,8 @@ namespace Fonlow.Poco2Ts
 								new FieldTypeInfo
 								{
 									IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
-									IsArray = clientField.Type.ArrayRank > 0
+									IsArray = clientField.Type.ArrayRank > 0,
+									TypeFullName= propertyInfo.PropertyType.FullName,
 								});
 
 							CreatePropertyDocComment(propertyInfo, clientField);
@@ -297,7 +298,8 @@ namespace Fonlow.Poco2Ts
 							clientField.Type.UserData.Add("FieldTypeInfo", new FieldTypeInfo
 							{
 								IsComplex = CodeObjectHelper.IsComplexType(fieldInfo.FieldType),
-								IsArray = clientField.Type.ArrayRank > 0
+								IsArray = clientField.Type.ArrayRank > 0,
+								TypeFullName = fieldInfo.FieldType.FullName,
 							});
 							CreateFieldDocComment(fieldInfo, clientField);
 

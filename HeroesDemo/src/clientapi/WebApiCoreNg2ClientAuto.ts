@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 export namespace DemoWebApi_DemoData_Client {
+
 	export interface Address {
 
 		/** String length: inclusive between 2 and 50 */
@@ -354,8 +355,26 @@ export namespace DemoWebApi_Controllers_Client {
 
 }
 
+
 export namespace DemoCoreWeb_Controllers_Client {
-	@Injectable()
+
+    export function formatkk(formatString: string) {
+        return true;
+    }
+
+    export function sealed(constructor: Function) {
+        Object.seal(constructor);
+        Object.seal(constructor.prototype);
+    }
+
+    function enumerable(value: boolean) {
+        return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+            descriptor.enumerable = value;
+        };
+    }
+
+    @sealed
+	//@Injectable()
 	export class SpecialTypes {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
 		}
@@ -365,6 +384,7 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 * GET api/SpecialTypes/AnonymousDynamic
 		 * @return {any} dyanmic things
 		 */
+        @enumerable(false)
 		getAnonymousDynamic(headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', { headers: headersHandler ? headersHandler() : undefined, observe: 'response', responseType: 'text' });
 		}

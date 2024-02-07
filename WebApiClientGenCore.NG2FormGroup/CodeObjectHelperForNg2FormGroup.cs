@@ -101,7 +101,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
-			GenerateCodeFromAttributeDeclarationCollection(e.CustomAttributes, w, o);
+			GenerateCodeFromAttributeDeclarationCollectionForClass(e.CustomAttributes, w, o);
 
 			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
 			var typeOfType = GetTypeOfType(e);

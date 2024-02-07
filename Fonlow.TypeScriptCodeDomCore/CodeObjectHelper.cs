@@ -57,10 +57,18 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="o"></param>
 		public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
-
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
-			GenerateCodeFromAttributeDeclarationCollection(e.CustomAttributes, w, o);
+			GenerateCodeFromAttributeDeclarationCollectionForClass(e.CustomAttributes, w, o);
+
+			if (e is CodeTypeDelegate codeTypeDelegate)
+			{
+				w.Write($"{o.IndentString}export type {codeTypeDelegate.Name} = (");
+				WriteCodeParameterDeclarationExpressionCollection(codeTypeDelegate.Parameters, w);
+				w.Write(") => ");
+				w.WriteLine(GetCodeTypeReferenceText(codeTypeDelegate.ReturnType) + ";");
+				return;
+			}
 
 			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
 			var typeOfType = GetTypeOfType(e);
@@ -71,14 +79,53 @@ namespace Fonlow.TypeScriptCodeDom
 			WriteTypeMembersAndCloseBracing(e, w, o);
 		}
 
+		/// <summary>
+		/// No Argument for class decorator.
+		/// Matching https://www.typescriptlang.org/docs/handbook/decorators.html
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
+		void GenerateCodeFromAttributeDeclarationForClass(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (e.Arguments.Count>0){
+				throw new ArgumentException("CodeFromAttributeDeclarationForClass should not have arguments", nameof(e));
+
+			}
+			w.WriteLine($"{o.IndentString}@{e.Name}");
+		}
+
+		/// <summary>
+		/// With arguments for method, property, accessor and parameter.
+		/// Matching https://www.typescriptlang.org/docs/handbook/decorators.html
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (e.Arguments.Count > 0)
+			w.WriteLine($"{o.IndentString}@{e.Name}(");
+			for (int i = 0; i < e.Arguments.Count; i++)
 			{
-				throw new NotImplementedException($"Not yet support decorator with CodeTypeDeclaration {e.Name} with arguments.");
+				GenerateCodeFromExpression(e.Arguments[i].Value, w, o);
+				if (i < e.Arguments.Count - 1)
+				{
+					w.Write(", ");
+				}
 			}
 
-			w.WriteLine($"{o.IndentString}@{e.Name}()");
+			w.WriteLine(")");
+		}
+
+		protected void GenerateCodeFromAttributeDeclarationCollectionForClass(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (e.Count == 0)
+				return;
+
+			for (int i = 0; i < e.Count; i++)
+			{
+				GenerateCodeFromAttributeDeclarationForClass(e[i], w, o);
+			}
 		}
 
 		protected void GenerateCodeFromAttributeDeclarationCollection(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
@@ -516,7 +563,6 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
-
 		bool WriteCodeArrayCreateExpression(CodeArrayCreateExpression arrayCreateExpression, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (arrayCreateExpression == null)
@@ -695,7 +741,6 @@ namespace Fonlow.TypeScriptCodeDom
 					var alreadyNullable = typeText.EndsWith("| null");
 					var isAny = d.Type.BaseType == "any";
 					var s = $"{d.Name}: {GetCodeTypeReferenceText(d.Type)}" + (isMethodParameter && !alreadyNullable && !isAny ? " | null" : string.Empty); // optional null
-					Debug.WriteLine("vvvv " + s);
 					return s;
 				});
 			w.Write(String.Join(", ", pairs));

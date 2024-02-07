@@ -91,7 +91,7 @@ namespace TypeScriptCodeDomTests
 			{
 				Name = "Something",
 				Type = new CodeTypeReference(typeof(string)),
-				Attributes= MemberAttributes.Public,
+				Attributes = MemberAttributes.Public,
 			};
 
 			p.GetStatements.Add(new CodeCommentStatement("something before returning"));
@@ -114,22 +114,38 @@ namespace TypeScriptCodeDomTests
 
 		}
 
+		[Fact]
+		public void TestCodeTypeDelegate()
+		{
+			var myDelegate = new CodeTypeDelegate("MyDelegate");
+			myDelegate.Parameters.Add(new CodeParameterDeclarationExpression("string", "name"));
+			myDelegate.Parameters.Add(new CodeParameterDeclarationExpression("number", "count"));
+			myDelegate.ReturnType = new CodeTypeReference("string");
 
-		//[Fact]
+			AssertCodeTypeDeclaration(myDelegate,
+@"	export type MyDelegate = (name: string, count: number) => string;
+");
 
-		//public void TestTypeOfType()
+		}
 
-		//{
+		[Fact]
+		public void TestCodeTypeDeclarationWithMembersAndDecorators()
+		{
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+			newType.Members.Add(new CodeMemberField("string", "name"));
+			newType.CustomAttributes.Add(new CodeAttributeDeclaration("sealed"));
+			AssertCodeTypeDeclaration(newType,
+@"	@sealed
+	class TestType {
+		name: string;
+	}
+");
 
-		//    Type companyType = typeof(DemoWebApi.DemoData.Company);
+		}
 
-		//    var s = companyType.ToString();
-
-		//    Type typeOfType = companyType.GetType();
-
-		//    var s2 = typeOfType.ToString();
-
-		//}
 
 	}
 }

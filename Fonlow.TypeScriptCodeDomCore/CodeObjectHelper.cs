@@ -64,7 +64,7 @@ namespace Fonlow.TypeScriptCodeDom
 			if (e is CodeTypeDelegate codeTypeDelegate)
 			{
 				w.Write($"{o.IndentString}export type {codeTypeDelegate.Name} = (");
-				WriteCodeParameterDeclarationExpressionCollection(codeTypeDelegate.Parameters, w);
+				WriteCodeParameterDeclarationExpressionCollection(codeTypeDelegate.Parameters, w, o);
 				w.Write(") => ");
 				w.WriteLine(GetCodeTypeReferenceText(codeTypeDelegate.ReturnType) + ";");
 				return;
@@ -88,11 +88,22 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="o"></param>
 		void GenerateCodeFromAttributeDeclarationForClass(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (e.Arguments.Count>0){
+			if (e.Arguments.Count > 0)
+			{
 				throw new ArgumentException("CodeFromAttributeDeclarationForClass should not have arguments", nameof(e));
 
 			}
 			w.WriteLine($"{o.IndentString}@{e.Name}");
+		}
+
+		void GenerateCodeFromAttributeDeclarationForParameter(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (e.Arguments.Count > 0)
+			{
+				throw new ArgumentException("GenerateCodeFromAttributeDeclarationForParameter should not have arguments", nameof(e));
+
+			}
+			w.Write($"@{e.Name} ");
 		}
 
 		/// <summary>
@@ -104,7 +115,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="o"></param>
 		void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
-			w.WriteLine($"{o.IndentString}@{e.Name}(");
+			w.Write($"{o.IndentString}@{e.Name}(");
 			for (int i = 0; i < e.Arguments.Count; i++)
 			{
 				GenerateCodeFromExpression(e.Arguments[i].Value, w, o);
@@ -125,6 +136,17 @@ namespace Fonlow.TypeScriptCodeDom
 			for (int i = 0; i < e.Count; i++)
 			{
 				GenerateCodeFromAttributeDeclarationForClass(e[i], w, o);
+			}
+		}
+
+		protected void GenerateCodeFromAttributeDeclarationCollectionForParameter(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (e.Count == 0)
+				return;
+
+			for (int i = 0; i < e.Count; i++)
+			{
+				GenerateCodeFromAttributeDeclarationForParameter(e[i], w, o);
 			}
 		}
 
@@ -485,6 +507,41 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
+		protected bool WriteCodeMemberField(CodeMemberField codeMemberField, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (codeMemberField == null)
+				return false;
+
+			WriteCodeCommentStatementCollection(codeMemberField.Comments, w, o);
+
+			if (codeMemberField.CustomAttributes.Count > 0)
+			{
+				GenerateCodeFromAttributeDeclarationCollection(codeMemberField.CustomAttributes, w, o);
+			}
+
+			w.Write(o.IndentString);
+			w.WriteLine(GetCodeMemberFieldText(codeMemberField) + ";");
+
+			return true;
+		}
+
+		protected bool WriteCodeSnippetTypeMember(CodeSnippetTypeMember codeSnippetTypeMember, TextWriter w, CodeGeneratorOptions o)
+		{
+			if (codeSnippetTypeMember == null)
+				return false;
+
+			WriteCodeCommentStatementCollection(codeSnippetTypeMember.Comments, w, o);
+
+			if (codeSnippetTypeMember.CustomAttributes.Count > 0)
+			{
+				GenerateCodeFromAttributeDeclarationCollection(codeSnippetTypeMember.CustomAttributes, w, o);
+			}
+
+			w.Write(o.IndentString);
+			w.WriteLine(codeSnippetTypeMember.Text);
+			return true;
+		}
+
 		//http://www.codebelt.com/typescript/javascript-getters-setters-typescript-accessor-tutorial/
 		protected bool WriteCodeMemberProperty(CodeMemberProperty codeMemberProperty, TextWriter w, CodeGeneratorOptions o)
 		{
@@ -492,6 +549,11 @@ namespace Fonlow.TypeScriptCodeDom
 				return false;
 
 			WriteCodeCommentStatementCollection(codeMemberProperty.Comments, w, o);
+
+			if (codeMemberProperty.CustomAttributes.Count > 0)
+			{
+				GenerateCodeFromAttributeDeclarationCollection(codeMemberProperty.CustomAttributes, w, o);
+			}
 
 			var accessibility = GetAccessibilityModifier(codeMemberProperty.Attributes);
 			if (accessibility=="public"){
@@ -532,10 +594,17 @@ namespace Fonlow.TypeScriptCodeDom
 			if (memberMethod == null)
 				return false;
 
+			WriteCodeCommentStatementCollection(memberMethod.Comments, w, o);
+
+			if (memberMethod.CustomAttributes.Count > 0)
+			{
+				GenerateCodeFromAttributeDeclarationCollection(memberMethod.CustomAttributes, w, o);
+			}
+
 			var isCodeConstructor = memberMethod is CodeConstructor;
 			var methodName = isCodeConstructor ? "constructor" : memberMethod.Name;
 			w.Write(o.IndentString + methodName + "(");
-			WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w);
+			WriteCodeParameterDeclarationExpressionCollection(memberMethod.Parameters, w, o);
 			w.Write(")");
 
 			var returnTypeText = GetCodeTypeReferenceText(memberMethod.ReturnType);
@@ -682,14 +751,8 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="o"></param>
 		void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
 		{
-			WriteCodeCommentStatementCollection(ctm.Comments, w, o);
-
-			if (ctm is CodeMemberField codeMemberField)
-			{
-				w.Write(o.IndentString);
-				w.WriteLine(GetCodeMemberFieldText(codeMemberField) + ";");
+			if (WriteCodeMemberField(ctm as CodeMemberField, w, o))
 				return;
-			}
 
 			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
 				return;
@@ -697,12 +760,14 @@ namespace Fonlow.TypeScriptCodeDom
 			if (WriteCodeMemberMethod(ctm as CodeMemberMethod, w, o))
 				return;
 
-			if (ctm is CodeSnippetTypeMember snippetTypeMember)
-			{
-				w.WriteLine(snippetTypeMember.Text);
+			if (WriteCodeSnippetTypeMember(ctm as CodeSnippetTypeMember, w, o))
 				return;
+
+			if (ctm==null){
+				throw new ArgumentNullException(nameof(ctm));
 			}
 
+			Console.Error.WriteLine($"What is ${ctm.GetType().FullName}");
 		}
 
 		/// <summary>
@@ -731,11 +796,15 @@ namespace Fonlow.TypeScriptCodeDom
 			o.IndentString = currentIndent;
 		}
 
-		void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w)
+		void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w, CodeGeneratorOptions o)
 		{
 			var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>()
 				.Select(d =>
 				{
+					if (d.CustomAttributes.Count>0){
+						GenerateCodeFromAttributeDeclarationCollectionForParameter(d.CustomAttributes, w, o);
+					}
+
 					var isMethodParameter = (d.Type.UserData["IsMethodParameter"] as bool?).HasValue;
 					var typeText = GetCodeTypeReferenceText(d.Type);
 					var alreadyNullable = typeText.EndsWith("| null");

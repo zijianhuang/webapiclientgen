@@ -129,7 +129,7 @@ namespace TypeScriptCodeDomTests
 		}
 
 		[Fact]
-		public void TestCodeTypeDeclarationWithMembersAndDecorators()
+		public void TestCodeTypeDeclarationWithMembersAndClassDecorators()
 		{
 			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
 			{
@@ -141,6 +141,108 @@ namespace TypeScriptCodeDomTests
 @"	@sealed
 	class TestType {
 		name: string;
+	}
+");
+		}
+
+		/// <summary>
+		/// TypeScript disallows decorating both the get and set accessor for a single member. 
+		/// Instead, all decorators for the member must be applied to the first accessor specified in document order. 
+		/// This is because decorators apply to a Property Descriptor, which combines both the get and set accessor, not each declaration separately.
+		/// </summary>
+		[Fact]
+		public void TestCodeTypeDeclarationWithPropertyMembersAndAccessorDecorators()
+		{
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType2")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+
+
+			var p = new CodeMemberProperty()
+			{
+				Name = "Something",
+				Type = new CodeTypeReference(typeof(string)),
+				Attributes = MemberAttributes.Public,
+			};
+
+			var newAtr = new CodeAttributeDeclaration("SomeAttr");
+			newAtr.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression("false")));
+			p.CustomAttributes.Add(newAtr);
+
+			p.GetStatements.Add(new CodeCommentStatement("something before returning"));
+			p.GetStatements.Add(new CodeSnippetStatement("return 'abc';"));
+			p.SetStatements.Add(new CodeCommentStatement("do nothing"));
+			p.SetStatements.Add(new CodeCommentStatement("maybe more later"));
+			newType.Members.Add(p);
+			AssertCodeTypeDeclaration(newType,
+@"	class TestType2 {
+		@SomeAttr(false)
+		get Something(): string {
+				// something before returning
+				return 'abc';
+		}
+		set Something(value: string) {
+				// do nothing
+				// maybe more later
+		}
+	}
+");
+
+		}
+
+		[Fact]
+		public void TestCodeTypeDeclarationWithMembersAndPropertyDecorators()
+		{
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+
+			var f = new CodeMemberField("string", "name");
+			var newAtr = new CodeAttributeDeclaration("format");
+			newAtr.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression("'Hello, %s'")));
+			f.CustomAttributes.Add(newAtr);
+
+			newType.Members.Add(f);
+			newType.CustomAttributes.Add(new CodeAttributeDeclaration("sealed"));
+			AssertCodeTypeDeclaration(newType,
+@"	@sealed
+	class TestType {
+		@format('Hello, %s')
+		name: string;
+	}
+");
+		}
+
+		[Fact]
+		public void TestCodeTypeDeclarationWithMethodAndParameterDecorators()
+		{
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+			newType.Members.Add(new CodeMemberField("string", "name"));
+			var m = new CodeMemberMethod() { 
+				Name="doSomething",
+				ReturnType = new CodeTypeReference("System.Int32"),
+			};
+
+			var mp = new CodeParameterDeclarationExpression("System.Int32", "pp");
+			mp.CustomAttributes.Add(new CodeAttributeDeclaration("required"));
+			m.Parameters.Add(mp);
+
+			var newAtr = new CodeAttributeDeclaration("enumerable");
+			newAtr.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression("false")));
+			m.CustomAttributes.Add(newAtr);
+
+			newType.Members.Add(m);
+			AssertCodeTypeDeclaration(newType,
+@"	class TestType {
+		name: string;
+		@enumerable(false)
+		doSomething(@required pp: number): number {
+		}
 	}
 ");
 

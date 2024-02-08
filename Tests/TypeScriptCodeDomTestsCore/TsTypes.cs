@@ -5,7 +5,6 @@ using System.IO;
 using System.Text;
 using Xunit;
 
-
 namespace TypeScriptCodeDomTests
 {
 	public class TsTypes
@@ -139,6 +138,31 @@ namespace TypeScriptCodeDomTests
 			newType.CustomAttributes.Add(new CodeAttributeDeclaration("sealed"));
 			AssertCodeTypeDeclaration(newType,
 @"	@sealed
+	class TestType {
+		name: string;
+	}
+");
+		}
+
+
+		[Fact]
+		public void TestCodeTypeDeclarationWithMembersAndClassDecoratorsWithInterface()
+		{
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+			newType.Members.Add(new CodeMemberField("string", "name"));
+			//var targetClass = new CodeTypeDeclaration("Injectable")
+			//{
+			//	TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
+			//};
+
+			var c = new CodeTypeReference("Injectable");
+			c.UserData.Add("TsTypeInfo", new TsTypeInfo { TypeOfType = TypeOfType.IsInterface });
+			newType.CustomAttributes.Add(new CodeAttributeDeclaration(c));
+			AssertCodeTypeDeclaration(newType,
+@"	@Injectable()
 	class TestType {
 		name: string;
 	}

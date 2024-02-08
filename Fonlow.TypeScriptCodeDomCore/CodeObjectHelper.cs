@@ -71,17 +71,18 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 
 			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
-			var typeOfType = GetTypeOfType(e);
+			var typeOfTypeText = GetTypeOfTypeText(e);
 			var name = e.Name;
 			var typeParametersExpression = GetTypeParametersExpression(e);
 			var baseTypesExpression = GetBaseTypeExpression(e);
-			w.Write($"{o.IndentString}{accessModifier}{typeOfType} {name}{typeParametersExpression}{baseTypesExpression} {{");
+			w.Write($"{o.IndentString}{accessModifier}{typeOfTypeText} {name}{typeParametersExpression}{baseTypesExpression} {{");
 			WriteTypeMembersAndCloseBracing(e, w, o);
 		}
 
 		/// <summary>
 		/// No Argument for class decorator.
 		/// Matching https://www.typescriptlang.org/docs/handbook/decorators.html
+		/// However, if e.AttributeType.UserData["TsTypeInfo"] as TsTypeInfo indicates IsInterface, the output will include ()
 		/// </summary>
 		/// <param name="e"></param>
 		/// <param name="w"></param>
@@ -93,7 +94,31 @@ namespace Fonlow.TypeScriptCodeDom
 				throw new ArgumentException("CodeFromAttributeDeclarationForClass should not have arguments", nameof(e));
 
 			}
-			w.WriteLine($"{o.IndentString}@{e.Name}");
+
+			var tsTypeInfo = e.AttributeType.UserData["TsTypeInfo"] as TsTypeInfo;
+			bool isInterface = tsTypeInfo != null && tsTypeInfo.TypeOfType == TypeOfType.IsInterface;
+			if (isInterface){
+				w.WriteLine($"{o.IndentString}@{e.Name}()"); //@Injectable in Angular is actually a pointer to interface which demands ().
+			}else{
+				w.WriteLine($"{o.IndentString}@{e.Name}");
+			}
+
+			/* 
+export declare const Injectable: InjectableDecorator;
+
+export declare interface InjectableDecorator {
+    (): TypeDecorator;
+    (options?: {
+        providedIn: Type<any> | 'root' | 'platform' | 'any' | null;
+    } & InjectableProvider): TypeDecorator;
+    new (): Injectable;
+    new (options?: {
+        providedIn: Type<any> | 'root' | 'platform' | 'any' | null;
+    } & InjectableProvider): Injectable;
+}
+
+https://angular.io/guide/dependency-injection-in-action
+			*/
 		}
 
 		void GenerateCodeFromAttributeDeclarationForParameter(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
@@ -507,14 +532,15 @@ namespace Fonlow.TypeScriptCodeDom
 			return true;
 		}
 
-		protected bool WriteCodeMemberField(CodeMemberField codeMemberField, TextWriter w, CodeGeneratorOptions o)
+		protected bool WriteCodeMemberField(CodeMemberField codeMemberField, TextWriter w, CodeGeneratorOptions o, CodeTypeDeclaration typeDeclaration)
 		{
 			if (codeMemberField == null)
 				return false;
 
 			WriteCodeCommentStatementCollection(codeMemberField.Comments, w, o);
 
-			if (codeMemberField.CustomAttributes.Count > 0)
+			var typeOfType = GetTypeOfType(typeDeclaration);
+			if (typeOfType== TypeOfType.IsClass && codeMemberField.CustomAttributes.Count > 0) // TS decorators applicable to class and its members only.
 			{
 				GenerateCodeFromAttributeDeclarationCollection(codeMemberField.CustomAttributes, w, o);
 			}
@@ -677,7 +703,7 @@ namespace Fonlow.TypeScriptCodeDom
 				{
 					var member = typeDeclaration.Members[i];
 					WriteCodeRegionDirectives(member.StartDirectives, w);
-					WriteCodeTypeMember(member, w, o);
+					WriteCodeTypeMember(member, w, o, typeDeclaration);
 					WriteCodeRegionDirectives(member.EndDirectives, w);
 				};
 				w.WriteLine(currentIndent + "}");
@@ -749,9 +775,10 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <param name="ctm"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o)
+		/// <param name="typeDeclaration"></param>
+		void WriteCodeTypeMember(CodeTypeMember ctm, TextWriter w, CodeGeneratorOptions o, CodeTypeDeclaration typeDeclaration)
 		{
-			if (WriteCodeMemberField(ctm as CodeMemberField, w, o))
+			if (WriteCodeMemberField(ctm as CodeMemberField, w, o, typeDeclaration))
 				return;
 
 			if (WriteCodeMemberProperty(ctm as CodeMemberProperty, w, o))
@@ -1089,13 +1116,22 @@ namespace Fonlow.TypeScriptCodeDom
 		/// </summary>
 		/// <param name="typeDeclaration"></param>
 		/// <returns></returns>
-		protected string GetTypeOfType(CodeTypeDeclaration typeDeclaration)
+		protected string GetTypeOfTypeText(CodeTypeDeclaration typeDeclaration)
 		{
 			return typeDeclaration.IsEnum
 				? "enum"
 				: typeDeclaration.IsInterface
 					? "interface"
 					: "class";
+		}
+
+		protected TypeOfType GetTypeOfType(CodeTypeDeclaration typeDeclaration)
+		{
+			return typeDeclaration.IsEnum
+				? TypeOfType.IsEnum
+				: typeDeclaration.IsInterface
+					? TypeOfType.IsInterface
+					: TypeOfType.IsClass;
 		}
 
 		protected string GetTypeParametersExpression(CodeTypeDeclaration typeDeclaration)
@@ -1196,8 +1232,6 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 		#endregion
-
-
 	}
 
 }

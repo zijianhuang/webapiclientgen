@@ -1,4 +1,5 @@
-﻿using System.CodeDom;
+﻿using Fonlow.TypeScriptCodeDom;
+using System.CodeDom;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -52,7 +53,9 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <returns></returns>
 		protected override CodeAttributeDeclarationCollection CreateClassCustomAttributes()
 		{
-			return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration("Injectable") });
+			var c = new CodeTypeReference("Injectable");
+			c.UserData.Add("TsTypeInfo", new TsTypeInfo { TypeOfType = TypeOfType.IsInterface });
+			return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration(c) });
 		}
 	}
 

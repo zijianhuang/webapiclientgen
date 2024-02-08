@@ -104,18 +104,18 @@ namespace Fonlow.TypeScriptCodeDom
 			GenerateCodeFromAttributeDeclarationCollectionForClass(e.CustomAttributes, w, o);
 
 			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
-			var typeOfType = GetTypeOfType(e);
+			var typeOfTypeText = GetTypeOfTypeText(e);
 			var name = e.Name;
 			var typeParametersExpression = GetTypeParametersExpression(e);
 			var baseTypesExpression = GetBaseTypeExpression(e);
-			if (typeOfType == "interface")
+			if (typeOfTypeText == "interface")
 			{
 				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
 				var isGeneric = extendsExpression.Contains("<");
 				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
 				var extendsExpressionForNg = extendsExpression == String.Empty ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
 				var formGroupInterface = $"{name}FormProperties";
-				w.Write($"{o.IndentString}{accessModifier}{typeOfType} {formGroupInterface}{extendsExpressionForNg} {{");
+				w.Write($"{o.IndentString}{accessModifier}{typeOfTypeText} {formGroupInterface}{extendsExpressionForNg} {{");
 				WriteAngularFormTypeMembersAndCloseBracing(e, w, o);
 			}
 			else
@@ -138,11 +138,11 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 
 			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
-			var typeOfType = GetTypeOfType(e);
+			var typeOfTypeText = GetTypeOfTypeText(e);
 			var name = e.Name;
 			var typeParametersExpression = GetTypeParametersExpression(e);
 			var baseTypesExpression = GetBaseTypeExpression(e);
-			if (typeOfType == "interface")
+			if (typeOfTypeText == "interface")
 			{
 				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
 				var isGeneric = extendsExpression.Contains("<");

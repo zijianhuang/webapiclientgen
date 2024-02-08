@@ -4,7 +4,7 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3.4.1</Version>
+		<Version>3.4.2</Version>
 		<Authors>Zijian Huang</Authors>
 		<Company />
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
@@ -13,7 +13,7 @@
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>TypeScript,Code DOM</PackageTags>
-		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
+		<PackageReleaseNotes>For TypeScript CodeDOM v3.1</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>

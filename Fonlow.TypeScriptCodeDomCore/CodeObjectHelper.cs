@@ -107,14 +107,14 @@ namespace Fonlow.TypeScriptCodeDom
 export declare const Injectable: InjectableDecorator;
 
 export declare interface InjectableDecorator {
-    (): TypeDecorator;
-    (options?: {
-        providedIn: Type<any> | 'root' | 'platform' | 'any' | null;
-    } & InjectableProvider): TypeDecorator;
-    new (): Injectable;
-    new (options?: {
-        providedIn: Type<any> | 'root' | 'platform' | 'any' | null;
-    } & InjectableProvider): Injectable;
+	(): TypeDecorator;
+	(options?: {
+		providedIn: Type<any> | 'root' | 'platform' | 'any' | null;
+	} & InjectableProvider): TypeDecorator;
+	new (): Injectable;
+	new (options?: {
+		providedIn: Type<any> | 'root' | 'platform' | 'any' | null;
+	} & InjectableProvider): Injectable;
 }
 
 https://angular.io/guide/dependency-injection-in-action

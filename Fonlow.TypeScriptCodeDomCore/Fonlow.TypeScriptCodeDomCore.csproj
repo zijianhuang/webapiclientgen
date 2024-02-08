@@ -11,10 +11,10 @@
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>TypeScript,Code DOM</PackageTags>
-		<PackageReleaseNotes>Support CodeCastExpression and CodeRegionDirective.</PackageReleaseNotes>
+		<PackageReleaseNotes>More CodeDOM classes supported to maximize the intersection of CodeDOM and TypeScript language features.</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3</Version>
+		<Version>3.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 		<PackageIcon>TypeScriptCodeDOM64.png</PackageIcon>

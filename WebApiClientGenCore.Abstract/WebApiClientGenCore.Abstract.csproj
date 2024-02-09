@@ -29,9 +29,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
 		<ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
-		<ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
 		<ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
-		<None Include="Readme.md" Pack="true" PackagePath="\"/>
+		<None Include="Readme.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>

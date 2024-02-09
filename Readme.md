@@ -3,7 +3,7 @@ Strongly Typed Client API Generators generate strongly typed client API in C# co
 This project delivers these products:
 1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET and Xamarin.Forms. 
 1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2, Aurelia, Axios and Fetch API.
-1. [TypeScript CodeDOM](https://github.com/zijianhuang/webapiclientgen/tree/master/Fonlow.TypeScriptCodeDomCore/Readme.md), a CodeDOM component for TypeScript, derived from CodeDOM of .NET.
+1. [TypeScript CodeDOM](https://github.com/zijianhuang/TypeScriptCodeDOM), a CodeDOM component for TypeScript, derived from CodeDOM of .NET.
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. A .NET Framework package is also available.

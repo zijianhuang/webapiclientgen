@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
-    <ProjectReference Include="..\..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
   </ItemGroup>
 
 </Project>

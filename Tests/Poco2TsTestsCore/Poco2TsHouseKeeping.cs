@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Fonlow.Poco2Client;
 using Xunit;
-using Fonlow.Poco2Ts;
-using Fonlow.Poco2Client;
 
 namespace Poco2TsTests
 {
-    public class Poco2TsHouseKeeping
+	public class Poco2TsHouseKeeping
     {
         [Fact]
         public void TestReadDataContractAttribute()

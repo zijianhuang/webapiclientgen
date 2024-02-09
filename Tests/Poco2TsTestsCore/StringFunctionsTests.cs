@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Fonlow.DocComment;
+using System;
 using Xunit;
-using Fonlow.DocComment;
 
 namespace Poco2TsTests
 {
-    public class StringFunctionsTests
+	public class StringFunctionsTests
     {
         [Fact]
         public void TestRemoveIndentInString()

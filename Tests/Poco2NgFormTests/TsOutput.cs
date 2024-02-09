@@ -198,50 +198,6 @@ namespace Poco2TsTests
 ");
 		}
 
-//		[Fact]
-//		public void TestEnumDays()
-//		{
-//			Verify(typeof(DemoWebApi.DemoData.Days),
-//@"export namespace DemoWebApi_DemoData_Client {
-//	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
-
-//}
-
-//");
-//		}
-
-		//		[Fact]
-		//		public void TestStrutMyPoint()
-		//		{
-		//			Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = true;
-		//			VerifyJson(typeof(DemoWebApi.DemoData.Another.MyPoint),
-		//@"export namespace DemoWebApi_DemoData_Another_Client {
-		//	export interface MyPoint {
-		//		x: number;
-		//		y: number;
-		//	}
-		//	export interface MyPointFormProperties {
-		//		x: FormControl<number | null | undefined>,
-		//		y: FormControl<number | null | undefined>,
-		//	}
-
-		//}
-
-		//");
-		//		}
-
-		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
-
-		/// <summary>
-		/// DateTime is not primitive type. Decimal is preiitive VB.net but not in C#.NET
-		/// </summary>
-		/// <param name="t"></param>
-		/// <returns></returns>
-		static bool IsNullablePrimitive(Type t)
-		{
-			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
-		}
-
 	}
 
 }

@@ -2,6 +2,11 @@
 {
     public static class StringExtensions
     {
+        /// <summary>
+        /// Convert string to camel case.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static string ToCamelCase(this string s)
         {
             if (string.IsNullOrWhiteSpace(s) || !char.IsUpper(s[0]))

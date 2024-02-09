@@ -1,3 +1,5 @@
+**TypeScript CodeDOM had been moved to https://github.com/zijianhuang/TypeScriptCodeDOM. The source codes here are just for historic record.**
+
 [CodeDOM](https://learn.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/using-the-codedom) in .NET (Framework) has come with 3 [providers](https://learn.microsoft.com/en-us/dotnet/api/system.codedom.compiler.codedomprovider):
 1. [CSharpCodeProvider](https://learn.microsoft.com/en-us/dotnet/api/microsoft.csharp.csharpcodeprovider?view=dotnet-plat-ext-8.0)
 1. [VBCodeProvider](https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualbasic.vbcodeprovider?view=dotnet-plat-ext-8.0)

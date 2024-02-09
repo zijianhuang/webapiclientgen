@@ -1,7 +1,6 @@
 ﻿using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
-using System.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -98,29 +97,4 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 	}
-
-
-	public class TsCodeGenerationOptions : CodeGeneratorOptions
-	{
-		public bool CamelCase { get; set; }
-
-		#region Singleton
-		TsCodeGenerationOptions()
-		{
-		}
-
-		public static TsCodeGenerationOptions Instance { get { return Nested.instance; } }
-
-		private static class Nested
-		{
-			static Nested()
-			{
-			}
-
-			internal static readonly TsCodeGenerationOptions instance = new TsCodeGenerationOptions();
-		}
-		#endregion
-	}
-
-
 }

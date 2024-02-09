@@ -27,7 +27,6 @@ namespace Fonlow.TypeScriptCodeDom
 		[Obsolete("Callers should not use the ICodeGenerator interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.")]
 		public override ICodeGenerator CreateGenerator()
 		{
-			//return generator;
 			throw new NotImplementedException("CreateGenerator is not to be supported in CodeDOM.");
 
 		}

@@ -15,6 +15,10 @@ namespace Fonlow.TypeScriptCodeDom
 		readonly protected string BasicIndent = "\t";
 		readonly protected bool asModule;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="asModule">True to yield "export namespace", and false to yield "namespace"</param>
 		public CodeObjectHelper(bool asModule)
 		{
 			this.asModule = asModule;
@@ -22,6 +26,12 @@ namespace Fonlow.TypeScriptCodeDom
 
 		#region public GenerateCodeFromXXX
 
+		/// <summary>
+		/// Generate code from CodeNamespace.
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		public virtual void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
@@ -50,7 +60,7 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 		/// <summary>
-		/// Generate TS interface
+		/// Generate TS interface from CodeTypeDeclaration.
 		/// </summary>
 		/// <param name="e"></param>
 		/// <param name="w"></param>
@@ -80,7 +90,7 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 		/// <summary>
-		/// No Argument for class decorator.
+		/// Generate decorator for class from CodeAttributeDeclaration. No Argument for class decorator.
 		/// Matching https://www.typescriptlang.org/docs/handbook/decorators.html
 		/// However, if e.AttributeType.UserData["TsTypeInfo"] as TsTypeInfo indicates IsInterface, the output will include ()
 		/// </summary>
@@ -97,13 +107,16 @@ namespace Fonlow.TypeScriptCodeDom
 
 			var tsTypeInfo = e.AttributeType.UserData["TsTypeInfo"] as TsTypeInfo;
 			bool isInterface = tsTypeInfo != null && tsTypeInfo.TypeOfType == TypeOfType.IsInterface;
-			if (isInterface){
+			if (isInterface)
+			{
 				w.WriteLine($"{o.IndentString}@{e.Name}()"); //@Injectable in Angular is actually a pointer to interface which demands ().
-			}else{
+			}
+			else
+			{
 				w.WriteLine($"{o.IndentString}@{e.Name}");
 			}
 
-			/* 
+			/* Injectable directive in Angular
 export declare const Injectable: InjectableDecorator;
 
 export declare interface InjectableDecorator {
@@ -121,6 +134,13 @@ https://angular.io/guide/dependency-injection-in-action
 			*/
 		}
 
+		/// <summary>
+		/// Generate decorator for parameter from CodeAttributeDeclaration.
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
+		/// <exception cref="ArgumentException"></exception>
 		void GenerateCodeFromAttributeDeclarationForParameter(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (e.Arguments.Count > 0)
@@ -132,7 +152,7 @@ https://angular.io/guide/dependency-injection-in-action
 		}
 
 		/// <summary>
-		/// With arguments for method, property, accessor and parameter.
+		/// Generate decorator with optional arguments for method, property, accessor.
 		/// Matching https://www.typescriptlang.org/docs/handbook/decorators.html
 		/// </summary>
 		/// <param name="e"></param>
@@ -540,7 +560,7 @@ https://angular.io/guide/dependency-injection-in-action
 			WriteCodeCommentStatementCollection(codeMemberField.Comments, w, o);
 
 			var typeOfType = GetTypeOfType(typeDeclaration);
-			if (typeOfType== TypeOfType.IsClass && codeMemberField.CustomAttributes.Count > 0) // TS decorators applicable to class and its members only.
+			if (typeOfType == TypeOfType.IsClass && codeMemberField.CustomAttributes.Count > 0) // TS decorators applicable to class and its members only.
 			{
 				GenerateCodeFromAttributeDeclarationCollection(codeMemberField.CustomAttributes, w, o);
 			}
@@ -582,9 +602,12 @@ https://angular.io/guide/dependency-injection-in-action
 			}
 
 			var accessibility = GetAccessibilityModifier(codeMemberProperty.Attributes);
-			if (accessibility=="public"){
+			if (accessibility == "public")
+			{
 				accessibility = string.Empty;
-			}else{
+			}
+			else
+			{
 				accessibility += " ";
 			}
 
@@ -790,7 +813,8 @@ https://angular.io/guide/dependency-injection-in-action
 			if (WriteCodeSnippetTypeMember(ctm as CodeSnippetTypeMember, w, o))
 				return;
 
-			if (ctm==null){
+			if (ctm == null)
+			{
 				throw new ArgumentNullException(nameof(ctm));
 			}
 
@@ -828,7 +852,8 @@ https://angular.io/guide/dependency-injection-in-action
 			var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>()
 				.Select(d =>
 				{
-					if (d.CustomAttributes.Count>0){
+					if (d.CustomAttributes.Count > 0)
+					{
 						GenerateCodeFromAttributeDeclarationCollectionForParameter(d.CustomAttributes, w, o);
 					}
 
@@ -1006,7 +1031,7 @@ https://angular.io/guide/dependency-injection-in-action
 				return false;
 			}
 
-			if (codeRegionDirective.RegionMode== CodeRegionMode.Start)
+			if (codeRegionDirective.RegionMode == CodeRegionMode.Start)
 			{
 				w.WriteLine($"\r\n// #region {codeRegionDirective.RegionText}");
 			}
@@ -1206,16 +1231,35 @@ https://angular.io/guide/dependency-injection-in-action
 		}
 
 		/// <summary>
-		/// Primitive, or string, or enum types
+		/// Primitive, or string, or enum types, as well as Guid and Date of System namespace could be simple types in TypeScript.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		public static bool IsSimpleBaseType(Type type)
+		{
+			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum
+				|| TypeMapper.IsSimpleSystemType(type.FullName);
+		}
+
+		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
+
+		/// <summary>
+		/// Primitive, or string, or enum types, as well as Guid and Date of System namespace, along with Nullable(T) could be simple type in TypeScript.
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
 		public static bool IsSimpleType(Type type)
 		{
-			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum
-				|| (!string.IsNullOrEmpty(type.FullName) && type.FullName.StartsWith("System.")); //for System.Guid and System.Date etc.
+			return IsSimpleBaseType(type)
+			|| ((type.IsGenericType && typeOfNullableDefinition.Equals(type.GetGenericTypeDefinition())
+				&& IsSimpleBaseType(type.GetGenericArguments()[0])));
 		}
 
+		/// <summary>
+		/// Not simple type
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public static bool IsComplexType(Type type)
 		{
 			return !IsSimpleType(type);

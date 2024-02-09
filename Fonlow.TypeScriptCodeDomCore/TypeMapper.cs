@@ -57,6 +57,32 @@ namespace Fonlow.TypeScriptCodeDom
 			return !type.BaseType.Equals(typeNameOfObject);
 		}
 
+		/// <summary>
+		/// If the type matches the dictionary of C# types to TypeScript type.
+		/// </summary>
+		/// <param name="t">Struct or class in namespace System.</param>
+		/// <returns></returns>
+		public static bool IsSimpleSystemType(Type t)
+		{
+			return typeMap.ContainsKey(t.FullName);
+		}
+
+		/// <summary>
+		/// If the fullname of the .NET type matches the dictionary of C# types to TypeScript type.
+		/// </summary>
+		/// <param name="typeFullName">Type full name including namespace.</param>
+		/// <returns></returns>
+		public static bool IsSimpleSystemType(string typeFullName)
+		{
+			return typeMap.ContainsKey(typeFullName);
+		}
+
+		/// <summary>
+		/// Map to TypeScript basic type.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentNullException"></exception>
 		public static string MapToTsBasicType(Type type)
 		{
 			if (type == null)

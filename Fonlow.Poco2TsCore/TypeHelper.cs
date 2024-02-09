@@ -233,14 +233,16 @@ namespace Fonlow.Reflection
 			return (type.IsValueType && !type.IsPrimitive && !type.IsEnum);
 		}
 
-		public static bool IsValueType(Type t)
+		public static bool IsValueType(Type type)
 		{
-			return t.IsPrimitive || t.Equals(typeOfString) || t.IsEnum || t.Equals(typeof(decimal)) || t.Equals(typeof(DateTime)) || t.Equals(typeof(DateTimeOffset)) || t.Equals(typeof(DateOnly)) || t.IsValueType;
+			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum || type.Equals(typeof(decimal)) 
+			|| type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)) || type.Equals(typeof(DateOnly)) || type.IsValueType;
 		}
 
-		public static bool IsNullablePrimitive(Type t)
+		public static bool IsNullablePrimitive(Type type)
 		{
-			return (t.IsGenericType && typeOfNullableDefinition.Equals(t.GetGenericTypeDefinition()) && (t.GetGenericArguments()[0].IsPrimitive || t.GetGenericArguments()[0].IsValueType));
+			return (type.IsGenericType && typeOfNullableDefinition.Equals(type.GetGenericTypeDefinition()) 
+			&& (type.GetGenericArguments()[0].IsPrimitive || type.GetGenericArguments()[0].IsValueType));
 		}
 	}
 

@@ -57,15 +57,20 @@ namespace Fonlow.TypeScriptCodeDom
 			return !type.BaseType.Equals(typeNameOfObject);
 		}
 
-		/// <summary>
-		/// If the type matches the dictionary of C# types to TypeScript type.
-		/// </summary>
-		/// <param name="t">Struct or class in namespace System.</param>
-		/// <returns></returns>
-		public static bool IsSimpleSystemType(Type t)
-		{
-			return typeMap.ContainsKey(t.FullName);
-		}
+		///// <summary>
+		///// If the type matches the dictionary of C# types to TypeScript type.
+		///// </summary>
+		///// <param name="type">Struct or class in namespace System.</param>
+		///// <returns></returns>
+		//public static bool IsSimpleSystemType(Type type)
+		//{
+		//	if (type == null)
+		//	{
+		//		throw new ArgumentNullException(nameof(type));
+		//	}
+
+		//	return typeMap.ContainsKey(type.FullName);
+		//}
 
 		/// <summary>
 		/// If the fullname of the .NET type matches the dictionary of C# types to TypeScript type.
@@ -74,6 +79,11 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <returns></returns>
 		public static bool IsSimpleSystemType(string typeFullName)
 		{
+			if (typeFullName == null)
+			{
+				throw new ArgumentNullException(nameof(typeFullName));
+			}
+
 			return typeMap.ContainsKey(typeFullName);
 		}
 

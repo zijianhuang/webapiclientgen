@@ -1,6 +1,6 @@
-This is based on the Tour of Heroes demo of NG tutorial, but with ReactiveForms bindings.
+This is based on the Tour of Heroes demo of NG tutorial, but with ReactiveForms bindings and a real Web service.
 
-# DateOnlyNG
+# NG app.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.
 
@@ -18,6 +18,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
+Launch "DemoCoreWeb" first through "StartDemoCoreWeb.ps1".
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests

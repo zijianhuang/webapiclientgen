@@ -4,6 +4,7 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -1237,6 +1238,18 @@ https://angular.io/guide/dependency-injection-in-action
 		/// <returns></returns>
 		public static bool IsSimpleBaseType(Type type)
 		{
+			if (type == null)
+			{
+				throw new ArgumentNullException(nameof(type));
+			}
+
+			if (string.IsNullOrEmpty(type.FullName))
+			{
+				//throw new ArgumentException($"type.FullName is null or empty.", nameof(type));
+				//Example: ReflectedType = {Name = "MimsResult`1" FullName = "DemoWebApi.DemoData.MimsResult`1"}; Name = T
+				return false;
+			}
+
 			return type.IsPrimitive || type.Equals(typeOfString) || type.IsEnum
 				|| TypeMapper.IsSimpleSystemType(type.FullName);
 		}
@@ -1250,9 +1263,16 @@ https://angular.io/guide/dependency-injection-in-action
 		/// <returns></returns>
 		public static bool IsSimpleType(Type type)
 		{
+			if (type == null)
+			{
+				throw new ArgumentNullException(nameof(type));
+			}
+
+			var genericArguments = type.GetGenericArguments();
+
 			return IsSimpleBaseType(type)
-			|| ((type.IsGenericType && typeOfNullableDefinition.Equals(type.GetGenericTypeDefinition())
-				&& IsSimpleBaseType(type.GetGenericArguments()[0])));
+			|| (type.IsGenericType && typeOfNullableDefinition.Equals(type.GetGenericTypeDefinition())
+				&& genericArguments.Length==1 && IsSimpleBaseType(genericArguments[0]));
 		}
 
 		/// <summary>

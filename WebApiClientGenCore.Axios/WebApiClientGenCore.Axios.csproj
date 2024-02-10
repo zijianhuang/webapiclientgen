@@ -8,13 +8,13 @@
 		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Copyright>Copyright © Zijian Huang 2015-2023</Copyright>
+		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<PackageTags>axios TypeScript</PackageTags>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyName>Fonlow.WebApiClientGenCore.Axios</AssemblyName>
-		<Version>3.6</Version>
+		<Version>3.6.1</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 	</PropertyGroup>

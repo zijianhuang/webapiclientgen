@@ -60,6 +60,16 @@ namespace DemoWebApi_DemoData_Client {
 		text?: string | null;
 	}
 
+	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+		byte?: number | null;
+		int?: number | null;
+		itemCount?: number | null;
+		sByte?: number | null;
+		short?: number | null;
+		uInt?: number | null;
+		uShort?: number | null;
+	}
+
 	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
 
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
@@ -95,9 +105,9 @@ namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface MyPeopleDic {
-		anotherDic?: {[id: string]: string } | null;
-		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person } | null;
-		intDic?: {[id: number]: string } | null;
+		anotherDic?: {[id: string]: string };
+		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
+		intDic?: {[id: number]: string };
 	}
 
 	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
@@ -257,9 +267,11 @@ namespace DemoWebApi_Controllers_Client {
 		address?: DemoWebApi_DemoData_Client.Address;
 		death?: Date | null;
 		dob?: Date | null;
+		emailAddress?: string | null;
 		id?: number | null;
 		name?: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+		webAddress?: string | null;
 	}
 
 	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {

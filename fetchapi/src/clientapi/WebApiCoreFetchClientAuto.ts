@@ -103,9 +103,9 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface MyPeopleDic {
-		anotherDic?: {[id: string]: string } | null;
-		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person } | null;
-		intDic?: {[id: number]: string } | null;
+		anotherDic?: {[id: string]: string };
+		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
+		intDic?: {[id: number]: string };
 	}
 
 	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {

@@ -1,4 +1,4 @@
-Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and Strongly Typed Client API for Web API.
+Generate data model interfaces in TypsScript from POCO classes. This has been used in POCO2TS.exe and "Strongly Typed Web API Client API Generators".
 
 Please check:
 

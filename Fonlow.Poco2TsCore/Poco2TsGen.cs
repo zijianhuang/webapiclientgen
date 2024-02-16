@@ -251,8 +251,8 @@ namespace Fonlow.Poco2Ts
 							};
 
 							AddValidationAttributesCodeTypeMember(propertyInfo, clientField, false);
-							clientField.UserData.Add("CustomAttributes", propertyInfo.GetCustomAttributes().ToArray());
-							clientField.Type.UserData.Add("FieldTypeInfo",
+							clientField.UserData.Add(UserDataKeys.CustomAttributes, propertyInfo.GetCustomAttributes().ToArray());
+							clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo,
 								new FieldTypeInfo
 								{
 									IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
@@ -293,8 +293,8 @@ namespace Fonlow.Poco2Ts
 								Type = TranslateToClientTypeReference(fieldInfo.FieldType),
 							};
 
-							clientField.UserData.Add("CustomAttributes", fieldInfo.GetCustomAttributes().ToArray());
-							clientField.Type.UserData.Add("FieldTypeInfo", new FieldTypeInfo
+							clientField.UserData.Add(UserDataKeys.CustomAttributes, fieldInfo.GetCustomAttributes().ToArray());
+							clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo, new FieldTypeInfo
 							{
 								IsComplex = CodeObjectHelper.IsComplexType(fieldInfo.FieldType),
 								IsArray = clientField.Type.ArrayRank > 0,

@@ -440,6 +440,93 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.Heroes = Heroes;
+    class Numbers {
+        constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
+            this.baseUri = baseUri;
+            this.httpClient = httpClient;
+            this.error = error;
+            this.statusCode = statusCode;
+        }
+        /**
+         * POST api/Numbers/byte
+         */
+        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/byte', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/sbyte
+         */
+        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/sbyte', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/short
+         */
+        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/short', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/ushort
+         */
+        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/ushort', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/int
+         */
+        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/int', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/long
+         */
+        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/long', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/ulong
+         */
+        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/ulong', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/bigInteger
+         */
+        postBigInteger(bigInteger, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/bigInteger', bigInteger, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/BigNumbers
+         */
+        postBigNumbers(bigNumbers, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/BigNumbers', bigNumbers, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/int128
+         */
+        postInt128(int128, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/int128', int128, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/int64
+         */
+        postInt64(int64, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/int64', int64, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/uint128
+         */
+        postUint128(uint128, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/uint128', uint128, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/uint64
+         */
+        postUint64(uint64, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/uint64', uint64, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+    }
+    DemoWebApi_Controllers_Client.Numbers = Numbers;
     class StringData {
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
@@ -1134,26 +1221,26 @@ var DemoWebApi_Controllers_Client;
          * Get a list of value
          * GET api/Values
          */
-        get(callback, headersHandler) {
+        getByCallbackOf(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get by both Id and name
          * GET api/Values/{id}?name={name}
          */
-        getByIdAndName(id, name, callback, headersHandler) {
+        getByIdOfnumberAndNameOfstringAndCallbackOf(id, name, callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Values?name={name}
          */
-        getByName(name, callback, headersHandler) {
+        getByNameOfstringAndCallbackOf(name, callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/Values/{id}
          */
-        getById(id, callback, headersHandler) {
+        getByIdOfnumberAndCallbackOf(id, callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Diagnostics;
-using System.Xml.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -106,7 +105,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 			}
 
-			var tsTypeInfo = e.AttributeType.UserData["TsTypeInfo"] as TsTypeInfo;
+			var tsTypeInfo = e.AttributeType.UserData[UserDataKeys.TsTypeInfo] as TsTypeInfo;
 			bool isInterface = tsTypeInfo != null && tsTypeInfo.TypeOfType == TypeOfType.IsInterface;
 			if (isInterface)
 			{
@@ -858,7 +857,7 @@ https://angular.io/guide/dependency-injection-in-action
 						GenerateCodeFromAttributeDeclarationCollectionForParameter(d.CustomAttributes, w, o);
 					}
 
-					var isMethodParameter = (d.Type.UserData["IsMethodParameter"] as bool?).HasValue;
+					var isMethodParameter = (d.Type.UserData[UserDataKeys.IsMethodParameter] as bool?).HasValue;
 					var typeText = GetCodeTypeReferenceText(d.Type);
 					var alreadyNullable = typeText.EndsWith("| null");
 					var isAny = d.Type.BaseType == "any";
@@ -1151,6 +1150,17 @@ https://angular.io/guide/dependency-injection-in-action
 					: "class";
 		}
 
+		static readonly string[] typeOfTypeTexts = { "interface", "class", "enum" };
+		/// <summary>
+		/// Return interface, class or enum.
+		/// </summary>
+		/// <param name="t"></param>
+		/// <returns></returns>
+		protected string GetTypeOfTypeText(TypeOfType t) // v3.1.2
+		{
+			return typeOfTypeTexts[(int)t];
+		}
+
 		protected TypeOfType GetTypeOfType(CodeTypeDeclaration typeDeclaration)
 		{
 			return typeDeclaration.IsEnum
@@ -1213,7 +1223,7 @@ https://angular.io/guide/dependency-injection-in-action
 			}
 
 			var isAny = codeMemberField.Name == "any";
-			var fieldTypeInfo = codeMemberField.Type.UserData["FieldTypeInfo"] as FieldTypeInfo;
+			var fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
 			if (fieldTypeInfo != null)
 			{
 				var isComplex = fieldTypeInfo.IsArray || fieldTypeInfo.IsComplex;
@@ -1245,7 +1255,6 @@ https://angular.io/guide/dependency-injection-in-action
 
 			if (string.IsNullOrEmpty(type.FullName))
 			{
-				//throw new ArgumentException($"type.FullName is null or empty.", nameof(type));
 				//Example: ReflectedType = {Name = "MimsResult`1" FullName = "DemoWebApi.DemoData.MimsResult`1"}; Name = T
 				return false;
 			}

@@ -17,6 +17,16 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export enum AddressType { Postal, Residential }
 
+
+	/**  */
+	export interface BigNumbers {
+		bigInt?: BigInt | null;
+		signed128?: BigInt | null;
+		signed64?: number | null;
+		unsigned128?: BigInt | null;
+		unsigned64?: number | null;
+	}
+
 	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/**
@@ -694,6 +704,102 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		search(name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
 			return fetch(this.baseUri + 'api/Heroes/search/' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+	}
+
+	export class Numbers {
+		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		}
+
+		/**
+		 * POST api/Numbers/byte
+		 */
+		postByDOfByte(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/byte', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/sbyte
+		 */
+		postByDOfSByte(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/sbyte', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/short
+		 */
+		postByDOfInt16(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/short', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/ushort
+		 */
+		postByDOfUInt16(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/ushort', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/int
+		 */
+		postByDOfInt32(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/int', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/long
+		 */
+		postByDOfInt64(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/long', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/ulong
+		 */
+		postByDOfUInt64(d?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/ulong', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/bigInteger
+		 */
+		postBigInteger(bigInteger?: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+			return fetch(this.baseUri + 'api/Numbers/bigInteger', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigInteger) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/BigNumbers
+		 */
+		postBigNumbers(bigNumbers?: DemoWebApi_DemoData_Client.BigNumbers | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.BigNumbers> {
+			return fetch(this.baseUri + 'api/Numbers/BigNumbers', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigNumbers) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/int128
+		 */
+		postInt128(int128?: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+			return fetch(this.baseUri + 'api/Numbers/int128', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(int128) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/int64
+		 */
+		postInt64(int64?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/int64', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(int64) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/uint128
+		 */
+		postUint128(uint128?: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+			return fetch(this.baseUri + 'api/Numbers/uint128', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(uint128) }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/uint64
+		 */
+		postUint64(uint64?: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return fetch(this.baseUri + 'api/Numbers/uint64', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(uint64) }).then(d => d.json());
 		}
 	}
 
@@ -1482,21 +1588,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get by both Id and name
 		 * GET api/Values/{id}?name={name}
 		 */
-		getByIdAndName(id?: number | null, name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByIdOfInt32AndNameOfString(id?: number | null, name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 
 		/**
 		 * GET api/Values?name={name}
 		 */
-		getByName(name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByNameOfString(name?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/Values?name=' + (!name ? '' : encodeURIComponent(name)), { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 
 		/**
 		 * GET api/Values/{id}
 		 */
-		getById(id?: number | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByIdOfInt32(id?: number | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/Values/' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 

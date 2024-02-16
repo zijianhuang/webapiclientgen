@@ -267,6 +267,25 @@ namespace Poco2TsTests
 			Assert.True(IsNullablePrimitive(t));
 		}
 
+		[Fact]
+		public void TestBigNumbers()
+		{
+			Verify(typeof(DemoWebApi.DemoData.BigNumbers),
+@"export namespace DemoWebApi_DemoData_Client {
+	export interface BigNumbers {
+		BigInt?: BigInt | null;
+		Signed128?: BigInt | null;
+		Signed64?: number | null;
+		Unsigned128?: BigInt | null;
+		Unsigned64?: number | null;
+	}
+
+}
+
+");
+		}
+
+
 
 		static readonly Type typeOfNullableDefinition = typeof(Nullable<>);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fonlow.Poco2Ts;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -216,7 +217,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <returns>Text of FormControl creation.</returns>
 		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
 		{
-			var customAttributes = codeMemberField.UserData["CustomAttributes"] as Attribute[];
+			var customAttributes = codeMemberField.UserData[UserDataKeys.CustomAttributes] as Attribute[];
 			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
 
 			if (customAttributes?.Length > 0)
@@ -287,7 +288,7 @@ namespace Fonlow.TypeScriptCodeDom
 					}
 				}
 
-				var fieldTypeInfo = codeMemberField.Type.UserData["FieldTypeInfo"] as FieldTypeInfo;
+				var fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
 				if (fieldTypeInfo != null)
 				{
 					var validatorsHasValidatorMinOrMax = validatorList.Exists(d => d.Contains("max(") || d.Contains("min"));

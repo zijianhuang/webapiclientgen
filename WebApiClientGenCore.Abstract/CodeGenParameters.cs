@@ -175,6 +175,14 @@
 		/// </summary>
 		public bool CancellationTokenEnabled { get; set; }
 
+		/// <summary>
+		/// JS does not support method overloading, thus overloaded methods will be having different method name with suffix based on parameter names.
+		/// However, there may be overloaded methods with the same parameter names but different CLR type, like byte, int, long and string etc.. 
+		/// Having this option on will have suffix ParameterNameOfParameterCLRType
+		/// </summary>
+		public bool JsMethodSuffixWithClrTypeName { get; set; }
+
+
 		public JSPlugin[] Plugins { get; set; }
 	}
 
@@ -252,5 +260,7 @@
 		public bool NotNullAttributeOnMethod { get; set; }
 
 		public bool MaybeNullAttributeOnMethod { get; set; }
+
+		public bool MethodSuffixWithClrTypeName { get; set; }
 	}
 }

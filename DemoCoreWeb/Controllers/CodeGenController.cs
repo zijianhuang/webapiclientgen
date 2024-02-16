@@ -40,11 +40,11 @@ namespace Fonlow.WebApiClientGen
 			if (settings.ClientApiOutputs == null)
 				return BadRequest("No settings/ClientApiOutputs");
 
-			Fonlow.Web.Meta.WebApiDescription[] apiDescriptions;
+			Fonlow.Web.Meta.WebApiDescription[] webApiDescriptions;
 			try
 			{
 				var descriptions = ApiExplorerHelper.GetApiDescriptions(apiExplorer);
-				apiDescriptions = descriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).OrderBy(d => d.ActionDescriptor.ActionName).ToArray();
+				webApiDescriptions = descriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).OrderBy(d => d.ActionDescriptor.ActionName).ToArray();
 
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)
@@ -65,7 +65,7 @@ namespace Fonlow.WebApiClientGen
 			
 			try
 			{
-				CodeGen.GenerateClientAPIs(this.webRootPath, settings, apiDescriptions);
+				CodeGen.GenerateClientAPIs(this.webRootPath, settings, webApiDescriptions);
 				//System.IO.File.WriteAllText(@"c:\temp\mygen.json", Newtonsoft.Json.JsonConvert.SerializeObject(apiDescriptions, Newtonsoft.Json.Formatting.Indented)); //Log some runtime info if something is wrong.
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)

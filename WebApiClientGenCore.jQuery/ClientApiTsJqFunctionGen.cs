@@ -11,13 +11,13 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// <summary>
 	/// Generate a client function upon ApiDescription for jQuery
 	/// </summary>
-	public class ClientApiTsFunctionGen : ClientApiTsFunctionGenBase
+	public class ClientApiTsJqFunctionGen : ClientApiTsFunctionGenBase
 	{
 
 		readonly bool handleHttpRequestHeaders;
 		readonly string contentType;
 
-		public ClientApiTsFunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
+		public ClientApiTsJqFunctionGen(string contentType, bool handleHttpRequestHeaders) : base()
 		{
 			this.contentType = String.IsNullOrEmpty(contentType) ? "application/json;charset=UTF-8" : contentType;
 			this.handleHttpRequestHeaders = handleHttpRequestHeaders;

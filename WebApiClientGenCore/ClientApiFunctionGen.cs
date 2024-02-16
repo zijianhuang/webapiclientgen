@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Fonlow.Reflection;
 using Fonlow.Web.Meta;
 using System.Collections.Generic;
+using Fonlow.Poco2Ts;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -31,9 +32,9 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly string statementOfEnsureSuccessStatusCode;
 		readonly CodeGenOutputs settings;
 
-		ClientApiFunctionGen(WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
+		ClientApiFunctionGen(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
-			this.description = description;
+			this.description = webApiDescription;
 			//this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
 			this.settings = settings;
@@ -41,11 +42,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			this.stringAsString = settings.StringAsString;
 			//this.diFriendly = settings.DIFriendly;
 			statementOfEnsureSuccessStatusCode = settings.UseEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
-			methodName = description.ActionDescriptor.ActionName;
+			methodName = webApiDescription.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async"))
 				methodName = methodName.Substring(0, methodName.Length - 5);
 
-			returnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
+			returnType = webApiDescription.ResponseDescription?.ResponseType ?? webApiDescription.ActionDescriptor.ReturnType;
 			returnTypeIsStream = returnType != null && ((returnType.FullName == typeNameOfHttpResponseMessage)
 				|| (returnType.FullName == typeOfIHttpActionResult)
 				|| (returnType.FullName == typeOfIActionResult)
@@ -57,13 +58,14 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
 
-			var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
+			var methodInfo = webApiDescription.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(webApiDescription.ActionDescriptor.MethodName, webApiDescription.ActionDescriptor.MethodTypes);
 			if (methodInfo != null)
 			{
 				if (settings.MaybeNullAttributeOnMethod)
 				{
 					returnTypeDecoratedWithMaybeNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
-				} else if (settings.NotNullAttributeOnMethod)
+				}
+				else if (settings.NotNullAttributeOnMethod)
 				{
 					returnTypeDecoratedWithNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
@@ -75,9 +77,9 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(WebApiDescription description, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
+		public static CodeMemberMethod Create(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
-			var gen = new ClientApiFunctionGen(description, poco2CsGen, settings, forAsync);
+			var gen = new ClientApiFunctionGen(webApiDescription, poco2CsGen, settings, forAsync);
 			return gen.CreateApiFunction();
 		}
 
@@ -90,7 +92,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (settings.MaybeNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
 			{
 				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.MaybeNullAttribute"));
-			} else if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)
+			}
+			else if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)
 			{
 				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
 			}
@@ -226,7 +229,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			CodeParameterDeclarationExpression[] parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.None)
 				.Select(d =>
-				new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name))
+				{
+					var exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
+					exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
+					return exp;
+				})
 				.ToArray();
 			clientMethod.Parameters.AddRange(parameters);
 
@@ -288,31 +295,18 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 		}
 
-		static void Add3TEndBacket(CodeMemberMethod method)
-		{
-			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
-		}
-
-		string ThreeTabs => "\t\t\t";
-
-		void AddResponseMessageSendAsync(CodeMemberMethod method)
-		{
-			var cancellationToken = settings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty;
-			method.Statements.Add(new CodeVariableDeclarationStatement(
-				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression($"await client.SendAsync(httpRequestMessage{cancellationToken})") : new CodeSnippetExpression($"client.SendAsync(httpRequestMessage{cancellationToken}).Result")));
-		}
-
 		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
 		{
 			//Create function parameters in prototype
 			var parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => new CodeParameterDeclarationExpression()
+			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
 			{
-				Name = d.Name,
-				Type = poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType),
-
-			}).ToArray();
+				var exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
+				exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
+				return exp;
+			}
+			).ToArray();
 			clientMethod.Parameters.AddRange(parameters);
 
 			if (settings.CancellationTokenEnabled)
@@ -417,6 +411,20 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			//Add3TEndBacket(clientMethod);
+		}
+
+		static void Add3TEndBacket(CodeMemberMethod method)
+		{
+			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
+		}
+
+		string ThreeTabs => "\t\t\t";
+
+		void AddResponseMessageSendAsync(CodeMemberMethod method)
+		{
+			var cancellationToken = settings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty;
+			method.Statements.Add(new CodeVariableDeclarationStatement(
+				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression($"await client.SendAsync(httpRequestMessage{cancellationToken})") : new CodeSnippetExpression($"client.SendAsync(httpRequestMessage{cancellationToken}).Result")));
 		}
 
 		static void Add4TEndBacket(CodeStatementCollection statementCollection)

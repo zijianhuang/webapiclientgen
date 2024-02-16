@@ -6,14 +6,14 @@ namespace Fonlow.CodeDom.Web.Ts
 	/// <summary>
 	/// Generate TypeScript codes of the client API of the controllers
 	/// </summary>
-	public class ControllersTsClientApiGen : ControllersTsClientApiGenBase
+	public class ControllersTsJqClientApiGen : ControllersTsClientApiGenBase
 	{
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="jsOutput"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		public ControllersTsClientApiGen(JSOutput jsOutput, bool handleHttpRequestHeaders, Fonlow.Poco2Client.IDocCommentTranslate docCommentTranslate) : base(jsOutput, new ClientApiTsFunctionGen(jsOutput.ContentType, handleHttpRequestHeaders), docCommentTranslate)
+		public ControllersTsJqClientApiGen(JSOutput jsOutput, bool handleHttpRequestHeaders, Fonlow.Poco2Client.IDocCommentTranslate docCommentTranslate) : base(jsOutput, new ClientApiTsJqFunctionGen(jsOutput.ContentType, handleHttpRequestHeaders), docCommentTranslate)
 		{
 		}
 

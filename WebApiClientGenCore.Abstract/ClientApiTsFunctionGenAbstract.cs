@@ -7,6 +7,7 @@ using System.Text;
 using Fonlow.Poco2Client;
 using System.Linq;
 using Fonlow.Reflection;
+using Fonlow.Poco2Ts;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -185,8 +186,10 @@ namespace Fonlow.CodeDom.Web.Ts
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => {
 					var originalType = d.ParameterDescriptor.ParameterType;
 					var originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
-					originalCodeTypeReference.UserData.Add("IsMethodParameter", true); // so I can add optional null later
-					return new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
+					originalCodeTypeReference.UserData.Add(UserDataKeys.IsMethodParameter, true); // so I can add optional null later
+					var exp = new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
+					exp.UserData.Add(UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
+					return exp;
 				}).ToArray();
 
 			Method.Parameters.AddRange(parameters);

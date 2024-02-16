@@ -37,6 +37,10 @@ export function textDataClientFactory(http: HttpClient) {
 	return new DemoWebApi_Controllers_Client.TextData(apiBaseUri, http);
 }
 
+export function numbersClientFactory(http: HttpClient) {
+    return new DemoWebApi_Controllers_Client.Numbers(apiBaseUri, http);
+}
+
 
 export function errorResponseToString(error: HttpErrorResponse | any,): string {
 	let errMsg: string;
@@ -2119,3 +2123,75 @@ describe('TextData API', () => {
 
 });
 
+describe('Numbers API', () => {
+    let service: DemoWebApi_Controllers_Client.Numbers;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [HttpClientModule],
+            providers: [
+                {
+                    provide: DemoWebApi_Controllers_Client.Numbers,
+                    useFactory: numbersClientFactory,
+                    deps: [HttpClient],
+
+                },
+
+            ]
+        });
+
+        service = TestBed.get(DemoWebApi_Controllers_Client.Numbers);
+    }));
+
+    //it('postBigNumbers', (done) => {
+    //    const d: DemoWebApi_DemoData_Client.BigNumbers = {
+    //        //unsigned64: 18446744073709551615, //2 ^ 64 -1,
+    //        //signed64: 9223372036854775807, //2 ^ 63 -1,
+    //        unsigned128: BigInt(340282366920938463463374607431768211455),
+    //        signed128: BigInt(0x7FFFFFFFFFFFFFFF),
+    //        bigInt: BigInt(0x7FFFFFFFFFFFFFFF * 100),
+    //    };
+    //    service.postBigNumbers().subscribe(
+    //        r => {
+    //            expect(r.unsigned64).toEqual(18446744073709551615)
+    //            done();
+    //        },
+    //        error => {
+    //            fail(errorResponseToString(error));
+    //            done();
+    //        }
+    //    );
+
+    //}
+    //);
+
+    it('postInt64', (done) => {
+        service.postInt64(9223372036854775807).subscribe(
+            r => {
+                expect(r).toBe(0x7fffffffffffffff);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postLongAsBigInt', (done) => {
+        service.postBigInteger(BigInt(9223372036854775807)).subscribe(
+            r => {
+                expect(r).toEqual(BigInt(9223372036854775807));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+
+});

@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Fonlow.Web.Meta;
+using System.Diagnostics;
+using System.Collections.Specialized;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -249,14 +251,33 @@ namespace Fonlow.CodeDom.Web.Ts
 			return String.IsNullOrEmpty(s) ? s : (char.ToUpper(s[0]) + (s.Length > 1 ? s.Substring(1) : String.Empty));
 		}
 
-		static void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)
+		string ToMethodNameSuffix(CodeParameterDeclarationExpression d)
+		{
+			var pn = ToTitleCase(d.Name);
+			if (pn.EndsWith("?"))
+			{
+				pn = pn.Substring(0, pn.Length - 1);
+			}
+
+			if (jsOutput.MethodSuffixWithClrTypeName && (d.UserData.Contains(UserDataKeys.ParameterDescriptor)))
+			{
+				var pt = d.UserData[UserDataKeys.ParameterDescriptor] as ParameterDescriptor;
+				return $"{pn}Of{pt.ParameterType.Name}";
+			}
+
+			return $"{pn}Of{d.Type.BaseType}";
+		}
+
+		void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)
 		{
 			if (method.Parameters.Count == 0)
 				return;
 
-			var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>().Where(k => k.Name != "headersHandler?").Select(d => ToTitleCase(d.Name)).ToList();
+			var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>()
+			.Where(k => k.Name != "headersHandler?")
+			.Select(d => ToMethodNameSuffix(d)).ToList();
 
-			parameterNamesInTitleCase= parameterNamesInTitleCase.Select(item =>
+			parameterNamesInTitleCase = parameterNamesInTitleCase.Select(item =>
 			{
 				if (item.EndsWith('?'))
 				{

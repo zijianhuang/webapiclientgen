@@ -68,6 +68,35 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export enum AddressType { Postal, Residential }
 
+
+	/**  */
+	export interface BigNumbers {
+		bigInt?: BigInt | null;
+		signed128?: BigInt | null;
+		signed64?: number | null;
+		unsigned128?: BigInt | null;
+		unsigned64?: number | null;
+	}
+
+	/**  */
+	export interface BigNumbersFormProperties {
+		bigInt: FormControl<BigInt | null | undefined>,
+		signed128: FormControl<BigInt | null | undefined>,
+		signed64: FormControl<number | null | undefined>,
+		unsigned128: FormControl<BigInt | null | undefined>,
+		unsigned64: FormControl<number | null | undefined>,
+	}
+	export function CreateBigNumbersFormGroup() {
+		return new FormGroup<BigNumbersFormProperties>({
+			bigInt: new FormControl<BigInt | null | undefined>(undefined),
+			signed128: new FormControl<BigInt | null | undefined>(undefined),
+			signed64: new FormControl<number | null | undefined>(undefined),
+			unsigned128: new FormControl<BigInt | null | undefined>(undefined),
+			unsigned64: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
 	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/**
@@ -1208,6 +1237,103 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 
 	@Injectable()
+	export class Numbers {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Numbers/byte
+		 */
+		postByDOfByte(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/byte', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/sbyte
+		 */
+		postByDOfSByte(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/sbyte', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/short
+		 */
+		postByDOfInt16(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/short', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/ushort
+		 */
+		postByDOfUInt16(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/ushort', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/int
+		 */
+		postByDOfInt32(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/int', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/long
+		 */
+		postByDOfInt64(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/long', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/ulong
+		 */
+		postByDOfUInt64(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/ulong', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/bigInteger
+		 */
+		postBigInteger(bigInteger?: BigInt | null, headersHandler?: () => HttpHeaders): Observable<BigInt> {
+			return this.http.post<BigInt>(this.baseUri + 'api/Numbers/bigInteger', JSON.stringify(bigInteger), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/BigNumbers
+		 */
+		postBigNumbers(bigNumbers?: DemoWebApi_DemoData_Client.BigNumbers | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.BigNumbers> {
+			return this.http.post<DemoWebApi_DemoData_Client.BigNumbers>(this.baseUri + 'api/Numbers/BigNumbers', JSON.stringify(bigNumbers), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/int128
+		 */
+		postInt128(int128?: BigInt | null, headersHandler?: () => HttpHeaders): Observable<BigInt> {
+			return this.http.post<BigInt>(this.baseUri + 'api/Numbers/int128', JSON.stringify(int128), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/int64
+		 */
+		postInt64(int64?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/int64', JSON.stringify(int64), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/uint128
+		 */
+		postUint128(uint128?: BigInt | null, headersHandler?: () => HttpHeaders): Observable<BigInt> {
+			return this.http.post<BigInt>(this.baseUri + 'api/Numbers/uint128', JSON.stringify(uint128), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/uint64
+		 */
+		postUint64(uint64?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/uint64', JSON.stringify(uint64), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+	}
+
+	@Injectable()
 	export class StringData {
 		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
 		}
@@ -1997,21 +2123,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get by both Id and name
 		 * GET api/Values/{id}?name={name}
 		 */
-		getByIdAndName(id?: number | null, name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+		getByIdOfInt32AndNameOfString(id?: number | null, name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get(this.baseUri + 'api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/Values?name={name}
 		 */
-		getByName(name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+		getByNameOfString(name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get(this.baseUri + 'api/Values?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 
 		/**
 		 * GET api/Values/{id}
 		 */
-		getById(id?: number | null, headersHandler?: () => HttpHeaders): Observable<string> {
+		getByIdOfInt32(id?: number | null, headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get(this.baseUri + 'api/Values/' + id, { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
 		}
 

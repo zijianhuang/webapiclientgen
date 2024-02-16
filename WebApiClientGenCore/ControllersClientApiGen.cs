@@ -73,9 +73,9 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 		}
 
-		public void CreateCodeDomAndSaveCsharp(WebApiDescription[] descriptions, string fileName)
+		public void CreateCodeDomAndSaveCsharp(WebApiDescription[] webApiDescriptions, string fileName)
 		{
-			var namespacesOfPoco = CreateCodeDom(descriptions);
+			var namespacesOfPoco = CreateCodeDom(webApiDescriptions);
 			Save(fileName, namespacesOfPoco);
 		}
 
@@ -123,17 +123,17 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <summary>
 		/// Generate CodeDom of the client API for ApiDescriptions.
 		/// </summary>
-		/// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
+		/// <param name="webApiDescriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
 		/// <returns>Namespaces of types of POCO.</returns>
-		public CodeNamespaceEx[] CreateCodeDom(WebApiDescription[] descriptions)
+		public CodeNamespaceEx[] CreateCodeDom(WebApiDescription[] webApiDescriptions)
 		{
-			if (descriptions == null)
+			if (webApiDescriptions == null)
 			{
-				throw new ArgumentNullException(nameof(descriptions));
+				throw new ArgumentNullException(nameof(webApiDescriptions));
 			}
 
 			var namespacesOfTypes = GenerateCsFromPoco();
-			var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
+			var controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
 				.Distinct()
 				.GroupBy(d => d.ControllerType.Namespace)
 				.OrderBy(g => g.Key);// order by namespace
@@ -185,7 +185,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			}
 
-			foreach (var d in descriptions)
+			foreach (var d in webApiDescriptions)
 			{
 				var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
 				var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;

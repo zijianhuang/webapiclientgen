@@ -19,6 +19,16 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export enum AddressType { Postal, Residential }
 
+
+	/**  */
+	export interface BigNumbers {
+		bigInt?: BigInt | null;
+		signed128?: BigInt | null;
+		signed64?: number | null;
+		unsigned128?: BigInt | null;
+		unsigned64?: number | null;
+	}
+
 	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/**
@@ -700,6 +710,103 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		search(name: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
 			return this.http.get('api/Heroes/search/' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+	}
+
+	@autoinject()
+	export class Numbers {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Numbers/byte
+		 */
+		postByDOfByte(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/byte', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/sbyte
+		 */
+		postByDOfSByte(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/sbyte', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/short
+		 */
+		postByDOfInt16(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/short', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/ushort
+		 */
+		postByDOfUInt16(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/ushort', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/int
+		 */
+		postByDOfInt32(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/int', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/long
+		 */
+		postByDOfInt64(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/long', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/ulong
+		 */
+		postByDOfUInt64(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/ulong', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/bigInteger
+		 */
+		postBigInteger(bigInteger: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+			return this.http.post('api/Numbers/bigInteger', JSON.stringify(bigInteger), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/BigNumbers
+		 */
+		postBigNumbers(bigNumbers: DemoWebApi_DemoData_Client.BigNumbers | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.BigNumbers> {
+			return this.http.post('api/Numbers/BigNumbers', JSON.stringify(bigNumbers), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/int128
+		 */
+		postInt128(int128: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+			return this.http.post('api/Numbers/int128', JSON.stringify(int128), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/int64
+		 */
+		postInt64(int64: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/int64', JSON.stringify(int64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/uint128
+		 */
+		postUint128(uint128: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+			return this.http.post('api/Numbers/uint128', JSON.stringify(uint128), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/uint64
+		 */
+		postUint64(uint64: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/uint64', JSON.stringify(uint64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 	}
 
@@ -1493,21 +1600,21 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get by both Id and name
 		 * GET api/Values/{id}?name={name}
 		 */
-		getByIdAndName(id: number | null, name: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByIdOfInt32AndNameOfString(id: number | null, name: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.get('api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 
 		/**
 		 * GET api/Values?name={name}
 		 */
-		getByName(name: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByNameOfString(name: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.get('api/Values?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 
 		/**
 		 * GET api/Values/{id}
 		 */
-		getById(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		getByIdOfInt32(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.get('api/Values/' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.status == 204 ? null : d.text());
 		}
 

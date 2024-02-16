@@ -1,6 +1,4 @@
-﻿using System.CodeDom.Compiler;
-
-namespace Fonlow.TypeScriptCodeDom
+﻿namespace Fonlow.TypeScriptCodeDom
 {
 	/// <summary>
 	/// Singleton of CodeGeneratorOptions, with property CamelCase

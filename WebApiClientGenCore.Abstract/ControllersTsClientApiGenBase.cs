@@ -251,6 +251,11 @@ namespace Fonlow.CodeDom.Web.Ts
 			return String.IsNullOrEmpty(s) ? s : (char.ToUpper(s[0]) + (s.Length > 1 ? s.Substring(1) : String.Empty));
 		}
 
+		/// <summary>
+		/// suffix is based on parameter declaration expression, with name and optionally CLR type name.
+		/// </summary>
+		/// <param name="d"></param>
+		/// <returns></returns>
 		string ToMethodNameSuffix(CodeParameterDeclarationExpression d)
 		{
 			var pn = ToTitleCase(d.Name);
@@ -274,8 +279,8 @@ namespace Fonlow.CodeDom.Web.Ts
 				return;
 
 			var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>()
-			.Where(k => k.Name != "headersHandler?")
-			.Select(d => ToMethodNameSuffix(d)).ToList();
+				.Where(k => k.Name != "headersHandler?")
+				.Select(d => ToMethodNameSuffix(d)).ToList();
 
 			parameterNamesInTitleCase = parameterNamesInTitleCase.Select(item =>
 			{

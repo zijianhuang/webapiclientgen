@@ -103,12 +103,12 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				case "GET":
 				case "DELETE":
-					RenderGetOrDeleteImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()), forAsync);
+					RenderGetOrDeleteImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()));
 					break;
 				case "POST":
 				case "PUT":
 				case "PATCH":
-					RenderPostOrPutImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()), forAsync);
+					RenderPostOrPutImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()));
 					break;
 				default:
 					Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
@@ -223,8 +223,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// 
 		/// </summary>
 		/// <param name="httpMethod">GET, DELETE, POST, PUT</param>
-		/// <param name="forAsync"></param>
-		void RenderGetOrDeleteImplementation(string httpMethod, bool forAsync)
+		void RenderGetOrDeleteImplementation(string httpMethod)
 		{
 			CodeParameterDeclarationExpression[] parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.None)
@@ -295,7 +294,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 		}
 
-		void RenderPostOrPutImplementation(string httpMethod, bool forAsync)
+		void RenderPostOrPutImplementation(string httpMethod)
 		{
 			//Create function parameters in prototype
 			var parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri

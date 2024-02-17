@@ -30,8 +30,8 @@
 	<Compile Update="TypeScriptCodeProvider.cs">
 	  <SubType>Component</SubType>
 	</Compile>
-	<Compile Update="xmldocument.cs">
-	  <DependentUpon>XmlDocument.xsd</DependentUpon>
+	<Compile Update="XmlDocComment.cs">
+	  <DependentUpon>XmlDocComment.xsd</DependentUpon>
 	</Compile>
   </ItemGroup>
 

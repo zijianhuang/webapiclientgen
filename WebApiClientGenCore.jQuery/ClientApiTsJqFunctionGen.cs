@@ -36,9 +36,14 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			var parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
-					 new CodeParameterDeclarationExpression(Poco2TsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name)
-				).ToList();
+				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => {
+					var originalType = d.ParameterDescriptor.ParameterType;
+					var originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
+					originalCodeTypeReference.UserData.Add(UserDataKeys.IsMethodParameter, true); // so I can add optional null later
+					var exp = new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
+					exp.UserData.Add(UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
+					return exp;
+				}).ToList();
 
 			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			if (returnTypeReference.BaseType == "response")//response is for NG2 with better built-in support for typing, and get translated to HttpResponse<Blob>

@@ -9446,6 +9446,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a list of value async, it is get2
 		/// GET api/Values/Get2
 		/// </summary>
 		public async Task<System.Collections.Generic.IEnumerable<string>> Get2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -9469,6 +9470,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a list of value async, it is get2
 		/// GET api/Values/Get2
 		/// </summary>
 		public System.Collections.Generic.IEnumerable<string> Get2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

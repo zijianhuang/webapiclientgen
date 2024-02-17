@@ -225,7 +225,8 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		}
 
-		void RefineOverloadingFunctionsOfType(CodeTypeDeclaration codeTypeDeclaration){
+		void RefineOverloadingFunctionsOfType(CodeTypeDeclaration codeTypeDeclaration)
+		{
 			List<CodeMemberMethod> methods = new();
 			for (int m = 0; m < codeTypeDeclaration.Members.Count; m++)
 			{
@@ -268,13 +269,18 @@ namespace Fonlow.CodeDom.Web.Ts
 				pn = pn.Substring(0, pn.Length - 1);
 			}
 
+			string typeName = string.Empty;
 			if (jsOutput.MethodSuffixWithClrTypeName && (d.UserData.Contains(UserDataKeys.ParameterDescriptor)))
 			{
 				var pt = d.UserData[UserDataKeys.ParameterDescriptor] as ParameterDescriptor;
-				return $"{pn}Of{pt.ParameterType.Name}";
+				typeName = pt.ParameterType.Name;
+			}
+			else
+			{
+				typeName = d.Type.BaseType;
 			}
 
-			return $"{pn}Of{d.Type.BaseType}";
+			return typeName == string.Empty ? string.Empty :  $"{pn}Of{typeName}";
 		}
 
 		void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)
@@ -294,7 +300,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 				return item;
-			}).ToList();
+			}).Where(k=>k != string.Empty).ToList();
 
 			var lastParameter = parameterNamesInTitleCase.LastOrDefault();//for JQ output
 			if ("callback".Equals(lastParameter, StringComparison.CurrentCultureIgnoreCase))

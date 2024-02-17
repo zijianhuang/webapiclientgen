@@ -710,14 +710,14 @@ var CommonCases;
             });
             QUnit.test("GetByIdAndName", function (assert) {
                 let done = assert.async();
-                valuesApi.getByIdAndName(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", (data) => {
+                valuesApi.getByIdOfInt32AndNameOfString(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"", (data) => {
                     assert.equal(data, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1");
                     done();
                 });
             });
             QUnit.test("GetByName", function (assert) {
                 let done = assert.async();
-                valuesApi.getByName("something", (data) => {
+                valuesApi.getByNameOfString("something", (data) => {
                     assert.equal(data, "SOMETHING");
                     done();
                 });

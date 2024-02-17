@@ -1,5 +1,9 @@
 class HttpClient {
     /**
+      location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
+    **/
+    static locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
+    /**
     **/
     get(url, callback, errorCalback, statusCodeCallback, headersHandler) {
         this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback, null, headersHandler);
@@ -36,11 +40,11 @@ class HttpClient {
         });
     }
 }
-/**
-  location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
-**/
-HttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
 class AuthHttpClient {
+    /**
+      location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
+    **/
+    static locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
     get(url, callback, errorCalback, statusCodeCallback, headersHandler) {
         this.executeAjax(url, null, "GET", callback, errorCalback, statusCodeCallback, null, headersHandler);
     }
@@ -112,7 +116,3 @@ class AuthHttpClient {
         });
     }
 }
-/**
-  location.origin may not be working in some releases of IE. And locationOrigin is an alternative implementation
-**/
-AuthHttpClient.locationOrigin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';

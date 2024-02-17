@@ -232,8 +232,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					var exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
 					exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 					return exp;
-				})
-				.ToArray();
+				}).ToArray();
 			clientMethod.Parameters.AddRange(parameters);
 
 			if (settings.CancellationTokenEnabled)
@@ -274,8 +273,6 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					AddReturnStatement(clientMethod.Statements);
 				}
-
-				//Add3TEndBacket(clientMethod);
 			}
 			else
 			{
@@ -290,7 +287,6 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
-				//Add3TEndBacket(clientMethod);
 			}
 		}
 

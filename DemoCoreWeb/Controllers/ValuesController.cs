@@ -18,6 +18,10 @@ namespace DemoWebApi.Controllers
 			return new string[] { "value1", "value2" };
 		}
 
+		/// <summary>
+		/// Get a list of value async, it is get2
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet("Get2")]
 		public async Task<IEnumerable<string>> Get2()
 		{

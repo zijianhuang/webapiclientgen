@@ -2144,6 +2144,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get a list of value async, it is get2
 		 * GET api/Values/Get2
 		 */
 		get2(headersHandler?: () => HttpHeaders): Observable<Array<string>> {

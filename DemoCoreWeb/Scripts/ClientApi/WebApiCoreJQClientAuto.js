@@ -59,6 +59,10 @@ var DemoWebApi_DemoData_Client;
 var DemoCoreWeb_Controllers_Client;
 (function (DemoCoreWeb_Controllers_Client) {
     class SpecialTypes {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -112,6 +116,10 @@ var DemoCoreWeb_Controllers_Client;
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     class DateTypes {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -141,27 +149,27 @@ var DemoWebApi_Controllers_Client;
          * GET api/DateTypes/NextHour/{dt}
          */
         getNextHour(dt, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/DateTypes/NextHour/' + (dt === null || dt === void 0 ? void 0 : dt.toISOString()), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/DateTypes/NextHour/' + dt?.toISOString(), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * If Dt is not defined, add a hour from now
          * GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
          */
         getNextHourNullable(n, dt, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/DateTypes/NextHourNullable?n=' + n + (dt ? '&dt=' + (dt === null || dt === void 0 ? void 0 : dt.toISOString()) : ''), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/DateTypes/NextHourNullable?n=' + n + (dt ? '&dt=' + dt?.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/DateTypes/NextYear/{dt}
          */
         getNextYear(dt, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/DateTypes/NextYear/' + (dt === null || dt === void 0 ? void 0 : dt.toISOString()), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/DateTypes/NextYear/' + dt?.toISOString(), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * If Dt is not defined, add a year from now
          * GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
          */
         getNextYearNullable(n, dt, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/DateTypes/NextYearNullable?n=' + n + (dt ? '&dt=' + (dt === null || dt === void 0 ? void 0 : dt.toISOString()) : ''), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/DateTypes/NextYearNullable?n=' + n + (dt ? '&dt=' + dt?.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Client should send DateTime.Date
@@ -243,7 +251,7 @@ var DemoWebApi_Controllers_Client;
          * GET api/DateTypes/RouteDateTimeOffset/{d}
          */
         routeDateTimeOffset(d, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/DateTypes/RouteDateTimeOffset/' + (d === null || d === void 0 ? void 0 : d.toISOString()), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/DateTypes/RouteDateTimeOffset/' + d?.toISOString(), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Return Tuple DateTime?, DateTime?
@@ -252,11 +260,15 @@ var DemoWebApi_Controllers_Client;
          * @param {Date} endDate DateTime? endDate = null
          */
         searchDateRange(startDate, endDate, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + (startDate === null || startDate === void 0 ? void 0 : startDate.toISOString()) : '') + (endDate ? '&endDate=' + (endDate === null || endDate === void 0 ? void 0 : endDate.toISOString()) : ''), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/DateTypes/SearchDateRange?' + (startDate ? 'startDate=' + startDate?.toISOString() : '') + (endDate ? '&endDate=' + endDate?.toISOString() : ''), callback, this.error, this.statusCode, headersHandler);
         }
     }
     DemoWebApi_Controllers_Client.DateTypes = DateTypes;
     class Entities {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -369,6 +381,10 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.Entities = Entities;
     class Heroes {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -441,6 +457,10 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.Heroes = Heroes;
     class Numbers {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -450,43 +470,43 @@ var DemoWebApi_Controllers_Client;
         /**
          * POST api/Numbers/byte
          */
-        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+        postByDOfByte(d, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/byte', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Numbers/sbyte
          */
-        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+        postByDOfSByte(d, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/sbyte', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Numbers/short
          */
-        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+        postByDOfInt16(d, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/short', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Numbers/ushort
          */
-        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+        postByDOfUInt16(d, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/ushort', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Numbers/int
          */
-        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+        postByDOfInt32(d, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/int', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Numbers/long
          */
-        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+        postByDOfInt64(d, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/long', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Numbers/ulong
          */
-        postByDOfnumberAndCallbackOf(d, callback, headersHandler) {
+        postByDOfUInt64(d, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/ulong', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
@@ -528,6 +548,10 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.Numbers = Numbers;
     class StringData {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -567,6 +591,10 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.StringData = StringData;
     class SuperDemo {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -650,7 +678,7 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/decimalArrayQ?a={a}
          */
         getDecimalArrayQ(a, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?' + (a === null || a === void 0 ? void 0 : a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/decimalArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/decimal/{d}
@@ -700,13 +728,13 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/enumArrayDays?a={a}
          */
         getEnumArrayDays(a, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?' + (a === null || a === void 0 ? void 0 : a.map(z => `a=${z}`).join('&')), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayDays?' + a?.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/enumArrayQ2?a={a}
          */
         getEnumArrayQ2(a, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + (a === null || a === void 0 ? void 0 : a.map(z => `a=${z}`).join('&')), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/enumArrayQ2?' + a?.map(z => `a=${z}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/FloatZero
@@ -749,14 +777,14 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/intArrayQ?a={a}
          */
         getIntArrayQ(a, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?' + (a === null || a === void 0 ? void 0 : a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Demo IEnumerable long
          * GET api/SuperDemo/intArrayQ2?a={a}
          */
         getIntArrayQ2(a, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?' + (a === null || a === void 0 ? void 0 : a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/intArrayQ2?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * GET api/SuperDemo/int/{d}
@@ -830,14 +858,14 @@ var DemoWebApi_Controllers_Client;
          * GET api/SuperDemo/stringArrayQ?a={a}
          */
         getStringArrayQ(a, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?' + (a === null || a === void 0 ? void 0 : a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Demo List string
          * GET api/SuperDemo/stringArrayQ2?a={a}
          */
         getStringArrayQ2(a, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + (a === null || a === void 0 ? void 0 : a.map(z => `a=${encodeURIComponent(z)}`).join('&')), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/SuperDemo/stringArrayQ2?' + a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * ActionResult with FileStreamResult
@@ -972,6 +1000,10 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
     class TextData {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -1014,6 +1046,10 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.TextData = TextData;
     class Tuple {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -1205,6 +1241,10 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.Tuple = Tuple;
     class Values {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
         constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
             this.baseUri = baseUri;
             this.httpClient = httpClient;
@@ -1221,31 +1261,32 @@ var DemoWebApi_Controllers_Client;
          * Get a list of value
          * GET api/Values
          */
-        getByCallbackOf(callback, headersHandler) {
+        get(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values', callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get by both Id and name
          * GET api/Values/{id}?name={name}
          */
-        getByIdOfnumberAndNameOfstringAndCallbackOf(id, name, callback, headersHandler) {
+        getByIdOfInt32AndNameOfString(id, name, callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get by name
          * GET api/Values?name={name}
          */
-        getByNameOfstringAndCallbackOf(name, callback, headersHandler) {
+        getByNameOfString(name, callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get by Id
          * GET api/Values/{id}
          */
-        getByIdOfnumberAndCallbackOf(id, callback, headersHandler) {
+        getByIdOfInt32(id, callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values/' + id, callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * Get a list of value async, it is get2
          * GET api/Values/Get2
          */
         get2(callback, headersHandler) {

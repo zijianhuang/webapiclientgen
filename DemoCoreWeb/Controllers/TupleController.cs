@@ -22,7 +22,7 @@ namespace DemoWebApi.Controllers
 		/// Update IEnumerable Tuple in a transaction
 		/// </summary>
 		/// <param name="idAndOrderArray"></param>
-		[HttpPut("A1TupleArray")]
+		[HttpPut("A2TupleArray")]
 		public void A2TupleIEnumerable([FromBody] System.Collections.Generic.IEnumerable<Tuple<Guid, int>> idAndOrderArray)
 		{
 			//do nothing

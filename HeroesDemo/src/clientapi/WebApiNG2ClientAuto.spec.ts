@@ -120,7 +120,7 @@ describe('Values API', () => {
 	);
 
 	it('getByIdAndName', (done) => {
-		service.getByIdAndName(1, 'Abc').subscribe(
+        service.getByIdOfInt32AndNameOfString(1, 'Abc').subscribe(
 			data => {
 				console.debug(data!.length);
 				expect(data).toBe('Abc1');
@@ -135,7 +135,7 @@ describe('Values API', () => {
 	);
 
 	it('getByName', (done) => {
-		service.getByName('Abc').subscribe(
+		service.getByNameOfString('Abc').subscribe(
 			data => {
 				console.debug(data!.length);
 				expect(data).toBe('ABC');
@@ -165,7 +165,7 @@ describe('Values API', () => {
 	);
 
 	it('getByIdAndChinese', (done) => {
-		service.getByIdAndName(1, 'something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"').subscribe(
+        service.getByIdOfInt32AndNameOfString(1, 'something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"').subscribe(
 			data => {
 				console.debug(data!.length);
 				expect(data).toBe('something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"1');

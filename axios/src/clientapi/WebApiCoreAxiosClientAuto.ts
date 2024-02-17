@@ -1365,10 +1365,10 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * Update IEnumerable Tuple in a transaction
-		 * PUT api/Tuple/A1TupleArray
+		 * PUT api/Tuple/A2TupleArray
 		 */
 		a2TupleIEnumerable(idAndOrderArray: Array<{item1: string, item2: number}> | null, headersHandler?: () => {[header: string]: string}): Promise<AxiosResponse> {
-			return Axios.put(this.baseUri + 'api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' });
+			return Axios.put(this.baseUri + 'api/Tuple/A2TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' });
 		}
 
 		/**
@@ -1595,6 +1595,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get by name
 		 * GET api/Values?name={name}
 		 */
 		getByNameOfString(name: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
@@ -1602,6 +1603,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get by Id
 		 * GET api/Values/{id}
 		 */
 		getByIdOfInt32(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<string> {

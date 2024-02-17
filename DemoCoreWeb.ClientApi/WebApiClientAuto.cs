@@ -7721,11 +7721,11 @@ namespace DemoWebApi.Controllers.Client
 		
 		/// <summary>
 		/// Update IEnumerable Tuple in a transaction
-		/// PUT api/Tuple/A1TupleArray
+		/// PUT api/Tuple/A2TupleArray
 		/// </summary>
 		public async Task A2TupleIEnumerableAsync(System.Collections.Generic.IEnumerable<System.Tuple<System.Guid, int>> idAndOrderArray, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = "api/Tuple/A1TupleArray";
+			var requestUri = "api/Tuple/A2TupleArray";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
 			using var requestWriter = new System.IO.StringWriter();
 			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
@@ -7746,11 +7746,11 @@ namespace DemoWebApi.Controllers.Client
 		
 		/// <summary>
 		/// Update IEnumerable Tuple in a transaction
-		/// PUT api/Tuple/A1TupleArray
+		/// PUT api/Tuple/A2TupleArray
 		/// </summary>
 		public void A2TupleIEnumerable(System.Collections.Generic.IEnumerable<System.Tuple<System.Guid, int>> idAndOrderArray, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = "api/Tuple/A1TupleArray";
+			var requestUri = "api/Tuple/A2TupleArray";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
 			using var requestWriter = new System.IO.StringWriter();
 			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
@@ -9350,6 +9350,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by name
 		/// GET api/Values?name={name}
 		/// </summary>
 		public async Task<string> GetAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -9373,6 +9374,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by name
 		/// GET api/Values?name={name}
 		/// </summary>
 		public string Get(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -9396,6 +9398,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by Id
 		/// GET api/Values/{id}
 		/// </summary>
 		public async Task<string> GetAsync(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -9419,6 +9422,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by Id
 		/// GET api/Values/{id}
 		/// </summary>
 		public string Get(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

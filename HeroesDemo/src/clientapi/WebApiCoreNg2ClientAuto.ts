@@ -1448,10 +1448,10 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * Update IEnumerable Tuple in a transaction
-		 * PUT api/Tuple/A1TupleArray
+		 * PUT api/Tuple/A2TupleArray
 		 */
 		a2TupleIEnumerable(idAndOrderArray?: Array<{item1: string, item2: number}> | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
-			return this.http.put(this.baseUri + 'api/Tuple/A1TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+			return this.http.put(this.baseUri + 'api/Tuple/A2TupleArray', JSON.stringify(idAndOrderArray), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 
 		/**
@@ -1679,6 +1679,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get by name
 		 * GET api/Values?name={name}
 		 */
 		getByNameOfString(name?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
@@ -1686,6 +1687,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get by Id
 		 * GET api/Values/{id}
 		 */
 		getByIdOfInt32(id?: number | null, headersHandler?: () => HttpHeaders): Observable<string> {

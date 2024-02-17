@@ -1029,10 +1029,10 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * Update IEnumerable Tuple in a transaction
-         * PUT api/Tuple/A1TupleArray
+         * PUT api/Tuple/A2TupleArray
          */
         a2TupleIEnumerable(idAndOrderArray, callback, headersHandler) {
-            this.httpClient.put(this.baseUri + 'api/Tuple/A1TupleArray', idAndOrderArray, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+            this.httpClient.put(this.baseUri + 'api/Tuple/A2TupleArray', idAndOrderArray, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * Post tuple
@@ -1232,12 +1232,14 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * Get by name
          * GET api/Values?name={name}
          */
         getByNameOfstringAndCallbackOf(name, callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/Values?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * Get by Id
          * GET api/Values/{id}
          */
         getByIdOfnumberAndCallbackOf(id, callback, headersHandler) {

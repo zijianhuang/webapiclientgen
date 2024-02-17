@@ -71,12 +71,12 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <summary>
 		/// Generate TS CodeDom of the client API for ApiDescriptions.
 		/// </summary>
-		/// <param name="descriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
-		public void CreateCodeDom(WebApiDescription[] descriptions)
+		/// <param name="webApiDescriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
+		public void CreateCodeDom(WebApiDescription[] webApiDescriptions)
 		{
-			if (descriptions == null)
+			if (webApiDescriptions == null)
 			{
-				throw new ArgumentNullException(nameof(descriptions));
+				throw new ArgumentNullException(nameof(webApiDescriptions));
 			}
 
 			AddBasicReferences();
@@ -84,7 +84,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			GenerateTsFromPoco();
 
 			//controllers of ApiDescriptions (functions) grouped by namespace
-			var controllersGroupByNamespace = descriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
+			var controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
 				.Distinct()
 				.GroupBy(d => d.ControllerType.Namespace)
 				.OrderBy(k => k.Key);// order by namespace
@@ -111,7 +111,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					}).Where(d => d != null).ToArray();//add classes into the namespace
 			}
 
-			foreach (var d in descriptions)
+			foreach (var d in webApiDescriptions)
 			{
 				var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
 				var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
@@ -218,32 +218,36 @@ namespace Fonlow.CodeDom.Web.Ts
 				var ns = TargetUnit.Namespaces[i];
 				for (int k = 0; k < ns.Types.Count; k++)
 				{
-					var c = ns.Types[k];
-					List<CodeMemberMethod> methods = new();
-					for (int m = 0; m < c.Members.Count; m++)
-					{
-						if (c.Members[m] is CodeMemberMethod method)
-						{
-							methods.Add(method);
-						}
-					}
-
-					if (methods.Count > 1)//worth of checking overloading
-					{
-						var candidates = from m in methods group m by m.Name into grp where grp.Count() > 1 select grp.Key;
-						foreach (var candidateName in candidates)
-						{
-							var overloadingMethods = methods.Where(d => d.Name == candidateName).ToArray();
-							//System.Diagnostics.Debug.Assert(overloadingMethods.Length > 1);
-							foreach (var item in overloadingMethods) //Wow, 5 nested loops, plus 2 linq expressions
-							{
-								RenameCodeMemberMethodWithParameterNames(item);
-							}
-						}
-					}
+					var td = ns.Types[k];
+					RefineOverloadingFunctionsOfType(td);
 				}
 			}
 
+		}
+
+		void RefineOverloadingFunctionsOfType(CodeTypeDeclaration codeTypeDeclaration){
+			List<CodeMemberMethod> methods = new();
+			for (int m = 0; m < codeTypeDeclaration.Members.Count; m++)
+			{
+				if (codeTypeDeclaration.Members[m] is CodeMemberMethod method)
+				{
+					methods.Add(method);
+				}
+			}
+
+			if (methods.Count > 1)//worth of checking overloading
+			{
+				var candidates = from m in methods group m by m.Name into grp where grp.Count() > 1 select grp.Key;
+				foreach (var candidateName in candidates)
+				{
+					var overloadingMethods = methods.Where(d => d.Name == candidateName).ToArray();
+					//System.Diagnostics.Debug.Assert(overloadingMethods.Length > 1);
+					foreach (var item in overloadingMethods) //Wow, 5 nested loops, plus 2 linq expressions
+					{
+						RenameCodeMemberMethodWithParameterNames(item);
+					}
+				}
+			}
 		}
 
 		static string ToTitleCase(string s)

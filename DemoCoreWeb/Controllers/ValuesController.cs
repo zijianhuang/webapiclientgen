@@ -36,12 +36,23 @@ namespace DemoWebApi.Controllers
 			return name + id.ToString();
 		}
 
+		/// <summary>
+		/// Get by name
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
 		[HttpGet]
 		public string Get([RequiredFromQuery] string name)
 		{
 			return name.ToUpper();
 		}
 
+		/// <summary>
+		/// Get by Id
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		/// <exception cref="System.ArgumentException"></exception>
 		[HttpGet("{id}")]
 		public string Get(int id)
 		{

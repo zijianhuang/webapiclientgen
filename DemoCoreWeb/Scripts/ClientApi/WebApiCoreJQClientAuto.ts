@@ -1365,10 +1365,10 @@ namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * Update IEnumerable Tuple in a transaction
-		 * PUT api/Tuple/A1TupleArray
+		 * PUT api/Tuple/A2TupleArray
 		 */
 		a2TupleIEnumerable(idAndOrderArray: Array<{item1: string, item2: number}>, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.put(this.baseUri + 'api/Tuple/A1TupleArray', idAndOrderArray, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+			this.httpClient.put(this.baseUri + 'api/Tuple/A2TupleArray', idAndOrderArray, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**
@@ -1595,6 +1595,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get by name
 		 * GET api/Values?name={name}
 		 */
 		getByNameOfstringAndCallbackOf(name: string, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
@@ -1602,6 +1603,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Get by Id
 		 * GET api/Values/{id}
 		 */
 		getByIdOfnumberAndCallbackOf(id: number, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {

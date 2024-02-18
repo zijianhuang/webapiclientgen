@@ -2,7 +2,6 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Numerics;
-using static System.Net.WebRequestMethods;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -15,17 +14,17 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			{typeof(int).FullName, "number"},
 			{typeof(uint).FullName, "number"},
-			{typeof(long).FullName, "number"}, //JS supports 2^53-1, -(2^53 - 1), code gen should provide an option to make it BigInt
-			{typeof(ulong).FullName, "number"},
+			{typeof(long).FullName, "string"}, //JS supports 2^53-1, -(2^53 - 1), code gen should provide an option to make it BigInt
+			{typeof(ulong).FullName, "string"},
 			{typeof(short).FullName, "number"},
 			{typeof(ushort).FullName, "number"},
 			{typeof(byte).FullName, "number"},
 			{typeof(sbyte).FullName, "number"}, //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types
 
-			{typeof(Int128).FullName, "BigInt"}, //https://learn.microsoft.com/en-us/dotnet/api/system.int128
-			{typeof(UInt128).FullName, "BigInt"},
+			{typeof(Int128).FullName, "string"}, //https://learn.microsoft.com/en-us/dotnet/api/system.int128
+			{typeof(UInt128).FullName, "string"},
 
-			{typeof(BigInteger).FullName, "BigInt"},//https://learn.microsoft.com/en-us/dotnet/api/system.numerics.biginteger
+			{typeof(BigInteger).FullName, "string"},//https://learn.microsoft.com/en-us/dotnet/api/system.numerics.biginteger
 			//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
 
 			{typeof(float).FullName, "number"},

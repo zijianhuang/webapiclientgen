@@ -21,17 +21,24 @@ namespace IntegrationTests
 			{
 				Signed64 = 9223372036854775807, // long.MaxValue,
 				Unsigned64 = 18446744073709551615, // ulong.MaxValue,
-				Signed128 = Int128.MaxValue,
-				Unsigned128 = UInt128.MaxValue, //340282366920938463463374607431768211455, // UInt128.MaxValue,
-				BigInt = UInt128.MaxValue * 100,
+				Signed128 = new Int128(0x7FFF_FFFF_FFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF), // Int128.MaxValue,
+				Unsigned128 = new UInt128(0xFFFF_FFFF_FFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF), // UInt128.MaxValue
+				BigInt = new BigInteger(18446744073709551615) * new BigInteger(18446744073709551615) * new BigInteger(18446744073709551615),
 			};
+
+			// {"BigInt":6277101735386680762814942322444851025767571854389858533375,"Signed128":"170141183460469231731687303715884105727",
+			// "Signed64":9223372036854775807,"Unsigned128":"340282366920938463463374607431768211455","Unsigned64":18446744073709551615}
+
 			var r = api.PostBigNumbers(d);
 
+			// {"signed64":9223372036854775807,"unsigned64":18446744073709551615,"signed128":"170141183460469231731687303715884105727",
+			// "unsigned128":"340282366920938463463374607431768211455","bigInt":6277101735386680762814942322444851025767571854389858533375}
 			Assert.Equal(d.Signed64, r.Signed64);
 			Assert.Equal(d.Unsigned64, r.Unsigned64);
 			Assert.Equal(d.Signed128, r.Signed128);
 			Assert.Equal(d.Unsigned128, r.Unsigned128);
 			Assert.Equal(d.BigInt, r.BigInt);
+			Assert.NotEqual(d.BigInt, r.BigInt -1);
 		}
 
 		[Fact]

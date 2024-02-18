@@ -22,11 +22,11 @@ export namespace DemoWebApi_DemoData_Client {
 
 	/**  */
 	export interface BigNumbers {
-		bigInt?: BigInt | null;
-		signed128?: BigInt | null;
-		signed64?: number | null;
-		unsigned128?: BigInt | null;
-		unsigned64?: number | null;
+		bigInt?: string | null;
+		signed128?: string | null;
+		signed64?: string | null;
+		unsigned128?: string | null;
+		unsigned64?: string | null;
 	}
 
 	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
@@ -278,7 +278,7 @@ export namespace DemoWebApi_Controllers_Client {
 		death?: Date | null;
 		dob?: Date | null;
 		emailAddress?: string | null;
-		id?: number | null;
+		id?: string | null;
 		name?: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
 		webAddress?: string | null;
@@ -525,7 +525,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/Entities/createPerson
 		 */
-		createPerson(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+		createPerson(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Entities/createPerson', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
@@ -546,14 +546,14 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * DELETE api/Entities/{id}
 		 */
-		delete(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		delete(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return this.http.delete('api/Entities/' + id, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
 		/**
 		 * GET api/Entities/Company/{id}
 		 */
-		getCompany(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {
+		getCompany(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Company> {
 			return this.http.get('api/Entities/Company/' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -592,24 +592,24 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get a person
 		 * so to know the person
 		 * GET api/Entities/getPerson/{id}
-		 * @param {number} id unique id of that guy
+		 * @param {string} id unique id of that guy
 		 * @return {DemoWebApi_DemoData_Client.Person} person in db
 		 */
-		getPerson(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
+		getPerson(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
 			return this.http.get('api/Entities/getPerson/' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
 		/**
 		 * GET api/Entities/getPerson2/{id}
 		 */
-		getPerson2(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
+		getPerson2(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
 			return this.http.get('api/Entities/getPerson2/' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
 		/**
 		 * PUT api/Entities/link?id={id}&relationship={relationship}
 		 */
-		linkPerson(id: number | null, relationship: string | null, person: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
+		linkPerson(id: string | null, relationship: string | null, person: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
 			return this.http.put('api/Entities/link?id=' + id + '&relationship=' + (!relationship ? '' : encodeURIComponent(relationship)), JSON.stringify(person), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
@@ -643,7 +643,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * DELETE api/Heroes/{id}
 		 */
-		delete(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		delete(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return this.http.delete('api/Heroes/' + id, { headers: headersHandler ? headersHandler() : undefined });
 		}
 
@@ -658,7 +658,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get a hero. Nullable reference. MaybeNull
 		 * GET api/Heroes/{id}
 		 */
-		getHero(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
+		getHero(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.Hero> {
 			return this.http.get('api/Heroes/' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -674,7 +674,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * MaybeNull
 		 * GET api/Heroes/super?id={id}
 		 */
-		getSuperHero(id: number | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.SuperHero> {
+		getSuperHero(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_Controllers_Client.SuperHero> {
 			return this.http.get('api/Heroes/super?id=' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -756,22 +756,29 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/Numbers/long
 		 */
-		postByDOfInt64(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+		postByDOfInt64(d: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Numbers/long', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
 		 * POST api/Numbers/ulong
 		 */
-		postByDOfUInt64(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+		postByDOfUInt64(d: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Numbers/ulong', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
 		 * POST api/Numbers/bigInteger
 		 */
-		postBigInteger(bigInteger: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+		postBigInteger(bigInteger: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Numbers/bigInteger', JSON.stringify(bigInteger), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/bigIntegerForJs
+		 */
+		postBigIntegerForJs(bigInteger: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.post('api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
@@ -784,28 +791,35 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/Numbers/int128
 		 */
-		postInt128(int128: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+		postInt128(int128: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Numbers/int128', JSON.stringify(int128), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
 		 * POST api/Numbers/int64
 		 */
-		postInt64(int64: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+		postInt64(int64: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Numbers/int64', JSON.stringify(int64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/int64ForJs
+		 */
+		postInt64ForJs(int64: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.post('api/Numbers/int64ForJs', JSON.stringify(int64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.status == 204 ? null : d.text());
 		}
 
 		/**
 		 * POST api/Numbers/uint128
 		 */
-		postUint128(uint128: BigInt | null, headersHandler?: () => {[header: string]: string}): Promise<BigInt> {
+		postUint128(uint128: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Numbers/uint128', JSON.stringify(uint128), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**
 		 * POST api/Numbers/uint64
 		 */
-		postUint64(uint64: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+		postUint64(uint64: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Numbers/uint64', JSON.stringify(uint64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 	}
@@ -1066,7 +1080,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Demo IEnumerable long
 		 * GET api/SuperDemo/intArrayQ2?a={a}
 		 */
-		getIntArrayQ2(a: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<number>> {
+		getIntArrayQ2(a: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<string>> {
 			return this.http.get('api/SuperDemo/intArrayQ2?'+a?.map(z => `a=${encodeURIComponent(z)}`).join('&'), { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -1182,7 +1196,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/ulong
 		 */
-		getulong(headersHandler?: () => {[header: string]: string}): Promise<number> {
+		getulong(headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.get('api/SuperDemo/ulong', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -1449,7 +1463,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/Tuple/Tuple7
 		 */
-		getTuple7(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number}> {
+		getTuple7(headersHandler?: () => {[header: string]: string}): Promise<{item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number}> {
 			return this.http.get('api/Tuple/Tuple7', { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
 		}
 
@@ -1564,7 +1578,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/Tuple/Tuple7
 		 */
-		postTuple7(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: number, item7: number} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		postTuple7(tuple: {item1: string, item2: string, item3: string, item4: string, item5: string, item6: string, item7: number} | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return this.http.post('api/Tuple/Tuple7', JSON.stringify(tuple), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.status == 204 ? null : d.text());
 		}
 

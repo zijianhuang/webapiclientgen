@@ -26,6 +26,13 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpPost]
+		[Route("int64ForJs")]
+		public string PostInt64ForJs([FromBody] string int64)
+		{
+			return int64;
+		}
+
+		[HttpPost]
 		[Route("uint64")]
 		public ulong PostUint64([FromBody] ulong uint64)
 		{
@@ -49,6 +56,13 @@ namespace DemoWebApi.Controllers
 		[HttpPost]
 		[Route("bigInteger")]
 		public BigInteger PostBigInteger([FromBody] BigInteger bigInteger)
+		{
+			return bigInteger;
+		}
+
+		[HttpPost]
+		[Route("bigIntegerForJs")]
+		public BigInteger PostBigIntegerForJs([FromBody] BigInteger bigInteger)
 		{
 			return bigInteger;
 		}

@@ -342,7 +342,7 @@ var DemoWebApi_Controllers_Client;
          * Get a person
          * so to know the person
          * GET api/Entities/getPerson/{id}
-         * @param {number} id unique id of that guy
+         * @param {string} id unique id of that guy
          * @return {DemoWebApi_DemoData_Client.Person} person in db
          */
         getPerson(id, callback, headersHandler) {
@@ -516,6 +516,12 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/Numbers/bigInteger', bigInteger, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * POST api/Numbers/bigIntegerForJs
+         */
+        postBigIntegerForJs(bigInteger, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/bigIntegerForJs', bigInteger, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * POST api/Numbers/BigNumbers
          */
         postBigNumbers(bigNumbers, callback, headersHandler) {
@@ -532,6 +538,12 @@ var DemoWebApi_Controllers_Client;
          */
         postInt64(int64, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/int64', int64, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/int64ForJs
+         */
+        postInt64ForJs(int64, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/int64ForJs', int64, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Numbers/uint128

@@ -221,7 +221,7 @@ describe('Heroes API', () => {
     );
 
     it('getHero', (done) => {
-        service.getHero(9999).subscribe(
+        service.getHero('9999').subscribe(
             data => {
                 expect(data).toBeNull();
                 done();
@@ -308,7 +308,7 @@ describe('entities API', () => {
     }));
 
     it('add', (done) => {
-        let id: number | null;
+        let id: string | null;
         const newPerson: DemoWebApi_DemoData_Client.Person = {
             name: 'John Smith' + Date.now().toString(),
             givenName: 'John',
@@ -1318,7 +1318,7 @@ describe('SuperDemo API', () => {
     it('getulong', (done) => {
         service.getulong().subscribe(
             data => {
-                expect(data).toBe(18446744073709551615);
+                expect(data.toString()).toBe('18446744073709552000'); //response is 18446744073709552000
                 done();
             },
             error => {
@@ -1415,10 +1415,10 @@ describe('SuperDemo API', () => {
     );
 
     it('getIntArrayQ2', (done) => {
-        service.getIntArrayQ2([3, 4, 5]).subscribe(
+        service.getIntArrayQ2(['3', '4', '5']).subscribe(
             data => {
                 expect(data!.length).toBe(3);
-                expect(data![2]).toBe(5);
+                expect(data![2].toString()).toBe('5'); // response is [3, 4, 5]
                 done();
             },
             error => {
@@ -1770,7 +1770,7 @@ describe('Tuple API', () => {
     );
 
     it('postTuple7', (done) => {
-        service.postTuple7({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: 33333, item7: 9 }).subscribe(
+        service.postTuple7({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '33333', item7: 9 }).subscribe(
             data => {
                 expect(data).toBe('One');
                 done();
@@ -2123,6 +2123,10 @@ describe('TextData API', () => {
 
 });
 
+// tested with ASP.NET 8, Chrome Version 121.0.6167.185 (Official Build) (64-bit), Firefox 122.0.1 (64-bit)
+// the lession is, when dealing with integral number larger than 64bit, there are 2 options as of 2024:
+// 1. Use string
+// 2. Use signed128 or unsigned128 if not larger than 128-bit since ASP.NET 8 serialize it as string
 describe('Numbers API', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
@@ -2143,37 +2147,82 @@ describe('Numbers API', () => {
         service = TestBed.get(DemoWebApi_Controllers_Client.Numbers);
     }));
 
-    //it('postBigNumbers', (done) => {
-    //    const d: DemoWebApi_DemoData_Client.BigNumbers = {
-    //        //unsigned64: 18446744073709551615, //2 ^ 64 -1,
-    //        //signed64: 9223372036854775807, //2 ^ 63 -1,
-    //        unsigned128: BigInt(340282366920938463463374607431768211455),
-    //        signed128: BigInt(0x7FFFFFFFFFFFFFFF),
-    //        bigInt: BigInt(0x7FFFFFFFFFFFFFFF * 100),
-    //    };
-    //    service.postBigNumbers().subscribe(
-    //        r => {
-    //            expect(r.unsigned64).toEqual(18446744073709551615)
-    //            done();
-    //        },
-    //        error => {
-    //            fail(errorResponseToString(error));
-    //            done();
-    //        }
-    //    );
+    it('postBigNumbers', (done) => {
+        const d: DemoWebApi_DemoData_Client.BigNumbers = {
+            unsigned64: '18446744073709551615', //2 ^ 64 -1,
+            signed64: '9223372036854775807', //2 ^ 63 -1,
+            unsigned128: '340282366920938463463374607431768211455',
+            signed128: '170141183460469231731687303715884105727',
+            bigInt: '6277101735386680762814942322444851025767571854389858533375', // 3 unsigned64, 192bits
+        };
+/**
+request:
+{
+"unsigned64":"18446744073709551615",
+"signed64":"9223372036854775807",
+"unsigned128":"340282366920938463463374607431768211455",
+"signed128":"170141183460469231731687303715884105727",
+"bigInt":"6277101735386680762814942322444851025767571854389858533375"
+}
+response:
+{
+    "signed64": 9223372036854775807,
+    "unsigned64": 18446744073709551615,
+    "signed128": "170141183460469231731687303715884105727",
+    "unsigned128": "340282366920938463463374607431768211455",
+    "bigInt": 6277101735386680762814942322444851025767571854389858533375
+}
 
-    //}
-    //);
+ */
+        service.postBigNumbers(d).subscribe(
+            r => {
+                expect(BigInt(r.unsigned64!)).not.toBe(BigInt('18446744073709551615')); // BigInt can not handle the coversion from json number form correctly.
+                expect(BigInt(r.unsigned64!)).toEqual(BigInt('18446744073709551616')); // actually incorrect during deserialization
+
+                expect(BigInt(r.signed64!)).not.toBe(BigInt('9223372036854775807'));
+                expect(BigInt(r.signed64!)).toEqual(BigInt('9223372036854775808'));
+
+                expect(BigInt(r.unsigned128!)).toEqual(BigInt('340282366920938463463374607431768211455'));
+
+                expect(BigInt(r.signed128!)).toEqual(BigInt('170141183460469231731687303715884105727'));
+
+                expect(BigInt(r.bigInt!)).not.toEqual(BigInt('6277101735386680762814942322444851025767571854389858533375'));
+                expect(BigInt(r.bigInt!)).toEqual(BigInt('6277101735386680763835789423207666416102355444464034512896')); // how wrong
+
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+
+    }
+    );
 
     /**
-     * Even though the request payload is 9223372036854776000 (loosing precision, cause of the 53bit issue), the response is 0 as shown in Chrome's console and Fiddler.
-     * And the Web API has received actually 0.
+     * Even though the request payload is 9223372036854776000 (loosing precision, cause of the 53bit issue), or "9223372036854776123", the response is 0 as shown in Chrome's console and Fiddler.
+     * And the Web API has received actually 0. Not sure if the Web API binding had turned the request payload into 0 if the client is a Web browser.
      */
     it('postInt64', (done) => {
-        service.postInt64(0x7fffffffffffffff).subscribe(
+        service.postInt64('9223372036854775807').subscribe(
             r => {
-                expect(r).not.toBe(0x7fffffffffffffff);
-                expect(r).toBe(0);
+                expect(BigInt(r)).toBe(BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postInt64Smaller', (done) => {
+        service.postInt64('9223372036854775123').subscribe(
+            r => {
+                expect(BigInt(r)).not.toBe(BigInt('9223372036854775123')); //reponse is 9223372036854775123, but BigInt(r) gives l9223372036854774784
+                expect(BigInt(r)).toBe(BigInt('9223372036854774784'));
                 done();
             },
             error => {
@@ -2185,46 +2234,80 @@ describe('Numbers API', () => {
     );
 
     it('postLongAsBigInt', (done) => {
-        try {
-            service.postBigInteger(BigInt(9223372036854775807)).subscribe(
-                r => {
-                    expect(r).toEqual(BigInt(9223372036854775807));
-                    done();
-                },
-                error => {
-                    fail(errorResponseToString(error));
-                    done();
-                }
-            );
-
-            fail();
-        } catch (err: any) {
-            expect(err.toString()).toContain('Do not know how to serialize a BigInt');
-            done();
-        }
+        // request: "9223372036854775807"
+        service.postBigInteger('9223372036854775807').subscribe(
+            r => {
+                expect(BigInt(r)).toEqual(BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808
+                expect(r.toString()).toBe('9223372036854776000'); //the response is a big int which JS could not handle in toString(), 53bit gets in the way.
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
     }
     );
 
     it('postLongAsBigIntWithSmallNumber', (done) => {
-        try {
-            service.postBigInteger(BigInt(123)).subscribe(
-                r => {
-                    expect(r).toEqual(BigInt(123));
-                    done();
-                },
-                error => {
-                    fail(errorResponseToString(error));
-                    done();
-                }
-            );
+        service.postBigInteger('123').subscribe(
+            r => {
+                expect(BigInt(r)).toEqual(BigInt(123));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
 
-            fail();
-        } catch (err: any) {
-            expect(err.toString()).toContain('Do not know how to serialize a BigInt');
-            done();
-        }
     }
     );
+
+    it('postReallyBigInt', (done) => {
+        // request: "6277101735386680762814942322444851025767571854389858533375"
+        // response: 6277101735386680762814942322444851025767571854389858533375
+        service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe(
+            r => {
+                expect(BigInt(r)).toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375)); //this time, it is correct, not as a property of an object.
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postInt128', (done) => {
+        service.postInt128('170141183460469231731687303715884105727').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt('170141183460469231731687303715884105727'));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postUInt128', (done) => {
+        service.postUint128('340282366920938463463374607431768211455').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt('340282366920938463463374607431768211455'));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
 
 
 });

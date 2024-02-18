@@ -1328,15 +1328,15 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * POST api/Numbers/int64ForJs
 		 */
-		postInt64ForJs(int64?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post(this.baseUri + 'api/Numbers/int64ForJs', JSON.stringify(int64), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }),  responseType: 'text' });
+        postInt64ForJs(int64?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+            return this.http.post(this.baseUri + 'api/Numbers/int64ForJs', JSON.stringify(int64), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8').append('Accept', 'application/json') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8', 'Accept': 'application/json' }), responseType: 'text' });
 		}
 
 		/**
 		 * POST api/Numbers/uint128
 		 */
-		postUint128(uint128?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post<string>(this.baseUri + 'api/Numbers/uint128', JSON.stringify(uint128), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        postUint128(uint128?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+            return this.http.post<string>(this.baseUri + 'api/Numbers/uint128', JSON.stringify(uint128), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**

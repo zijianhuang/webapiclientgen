@@ -54,7 +54,7 @@ var CommonCases;
         });
         QUnit.test("Get", function (assert) {
             let done = assert.async();
-            heroesApi.getHero(20, data => {
+            heroesApi.getHero("20", data => {
                 assert.equal(data.name, "Tornado");
                 done();
             });
@@ -381,7 +381,7 @@ var CommonCases;
         //Visual Studio IDE may give some 
         QUnit.test("PostTuple7", function (assert) {
             let done = assert.async();
-            tupleApi.postTuple7({ item1: "One", item2: "", item3: "", item4: "", item5: "", item6: 33333, item7: 9 }, (data) => {
+            tupleApi.postTuple7({ item1: "One", item2: "", item3: "", item4: "", item5: "", item6: "33333", item7: 9 }, (data) => {
                 assert.equal(data, "One");
                 done();
             });

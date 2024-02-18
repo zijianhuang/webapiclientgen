@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using Xunit;
 
@@ -70,11 +71,44 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestPostBigInteger()
+		public void TestPostBigIntegerWith128bits()
 		{
-			BigInteger bigInt = UInt128.MaxValue * 100;
+			BigInteger bigInt = new BigInteger(18446744073709551615) * new BigInteger(18446744073709551615); // 128-bit unsigned
+			Assert.Equal("340282366920938463426481119284349108225", bigInt.ToString());
 			var r = api.PostBigInteger(bigInt);
 			Assert.Equal(bigInt, r);
+			Assert.Equal("340282366920938463426481119284349108225", r.ToString());
+		}
+
+		[Fact]
+		public void TestPostBigIntegerWith192bits()
+		{
+			BigInteger bigInt = new BigInteger(18446744073709551615) * new BigInteger(18446744073709551615) * new BigInteger(18446744073709551615); // 192-bit unsigned
+			Assert.Equal("6277101735386680762814942322444851025767571854389858533375", bigInt.ToString());
+			var r = api.PostBigInteger(bigInt);
+			Assert.Equal(bigInt, r);
+			Assert.Equal("6277101735386680762814942322444851025767571854389858533375", r.ToString());
+		}
+
+		[Fact]
+		public void TestPostBigIntegerWith80bits()
+		{
+			byte[] bytes = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F };
+			BigInteger bigInt = new BigInteger(bytes); // 192-bit unsigned
+			Assert.Equal("604462909807314587353087", bigInt.ToString());
+			var r = api.PostBigInteger(bigInt);
+			Assert.Equal(bigInt, r);
+			Assert.Equal("604462909807314587353087", r.ToString());
+			Assert.True(r.ToByteArray().SequenceEqual(bytes));
+		}
+
+		[Fact]
+		public void TestPostUIntAsBigInteger()
+		{
+			BigInteger bigInt = UInt128.MaxValue;
+			var r = api.PostBigInteger(bigInt);
+			Assert.Equal(bigInt, r);
+			Assert.Equal("340282366920938463463374607431768211455", r.ToString());
 		}
 
 		[Fact]

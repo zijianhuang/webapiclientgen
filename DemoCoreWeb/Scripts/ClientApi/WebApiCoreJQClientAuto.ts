@@ -770,10 +770,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * POST api/Numbers/bigIntegerForJs
+		 * POST api/Numbers/bigIntegralAsStringForJs
 		 */
-		postBigIntegerForJs(bigInteger: string | null, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/Numbers/bigIntegerForJs', bigInteger, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		postBigIntegralAsStringForJs(bigIntegral: string | null, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/Numbers/bigIntegralAsStringForJs', bigIntegral, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**
@@ -795,13 +795,6 @@ namespace DemoWebApi_Controllers_Client {
 		 */
 		postInt64(int64: string | null, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Numbers/int64', int64, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-		}
-
-		/**
-		 * POST api/Numbers/int64ForJs
-		 */
-		postInt64ForJs(int64: string | null, callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
-			this.httpClient.post(this.baseUri + 'api/Numbers/int64ForJs', int64, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**

@@ -770,10 +770,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * POST api/Numbers/bigIntegerForJs
+		 * POST api/Numbers/bigIntegralAsStringForJs
 		 */
-		postBigIntegerForJs(bigInteger: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post<string>(this.baseUri + 'api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data);
+		postBigIntegralAsStringForJs(bigIntegral: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return Axios.post(this.baseUri + 'api/Numbers/bigIntegralAsStringForJs', JSON.stringify(bigIntegral), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**
@@ -795,13 +795,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postInt64(int64: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return Axios.post<string>(this.baseUri + 'api/Numbers/int64', JSON.stringify(int64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.data);
-		}
-
-		/**
-		 * POST api/Numbers/int64ForJs
-		 */
-		postInt64ForJs(int64: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return Axios.post(this.baseUri + 'api/Numbers/int64ForJs', JSON.stringify(int64), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' },  responseType: 'text' }).then(d => d.status == 204 ? null : d.data);
 		}
 
 		/**

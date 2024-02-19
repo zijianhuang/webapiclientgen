@@ -3994,15 +3994,15 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// POST api/Numbers/bigIntegerForJs
+		/// POST api/Numbers/bigIntegralAsStringForJs
 		/// </summary>
-		public async Task<System.Numerics.BigInteger> PostBigIntegerForJsAsync(System.Numerics.BigInteger bigInteger, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<string> PostBigIntegralAsStringForJsAsync(string bigIntegral, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = "api/Numbers/bigIntegerForJs";
+			var requestUri = "api/Numbers/bigIntegralAsStringForJs";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
 			using var requestWriter = new System.IO.StringWriter();
 			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
-			requestSerializer.Serialize(requestWriter, bigInteger);
+			requestSerializer.Serialize(requestWriter, bigIntegral);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			httpRequestMessage.Content = content;
 			handleHeaders?.Invoke(httpRequestMessage.Headers);
@@ -4010,10 +4010,10 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
-				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Numerics.BigInteger>(jsonReader);
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
 			}
 			finally
 			{
@@ -4022,15 +4022,15 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// POST api/Numbers/bigIntegerForJs
+		/// POST api/Numbers/bigIntegralAsStringForJs
 		/// </summary>
-		public System.Numerics.BigInteger PostBigIntegerForJs(System.Numerics.BigInteger bigInteger, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public string PostBigIntegralAsStringForJs(string bigIntegral, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = "api/Numbers/bigIntegerForJs";
+			var requestUri = "api/Numbers/bigIntegralAsStringForJs";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
 			using var requestWriter = new System.IO.StringWriter();
 			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
-			requestSerializer.Serialize(requestWriter, bigInteger);
+			requestSerializer.Serialize(requestWriter, bigIntegral);
 			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
 			httpRequestMessage.Content = content;
 			handleHeaders?.Invoke(httpRequestMessage.Headers);
@@ -4038,10 +4038,10 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
-				var serializer = JsonSerializer.Create(jsonSerializerSettings);
-				return serializer.Deserialize<System.Numerics.BigInteger>(jsonReader);
+				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
+				return streamReader.ReadToEnd();;
 			}
 			finally
 			{
@@ -4208,62 +4208,6 @@ namespace DemoWebApi.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int64.Parse(jsonReader.ReadAsString());
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// POST api/Numbers/int64ForJs
-		/// </summary>
-		public async Task<string> PostInt64ForJsAsync(string int64, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/Numbers/int64ForJs";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-			using var requestWriter = new System.IO.StringWriter();
-			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
-			requestSerializer.Serialize(requestWriter, int64);
-			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			httpRequestMessage.Content = content;
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = await client.SendAsync(httpRequestMessage);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
-				return streamReader.ReadToEnd();;
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// POST api/Numbers/int64ForJs
-		/// </summary>
-		public string PostInt64ForJs(string int64, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "api/Numbers/int64ForJs";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-			using var requestWriter = new System.IO.StringWriter();
-			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
-			requestSerializer.Serialize(requestWriter, int64);
-			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
-			httpRequestMessage.Content = content;
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = client.SendAsync(httpRequestMessage).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
-				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
-				return streamReader.ReadToEnd();;
 			}
 			finally
 			{

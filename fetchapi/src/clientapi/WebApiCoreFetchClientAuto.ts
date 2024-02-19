@@ -768,10 +768,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
-		 * POST api/Numbers/bigIntegerForJs
+		 * POST api/Numbers/bigIntegralAsStringForJs
 		 */
-		postBigIntegerForJs(bigInteger?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/bigIntegerForJs', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigInteger) }).then(d => d.json());
+		postBigIntegralAsStringForJs(bigIntegral?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return fetch(this.baseUri + 'api/Numbers/bigIntegralAsStringForJs', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(bigIntegral) }).then(d => d.status == 204 ? null : d.text());
 		}
 
 		/**
@@ -793,13 +793,6 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postInt64(int64?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/Numbers/int64', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(int64) }).then(d => d.json());
-		}
-
-		/**
-		 * POST api/Numbers/int64ForJs
-		 */
-		postInt64ForJs(int64?: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return fetch(this.baseUri + 'api/Numbers/int64ForJs', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(int64) }).then(d => d.status == 204 ? null : d.text());
 		}
 
 		/**

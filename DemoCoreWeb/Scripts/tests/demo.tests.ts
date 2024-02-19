@@ -894,9 +894,54 @@ module CommonCases {
 				assert.equal(BigInt(r), BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808
 				done();
 			});
-
-			done();
 		});
+
+		QUnit.test('postBigNumbers', function (assert) {
+			let done = assert.async();
+			const d: DemoWebApi_DemoData_Client.BigNumbers = {
+				unsigned64: '18446744073709551615', //2 ^ 64 -1,
+				signed64: '9223372036854775807', //2 ^ 63 -1,
+				unsigned128: '340282366920938463463374607431768211455',
+				signed128: '170141183460469231731687303715884105727',
+				bigInt: '6277101735386680762814942322444851025767571854389858533375', // 3 unsigned64, 192bits
+			};
+			/**
+			request:
+			{
+			"unsigned64":"18446744073709551615",
+			"signed64":"9223372036854775807",
+			"unsigned128":"340282366920938463463374607431768211455",
+			"signed128":"170141183460469231731687303715884105727",
+			"bigInt":"6277101735386680762814942322444851025767571854389858533375"
+			}
+			response:
+			{
+			  "signed64": 9223372036854775807,
+			  "unsigned64": 18446744073709551615,
+			  "signed128": "170141183460469231731687303715884105727",
+			  "unsigned128": "340282366920938463463374607431768211455",
+			  "bigInt": 6277101735386680762814942322444851025767571854389858533375
+			}
+		    
+			*/
+			numbersApi.postBigNumbers(d, (r) => {
+				assert.notEqual(BigInt(r.unsigned64!), BigInt('18446744073709551615')); // BigInt can not handle the coversion from json number form correctly.
+				assert.equal(BigInt(r.unsigned64!), BigInt('18446744073709551616')); // actually incorrect during deserialization
+
+				assert.notEqual(BigInt(r.signed64!), BigInt('9223372036854775807'));
+				assert.equal(BigInt(r.signed64!), BigInt('9223372036854775808'));
+
+				assert.equal(BigInt(r.unsigned128!), BigInt(340282366920938463463374607431768211455n));
+
+				assert.equal(BigInt(r.signed128!), BigInt(170141183460469231731687303715884105727n));
+
+				assert.notEqual(BigInt(r.bigInt!), BigInt(6277101735386680762814942322444851025767571854389858533375n));
+				assert.equal(BigInt(r.bigInt!), BigInt(6277101735386680763835789423207666416102355444464034512896n)); // how wrong
+
+				done();
+			});
+		});
+
 
 		/**
 			postBigIntegerForJs(bigInteger?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {

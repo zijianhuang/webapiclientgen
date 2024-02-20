@@ -273,11 +273,11 @@ namespace Poco2TsTests
 			Verify(typeof(DemoWebApi.DemoData.BigNumbers),
 @"export namespace DemoWebApi_DemoData_Client {
 	export interface BigNumbers {
-		BigInt?: BigInt | null;
-		Signed128?: BigInt | null;
-		Signed64?: number | null;
-		Unsigned128?: BigInt | null;
-		Unsigned64?: number | null;
+		BigInt?: string | null;
+		Signed128?: string | null;
+		Signed64?: string | null;
+		Unsigned128?: string | null;
+		Unsigned64?: string | null;
 	}
 
 }

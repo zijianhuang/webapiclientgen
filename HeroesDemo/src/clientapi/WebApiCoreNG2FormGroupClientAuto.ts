@@ -10,6 +10,8 @@ export namespace DemoWebApi_DemoData_Client {
 
 		/** String length: inclusive between 2 and 30 */
 		country?: string | null;
+
+		/** GUID */
 		id?: string | null;
 
 		/** String length: inclusive between 2 and 10 */
@@ -37,6 +39,8 @@ export namespace DemoWebApi_DemoData_Client {
 
 		/** String length: inclusive between 2 and 30 */
 		country: FormControl<string | null | undefined>,
+
+		/** GUID */
 		id: FormControl<string | null | undefined>,
 
 		/** String length: inclusive between 2 and 10 */
@@ -71,19 +75,39 @@ export namespace DemoWebApi_DemoData_Client {
 
 	/**  */
 	export interface BigNumbers {
+
+		/** BigInteger */
 		bigInt?: string | null;
+
+		/** Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727 */
 		signed128?: string | null;
+
+		/** long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		signed64?: string | null;
+
+		/** UInt128, 0 to 340282366920938463463374607431768211455 */
 		unsigned128?: string | null;
+
+		/** ulong, 0 to 18,446,744,073,709,551,615 */
 		unsigned64?: string | null;
 	}
 
 	/**  */
 	export interface BigNumbersFormProperties {
+
+		/** BigInteger */
 		bigInt: FormControl<string | null | undefined>,
+
+		/** Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727 */
 		signed128: FormControl<string | null | undefined>,
+
+		/** long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		signed64: FormControl<string | null | undefined>,
+
+		/** UInt128, 0 to 340282366920938463463374607431768211455 */
 		unsigned128: FormControl<string | null | undefined>,
+
+		/** ulong, 0 to 18,446,744,073,709,551,615 */
 		unsigned64: FormControl<string | null | undefined>,
 	}
 	export function CreateBigNumbersFormGroup() {
@@ -107,6 +131,8 @@ export namespace DemoWebApi_DemoData_Client {
 
 		/** Data type: Date */
 		foundDate?: Date | null;
+
+		/** DateOnly */
 		registerDate?: Date | null;
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
@@ -123,6 +149,8 @@ export namespace DemoWebApi_DemoData_Client {
 
 		/** Data type: Date */
 		foundDate: FormControl<Date | null | undefined>,
+
+		/** DateOnly */
 		registerDate: FormControl<Date | null | undefined>,
 	}
 	export function CreateCompanyFormGroup() {
@@ -158,7 +186,11 @@ export namespace DemoWebApi_DemoData_Client {
 	 * To test different serializations against Guid
 	 */
 	export interface IdMap {
+
+		/** GUID */
 		id?: string | null;
+
+		/** GUID */
 		idNotEmitDefaultValue?: string | null;
 		nullableId?: string | null;
 		requiredName: string;
@@ -169,7 +201,11 @@ export namespace DemoWebApi_DemoData_Client {
 	 * To test different serializations against Guid
 	 */
 	export interface IdMapFormProperties {
+
+		/** GUID */
 		id: FormControl<string | null | undefined>,
+
+		/** GUID */
 		idNotEmitDefaultValue: FormControl<string | null | undefined>,
 		nullableId: FormControl<string | null | undefined>,
 		requiredName: FormControl<string | null | undefined>,
@@ -187,25 +223,55 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+
+		/** byte, 0 to 255 */
 		byte?: number | null;
+
+		/** int, -2,147,483,648 to 2,147,483,647 */
 		int?: number | null;
 
-		/** Range: inclusive between -1000 and 1000000 */
+		/**
+		 * Range: inclusive between -1000 and 1000000
+		 * int, -2,147,483,648 to 2,147,483,647
+		 */
 		itemCount?: number | null;
+
+		/** sbyte, -128 to 127 */
 		sByte?: number | null;
+
+		/** short, -32,768 to 32,767 */
 		short?: number | null;
+
+		/** uint, 0 to 4,294,967,295 */
 		uInt?: number | null;
+
+		/** ushort, 0 to 65,535 */
 		uShort?: number | null;
 	}
 	export interface IntegralEntityFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
+
+		/** byte, 0 to 255 */
 		byte: FormControl<number | null | undefined>,
+
+		/** int, -2,147,483,648 to 2,147,483,647 */
 		int: FormControl<number | null | undefined>,
 
-		/** Range: inclusive between -1000 and 1000000 */
+		/**
+		 * Range: inclusive between -1000 and 1000000
+		 * int, -2,147,483,648 to 2,147,483,647
+		 */
 		itemCount: FormControl<number | null | undefined>,
+
+		/** sbyte, -128 to 127 */
 		sByte: FormControl<number | null | undefined>,
+
+		/** short, -32,768 to 32,767 */
 		short: FormControl<number | null | undefined>,
+
+		/** uint, 0 to 4,294,967,295 */
 		uInt: FormControl<number | null | undefined>,
+
+		/** ushort, 0 to 65,535 */
 		uShort: FormControl<number | null | undefined>,
 	}
 	export function CreateIntegralEntityFormGroup() {
@@ -231,12 +297,16 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export interface MimsPackage {
 
-		/** Range: inclusive between 10 and 100 */
+		/**
+		 * Range: inclusive between 10 and 100
+		 * int, -2,147,483,648 to 2,147,483,647
+		 */
 		kk?: number | null;
 
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		 * int, -2,147,483,648 to 2,147,483,647
 		 */
 		kK2?: number | null;
 		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
@@ -246,12 +316,16 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export interface MimsPackageFormProperties {
 
-		/** Range: inclusive between 10 and 100 */
+		/**
+		 * Range: inclusive between 10 and 100
+		 * int, -2,147,483,648 to 2,147,483,647
+		 */
 		kk: FormControl<number | null | undefined>,
 
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		 * int, -2,147,483,648 to 2,147,483,647
 		 */
 		kK2: FormControl<number | null | undefined>,
 		optionalEnum: FormControl<DemoWebApi_DemoData_Client.MyEnumType | null | undefined>,
@@ -399,11 +473,13 @@ export namespace DemoWebApi_DemoData_Another_Client {
 
 		/**
 		 * X
+		 * double
 		 */
 		x: number;
 
 		/**
 		 * Y
+		 * double
 		 */
 		y: number;
 	}
@@ -417,11 +493,13 @@ export namespace DemoWebApi_DemoData_Another_Client {
 
 		/**
 		 * X
+		 * double
 		 */
 		x: FormControl<number | null | undefined>,
 
 		/**
 		 * Y
+		 * double
 		 */
 		y: FormControl<number | null | undefined>,
 	}
@@ -459,6 +537,8 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		 */
 		name: string;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+
+		/** Uri */
 		web?: string | null;
 	}
 
@@ -478,6 +558,8 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		 * Max length: 255
 		 */
 		name: FormControl<string | null | undefined>,
+
+		/** Uri */
 		web: FormControl<string | null | undefined>,
 	}
 	export function CreateEntityFormGroup() {
@@ -674,6 +756,8 @@ export namespace DemoWebApi_Models_Client {
 	export interface TokenResponseModel {
 		access_token?: string | null;
 		expires?: string | null;
+
+		/** int, -2,147,483,648 to 2,147,483,647 */
 		expires_in?: number | null;
 		issued?: string | null;
 		token_type?: string | null;
@@ -686,6 +770,8 @@ export namespace DemoWebApi_Models_Client {
 	export interface TokenResponseModelFormProperties {
 		access_token: FormControl<string | null | undefined>,
 		expires: FormControl<string | null | undefined>,
+
+		/** int, -2,147,483,648 to 2,147,483,647 */
 		expires_in: FormControl<number | null | undefined>,
 		issued: FormControl<string | null | undefined>,
 		token_type: FormControl<string | null | undefined>,
@@ -747,8 +833,12 @@ export namespace DemoWebApi_Controllers_Client {
 	export interface Hero {
 		address?: DemoWebApi_DemoData_Client.Address;
 		death?: Date | null;
+
+		/** DateOnly */
 		dob?: Date | null;
 		emailAddress?: string | null;
+
+		/** long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		id?: string | null;
 
 		/**
@@ -767,8 +857,12 @@ export namespace DemoWebApi_Controllers_Client {
 	 */
 	export interface HeroFormProperties {
 		death: FormControl<Date | null | undefined>,
+
+		/** DateOnly */
 		dob: FormControl<Date | null | undefined>,
 		emailAddress: FormControl<string | null | undefined>,
+
+		/** long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		id: FormControl<string | null | undefined>,
 
 		/**

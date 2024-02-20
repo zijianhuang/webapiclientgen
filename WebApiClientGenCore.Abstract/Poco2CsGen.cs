@@ -42,6 +42,8 @@ namespace Fonlow.Poco2Client
 
 		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
 
+		readonly IDictionary<Type, string> dotNetTypeCommentDic;
+
 		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declaratinDic;
 
 		/// <summary>
@@ -57,7 +59,8 @@ namespace Fonlow.Poco2Client
 
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
 			attribueCommentDic = annotationCommentGenerator.Get();
-			declaratinDic= AnnotationDeclarationGenerator.Create();
+			declaratinDic = AnnotationDeclarationGenerator.Create();
+			dotNetTypeCommentDic = new DotNetTypeCommentGenerator().Get();
 		}
 
 		/// <summary>
@@ -414,7 +417,7 @@ namespace Fonlow.Poco2Client
 			if (docLookup != null)
 			{
 				var dm = docLookup.GetMember("T:" + type.FullName);
-				AddDocComments(dm, typeDeclaration.Comments);
+				AddDocComments(typeDeclaration.Comments, dm);
 			}
 		}
 
@@ -424,7 +427,8 @@ namespace Fonlow.Poco2Client
 			{
 				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
 				var dm = docLookup.GetMember("P:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments, GenerateCommentsFromAttributes(propertyInfo)); // if no doc comments totally, no comments from attributes either.
+				var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
+				AddDocComments(codeField.Comments, dm, commentsFromAttributes);
 			}
 		}
 
@@ -434,42 +438,49 @@ namespace Fonlow.Poco2Client
 			{
 				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
 				var dm = docLookup.GetMember("F:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments, GenerateCommentsFromAttributes(fieldInfo));
+				var commentsFromAttributes = GenerateCommentsFromAttributes(fieldInfo);
+				AddDocComments(codeField.Comments, dm, commentsFromAttributes);
 			}
 		}
 
-		static void AddDocComments(docMember dm, CodeCommentStatementCollection comments, string[] extra = null)
+		/// <summary>
+		/// Add doc comment stored in XML to comments (CodeCommentStatementCollection) to form C# doc comment block
+		/// </summary>
+		/// <param name="commentStatementCollection"></param>
+		/// <param name="dm">Doc comment stored in XML.</param>
+		/// <param name="extra">If dm has no content, extra will be added to comments.</param>
+		static void AddDocComments(CodeCommentStatementCollection commentStatementCollection, docMember dm, IEnumerable<string> extra = null)
 		{
 			if (dm != null && dm.summary != null)
 			{
-				comments.Add(new CodeCommentStatement("<summary>", true));
+				commentStatementCollection.Add(new CodeCommentStatement("<summary>", true));
 				var noIndent = StringFunctions.TrimTrimIndentsOfArray(dm.summary.Text);
 				if (noIndent != null)
 				{
 					foreach (var item in noIndent)
 					{
-						comments.Add(new CodeCommentStatement(item, true));
+						commentStatementCollection.Add(new CodeCommentStatement(item, true));
 					}
 				}
 
-				if (extra != null && extra.Length > 0)
+				if (extra != null && extra.Count() > 0)
 				{
 					foreach (var c in extra)
 					{
-						comments.Add(new CodeCommentStatement(c, true));
+						commentStatementCollection.Add(new CodeCommentStatement(c, true));
 					}
 				}
 
-				comments.Add(new CodeCommentStatement("</summary>", true));
+				commentStatementCollection.Add(new CodeCommentStatement("</summary>", true));
 			}
-			else if (extra != null && extra.Length > 0)
+			else if (extra != null && extra.Count() > 0)
 			{
-				comments.Add(new CodeCommentStatement("<summary>", true));
+				commentStatementCollection.Add(new CodeCommentStatement("<summary>", true));
 				foreach (var c in extra)
 				{
-					comments.Add(new CodeCommentStatement(c, true));
+					commentStatementCollection.Add(new CodeCommentStatement(c, true));
 				}
-				comments.Add(new CodeCommentStatement("</summary>", true));
+				commentStatementCollection.Add(new CodeCommentStatement("</summary>", true));
 			}
 		}
 
@@ -737,12 +748,17 @@ namespace Fonlow.Poco2Client
 			return $"{t}[{s}]";
 		}
 
+		/// <summary>
+		/// Return a list of comments from validation attributes of property.
+		/// </summary>
+		/// <param name="property"></param>
+		/// <returns>Empty array if no comment</returns>
 		string[] GenerateCommentsFromAttributes(MemberInfo property)
 		{
 			if ((dataAnnotationsToComments.HasValue && !dataAnnotationsToComments.Value) || //dataModel.dataAnnotationsToComments explicitly tells not to
 				(!dataAnnotationsToComments.HasValue && !settings.DataAnnotationsToComments)) // dataModel.dataAnnotationsToComments does not tell, and global setting tells not to
 			{
-				return null;
+				return new string[] { };
 			}
 
 			List<string> ss = new();

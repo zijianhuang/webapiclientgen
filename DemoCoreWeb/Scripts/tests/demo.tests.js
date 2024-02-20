@@ -745,129 +745,168 @@ var CommonCases;
                 });
             });
         });
-        QUnit.module("NumbersTests", function () {
-            /**
-             * Even though the request payload is 9223372036854776000 (loosing precision, cause of the 53bit issue), or "9223372036854776123", the response is 0 as shown in Chrome's console and Fiddler.
-             * And the Web API has received actually 0. Not sure if the Web API binding had turned the request payload into 0 if the client is a Web browser.
-             */
-            QUnit.test('postInt64ButIncorrect', function (assert) {
-                let done = assert.async();
-                numbersApi.postInt64('9223372036854775807', (r) => {
-                    assert.equal(BigInt(9223372036854775807n).toString(), '9223372036854775807');
-                    assert.equal(BigInt(r), BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808
-                    done();
-                });
+    });
+    QUnit.module("NumbersTests", function () {
+        /**
+         * Even though the request payload is 9223372036854776000 (loosing precision, cause of the 53bit issue), or "9223372036854776123", the response is 0 as shown in Chrome's console and Fiddler.
+         * And the Web API has received actually 0. Not sure if the Web API binding had turned the request payload into 0 if the client is a Web browser.
+         */
+        QUnit.test('postInt64ButIncorrect', function (assert) {
+            let done = assert.async();
+            numbersApi.postInt64('9223372036854775807', (r) => {
+                assert.equal(BigInt(9223372036854775807n).toString(), '9223372036854775807');
+                assert.equal(BigInt(r), BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808
                 done();
             });
+        });
+        QUnit.test('postBigNumbers', function (assert) {
+            let done = assert.async();
+            const d = {
+                unsigned64: '18446744073709551615',
+                signed64: '9223372036854775807',
+                unsigned128: '340282366920938463463374607431768211455',
+                signed128: '170141183460469231731687303715884105727',
+                bigInt: '6277101735386680762814942322444851025767571854389858533375', // 3 unsigned64, 192bits
+            };
             /**
-                postBigIntegerForJs(bigInteger?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-              return this.http.post<string>(this.baseUri + 'api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+            request:
+            {
+            "unsigned64":"18446744073709551615",
+            "signed64":"9223372036854775807",
+            "unsigned128":"340282366920938463463374607431768211455",
+            "signed128":"170141183460469231731687303715884105727",
+            "bigInt":"6277101735386680762814942322444851025767571854389858533375"
             }
-             */
-            QUnit.test('postBigIntegralAsStringForJs', function (assert) {
-                let done = assert.async();
-                numbersApi.postBigIntegralAsStringForJs('9223372036854775807', (r) => {
-                    assert.equal(BigInt(9223372036854775807n).toString(), '9223372036854775807');
-                    assert.equal(BigInt('9223372036854775807').toString(), '9223372036854775807');
-                    assert.equal(BigInt(r), BigInt('9223372036854775807'));
-                    assert.equal(BigInt(r), BigInt(9223372036854775807n));
-                    done();
-                });
+            response:
+            {
+              "signed64": 9223372036854775807,
+              "unsigned64": 18446744073709551615,
+              "signed128": "170141183460469231731687303715884105727",
+              "unsigned128": "340282366920938463463374607431768211455",
+              "bigInt": 6277101735386680762814942322444851025767571854389858533375
+            }
+            
+            */
+            numbersApi.postBigNumbers(d, (r) => {
+                assert.notEqual(BigInt(r.unsigned64), BigInt('18446744073709551615')); // BigInt can not handle the coversion from json number form correctly.
+                assert.equal(BigInt(r.unsigned64), BigInt('18446744073709551616')); // actually incorrect during deserialization
+                assert.notEqual(BigInt(r.signed64), BigInt('9223372036854775807'));
+                assert.equal(BigInt(r.signed64), BigInt('9223372036854775808'));
+                assert.equal(BigInt(r.unsigned128), BigInt(340282366920938463463374607431768211455n));
+                assert.equal(BigInt(r.signed128), BigInt(170141183460469231731687303715884105727n));
+                assert.notEqual(BigInt(r.bigInt), BigInt(6277101735386680762814942322444851025767571854389858533375n));
+                assert.equal(BigInt(r.bigInt), BigInt(6277101735386680763835789423207666416102355444464034512896n)); // how wrong
+                done();
             });
-            QUnit.test('postBigIntegralAsStringForJs2', function (assert) {
-                let done = assert.async();
-                numbersApi.postBigIntegralAsStringForJs('6277101735386680762814942322444851025767571854389858533375', (r) => {
-                    assert.equal(BigInt(6277101735386680762814942322444851025767571854389858533375n).toString(), '6277101735386680762814942322444851025767571854389858533375');
-                    assert.equal(BigInt('6277101735386680762814942322444851025767571854389858533375').toString(), '6277101735386680762814942322444851025767571854389858533375');
-                    assert.equal(BigInt(r), BigInt('6277101735386680762814942322444851025767571854389858533375'));
-                    assert.equal(BigInt(r), BigInt(6277101735386680762814942322444851025767571854389858533375n));
-                    done();
-                });
+        });
+        /**
+            postBigIntegerForJs(bigInteger?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+          return this.http.post<string>(this.baseUri + 'api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        }
+         */
+        QUnit.test('postBigIntegralAsStringForJs', function (assert) {
+            let done = assert.async();
+            numbersApi.postBigIntegralAsStringForJs('9223372036854775807', (r) => {
+                assert.equal(BigInt(9223372036854775807n).toString(), '9223372036854775807');
+                assert.equal(BigInt('9223372036854775807').toString(), '9223372036854775807');
+                assert.equal(BigInt(r), BigInt('9223372036854775807'));
+                assert.equal(BigInt(r), BigInt(9223372036854775807n));
+                done();
             });
-            QUnit.test('postInt64Smaller', function (assert) {
-                let done = assert.async();
-                numbersApi.postInt64('9223372036854775123', (r) => {
-                    assert.notEqual(BigInt(r), BigInt('9223372036854775123')); //reponse is 9223372036854775123, but BigInt(r) gives l9223372036854774784
-                    assert.equal(BigInt(r), BigInt('9223372036854774784'));
-                    done();
-                });
+        });
+        QUnit.test('postBigIntegralAsStringForJs2', function (assert) {
+            let done = assert.async();
+            numbersApi.postBigIntegralAsStringForJs('6277101735386680762814942322444851025767571854389858533375', (r) => {
+                assert.equal(BigInt(6277101735386680762814942322444851025767571854389858533375n).toString(), '6277101735386680762814942322444851025767571854389858533375');
+                assert.equal(BigInt('6277101735386680762814942322444851025767571854389858533375').toString(), '6277101735386680762814942322444851025767571854389858533375');
+                assert.equal(BigInt(r), BigInt('6277101735386680762814942322444851025767571854389858533375'));
+                assert.equal(BigInt(r), BigInt(6277101735386680762814942322444851025767571854389858533375n));
+                done();
             });
-            QUnit.test('postLongAsBigIntButIncorrect', function (assert) {
-                let done = assert.async();
-                // request: "9223372036854775807"
-                // response: 9223372036854775807
-                numbersApi.postBigInteger('9223372036854775807', (r) => {
-                    assert.equal(BigInt(9223372036854775807n).toString(), '9223372036854775807');
-                    assert.equal(BigInt(r), BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808, since the returned value does not have the n suffix.
-                    assert.equal(r.toString(), '9223372036854776000'); //the response is a big int which JS could not handle in toString(), 53bit gets in the way.
-                    assert.equal(BigInt(r).toString(), '9223372036854775808');
-                    done();
-                });
+        });
+        QUnit.test('postInt64Smaller', function (assert) {
+            let done = assert.async();
+            numbersApi.postInt64('9223372036854775123', (r) => {
+                assert.notEqual(BigInt(r), BigInt('9223372036854775123')); //reponse is 9223372036854775123, but BigInt(r) gives l9223372036854774784
+                assert.equal(BigInt(r), BigInt('9223372036854774784'));
+                done();
             });
-            QUnit.test('postLongAsBigIntWithSmallNumber', function (assert) {
-                let done = assert.async();
-                numbersApi.postBigInteger('123', (r) => {
-                    assert.equal(BigInt(r), BigInt(123n));
-                    done();
-                });
+        });
+        QUnit.test('postLongAsBigIntButIncorrect', function (assert) {
+            let done = assert.async();
+            // request: "9223372036854775807"
+            // response: 9223372036854775807
+            numbersApi.postBigInteger('9223372036854775807', (r) => {
+                assert.equal(BigInt(9223372036854775807n).toString(), '9223372036854775807');
+                assert.equal(BigInt(r), BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808, since the returned value does not have the n suffix.
+                assert.equal(r.toString(), '9223372036854776000'); //the response is a big int which JS could not handle in toString(), 53bit gets in the way.
+                assert.equal(BigInt(r).toString(), '9223372036854775808');
+                done();
             });
-            QUnit.test('postReallyBigInt192bitsButIncorrect', function (assert) {
-                let done = assert.async();
-                // request: "6277101735386680762814942322444851025767571854389858533375"
-                // response: 6277101735386680762814942322444851025767571854389858533375
-                numbersApi.postBigInteger('6277101735386680762814942322444851025767571854389858533375', (r) => {
-                    assert.equal(BigInt(r), BigInt(6277101735386680762814942322444851025767571854389858533375)); //this time, it is correct, but...
-                    assert.notEqual(BigInt(r).valueOf(), 6277101735386680762814942322444851025767571854389858533375n); // not really,
-                    assert.notEqual(BigInt(r).valueOf(), BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
-                    done();
-                });
+        });
+        QUnit.test('postLongAsBigIntWithSmallNumber', function (assert) {
+            let done = assert.async();
+            numbersApi.postBigInteger('123', (r) => {
+                assert.equal(BigInt(r), BigInt(123n));
+                done();
             });
-            QUnit.test('postReallyBigInt80bitsButIncorect', function (assert) {
-                let done = assert.async();
-                numbersApi.postBigInteger('604462909807314587353087', (r) => {
-                    assert.equal(BigInt(r), BigInt(604462909807314587353087)); //this time, it is correct, but...
-                    assert.notEqual(BigInt(r).valueOf(), 604462909807314587353087n); // not really,
-                    assert.notEqual(BigInt(r).valueOf(), BigInt('604462909807314587353087')); // not really, because what returned is lack of n
-                    done();
-                });
+        });
+        QUnit.test('postReallyBigInt192bitsButIncorrect', function (assert) {
+            let done = assert.async();
+            // request: "6277101735386680762814942322444851025767571854389858533375"
+            // response: 6277101735386680762814942322444851025767571854389858533375
+            numbersApi.postBigInteger('6277101735386680762814942322444851025767571854389858533375', (r) => {
+                assert.equal(BigInt(r), BigInt(6277101735386680762814942322444851025767571854389858533375)); //this time, it is correct, but...
+                assert.notEqual(BigInt(r).valueOf(), 6277101735386680762814942322444851025767571854389858533375n); // not really,
+                assert.notEqual(BigInt(r).valueOf(), BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
+                done();
             });
-            QUnit.test('postReallyBigInt128bitsButIncorect', function (assert) {
-                let done = assert.async();
-                numbersApi.postBigInteger('340282366920938463463374607431768211455', (r) => {
-                    assert.equal(BigInt(r), BigInt(340282366920938463463374607431768211455)); //this time, it is correct, but...
-                    assert.notEqual(BigInt(r).valueOf(), 340282366920938463463374607431768211455n); // not really,
-                    assert.notEqual(BigInt(r).valueOf(), BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
-                    done();
-                });
+        });
+        QUnit.test('postReallyBigInt80bitsButIncorect', function (assert) {
+            let done = assert.async();
+            numbersApi.postBigInteger('604462909807314587353087', (r) => {
+                assert.equal(BigInt(r), BigInt(604462909807314587353087)); //this time, it is correct, but...
+                assert.notEqual(BigInt(r).valueOf(), 604462909807314587353087n); // not really,
+                assert.notEqual(BigInt(r).valueOf(), BigInt('604462909807314587353087')); // not really, because what returned is lack of n
+                done();
             });
-            /**
-             * Correct.
-             * Request as string: "170141183460469231731687303715884105727",
-             * Response: "170141183460469231731687303715884105727" , Content-Type: application/json; charset=utf-8
-             */
-            QUnit.test('postInt128', function (assert) {
-                let done = assert.async();
-                numbersApi.postInt128('170141183460469231731687303715884105727', (r) => {
-                    assert.equal(BigInt(r), BigInt('170141183460469231731687303715884105727'));
-                    assert.equal(BigInt(r), BigInt(170141183460469231731687303715884105727n));
-                    done();
-                });
+        });
+        QUnit.test('postReallyBigInt128bitsButIncorect', function (assert) {
+            let done = assert.async();
+            numbersApi.postBigInteger('340282366920938463463374607431768211455', (r) => {
+                assert.equal(BigInt(r), BigInt(340282366920938463463374607431768211455)); //this time, it is correct, but...
+                assert.notEqual(BigInt(r).valueOf(), 340282366920938463463374607431768211455n); // not really,
+                assert.notEqual(BigInt(r).valueOf(), BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
+                done();
             });
-            /**
-             * Correct.
-             * Request as string: "340282366920938463463374607431768211455",
-             * Response: "340282366920938463463374607431768211455" , Content-Type: application/json; charset=utf-8
-             */
-            QUnit.test('postUInt128', function (assert) {
-                let done = assert.async();
-                numbersApi.postUint128('340282366920938463463374607431768211455', (r) => {
-                    assert.equal(BigInt(r), BigInt('340282366920938463463374607431768211455'));
-                    assert.equal(BigInt(r), BigInt(340282366920938463463374607431768211455n));
-                    assert.equal(BigInt(r).valueOf(), BigInt('340282366920938463463374607431768211455'));
-                    assert.equal(BigInt(r).valueOf(), BigInt(340282366920938463463374607431768211455n));
-                    done();
-                });
+        });
+        /**
+         * Correct.
+         * Request as string: "170141183460469231731687303715884105727",
+         * Response: "170141183460469231731687303715884105727" , Content-Type: application/json; charset=utf-8
+         */
+        QUnit.test('postInt128', function (assert) {
+            let done = assert.async();
+            numbersApi.postInt128('170141183460469231731687303715884105727', (r) => {
+                assert.equal(BigInt(r), BigInt('170141183460469231731687303715884105727'));
+                assert.equal(BigInt(r), BigInt(170141183460469231731687303715884105727n));
+                done();
             });
-        }); //NumbersTests
-    });
+        });
+        /**
+         * Correct.
+         * Request as string: "340282366920938463463374607431768211455",
+         * Response: "340282366920938463463374607431768211455" , Content-Type: application/json; charset=utf-8
+         */
+        QUnit.test('postUInt128', function (assert) {
+            let done = assert.async();
+            numbersApi.postUint128('340282366920938463463374607431768211455', (r) => {
+                assert.equal(BigInt(r), BigInt('340282366920938463463374607431768211455'));
+                assert.equal(BigInt(r), BigInt(340282366920938463463374607431768211455n));
+                assert.equal(BigInt(r).valueOf(), BigInt('340282366920938463463374607431768211455'));
+                assert.equal(BigInt(r).valueOf(), BigInt(340282366920938463463374607431768211455n));
+                done();
+            });
+        });
+    }); //NumbersTests
 })(CommonCases || (CommonCases = {}));

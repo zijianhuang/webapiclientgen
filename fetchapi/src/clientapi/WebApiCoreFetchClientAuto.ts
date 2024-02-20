@@ -2,6 +2,8 @@ export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 		city?: string | null;
 		country?: string | null;
+
+		/** GUID */
 		id?: string | null;
 		postalCode?: string | null;
 		state?: string | null;
@@ -20,10 +22,20 @@ export namespace DemoWebApi_DemoData_Client {
 
 	/**  */
 	export interface BigNumbers {
+
+		/** BigInteger */
 		bigInt?: string | null;
+
+		/** Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727 */
 		signed128?: string | null;
+
+		/** long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		signed64?: string | null;
+
+		/** UInt128, 0 to 340282366920938463463374607431768211455 */
 		unsigned128?: string | null;
+
+		/** ulong, 0 to 18,446,744,073,709,551,615 */
 		unsigned64?: string | null;
 	}
 
@@ -35,6 +47,8 @@ export namespace DemoWebApi_DemoData_Client {
 		BusinessNum?: string | null;
 		businessNumberType?: string | null;
 		foundDate?: Date | null;
+
+		/** DateOnly */
 		registerDate?: Date | null;
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
@@ -61,7 +75,11 @@ export namespace DemoWebApi_DemoData_Client {
 	 * To test different serializations against Guid
 	 */
 	export interface IdMap {
+
+		/** GUID */
 		id?: string | null;
+
+		/** GUID */
 		idNotEmitDefaultValue?: string | null;
 		nullableId?: string | null;
 		requiredName: string;
@@ -69,12 +87,26 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+
+		/** byte, 0 to 255 */
 		byte?: number | null;
+
+		/** int, -2,147,483,648 to 2,147,483,647 */
 		int?: number | null;
+
+		/** int, -2,147,483,648 to 2,147,483,647 */
 		itemCount?: number | null;
+
+		/** sbyte, -128 to 127 */
 		sByte?: number | null;
+
+		/** short, -32,768 to 32,767 */
 		short?: number | null;
+
+		/** uint, 0 to 4,294,967,295 */
 		uInt?: number | null;
+
+		/** ushort, 0 to 65,535 */
 		uShort?: number | null;
 	}
 
@@ -83,11 +115,14 @@ export namespace DemoWebApi_DemoData_Client {
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
 
 	export interface MimsPackage {
+
+		/** int, -2,147,483,648 to 2,147,483,647 */
 		kk?: number | null;
 
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		 * int, -2,147,483,648 to 2,147,483,647
 		 */
 		kK2?: number | null;
 		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
@@ -168,11 +203,13 @@ export namespace DemoWebApi_DemoData_Another_Client {
 
 		/**
 		 * X
+		 * double
 		 */
 		x: number;
 
 		/**
 		 * Y
+		 * double
 		 */
 		y: number;
 	}
@@ -198,6 +235,8 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		 */
 		name: string;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+
+		/** Uri */
 		web?: string | null;
 	}
 
@@ -241,6 +280,8 @@ export namespace DemoWebApi_Models_Client {
 	export interface TokenResponseModel {
 		access_token?: string | null;
 		expires?: string | null;
+
+		/** int, -2,147,483,648 to 2,147,483,647 */
 		expires_in?: number | null;
 		issued?: string | null;
 		token_type?: string | null;
@@ -274,8 +315,12 @@ export namespace DemoWebApi_Controllers_Client {
 	export interface Hero {
 		address?: DemoWebApi_DemoData_Client.Address;
 		death?: Date | null;
+
+		/** DateOnly */
 		dob?: Date | null;
 		emailAddress?: string | null;
+
+		/** long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		id?: string | null;
 		name?: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;

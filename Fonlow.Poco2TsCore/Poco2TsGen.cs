@@ -31,6 +31,8 @@ namespace Fonlow.Poco2Ts
 
 		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declaratinDic;
 
+		readonly IDictionary<Type, string> dotNetTypeCommentDic;
+
 		/// <summary>
 		/// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.
 		/// </summary>
@@ -49,6 +51,7 @@ namespace Fonlow.Poco2Ts
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator(true);
 			attribueCommentDic = annotationCommentGenerator.Get();
 			declaratinDic = AnnotationDeclarationGenerator.Create();
+			dotNetTypeCommentDic = new DotNetTypeCommentGenerator().Get();
 		}
 
 
@@ -133,7 +136,19 @@ namespace Fonlow.Poco2Ts
 			{
 				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
 				var dm = docLookup.GetMember("P:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments, GenerateCommentsFromAttributes(propertyInfo));
+				var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
+				List<string> comments = new(commentsFromAttributes);
+				string commentFromProperType;
+				if (dm == null || dm.summary == null || commentsFromAttributes?.Length == 0)
+				{
+					dotNetTypeCommentDic.TryGetValue(propertyInfo.PropertyType, out commentFromProperType);
+					if (commentFromProperType != null)
+					{
+						comments.Add(commentFromProperType);
+					}
+				}
+
+				AddDocComments(codeField.Comments, dm, comments);
 			}
 		}
 
@@ -143,15 +158,27 @@ namespace Fonlow.Poco2Ts
 			{
 				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
 				var dm = docLookup.GetMember("F:" + propertyFullName);
-				AddDocComments(dm, codeField.Comments, GenerateCommentsFromAttributes(fieldInfo));
+				var commentsFromAttributes = GenerateCommentsFromAttributes(fieldInfo);
+				List<string> comments = new(commentsFromAttributes);
+				string commentFromProperType;
+				if (dm == null || dm.summary == null || commentsFromAttributes?.Length == 0)
+				{
+					dotNetTypeCommentDic.TryGetValue(fieldInfo.FieldType, out commentFromProperType);
+					if (commentFromProperType != null)
+					{
+						comments.Add(commentFromProperType);
+					}
+				}
+
+				AddDocComments(codeField.Comments, dm, comments);
 			}
 		}
 
-		static void AddDocComments(docMember dm, CodeCommentStatementCollection comments, string[] extra = null)
+		static void AddDocComments(CodeCommentStatementCollection comments, docMember dm, IEnumerable<string> extra = null)
 		{
 			if (dm != null && dm.summary != null)
 			{
-				if (extra != null && extra.Length > 0)
+				if (extra != null && extra.Count() > 0)
 				{
 					comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(dm.summary.Text.Union(extra)), true));
 				}
@@ -160,7 +187,7 @@ namespace Fonlow.Poco2Ts
 					comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(dm.summary.Text), true));
 				}
 			}
-			else if (extra != null && extra.Length > 0)
+			else if (extra != null && extra.Count() > 0)
 			{
 				comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(extra), true));
 			}
@@ -534,7 +561,7 @@ namespace Fonlow.Poco2Ts
 		{
 			if (!dataAnnotationsToComments)
 			{
-				return null;
+				return new string[] { };
 			}
 
 			List<string> ss = new List<string>();

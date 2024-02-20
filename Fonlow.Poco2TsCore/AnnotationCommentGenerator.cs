@@ -8,9 +8,9 @@ namespace Fonlow.Poco2Client
 	public sealed class AnnotationCommentGenerator
 	{
 		/// <summary>
-		/// 
+		/// Generate doc comment for RegularExpressionAttribute for C# codes but not for TypeScript.
 		/// </summary>
-		/// <param name="forTS">JsDoc does not support some regular expression, not even with mechanism of eacaping.</param>
+		/// <param name="forTS">JsDoc does not support some regular expression, not even with mechanism of eacaping. For TS codes this should be true.</param>
 		public AnnotationCommentGenerator(bool forTS=false)
 		{
 			if (!forTS)
@@ -23,6 +23,11 @@ namespace Fonlow.Poco2Client
 			}
 		}
 
+		/// <summary>
+		/// Dictionary to provide doc comment helper functions for various .NET validation attributes.
+		/// The key is the type of an attribute object. The client codes should call dic.TryGetValue.
+		/// </summary>
+		/// <returns></returns>
 		public IDictionary<Type, Func<object, string>> Get()
 		{
 			return generator;

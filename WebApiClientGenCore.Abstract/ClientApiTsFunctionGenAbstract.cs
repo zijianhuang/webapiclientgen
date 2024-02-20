@@ -8,6 +8,7 @@ using Fonlow.Poco2Client;
 using System.Linq;
 using Fonlow.Reflection;
 using Fonlow.Poco2Ts;
+using System.Collections.Generic;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -28,9 +29,11 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		IDocCommentTranslate poco2CsGen;
 
+		readonly IDictionary<Type, string> dotNetTypeCommentDic;
+
 		protected ClientApiTsFunctionGenAbstract()
 		{
-
+			dotNetTypeCommentDic = new DotNetTypeCommentGenerator().Get();
 		}
 
 		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, IDocCommentTranslate poco2CsGen, JSOutput jsOutput)
@@ -56,7 +59,8 @@ namespace Fonlow.CodeDom.Web.Ts
 					if (jsOutput.MaybeNullAttributeOnMethod)
 					{
 						ReturnTypeIsNullable = ReturnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
-					} else if (jsOutput.NotNullAttributeOnMethod)
+					}
+					else if (jsOutput.NotNullAttributeOnMethod)
 					{
 						ReturnTypeIsNullable = ReturnType != null && !Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 					}
@@ -131,13 +135,21 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			builder.AppendLine(Description.HttpMethod + " " + Description.RelativePath);
-			foreach (var item in Description.ParameterDescriptions)
+			foreach (var paramDesc in Description.ParameterDescriptions)
 			{
-				var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(item.ParameterDescriptor.ParameterType);
-				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, item.Name);
-				if (!String.IsNullOrEmpty(parameterComment))
+				var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);
+				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
+				if (String.IsNullOrEmpty(parameterComment))
 				{
-					builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {item.Name} {parameterComment}");
+					bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
+					if (paramTypeCommentExists)
+					{
+						builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {paramTypeComment}");
+					}
+				}
+				else
+				{
+					builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {parameterComment}");
 				}
 			}
 
@@ -146,7 +158,18 @@ namespace Fonlow.CodeDom.Web.Ts
 			var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
 
 			var returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);
-			if (returnComment != null)
+			if (returnComment == null)
+			{
+				if (responseType != null)
+				{
+					bool returnTypeCommentExists = dotNetTypeCommentDic.TryGetValue(responseType, out string returnTypeComment);
+					if (returnTypeCommentExists)
+					{
+						builder.AppendLine($"@return {{{returnTypeOfResponse}}} {returnTypeComment}");
+					}
+				}
+			}
+			else
 			{
 				builder.AppendLine($"@return {{{returnTypeOfResponse}}} {returnComment}");
 			}
@@ -183,7 +206,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			var parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
-				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => {
+				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
+				{
 					var originalType = d.ParameterDescriptor.ParameterType;
 					var originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
 					originalCodeTypeReference.UserData.Add(UserDataKeys.IsMethodParameter, true); // so I can add optional null later

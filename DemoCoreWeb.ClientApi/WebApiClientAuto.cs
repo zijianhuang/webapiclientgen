@@ -3385,6 +3385,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Add a hero. The client will not expect null. NotNull
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
+		/// <param name="name">name of hero</param>
 		/// <returns>Always object.</returns>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
@@ -3409,6 +3410,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Add a hero. The client will not expect null. NotNull
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
+		/// <param name="name">name of hero</param>
 		/// <returns>Always object.</returns>
 		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{

@@ -130,6 +130,11 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
+		/// <summary>
+		/// Create doc comment if XML document file exists
+		/// </summary>
+		/// <param name="propertyInfo"></param>
+		/// <param name="codeField"></param>
 		void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeMemberField codeField)
 		{
 			if (docLookup != null)

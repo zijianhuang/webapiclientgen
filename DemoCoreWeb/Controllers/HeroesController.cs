@@ -65,7 +65,7 @@ namespace DemoWebApi.Controllers
 		/// <summary>
 		/// Add a hero. The client will not expect null. NotNull
 		/// </summary>
-		/// <param name="name"></param>
+		/// <param name="name">name of hero</param>
 		/// <returns>Always object.</returns>
 		[HttpPost("q")]
 		[return: System.Diagnostics.CodeAnalysis.NotNull]

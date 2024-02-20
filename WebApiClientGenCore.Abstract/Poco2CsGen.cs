@@ -40,9 +40,7 @@ namespace Fonlow.Poco2Client
 		/// </summary>
 		readonly List<Type> pendingTypes;
 
-		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
-
-		readonly IDictionary<Type, string> dotNetTypeCommentDic;
+		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;	
 
 		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declaratinDic;
 
@@ -60,7 +58,6 @@ namespace Fonlow.Poco2Client
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
 			attribueCommentDic = annotationCommentGenerator.Get();
 			declaratinDic = AnnotationDeclarationGenerator.Create();
-			dotNetTypeCommentDic = new DotNetTypeCommentGenerator().Get();
 		}
 
 		/// <summary>

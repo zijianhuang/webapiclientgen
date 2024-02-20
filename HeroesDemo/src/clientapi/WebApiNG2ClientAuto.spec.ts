@@ -2127,10 +2127,11 @@ describe('TextData API', () => {
  * Test the behavior of JavaScript when dealing with integral numbers larger than 53-bit.
  * Tested with ASP.NET 8, Chrome Version 121.0.6167.185 (Official Build) (64-bit), Firefox 122.0.1 (64-bit)
  * The lession is, when dealing with integral number larger than 53-bit or 64-bit, there are 3 options for client server agreement, as of year Feb 2024:
- * 1. Use string Content-Type: text/plain; charset=utf-8, for single big number parameter and return, probably for JS specific calls, since C# client can handle these integral types comfortablly.
- * Otherwise, the developer experience of backend developer is poor, loosing the enjoyment of strongly types of integral. For big integral inside an object, this may means you have to declare a JS specific class as well.
- * 2. Use signed128 or unsigned128 if the number is not larger than 128-bit since ASP.NET 8 serializes it as string object.
- * 3. Alter the serilization of ASP.NET Web API for 64-bit and BigInteger, make it similar to what for 128-bit. https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to
+ * 1. In both ends, use string Content-Type: text/plain or application/json, for single big number parameter and return, probably for JS specific calls, since C# client can handle these integral types comfortablly.
+ * Otherwise, the developer experience of backend developer is poor, loosing the enjoyment of strongly types of integral. For big integral inside an object, this may mean you have to declare a JS specific class as well.
+ * 2. In the JS client end, use string object for 54-bit and greater.
+ * 3. Use signed128 or unsigned128 if the number is not larger than 128-bit since ASP.NET 8 serializes it as string object.
+ * 4. Alter the serilization of ASP.NET Web API for 64-bit and BigInteger, make it similar to what for 128-bit. https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to
  *
  * JavaScript has difficulty in deal with number larger than 53-bit as JSON object.
  */
@@ -2154,7 +2155,7 @@ describe('Numbers API', () => {
         service = TestBed.get(DemoWebApi_Controllers_Client.Numbers);
     }));
 
-    it('postBigNumbers', (done) => {
+    it('postBigNumbersIncorrect', (done) => {
         const d: DemoWebApi_DemoData_Client.BigNumbers = {
             unsigned64: '18446744073709551615', //2 ^ 64 -1,
             signed64: '9223372036854775807', //2 ^ 63 -1,
@@ -2265,11 +2266,11 @@ response:
     }
     );
 
-    it('postInt64Smaller', (done) => {
+    it('postInt64SmallerInCorrect', (done) => {
         service.postInt64('9223372036854775123').subscribe(
             r => {
                 expect(BigInt(r)).not.toBe(BigInt('9223372036854775123')); //reponse is 9223372036854775123, but BigInt(r) gives l9223372036854774784
-                expect(BigInt(r)).toBe(BigInt('9223372036854774784'));
+                expect(BigInt(r)).toBe(BigInt('9223372036854774784')); // many digits wrong
                 done();
             },
             error => {
@@ -2322,6 +2323,7 @@ response:
                 expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375)); //this time, it is correct, but...
                 expect(BigInt(r).valueOf()).not.toBe(6277101735386680762814942322444851025767571854389858533375n); // not really,
                 expect(BigInt(r).valueOf()).not.toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
+                expect(BigInt(r)).toBe(6277101735386680763835789423207666416102355444464034512896n); // many many digits wrong
                done();
             },
             error => {
@@ -2338,6 +2340,7 @@ response:
                 expect(BigInt(r)).toBe(BigInt(604462909807314587353087)); //this time, it is correct, but...
                 expect(BigInt(r).valueOf()).not.toBe(604462909807314587353087n); // not really,
                 expect(BigInt(r).valueOf()).not.toBe(BigInt('604462909807314587353087')); // not really, because what returned is lack of n
+                expect(BigInt(r).valueOf()).toBe(604462909807314587353088n); // last digit wrong
                 done();
             },
             error => {
@@ -2354,6 +2357,7 @@ response:
                 expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455)); //this time, it is correct, but...
                 expect(BigInt(r).valueOf()).not.toBe(340282366920938463463374607431768211455n); // not really,
                 expect(BigInt(r).valueOf()).not.toBe(BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
+                expect(BigInt(r)).toBe(340282366920938463463374607431768211456n); // last digit wrong,
                 done();
             },
             error => {

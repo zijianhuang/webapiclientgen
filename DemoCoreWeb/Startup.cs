@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Fonlow.DateOnlyExtensions;
-
+using Fonlow.Int64Extensions;
 namespace DemoCoreWeb
 {
 	public class Startup
@@ -31,17 +31,20 @@ namespace DemoCoreWeb
 			//.AddJsonOptions(//revisit this in .NET 7
 			//options =>
 			//{
-			//	options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-			//	options.JsonSerializerOptions.Converters.Add(new DateOnlyNullableJsonConverter());
+			//	options.JsonSerializerOptions.Converters.Add(new Int64JsonConverter());
+			//	options.JsonSerializerOptions.Converters.Add(new Int64NullableJsonConverter());
 
-			//});
+			//})
 			.AddNewtonsoftJson(
 				options =>
 				{
 					options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this for cross-timezone minValue and .NET Framework clients.
 					options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; //So when controller will ignore null fileds when returing data
-					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
-					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed for ASP.NET 7 and .NET 7 clients. However .NET 6 clients and .NET Framework clients still need DateOnlyJsonConverter
+					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter()); // however, needed for JavaScript clients.
+
+					options.SerializerSettings.Converters.Add(new Int64JsonConverter());
+					options.SerializerSettings.Converters.Add(new Int64NullableJsonConverter());
 				}
 			);//needed for some special data types which .net core 3.x json lib could not handle well.
 

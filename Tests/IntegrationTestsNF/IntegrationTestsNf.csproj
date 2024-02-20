@@ -71,6 +71,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="ReadMe.MD" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DemoCoreWeb.ClientApiNF\DemoCoreWeb.ClientApiNF.csproj">

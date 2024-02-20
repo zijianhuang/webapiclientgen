@@ -1,5 +1,7 @@
 Strongly Typed Client API Generators generate strongly typed client API in C# codes and TypeScript codes. You may then provide or publish either the generated source codes or the compiled client API libraries to other developers for developing client programs.
 
+# Products
+
 This project delivers these products:
 1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET and Xamarin.Forms. 
 1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2, Aurelia, Axios and Fetch API.
@@ -11,10 +13,27 @@ This project delivers these products:
 
 ![Packages](/Doc/Images/WebApiClientGen.PNG)
 
+## Use Cases and Downloads
+
+The products are released mostly through NuGet.
+1. Develop TypeScript code generator through the CodeDOM approach, then use package [Fonlow.TypeScriptCodeDOMCore](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore).
+1. Develop TypeScript code generator through the CodeDOM approach for POCO and more, then use package [Fonlow.Poco2TSCore](https://www.nuget.org/packages/Fonlow.Poco2TsCore) 
+1. Generate TypeScript type interfaces, then use Poco2TSCore.exe.
+1. Develop a feature that reads XML document of an .NET assembly, then use package [Fonlow.DocCommentCore](https://www.nuget.org/packages/Fonlow.DocCommentCore).
+1. Generate C# client API, then use package [Fonlow.WebApiClientGenCore](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/)
+1. Generate TypeScript client API, then use one of the plugins:
+    1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/HttpClient.ts)
+    1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
+    1. [Angular 6+, plus FormGroup creation for Reactive Forms](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2FormGroup/) with [Description](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms)
+    1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios/)
+    1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia/)
+    1. [Fetch API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Fetch/)
+
+
 **Hints:**
 
 * [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) based on key components of WebApiClientGen is a spin-off for generating client API codes in C# and TypeScript according to a definition file of Swagger/Open API Specification.
-* WebApiClientGen does not utilize Swagger / OpenAPI definitions, but generate codes from run time type info, getting rid of the inherent limitations of OpenAPI against .NET types and Web API to give better developer experience to ASP.NET Web API developers.
+* WebApiClientGen does not utilize Swagger / OpenAPI definitions, but generate codes from run time type info of a running Web API of the debug build, getting rid of the inherent limitations of OpenAPI against .NET types and Web API to give better developer experience to ASP.NET Web API developers.
 
 **Remarks:**
 
@@ -22,11 +41,11 @@ This project delivers these products:
 * Starting from 2021-02-10, the development will support only .NET 5 and onward.
 * Wiki contents about .NET Framework will be kept in foreseeable future.
 
-# Key Features
+## Key Features
 1. Client API codes generated are directly mapped from the Web API controller methods, .NET primitive types and POCO classes. This is similar to what svcutil.exe in WCF has offered.
 1. Doc comments of controller methods and POCO classes are copied. 
 
-# Key Benefits
+## Key Benefits for Developer Experience
 
 1. WebApiClientGen is seamlessly integrated with ASP.NET Core Web API with very little steps/overheads to setup, maintain and synchronize between Web API and client APIs, during RAD or Agile Software Development.
 1. Support all .NET primitive types including decimal.
@@ -34,6 +53,9 @@ This project delivers these products:
 1. Strongly typed generated codes are subject to design time type checking and compile time type checking.
 1. Provide high level of abstraction, shielding application developers from repetitive technical details of RESTful practices and traditional codes of AJAX calls.  
 1. Rich meta info including doc comments make IDE intellisense more helpful, so application developers have less need of reading separated API documents.
+1. Generated doc comments based on .NET validation attributes.
+1. Generated doc comments based on numeric types, DateOnly and GUID for TypeScript codes.
+1. Generated TypeScript codes conform to the TypeScript strict mode, and the generated Angular 2+ codes conform to the Angular strict mode.
 
 
 # Examples
@@ -50,27 +72,13 @@ This project delivers these products:
 1. JavaScript codes compiled from generated TypeScript codes could be used in JS applications, however, obviously no type info will be available, while application programmers may still enjoy intellisense and abstraction from AJAX details.
 	1. React and Vue.js applications typically use Axios or Fetch API for HTTP requests. Since June 2019, [babel](https://github.com/babel/babel) has supported namespaces thanks to [this pull request](https://github.com/babel/babel/pull/9785), so you should be able to do React TSX programming with generated TypeScript codes.
 
-# Downloads
-
-1. [Strongly Typed Client API Generators for ASP.NET Core Web API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/).
-1. [TypeScript CodeDOM](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore)
-1. [Fonlow.Poco2TS](https://www.nuget.org/packages/Fonlow.Poco2TsCore) 
-
-### Plugins for TypeScript/JavaScript Frameworks/Libraries
-
-1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/HttpClient.ts)
-1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
-1. [Angular 6+, plus FormGroup creation for Reactive Forms](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2FormGroup/) with [Description](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms)
-1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios/)
-1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia/)
-1. [Fetch API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Fetch/)
 
 # Concepts
 1. Web API vendors / developers should provide client API libraries to developers of client programs, as Google and Amazon etc. would do in order to make the RESTful Web API reach wider consumers (internal and external) efficiently.
 1. To client developers, classic function prototypes like `ReturnType DoSomething(Type1 t1, Type2 t2 ...) ` is the API function, and the rest is the technical implementation details of transportations: TCP/IP, HTTP, SOAP, resource-oriented, CRUD-based URIs, RESTful, XML and JSON etc. The function prototype and a piece of API document should be good enough for calling the API function.
 1. The better you have separation of concerns in your Web API design, the more you will benefit from the components of this project in order to deliver business values sooner, with less handcrafted codes , less repetitive tasks and less chances of human mistakes.
 
-# Prerequisites
+## Prerequisites
 
 **Server side:**
 1. .NET 7
@@ -115,7 +123,7 @@ For more details, please check [WIKI](https://github.com/zijianhuang/webapiclien
 1. [Generate C# Client API for ASP.NET Core Web API](https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP)
 1. [DateOnly in ASP.NET Core 6](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6)
 
-# Demo Applications
+## Demo Applications
 
 The Demo applications in this repository are mainly for testing WebApiClientGen during development. And there are other demo applications in the following repositories, demostrating how real world applications could utilize WebApiClientGen:
 

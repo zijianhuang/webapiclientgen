@@ -1,7 +1,11 @@
 ﻿using Newtonsoft.Json;
+using System.Reflection.Metadata.Ecma335;
 
-namespace Fonlow.Int64Extensions
+namespace Fonlow.IntegralExtensions
 {
+	/// <summary>
+	/// Make ASP.NET Core serialize Int64 as JSON string object rather than number.
+	/// </summary>
 	public sealed class Int64JsonConverter : JsonConverter<Int64>
 	{
 		static readonly Type typeOfInt64 = typeof(Int64);
@@ -23,7 +27,7 @@ namespace Fonlow.Int64Extensions
 			var vType = v.GetType();
 			if (vType == typeOfInt64) //when the object is from a property in POST body from a TS client
 			{
-				return Int64.Parse(v.ToString());
+				return Int64.Parse(v.ToString()!); // silly CS8604
 			}
 
 			if (vType == typeOfString)
@@ -75,7 +79,7 @@ namespace Fonlow.Int64Extensions
 			var vType = v.GetType();
 			if (vType == typeOfInt64) //when the object is from a property in POST body from a TS client
 			{
-				return Int64.Parse(v.ToString());
+				return Int64.Parse(v.ToString()!);
 			}
 
 			if (vType == typeOfString)

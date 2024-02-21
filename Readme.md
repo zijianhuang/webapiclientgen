@@ -97,7 +97,8 @@ services.AddControllers(
 
 **Remarks:**
 
-Microsoft has been releasing major upgrade of [.NET (Core) every year](https://en.wikipedia.org/wiki/.NET) since 2016, the libraries in this repository generally will follow the latest around half year after.
+* Microsoft has been releasing major upgrade of [.NET (Core) every year](https://en.wikipedia.org/wiki/.NET) since 2016, the libraries in this repository generally will follow the latest around half year after.
+* The public libraries are with .NET one version behind the latest version, while ASP.NET Demo app and the integration test suites with generated .NET client API are with current version of .NET.
 
 
 **.NET client side:**
@@ -105,6 +106,14 @@ Microsoft has been releasing major upgrade of [.NET (Core) every year](https://e
 1. ASP.NET Web API 2.2 Client Libraries
 1. Json.NET of Newtonsoft [for Content-Type application/json](http://www.asp.net/web-api/overview/formats-and-model-binding/content-negotiation)
 1. Microsoft Build Tools 2015
+
+**NewtonSoft.Json or System.Text.Json**
+
+As of .NET 7, for serialization System.Text.Json reassembles over 95% of NewtonSoft.Json. There are only a few edge cases of complex POCO structures that System.Text.Json can not handle.
+
+WebApiClientGen supports both on server side and C# client side. For C# clients, you may use ["UseSystemTextJson" in the codegen settings](https://github.com/zijianhuang/webapiclientgen/wiki/Settings-Explained#usesystemtextjson).
+
+Nevertheless, if your application involves complex POCO structures, using NewtonSoft.Json is a safe bet as of .NET 7.
 
 **TypeScript client side:**
 1. TypeScript compiler

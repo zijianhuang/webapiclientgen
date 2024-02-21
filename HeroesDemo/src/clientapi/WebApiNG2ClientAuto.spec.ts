@@ -1315,21 +1315,6 @@ describe('SuperDemo API', () => {
     }
     );
 
-    it('getulong', (done) => {
-        service.getulong().subscribe(
-            data => {
-                expect(data.toString()).toBe('18446744073709552000'); //response is 18446744073709552000
-                done();
-            },
-            error => {
-                fail(errorResponseToString(error));
-                done();
-            }
-        );
-
-    }
-    );
-
     it('getInt2D', (done) => {
         service.getInt2D().subscribe(
             data => {
@@ -2124,6 +2109,247 @@ describe('TextData API', () => {
 });
 
 /**
+ * With customized serialization on ASP.NET Core Web API
+ */
+describe('Numbers API', () => {
+    let service: DemoWebApi_Controllers_Client.Numbers;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [HttpClientModule],
+            providers: [
+                {
+                    provide: DemoWebApi_Controllers_Client.Numbers,
+                    useFactory: numbersClientFactory,
+                    deps: [HttpClient],
+
+                },
+
+            ]
+        });
+
+        service = TestBed.get(DemoWebApi_Controllers_Client.Numbers);
+    }));
+
+    it('postBigNumbers', (done) => {
+        const d: DemoWebApi_DemoData_Client.BigNumbers = {
+            unsigned64: '18446744073709551615', //2 ^ 64 -1,
+            signed64: '9223372036854775807', //2 ^ 63 -1,
+            unsigned128: '340282366920938463463374607431768211455',
+            signed128: '170141183460469231731687303715884105727',
+            bigInt: '6277101735386680762814942322444851025767571854389858533375', // 3 unsigned64, 192bits
+        };
+/**
+request:
+{
+"unsigned64":"18446744073709551615",
+"signed64":"9223372036854775807",
+"unsigned128":"340282366920938463463374607431768211455",
+"signed128":"170141183460469231731687303715884105727",
+"bigInt":"6277101735386680762814942322444851025767571854389858533375"
+}
+response:
+{
+    "signed64": 9223372036854775807,
+    "unsigned64": 18446744073709551615,
+    "signed128": "170141183460469231731687303715884105727",
+    "unsigned128": "340282366920938463463374607431768211455",
+    "bigInt": 6277101735386680762814942322444851025767571854389858533375
+}
+
+ */
+        service.postBigNumbers(d).subscribe(
+            r => {
+                expect(BigInt(r.unsigned64!)).toBe(BigInt('18446744073709551615'));
+
+                expect(BigInt(r.signed64!)).toBe(BigInt('9223372036854775807'));
+
+                expect(BigInt(r.unsigned128!)).toBe(BigInt(340282366920938463463374607431768211455n));
+
+                expect(BigInt(r.signed128!)).toEqual(BigInt(170141183460469231731687303715884105727n));
+
+                expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
+
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+
+    }
+    );
+
+    it('postInt64', (done) => {
+        service.postInt64('9223372036854775807').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt('9223372036854775807')); 
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postUInt64', (done) => {
+        service.postUint64('18446744073709551615').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt('18446744073709551615'));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postInt64Smaller', (done) => {
+        service.postInt64('9223372036854775123').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt('9223372036854775123')); 
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postLongAsBigInt', (done) => {
+        // request: "9223372036854775807"
+        // response: "9223372036854775807"
+        service.postBigInteger('9223372036854775807').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postLongAsBigIntWithSmallNumber', (done) => {
+        service.postBigInteger('123').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt(123n));
+               done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+
+    }
+    );
+
+    it('postReallyBigInt192bits', (done) => {
+        // request: "6277101735386680762814942322444851025767571854389858533375"
+        // response: "6277101735386680762814942322444851025767571854389858533375"
+        service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n)); 
+                expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); 
+               done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postReallyBigInt80bits', (done) => {
+        service.postBigInteger('604462909807314587353087').subscribe(
+            r => {
+                expect(BigInt(r).valueOf()).toBe(604462909807314587353087n); 
+                expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087'));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postReallyBigInt128bits', (done) => {
+        service.postBigInteger('340282366920938463463374607431768211455').subscribe(
+            r => {
+                expect(BigInt(r).valueOf()).toBe(340282366920938463463374607431768211455n);
+                expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * Correct.
+     * Request as string: "170141183460469231731687303715884105727",
+     * Response: "170141183460469231731687303715884105727" , Content-Type: application/json; charset=utf-8
+     */
+    it('postInt128', (done) => {
+        service.postInt128('170141183460469231731687303715884105727').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt('170141183460469231731687303715884105727'));
+                expect(BigInt(r)).toBe(BigInt(170141183460469231731687303715884105727n));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * Correct.
+     * Request as string: "340282366920938463463374607431768211455",
+     * Response: "340282366920938463463374607431768211455" , Content-Type: application/json; charset=utf-8
+     */
+    it('postUInt128', (done) => {
+        service.postUint128('340282366920938463463374607431768211455').subscribe(
+            r => {
+                expect(BigInt(r)).toBe(BigInt('340282366920938463463374607431768211455'));
+                expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n));
+                expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
+                expect(BigInt(r).valueOf()).toBe(BigInt(340282366920938463463374607431768211455n));
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+
+});
+
+/**
+ * Test when Web API has no customized serialization for 64-bit and BigInteger.
+ * Marked as xdescribe then.
+ * 
  * Test the behavior of JavaScript when dealing with integral numbers larger than 53-bit.
  * Tested with ASP.NET 8, Chrome Version 121.0.6167.185 (Official Build) (64-bit), Firefox 122.0.1 (64-bit)
  * The lession is, when dealing with integral number larger than 53-bit or 64-bit, there are 3 options for client server agreement, as of year Feb 2024:
@@ -2135,7 +2361,7 @@ describe('TextData API', () => {
  *
  * JavaScript has difficulty in deal with number larger than 53-bit as JSON object.
  */
-describe('Numbers API', () => {
+xdescribe('Numbers API without customized serialization', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
     beforeEach(async(() => {
@@ -2163,25 +2389,25 @@ describe('Numbers API', () => {
             signed128: '170141183460469231731687303715884105727',
             bigInt: '6277101735386680762814942322444851025767571854389858533375', // 3 unsigned64, 192bits
         };
-/**
-request:
-{
-"unsigned64":"18446744073709551615",
-"signed64":"9223372036854775807",
-"unsigned128":"340282366920938463463374607431768211455",
-"signed128":"170141183460469231731687303715884105727",
-"bigInt":"6277101735386680762814942322444851025767571854389858533375"
-}
-response:
-{
-    "signed64": 9223372036854775807,
-    "unsigned64": 18446744073709551615,
-    "signed128": "170141183460469231731687303715884105727",
-    "unsigned128": "340282366920938463463374607431768211455",
-    "bigInt": 6277101735386680762814942322444851025767571854389858533375
-}
-
- */
+        /**
+        request:
+        {
+        "unsigned64":"18446744073709551615",
+        "signed64":"9223372036854775807",
+        "unsigned128":"340282366920938463463374607431768211455",
+        "signed128":"170141183460469231731687303715884105727",
+        "bigInt":"6277101735386680762814942322444851025767571854389858533375"
+        }
+        response:
+        {
+            "signed64": 9223372036854775807,
+            "unsigned64": 18446744073709551615,
+            "signed128": "170141183460469231731687303715884105727",
+            "unsigned128": "340282366920938463463374607431768211455",
+            "bigInt": 6277101735386680762814942322444851025767571854389858533375
+        }
+        
+         */
         service.postBigNumbers(d).subscribe(
             r => {
                 expect(BigInt(r.unsigned64!)).not.toBe(BigInt('18446744073709551615')); // BigInt can not handle the coversion from json number form correctly.
@@ -2227,10 +2453,25 @@ response:
     }
     );
 
+    it('postUInt64ButIncorrect', (done) => {
+        service.postUint64('18446744073709551615').subscribe(
+            r => {
+                expect(BigInt(18446744073709551615n).toString()).toBe('18446744073709551615');
+                expect(BigInt(r)).toBe(BigInt('18446744073709551616')); //reponse is 18446744073709551615, but BigInt(r) gives last 3 digits 808
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
     /**
-      	postBigIntegerForJs(bigInteger?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-			return this.http.post<string>(this.baseUri + 'api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-		}
+            postBigIntegerForJs(bigInteger?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+            return this.http.post<string>(this.baseUri + 'api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+        }
      */
     it('postBigIntegralAsStringForJs', (done) => {
         service.postBigIntegralAsStringForJs('9223372036854775807').subscribe(
@@ -2304,7 +2545,7 @@ response:
         service.postBigInteger('123').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt(123n));
-               done();
+                done();
             },
             error => {
                 fail(errorResponseToString(error));
@@ -2324,7 +2565,7 @@ response:
                 expect(BigInt(r).valueOf()).not.toBe(6277101735386680762814942322444851025767571854389858533375n); // not really,
                 expect(BigInt(r).valueOf()).not.toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
                 expect(BigInt(r)).toBe(6277101735386680763835789423207666416102355444464034512896n); // many many digits wrong
-               done();
+                done();
             },
             error => {
                 fail(errorResponseToString(error));

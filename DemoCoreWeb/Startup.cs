@@ -28,22 +28,27 @@ namespace DemoCoreWeb
 #endif
 				}
 			)
-			//.AddJsonOptions(//revisit this in .NET 7
+			//.AddJsonOptions(// as of .NET 7/8, could not handle JS/CS test cases getInt2D, postInt2D and PostDictionaryOfPeople, around 14 C# test cases fail.
 			//options =>
 			//{
-			//	options.JsonSerializerOptions.Converters.Add(new Int64JsonConverter());
-			//	options.JsonSerializerOptions.Converters.Add(new Int64NullableJsonConverter());
+			//	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyJsonConverter()); //needed by JS clients
+			//	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyNullableJsonConverter());
+			//	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeJsonConverter()); // needed by only .NET Framework clients
+			//	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeNullableJsonConverter());
+			//	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeOffsetJsonConverter()); // needed by only .NET Framework clients
+			//	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeOffsetNullableJsonConverter());
 
-			//})
+			//});
 			.AddNewtonsoftJson(
 				options =>
 				{
 					options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this for cross-timezone minValue and .NET Framework clients.
 					options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; //So when controller will ignore null fileds when returing data
-					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed for ASP.NET 7 and .NET 7 clients. However .NET 6 clients and .NET Framework clients still need DateOnlyJsonConverter
-					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter()); // however, needed for JavaScript clients.
 
-					//
+					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed for ASP.NET 7 and .NET 7 clients. However .NET 6 clients and .NET Framework clients still need DateOnlyJsonConverter
+					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter()); // also, needed by JavaScript clients.
+
+					// JS clients need these integral JsonConverters
 					options.SerializerSettings.Converters.Add(new Int64JsonConverter());
 					options.SerializerSettings.Converters.Add(new Int64NullableJsonConverter());
 					options.SerializerSettings.Converters.Add(new UInt64JsonConverter());
@@ -51,7 +56,7 @@ namespace DemoCoreWeb
 					options.SerializerSettings.Converters.Add(new BigIntegerJsonConverter());
 					options.SerializerSettings.Converters.Add(new BigIntegerNullableJsonConverter());
 				}
-			);//needed for some special data types which .net core 3.x json lib could not handle well.
+			);
 
 			services.AddRouting();
 			services.AddCors();

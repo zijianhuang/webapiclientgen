@@ -4,7 +4,7 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3.4.3</Version>
+		<Version>3.5</Version>
 		<Authors>Zijian Huang</Authors>
 		<Company />
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
@@ -32,12 +32,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Fonlow.TypeScriptCodeDomCore" Version="3.2.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
-		<ProjectReference Include="..\Fonlow.TypeScriptCodeDomCore\Fonlow.TypeScriptCodeDomCore.csproj" />
 		<None Include="Readme.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 

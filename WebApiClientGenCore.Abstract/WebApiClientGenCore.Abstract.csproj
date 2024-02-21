@@ -8,7 +8,7 @@
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Version>2.8.2</Version>
+		<Version>2.9</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>

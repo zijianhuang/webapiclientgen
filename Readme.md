@@ -11,7 +11,7 @@ This project delivers these products:
 1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. A .NET Framework package is also available.
 
 
-![Packages](/Doc/Images/WebApiClientGen.PNG)
+![Packages](/Doc/Images/WebApiClientGen.png)
 
 ## Use Cases and Downloads
 

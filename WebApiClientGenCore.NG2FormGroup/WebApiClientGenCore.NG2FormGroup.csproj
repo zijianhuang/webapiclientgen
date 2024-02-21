@@ -5,15 +5,15 @@
 	  <PackageId>Fonlow.WebApiClientGenCore.NG2FormGroup</PackageId>
 	  <Authors>Zijian Huang</Authors>
 	  <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+, plus helper interfaces and functions for creating FormGroup of Angular Reactive Forms.</Description>
-	  <PackageReleaseNotes>For TypeScript CodeDOM v3.1</PackageReleaseNotes>
+	  <PackageReleaseNotes>With TypeScript CodeDOM v3.2; decent supports for 64bit, 128bit and BigInteger.</PackageReleaseNotes>
 	  <NeutralLanguage>en</NeutralLanguage>
 	  <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 	  <Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <AssemblyName>Fonlow.WebApiClientGenCore.NG2FormGroup</AssemblyName>
-	  <Version>1.4.3</Version>
+	  <Version>1.5</Version>
 	  <PackageTags>Angular</PackageTags>
 	  <PackageReadmeFile>Readme.md</PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>

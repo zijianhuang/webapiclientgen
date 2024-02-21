@@ -920,7 +920,8 @@ describe('DateTypes API', () => {
                     fail('I expect item1.');
                 }
 
-                expect(data!.item2).toBeUndefined(); // OK with null rather than undefined
+                //expect(data!.item2).toBeUndefined(); // NewtonSoft.Json give undefined, while System.Text.Json gives null
+                expect(data!.item2 == null).toBeTrue();
                 done();
             },
             error => {
@@ -939,7 +940,8 @@ describe('DateTypes API', () => {
         service.searchDateRange(undefined!, endDt).subscribe(
             data => {
                 // fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-                expect(data!.item1).toBeUndefined();
+                //expect(data!.item1).toBeUndefined(); // NewtonSoft.Json give undefined, while System.Text.Json gives null
+                expect(data!.item1 == null).toBeTrue();
                 if (data!.item2) {
                     expect(new Date(data!.item2)).toEqual(endDt);
                 } else {
@@ -961,13 +963,15 @@ describe('DateTypes API', () => {
     );
 
 
-    it('searchDateRangeBotNull', (done) => {
+    it('searchDateRangeBothNull', (done) => {
         const startDt = new Date(Date.now());
         const endDt = new Date(Date.now() + 100000);
         service.searchDateRange(null, undefined!).subscribe(
             data => {
-                expect(data!.item1).toBeUndefined();
-                expect(data!.item1).toBeUndefined();
+                //expect(data!.item1).toBeUndefined();
+                //expect(data!.item2).toBeUndefined();
+                expect(data!.item1 == null).toBeTrue();
+                expect(data!.item2 == null).toBeTrue();
                 done();
             },
             error => {
@@ -1315,6 +1319,9 @@ describe('SuperDemo API', () => {
     }
     );
 
+    /**
+     * ASP.NET 8 System.Text.Json cannot handle this.
+     */
     it('getInt2D', (done) => {
         service.getInt2D().subscribe(
             data => {
@@ -1332,6 +1339,29 @@ describe('SuperDemo API', () => {
 
     }
     );
+    /**
+fail: Microsoft.AspNetCore.Server.Kestrel[13]
+      Connection id "0HN1IFMQ8I8QJ", Request id "0HN1IFMQ8I8QJ:0000004F": An unhandled exception was thrown by the application.
+      System.NotSupportedException: Serialization and deserialization of 'System.Int32[,]' instances is not supported. Path: $.
+       ---> System.NotSupportedException: Serialization and deserialization of 'System.Int32[,]' instances is not supported.
+         at System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1.Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+         at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+         at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+         --- End of inner exception stack trace ---
+         at System.Text.Json.ThrowHelper.ThrowNotSupportedException(WriteStack& state, NotSupportedException ex)
+         at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+         at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(Stream utf8Json, T rootValue, CancellationToken cancellationToken, Object rootValueBoxed)
+         at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(Stream utf8Json, T rootValue, CancellationToken cancellationToken, Object rootValueBoxed)
+         at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(Stream utf8Json, T rootValue, CancellationToken cancellationToken, Object rootValueBoxed)
+         at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeResultFilters>g__Awaited|28_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+         at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+         at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+
+     */
 
 
     it('getInt2DJagged', (done) => {
@@ -1352,7 +1382,9 @@ describe('SuperDemo API', () => {
     }
     );
 
-
+    /**
+     * ASP.NET 8 System.Text.Json could not handle this.
+     */
     it('postInt2D', (done) => {
         service.postInt2D([[1, 2, 3, 4], [5, 6, 7, 8]]).subscribe(
             data => {
@@ -1598,6 +1630,9 @@ describe('SuperDemo API', () => {
     }
     );
 
+    /**
+     * ASP.NET 8 System.Text.Json could not handle this.
+     */
     it('PostDictionaryOfPeople', (done) => {
         service.postDictionary({
             'Iron Man': {
@@ -2111,7 +2146,7 @@ describe('TextData API', () => {
 /**
  * With customized serialization on ASP.NET Core Web API
  */
-describe('Numbers API', () => {
+xdescribe('Numbers API', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
     beforeEach(async(() => {

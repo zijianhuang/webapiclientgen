@@ -1,4 +1,8 @@
-This is a shell console app calling FonlowPoco2TsCore to convert POCO classes to TypeScript interfaces and enum types.
+This is a shell console app calling FonlowPoco2TsCore to convert POCO classes to TypeScript interfaces and enum types, along with doc comments stored in XML of the assembly.
+
+**Prerequisites:**
+
+* .NET 7
 
 Please check:
 

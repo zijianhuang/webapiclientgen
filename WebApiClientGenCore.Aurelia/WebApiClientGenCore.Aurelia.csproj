@@ -8,13 +8,13 @@
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Aurelia.</Description>
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<PackageTags>aurelia TypeScript</PackageTags>
-		<PackageReleaseNotes>For TypeScript CodeDOM v3.1</PackageReleaseNotes>
+		<PackageReleaseNotes>With TypeScript CodeDOM v3.2; decent supports for 64bit, 128bit and BigInteger.</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyName>Fonlow.WebApiClientGenCore.Aurelia</AssemblyName>
-		<Version>3.5.2</Version>
+		<Version>3.6</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 	</PropertyGroup>

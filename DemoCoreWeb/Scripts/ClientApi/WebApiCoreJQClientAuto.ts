@@ -124,7 +124,6 @@ namespace DemoWebApi_DemoData_Client {
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
-		 * int, -2,147,483,648 to 2,147,483,647
 		 */
 		kK2?: number | null;
 		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
@@ -205,13 +204,11 @@ namespace DemoWebApi_DemoData_Another_Client {
 
 		/**
 		 * X
-		 * double
 		 */
 		x: number;
 
 		/**
 		 * Y
-		 * double
 		 */
 		y: number;
 	}

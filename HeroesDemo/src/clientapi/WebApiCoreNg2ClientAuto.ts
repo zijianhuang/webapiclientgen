@@ -111,10 +111,7 @@ export namespace DemoWebApi_DemoData_Client {
 		/** int, -2,147,483,648 to 2,147,483,647 */
 		int?: number | null;
 
-		/**
-		 * Range: inclusive between -1000 and 1000000
-		 * int, -2,147,483,648 to 2,147,483,647
-		 */
+		/** Range: inclusive between -1000 and 1000000 */
 		itemCount?: number | null;
 
 		/** sbyte, -128 to 127 */
@@ -136,16 +133,12 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export interface MimsPackage {
 
-		/**
-		 * Range: inclusive between 10 and 100
-		 * int, -2,147,483,648 to 2,147,483,647
-		 */
+		/** Range: inclusive between 10 and 100 */
 		kk?: number | null;
 
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
-		 * int, -2,147,483,648 to 2,147,483,647
 		 */
 		kK2?: number | null;
 		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
@@ -230,13 +223,11 @@ export namespace DemoWebApi_DemoData_Another_Client {
 
 		/**
 		 * X
-		 * double
 		 */
 		x: number;
 
 		/**
 		 * Y
-		 * double
 		 */
 		y: number;
 	}

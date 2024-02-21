@@ -1,14 +1,13 @@
-﻿using Fonlow.TypeScriptCodeDom;
+﻿using Fonlow.Poco2Client;
+using Fonlow.Reflection;
+using Fonlow.TypeScriptCodeDom;
 using Fonlow.Web.Meta;
 using System;
 using System.CodeDom;
-using System.Diagnostics;
-using System.Text;
-using Fonlow.Poco2Client;
-using System.Linq;
-using Fonlow.Reflection;
-using Fonlow.Poco2Ts;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -33,7 +32,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected ClientApiTsFunctionGenAbstract()
 		{
-			dotNetTypeCommentDic = new DotNetTypeCommentGenerator().Get();
+			dotNetTypeCommentDic = DotNetTypeCommentGenerator.Get();
 		}
 
 		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, IDocCommentTranslate poco2CsGen, JSOutput jsOutput)

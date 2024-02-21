@@ -51,7 +51,7 @@ namespace Fonlow.Poco2Ts
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator(true);
 			attribueCommentDic = annotationCommentGenerator.Get();
 			declaratinDic = AnnotationDeclarationGenerator.Create();
-			dotNetTypeCommentDic = new DotNetTypeCommentGenerator().Get();
+			dotNetTypeCommentDic = DotNetTypeCommentGenerator.Get();
 		}
 
 
@@ -144,7 +144,7 @@ namespace Fonlow.Poco2Ts
 				var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
 				List<string> comments = new(commentsFromAttributes);
 				string commentFromProperType;
-				if (dm == null || dm.summary == null || commentsFromAttributes?.Length == 0)
+				if ((dm == null || dm.summary == null) && commentsFromAttributes?.Length == 0)
 				{
 					dotNetTypeCommentDic.TryGetValue(propertyInfo.PropertyType, out commentFromProperType);
 					if (commentFromProperType != null)
@@ -166,7 +166,7 @@ namespace Fonlow.Poco2Ts
 				var commentsFromAttributes = GenerateCommentsFromAttributes(fieldInfo);
 				List<string> comments = new(commentsFromAttributes);
 				string commentFromProperType;
-				if (dm == null || dm.summary == null || commentsFromAttributes?.Length == 0)
+				if ((dm == null || dm.summary == null) && commentsFromAttributes?.Length == 0)
 				{
 					dotNetTypeCommentDic.TryGetValue(fieldInfo.FieldType, out commentFromProperType);
 					if (commentFromProperType != null)

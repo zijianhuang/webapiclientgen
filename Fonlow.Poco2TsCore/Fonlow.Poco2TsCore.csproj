@@ -13,7 +13,10 @@
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>TypeScript,Code DOM</PackageTags>
-		<PackageReleaseNotes>For TypeScript CodeDOM v3.1</PackageReleaseNotes>
+		<PackageReleaseNotes>
+			With TypeScript CodeDOM v3.2. Better handling of integral numbers larger than 53bit. Good supports for integral types of .NET: Int64, UInt64, Int128, UInt128, BigInteger, through Fonlow.TypeScriptCodeDOMCore.
+			Generated doc comments for class properties of integral types, which will be translated to JavaScript number or string, if respective properties have no doc comment declared in XML doc comment and have no validation attributes. Supported through Fonlow.Poco2TsCore.
+		</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>

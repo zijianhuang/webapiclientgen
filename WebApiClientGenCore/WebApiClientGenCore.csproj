@@ -11,7 +11,11 @@
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore jquery angular</PackageTags>
-		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
+		<PackageReleaseNotes>
+			With TypeScript CodeDOM v3.2. Better handling of integral numbers larger than 53bit. Good supports for integral types of .NET: Int64, UInt64, Int128, UInt128, BigInteger, through Fonlow.TypeScriptCodeDOMCore.
+			Generated doc comments for class properties of integral types, which will be translated to JavaScript number or string, if respective properties have no doc comment declared in XML doc comment and have no validation attributes. Supported through Fonlow.Poco2TsCore.
+			Generated doc comments for API function parameters and return of integral types, if respective parameters have no doc comment declared in XML doc comment.
+		</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Authors>Zijian Huang</Authors>

@@ -197,7 +197,7 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 
-		readonly Dictionary<string, string> integralValidatorsDic = new Dictionary<string, string>
+		readonly Dictionary<string, string> integralJsNumberValidatorsDic = new Dictionary<string, string>
 		{
 			{ "System.SByte", "Validators.min(-127), Validators.max(127)" },
 			{ "System.Byte", "Validators.min(0), Validators.max(256)" },
@@ -207,6 +207,15 @@ namespace Fonlow.TypeScriptCodeDom
 			{ "System.UInt32", "Validators.min(0), Validators.max(4294967295)" },
 			// for long and unlong, things become tricky, as in JavaScript Number.MAX_SAFE_INTEGER=9007199254740991, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
 			// better let app programmers decide what to do.
+		};
+
+		readonly Dictionary<string, string> integralJsStringValidatorsDic = new Dictionary<string, string>
+		{
+			{ "System.Int64", "Validators.pattern('/^-?\\d{0,19}$/')" }, // use https://regexr.com/ to verify
+			{ "System.UInt64", "Validators.pattern('/^\\d{0,20}$/')" },
+			{ "System.Int128", "Validators.pattern('/^-?\\d{0,39}$/')" },
+			{ "System.UInt128", "Validators.pattern('/^\\d{0,30}$/')" },
+			{ "System.Numerics.BigInteger", "Validators.pattern('/^-?\\d*$/')" },
 		};
 
 		/// <summary>
@@ -224,7 +233,6 @@ namespace Fonlow.TypeScriptCodeDom
 			{
 				//Console.WriteLine("customAttributes: " + string.Join(", ",  customAttributes));
 				var validatorList = new List<string>();
-				Console.Write("CustomAttributes: ");
 				for (int i = 0; i < customAttributes.Length; i++)
 				{
 					var ca = customAttributes[i];
@@ -292,12 +300,16 @@ namespace Fonlow.TypeScriptCodeDom
 				if (fieldTypeInfo != null)
 				{
 					var validatorsHasValidatorMinOrMax = validatorList.Exists(d => d.Contains("max(") || d.Contains("min"));
-					if (!validatorsHasValidatorMinOrMax)
+					if (!validatorsHasValidatorMinOrMax) // no programmer defined validator about max and min
 					{
-						if (integralValidatorsDic.TryGetValue(fieldTypeInfo.TypeFullName, out var integralValidators))
+						if (integralJsNumberValidatorsDic.TryGetValue(fieldTypeInfo.TypeFullName, out var integralValidators))
 						{
 							validatorList.Add(integralValidators);
 						}
+					}
+
+					if (integralJsStringValidatorsDic.TryGetValue(fieldTypeInfo.TypeFullName, out var integralJsStringValidators)){
+						validatorList.Add(integralJsStringValidators);
 					}
 				}
 

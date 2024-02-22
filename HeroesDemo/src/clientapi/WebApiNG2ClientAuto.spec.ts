@@ -2146,7 +2146,7 @@ describe('TextData API', () => {
 /**
  * With customized serialization on ASP.NET Core Web API
  */
-xdescribe('Numbers API', () => {
+describe('Numbers API', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
     beforeEach(async(() => {
@@ -2216,10 +2216,201 @@ response:
     }
     );
 
+    it('postIntegralEntity', (done) => {
+        service.postIntegralEntity({ name: 'Some one', byte: 255, uShort: 65535 }).subscribe(
+            r => {
+                expect(r.byte).toBe(255);
+                expect(r.uShort).toBe(65535);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * ASP.NET will validate complex object by default, and make it null if a property is invalid.
+     */
+    it('postIntegralEntityInvalid', (done) => {
+        service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).subscribe(
+            r => {
+                expect(r).toBeNull();
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * Backend checks if the data is null, likely due to invalid properties. And throw error.
+     */
+    it('postIntegralEntityInvalidButBackendCheckNull', (done) => {
+        service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).subscribe(
+            r => {
+                fail('backend should throw 500')
+                done();
+            },
+            error => {
+                console.error(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+
+    it('postUShort', (done) => {
+        service.postByDOfUInt16(65535).subscribe(
+            r => {
+                expect(r).toBe(65535);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * ASP.NET Web API just give 0 back
+     */
+    it('postUShortInvalid', (done) => {
+        service.postByDOfUInt16(65540).subscribe(
+            r => {
+                expect(r).toBe(0);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postByte', (done) => {
+        service.postByDOfByte(255).subscribe(
+            r => {
+                expect(r).toBe(255);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * ASP.NET Web API check ModelState and throw
+     */
+    it('postByteInvalid', (done) => {
+        service.postByDOfByte(258).subscribe(
+            r => {
+                fail("backend should throw");
+                done();
+            },
+            error => {
+                console.error(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('getByte', (done) => {
+        service.getByte(255).subscribe(
+            r => {
+                expect(r).toBe(255);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * ASP.NET Web API just give 0 back, if the API does not check ModelState and throw
+     */
+    it('getByteInvalid', (done) => {
+        service.getByte(258).subscribe(
+            r => {
+                expect(r).toBe(0);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * ASP.NET Web API just give 0 back
+     */
+    it('postByteWithNegativeInvalid', (done) => {
+        service.postByDOfByte(-10).subscribe(
+            r => {
+                fail("backend throws")
+                done();
+            },
+            error => {
+                console.error(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    it('postSByte', (done) => {
+        service.postByDOfSByte(127).subscribe(
+            r => {
+                expect(r).toBe(127);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
+    /**
+     * ASP.NET Web API just give 0 back
+     */
+    it('postSByteInvalid', (done) => {
+        service.postByDOfSByte(130).subscribe(
+            r => {
+                expect(r).toBe(0);
+                done();
+            },
+            error => {
+                fail(errorResponseToString(error));
+                done();
+            }
+        );
+    }
+    );
+
     it('postInt64', (done) => {
         service.postInt64('9223372036854775807').subscribe(
             r => {
-                expect(BigInt(r)).toBe(BigInt('9223372036854775807')); 
+                expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
                 done();
             },
             error => {

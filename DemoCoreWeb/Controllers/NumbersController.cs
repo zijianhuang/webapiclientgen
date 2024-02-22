@@ -19,6 +19,23 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpPost]
+		[Route("IntegralEntity")]
+		public IntegralEntity PostIntegralEntity([FromBody] IntegralEntity integralEntity)
+		{
+			return integralEntity;
+		}
+
+		[HttpPost]
+		[Route("IntegralEntityMustBeValid")]
+		public IntegralEntity PostIntegralEntityMustBeValid([FromBody] IntegralEntity integralEntity)
+		{
+			if (integralEntity == null){
+				throw new ArgumentNullException(nameof(integralEntity), "The client posted null or invalid object.");
+			}
+			return integralEntity;
+		}
+
+		[HttpPost]
 		[Route("int64")]
 		public long PostInt64([FromBody] long int64)
 		{
@@ -63,6 +80,17 @@ namespace DemoWebApi.Controllers
 		[HttpPost]
 		[Route("byte")]
 		public byte Post([FromBody] byte d)
+		{
+			if (!ModelState.IsValid){
+				throw new ArgumentException("Invalid byte");
+			}
+
+			return d;
+		}
+
+		[HttpGet]
+		[Route("byte")]
+		public byte GetByte([FromQuery] byte d)
 		{
 			return d;
 		}

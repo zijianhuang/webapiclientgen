@@ -2174,25 +2174,25 @@ describe('Numbers API', () => {
             signed128: '170141183460469231731687303715884105727',
             bigInt: '6277101735386680762814942322444851025767571854389858533375', // 3 unsigned64, 192bits
         };
-/**
-request:
-{
-"unsigned64":"18446744073709551615",
-"signed64":"9223372036854775807",
-"unsigned128":"340282366920938463463374607431768211455",
-"signed128":"170141183460469231731687303715884105727",
-"bigInt":"6277101735386680762814942322444851025767571854389858533375"
-}
-response:
-{
-    "signed64": 9223372036854775807,
-    "unsigned64": 18446744073709551615,
-    "signed128": "170141183460469231731687303715884105727",
-    "unsigned128": "340282366920938463463374607431768211455",
-    "bigInt": 6277101735386680762814942322444851025767571854389858533375
-}
-
- */
+        /**
+        request:
+        {
+        "unsigned64":"18446744073709551615",
+        "signed64":"9223372036854775807",
+        "unsigned128":"340282366920938463463374607431768211455",
+        "signed128":"170141183460469231731687303715884105727",
+        "bigInt":"6277101735386680762814942322444851025767571854389858533375"
+        }
+        response:
+        {
+            "signed64": 9223372036854775807,
+            "unsigned64": 18446744073709551615,
+            "signed128": "170141183460469231731687303715884105727",
+            "unsigned128": "340282366920938463463374607431768211455",
+            "bigInt": 6277101735386680762814942322444851025767571854389858533375
+        }
+        
+         */
         service.postBigNumbers(d).subscribe(
             r => {
                 expect(BigInt(r.unsigned64!)).toBe(BigInt('18446744073709551615'));
@@ -2242,6 +2242,7 @@ response:
             },
             error => {
                 fail(errorResponseToString(error));
+                expect().nothing();
                 done();
             }
         );
@@ -2259,6 +2260,7 @@ response:
             },
             error => {
                 console.error(errorResponseToString(error));
+                expect().nothing();
                 done();
             }
         );
@@ -2322,6 +2324,7 @@ response:
             },
             error => {
                 console.error(errorResponseToString(error));
+                expect().nothing();
                 done();
             }
         );
@@ -2370,6 +2373,7 @@ response:
             },
             error => {
                 console.error(errorResponseToString(error));
+                expect().nothing();
                 done();
             }
         );
@@ -2438,7 +2442,7 @@ response:
     it('postInt64Smaller', (done) => {
         service.postInt64('9223372036854775123').subscribe(
             r => {
-                expect(BigInt(r)).toBe(BigInt('9223372036854775123')); 
+                expect(BigInt(r)).toBe(BigInt('9223372036854775123'));
                 done();
             },
             error => {
@@ -2469,7 +2473,7 @@ response:
         service.postBigInteger('123').subscribe(
             r => {
                 expect(BigInt(r)).toBe(BigInt(123n));
-               done();
+                done();
             },
             error => {
                 fail(errorResponseToString(error));
@@ -2485,9 +2489,9 @@ response:
         // response: "6277101735386680762814942322444851025767571854389858533375"
         service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').subscribe(
             r => {
-                expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n)); 
-                expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); 
-               done();
+                expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
+                expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
+                done();
             },
             error => {
                 fail(errorResponseToString(error));
@@ -2500,7 +2504,7 @@ response:
     it('postReallyBigInt80bits', (done) => {
         service.postBigInteger('604462909807314587353087').subscribe(
             r => {
-                expect(BigInt(r).valueOf()).toBe(604462909807314587353087n); 
+                expect(BigInt(r).valueOf()).toBe(604462909807314587353087n);
                 expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087'));
                 done();
             },

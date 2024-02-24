@@ -4,7 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<Authors>Zijian Huang</Authors>
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>

@@ -12,5 +12,6 @@ set packCmd=dotnet pack --no-build --output C:\NugetLocalFeeds --configuration R
 %packCmd% WebApiClientGenCore.Fetch/WebApiClientGenCore.Fetch.csproj
 %packCmd% WebApiClientGenCore.jQuery/WebApiClientGenCore.jQuery.csproj
 
-%packCmd% WebApiClientGenCore.Fetch/Fonlow.DateOnlyExtensions.csproj
-%packCmd% WebApiClientGenCore.Fetch/Fonlow.DateOnlyExtensionsTextJson.csproj
+%packCmd% Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj
+%packCmd% Fonlow.DateOnlyExtensionsNet\Fonlow.DateOnlyExtensionsTextJson.csproj
+%packCmd% Fonlow.IntegralExtension\Fonlow.IntegralExtensions.csproj

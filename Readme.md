@@ -11,17 +11,17 @@ This project delivers these products:
 1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. A .NET Framework package is also available.
 
 
-![Packages](/Doc/Images/WebApiClientGen.png)
+![Packages](/Doc/images/WebApiClientGen.png)
 
 ## Use Cases and Downloads
 
 The products are released mostly through NuGet.
 1. Develop TypeScript code generator through the CodeDOM approach, then use package [Fonlow.TypeScriptCodeDOMCore](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore).
 1. Develop TypeScript code generator through the CodeDOM approach for POCO and more, then use package [Fonlow.Poco2TSCore](https://www.nuget.org/packages/Fonlow.Poco2TsCore) 
-1. Generate TypeScript type interfaces, then use Poco2TSCore.exe.
+1. Generate TypeScript type interfaces, then use [Poco2TSCore.exe, a console app](https://github.com/zijianhuang/webapiclientgen/releases/tag/v7.2).
 1. Develop a feature that reads XML document of an .NET assembly, then use package [Fonlow.DocCommentCore](https://www.nuget.org/packages/Fonlow.DocCommentCore).
 1. Generate C# client API, then use package [Fonlow.WebApiClientGenCore](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/)
-1. Generate TypeScript client API, then use one of the plugins:
+1. Generate TypeScript client API, then use one of the plugins of Fonlow.WebApiClientGenCore:
     1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/HttpClient.ts)
     1. [Angular 6+](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2/)
     1. [Angular 6+, plus FormGroup creation for Reactive Forms](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2FormGroup/) with [Description](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms)
@@ -130,6 +130,7 @@ For more details, please check [WIKI](https://github.com/zijianhuang/webapiclien
 1. [Generate TypeScript Client API for ASP.NET Web API](https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api)
 1. [ASP.NET Web API, Angular2, TypeScript and WebApiClientGen](https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie)
 1. [Generate C# Client API for ASP.NET Core Web API](https://www.codeproject.com/Articles/1243908/Generate-Csharp-Client-API-for-ASP-NET-Core-Web-AP)
+1. [Intended Solutions for Intentional Limitations of Strongly Typed OpenAPI Client Generators](https://www.codeproject.com/Articles/5376030/Intended-Solutions-for-Intentional-Limitations-of). The article is just using OpenApiClientGen as an example, while the principles and solutions can be applied to generated codes by WebApiClientGen for your client apps.
 1. [DateOnly in ASP.NET Core 6](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6)
 
 ## Demo Applications

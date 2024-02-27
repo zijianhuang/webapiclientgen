@@ -302,13 +302,13 @@ namespace Fonlow.TypeScriptCodeDom
 					var validatorsHasValidatorMinOrMax = validatorList.Exists(d => d.Contains("max(") || d.Contains("min"));
 					if (!validatorsHasValidatorMinOrMax) // no programmer defined validator about max and min
 					{
-						if (integralJsNumberValidatorsDic.TryGetValue(fieldTypeInfo.TypeFullName, out var integralValidators))
+						if (integralJsNumberValidatorsDic.TryGetValue(fieldTypeInfo.ClrType.FullName, out var integralValidators))
 						{
 							validatorList.Add(integralValidators);
 						}
 					}
 
-					if (integralJsStringValidatorsDic.TryGetValue(fieldTypeInfo.TypeFullName, out var integralJsStringValidators)){
+					if (integralJsStringValidatorsDic.TryGetValue(fieldTypeInfo.ClrType.FullName, out var integralJsStringValidators)){
 						validatorList.Add(integralJsStringValidators);
 					}
 				}

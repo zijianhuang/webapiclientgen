@@ -748,9 +748,9 @@ namespace Fonlow.Poco2Client
 		/// <summary>
 		/// Return a list of comments from validation attributes of property.
 		/// </summary>
-		/// <param name="property"></param>
+		/// <param name="memberInfo"></param>
 		/// <returns>Empty array if no comment</returns>
-		string[] GenerateCommentsFromAttributes(MemberInfo property)
+		string[] GenerateCommentsFromAttributes(MemberInfo memberInfo)
 		{
 			if ((dataAnnotationsToComments.HasValue && !dataAnnotationsToComments.Value) || //dataModel.dataAnnotationsToComments explicitly tells not to
 				(!dataAnnotationsToComments.HasValue && !settings.DataAnnotationsToComments)) // dataModel.dataAnnotationsToComments does not tell, and global setting tells not to
@@ -758,37 +758,39 @@ namespace Fonlow.Poco2Client
 				return new string[] { };
 			}
 
-			List<string> ss = new();
-			var attributes = property.GetCustomAttributes().ToList();
-			attributes.Sort((x, y) =>
-			{
-				// Special-case RequiredAttribute so that it shows up on top
-				if (x is RequiredAttribute)
-				{
-					return -1;
-				}
-				if (y is RequiredAttribute)
-				{
-					return 1;
-				}
+			return CommentsHelper.GenerateCommentsFromAttributes(memberInfo.GetCustomAttributes().ToList(), attribueCommentDic);
 
-				return 0;
-			});
+			//List<string> ss = new();
+			//var attributes = memberInfo.GetCustomAttributes().ToList();
+			//attributes.Sort((x, y) =>
+			//{
+			//	// Special-case RequiredAttribute so that it shows up on top
+			//	if (x is RequiredAttribute)
+			//	{
+			//		return -1;
+			//	}
+			//	if (y is RequiredAttribute)
+			//	{
+			//		return 1;
+			//	}
 
-			foreach (Attribute attribute in attributes)
-			{
-				if (attribueCommentDic.TryGetValue(attribute.GetType(), out Func<object, string> textGenerator))
-				{
-					ss.Add(textGenerator(attribute));
-				}
-			}
+			//	return 0;
+			//});
 
-			return ss.ToArray();
+			//foreach (Attribute attribute in attributes)
+			//{
+			//	if (attribueCommentDic.TryGetValue(attribute.GetType(), out Func<object, string> textGenerator))
+			//	{
+			//		ss.Add(textGenerator(attribute));
+			//	}
+			//}
+
+			//return ss.ToArray();
 		}
 
-		void AddValidationAttributes(MemberInfo property, CodeTypeMember codeTypeMember, bool requiredAdded)
+		void AddValidationAttributes(MemberInfo memberInfo, CodeTypeMember codeTypeMember, bool requiredAdded)
 		{
-			var attributes = property.GetCustomAttributes().ToList();
+			var attributes = memberInfo.GetCustomAttributes().ToList();
 			attributes.Sort((x, y) =>
 			{
 				// Special-case RequiredAttribute so that it shows up on top

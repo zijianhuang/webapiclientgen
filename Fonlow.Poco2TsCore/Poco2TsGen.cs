@@ -144,8 +144,8 @@ namespace Fonlow.Poco2Ts
 				var dm = docLookup.GetMember("P:" + propertyFullName);
 				var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
 				bool rangeAttributeExists = propertyInfo.GetCustomAttributes().Any(attribute => attribute.GetType() == typeof(RangeAttribute));
-				List<string> comments = new(commentsFromAttributes);
-				if ((dm == null || dm.summary == null) && commentsFromAttributes?.Length == 0)
+				List<string> extraLines = new();
+				if (dm == null || dm.summary == null)
 				{
 					var typeCommentExists = dotNetTypeCommentDic.TryGetValue(propertyInfo.PropertyType, out string commentFromProperType);
 					if (typeCommentExists)
@@ -153,17 +153,19 @@ namespace Fonlow.Poco2Ts
 						if (rangeAttributeExists)
 						{
 							var splited = commentFromProperType.Split(",");
-							comments.Add(splited[0]);
+							extraLines.Add(splited[0]);
 						}
 						else
 						{
-							comments.Add(commentFromProperType);
+							extraLines.Add(commentFromProperType);
 
 						}
 					}
+
+					extraLines.AddRange(commentsFromAttributes);
 				}
 
-				AddDocComments(codeField.Comments, dm, comments);
+				AddDocComments(codeField.Comments, dm, extraLines);
 			}
 		}
 

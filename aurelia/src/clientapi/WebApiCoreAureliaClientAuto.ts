@@ -2,14 +2,26 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {autoinject} from 'aurelia-framework';
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
+
+		/** String length: inclusive between 2 and 50 */
 		city?: string | null;
+
+		/** String length: inclusive between 2 and 30 */
 		country?: string | null;
 
 		/** Type: GUID */
 		id?: string | null;
+
+		/** String length: inclusive between 2 and 10 */
 		postalCode?: string | null;
+
+		/** String length: inclusive between 2 and 30 */
 		state?: string | null;
+
+		/** String length: inclusive between 2 and 100 */
 		street1?: string | null;
+
+		/** String length: inclusive between 2 and 100 */
 		street2?: string | null;
 		type?: DemoWebApi_DemoData_Client.AddressType | null;
 
@@ -48,6 +60,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		BusinessNum?: string | null;
 		businessNumberType?: string | null;
+
+		/** Data type: Date */
 		foundDate?: Date | null;
 
 		/** Type: DateOnly */
@@ -96,7 +110,10 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: int, -2,147,483,648 to 2,147,483,647 */
 		int?: number | null;
 
-		/** Type: int */
+		/**
+		 * Type: int
+		 * Range: inclusive between -1000 and 1000000
+		 */
 		itemCount?: number | null;
 
 		/** Type: sbyte, -128 to 127 */
@@ -118,7 +135,10 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export interface MimsPackage {
 
-		/** Type: int */
+		/**
+		 * Type: int
+		 * Range: inclusive between 10 and 100
+		 */
 		kk?: number | null;
 
 		/**
@@ -155,6 +175,8 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
+
+		/** Data type: Date */
 		baptised?: Date | null;
 
 		/**
@@ -167,6 +189,8 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 
 	export interface PhoneNumber {
+
+		/** Max length: 120 */
 		fullNumber?: string | null;
 		phoneType?: DemoWebApi_DemoData_Client.PhoneType | null;
 	}
@@ -226,6 +250,8 @@ export namespace DemoWebApi_DemoData_Base_Client {
 		 * Multiple addresses
 		 */
 		addresses?: Array<DemoWebApi_DemoData_Client.Address>;
+
+		/** Max length: 255 */
 		emailAddress?: string | null;
 		id?: string | null;
 
@@ -243,32 +269,71 @@ export namespace DemoWebApi_DemoData_Base_Client {
 
 export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
+
+		/** Required */
 		externalAccessToken?: string | null;
 	}
 
 	export interface ChangePasswordBindingModel {
+
+		/** Data type: Password */
 		confirmPassword?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
 		newPassword?: string | null;
+
+		/**
+		 * Required
+		 * Data type: Password
+		 */
 		OldPwd: string;
 	}
 
 	export interface RegisterBindingModel {
+
+		/** Data type: Password */
 		confirmPassword?: string | null;
+
+		/** Required */
 		email?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
 		password?: string | null;
 	}
 
 	export interface RegisterExternalBindingModel {
+
+		/** Required */
 		email?: string | null;
 	}
 
 	export interface RemoveLoginBindingModel {
+
+		/** Required */
 		loginProvider?: string | null;
+
+		/** Required */
 		providerKey?: string | null;
 	}
 
 	export interface SetPasswordBindingModel {
+
+		/** Data type: Password */
 		confirmPassword?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
 		newPassword?: string | null;
 	}
 
@@ -321,8 +386,15 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		id?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 2 and 120
+		 */
 		name?: string | null;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+
+		/** Min length: 6 */
 		webAddress?: string | null;
 	}
 

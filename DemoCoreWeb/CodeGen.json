@@ -54,6 +54,7 @@
 				"TargetDir": "..\\..\\..\\..\\Scripts\\ClientApi",
 				"TSFile": "WebApiCoreJQClientAuto.ts",
 				"AsModule": false,
+				"DataAnnotationsToComments": true,
 				"ContentType": "application/json;charset=UTF-8"
 			},
 
@@ -86,6 +87,7 @@
 				"TargetDir": "..\\..\\..\\..\\..\\axios\\src\\clientapi",
 				"TSFile": "WebApiCoreAxiosClientAuto.ts",
 				"AsModule": true,
+				"DataAnnotationsToComments": true,
 				"ContentType": "application/json;charset=UTF-8"
 			},
 
@@ -94,6 +96,7 @@
 				"TargetDir": "..\\..\\..\\..\\..\\aurelia\\src\\clientapi",
 				"TSFile": "WebApiCoreAureliaClientAuto.ts",
 				"AsModule": true,
+				"DataAnnotationsToComments": true,
 				"ContentType": "application/json;charset=UTF-8"
 			},
 
@@ -103,6 +106,7 @@
 				"TSFile": "WebApiCoreFetchClientAuto.ts",
 				"AsModule": true,
 				"ContentType": "application/json;charset=UTF-8",
+				"DataAnnotationsToComments": true,
 				"HelpStrictMode": true
 			}
 

@@ -230,7 +230,10 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: int, -2,147,483,648 to 2,147,483,647 */
 		int?: number | null;
 
-		/** Range: inclusive between -1000 and 1000000 */
+		/**
+		 * Type: int
+		 * Range: inclusive between -1000 and 1000000
+		 */
 		itemCount?: number | null;
 
 		/** Type: sbyte, -128 to 127 */
@@ -253,7 +256,10 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: int, -2,147,483,648 to 2,147,483,647 */
 		int: FormControl<number | null | undefined>,
 
-		/** Range: inclusive between -1000 and 1000000 */
+		/**
+		 * Type: int
+		 * Range: inclusive between -1000 and 1000000
+		 */
 		itemCount: FormControl<number | null | undefined>,
 
 		/** Type: sbyte, -128 to 127 */
@@ -291,7 +297,10 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export interface MimsPackage {
 
-		/** Range: inclusive between 10 and 100 */
+		/**
+		 * Type: int
+		 * Range: inclusive between 10 and 100
+		 */
 		kk?: number | null;
 
 		/**
@@ -306,7 +315,10 @@ export namespace DemoWebApi_DemoData_Client {
 	}
 	export interface MimsPackageFormProperties {
 
-		/** Range: inclusive between 10 and 100 */
+		/**
+		 * Type: int
+		 * Range: inclusive between 10 and 100
+		 */
 		kk: FormControl<number | null | undefined>,
 
 		/**
@@ -513,9 +525,6 @@ export namespace DemoWebApi_DemoData_Base_Client {
 
 		/**
 		 * Name of the entity.
-		 * Required
-		 * Min length: 2
-		 * Max length: 255
 		 */
 		name: string;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
@@ -535,9 +544,6 @@ export namespace DemoWebApi_DemoData_Base_Client {
 
 		/**
 		 * Name of the entity.
-		 * Required
-		 * Min length: 2
-		 * Max length: 255
 		 */
 		name: FormControl<string | null | undefined>,
 

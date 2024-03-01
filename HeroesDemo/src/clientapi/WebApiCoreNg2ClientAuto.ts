@@ -986,7 +986,8 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Numbers/intRange
-		 * @param {number} d Type: int, -2,147,483,648 to 2,147,483,647
+		 * @param {number} d Type: int
+		 *     Range: inclusive between 1 and 100
 		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		postIntWithRange(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
@@ -996,7 +997,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
 		 * POST api/Numbers/longRange
-		 * @param {string} d Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+		 * @param {string} d Type: long
+		 *     Range: inclusive between 1000 and 9223372036854775800
 		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */
 		postLongWithRange(d?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {

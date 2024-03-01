@@ -60,25 +60,28 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
 
-			if (jsOutput.HelpStrictMode)
+
+			var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
+			if (methodInfo != null)
 			{
-				var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
-				if (methodInfo != null)
+				parameterInfoArray = methodInfo.GetParameters();
+				if (parameterInfoArray == null)
 				{
-					parameterInfoArray = methodInfo.GetParameters();
-					if (jsOutput.MaybeNullAttributeOnMethod)
-					{
-						ReturnTypeIsNullable = ReturnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
-					}
-					else if (jsOutput.NotNullAttributeOnMethod)
-					{
-						ReturnTypeIsNullable = ReturnType != null && !Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
-					}
+					parameterInfoArray = Array.Empty<ParameterInfo>();
 				}
-				else
+
+				if (jsOutput.MaybeNullAttributeOnMethod)
 				{
-					throw new ArgumentException("Is this possible, without methodInfo?");
+					ReturnTypeIsNullable = ReturnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
 				}
+				else if (jsOutput.NotNullAttributeOnMethod)
+				{
+					ReturnTypeIsNullable = ReturnType != null && !Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
+				}
+			}
+			else
+			{
+				throw new ArgumentException("Is this possible, without methodInfo?");
 			}
 
 			//create method
@@ -151,22 +154,22 @@ namespace Fonlow.CodeDom.Web.Ts
 			builder.AppendLine(Description.HttpMethod + " " + Description.RelativePath);
 			foreach (var paramDesc in Description.ParameterDescriptions)
 			{
-				var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);
-				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
-				if (String.IsNullOrEmpty(parameterComment))
-				{
-					bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
-					if (paramTypeCommentExists)
-					{
-						builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {paramTypeComment}");
-					}
-				}
-				else
-				{
-					builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {parameterComment}");
-				}
+				//var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);
 				//var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
-				//CreateParamDocComment(builder, paramDesc, parameterComment);
+				//if (String.IsNullOrEmpty(parameterComment))
+				//{
+				//	bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
+				//	if (paramTypeCommentExists)
+				//	{
+				//		builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {paramTypeComment}");
+				//	}
+				//}
+				//else
+				//{
+				//	builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {parameterComment}");
+				//}
+				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
+				CreateParamDocComment(builder, paramDesc, parameterComment);
 			}
 
 			Type responseType = Description.ResponseDescription.ResponseType ?? Description.ResponseDescription.DeclaredType;
@@ -212,27 +215,35 @@ namespace Fonlow.CodeDom.Web.Ts
 			List<string> lines = new();
 			if (jsOutput.DataAnnotationsToComments)
 			{
-				var parameterInfo = parameterInfoArray.Single(p => p.Name == paramDesc.Name);
-				var customAttributes = parameterInfo.GetCustomAttributes().ToList();
-				bool rangeAttributeExists = customAttributes.Any(d => d.GetType() == typeof(RangeAttribute));
-				bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
-				if (paramTypeCommentExists)
+				try
 				{
-					if (rangeAttributeExists)
+					var parameterInfo = parameterInfoArray.Single(p => p.Name == paramDesc.Name);
+					var customAttributes = parameterInfo.GetCustomAttributes().ToList();
+					bool rangeAttributeExists = customAttributes.Any(d => d.GetType() == typeof(RangeAttribute));
+					bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
+					if (paramTypeCommentExists)
 					{
-						var splited = paramTypeComment.Split(",");
-						lines.Add(splited[0]);
+						if (rangeAttributeExists)
+						{
+							var splited = paramTypeComment.Split(",");
+							lines.Add(splited[0]);
+						}
+						else
+						{
+							lines.Add(paramTypeComment);
+						}
 					}
-					else
+
+					var commentsFromAttributes = CommentsHelper.GenerateCommentsFromAttributes(customAttributes, attribueCommentDic);
+					if (commentsFromAttributes.Length > 0)
 					{
-						lines.Add(paramTypeComment);
+						lines.AddRange(commentsFromAttributes);
 					}
 				}
-
-				var commentsFromAttributes = CommentsHelper.GenerateCommentsFromAttributes(customAttributes, attribueCommentDic);
-				if (commentsFromAttributes.Length > 0)
+				catch (ArgumentNullException ex)
 				{
-					lines.AddRange(commentsFromAttributes);
+					Console.Error.WriteLine(ex.ToString());
+					throw;
 				}
 			}
 

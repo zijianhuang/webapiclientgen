@@ -35,6 +35,9 @@ namespace Fonlow.CodeDom.Web
 		   "UInt64[]",
 		   "Int16[]",
 		   "UInt16[]",
+		   "Int128[]",
+		   "UInt128[]",
+		   "BigInteger[]",
 	   }
 	   );
 
@@ -49,7 +52,7 @@ namespace Fonlow.CodeDom.Web
 
 		public static string Transform(string newUriText, ParameterDescription d)
 		{
-			if (d.ParameterDescriptor.ParameterBinder== ParameterBinder.FromQuery)
+			if (d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery)
 			{
 				bool queryExists = newUriText.Contains("?");
 				newUriText += queryExists ? "&" : "?";
@@ -173,11 +176,11 @@ namespace Fonlow.CodeDom.Web
 
 				if (d.ParameterDescriptor.ParameterType == typeofString)
 				{
-					return newUriText+=$"(!{d.Name} ? '' : {d.Name}=' + encodeURIComponent({d.Name})) + '";
+					return newUriText += $"(!{d.Name} ? '' : {d.Name}=' + encodeURIComponent({d.Name})) + '";
 				}
 				else if (d.ParameterDescriptor.ParameterType == typeofDateTime || d.ParameterDescriptor.ParameterType == typeofDateTimeOffset)
 				{
-					return newUriText+= $"{d.Name}=' + {d.Name}?.toISOString() + '";
+					return newUriText += $"{d.Name}=' + {d.Name}?.toISOString() + '";
 				}
 				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
@@ -187,7 +190,7 @@ namespace Fonlow.CodeDom.Web
 				}
 				else
 				{
-					return newUriText+= $"{d.Name}=' + {d.Name} + '";
+					return newUriText += $"{d.Name}=' + {d.Name} + '";
 				}
 			}
 			else
@@ -222,8 +225,8 @@ namespace Fonlow.CodeDom.Web
 				}
 				else if (IsSimpleArrayType(d.ParameterDescriptor.ParameterType) || IsSimpleListType(d.ParameterDescriptor.ParameterType))
 				{
-					var elementBaseTypeIsEnum = d.ParameterDescriptor.ParameterType.GenericTypeArguments.Length>0 && d.ParameterDescriptor.ParameterType.GenericTypeArguments[0].BaseType?.FullName == "System.Enum";
-					var arrayQuery = elementBaseTypeIsEnum?
+					var elementBaseTypeIsEnum = d.ParameterDescriptor.ParameterType.GenericTypeArguments.Length > 0 && d.ParameterDescriptor.ParameterType.GenericTypeArguments[0].BaseType?.FullName == "System.Enum";
+					var arrayQuery = elementBaseTypeIsEnum ?
 						$"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{z}}`).join('&')"
 						: $"{d.ParameterDescriptor.ParameterName}?.map(z => `{d.ParameterDescriptor.ParameterName}=${{encodeURIComponent(z)}}`).join('&')";
 					var placeHolder = $"{d.ParameterDescriptor.ParameterName}={{{d.ParameterDescriptor.ParameterName}}}";

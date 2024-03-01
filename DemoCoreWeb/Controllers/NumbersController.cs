@@ -1,6 +1,7 @@
 ﻿using DemoWebApi.DemoData;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 using System.Threading.Tasks;
 namespace DemoWebApi.Controllers
@@ -29,7 +30,8 @@ namespace DemoWebApi.Controllers
 		[Route("IntegralEntityMustBeValid")]
 		public IntegralEntity PostIntegralEntityMustBeValid([FromBody] IntegralEntity integralEntity)
 		{
-			if (integralEntity == null){
+			if (integralEntity == null)
+			{
 				throw new ArgumentNullException(nameof(integralEntity), "The client posted null or invalid object.");
 			}
 			return integralEntity;
@@ -81,7 +83,8 @@ namespace DemoWebApi.Controllers
 		[Route("byte")]
 		public byte Post([FromBody] byte d)
 		{
-			if (!ModelState.IsValid){
+			if (!ModelState.IsValid)
+			{
 				throw new ArgumentException("Invalid byte");
 			}
 
@@ -92,6 +95,24 @@ namespace DemoWebApi.Controllers
 		[Route("byte")]
 		public byte GetByte([FromQuery] byte d)
 		{
+			return d;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="d">Byte for small number.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException"></exception>
+		[HttpGet]
+		[Route("byteWithRange")]
+		public byte GetByteWithRange([FromQuery, Range(0, 100)] byte d)
+		{
+			if (!ModelState.IsValid)
+			{
+				throw new ArgumentException("Out of range");
+			}
+
 			return d;
 		}
 
@@ -124,9 +145,38 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpPost]
+		[Route("intRange")]
+		public int PostIntWithRange([FromBody, Range(1, 100)] int d)
+		{
+			if (!ModelState.IsValid)
+			{
+				throw new ArgumentException("Out of range");
+			}
+
+			return d;
+		}
+
+		[HttpPost]
 		[Route("long")]
 		public long Post([FromBody] long d)
 		{
+			return d;
+		}
+
+		/// <summary>
+		/// Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
+		/// </summary>
+		/// <param name="d"></param>
+		/// <returns></returns>
+		[HttpPost]
+		[Route("longRange")]
+		public long PostLongWithRange([FromBody, Range(typeof(long), "1000", "9223372036854775800")] long d)
+		{
+			if (!ModelState.IsValid)
+			{
+				throw new ArgumentException("Out of range");
+			}
+
 			return d;
 		}
 

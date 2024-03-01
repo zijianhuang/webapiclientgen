@@ -3606,6 +3606,56 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// GET api/Numbers/byteWithRange?d={d}
+		/// </summary>
+		/// <param name="d">Byte for small number.
+		/// Range: inclusive between 0 and 100
+		/// </param>
+		public async Task<byte> GetByteWithRangeAsync(byte d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Numbers/byteWithRange?d="+d;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				return System.Byte.Parse(jsonReader.ReadAsString());
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Numbers/byteWithRange?d={d}
+		/// </summary>
+		/// <param name="d">Byte for small number.
+		/// Range: inclusive between 0 and 100
+		/// </param>
+		public byte GetByteWithRange(byte d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Numbers/byteWithRange?d="+d;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				return System.Byte.Parse(jsonReader.ReadAsString());
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
 		/// POST api/Numbers/byte
 		/// </summary>
 		public async Task<byte> PostAsync(byte d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4366,6 +4416,120 @@ namespace DemoWebApi.Controllers.Client
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.IntegralEntity>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Numbers/intRange
+		/// </summary>
+		/// <param name="d">Range: inclusive between 1 and 100</param>
+		public async Task<int> PostIntWithRangeAsync(int d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Numbers/intRange";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, d);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				return System.Int32.Parse(jsonReader.ReadAsString());
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Numbers/intRange
+		/// </summary>
+		/// <param name="d">Range: inclusive between 1 and 100</param>
+		public int PostIntWithRange(int d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Numbers/intRange";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, d);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				return System.Int32.Parse(jsonReader.ReadAsString());
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
+		/// POST api/Numbers/longRange
+		/// </summary>
+		/// <param name="d">Range: inclusive between 1000 and 9223372036854775800</param>
+		public async Task<long> PostLongWithRangeAsync(long d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Numbers/longRange";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, d);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				return System.Int64.Parse(jsonReader.ReadAsString());
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
+		/// POST api/Numbers/longRange
+		/// </summary>
+		/// <param name="d">Range: inclusive between 1000 and 9223372036854775800</param>
+		public long PostLongWithRange(long d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Numbers/longRange";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, d);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				return System.Int64.Parse(jsonReader.ReadAsString());
 			}
 			finally
 			{

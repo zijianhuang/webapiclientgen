@@ -81,7 +81,7 @@ namespace Fonlow.Web.Meta
 						responseType = null;
 					}
 				}
-
+				
 				var dr = new WebApiDescription(description.ActionDescriptor.Id)
 				{
 					ActionDescriptor = new ActionDescriptor()
@@ -113,7 +113,7 @@ namespace Fonlow.Web.Meta
 						{
 							throw new CodeGenException($"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} may have invalid parameters.");
 						}
-
+						
 						var parameterType = descriptor.ParameterType;
 						var isValueType = TypeHelper.IsValueType(parameterType);
 						var isNullablePrimitive = TypeHelper.IsNullablePrimitive(parameterType);

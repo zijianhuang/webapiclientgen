@@ -6,6 +6,9 @@ using Fonlow.Reflection;
 using Fonlow.Web.Meta;
 using System.Collections.Generic;
 using Fonlow.Poco2Ts;
+using System.Reflection;
+using System.Xml.Linq;
+using Fonlow.Poco2Client;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -31,6 +34,8 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly bool stringAsString;
 		readonly string statementOfEnsureSuccessStatusCode;
 		readonly CodeGenOutputs settings;
+		readonly System.Reflection.ParameterInfo[] parameterInfoArray;
+		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
 
 		ClientApiFunctionGen(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
@@ -61,6 +66,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			var methodInfo = webApiDescription.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(webApiDescription.ActionDescriptor.MethodName, webApiDescription.ActionDescriptor.MethodTypes);
 			if (methodInfo != null)
 			{
+				parameterInfoArray = methodInfo.GetParameters();
 				if (settings.MaybeNullAttributeOnMethod)
 				{
 					returnTypeDecoratedWithMaybeNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
@@ -70,7 +76,11 @@ namespace Fonlow.CodeDom.Web.Cs
 					returnTypeDecoratedWithNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
 			}
+
+			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
+			attribueCommentDic = annotationCommentGenerator.Get();
 		}
+
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
 		const string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
 		const string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
@@ -87,7 +97,12 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			//create method
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
-
+#if DEBUG
+			if (methodName == "GetByteWithRange")
+			{
+				Console.WriteLine("GetByteWithRange");
+			}
+#endif
 			CreateDocComments();
 			if (settings.MaybeNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
 			{
@@ -151,10 +166,44 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			void CreateParamDocComment(string paramName, string doc)
 			{
-				if (String.IsNullOrWhiteSpace(doc))
-					return;
+				List<string> ss = new();
+				if (!String.IsNullOrWhiteSpace(doc))
+				{
+					ss.Add(doc);
+				}
 
-				clientMethod.Comments.Add(new CodeCommentStatement("<param name=\"" + paramName + "\">" + doc + "</param>", true));
+				if (settings.DataAnnotationsToComments)
+				{
+					var parameterInfo = parameterInfoArray.SingleOrDefault(p => p.Name == paramName);
+					var customAttributes = parameterInfo.GetCustomAttributes();
+					foreach (Attribute a in customAttributes)
+					{
+						if (attribueCommentDic.TryGetValue(a.GetType(), out Func<object, string> textGenerator))
+						{
+							ss.Add(textGenerator(a));
+						}
+					}
+				}
+
+				if (ss.Count == 0)
+				{
+					return;
+				}
+
+				if (ss.Count == 1)
+				{
+					clientMethod.Comments.Add(new CodeCommentStatement("<param name=\"" + paramName + "\">" + ss[0] + "</param>", true));
+				}
+				else
+				{
+					clientMethod.Comments.Add(new CodeCommentStatement("<param name=\"" + paramName + "\">" + ss[0], true));
+					for (int i = 1; i < ss.Count; i++)
+					{
+						clientMethod.Comments.Add(new CodeCommentStatement(ss[i], true));
+					}
+
+					clientMethod.Comments.Add(new CodeCommentStatement("</param>", true));
+				}
 			}
 
 			clientMethod.Comments.Add(new CodeCommentStatement("<summary>", true));
@@ -203,13 +252,10 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			clientMethod.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
 			clientMethod.Comments.Add(new CodeCommentStatement("</summary>", true));
-			foreach (var item in description.ParameterDescriptions)
+			foreach (var pd in description.ParameterDescriptions)
 			{
-				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, item.Name);
-				if (!String.IsNullOrEmpty(parameterComment))
-				{
-					CreateParamDocComment(item.Name, parameterComment);
-				}
+				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, pd.Name);
+				CreateParamDocComment(pd.Name, parameterComment);
 			}
 
 			var returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);
@@ -233,6 +279,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 					return exp;
 				}).ToArray();
+
 			clientMethod.Parameters.AddRange(parameters);
 
 			if (settings.CancellationTokenEnabled)

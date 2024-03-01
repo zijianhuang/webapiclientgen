@@ -50,6 +50,12 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestPostLongWithRange()
+		{
+			Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.PostLongWithRange(9223372036854775800+1));
+		}
+
+		[Fact]
 		public void TestPostULong()
 		{
 			var r = api.PostUint64(ulong.MaxValue);
@@ -126,6 +132,12 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestGetByteWithRange()
+		{
+			Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.GetByteWithRange(101));
+		}
+
+		[Fact]
 		public void TestPostShort()
 		{
 			var r = api.Post(short.MaxValue);
@@ -144,6 +156,12 @@ namespace IntegrationTests
 		{
 			var r = api.Post(int.MaxValue);
 			Assert.Equal(int.MaxValue, r);
+		}
+
+		[Fact]
+		public void TestPostIntWithRange()
+		{
+			Assert.Throws< Fonlow.Net.Http.WebApiRequestException>(()=> api.PostIntWithRange(101));
 		}
 
 		[Fact]

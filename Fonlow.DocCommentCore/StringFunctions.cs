@@ -6,6 +6,11 @@ namespace Fonlow.DocComment
 {
     public static class StringFunctions
     {
+        /// <summary>
+        /// Trim indent of lines presented in a string, and get a new string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>lines in a string but without indent.</returns>
         public static string TrimIndentsOfMultiLineText(string s)
         {
             var noIndent = TrimIndentedMultiLineTextToArray(s);
@@ -20,7 +25,12 @@ namespace Fonlow.DocComment
             return String.Join(Environment.NewLine, noIndent).Trim('\r', '\n');
         }
 
-        public static string[] TrimIndentedMultiLineTextToArray(string s)
+		/// <summary>
+		/// Trim indent of lines presented in a string, and get a new string array
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns>String array, and each member has no indent.</returns>
+		public static string[] TrimIndentedMultiLineTextToArray(string s)
         {
             if (s == null)
                 return null;
@@ -33,6 +43,11 @@ namespace Fonlow.DocComment
             return noIndent;
         }
 
+        /// <summary>
+        /// Try indent of lines presented in string array, even if each member may contain line breaks, and return a new string list.
+        /// </summary>
+        /// <param name="ss"></param>
+        /// <returns></returns>
         public static IList<string> TrimIndentsOfArray(IEnumerable<string> ss)
         {
             if (ss == null)
@@ -49,6 +64,11 @@ namespace Fonlow.DocComment
             return list;
         }
 
+        /// <summary>
+        /// Remove indent, and trim the head empty line and trial empty line.
+        /// </summary>
+        /// <param name="ss"></param>
+        /// <returns></returns>
         public static IList<string> TrimTrimIndentsOfArray(IEnumerable<string> ss)
         {
             var list = TrimIndentsOfArray(ss);
@@ -66,6 +86,11 @@ namespace Fonlow.DocComment
             return list;
         }
 
+        /// <summary>
+        /// Convert a string array to string containing line breaks, and remove indents.
+        /// </summary>
+        /// <param name="ss"></param>
+        /// <returns></returns>
         public static string IndentedArrayToString(IEnumerable<string> ss)
         {
             if (ss == null)

@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 
 namespace Fonlow.Poco2Ts
 {
@@ -142,14 +143,23 @@ namespace Fonlow.Poco2Ts
 				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
 				var dm = docLookup.GetMember("P:" + propertyFullName);
 				var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
+				bool rangeAttributeExists = propertyInfo.GetCustomAttributes().Any(attribute => attribute.GetType() == typeof(RangeAttribute));
 				List<string> comments = new(commentsFromAttributes);
-				string commentFromProperType;
 				if ((dm == null || dm.summary == null) && commentsFromAttributes?.Length == 0)
 				{
-					dotNetTypeCommentDic.TryGetValue(propertyInfo.PropertyType, out commentFromProperType);
-					if (commentFromProperType != null)
+					var typeCommentExists = dotNetTypeCommentDic.TryGetValue(propertyInfo.PropertyType, out string commentFromProperType);
+					if (typeCommentExists)
 					{
-						comments.Add(commentFromProperType);
+						if (rangeAttributeExists)
+						{
+							var splited = commentFromProperType.Split(",");
+							comments.Add(splited[0]);
+						}
+						else
+						{
+							comments.Add(commentFromProperType);
+
+						}
 					}
 				}
 
@@ -289,7 +299,7 @@ namespace Fonlow.Poco2Ts
 								{
 									IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
 									IsArray = clientField.Type.ArrayRank > 0,
-									ClrType= propertyInfo.PropertyType,
+									ClrType = propertyInfo.PropertyType,
 								});
 
 							CreatePropertyDocComment(propertyInfo, clientField);
@@ -630,7 +640,7 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
-		
+
 
 
 	}

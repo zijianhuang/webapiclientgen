@@ -96,7 +96,7 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: int, -2,147,483,648 to 2,147,483,647 */
 		int?: number | null;
 
-		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		/** Type: int */
 		itemCount?: number | null;
 
 		/** Type: sbyte, -128 to 127 */
@@ -118,7 +118,7 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export interface MimsPackage {
 
-		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		/** Type: int */
 		kk?: number | null;
 
 		/**
@@ -785,6 +785,15 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Numbers/byteWithRange?d={d}
+		 * @param {number} d Byte for small number.
+		 * @return {number} Type: byte, 0 to 255
+		 */
+		getByteWithRange(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.get('api/Numbers/byteWithRange?d=' + d, { headers: headersHandler ? headersHandler() : undefined }).then(d => d.json());
+		}
+
+		/**
 		 * POST api/Numbers/byte
 		 * @param {number} d Type: byte, 0 to 255
 		 * @return {number} Type: byte, 0 to 255
@@ -900,6 +909,25 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postIntegralEntityMustBeValid(integralEntity: DemoWebApi_DemoData_Client.IntegralEntity | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.IntegralEntity> {
 			return this.http.post('api/Numbers/IntegralEntityMustBeValid', JSON.stringify(integralEntity), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * POST api/Numbers/intRange
+		 * @param {number} d Type: int, -2,147,483,648 to 2,147,483,647
+		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		postIntWithRange(d: number | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Numbers/intRange', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
+		}
+
+		/**
+		 * Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
+		 * POST api/Numbers/longRange
+		 * @param {string} d Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+		 */
+		postLongWithRange(d: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.post('api/Numbers/longRange', JSON.stringify(d), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());
 		}
 
 		/**

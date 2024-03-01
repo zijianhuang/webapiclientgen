@@ -1342,6 +1342,15 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * GET api/Numbers/byteWithRange?d={d}
+		 * @param {number} d Byte for small number.
+		 * @return {number} Type: byte, 0 to 255
+		 */
+		getByteWithRange(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.get<number>(this.baseUri + 'api/Numbers/byteWithRange?d=' + d, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
 		 * POST api/Numbers/byte
 		 * @param {number} d Type: byte, 0 to 255
 		 * @return {number} Type: byte, 0 to 255
@@ -1457,6 +1466,25 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		postIntegralEntityMustBeValid(integralEntity?: DemoWebApi_DemoData_Client.IntegralEntity | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.IntegralEntity> {
 			return this.http.post<DemoWebApi_DemoData_Client.IntegralEntity>(this.baseUri + 'api/Numbers/IntegralEntityMustBeValid', JSON.stringify(integralEntity), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * POST api/Numbers/intRange
+		 * @param {number} d Type: int, -2,147,483,648 to 2,147,483,647
+		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		postIntWithRange(d?: number | null, headersHandler?: () => HttpHeaders): Observable<number> {
+			return this.http.post<number>(this.baseUri + 'api/Numbers/intRange', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
+		 * Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
+		 * POST api/Numbers/longRange
+		 * @param {string} d Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+		 * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+		 */
+		postLongWithRange(d?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
+			return this.http.post<string>(this.baseUri + 'api/Numbers/longRange', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
 		}
 
 		/**

@@ -10,7 +10,7 @@ namespace Fonlow.Poco2Client
 		/// <summary>
 		/// Generate doc comment for RegularExpressionAttribute for C# codes but not for TypeScript.
 		/// </summary>
-		/// <param name="forTS">JsDoc does not support some regular expression, not even with mechanism of eacaping. For TS codes this should be true.</param>
+		/// <param name="forTS">JsDoc does not support some regular expressions, not even with mechanism of eacaping. For generating TS codes this should be true.</param>
 		public AnnotationCommentGenerator(bool forTS=false)
 		{
 			if (!forTS)

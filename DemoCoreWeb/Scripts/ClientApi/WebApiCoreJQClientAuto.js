@@ -491,6 +491,14 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/Numbers/byte?d=' + d, callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * GET api/Numbers/byteWithRange?d={d}
+         * @param {number} d Byte for small number.
+         * @return {number} Type: byte, 0 to 255
+         */
+        getByteWithRange(d, callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/Numbers/byteWithRange?d=' + d, callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
          * POST api/Numbers/byte
          * @param {number} d Type: byte, 0 to 255
          * @return {number} Type: byte, 0 to 255
@@ -593,6 +601,23 @@ var DemoWebApi_Controllers_Client;
          */
         postIntegralEntityMustBeValid(integralEntity, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Numbers/IntegralEntityMustBeValid', integralEntity, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Numbers/intRange
+         * @param {number} d Type: int, -2,147,483,648 to 2,147,483,647
+         * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
+         */
+        postIntWithRange(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/intRange', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
+         * POST api/Numbers/longRange
+         * @param {string} d Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+         * @return {string} Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+         */
+        postLongWithRange(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Numbers/longRange', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * POST api/Numbers/uint128

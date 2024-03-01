@@ -5,9 +5,11 @@ using Fonlow.Web.Meta;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -29,10 +31,17 @@ namespace Fonlow.CodeDom.Web.Ts
 		IDocCommentTranslate poco2CsGen;
 
 		readonly IDictionary<Type, string> dotNetTypeCommentDic;
+		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
+
+		System.Reflection.ParameterInfo[] parameterInfoArray;
+
+		JSOutput jsOutput;
 
 		protected ClientApiTsFunctionGenAbstract()
 		{
 			dotNetTypeCommentDic = DotNetTypeCommentGenerator.Get();
+			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
+			attribueCommentDic = annotationCommentGenerator.Get();
 		}
 
 		public CodeMemberMethod CreateApiFunction(WebApiDescription description, IPoco2Client poco2TsGen, IDocCommentTranslate poco2CsGen, JSOutput jsOutput)
@@ -40,6 +49,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.Description = description;
 			this.Poco2TsGen = poco2TsGen;
 			this.poco2CsGen = poco2CsGen;
+			this.jsOutput = jsOutput;
 			this.StringAsString = jsOutput.StringAsString;
 			this.StrictMode = jsOutput.HelpStrictMode;
 
@@ -174,6 +184,86 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			Method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));
+		}
+
+		/// <summary>
+		/// Create doc comment for parameter. If doc comment does not exist, then generate from parameter type and validation attribute.
+		/// If RangeAttribute exists, not to generate from parameter type.
+		/// </summary>
+		/// <param name="builder"></param>
+		/// <param name="paramDesc"></param>
+		/// <param name="parameterComment"></param>
+		void CreateParamDocComment(StringBuilder builder, ParameterDescription paramDesc, string parameterComment)
+		{
+			var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);
+			if (!String.IsNullOrWhiteSpace(parameterComment))
+			{
+				builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {parameterComment}");
+				return; // if backend programmers provide doc comment, the comment should include data constraints.
+			}
+
+			List<string> ss = new();
+			if (jsOutput.DataAnnotationsToComments)
+			{
+				var parameterInfo = parameterInfoArray.Single(p => p.Name == paramDesc.Name);
+				var customAttributes = parameterInfo.GetCustomAttributes();
+				bool rangeAttributeExists = customAttributes.Any(d => d.GetType() == typeof(RangeAttribute));
+				bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
+				if (paramTypeCommentExists)
+				{
+					if (rangeAttributeExists)
+					{
+						var splited = paramTypeComment.Split(",");
+						ss.Add(splited[0]);
+					}
+					else
+					{
+						ss.Add(paramTypeComment);
+					}
+				}
+
+				foreach (Attribute a in customAttributes)
+				{
+					if (attribueCommentDic.TryGetValue(a.GetType(), out Func<object, string> textGenerator))
+					{
+						ss.Add(textGenerator(a));
+					}
+				}
+			}
+
+			if (ss.Count > 0)
+			{
+				var linesOfParamComment = LinesToIndentedLines(ss);
+				builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {linesOfParamComment}");
+			}
+		}
+
+		/// <summary>
+		/// Wraping according to https://google.github.io/styleguide/jsguide.html#jsdoc-line-wrapping. 
+		/// </summary>
+		/// <param name="lines"></param>
+		/// <returns></returns>
+		static string LinesToIndentedLines(IList<string> lines)
+		{
+			if (lines == null || lines.Count == 0)
+			{
+				return null;
+			}
+
+			if (lines.Count == 1)
+			{
+				return lines[0];
+			}
+
+			StringBuilder builder = new();
+			builder.AppendLine(lines[0]);
+			for (int i = 1; i < lines.Count; i++)
+			{
+				builder.Append("    ");
+				builder.Append(lines[i]);
+			}
+
+			return builder.ToString();
 		}
 
 		protected static string RemoveTrialEmptyString(string s)

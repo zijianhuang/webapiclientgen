@@ -165,6 +165,8 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {parameterComment}");
 				}
+				//var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
+				//CreateParamDocComment(builder, paramDesc, parameterComment);
 			}
 
 			Type responseType = Description.ResponseDescription.ResponseType ?? Description.ResponseDescription.DeclaredType;
@@ -211,8 +213,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (jsOutput.DataAnnotationsToComments)
 			{
 				var parameterInfo = parameterInfoArray.Single(p => p.Name == paramDesc.Name);
-				var customAttributes = parameterInfo.GetCustomAttributes();
-				//var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
+				var customAttributes = parameterInfo.GetCustomAttributes().ToList();
 				bool rangeAttributeExists = customAttributes.Any(d => d.GetType() == typeof(RangeAttribute));
 				bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
 				if (paramTypeCommentExists)
@@ -228,12 +229,10 @@ namespace Fonlow.CodeDom.Web.Ts
 					}
 				}
 
-				foreach (Attribute a in customAttributes)
+				var commentsFromAttributes = CommentsHelper.GenerateCommentsFromAttributes(customAttributes, attribueCommentDic);
+				if (commentsFromAttributes.Length > 0)
 				{
-					if (attribueCommentDic.TryGetValue(a.GetType(), out Func<object, string> textGenerator))
-					{
-						lines.Add(textGenerator(a));
-					}
+					lines.AddRange(commentsFromAttributes);
 				}
 			}
 

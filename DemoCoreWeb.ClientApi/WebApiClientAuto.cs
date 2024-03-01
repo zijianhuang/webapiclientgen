@@ -7491,6 +7491,9 @@ namespace DemoWebApi.Controllers.Client
 		/// Demo int[]
 		/// POST api/SuperDemo/intArray
 		/// </summary>
+		/// <param name="a">Min length: 1
+		/// Max length: 10
+		/// </param>
 		public async Task<bool> PostIntArrayAsync(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/intArray";
@@ -7519,6 +7522,9 @@ namespace DemoWebApi.Controllers.Client
 		/// Demo int[]
 		/// POST api/SuperDemo/intArray
 		/// </summary>
+		/// <param name="a">Min length: 1
+		/// Max length: 10
+		/// </param>
 		public bool PostIntArray(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/intArray";

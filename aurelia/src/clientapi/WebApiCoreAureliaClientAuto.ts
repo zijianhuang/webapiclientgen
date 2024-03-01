@@ -1511,6 +1511,8 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Demo int[]
 		 * POST api/SuperDemo/intArray
+		 * @param {Array<number>} a Min length: 1
+		 *     Max length: 10
 		 */
 		postIntArray(a: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
 			return this.http.post('api/SuperDemo/intArray', JSON.stringify(a), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => d.json());

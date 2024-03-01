@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -288,7 +289,7 @@ namespace DemoWebApi.Controllers
 		/// <returns></returns>
 		[HttpPost]
 		[Route("intArray")]
-		public bool PostIntArray([FromBody] int[] a)
+		public bool PostIntArray([FromBody, MinLength(1), MaxLength(10)] int[] a)
 		{
 			return a[7] == 8;
 		}

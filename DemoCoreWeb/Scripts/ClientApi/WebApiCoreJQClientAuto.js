@@ -1078,6 +1078,8 @@ var DemoWebApi_Controllers_Client;
         /**
          * Demo int[]
          * POST api/SuperDemo/intArray
+         * @param {Array<number>} a Min length: 1
+         *     Max length: 10
          */
         postIntArray(a, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/SuperDemo/intArray', a, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);

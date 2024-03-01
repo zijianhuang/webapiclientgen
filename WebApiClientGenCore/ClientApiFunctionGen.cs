@@ -174,7 +174,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 				if (settings.DataAnnotationsToComments)
 				{
-					var parameterInfo = parameterInfoArray.SingleOrDefault(p => p.Name == paramName);
+					var parameterInfo = parameterInfoArray.SingleOrDefault(p => p?.Name == paramName);
 					var customAttributes = parameterInfo.GetCustomAttributes();
 					foreach (Attribute a in customAttributes)
 					{

@@ -132,22 +132,39 @@ namespace Fonlow.Poco2Ts
 		}
 
 		/// <summary>
-		/// Create doc comment if XML document file exists
+		/// Create doc comment if XML document file exists, or generate from type info and validation attributes.
 		/// </summary>
 		/// <param name="propertyInfo"></param>
+		/// <param name="memberType">PropertyType or FieldType</param>
 		/// <param name="codeField"></param>
 		void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeMemberField codeField)
 		{
+			CreateMemberDocComment(propertyInfo, propertyInfo.PropertyType, "P", codeField);
+		}
+
+		void CreateFieldDocComment(FieldInfo fieldInfo, CodeMemberField codeField)
+		{
+			CreateMemberDocComment(fieldInfo, fieldInfo.FieldType, "F", codeField);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="memberInfo"></param>
+		/// <param name="memberType"></param>
+		/// <param name="docFlag">P or F</param>
+		/// <param name="codeField"></param>
+		void CreateMemberDocComment(MemberInfo memberInfo, Type memberType, string docFlag, CodeMemberField codeField)
+		{
 			if (docLookup != null)
 			{
-				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
-				var dm = docLookup.GetMember("P:" + propertyFullName);
-				var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
-				bool rangeAttributeExists = propertyInfo.GetCustomAttributes().Any(attribute => attribute.GetType() == typeof(RangeAttribute));
+				var propertyFullName = memberInfo.DeclaringType.FullName + "." + memberInfo.Name;
+				var dm = docLookup.GetMember($"{docFlag}:" + propertyFullName);
+				bool rangeAttributeExists = memberInfo.GetCustomAttributes().Any(attribute => attribute.GetType() == typeof(RangeAttribute));
 				List<string> extraLines = new();
 				if (dm == null || dm.summary == null)
 				{
-					var typeCommentExists = dotNetTypeCommentDic.TryGetValue(propertyInfo.PropertyType, out string commentFromProperType);
+					var typeCommentExists = dotNetTypeCommentDic.TryGetValue(memberType, out string commentFromProperType);
 					if (typeCommentExists)
 					{
 						if (rangeAttributeExists)
@@ -162,32 +179,17 @@ namespace Fonlow.Poco2Ts
 						}
 					}
 
-					extraLines.AddRange(commentsFromAttributes);
-				}
-
-				AddDocComments(codeField.Comments, dm, extraLines);
-			}
-		}
-
-		void CreateFieldDocComment(FieldInfo fieldInfo, CodeMemberField codeField)
-		{
-			if (docLookup != null)
-			{
-				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
-				var dm = docLookup.GetMember("F:" + propertyFullName);
-				var commentsFromAttributes = GenerateCommentsFromAttributes(fieldInfo);
-				List<string> comments = new(commentsFromAttributes);
-				string commentFromProperType;
-				if ((dm == null || dm.summary == null) && commentsFromAttributes?.Length == 0)
-				{
-					dotNetTypeCommentDic.TryGetValue(fieldInfo.FieldType, out commentFromProperType);
-					if (commentFromProperType != null)
+					if (dataAnnotationsToComments)
 					{
-						comments.Add(commentFromProperType);
+						var commentsFromAttributes = GenerateCommentsFromAttributes(memberInfo.GetCustomAttributes().ToList());
+						if (commentsFromAttributes.Length > 0)
+						{
+							extraLines.AddRange(commentsFromAttributes);
+						}
 					}
 				}
 
-				AddDocComments(codeField.Comments, dm, comments);
+				AddDocComments(codeField.Comments, dm, extraLines);
 			}
 		}
 
@@ -571,18 +573,13 @@ namespace Fonlow.Poco2Ts
 			{
 				ArrayElementType = TranslateToClientTypeReference(elementType),
 			};
+
 			return otherArrayType;
 		}
 
-		string[] GenerateCommentsFromAttributes(MemberInfo property)
+		string[] GenerateCommentsFromAttributes(List<Attribute> attributes)
 		{
-			if (!dataAnnotationsToComments)
-			{
-				return new string[] { };
-			}
-
 			List<string> ss = new List<string>();
-			var attributes = property.GetCustomAttributes().ToList();
 			attributes.Sort((x, y) =>
 			{
 				// Special-case RequiredAttribute so that it shows up on top

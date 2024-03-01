@@ -65,6 +65,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
 				if (methodInfo != null)
 				{
+					parameterInfoArray = methodInfo.GetParameters();
 					if (jsOutput.MaybeNullAttributeOnMethod)
 					{
 						ReturnTypeIsNullable = ReturnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
@@ -73,6 +74,10 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						ReturnTypeIsNullable = ReturnType != null && !Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 					}
+				}
+				else
+				{
+					throw new ArgumentException("Is this possible, without methodInfo?");
 				}
 			}
 
@@ -202,11 +207,12 @@ namespace Fonlow.CodeDom.Web.Ts
 				return; // if backend programmers provide doc comment, the comment should include data constraints.
 			}
 
-			List<string> ss = new();
+			List<string> lines = new();
 			if (jsOutput.DataAnnotationsToComments)
 			{
 				var parameterInfo = parameterInfoArray.Single(p => p.Name == paramDesc.Name);
 				var customAttributes = parameterInfo.GetCustomAttributes();
+				//var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
 				bool rangeAttributeExists = customAttributes.Any(d => d.GetType() == typeof(RangeAttribute));
 				bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
 				if (paramTypeCommentExists)
@@ -214,11 +220,11 @@ namespace Fonlow.CodeDom.Web.Ts
 					if (rangeAttributeExists)
 					{
 						var splited = paramTypeComment.Split(",");
-						ss.Add(splited[0]);
+						lines.Add(splited[0]);
 					}
 					else
 					{
-						ss.Add(paramTypeComment);
+						lines.Add(paramTypeComment);
 					}
 				}
 
@@ -226,14 +232,14 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					if (attribueCommentDic.TryGetValue(a.GetType(), out Func<object, string> textGenerator))
 					{
-						ss.Add(textGenerator(a));
+						lines.Add(textGenerator(a));
 					}
 				}
 			}
 
-			if (ss.Count > 0)
+			if (lines.Count > 0)
 			{
-				var linesOfParamComment = LinesToIndentedLines(ss);
+				var linesOfParamComment = LinesToIndentedLines(lines);
 				builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {linesOfParamComment}");
 			}
 		}

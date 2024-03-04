@@ -111,7 +111,7 @@ services.AddControllers(
 
 As of .NET 7, for serialization System.Text.Json reassembles over 95% of NewtonSoft.Json. There are only a few edge cases of complex POCO structures that System.Text.Json can not handle.
 
-WebApiClientGen supports both on server side and C# client side. For C# clients, you may use ["UseSystemTextJson" in the codegen settings](https://github.com/zijianhuang/webapiclientgen/wiki/Settings-Explained#usesystemtextjson).
+WebApiClientGen supports both on server side and C# client side. For C# clients, you may use ["UseSystemTextJson" in the codegen settings](SettingsExplained.md#UseSystemTextJson).
 
 Nevertheless, if your application involves complex POCO structures, using NewtonSoft.Json is a safe bet as of .NET 7.
 
@@ -125,7 +125,9 @@ Nevertheless, if your application involves complex POCO structures, using Newton
 
 
 
-For more details, please check [WIKI](https://github.com/zijianhuang/webapiclientgen/wiki), and codeproject.com articles at:
+For more details, please check:
+1. [WIKI](https://github.com/zijianhuang/webapiclientgen/wiki)
+1. [Settings Explained](SettingsExplained.md)
 1. [Generate C# .NET Client API for ASP.NET Web API](https://www.codeproject.com/Articles/1074039/Generate-Csharp-Client-API-for-ASP-NET-Web-API)
 1. [Generate TypeScript Client API for ASP.NET Web API](https://www.codeproject.com/articles/1053601/generate-typescript-client-api-for-asp-net-web-api)
 1. [ASP.NET Web API, Angular2, TypeScript and WebApiClientGen](https://www.codeproject.com/Articles/1165571/ASP-NET-Web-API-Angular-TypeScript-and-WebApiClie)

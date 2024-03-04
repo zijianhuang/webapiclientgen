@@ -147,7 +147,7 @@
 		public bool UseSystemTextJson { get; set; }
 
 		/// <summary>
-		/// Each controller is mapped into a container class to contain client API functions matching controller operations.
+		/// For generated C# codes. Each controller is mapped into a container class to contain client API functions matching controller operations.
 		/// By default the container is named after the controller name, for example, service class ValuesController will result in client container class Values.
 		/// You may define a container name suffix such as "Client" or "Proxy", so the generated container class name may become ValuesClient.
 		/// </summary>
@@ -166,7 +166,7 @@
 		public bool IncludeEnsureSuccessStatusCodeExBlock { get; set; } = true;
 
 		/// <summary>
-		/// Function parameters contain a callback to handle HTTP request headers
+		/// Function parameters contain a callback to handle HTTP request headers, applied to C# and TypeScript codes generated.
 		/// </summary>
 		public bool HandleHttpRequestHeaders { get; set; }
 
@@ -193,6 +193,9 @@
 	{
 		public string AssemblyName { get; set; }
 
+		/// <summary>
+		/// Relative or absolute directory.
+		/// </summary>
 		public string TargetDir { get; set; }
 
 		/// <summary>
@@ -210,8 +213,15 @@
 		/// </summary>
 		public bool AsModule { get; set; }
 
+		/// <summary>
+		/// Default is ".Client", and the dot will be translate to underscore.
+		/// </summary>
 		public string ClientNamespaceSuffix { get; set; } = ".Client";
 
+		/// <summary>
+		/// Client container class name for API functions is by default the API controller name. For example, HeroesController will result in client container class name "Heroes".
+		/// And a setting value like "Api" may give "Heroes" a suffix, like "HeroesApi"
+		/// </summary>
 		public string ContainerNameSuffix { get; set; }
 
 		/// <summary>

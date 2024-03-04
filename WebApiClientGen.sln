@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Fonlow.ruleset = Fonlow.ruleset
 		Readme.md = Readme.md
 		ReleaseBuild.bat = ReleaseBuild.bat
+		SettingsExplained.md = SettingsExplained.md
 		SolutionInfo.cs = SolutionInfo.cs
 		WebApiClientGen.msbuild = WebApiClientGen.msbuild
 	EndProjectSection
@@ -80,7 +81,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.TypeScriptCodeDomCor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JsonConverters", "JsonConverters", "{06BD8954-9B18-4192-BA9E-E6003FF48FD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fonlow.IntegralExtensions", "Fonlow.IntegralExtension\Fonlow.IntegralExtensions.csproj", "{D817EB68-8FE9-43C1-98B8-5E51B071E3EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fonlow.IntegralExtensions", "Fonlow.IntegralExtension\Fonlow.IntegralExtensions.csproj", "{D817EB68-8FE9-43C1-98B8-5E51B071E3EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

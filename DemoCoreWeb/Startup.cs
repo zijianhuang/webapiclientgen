@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Fonlow.DateOnlyExtensions;
 using Fonlow.IntegralExtensions;
 namespace DemoCoreWeb
@@ -21,6 +22,7 @@ namespace DemoCoreWeb
 			services.AddControllers(
 				options =>
 				{
+					options.Filters.Add(new ValidateModelAttribute());
 					//options.OutputFormatters by default includes: HttpNoContent, String, Stream, SystemTextJson
 #if DEBUG
 					options.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
@@ -56,7 +58,9 @@ namespace DemoCoreWeb
 					options.SerializerSettings.Converters.Add(new BigIntegerJsonConverter());
 					options.SerializerSettings.Converters.Add(new BigIntegerNullableJsonConverter());
 				}
-			);
+			).ConfigureApiBehaviorOptions(options=>{
+				//options.SuppressModelStateInvalidFilter = true; //No effect on the API designs here which rarely return BadRequestObjectResult directly.
+			});
 
 			services.AddRouting();
 			services.AddCors();
@@ -78,6 +82,7 @@ namespace DemoCoreWeb
 			{
 				endpoints.MapControllers();
 			});
+
 #if DEBUG  // This is for running the QUnit cases with tests.html. The CodeGenSetting should be "TypeScriptJQFolder": "..\\..\\..\\Scripts\\ClientApi" without StaticFiles
 			app.UseStaticFiles(new StaticFileOptions
 			{

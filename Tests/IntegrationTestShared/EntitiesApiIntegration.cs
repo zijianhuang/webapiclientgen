@@ -1,5 +1,7 @@
 ﻿using DemoWebApi.DemoData.Client;
+using Fonlow.Net.Http;
 using System;
+using System.Net;
 using Xunit;
 
 namespace IntegrationTests
@@ -328,8 +330,11 @@ namespace IntegrationTests
 			{
 
 			};
-			var r = api.PostIdMap(d);  //payload is {"Id":"00000000-0000-0000-0000-000000000000"}, while RequiredName is with IsRequired=true;
-			Assert.Null(r); // The service binding will fail to deserialize sicne RequiredName has to be presented in payload,
+
+			var ex = Assert.Throws<WebApiRequestException>(() => api.PostIdMap(d));
+			Assert.Equal(HttpStatusCode.BadRequest, ex.StatusCode);
+			//var r = api.PostIdMap(d);  //payload is {"Id":"00000000-0000-0000-0000-000000000000"}, while RequiredName is with IsRequired=true;
+			//Assert.Null(r); // Without validation checking, the Web API receive null.
 		}
 
 		[Fact]

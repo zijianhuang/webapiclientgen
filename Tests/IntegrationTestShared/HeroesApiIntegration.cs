@@ -1,6 +1,8 @@
 ﻿using System;
 using Xunit;
 using Fonlow.Testing;
+using Fonlow.Net.Http;
+using System.Net;
 
 namespace IntegrationTests
 {
@@ -51,8 +53,8 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostWithNull()
 		{
-			var hero = api.Post(null);
-			Assert.Null(hero.Name);
+			var ex = Assert.Throws<WebApiRequestException>(() => api.Post(null));
+			Assert.Equal(HttpStatusCode.BadRequest, ex.StatusCode);
 		}
 
 		[Fact]

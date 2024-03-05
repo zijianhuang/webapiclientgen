@@ -83,11 +83,6 @@ namespace DemoWebApi.Controllers
 		[Route("byte")]
 		public byte Post([FromBody] byte d)
 		{
-			if (!ModelState.IsValid)
-			{
-				throw new ArgumentException("Invalid byte");
-			}
-
 			return d;
 		}
 
@@ -108,11 +103,6 @@ namespace DemoWebApi.Controllers
 		[Route("byteWithRange")]
 		public byte GetByteWithRange([FromQuery, Range(0, 100)] byte d)
 		{
-			if (!ModelState.IsValid)
-			{
-				throw new ArgumentException("Out of range");
-			}
-
 			return d;
 		}
 
@@ -148,11 +138,6 @@ namespace DemoWebApi.Controllers
 		[Route("intRange")]
 		public int PostIntWithRange([FromBody, Range(1, 100)] int d)
 		{
-			if (!ModelState.IsValid)
-			{
-				throw new ArgumentException("Out of range");
-			}
-
 			return d;
 		}
 
@@ -172,11 +157,6 @@ namespace DemoWebApi.Controllers
 		[Route("longRange")]
 		public long PostLongWithRange([FromBody, Range(typeof(long), "1000", "9223372036854775800")] long d)
 		{
-			if (!ModelState.IsValid)
-			{
-				throw new ArgumentException("Out of range");
-			}
-
 			return d;
 		}
 

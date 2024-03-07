@@ -55,7 +55,7 @@ The products are released mostly through NuGet.
 1. Rich meta info including doc comments make IDE intellisense more helpful, so application developers have less need of reading separated API documents.
 1. Generated doc comments based on .NET validation attributes.
 1. Generated doc comments based on numeric types, DateOnly and GUID for TypeScript codes.
-1. Generated TypeScript codes conform to the TypeScript strict mode, and the generated Angular 2+ codes conform to the Angular strict mode.
+1. Generated TypeScript codes conform to the [TypeScript strict mode](https://www.typescriptlang.org/tsconfig#strict), and the generated Angular 2+ codes conform to the [Angular strict mode](https://angular.io/guide/strict-mode).
 
 
 # Examples

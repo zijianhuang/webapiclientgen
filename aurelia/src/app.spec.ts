@@ -1,7 +1,7 @@
 import { HttpClient } from 'aurelia-fetch-client';
 import { initialize } from 'aurelia-pal-browser';
 import * as moment from 'moment';
-import {DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client} from './clientapi/WebApiCoreAureliaClientAuto';
+import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client } from './clientapi/WebApiCoreAureliaClientAuto';
 
 initialize(); // as described at https://discourse.aurelia.io/t/problem-with-unit-testing-and-mocking-api-call/2405
 
@@ -1520,18 +1520,15 @@ describe('Numbers API', () => {
     */
     service.postBigNumbers(d).then(
       r => {
-        expect(BigInt(r.unsigned64!)).not.toBe(BigInt('18446744073709551615')); // BigInt can not handle the coversion from json number form correctly.
-        expect(BigInt(r.unsigned64!)).toEqual(BigInt('18446744073709551616')); // actually incorrect during deserialization
+        expect(BigInt(r.unsigned64!)).toBe(BigInt('18446744073709551615'));
 
-        expect(BigInt(r.signed64!)).not.toBe(BigInt('9223372036854775807'));
-        expect(BigInt(r.signed64!)).toEqual(BigInt('9223372036854775808'));
+        expect(BigInt(r.signed64!)).toBe(BigInt('9223372036854775807'));
 
         expect(BigInt(r.unsigned128!)).toBe(BigInt(340282366920938463463374607431768211455n));
 
         expect(BigInt(r.signed128!)).toEqual(BigInt(170141183460469231731687303715884105727n));
 
-        expect(BigInt(r.bigInt!)).not.toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
-        expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680763835789423207666416102355444464034512896n)); // how wrong
+        expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
 
         done();
       },
@@ -1553,7 +1550,7 @@ describe('Numbers API', () => {
       r => {
         expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
         expect(BigInt(r)).toBe(BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808
-        done();
+done();
       },
       error => {
         fail(error);
@@ -1605,14 +1602,14 @@ describe('Numbers API', () => {
   it('postInt64Smaller', (done) => {
     service.postInt64('9223372036854775123').then(
       r => {
-        expect(BigInt(r)).not.toBe(BigInt('9223372036854775123')); //reponse is 9223372036854775123, but BigInt(r) gives l9223372036854774784
-        expect(BigInt(r)).toBe(BigInt('9223372036854774784'));
+        expect(BigInt(r)).toBe(BigInt('9223372036854775123'));
         done();
       },
       error => {
         fail(error);
         done();
       }
+
     );
   }
   );
@@ -1659,6 +1656,7 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375)); //this time, it is correct, but...
         expect(BigInt(r).valueOf()).not.toBe(6277101735386680762814942322444851025767571854389858533375n); // not really,
         expect(BigInt(r).valueOf()).not.toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
+        expect(BigInt(r)).toBe(6277101735386680763835789423207666416102355444464034512896n); // many many digits wrong
         done();
       },
       error => {
@@ -1675,7 +1673,8 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt(604462909807314587353087)); //this time, it is correct, but...
         expect(BigInt(r).valueOf()).not.toBe(604462909807314587353087n); // not really,
         expect(BigInt(r).valueOf()).not.toBe(BigInt('604462909807314587353087')); // not really, because what returned is lack of n
-        done();
+        expect(BigInt(r).valueOf()).toBe(604462909807314587353088n); // last digit wrong
+done();
       },
       error => {
         fail(error);
@@ -1691,6 +1690,7 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455)); //this time, it is correct, but...
         expect(BigInt(r).valueOf()).not.toBe(340282366920938463463374607431768211455n); // not really,
         expect(BigInt(r).valueOf()).not.toBe(BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
+        expect(BigInt(r)).toBe(340282366920938463463374607431768211456n); // last digit wrong,
         done();
       },
       error => {

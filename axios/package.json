@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/node": "^20.11.19",
-    "axios": "^1.6.7",
-    "typescript": "5.2.2"
+    "@types/node": "^20.11.29",
+    "axios": "^1.6.8",
+    "typescript": "5.4.2"
   },
   "scripts": {},
   "browserslist": {
@@ -15,9 +15,9 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 3 safari version"
     ]
   },
   "devDependencies": {

@@ -23,7 +23,7 @@ namespace Fonlow.Poco2Ts
 		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods, string clientNamespaceSuffix, bool dataAnnotationsToComments, bool helpStrictMode)
 		{
 			var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);
-			var assembly = LoadAssembly(absolutePath);
+			var assembly = LoadAssemblyFile(absolutePath);
 			if (assembly == null)
 				return;
 
@@ -37,15 +37,15 @@ namespace Fonlow.Poco2Ts
 			Trace.WriteLine(msg);
 		}
 
-		static Assembly LoadAssembly(string assemblyFileName)
+		static Assembly LoadAssemblyFile(string assemblyFilePath)
 		{
 			try
 			{
-				return Assembly.LoadFile(assemblyFileName);
+				return Assembly.LoadFile(assemblyFilePath);
 			}
 			catch (Exception ex) when (ex is System.IO.FileLoadException || ex is BadImageFormatException || ex is System.IO.FileNotFoundException || ex is ArgumentException )
 			{
-				var msg = String.Format("When loading {0}, errors occur: {1}", assemblyFileName, ex.Message);
+				var msg = String.Format("When loading {0}, errors occur: {1}", assemblyFilePath, ex.Message);
 				Console.WriteLine(msg);
 				Trace.TraceWarning(msg);
 				return null;

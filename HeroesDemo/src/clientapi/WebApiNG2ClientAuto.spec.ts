@@ -372,12 +372,11 @@ describe('entities API', () => {
         client.getMims(c)
             .subscribe(
                 data => {
-                    expect(data!.message).toBe('Hello');
-                    expect(data!.result).toBeCloseTo(123.45);
+                    fail('Should fail')
                     done();
                 },
                 error => {
-                    fail(errorResponseToString(error));
+                    expect(errorResponseToString(error)).toContain('KK has to be between 10 and 100');
                     done();
                 }
             );
@@ -555,11 +554,11 @@ describe('DateTypes API', () => {
     it('postDateTimeOffsetWithNull', (done) => {
         service.postDateTimeOffset(null!).subscribe(
             data => {
-                expect(data).not.toBeNull();
+                fail("validation")
                 done();
             },
             error => {
-                fail(errorResponseToString(error));
+                expect(errorResponseToString(error)).toContain('Error converting value {null} to type');
                 done();
             }
         );
@@ -1973,11 +1972,11 @@ describe('StringData API', () => {
     it('TestAthletheSearchWithNullInt', (done) => {
         service.athletheSearch(null, null!, 'Order', '', 'Search').subscribe(
             data => {
-                expect(data).toBe('"100OrderSearch"');
+                fail('validation');
                 done();
             },
             error => {
-                fail(errorResponseToString(error));
+                expect(errorResponseToString(error)).toContain('is not valid');
                 done();
             }
         );
@@ -1987,11 +1986,11 @@ describe('StringData API', () => {
     it('TestAthletheSearchWithUndefinedInt', (done) => {
         service.athletheSearch(null, undefined!, 'Order', '', 'Search').subscribe(
             data => {
-                expect(data).toBe('"100OrderSearch"');
+               fail('validation')
                 done();
             },
             error => {
-                fail(errorResponseToString(error));
+                expect(errorResponseToString(error)).toContain('is not valid');
                 done();
             }
         );
@@ -2231,18 +2230,14 @@ describe('Numbers API', () => {
     }
     );
 
-    /**
-     * ASP.NET will validate complex object by default, and make it null if a property is invalid.
-     */
     it('postIntegralEntityInvalid', (done) => {
         service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).subscribe(
             r => {
-                expect(r).toBeNull();
+                fail('validation');
                 done();
             },
             error => {
-                fail(errorResponseToString(error));
-                expect().nothing();
+                expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
                 done();
             }
         );
@@ -2288,11 +2283,11 @@ describe('Numbers API', () => {
     it('postUShortInvalid', (done) => {
         service.postByDOfUInt16(65540).subscribe(
             r => {
-                expect(r).toBe(0);
+                fail('validation');
                 done();
             },
             error => {
-                fail(errorResponseToString(error));
+                expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
                 done();
             }
         );
@@ -2345,26 +2340,20 @@ describe('Numbers API', () => {
     }
     );
 
-    /**
-     * ASP.NET Web API just give 0 back, if the API does not check ModelState and throw
-     */
     it('getByteInvalid', (done) => {
         service.getByte(258).subscribe(
             r => {
-                expect(r).toBe(0);
+                fail('validation');
                 done();
             },
             error => {
-                fail(errorResponseToString(error));
+                expect(errorResponseToString(error)).toContain('is not valid');
                 done();
             }
         );
     }
     );
 
-    /**
-     * ASP.NET Web API just give 0 back
-     */
     it('postByteWithNegativeInvalid', (done) => {
         service.postByDOfByte(-10).subscribe(
             r => {
@@ -2394,17 +2383,14 @@ describe('Numbers API', () => {
     }
     );
 
-    /**
-     * ASP.NET Web API just give 0 back
-     */
     it('postSByteInvalid', (done) => {
         service.postByDOfSByte(130).subscribe(
             r => {
-                expect(r).toBe(0);
+                fail('validation')
                 done();
             },
             error => {
-                fail(errorResponseToString(error));
+                expect(errorResponseToString(error)).toContain('Error converting value 130 to type ');
                 done();
             }
         );

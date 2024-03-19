@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Fonlow.DateOnlyExtensions;
+using Fonlow.IntegralExtensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Fonlow.DateOnlyExtensions;
-using Fonlow.IntegralExtensions;
+using Microsoft.Extensions.Hosting;
 namespace DemoCoreWeb
 {
 	public class Startup
@@ -22,7 +21,7 @@ namespace DemoCoreWeb
 			services.AddControllers(
 				options =>
 				{
-					options.Filters.Add(new ValidateModelAttribute());
+					options.Filters.Add(new ValidateModelAttribute()); // wholesale style to check model binding for all API calls.
 					//options.OutputFormatters by default includes: HttpNoContent, String, Stream, SystemTextJson
 #if DEBUG
 					options.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen

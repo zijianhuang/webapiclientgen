@@ -122,7 +122,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, {OptionsForString}).then(d => d.status == 204 ? null : d.data);")); //todo: type cast is not really needed.
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, {OptionsForString}).then(d => {{if (d.status<=204) return d.status == 204 ? null : d.data; throw d;}});")); //todo: type cast is not really needed.
 					return;
 				}
 
@@ -131,11 +131,11 @@ namespace Fonlow.CodeDom.Web.Ts
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForString}).then(d => d.status == 204 ? null : d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForString}).then(d => {{if (d.status<=204) return d.status == 204 ? null : d.data; throw d;}});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString}).then(d => d.status == 204 ? null : d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForString}).then(d => {{if (d.status<=204) return d.status == 204 ? null : d.data; throw d;}});"));
 					}
 
 					return;

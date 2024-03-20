@@ -7,14 +7,14 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>Fetch TypeScript</PackageTags>
-		<PackageReleaseNotes>With TypeScript CodeDOM v3.2; decent supports for 64bit, 128bit and BigInteger.</PackageReleaseNotes>
+		<PackageReleaseNotes>Throw error/response if status code not between 200 and 204.</PackageReleaseNotes>
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3.7.1</Version>
+		<Version>3.8</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 	</PropertyGroup>

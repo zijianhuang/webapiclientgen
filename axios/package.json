@@ -5,7 +5,8 @@
   "dependencies": {
     "@types/node": "^20.11.29",
     "axios": "^1.6.8",
-    "typescript": "5.4.2"
+    "moment": "^2.30.1",
+    "typescript": "5.2.2"
   },
   "scripts": {},
   "browserslist": {

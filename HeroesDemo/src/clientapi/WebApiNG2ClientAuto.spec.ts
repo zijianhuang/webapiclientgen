@@ -2143,7 +2143,7 @@ describe('TextData API', () => {
 });
 
 /**
- * With customized serialization on ASP.NET Core Web API
+ * Test when Web API has customized serialization for 64-bit and BigInteger.
  */
 describe('Numbers API', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
@@ -2814,7 +2814,7 @@ xdescribe('Numbers API without customized serialization', () => {
                 expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455)); //this time, it is correct, but...
                 expect(BigInt(r).valueOf()).not.toBe(340282366920938463463374607431768211455n); // not really,
                 expect(BigInt(r).valueOf()).not.toBe(BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
-                expect(BigInt(r)).toBe(340282366920938463463374607431768211456n); // last digit wrong,
+                expect(BigInt(r)).toBe(34028236692093846346337460743176821145n); // last digit wrong,
                 done();
             },
             error => {

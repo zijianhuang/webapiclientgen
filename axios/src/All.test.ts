@@ -11,7 +11,7 @@ function instanceOfAxiosError(obj: any): obj is AxiosError {
   return 'isAxiosError' in obj;
 }
 
-export function errorResponseToString(error: AxiosError | any,): string {
+export function errorResponseToString(error: AxiosError | any): string {
   let errMsg: string;
   if (instanceOfAxiosError(error)) {
     if (error.response?.status === 0) {
@@ -24,7 +24,7 @@ export function errorResponseToString(error: AxiosError | any,): string {
       }
     }
 
-    errMsg += error.message ? (' ' + JSON.stringify(error.message)) : '';
+    errMsg += error.response?.data ? (' ' + JSON.stringify(error.response.data)) : '';
     return errMsg;
   } else {
     errMsg = error.message ? error.message : error.toString();
@@ -44,7 +44,6 @@ describe('Values API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -59,7 +58,6 @@ describe('Values API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -74,7 +72,6 @@ describe('Values API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -89,7 +86,6 @@ describe('Values API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -104,7 +100,6 @@ describe('Values API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -127,7 +122,6 @@ describe('Heroes API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -142,7 +136,6 @@ describe('Heroes API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -157,7 +150,6 @@ describe('Heroes API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -174,7 +166,6 @@ describe('Heroes API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -220,7 +211,6 @@ describe('entities API', () => {
         },
         error => {
           fail(errorResponseToString(error));
-          done();
         }
       );
 
@@ -244,31 +234,6 @@ describe('entities API', () => {
         },
         error => {
 
-          done();
-        }
-      );
-
-  }
-  );
-
-  it('mimsString', (done) => {
-    let id: number;
-    const c: DemoWebApi_DemoData_Client.MimsPackage = {
-      tag: 'Hello',
-      result: {
-        result: 123.45
-      }
-    };
-
-    client.getMims(c)
-      .then(
-        data => {
-          expect(data.message).toBe('Hello');
-          expect(data.result).toBe('123.45');
-          done();
-        },
-        error => {
-          fail(errorResponseToString(error));
           done();
         }
       );
@@ -300,7 +265,6 @@ describe('entities API', () => {
         },
         error => {
           fail(errorResponseToString(error));
-          done();
         }
       );
 
@@ -322,7 +286,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -336,7 +299,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -350,7 +312,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -364,7 +325,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -378,7 +338,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -392,7 +351,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -406,7 +364,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -420,7 +377,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -437,7 +393,6 @@ describe('StringData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -455,7 +410,6 @@ describe('TextData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -469,7 +423,6 @@ describe('TextData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -483,7 +436,6 @@ describe('TextData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -497,7 +449,6 @@ describe('TextData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -514,7 +465,6 @@ describe('TextData API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -533,7 +483,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -548,7 +497,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -563,7 +511,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -578,7 +525,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -593,7 +539,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -608,7 +553,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -623,7 +567,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -639,7 +582,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -655,7 +597,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -670,7 +611,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -711,7 +651,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -726,7 +665,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -741,7 +679,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -757,7 +694,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -773,7 +709,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -789,7 +724,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -804,7 +738,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -822,7 +755,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -841,7 +773,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -857,7 +788,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -872,7 +802,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -888,7 +817,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -904,7 +832,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -920,7 +847,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -940,7 +866,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -980,7 +905,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -996,7 +920,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -1011,7 +934,6 @@ describe('SuperDemo API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
 
@@ -1035,7 +957,6 @@ describe('Tuple API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -1049,7 +970,6 @@ describe('Tuple API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -1064,7 +984,6 @@ describe('Tuple API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -1079,7 +998,6 @@ describe('Tuple API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -1093,7 +1011,6 @@ describe('Tuple API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -1108,7 +1025,6 @@ describe('Tuple API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -1122,7 +1038,6 @@ describe('Tuple API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -1147,7 +1062,6 @@ describe('Tuple API', () => {
       },
       error => {
         fail(errorResponseToString(error));
-        done();
       }
     );
   }
@@ -1155,17 +1069,8 @@ describe('Tuple API', () => {
 
 });
 
-
 /**
- * Test the behavior of JavaScript when dealing with integral numbers larger than 53-bit.
- * Tested with ASP.NET 8, Chrome Version 121.0.6167.185 (Official Build) (64-bit), Firefox 122.0.1 (64-bit)
- * The lession is, when dealing with integral number larger than 53-bit or 64-bit, there are 3 options for client server agreement, as of year Feb 2024:
- * 1. Use string Content-Type: text/plain; charset=utf-8, for single big number parameter and return, probably for JS specific calls, since C# client can handle these integral types comfortablly.
- * Otherwise, the developer experience of backend developer is poor, loosing the enjoyment of strongly types of integral. For big integral inside an object, this may means you have to declare a JS specific class as well.
- * 2. Use signed128 or unsigned128 if the number is not larger than 128-bit since ASP.NET 8 serializes it as string object.
- * 3. Alter the serilization of ASP.NET Web API for 64-bit and BigInteger, make it similar to what for 128-bit. https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to
- *
- * JavaScript has difficulty in deal with number larger than 53-bit as JSON object.
+ * Test when Web API has customized serialization for 64-bit and BigInteger.
  */
 describe('Numbers API', () => {
   const service = new DemoWebApi_Controllers_Client.Numbers(apiBaseUri);
@@ -1189,14 +1094,14 @@ describe('Numbers API', () => {
     }
     response:
     {
-      "signed64": 9223372036854775807,
-      "unsigned64": 18446744073709551615,
-      "signed128": "170141183460469231731687303715884105727",
-      "unsigned128": "340282366920938463463374607431768211455",
-      "bigInt": 6277101735386680762814942322444851025767571854389858533375
+        "signed64": 9223372036854775807,
+        "unsigned64": 18446744073709551615,
+        "signed128": "170141183460469231731687303715884105727",
+        "unsigned128": "340282366920938463463374607431768211455",
+        "bigInt": 6277101735386680762814942322444851025767571854389858533375
     }
     
-    */
+     */
     service.postBigNumbers(d).then(
       r => {
         expect(BigInt(r.unsigned64!)).toBe(BigInt('18446744073709551615'));
@@ -1212,67 +1117,198 @@ describe('Numbers API', () => {
         done();
       },
       error => {
-        fail();
-        done();
+        fail(error);
       }
     );
 
   }
   );
 
+  it('postIntegralEntity', (done) => {
+    service.postIntegralEntity({ name: 'Some one', byte: 255, uShort: 65535 }).then(
+      r => {
+        expect(r.byte).toBe(255);
+        expect(r.uShort).toBe(65535);
+        done();
+      },
+      error => {
+        fail(error);
+      }
+    );
+  }
+  );
+
+  it('postIntegralEntityInvalid', (done) => {
+    service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).then(
+      r => {
+        fail('validation');
+      },
+      error => {
+        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
+        done();
+      }
+    );
+  }
+  );
+
   /**
-   * Even though the request payload is 9223372036854776000 (loosing precision, cause of the 53bit issue), or "9223372036854776123", the response is 0 as shown in Chrome's console and Fiddler.
-   * And the Web API has received actually 0. Not sure if the Web API binding had turned the request payload into 0 if the client is a Web browser.
+   * Backend checks if the data is null, likely due to invalid properties. And throw error.
    */
-  it('postInt64ButIncorrect', (done) => {
+  it('postIntegralEntityInvalidButBackendCheckNull', (done) => {
+    service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).then(
+      r => {
+        fail('backend should throw 500')
+      },
+      error => {
+        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
+        done();
+      }
+    );
+  }
+  );
+
+
+  it('postUShort', (done) => {
+    service.postByDOfUInt16(65535).then(
+      r => {
+        expect(r).toBe(65535);
+        done();
+      },
+      error => {
+        fail(error);
+      }
+    );
+  }
+  );
+
+  it('postUShortInvalid', (done) => {
+    service.postByDOfUInt16(65540).then(
+      r => {
+        fail('validation');
+      },
+      error => {
+        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
+        done();
+      }
+    );
+  }
+  );
+
+  it('postByte', (done) => {
+    service.postByDOfByte(255).then(
+      r => {
+        expect(r).toBe(255);
+        done();
+      },
+      error => {
+        fail(error);
+      }
+    );
+  }
+  );
+
+  /**
+   * ASP.NET Web API check ModelState and throw
+   */
+  it('postByteInvalid', (done) => {
+    service.postByDOfByte(258).then(
+      r => {
+        fail("backend should throw");
+      },
+      error => {
+        expect(errorResponseToString(error)).toContain('400');
+        done();
+      }
+    );
+  }, 200
+  );
+
+  it('getByte', (done) => {
+    service.getByte(255).then(
+      r => {
+        expect(r).toBe(255);
+        done();
+      },
+      error => {
+        fail(error);
+      }
+    );
+  }
+  );
+
+  it('getByteInvalid', (done) => {
+    service.getByte(258).then(
+      r => {
+        fail('validation');
+      },
+      async error => {
+        expect(await errorResponseToString(error)).toContain('is not valid');
+        done();
+      }
+    );
+  }
+  );
+
+  it('postByteWithNegativeInvalid', (done) => {
+    service.postByDOfByte(-10).then(
+      r => {
+        fail("backend throws")
+      },
+      error => {
+        expect(errorResponseToString(error)).toContain('400');
+        done();
+      }
+    );
+  }, 200
+  );
+
+  it('postSByte', (done) => {
+    service.postByDOfSByte(127).then(
+      r => {
+        expect(r).toBe(127);
+        done();
+      },
+      error => {
+        fail(error);
+      }
+    );
+  }
+  );
+
+  it('postSByteInvalid', (done) => {
+    service.postByDOfSByte(130).then(
+      r => {
+        fail('validation')
+      },
+      async error => {
+        expect(await errorResponseToString(error)).toContain('Error converting value 130 to type ');
+        done();
+      }
+    );
+  }
+  );
+
+  it('postInt64', (done) => {
     service.postInt64('9223372036854775807').then(
       r => {
-        expect(BigInt(18446744073709551615n).toString()).toBe('18446744073709551615');
-        expect(BigInt(r)).toBe(BigInt('18446744073709551616')); //reponse is 18446744073709551615, but BigInt(r) gives last 3 digits 808
-        done();
-      },
-      error => {
-        fail(error);
-        done();
-      }
-    );
-  }
-  );
-
-  /**
-      postBigIntegerForJs(bigInteger?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-    return this.http.post<string>(this.baseUri + 'api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-  }
-   */
-  it('postBigIntegralAsStringForJs', (done) => {
-    service.postBigIntegralAsStringForJs('9223372036854775807').then(
-      r => {
-        expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
-        expect(BigInt('9223372036854775807').toString()).toBe('9223372036854775807');
         expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
-        expect(BigInt(r)).toBe(BigInt(9223372036854775807n));
         done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
   );
 
-  it('postBigIntegralAsStringForJs2', (done) => {
-    service.postBigIntegralAsStringForJs('6277101735386680762814942322444851025767571854389858533375').then(
+  it('postUInt64', (done) => {
+    service.postUint64('18446744073709551615').then(
       r => {
-        expect(BigInt(6277101735386680762814942322444851025767571854389858533375n).toString()).toBe('6277101735386680762814942322444851025767571854389858533375');
-        expect(BigInt('6277101735386680762814942322444851025767571854389858533375').toString()).toBe('6277101735386680762814942322444851025767571854389858533375');
-        expect(BigInt(r)).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
-        expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
+        expect(BigInt(r)).toBe(BigInt('18446744073709551615'));
         done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1281,32 +1317,26 @@ describe('Numbers API', () => {
   it('postInt64Smaller', (done) => {
     service.postInt64('9223372036854775123').then(
       r => {
-        expect(BigInt(r)).not.toBe(BigInt('9223372036854775123')); //reponse is 9223372036854775123, but BigInt(r) gives l9223372036854774784
-        expect(BigInt(r)).toBe(BigInt('9223372036854774784')); // many digits wrong
+        expect(BigInt(r)).toBe(BigInt('9223372036854775123'));
         done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
   );
 
-  it('postLongAsBigIntButIncorrect', (done) => {
+  it('postLongAsBigInt', (done) => {
     // request: "9223372036854775807"
-    // response: 9223372036854775807
+    // response: "9223372036854775807"
     service.postBigInteger('9223372036854775807').then(
       r => {
-        expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
-        expect(BigInt(r)).toBe(BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808, since the returned value does not have the n suffix.
-        expect(r.toString()).toBe('9223372036854776000'); //the response is a big int which JS could not handle in toString(), 53bit gets in the way.
-        expect(BigInt(r).toString()).toBe('9223372036854775808');
+        expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
         done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1320,59 +1350,51 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
 
   }
   );
 
-  it('postReallyBigInt192bitsButIncorrect', (done) => {
+  it('postReallyBigInt192bits', (done) => {
     // request: "6277101735386680762814942322444851025767571854389858533375"
-    // response: 6277101735386680762814942322444851025767571854389858533375
+    // response: "6277101735386680762814942322444851025767571854389858533375"
     service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').then(
       r => {
-        expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375)); //this time, it is correct, but...
-        expect(BigInt(r).valueOf()).not.toBe(6277101735386680762814942322444851025767571854389858533375n); // not really,
-        expect(BigInt(r).valueOf()).not.toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
+        expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
+        expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
         done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
   );
 
-  it('postReallyBigInt80bitsButIncorect', (done) => {
+  it('postReallyBigInt80bits', (done) => {
     service.postBigInteger('604462909807314587353087').then(
       r => {
-        expect(BigInt(r)).toBe(BigInt(604462909807314587353087)); //this time, it is correct, but...
-        expect(BigInt(r).valueOf()).not.toBe(604462909807314587353087n); // not really,
-        expect(BigInt(r).valueOf()).not.toBe(BigInt('604462909807314587353087')); // not really, because what returned is lack of n
+        expect(BigInt(r).valueOf()).toBe(604462909807314587353087n);
+        expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087'));
         done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
   );
 
-  it('postReallyBigInt128bitsButIncorect', (done) => {
+  it('postReallyBigInt128bits', (done) => {
     service.postBigInteger('340282366920938463463374607431768211455').then(
       r => {
-        expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455)); //this time, it is correct, but...
-        expect(BigInt(r).valueOf()).not.toBe(340282366920938463463374607431768211455n); // not really,
-        expect(BigInt(r).valueOf()).not.toBe(BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
-        expect(BigInt(r)).toBe(340282366920938463463374607431768211456n); // last digit wrong,
-done();
+        expect(BigInt(r).valueOf()).toBe(340282366920938463463374607431768211455n);
+        expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
+        done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1392,7 +1414,6 @@ done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1414,7 +1435,6 @@ done();
       },
       error => {
         fail(error);
-        done();
       }
     );
   }

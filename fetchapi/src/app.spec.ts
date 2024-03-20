@@ -1,6 +1,27 @@
 import * as moment from 'moment';
 import {DemoWebApi_Controllers_Client, DemoWebApi_Models_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Base_Client}  from './clientapi/WebApiCoreFetchClientAuto';
 
+export async function errorResponseToString(error: Response | any): Promise<string> {
+  let errMsg: string;
+  if (error instanceof Response) {
+    if (error.status === 0) {
+      errMsg = 'No response from backend. Connection is unavailable.';
+    } else {
+      const text = await error.text();
+      if (text) {
+        errMsg = `${error.status} - ${error.statusText}: ${text}`;
+      } else {
+        errMsg = `${error.status} - ${error.statusText}`;
+      }
+    }
+
+    return errMsg;
+  } else {
+    errMsg = error.message ? error.message : JSON.stringify(error);
+    return errMsg;
+  }
+}
+
 describe('Basic', ()=>{
   it('simple 1', done=>{
     expect(true).toBeTruthy();
@@ -16,17 +37,17 @@ describe('Basic', ()=>{
 });
 
 const forDotNetCore=true;
-const baseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
+const apiBaseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
 
-describe('Values', ()=>{
-  const api = new DemoWebApi_Controllers_Client.Values(baseUri);
+describe('Values', () => {
+  const api = new DemoWebApi_Controllers_Client.Values(apiBaseUri);
 
-  it('getById', (done)=>{
+  it('getById', (done) => {
     api.getByIdOfInt32(3).then(
-      d=> {
+      d => {
         expect(d).toBe('3');
         done();
-    }
+      }
     );
   });
 
@@ -38,7 +59,7 @@ describe('Values', ()=>{
         done();
       },
       error => {
-       // fail(error);
+        // 
         done();
       }
     );
@@ -53,7 +74,7 @@ describe('Values', ()=>{
         done();
       },
       error => {
-      //  fail(error);
+        //  
         done();
       }
     );
@@ -62,9 +83,9 @@ describe('Values', ()=>{
 });
 
 describe('Heroes API', () => {
-  const service= new DemoWebApi_Controllers_Client.Heroes(baseUri);
+  const service = new DemoWebApi_Controllers_Client.Heroes(apiBaseUri);
 
-   it('getAll', (done) => {
+  it('getAll', (done) => {
     service.getHeros().then(
       data => {
         console.debug(data.length);
@@ -83,7 +104,7 @@ describe('Heroes API', () => {
   it('Add', (done) => {
     service.post('somebody').then(
       data => {
-        console.info('Add hero: '+JSON.stringify(data));
+        console.info('Add hero: ' + JSON.stringify(data));
         expect(data.name).toBe('somebody');
         done();
       },
@@ -132,22 +153,7 @@ describe('Heroes API', () => {
 
 
 describe('entities API', () => {
-  const client = new DemoWebApi_Controllers_Client.Entities(baseUri);
-
-  //it('getPersonNotFound', (done) => {
-  //    client.getPersonNotFound(123)
-  //        .then(
-  //        data => {
-  //            fail('That is bad. Should be 404.');
-  //            done();
-  //        },
-  //        error => {
-  //            expect(errorResponseToString(error)).toContain('404');
-  //            done();
-  //        }
-  //        );
-  //}
-  //);
+  const client = new DemoWebApi_Controllers_Client.Entities(apiBaseUri);
 
   it('add', (done) => {
     let id: string;
@@ -160,50 +166,49 @@ describe('entities API', () => {
 
     client.createPerson(newPerson)
       .then(
-      data => {
-        id = data;
-        expect(data).toBeTruthy();
-        done();
-      },
-      error => {
+        data => {
+          id = data;
+          expect(data).toBeTruthy();
+          done();
+        },
+        error => {
 
-        done();
-      }
+          done();
+        }
       );
 
   }
   );
 
-it('addWthHeadersHandling', (done) => {
-  let id: number;
-  const newPerson: DemoWebApi_DemoData_Client.Person = {
-    name: 'John Smith' + Date.now().toString(),
-    givenName: 'John',
-    surname: 'Smith',
-    dob: new Date('1977-12-28')
-  };
+  it('addWthHeadersHandling', (done) => {
+    let id: number;
+    const newPerson: DemoWebApi_DemoData_Client.Person = {
+      name: 'John Smith' + Date.now().toString(),
+      givenName: 'John',
+      surname: 'Smith',
+      dob: new Date('1977-12-28')
+    };
 
-  client.createPerson3(newPerson, ()=>{return {middle: 'Hey'};})
-    .then(
-    data => {
-      expect(data.givenName).toBe('Hey');
-      done();
-    },
-    error => {
+    client.createPerson3(newPerson, () => { return { middle: 'Hey' }; })
+      .then(
+        data => {
+          expect(data.givenName).toBe('Hey');
+          done();
+        },
+        error => {
 
-      done();
-    }
-    );
+          done();
+        }
+      );
 
-}
-);
-
+  }
+  );
 });
 
 describe('Tuple API', () => {
-  const service= new DemoWebApi_Controllers_Client.Tuple(baseUri);
+  const service = new DemoWebApi_Controllers_Client.Tuple(apiBaseUri);
 
- 
+
   it('getTuple2', (done) => {
     service.getTuple2().then(
       data => {
@@ -327,15 +332,14 @@ describe('Tuple API', () => {
 
         done();
       }
-      );
+    );
   }
   );
 
 });
 
-
 describe("DateTypes API", () => {
-  const service = new DemoWebApi_Controllers_Client.DateTypes(baseUri);
+  const service = new DemoWebApi_Controllers_Client.DateTypes(apiBaseUri);
 
   it('GetNextHour', (done) => {
     const dt = new Date(Date.now());
@@ -526,7 +530,7 @@ describe("DateTypes API", () => {
       data => {
         const m1 = moment(data.item1);
         expect(m1.toDate()).toEqual(startDt);
-        expect(data.item2).toBeUndefined(); //response is {"item1":"2023-10-26T07:54:13.567Z"}
+        expect(data.item2).toBeUndefined(); //OK with null rather than undefined
         done();
       },
       error => {
@@ -544,13 +548,13 @@ describe("DateTypes API", () => {
     service.searchDateRange(undefined, endDt).then(
       data => {
         //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-        expect(data.item1).toBeUndefined(); //response is {"item2":"2023-10-26T07:53:50.995Z"}
+        forDotNetCore ? expect(data.item1).toBeUndefined() : expect(data.item1).toBeUndefined();
         const m = moment(data.item2);
         expect(m.toDate().getHours()).toEqual(endDt.getHours());
         done();
       },
       error => {
-        // let errorText = errorResponseToString(error);
+        // let errorText = error;
         // if (errorText.indexOf('400') < 0) {
         //   fail(errorText);
         // }
@@ -568,8 +572,8 @@ describe("DateTypes API", () => {
     let endDt = new Date(Date.now() + 100000);
     service.searchDateRange(null, undefined).then(
       data => {
-        expect(data.item1).toBeUndefined(); // the client API will not put null or undefined into request
         expect(data.item1).toBeUndefined();
+        expect(data.item2).toBeUndefined();
         done();
       },
       error => {
@@ -699,7 +703,7 @@ describe("DateTypes API", () => {
 });
 
 describe('TextData API', () => {
-  const service = new DemoWebApi_Controllers_Client.TextData(baseUri);
+  const service = new DemoWebApi_Controllers_Client.TextData(apiBaseUri);
 
   it('TestAthletheSearch', (done) => {
     service.athletheSearch(32, 0, null, null, null).then(
@@ -776,7 +780,7 @@ describe('TextData API', () => {
 });
 
 describe('StringData API', () => {
-  const service = new DemoWebApi_Controllers_Client.StringData(baseUri);
+  const service = new DemoWebApi_Controllers_Client.StringData(apiBaseUri);
 
   it('getNullString', (done) => {
     service.getNullString().then(
@@ -923,10 +927,8 @@ describe('StringData API', () => {
   );
 });
 
-
-
 describe('SuperDemo API', () => {
-  const service=new DemoWebApi_Controllers_Client.SuperDemo(baseUri);
+  const service = new DemoWebApi_Controllers_Client.SuperDemo(apiBaseUri);
 
   it('getBool', (done) => {
     service.getBool().then(
@@ -1040,7 +1042,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-        console.debug('getNullableDecimalNull: '+ JSON.stringify(error));
+        console.debug('getNullableDecimalNull: ' + JSON.stringify(error));
         expect(true).toBeTruthy();
         done();
       }
@@ -1053,7 +1055,7 @@ describe('SuperDemo API', () => {
     service.getNullPerson().then(
       data => {
         expect(data).toBeNull(); //Aurelia httpclient throws error upon service statuscode 204
-		//expect(data).toBe(''); // .net core return 204 nocontent empty body
+        //expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
@@ -1068,7 +1070,7 @@ describe('SuperDemo API', () => {
   it('getByteArray', (done) => {
     service.getByteArray().then(
       data => {
-		expect(data.length).toBeGreaterThan(0);
+        expect(data.length).toBeGreaterThan(0);
         done();
       },
       error => {
@@ -1079,21 +1081,21 @@ describe('SuperDemo API', () => {
 
   }
   );
-  
-  
-  
-  
+
+
+
+
   it('getTextStream', (done) => {
     service.getTextStream().then(
       data => {
-		  console.debug('getTextStream');
-		  console.debug(data); // abcdefg
+        console.debug('getTextStream');
+        console.debug(data); // abcdefg
 
-  expect(data.size).toBe(7);
+        expect(data.size).toBe(7);
 
-		const reader = new FileReader();//axios actually give string rather than a blob structure
+        const reader = new FileReader();//axios actually give string rather than a blob structure
         reader.onload = () => {
-	      expect(reader.result).toBe('abcdefg'); 
+          expect(reader.result).toBe('abcdefg');
         };
         reader.readAsText(data);
 
@@ -1110,6 +1112,23 @@ describe('SuperDemo API', () => {
 
   it('getActionResult', (done) => {
     service.getActionResult().then(
+      data => {
+
+        expect(data).toBe('abcdefg');
+
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
+  it('getActionResult2', (done) => {
+    service.getActionResult2().then(
       data => {
 
         expect(data).toBe('abcdefg');
@@ -1218,21 +1237,6 @@ describe('SuperDemo API', () => {
   }
   );
 
-  it('getulongButIncorrect', (done) => {
-    service.getulong().then(
-      data => {
-        expect(BigInt(data)).toBe(BigInt('18446744073709551616')); //18446744073709551615
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
   it('getInt2D', (done) => {
     service.getInt2D().then(
       data => {
@@ -1301,7 +1305,7 @@ describe('SuperDemo API', () => {
   }
   );
 
-  it('getIntArrayQ', (done) => {
+  it('postIntArrayQ', (done) => {
     service.getIntArrayQ([6, 7, 8]).then(
       data => {
         expect(data.length).toBe(3);
@@ -1317,11 +1321,26 @@ describe('SuperDemo API', () => {
   }
   );
 
+  it('getDay', (done) => {
+    service.getDay(DemoWebApi_DemoData_Client.Days.Sat).then(
+      data => {
+        expect(data).toBe(DemoWebApi_DemoData_Client.Days.Sat);
+        done();
+      },
+      error => {
+
+        done();
+      }
+    );
+
+  }
+  );
+
   it('postDay', (done) => {
-    service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Mon).then(
+    service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Sat).then(
       data => {
         expect(data.length).toBe(2);
-        expect(data[1]).toBe(DemoWebApi_DemoData_Client.Days.Mon);
+        expect(data[1]).toBe(DemoWebApi_DemoData_Client.Days.Sat);
         done();
       },
       error => {
@@ -1404,7 +1423,7 @@ describe('SuperDemo API', () => {
 
         done();
       }
-      );
+    );
 
   }
   );
@@ -1439,229 +1458,361 @@ describe('SuperDemo API', () => {
 
   }
   );
+
 });
 
 /**
- * Test the behavior of JavaScript when dealing with integral numbers larger than 53-bit.
- * Tested with ASP.NET 8, Chrome Version 121.0.6167.185 (Official Build) (64-bit), Firefox 122.0.1 (64-bit)
- * The lession is, when dealing with integral number larger than 53-bit or 64-bit, there are 3 options for client server agreement, as of year Feb 2024:
- * 1. Use string Content-Type: text/plain; charset=utf-8, for single big number parameter and return, probably for JS specific calls, since C# client can handle these integral types comfortablly.
- * Otherwise, the developer experience of backend developer is poor, loosing the enjoyment of strongly types of integral. For big integral inside an object, this may means you have to declare a JS specific class as well.
- * 2. Use signed128 or unsigned128 if the number is not larger than 128-bit since ASP.NET 8 serializes it as string object.
- * 3. Alter the serilization of ASP.NET Web API for 64-bit and BigInteger, make it similar to what for 128-bit. https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to
- *
- * JavaScript has difficulty in deal with number larger than 53-bit as JSON object.
+ * Test when Web API has customized serialization for 64-bit and BigInteger.
  */
 describe('Numbers API', () => {
-  const service = new DemoWebApi_Controllers_Client.Numbers(baseUri);
+  const service = new DemoWebApi_Controllers_Client.Numbers(apiBaseUri);
 
   it('postBigNumbers', (done) => {
-      const d: DemoWebApi_DemoData_Client.BigNumbers = {
-          unsigned64: '18446744073709551615', //2 ^ 64 -1,
-          signed64: '9223372036854775807', //2 ^ 63 -1,
-          unsigned128: '340282366920938463463374607431768211455',
-          signed128: '170141183460469231731687303715884105727',
-          bigInt: '6277101735386680762814942322444851025767571854389858533375', // 3 unsigned64, 192bits
-      };
-/**
-request:
-{
-"unsigned64":"18446744073709551615",
-"signed64":"9223372036854775807",
-"unsigned128":"340282366920938463463374607431768211455",
-"signed128":"170141183460469231731687303715884105727",
-"bigInt":"6277101735386680762814942322444851025767571854389858533375"
-}
-response:
-{
-  "signed64": 9223372036854775807,
-  "unsigned64": 18446744073709551615,
-  "signed128": "170141183460469231731687303715884105727",
-  "unsigned128": "340282366920938463463374607431768211455",
-  "bigInt": 6277101735386680762814942322444851025767571854389858533375
-}
+    const d: DemoWebApi_DemoData_Client.BigNumbers = {
+      unsigned64: '18446744073709551615', //2 ^ 64 -1,
+      signed64: '9223372036854775807', //2 ^ 63 -1,
+      unsigned128: '340282366920938463463374607431768211455',
+      signed128: '170141183460469231731687303715884105727',
+      bigInt: '6277101735386680762814942322444851025767571854389858533375', // 3 unsigned64, 192bits
+    };
+    /**
+    request:
+    {
+    "unsigned64":"18446744073709551615",
+    "signed64":"9223372036854775807",
+    "unsigned128":"340282366920938463463374607431768211455",
+    "signed128":"170141183460469231731687303715884105727",
+    "bigInt":"6277101735386680762814942322444851025767571854389858533375"
+    }
+    response:
+    {
+        "signed64": 9223372036854775807,
+        "unsigned64": 18446744073709551615,
+        "signed128": "170141183460469231731687303715884105727",
+        "unsigned128": "340282366920938463463374607431768211455",
+        "bigInt": 6277101735386680762814942322444851025767571854389858533375
+    }
+    
+     */
+    service.postBigNumbers(d).then(
+      r => {
+        expect(BigInt(r.unsigned64!)).toBe(BigInt('18446744073709551615'));
 
-*/
-      service.postBigNumbers(d).then(
-          r => {
-              expect(BigInt(r.unsigned64!)).not.toBe(BigInt('18446744073709551615')); // BigInt can not handle the coversion from json number form correctly.
-              expect(BigInt(r.unsigned64!)).toEqual(BigInt('18446744073709551616')); // actually incorrect during deserialization
+        expect(BigInt(r.signed64!)).toBe(BigInt('9223372036854775807'));
 
-              expect(BigInt(r.signed64!)).not.toBe(BigInt('9223372036854775807'));
-              expect(BigInt(r.signed64!)).toEqual(BigInt('9223372036854775808'));
+        expect(BigInt(r.unsigned128!)).toBe(BigInt(340282366920938463463374607431768211455n));
 
-              expect(BigInt(r.unsigned128!)).toBe(BigInt(340282366920938463463374607431768211455n));
+        expect(BigInt(r.signed128!)).toEqual(BigInt(170141183460469231731687303715884105727n));
 
-              expect(BigInt(r.signed128!)).toEqual(BigInt(170141183460469231731687303715884105727n));
+        expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
 
-              expect(BigInt(r.bigInt!)).not.toEqual(BigInt(6277101735386680762814942322444851025767571854389858533375n));
-              expect(BigInt(r.bigInt!)).toEqual(BigInt(6277101735386680763835789423207666416102355444464034512896n)); // how wrong
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
 
-              done();
-          },
-          error => {
-              fail();
-              done();
-          }
-      );
+  }
+  );
 
+  it('postIntegralEntity', (done) => {
+    service.postIntegralEntity({ name: 'Some one', byte: 255, uShort: 65535 }).then(
+      r => {
+        expect(r.byte).toBe(255);
+        expect(r.uShort).toBe(65535);
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
+  }
+  );
+
+  it('postIntegralEntityInvalid', (done) => {
+    service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).then(
+      r => {
+        fail('validation');
+        done();
+      },
+      async error => {
+        expect(await errorResponseToString(error)).toContain('Error converting value 65540 to type');
+        done();
+      }
+    );
   }
   );
 
   /**
-   * Even though the request payload is 9223372036854776000 (loosing precision, cause of the 53bit issue), or "9223372036854776123", the response is 0 as shown in Chrome's console and Fiddler.
-   * And the Web API has received actually 0. Not sure if the Web API binding had turned the request payload into 0 if the client is a Web browser.
+   * Backend checks if the data is null, likely due to invalid properties. And throw error.
    */
-  it('postInt64ButIncorrect', (done) => {
-      service.postInt64('9223372036854775807').then(
-          r => {
-              expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
-              expect(BigInt(r)).toBe(BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+  it('postIntegralEntityInvalidButBackendCheckNull', (done) => {
+    service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).then(
+      r => {
+        fail('backend should throw 500')
+        done();
+      },
+      error => {
+        console.error(error);
+        expect().nothing();
+        done();
+      }
+    );
+  }
+  );
+
+
+  it('postUShort', (done) => {
+    service.postByDOfUInt16(65535).then(
+      r => {
+        expect(r).toBe(65535);
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
+  }
+  );
+
+  it('postUShortInvalid', (done) => {
+    service.postByDOfUInt16(65540).then(
+      r => {
+        fail('validation');
+        done();
+      },
+      async error => {
+        expect(await errorResponseToString(error)).toContain('Error converting value 65540 to type');
+        done();
+      }
+    );
+  }
+  );
+
+  it('postByte', (done) => {
+    service.postByDOfByte(255).then(
+      r => {
+        expect(r).toBe(255);
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
   /**
-      postBigIntegerForJs(bigInteger?: string | null, headersHandler?: () => HttpHeaders): Observable<string> {
-    return this.http.post<string>(this.baseUri + 'api/Numbers/bigIntegerForJs', JSON.stringify(bigInteger), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
-  }
+   * ASP.NET Web API check ModelState and throw
    */
-  it('postBigIntegralAsStringForJs', (done) => {
-      service.postBigIntegralAsStringForJs('9223372036854775807').then(
-          r => {
-              expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
-              expect(BigInt('9223372036854775807').toString()).toBe('9223372036854775807');
-              expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
-              expect(BigInt(r)).toBe(BigInt(9223372036854775807n));
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+  it('postByteInvalid', (done) => {
+    service.postByDOfByte(258).then(
+      r => {
+        fail("backend should throw");
+        done();
+      },
+      error => {
+        console.error(error);
+        expect().nothing();
+        done();
+      }
+    );
   }
   );
 
-  it('postBigIntegralAsStringForJs2', (done) => {
-      service.postBigIntegralAsStringForJs('6277101735386680762814942322444851025767571854389858533375').then(
-          r => {
-              expect(BigInt(6277101735386680762814942322444851025767571854389858533375n).toString()).toBe('6277101735386680762814942322444851025767571854389858533375');
-              expect(BigInt('6277101735386680762814942322444851025767571854389858533375').toString()).toBe('6277101735386680762814942322444851025767571854389858533375');
-              expect(BigInt(r)).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
-              expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+  it('getByte', (done) => {
+    service.getByte(255).then(
+      r => {
+        expect(r).toBe(255);
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
+  }
+  );
+
+  it('getByteInvalid', (done) => {
+    service.getByte(258).then(
+      r => {
+        fail('validation');
+        done();
+      },
+      async error => {
+        expect(await errorResponseToString(error)).toContain('is not valid');
+        done();
+      }
+    );
+  }
+  );
+
+  it('postByteWithNegativeInvalid', (done) => {
+    service.postByDOfByte(-10).then(
+      r => {
+        fail("backend throws")
+        done();
+      },
+      error => {
+        console.error(error);
+        expect().nothing();
+        done();
+      }
+    );
+  }
+  );
+
+  it('postSByte', (done) => {
+    service.postByDOfSByte(127).then(
+      r => {
+        expect(r).toBe(127);
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
+  }
+  );
+
+  it('postSByteInvalid', (done) => {
+    service.postByDOfSByte(130).then(
+      r => {
+        fail('validation')
+        done();
+      },
+      async error => {
+        expect(await errorResponseToString(error)).toContain('Error converting value 130 to type ');
+        done();
+      }
+    );
+  }
+  );
+
+  it('postInt64', (done) => {
+    service.postInt64('9223372036854775807').then(
+      r => {
+        expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
+  }
+  );
+
+  it('postUInt64', (done) => {
+    service.postUint64('18446744073709551615').then(
+      r => {
+        expect(BigInt(r)).toBe(BigInt('18446744073709551615'));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
   it('postInt64Smaller', (done) => {
-      service.postInt64('9223372036854775123').then(
-          r => {
-              expect(BigInt(r)).not.toBe(BigInt('9223372036854775123')); //reponse is 9223372036854775123, but BigInt(r) gives l9223372036854774784
-              expect(BigInt(r)).toBe(BigInt('9223372036854774784'));
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+    service.postInt64('9223372036854775123').then(
+      r => {
+        expect(BigInt(r)).toBe(BigInt('9223372036854775123'));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
-  it('postLongAsBigIntButIncorrect', (done) => {
-      // request: "9223372036854775807"
-      // response: 9223372036854775807
-      service.postBigInteger('9223372036854775807').then(
-          r => {
-              expect(BigInt(9223372036854775807n).toString()).toBe('9223372036854775807');
-              expect(BigInt(r)).toBe(BigInt('9223372036854775808')); //reponse is 9223372036854775807, but BigInt(r) gives last 3 digits 808, since the returned value does not have the n suffix.
-              expect(r.toString()).toBe('9223372036854776000'); //the response is a big int which JS could not handle in toString(), 53bit gets in the way.
-              expect(BigInt(r).toString()).toBe('9223372036854775808');
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+  it('postLongAsBigInt', (done) => {
+    // request: "9223372036854775807"
+    // response: "9223372036854775807"
+    service.postBigInteger('9223372036854775807').then(
+      r => {
+        expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
   it('postLongAsBigIntWithSmallNumber', (done) => {
-      service.postBigInteger('123').then(
-          r => {
-              expect(BigInt(r)).toBe(BigInt(123n));
-             done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+    service.postBigInteger('123').then(
+      r => {
+        expect(BigInt(r)).toBe(BigInt(123n));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
 
   }
   );
 
-  it('postReallyBigInt192bitsButIncorrect', (done) => {
-      // request: "6277101735386680762814942322444851025767571854389858533375"
-      // response: 6277101735386680762814942322444851025767571854389858533375
-      service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').then(
-          r => {
-              expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375)); //this time, it is correct, but...
-              expect(BigInt(r).valueOf()).not.toBe(6277101735386680762814942322444851025767571854389858533375n); // not really,
-              expect(BigInt(r).valueOf()).not.toBe(BigInt('6277101735386680762814942322444851025767571854389858533375')); // not really, because what returned is lack of n
-             done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+  it('postReallyBigInt192bits', (done) => {
+    // request: "6277101735386680762814942322444851025767571854389858533375"
+    // response: "6277101735386680762814942322444851025767571854389858533375"
+    service.postBigInteger('6277101735386680762814942322444851025767571854389858533375').then(
+      r => {
+        expect(BigInt(r)).toBe(BigInt(6277101735386680762814942322444851025767571854389858533375n));
+        expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
-  it('postReallyBigInt80bitsButIncorect', (done) => {
-      service.postBigInteger('604462909807314587353087').then(
-          r => {
-              expect(BigInt(r)).toBe(BigInt(604462909807314587353087)); //this time, it is correct, but...
-              expect(BigInt(r).valueOf()).not.toBe(604462909807314587353087n); // not really,
-              expect(BigInt(r).valueOf()).not.toBe(BigInt('604462909807314587353087')); // not really, because what returned is lack of n
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+  it('postReallyBigInt80bits', (done) => {
+    service.postBigInteger('604462909807314587353087').then(
+      r => {
+        expect(BigInt(r).valueOf()).toBe(604462909807314587353087n);
+        expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087'));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
-  it('postReallyBigInt128bitsButIncorect', (done) => {
-      service.postBigInteger('340282366920938463463374607431768211455').then(
-          r => {
-              expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455)); //this time, it is correct, but...
-              expect(BigInt(r).valueOf()).not.toBe(340282366920938463463374607431768211455n); // not really,
-              expect(BigInt(r).valueOf()).not.toBe(BigInt('340282366920938463463374607431768211455')); // not really, because what returned is lack of n
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+  it('postReallyBigInt128bits', (done) => {
+    service.postBigInteger('340282366920938463463374607431768211455').then(
+      r => {
+        expect(BigInt(r).valueOf()).toBe(340282366920938463463374607431768211455n);
+        expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
@@ -1671,17 +1822,17 @@ response:
    * Response: "170141183460469231731687303715884105727" , Content-Type: application/json; charset=utf-8
    */
   it('postInt128', (done) => {
-      service.postInt128('170141183460469231731687303715884105727').then(
-          r => {
-              expect(BigInt(r)).toBe(BigInt('170141183460469231731687303715884105727'));
-              expect(BigInt(r)).toBe(BigInt(170141183460469231731687303715884105727n));
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+    service.postInt128('170141183460469231731687303715884105727').then(
+      r => {
+        expect(BigInt(r)).toBe(BigInt('170141183460469231731687303715884105727'));
+        expect(BigInt(r)).toBe(BigInt(170141183460469231731687303715884105727n));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
@@ -1691,21 +1842,22 @@ response:
    * Response: "340282366920938463463374607431768211455" , Content-Type: application/json; charset=utf-8
    */
   it('postUInt128', (done) => {
-      service.postUint128('340282366920938463463374607431768211455').then(
-          r => {
-              expect(BigInt(r)).toBe(BigInt('340282366920938463463374607431768211455'));
-              expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n));
-              expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
-              expect(BigInt(r).valueOf()).toBe(BigInt(340282366920938463463374607431768211455n));
-              done();
-          },
-          error => {
-              fail(error);
-              done();
-          }
-      );
+    service.postUint128('340282366920938463463374607431768211455').then(
+      r => {
+        expect(BigInt(r)).toBe(BigInt('340282366920938463463374607431768211455'));
+        expect(BigInt(r)).toBe(BigInt(340282366920938463463374607431768211455n));
+        expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
+        expect(BigInt(r).valueOf()).toBe(BigInt(340282366920938463463374607431768211455n));
+        done();
+      },
+      error => {
+        fail(error);
+        done();
+      }
+    );
   }
   );
 
 
 });
+

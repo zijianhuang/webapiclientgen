@@ -191,7 +191,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => d.json());"));
+						Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => {{if (d.status<=204) return d.json(); throw d;}});"));
 					}
 				}
 				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
@@ -213,12 +213,12 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						if (dataToPost == "null")
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => d.json());"));
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {Options}).then(d => {{if (d.status<=204) return d.json(); throw d;}});"));
 						}
 						else
 						{
 							var contentOptions = GetOptionsWithContent(dataToPost);
-							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => d.json());"));
+							Method.Statements.Add(new CodeSnippetStatement($"return fetch({uriText}, {contentOptions}).then(d => {{if (d.status<=204) return d.json(); throw d;}});"));
 						}
 					}
 				}

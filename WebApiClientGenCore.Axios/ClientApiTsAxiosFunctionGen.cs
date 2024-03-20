@@ -145,7 +145,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (HttpMethodName == "get" || HttpMethodName == "delete")
 				{
-					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, {OptionsForBlob}).then(d => d.data);")); //todo: type cast is not really needed.
+					Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, {OptionsForBlob}).then(d => {{if (d.status<=204) return d.data; throw d;}});")); //todo: type cast is not really needed.
 					return;
 				}
 
@@ -154,11 +154,11 @@ namespace Fonlow.CodeDom.Web.Ts
 					var dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForBlob}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForBlob}).then(d => {{if (d.status<=204) return d.data; throw d;}});"));
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForBlob}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, JSON.stringify({dataToPost}), {ContentOptionsForBlob}).then(d => {{if (d.status<=204) return d.data; throw d;}});"));
 					}
 
 					return;
@@ -222,7 +222,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					}
 					else
 					{
-						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}{Options}).then(d => d.data);"));
+						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}{Options}).then(d => {{if (d.status<=204) return d.data; throw d;}});"));
 					}
 				}
 				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
@@ -243,11 +243,11 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						if (dataToPost == "null")
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}, null{Options}).then(d => d.data);"));
+							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}, null{Options}).then(d => {{if (d.status<=204) return d.data; throw d;}});"));
 						}
 						else
 						{
-							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}, JSON.stringify({dataToPost}), {OptionsWithContent}).then(d => d.data);"));
+							Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}{returnTypeCast}({uriText}, JSON.stringify({dataToPost}), {OptionsWithContent}).then(d => {{if (d.status<=204) return d.data; throw d;}});"));
 						}
 					}
 				}

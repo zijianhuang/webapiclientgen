@@ -1,18 +1,18 @@
 {
+  "dependencies": {
+    "aurelia-bootstrapper": "^2.4.0",
+    "aurelia-fetch-client": "^1.8.2",
+    "moment": "^2.30.1",
+    "typescript": "5.2.2"
+  },
   "devDependencies": {
     "@types/jasmine": "^5.1.4",
-    "jasmine": "^5.1.0",
+    "jasmine-core": "^5.1.2",
     "karma": "^6.4.3",
     "karma-chrome-launcher": "^3.2.0",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
     "karma-typescript": "^5.5.4",
     "reflect-metadata": "^0.2.1"
-  },
-  "dependencies": {
-    "aurelia-bootstrapper": "^2.4.0",
-    "aurelia-fetch-client": "^1.8.2",
-    "moment": "^2.30.1",
-    "typescript": "5.2.2"
   }
 }

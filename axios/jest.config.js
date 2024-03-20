@@ -2,12 +2,12 @@ module.exports = {
   "roots": [
     "<rootDir>/src"
   ],
-  "transform": {
-    "^.+\\.tsx?$": "ts-jest"
-  },
-  globals: {
-    'ts-jest': {
-      diagnostics: false,
-    },
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  preset: 'ts-jest',
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {//the content you'd placed at "global"
+      babel: true,
+      tsConfig: 'tsconfig.json',
+    }]
   },
 }

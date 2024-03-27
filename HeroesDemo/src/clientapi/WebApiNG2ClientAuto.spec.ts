@@ -1271,11 +1271,15 @@ describe('SuperDemo API', () => {
     }
     );
 
-
+    /**
+     * Response is  79228162514264337593543950335.0
+     */
     it('getDecimal', (done) => {
         service.getDecimal().subscribe(
             data => {
                 expect(data).toBe(79228162514264337593543950335);
+                expect(data.toString()).not.toBe('79228162514264337593543950335'); // otherwise, Expected '7.922816251426434e+28' to be '79228162514264337593543950335'.
+                expect(BigInt(data).toString()).toBe('79228162514264337593543950336'); // dirty JavaScript
                 done();
             },
             error => {

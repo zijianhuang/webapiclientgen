@@ -1,5 +1,9 @@
 This is based on the Tour of Heroes demo of NG tutorial, but with ReactiveForms bindings and a real Web service.
 
+**Remarks:**
+
+* While this esproj project is listed in Visual Studio, it is intentional not to have the test suite listed in "[Test Explorer](https://learn.microsoft.com/en-us/visualstudio/javascript/unit-testing-javascript-with-visual-studio)" that supports unit testing JS and TS in VS, because there are other TS projects not utilizing VS but VS Code.
+
 # NG app.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.

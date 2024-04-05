@@ -36,6 +36,11 @@ namespace Fonlow.Poco2Client
         /// And use System.ComponentModel.DataAnnotations.RequiredAttribute.
         /// </summary>
         AspNet = 8,
+
+        /// <summary>
+        /// For .NET Core Json*Attribute
+        /// </summary>
+        NetCore= 16,
     }
 
     /// <summary>
@@ -44,7 +49,15 @@ namespace Fonlow.Poco2Client
     public enum CherryType
     {
         None,
+
+        /// <summary>
+        /// Signal optional property.
+        /// </summary>
         Cherry,
+
+        /// <summary>
+        /// Signal required property
+        /// </summary>
         BigCherry,
     }
 

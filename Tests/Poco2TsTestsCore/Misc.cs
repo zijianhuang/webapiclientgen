@@ -75,6 +75,8 @@ namespace Poco2TsTests
 			Assert.True(Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute)));
 		}
 
+
+
 		[return: System.Diagnostics.CodeAnalysis.NotNull]
 		public string GetNotNullString()
 		{

@@ -19,6 +19,8 @@ For classes decorated by SerializableAttribute:
   Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /4
 For public classes, properties and properties, and use System.ComponentModel.DataAnnotations.RequiredAttribute:
   Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /8
+For cherry picking with .NET Core JsonPropertyNameAttribute:
+  Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /16
 For all classes, properties and fields
   Fonlow.Poco2Ts.exe MyAssemblyWithPOCO.dll MyOutputTS.ts /0
 

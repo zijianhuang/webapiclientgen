@@ -118,6 +118,14 @@ namespace Fonlow.Reflection
 
 		}
 
+		/// <summary>
+		/// Check if a property of attribute contains expectedValue
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="propertyName"></param>
+		/// <param name="expectedValue"></param>
+		/// <returns></returns>
+		/// <exception cref="InvalidOperationException"></exception>
 		internal static bool GetRequired(Attribute a, string propertyName, string expectedValue)
 		{
 			var type = a.GetType();

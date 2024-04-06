@@ -45,7 +45,7 @@ namespace Fonlow.Web.Meta
 		}
 
 		/// <summary>
-		/// Translate ApiDescription of the Framework to my own WebApiDescription
+		/// Translate ASP.NET ApiDescription to codegen's WebApiDescription
 		/// </summary>
 		/// <param name="description"></param>
 		/// <returns></returns>
@@ -68,7 +68,7 @@ namespace Fonlow.Web.Meta
 					}
 					else
 					{
-						responseType = description.SupportedResponseTypes[0].Type;
+						responseType = description.SupportedResponseTypes[0].Type; // support only the first one.
 					}
 				}
 				else
@@ -81,7 +81,7 @@ namespace Fonlow.Web.Meta
 						responseType = null;
 					}
 				}
-				
+
 				var dr = new WebApiDescription(description.ActionDescriptor.Id)
 				{
 					ActionDescriptor = new ActionDescriptor()

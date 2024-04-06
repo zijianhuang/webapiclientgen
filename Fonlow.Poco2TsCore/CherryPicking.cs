@@ -105,7 +105,7 @@ namespace Fonlow.Poco2Client
 					var a2 = TypeHelper.ReadAttribute<Newtonsoft.Json.JsonPropertyAttribute>(memberInfo); // https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm
 					if (a2 != null)
 					{
-						r[2] = TypeHelper.GetRequired(a2, "Required", "Default") ? CherryType.BigCherry : CherryType.Cherry; //https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Required.htm
+						r[2] = (TypeHelper.GetRequired(a2, "Required", "Default") || TypeHelper.GetRequired(a2, "Required", "Always")) ? CherryType.BigCherry : CherryType.Cherry; //https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Required.htm
 					}
 					else
 					{

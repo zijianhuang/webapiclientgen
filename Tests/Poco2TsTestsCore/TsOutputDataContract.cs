@@ -15,7 +15,7 @@ namespace Poco2TsTests
 	[Collection("TsOutput")] // ensure not multiple threading against Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase
 	public class TsOutputDataContract
 	{
-		static void VerifyWithDataContract(Type type, string expected)
+		static void Verify(Type type, string expected)
 		{
 			var targetUnit = new CodeCompileUnit();
 			var gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
@@ -102,7 +102,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestEnumAddressType()
 		{
-			VerifyWithDataContract(typeof(DemoWebApi.DemoData.AddressType),
+			Verify(typeof(DemoWebApi.DemoData.AddressType),
 @"export namespace DemoWebApi_DemoData_Client {
 	export enum AddressType { Postal, Residential }
 
@@ -114,7 +114,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestPerson()
 		{
-			VerifyWithDataContract(typeof(DemoWebApi.DemoData.Person),
+			Verify(typeof(DemoWebApi.DemoData.Person),
 @"export namespace DemoWebApi_DemoData_Client {
 	export interface Person extends DemoWebApi.DemoData.Base.Entity {
 		Baptised?: Date | null;
@@ -131,7 +131,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestEnumDays()
 		{
-			VerifyWithDataContract(typeof(DemoWebApi.DemoData.Days),
+			Verify(typeof(DemoWebApi.DemoData.Days),
 @"export namespace DemoWebApi_DemoData_Client {
 	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
 
@@ -143,7 +143,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestBigNumbers()
 		{
-			VerifyWithDataContract(typeof(DemoWebApi.DemoData.BigNumbers),
+			Verify(typeof(DemoWebApi.DemoData.BigNumbers),
 @"export namespace DemoWebApi_DemoData_Client {
 	export interface BigNumbers {
 		BigInt?: string | null;

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Threading.Tasks;
 namespace DemoWebApi.Controllers
 {
@@ -230,6 +231,47 @@ namespace DemoWebApi.Controllers
 		public IdMap PostIdMap([FromBody] IdMap idMap)
 		{
 			return idMap;
+		}
+
+		/// <summary>
+		/// Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
+		/// </summary>
+		/// <param name="p"></param>
+		/// <returns></returns>
+		/// <exception cref="InvalidOperationException"></exception>
+		[HttpPost]
+		[Route("createPersonWeak")]
+		[ProducesResponseType((int)HttpStatusCode.NotFound)]
+		[ProducesResponseType((int)HttpStatusCode.NoContent)]
+		[ProducesResponseType(typeof(Person), (int)HttpStatusCode.OK)]
+		public async Task<IActionResult> CreatePersonWeak([FromBody] Person p)
+		{
+			Debug.WriteLine("CreatePerson: " + p.Name);
+
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			Debug.WriteLine("Create " + p);
+			return Ok(p);
+		}
+
+		[HttpPost]
+		[Route("createPersonWithStatuses")]
+		[ProducesResponseType((int)HttpStatusCode.NotFound)]
+		[ProducesResponseType((int)HttpStatusCode.NoContent)]
+		//[ProducesResponseType(typeof(Person), (int)HttpStatusCode.OK)]
+		public async Task<ActionResult<Person>> CreatePersonWithStatuses([FromBody] Person p)
+		{
+			Debug.WriteLine("CreatePerson: " + p.Name);
+
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			if (p.Name == "NotFound")
+				return NotFound();
+
+			Debug.WriteLine("Create " + p);
+			return Ok(p);
 		}
 
 

@@ -70,7 +70,7 @@ namespace Fonlow.Web.Meta
 	public class ActionDescriptor
 	{
 		/// <summary>
-		/// ActionName is by default the function name of the controller, however, could be overridden by ActionNameAttribute.
+		/// ActionName is by default the function name of the controller, however, could be overridden by ActionNameAttribute. And ASP.NET runtime will use it.
 		/// </summary>
 		[DataMember]
 		public string ActionName

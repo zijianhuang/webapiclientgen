@@ -42,7 +42,7 @@ namespace Fonlow.Poco2Client
 
 		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;	
 
-		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declaratinDic;
+		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declarationDic;
 
 		/// <summary>
 		/// Gen will share the same CodeCompileUnit with other CodeGen components which generate client API codes.
@@ -57,7 +57,7 @@ namespace Fonlow.Poco2Client
 
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
 			attribueCommentDic = annotationCommentGenerator.Get();
-			declaratinDic = AnnotationDeclarationGenerator.Create();
+			declarationDic = AnnotationDeclarationGenerator.Create();
 		}
 
 		/// <summary>
@@ -787,7 +787,7 @@ namespace Fonlow.Poco2Client
 					continue;
 				}
 
-				if (declaratinDic.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
+				if (declarationDic.TryGetValue(attributeType, out Func<Attribute, CodeAttributeDeclaration> textGenerator))
 				{
 					codeTypeMember.CustomAttributes.Add(textGenerator(attribute));
 				}

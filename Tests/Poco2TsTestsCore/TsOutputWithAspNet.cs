@@ -14,7 +14,7 @@ namespace Poco2TsTests
 	[Collection("TsOutput")] // ensure not multiple threading against Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase
 	public class TsOutputAspNet
 	{
-		static void VerifyWithAspNet(Type type, string expected)
+		static void Verify(Type type, string expected)
 		{
 			var targetUnit = new CodeCompileUnit();
 			var gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
@@ -28,18 +28,15 @@ namespace Poco2TsTests
 			}
 		}
 
-		/// <summary>
-		/// OldPassword becomes oldPwd
-		/// </summary>
 		[Fact]
 		public void TestChangePasswordBindingModel()
 		{
-			VerifyWithAspNet(typeof(DemoWebApi.Models.ChangePasswordBindingModel),
+			Verify(typeof(DemoWebApi.Models.ChangePasswordBindingModel),
 @"export namespace DemoWebApi_Models_Client {
 	export interface ChangePasswordBindingModel {
 		ConfirmPassword?: string | null;
-		NewPassword?: string | null;
-		oldPwd: string;
+		NewPassword: string;
+		OldPassword: string;
 	}
 
 }
@@ -50,7 +47,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestEnumAddressType()
 		{
-			VerifyWithAspNet(typeof(DemoWebApi.DemoData.AddressType),
+			Verify(typeof(DemoWebApi.DemoData.AddressType),
 @"export namespace DemoWebApi_DemoData_Client {
 	export enum AddressType { Postal, Residential }
 
@@ -62,7 +59,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestPerson()
 		{
-			VerifyWithAspNet(typeof(DemoWebApi.DemoData.Person),
+			Verify(typeof(DemoWebApi.DemoData.Person),
 @"export namespace DemoWebApi_DemoData_Client {
 	export interface Person extends DemoWebApi.DemoData.Base.Entity {
 		Baptised?: Date | null;
@@ -79,7 +76,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestEnumDays()
 		{
-			VerifyWithAspNet(typeof(DemoWebApi.DemoData.Days),
+			Verify(typeof(DemoWebApi.DemoData.Days),
 @"export namespace DemoWebApi_DemoData_Client {
 	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
 
@@ -92,7 +89,7 @@ namespace Poco2TsTests
 		public void TestStrutMyPoint()
 		{
 			Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = true;
-			VerifyWithAspNet(typeof(DemoWebApi.DemoData.Another.MyPoint),
+			Verify(typeof(DemoWebApi.DemoData.Another.MyPoint),
 @"export namespace DemoWebApi_DemoData_Another_Client {
 	export interface MyPoint {
 		x: number;
@@ -108,7 +105,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestBigNumbers()
 		{
-			VerifyWithAspNet(typeof(DemoWebApi.DemoData.BigNumbers),
+			Verify(typeof(DemoWebApi.DemoData.BigNumbers),
 @"export namespace DemoWebApi_DemoData_Client {
 	export interface BigNumbers {
 		BigInt?: string | null;

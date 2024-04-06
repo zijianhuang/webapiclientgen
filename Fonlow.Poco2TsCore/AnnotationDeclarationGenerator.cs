@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Fonlow.Poco2Client
 {
+	/// <summary>
+	/// Provide a dictionary to translate an attribute type to CodeAttributeDeclaration
+	/// </summary>
 	public sealed class AnnotationDeclarationGenerator
 	{
 		public static IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> Create()

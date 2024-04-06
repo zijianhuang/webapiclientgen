@@ -660,6 +660,21 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
+		 * POST api/Entities/createPersonWeak
+		 */
+		createPersonWeak(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return fetch(this.baseUri + 'api/Entities/createPersonWeak', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) });
+		}
+
+		/**
+		 * POST api/Entities/createPersonWithStatuses
+		 */
+		createPersonWithStatuses(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return fetch(this.baseUri + 'api/Entities/createPersonWithStatuses', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) });
+		}
+
+		/**
 		 * DELETE api/Entities/{id}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */

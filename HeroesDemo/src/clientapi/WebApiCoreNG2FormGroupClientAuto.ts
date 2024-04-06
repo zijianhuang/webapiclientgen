@@ -1156,6 +1156,21 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
+		 * POST api/Entities/createPersonWeak
+		 */
+		createPersonWeak(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/Entities/createPersonWeak', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+
+		/**
+		 * POST api/Entities/createPersonWithStatuses
+		 */
+		createPersonWithStatuses(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/Entities/createPersonWithStatuses', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+
+		/**
 		 * DELETE api/Entities/{id}
 		 * @param {string} id Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 		 */

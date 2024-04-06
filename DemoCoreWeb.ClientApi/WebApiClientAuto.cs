@@ -1088,6 +1088,9 @@ namespace DemoWebApi.Controllers.Client
 	using Fonlow.Net.Http;
 	
 	
+	/// <summary>
+	/// For testing different commbinations of parameters and returns
+	/// </summary>
 	public partial class DateTypes
 	{
 		
@@ -2204,6 +2207,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// Entities, Person and Company
+	/// Some with AuthorizeAttribute
+	/// </summary>
 	public partial class Entities
 	{
 		
@@ -3230,6 +3237,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// Heroes operations. Decorated by nullable directive.
+	/// </summary>
 	public partial class Heroes
 	{
 		
@@ -3698,6 +3708,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// For testing different commbinations of parameters and returns
+	/// </summary>
 	public partial class Numbers
 	{
 		
@@ -4804,6 +4817,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// For testing posting and getting string data. Returned string is JSON object.
+	/// </summary>
 	public partial class StringData
 	{
 		
@@ -5022,6 +5038,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// For testing different commbinations of parameters and returns
+	/// </summary>
 	public partial class SuperDemo
 	{
 		
@@ -7932,6 +7951,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// For testing posting and getting string data. String returned is text/plain by default
+	/// </summary>
 	public partial class TextData
 	{
 		
@@ -8192,6 +8214,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
+	/// </summary>
 	public partial class Tuple
 	{
 		

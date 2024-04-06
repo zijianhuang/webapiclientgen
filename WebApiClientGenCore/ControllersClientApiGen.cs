@@ -169,16 +169,37 @@ namespace Fonlow.CodeDom.Web.Cs
 					clientNamespace.Imports.Add(new CodeNamespaceImport("Fonlow.Net.Http"));
 				}
 
-				var newClassesCreated = grouppedControllerDescriptions
+				var newControllerClassesCreated = grouppedControllerDescriptions
 					.OrderBy(d => d.ControllerName)
 					.Select(d =>
 					{
-						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
+						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
 						if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
 
-						string containerClassName = GetContainerClassName(d.ControllerName);
-						return CreateControllerClientClass(clientNamespace, containerClassName);
+						string containerClassName = ConcatOptionalSuffix(d.ControllerName); // optionally become EntitiesClient
+						var controllerCodeTypeDeclaration = CreateControllerClientClass(clientNamespace, containerClassName);
+
+						Fonlow.DocComment.docMember methodComments = null;
+						if (WebApiDocSingleton.Instance.Lookup != null)
+						{
+							methodComments = WebApiDocSingleton.Instance.Lookup.GetMember($"T:{controllerFullName}Controller");
+							if (methodComments != null)
+							{
+								var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
+								if (noIndent != null)
+								{
+									controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement("<summary>", true));
+									foreach (var item in noIndent)
+									{
+										controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement(item, true));
+									}
+									controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement("</summary>", true));
+								}
+							}
+						}
+
+						return controllerCodeTypeDeclaration;
 					}
 					)
 					.ToArray();//add classes into the namespace
@@ -193,7 +214,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 					continue;
 
-				var existingClientClass = LookupExistingClass(controllerNamespace, GetContainerClassName(controllerName));
+				var existingClientClass = LookupExistingClass(controllerNamespace, ConcatOptionalSuffix(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
 				var apiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenParameters.ClientApiOutputs, true);
@@ -212,7 +233,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			return namespacesOfTypes;
 		}
 
-		string GetContainerClassName(string controllerName)
+		string ConcatOptionalSuffix(string controllerName)
 		{
 			return controllerName + (codeGenParameters.ClientApiOutputs.ContainerNameSuffix ?? String.Empty);
 		}

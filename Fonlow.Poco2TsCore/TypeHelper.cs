@@ -142,6 +142,25 @@ namespace Fonlow.Reflection
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="propertyName"></param>
+		/// <returns></returns>
+		/// <exception cref="InvalidOperationException">If property does not exist</exception>
+		public static object GetAttributePropertyValue(Attribute a, string propertyName)
+		{
+			var type = a.GetType();
+			var publicProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
+			var expectedProperty = publicProperties.FirstOrDefault(d => d.Name == propertyName);
+			if (expectedProperty == null)
+				throw new InvalidOperationException($"Expected property {propertyName} does not exist in {a.GetType().FullName}");
+
+			var propertyValue = expectedProperty.GetValue(a);
+			return propertyValue;
+		}
+
+		/// <summary>
 		/// Used only in API parameters, which generally use a small subset of IEnumerable drived types.
 		/// </summary>
 		/// <param name="type"></param>

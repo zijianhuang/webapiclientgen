@@ -307,6 +307,13 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/Entities/createPerson3', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * POST api/Entities/createPersonByAdmin
+         * Auth Schemes: Bearer; Policy: Casual; Roles: Admin,Manager;
+         */
+        createPersonByAdmin(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPersonByAdmin', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
          * POST api/Entities/createPersonWeak
          */
@@ -315,6 +322,7 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * POST api/Entities/createPersonWithStatuses
+         * Auth Schemes: Bearer; Roles: Admin,Manager;
          */
         createPersonWithStatuses(p, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Entities/createPersonWithStatuses', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);

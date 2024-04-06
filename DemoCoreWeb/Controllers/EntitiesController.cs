@@ -1,4 +1,5 @@
 ﻿using DemoWebApi.DemoData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -256,6 +257,7 @@ namespace DemoWebApi.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(AuthenticationSchemes = "Bearer", Roles ="Admin,Manager")]
 		[Route("createPersonWithStatuses")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.NoContent)]
@@ -272,6 +274,20 @@ namespace DemoWebApi.Controllers
 
 			Debug.WriteLine("Create " + p);
 			return Ok(p);
+		}
+
+		[HttpPost]
+		[Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin,Manager", Policy ="Casual")]
+		[Route("createPersonByAdmin")]
+		public async Task<Person> CreatePersonByAdmin([FromBody] Person p)
+		{
+			Debug.WriteLine("CreatePerson: " + p.Name);
+
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			Debug.WriteLine("Create " + p);
+			return p;
 		}
 
 

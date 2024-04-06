@@ -282,7 +282,7 @@ export namespace DemoWebApi_Models_Client {
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword?: string | null;
+		newPassword: string;
 
 		/**
 		 * Required
@@ -660,6 +660,14 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/Entities/createPersonByAdmin
+		 * Auth Schemes: Bearer; Policy: Casual; Roles: Admin,Manager; 
+		 */
+		createPersonByAdmin(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
+			return fetch(this.baseUri + 'api/Entities/createPersonByAdmin', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
 		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
 		 */
@@ -669,6 +677,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Entities/createPersonWithStatuses
+		 * Auth Schemes: Bearer; Roles: Admin,Manager; 
 		 */
 		createPersonWithStatuses(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Entities/createPersonWithStatuses', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) });

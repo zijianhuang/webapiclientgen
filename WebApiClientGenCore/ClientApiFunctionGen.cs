@@ -63,7 +63,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
 
-			var methodInfo = webApiDescription.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(webApiDescription.ActionDescriptor.MethodName, webApiDescription.ActionDescriptor.MethodTypes);
+			var methodInfo = webApiDescription.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(webApiDescription.ActionDescriptor.MethodName, webApiDescription.ActionDescriptor.MethodParameterTypes);
 			if (methodInfo != null)
 			{
 				parameterInfoArray = methodInfo.GetParameters();

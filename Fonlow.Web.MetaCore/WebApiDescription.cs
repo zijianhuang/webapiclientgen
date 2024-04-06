@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace Fonlow.Web.Meta
@@ -95,7 +96,7 @@ namespace Fonlow.Web.Meta
 		{ get; set; }
 
 		[DataMember]
-		public Type[] MethodTypes
+		public Type[] MethodParameterTypes
 		{ get; set; }
 
 		/// <summary>
@@ -114,6 +115,14 @@ namespace Fonlow.Web.Meta
 
 			set { }
 		}
+
+		/// <summary>
+		/// Attributes decorating the API action method.
+		/// </summary>
+		[DataMember]
+		public Attribute[] CustomAttributes
+		{ get; set; }
+
 
 		[DataMember]
 		public ControllerDescriptor ControllerDescriptor

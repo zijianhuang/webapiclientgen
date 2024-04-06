@@ -89,8 +89,9 @@ namespace Fonlow.Web.Meta
 						ActionName = controllerActionDescriptor.ActionName,
 						MethodName = controllerActionDescriptor.MethodInfo.Name,
 						MethodFullName = controllerActionDescriptor.MethodInfo.DeclaringType.FullName + "." + controllerActionDescriptor.MethodInfo.Name,
-						MethodTypes = controllerActionDescriptor.MethodInfo.GetParameters().Select(d => d.ParameterType).ToArray(),
+						MethodParameterTypes = controllerActionDescriptor.MethodInfo.GetParameters().Select(d => d.ParameterType).ToArray(),
 						ReturnType = responseType,
+						CustomAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(false).OfType<Attribute>().ToArray(),
 						ControllerDescriptor = new ControllerDescriptor()
 						{
 							ControllerName = controllerActionDescriptor.ControllerName,

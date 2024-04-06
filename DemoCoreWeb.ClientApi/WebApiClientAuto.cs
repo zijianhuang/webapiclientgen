@@ -540,7 +540,7 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string NewPassword { get; set; }
@@ -2423,6 +2423,62 @@ namespace DemoWebApi.Controllers.Client
 		public DemoWebApi.DemoData.Client.Person CreatePerson3(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/createPerson3";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, p);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/createPersonByAdmin
+		/// </summary>
+		public async Task<DemoWebApi.DemoData.Client.Person> CreatePersonByAdminAsync(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/createPersonByAdmin";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			using var requestWriter = new System.IO.StringWriter();
+			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);
+			requestSerializer.Serialize(requestWriter, p);
+			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Entities/createPersonByAdmin
+		/// </summary>
+		public DemoWebApi.DemoData.Client.Person CreatePersonByAdmin(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Entities/createPersonByAdmin";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
 			using var requestWriter = new System.IO.StringWriter();
 			var requestSerializer = JsonSerializer.Create(jsonSerializerSettings);

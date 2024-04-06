@@ -60,8 +60,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
 
-
-			var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodTypes);
+			var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodParameterTypes);
 			if (methodInfo != null)
 			{
 				parameterInfoArray = methodInfo.GetParameters();
@@ -104,6 +103,47 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			return Method;
+		}
+
+		/// <summary>
+		/// Some custom attributes of the API function will become doc comment
+		/// </summary>
+		/// <param name="customAttributes"></param>
+		/// <returns></returns>
+		string CreateMethodCommentBasedOnAttributes(Attribute[] customAttributes)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (var c in customAttributes)
+			{
+				var typeFullName = c.GetType().FullName;
+				if (typeFullName == "Microsoft.AspNetCore.Authorization.AuthorizeAttribute")
+				{
+					var roles = TypeHelper.GetAttributePropertyValue(c, "Roles")?.ToString();
+					var schemes = TypeHelper.GetAttributePropertyValue(c, "AuthenticationSchemes")?.ToString();
+					var policy = TypeHelper.GetAttributePropertyValue(c, "Policy")?.ToString();
+					var ss = "";
+					if (!string.IsNullOrEmpty(schemes))
+					{
+						ss += $"Auth Schemes: {schemes}; ";
+					}
+
+					if (!string.IsNullOrEmpty(policy))
+					{
+						ss += $"Policy: {policy}; ";
+					}
+
+					if (!string.IsNullOrEmpty(roles))
+					{
+						ss += $"Roles: {roles}; ";
+					}
+
+					if (!string.IsNullOrEmpty(ss)) {
+						sb.AppendLine(ss);
+					}
+				}
+			}
+
+			return sb.ToString();
 		}
 
 		void CreateDocComments()
@@ -152,6 +192,12 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			builder.AppendLine(Description.HttpMethod + " " + Description.RelativePath);
+
+			var methodAttributesAsComments = CreateMethodCommentBasedOnAttributes(Description.ActionDescriptor.CustomAttributes);
+			if (!string.IsNullOrEmpty(methodAttributesAsComments)){
+				builder.AppendLine(methodAttributesAsComments);	
+			}
+
 			foreach (var paramDesc in Description.ParameterDescriptions)
 			{
 				//var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);

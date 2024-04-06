@@ -590,7 +590,7 @@ export namespace DemoWebApi_Models_Client {
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword?: string | null;
+		newPassword: string;
 
 		/**
 		 * Required
@@ -1156,6 +1156,14 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/Entities/createPersonByAdmin
+		 * Auth Schemes: Bearer; Policy: Casual; Roles: Admin,Manager; 
+		 */
+		createPersonByAdmin(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/createPersonByAdmin', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
 		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
 		 */
@@ -1165,6 +1173,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Entities/createPersonWithStatuses
+		 * Auth Schemes: Bearer; Roles: Admin,Manager; 
 		 */
 		createPersonWithStatuses(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.post(this.baseUri + 'api/Entities/createPersonWithStatuses', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });

@@ -751,6 +751,8 @@ namespace DemoCoreWeb.Controllers.Client
 	using Fonlow.Net.Http;
 	
 	
+	/// <summary>
+	/// </summary>
 	public partial class SpecialTypes
 	{
 		
@@ -2210,6 +2212,7 @@ namespace DemoWebApi.Controllers.Client
 	/// <summary>
 	/// Entities, Person and Company
 	/// Some with AuthorizeAttribute
+	/// Authorize: BearerOK
 	/// </summary>
 	public partial class Entities
 	{
@@ -9763,6 +9766,8 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// </summary>
 	public partial class Values
 	{
 		

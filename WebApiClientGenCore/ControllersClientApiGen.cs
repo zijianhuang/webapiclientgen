@@ -8,6 +8,7 @@ using System;
 using Fonlow.Poco2Client;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using WebApiClientGenCore.Abstract;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -180,23 +181,39 @@ namespace Fonlow.CodeDom.Web.Cs
 						string containerClassName = ConcatOptionalSuffix(d.ControllerName); // optionally become EntitiesClient
 						var controllerCodeTypeDeclaration = CreateControllerClientClass(clientNamespace, containerClassName);
 
-						Fonlow.DocComment.docMember methodComments = null;
+						Fonlow.DocComment.docMember typeComments = null;
+						string[] docCommentsNoIndent = null;
 						if (WebApiDocSingleton.Instance.Lookup != null)
 						{
-							methodComments = WebApiDocSingleton.Instance.Lookup.GetMember($"T:{controllerFullName}Controller");
-							if (methodComments != null)
+							typeComments = WebApiDocSingleton.Instance.Lookup.GetMember($"T:{controllerFullName}Controller");
+							if (typeComments != null)
 							{
-								var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
-								if (noIndent != null)
+								docCommentsNoIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(typeComments));
+							}
+						}
+
+						var attributeComments = AspNetAttributesHelper.CreateMethodCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
+
+						if (docCommentsNoIndent != null || attributeComments != null)
+						{
+							controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement("<summary>", true));
+							if (docCommentsNoIndent != null)
+							{
+								foreach (var item in docCommentsNoIndent)
 								{
-									controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement("<summary>", true));
-									foreach (var item in noIndent)
-									{
-										controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement(item, true));
-									}
-									controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement("</summary>", true));
+									controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement(item, true));
 								}
 							}
+
+							if (attributeComments != null)
+							{
+								foreach (var item in attributeComments)
+								{
+									controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement(item, true));
+								}
+							}
+
+							controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement("</summary>", true));
 						}
 
 						return controllerCodeTypeDeclaration;

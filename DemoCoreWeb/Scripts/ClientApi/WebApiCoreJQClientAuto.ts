@@ -460,6 +460,10 @@ namespace DemoCoreWeb_Controllers_Client {
 }
 
 namespace DemoWebApi_Controllers_Client {
+
+	/**
+	 * For testing different commbinations of parameters and returns
+	 */
 	export class DateTypes {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
@@ -628,6 +632,12 @@ namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * Entities, Person and Company
+	 * Some with AuthorizeAttribute
+	 * Authorize: BearerOK
+	 */
 	export class Entities {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
@@ -784,6 +794,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * Heroes operations. Decorated by nullable directive.
+	 */
 	export class Heroes {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
@@ -865,6 +879,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * For testing different commbinations of parameters and returns
+	 */
 	export class Numbers {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
@@ -1045,6 +1063,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * For testing posting and getting string data. Returned string is JSON object.
+	 */
 	export class StringData {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
@@ -1084,6 +1106,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * For testing different commbinations of parameters and returns
+	 */
 	export class SuperDemo {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
@@ -1575,6 +1601,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * For testing posting and getting string data. String returned is text/plain by default
+	 */
 	export class TextData {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}
@@ -1619,6 +1649,10 @@ namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
+	 */
 	export class Tuple {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {
 		}

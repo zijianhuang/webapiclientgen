@@ -9,6 +9,8 @@ using System.Reflection;
 using Fonlow.Web.Meta;
 using System.Diagnostics;
 using System.Collections.Specialized;
+using WebApiClientGenCore.Abstract;
+using System.Text;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -102,12 +104,49 @@ namespace Fonlow.CodeDom.Web.Ts
 					.OrderBy(d => d.ControllerName)
 					.Select(d =>
 					{
-						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName;
+						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
 						if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
 
-						string containerClassName = GetContainerClassName(d.ControllerName);
-						return CreateControllerClientClass(clientNamespace, containerClassName);
+						string containerClassName = GetContainerClassName(d.ControllerName); // optionally become EntitiesClient
+						var controllerCodeTypeDeclaration = CreateControllerClientClass(clientNamespace, containerClassName);
+
+						Fonlow.DocComment.docMember typeComments = null;
+						string[] docCommentsNoIndent = null;
+						if (WebApiDocSingleton.Instance.Lookup != null)
+						{
+							typeComments = WebApiDocSingleton.Instance.Lookup.GetMember($"T:{controllerFullName}Controller");
+							if (typeComments != null)
+							{
+								docCommentsNoIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(typeComments));
+							}
+						}
+
+						var attributeComments = AspNetAttributesHelper.CreateMethodCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
+
+						if (docCommentsNoIndent?.Length > 0 || attributeComments?.Length > 0)
+						{
+							var sb = new StringBuilder();
+							if (docCommentsNoIndent?.Length > 0)
+							{
+								foreach (var item in docCommentsNoIndent)
+								{
+									sb.AppendLine(item);
+								}
+							}
+
+							if (attributeComments?.Length > 0)
+							{
+								foreach (var item in attributeComments)
+								{
+									sb.AppendLine(item);
+								}
+							}
+
+							controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement(sb.ToString(), true));
+						}
+
+						return controllerCodeTypeDeclaration;
 					}).Where(d => d != null).ToArray();//add classes into the namespace
 			}
 
@@ -280,7 +319,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				typeName = d.Type.BaseType;
 			}
 
-			return typeName == string.Empty ? string.Empty :  $"{pn}Of{typeName}";
+			return typeName == string.Empty ? string.Empty : $"{pn}Of{typeName}";
 		}
 
 		void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)
@@ -300,7 +339,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 				return item;
-			}).Where(k=>k != string.Empty).ToList();
+			}).Where(k => k != string.Empty).ToList();
 
 			var lastParameter = parameterNamesInTitleCase.LastOrDefault();//for JQ output
 			if ("callback".Equals(lastParameter, StringComparison.CurrentCultureIgnoreCase))

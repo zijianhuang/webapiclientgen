@@ -115,6 +115,9 @@ var DemoCoreWeb_Controllers_Client;
 })(DemoCoreWeb_Controllers_Client || (DemoCoreWeb_Controllers_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
+    /**
+     * For testing different commbinations of parameters and returns
+     */
     class DateTypes {
         baseUri;
         httpClient;
@@ -270,6 +273,11 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.DateTypes = DateTypes;
+    /**
+     * Entities, Person and Company
+     * Some with AuthorizeAttribute
+     * Authorize: BearerOK
+     */
     class Entities {
         baseUri;
         httpClient;
@@ -415,6 +423,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.Entities = Entities;
+    /**
+     * Heroes operations. Decorated by nullable directive.
+     */
     class Heroes {
         baseUri;
         httpClient;
@@ -495,6 +506,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.Heroes = Heroes;
+    /**
+     * For testing different commbinations of parameters and returns
+     */
     class Numbers {
         baseUri;
         httpClient;
@@ -663,6 +677,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.Numbers = Numbers;
+    /**
+     * For testing posting and getting string data. Returned string is JSON object.
+     */
     class StringData {
         baseUri;
         httpClient;
@@ -706,6 +723,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.StringData = StringData;
+    /**
+     * For testing different commbinations of parameters and returns
+     */
     class SuperDemo {
         baseUri;
         httpClient;
@@ -1142,6 +1162,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
+    /**
+     * For testing posting and getting string data. String returned is text/plain by default
+     */
     class TextData {
         baseUri;
         httpClient;
@@ -1189,6 +1212,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.TextData = TextData;
+    /**
+     * https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
+     */
     class Tuple {
         baseUri;
         httpClient;

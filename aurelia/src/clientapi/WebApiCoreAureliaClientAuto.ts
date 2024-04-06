@@ -461,6 +461,10 @@ export namespace DemoCoreWeb_Controllers_Client {
 }
 
 export namespace DemoWebApi_Controllers_Client {
+
+	/**
+	 * For testing different commbinations of parameters and returns
+	 */
 	@autoinject()
 	export class DateTypes {
 		constructor(private http: HttpClient) {
@@ -630,6 +634,12 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * Entities, Person and Company
+	 * Some with AuthorizeAttribute
+	 * Authorize: BearerOK
+	 */
 	@autoinject()
 	export class Entities {
 		constructor(private http: HttpClient) {
@@ -787,6 +797,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * Heroes operations. Decorated by nullable directive.
+	 */
 	@autoinject()
 	export class Heroes {
 		constructor(private http: HttpClient) {
@@ -869,6 +883,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * For testing different commbinations of parameters and returns
+	 */
 	@autoinject()
 	export class Numbers {
 		constructor(private http: HttpClient) {
@@ -1050,6 +1068,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * For testing posting and getting string data. Returned string is JSON object.
+	 */
 	@autoinject()
 	export class StringData {
 		constructor(private http: HttpClient) {
@@ -1090,6 +1112,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * For testing different commbinations of parameters and returns
+	 */
 	@autoinject()
 	export class SuperDemo {
 		constructor(private http: HttpClient) {
@@ -1582,6 +1608,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * For testing posting and getting string data. String returned is text/plain by default
+	 */
 	@autoinject()
 	export class TextData {
 		constructor(private http: HttpClient) {
@@ -1627,6 +1657,10 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 	}
 
+
+	/**
+	 * https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
+	 */
 	@autoinject()
 	export class Tuple {
 		constructor(private http: HttpClient) {

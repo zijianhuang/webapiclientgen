@@ -751,8 +751,6 @@ namespace DemoCoreWeb.Controllers.Client
 	using Fonlow.Net.Http;
 	
 	
-	/// <summary>
-	/// </summary>
 	public partial class SpecialTypes
 	{
 		
@@ -9766,8 +9764,6 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
-	/// <summary>
-	/// </summary>
 	public partial class Values
 	{
 		

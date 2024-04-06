@@ -171,7 +171,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 
 				var newControllerClassesCreated = grouppedControllerDescriptions
-					.OrderBy(d => d.ControllerName)
+					.OrderBy(d => d.ControllerName) // order by groupname, and do group by group
 					.Select(d =>
 					{
 						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
@@ -194,10 +194,10 @@ namespace Fonlow.CodeDom.Web.Cs
 
 						var attributeComments = AspNetAttributesHelper.CreateMethodCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
 
-						if (docCommentsNoIndent != null || attributeComments != null)
+						if (docCommentsNoIndent?.Length>0 || attributeComments?.Length>0)
 						{
 							controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement("<summary>", true));
-							if (docCommentsNoIndent != null)
+							if (docCommentsNoIndent?.Length > 0)
 							{
 								foreach (var item in docCommentsNoIndent)
 								{
@@ -205,7 +205,7 @@ namespace Fonlow.CodeDom.Web.Cs
 								}
 							}
 
-							if (attributeComments != null)
+							if (attributeComments?.Length > 0)
 							{
 								foreach (var item in attributeComments)
 								{

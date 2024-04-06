@@ -10,6 +10,9 @@ namespace DemoWebApi.Controllers
 {
 	// [EnableCors(origins: "*", headers:"*", methods:"*")] set globally in WebApiConfig.cs
 	//   [Authorize]
+	/// <summary>
+	/// Entities, Person and Company
+	/// </summary>
 	[Route("api/[controller]")]
 	public class EntitiesController : ControllerBase
 	{
@@ -261,7 +264,7 @@ namespace DemoWebApi.Controllers
 		[Route("createPersonWithStatuses")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.NoContent)]
-		//[ProducesResponseType(typeof(Person), (int)HttpStatusCode.OK)]
+		[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
 		public async Task<ActionResult<Person>> CreatePersonWithStatuses([FromBody] Person p)
 		{
 			Debug.WriteLine("CreatePerson: " + p.Name);
@@ -279,6 +282,9 @@ namespace DemoWebApi.Controllers
 		[HttpPost]
 		[Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin,Manager", Policy ="Casual")]
 		[Route("createPersonByAdmin")]
+		[ProducesResponseType((int)HttpStatusCode.NotFound)]
+		[ProducesResponseType((int)HttpStatusCode.NoContent)]
+		[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
 		public async Task<Person> CreatePersonByAdmin([FromBody] Person p)
 		{
 			Debug.WriteLine("CreatePerson: " + p.Name);

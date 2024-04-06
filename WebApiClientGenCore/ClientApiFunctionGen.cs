@@ -251,6 +251,15 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			clientMethod.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
+			var methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateMethodCommentBasedOnAttributes(description.ActionDescriptor.CustomAttributes);
+			if (methodAttributesAsComments.Length>0)
+			{
+				foreach (var item in methodAttributesAsComments)
+				{
+					clientMethod.Comments.Add(new CodeCommentStatement(item, true));
+				}
+			}
+
 			clientMethod.Comments.Add(new CodeCommentStatement("</summary>", true));
 			foreach (var pd in description.ParameterDescriptions)
 			{

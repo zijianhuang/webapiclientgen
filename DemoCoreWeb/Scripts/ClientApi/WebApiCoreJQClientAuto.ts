@@ -663,15 +663,17 @@ namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Entities/createPersonByAdmin
-		 * Auth Schemes: Bearer; Policy: Casual; Roles: Admin,Manager; 
+		 * Authorize: BearerPolicy: Casual; Roles: Admin,Manager; 
+		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonByAdmin(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
+		createPersonByAdmin(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Entities/createPersonByAdmin', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**
 		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
+		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK
 		 */
 		createPersonWeak(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Entities/createPersonWeak', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
@@ -679,7 +681,8 @@ namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Entities/createPersonWithStatuses
-		 * Auth Schemes: Bearer; Roles: Admin,Manager; 
+		 * Authorize: BearerRoles: Admin,Manager; 
+		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
 		createPersonWithStatuses(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Entities/createPersonWithStatuses', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
@@ -1101,6 +1104,7 @@ namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * GET api/SuperDemo/ActionStringResult
+		 * Status Codes: 200:OK
 		 */
 		getActionStringResult(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode, headersHandler);

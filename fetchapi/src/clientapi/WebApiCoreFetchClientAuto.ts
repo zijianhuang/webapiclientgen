@@ -661,15 +661,17 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Entities/createPersonByAdmin
-		 * Auth Schemes: Bearer; Policy: Casual; Roles: Admin,Manager; 
+		 * Authorize: BearerPolicy: Casual; Roles: Admin,Manager; 
+		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonByAdmin(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
-			return fetch(this.baseUri + 'api/Entities/createPersonByAdmin', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		createPersonByAdmin(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return fetch(this.baseUri + 'api/Entities/createPersonByAdmin', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) });
 		}
 
 		/**
 		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
+		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK
 		 */
 		createPersonWeak(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Entities/createPersonWeak', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) });
@@ -677,7 +679,8 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Entities/createPersonWithStatuses
-		 * Auth Schemes: Bearer; Roles: Admin,Manager; 
+		 * Authorize: BearerRoles: Admin,Manager; 
+		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
 		createPersonWithStatuses(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Entities/createPersonWithStatuses', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) });
@@ -1099,6 +1102,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * GET api/SuperDemo/ActionStringResult
+		 * Status Codes: 200:OK
 		 */
 		getActionStringResult(headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/SuperDemo/ActionStringResult', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;});

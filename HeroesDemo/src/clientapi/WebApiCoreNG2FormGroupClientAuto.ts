@@ -1157,15 +1157,17 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Entities/createPersonByAdmin
-		 * Auth Schemes: Bearer; Policy: Casual; Roles: Admin,Manager; 
+		 * Authorize: BearerPolicy: Casual; Roles: Admin,Manager; 
+		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonByAdmin(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_DemoData_Client.Person> {
-			return this.http.post<DemoWebApi_DemoData_Client.Person>(this.baseUri + 'api/Entities/createPersonByAdmin', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		createPersonByAdmin(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
+			return this.http.post(this.baseUri + 'api/Entities/createPersonByAdmin', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
 		}
 
 		/**
 		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
+		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK
 		 */
 		createPersonWeak(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.post(this.baseUri + 'api/Entities/createPersonWeak', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
@@ -1173,7 +1175,8 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * POST api/Entities/createPersonWithStatuses
-		 * Auth Schemes: Bearer; Roles: Admin,Manager; 
+		 * Authorize: BearerRoles: Admin,Manager; 
+		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
 		createPersonWithStatuses(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.post(this.baseUri + 'api/Entities/createPersonWithStatuses', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
@@ -1599,6 +1602,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * GET api/SuperDemo/ActionStringResult
+		 * Status Codes: 200:OK
 		 */
 		getActionStringResult(headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get(this.baseUri + 'api/SuperDemo/ActionStringResult', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });

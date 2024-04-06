@@ -14,7 +14,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyName>Fonlow.WebApiClientGenCore.Axios</AssemblyName>
-		<Version>3.8</Version>
+		<Version>3.9</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 	</PropertyGroup>

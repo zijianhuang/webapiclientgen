@@ -8,9 +8,9 @@
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Version>2.9.2</Version>
+		<Version>2.10.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageReleaseNotes>TypeScriptCodeDom v3.1; Generated doc comments from type and validation attributes for API parameters.</PackageReleaseNotes>
+		<PackageReleaseNotes>Support JsonPropertyNameAttribute; generate doc comments from AuthorizeAttribute and ProducesResponseTypeAttribute.</PackageReleaseNotes>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<NoWarn>1701;1702;IDE0057</NoWarn>
 	</PropertyGroup>

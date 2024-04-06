@@ -638,7 +638,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * Entities, Person and Company
 	 * Some with AuthorizeAttribute
-	 * Authorize: BearerOK
 	 */
 	@autoinject()
 	export class Entities {

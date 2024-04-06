@@ -2210,7 +2210,6 @@ namespace DemoWebApi.Controllers.Client
 	/// <summary>
 	/// Entities, Person and Company
 	/// Some with AuthorizeAttribute
-	/// Authorize: BearerOK
 	/// </summary>
 	public partial class Entities
 	{

@@ -115,6 +115,9 @@ var DemoCoreWeb_Controllers_Client;
 })(DemoCoreWeb_Controllers_Client || (DemoCoreWeb_Controllers_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
+    /**
+     * For testing different commbinations of parameters and returns
+     */
     class DateTypes {
         baseUri;
         httpClient;
@@ -270,6 +273,10 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.DateTypes = DateTypes;
+    /**
+     * Entities, Person and Company
+     * Some with AuthorizeAttribute
+     */
     class Entities {
         baseUri;
         httpClient;
@@ -305,6 +312,30 @@ var DemoWebApi_Controllers_Client;
          */
         createPerson3(p, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Entities/createPerson3', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Entities/createPersonByAdmin
+         * Authorize: BearerPolicy: Casual; Roles: Admin,Manager;
+         * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
+         */
+        createPersonByAdmin(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPersonByAdmin', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
+         * POST api/Entities/createPersonWeak
+         * Status Codes: 404:NotFound, 204:NoContent, 200:OK
+         */
+        createPersonWeak(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPersonWeak', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * POST api/Entities/createPersonWithStatuses
+         * Authorize: BearerRoles: Admin,Manager;
+         * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
+         */
+        createPersonWithStatuses(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPersonWithStatuses', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
          * DELETE api/Entities/{id}
@@ -391,6 +422,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.Entities = Entities;
+    /**
+     * Heroes operations. Decorated by nullable directive.
+     */
     class Heroes {
         baseUri;
         httpClient;
@@ -471,6 +505,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.Heroes = Heroes;
+    /**
+     * For testing different commbinations of parameters and returns
+     */
     class Numbers {
         baseUri;
         httpClient;
@@ -639,6 +676,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.Numbers = Numbers;
+    /**
+     * For testing posting and getting string data. Returned string is JSON object.
+     */
     class StringData {
         baseUri;
         httpClient;
@@ -682,6 +722,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.StringData = StringData;
+    /**
+     * For testing different commbinations of parameters and returns
+     */
     class SuperDemo {
         baseUri;
         httpClient;
@@ -707,6 +750,7 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * GET api/SuperDemo/ActionStringResult
+         * Status Codes: 200:OK
          */
         getActionStringResult(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode, headersHandler);
@@ -1117,6 +1161,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.SuperDemo = SuperDemo;
+    /**
+     * For testing posting and getting string data. String returned is text/plain by default
+     */
     class TextData {
         baseUri;
         httpClient;
@@ -1164,6 +1211,9 @@ var DemoWebApi_Controllers_Client;
         }
     }
     DemoWebApi_Controllers_Client.TextData = TextData;
+    /**
+     * https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
+     */
     class Tuple {
         baseUri;
         httpClient;

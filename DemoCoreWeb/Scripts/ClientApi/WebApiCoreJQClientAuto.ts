@@ -636,7 +636,6 @@ namespace DemoWebApi_Controllers_Client {
 	/**
 	 * Entities, Person and Company
 	 * Some with AuthorizeAttribute
-	 * Authorize: BearerOK
 	 */
 	export class Entities {
 		constructor(private baseUri: string = HttpClient.locationOrigin, private httpClient: HttpClientBase = new HttpClient(), private error?: (xhr: JQueryXHR, ajaxOptions: string, thrown: string) => any, private statusCode?: { [key: string]: any; }) {

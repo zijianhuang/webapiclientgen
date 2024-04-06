@@ -636,7 +636,6 @@ export namespace DemoWebApi_Controllers_Client {
 	/**
 	 * Entities, Person and Company
 	 * Some with AuthorizeAttribute
-	 * Authorize: BearerOK
 	 */
 	export class Entities {
 		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {

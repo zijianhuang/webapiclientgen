@@ -15,7 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)EntitiesApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FileUploadIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeroesApiIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HeroesFixture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NumbersApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecialTypesFixture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringDataFixture.cs" />

@@ -28,6 +28,7 @@
 	"ClientApiOutputs": {
 		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
 		//"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
+		"FileName": "WebApiClientTextJsonAuto.cs",
 		"GenerateBothAsyncAndSync": true,
 		//"StringAsString": true, default is true
 		"CamelCase": true,

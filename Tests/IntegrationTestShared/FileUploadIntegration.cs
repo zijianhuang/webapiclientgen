@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DemoWebApi.Controllers.Client;
+using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using DemoWebApi.DemoData.Client;
-using System.Net.Http;
-using System.IO;
-using DemoWebApi.Controllers.Client;
-using System.Diagnostics;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Http;
 
 namespace IntegrationTests
 {

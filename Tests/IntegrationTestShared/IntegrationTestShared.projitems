@@ -13,12 +13,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)DotNetCoreSpecial.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DotNetHostCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntitiesApiIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileUploadIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeroesApiIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeroesFixture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NumbersApiIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SpecialTypesFixture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringDataFixture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TextDataApiIntegrationy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringDataApiIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SpecialTypesApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuperDemoIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextDataFixture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TupleApiIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValuesApiIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValuesFixture.cs" />
   </ItemGroup>
 </Project>

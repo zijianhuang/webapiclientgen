@@ -1,11 +1,10 @@
 ﻿using Fonlow.Testing;
-using System;
 
 namespace IntegrationTests
 {
-	public class SuperDemoFixture : DefaultHttpClient
+	public class NumbersFixture : DefaultHttpClient
 	{
-		public SuperDemoFixture()
+		public NumbersFixture()
 		{
 			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
 			{
@@ -13,9 +12,9 @@ namespace IntegrationTests
 				PropertyNameCaseInsensitive = true,
 			};
 
-			Api = new DemoWebApi.Controllers.Client.SuperDemo(HttpClient, jsonSerializerSettings);
+			Api = new DemoWebApi.Controllers.Client.Numbers(HttpClient, jsonSerializerSettings);
 		}
 
-		public DemoWebApi.Controllers.Client.SuperDemo Api { get; private set; }
+		public DemoWebApi.Controllers.Client.Numbers Api { get; private set; }
 	}
 }

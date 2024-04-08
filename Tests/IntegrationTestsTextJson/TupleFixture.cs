@@ -1,6 +1,5 @@
-﻿using Fonlow.Text.Json.DateOnlyExtensions;
-using Fonlow.Testing;
-using System;
+﻿using Fonlow.Testing;
+using Fonlow.DateOnlyExtensions;
 
 namespace IntegrationTests
 {
@@ -8,51 +7,17 @@ namespace IntegrationTests
 	{
 		public TupleFixture()
 		{
-			httpClient = new System.Net.Http.HttpClient
-			{
-				BaseAddress = base.BaseUri
-			};
-			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions
+			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
-				PropertyNameCaseInsensitive = true
+				PropertyNameCaseInsensitive = true,
 			};
 
-			jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeOffsetJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeOffsetNullableJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeJsonConverter());
-			jsonSerializerSettings.Converters.Add(new DateTimeNullableJsonConverter());
-
-			Api = new DemoWebApi.Controllers.Client.Tuple(httpClient, jsonSerializerSettings);
+			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
+			//jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			Api = new DemoWebApi.Controllers.Client.Tuple(HttpClient, jsonSerializerSettings);
 		}
 
 		public DemoWebApi.Controllers.Client.Tuple Api { get; private set; }
-
-		readonly System.Net.Http.HttpClient httpClient;
-
-		#region IDisposable pattern
-		bool disposed;
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposed)
-			{
-				if (disposing)
-				{
-					httpClient.Dispose();
-				}
-
-				disposed = true;
-			}
-		}
-		#endregion
 	}
 }

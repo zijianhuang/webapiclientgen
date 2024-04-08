@@ -1,0 +1,1 @@
+Test the runtime behavior of .NET Core Client with System.Text.Json during serialization, using DemoCoreWeb.ClientApiTextJson.

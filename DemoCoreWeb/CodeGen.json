@@ -26,7 +26,7 @@
 	},
 
 	"ClientApiOutputs": {
-		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApi",
+		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApi2",
 		//"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
 		"GenerateBothAsyncAndSync": true,
 		//"StringAsString": true, default is true
@@ -46,7 +46,7 @@
 		"JsMethodSuffixWithClrTypeName": true,
 
 		//"NotNullAttributeOnMethod": true,
-		//"UseSystemTextJson": true,
+		"UseSystemTextJson": true,
 
 		"Plugins": [
 			{

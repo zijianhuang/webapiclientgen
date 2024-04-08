@@ -139,7 +139,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName,
-				ReturnType = poco2CsGen.TranslateToClientTypeReferenceForNullableReference(returnType),
+				ReturnType = poco2CsGen.TranslateToClientTypeReference(returnType),
 			};
 		}
 
@@ -150,7 +150,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName + "Async",
 				ReturnType = returnType == null ? new CodeTypeReference("async Task")
-				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReferenceForNullableReference(returnType)),
+				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReference(returnType)),
 			};
 		}
 

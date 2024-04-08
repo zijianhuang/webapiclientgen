@@ -28,7 +28,7 @@ namespace Fonlow.Poco2Client
 	public class Poco2CsGen : IDocCommentTranslate
 	{
 		readonly CodeCompileUnit codeCompileUnit;
-		readonly ModelGenOutputs settings;
+		readonly CodeGenOutputs settings;
 		readonly CodeDomProvider codeDomProvider;
 
 		DocCommentLookup docLookup;
@@ -40,7 +40,7 @@ namespace Fonlow.Poco2Client
 		/// </summary>
 		readonly List<Type> pendingTypes;
 
-		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;	
+		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
 
 		readonly IDictionary<Type, Func<Attribute, CodeAttributeDeclaration>> declarationDic;
 
@@ -48,7 +48,7 @@ namespace Fonlow.Poco2Client
 		/// Gen will share the same CodeCompileUnit with other CodeGen components which generate client API codes.
 		/// </summary>
 		/// <param name="codeCompileUnit"></param>
-		public Poco2CsGen(CodeCompileUnit codeCompileUnit, CodeDomProvider csharpCodeDomProvider, ModelGenOutputs settings)
+		public Poco2CsGen(CodeCompileUnit codeCompileUnit, CodeDomProvider csharpCodeDomProvider, CodeGenOutputs settings)
 		{
 			this.codeCompileUnit = codeCompileUnit;
 			codeDomProvider = csharpCodeDomProvider;
@@ -83,14 +83,19 @@ namespace Fonlow.Poco2Client
 			return TranslateToClientTypeReferenceText(type, true);
 		}
 
-		public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type)
+		/// <summary>
+		/// Translate custom types, generic types, array and some special http message types to client code type refernce
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		public CodeTypeReference TranslateToClientTypeReference(Type type)
 		{
 			if (type == null)
 				return null;// new CodeTypeReference("void");
 
 			if (pendingTypes.Contains(type))
 			{
-				return new CodeTypeReference(RefineCustomComplexTypeTextForNullableReferenceType(type));
+				return new CodeTypeReference(RefineCustomComplexTypeText(type));
 			}
 			else if (type.IsGenericType)
 			{
@@ -115,11 +120,49 @@ namespace Fonlow.Poco2Client
 					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
 
 				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
+					return settings.UseSystemTextJson ? new CodeTypeReference("System.Text.Json.Nodes.JsonObject") : new CodeTypeReference("Newtonsoft.Json.Linq.JObject"); // possible only after .NET 6
 			}
 
 			return new CodeTypeReference(type);
 		}
+
+		//public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type)
+		//{
+		//	if (type == null)
+		//		return null;// new CodeTypeReference("void");
+
+		//	if (pendingTypes.Contains(type))
+		//	{
+		//		return new CodeTypeReference(RefineCustomComplexTypeText(type));
+		//	}
+		//	else if (type.IsGenericType)
+		//	{
+		//		return TranslateGenericToTypeReference(type);
+		//	}
+		//	else if (type.IsArray)
+		//	{
+		//		Debug.Assert(type.Name.EndsWith("]"));
+		//		var elementType = type.GetElementType();
+		//		var arrayRank = type.GetArrayRank();
+		//		return CreateArrayTypeReference(elementType, arrayRank);
+		//	}
+		//	else
+		//	{
+		//		if (type.FullName == "System.Web.Http.IHttpActionResult")
+		//			return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+		//		if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
+		//			return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+		//		if (type.FullName == "System.Net.Http.HttpResponseMessage")
+		//			return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
+
+		//		if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+		//			return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
+		//	}
+
+		//	return new CodeTypeReference(type);
+		//}
 
 		/// <summary>
 		/// Create CodeDOM for POCO types. 
@@ -295,7 +338,7 @@ namespace Fonlow.Poco2Client
 						var newtonJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "Newtonsoft.Json.JsonConverterAttribute");
 						if (newtonJsonConverterAttributeData != null)
 						{
-							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("Newtonsoft.Json.JsonConverterAttribute", new CodeAttributeArgument(new CodeSnippetExpression("typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
+							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration(settings.UseSystemTextJson ? "System.Text.Json.Serialization.JsonConverterAttribute" : "Newtonsoft.Json.JsonConverterAttribute", new CodeAttributeArgument(new CodeSnippetExpression(settings.UseSystemTextJson ? "typeof(System.Text.Json.Serialization.JsonStringEnumConverter)" : "typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
 						}
 
 						var systemJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Text.Json.Serialization.JsonConverterAttribute");
@@ -544,49 +587,6 @@ namespace Fonlow.Poco2Client
 
 		}
 
-		/// <summary>
-		/// Translate custom types, generic types, array and some special http message types to client code type refernce
-		/// </summary>
-		/// <param name="type"></param>
-		/// <returns></returns>
-		public CodeTypeReference TranslateToClientTypeReference(Type type)
-		{
-			if (type == null)
-				return null;// new CodeTypeReference("void");
-
-			if (pendingTypes.Contains(type))
-				return new CodeTypeReference(RefineCustomComplexTypeText(type));
-			else if (type.IsGenericType)
-			{
-				return TranslateGenericToTypeReference(type);
-			}
-			else if (type.IsArray)
-			{
-				Debug.Assert(type.Name.EndsWith("]"));
-				var elementType = type.GetElementType();
-				var arrayRank = type.GetArrayRank();
-				return CreateArrayTypeReference(elementType, arrayRank);
-			}
-			else
-			{
-				if (type.FullName == "System.Web.Http.IHttpActionResult")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "System.Net.Http.HttpResponseMessage")
-					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
-			}
-
-
-			return new CodeTypeReference(type);
-
-		}
-
 		public string TranslateCodeTypeReferenceToCSharp(CodeTypeReference codeTypeReference)
 		{
 			return codeDomProvider.GetTypeOutput(codeTypeReference);
@@ -634,7 +634,7 @@ namespace Fonlow.Poco2Client
 					return "System.Net.Http.HttpResponseMessage";
 
 				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return "Newtonsoft.Json.Linq.JObject";
+					return settings.UseSystemTextJson ? "System.Text.Json.Nodes.JsonObject" : "Newtonsoft.Json.Linq.JObject";
 			}
 
 
@@ -697,10 +697,10 @@ namespace Fonlow.Poco2Client
 			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
 		}
 
-		string RefineCustomComplexTypeTextForNullableReferenceType(Type t)
-		{
-			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
-		}
+		//string RefineCustomComplexTypeTextForNullableReferenceType(Type t)
+		//{
+		//	return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
+		//}
 
 		CodeTypeReference CreateArrayTypeReference(Type elementType, int arrayRank)
 		{

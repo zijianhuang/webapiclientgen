@@ -14,7 +14,7 @@ $process = Start-Process @procArgs
 $restArgs = @{
     Uri         = 'http://localhost:5000/api/codegen'
     Method      = 'Post'
-    InFile      = "$PSScriptRoot\DemoCoreWeb\CodeGen.json"
+    InFile      = "$PSScriptRoot\DemoTextJsonWeb\CodeGen.json"
     ContentType = 'application/json'
 }
 try {

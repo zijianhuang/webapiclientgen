@@ -1,65 +1,66 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <Version>3.1.0</Version>
-    <FileVersion>3.1.0.0</FileVersion>
-    <NeutralLanguage>en</NeutralLanguage>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+		<AssemblyVersion>3.1.0.0</AssemblyVersion>
+		<Version>3.1.0</Version>
+		<FileVersion>3.1.0.0</FileVersion>
+		<NeutralLanguage>en</NeutralLanguage>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1705;1591;1998;IDE0060</NoWarn>
-    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<NoWarn>1701;1702;1705;1591;1998;IDE0060</NoWarn>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
 
 
-  <ItemGroup>
-    <None Remove="README.md" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="README.md" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="README.md" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="README.md" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.2" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.4.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.2" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.4.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DemoCoreWebControllers\DemoCoreWebControllers.csproj" />
-    <ProjectReference Include="..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
-    <ProjectReference Include="..\Fonlow.DateOnlyExtensionsNet\Fonlow.DateOnlyExtensionsTextJson.csproj" />
-    <ProjectReference Include="..\Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj" />
-    <ProjectReference Include="..\Fonlow.IntegralExtension\Fonlow.IntegralExtensions.csproj" />
-    <ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
-    <ProjectReference Include="..\WebApiClientGenCore.Aurelia\WebApiClientGenCore.Aurelia.csproj" />
-    <ProjectReference Include="..\WebApiClientGenCore.Axios\WebApiClientGenCore.Axios.csproj" />
-    <ProjectReference Include="..\WebApiClientGenCore.Fetch\WebApiClientGenCore.Fetch.csproj" />
-    <ProjectReference Include="..\WebApiClientGenCore.jQuery\WebApiClientGenCore.jQuery.csproj" />
-    <ProjectReference Include="..\WebApiClientGenCore.NG2FormGroup\WebApiClientGenCore.NG2FormGroup.csproj" />
-    <ProjectReference Include="..\WebApiClientGenCore.NG2\WebApiClientGenCore.NG2.csproj" />
-    <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DemoCoreWebControllers\DemoCoreWebControllers.csproj" />
+		<ProjectReference Include="..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
+		<ProjectReference Include="..\Fonlow.DateOnlyExtensionsNet\Fonlow.DateOnlyExtensionsTextJson.csproj" />
+		<ProjectReference Include="..\Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj" />
+		<ProjectReference Include="..\Fonlow.IntegralExtension\Fonlow.IntegralExtensions.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.Aurelia\WebApiClientGenCore.Aurelia.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.Axios\WebApiClientGenCore.Axios.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.Fetch\WebApiClientGenCore.Fetch.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.jQuery\WebApiClientGenCore.jQuery.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.NG2FormGroup\WebApiClientGenCore.NG2FormGroup.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.NG2\WebApiClientGenCore.NG2.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
+	</ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy tests.html wwwroot\ /d /y&#xD;&#xA;xcopy wwwroot\*.* $(OutDir)wwwroot\ /s /d /y" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy tests.html wwwroot\ /d /y&#xD;&#xA;xcopy wwwroot\*.* $(OutDir)wwwroot\ /s /d /y" />
+	</Target>
 
 </Project>

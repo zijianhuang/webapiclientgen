@@ -1,12 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DemoCoreWebControllers\DemoCoreWebControllers.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DemoCoreWebControllers\DemoCoreWebControllers.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.Aurelia\WebApiClientGenCore.Aurelia.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.Axios\WebApiClientGenCore.Axios.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.Fetch\WebApiClientGenCore.Fetch.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.NG2FormGroup\WebApiClientGenCore.NG2FormGroup.csproj" />
+		<ProjectReference Include="..\WebApiClientGenCore.NG2\WebApiClientGenCore.NG2.csproj" />
+	</ItemGroup>
 
 </Project>

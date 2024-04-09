@@ -17,6 +17,11 @@
 			},
 
 			{
+				"AssemblyName": "DemoCoreWebControllers",
+				"CherryPickingMethods": 3
+			},
+
+			{
 				"AssemblyName": "DemoCoreWeb",
 				"CherryPickingMethods": 1
 			}

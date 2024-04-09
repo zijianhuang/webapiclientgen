@@ -1,0 +1,117 @@
+{
+	"ApiSelections": {
+		"ExcludedControllerNames": [
+			"DemoWebApi.Controllers.Home",
+			"DemoWebApi.Controllers.FileUpload"
+		],
+
+		//"DataModelAssemblyNames": [
+		//	"DemoWebApi.DemoDataCore",
+		//	"DemoCoreWeb"
+		//],
+
+		"DataModels": [
+			{
+				"AssemblyName": "DemoWebApi.DemoDataCore",
+				"CherryPickingMethods": 3
+			},
+
+			{
+				"AssemblyName": "DemoCoreWeb",
+				"CherryPickingMethods": 1
+			}
+		]
+
+		//"CherryPickingMethods": 3
+	},
+
+	"ClientApiOutputs": {
+		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
+		//"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
+		"FileName": "WebApiClientTextJsonAuto.cs",
+		"GenerateBothAsyncAndSync": true,
+		//"StringAsString": true, default is true
+		"CamelCase": true,
+		"CSClientNamespaceSuffix": ".Client",
+		"DataAnnotationsEnabled": true,
+		"DataAnnotationsToComments": true,
+		"HandleHttpRequestHeaders": true,
+		//"CancellationTokenEnabled": true,
+		"DecorateDataModelWithDataContract": true,
+		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
+		"DecorateDataModelWithSerializable": true,
+		"IEnumerableToArray": false,
+		"MaybeNullAttributeOnMethod": true,
+		"UseEnsureSuccessStatusCodeEx": true,
+		"IncludeEnsureSuccessStatusCodeExBlock": true,
+		"JsMethodSuffixWithClrTypeName": true,
+
+		//"NotNullAttributeOnMethod": true,
+		"UseSystemTextJson": true,
+
+		"Plugins": [
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.jQuery",
+				"TargetDir": "..\\..\\..\\..\\Scripts\\ClientApi",
+				"TSFile": "WebApiCoreJQClientAuto.ts",
+				"AsModule": false,
+				"DataAnnotationsToComments": true,
+				"ContentType": "application/json;charset=UTF-8"
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.NG2",
+				"TargetDir": "..\\..\\..\\..\\..\\HeroesDemo\\src\\ClientApi",
+				"TSFile": "WebApiCoreNG2ClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"ClientNamespaceSuffix": ".Client",
+				"ContainerNameSuffix": "",
+				"DataAnnotationsToComments": true,
+				"HelpStrictMode": true
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.NG2FormGroup",
+				"TargetDir": "..\\..\\..\\..\\..\\HeroesDemo\\src\\ClientApi",
+				"TSFile": "WebApiCoreNG2FormGroupClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"ClientNamespaceSuffix": ".Client",
+				"ContainerNameSuffix": "",
+				"DataAnnotationsToComments": true,
+				"HelpStrictMode": true
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.Axios",
+				"TargetDir": "..\\..\\..\\..\\..\\axios\\src\\clientapi",
+				"TSFile": "WebApiCoreAxiosClientAuto.ts",
+				"AsModule": true,
+				"DataAnnotationsToComments": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"HelpStrictMode": true
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.Aurelia",
+				"TargetDir": "..\\..\\..\\..\\..\\aurelia\\src\\clientapi",
+				"TSFile": "WebApiCoreAureliaClientAuto.ts",
+				"AsModule": true,
+				"DataAnnotationsToComments": true,
+				"ContentType": "application/json;charset=UTF-8"
+			},
+
+			{
+				"AssemblyName": "Fonlow.WebApiClientGenCore.Fetch",
+				"TargetDir": "..\\..\\..\\..\\..\\fetchapi\\src\\clientapi",
+				"TSFile": "WebApiCoreFetchClientAuto.ts",
+				"AsModule": true,
+				"ContentType": "application/json;charset=UTF-8",
+				"DataAnnotationsToComments": true,
+				"HelpStrictMode": true
+			}
+
+		]
+	}
+}

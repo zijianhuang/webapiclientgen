@@ -171,6 +171,20 @@ namespace IntegrationTests
 			Assert.Equal(uint.MaxValue, r);
 		}
 
+		[Fact]
+		public void TestPostUIntButIntValue()
+		{
+			var r = api.Post(int.MaxValue);
+			Assert.Equal(int.MaxValue, r);
+		}
+
+		[Fact]
+		public void TestPostUIntMaxMinus1()
+		{
+			var r = api.Post(uint.MaxValue-1);
+			Assert.Equal(uint.MaxValue-1, r);
+		}
+
 
 	}
 }

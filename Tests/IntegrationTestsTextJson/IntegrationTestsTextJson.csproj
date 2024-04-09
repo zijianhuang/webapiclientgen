@@ -31,7 +31,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\DemoCoreWeb.ClientApiTextJson\DemoCoreWeb.ClientApiTextJson.csproj" />
-		<ProjectReference Include="..\..\Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj" />
+		<ProjectReference Include="..\..\Fonlow.DateOnlyExtensionsNet\Fonlow.DateOnlyExtensionsTextJson.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

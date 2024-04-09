@@ -1,4 +1,6 @@
-﻿Customized serialization for DateOnly in ASP.NET Core 6 and above.
+﻿**!For ASP.NET Core 6 only!**
+
+Customized serialization for DateOnly in ASP.NET Core 6 and above.
 
 Similar to Fonlow.DateOnlyExtensions but without using `NewtonSoft.Json`, suitable for ASP.NET Core Web API using `System.Text.Json` only.
 

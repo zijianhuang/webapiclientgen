@@ -49,7 +49,7 @@ namespace DemoCoreWeb
 					options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed for ASP.NET 7 and .NET 7 clients. However .NET 6 clients and .NET Framework clients still need DateOnlyJsonConverter
 					options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter()); // also, needed by JavaScript clients.
 
-					// JS clients need these integral JsonConverters
+					// JS clients need these integral JsonConverters for large integral numbers
 					options.SerializerSettings.Converters.Add(new Int64JsonConverter());
 					options.SerializerSettings.Converters.Add(new Int64NullableJsonConverter());
 					options.SerializerSettings.Converters.Add(new UInt64JsonConverter());
@@ -57,7 +57,8 @@ namespace DemoCoreWeb
 					options.SerializerSettings.Converters.Add(new BigIntegerJsonConverter());
 					options.SerializerSettings.Converters.Add(new BigIntegerNullableJsonConverter());
 				}
-			).ConfigureApiBehaviorOptions(options=>{
+			)
+			.ConfigureApiBehaviorOptions(options=>{
 				//options.SuppressModelStateInvalidFilter = true; //No effect on the API designs here which rarely return BadRequestObjectResult directly.
 			});
 

@@ -1194,6 +1194,7 @@ namespace DemoWebApi.Controllers.Client
 				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
 				return serializer.Deserialize<System.Nullable<System.DateTime>>(jsonReader);
 			}
 			finally

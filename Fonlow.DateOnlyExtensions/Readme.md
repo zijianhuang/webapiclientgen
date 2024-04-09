@@ -1,3 +1,5 @@
+**!For ASP.NET Core 6 only!**
+
 Customized serialization for DateOnly in ASP.NET Core 6 and above, introduced in .NET 6, for the following clients:
 
 1. .NET 6 clients

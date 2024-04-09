@@ -12,7 +12,7 @@ namespace IntegrationTests
 				PropertyNameCaseInsensitive = true,
 			};
 
-			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter()); for .NET 6, no need in .NET 7, 8,
 			//jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
 			Api = new DemoWebApi.Controllers.Client.DateTypes(HttpClient, jsonSerializerSettings);
 		}

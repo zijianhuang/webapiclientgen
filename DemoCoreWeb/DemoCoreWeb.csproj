@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DemoCoreWebControllers\DemoCoreWebControllers.csproj" />
     <ProjectReference Include="..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
     <ProjectReference Include="..\Fonlow.DateOnlyExtensionsNet\Fonlow.DateOnlyExtensionsTextJson.csproj" />
     <ProjectReference Include="..\Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj" />

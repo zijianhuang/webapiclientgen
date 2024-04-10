@@ -1,1 +1,1 @@
-﻿This is to test the .NET Core Web API.
+﻿Primary integration test suite for DemoCoreWeb, more exactly, for generated DemoCoreWeb.ClientApi.

@@ -1,11 +1,7 @@
-For testing the runtime behavior of .NET Core Client with System.Text.Json during serialization, using DemoCoreWeb.ClientApiTextJson.
+Generated client API codes utilizing System.Text.Json. 
 
-The codegen.json of DemoCoreWeb should be temporarily changed to:
+Integration test suits is Tests/IntegrationTestsTextJson.
+
+The codegen.json of the Web API should be:
 1. `"UseSystemTextJson": true`
-1. `"ClientLibraryProjectFolderName": "..\\..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson"`
-
-
-**Remarks:**
-
-* As of .NET 3, 5, 6, 7 and 8, System.Text.Json has been approaching total replacement of Newtonsoft.Json, covering more and more CLR strongly typed data models. 
-* However, as of .NET 8, there are still around 27 test cases revealing that what System.Text.Json is not yet capable of.
+1. `"ClientLibraryProjectFolderName": "..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson"`

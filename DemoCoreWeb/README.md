@@ -1,6 +1,6 @@
 # DemoCoreWeb
 
-This Web service contains rich data types and Web API prototypes for covering maximum number of data types in .NET and Web API prototypes in ASP.NET.
+Utilizing Newtonsoft.Json, this Web service contains rich data types and Web API prototypes for covering maximum number of data types in .NET and Web API prototypes in ASP.NET.
 
 # Testing Client API for jQuery
 

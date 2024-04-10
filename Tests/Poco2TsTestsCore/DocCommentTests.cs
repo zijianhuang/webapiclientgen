@@ -8,9 +8,9 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestReadDocComment()
 		{
-			var d = DocCommentLookup.Create(@"C:\VsProjects\OpenSource\webapiclientgen\DemoCoreWeb\bin\Debug\net8.0\DemoCoreWeb.xml");
+			var d = DocCommentLookup.Create(@"C:\VsProjects\OpenSource\webapiclientgen\DemoCoreWebControllers\bin\Debug\net8.0\DemoCoreWebControllers.xml");
 			Assert.NotNull(d);
-			Assert.Equal("DemoCoreWeb", d.XmlDoc.assembly.name);
+			Assert.Equal("DemoCoreWebControllers", d.XmlDoc.assembly.name);
 			var summary = d.GetMember("T:DemoWebApi.Controllers.HeroesController").summary;
 
 			const string expected = "\n            Heroes operations. Decorated by nullable directive.\n            ";

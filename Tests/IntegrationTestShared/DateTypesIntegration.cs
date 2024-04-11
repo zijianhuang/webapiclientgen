@@ -148,6 +148,13 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestPostDateTimeNull()
+		{
+			var dt = api.PostDateTimeNullable(null); //The request send a JSON null object, but ASP.NET Core without Newtonsoft.Json will return empty string and status code 204 No Content.
+			Assert.False(dt.HasValue);
+		}
+
+		[Fact]
 		public void TestGetDateTimeOffset()
 		{
 			var dt = api.GetDateTimeOffset();

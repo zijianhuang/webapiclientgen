@@ -519,7 +519,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddResponseMessageRead(CodeStatementCollection statementCollection)
 		{
-			if (TypeHelper.IsStringType(returnType)) //ASP.NET Core return null as empty body with status code 204, whether to produce JSON or plain text.
+			if (TypeHelper.IsStringType(returnType) || TypeHelper.IsNullablePrimitive(returnType)) //ASP.NET Core return null as empty body with status code 204, whether to produce JSON or plain text.
 			{
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
 			}

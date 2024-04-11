@@ -560,6 +560,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/DateTypes/DateTimeNullable
+		 */
+		postDateTimeNullable(d?: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Date | null> {
+			return fetch(this.baseUri + 'api/DateTypes/DateTimeNullable', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(d) }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
 		 * return d;
 		 * POST api/DateTypes/ForDateTimeOffset
 		 */

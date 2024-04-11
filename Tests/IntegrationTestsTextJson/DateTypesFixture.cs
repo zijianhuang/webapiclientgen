@@ -8,7 +8,7 @@ namespace IntegrationTests
 		{
 			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
 			{
-				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
+				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.Never,
 				PropertyNameCaseInsensitive = true,
 			};
 

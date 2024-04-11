@@ -10,7 +10,10 @@ namespace IntegrationTests
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 				PropertyNameCaseInsensitive = true,
+				NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.WriteAsString | System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
 			};
+
+			jsonSerializerSettings.Converters.Add(new DemoTextJsonWeb.BigIntegerConverter()); // both client and service must have the same conversion.
 
 			Api = new DemoWebApi.Controllers.Client.Numbers(HttpClient, jsonSerializerSettings);
 		}

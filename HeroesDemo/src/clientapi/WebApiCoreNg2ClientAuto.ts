@@ -565,6 +565,13 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/DateTypes/DateTimeNullable
+		 */
+		postDateTimeNullable(d?: Date | null, headersHandler?: () => HttpHeaders): Observable<Date | null> {
+			return this.http.post<Date | null>(this.baseUri + 'api/DateTypes/DateTimeNullable', JSON.stringify(d), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }) });
+		}
+
+		/**
 		 * return d;
 		 * POST api/DateTypes/ForDateTimeOffset
 		 */

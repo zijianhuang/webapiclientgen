@@ -167,6 +167,13 @@ namespace DemoWebApi.Controllers
 			return d;
 		}
 
+		[HttpPost]
+		[Route("DateTimeNullable")]
+		public DateTime? PostDateTimeNullable([FromBody] DateTime? d)
+		{
+			return d;
+		}
+
 		//[HttpGet]
 		//[Route("ForDateOnly")] until .NET 7? after ASP.NET core team fix the issue.
 		//public DateOnly QueryDateOnly([FromQuery] DateOnly d)

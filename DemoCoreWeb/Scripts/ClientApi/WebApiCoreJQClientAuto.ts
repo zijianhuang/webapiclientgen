@@ -562,6 +562,13 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * POST api/DateTypes/DateTimeNullable
+		 */
+		postDateTimeNullable(d: Date | null, callback: (data : Date) => any, headersHandler?: () => {[header: string]: string}) {
+			this.httpClient.post(this.baseUri + 'api/DateTypes/DateTimeNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+		}
+
+		/**
 		 * return d;
 		 * POST api/DateTypes/ForDateTimeOffset
 		 */

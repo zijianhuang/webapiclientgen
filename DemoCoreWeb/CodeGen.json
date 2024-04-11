@@ -31,9 +31,7 @@
 	},
 
 	"ClientApiOutputs": {
-		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
-		//"ClientLibraryProjectFolderName": "..\\..\\..\\..\\DemoCoreWeb.ClientApiTextJson",
-		"FileName": "WebApiClientTextJsonAuto.cs",
+		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\DemoCoreWeb.ClientApi",
 		"GenerateBothAsyncAndSync": true,
 		//"StringAsString": true, default is true
 		"CamelCase": true,
@@ -52,7 +50,7 @@
 		"JsMethodSuffixWithClrTypeName": true,
 
 		//"NotNullAttributeOnMethod": true,
-		"UseSystemTextJson": true,
+		"UseSystemTextJson": false,
 
 		"Plugins": [
 			{

@@ -11,6 +11,7 @@ namespace IntegrationTests
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 				PropertyNameCaseInsensitive = true,
+				NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
 			};
 
 			Api = new DemoWebApi.Controllers.Client.SuperDemo(HttpClient, jsonSerializerSettings);

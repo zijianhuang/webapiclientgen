@@ -252,6 +252,9 @@ namespace IntegrationTests
 			Assert.Equal(1988, person.DOB.Value.Year);
 		}
 
+		/// <summary>
+		/// Expected to fail, before MS would fix Text.Json.JsonSerializer for Jagged array
+		/// </summary>
 		[Fact]
 		public void TestGetCompany()
 		{

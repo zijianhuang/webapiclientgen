@@ -38,6 +38,8 @@ builder.Services.AddControllers(configure =>
 options =>
 {
 	options.JsonSerializerOptions.Converters.Add(new BigIntegerConverter());
+	options.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.WriteAsString | System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString; // for the sake of UInt128
+
 	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyJsonConverter()); //needed by JS clients
 	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyNullableJsonConverter());
 	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeJsonConverter()); // needed by only .NET Framework clients

@@ -405,6 +405,7 @@ namespace DemoWebApi.DemoData
 		public Guid IdNotEmitDefaultValue { get; set; }
 
 		[DataMember(IsRequired = true)]
+		[Required] // ASP.NET with System.Text.Json won't respect DataMember(IsRequired = true), thus add this.
 		public string RequiredName { get; set; }
 
 		[DataMember()]

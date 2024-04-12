@@ -69,6 +69,25 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestDeSerializeBigIntQuotedTextWithCustomConverter()
+		{
+			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions(JsonSerializerDefaults.Web);
+			jsonSerializerSettings.Converters.Add(new DemoTextJsonWeb.BigIntegerConverter());
+
+			BigInteger bigInt = UInt128.MaxValue;
+			var contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
+			Assert.Equal("340282366920938463463374607431768211455", contentJson);
+			Assert.Equal(UInt128.MaxValue.ToString(), contentJson);
+			Assert.Equal(bigInt.ToString(), contentJson);
+
+			//And deserialize
+			var quotedText = "\"" + contentJson + "\"";
+			var v = JsonSerializer.Deserialize<BigInteger>(quotedText, jsonSerializerSettings);
+			Assert.Equal(bigInt, v);
+			Assert.Equal("340282366920938463463374607431768211455", v.ToString());
+		}
+
+		[Fact]
 		public void TestSerializeNullableDateTime()
 		{
 			DateTime? dn = null;
@@ -87,7 +106,39 @@ namespace IntegrationTests
 			Assert.False(d.HasValue);
 
 			Assert.Throws<JsonException>(()=> JsonSerializer.Deserialize<System.Nullable<System.DateTime>>("")); // ASP.NET Core without Newtonsoft.Json will return empty string and status code 204 No Content. Newtonsoft.Json's serializer will interpret empty string as null for nullable struct.
+		}
 
+		[Fact]
+		public void TestSerializeJaggedArray_NotSupported(){
+			int[,] aa = new int[,]
+			{
+			   {1,2,3, 4 },
+			   {5,6,7, 8 }
+			};
+
+			Assert.Throws<NotSupportedException>(() => JsonSerializer.Serialize(aa));
+		}
+
+		/// <summary>
+		/// While supporting serialization, but not supporting deserialization well for dynamic
+		/// </summary>
+		[Fact]
+		public void TestDeserializeDynamic_RuntimeBinderException(){
+			var s = "{\"Id\":\"12345\",\"Name\":\"Something\"}";
+			var d = JsonSerializer.Deserialize<dynamic>(s);
+			Assert.Throws<Microsoft.CSharp.RuntimeBinder.RuntimeBinderException>(()=> d["Id"].ToString());
+		}
+
+		[Fact]
+		public void TestSerializeDynamic(){
+			dynamic d = new System.Text.Json.Nodes.JsonObject
+			{
+				["Id"] = "12345",
+				["Name"] = "Something"
+			};
+
+			Assert.Equal("12345", d["Id"].ToString());
+			Assert.Equal("{\"Id\":\"12345\",\"Name\":\"Something\"}", JsonSerializer.Serialize(d));
 		}
 	}
 }

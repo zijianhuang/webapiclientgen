@@ -227,6 +227,10 @@ namespace IntegrationTests
 			Assert.True(api.PostIntArray(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 }));
 		}
 
+		/// <summary>
+		/// Expected to fail, before MS would fix Text.Json.JsonSerializer for 2 dimensional array
+		/// Web API: public int[,] GetInt2D()
+		/// </summary>
 		[Fact]
 		public void TestInt2D()
 		{
@@ -248,6 +252,9 @@ namespace IntegrationTests
 			Assert.Equal(8, d[1][3]);
 		}
 
+		/// <summary>
+		/// Expected to fail, before MS would fix Text.Json.JsonSerializer  for 2 dimensional array
+		/// </summary>
 		[Fact]
 		public void TestPostInt2D()
 		{
@@ -259,6 +266,9 @@ namespace IntegrationTests
 			Assert.True(d);
 		}
 
+		/// <summary>
+		/// Expected to fail, before MS would fix Text.Json.JsonSerializer for 2 dimensional array
+		/// </summary>
 		[Fact]
 		public void TestPostInt2DExpectedFalse()
 		{

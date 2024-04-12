@@ -10,6 +10,7 @@ namespace IntegrationTests
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 				PropertyNameCaseInsensitive = true,
+				NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
 			};
 
 			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7

@@ -6,11 +6,11 @@ namespace IntegrationTests
 	{
 		public NumbersFixture()
 		{
-			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
+			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web)
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 				PropertyNameCaseInsensitive = true,
-				NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.WriteAsString | System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
+				NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString | System.Text.Json.Serialization.JsonNumberHandling.WriteAsString
 			};
 
 			jsonSerializerSettings.Converters.Add(new DemoTextJsonWeb.BigIntegerConverter()); // both client and service must have the same conversion.

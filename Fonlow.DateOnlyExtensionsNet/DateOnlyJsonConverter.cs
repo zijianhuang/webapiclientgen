@@ -29,8 +29,8 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 		}
 	}
 
-	/// <summary>
-	/// 
+	/// <summary> 
+	/// not needed in .NET 7 and above
 	/// </summary>
 	/// <remarks>
 	/// JsonSerializer.Serialize() can pick this converter when when the value is null.
@@ -38,10 +38,11 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 	/// Then the JsonSerialize.Deserialize() at the client side will complain System.Text.Json.JsonException : The input does not contain any JSON tokens.
 	/// I will try again in ASP.NET Core 7.
 	/// </remarks>
+	[Obsolete("Not needed in .NET 7")]
 	public sealed class DateOnlyNullableJsonConverter : JsonConverter<DateOnly?>
 	{
 		public override bool HandleNull => true;
-		
+
 		public override void Write(Utf8JsonWriter writer, DateOnly? value, JsonSerializerOptions options)
 		{
 			if (value.HasValue)
@@ -56,7 +57,8 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 
 		public override DateOnly? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
-			if (reader.TokenType == JsonTokenType.Null){
+			if (reader.TokenType == JsonTokenType.Null)
+			{
 				return null;
 			}
 

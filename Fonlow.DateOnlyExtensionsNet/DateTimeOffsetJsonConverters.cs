@@ -29,6 +29,7 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 		}
 	}
 
+	[Obsolete("Not needed in .NET 7")]
 	public sealed class DateTimeOffsetNullableJsonConverter : JsonConverter<DateTimeOffset?>
 	{
 		public override bool HandleNull => true;

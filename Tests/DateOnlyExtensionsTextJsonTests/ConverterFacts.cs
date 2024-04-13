@@ -19,23 +19,23 @@ namespace DateOnlyExtensionsTextJsonTests
 			Assert.Equal("\"2023-12-31\"", s);
 		}
 
-		[Fact]
-		public void TestDateOnlyJsonConverterInNet8WithNullable()
-		{
-			var options = new JsonSerializerOptions();
-			options.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyNullableJsonConverter());
-			var s = JsonSerializer.Serialize(DateOnly.Parse("2023-12-31"), options);
-			Assert.Equal("\"2023-12-31\"", s);
-		}
+		//[Fact] not needed in .NET 7 and above
+		//public void TestDateOnlyJsonConverterInNet8WithNullable()
+		//{
+		//	var options = new JsonSerializerOptions();
+		//	options.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyNullableJsonConverter());
+		//	var s = JsonSerializer.Serialize(DateOnly.Parse("2023-12-31"), options);
+		//	Assert.Equal("\"2023-12-31\"", s);
+		//}
 
-		[Fact]
-		public void TestDateOnlyJsonConverterInNet8WithNullableWithNull()
-		{
-			var options = new JsonSerializerOptions();
-			options.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyNullableJsonConverter());
-			var d = JsonSerializer.Deserialize<DateOnly?>("null", options);
-			Assert.False(d.HasValue);
-		}
+		//[Fact]
+		//public void TestDateOnlyJsonConverterInNet8WithNullableWithNull()
+		//{
+		//	var options = new JsonSerializerOptions();
+		//	options.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyNullableJsonConverter());
+		//	var d = JsonSerializer.Deserialize<DateOnly?>("null", options);
+		//	Assert.False(d.HasValue);
+		//}
 
 		[Fact]
 		public void TestJsonSerializerDefaultBehavior()

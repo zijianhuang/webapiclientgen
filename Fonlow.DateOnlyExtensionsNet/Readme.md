@@ -24,7 +24,7 @@ options =>
 
 **Remarks:**
 
-* .NET 7 clients and above do not need this in ASP.NET Core 7 and above.
+* .NET 7 clients and above may not need this in ASP.NET Core 7 and above. However, if you have JavaScript clients or other naughty clients that give null to struct, you may want some of the converters not obsolete.
 
 **Hints:**
 * [DateOnly in .NET 6 and ASP.NET Core 6](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6)

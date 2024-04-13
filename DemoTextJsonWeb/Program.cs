@@ -40,6 +40,8 @@ options =>
 	options.JsonSerializerOptions.Converters.Add(new BigIntegerJsonConverter());
 	options.JsonSerializerOptions.Converters.Add(new Int64JsonConverter());
 	options.JsonSerializerOptions.Converters.Add(new UInt64JsonConverter());
+	options.JsonSerializerOptions.Converters.Add(new Int128JsonConverter());
+	options.JsonSerializerOptions.Converters.Add(new UInt128JsonConverter());
 
 	options.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString; // for the sake of UInt128
 

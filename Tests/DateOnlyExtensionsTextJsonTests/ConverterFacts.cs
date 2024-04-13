@@ -45,7 +45,8 @@ namespace DateOnlyExtensionsTextJsonTests
 		}
 
 		[Fact]
-		public void TestDateOnlyToString(){
+		public void TestDateOnlyToString()
+		{
 			var d = DateOnly.Parse("2023-12-31");
 			Assert.Equal("2023-12-31", d.ToString("O"));
 		}
@@ -65,6 +66,12 @@ namespace DateOnlyExtensionsTextJsonTests
 			Assert.False(d.HasValue);
 		}
 
-
+		[Fact]
+		public void TestSerializeDateMin()
+		{
+			var d = DateTime.Parse("1980-01-30T00:00:00.000Z");
+			var s = JsonSerializer.Serialize(d);
+			Assert.Equal("1980-01-30T00:00:00.0000000+00:00", s);
+		}
 	}
 }

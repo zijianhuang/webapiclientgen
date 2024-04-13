@@ -349,7 +349,7 @@ describe('entities API', () => {
                     const d1: any = data!.dob;
                     const d2: any = data!.baptised;
                     expect(d1).toEqual('1969-12-28'); //string
-                    expect(d2).toEqual('1980-01-30T00:00:00+00:00'); //string
+                    expect(d2).toContain('1980-01-30T00:00:00'); //System.Text.Json returns 1980-01-30T00:00:00.0000000+00:00, while Newtonsoft.Json gives 1980-01-30T00:00:00+00:00
                     done();
                 },
                 error => {

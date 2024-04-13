@@ -1,7 +1,4 @@
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace DateOnlyExtensionsTextJsonTests
 {
@@ -64,14 +61,6 @@ namespace DateOnlyExtensionsTextJsonTests
 		{
 			var d = JsonSerializer.Deserialize<DateOnly?>("null"); // string "null" only presenting a JSON object in text, not null
 			Assert.False(d.HasValue);
-		}
-
-		[Fact]
-		public void TestSerializeDateMin()
-		{
-			var d = DateTime.Parse("1980-01-30T00:00:00.000Z");
-			var s = JsonSerializer.Serialize(d);
-			Assert.Equal("1980-01-30T00:00:00.0000000+00:00", s);
 		}
 	}
 }

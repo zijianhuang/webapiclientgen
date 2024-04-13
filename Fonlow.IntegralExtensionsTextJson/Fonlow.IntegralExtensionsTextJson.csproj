@@ -1,8 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+	<TargetFramework>net7.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	  <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+	  <Authors>Zijian Huang</Authors>
+	  <Copyright>Copyright © Zijian Huang 2024</Copyright>
+	  <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+	  <PackageTags>JavaScript,TypeScript,ASP.NET</PackageTags>
+	  <NeutralLanguage>en</NeutralLanguage>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	  <EnableNETAnalyzers>True</EnableNETAnalyzers>
+	  <Version>1.0</Version>
+	  <Description>Make ASP.NET serialize integral types of 64bit and BigInteger as JSON string object, utilizing System.Text.Json.</Description>
+	  <RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
+	  <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <None Include="readme.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	  <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	  <CopyDebugSymbolFilesFromPackages>true</CopyDebugSymbolFilesFromPackages>
+	  <CopyDocumentationFilesFromPackages>true</CopyDocumentationFilesFromPackages>
   </PropertyGroup>
 
 </Project>

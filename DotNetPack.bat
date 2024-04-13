@@ -15,3 +15,4 @@ set packCmd=dotnet pack --no-build --output C:\NugetLocalFeeds --configuration R
 %packCmd% Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj
 %packCmd% Fonlow.DateOnlyExtensionsNet\Fonlow.DateOnlyExtensionsTextJson.csproj
 %packCmd% Fonlow.IntegralExtension\Fonlow.IntegralExtensions.csproj
+%packCmd% Fonlow.IntegralExtensionsTextJson\Fonlow.IntegralExtensionsTextJson.csproj

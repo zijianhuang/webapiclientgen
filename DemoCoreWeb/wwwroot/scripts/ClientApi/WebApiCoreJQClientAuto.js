@@ -211,6 +211,12 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/DateTypes/ForDateTime', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * POST api/DateTypes/DateTimeNullable
+         */
+        postDateTimeNullable(d, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/DateTypes/DateTimeNullable', d, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * return d;
          * POST api/DateTypes/ForDateTimeOffset
          */

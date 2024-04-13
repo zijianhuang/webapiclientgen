@@ -1,4 +1,5 @@
-﻿**!For ASP.NET Core 6 only!**
+﻿**For ASP.NET Core 6 **
+**For ASP.NET Core 7 and above, needed by .NET Framework clients, JavaScript clients and any naughty client, since System.Text.Json is a bit less fault tolerant thant Newtonsoft.Json **
 
 Customized serialization for DateOnly in ASP.NET Core 6 and above.
 
@@ -10,17 +11,15 @@ Similar to Fonlow.DateOnlyExtensions but without using `NewtonSoft.Json`, suitab
 .AddJsonOptions(
 options =>
 {
-	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyJsonConverter()); //needed by JS clients
-	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyNullableJsonConverter());
-	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeJsonConverter()); // needed by only .NET Framework clients
-	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeNullableJsonConverter());
-	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeOffsetJsonConverter()); // needed by only .NET Framework clients
-	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeOffsetNullableJsonConverter());
-
-});
-
+	//Needed by .NET Framework clients, JavaScript clients and any naughty client, since System.Text.Json is a bit less fault tolerant thant Newtonsoft.Json
+	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyJsonConverter());
+	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeJsonConverter());
+	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeOffsetJsonConverter());
 ```
 
+**Hints:**
+
+* Without the converters, naughty clients that provide null to struct will cause 500 error; with the converters, the client will get 400, a bit more graceful, being consistent with the good old Newtonsoft.Json.
 
 **Remarks:**
 

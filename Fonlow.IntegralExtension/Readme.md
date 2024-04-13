@@ -42,16 +42,16 @@ JavaScript client:
 
 ```js
 it('postInt64', (done) => {
-    service.postInt64('9223372036854775807').subscribe(
-        r => {
-            expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
-            done();
-        },
-        error => {
-            fail(errorResponseToString(error));
-            done();
-        }
-    );
+	service.postInt64('9223372036854775807').subscribe(
+		r => {
+			expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
+			done();
+		},
+		error => {
+			fail(errorResponseToString(error));
+			done();
+		}
+	);
 }
 );
 

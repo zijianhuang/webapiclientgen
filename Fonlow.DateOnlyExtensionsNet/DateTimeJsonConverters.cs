@@ -14,8 +14,18 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 
 		public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
-			var v = reader.GetDateTime();
-			return v;
+			if (reader.TokenType == JsonTokenType.Null)
+			{
+				throw new ArgumentException("Error converting value {null} to type"); // being consistent with Newtonsoft.Json
+			}
+
+			if (reader.TokenType == JsonTokenType.String)
+			{
+				var v = reader.GetDateTime();
+				return v;
+			}
+
+			throw new NotSupportedException("Not supported: " + reader.TokenType);
 		}
 	}
 
@@ -37,12 +47,20 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 
 		public override DateTime? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
-			if (reader.TryGetDateTime(out var v))
+			if (reader.TokenType == JsonTokenType.Null)
 			{
-				return v;
+				return null;
 			}
 
-			return null;
+			if (reader.TokenType == JsonTokenType.String)
+			{
+				if (reader.TryGetDateTime(out var v))
+				{
+					return v;
+				}
+			}
+
+			throw new NotSupportedException("Not supported: " + reader.TokenType);
 		}
 	}
 

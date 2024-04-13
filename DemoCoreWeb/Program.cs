@@ -1,7 +1,5 @@
-﻿using Fonlow.IntegralExtensions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using Fonlow.DateOnlyExtensions;
+using Fonlow.IntegralExtensions;
 
 System.Reflection.Assembly appAssembly = System.Reflection.Assembly.GetExecutingAssembly();
 string dirOfAppAssembly = System.IO.Path.GetDirectoryName(appAssembly.Location);
@@ -40,8 +38,10 @@ builder.Services.AddControllers(configure =>
 		options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset; //Better with this for cross-timezone minValue and .NET Framework clients.
 		options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; //So when controller will ignore null fileds when returing data
 
-		//options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed for ASP.NET 7 and .NET 7 clients. However .NET 6 clients and .NET Framework clients still need DateOnlyJsonConverter
-		//options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter()); // also, needed by JavaScript clients.
+		//not needed for ASP.NET 7 and .NET 7 clients.
+		// However .NET 6 clients and .NET Framework clients still need DateOnlyJsonConverter. Also, needed by JavaScript clients.
+		options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()); 
+		options.SerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter()); // 
 
 		// JS clients need these integral JsonConverters for large integral numbers
 		options.SerializerSettings.Converters.Add(new Int64JsonConverter());
@@ -62,6 +62,7 @@ builder.Services.AddCors(options => options.AddPolicy("All", builder =>
 }));
 
 var app = builder.Build();
+app.UseMiddleware(typeof(WebApp.Utilities.ErrorHandlingMiddleware));
 
 if (app.Environment.IsDevelopment()) //ASPNETCORE_ENVIRONMENT=Development in web.config
 {

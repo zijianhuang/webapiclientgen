@@ -5,6 +5,8 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 {
 	public sealed class DateOnlyJsonConverter : JsonConverter<DateOnly>
 	{
+		public override bool HandleNull => true;
+
 		public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
 		{
 			writer.WriteStringValue(value.ToString("O"));
@@ -12,8 +14,18 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 
 		public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
-			var v = reader.GetDateTime();
-			return DateOnly.FromDateTime(v);
+			if (reader.TokenType == JsonTokenType.Null)
+			{
+				return DateOnly.MinValue;
+			}
+
+			if (reader.TokenType == JsonTokenType.String)
+			{
+				var v = reader.GetDateTime();
+				return DateOnly.FromDateTime(v);
+			}
+
+			throw new NotSupportedException("Not supported: " + reader.TokenType);
 		}
 	}
 
@@ -44,12 +56,19 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 
 		public override DateOnly? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
-			if (reader.TryGetDateTime(out var v))
-			{
-				return DateOnly.FromDateTime(v);
+			if (reader.TokenType == JsonTokenType.Null){
+				return null;
 			}
 
-			return null;
+			if (reader.TokenType == JsonTokenType.String)
+			{
+				if (reader.TryGetDateTime(out var v))
+				{
+					return DateOnly.FromDateTime(v);
+				}
+			}
+
+			throw new NotSupportedException("Not supported: " + reader.TokenType);
 		}
 	}
 }

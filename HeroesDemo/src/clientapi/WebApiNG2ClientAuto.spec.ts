@@ -551,8 +551,11 @@ describe('DateTypes API', () => {
     }
     );
 
+    /**
+     * Newtonsoft.Json will throw error Error converting value {null} to type 'System.DateTimeOffset'
+     */
     it('postDateTimeOffsetWithNull', (done) => {
-        service.postDateTimeOffset(null!).subscribe(
+        service.postDateTimeOffset(null).subscribe(
             data => {
                 fail("validation")
                 done();

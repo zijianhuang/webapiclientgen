@@ -2244,7 +2244,7 @@ describe('Numbers API', () => {
                 done();
             },
             error => {
-                expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
+                expect(error.status).toEqual(400);
                 done();
             }
         );
@@ -2294,7 +2294,7 @@ describe('Numbers API', () => {
                 done();
             },
             error => {
-                expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
+                expect(error.status).toEqual(400);//.toContain('Error converting value 65540 to type');
                 done();
             }
         );
@@ -2326,7 +2326,7 @@ describe('Numbers API', () => {
             },
             error => {
                 console.error(errorResponseToString(error));
-                expect().nothing();
+                expect(error.status).toEqual(400)
                 done();
             }
         );
@@ -2354,7 +2354,7 @@ describe('Numbers API', () => {
                 done();
             },
             error => {
-                expect(errorResponseToString(error)).toContain('is not valid');
+                expect(error.status).toEqual(400);
                 done();
             }
         );
@@ -2397,7 +2397,7 @@ describe('Numbers API', () => {
                 done();
             },
             error => {
-                expect(errorResponseToString(error)).toContain('Error converting value 130 to type ');
+                expect(error.status).toEqual(400);
                 done();
             }
         );

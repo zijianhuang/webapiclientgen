@@ -1,5 +1,5 @@
 
-using DemoTextJsonWeb;
+using Fonlow.IntegralExtensions;
 
 System.Reflection.Assembly appAssembly = System.Reflection.Assembly.GetExecutingAssembly();
 string dirOfAppAssembly = System.IO.Path.GetDirectoryName(appAssembly.Location);
@@ -37,7 +37,10 @@ builder.Services.AddControllers(configure =>
 .AddJsonOptions(// as of .NET 7/8, could not handle JS/CS test cases getInt2D, postInt2D and PostDictionaryOfPeople, around 14 C# test cases fail.
 options =>
 {
-	options.JsonSerializerOptions.Converters.Add(new BigIntegerConverter());
+	options.JsonSerializerOptions.Converters.Add(new BigIntegerJsonConverter());
+	options.JsonSerializerOptions.Converters.Add(new Int64JsonConverter());
+	options.JsonSerializerOptions.Converters.Add(new UInt64JsonConverter());
+
 	options.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString; // for the sake of UInt128
 
 	//Needed by .NET Framework clients, JavaScript clients and any naughty client, since System.Text.Json is a bit less fault tolerant thant Newtonsoft.Json

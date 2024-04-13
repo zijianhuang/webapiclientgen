@@ -1,13 +1,12 @@
 ﻿using System.Globalization;
 using System.Numerics;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 
-namespace DemoTextJsonWeb
+namespace Fonlow.IntegralExtensions
 {
-	public class BigIntegerConverter : JsonConverter<BigInteger>
+	public class BigIntegerJsonConverter : JsonConverter<BigInteger>
 	{
-		// Inspired by https://stackoverflow.com/questions/64788895/serialising-biginteger-using-system-text-json
 		public override BigInteger Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
 			if (reader.TokenType == JsonTokenType.Number)
@@ -15,7 +14,6 @@ namespace DemoTextJsonWeb
 				using var doc = JsonDocument.ParseValue(ref reader);
 				var rawText = doc.RootElement.GetRawText();
 				return BigInteger.Parse(rawText, NumberFormatInfo.InvariantInfo);
-
 			}
 			else if (reader.TokenType == JsonTokenType.String)
 			{
@@ -28,6 +26,6 @@ namespace DemoTextJsonWeb
 		}
 
 		public override void Write(Utf8JsonWriter writer, BigInteger value, JsonSerializerOptions options) =>
-			writer.WriteRawValue(value.ToString(NumberFormatInfo.InvariantInfo), false);
+			writer.WriteStringValue(value.ToString(NumberFormatInfo.InvariantInfo));
 	}
 }

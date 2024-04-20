@@ -1384,7 +1384,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
 		getNullableDecimal(hasValue?: boolean | null, headersHandler?: () => {[header: string]: string}): Promise<number | null> {
-			return fetch(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+			return fetch(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status==200) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**

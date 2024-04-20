@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import {DemoWebApi_Controllers_Client, DemoWebApi_Models_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Base_Client}  from './clientapi/WebApiCoreFetchClientAuto';
 
 export async function errorResponseToString(error: Response | any): Promise<string> {
@@ -39,48 +38,83 @@ describe('Basic', ()=>{
 const forDotNetCore=true;
 const apiBaseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
 
-describe('Values', () => {
-  const api = new DemoWebApi_Controllers_Client.Values(apiBaseUri);
-
-  it('getById', (done) => {
-    api.getByIdOfInt32(3).then(
-      d => {
-        expect(d).toBe('3');
-        done();
-      }
-    );
-  });
+describe('Values API', () => {
+  const service = new DemoWebApi_Controllers_Client.Values(apiBaseUri);
 
   it('get', (done) => {
-    api.get().then(
+    service.get().then(
       data => {
         console.debug(data.length);
         expect(data[1]).toBe('value2');
         done();
       },
       error => {
-        // 
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
   );
 
-  it('Post', (done) => {
-    api.post('Abc').then(
+  it('getByIdAndName', (done) => {
+    service.getByIdOfInt32AndNameOfString(1, 'Abc').then(
+      data => {
+        console.debug(data.length);
+        expect(data).toBe('Abc1');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('getByName', (done) => {
+    service.getByNameOfString('Abc').then(
       data => {
         console.debug(data.length);
         expect(data).toBe('ABC');
         done();
       },
       error => {
-        //  
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
   );
+
+  it('Post', (done) => {
+    service.post('Abc').then(
+      data => {
+        console.debug(data.length);
+        expect(data).toBe('ABC');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('getByIdAndChinese', (done) => {
+    service.getByIdOfInt32AndNameOfString(1, 'something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"').then(
+      data => {
+        console.debug(data.length);
+        expect(data).toBe('something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"1');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+
+
 });
+
 
 describe('Heroes API', () => {
   const service = new DemoWebApi_Controllers_Client.Heroes(apiBaseUri);
@@ -93,8 +127,7 @@ describe('Heroes API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -104,13 +137,11 @@ describe('Heroes API', () => {
   it('Add', (done) => {
     service.post('somebody').then(
       data => {
-        console.info('Add hero: ' + JSON.stringify(data));
         expect(data.name).toBe('somebody');
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -124,8 +155,7 @@ describe('Heroes API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -141,8 +171,7 @@ describe('Heroes API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -154,6 +183,21 @@ describe('Heroes API', () => {
 
 describe('entities API', () => {
   const client = new DemoWebApi_Controllers_Client.Entities(apiBaseUri);
+
+  //it('getPersonNotFound', (done) => {
+  //    client.getPersonNotFound(123)
+  //        .then(
+  //        data => {
+  //            fail('That is bad. Should be 404.');
+  //            done();
+  //        },
+  //        error => {
+  //            expect(errorResponseToString(error)).toContain('404');
+  //            done();
+  //        }
+  //        );
+  //}
+  //);
 
   it('add', (done) => {
     let id: string;
@@ -172,8 +216,7 @@ describe('entities API', () => {
           done();
         },
         error => {
-
-          done();
+          fail(errorResponseToString(error));
         }
       );
 
@@ -203,498 +246,33 @@ describe('entities API', () => {
 
   }
   );
-});
 
-describe('Tuple API', () => {
-  const service = new DemoWebApi_Controllers_Client.Tuple(apiBaseUri);
-
-
-  it('getTuple2', (done) => {
-    service.getTuple2().then(
-      data => {
-        expect(data.item1).toBe('Two');
-        expect(data.item2).toBe(2);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('postTuple2', (done) => {
-    service.postTuple2({ item1: "One", item2: 2 }).then(
-      data => {
-        expect(data).toBe('One');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('getTuple7', (done) => {
-    service.getTuple7().then(
-      data => {
-        expect(data.item1).toBe('Seven');
-        expect(data.item7).toBe(7);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('getTuple2', (done) => {
-    service.getTuple2().then(
-      data => {
-        expect(data.item1).toBe('Two');
-        expect(data.item2).toBe(2);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('postTuple7', (done) => {
-    service.postTuple7({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '33333', item7: 9 }).then(
-      data => {
-        expect(data).toBe('One');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('getTuple8', (done) => {
-    service.getTuple8().then(
-      data => {
-        expect(data.item1).toBe('Nested');
-        expect(data.rest.item1).toBe('nine');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('postTuple8', (done) => {
-    service.postTuple8({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '', item7: '', rest: { item1: 'a', item2: 'b', item3: 'c' } }).then(
-      data => {
-        expect(data).toBe('a');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('linkPersonCompany1', (done) => {
-    service.linkPersonCompany1({
-      item1: {
-        name: 'someone',
-        surname: 'my',
-        givenName: 'something',
-      },
-
-      item2: {
-        name: 'Super',
-        addresses: [{ city: 'New York', street1: 'Somewhere st' }]
-      }
-    }).then(
-      data => {
-        expect(data.name).toBe('someone');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-});
-
-describe("DateTypes API", () => {
-  const service = new DemoWebApi_Controllers_Client.DateTypes(apiBaseUri);
-
-  it('GetNextHour', (done) => {
-    const dt = new Date(Date.now());
-    const h = dt.getHours();
-    service.getNextHour(dt).then(
-      data => {
-        console.debug(JSON.stringify(data));
-        const m = moment(data);
-        const dd = m.toDate();
-        expect(dd.getHours()).toBe(h + 1);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('GetNextYear', (done) => {
-    const dt = new Date(Date.now());
-    const h = dt.getFullYear();
-    service.getNextYear(dt).then(
-      data => {
-        const m = moment(data);
-        const dd = m.toDate();
-        expect(dd.getFullYear()).toBe(h + 1);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('PostNextYear', (done) => {
-    const dt = new Date(Date.now());
-    const h = dt.getFullYear();
-    service.postNextYear(dt).then(
-      data => {
-        const m = moment(data);
-        const dd = m.toDate();
-        expect(dd.getFullYear()).toBe(h + 1);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getDateTimeNull', (done) => {
-    service.getDateTime(false).then(
-      data => {
-        expect(data).toBeNull();// Aurelia httpclient throws error upon 204.
-        done();
-      },
-      error => {
-        expect(true).toBeTruthy();
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getDateTime', (done) => {
-    service.getDateTime(true).then(
-      data => {
-        expect(data).toBeDefined();
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextYearNullable', (done) => {
-    let now = new Date(Date.now());
-    service.getNextYearNullable(2, now).then(
-      data => {
-        const m = moment(data);
-        let dt = m.toDate();
-        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextHourNullable', (done) => {
-    let now = new Date(Date.now());
-    service.getNextHourNullable(2, now).then(
-      data => {
-        const m = moment(data);
-        let dt = m.toDate();
-        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextYearNullable2', (done) => {
-    let now = new Date(Date.now());
-    service.getNextYearNullable(2, undefined).then(
-      data => {
-        const m = moment(data);
-        let dt = m.toDate();
-        expect(dt.getFullYear()).toEqual(now.getFullYear() + 2);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getNextHourNullable2', (done) => {
-    let now = new Date(Date.now());
-    service.getNextHourNullable(2, null).then(
-      data => {
-        const m = moment(data);
-        let dt = m.toDate();
-        expect(dt.getHours() % 24).toEqual((now.getHours() + 2) % 24)
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRange', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(startDt, endDt).then(
-      data => {
-        const m1 = moment(data.item1);
-        const m2 = moment(data.item2);
-        expect(m1.toDate()).toEqual(startDt);
-        expect(m2.toDate()).toEqual(endDt);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRangeEndUndefined', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(startDt, undefined).then(
-      data => {
-        const m1 = moment(data.item1);
-        expect(m1.toDate()).toEqual(startDt);
-        expect(data.item2).toBeUndefined(); //OK with null rather than undefined
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('searchDateRangeStartUndefined', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(undefined, endDt).then(
-      data => {
-        //fail('The API should return http 400 error.'); in .net core 2.0, the service return status 400. Apparently this was a bug which was fixed in 2.1
-        forDotNetCore ? expect(data.item1).toBeUndefined() : expect(data.item1).toBeUndefined();
-        const m = moment(data.item2);
-        expect(m.toDate().getHours()).toEqual(endDt.getHours());
-        done();
-      },
-      error => {
-        // let errorText = error;
-        // if (errorText.indexOf('400') < 0) {
-        //   fail(errorText);
-        // }
-        expect(true).toBeTruthy();
-        done();
-      }
-    );
-
-  }
-  );
-
-
-  it('searchDateRangeBotNull', (done) => {
-    let startDt = new Date(Date.now());
-    let endDt = new Date(Date.now() + 100000);
-    service.searchDateRange(null, undefined).then(
-      data => {
-        expect(data.item1).toBeUndefined();
-        expect(data.item2).toBeUndefined();
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('postDateOnly', (done) => {
-    const dt = new Date(Date.parse('2018-12-23')); //JS will serialize it to 2018-12-23T00:00:00.000Z.
-    service.postDateOnly(dt).then(
-      data => {
-        const v: any = data; //string 2008-12-23
-        expect(v).toEqual('2018-12-23');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('postDateOnlyWithNull', (done) => {
-    service.postDateOnly(null).then(
-      data => {
-        const v: any = data;
-        expect(v).toEqual('0001-01-01');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('postDateOnlyNullable', (done) => {
-    const dt = new Date(Date.parse('2018-12-23'));
-    service.postDateOnlyNullable(dt).then(
-      data => {
-        const v: any = data;
-        expect(v).toEqual('2018-12-23');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('postDateOnlyNullableWithNull', (done) => {
-    service.postDateOnlyNullable(null).then(
-      data => {
-        expect(data).toBeNull();
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('postDateOnlyNullableWithUndefined', (done) => {
-    service.postDateOnlyNullable(null).then(
-      data => {
-        expect(data).toBeNull();
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('IsDateTimeOffsetDate', (done) => {
-    const dt = new Date(Date.parse('2018-12-23'));
-    service.isDateTimeOffsetDate(dt).then(
-      data => {
-        const v: any = data.item1;
-        expect(v).toEqual('2018-12-23');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('IsDateTimeDate', (done) => {
-    const dt = new Date(Date.parse('2018-12-23'));
-    service.isDateTimeDate(dt).then(
-      data => {
-        const v: any = data.item1;
-        expect(v).toEqual('2018-12-23');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
+  it('myGenericPerson', (done) => {
+    const newPerson: DemoWebApi_DemoData_Client.Person = {
+      name: 'John Smith',
+      givenName: 'John',
+      surname: 'Smith',
+      dob: new Date('1977-12-28')
+    };
+
+    const c: DemoWebApi_DemoData_Client.MyGeneric<string, number, DemoWebApi_DemoData_Client.Person> = {
+      myK: 123.456,
+      myT: 'abc',
+      myU: newPerson,
+      status: 'OK',
+    };
+
+    client.getMyGenericPerson(c)
+      .then(
+        data => {
+          expect(data.myU?.name).toBe('John Smith');
+          expect(data.status).toBe('OK');
+          done();
+        },
+        error => {
+          fail(errorResponseToString(error));
+        }
+      );
 
   }
   );
@@ -702,100 +280,9 @@ describe("DateTypes API", () => {
 
 });
 
-describe('TextData API', () => {
-  const service = new DemoWebApi_Controllers_Client.TextData(apiBaseUri);
-
-  it('TestAthletheSearch', (done) => {
-    service.athletheSearch(32, 0, null, null, null).then(
-      data => {
-        expect(data).toBe('320');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('TestAthletheSearch2', (done) => {
-    service.athletheSearch(32, 0, null, null, 'Search').then(
-      data => {
-        expect(data).toBe('320Search');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('getABCDE', (done) => {
-    service.getABCDE().then(
-      data => {
-        expect(data).toBe('ABCDE');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  it('getEmptyString', (done) => {
-    service.getEmptyString().then(
-      data => {
-        expect(data).toBe('');
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-
-  /**
-   * 
-   */
-  it('getNullString', (done) => {
-    service.getNullString().then(
-      data => {
-        expect(data).toBe(null);
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-  }
-  );
-});
 
 describe('StringData API', () => {
   const service = new DemoWebApi_Controllers_Client.StringData(apiBaseUri);
-
-  it('getNullString', (done) => {
-    service.getNullString().then(
-      data => {
-        expect(data).toBeNull();
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
 
   it('TestAthletheSearch', (done) => {
     service.athletheSearch(32, 0, null, null, null).then(
@@ -804,8 +291,7 @@ describe('StringData API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
@@ -818,8 +304,7 @@ describe('StringData API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
@@ -832,8 +317,7 @@ describe('StringData API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
@@ -846,8 +330,7 @@ describe('StringData API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
@@ -860,8 +343,7 @@ describe('StringData API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
@@ -874,8 +356,7 @@ describe('StringData API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
@@ -884,12 +365,11 @@ describe('StringData API', () => {
   it('getABCDE', (done) => {
     service.getABCDE().then(
       data => {
-        expect(data).toBe('"ABCDE"');
+        expect(data).toBe('"ABCDE"'); // AxiosResponse.data is smart to remove double quotes from the string json object, though I ask for text.
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
@@ -902,8 +382,7 @@ describe('StringData API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
@@ -919,12 +398,84 @@ describe('StringData API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
   }
   );
+});
+
+describe('TextData API', () => {
+  const service = new DemoWebApi_Controllers_Client.TextData(apiBaseUri);
+
+  it('TestAthletheSearch', (done) => {
+    service.athletheSearch(32, 0, null, null, null).then(
+      data => {
+        expect(data).toBe('320'); // somehow data is number rather than string. AxiosResponse.data is too smart?
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('TestAthletheSearch2', (done) => {
+    service.athletheSearch(32, 0, null, null, 'Search').then(
+      data => {
+        expect(data).toBe('320Search');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('getABCDE', (done) => {
+    service.getABCDE().then(
+      data => {
+        expect(data).toBe('ABCDE');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('getEmptyString', (done) => {
+    service.getEmptyString().then(
+      data => {
+        expect(data).toBe('');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  /**
+   * Angular HttpClient could identify null value.
+   */
+  it('getNullString', (done) => {
+    service.getNullString().then(
+      data => {
+        expect(data).toBe(null);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
 });
 
 describe('SuperDemo API', () => {
@@ -937,8 +488,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -952,8 +502,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -967,8 +516,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -982,8 +530,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -997,8 +544,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1012,8 +558,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1027,8 +572,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1038,13 +582,12 @@ describe('SuperDemo API', () => {
   it('getNullableDecimalNull', (done) => {
     service.getNullableDecimal(false).then(
       data => {
-        expect(data).toBeNull(); //aurelia httpclient throws empty error while the service is returning 204
+        //expect(data).toBeNull();
+        expect(data).toBeNull(); // .net core return 204 nocontent empty body
         done();
       },
       error => {
-        console.debug('getNullableDecimalNull: ' + JSON.stringify(error));
-        expect(true).toBeTruthy();
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1054,13 +597,12 @@ describe('SuperDemo API', () => {
   it('getNullPerson', (done) => {
     service.getNullPerson().then(
       data => {
-        expect(data).toBeNull(); //Aurelia httpclient throws error upon service statuscode 204
-        //expect(data).toBe(''); // .net core return 204 nocontent empty body
+        //expect(data).toBeNull();
+        expect(data).toBe(''); // .net core return 204 nocontent empty body
         done();
       },
       error => {
-        expect(true).toBeTruthy();
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1074,36 +616,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-
-
-
-  it('getTextStream', (done) => {
-    service.getTextStream().then(
-      data => {
-        console.debug('getTextStream');
-        console.debug(data); // abcdefg
-
-        expect(data.size).toBe(7);
-
-        const reader = new FileReader();//axios actually give string rather than a blob structure
-        reader.onload = () => {
-          expect(reader.result).toBe('abcdefg');
-        };
-        reader.readAsText(data);
-
-        done();
-      },
-      error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1127,23 +640,6 @@ describe('SuperDemo API', () => {
   }
   );
 
-  it('getActionResult2', (done) => {
-    service.getActionResult2().then(
-      data => {
-
-        expect(data).toBe('abcdefg');
-
-        done();
-      },
-      error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
   it('getbyte', (done) => {
     service.getbyte().then(
       data => {
@@ -1151,8 +647,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1166,8 +661,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1182,8 +676,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1198,8 +691,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1214,8 +706,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1229,8 +720,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1247,8 +737,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1266,8 +755,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1282,8 +770,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1297,8 +784,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1313,23 +799,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
-      }
-    );
-
-  }
-  );
-
-  it('getDay', (done) => {
-    service.getDay(DemoWebApi_DemoData_Client.Days.Sat).then(
-      data => {
-        expect(data).toBe(DemoWebApi_DemoData_Client.Days.Sat);
-        done();
-      },
-      error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1337,15 +807,14 @@ describe('SuperDemo API', () => {
   );
 
   it('postDay', (done) => {
-    service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Sat).then(
+    service.postDay(DemoWebApi_DemoData_Client.Days.Fri, DemoWebApi_DemoData_Client.Days.Mon).then(
       data => {
         expect(data.length).toBe(2);
-        expect(data[1]).toBe(DemoWebApi_DemoData_Client.Days.Sat);
+        expect(data[1]).toBe(DemoWebApi_DemoData_Client.Days.Mon);
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1360,8 +829,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1376,12 +844,11 @@ describe('SuperDemo API', () => {
           p = data['Spider Man']; //.NET Core is OK
         }
         expect(p.name).toBe('Peter Parker');
-        expect(p.addresses[0].city).toBe('New York');
+        expect(p.addresses![0].city).toBe('New York');
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1420,8 +887,7 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1432,12 +898,11 @@ describe('SuperDemo API', () => {
     service.getKeyhValuePair().then(
       data => {
         expect(data.key).toBe('Spider Man');
-        expect(data.value.addresses[0].city).toBe('New York');
+        expect(data.value.addresses![0].city).toBe('New York');
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
@@ -1451,11 +916,137 @@ describe('SuperDemo API', () => {
         done();
       },
       error => {
-
-        done();
+        fail(errorResponseToString(error));
       }
     );
 
+  }
+  );
+
+
+
+});
+
+describe('Tuple API', () => {
+  const service = new DemoWebApi_Controllers_Client.Tuple(apiBaseUri);
+
+
+  it('getTuple2', (done) => {
+    service.getTuple2().then(
+      data => {
+        expect(data.item1).toBe('Two');
+        expect(data.item2).toBe(2);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('postTuple2', (done) => {
+    service.postTuple2({ item1: "One", item2: 2 }).then(
+      data => {
+        expect(data).toBe('One');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('getTuple7', (done) => {
+    service.getTuple7().then(
+      data => {
+        expect(data.item1).toBe('Seven');
+        expect(data.item7).toBe(7);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('getTuple2', (done) => {
+    service.getTuple2().then(
+      data => {
+        expect(data.item1).toBe('Two');
+        expect(data.item2).toBe(2);
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('postTuple7', (done) => {
+    service.postTuple7({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '33333', item7: 9 }).then(
+      data => {
+        expect(data).toBe('One');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('getTuple8', (done) => {
+    service.getTuple8().then(
+      data => {
+        expect(data.item1).toBe('Nested');
+        expect(data.rest.item1).toBe('nine');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('postTuple8', (done) => {
+    service.postTuple8({ item1: 'One', item2: '', item3: '', item4: '', item5: '', item6: '', item7: '', rest: { item1: 'a', item2: 'b', item3: 'c' } }).then(
+      data => {
+        expect(data).toBe('a');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
+  }
+  );
+
+  it('linkPersonCompany1', (done) => {
+    service.linkPersonCompany1({
+      item1: {
+        name: 'someone',
+        surname: 'my',
+        givenName: 'something',
+      },
+
+      item2: {
+        name: 'Super',
+        addresses: [{ city: 'New York', street1: 'Somewhere st' }]
+      }
+    }).then(
+      data => {
+        expect(data.name).toBe('someone');
+        done();
+      },
+      error => {
+        fail(errorResponseToString(error));
+      }
+    );
   }
   );
 
@@ -1510,7 +1101,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
 
@@ -1526,7 +1116,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1536,10 +1125,9 @@ describe('Numbers API', () => {
     service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).then(
       r => {
         fail('validation');
-        done();
       },
-      async error => {
-        expect(await errorResponseToString(error)).toContain('Error converting value 65540 to type');
+      error => {
+        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
         done();
       }
     );
@@ -1553,11 +1141,9 @@ describe('Numbers API', () => {
     service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).then(
       r => {
         fail('backend should throw 500')
-        done();
       },
       error => {
-        console.error(error);
-        expect().nothing();
+        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
         done();
       }
     );
@@ -1573,7 +1159,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1583,10 +1168,9 @@ describe('Numbers API', () => {
     service.postByDOfUInt16(65540).then(
       r => {
         fail('validation');
-        done();
       },
-      async error => {
-        expect(await errorResponseToString(error)).toContain('Error converting value 65540 to type');
+      error => {
+        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
         done();
       }
     );
@@ -1601,7 +1185,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1614,15 +1197,13 @@ describe('Numbers API', () => {
     service.postByDOfByte(258).then(
       r => {
         fail("backend should throw");
-        done();
       },
       error => {
-        console.error(error);
-        expect().nothing();
+        expect(errorResponseToString(error)).toContain('400');
         done();
       }
     );
-  }
+  }, 200
   );
 
   it('getByte', (done) => {
@@ -1633,7 +1214,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1643,7 +1223,6 @@ describe('Numbers API', () => {
     service.getByte(258).then(
       r => {
         fail('validation');
-        done();
       },
       async error => {
         expect(await errorResponseToString(error)).toContain('is not valid');
@@ -1657,15 +1236,13 @@ describe('Numbers API', () => {
     service.postByDOfByte(-10).then(
       r => {
         fail("backend throws")
-        done();
       },
       error => {
-        console.error(error);
-        expect().nothing();
+        expect(errorResponseToString(error)).toContain('400');
         done();
       }
     );
-  }
+  }, 200
   );
 
   it('postSByte', (done) => {
@@ -1676,7 +1253,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1686,7 +1262,6 @@ describe('Numbers API', () => {
     service.postByDOfSByte(130).then(
       r => {
         fail('validation')
-        done();
       },
       async error => {
         expect(await errorResponseToString(error)).toContain('Error converting value 130 to type ');
@@ -1704,7 +1279,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1718,7 +1292,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1732,7 +1305,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1748,7 +1320,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1762,7 +1333,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
 
@@ -1780,7 +1350,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1795,7 +1364,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1810,7 +1378,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1830,7 +1397,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1852,7 +1418,6 @@ describe('Numbers API', () => {
       },
       error => {
         fail(error);
-        done();
       }
     );
   }
@@ -1860,4 +1425,3 @@ describe('Numbers API', () => {
 
 
 });
-

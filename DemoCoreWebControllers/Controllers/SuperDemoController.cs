@@ -29,6 +29,11 @@ namespace DemoWebApi.Controllers
 			return await Task.Run(() => d * d);
 		}
 
+		/// <summary>
+		/// False to return null, and true to return 1000
+		/// </summary>
+		/// <param name="hasValue"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("NullableDecimal/{hasValue}")]
 		public async Task<Decimal?> GetNullableDecimal(bool hasValue)

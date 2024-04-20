@@ -1,10 +1,7 @@
 ﻿using Fonlow.Reflection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiClientGenCore.Abstract
 {
@@ -15,7 +12,7 @@ namespace WebApiClientGenCore.Abstract
 		/// </summary>
 		/// <param name="customAttributes"></param>
 		/// <returns></returns>
-		public static string[] CreateMethodCommentBasedOnAttributes(Attribute[] customAttributes)
+		public static string[] CreateDocCommentBasedOnAttributes(Attribute[] customAttributes)
 		{
 			var stringList = new List<string>();
 			var statusCodeList = new List<string>();
@@ -49,9 +46,17 @@ namespace WebApiClientGenCore.Abstract
 				if (typeFullName == "Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute")
 				{
 					var statusCodeText = TypeHelper.GetAttributePropertyValue(c, "StatusCode")?.ToString();
-					if (statusCodeText != null){
+					if (statusCodeText != null)
+					{
 						var code = int.Parse(statusCodeText);
-						statusCodeList.Add($"{code}:{((HttpStatusCode)code).ToString()}");
+						var typeText = TypeHelper.GetAttributePropertyValue(c, "Type")?.ToString();
+						var responseText = $"{code}:{((HttpStatusCode)code).ToString()}";
+						if (typeText != "System.Void" && !String.IsNullOrEmpty(typeText))
+						{
+							responseText += $" : {typeText}";
+						}
+
+						statusCodeList.Add(responseText);
 					}
 				}
 
@@ -62,13 +67,12 @@ namespace WebApiClientGenCore.Abstract
 				stringList.Add("Authorize: " + authorizeDescription);
 			}
 
-			if (statusCodeList.Count > 0) {
+			if (statusCodeList.Count > 0)
+			{
 				stringList.Add("Status Codes: " + string.Join(", ", statusCodeList));
 			}
 
 			return stringList.ToArray();
 		}
-
-
 	}
 }

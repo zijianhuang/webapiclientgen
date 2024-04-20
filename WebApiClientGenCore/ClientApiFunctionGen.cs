@@ -9,6 +9,7 @@ using Fonlow.Poco2Ts;
 using System.Reflection;
 using System.Xml.Linq;
 using Fonlow.Poco2Client;
+using WebApiClientGenCore.Abstract;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -49,9 +50,13 @@ namespace Fonlow.CodeDom.Web.Cs
 			statementOfEnsureSuccessStatusCode = settings.UseEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
 			methodName = webApiDescription.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async"))
+			{
 				methodName = methodName.Substring(0, methodName.Length - 5);
+			}
 
-			returnType = webApiDescription.ResponseDescription?.ResponseType ?? webApiDescription.ActionDescriptor.ReturnType;
+			var returnTypeOfProducesResponseType = GetTypeTextOfResponse2xx(description.ActionDescriptor.CustomAttributes);
+			returnType = returnTypeOfProducesResponseType ?? (webApiDescription.ResponseDescription?.ResponseType ?? webApiDescription.ActionDescriptor.ReturnType);
+			
 			returnTypeIsStream = returnType != null && ((returnType.FullName == typeNameOfHttpResponseMessage)
 				|| (returnType.FullName == typeOfIHttpActionResult)
 				|| (returnType.FullName == typeOfIActionResult)
@@ -251,7 +256,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			clientMethod.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
-			var methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateMethodCommentBasedOnAttributes(description.ActionDescriptor.CustomAttributes);
+			var methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(description.ActionDescriptor.CustomAttributes);
 			if (methodAttributesAsComments.Length>0)
 			{
 				foreach (var item in methodAttributesAsComments)
@@ -695,6 +700,28 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			return s;
 		}
+
+		/// <summary>
+		/// If the API function use ProducesResponseTypeAttribute and 200-202 to define the return type, then get the return type as full type name,
+		/// Null if no such definition .
+		/// </summary>
+		/// <param name="customAttributes"></param>
+		/// <returns></returns>
+		static Type GetTypeTextOfResponse2xx(Attribute[] customAttributes)
+		{
+			foreach (var c in customAttributes)
+			{
+				var responseAttribute = c as Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute;
+				if (responseAttribute != null){
+					if (responseAttribute.StatusCode >=200 && responseAttribute.StatusCode <=202){
+						return responseAttribute.Type;
+					}
+				}
+			}
+
+			return null;
+		}
+
 
 	}
 

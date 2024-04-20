@@ -193,6 +193,8 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: GUID */
 		idNotEmitDefaultValue?: string | null;
 		nullableId?: string | null;
+
+		/** Required */
 		requiredName: string;
 		text?: string | null;
 	}
@@ -208,6 +210,8 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: GUID */
 		idNotEmitDefaultValue: FormControl<string | null | undefined>,
 		nullableId: FormControl<string | null | undefined>,
+
+		/** Required */
 		requiredName: FormControl<string | null | undefined>,
 		text: FormControl<string | null | undefined>,
 	}
@@ -216,7 +220,7 @@ export namespace DemoWebApi_DemoData_Client {
 			id: new FormControl<string | null | undefined>(undefined),
 			idNotEmitDefaultValue: new FormControl<string | null | undefined>(undefined),
 			nullableId: new FormControl<string | null | undefined>(undefined),
-			requiredName: new FormControl<string | null | undefined>(undefined),
+			requiredName: new FormControl<string | null | undefined>(undefined, [Validators.required]),
 			text: new FormControl<string | null | undefined>(undefined),
 		});
 
@@ -1183,7 +1187,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
-		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK
+		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		 */
 		createPersonWeak(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.post(this.baseUri + 'api/Entities/createPersonWeak', JSON.stringify(p), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
@@ -1634,7 +1638,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * GET api/SuperDemo/ActionStringResult
-		 * Status Codes: 200:OK
+		 * Status Codes: 200:OK : System.String
 		 */
 		getActionStringResult(headersHandler?: () => HttpHeaders): Observable<string> {
 			return this.http.get(this.baseUri + 'api/SuperDemo/ActionStringResult', { headers: headersHandler ? headersHandler() : undefined, responseType: 'text' });
@@ -1881,6 +1885,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * False to return null, and true to return 1000
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
 		getNullableDecimal(hasValue?: boolean | null, headersHandler?: () => HttpHeaders): Observable<number | null> {

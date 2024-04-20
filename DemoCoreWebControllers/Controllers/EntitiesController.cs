@@ -239,7 +239,7 @@ namespace DemoWebApi.Controllers
 		}
 
 		/// <summary>
-		/// Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
+		/// 
 		/// </summary>
 		/// <param name="p"></param>
 		/// <returns></returns>

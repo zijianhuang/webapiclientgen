@@ -96,6 +96,8 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: GUID */
 		idNotEmitDefaultValue?: string | null;
 		nullableId?: string | null;
+
+		/** Required */
 		requiredName: string;
 		text?: string | null;
 	}
@@ -687,7 +689,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
-		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK
+		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		 */
 		createPersonWeak(p?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Entities/createPersonWeak', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(p) });
@@ -1134,7 +1136,7 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * GET api/SuperDemo/ActionStringResult
-		 * Status Codes: 200:OK
+		 * Status Codes: 200:OK : System.String
 		 */
 		getActionStringResult(headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/SuperDemo/ActionStringResult', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;});
@@ -1381,10 +1383,11 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * False to return null, and true to return 1000
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
 		getNullableDecimal(hasValue?: boolean | null, headersHandler?: () => {[header: string]: string}): Promise<number | null> {
-			return fetch(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status==200) return d.json(); else if (d.status==204) return null; throw d;});
+			return fetch(this.baseUri + 'api/SuperDemo/NullableDecimal/' + hasValue, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
 		}
 
 		/**

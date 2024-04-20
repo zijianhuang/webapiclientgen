@@ -192,7 +192,7 @@ namespace Fonlow.CodeDom.Web.Cs
 							}
 						}
 
-						var attributeComments = AspNetAttributesHelper.CreateMethodCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
+						var attributeComments = AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
 
 						if (docCommentsNoIndent?.Length>0 || attributeComments?.Length>0)
 						{

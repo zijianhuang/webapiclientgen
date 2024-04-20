@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Fonlow.Reflection;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Fonlow.Web.Meta
 {
@@ -44,6 +45,17 @@ namespace Fonlow.Web.Meta
 			throw new ArgumentException($"How can it be with this ParameterBindingAttribute: {bindingSource.DisplayName}", nameof(bindingSource));
 		}
 
+		static Type GetReturnTypeFromResponseTypes(IList<ApiResponseType> responseTypes)
+		{
+			var foundGoodResponse = responseTypes.FirstOrDefault(d => d.StatusCode >= 200 && d.StatusCode <= 202);
+			if (foundGoodResponse != null)
+			{
+				return foundGoodResponse.Type;
+			}
+
+			return null;
+		}
+
 		/// <summary>
 		/// Translate ASP.NET ApiDescription to codegen's WebApiDescription
 		/// </summary>
@@ -59,26 +71,38 @@ namespace Fonlow.Web.Meta
 
 			try
 			{
-				Type responseType;
-				if (description.SupportedResponseTypes.Count > 0)
+				Type returnType;
+				var goodReturnType = GetReturnTypeFromResponseTypes(description.SupportedResponseTypes);
+				if (goodReturnType != null)
 				{
-					if (description.SupportedResponseTypes[0].Type.Equals(typeof(void)))
-					{
-						responseType = null;
-					}
-					else
-					{
-						responseType = description.SupportedResponseTypes[0].Type; // support only the first one.
-					}
+					returnType = goodReturnType;
 				}
 				else
 				{
 					Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor actionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
 					Debug.Assert(actionDescriptor != null, "is it possible?");
-					responseType = actionDescriptor.MethodInfo.ReturnType;// in .net core 2.1, IActionResult is not in SupportedResponseTypes anymore, so I have to get it here.
-					if (responseType.Equals(typeof(void)))
+					var candidateReturnType = actionDescriptor.MethodInfo.ReturnType;// in .net core 2.1, IActionResult is not in SupportedResponseTypes anymore, so I have to get it here.
+					if (candidateReturnType.Equals(typeof(void)))
 					{
-						responseType = null;
+						returnType = null;
+					}
+					else if (candidateReturnType.GetGenericTypeDefinition() == typeof(ActionResult<>))
+					{
+						returnType = Get1stArgumentTypeOfGeneric(candidateReturnType);
+					}
+					else if (candidateReturnType.GetGenericTypeDefinition() == typeof(System.Threading.Tasks.Task<>))
+					{
+						var typeInTask = Get1stArgumentTypeOfGeneric(candidateReturnType);
+						if (typeInTask.GetGenericTypeDefinition() == typeof(ActionResult<>))
+						{
+							returnType = Get1stArgumentTypeOfGeneric(typeInTask);
+						}else{
+							return null;
+						}
+					}
+					else
+					{
+						returnType = null;
 					}
 				}
 
@@ -90,7 +114,7 @@ namespace Fonlow.Web.Meta
 						MethodName = controllerActionDescriptor.MethodInfo.Name,
 						MethodFullName = controllerActionDescriptor.MethodInfo.DeclaringType.FullName + "." + controllerActionDescriptor.MethodInfo.Name,
 						MethodParameterTypes = controllerActionDescriptor.MethodInfo.GetParameters().Select(d => d.ParameterType).ToArray(),
-						ReturnType = responseType,
+						ReturnType = returnType,
 						CustomAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(false).OfType<Attribute>().ToArray(),
 						ControllerDescriptor = new ControllerDescriptor()
 						{
@@ -103,7 +127,7 @@ namespace Fonlow.Web.Meta
 					RelativePath = description.RelativePath + BuildQuery(description.ParameterDescriptions),
 					ResponseDescription = new ResponseDescription()
 					{
-						ResponseType = responseType,
+						ResponseType = returnType,
 					},
 
 					ParameterDescriptions = description.ParameterDescriptions.Select(d =>
@@ -114,7 +138,7 @@ namespace Fonlow.Web.Meta
 						{
 							throw new CodeGenException($"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} may have invalid parameters.");
 						}
-						
+
 						var parameterType = descriptor.ParameterType;
 						var isValueType = TypeHelper.IsValueType(parameterType);
 						var isNullablePrimitive = TypeHelper.IsNullablePrimitive(parameterType);
@@ -163,6 +187,16 @@ namespace Fonlow.Web.Meta
 			}
 		}
 
+		static Type Get1stArgumentTypeOfGeneric(Type t)
+		{
+			var genericArguments = t.GetGenericArguments();
+			if (genericArguments.Length > 0)
+			{
+				return genericArguments[0];
+			}
+
+			return null;
+		}
 		static string BuildQuery(IList<ApiParameterDescription> ds)
 		{
 			var qs = ds.Where(d => BindingSource.Query.CanAcceptDataFrom(d.Source)).Select(k => String.Format("{0}={{{0}}}", k.Name)).ToArray();

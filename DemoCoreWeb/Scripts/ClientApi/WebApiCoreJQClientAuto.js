@@ -330,7 +330,7 @@ var DemoWebApi_Controllers_Client;
         /**
          * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
          * POST api/Entities/createPersonWeak
-         * Status Codes: 404:NotFound, 204:NoContent, 200:OK
+         * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
          */
         createPersonWeak(p, callback, headersHandler) {
             this.httpClient.post(this.baseUri + 'api/Entities/createPersonWeak', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
@@ -756,7 +756,7 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * GET api/SuperDemo/ActionStringResult
-         * Status Codes: 200:OK
+         * Status Codes: 200:OK : System.String
          */
         getActionStringResult(callback, headersHandler) {
             this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode, headersHandler);
@@ -970,6 +970,7 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.get(this.baseUri + 'api/SuperDemo/List', callback, this.error, this.statusCode, headersHandler);
         }
         /**
+         * False to return null, and true to return 1000
          * GET api/SuperDemo/NullableDecimal/{hasValue}
          */
         getNullableDecimal(hasValue, callback, headersHandler) {

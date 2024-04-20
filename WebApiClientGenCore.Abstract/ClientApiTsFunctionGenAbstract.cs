@@ -152,7 +152,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			builder.AppendLine(Description.HttpMethod + " " + Description.RelativePath);
 
-			var methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateMethodCommentBasedOnAttributes(Description.ActionDescriptor.CustomAttributes);
+			var methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(Description.ActionDescriptor.CustomAttributes);
 			if (methodAttributesAsComments.Length>0){
 				foreach (var item in methodAttributesAsComments)
 				{

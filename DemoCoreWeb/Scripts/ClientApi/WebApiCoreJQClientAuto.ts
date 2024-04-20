@@ -98,6 +98,8 @@ namespace DemoWebApi_DemoData_Client {
 		/** Type: GUID */
 		idNotEmitDefaultValue?: string | null;
 		nullableId?: string | null;
+
+		/** Required */
 		requiredName: string;
 		text?: string | null;
 	}
@@ -689,7 +691,7 @@ namespace DemoWebApi_Controllers_Client {
 		/**
 		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
-		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK
+		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		 */
 		createPersonWeak(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Entities/createPersonWeak', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
@@ -1136,7 +1138,7 @@ namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * GET api/SuperDemo/ActionStringResult
-		 * Status Codes: 200:OK
+		 * Status Codes: 200:OK : System.String
 		 */
 		getActionStringResult(callback: (data : string) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.get(this.baseUri + 'api/SuperDemo/ActionStringResult', callback, this.error, this.statusCode, headersHandler);
@@ -1383,6 +1385,7 @@ namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * False to return null, and true to return 1000
 		 * GET api/SuperDemo/NullableDecimal/{hasValue}
 		 */
 		getNullableDecimal(hasValue: boolean | null, callback: (data : number) => any, headersHandler?: () => {[header: string]: string}) {

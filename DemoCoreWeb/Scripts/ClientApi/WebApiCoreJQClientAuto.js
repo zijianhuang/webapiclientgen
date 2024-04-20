@@ -321,7 +321,6 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * POST api/Entities/createPersonByAdmin
-         * Authorize: BearerPolicy: Casual; Roles: Admin,Manager;
          * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
          */
         createPersonByAdmin(p, callback, headersHandler) {
@@ -335,8 +334,14 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/Entities/createPersonWeak', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * POST api/Entities/createPersonWithNotFound
+         * Status Codes: 404:NotFound
+         */
+        createPersonWithNotFound(p, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/Entities/createPersonWithNotFound', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
          * POST api/Entities/createPersonWithStatuses
-         * Authorize: BearerRoles: Admin,Manager;
          * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
          */
         createPersonWithStatuses(p, callback, headersHandler) {

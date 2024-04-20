@@ -103,6 +103,120 @@ namespace IntegrationTests
 		}
 
 		[Fact]
+		public void TestCreatePersonByAdmin()
+		{
+			Person person = new Person()
+			{
+				Name = "Some One",
+				Surname = "One",
+				GivenName = "Some",
+				DOB = new DateOnly(1988, 11, 23),
+				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
+				Addresses = new Address[]{new Address(){
+					City="Brisbane",
+					State="QLD",
+					Street1="Somewhere",
+					Street2="Over the rainbow",
+					PostalCode="4000",
+					Country="Australia",
+					Type= AddressType.Postal,
+					Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+				}},
+			};
+
+			var a = api.CreatePersonByAdmin(person, (headers) => { headers.Add("middle", "Hey"); });
+			Assert.Equal(person.DOB, a.DOB);
+			Assert.Equal(person.Baptised, a.Baptised);
+			Assert.Equal(person.Baptised.Value.Offset, a.Baptised.Value.Offset); //Even if the host is in Hawaii.
+		}
+
+		[Fact]
+		public void TestCreatePersonWeak()
+		{
+			Person person = new Person()
+			{
+				Name = "Some One",
+				Surname = "One",
+				GivenName = "Some",
+				DOB = new DateOnly(1988, 11, 23),
+				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
+				Addresses = new Address[]{new Address(){
+					City="Brisbane",
+					State="QLD",
+					Street1="Somewhere",
+					Street2="Over the rainbow",
+					PostalCode="4000",
+					Country="Australia",
+					Type= AddressType.Postal,
+					Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+				}},
+			};
+
+			var a = api.CreatePersonWeak(person, (headers) => { headers.Add("middle", "Hey"); });
+			Assert.Equal(person.DOB, a.DOB);
+			Assert.Equal(person.Baptised, a.Baptised);
+			Assert.Equal(person.Baptised.Value.Offset, a.Baptised.Value.Offset); //Even if the host is in Hawaii.
+		}
+
+		[Fact]
+		public void TestCreatePersonWithNotFound()
+		{
+			Person person = new Person()
+			{
+				Name = "Some One",
+				Surname = "One",
+				GivenName = "Some",
+				DOB = new DateOnly(1988, 11, 23),
+				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
+				Addresses = new Address[]{new Address(){
+					City="Brisbane",
+					State="QLD",
+					Street1="Somewhere",
+					Street2="Over the rainbow",
+					PostalCode="4000",
+					Country="Australia",
+					Type= AddressType.Postal,
+					Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+				}},
+			};
+
+			var a = api.CreatePersonWithNotFound(person, (headers) => { headers.Add("middle", "Hey"); });
+			Assert.Equal(person.DOB, a.DOB);
+			Assert.Equal(person.Baptised, a.Baptised);
+			Assert.Equal(person.Baptised.Value.Offset, a.Baptised.Value.Offset); //Even if the host is in Hawaii.
+		}
+
+		[Fact]
+		public void TestCreatePersonWithStatuses()
+		{
+			Person person = new Person()
+			{
+				Name = "Some One",
+				Surname = "One",
+				GivenName = "Some",
+				DOB = new DateOnly(1988, 11, 23),
+				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
+				Addresses = new Address[]{new Address(){
+					City="Brisbane",
+					State="QLD",
+					Street1="Somewhere",
+					Street2="Over the rainbow",
+					PostalCode="4000",
+					Country="Australia",
+					Type= AddressType.Postal,
+					Location = new DemoWebApi.DemoData.Another.Client.MyPoint() {X=4, Y=9 },
+				}},
+			};
+
+			var a = api.CreatePersonWithStatuses(person, (headers) => { headers.Add("middle", "Hey"); });
+			Assert.Equal(person.DOB, a.DOB);
+			Assert.Equal(person.Baptised, a.Baptised);
+			Assert.Equal(person.Baptised.Value.Offset, a.Baptised.Value.Offset); //Even if the host is in Hawaii.
+		}
+
+
+
+		[Fact]
 		public void TestCreateCompany()
 		{
 			DateOnly regDate = DateOnly.FromDateTime(DateTime.Today.AddDays(-1));

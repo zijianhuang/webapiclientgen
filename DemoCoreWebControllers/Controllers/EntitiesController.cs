@@ -90,6 +90,75 @@ namespace DemoWebApi.Controllers
 			return p;
 		}
 
+		[HttpPost]
+		[Route("createPersonByAdmin")]
+		[ProducesResponseType((int)HttpStatusCode.NotFound)]
+		[ProducesResponseType((int)HttpStatusCode.NoContent)]
+		[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
+		public async Task<Person> CreatePersonByAdmin([FromBody] Person p)
+		{
+			Debug.WriteLine("CreatePerson: " + p.Name);
+
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			Debug.WriteLine("Create " + p);
+			return p;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="p"></param>
+		/// <returns></returns>
+		/// <exception cref="InvalidOperationException"></exception>
+		[HttpPost]
+		[Route("createPersonWeak")]
+		[ProducesResponseType((int)HttpStatusCode.NotFound)]
+		[ProducesResponseType((int)HttpStatusCode.NoContent)]
+		[ProducesResponseType(typeof(Person), (int)HttpStatusCode.OK)]
+		public async Task<IActionResult> CreatePersonWeak([FromBody] Person p)
+		{
+			Debug.WriteLine("CreatePerson: " + p.Name);
+
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			Debug.WriteLine("Create " + p);
+			return Ok(p);
+		}
+
+		[HttpPost]
+		[Route("createPersonWithNotFound")]
+		[ProducesResponseType((int)HttpStatusCode.NotFound)]
+		public ActionResult<Person> CreatePersonWithNotFound([FromBody] Person p)
+		{
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			if (p.Name == "NotFound")
+				return NotFound();
+
+			return Ok(p);
+		}
+
+		[HttpPost]
+		[Route("createPersonWithStatuses")]
+		[ProducesResponseType((int)HttpStatusCode.NotFound)]
+		[ProducesResponseType((int)HttpStatusCode.NoContent)]
+		[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
+		public async Task<ActionResult<Person>> CreatePersonWithStatuses([FromBody] Person p)
+		{
+			if (p.Name == "Exception")
+				throw new InvalidOperationException("It is exception");
+
+			if (p.Name == "NotFound")
+				return NotFound();
+
+			return Ok(p);
+		}
+
+
 		[HttpPut]
 		[Route("updatePerson")]
 		public string UpdatePerson([FromBody] Person person)
@@ -237,66 +306,5 @@ namespace DemoWebApi.Controllers
 		{
 			return idMap;
 		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="p"></param>
-		/// <returns></returns>
-		/// <exception cref="InvalidOperationException"></exception>
-		[HttpPost]
-		[Route("createPersonWeak")]
-		[ProducesResponseType((int)HttpStatusCode.NotFound)]
-		[ProducesResponseType((int)HttpStatusCode.NoContent)]
-		[ProducesResponseType(typeof(Person), (int)HttpStatusCode.OK)]
-		public async Task<IActionResult> CreatePersonWeak([FromBody] Person p)
-		{
-			Debug.WriteLine("CreatePerson: " + p.Name);
-
-			if (p.Name == "Exception")
-				throw new InvalidOperationException("It is exception");
-
-			Debug.WriteLine("Create " + p);
-			return Ok(p);
-		}
-
-		[HttpPost]
-		[Authorize(AuthenticationSchemes = "Bearer", Roles ="Admin,Manager")]
-		[Route("createPersonWithStatuses")]
-		[ProducesResponseType((int)HttpStatusCode.NotFound)]
-		[ProducesResponseType((int)HttpStatusCode.NoContent)]
-		[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
-		public async Task<ActionResult<Person>> CreatePersonWithStatuses([FromBody] Person p)
-		{
-			Debug.WriteLine("CreatePerson: " + p.Name);
-
-			if (p.Name == "Exception")
-				throw new InvalidOperationException("It is exception");
-
-			if (p.Name == "NotFound")
-				return NotFound();
-
-			Debug.WriteLine("Create " + p);
-			return Ok(p);
-		}
-
-		[HttpPost]
-		[Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin,Manager", Policy ="Casual")]
-		[Route("createPersonByAdmin")]
-		[ProducesResponseType((int)HttpStatusCode.NotFound)]
-		[ProducesResponseType((int)HttpStatusCode.NoContent)]
-		[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
-		public async Task<Person> CreatePersonByAdmin([FromBody] Person p)
-		{
-			Debug.WriteLine("CreatePerson: " + p.Name);
-
-			if (p.Name == "Exception")
-				throw new InvalidOperationException("It is exception");
-
-			Debug.WriteLine("Create " + p);
-			return p;
-		}
-
-
 	}
 }

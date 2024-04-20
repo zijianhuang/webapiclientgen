@@ -328,7 +328,6 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.post(this.baseUri + 'api/Entities/createPersonByAdmin', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
-         * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
          * POST api/Entities/createPersonWeak
          * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
          */

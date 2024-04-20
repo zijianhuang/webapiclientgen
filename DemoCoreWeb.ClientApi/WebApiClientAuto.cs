@@ -2548,7 +2548,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Authorize: BearerPolicy: Casual; Roles: Admin,Manager; 
 		/// Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		/// </summary>
-		public async Task CreatePersonByAdminAsync(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<DemoWebApi.DemoData.Client.Person> CreatePersonByAdminAsync(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/createPersonByAdmin";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -2562,6 +2562,11 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
 			}
 			finally
 			{
@@ -2574,7 +2579,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Authorize: BearerPolicy: Casual; Roles: Admin,Manager; 
 		/// Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		/// </summary>
-		public void CreatePersonByAdmin(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public DemoWebApi.DemoData.Client.Person CreatePersonByAdmin(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/createPersonByAdmin";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -2588,6 +2593,11 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
 			}
 			finally
 			{
@@ -2596,7 +2606,6 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		/// POST api/Entities/createPersonWeak
 		/// Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		/// </summary>
@@ -2627,7 +2636,6 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
-		/// Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		/// POST api/Entities/createPersonWeak
 		/// Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		/// </summary>
@@ -2662,7 +2670,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Authorize: BearerRoles: Admin,Manager; 
 		/// Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		/// </summary>
-		public async Task CreatePersonWithStatusesAsync(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<DemoWebApi.DemoData.Client.Person> CreatePersonWithStatusesAsync(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/createPersonWithStatuses";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -2676,6 +2684,11 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
 			}
 			finally
 			{
@@ -2688,7 +2701,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Authorize: BearerRoles: Admin,Manager; 
 		/// Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		/// </summary>
-		public void CreatePersonWithStatuses(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public DemoWebApi.DemoData.Client.Person CreatePersonWithStatuses(DemoWebApi.DemoData.Client.Person p, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/createPersonWithStatuses";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -2702,6 +2715,11 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
+				var serializer = JsonSerializer.Create(jsonSerializerSettings);
+				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
 			}
 			finally
 			{

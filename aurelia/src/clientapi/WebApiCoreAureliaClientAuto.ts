@@ -687,17 +687,16 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Authorize: BearerPolicy: Casual; Roles: Admin,Manager; 
 		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonByAdmin(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.post('api/Entities/createPersonByAdmin', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		createPersonByAdmin(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post('api/Entities/createPersonByAdmin', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
 		}
 
 		/**
-		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
 		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		 */
-		createPersonWeak(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.post('api/Entities/createPersonWeak', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		createPersonWeak(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post('api/Entities/createPersonWeak', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
 		}
 
 		/**
@@ -705,8 +704,8 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Authorize: BearerRoles: Admin,Manager; 
 		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonWithStatuses(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.post('api/Entities/createPersonWithStatuses', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		createPersonWithStatuses(p: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => {[header: string]: string}): Promise<DemoWebApi_DemoData_Client.Person> {
+			return this.http.post('api/Entities/createPersonWithStatuses', JSON.stringify(p), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
 		}
 
 		/**

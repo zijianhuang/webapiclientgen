@@ -684,16 +684,15 @@ namespace DemoWebApi_Controllers_Client {
 		 * Authorize: BearerPolicy: Casual; Roles: Admin,Manager; 
 		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonByAdmin(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
+		createPersonByAdmin(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Entities/createPersonByAdmin', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
 		/**
-		 * Not strongly typed function prodotype, then the client codegen can't help you. The generated codes won't be usable.
 		 * POST api/Entities/createPersonWeak
 		 * Status Codes: 404:NotFound, 204:NoContent, 200:OK : DemoWebApi.DemoData.Person
 		 */
-		createPersonWeak(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
+		createPersonWeak(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Entities/createPersonWeak', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 
@@ -702,7 +701,7 @@ namespace DemoWebApi_Controllers_Client {
 		 * Authorize: BearerRoles: Admin,Manager; 
 		 * Status Codes: 404:NotFound, 204:NoContent, 422:UnprocessableEntity
 		 */
-		createPersonWithStatuses(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : void) => any, headersHandler?: () => {[header: string]: string}) {
+		createPersonWithStatuses(p: DemoWebApi_DemoData_Client.Person | null, callback: (data : DemoWebApi_DemoData_Client.Person) => any, headersHandler?: () => {[header: string]: string}) {
 			this.httpClient.post(this.baseUri + 'api/Entities/createPersonWithStatuses', p, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
 		}
 

@@ -75,7 +75,11 @@ namespace Fonlow.Web.Meta
 				var goodReturnType = GetReturnTypeFromResponseTypes(description.SupportedResponseTypes);
 				if (goodReturnType != null)
 				{
-					returnType = goodReturnType;
+					if (goodReturnType.Equals(typeof(void))){
+						returnType = null;
+					}else{
+						returnType = goodReturnType;
+					}
 				}
 				else
 				{
@@ -86,23 +90,25 @@ namespace Fonlow.Web.Meta
 					{
 						returnType = null;
 					}
-					else if (candidateReturnType.GetGenericTypeDefinition() == typeof(ActionResult<>))
+					else if (candidateReturnType.IsGenericType && candidateReturnType.GetGenericTypeDefinition() == typeof(ActionResult<>))
 					{
 						returnType = Get1stArgumentTypeOfGeneric(candidateReturnType);
 					}
-					else if (candidateReturnType.GetGenericTypeDefinition() == typeof(System.Threading.Tasks.Task<>))
+					else if (candidateReturnType.IsGenericType && candidateReturnType.GetGenericTypeDefinition() == typeof(System.Threading.Tasks.Task<>))
 					{
 						var typeInTask = Get1stArgumentTypeOfGeneric(candidateReturnType);
-						if (typeInTask.GetGenericTypeDefinition() == typeof(ActionResult<>))
+						if (typeInTask.IsGenericType && typeInTask.GetGenericTypeDefinition() == typeof(ActionResult<>))
 						{
 							returnType = Get1stArgumentTypeOfGeneric(typeInTask);
-						}else{
-							return null;
+						}
+						else
+						{
+							returnType = typeInTask;
 						}
 					}
 					else
 					{
-						returnType = null;
+						returnType = candidateReturnType;
 					}
 				}
 

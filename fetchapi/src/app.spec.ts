@@ -48,8 +48,8 @@ describe('Values API', () => {
         expect(data[1]).toBe('value2');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -62,8 +62,8 @@ describe('Values API', () => {
         expect(data).toBe('Abc1');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -76,8 +76,8 @@ describe('Values API', () => {
         expect(data).toBe('ABC');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -90,8 +90,8 @@ describe('Values API', () => {
         expect(data).toBe('ABC');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -104,8 +104,8 @@ describe('Values API', () => {
         expect(data).toBe('something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.\'; <>: \"1');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -126,8 +126,8 @@ describe('Heroes API', () => {
         expect(data.length).toBeGreaterThan(0);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -140,8 +140,8 @@ describe('Heroes API', () => {
         expect(data.name).toBe('somebody');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -154,8 +154,8 @@ describe('Heroes API', () => {
         expect(data.name).toBe('somebodyqqq');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -170,8 +170,8 @@ describe('Heroes API', () => {
         expect(data[0].name).toBe('Tornado');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -215,8 +215,8 @@ describe('entities API', () => {
           expect(data).toBeTruthy();
           done();
         },
-        error => {
-          fail(errorResponseToString(error));
+        async error => {
+          fail(await errorResponseToString(error));
         }
       );
 
@@ -238,9 +238,8 @@ describe('entities API', () => {
           expect(data.givenName).toBe('Hey');
           done();
         },
-        error => {
-
-          done();
+        async error => {
+          fail(await errorResponseToString(error));
         }
       );
 
@@ -269,8 +268,8 @@ describe('entities API', () => {
           expect(data.status).toBe('OK');
           done();
         },
-        error => {
-          fail(errorResponseToString(error));
+        async error => {
+          fail(await errorResponseToString(error));
         }
       );
 
@@ -290,8 +289,8 @@ describe('StringData API', () => {
         expect(data).toBe('"320"');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -303,8 +302,8 @@ describe('StringData API', () => {
         expect(data).toBe('"320Search"');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -316,8 +315,8 @@ describe('StringData API', () => {
         expect(data).toBe('"320SortSearch"');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -329,8 +328,8 @@ describe('StringData API', () => {
         expect(data).toBe('"320OrderSortSearch"');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -342,8 +341,8 @@ describe('StringData API', () => {
         expect(data).toBe('"320OrderSearch"');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -355,8 +354,8 @@ describe('StringData API', () => {
         expect(data).toBe('"320OrderSearch"');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -368,8 +367,8 @@ describe('StringData API', () => {
         expect(data).toBe('"ABCDE"'); // AxiosResponse.data is smart to remove double quotes from the string json object, though I ask for text.
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -381,8 +380,8 @@ describe('StringData API', () => {
         expect(data).toBe('""');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -397,8 +396,8 @@ describe('StringData API', () => {
         expect(data).toBe(null);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -414,8 +413,8 @@ describe('TextData API', () => {
         expect(data).toBe('320'); // somehow data is number rather than string. AxiosResponse.data is too smart?
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -427,8 +426,8 @@ describe('TextData API', () => {
         expect(data).toBe('320Search');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -440,8 +439,8 @@ describe('TextData API', () => {
         expect(data).toBe('ABCDE');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -453,8 +452,8 @@ describe('TextData API', () => {
         expect(data).toBe('');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -469,8 +468,8 @@ describe('TextData API', () => {
         expect(data).toBe(null);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -487,8 +486,8 @@ describe('SuperDemo API', () => {
         expect(data).toBeTruthy();
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -501,8 +500,8 @@ describe('SuperDemo API', () => {
         expect(data).toBeLessThan(0.000001);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -515,8 +514,8 @@ describe('SuperDemo API', () => {
         expect(data).not.toBe(0);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -529,8 +528,8 @@ describe('SuperDemo API', () => {
         expect(data).toBe(0);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -543,8 +542,8 @@ describe('SuperDemo API', () => {
         expect(data).toBe(10000);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -557,8 +556,8 @@ describe('SuperDemo API', () => {
         expect(data).toBe(10000);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -571,8 +570,8 @@ describe('SuperDemo API', () => {
         expect(data).toBeGreaterThan(10);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -586,8 +585,8 @@ describe('SuperDemo API', () => {
         expect(data).toBeNull(); // .net core return 204 nocontent empty body
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -600,8 +599,8 @@ describe('SuperDemo API', () => {
         expect(data).toBeNull();
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -614,8 +613,8 @@ describe('SuperDemo API', () => {
         expect(data.length).toBeGreaterThan(0);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -645,8 +644,8 @@ describe('SuperDemo API', () => {
         expect(data).toEqual(255);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -659,8 +658,8 @@ describe('SuperDemo API', () => {
         expect(data).toContain('abcdefg');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -674,8 +673,8 @@ describe('SuperDemo API', () => {
         expect(data).toBe('A');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -689,8 +688,8 @@ describe('SuperDemo API', () => {
         expect(data).toBe(79228162514264337593543950335);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -704,8 +703,8 @@ describe('SuperDemo API', () => {
         expect(data).toBe(-1.7976931348623e308);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -718,8 +717,8 @@ describe('SuperDemo API', () => {
         expect(data).toBe(4294967295);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -735,8 +734,8 @@ describe('SuperDemo API', () => {
         expect(data[1][3]).toBe(8);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -753,8 +752,8 @@ describe('SuperDemo API', () => {
         expect(data[1][3]).toBe(8);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -768,8 +767,8 @@ describe('SuperDemo API', () => {
         expect(data).toBeTruthy();
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -782,8 +781,8 @@ describe('SuperDemo API', () => {
         expect(data).toBeTruthy();
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -797,8 +796,8 @@ describe('SuperDemo API', () => {
         expect(data[2]).toBe(8);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -812,8 +811,8 @@ describe('SuperDemo API', () => {
         expect(data[1]).toBe(DemoWebApi_DemoData_Client.Days.Mon);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -827,8 +826,8 @@ describe('SuperDemo API', () => {
         expect(data.item2).toBe(123);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -846,8 +845,8 @@ describe('SuperDemo API', () => {
         expect(p.addresses![0].city).toBe('New York');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -885,8 +884,8 @@ describe('SuperDemo API', () => {
         expect(data).toBe(2);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -900,8 +899,8 @@ describe('SuperDemo API', () => {
         expect(data.value.addresses![0].city).toBe('New York');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -914,8 +913,8 @@ describe('SuperDemo API', () => {
         expect(data).toBeTruthy();
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -937,8 +936,8 @@ describe('Tuple API', () => {
         expect(data.item2).toBe(2);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -950,8 +949,8 @@ describe('Tuple API', () => {
         expect(data).toBe('One');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -964,8 +963,8 @@ describe('Tuple API', () => {
         expect(data.item7).toBe(7);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -978,8 +977,8 @@ describe('Tuple API', () => {
         expect(data.item2).toBe(2);
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -991,8 +990,8 @@ describe('Tuple API', () => {
         expect(data).toBe('One');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1005,8 +1004,8 @@ describe('Tuple API', () => {
         expect(data.rest.item1).toBe('nine');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1018,8 +1017,8 @@ describe('Tuple API', () => {
         expect(data).toBe('a');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1042,8 +1041,8 @@ describe('Tuple API', () => {
         expect(data.name).toBe('someone');
         done();
       },
-      error => {
-        fail(errorResponseToString(error));
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1098,8 +1097,8 @@ describe('Numbers API', () => {
 
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -1159,8 +1158,8 @@ describe('Numbers API', () => {
         expect(r).toBe(65535);
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1185,8 +1184,8 @@ describe('Numbers API', () => {
         expect(r).toBe(255);
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1214,8 +1213,8 @@ describe('Numbers API', () => {
         expect(r).toBe(255);
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1252,8 +1251,8 @@ describe('Numbers API', () => {
         expect(r).toBe(127);
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1278,8 +1277,8 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1291,8 +1290,8 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt('18446744073709551615'));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1304,8 +1303,8 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt('9223372036854775123'));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1319,8 +1318,8 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt('9223372036854775807'));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1332,8 +1331,8 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt(123n));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
 
@@ -1349,8 +1348,8 @@ describe('Numbers API', () => {
         expect(BigInt(r).valueOf()).toBe(BigInt('6277101735386680762814942322444851025767571854389858533375'));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1363,8 +1362,8 @@ describe('Numbers API', () => {
         expect(BigInt(r).valueOf()).toBe(BigInt('604462909807314587353087'));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1377,8 +1376,8 @@ describe('Numbers API', () => {
         expect(BigInt(r).valueOf()).toBe(BigInt('340282366920938463463374607431768211455'));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1396,8 +1395,8 @@ describe('Numbers API', () => {
         expect(BigInt(r)).toBe(BigInt(170141183460469231731687303715884105727n));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }
@@ -1417,8 +1416,8 @@ describe('Numbers API', () => {
         expect(BigInt(r).valueOf()).toBe(BigInt(340282366920938463463374607431768211455n));
         done();
       },
-      error => {
-        fail(error);
+      async error => {
+        fail(await errorResponseToString(error));
       }
     );
   }

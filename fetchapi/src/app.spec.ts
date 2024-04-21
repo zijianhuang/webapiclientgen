@@ -1144,13 +1144,13 @@ describe('Numbers API', () => {
         fail('backend should throw 500')
 
       },
-      error => {
-        console.error(errorResponseToString(error));
+      async error => {
+        expect(error.status).toEqual(400);
+        expect(await errorResponseToString(error)).toContain('Error converting value');
         done();
       }
     );
-  }
-  );
+  });
 
 
   it('postUShort', (done) => {
@@ -1200,14 +1200,13 @@ describe('Numbers API', () => {
       r => {
         fail("backend should throw");
       },
-      error => {
-        console.error(errorResponseToString(error));
-        expect(error.status).toEqual(400)
+      async error => {
+        expect(error.status).toEqual(400);
+        expect(await errorResponseToString(error)).toContain('Error converting value');
         done();
       }
     );
-  }, 200
-  );
+  });
 
   it('getByte', (done) => {
     service.getByte(255).then(
@@ -1232,8 +1231,7 @@ describe('Numbers API', () => {
         done();
       }
     );
-  }
-  );
+  });
 
   it('postByteWithNegativeInvalid', (done) => {
     service.postByDOfByte(-10).then(
@@ -1241,12 +1239,12 @@ describe('Numbers API', () => {
         fail("backend throws");
       },
       async error => {
-        expect(await errorResponseToString(error)).toContain('400');
+        expect(error.status).toEqual(400);
+        expect(await errorResponseToString(error)).toContain('Error converting value');
         done();
       }
     );
-  }, 200
-  );
+  });
 
   it('postSByte', (done) => {
     service.postByDOfSByte(127).then(

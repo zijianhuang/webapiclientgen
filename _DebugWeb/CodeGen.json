@@ -1,0 +1,42 @@
+{
+	"ApiSelections": {
+		"ExcludedControllerNames": [
+		],
+
+		"DataModels": [
+			{
+				"AssemblyName": "DemoWebApi.DemoDataCore",
+				"CherryPickingMethods": 3
+			},
+
+			{
+				"AssemblyName": "DebugWeb",
+				"CherryPickingMethods": 1
+			}
+		]
+	},
+
+	"ClientApiOutputs": {
+		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\DebugWebClientApi",
+		"FileName": "WebApiClientTextJsonAuto.cs",
+		"GenerateBothAsyncAndSync": false,
+		"CamelCase": true,
+		"CSClientNamespaceSuffix": ".Client",
+		"DataAnnotationsEnabled": true,
+		"DataAnnotationsToComments": true,
+		"HandleHttpRequestHeaders": true,
+		"DecorateDataModelWithDataContract": true,
+		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
+		"DecorateDataModelWithSerializable": true,
+		"IEnumerableToArray": false,
+		"MaybeNullAttributeOnMethod": true,
+		"UseEnsureSuccessStatusCodeEx": true,
+		"IncludeEnsureSuccessStatusCodeExBlock": true,
+		"JsMethodSuffixWithClrTypeName": true,
+
+		"UseSystemTextJson": true,
+
+		"Plugins": [
+		]
+	}
+}

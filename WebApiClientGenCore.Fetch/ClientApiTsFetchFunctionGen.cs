@@ -73,8 +73,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected override void RenderImplementation()
 		{
 			const string returnNullOrText = "{if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;}";
-			const string returnBolb = "{if (d.status<=204) return d.blob(); throw d;}";
-			const string returnJson = "{if (d.status<=204) return d.json(); throw d;}";
+			const string returnBolb = "{if (d.status<=202) return d.blob(); else if (d.status==204) return null; throw d;}";
+			const string returnJson = "{if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;}";
 
 			string GetContentOptionsForString(string dataToPost)
 			{

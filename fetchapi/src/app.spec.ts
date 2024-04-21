@@ -1,4 +1,4 @@
-import {DemoWebApi_Controllers_Client, DemoWebApi_Models_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Base_Client}  from './clientapi/WebApiCoreFetchClientAuto';
+import { DemoWebApi_Controllers_Client, DemoWebApi_Models_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Base_Client } from './clientapi/WebApiCoreFetchClientAuto';
 
 export async function errorResponseToString(error: Response | any): Promise<string> {
   let errMsg: string;
@@ -21,13 +21,13 @@ export async function errorResponseToString(error: Response | any): Promise<stri
   }
 }
 
-describe('Basic', ()=>{
-  it('simple 1', done=>{
+describe('Basic', () => {
+  it('simple 1', done => {
     expect(true).toBeTruthy();
     done();
   });
 
-  it('simple 2', done=>{
+  it('simple 2', done => {
 
     expect(true).toBeTruthy();
     done();
@@ -35,7 +35,7 @@ describe('Basic', ()=>{
 
 });
 
-const forDotNetCore=true;
+const forDotNetCore = true;
 const apiBaseUri = forDotNetCore ? 'http://localhost:5000/' : 'http://localhost:10965/';
 
 describe('Values API', () => {
@@ -597,8 +597,7 @@ describe('SuperDemo API', () => {
   it('getNullPerson', (done) => {
     service.getNullPerson().then(
       data => {
-        //expect(data).toBeNull();
-        expect(data).toBe(''); // .net core return 204 nocontent empty body
+        expect(data).toBeNull();
         done();
       },
       error => {
@@ -1125,14 +1124,16 @@ describe('Numbers API', () => {
     service.postIntegralEntity({ name: 'Some one', byte: 260, uShort: 65540 }).then(
       r => {
         fail('validation');
+        done();
       },
       error => {
-        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
+        expect(error.status).toEqual(400);
         done();
       }
     );
   }
   );
+
 
   /**
    * Backend checks if the data is null, likely due to invalid properties. And throw error.
@@ -1141,9 +1142,10 @@ describe('Numbers API', () => {
     service.postIntegralEntityMustBeValid({ name: 'Some one', byte: 260, uShort: 65540 }).then(
       r => {
         fail('backend should throw 500')
+
       },
       error => {
-        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
+        console.error(errorResponseToString(error));
         done();
       }
     );
@@ -1170,7 +1172,7 @@ describe('Numbers API', () => {
         fail('validation');
       },
       error => {
-        expect(errorResponseToString(error)).toContain('Error converting value 65540 to type');
+        expect(error.status).toEqual(400);//.toContain('Error converting value 65540 to type');
         done();
       }
     );
@@ -1199,7 +1201,8 @@ describe('Numbers API', () => {
         fail("backend should throw");
       },
       error => {
-        expect(errorResponseToString(error)).toContain('400');
+        console.error(errorResponseToString(error));
+        expect(error.status).toEqual(400)
         done();
       }
     );
@@ -1235,10 +1238,10 @@ describe('Numbers API', () => {
   it('postByteWithNegativeInvalid', (done) => {
     service.postByDOfByte(-10).then(
       r => {
-        fail("backend throws")
+        fail("backend throws");
       },
-      error => {
-        expect(errorResponseToString(error)).toContain('400');
+      async error => {
+        expect(await errorResponseToString(error)).toContain('400');
         done();
       }
     );

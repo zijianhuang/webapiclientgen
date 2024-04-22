@@ -64,3 +64,13 @@ Folder aurelia contains test suites with karrma for testing client library utili
 ## Summary
 
 With 2 .NET integration test suites and 5 JavaScript/TypeScript integration test suites, a full test requires 7x2 test runs.
+
+### Extra Tests for Cross Time Zone Issues
+
+http://fonlow.org/ hosting DemoTextJsonWeb is located in US east coast with -10:00 Timezone. Two .NET integration test suites and 1 JavaScript test suite should be used to test against this backend from time to time to ensure the generated codes can handle cross time zone issues.
+
+**Hints:**
+
+* When tests are carried out locally, it takes around 0.6-0.7 second to finish around 200 test cases of a .NET integration test suite. When the coversations occur between Australia and USA, it takes around 4.5 seconds.
+
+

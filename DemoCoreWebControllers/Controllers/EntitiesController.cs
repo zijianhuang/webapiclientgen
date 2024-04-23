@@ -166,6 +166,11 @@ namespace DemoWebApi.Controllers
 			return person.Name;
 		}
 
+		/// <summary>
+		/// https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
+		/// </summary>
+		/// <param name="person"></param>
+		/// <returns></returns>
 		[HttpPatch]
 		[Route("patchPerson")]
 		public string PatchPerson([FromBody] Person person)

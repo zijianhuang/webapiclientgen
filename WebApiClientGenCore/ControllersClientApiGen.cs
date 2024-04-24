@@ -1,13 +1,12 @@
-﻿using System.Reflection;
-using System.IO;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Linq;
+﻿using Fonlow.Poco2Client;
 using Fonlow.Web.Meta;
 using System;
-using Fonlow.Poco2Client;
+using System.CodeDom;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using WebApiClientGenCore.Abstract;
 
 namespace Fonlow.CodeDom.Web.Cs
@@ -90,7 +89,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (codeGenParameters.ApiSelections.DataModelAssemblyNames != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				var assemblies = allAssemblies.Where(d => codeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
+				var assemblies = allAssemblies.Where(d => codeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.OrdinalIgnoreCase)))
 					.OrderBy(n => n.FullName)
 					.ToArray();
 				var cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
@@ -106,7 +105,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 				foreach (var dataModel in codeGenParameters.ApiSelections.DataModels)
 				{
-					var assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dataModel.AssemblyName, StringComparison.CurrentCultureIgnoreCase));
+					var assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dataModel.AssemblyName, StringComparison.OrdinalIgnoreCase));
 					if (assembly != null)
 					{
 						var cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
@@ -128,10 +127,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <returns>Namespaces of types of POCO.</returns>
 		public CodeNamespaceEx[] CreateCodeDom(WebApiDescription[] webApiDescriptions)
 		{
-			if (webApiDescriptions == null)
-			{
-				throw new ArgumentNullException(nameof(webApiDescriptions));
-			}
+			ArgumentNullException.ThrowIfNull(webApiDescriptions);
 
 			var namespacesOfTypes = GenerateCsFromPoco();
 			var controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
@@ -194,7 +190,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 						var attributeComments = AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
 
-						if (docCommentsNoIndent?.Length>0 || attributeComments?.Length>0)
+						if (docCommentsNoIndent?.Length > 0 || attributeComments?.Length > 0)
 						{
 							controllerCodeTypeDeclaration.Comments.Add(new CodeCommentStatement("<summary>", true));
 							if (docCommentsNoIndent?.Length > 0)

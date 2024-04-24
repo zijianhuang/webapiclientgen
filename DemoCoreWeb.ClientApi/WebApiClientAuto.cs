@@ -3258,6 +3258,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
 		/// PATCH api/Entities/patchPerson
 		/// </summary>
 		public async Task<string> PatchPersonAsync(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3286,6 +3287,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
 		/// PATCH api/Entities/patchPerson
 		/// </summary>
 		public string PatchPerson(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

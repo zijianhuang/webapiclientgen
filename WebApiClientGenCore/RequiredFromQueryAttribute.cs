@@ -7,7 +7,7 @@ namespace Fonlow.CodeDom.Web
 	/// <summary>
 	/// Derived from FromQueryAttribute, signal a query parameter is required. So the action will have distinctive action signature. In contrast, in ASP.NET Web API 2.0, such signal is not required.
 	/// </summary>
-	public class RequiredFromQueryAttribute : FromQueryAttribute, IParameterModelConvention
+	public sealed class RequiredFromQueryAttribute : FromQueryAttribute, IParameterModelConvention
 	{
 		/// <summary>
 		/// Alter the default action straint so the query parameter is required.
@@ -25,7 +25,7 @@ namespace Fonlow.CodeDom.Web
 	/// <summary>
 	/// 
 	/// </summary>
-	internal class RequiredFromQueryActionConstraint : Microsoft.AspNetCore.Mvc.ActionConstraints.IActionConstraint
+	internal sealed class RequiredFromQueryActionConstraint : Microsoft.AspNetCore.Mvc.ActionConstraints.IActionConstraint
 	{
 		private readonly string parameter;
 

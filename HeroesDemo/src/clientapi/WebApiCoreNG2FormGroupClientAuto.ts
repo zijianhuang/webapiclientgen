@@ -1282,6 +1282,7 @@ export namespace DemoWebApi_Controllers_Client {
 		}
 
 		/**
+		 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
 		 * PATCH api/Entities/patchPerson
 		 */
 		patchPerson(person?: DemoWebApi_DemoData_Client.Person | null, headersHandler?: () => HttpHeaders): Observable<string> {

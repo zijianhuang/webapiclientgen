@@ -413,6 +413,7 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (!relationship ? '' : encodeURIComponent(relationship)), person, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
          * PATCH api/Entities/patchPerson
          */
         patchPerson(person, callback, headersHandler) {

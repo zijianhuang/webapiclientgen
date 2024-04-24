@@ -1,12 +1,11 @@
-﻿using Fonlow.DocComment;
+﻿using Fonlow.Reflection;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Fonlow.Reflection;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Fonlow.Web.Meta
 {
@@ -75,9 +74,12 @@ namespace Fonlow.Web.Meta
 				var goodReturnType = GetReturnTypeFromResponseTypes(description.SupportedResponseTypes);
 				if (goodReturnType != null)
 				{
-					if (goodReturnType.Equals(typeof(void))){
+					if (goodReturnType.Equals(typeof(void)))
+					{
 						returnType = null;
-					}else{
+					}
+					else
+					{
 						returnType = goodReturnType;
 					}
 				}

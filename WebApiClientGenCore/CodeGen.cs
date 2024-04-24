@@ -1,5 +1,5 @@
-﻿using System;
-using Fonlow.Web.Meta;
+﻿using Fonlow.Web.Meta;
+using System;
 
 namespace Fonlow.CodeDom.Web
 {
@@ -46,13 +46,13 @@ namespace Fonlow.CodeDom.Web
 						StringAsString = settings.ClientApiOutputs.StringAsString,
 
 						ApiSelections = settings.ApiSelections,
-						ClientNamespaceSuffix=plugin.ClientNamespaceSuffix,
-						ContainerNameSuffix=plugin.ContainerNameSuffix,
-						DataAnnotationsToComments=plugin.DataAnnotationsToComments,
-						HelpStrictMode=plugin.HelpStrictMode,
-						MethodSuffixWithClrTypeName=settings.ClientApiOutputs.JsMethodSuffixWithClrTypeName,
-						NotNullAttributeOnMethod=settings.ClientApiOutputs.NotNullAttributeOnMethod,
-						MaybeNullAttributeOnMethod=settings.ClientApiOutputs.MaybeNullAttributeOnMethod,
+						ClientNamespaceSuffix = plugin.ClientNamespaceSuffix,
+						ContainerNameSuffix = plugin.ContainerNameSuffix,
+						DataAnnotationsToComments = plugin.DataAnnotationsToComments,
+						HelpStrictMode = plugin.HelpStrictMode,
+						MethodSuffixWithClrTypeName = settings.ClientApiOutputs.JsMethodSuffixWithClrTypeName,
+						NotNullAttributeOnMethod = settings.ClientApiOutputs.NotNullAttributeOnMethod,
+						MaybeNullAttributeOnMethod = settings.ClientApiOutputs.MaybeNullAttributeOnMethod,
 					};
 
 					var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);

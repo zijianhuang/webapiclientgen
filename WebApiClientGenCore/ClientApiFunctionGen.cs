@@ -1,26 +1,23 @@
-﻿using System;
-using System.CodeDom;
-using System.Linq;
-using System.Diagnostics;
+﻿using Fonlow.Poco2Client;
 using Fonlow.Reflection;
 using Fonlow.Web.Meta;
+using System;
+using System.CodeDom;
 using System.Collections.Generic;
-using Fonlow.Poco2Ts;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
-using System.Xml.Linq;
-using Fonlow.Poco2Client;
-using WebApiClientGenCore.Abstract;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
 	/// <summary>
 	/// Generate a client function upon ApiDescription for C#
 	/// </summary>
-	internal class ClientApiFunctionGen
+	internal sealed class ClientApiFunctionGen
 	{
 		readonly WebApiDescription description;
 		readonly string methodName;
-		protected Type returnType;
+		Type returnType;
 		readonly bool returnTypeIsStream;
 		readonly bool returnTypeIsDynamicObject;
 
@@ -56,7 +53,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			var returnTypeOfProducesResponseType = GetTypeTextOfResponse2xx(description.ActionDescriptor.CustomAttributes);
 			returnType = returnTypeOfProducesResponseType ?? (webApiDescription.ResponseDescription?.ResponseType ?? webApiDescription.ActionDescriptor.ReturnType);
-			
+
 			returnTypeIsStream = returnType != null && ((returnType.FullName == typeNameOfHttpResponseMessage)
 				|| (returnType.FullName == typeOfIHttpActionResult)
 				|| (returnType.FullName == typeOfIActionResult)
@@ -257,7 +254,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			clientMethod.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
 			var methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(description.ActionDescriptor.CustomAttributes);
-			if (methodAttributesAsComments.Length>0)
+			if (methodAttributesAsComments.Length > 0)
 			{
 				foreach (var item in methodAttributesAsComments)
 				{
@@ -712,8 +709,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			foreach (var c in customAttributes)
 			{
 				var responseAttribute = c as Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute;
-				if (responseAttribute != null){
-					if (responseAttribute.StatusCode >=200 && responseAttribute.StatusCode <=202){
+				if (responseAttribute != null)
+				{
+					if (responseAttribute.StatusCode >= 200 && responseAttribute.StatusCode <= 202)
+					{
 						return responseAttribute.Type;
 					}
 				}

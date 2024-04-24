@@ -13,6 +13,7 @@
 		<PackageReleaseNotes>More RESTful supports.</PackageReleaseNotes>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<NoWarn>1701;1702;IDE0057</NoWarn>
+		<AnalysisLevel>latest-all</AnalysisLevel>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

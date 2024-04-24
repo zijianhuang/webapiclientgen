@@ -65,7 +65,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// </summary>
 		public void Save()
 		{
-			var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(CreateCodeObjectHelper(jsOutput.AsModule)));
+			using var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(CreateCodeObjectHelper(jsOutput.AsModule)));
 			using StreamWriter writer = new(jsOutput.JSPath);
 			provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
 		}
@@ -76,10 +76,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <param name="webApiDescriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
 		public void CreateCodeDom(WebApiDescription[] webApiDescriptions)
 		{
-			if (webApiDescriptions == null)
-			{
-				throw new ArgumentNullException(nameof(webApiDescriptions));
-			}
+			ArgumentNullException.ThrowIfNull(webApiDescriptions);
 
 			AddBasicReferences();
 
@@ -185,7 +182,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (apiSelections.DataModelAssemblyNames != null)
 			{
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.CurrentCultureIgnoreCase)))
+				var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.OrdinalIgnoreCase)))
 					.OrderBy(n => n.FullName)
 					.ToArray();
 				var cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
@@ -202,7 +199,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 				foreach (var dataModel in apiSelections.DataModels)
 				{
-					var assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dataModel.AssemblyName, StringComparison.CurrentCultureIgnoreCase));
+					var assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dataModel.AssemblyName, StringComparison.OrdinalIgnoreCase));
 					if (assembly != null)
 					{
 						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
@@ -303,7 +300,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		string ToMethodNameSuffix(CodeParameterDeclarationExpression d)
 		{
 			var pn = ToTitleCase(d.Name);
-			if (pn.EndsWith("?"))
+			if (pn.EndsWith('?'))
 			{
 				pn = pn.Substring(0, pn.Length - 1);
 			}
@@ -319,7 +316,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				typeName = d.Type.BaseType;
 			}
 
-			return typeName == string.Empty ? string.Empty : $"{pn}Of{typeName}";
+			return string.IsNullOrEmpty(typeName) ? string.Empty : $"{pn}Of{typeName}";
 		}
 
 		void RenameCodeMemberMethodWithParameterNames(CodeMemberMethod method)
@@ -339,10 +336,10 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 
 				return item;
-			}).Where(k => k != string.Empty).ToList();
+			}).Where(k => !string.IsNullOrEmpty(k)).ToList();
 
 			var lastParameter = parameterNamesInTitleCase.LastOrDefault();//for JQ output
-			if ("callback".Equals(lastParameter, StringComparison.CurrentCultureIgnoreCase))
+			if ("callback".Equals(lastParameter, StringComparison.Ordinal))
 			{
 				parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
 			}

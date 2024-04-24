@@ -19,10 +19,11 @@
 		<Authors>Zijian Huang</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<AssemblyName>Fonlow.WebApiClientGenCore</AssemblyName>
-		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<NoWarn>1701;1702;1705;1591</NoWarn>
+		<AnalysisLevel>latest-all</AnalysisLevel>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

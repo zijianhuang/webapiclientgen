@@ -17,6 +17,7 @@
 		<Version>3.9.1</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
+		<AnalysisLevel>latest-all</AnalysisLevel>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -29,7 +30,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />
-		<None Include="Readme.md" Pack="true" PackagePath="\"/>
+		<None Include="Readme.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>

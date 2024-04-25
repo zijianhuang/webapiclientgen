@@ -25,7 +25,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		readonly string OptionsWithContent;
 
-		string returnTypeText = null;
+		string returnTypeText;
 		readonly bool handleHttpRequestHeaders;
 
 		readonly JSOutput jsOutput;
@@ -79,7 +79,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (jsOutput.HelpStrictMode)
 				{
-					if (!returnTypeText.EndsWith(" | null") && ReturnTypeIsNullable)
+					if (!returnTypeText.EndsWith(" | null", StringComparison.Ordinal) && ReturnTypeIsNullable)
 					{
 						returnTypeText += " | null"; // optional null
 					}
@@ -108,7 +108,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
-			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
+			var hasArrayJoin = !string.IsNullOrWhiteSpace(jsUriQuery) && jsUriQuery.Contains(".join(");
 			var uriText = jsUriQuery == null ? $"'{Description.RelativePath}'" :
 				RemoveTrialEmptyString(hasArrayJoin ? $"'{jsUriQuery}" : $"'{jsUriQuery}'"); //Aurelia expect relative path.
 

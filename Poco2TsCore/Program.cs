@@ -3,7 +3,7 @@ using Fonlow.Poco2Client;
 
 namespace Fonlow.Poco2Ts
 {
-	class Program
+	sealed class Program
 	{
 		static void Main(string[] args)
 		{

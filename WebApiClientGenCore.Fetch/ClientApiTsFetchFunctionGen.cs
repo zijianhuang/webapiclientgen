@@ -16,7 +16,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		const string FetchtHttpBlobResponse = "Blob";
 		const string FetchHttpStringResponse = "string";
 
-		string returnTypeText = null;
+		string returnTypeText;
 		readonly string contentType;
 		readonly bool handleHttpRequestHeaders;
 
@@ -50,7 +50,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (jsOutput.HelpStrictMode)
 				{
-					if (!returnTypeText.EndsWith(" | null") && ReturnTypeIsNullable)
+					if (!returnTypeText.EndsWith(" | null", StringComparison.Ordinal) && ReturnTypeIsNullable)
 					{
 						returnTypeText += " | null"; // optional null
 					}

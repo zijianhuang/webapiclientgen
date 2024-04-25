@@ -26,7 +26,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		//readonly string ContentOptionsForBlob;
 		readonly string OptionsWithContent;
 
-		string returnTypeText = null;
+		string returnTypeText;
 		//string contentType;
 		readonly bool handleHttpRequestHeaders;
 
@@ -84,7 +84,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (jsOutput.HelpStrictMode) 
 				{
-					if (!returnTypeText.EndsWith(" | null") && ReturnTypeIsNullable)
+					if (!returnTypeText.EndsWith(" | null", StringComparison.Ordinal) && ReturnTypeIsNullable)
 					{
 						returnTypeText += " | null"; // optional null
 					}

@@ -48,7 +48,7 @@ namespace Fonlow.TypeScriptCodeDom
 				GenerateCodeFromType(t, w, o);
 
 				var typeExpression = GetTypeParametersExpression(t);
-				var isGeneric = typeExpression.Contains("<");
+				var isGeneric = typeExpression.Contains('<');
 				if (!t.IsPartial && !isGeneric) //controllerClass is partial, as declared in CreateControllerClientClass()
 				{
 					GenerateAngularFormFromType(t, w, o);
@@ -112,9 +112,9 @@ namespace Fonlow.TypeScriptCodeDom
 			if (typeOfTypeText == "interface")
 			{
 				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
-				var isGeneric = extendsExpression.Contains("<");
+				var isGeneric = extendsExpression.Contains('<');
 				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
-				var extendsExpressionForNg = extendsExpression == String.Empty ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
+				var extendsExpressionForNg = string.IsNullOrEmpty(extendsExpression) ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
 				var formGroupInterface = $"{name}FormProperties";
 				w.Write($"{o.IndentString}{accessModifier}{typeOfTypeText} {formGroupInterface}{extendsExpressionForNg} {{");
 				WriteAngularFormTypeMembersAndCloseBracing(e, w, o);
@@ -146,7 +146,7 @@ namespace Fonlow.TypeScriptCodeDom
 			if (typeOfTypeText == "interface")
 			{
 				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
-				var isGeneric = extendsExpression.Contains("<");
+				var isGeneric = extendsExpression.Contains('<');
 				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
 				var formGroupInterface = $"{name}FormProperties";
 				w.Write($"{o.IndentString}{accessModifier}function Create{name}FormGroup() {{");
@@ -171,7 +171,7 @@ namespace Fonlow.TypeScriptCodeDom
 		string GetCodeMemberFieldTextForAngularFormControl(CodeMemberField codeMemberField)
 		{
 			var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
-			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			var fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
 			return $"{fieldName}: FormControl<{tsTypeName}>";
 		}
 
@@ -227,7 +227,7 @@ namespace Fonlow.TypeScriptCodeDom
 		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
 		{
 			var customAttributes = codeMemberField.UserData[UserDataKeys.CustomAttributes] as Attribute[];
-			var fieldName = codeMemberField.Name.EndsWith("?") ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			var fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
 
 			if (customAttributes?.Length > 0)
 			{

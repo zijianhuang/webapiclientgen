@@ -27,7 +27,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		readonly string OptionsWithContent;
 
-		string returnTypeText = null;
+		string returnTypeText;
 		readonly bool handleHttpRequestHeaders;
 
 		readonly JSOutput jsOutput;
@@ -87,7 +87,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				if (jsOutput.HelpStrictMode)
 				{
-					if (!returnTypeText.EndsWith(" | null") && ReturnTypeIsNullable)
+					if (!returnTypeText.EndsWith(" | null", StringComparison.Ordinal) && ReturnTypeIsNullable)
 					{
 						returnTypeText += " | null"; // optional null
 					}

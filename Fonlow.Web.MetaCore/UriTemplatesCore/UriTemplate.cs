@@ -216,10 +216,9 @@ namespace Tavis.UriTemplates
 			var varname = varSpec.VarName.ToString();
 			result.ParameterNames.Add(varname);
 
-			if (!_Parameters.ContainsKey(varname)
-				|| _Parameters[varname] == null
-				|| (_Parameters[varname] is IList && ((IList)_Parameters[varname]).Count == 0)
-				|| (_Parameters[varname] is IDictionary && ((IDictionary)_Parameters[varname]).Count == 0))
+			if (!_Parameters.TryGetValue(varname, out object value) || value == null
+				|| (value is IList && ((IList)value).Count == 0)
+				|| (value is IDictionary && ((IDictionary)value).Count == 0))
 			{
 				if (_resolvePartially == true)
 				{
@@ -252,12 +251,12 @@ namespace Tavis.UriTemplates
 				result.Append(varSpec.OperatorInfo.Separator);
 			}
 
-			object value = _Parameters[varname];
+			object v = value;
 
 			// Handle Strings
-			if (value is string)
+			if (v is string)
 			{
-				var stringValue = (string)value;
+				var stringValue = (string)v;
 				if (varSpec.OperatorInfo.Named)
 				{
 					result.AppendName(varname, varSpec.OperatorInfo, string.IsNullOrEmpty(stringValue));
@@ -267,10 +266,10 @@ namespace Tavis.UriTemplates
 			else
 			{
 				// Handle Lists
-				var list = value as IList;
-				if (list == null && value is IEnumerable<string>)
+				var list = v as IList;
+				if (list == null && v is IEnumerable<string>)
 				{
-					list = ((IEnumerable<string>)value).ToList<string>();
+					list = ((IEnumerable<string>)v).ToList<string>();
 				};
 				if (list != null)
 				{
@@ -285,7 +284,7 @@ namespace Tavis.UriTemplates
 				{
 
 					// Handle associative arrays
-					var dictionary = value as IDictionary<string, string>;
+					var dictionary = v as IDictionary<string, string>;
 					if (dictionary != null)
 					{
 						if (varSpec.OperatorInfo.Named && !varSpec.Explode)  // exploding will prefix with list name
@@ -297,7 +296,7 @@ namespace Tavis.UriTemplates
 					else
 					{
 						// If above all fails, convert the object to string using the default object.ToString() implementation
-						var stringValue = value.ToString();
+						var stringValue = v.ToString();
 						if (varSpec.OperatorInfo.Named)
 						{
 							result.AppendName(varname, varSpec.OperatorInfo, string.IsNullOrEmpty(stringValue));

@@ -9,7 +9,17 @@ namespace Fonlow.Poco2Client
 {
 	public static class CommentsHelper
 	{
-		public static string[] GenerateCommentsFromAttributes(List<Attribute> attributes, IDictionary<Type, Func<object, string>> attribueCommentDic)
+		/// <summary>
+		/// Generate doc comments from attributes, and the attributes are sorted according to RequiredAttribute
+		/// </summary>
+		/// <param name="attributes"></param>
+		/// <param name="attribueCommentDic"></param>
+		/// <returns></returns>
+		public static string[] GenerateCommentsFromAttributes(
+#pragma warning disable CA1002 // Do not expose generic lists, but I need to sort it.
+		List<Attribute> attributes,
+#pragma warning restore CA1002 // Do not expose generic lists
+		IDictionary<Type, Func<object, string>> attribueCommentDic)
 		{
 			List<string> ss = new List<string>();
 			attributes.Sort((x, y) =>

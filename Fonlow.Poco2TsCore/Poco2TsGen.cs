@@ -63,7 +63,7 @@ namespace Fonlow.Poco2Ts
 		public void SaveCodeToFile(string fileName)
 		{
 			if (String.IsNullOrEmpty(fileName))
-				throw new ArgumentException("A valid fileName is not defined.", "fileName");
+				throw new ArgumentException("A valid fileName is not defined.", nameof(fileName));
 
 			try
 			{
@@ -95,9 +95,9 @@ namespace Fonlow.Poco2Ts
 		public void WriteCode(TextWriter writer)
 		{
 			if (writer == null)
-				throw new ArgumentNullException("writer", "No TextWriter instance is defined.");
+				throw new ArgumentNullException(nameof(writer), "No TextWriter instance is defined.");
 
-			using (CodeDomProvider provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(codeObjectHelper)))
+			using (var provider = new Fonlow.TypeScriptCodeDom.TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(codeObjectHelper)))
 			{
 				CodeGeneratorOptions options = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance;
 				options.BracingStyle = "JS";
@@ -192,11 +192,11 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
-		static void AddDocComments(CodeCommentStatementCollection comments, docMember dm, IEnumerable<string> extra = null)
+		static void AddDocComments(CodeCommentStatementCollection comments, docMember dm, IList<string> extra)
 		{
 			if (dm != null && dm.summary != null)
 			{
-				if (extra != null && extra.Count() > 0)
+				if (extra != null && extra.Count > 0)
 				{
 					comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(dm.summary.Text.Union(extra)), true));
 				}
@@ -205,7 +205,7 @@ namespace Fonlow.Poco2Ts
 					comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(dm.summary.Text), true));
 				}
 			}
-			else if (extra != null && extra.Count() > 0)
+			else if (extra != null && extra.Count > 0)
 			{
 				comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(extra), true));
 			}
@@ -220,7 +220,7 @@ namespace Fonlow.Poco2Ts
 		public void CreateCodeDom(Type[] types, CherryPickingMethods methods)
 		{
 			if (types == null)
-				throw new ArgumentNullException("types", "types is not defined.");
+				throw new ArgumentNullException(nameof(types), "types is not defined.");
 
 			this.pendingTypes.AddRange(types);
 			var typeGroupedByNamespace = types
@@ -452,7 +452,7 @@ namespace Fonlow.Poco2Ts
 			}
 			else if (type.IsArray)
 			{
-				Debug.Assert(type.Name.EndsWith("]"));
+				Debug.Assert(type.Name.EndsWith(']'));
 				var elementType = type.GetElementType();
 				var arrayRank = type.GetArrayRank();
 				return CreateArrayTypeReference(elementType, arrayRank);

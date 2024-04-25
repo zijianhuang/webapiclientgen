@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
@@ -38,7 +39,7 @@ namespace Fonlow.Reflection
 	   }
 	   );
 
-		public static readonly List<string> TupleTypeNames = new List<string>(
+		public static readonly IList<string> TupleTypeNames = new List<string>(
 			new string[]
 			{
 				typeof(Tuple<>).FullName,
@@ -55,10 +56,7 @@ namespace Fonlow.Reflection
 
 		public static T ReadAttribute<T>(MemberInfo memberInfo) where T : Attribute
 		{
-			if (memberInfo == null)
-			{
-				throw new ArgumentNullException(nameof(memberInfo));
-			}
+			ArgumentNullException.ThrowIfNull(memberInfo);
 
 			object[] objects = memberInfo.GetCustomAttributes(typeof(T), false);
 			if (objects.Length == 1)
@@ -70,10 +68,7 @@ namespace Fonlow.Reflection
 
 		public static T ReadAttribute<T>(Type type) where T : Attribute
 		{
-			if (type == null)
-			{
-				throw new ArgumentNullException(nameof(type));
-			}
+			ArgumentNullException.ThrowIfNull(type);
 
 			object[] objects = type.GetCustomAttributes(typeof(T), false);
 			if (objects.Length == 1)
@@ -92,10 +87,7 @@ namespace Fonlow.Reflection
 		/// <exception cref="ArgumentNullException"></exception>
 		public static Attribute AttributeExists(Type type, string attributeTypeText)
 		{
-			if (type == null)
-			{
-				throw new ArgumentNullException(nameof(type));
-			}
+			ArgumentNullException.ThrowIfNull(type);
 
 			return type.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;
 		}
@@ -109,10 +101,7 @@ namespace Fonlow.Reflection
 		/// <exception cref="ArgumentNullException"></exception>
 		public static Attribute AttributeExists(MemberInfo memberInfo, string attributeTypeText)
 		{
-			if (memberInfo == null)
-			{
-				throw new ArgumentNullException(nameof(memberInfo));
-			}
+			ArgumentNullException.ThrowIfNull(memberInfo);
 
 			return memberInfo.GetCustomAttributes(false).FirstOrDefault(d => d.GetType().FullName == attributeTypeText) as Attribute;
 
@@ -237,7 +226,7 @@ namespace Fonlow.Reflection
 		/// <returns></returns>
 		public static bool IsDotNetSimpleType(Type type)
 		{
-			return type.IsPrimitive || type.Equals(typeOfString) || (type.IsEnum && type.FullName.StartsWith("System."));
+			return type.IsPrimitive || type.Equals(typeOfString) || (type.IsEnum && type.FullName.StartsWith("System.", StringComparison.Ordinal));
 		}
 
 		public static bool IsComplexType(Type type)

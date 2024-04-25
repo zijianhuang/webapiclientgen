@@ -503,7 +503,7 @@ namespace Fonlow.Poco2Client
 					}
 				}
 
-				if (extra != null && extra.Count() > 0)
+				if (extra != null && extra.Length > 0)
 				{
 					foreach (var c in extra)
 					{
@@ -513,7 +513,7 @@ namespace Fonlow.Poco2Client
 
 				commentStatementCollection.Add(new CodeCommentStatement("</summary>", true));
 			}
-			else if (extra != null && extra.Count() > 0)
+			else if (extra != null && extra.Length > 0)
 			{
 				commentStatementCollection.Add(new CodeCommentStatement("<summary>", true));
 				foreach (var c in extra)

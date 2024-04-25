@@ -33,7 +33,7 @@ namespace Fonlow.Poco2Client
 			return generator;
 		}
 
-		readonly IDictionary<Type, Func<object, string>> generator = new Dictionary<Type, Func<object, string>>
+		readonly Dictionary<Type, Func<object, string>> generator = new Dictionary<Type, Func<object, string>>
 		{
 			{ typeof(RequiredAttribute), a => "Required" },
 			{ typeof(RangeAttribute), a =>

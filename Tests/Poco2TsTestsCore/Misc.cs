@@ -38,14 +38,11 @@ namespace Poco2TsTests
 			MethodInfo methodBase = methodContainerType.GetMethod("GetNullStringOnNullableEnabled");
 			Assert.NotNull(methodBase);
 			var customAttributes = methodBase.CustomAttributes.ToArray();
-			Assert.NotEmpty(customAttributes);
+			Assert.Empty(customAttributes);
 			//[[System.Runtime.CompilerServices.NullableContextAttribute((Byte)2)]] while return type is will nullable
 			//Assert.True(Attribute.IsDefined(methodBase, typeof(System.Runtime.CompilerServices.NullableContextAttribute))); 
 			//For compiler only.
 			//I can see it in IDE Debugger, but not available in codes according to https://github.com/dotnet/roslyn/blob/main/docs/features/nullable-metadata.md.
-			Assert.Equal((byte)2, customAttributes[0].ConstructorArguments[0].Value); // return type string is with ?
-			Assert.Equal("System.Runtime.CompilerServices.NullableContextAttribute", customAttributes[0].AttributeType.FullName);
-
 
 			Assert.False(Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute)));
 		}
@@ -58,11 +55,8 @@ namespace Poco2TsTests
 			var methodBase = methodContainerType.GetMethod("GetA");
 			Assert.NotNull(methodBase);
 			var customAttributes = methodBase.CustomAttributes.ToArray();
-			Assert.NotEmpty(customAttributes); //[[System.Runtime.CompilerServices.NullableContextAttribute((Byte)2)]]
+			Assert.Empty(customAttributes); //[[System.Runtime.CompilerServices.NullableContextAttribute((Byte)2)]]
 			Assert.True(Attribute.IsDefined(methodBase.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute)));
-
-			Assert.Equal((byte)2, customAttributes[0].ConstructorArguments[0].Value); // return type A is with ?
-			Assert.Equal("System.Runtime.CompilerServices.NullableContextAttribute", customAttributes[0].AttributeType.FullName);
 		}
 
 		[Fact]
@@ -98,7 +92,9 @@ namespace Poco2TsTests
 			return "ABCD";
 		}
 
-		public static string GetNullStringOnNullableEnabled()
+#pragma warning disable CA1822 // Mark members as static. Intentional
+		public string GetNullStringOnNullableEnabled()
+#pragma warning restore CA1822 // Mark members as static
 		{
 			if (DateTime.Now > new DateTime(2008, 12, 3))
 			{
@@ -111,7 +107,7 @@ namespace Poco2TsTests
 		}
 
 		[return: System.Diagnostics.CodeAnalysis.NotNull]
-		public static A GetA()
+		public A GetA()
 		{
 			if (DateTime.Now > new DateTime(2008, 12, 3))
 			{

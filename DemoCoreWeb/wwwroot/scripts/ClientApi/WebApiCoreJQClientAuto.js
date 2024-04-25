@@ -413,6 +413,7 @@ var DemoWebApi_Controllers_Client;
             this.httpClient.put(this.baseUri + 'api/Entities/link?id=' + id + '&relationship=' + (!relationship ? '' : encodeURIComponent(relationship)), person, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
         }
         /**
+         * https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
          * PATCH api/Entities/patchPerson
          */
         patchPerson(person, callback, headersHandler) {
@@ -1448,11 +1449,11 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * Get by both Id and name
-         * GET api/Values/{id}?name={name}
+         * GET api/Values/Name/{id}?name={name}
          * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
          */
         getByIdOfInt32AndNameOfString(id, name, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/Values/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get by name

@@ -162,7 +162,7 @@ namespace IntegrationTests
 			{
 				Name = "My Co",
 				FoundDate = DateTime.Now,
-				RegisterDate=new DateOnly(2020, 12, 23),
+				RegisterDate = new DateOnly(2020, 12, 23),
 			};
 
 			var r = api.LinkPersonCompany1(Tuple.Create(p, c));

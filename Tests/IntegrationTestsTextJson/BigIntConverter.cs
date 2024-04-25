@@ -10,7 +10,8 @@ namespace DemoTextJsonWeb
 		// Inspired by https://stackoverflow.com/questions/64788895/serialising-biginteger-using-system-text-json
 		public override BigInteger Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
-			if (reader.TokenType == JsonTokenType.Number){
+			if (reader.TokenType == JsonTokenType.Number)
+			{
 				using var doc = JsonDocument.ParseValue(ref reader);
 				var rawText = doc.RootElement.GetRawText();
 				return BigInteger.Parse(rawText, NumberFormatInfo.InvariantInfo);

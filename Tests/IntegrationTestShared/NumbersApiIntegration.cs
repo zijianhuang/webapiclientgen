@@ -39,7 +39,7 @@ namespace IntegrationTests
 			Assert.Equal(d.Signed128, r.Signed128);
 			Assert.Equal(d.Unsigned128, r.Unsigned128);
 			Assert.Equal(d.BigInt, r.BigInt);
-			Assert.NotEqual(d.BigInt, r.BigInt -1);
+			Assert.NotEqual(d.BigInt, r.BigInt - 1);
 		}
 
 		[Fact]
@@ -52,7 +52,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostLongWithRange()
 		{
-			Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.PostLongWithRange(9223372036854775800+1));
+			Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.PostLongWithRange(9223372036854775800 + 1));
 		}
 
 		[Fact]
@@ -161,7 +161,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostIntWithRange()
 		{
-			Assert.Throws< Fonlow.Net.Http.WebApiRequestException>(()=> api.PostIntWithRange(101));
+			Assert.Throws<Fonlow.Net.Http.WebApiRequestException>(() => api.PostIntWithRange(101));
 		}
 
 		[Fact]
@@ -181,8 +181,8 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostUIntMaxMinus1()
 		{
-			var r = api.Post(uint.MaxValue-1);
-			Assert.Equal(uint.MaxValue-1, r);
+			var r = api.Post(uint.MaxValue - 1);
+			Assert.Equal(uint.MaxValue - 1, r);
 		}
 
 

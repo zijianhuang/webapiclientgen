@@ -95,8 +95,10 @@ app.UseStaticFiles(new StaticFileOptions
 {
 	OnPrepareResponse = ctx =>
 	{
+#pragma warning disable ASP0019 // Suggest using IHeaderDictionary.Append or the indexer
 		ctx.Context.Response.Headers.Add(
 			 "Cache-Control", "no-cache");
+#pragma warning restore ASP0019 // Suggest using IHeaderDictionary.Append or the indexer
 	}
 }); //"TypeScriptJQFolder": "..\\..\\..\\..\\Scripts\\ClientApi" because of wwwwroot in play
 #endif

@@ -49,7 +49,9 @@ namespace DebugWeb.Controllers
 
 		[HttpPost]
 		[Route("createPerson2")]
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 		public async Task<Person> CreatePerson2([FromBody] Person p)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 		{
 			Debug.WriteLine("CreatePerson: " + p.Name);
 
@@ -65,7 +67,9 @@ namespace DebugWeb.Controllers
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.NoContent)]
 		[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 		public async Task<Person> CreatePersonByAdmin([FromBody] Person p)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 		{
 			Debug.WriteLine("CreatePerson: " + p.Name);
 
@@ -87,7 +91,9 @@ namespace DebugWeb.Controllers
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.NoContent)]
 		[ProducesResponseType(typeof(Person), (int)HttpStatusCode.OK)]
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 		public async Task<IActionResult> CreatePersonWeak([FromBody] Person p)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 		{
 			Debug.WriteLine("CreatePerson: " + p.Name);
 
@@ -117,7 +123,9 @@ namespace DebugWeb.Controllers
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.NoContent)]
 		[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 		public async Task<ActionResult<Person>> CreatePersonWithStatuses([FromBody] Person p)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 		{
 			if (p.Name == "Exception")
 				throw new InvalidOperationException("It is exception");

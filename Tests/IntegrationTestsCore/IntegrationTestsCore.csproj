@@ -12,6 +12,8 @@
 		<StartupObject />
 
 		<Version>2.0.0</Version>
+
+		<AnalysisLevel>none</AnalysisLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -44,10 +46,5 @@
 	</ItemGroup>
 
 	<Import Project="..\IntegrationTestShared\IntegrationTestShared.projitems" Label="Shared" />
-
-	<ItemGroup>
-		<GlobalAnalyzerConfigFiles Include="../../DemoCoreWeb/DemoApps.globalconfig" />
-	</ItemGroup>
-
 
 </Project>

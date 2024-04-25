@@ -22,9 +22,11 @@ namespace Poco2TsTests
 		{
 			var aa = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
 
+#pragma warning disable CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types. but intentional
 			Assert.Empty(aa.OfType<Base>());
 			Assert.Empty(aa.OfType<A>());
 			Assert.Empty(aa.OfType<B>());
+#pragma warning restore CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
 		}
 
 
@@ -78,7 +80,7 @@ namespace Poco2TsTests
 
 
 		[return: System.Diagnostics.CodeAnalysis.NotNull]
-		public string GetNotNullString()
+		public static string GetNotNullString()
 		{
 			if (DateTime.Now > new DateTime(2008, 12, 3))
 			{
@@ -91,12 +93,12 @@ namespace Poco2TsTests
 		}
 
 		[return: System.Diagnostics.CodeAnalysis.NotNull]
-		public string GetNotNullStringOnNullableEnabled(string? sort)
+		public static string GetNotNullStringOnNullableEnabled(string sort)
 		{
 			return "ABCD";
 		}
 
-		public string? GetNullStringOnNullableEnabled()
+		public static string GetNullStringOnNullableEnabled()
 		{
 			if (DateTime.Now > new DateTime(2008, 12, 3))
 			{
@@ -109,7 +111,7 @@ namespace Poco2TsTests
 		}
 
 		[return: System.Diagnostics.CodeAnalysis.NotNull]
-		public A? GetA()
+		public static A GetA()
 		{
 			if (DateTime.Now > new DateTime(2008, 12, 3))
 			{
@@ -124,7 +126,7 @@ namespace Poco2TsTests
 			return new A();
 		}
 
-		public string AthletheSearch(string? sort, string? search)
+		public static string AthletheSearch(string sort, string search)
 		{
 			return "ABCD";
 		}

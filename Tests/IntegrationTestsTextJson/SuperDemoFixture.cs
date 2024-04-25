@@ -1,5 +1,4 @@
 ﻿using Fonlow.Testing;
-using System;
 
 namespace IntegrationTests
 {

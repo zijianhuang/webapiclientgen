@@ -8,8 +8,6 @@ var appSettings = config.GetSection("appSettings");
 var environment = appSettings.GetValue<string>("environment");
 
 string webRootPath = "./";
-string dataDirectory = "./DemoApp_Data";
-
 
 // WebRootPath is to tell the Web server where to look for files to serve.
 // ContentRootPath is to tell the Web service code where to look for data.

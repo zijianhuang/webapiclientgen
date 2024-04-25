@@ -1,10 +1,5 @@
-﻿using System.Text.Json;
-using System;
-using System.Linq;
-using System.Numerics;
-using Xunit;
-using System.Globalization;
-using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json;
 
 namespace IntegrationTests
 {
@@ -105,11 +100,12 @@ namespace IntegrationTests
 			var d = JsonSerializer.Deserialize<System.Nullable<System.DateTime>>("null");
 			Assert.False(d.HasValue);
 
-			Assert.Throws<JsonException>(()=> JsonSerializer.Deserialize<System.Nullable<System.DateTime>>("")); // ASP.NET Core without Newtonsoft.Json will return empty string and status code 204 No Content. Newtonsoft.Json's serializer will interpret empty string as null for nullable struct.
+			Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<System.Nullable<System.DateTime>>("")); // ASP.NET Core without Newtonsoft.Json will return empty string and status code 204 No Content. Newtonsoft.Json's serializer will interpret empty string as null for nullable struct.
 		}
 
 		[Fact]
-		public void TestSerializeJaggedArray_NotSupported(){
+		public void TestSerializeJaggedArray_NotSupported()
+		{
 			int[,] aa = new int[,]
 			{
 			   {1,2,3, 4 },
@@ -123,14 +119,16 @@ namespace IntegrationTests
 		/// While supporting serialization, but not supporting deserialization well for dynamic
 		/// </summary>
 		[Fact]
-		public void TestDeserializeDynamic_RuntimeBinderException(){
+		public void TestDeserializeDynamic_RuntimeBinderException()
+		{
 			var s = "{\"Id\":\"12345\",\"Name\":\"Something\"}";
 			var d = JsonSerializer.Deserialize<dynamic>(s);
-			Assert.Throws<Microsoft.CSharp.RuntimeBinder.RuntimeBinderException>(()=> d["Id"].ToString());
+			Assert.Throws<Microsoft.CSharp.RuntimeBinder.RuntimeBinderException>(() => d["Id"].ToString());
 		}
 
 		[Fact]
-		public void TestSerializeDynamic(){
+		public void TestSerializeDynamic()
+		{
 			dynamic d = new System.Text.Json.Nodes.JsonObject
 			{
 				["Id"] = "12345",

@@ -3,11 +3,9 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
-		<AnalysisLevel>latest-minimum</AnalysisLevel>
+		<AnalysisLevel>none</AnalysisLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -40,9 +38,5 @@
 	</ItemGroup>
 
 	<Import Project="..\IntegrationTestShared\IntegrationTestShared.projitems" Label="Shared" />
-
-	<ItemGroup>
-		<GlobalAnalyzerConfigFiles Include="../../DemoCoreWeb/DemoApps.globalconfig" />
-	</ItemGroup>
 
 </Project>

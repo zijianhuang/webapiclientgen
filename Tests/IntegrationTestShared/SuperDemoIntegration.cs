@@ -1,8 +1,8 @@
 ﻿using DemoWebApi.DemoData.Client;
 using System;
 using System.Collections.Generic;
-using Xunit;
 using System.Linq;
+using Xunit;
 
 namespace IntegrationTests
 {
@@ -303,10 +303,10 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public void TestGetTextStream()
+		public async void TestGetTextStream()
 		{
 			var response = api.GetTextStream();
-			var stream = response.Content.ReadAsStreamAsync().Result;
+			var stream = await response.Content.ReadAsStreamAsync();
 			using (var reader = new System.IO.StreamReader(stream))
 			{
 				var s = reader.ReadToEnd();

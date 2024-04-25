@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
-using System.Linq;
 namespace IntegrationTests
 {
 	[Collection(TestConstants.LaunchWebApiAndInit)]

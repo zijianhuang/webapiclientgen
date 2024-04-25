@@ -1,8 +1,4 @@
-﻿using System;
-using Xunit;
-using Fonlow.Testing;
-
-namespace IntegrationTests
+﻿namespace IntegrationTests
 {
 	[Collection(TestConstants.LaunchWebApiAndInit)]
 	public partial class SpecialTypesApiIntegration : IClassFixture<SpecialTypesFixture>

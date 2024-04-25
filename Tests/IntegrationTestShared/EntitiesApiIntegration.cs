@@ -283,7 +283,7 @@ namespace IntegrationTests
 				Surname = "One",
 				GivenName = "Some",
 				DOB = new DateOnly(1988, 11, 23),
-				Baptised= DateTimeOffset.Now.Date.AddYears(-20),
+				Baptised = DateTimeOffset.Now.Date.AddYears(-20),
 				Addresses = new Address[]{new Address(){
 					City="Brisbane",
 					State="QLD",
@@ -459,7 +459,7 @@ namespace IntegrationTests
 		{
 			var d = new IdMap
 			{
-				RequiredName="Hey"
+				RequiredName = "Hey"
 			};
 			var r = api.PostIdMap(d);  //payload is {"Id":"00000000-0000-0000-0000-000000000000"}, while RequiredName is with IsRequired=true;
 			Assert.Equal(Guid.Empty, r.Id);

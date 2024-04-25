@@ -6,6 +6,8 @@
 		<IsPackable>false</IsPackable>
 
 		<Version>2.0.0</Version>
+
+		<AnalysisLevel>latest-minimum</AnalysisLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -21,10 +23,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
 		<ProjectReference Include="..\..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<GlobalAnalyzerConfigFiles Include="../../DemoCoreWeb/DemoApps.globalconfig" />
 	</ItemGroup>
 
 </Project>

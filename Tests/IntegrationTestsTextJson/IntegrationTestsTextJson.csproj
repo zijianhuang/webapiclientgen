@@ -7,6 +7,7 @@
 
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
+		<AnalysisLevel>latest-minimum</AnalysisLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -39,5 +40,9 @@
 	</ItemGroup>
 
 	<Import Project="..\IntegrationTestShared\IntegrationTestShared.projitems" Label="Shared" />
+
+	<ItemGroup>
+		<GlobalAnalyzerConfigFiles Include="../../DemoCoreWeb/DemoApps.globalconfig" />
+	</ItemGroup>
 
 </Project>

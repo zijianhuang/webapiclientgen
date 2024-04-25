@@ -28,4 +28,9 @@
     <ProjectReference Include="..\..\WebApiClientGenCore.NG2FormGroup\WebApiClientGenCore.NG2FormGroup.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<GlobalAnalyzerConfigFiles Include="../../DemoCoreWeb/DemoApps.globalconfig" />
+	</ItemGroup>
+
+
 </Project>

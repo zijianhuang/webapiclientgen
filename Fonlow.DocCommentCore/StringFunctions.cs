@@ -75,13 +75,17 @@ namespace Fonlow.DocComment
 			if (list == null)
 				return null;
 
+#pragma warning disable CA1820 // Test for empty strings using string length
 			if (list[0] == String.Empty)
 				list.RemoveAt(0);
+#pragma warning restore CA1820 // Test for empty strings using string length
 
+#pragma warning disable CA1820 // Test for empty strings using string length
 			if (list[list.Count - 1] == String.Empty)
 			{
 				list.RemoveAt(list.Count - 1);
 			}
+#pragma warning restore CA1820 // Test for empty strings using string length
 
 			return list;
 		}

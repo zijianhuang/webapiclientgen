@@ -22,4 +22,9 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+	<ItemGroup>
+		<GlobalAnalyzerConfigFiles Include="../../DemoCoreWeb/DemoApps.globalconfig" />
+	</ItemGroup>
+
+
 </Project>

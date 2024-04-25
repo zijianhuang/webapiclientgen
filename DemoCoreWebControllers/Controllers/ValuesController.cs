@@ -34,7 +34,7 @@ namespace DemoWebApi.Controllers
 		/// <param name="id"></param>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		[HttpGet("{id}")]
+		[HttpGet("Name/{id}")]
 		public string Get(int id, [RequiredFromQuery] string name)
 		{
 			return name + id.ToString();

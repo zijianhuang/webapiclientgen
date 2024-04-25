@@ -1,0 +1,59 @@
+﻿[*.cs]
+
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = none
+
+# CA1307: Specify StringComparison
+dotnet_diagnostic.CA1307.severity = none
+
+# CA1305: Specify IFormatProvider
+dotnet_diagnostic.CA1305.severity = none
+
+# CA1304: Specify CultureInfo
+dotnet_diagnostic.CA1304.severity = none
+
+# CA1062: Validate arguments of public methods
+dotnet_diagnostic.CA1062.severity = none
+
+# CA1819: Properties should not return arrays
+dotnet_diagnostic.CA1819.severity = none
+
+# CA1055: Uri return values should not be strings
+dotnet_diagnostic.CA1055.severity = none
+
+# CA1054: Uri parameters should not be strings
+dotnet_diagnostic.CA1054.severity = none
+
+# CA1051: Do not declare visible instance fields
+dotnet_diagnostic.CA1051.severity = none
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = none
+
+dotnet_diagnostic.CS1591.severity = none
+
+dotnet_diagnostic.CA1861.severity = none
+
+dotnet_diagnostic.CS1998.severity = none
+
+dotnet_diagnostic.CS8625.severity = none
+
+dotnet_diagnostic.CS8602.severity = none
+
+dotnet_diagnostic.CS8632.severity = none
+
+dotnet_diagnostic.CS8618.severity = none
+
+dotnet_diagnostic.CS8600.severity = none
+
+dotnet_diagnostic.CS8629.severity = none
+
+dotnet_diagnostic.CA1820.severity = none
+
+dotnet_diagnostic.CA1822.severity = none
+
+dotnet_diagnostic.CA1869.severity = none
+
+dotnet_diagnostic.CA2021.severity = none
+
+

@@ -10165,11 +10165,11 @@ namespace DemoWebApi.Controllers.Client
 		
 		/// <summary>
 		/// Get by both Id and name
-		/// GET api/Values/{id}?name={name}
+		/// GET api/Values/Name/{id}?name={name}
 		/// </summary>
 		public async Task<string> GetAsync(int id, string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			var requestUri = "api/Values/Name/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
 			handleHeaders?.Invoke(httpRequestMessage.Headers);
 			var responseMessage = await client.SendAsync(httpRequestMessage);
@@ -10189,11 +10189,11 @@ namespace DemoWebApi.Controllers.Client
 		
 		/// <summary>
 		/// Get by both Id and name
-		/// GET api/Values/{id}?name={name}
+		/// GET api/Values/Name/{id}?name={name}
 		/// </summary>
 		public string Get(int id, string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
-			var requestUri = "api/Values/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
+			var requestUri = "api/Values/Name/"+id+"?name="+(name == null ? "" : Uri.EscapeDataString(name));
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
 			handleHeaders?.Invoke(httpRequestMessage.Headers);
 			var responseMessage = client.SendAsync(httpRequestMessage).Result;

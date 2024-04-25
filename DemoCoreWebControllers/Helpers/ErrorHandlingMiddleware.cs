@@ -19,6 +19,8 @@ namespace WebApp.Utilities
 
 		public async Task Invoke(HttpContext context)
 		{
+			ArgumentNullException.ThrowIfNull(context, nameof(context));
+
 			try
 			{
 				await next(context);
@@ -33,11 +35,11 @@ namespace WebApp.Utilities
 		{
 			var endpoint = context.GetEndpoint().DisplayName;
 #if DEBUG
-			var exceptionErrorMessage = ex.ToString();
+			var exceptionErrorMessage = ex.ToString(); // call stack available
 #else
-			var exceptionErrorMessage = ex.Message;
+			var exceptionErrorMessage = ex.Message; // not to expose too much implementation details to the worlds.
 #endif
-			logger.LogError($"Endpoint: {endpoint}; Exception: {exceptionErrorMessage}");
+			logger.LogError("Endpoint: {endpoint}; Exception: {exceptionErrorMessage}", endpoint, exceptionErrorMessage);
 
 			var code = HttpStatusCode.InternalServerError; // 500 if unexpected
 			if (typeof(ArgumentException).IsAssignableFrom(ex.GetType()))

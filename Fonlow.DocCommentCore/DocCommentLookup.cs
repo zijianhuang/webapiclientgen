@@ -28,7 +28,9 @@ namespace Fonlow.DocComment
 			{
 				using (var fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
 				{
+#pragma warning disable CA5369 // Use XmlReader for 'XmlSerializer.Deserialize()'
 					XmlDoc = serializer.Deserialize(fs) as doc;
+#pragma warning restore CA5369 // Use XmlReader for 'XmlSerializer.Deserialize()'
 					return XmlDoc != null;
 				}
 

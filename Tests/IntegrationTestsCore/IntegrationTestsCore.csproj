@@ -1,48 +1,53 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
 
-    <IsPackable>false</IsPackable>
+		<IsPackable>false</IsPackable>
 
-    <ApplicationIcon />
+		<ApplicationIcon />
 
-    <OutputType>Library</OutputType>
+		<OutputType>Library</OutputType>
 
-    <StartupObject />
+		<StartupObject />
 
-    <Version>2.0.0</Version>
-  </PropertyGroup>
+		<Version>2.0.0</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="appsettings.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="appsettings.json" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Fonlow.Testing.ServiceCore" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="xunit" Version="2.7.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Fonlow.Testing.ServiceCore" Version="3.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+		<PackageReference Include="xunit" Version="2.7.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.7">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\DemoCoreWeb.ClientApi\DemoCoreWeb.ClientApi.csproj" />
-    <ProjectReference Include="..\..\Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\DemoCoreWeb.ClientApi\DemoCoreWeb.ClientApi.csproj" />
+		<ProjectReference Include="..\..\Fonlow.DateOnlyExtensions\Fonlow.DateOnlyExtensions.csproj" />
+	</ItemGroup>
 
-  <Import Project="..\IntegrationTestShared\IntegrationTestShared.projitems" Label="Shared" />
+	<Import Project="..\IntegrationTestShared\IntegrationTestShared.projitems" Label="Shared" />
+
+	<ItemGroup>
+		<GlobalAnalyzerConfigFiles Include="../../DemoCoreWeb/DemoApps.globalconfig" />
+	</ItemGroup>
+
 
 </Project>

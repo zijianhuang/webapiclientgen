@@ -3,11 +3,16 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AnalysisLevel>latest-minimum</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<GlobalAnalyzerConfigFiles Include="../DemoCoreWeb/DemoApps.globalconfig" />
+	</ItemGroup>
 
 </Project>

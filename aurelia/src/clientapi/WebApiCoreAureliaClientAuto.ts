@@ -1917,11 +1917,11 @@ export namespace DemoWebApi_Controllers_Client {
 
 		/**
 		 * Get by both Id and name
-		 * GET api/Values/{id}?name={name}
+		 * GET api/Values/Name/{id}?name={name}
 		 * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		getByIdOfInt32AndNameOfString(id: number | null, name: string | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
-			return this.http.get('api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;});
+			return this.http.get('api/Values/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;});
 		}
 
 		/**

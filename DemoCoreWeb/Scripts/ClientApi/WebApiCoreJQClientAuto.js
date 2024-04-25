@@ -1449,11 +1449,11 @@ var DemoWebApi_Controllers_Client;
         }
         /**
          * Get by both Id and name
-         * GET api/Values/{id}?name={name}
+         * GET api/Values/Name/{id}?name={name}
          * @param {number} id Type: int, -2,147,483,648 to 2,147,483,647
          */
         getByIdOfInt32AndNameOfString(id, name, callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/Values/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
+            this.httpClient.get(this.baseUri + 'api/Values/Name/' + id + '?name=' + (!name ? '' : encodeURIComponent(name)), callback, this.error, this.statusCode, headersHandler);
         }
         /**
          * Get by name

@@ -5,10 +5,15 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<AnalysisLevel>latest-minimum</AnalysisLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<GlobalAnalyzerConfigFiles Include="../DemoCoreWeb/DemoApps.globalconfig" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -103,7 +103,7 @@ namespace Fonlow.Poco2Client
 			}
 			else if (type.IsArray)
 			{
-				Debug.Assert(type.Name.EndsWith("]"));
+				Debug.Assert(type.Name.EndsWith(']'));
 				var elementType = type.GetElementType();
 				var arrayRank = type.GetArrayRank();
 				return CreateArrayTypeReference(elementType, arrayRank);
@@ -181,7 +181,7 @@ namespace Fonlow.Poco2Client
 
 			var typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
-				.OrderBy(k => k.Key); // order by namespace
+				.OrderBy(k => k.Key).ToArray(); // order by namespace
 			var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
 			List<CodeNamespaceEx> clientNamespaceNames = new();
 			foreach (var groupedTypes in typeGroupedByNamespace)
@@ -457,7 +457,7 @@ namespace Fonlow.Poco2Client
 			if (docLookup != null)
 			{
 				var dm = docLookup.GetMember("T:" + type.FullName);
-				AddDocComments(typeDeclaration.Comments, dm);
+				AddDocComments(typeDeclaration.Comments, dm, null);
 			}
 		}
 
@@ -489,7 +489,7 @@ namespace Fonlow.Poco2Client
 		/// <param name="commentStatementCollection"></param>
 		/// <param name="dm">Doc comment stored in XML.</param>
 		/// <param name="extra">If dm has no content, extra will be added to comments.</param>
-		static void AddDocComments(CodeCommentStatementCollection commentStatementCollection, docMember dm, IEnumerable<string> extra = null)
+		static void AddDocComments(CodeCommentStatementCollection commentStatementCollection, docMember dm, string[] extra)
 		{
 			if (dm != null && dm.summary != null)
 			{
@@ -618,7 +618,7 @@ namespace Fonlow.Poco2Client
 			}
 			else if (type.IsArray)
 			{
-				Debug.Assert(type.Name.EndsWith("]"));
+				Debug.Assert(type.Name.EndsWith(']'));
 				var elementTypeText = TranslateToClientTypeReferenceText(type.GetElementType(), forDocComment);
 				return $"{elementTypeText}[]";
 			}
@@ -755,7 +755,7 @@ namespace Fonlow.Poco2Client
 			if ((dataAnnotationsToComments.HasValue && !dataAnnotationsToComments.Value) || //dataModel.dataAnnotationsToComments explicitly tells not to
 				(!dataAnnotationsToComments.HasValue && !settings.DataAnnotationsToComments)) // dataModel.dataAnnotationsToComments does not tell, and global setting tells not to
 			{
-				return new string[] { };
+				return Array.Empty<string>();
 			}
 
 			return CommentsHelper.GenerateCommentsFromAttributes(memberInfo.GetCustomAttributes().ToList(), attribueCommentDic);

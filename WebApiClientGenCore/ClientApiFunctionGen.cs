@@ -5,6 +5,7 @@ using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -24,8 +25,8 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <summary>
 		/// Decorated by NotNullAttribute
 		/// </summary>
-		readonly bool returnTypeDecoratedWithNotNullable = false;
-		readonly bool returnTypeDecoratedWithMaybeNullable = false;
+		readonly bool returnTypeDecoratedWithNotNullable;
+		readonly bool returnTypeDecoratedWithMaybeNullable;
 		CodeMemberMethod clientMethod;
 		readonly Poco2Client.Poco2CsGen poco2CsGen;
 		readonly bool forAsync;
@@ -46,7 +47,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			//this.diFriendly = settings.DIFriendly;
 			statementOfEnsureSuccessStatusCode = settings.UseEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
 			methodName = webApiDescription.ActionDescriptor.ActionName;
-			if (methodName.EndsWith("Async"))
+			if (methodName.EndsWith("Async", StringComparison.Ordinal))
 			{
 				methodName = methodName.Substring(0, methodName.Length - 5);
 			}
@@ -58,12 +59,12 @@ namespace Fonlow.CodeDom.Web.Cs
 				|| (returnType.FullName == typeOfIHttpActionResult)
 				|| (returnType.FullName == typeOfIActionResult)
 				|| (returnType.FullName == typeOfActionResult)
-				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult")) // .net core is not translating Task<IActionResult> properly.
-				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult"))
-				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult"))
+				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IActionResult", StringComparison.Ordinal)) // .net core is not translating Task<IActionResult> properly.
+				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.IHttpActionResult", StringComparison.Ordinal))
+				|| (returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[Microsoft.AspNetCore.Mvc.ActionResult", StringComparison.Ordinal))
 				);
 
-			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object");
+			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object", StringComparison.Ordinal);
 
 			var methodInfo = webApiDescription.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(webApiDescription.ActionDescriptor.MethodName, webApiDescription.ActionDescriptor.MethodParameterTypes);
 			if (methodInfo != null)
@@ -120,12 +121,12 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				case "GET":
 				case "DELETE":
-					RenderGetOrDeleteImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()));
+					RenderGetOrDeleteImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower(CultureInfo.CurrentCulture)));
 					break;
 				case "POST":
 				case "PUT":
 				case "PATCH":
-					RenderPostOrPutImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower()));
+					RenderPostOrPutImplementation(textInfo.ToTitleCase(description.HttpMethod.ToLower(CultureInfo.CurrentCulture)));
 					break;
 				default:
 					Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
@@ -304,7 +305,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
-			string uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
+			string uriText = string.IsNullOrWhiteSpace(jsUriQuery) ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
 
 
 			clientMethod.Statements.Add(new CodeVariableDeclarationStatement(
@@ -471,7 +472,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
-		string ThreeTabs => "\t\t\t";
+		static string ThreeTabs => "\t\t\t";
 
 		void AddResponseMessageSendAsync(CodeMemberMethod method)
 		{
@@ -683,13 +684,13 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		private static string RemoveTrialEmptyString(string s)
 		{
-			var p = s.IndexOf("+\"\"");
+			var p = s.IndexOf("+\"\"", StringComparison.Ordinal);
 			if (p >= 0)
 			{
 				return s.Remove(p, 3);
 			}
 
-			var p2 = s.IndexOf("))\"");
+			var p2 = s.IndexOf("))\"", StringComparison.Ordinal);
 			if (p2 >= 0)
 			{
 				return s.Remove(p2 + 2, 1);

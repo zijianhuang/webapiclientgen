@@ -13,6 +13,8 @@
 	<NeutralLanguage>en</NeutralLanguage>
 
 	<NoWarn>1701;1702;1705;1591</NoWarn>
+
+	<AnalysisLevel>latest-all</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

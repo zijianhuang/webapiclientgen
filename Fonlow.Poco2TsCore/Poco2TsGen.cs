@@ -135,7 +135,6 @@ namespace Fonlow.Poco2Ts
 		/// Create doc comment if XML document file exists, or generate from type info and validation attributes.
 		/// </summary>
 		/// <param name="propertyInfo"></param>
-		/// <param name="memberType">PropertyType or FieldType</param>
 		/// <param name="codeField"></param>
 		void CreatePropertyDocComment(PropertyInfo propertyInfo, CodeMemberField codeField)
 		{

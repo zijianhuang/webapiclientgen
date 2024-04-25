@@ -31,6 +31,12 @@ namespace Fonlow.CodeDom.Web
 			return newUriText;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="uriText"></param>
+		/// <param name="parameterDescriptions"></param>
+		/// <returns>Null if parameterNames.Length == 0 and parameterDescriptions.Length==0</returns>
 		public static string CreateUriQueryForTs(string uriText, ParameterDescription[] parameterDescriptions)
 		{
 			var template = new UriTemplate(uriText);

@@ -2,7 +2,7 @@
 using System.Reflection;
 namespace Fonlow.CodeDom
 {
-	public class MethodHelper
+	public static class MethodHelper
 	{
 		public static bool ReturnIsNullableReferenceType(MethodInfo methodInfo)
 		{

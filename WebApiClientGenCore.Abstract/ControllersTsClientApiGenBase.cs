@@ -25,7 +25,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected JSOutput jsOutput;
 		readonly ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
 		readonly IDocCommentTranslate poco2CsGen;
-		readonly IPoco2Client poco2TsGen;
+
+		protected IPoco2Client Poco2TsGen { get; set; }
 
 		/// <summary>
 		/// 
@@ -40,8 +41,6 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.apiSelections = jsOutput.ApiSelections;
 			this.poco2CsGen = poco2CsGen;
 			TargetUnit = new CodeCompileUnit();
-			poco2TsGen = CreatePoco2TsGen(jsOutput.ClientNamespaceSuffix);
-
 			TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
 			options.BracingStyle = "JS";
 			options.IndentString = "\t";
@@ -50,10 +49,11 @@ namespace Fonlow.CodeDom.Web.Ts
 		}
 
 		/// <summary>
+		/// This is for instantiating IPoco2Client Poco2TsGen { get; }
 		/// jQuery and NG2 have slightly different fine grained types for returns
 		/// </summary>
 		/// <returns></returns>
-		abstract protected IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix);
+		abstract protected void CreatePoco2TsGen(string clientNamespaceSuffix);
 
 		protected virtual CodeObjectHelper CreateCodeObjectHelper(bool asModule)
 		{
@@ -158,7 +158,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = apiFunctionGen.CreateApiFunction(d, poco2TsGen, poco2CsGen, this.jsOutput);
+				var apiFunction = apiFunctionGen.CreateApiFunction(d, Poco2TsGen, poco2CsGen, this.jsOutput);
 				existingClientClass.Members.Add(apiFunction);
 			}
 
@@ -190,7 +190,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-					poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, jsOutput.DataAnnotationsToComments);
+					Poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, jsOutput.DataAnnotationsToComments);
 				}
 			}
 
@@ -207,7 +207,7 @@ namespace Fonlow.CodeDom.Web.Ts
 						var cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 						var dataAnnotationsToComments = (dataModel.DataAnnotationsToComments.HasValue && dataModel.DataAnnotationsToComments.Value) // dm explicitly tell to do
 							|| (!dataModel.DataAnnotationsToComments.HasValue && jsOutput.DataAnnotationsToComments);
-						poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, dataAnnotationsToComments);
+						Poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, dataAnnotationsToComments);
 					}
 				}
 			}

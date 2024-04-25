@@ -14,11 +14,12 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
 		public ControllersTsAxiosClientApiGen(JSOutput jsOutput, bool handleHttpRequestHeaders, Fonlow.Poco2Client.IDocCommentTranslate docCommentTranslate) : base(jsOutput, new ClientApiTsAxiosFunctionGen(jsOutput, handleHttpRequestHeaders), docCommentTranslate)
 		{
+			CreatePoco2TsGen(jsOutput.ClientNamespaceSuffix);
 		}
 
-		protected override Fonlow.Poco2Client.IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix)
+		protected override void CreatePoco2TsGen(string clientNamespaceSuffix)
 		{
-			return new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode);
+			Poco2TsGen = new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode);
 		}
 
 		protected override void AddBasicReferences()

@@ -156,7 +156,9 @@
 		/// <summary>
 		/// Replace EnsureSuccessStatusCode with EnsureSuccessStatusCodeEx for specific unsuccessful HTTP status handling, which throws YourClientWebApiRequestException.
 		/// </summary>
+#pragma warning disable CA1711 // Identifiers should not have incorrect suffix
 		public bool UseEnsureSuccessStatusCodeEx { get; set; }
+#pragma warning restore CA1711 // Identifiers should not have incorrect suffix
 
 		/// <summary>
 		/// Default  is true so the code block is included in the generated codes.

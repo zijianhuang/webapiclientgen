@@ -73,4 +73,6 @@ http://fonlow.org/ hosting DemoTextJsonWeb is located in US east coast with -10:
 
 * When tests are carried out locally, it takes around 0.6-0.7 second to finish around 200 test cases of a .NET integration test suite. When the coversations occur between Australia and USA, it takes around 4.5 seconds.
 
+### Excemptions
 
+Sometimes after refactoring, just run `CreateDemoCoreWebClientApi.ps1` and `CreateDemoTextJsonWebClientApi.ps1`. If there's no change in the generated codes, it may be safe to say the refactoring is not breaking anything.

@@ -20,6 +20,7 @@ namespace Fonlow.Poco2Ts
 		/// <param name="methods"></param>
 		/// <param name="clientNamespaceSuffix"></param>
 		/// <param name="dataAnnotationsToComments"></param>
+		/// <param name="helpStrictMode"></param>
 		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods, string clientNamespaceSuffix, bool dataAnnotationsToComments, bool helpStrictMode)
 		{
 			var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);

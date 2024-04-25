@@ -16,11 +16,12 @@ namespace Fonlow.CodeDom.Web.Ts
 		public ControllersTsNG2FormGroupClientApiGen(JSOutput jsOutput, bool handleHttpRequestHeaders, Fonlow.Poco2Client.IDocCommentTranslate docCommentTranslate) 
 			: base(jsOutput, handleHttpRequestHeaders, docCommentTranslate)
 		{
+			CreatePoco2TsGen(jsOutput.ClientNamespaceSuffix);
 		}
 
-		protected override Fonlow.Poco2Client.IPoco2Client CreatePoco2TsGen(string clientNamespaceSuffix)
+		protected override void CreatePoco2TsGen(string clientNamespaceSuffix)
 		{
-			return new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, CreateCodeObjectHelper(true)); //CodeObjectHelperForNg2FormGroup
+			Poco2TsGen = new Fonlow.Poco2Ts.PocoToTsResponseGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, CreateCodeObjectHelper(true)); //CodeObjectHelperForNg2FormGroup
 		}
 
 		protected override CodeObjectHelper CreateCodeObjectHelper(bool asModule)

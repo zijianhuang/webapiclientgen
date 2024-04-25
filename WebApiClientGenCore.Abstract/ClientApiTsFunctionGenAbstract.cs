@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.Globalization;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -53,9 +54,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			this.StringAsString = jsOutput.StringAsString;
 			this.StrictMode = jsOutput.HelpStrictMode;
 
-			HttpMethodName = Description.HttpMethod.ToLower(); //Method is always uppercase. 
+			HttpMethodName = Description.HttpMethod.ToLower(CultureInfo.CurrentCulture); //Method is always uppercase. 
 			MethodName = TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(description.ActionDescriptor.ActionName) : description.ActionDescriptor.ActionName;
-			if (MethodName.EndsWith("Async"))
+			if (MethodName.EndsWith("Async", StringComparison.Ordinal))
 				MethodName = MethodName.Substring(0, MethodName.Length - 5);//HTTP does not care about the server side async.
 
 			ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
@@ -292,7 +293,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected static string RemoveTrialEmptyString(string s)
 		{
-			var p = s.IndexOf(" + ''");
+			var p = s.IndexOf(" + ''", StringComparison.Ordinal);
 			if (p > -1)
 			{
 				return s.Remove(p, 5);

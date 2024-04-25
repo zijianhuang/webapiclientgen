@@ -6,6 +6,7 @@ using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
@@ -225,7 +226,7 @@ namespace Fonlow.Poco2Ts
 			this.pendingTypes.AddRange(types);
 			var typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
-				.OrderBy(k => k.Key); // order by namespace
+				.OrderBy(k => k.Key).ToList(); // order by namespace
 			var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
 			foreach (var groupedTypes in typeGroupedByNamespace)
 			{
@@ -234,7 +235,8 @@ namespace Fonlow.Poco2Ts
 				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
-				groupedTypes.OrderBy(t => t.Name).Select(type =>
+				var orderedGroupedTypes = groupedTypes.OrderBy(t => t.Name);
+				foreach (var type in orderedGroupedTypes)
 				{
 					var tsName = type.Name;
 					Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);
@@ -413,12 +415,8 @@ namespace Fonlow.Poco2Ts
 					else
 					{
 						Trace.TraceWarning("Not yet supported: " + type.Name);
-						typeDeclaration = null;
 					}
-
-					return typeDeclaration;
-				}
-					).ToArray();//add classes into the namespace
+				};
 			}
 
 

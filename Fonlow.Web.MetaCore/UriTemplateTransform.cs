@@ -54,7 +54,7 @@ namespace Fonlow.CodeDom.Web
 		{
 			if (d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery)
 			{
-				bool queryExists = newUriText.Contains("?");
+				bool queryExists = newUriText.Contains('?');
 				newUriText += queryExists ? "&" : "?";
 
 				if (d.ParameterDescriptor.ParameterType == typeofString)
@@ -171,7 +171,7 @@ namespace Fonlow.CodeDom.Web
 		{
 			if (d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery)
 			{
-				bool queryExists = newUriText.Contains("?");
+				bool queryExists = newUriText.Contains('?');
 				newUriText += queryExists ? "&" : "?";
 
 				if (d.ParameterDescriptor.ParameterType == typeofString)

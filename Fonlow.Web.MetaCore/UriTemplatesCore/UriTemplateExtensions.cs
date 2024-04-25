@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Tavis.UriTemplates
 {
-    public static class UriTemplateExtensions
+    internal static class UriTemplateExtensions
     {
         public static UriTemplate AddParameter(this UriTemplate template, string name, object value)
         {
@@ -49,7 +50,7 @@ namespace Tavis.UriTemplates
         }
     }
 
-    public static class UriExtensions
+    internal static class UriExtensions
     {
         public static UriTemplate MakeTemplate(this Uri uri)
         {
@@ -77,7 +78,7 @@ namespace Tavis.UriTemplates
             var reg = new Regex(@"([-A-Za-z0-9._~]*)=([^&]*)&?");		// Unreserved characters: http://tools.ietf.org/html/rfc3986#section-2.3
             foreach (Match m in reg.Matches(uri.Query))
             {
-                string key = m.Groups[1].Value.ToLowerInvariant();
+                string key = m.Groups[1].Value.ToLower(CultureInfo.CurrentCulture);
                 string value = m.Groups[2].Value;
                 parameters.Add(key, value);
             }

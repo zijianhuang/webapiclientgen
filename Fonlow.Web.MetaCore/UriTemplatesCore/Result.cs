@@ -8,7 +8,7 @@ namespace Tavis.UriTemplates
     public class Result
     {
         public bool ErrorDetected { get; set; }
-        public List<string> ParameterNames {get;set;}
+        public IList<string> ParameterNames {get;}
         private const string _UriReservedSymbols = ":/?#[]@!$&'()*+,;=";
         private const string _UriUnreservedSymbols = "-._~";
 
@@ -35,7 +35,7 @@ namespace Tavis.UriTemplates
         public void AppendName(string variable, OperatorInfo op, bool valueIsEmpty)
         {
             _Result.Append(variable);
-            if (valueIsEmpty) { _Result.Append(op.IfEmpty); } else { _Result.Append("="); }
+            if (valueIsEmpty) { _Result.Append(op.IfEmpty); } else { _Result.Append('='); }
         }
 
 
@@ -46,7 +46,7 @@ namespace Tavis.UriTemplates
                 if (op.Named && explode)
                 {
                     _Result.Append(variable);
-                    _Result.Append("=");
+                    _Result.Append('=');
                 }
                 AppendValue(item.ToString(), 0, op.AllowReserved);
 
@@ -75,7 +75,7 @@ namespace Tavis.UriTemplates
                     _Result.Append(',');
                 }
             }
-            if (dictionary.Count() > 0)
+            if (dictionary.Count > 0)
             {
                 _Result.Remove(_Result.Length - 1, 1);
             }
@@ -105,8 +105,8 @@ namespace Tavis.UriTemplates
             {
                 if ((c >= 'A' && c <= 'z')   //Alpha
                     || (c >= '0' && c <= '9')  // Digit
-                    || _UriUnreservedSymbols.IndexOf(c) != -1  // Unreserved symbols  - These should never be percent encoded
-                    || (allowReserved && _UriReservedSymbols.IndexOf(c) != -1))  // Reserved symbols - should be included if requested (+)
+                    || _UriUnreservedSymbols.Contains(c)  // Unreserved symbols  - These should never be percent encoded
+					|| (allowReserved && _UriReservedSymbols.Contains(c)))  // Reserved symbols - should be included if requested (+)
                 {
                     result.Append(c);
                 }

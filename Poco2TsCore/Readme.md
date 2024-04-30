@@ -2,7 +2,7 @@ This is a shell console app calling FonlowPoco2TsCore to convert POCO classes to
 
 **Prerequisites:**
 
-* .NET 7
+* .NET 7 or 8
 
 Please check:
 

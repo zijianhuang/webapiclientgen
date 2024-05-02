@@ -47,7 +47,7 @@
 		public int? CherryPickingMethods { get; set; }
 
 		/// <summary>
-		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
+		/// For each selected assembly with POCO classes. System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
 		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
 		/// If defined, overwrite the global setting in ModelGenOutputs; if not defined, follow the global setting.
 		/// </summary>
@@ -67,7 +67,7 @@
 		public bool DataAnnotationsEnabled { get; set; }
 
 		/// <summary>
-		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
+		/// For CS POCO and API function. System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
 		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
 		/// </summary>
 		public bool DataAnnotationsToComments { get; set; }
@@ -227,7 +227,7 @@
 		public string ContainerNameSuffix { get; set; }
 
 		/// <summary>
-		/// System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
+		/// For JS only. System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
 		/// </summary>
 		public bool DataAnnotationsToComments { get; set; }
 
@@ -265,6 +265,9 @@
 
 		public string ContainerNameSuffix { get; set; }
 
+		/// <summary>
+		/// For JS. 
+		/// </summary>
 		public bool DataAnnotationsToComments { get; set; }
 
 		public bool HelpStrictMode { get; set; }

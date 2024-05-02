@@ -18,7 +18,7 @@ namespace Fonlow.CodeDom
 		}
 	}
 
-	public class CodenamespaceComparer : IEqualityComparer<CodeNamespaceEx>
+	public class CodeNamespaceComparer : IEqualityComparer<CodeNamespaceEx>
 	{
 		public bool Equals(CodeNamespaceEx x, CodeNamespaceEx y)
 		{

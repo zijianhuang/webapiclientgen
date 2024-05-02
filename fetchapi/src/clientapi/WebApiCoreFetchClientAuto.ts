@@ -144,6 +144,7 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
 		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		 * Type: int, -2,147,483,648 to 2,147,483,647
 		 */
 		kK2?: number | null;
 		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
@@ -228,11 +229,13 @@ export namespace DemoWebApi_DemoData_Another_Client {
 
 		/**
 		 * X
+		 * Type: double
 		 */
 		x: number;
 
 		/**
 		 * Y
+		 * Type: double
 		 */
 		y: number;
 	}
@@ -257,6 +260,9 @@ export namespace DemoWebApi_DemoData_Base_Client {
 
 		/**
 		 * Name of the entity.
+		 * Required
+		 * Min length: 2
+		 * Max length: 255
 		 */
 		name: string;
 		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;

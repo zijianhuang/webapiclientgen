@@ -117,7 +117,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 			}
 
-			return listOfNamespaces.Distinct(new CodenamespaceComparer()).ToArray();
+			return listOfNamespaces.Distinct(new CodeNamespaceComparer()).ToArray();
 		}
 
 		/// <summary>

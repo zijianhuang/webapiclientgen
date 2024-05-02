@@ -162,30 +162,27 @@ namespace Fonlow.Poco2Ts
 				var dm = docLookup.GetMember($"{docFlag}:" + propertyFullName);
 				bool rangeAttributeExists = memberInfo.GetCustomAttributes().Any(attribute => attribute.GetType() == typeof(RangeAttribute));
 				List<string> extraLines = new();
-				if (dm == null || dm.summary == null)
+				var typeCommentExists = dotNetTypeCommentDic.TryGetValue(memberType, out string commentFromProperType);
+				if (typeCommentExists)
 				{
-					var typeCommentExists = dotNetTypeCommentDic.TryGetValue(memberType, out string commentFromProperType);
-					if (typeCommentExists)
+					if (rangeAttributeExists)
 					{
-						if (rangeAttributeExists)
-						{
-							var splited = commentFromProperType.Split(",");
-							extraLines.Add(splited[0]);
-						}
-						else
-						{
-							extraLines.Add(commentFromProperType);
-
-						}
+						var splited = commentFromProperType.Split(",");
+						extraLines.Add(splited[0]);
 					}
-
-					if (dataAnnotationsToComments)
+					else
 					{
-						var commentsFromAttributes = GenerateCommentsFromAttributes(memberInfo.GetCustomAttributes().ToList());
-						if (commentsFromAttributes.Length > 0)
-						{
-							extraLines.AddRange(commentsFromAttributes);
-						}
+						extraLines.Add(commentFromProperType);
+
+					}
+				}
+
+				if (dataAnnotationsToComments)
+				{
+					var commentsFromAttributes = GenerateCommentsFromAttributes(memberInfo.GetCustomAttributes().ToList());
+					if (commentsFromAttributes.Length > 0)
+					{
+						extraLines.AddRange(commentsFromAttributes);
 					}
 				}
 

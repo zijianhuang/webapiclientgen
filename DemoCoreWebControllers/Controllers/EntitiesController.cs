@@ -155,7 +155,7 @@ namespace DemoWebApi.Controllers
 			if (p.Name == "NotFound")
 				return NotFound();
 
-			return Ok(p);
+			return p; //The same as Ok<p>
 		}
 
 

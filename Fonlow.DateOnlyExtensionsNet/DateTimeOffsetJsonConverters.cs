@@ -21,7 +21,7 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 
 			if (reader.TokenType == JsonTokenType.String)
 			{
-				var v = reader.GetDateTimeOffset();
+				DateTimeOffset v = reader.GetDateTimeOffset();
 				return v;
 			}
 
@@ -55,7 +55,7 @@ namespace Fonlow.Text.Json.DateOnlyExtensions
 
 			if (reader.TokenType == JsonTokenType.String)
 			{
-				if (reader.TryGetDateTimeOffset(out var v))
+				if (reader.TryGetDateTimeOffset(out DateTimeOffset v))
 				{
 					return v;
 				}

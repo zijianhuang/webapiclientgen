@@ -17,7 +17,7 @@ namespace Fonlow.DocComment
 				return null;
 			}
 
-			var noIndent = StringFunctions.TrimTrimIndentsOfArray(m.summary.Text);
+			IList<string> noIndent = StringFunctions.TrimTrimIndentsOfArray(m.summary.Text);
 			return String.Join(Environment.NewLine, noIndent);
 		}
 
@@ -28,7 +28,7 @@ namespace Fonlow.DocComment
 				return null;
 			}
 
-			var noIndent = StringFunctions.TrimTrimIndentsOfArray(m.returns.Text);
+			IList<string> noIndent = StringFunctions.TrimTrimIndentsOfArray(m.returns.Text);
 			return String.Join(Environment.NewLine, noIndent);
 		}
 
@@ -39,13 +39,13 @@ namespace Fonlow.DocComment
 				return null;
 			}
 
-			var mc = m.param.SingleOrDefault(d => d.name == name);
+			docMemberParam mc = m.param.SingleOrDefault(d => d.name == name);
 			if (mc == null || mc.Text == null || mc.Text.Length == 0)
 			{
 				return null;
 			}
 
-			var noIndent = StringFunctions.TrimTrimIndentsOfArray(mc.Text);
+			IList<string> noIndent = StringFunctions.TrimTrimIndentsOfArray(mc.Text);
 			return String.Join(Environment.NewLine, noIndent);
 		}
 	}

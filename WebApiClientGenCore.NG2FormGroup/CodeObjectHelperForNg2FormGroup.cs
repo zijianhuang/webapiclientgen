@@ -31,15 +31,15 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			WriteCodeCommentStatementCollection(e.Comments, w, o);
 
-			var refinedNamespaceText = e.Name.Replace('.', '_');
-			var namespaceOrModule = asModule ? "export namespace" : "namespace";
+			string refinedNamespaceText = e.Name.Replace('.', '_');
+			string namespaceOrModule = asModule ? "export namespace" : "namespace";
 			w.WriteLine($"{namespaceOrModule} {refinedNamespaceText} {{");
 
 			for (int i = 0; i < e.Imports.Count; i++)
 			{
-				var ns = e.Imports[i];
-				var nsText = ns.Namespace;
-				var alias = nsText.Replace('.', '_');
+				CodeNamespaceImport ns = e.Imports[i];
+				string nsText = ns.Namespace;
+				string alias = nsText.Replace('.', '_');
 				w.WriteLine($"{o.IndentString}import {alias} = {nsText};");
 			}
 
@@ -47,8 +47,8 @@ namespace Fonlow.TypeScriptCodeDom
 			{
 				GenerateCodeFromType(t, w, o);
 
-				var typeExpression = GetTypeParametersExpression(t);
-				var isGeneric = typeExpression.Contains('<');
+				string typeExpression = GetTypeParametersExpression(t);
+				bool isGeneric = typeExpression.Contains('<');
 				if (!t.IsPartial && !isGeneric) //controllerClass is partial, as declared in CreateControllerClientClass()
 				{
 					GenerateAngularFormFromType(t, w, o);
@@ -71,8 +71,8 @@ namespace Fonlow.TypeScriptCodeDom
 			//Console.WriteLine("All TypeDeclarations: " + string.Join("; ", currentCodeNamespace.Types.OfType<CodeTypeDeclaration>().Select(d=>d.Name)));
 			for (int i = 0; i < codeNamespaceCollection.Count; i++)
 			{
-				var ns = codeNamespaceCollection[i];
-				var found = ns.Types.OfType<CodeTypeDeclaration>().ToList().Find(t => ns.Name + "." + t.Name == typeName);
+				CodeNamespace ns = codeNamespaceCollection[i];
+				CodeTypeDeclaration found = ns.Types.OfType<CodeTypeDeclaration>().ToList().Find(t => ns.Name + "." + t.Name == typeName);
 				if (found != null)
 				{
 					return found;
@@ -104,18 +104,18 @@ namespace Fonlow.TypeScriptCodeDom
 
 			GenerateCodeFromAttributeDeclarationCollectionForClass(e.CustomAttributes, w, o);
 
-			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
-			var typeOfTypeText = GetTypeOfTypeText(e);
-			var name = e.Name;
-			var typeParametersExpression = GetTypeParametersExpression(e);
-			var baseTypesExpression = GetBaseTypeExpression(e);
+			string accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
+			string typeOfTypeText = GetTypeOfTypeText(e);
+			string name = e.Name;
+			string typeParametersExpression = GetTypeParametersExpression(e);
+			string baseTypesExpression = GetBaseTypeExpression(e);
 			if (typeOfTypeText == "interface")
 			{
-				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
-				var isGeneric = extendsExpression.Contains('<');
-				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
-				var extendsExpressionForNg = string.IsNullOrEmpty(extendsExpression) ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
-				var formGroupInterface = $"{name}FormProperties";
+				string extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
+				bool isGeneric = extendsExpression.Contains('<');
+				string formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
+				string extendsExpressionForNg = string.IsNullOrEmpty(extendsExpression) ? String.Empty : $"{extendsExpression}{formPropertiesSuffix}";
+				string formGroupInterface = $"{name}FormProperties";
 				w.Write($"{o.IndentString}{accessModifier}{typeOfTypeText} {formGroupInterface}{extendsExpressionForNg} {{");
 				WriteAngularFormTypeMembersAndCloseBracing(e, w, o);
 			}
@@ -138,17 +138,17 @@ namespace Fonlow.TypeScriptCodeDom
 				return;
 			}
 
-			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
-			var typeOfTypeText = GetTypeOfTypeText(e);
-			var name = e.Name;
-			var typeParametersExpression = GetTypeParametersExpression(e);
-			var baseTypesExpression = GetBaseTypeExpression(e);
+			string accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
+			string typeOfTypeText = GetTypeOfTypeText(e);
+			string name = e.Name;
+			string typeParametersExpression = GetTypeParametersExpression(e);
+			string baseTypesExpression = GetBaseTypeExpression(e);
 			if (typeOfTypeText == "interface")
 			{
-				var extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
-				var isGeneric = extendsExpression.Contains('<');
-				var formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
-				var formGroupInterface = $"{name}FormProperties";
+				string extendsExpression = $"{typeParametersExpression}{baseTypesExpression}";
+				bool isGeneric = extendsExpression.Contains('<');
+				string formPropertiesSuffix = isGeneric ? String.Empty : "FormProperties";
+				string formGroupInterface = $"{name}FormProperties";
 				w.Write($"{o.IndentString}{accessModifier}function Create{name}FormGroup() {{");
 				w.WriteLine();
 				w.Write($"{o.IndentString}{o.IndentString}return new FormGroup<{formGroupInterface}>({{");
@@ -170,8 +170,8 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <returns></returns>
 		string GetCodeMemberFieldTextForAngularFormControl(CodeMemberField codeMemberField)
 		{
-			var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
-			var fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+			string fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
 			return $"{fieldName}: FormControl<{tsTypeName}>";
 		}
 
@@ -182,8 +182,8 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <returns></returns>
 		string RefineAngularFormControlTypeName(CodeMemberField codeMemberField)
 		{
-			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
-			var alreadyNullable = tsTypeName.Contains("| null");
+			string tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
+			bool alreadyNullable = tsTypeName.Contains("| null");
 			if (alreadyNullable)
 			{
 				tsTypeName += " | undefined";
@@ -226,17 +226,17 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <returns>Text of FormControl creation.</returns>
 		string GetCodeMemberFieldTextForAngularFormGroup(CodeMemberField codeMemberField)
 		{
-			var customAttributes = codeMemberField.UserData[UserDataKeys.CustomAttributes] as Attribute[];
-			var fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			Attribute[] customAttributes = codeMemberField.UserData[UserDataKeys.CustomAttributes] as Attribute[];
+			string fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
 
 			if (customAttributes?.Length > 0)
 			{
 				//Console.WriteLine("customAttributes: " + string.Join(", ",  customAttributes));
-				var validatorList = new List<string>();
+				List<string> validatorList = new List<string>();
 				for (int i = 0; i < customAttributes.Length; i++)
 				{
-					var ca = customAttributes[i];
-					var attributeName = ca.GetType().FullName;
+					Attribute ca = customAttributes[i];
+					string attributeName = ca.GetType().FullName;
 					Console.Write(attributeName + ", ");
 					switch (attributeName)
 					{
@@ -244,15 +244,15 @@ namespace Fonlow.TypeScriptCodeDom
 							validatorList.Add("Validators.required");
 							break;
 						case "System.ComponentModel.DataAnnotations.MaxLengthAttribute":
-							var a = ca as System.ComponentModel.DataAnnotations.MaxLengthAttribute;
+							System.ComponentModel.DataAnnotations.MaxLengthAttribute a = ca as System.ComponentModel.DataAnnotations.MaxLengthAttribute;
 							validatorList.Add($"Validators.maxLength({a.Length})");
 							break;
 						case "System.ComponentModel.DataAnnotations.MinLengthAttribute":
-							var am = ca as System.ComponentModel.DataAnnotations.MinLengthAttribute;
+							System.ComponentModel.DataAnnotations.MinLengthAttribute am = ca as System.ComponentModel.DataAnnotations.MinLengthAttribute;
 							validatorList.Add($"Validators.minLength({am.Length})");
 							break;
 						case "System.ComponentModel.DataAnnotations.RangeAttribute":
-							var ar = ca as System.ComponentModel.DataAnnotations.RangeAttribute;
+							System.ComponentModel.DataAnnotations.RangeAttribute ar = ca as System.ComponentModel.DataAnnotations.RangeAttribute;
 							if (ar.Minimum != null)
 							{
 								validatorList.Add($"Validators.min({ar.Minimum})");
@@ -265,7 +265,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 							break;
 						case "System.ComponentModel.DataAnnotations.StringLengthAttribute":
-							var ast = ca as System.ComponentModel.DataAnnotations.StringLengthAttribute;
+							System.ComponentModel.DataAnnotations.StringLengthAttribute ast = ca as System.ComponentModel.DataAnnotations.StringLengthAttribute;
 							if (ast.MinimumLength > 0)
 							{
 								validatorList.Add($"Validators.minLength({ast.MinimumLength})");
@@ -281,14 +281,14 @@ namespace Fonlow.TypeScriptCodeDom
 							validatorList.Add("Validators.email");
 							break;
 						case "System.ComponentModel.DataAnnotations.RegularExpressionAttribute":
-							var rp = ca as System.ComponentModel.DataAnnotations.RegularExpressionAttribute;
-							var escapedPattern = rp.Pattern
+							System.ComponentModel.DataAnnotations.RegularExpressionAttribute rp = ca as System.ComponentModel.DataAnnotations.RegularExpressionAttribute;
+							string escapedPattern = rp.Pattern
 								.Replace("\\'", "\\\\'") // must run first before escaping single quote
 								.Replace("'", "\\'")
 								.Replace("\\0", "0o")
 								;
 
-							var escapedPattern2 = EscapeRegexCapturingGroup(escapedPattern);
+							string escapedPattern2 = EscapeRegexCapturingGroup(escapedPattern);
 							validatorList.Add($"Validators.pattern('{escapedPattern2}')");
 							break;
 						default:
@@ -296,43 +296,43 @@ namespace Fonlow.TypeScriptCodeDom
 					}
 				}
 
-				var fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
+				FieldTypeInfo fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
 				if (fieldTypeInfo != null)
 				{
-					var validatorsHasValidatorMinOrMax = validatorList.Exists(d => d.Contains("max(") || d.Contains("min"));
+					bool validatorsHasValidatorMinOrMax = validatorList.Exists(d => d.Contains("max(") || d.Contains("min"));
 					if (!validatorsHasValidatorMinOrMax) // no programmer defined validator about max and min
 					{
-						if (integralJsNumberValidatorsDic.TryGetValue(fieldTypeInfo.ClrType.FullName, out var integralValidators))
+						if (integralJsNumberValidatorsDic.TryGetValue(fieldTypeInfo.ClrType.FullName, out string integralValidators))
 						{
 							validatorList.Add(integralValidators);
 						}
 					}
 
-					if (integralJsStringValidatorsDic.TryGetValue(fieldTypeInfo.ClrType.FullName, out var integralJsStringValidators)){
+					if (integralJsStringValidatorsDic.TryGetValue(fieldTypeInfo.ClrType.FullName, out string integralJsStringValidators)){
 						validatorList.Add(integralJsStringValidators);
 					}
 				}
 
-				var text = String.Join(", ", validatorList);
-				var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+				string text = String.Join(", ", validatorList);
+				string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
 				return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{tsTypeName}>(undefined)" :
 					$"{fieldName}: new FormControl<{tsTypeName}>(undefined, [{text}])";
 			}
 			else
 			{
-				var tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+				string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
 				return $"{fieldName}: new FormControl<{tsTypeName}>(undefined)";
 			}
 		}
 
 		static string EscapeRegexCapturingGroup(string s)
 		{
-			var regex = new Regex("\\\\\\d+");
+			Regex regex = new Regex("\\\\\\d+");
 			string r = s;
 			MatchCollection matches = regex.Matches(s);
-			foreach (var m in matches.ToArray())
+			foreach (Match m in matches.ToArray())
 			{
-				var refinedP = m.Value.Replace("\\", "\\\\");
+				string refinedP = m.Value.Replace("\\", "\\\\");
 				r = r.Replace(m.Value, refinedP);
 			}
 
@@ -349,7 +349,7 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 			else
 			{
-				var currentIndent = o.IndentString;
+				string currentIndent = o.IndentString;
 				o.IndentString += BasicIndent;
 				w.WriteLine();
 				for (int i = 0; i < typeDeclaration.Members.Count; i++)
@@ -371,15 +371,15 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 			else
 			{
-				var currentIndent = o.IndentString;
+				string currentIndent = o.IndentString;
 				o.IndentString += BasicIndent;
 				w.WriteLine();
 				if (typeDeclaration.BaseTypes.Count > 0)
 				{
-					var parentTypeReference = typeDeclaration.BaseTypes[0];
-					var parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included
-																									   //Console.WriteLine("parentTypeName: " + parentTypeName);
-					var parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
+					CodeTypeReference parentTypeReference = typeDeclaration.BaseTypes[0];
+					string parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included
+																										  //Console.WriteLine("parentTypeName: " + parentTypeName);
+					CodeTypeDeclaration parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
 					if (parentCodeTypeDeclaration != null)
 					{
 						for (int i = 0; i < parentCodeTypeDeclaration.Members.Count; i++)
@@ -409,7 +409,7 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			if (ctm is CodeMemberField codeMemberField)
 			{
-				var codeTypeDeclaration = FindCodeTypeDeclaration(codeMemberField.Type.BaseType);
+				CodeTypeDeclaration codeTypeDeclaration = FindCodeTypeDeclaration(codeMemberField.Type.BaseType);
 				if (codeTypeDeclaration != null && !codeTypeDeclaration.IsEnum)
 				{
 					return; // is custom complex type
@@ -449,7 +449,7 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			if (ctm is CodeMemberField codeMemberField)
 			{
-				var codeTypeDeclaration = FindCodeTypeDeclaration(codeMemberField.Type.BaseType);
+				CodeTypeDeclaration codeTypeDeclaration = FindCodeTypeDeclaration(codeMemberField.Type.BaseType);
 				if (codeTypeDeclaration != null && !codeTypeDeclaration.IsEnum)
 				{
 					return; // is custom complex type

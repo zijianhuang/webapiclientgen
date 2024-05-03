@@ -14,7 +14,7 @@ namespace Fonlow.Poco2Client
 	{
 		public static CodeTypeDeclaration CreatePodClientEnum(CodeNamespace ns, string className)
 		{
-			var targetClass = new CodeTypeDeclaration(className)
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
 			{
 				IsEnum = true,
 			};
@@ -47,7 +47,7 @@ namespace Fonlow.Poco2Client
 
 		public static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)
 		{
-			var targetClass = new CodeTypeDeclaration(className)
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
 			{
 				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
 			};
@@ -61,9 +61,9 @@ namespace Fonlow.Poco2Client
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
 
-			var goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
+			string goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
 
-			var targetClass = new CodeTypeDeclaration(goodGenericClassName)
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(goodGenericClassName)
 			{
 				TypeAttributes = TypeAttributes.Public | TypeAttributes.Class, //setting IsInterface has no use
 			};
@@ -81,7 +81,7 @@ namespace Fonlow.Poco2Client
 
 		public static CodeTypeDeclaration CreatePodClientStruct(CodeNamespace ns, string className)
 		{
-			var targetClass = new CodeTypeDeclaration(className)
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
 			{
 				TypeAttributes = TypeAttributes.Public, 
 				IsStruct=true
@@ -93,7 +93,7 @@ namespace Fonlow.Poco2Client
 
 		public static CodeTypeDeclaration CreatePodClientInterface(CodeNamespace ns, string className)
 		{
-			var targetClass = new CodeTypeDeclaration(className)
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
 			{
 				TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
 			};
@@ -107,9 +107,9 @@ namespace Fonlow.Poco2Client
 			Type genericTypeDefinition = type.GetGenericTypeDefinition();
 			Type[] genericArguments = type.GetGenericArguments();
 
-			var goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
+			string goodGenericClassName = SanitiseGenericClassName(genericTypeDefinition.Name);
 
-			var targetClass = new CodeTypeDeclaration(goodGenericClassName)
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(goodGenericClassName)
 			{
 				TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
 			};
@@ -127,7 +127,7 @@ namespace Fonlow.Poco2Client
 
 		static string SanitiseGenericClassName(string s)
 		{
-			var index = s.IndexOf('`');
+			int index = s.IndexOf('`');
 			return s.Remove(index);
 		}
 	}

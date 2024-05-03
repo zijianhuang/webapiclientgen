@@ -13,7 +13,7 @@
 		[Fact]
 		public void TestGetAnonymousDynamic()
 		{
-			var d = api.GetAnonymousDynamic();
+			System.Text.Json.Nodes.JsonObject d = api.GetAnonymousDynamic();
 			Assert.Equal("12345", d["id"].ToString());
 			Assert.Equal("Something", d["name"].ToString());
 		}
@@ -21,7 +21,7 @@
 		[Fact]
 		public void TestGetAnonymousObject()
 		{
-			var d = api.GetAnonymousObject();
+			System.Text.Json.Nodes.JsonObject d = api.GetAnonymousObject();
 			Assert.Equal("12345", d["id"].ToString());
 			Assert.Equal("Something", d["name"].ToString());
 		}
@@ -33,12 +33,12 @@
 		[Fact]
 		public void TestPostAnonymousObject()
 		{
-			var d = new System.Text.Json.Nodes.JsonObject
+			System.Text.Json.Nodes.JsonObject d = new System.Text.Json.Nodes.JsonObject
 			{
 				["Id"] = "12345",
 				["Name"] = "Something"
 			};
-			var r = api.PostAnonymousObject(d);
+			System.Text.Json.Nodes.JsonObject r = api.PostAnonymousObject(d);
 			Assert.Equal("123451", r["Id"].ToString());
 			Assert.Equal("Something1", r["Name"].ToString());
 
@@ -47,7 +47,7 @@
 		[Fact]
 		public void TestGetAnonymousDynamic2()
 		{
-			var d = api.GetAnonymousDynamic2();
+			System.Text.Json.Nodes.JsonObject d = api.GetAnonymousDynamic2();
 			Assert.Equal("12345", d["id"].ToString());
 			Assert.Equal("Something", d["name"].ToString());
 		}
@@ -55,7 +55,7 @@
 		[Fact]
 		public void TestGetAnonymousObject2()
 		{
-			var d = api.GetAnonymousObject2();
+			System.Text.Json.Nodes.JsonObject d = api.GetAnonymousObject2();
 			Assert.Equal("12345", d["id"].ToString());
 			Assert.Equal("Something", d["name"].ToString());
 		}
@@ -66,12 +66,12 @@
 		[Fact]
 		public void TestPostAnonymousObject2()
 		{
-			var d = new System.Text.Json.Nodes.JsonObject
+			System.Text.Json.Nodes.JsonObject d = new System.Text.Json.Nodes.JsonObject
 			{
 				["Id"] = "12345",
 				["Name"] = "Something"
 			};
-			var r = api.PostAnonymousObject2(d);
+			System.Text.Json.Nodes.JsonObject r = api.PostAnonymousObject2(d);
 			Assert.Equal("123451", r["Id"].ToString());
 			Assert.Equal("Something1", r["Name"].ToString());
 

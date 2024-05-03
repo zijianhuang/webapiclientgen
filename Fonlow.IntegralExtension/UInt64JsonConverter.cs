@@ -19,13 +19,13 @@ namespace Fonlow.IntegralExtensions
 
 		public override UInt64 ReadJson(JsonReader reader, Type objectType, UInt64 existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			var v = reader.Value;
+			object? v = reader.Value;
 			if (v == null)
 			{
 				return UInt64.MinValue;
 			}
 
-			var vType = v.GetType();
+			Type vType = v.GetType();
 			if (vType == typeOfUInt64) //when the object is from a property in POST body from a TS client
 			{
 				return UInt64.Parse(v.ToString()!); // silly CS8604
@@ -33,7 +33,7 @@ namespace Fonlow.IntegralExtensions
 
 			if (vType == typeOfString)
 			{
-				var vs = (string)v;
+				string vs = (string)v;
 				if (String.IsNullOrEmpty(vs))
 				{
 					return 0;
@@ -79,13 +79,13 @@ namespace Fonlow.IntegralExtensions
 				return existingValue;
 			}
 
-			var v = reader.Value;
+			object? v = reader.Value;
 			if (v == null)
 			{
 				return null;
 			}
 
-			var vType = v.GetType();
+			Type vType = v.GetType();
 			if (vType == typeOfUInt64) //when the object is from a property in POST body from a TS client
 			{
 				return UInt64.Parse(v.ToString()!);
@@ -93,7 +93,7 @@ namespace Fonlow.IntegralExtensions
 
 			if (vType == typeOfString)
 			{
-				var vs = (string)v;
+				string vs = (string)v;
 				if (String.IsNullOrEmpty(vs))
 				{
 					return null;

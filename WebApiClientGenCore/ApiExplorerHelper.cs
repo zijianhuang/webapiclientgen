@@ -18,19 +18,19 @@ namespace Fonlow.CodeDom.Web
 		/// <remarks>The core design of WebApiClientGen is based on such flat list, while .net core provide groupped lists.</remarks>
 		public static ApiDescription[] GetApiDescriptions(IApiDescriptionGroupCollectionProvider explorer)
 		{
-			var list = new List<ApiDescription>();
-			foreach (var group in explorer.ApiDescriptionGroups.Items)
+			List<ApiDescription> list = new List<ApiDescription>();
+			foreach (ApiDescriptionGroup group in explorer.ApiDescriptionGroups.Items)
 			{
 				Debug.WriteLine(group.GroupName);
-				foreach (var d in group.Items)
+				foreach (ApiDescription d in group.Items)
 				{
 					list.Add(d);
 				}
 			}
 
-			var first = list.FirstOrDefault(d =>
+			ApiDescription first = list.FirstOrDefault(d =>
 			{
-				var controllerActionDescriptor = d.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+				Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor controllerActionDescriptor = d.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
 				if (controllerActionDescriptor == null)
 				{
 					return false;
@@ -41,9 +41,9 @@ namespace Fonlow.CodeDom.Web
 
 			if (first != null)
 			{
-				var firstControllerActionDescriptor = first.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
-				var xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(firstControllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
-				var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlFilePath);
+				Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor firstControllerActionDescriptor = first.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+				string xmlFilePath = DocComment.DocCommentLookup.GetXmlPath(firstControllerActionDescriptor.MethodInfo.DeclaringType.Assembly);
+				DocComment.DocCommentLookup docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlFilePath);
 				WebApiDocSingleton.InitOnce(docLookup);
 			}
 

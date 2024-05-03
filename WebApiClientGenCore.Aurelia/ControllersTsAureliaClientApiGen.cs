@@ -45,7 +45,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeAttributeDeclarationCollection CreateClassCustomAttributes()
 		{
-			var c = new CodeTypeReference("autoinject");
+			CodeTypeReference c = new CodeTypeReference("autoinject");
 			c.UserData.Add(UserDataKeys.TsTypeInfo, new TsTypeInfo { TypeOfType = TypeOfType.IsInterface });
 			return new CodeAttributeDeclarationCollection(new CodeAttributeDeclaration[] { new CodeAttributeDeclaration(c) });
 		}

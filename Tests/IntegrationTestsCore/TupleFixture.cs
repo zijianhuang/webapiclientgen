@@ -7,7 +7,7 @@ namespace IntegrationTests
 	{
 		public TupleFixture()
 		{
-			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+			Newtonsoft.Json.JsonSerializerSettings jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
 			{
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};

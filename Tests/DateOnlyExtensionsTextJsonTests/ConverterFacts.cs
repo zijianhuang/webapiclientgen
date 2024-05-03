@@ -10,9 +10,9 @@ namespace DateOnlyExtensionsTextJsonTests
 		[Fact]
 		public void TestDateOnlyJsonConverterInNet8()
 		{
-			var options = new JsonSerializerOptions();
+			JsonSerializerOptions options = new JsonSerializerOptions();
 			options.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateOnlyJsonConverter());
-			var s = JsonSerializer.Serialize(DateOnly.Parse("2023-12-31"), options);
+			string s = JsonSerializer.Serialize(DateOnly.Parse("2023-12-31"), options);
 			Assert.Equal("\"2023-12-31\"", s);
 		}
 
@@ -37,14 +37,14 @@ namespace DateOnlyExtensionsTextJsonTests
 		[Fact]
 		public void TestJsonSerializerDefaultBehavior()
 		{
-			var s = JsonSerializer.Serialize(DateOnly.Parse("2023-12-31"));
+			string s = JsonSerializer.Serialize(DateOnly.Parse("2023-12-31"));
 			Assert.Equal("\"2023-12-31\"", s);
 		}
 
 		[Fact]
 		public void TestDateOnlyToString()
 		{
-			var d = DateOnly.Parse("2023-12-31");
+			DateOnly d = DateOnly.Parse("2023-12-31");
 			Assert.Equal("2023-12-31", d.ToString("O"));
 		}
 
@@ -52,14 +52,14 @@ namespace DateOnlyExtensionsTextJsonTests
 		public void TestJsonSerializerDefaultBehaviorWithNull()
 		{
 			DateOnly? d = null;
-			var s = JsonSerializer.Serialize<DateOnly?>(d);
+			string s = JsonSerializer.Serialize<DateOnly?>(d);
 			Assert.Equal("null", s);
 		}
 
 		[Fact]
 		public void TestJsonDederializerDefaultBehaviorWithNull()
 		{
-			var d = JsonSerializer.Deserialize<DateOnly?>("null"); // string "null" only presenting a JSON object in text, not null
+			DateOnly? d = JsonSerializer.Deserialize<DateOnly?>("null"); // string "null" only presenting a JSON object in text, not null
 			Assert.False(d.HasValue);
 		}
 	}

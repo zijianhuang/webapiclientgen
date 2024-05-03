@@ -19,7 +19,7 @@ namespace IntegrationTests
 	{
 		public EntitiesFixture()
 		{
-			var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings() 
+			Newtonsoft.Json.JsonSerializerSettings jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings() 
 			{
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};

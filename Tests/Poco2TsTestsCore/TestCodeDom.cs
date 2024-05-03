@@ -13,9 +13,9 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestTuple4Callback()
 		{
-			var callbackTypeText = "(data : [string, string, string, number]) => any";
-			var parameterDeclarationExpression = new CodeParameterDeclarationExpression(callbackTypeText, "callback");
-			var s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
+			string callbackTypeText = "(data : [string, string, string, number]) => any";
+			CodeParameterDeclarationExpression parameterDeclarationExpression = new CodeParameterDeclarationExpression(callbackTypeText, "callback");
+			string s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
 			Assert.Equal(callbackTypeText, s);
 		}
 
@@ -25,30 +25,30 @@ namespace Poco2TsTests
 			//CodeTypeReference seems to have a bug which could not read such callbackType properly with 5 or more Tuple parameters.
 			//I tried provide callbackTypeText in constructors of CodeTypeReference and CodeParrameterDeclarationExpression, as well as property assignment.
 			//all end up with (string , corrupted.
-			var callbackTypeText = "(data : [string, string, string, string, number]) => any";
-			var codeTypeReference = new CodeTypeReference()
+			string callbackTypeText = "(data : [string, string, string, string, number]) => any";
+			CodeTypeReference codeTypeReference = new CodeTypeReference()
 			{
 				BaseType = callbackTypeText
 			};
-			var parameterDeclarationExpression = new CodeParameterDeclarationExpression(codeTypeReference, "callback");
-			var s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
+			CodeParameterDeclarationExpression parameterDeclarationExpression = new CodeParameterDeclarationExpression(codeTypeReference, "callback");
+			string s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
 			Assert.NotEqual(callbackTypeText, s);
 		}
 
 		[Fact]
 		public void TestTupleCallbackSnipet()
 		{
-			var callbackTypeText = "(data : [string, string, string, string, string, number]) => any";
-			var callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);
-			var parameterDeclarationExpression = new CodeParameterDeclarationExpression(callbackTypeReference, "callback");
-			var s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
+			string callbackTypeText = "(data : [string, string, string, string, string, number]) => any";
+			CodeSnipetTypeReference callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);
+			CodeParameterDeclarationExpression parameterDeclarationExpression = new CodeParameterDeclarationExpression(callbackTypeReference, "callback");
+			string s = TypeMapper.MapCodeTypeReferenceToTsText(parameterDeclarationExpression.Type);
 			Assert.Equal(callbackTypeText, s);
 		}
 
 		[Fact]
 		public void TestResponse()
 		{
-			var s = TypeMapper.MapCodeTypeReferenceToTsText(new CodeTypeReference("response"));
+			string s = TypeMapper.MapCodeTypeReferenceToTsText(new CodeTypeReference("response"));
 			Assert.Equal("response", s);
 
 		}
@@ -56,10 +56,10 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestNullableDateTime()
 		{
-			var t = typeof(DateTime?);
+			Type t = typeof(DateTime?);
 			Assert.True(t.IsGenericType);
 			Assert.False(t.IsGenericTypeDefinition);
-			var nullableType = typeof(Nullable<>);
+			Type nullableType = typeof(Nullable<>);
 			Assert.True(t.IsGenericType);
 			Assert.False(t.IsGenericTypeDefinition);
 			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
@@ -71,10 +71,10 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestNullableDateOnly()
 		{
-			var t = typeof(DateOnly?);
+			Type t = typeof(DateOnly?);
 			Assert.True(t.IsGenericType);
 			Assert.False(t.IsGenericTypeDefinition);
-			var nullableType = typeof(Nullable<>);
+			Type nullableType = typeof(Nullable<>);
 			Assert.True(t.IsGenericType);
 			Assert.False(t.IsGenericTypeDefinition);
 			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
@@ -86,10 +86,10 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestNullableDouble()
 		{
-			var t = typeof(double?);
+			Type t = typeof(double?);
 			Assert.True(t.IsGenericType);
 			Assert.False(t.IsGenericTypeDefinition);
-			var nullableType = typeof(Nullable<>);
+			Type nullableType = typeof(Nullable<>);
 			Assert.True(t.IsGenericType);
 			Assert.False(t.IsGenericTypeDefinition);
 			Assert.Equal(nullableType, t.GetGenericTypeDefinition());
@@ -101,10 +101,10 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestNullableDecimal()
 		{
-			var t = typeof(decimal?);
+			Type t = typeof(decimal?);
 			Assert.True(t.IsGenericType);
 			Assert.False(t.IsGenericTypeDefinition);
-			var nullableType = typeof(Nullable<>);
+			Type nullableType = typeof(Nullable<>);
 			Assert.True(t.IsGenericType);
 			Assert.False(t.IsGenericTypeDefinition);
 			Assert.Equal(nullableType, t.GetGenericTypeDefinition());

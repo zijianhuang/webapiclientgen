@@ -66,7 +66,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeMemberMethod CreateMethodName()
 		{
-			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
+			CodeTypeReference returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
 			{
@@ -91,8 +91,8 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 			}
 
-			var callbackTypeText = $"Observable<{returnTypeText}>";
-			var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
+			string callbackTypeText = $"Observable<{returnTypeText}>";
+			CodeSnipetTypeReference returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
 
 			return new CodeMemberMethod()
 			{
@@ -112,7 +112,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					"() => HttpHeaders", "headersHandler?"));
 			}
 
-			var uriText = GetFullUriText();
+			string uriText = GetFullUriText();
 
 			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
@@ -124,7 +124,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null, {OptionsForString});"));
@@ -148,7 +148,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null, {OptionsForBlob});"));
@@ -172,7 +172,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null, {OptionsForResponse});"));
@@ -206,7 +206,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response
 					{
 						if (dataToPost == "null")//no content body

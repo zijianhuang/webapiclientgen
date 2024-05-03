@@ -24,7 +24,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestGuid()
 		{
-			var type = typeof(Guid);
+			Type type = typeof(Guid);
 			Assert.True(TypeHelper.IsValueType(type));
 			Assert.False(!TypeHelper.IsValueType(type) && !TypeHelper.IsNullablePrimitive(type));
 		}

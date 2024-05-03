@@ -4,8 +4,8 @@ using Fonlow.IntegralExtensions;
 System.Reflection.Assembly appAssembly = System.Reflection.Assembly.GetExecutingAssembly();
 string dirOfAppAssembly = System.IO.Path.GetDirectoryName(appAssembly.Location);
 IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile(System.IO.Path.Combine(dirOfAppAssembly, "appsettings.json")).Build();
-var appSettings = config.GetSection("appSettings");
-var environment = appSettings.GetValue<string>("environment");
+IConfigurationSection appSettings = config.GetSection("appSettings");
+string environment = appSettings.GetValue<string>("environment");
 
 string webRootPath = "./";
 
@@ -13,14 +13,14 @@ string webRootPath = "./";
 // ContentRootPath is to tell the Web service code where to look for data.
 // On Windows, ContentRootPath is the starting folder of the app assembly, and on MacOS, it is the user profile folder like //Users/MyName.
 // Thus on MacOS, the App_Data folder should be under the user profile folder.
-var options = new WebApplicationOptions
+WebApplicationOptions options = new WebApplicationOptions
 {
 	WebRootPath = webRootPath,
 	Args = args,
 };
 
 
-var builder = WebApplication.CreateBuilder(options);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(options);
 builder.Configuration.AddConfiguration(config);
 Console.WriteLine($"Start at contentRootPath: {builder.Environment.ContentRootPath}; WebRootPath: {builder.Environment.WebRootPath}");
 
@@ -61,7 +61,7 @@ builder.Services.AddCors(options => options.AddPolicy("All", builder =>
 		   ;
 }));
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 app.UseMiddleware(typeof(WebApp.Utilities.ErrorHandlingMiddleware));
 
 if (app.Environment.IsDevelopment()) //ASPNETCORE_ENVIRONMENT=Development in web.config

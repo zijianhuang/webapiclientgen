@@ -16,14 +16,14 @@ namespace Poco2TsTests
 	{
 		static void Verify(Type type, string expected)
 		{
-			var targetUnit = new CodeCompileUnit();
-			var gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
+			CodeCompileUnit targetUnit = new CodeCompileUnit();
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new CodeObjectHelper(true));
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.AspNet);
 			Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase = false;
-			using (var writer = new StringWriter())
+			using (StringWriter writer = new StringWriter())
 			{
 				gen.WriteCode(writer);
-				var s = writer.ToString();
+				string s = writer.ToString();
 				Assert.Equal(expected, s);
 			}
 		}

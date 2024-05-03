@@ -26,25 +26,25 @@ namespace Fonlow.CodeDom.Web
 
 				if (!System.IO.Directory.Exists(csharpClientProjectDir))
 				{
-					var currentDir = System.IO.Directory.GetCurrentDirectory();
+					string currentDir = System.IO.Directory.GetCurrentDirectory();
 					throw new CodeGenException("Client Library Project Folder Not Exist")
 					{
 						Description = $"{csharpClientProjectDir} not exist while current directory is {currentDir}"
 					};
 				}
 
-				var path = System.IO.Path.Combine(csharpClientProjectDir, settings.ClientApiOutputs.FileName);
-				using var gen = new Cs.ControllersClientApiGen(settings);
+				string path = System.IO.Path.Combine(csharpClientProjectDir, settings.ClientApiOutputs.FileName);
+				using Cs.ControllersClientApiGen gen = new Cs.ControllersClientApiGen(settings);
 				gen.CreateCodeDomAndSaveCsharp(webApiDescriptions, path);
 			}
 
 			if (settings.ClientApiOutputs.Plugins != null)
 			{
-				foreach (var plugin in settings.ClientApiOutputs.Plugins)
+				foreach (JSPlugin plugin in settings.ClientApiOutputs.Plugins)
 				{
-					using var gen = new Cs.ControllersClientApiGen(settings); //TS code gen still needs some features of CS code gen for reading doc comment xml.
+					using Cs.ControllersClientApiGen gen = new Cs.ControllersClientApiGen(settings); //TS code gen still needs some features of CS code gen for reading doc comment xml.
 
-					var jsOutput = new JSOutput
+					JSOutput jsOutput = new JSOutput
 					{
 						CamelCase = settings.ClientApiOutputs.CamelCase,
 						JSPath = CreateTsPath(plugin.TargetDir, plugin.TSFile, webRootPath),
@@ -62,7 +62,7 @@ namespace Fonlow.CodeDom.Web
 						MaybeNullAttributeOnMethod = settings.ClientApiOutputs.MaybeNullAttributeOnMethod,
 					};
 
-					var tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);
+					Ts.ControllersTsClientApiGenBase tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);
 					if (tsGen != null)
 					{
 						tsGen.CreateCodeDom(webApiDescriptions);
@@ -70,7 +70,7 @@ namespace Fonlow.CodeDom.Web
 					}
 					else
 					{
-						var s = $"Cannot instantiate plugin {plugin.AssemblyName}. Please check if the plugin assembly is in place.";
+						string s = $"Cannot instantiate plugin {plugin.AssemblyName}. Please check if the plugin assembly is in place.";
 						System.Diagnostics.Trace.TraceError(s);
 						throw new CodeGenException(s);
 					}
@@ -80,7 +80,7 @@ namespace Fonlow.CodeDom.Web
 
 		static string CreateTsPath(string folder, string fileName, string webRootPath)
 		{
-			var currentDir = System.IO.Directory.GetCurrentDirectory();
+			string currentDir = System.IO.Directory.GetCurrentDirectory();
 
 			if (!string.IsNullOrEmpty(folder))
 			{

@@ -20,17 +20,17 @@ namespace Fonlow.Poco2Client
 			{ typeof(RequiredAttribute), a => new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Required") },
 			{ typeof(RangeAttribute), a =>
 				{
-					var obj = a as RangeAttribute;
-					var operandType = new CodeSnippetExpression($"typeof({obj.OperandType.FullName})");
-					var min = new CodeSnippetExpression($"\"{obj.Minimum}\"");
-					var max = new CodeSnippetExpression($"\"{obj.Maximum}\"");
+					RangeAttribute obj = a as RangeAttribute;
+					CodeSnippetExpression operandType = new CodeSnippetExpression($"typeof({obj.OperandType.FullName})");
+					CodeSnippetExpression min = new CodeSnippetExpression($"\"{obj.Minimum}\"");
+					CodeSnippetExpression max = new CodeSnippetExpression($"\"{obj.Maximum}\"");
 					//var isNumber = obj.GetType()== typeof(int) || obj.GetType()==typeof(double);
 					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(operandType),
 					new CodeAttributeArgument(min),
 					new CodeAttributeArgument(max) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					CodeSnippetExpression error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
@@ -39,12 +39,12 @@ namespace Fonlow.Poco2Client
 			},
 			{ typeof(MaxLengthAttribute), a =>
 				{
-					var obj= a as MaxLengthAttribute;
-					var len = new CodeSnippetExpression(obj.Length.ToString());
+					MaxLengthAttribute obj= a as MaxLengthAttribute;
+					CodeSnippetExpression len = new CodeSnippetExpression(obj.Length.ToString());
 					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(len) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					CodeSnippetExpression error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
@@ -53,12 +53,12 @@ namespace Fonlow.Poco2Client
 			},
 			{ typeof(MinLengthAttribute), a =>
 				{
-					var obj= a as MinLengthAttribute;
-					var len = new CodeSnippetExpression(obj.Length.ToString());
+					MinLengthAttribute obj= a as MinLengthAttribute;
+					CodeSnippetExpression len = new CodeSnippetExpression(obj.Length.ToString());
 					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(len) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					CodeSnippetExpression error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
@@ -67,14 +67,14 @@ namespace Fonlow.Poco2Client
 			},
 			{ typeof(StringLengthAttribute), a =>
 				{
-					var obj= a as StringLengthAttribute;
-					var max = new CodeSnippetExpression(obj.MaximumLength.ToString());
-					var min = new CodeSnippetExpression(obj.MinimumLength.ToString());
+					StringLengthAttribute obj= a as StringLengthAttribute;
+					CodeSnippetExpression max = new CodeSnippetExpression(obj.MaximumLength.ToString());
+					CodeSnippetExpression min = new CodeSnippetExpression(obj.MinimumLength.ToString());
 					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(max),
 					new CodeAttributeArgument("MinimumLength", min) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					CodeSnippetExpression error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
@@ -83,12 +83,12 @@ namespace Fonlow.Poco2Client
 			},
 			{ typeof(DataTypeAttribute), a =>
 				{
-					var obj= a as DataTypeAttribute;
-					var dataType = new CodeSnippetExpression("System.ComponentModel.DataAnnotations.DataType." + obj.DataType.ToString());
+					DataTypeAttribute obj= a as DataTypeAttribute;
+					CodeSnippetExpression dataType = new CodeSnippetExpression("System.ComponentModel.DataAnnotations.DataType." + obj.DataType.ToString());
 					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(dataType) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					CodeSnippetExpression error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
@@ -97,13 +97,13 @@ namespace Fonlow.Poco2Client
 			},
 			{ typeof(RegularExpressionAttribute), a =>
 				{
-					var obj= a as RegularExpressionAttribute;
-					var ps = $"@\"{obj.Pattern}\"";
-					var p = new CodeSnippetExpression(ps);
+					RegularExpressionAttribute obj= a as RegularExpressionAttribute;
+					string ps = $"@\"{obj.Pattern}\"";
+					CodeSnippetExpression p = new CodeSnippetExpression(ps);
 					List<CodeAttributeArgument> attributeParams = new() { new CodeAttributeArgument(p) };
 					if (!String.IsNullOrEmpty(obj.ErrorMessage))
 					{
-					var error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
+					CodeSnippetExpression error= new CodeSnippetExpression($"\"{obj.ErrorMessage}\"");
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 

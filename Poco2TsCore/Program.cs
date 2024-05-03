@@ -28,8 +28,8 @@ For all classes, properties and fields
 				return;
 			}
 
-			var assemblyName = args[0];
-			var tsFileName = args[1];
+			string assemblyName = args[0];
+			string tsFileName = args[1];
 			CherryPickingMethods methods = CherryPickingMethods.DataContract;
 			if (args.Length>2)
 			{
@@ -43,7 +43,7 @@ For all classes, properties and fields
 
 		static CherryPickingMethods ReadMethods(string s)
 		{
-			var r = s.Remove(0, 1);
+			string r = s.Remove(0, 1);
 			if (int.TryParse(r, out int m))
 				return (CherryPickingMethods)m;
 
@@ -65,9 +65,9 @@ For all classes, properties and fields
 			catch (System.IO.FileNotFoundException e)
 			{
 				Console.WriteLine(e.ToString());
-				var dirOfRequestingAssembly = System.IO.Path.GetDirectoryName(args.RequestingAssembly.Location);
-				var assemblyShortName = args.Name.Substring(0, args.Name.IndexOf(','));
-				var assemblyFullPath = System.IO.Path.Combine(dirOfRequestingAssembly, assemblyShortName + ".dll");//hopefully nobody would use exe for the dependency.
+				string dirOfRequestingAssembly = System.IO.Path.GetDirectoryName(args.RequestingAssembly.Location);
+				string assemblyShortName = args.Name.Substring(0, args.Name.IndexOf(','));
+				string assemblyFullPath = System.IO.Path.Combine(dirOfRequestingAssembly, assemblyShortName + ".dll");//hopefully nobody would use exe for the dependency.
 				assembly = System.Reflection.Assembly.LoadFrom(assemblyFullPath);
 				return assembly;
 			}

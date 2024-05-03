@@ -10,14 +10,14 @@ namespace Fonlow.IntegralExtensions
 		{
 			if (reader.TokenType == JsonTokenType.Number)
 			{
-				using var doc = JsonDocument.ParseValue(ref reader);
-				var rawText = doc.RootElement.GetRawText();
+				using JsonDocument doc = JsonDocument.ParseValue(ref reader);
+				string rawText = doc.RootElement.GetRawText();
 				return UInt64.Parse(rawText, NumberFormatInfo.InvariantInfo);
 			}
 			else if (reader.TokenType == JsonTokenType.String)
 			{
-				using var doc = JsonDocument.ParseValue(ref reader);
-				var text = doc.RootElement.GetString();
+				using JsonDocument doc = JsonDocument.ParseValue(ref reader);
+				string text = doc.RootElement.GetString();
 				return UInt64.Parse(text, NumberFormatInfo.InvariantInfo);
 			}
 

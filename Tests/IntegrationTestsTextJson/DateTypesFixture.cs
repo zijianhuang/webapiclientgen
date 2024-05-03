@@ -6,7 +6,7 @@ namespace IntegrationTests
 	{
 		public DateTypesFixture()
 		{
-			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
+			System.Text.Json.JsonSerializerOptions jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.Never,
 				PropertyNameCaseInsensitive = true,

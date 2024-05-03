@@ -46,7 +46,7 @@ namespace Fonlow.Web.Meta
 
 		static Type GetReturnTypeFromResponseTypes(IList<ApiResponseType> responseTypes)
 		{
-			var foundGoodResponse = responseTypes.FirstOrDefault(d => d.StatusCode >= 200 && d.StatusCode <= 202);
+			ApiResponseType foundGoodResponse = responseTypes.FirstOrDefault(d => d.StatusCode >= 200 && d.StatusCode <= 202);
 			if (foundGoodResponse != null)
 			{
 				return foundGoodResponse.Type;
@@ -62,7 +62,7 @@ namespace Fonlow.Web.Meta
 		/// <returns></returns>
 		public static WebApiDescription GetWebApiDescription(ApiDescription description)
 		{
-			var controllerActionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+			Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor controllerActionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
 			if (controllerActionDescriptor == null)
 			{
 				return null;
@@ -71,7 +71,7 @@ namespace Fonlow.Web.Meta
 			try
 			{
 				Type returnType;
-				var goodReturnType = GetReturnTypeFromResponseTypes(description.SupportedResponseTypes);
+				Type goodReturnType = GetReturnTypeFromResponseTypes(description.SupportedResponseTypes);
 				if (goodReturnType != null)
 				{
 					if (goodReturnType.Equals(typeof(void)))
@@ -87,7 +87,7 @@ namespace Fonlow.Web.Meta
 				{
 					Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor actionDescriptor = description.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
 					Debug.Assert(actionDescriptor != null, "is it possible?");
-					var candidateReturnType = actionDescriptor.MethodInfo.ReturnType;// in .net core 2.1, IActionResult is not in SupportedResponseTypes anymore, so I have to get it here.
+					Type candidateReturnType = actionDescriptor.MethodInfo.ReturnType;// in .net core 2.1, IActionResult is not in SupportedResponseTypes anymore, so I have to get it here.
 					if (candidateReturnType.Equals(typeof(void)))
 					{
 						returnType = null;
@@ -98,7 +98,7 @@ namespace Fonlow.Web.Meta
 					}
 					else if (candidateReturnType.IsGenericType && candidateReturnType.GetGenericTypeDefinition() == typeof(System.Threading.Tasks.Task<>))
 					{
-						var typeInTask = Get1stArgumentTypeOfGeneric(candidateReturnType);
+						Type typeInTask = Get1stArgumentTypeOfGeneric(candidateReturnType);
 						if (typeInTask.IsGenericType && typeInTask.GetGenericTypeDefinition() == typeof(ActionResult<>))
 						{
 							returnType = Get1stArgumentTypeOfGeneric(typeInTask);
@@ -114,7 +114,7 @@ namespace Fonlow.Web.Meta
 					}
 				}
 
-				var dr = new WebApiDescription(description.ActionDescriptor.Id)
+				WebApiDescription dr = new WebApiDescription(description.ActionDescriptor.Id)
 				{
 					ActionDescriptor = new ActionDescriptor()
 					{
@@ -140,17 +140,17 @@ namespace Fonlow.Web.Meta
 
 					ParameterDescriptions = description.ParameterDescriptions.Select(d =>
 					{
-						var parameterBinder = GetParameterBinder(d.Source);
-						var descriptor = d.ParameterDescriptor;
+						ParameterBinder parameterBinder = GetParameterBinder(d.Source);
+						Microsoft.AspNetCore.Mvc.Abstractions.ParameterDescriptor descriptor = d.ParameterDescriptor;
 						if (descriptor == null)
 						{
 							throw new CodeGenException($"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} may have invalid parameters.");
 						}
 
-						var parameterType = descriptor.ParameterType;
-						var isValueType = TypeHelper.IsValueType(parameterType);
-						var isNullablePrimitive = TypeHelper.IsNullablePrimitive(parameterType);
-						var isArrayType = TypeHelper.IsSimpleListType(parameterType) || TypeHelper.IsSimpleArrayType(parameterType);
+						Type parameterType = descriptor.ParameterType;
+						bool isValueType = TypeHelper.IsValueType(parameterType);
+						bool isNullablePrimitive = TypeHelper.IsNullablePrimitive(parameterType);
+						bool isArrayType = TypeHelper.IsSimpleListType(parameterType) || TypeHelper.IsSimpleArrayType(parameterType);
 						if ((parameterBinder == ParameterBinder.FromQuery || parameterBinder == ParameterBinder.FromUri) &&
 							(!isValueType && !isNullablePrimitive && !isArrayType && !parameterType.IsEnum))
 						{
@@ -176,15 +176,15 @@ namespace Fonlow.Web.Meta
 			}
 			catch (ArgumentException ex)//Expected to be thrown from GetParameterBinder()
 			{
-				var msg = ex.Message;
-				var errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} is defined with invalid parameters: {msg}";
+				string msg = ex.Message;
+				string errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} is defined with invalid parameters: {msg}";
 				Trace.TraceError(errorMsg);
 				throw new CodeGenException(errorMsg, ex);
 			}
 			catch (NullReferenceException ex)
 			{
-				var msg = ex.Message;
-				var errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} has problem: {msg}";
+				string msg = ex.Message;
+				string errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} has problem: {msg}";
 				Trace.TraceError(errorMsg);
 				throw new CodeGenException(errorMsg, ex);
 			}
@@ -197,7 +197,7 @@ namespace Fonlow.Web.Meta
 
 		static Type Get1stArgumentTypeOfGeneric(Type t)
 		{
-			var genericArguments = t.GetGenericArguments();
+			Type[] genericArguments = t.GetGenericArguments();
 			if (genericArguments.Length > 0)
 			{
 				return genericArguments[0];
@@ -207,7 +207,7 @@ namespace Fonlow.Web.Meta
 		}
 		static string BuildQuery(IList<ApiParameterDescription> ds)
 		{
-			var qs = ds.Where(d => BindingSource.Query.CanAcceptDataFrom(d.Source)).Select(k => String.Format("{0}={{{0}}}", k.Name)).ToArray();
+			string[] qs = ds.Where(d => BindingSource.Query.CanAcceptDataFrom(d.Source)).Select(k => String.Format("{0}={{{0}}}", k.Name)).ToArray();
 			if (qs.Length == 0)
 			{
 				return String.Empty;

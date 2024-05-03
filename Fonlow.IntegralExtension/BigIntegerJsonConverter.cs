@@ -19,13 +19,13 @@ namespace Fonlow.IntegralExtensions
 
 		public override BigInteger ReadJson(JsonReader reader, Type objectType, BigInteger existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			var v = reader.Value;
+			object? v = reader.Value;
 			if (v == null)
 			{
 				return 0;
 			}
 
-			var vType = v.GetType();
+			Type vType = v.GetType();
 			if (vType == typeOfBigInteger) //when the object is from a property in POST body from a TS client
 			{
 				return BigInteger.Parse(v.ToString()!); // silly CS8604
@@ -33,7 +33,7 @@ namespace Fonlow.IntegralExtensions
 
 			if (vType == typeOfString)
 			{
-				var vs = (string)v;
+				string vs = (string)v;
 				if (String.IsNullOrEmpty(vs))
 				{
 					return 0;
@@ -71,13 +71,13 @@ namespace Fonlow.IntegralExtensions
 				return existingValue;
 			}
 
-			var v = reader.Value;
+			object? v = reader.Value;
 			if (v == null)
 			{
 				return null;
 			}
 
-			var vType = v.GetType();
+			Type vType = v.GetType();
 			if (vType == typeOfBigInteger) //when the object is from a property in POST body from a TS client
 			{
 				return BigInteger.Parse(v.ToString()!);
@@ -85,7 +85,7 @@ namespace Fonlow.IntegralExtensions
 
 			if (vType == typeOfString)
 			{
-				var vs = (string)v;
+				string vs = (string)v;
 				if (String.IsNullOrEmpty(vs))
 				{
 					return null;

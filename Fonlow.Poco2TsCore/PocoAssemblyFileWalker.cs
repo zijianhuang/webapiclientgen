@@ -23,17 +23,17 @@ namespace Fonlow.Poco2Ts
 		/// <param name="helpStrictMode"></param>
 		public static void Walk(string assemblyFilePath, string tsFilePath, CherryPickingMethods methods, string clientNamespaceSuffix, bool dataAnnotationsToComments, bool helpStrictMode)
 		{
-			var absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);
-			var assembly = LoadAssemblyFile(absolutePath);
+			string absolutePath = System.IO.Path.GetFullPath(assemblyFilePath);
+			Assembly assembly = LoadAssemblyFile(absolutePath);
 			if (assembly == null)
 				return;
 
-			var lookup = Fonlow.DocComment.DocCommentLookup.Create(DocComment.DocCommentLookup.GetXmlPath(assembly));
-			var targetUnit = new CodeCompileUnit();
-			var gen = new Poco2TsGen(targetUnit, clientNamespaceSuffix, helpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(true));
+			DocComment.DocCommentLookup lookup = Fonlow.DocComment.DocCommentLookup.Create(DocComment.DocCommentLookup.GetXmlPath(assembly));
+			CodeCompileUnit targetUnit = new CodeCompileUnit();
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, clientNamespaceSuffix, helpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(true));
 			gen.CreateCodeDomInAssembly(assembly, methods, lookup, dataAnnotationsToComments);
 			gen.SaveCodeToFile(tsFilePath);
-			var msg = $"{tsFilePath} is generated.";
+			string msg = $"{tsFilePath} is generated.";
 			Console.WriteLine(msg);
 			Trace.WriteLine(msg);
 		}
@@ -46,7 +46,7 @@ namespace Fonlow.Poco2Ts
 			}
 			catch (Exception ex) when (ex is System.IO.FileLoadException || ex is BadImageFormatException || ex is System.IO.FileNotFoundException || ex is ArgumentException )
 			{
-				var msg = String.Format("When loading {0}, errors occur: {1}", assemblyFilePath, ex.Message);
+				string msg = String.Format("When loading {0}, errors occur: {1}", assemblyFilePath, ex.Message);
 				Console.WriteLine(msg);
 				Trace.TraceWarning(msg);
 				return null;

@@ -54,9 +54,9 @@ namespace DemoWebApi.Controllers
 		[Route("FloatZero")]
 		public float GetFloatZero()
 		{
-			var a = 0.1f;
-			var b = 0.2f;
-			var c = 0.3f;
+			float a = 0.1f;
+			float b = 0.2f;
+			float c = 0.3f;
 			return a + b - c;//in all version update to VS 2015, this is a non-zero result done by the runtime.
 							 //  return 0.1f + 0.2f - 0.3f;//in VS 2015 update 2. this is a zero result done by the compiler in IL code.
 		}
@@ -99,7 +99,7 @@ namespace DemoWebApi.Controllers
 		[Route("TextStream")]
 		public ActionResult GetTextStream()
 		{
-			var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg"));// don't dispose this and the following disposable objects
+			MemoryStream stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("abcdefg"));// don't dispose this and the following disposable objects
 			{
 				//var content = new StreamContent(stream);
 				return new FileStreamResult(stream, new Microsoft.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream"));

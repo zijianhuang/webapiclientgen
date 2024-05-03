@@ -26,15 +26,15 @@ namespace IntegrationTests
 		//[Fact]
 		public async void TestUpload()
 		{
-			var r = await SendFiles(_filename);
+			FileResult r = await SendFiles(_filename);
 			Assert.Equal("OK", r.Submitter);
 			Assert.Single(r.FileNames);
 		}
 
 		static async Task<FileResult> SendFiles(string filename)
 		{
-			var baseUri = new Uri(Fonlow.Testing.TestingSettings.Instance.BaseUrl);
-			var requestUri = new Uri(baseUri, "api/FileUpload?userId=OK");
+			Uri baseUri = new Uri(Fonlow.Testing.TestingSettings.Instance.BaseUrl);
+			Uri requestUri = new Uri(baseUri, "api/FileUpload?userId=OK");
 
 			using (HttpClient client = new HttpClient())
 			{
@@ -47,10 +47,10 @@ namespace IntegrationTests
 
 					HttpResponseMessage response = await client.PostAsync(requestUri, formData);
 					response.EnsureSuccessStatusCode();
-					var stream = await response.Content.ReadAsStreamAsync();
+					Stream stream = await response.Content.ReadAsStreamAsync();
 					using (JsonReader jsonReader = new JsonTextReader(new StreamReader(stream)))
 					{
-						var serializer = new JsonSerializer();
+						JsonSerializer serializer = new JsonSerializer();
 						return serializer.Deserialize<FileResult>(jsonReader);
 					}
 				}

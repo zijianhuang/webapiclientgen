@@ -1,4 +1,6 @@
-﻿namespace Fonlow.CodeDom.Web
+﻿using Fonlow.Poco2Client;
+
+namespace Fonlow.CodeDom.Web
 {
 	public class CodeGenSettingsBase
 	{
@@ -36,7 +38,7 @@
 		/// <summary>
 		/// Cherry picking methods of POCO classes
 		/// </summary>
-		public int? CherryPickingMethods { get; set; }
+		public CherryPickingMethods? CherryPickingMethods { get; set; }
 
 		/// <summary>
 		/// Used when cherry picking methods is for god assembly (32)
@@ -48,7 +50,7 @@
 	{
 		public string AssemblyName { get; set; }
 
-		public int? CherryPickingMethods { get; set; }
+		public CherryPickingMethods? CherryPickingMethods { get; set; }
 
 		/// <summary>
 		/// For each selected assembly with POCO classes. System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 

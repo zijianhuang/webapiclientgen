@@ -14,7 +14,7 @@ namespace Fonlow.CodeDom.Web
 
 		public static WebApiDocSingleton InitOnce(Fonlow.DocComment.DocCommentLookup lookup)
 		{
-			var r = Instance;
+			WebApiDocSingleton r = Instance;
 			if (r.initialized)
 			{
 				return r;

@@ -26,7 +26,7 @@ namespace Fonlow.DocComment
 			XmlSerializer serializer = new XmlSerializer(typeof(doc));
 			try
 			{
-				using (var fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+				using (FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
 				{
 #pragma warning disable CA5369 // Use XmlReader for 'XmlSerializer.Deserialize()'
 					XmlDoc = serializer.Deserialize(fs) as doc;
@@ -59,8 +59,8 @@ namespace Fonlow.DocComment
 		/// <returns></returns>
 		public static DocCommentLookup Create(string filePath)
 		{
-			var lookup = new DocCommentLookup();
-			var r = lookup.Load(filePath);
+			DocCommentLookup lookup = new DocCommentLookup();
+			bool r = lookup.Load(filePath);
 			if (r)
 			{
 				return lookup;
@@ -76,8 +76,8 @@ namespace Fonlow.DocComment
 		/// <returns></returns>
 		public static string GetXmlPath(Assembly assembly)
 		{
-			var assemblyName = assembly.GetName().Name;
-			var dirName = GetAssemblyDirectory(assembly);
+			string assemblyName = assembly.GetName().Name;
+			string dirName = GetAssemblyDirectory(assembly);
 			return Path.Combine(dirName, assemblyName + ".xml");
 		}
 

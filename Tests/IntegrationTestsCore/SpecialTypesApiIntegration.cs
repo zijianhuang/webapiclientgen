@@ -17,7 +17,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetAnonymousDynamic()
 		{
-			var d = api.GetAnonymousDynamic();
+			Newtonsoft.Json.Linq.JObject d = api.GetAnonymousDynamic();
 			Assert.Equal("12345", d["id"].ToString());
 			Assert.Equal("Something", d["name"].ToString());
 		}
@@ -25,7 +25,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetAnonymousObject()
 		{
-			var d = api.GetAnonymousObject();
+			Newtonsoft.Json.Linq.JObject d = api.GetAnonymousObject();
 			Assert.Equal("12345", d["id"].ToString());
 			Assert.Equal("Something", d["name"].ToString());
 		}
@@ -33,12 +33,12 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostAnonymousObject()
 		{
-			var d = new Newtonsoft.Json.Linq.JObject
+			Newtonsoft.Json.Linq.JObject d = new Newtonsoft.Json.Linq.JObject
 			{
 				["Id"] = "12345",
 				["Name"] = "Something"
 			};
-			var r = api.PostAnonymousObject(d);
+			Newtonsoft.Json.Linq.JObject r = api.PostAnonymousObject(d);
 			Assert.Equal("123451", r["Id"].ToString());
 			Assert.Equal("Something1", r["Name"].ToString());
 
@@ -47,7 +47,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetAnonymousDynamic2()
 		{
-			var d = api.GetAnonymousDynamic2();
+			Newtonsoft.Json.Linq.JObject d = api.GetAnonymousDynamic2();
 			Assert.Equal("12345", d["id"].ToString());
 			Assert.Equal("Something", d["name"].ToString());
 		}
@@ -55,7 +55,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetAnonymousObject2()
 		{
-			var d = api.GetAnonymousObject2();
+			Newtonsoft.Json.Linq.JObject d = api.GetAnonymousObject2();
 			Assert.Equal("12345", d["id"].ToString());
 			Assert.Equal("Something", d["name"].ToString());
 		}
@@ -63,12 +63,12 @@ namespace IntegrationTests
 		[Fact]
 		public void TestPostAnonymousObject2()
 		{
-			var d = new Newtonsoft.Json.Linq.JObject
+			Newtonsoft.Json.Linq.JObject d = new Newtonsoft.Json.Linq.JObject
 			{
 				["Id"] = "12345",
 				["Name"] = "Something"
 			};
-			var r = api.PostAnonymousObject2(d);
+			Newtonsoft.Json.Linq.JObject r = api.PostAnonymousObject2(d);
 			Assert.Equal("123451", r["Id"].ToString());
 			Assert.Equal("Something1", r["Name"].ToString());
 

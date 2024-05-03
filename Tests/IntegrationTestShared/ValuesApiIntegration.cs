@@ -19,7 +19,7 @@ namespace IntegrationTests
 			//var task = authorizedClient.GetStringAsync(new Uri(baseUri, "api/Values"));
 			//var text = task.Result;
 			//var array = JArray.Parse(text);
-			var array = api.Get().ToArray();
+			string[] array = api.Get().ToArray();
 			Assert.Equal("value2", array[1]);
 		}
 
@@ -34,7 +34,7 @@ namespace IntegrationTests
 			//var task = authorizedClient.GetStringAsync(builder.ToString());
 			//var text = task.Result;
 			//var jObject = JValue.Parse(text);
-			var r = api.Get(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"");
+			string r = api.Get(1, "something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"");
 			Assert.Equal("something to say中文\\`-=|~!@#$%^&*()_+/|?[]{},.';<>:\"1", r);
 		}
 
@@ -55,14 +55,14 @@ namespace IntegrationTests
 			//var text = t.Result.Content.ReadAsStringAsync().Result;
 			//var jObject = JValue.Parse(text);
 			//Assert.Equal("VALUE", jObject.ToObject<string>());
-			var t = api.Post("value");
+			string t = api.Post("value");
 			Assert.Equal("VALUE", t);
 		}
 
 		[Fact]
 		public async Task TestValuesPostAsync()
 		{
-			var t = await api.PostAsync("value");
+			string t = await api.PostAsync("value");
 			Assert.Equal("VALUE", t);
 		}
 

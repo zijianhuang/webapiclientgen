@@ -87,16 +87,16 @@ namespace Tavis.UriTemplates
 
 		public string Resolve()
 		{
-			var result = ResolveResult();
+			Result result = ResolveResult();
 			return result.ToString();
 		}
 
 		private Result ResolveResult()
 		{
-			var currentState = States.CopyingLiterals;
-			var result = new Result();
+			States currentState = States.CopyingLiterals;
+			Result result = new Result();
 			StringBuilder currentExpression = null;
-			foreach (var character in _template.ToCharArray())
+			foreach (char character in _template.ToCharArray())
 			{
 				switch (currentState)
 				{
@@ -157,10 +157,10 @@ namespace Tavis.UriTemplates
 
 			OperatorInfo op = GetOperator(currentExpression[0]);
 
-			var firstChar = op.Default ? 0 : 1;
+			int firstChar = op.Default ? 0 : 1;
 			bool multivariableExpression = false;
 
-			var varSpec = new VarSpec(op);
+			VarSpec varSpec = new VarSpec(op);
 			for (int i = firstChar; i < currentExpression.Length; i++)
 			{
 				char currentChar = currentExpression[i];
@@ -171,7 +171,7 @@ namespace Tavis.UriTemplates
 						break;
 
 					case ':':  // Parse Prefix Modifier
-						var prefixText = new StringBuilder();
+						StringBuilder prefixText = new StringBuilder();
 						currentChar = currentExpression[++i];
 						while (currentChar >= '0' && currentChar <= '9' && i < currentExpression.Length)
 						{
@@ -185,7 +185,7 @@ namespace Tavis.UriTemplates
 
 					case ',':
 						multivariableExpression = true;
-						var success = ProcessVariable(varSpec, result, multivariableExpression);
+						bool success = ProcessVariable(varSpec, result, multivariableExpression);
 						bool isFirst = varSpec.First;
 						// Reset for new variable
 						varSpec = new VarSpec(op);
@@ -213,7 +213,7 @@ namespace Tavis.UriTemplates
 
 		private bool ProcessVariable(VarSpec varSpec, Result result, bool multiVariableExpression = false)
 		{
-			var varname = varSpec.VarName.ToString();
+			string varname = varSpec.VarName.ToString();
 			result.ParameterNames.Add(varname);
 
 			if (!_Parameters.TryGetValue(varname, out object value) || value == null
@@ -256,7 +256,7 @@ namespace Tavis.UriTemplates
 			// Handle Strings
 			if (v is string)
 			{
-				var stringValue = (string)v;
+				string stringValue = (string)v;
 				if (varSpec.OperatorInfo.Named)
 				{
 					result.AppendName(varname, varSpec.OperatorInfo, string.IsNullOrEmpty(stringValue));
@@ -266,7 +266,7 @@ namespace Tavis.UriTemplates
 			else
 			{
 				// Handle Lists
-				var list = v as IList;
+				IList list = v as IList;
 				if (list == null && v is IEnumerable<string>)
 				{
 					list = ((IEnumerable<string>)v).ToList<string>();
@@ -284,7 +284,7 @@ namespace Tavis.UriTemplates
 				{
 
 					// Handle associative arrays
-					var dictionary = v as IDictionary<string, string>;
+					IDictionary<string, string> dictionary = v as IDictionary<string, string>;
 					if (dictionary != null)
 					{
 						if (varSpec.OperatorInfo.Named && !varSpec.Explode)  // exploding will prefix with list name
@@ -296,7 +296,7 @@ namespace Tavis.UriTemplates
 					else
 					{
 						// If above all fails, convert the object to string using the default object.ToString() implementation
-						var stringValue = v.ToString();
+						string stringValue = v.ToString();
 						if (varSpec.OperatorInfo.Named)
 						{
 							result.AppendName(varname, varSpec.OperatorInfo, string.IsNullOrEmpty(stringValue));
@@ -363,21 +363,21 @@ namespace Tavis.UriTemplates
 					{
 						if (_ParameterRegex == null)
 						{
-							var matchingRegex = CreateMatchingRegex(_template);
+							string matchingRegex = CreateMatchingRegex(_template);
 							lock (_syncRoot)
 							{
 								_ParameterRegex = new Regex(matchingRegex);
 							}
 						}
 
-						var match = _ParameterRegex.Match(uri.OriginalString);
-						var parameters = new Dictionary<string, object>();
+						Match match = _ParameterRegex.Match(uri.OriginalString);
+						Dictionary<string, object> parameters = new Dictionary<string, object>();
 
 						for (int x = 1; x < match.Groups.Count; x++)
 						{
 							if (match.Groups[x].Success)
 							{
-								var paramName = _ParameterRegex.GroupNameFromNumber(x);
+								string paramName = _ParameterRegex.GroupNameFromNumber(x);
 								if (!string.IsNullOrEmpty(paramName))
 								{
 									parameters.Add(paramName, Uri.UnescapeDataString(match.Groups[x].Value));
@@ -392,15 +392,15 @@ namespace Tavis.UriTemplates
 						if (!uri.IsAbsoluteUri)
 							uri = new Uri(_ComponentBaseUri, uri);
 
-						var uriString = uri.GetComponents(UriComponents.SchemeAndServer | UriComponents.Path | UriComponents.Fragment, UriFormat.UriEscaped);
-						var uriWithoutQuery = new Uri(uriString, UriKind.Absolute);
+						string uriString = uri.GetComponents(UriComponents.SchemeAndServer | UriComponents.Path | UriComponents.Fragment, UriFormat.UriEscaped);
+						Uri uriWithoutQuery = new Uri(uriString, UriKind.Absolute);
 
-						var pathParameters = GetParameters(uriWithoutQuery) ?? new Dictionary<string, object>(_Parameters.Comparer);
+						IDictionary<string, object> pathParameters = GetParameters(uriWithoutQuery) ?? new Dictionary<string, object>(_Parameters.Comparer);
 
 						Result result = ResolveResult();
 
-						var parameterNames = result.ParameterNames;
-						foreach (var parameter in uri.GetQueryStringParameters())
+						IList<string> parameterNames = result.ParameterNames;
+						foreach (KeyValuePair<string, object> parameter in uri.GetQueryStringParameters())
 						{
 							if (!parameterNames.Contains(parameter.Key))
 								continue;
@@ -416,13 +416,13 @@ namespace Tavis.UriTemplates
 
 		public static string CreateMatchingRegex(string uriTemplate)
 		{
-			var findParam = new Regex(varspec);
+			Regex findParam = new Regex(varspec);
 
-			var template = new Regex(@"([^{]|^)\?").Replace(uriTemplate, @"$+\?"); ;//.Replace("?",@"\?");
-			var regex = findParam.Replace(template, delegate (Match m)
+			string template = new Regex(@"([^{]|^)\?").Replace(uriTemplate, @"$+\?"); ;//.Replace("?",@"\?");
+			string regex = findParam.Replace(template, delegate (Match m)
 			{
-				var paramNames = m.Groups["lvar"].Captures.Cast<Capture>().Where(c => !string.IsNullOrEmpty(c.Value)).Select(c => c.Value).ToList();
-				var op = m.Groups["op"].Value;
+				List<string> paramNames = m.Groups["lvar"].Captures.Cast<Capture>().Where(c => !string.IsNullOrEmpty(c.Value)).Select(c => c.Value).ToList();
+				string op = m.Groups["op"].Value;
 				switch (op)
 				{
 					case "?":
@@ -447,14 +447,14 @@ namespace Tavis.UriTemplates
 
 		public static string CreateMatchingRegex2(string uriTemplate)
 		{
-			var findParam = new Regex(varspec);
+			Regex findParam = new Regex(varspec);
 			//split by host/path/query/fragment
 
-			var template = new Regex(@"([^{]|^)\?").Replace(uriTemplate, @"$+\?"); ;//.Replace("?",@"\?");
-			var regex = findParam.Replace(template, delegate (Match m)
+			string template = new Regex(@"([^{]|^)\?").Replace(uriTemplate, @"$+\?"); ;//.Replace("?",@"\?");
+			string regex = findParam.Replace(template, delegate (Match m)
 			{
-				var paramNames = m.Groups["lvar"].Captures.Cast<Capture>().Where(c => !string.IsNullOrEmpty(c.Value)).Select(c => c.Value).ToList();
-				var op = m.Groups["op"].Value;
+				List<string> paramNames = m.Groups["lvar"].Captures.Cast<Capture>().Where(c => !string.IsNullOrEmpty(c.Value)).Select(c => c.Value).ToList();
+				string op = m.Groups["op"].Value;
 				switch (op)
 				{
 					case "?":
@@ -480,7 +480,7 @@ namespace Tavis.UriTemplates
 		private static string GetQueryExpression(List<String> paramNames, string prefix)
 		{
 			StringBuilder sb = new StringBuilder();
-			foreach (var paramname in paramNames)
+			foreach (string paramname in paramNames)
 			{
 
 				sb.Append(@"\" + prefix + "?");
@@ -533,7 +533,7 @@ namespace Tavis.UriTemplates
 
 			}
 
-			foreach (var paramname in paramNames)
+			foreach (string paramname in paramNames)
 			{
 				if (string.IsNullOrEmpty(paramname)) continue;
 

@@ -15,13 +15,13 @@ namespace Fonlow.DateOnlyExtensions
 
 		public override DateOnly ReadJson(JsonReader reader, Type objectType, DateOnly existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			var v = reader.Value;
+			object? v = reader.Value;
 			if (v == null)
 			{
 				return DateOnly.MinValue;
 			}
 
-			var vType = v.GetType();
+			Type vType = v.GetType();
 			if (vType == typeOfDateTimeOffset) //when the object is from a property in POST body. When used in service, better to have options.SerializerSettings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTimeOffset;
 			{
 				return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
@@ -29,7 +29,7 @@ namespace Fonlow.DateOnlyExtensions
 
 			if (vType == typeOfString)
 			{
-				var vs = (string)v;
+				string vs = (string)v;
 				if (String.IsNullOrEmpty(vs))
 				{
 					return DateOnly.MinValue;
@@ -73,13 +73,13 @@ namespace Fonlow.DateOnlyExtensions
 				return existingValue;
 			}
 
-			var v = reader.Value;
+			object? v = reader.Value;
 			if (v == null)
 			{
 				return null;
 			}
 
-			var vType = v.GetType();
+			Type vType = v.GetType();
 			if (vType == typeOfDateTimeOffset) //when the object is from a property in POST body
 			{
 				return DateOnly.FromDateTime(((DateTimeOffset)v).DateTime);
@@ -87,7 +87,7 @@ namespace Fonlow.DateOnlyExtensions
 
 			if (vType == typeOfString)
 			{
-				var vs = (string)v;
+				string vs = (string)v;
 				if (String.IsNullOrEmpty(vs))
 				{
 					return null;

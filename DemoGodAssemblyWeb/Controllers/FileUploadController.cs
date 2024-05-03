@@ -34,13 +34,13 @@ namespace DemoWebApi.Controllers
 			long size = files.Sum(f => f.Length);
 			List<string> fileNames = new List<string>(files.Count);
 
-			foreach (var formFile in files)
+			foreach (IFormFile formFile in files)
 			{
 				if (formFile.Length > 0)
 				{
-					var filePath = Path.GetTempFileName();
+					string filePath = Path.GetTempFileName();
 
-					using (var stream = System.IO.File.Create(filePath))
+					using (FileStream stream = System.IO.File.Create(filePath))
 					{
 						await formFile.CopyToAsync(stream);
 					}

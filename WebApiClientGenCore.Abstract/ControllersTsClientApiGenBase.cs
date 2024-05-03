@@ -65,7 +65,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// </summary>
 		public void Save()
 		{
-			using var provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(CreateCodeObjectHelper(jsOutput.AsModule)));
+			using TypeScriptCodeProvider provider = new TypeScriptCodeProvider(new Fonlow.TypeScriptCodeDom.TsCodeGenerator(CreateCodeObjectHelper(jsOutput.AsModule)));
 			using StreamWriter writer = new(jsOutput.JSPath);
 			provider.GenerateCodeFromCompileUnit(TargetUnit, writer, TsCodeGenerationOptions.Instance);
 		}
@@ -83,17 +83,17 @@ namespace Fonlow.CodeDom.Web.Ts
 			GenerateTsFromPoco();
 
 			//controllers of ApiDescriptions (functions) grouped by namespace
-			var controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
+			IOrderedEnumerable<IGrouping<string, ControllerDescriptor>> controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
 				.Distinct()
 				.GroupBy(d => d.ControllerType.Namespace)
 				.OrderBy(k => k.Key);// order by namespace
 
 			//Create client classes mapping to controller classes
 			CodeTypeDeclaration[] newControllerClassesCreated = null;
-			foreach (var grouppedControllerDescriptions in controllersGroupByNamespace)
+			foreach (IGrouping<string, ControllerDescriptor> grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
-				var clientNamespaceText = (grouppedControllerDescriptions.Key + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
-				var clientNamespace = new CodeNamespace(clientNamespaceText);
+				string clientNamespaceText = (grouppedControllerDescriptions.Key + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
+				CodeNamespace clientNamespace = new CodeNamespace(clientNamespaceText);
 
 				TargetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
@@ -101,12 +101,12 @@ namespace Fonlow.CodeDom.Web.Ts
 					.OrderBy(d => d.ControllerName)
 					.Select(d =>
 					{
-						var controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
+						string controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
 						if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
 
 						string containerClassName = GetContainerClassName(d.ControllerName); // optionally become EntitiesClient
-						var controllerCodeTypeDeclaration = CreateControllerClientClass(clientNamespace, containerClassName);
+						CodeTypeDeclaration controllerCodeTypeDeclaration = CreateControllerClientClass(clientNamespace, containerClassName);
 
 						Fonlow.DocComment.docMember typeComments = null;
 						string[] docCommentsNoIndent = null;
@@ -119,14 +119,14 @@ namespace Fonlow.CodeDom.Web.Ts
 							}
 						}
 
-						var attributeComments = AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
+						string[] attributeComments = AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(d.ControllerType.GetCustomAttributes(false).OfType<Attribute>().ToArray());
 
 						if (docCommentsNoIndent?.Length > 0 || attributeComments?.Length > 0)
 						{
-							var sb = new StringBuilder();
+							StringBuilder sb = new StringBuilder();
 							if (docCommentsNoIndent?.Length > 0)
 							{
-								foreach (var item in docCommentsNoIndent)
+								foreach (string item in docCommentsNoIndent)
 								{
 									sb.AppendLine(item);
 								}
@@ -134,7 +134,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 							if (attributeComments?.Length > 0)
 							{
-								foreach (var item in attributeComments)
+								foreach (string item in attributeComments)
 								{
 									sb.AppendLine(item);
 								}
@@ -147,18 +147,18 @@ namespace Fonlow.CodeDom.Web.Ts
 					}).Where(d => d != null).ToArray();//add classes into the namespace
 			}
 
-			foreach (var d in webApiDescriptions)
+			foreach (WebApiDescription d in webApiDescriptions)
 			{
-				var controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
-				var controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
-				var controllerFullName = controllerNamespace + "." + controllerName;
+				string controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
+				string controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
+				string controllerFullName = controllerNamespace + "." + controllerName;
 				if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
 					continue;
 
-				var existingClientClass = LookupExistingClassInCodeDom(controllerNamespace, GetContainerClassName(controllerName));
+				CodeTypeDeclaration existingClientClass = LookupExistingClassOfTsInCodeDom(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				var apiFunction = apiFunctionGen.CreateApiFunction(d, Poco2TsGen, poco2CsGen, this.jsOutput);
+				CodeMemberMethod apiFunction = apiFunctionGen.CreateApiFunction(d, Poco2TsGen, poco2CsGen, this.jsOutput);
 				existingClientClass.Members.Add(apiFunction);
 			}
 
@@ -166,7 +166,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (newControllerClassesCreated != null) //If no controllers is picked up, this could be null.
 			{
-				foreach (var c in newControllerClassesCreated)
+				foreach (CodeTypeDeclaration c in newControllerClassesCreated)
 				{
 					AddHelperFunctionsInClass(c);
 				}
@@ -181,31 +181,31 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			if (apiSelections.DataModelAssemblyNames != null)
 			{
-				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				var assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.OrdinalIgnoreCase)))
+				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+				Assembly[] assemblies = allAssemblies.Where(d => apiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.OrdinalIgnoreCase)))
 					.OrderBy(n => n.FullName)
 					.ToArray();
-				var cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-				foreach (var assembly in assemblies)
+				CherryPickingMethods cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+				foreach (Assembly assembly in assemblies)
 				{
-					var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
-					var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
+					string xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
+					DocComment.DocCommentLookup docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 					Poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, jsOutput.DataAnnotationsToComments);
 				}
 			}
 
 			if (apiSelections.DataModels != null)
 			{
-				var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				foreach (var dataModel in apiSelections.DataModels)
+				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+				foreach (DataModel dataModel in apiSelections.DataModels)
 				{
-					var assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dataModel.AssemblyName, StringComparison.OrdinalIgnoreCase));
+					Assembly assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dataModel.AssemblyName, StringComparison.OrdinalIgnoreCase));
 					if (assembly != null)
 					{
-						var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
-						var docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-						var cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-						var dataAnnotationsToComments = (dataModel.DataAnnotationsToComments.HasValue && dataModel.DataAnnotationsToComments.Value) // dm explicitly tell to do
+						string xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
+						DocComment.DocCommentLookup docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
+						CherryPickingMethods cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+						bool dataAnnotationsToComments = (dataModel.DataAnnotationsToComments.HasValue && dataModel.DataAnnotationsToComments.Value) // dm explicitly tell to do
 							|| (!dataModel.DataAnnotationsToComments.HasValue && jsOutput.DataAnnotationsToComments);
 						Poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, dataAnnotationsToComments);
 					}
@@ -224,17 +224,17 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <param name="clrNamespaceText"></param>
 		/// <param name="containerClassName"></param>
 		/// <returns></returns>
-		CodeTypeDeclaration LookupExistingClassInCodeDom(string clrNamespaceText, string containerClassName)
+		CodeTypeDeclaration LookupExistingClassOfTsInCodeDom(string clrNamespaceText, string containerClassName)
 		{
-			var refined = (clrNamespaceText + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
+			string refined = (clrNamespaceText + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
 			for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
 			{
-				var ns = TargetUnit.Namespaces[i];
+				CodeNamespace ns = TargetUnit.Namespaces[i];
 				if (ns.Name == refined)
 				{
 					for (int k = 0; k < ns.Types.Count; k++)
 					{
-						var c = ns.Types[k];
+						CodeTypeDeclaration c = ns.Types[k];
 						if (c.Name == containerClassName)
 							return c;
 					}
@@ -251,10 +251,10 @@ namespace Fonlow.CodeDom.Web.Ts
 		{
 			for (int i = 0; i < TargetUnit.Namespaces.Count; i++)
 			{
-				var ns = TargetUnit.Namespaces[i];
+				CodeNamespace ns = TargetUnit.Namespaces[i];
 				for (int k = 0; k < ns.Types.Count; k++)
 				{
-					var td = ns.Types[k];
+					CodeTypeDeclaration td = ns.Types[k];
 					RefineOverloadingFunctionsOfType(td);
 				}
 			}
@@ -274,12 +274,12 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (methods.Count > 1)//worth of checking overloading
 			{
-				var candidates = from m in methods group m by m.Name into grp where grp.Count() > 1 select grp.Key;
-				foreach (var candidateName in candidates)
+				IEnumerable<string> candidates = from m in methods group m by m.Name into grp where grp.Count() > 1 select grp.Key;
+				foreach (string candidateName in candidates)
 				{
-					var overloadingMethods = methods.Where(d => d.Name == candidateName).ToArray();
+					CodeMemberMethod[] overloadingMethods = methods.Where(d => d.Name == candidateName).ToArray();
 					//System.Diagnostics.Debug.Assert(overloadingMethods.Length > 1);
-					foreach (var item in overloadingMethods) //Wow, 5 nested loops, plus 2 linq expressions
+					foreach (CodeMemberMethod item in overloadingMethods) //Wow, 5 nested loops, plus 2 linq expressions
 					{
 						RenameCodeMemberMethodWithParameterNames(item);
 					}
@@ -299,7 +299,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <returns></returns>
 		string ToMethodNameSuffix(CodeParameterDeclarationExpression d)
 		{
-			var pn = ToTitleCase(d.Name);
+			string pn = ToTitleCase(d.Name);
 			if (pn.EndsWith('?'))
 			{
 				pn = pn.Substring(0, pn.Length - 1);
@@ -308,7 +308,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			string typeName = string.Empty;
 			if (jsOutput.MethodSuffixWithClrTypeName && (d.UserData.Contains(UserDataKeys.ParameterDescriptor)))
 			{
-				var pt = d.UserData[UserDataKeys.ParameterDescriptor] as ParameterDescriptor;
+				ParameterDescriptor pt = d.UserData[UserDataKeys.ParameterDescriptor] as ParameterDescriptor;
 				typeName = pt.ParameterType.Name;
 			}
 			else
@@ -324,7 +324,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (method.Parameters.Count == 0)
 				return;
 
-			var parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>()
+			List<string> parameterNamesInTitleCase = method.Parameters.OfType<CodeParameterDeclarationExpression>()
 				.Where(k => k.Name != "headersHandler?")
 				.Select(d => ToMethodNameSuffix(d)).ToList();
 
@@ -338,7 +338,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				return item;
 			}).Where(k => !string.IsNullOrEmpty(k)).ToList();
 
-			var lastParameter = parameterNamesInTitleCase.LastOrDefault();//for JQ output
+			string lastParameter = parameterNamesInTitleCase.LastOrDefault();//for JQ output
 			if ("callback".Equals(lastParameter, StringComparison.Ordinal))
 			{
 				parameterNamesInTitleCase.RemoveAt(parameterNamesInTitleCase.Count - 1);
@@ -352,7 +352,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		CodeTypeDeclaration CreateControllerClientClass(CodeNamespace ns, string className)
 		{
-			var targetClass = new CodeTypeDeclaration(className)
+			CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className)
 			{
 				IsClass = true,
 				IsPartial = true,

@@ -83,8 +83,8 @@ namespace DemoWebApi.Controllers
 		[return: System.Diagnostics.CodeAnalysis.NotNull]
 		static Hero CreateHero(string name)
 		{
-			var max = HeroesData.Instance.Dic.Keys.Max();
-			var hero = new Hero(max + 1, name);
+			long max = HeroesData.Instance.Dic.Keys.Max();
+			Hero hero = new Hero(max + 1, name);
 			hero.PhoneNumbers.Add(new DemoData.PhoneNumber { FullNumber = "33242343242", PhoneType = DemoData.PhoneType.Tel });
 			hero.PhoneNumbers.Add(new DemoData.PhoneNumber { FullNumber = "0898sdf43434", PhoneType = DemoData.PhoneType.Mobile });
 			hero.Address = new DemoData.Address
@@ -118,14 +118,14 @@ namespace DemoWebApi.Controllers
 		[HttpGet("search/{name}")]
 		public Hero[] Search(string name)
 		{
-			var values = HeroesData.Instance.Dic.Values;
+			ICollection<Hero> values = HeroesData.Instance.Dic.Values;
 			return values.Where(d => d.Name.Contains(name)).ToArray();
 		}
 
 		[HttpGet("asyncHeroes")]
 		public async IAsyncEnumerable<Hero> GetAsyncHeroes()
 		{
-			foreach (var item in HeroesData.Instance.Dic.Values)
+			foreach (Hero item in HeroesData.Instance.Dic.Values)
 			{
 				await System.Threading.Tasks.Task.Delay(1);
 				yield return item;

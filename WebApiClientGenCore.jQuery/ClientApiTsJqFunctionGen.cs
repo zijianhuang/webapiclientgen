@@ -34,26 +34,26 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void RenderImplementation()
 		{
-			var parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
+			System.Collections.Generic.List<CodeParameterDeclarationExpression> parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d => {
-					var originalType = d.ParameterDescriptor.ParameterType;
-					var originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
+					Type originalType = d.ParameterDescriptor.ParameterType;
+					CodeTypeReference originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
 					originalCodeTypeReference.UserData.Add(UserDataKeys.IsMethodParameter, true); // so I can add optional null later
-					var exp = new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
+					CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
 					exp.UserData.Add(UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 					return exp;
 				}).ToList();
 
-			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
+			CodeTypeReference returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			if (returnTypeReference.BaseType == "response")//response is for NG2 with better built-in support for typing, and get translated to HttpResponse<Blob>
 			{
 				returnTypeReference.BaseType = "any";
 			}
 
-			var callbackTypeText = String.Format("(data : {0}) => any", TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference));
+			string callbackTypeText = String.Format("(data : {0}) => any", TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference));
 			Debug.WriteLine("callback: " + callbackTypeText);
-			var callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);
+			CodeSnipetTypeReference callbackTypeReference = new CodeSnipetTypeReference(callbackTypeText);
 			parameters.Add(new CodeParameterDeclarationExpression(callbackTypeReference, "callback"));
 
 			Method.Parameters.AddRange(parameters.ToArray());
@@ -64,7 +64,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					"() => {[header: string]: string}", "headersHandler?"));
 			}
 
-			var uriText = GetFullUriText();
+			string uriText = GetFullUriText();
 
 			string headerHandlerCall = handleHttpRequestHeaders ? ", headersHandler" : String.Empty;
 
@@ -74,16 +74,16 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 			else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 			{
-				var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+				ParameterDescription[] fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 					|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
 					|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
 				if (fromBodyParameterDescriptions.Length > 1)
 				{
 					throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
 				}
-				var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+				ParameterDescription singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
-				var dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
+				string dataToPost = singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 
 				if (dataToPost == "null")
 				{

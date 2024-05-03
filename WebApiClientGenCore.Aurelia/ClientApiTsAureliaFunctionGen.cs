@@ -61,7 +61,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeMemberMethod CreateMethodName()
 		{
-			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
+			CodeTypeReference returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
 			{
@@ -86,9 +86,9 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 			}
 
-			var callbackTypeText = $"Promise<{returnTypeText}>";
+			string callbackTypeText = $"Promise<{returnTypeText}>";
 			Debug.WriteLine("callback: " + callbackTypeText);
-			var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
+			CodeSnipetTypeReference returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
 
 			return new CodeMemberMethod()
 			{
@@ -107,9 +107,9 @@ namespace Fonlow.CodeDom.Web.Ts
 					"() => {[header: string]: string}", "headersHandler?"));
 			}
 
-			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
-			var hasArrayJoin = !string.IsNullOrWhiteSpace(jsUriQuery) && jsUriQuery.Contains(".join(");
-			var uriText = jsUriQuery == null ? $"'{Description.RelativePath}'" :
+			string jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
+			bool hasArrayJoin = !string.IsNullOrWhiteSpace(jsUriQuery) && jsUriQuery.Contains(".join(");
+			string uriText = jsUriQuery == null ? $"'{Description.RelativePath}'" :
 				RemoveTrialEmptyString(hasArrayJoin ? $"'{jsUriQuery}" : $"'{jsUriQuery}'"); //Aurelia expect relative path.
 
 			if (ReturnType != null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
@@ -122,7 +122,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForString}).then(d => {{if (d.status<=204) return d.status == 204 ? null : d.text(); throw d;}});"));
@@ -145,7 +145,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForString}).then(d => {{if (d.status<=204) return d.blob(); throw d;}});"));
@@ -168,7 +168,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{OptionsForResponse}).then(d => {{if (d.status<=204) return d.json(); throw d;}});"));
@@ -192,7 +192,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return this.http.{HttpMethodName}({uriText}, null{Options});"));
@@ -220,7 +220,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response
 					{
 						if (dataToPost == "null")//no content body

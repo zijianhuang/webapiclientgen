@@ -13,7 +13,7 @@ namespace Fonlow.DocComment
 		/// <returns>lines in a string but without indent.</returns>
 		public static string TrimIndentsOfMultiLineText(string s)
 		{
-			var noIndent = TrimIndentedMultiLineTextToArray(s);
+			string[] noIndent = TrimIndentedMultiLineTextToArray(s);
 			if (noIndent == null)
 				return null;
 
@@ -38,8 +38,8 @@ namespace Fonlow.DocComment
 			if (String.IsNullOrWhiteSpace(s))
 				return null;
 
-			var ss = s.Split(new string[] { Environment.NewLine, "\n" }, StringSplitOptions.None);
-			var noIndent = ss.Select(d => d.Trim()).ToArray();
+			string[] ss = s.Split(new string[] { Environment.NewLine, "\n" }, StringSplitOptions.None);
+			string[] noIndent = ss.Select(d => d.Trim()).ToArray();
 			return noIndent;
 		}
 
@@ -54,9 +54,9 @@ namespace Fonlow.DocComment
 				return null;
 
 			List<string> list = new List<string>();
-			foreach (var item in ss)
+			foreach (string item in ss)
 			{
-				var ar = TrimIndentedMultiLineTextToArray(item);
+				string[] ar = TrimIndentedMultiLineTextToArray(item);
 				if (ar != null)
 					list.AddRange(ar);
 			}
@@ -71,7 +71,7 @@ namespace Fonlow.DocComment
 		/// <returns></returns>
 		public static IList<string> TrimTrimIndentsOfArray(IEnumerable<string> ss)
 		{
-			var list = TrimIndentsOfArray(ss);
+			IList<string> list = TrimIndentsOfArray(ss);
 			if (list == null)
 				return null;
 

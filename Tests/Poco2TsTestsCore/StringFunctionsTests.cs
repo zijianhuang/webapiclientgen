@@ -59,7 +59,7 @@ lmn";
 				"   lmn"
 			};
 
-			var refined = StringFunctions.TrimIndentsOfArray(s);
+			System.Collections.Generic.IList<string> refined = StringFunctions.TrimIndentsOfArray(s);
 			Assert.Equal("abc", refined[0]);
 			Assert.Equal("efg hijk", refined[1]);
 			Assert.Equal("lmn", refined[2]);
@@ -75,7 +75,7 @@ lmn";
 	  lmn"
 		};
 
-			var refined = StringFunctions.TrimIndentsOfArray(s);
+			System.Collections.Generic.IList<string> refined = StringFunctions.TrimIndentsOfArray(s);
 			Assert.Equal("abc", refined[0]);
 		}
 
@@ -105,8 +105,8 @@ lmn";
 		[Fact]
 		public void TestIssue8()
 		{
-			var s = "this.baseUri+'/api/admin/order/{id}/history+''";
-			var p = s.IndexOf("+''");
+			string s = "this.baseUri+'/api/admin/order/{id}/history+''";
+			int p = s.IndexOf("+''");
 			Assert.True(p > -1);
 		  //  return s.Remove(p, 3);
 		}

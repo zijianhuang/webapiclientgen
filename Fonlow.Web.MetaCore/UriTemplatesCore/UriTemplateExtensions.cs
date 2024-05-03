@@ -29,7 +29,7 @@ namespace Tavis.UriTemplates
                 properties = parametersObject.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
 #endif
 
-                foreach (var propinfo in properties)
+                foreach (PropertyInfo propinfo in properties)
                 {
                     template.SetParameter(propinfo.Name, propinfo.GetValue(parametersObject, null));
                 }
@@ -41,7 +41,7 @@ namespace Tavis.UriTemplates
         {
             if (linkParameters != null)
             {
-                foreach (var parameter in linkParameters)
+                foreach (KeyValuePair<string, object> parameter in linkParameters)
                 {
                     uriTemplate.SetParameter(parameter.Key, parameter.Value);
                 }
@@ -54,17 +54,17 @@ namespace Tavis.UriTemplates
     {
         public static UriTemplate MakeTemplate(this Uri uri)
         {
-            var parameters = uri.GetQueryStringParameters();
+			Dictionary<string, object> parameters = uri.GetQueryStringParameters();
             return MakeTemplate(uri, parameters);
 
         }
 
         public static UriTemplate MakeTemplate(this Uri uri, IDictionary<string, object> parameters)
         {
-            var target = uri.GetComponents(UriComponents.AbsoluteUri
+			string target = uri.GetComponents(UriComponents.AbsoluteUri
                                                      & ~UriComponents.Query
                                                      & ~UriComponents.Fragment, UriFormat.Unescaped);
-            var template = new UriTemplate(target + "{?" + string.Join(",", parameters.Keys.ToArray()) + "}");
+			UriTemplate template = new UriTemplate(target + "{?" + string.Join(",", parameters.Keys.ToArray()) + "}");
             template.AddParameters(parameters);
 
             return template;
@@ -73,9 +73,9 @@ namespace Tavis.UriTemplates
         public static Dictionary<string, object> GetQueryStringParameters(this Uri target)
         {
             Uri uri = target;
-            var parameters = new Dictionary<string, object>();
+			Dictionary<string, object> parameters = new Dictionary<string, object>();
 
-            var reg = new Regex(@"([-A-Za-z0-9._~]*)=([^&]*)&?");		// Unreserved characters: http://tools.ietf.org/html/rfc3986#section-2.3
+			Regex reg = new Regex(@"([-A-Za-z0-9._~]*)=([^&]*)&?");		// Unreserved characters: http://tools.ietf.org/html/rfc3986#section-2.3
             foreach (Match m in reg.Matches(uri.Query))
             {
                 string key = m.Groups[1].Value.ToLower(CultureInfo.CurrentCulture);

@@ -14,18 +14,18 @@ namespace WebApiClientGenCore.Abstract
 		/// <returns></returns>
 		public static string[] CreateDocCommentBasedOnAttributes(Attribute[] customAttributes)
 		{
-			var stringList = new List<string>();
-			var statusCodeList = new List<string>();
-			var authorizeDescription = "";
+			List<string> stringList = new List<string>();
+			List<string> statusCodeList = new List<string>();
+			string authorizeDescription = "";
 
-			foreach (var c in customAttributes)
+			foreach (Attribute c in customAttributes)
 			{
-				var typeFullName = c.GetType().FullName;
+				string typeFullName = c.GetType().FullName;
 				if (typeFullName == "Microsoft.AspNetCore.Authorization.AuthorizeAttribute")
 				{
-					var roles = TypeHelper.GetAttributePropertyValue(c, "Roles")?.ToString();
-					var schemes = TypeHelper.GetAttributePropertyValue(c, "AuthenticationSchemes")?.ToString();
-					var policy = TypeHelper.GetAttributePropertyValue(c, "Policy")?.ToString();
+					string roles = TypeHelper.GetAttributePropertyValue(c, "Roles")?.ToString();
+					string schemes = TypeHelper.GetAttributePropertyValue(c, "AuthenticationSchemes")?.ToString();
+					string policy = TypeHelper.GetAttributePropertyValue(c, "Policy")?.ToString();
 					if (!string.IsNullOrEmpty(schemes))
 					{
 						authorizeDescription += schemes;
@@ -45,12 +45,12 @@ namespace WebApiClientGenCore.Abstract
 
 				if (typeFullName == "Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute")
 				{
-					var statusCodeText = TypeHelper.GetAttributePropertyValue(c, "StatusCode")?.ToString();
+					string statusCodeText = TypeHelper.GetAttributePropertyValue(c, "StatusCode")?.ToString();
 					if (statusCodeText != null)
 					{
-						var code = int.Parse(statusCodeText);
-						var typeText = TypeHelper.GetAttributePropertyValue(c, "Type")?.ToString();
-						var responseText = $"{code}:{((HttpStatusCode)code).ToString()}";
+						int code = int.Parse(statusCodeText);
+						string typeText = TypeHelper.GetAttributePropertyValue(c, "Type")?.ToString();
+						string responseText = $"{code}:{((HttpStatusCode)code).ToString()}";
 						if (typeText != "System.Void" && !String.IsNullOrEmpty(typeText))
 						{
 							responseText += $" : {typeText}";

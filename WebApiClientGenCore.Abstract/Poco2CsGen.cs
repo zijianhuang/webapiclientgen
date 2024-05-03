@@ -28,7 +28,8 @@ namespace Fonlow.Poco2Client
 	public class Poco2CsGen : IDocCommentTranslate
 	{
 		readonly CodeCompileUnit codeCompileUnit;
-		readonly CodeGenOutputs settings;
+		readonly CodeGenOutputs codeGenOutputsSettings;
+		readonly CodeGenSettings codeGenSettings;
 		readonly CodeDomProvider codeDomProvider;
 
 		DocCommentLookup docLookup;
@@ -48,12 +49,13 @@ namespace Fonlow.Poco2Client
 		/// Gen will share the same CodeCompileUnit with other CodeGen components which generate client API codes.
 		/// </summary>
 		/// <param name="codeCompileUnit"></param>
-		public Poco2CsGen(CodeCompileUnit codeCompileUnit, CodeDomProvider csharpCodeDomProvider, CodeGenOutputs settings)
+		public Poco2CsGen(CodeCompileUnit codeCompileUnit, CodeDomProvider csharpCodeDomProvider, CodeGenSettings codeGenSettings)
 		{
 			this.codeCompileUnit = codeCompileUnit;
 			codeDomProvider = csharpCodeDomProvider;
 			pendingTypes = new List<Type>();
-			this.settings = settings;
+			this.codeGenSettings = codeGenSettings;
+			this.codeGenOutputsSettings = codeGenSettings.ClientApiOutputs;
 
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
 			attribueCommentDic = annotationCommentGenerator.Get();
@@ -71,11 +73,11 @@ namespace Fonlow.Poco2Client
 		/// <returns>CodeDOM namespaces containing POCO classes.</returns>
 		public CodeNamespaceEx[] CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods methods, bool? dataAnnotationsToComments)
 		{
-			var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
+			string xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 			docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 			this.dataAnnotationsToComments = dataAnnotationsToComments;
-			var cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
-			return CreateCodeDomForTypes(cherryTypes, methods, settings.CSClientNamespaceSuffix);
+			Type[] cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
+			return CreateCodeDomForTypes(cherryTypes, methods);
 		}
 
 
@@ -106,8 +108,8 @@ namespace Fonlow.Poco2Client
 			else if (type.IsArray)
 			{
 				Debug.Assert(type.Name.EndsWith(']'));
-				var elementType = type.GetElementType();
-				var arrayRank = type.GetArrayRank();
+				Type elementType = type.GetElementType();
+				int arrayRank = type.GetArrayRank();
 				return CreateArrayTypeReference(elementType, arrayRank);
 			}
 			else
@@ -122,7 +124,7 @@ namespace Fonlow.Poco2Client
 					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
 
 				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return settings.UseSystemTextJson ? new CodeTypeReference("System.Text.Json.Nodes.JsonObject") : new CodeTypeReference("Newtonsoft.Json.Linq.JObject"); // possible only after .NET 6
+					return codeGenOutputsSettings.UseSystemTextJson ? new CodeTypeReference("System.Text.Json.Nodes.JsonObject") : new CodeTypeReference("Newtonsoft.Json.Linq.JObject"); // possible only after .NET 6
 			}
 
 			return new CodeTypeReference(type);
@@ -136,21 +138,21 @@ namespace Fonlow.Poco2Client
 		/// <param name="cherryPickingMethods">How to cherry pick data to be exposed to the clients.</param>
 		/// <param name="clientNamespaceSuffix"></param>
 		/// <returns>Namespaces of types.</returns>
-		CodeNamespaceEx[] CreateCodeDomForTypes(Type[] types, CherryPickingMethods cherryPickingMethods, string clientNamespaceSuffix)
+		CodeNamespaceEx[] CreateCodeDomForTypes(Type[] types, CherryPickingMethods cherryPickingMethods)
 		{
 			if (types == null)
 				throw new ArgumentNullException(nameof(types), "types is not defined.");
 
 			this.pendingTypes.AddRange(types);
 
-			var typeGroupedByNamespace = types
+			IGrouping<string, Type>[] typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
 				.OrderBy(k => k.Key).ToArray(); // order by namespace
 			string[] namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
 			List<CodeNamespaceEx> clientNamespaceNames = new();
-			foreach (var groupedTypes in typeGroupedByNamespace)
+			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
-				var clientNamespaceText = (groupedTypes.Key + clientNamespaceSuffix);
+				string clientNamespaceText = groupedTypes.Key + codeGenOutputsSettings.CSClientNamespaceSuffix;
 				CodeNamespaceEx clientNamespace = new CodeNamespaceEx(clientNamespaceText, true);
 				codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 				clientNamespaceNames.Add(clientNamespace);
@@ -165,9 +167,40 @@ namespace Fonlow.Poco2Client
 			return clientNamespaceNames.ToArray();
 		}
 
+		/// <summary>
+		/// Check if custom Poco type is already registered as a client type.
+		/// If not, create a new CodeTypeDeclaration, optionally with a new CodeNamespace
+		/// </summary>
+		/// <param name="pocoType">Existing or newly created CodeTypeDeclaration.</param>
+		/// <returns></returns>
+		public CodeTypeDeclaration CheckOrAdd(Type pocoType)
+		{
+			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(pocoType.Namespace, pocoType.Name);
+			if (codeTypeDeclaration != null)
+			{
+				return codeTypeDeclaration;
+			}
+
+			string clientNamespaceText = pocoType.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
+			CodeNamespace clientNamespace = new CodeNamespaceEx(clientNamespaceText, true);
+			int foundIndex = codeCompileUnit.Namespaces.IndexOf(clientNamespace);
+			if (foundIndex >= 0)
+			{
+				clientNamespace = codeCompileUnit.Namespaces[foundIndex];
+			}
+			else
+			{
+				codeCompileUnit.Namespaces.Add(clientNamespace);
+			}
+
+			string[] namespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d=>d.Name).ToArray();
+			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(pocoType, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods??CherryPickingMethods.All);
+			return r;
+		}
+
 		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods cherryPickingMethods)
 		{
-			var tsName = type.Name;
+			string tsName = type.Name;
 			Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
 
 			CodeTypeDeclaration typeDeclaration;
@@ -196,12 +229,12 @@ namespace Fonlow.Poco2Client
 
 				CreateTypeDocComment(type, typeDeclaration);
 
-				var typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);
+				CherryPickingMethods typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);
 				bool withDataContract = (typeCherryMethods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract;
-				var typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
-				foreach (var propertyInfo in typeProperties)
+				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
+				foreach (PropertyInfo propertyInfo in typeProperties)
 				{
-					var cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);
+					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);
 					if (cherryType == CherryType.None)
 						continue;
 					string tsPropertyName;
@@ -210,23 +243,23 @@ namespace Fonlow.Poco2Client
 					//todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
 					tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
 					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
-					var defaultValue = GetDefaultValue(propertyInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
+					string defaultValue = GetDefaultValue(propertyInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
 
-					var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType, defaultValue); //hacky way of creating clean getter and writter.
-					var isRequired = cherryType == CherryType.BigCherry;
+					CodeMemberField clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType, defaultValue); //hacky way of creating clean getter and writter.
+					bool isRequired = cherryType == CherryType.BigCherry;
 					if (isRequired)
 					{
 						clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
 					}
 
-					if (settings.DataAnnotationsEnabled)
+					if (codeGenOutputsSettings.DataAnnotationsEnabled)
 					{
 						AddValidationAttributes(propertyInfo, clientProperty, isRequired);
 					}
 
 					CreatePropertyDocComment(propertyInfo, clientProperty);
 
-					if (settings.DecorateDataModelWithDataContract)
+					if (codeGenOutputsSettings.DecorateDataModelWithDataContract)
 					{
 						AddDataMemberAttribute(propertyInfo, clientProperty);
 					}
@@ -234,10 +267,10 @@ namespace Fonlow.Poco2Client
 					typeDeclaration.Members.Add(clientProperty);
 				}
 
-				var typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
-				foreach (var fieldInfo in typeFields)
+				FieldInfo[] typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
+				foreach (FieldInfo fieldInfo in typeFields)
 				{
-					var cherryType = CherryPicking.GetMemberCherryType(fieldInfo, cherryPickingMethods, withDataContract);
+					CherryType cherryType = CherryPicking.GetMemberCherryType(fieldInfo, cherryPickingMethods, withDataContract);
 					if (cherryType == CherryType.None)
 						continue;
 					string tsPropertyName;
@@ -245,26 +278,26 @@ namespace Fonlow.Poco2Client
 
 					tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
 					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
-					var defaultValue = GetDefaultValue(fieldInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
+					string defaultValue = GetDefaultValue(fieldInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
 
 					//public fields of a class will be translated into properties
 					if (type.IsClass)
 					{
-						var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType, defaultValue); //hacky way of creating clean getter and writter.
-						var isRequired = cherryType == CherryType.BigCherry;
+						CodeMemberField clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType, defaultValue); //hacky way of creating clean getter and writter.
+						bool isRequired = cherryType == CherryType.BigCherry;
 						if (isRequired)
 						{
 							clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
 						}
 
-						if (settings.DataAnnotationsEnabled)
+						if (codeGenOutputsSettings.DataAnnotationsEnabled)
 						{
 							AddValidationAttributes(fieldInfo, clientProperty, isRequired);
 						}
 
 						CreateFieldDocComment(fieldInfo, clientProperty);
 
-						if (settings.DecorateDataModelWithDataContract)
+						if (codeGenOutputsSettings.DecorateDataModelWithDataContract)
 						{
 							AddDataMemberAttribute(fieldInfo, clientProperty);
 						}
@@ -273,7 +306,7 @@ namespace Fonlow.Poco2Client
 					}
 					else //public fields of struct
 					{
-						var clientField = new CodeMemberField()
+						CodeMemberField clientField = new CodeMemberField()
 						{
 							Name = tsPropertyName,
 							Type = TranslateToClientTypeReference(fieldInfo.FieldType),
@@ -283,7 +316,7 @@ namespace Fonlow.Poco2Client
 
 						CreateFieldDocComment(fieldInfo, clientField);
 
-						if (settings.DecorateDataModelWithDataContract)
+						if (codeGenOutputsSettings.DecorateDataModelWithDataContract)
 						{
 							AddDataMemberAttribute(fieldInfo, clientField);
 						}
@@ -292,12 +325,12 @@ namespace Fonlow.Poco2Client
 					}
 				}
 
-				if (settings.DecorateDataModelWithDataContract)
+				if (codeGenOutputsSettings.DecorateDataModelWithDataContract)
 				{
-					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{codeGenOutputsSettings.DataContractNamespace}\""))));
 				}
 
-				if (settings.DecorateDataModelWithSerializable)
+				if (codeGenOutputsSettings.DecorateDataModelWithSerializable)
 				{
 					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
 				}
@@ -308,27 +341,27 @@ namespace Fonlow.Poco2Client
 
 				CreateTypeDocComment(type, typeDeclaration);
 
-				var newtonJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "Newtonsoft.Json.JsonConverterAttribute");
+				CustomAttributeData newtonJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "Newtonsoft.Json.JsonConverterAttribute");
 				if (newtonJsonConverterAttributeData != null)
 				{
-					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration(settings.UseSystemTextJson ? "System.Text.Json.Serialization.JsonConverterAttribute" : "Newtonsoft.Json.JsonConverterAttribute", new CodeAttributeArgument(new CodeSnippetExpression(settings.UseSystemTextJson ? "typeof(System.Text.Json.Serialization.JsonStringEnumConverter)" : "typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration(codeGenOutputsSettings.UseSystemTextJson ? "System.Text.Json.Serialization.JsonConverterAttribute" : "Newtonsoft.Json.JsonConverterAttribute", new CodeAttributeArgument(new CodeSnippetExpression(codeGenOutputsSettings.UseSystemTextJson ? "typeof(System.Text.Json.Serialization.JsonStringEnumConverter)" : "typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
 				}
 
-				var systemJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Text.Json.Serialization.JsonConverterAttribute");
+				CustomAttributeData systemJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Text.Json.Serialization.JsonConverterAttribute");
 				if (systemJsonConverterAttributeData != null)
 				{
 					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonConverter", new CodeAttributeArgument(new CodeSnippetExpression("typeof(System.Text.Json.Serialization.JsonStringEnumConverter)"))));
 				}
 
 				int k = 0;
-				foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))//not to sort
+				foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))//not to sort
 				{
-					var name = fieldInfo.Name;
-					var intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
+					string name = fieldInfo.Name;
+					int intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
 					Debug.WriteLine(name + " -- " + intValue);
-					var isInitialized = intValue != k;
+					bool isInitialized = intValue != k;
 
-					var clientField = new CodeMemberField()
+					CodeMemberField clientField = new CodeMemberField()
 					{
 						Name = name,
 						Type = new CodeTypeReference(fieldInfo.FieldType),
@@ -337,7 +370,7 @@ namespace Fonlow.Poco2Client
 
 					CreateFieldDocComment(fieldInfo, clientField);
 
-					if (settings.DecorateDataModelWithDataContract)
+					if (codeGenOutputsSettings.DecorateDataModelWithDataContract)
 					{
 						AddEnumMemberAttribute(fieldInfo, clientField);
 					}
@@ -346,12 +379,12 @@ namespace Fonlow.Poco2Client
 					k++;
 				}
 
-				if (settings.DecorateDataModelWithDataContract)
+				if (codeGenOutputsSettings.DecorateDataModelWithDataContract)
 				{
-					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{codeGenOutputsSettings.DataContractNamespace}\""))));
 				}
 
-				if (settings.DecorateDataModelWithSerializable)
+				if (codeGenOutputsSettings.DecorateDataModelWithSerializable)
 				{
 					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
 				}
@@ -367,7 +400,7 @@ namespace Fonlow.Poco2Client
 
 		static void AddDataMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
 		{
-			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);
+			System.Runtime.Serialization.DataMemberAttribute dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.DataMemberAttribute>(memberField);
 			if (dataMemberAttribute != null)
 			{
 				List<CodeAttributeArgument> arguments = new();
@@ -405,10 +438,10 @@ namespace Fonlow.Poco2Client
 
 		static void AddEnumMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
 		{
-			var dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.EnumMemberAttribute>(memberField);
+			System.Runtime.Serialization.EnumMemberAttribute dataMemberAttribute = TypeHelper.ReadAttribute<System.Runtime.Serialization.EnumMemberAttribute>(memberField);
 			if (dataMemberAttribute != null)
 			{
-				var v = dataMemberAttribute.Value;
+				string v = dataMemberAttribute.Value;
 				if (String.IsNullOrEmpty(v))
 				{
 					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMember"));
@@ -424,7 +457,7 @@ namespace Fonlow.Poco2Client
 		{
 			if (docLookup != null)
 			{
-				var dm = docLookup.GetMember("T:" + type.FullName);
+				docMember dm = docLookup.GetMember("T:" + type.FullName);
 				AddDocComments(typeDeclaration.Comments, dm, null);
 			}
 		}
@@ -433,9 +466,9 @@ namespace Fonlow.Poco2Client
 		{
 			if (docLookup != null)
 			{
-				var propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
-				var dm = docLookup.GetMember("P:" + propertyFullName);
-				var commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
+				string propertyFullName = propertyInfo.DeclaringType.FullName + "." + propertyInfo.Name;
+				docMember dm = docLookup.GetMember("P:" + propertyFullName);
+				string[] commentsFromAttributes = GenerateCommentsFromAttributes(propertyInfo);
 				AddDocComments(codeField.Comments, dm, commentsFromAttributes);
 			}
 		}
@@ -444,9 +477,9 @@ namespace Fonlow.Poco2Client
 		{
 			if (docLookup != null)
 			{
-				var propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
-				var dm = docLookup.GetMember("F:" + propertyFullName);
-				var commentsFromAttributes = GenerateCommentsFromAttributes(fieldInfo);
+				string propertyFullName = fieldInfo.DeclaringType.FullName + "." + fieldInfo.Name;
+				docMember dm = docLookup.GetMember("F:" + propertyFullName);
+				string[] commentsFromAttributes = GenerateCommentsFromAttributes(fieldInfo);
 				AddDocComments(codeField.Comments, dm, commentsFromAttributes);
 			}
 		}
@@ -462,10 +495,10 @@ namespace Fonlow.Poco2Client
 			if (dm != null && dm.summary != null)
 			{
 				commentStatementCollection.Add(new CodeCommentStatement("<summary>", true));
-				var noIndent = StringFunctions.TrimTrimIndentsOfArray(dm.summary.Text);
+				IList<string> noIndent = StringFunctions.TrimTrimIndentsOfArray(dm.summary.Text);
 				if (noIndent != null)
 				{
-					foreach (var item in noIndent)
+					foreach (string item in noIndent)
 					{
 						commentStatementCollection.Add(new CodeCommentStatement(item, true));
 					}
@@ -473,7 +506,7 @@ namespace Fonlow.Poco2Client
 
 				if (extra != null && extra.Length > 0)
 				{
-					foreach (var c in extra)
+					foreach (string c in extra)
 					{
 						commentStatementCollection.Add(new CodeCommentStatement(c, true));
 					}
@@ -484,7 +517,7 @@ namespace Fonlow.Poco2Client
 			else if (extra != null && extra.Length > 0)
 			{
 				commentStatementCollection.Add(new CodeCommentStatement("<summary>", true));
-				foreach (var c in extra)
+				foreach (string c in extra)
 				{
 					commentStatementCollection.Add(new CodeCommentStatement(c, true));
 				}
@@ -498,7 +531,7 @@ namespace Fonlow.Poco2Client
 			//  we make the getter and setter part of the member name.
 			// This leaves behind a trailing semicolon that we comment out.
 			//  Later, we remove the commented out semicolons.
-			string memberName = name + (defaultValue == null || !settings.DataAnnotationsEnabled ? " { get; set; }//" : $" {{ get; set; }} = {defaultValue};//");
+			string memberName = name + (defaultValue == null || !codeGenOutputsSettings.DataAnnotationsEnabled ? " { get; set; }//" : $" {{ get; set; }} = {defaultValue};//");
 
 			CodeMemberField result = new()
 			{
@@ -523,16 +556,16 @@ namespace Fonlow.Poco2Client
 
 			CodeTypeReference CreateGenericType()
 			{
-				var anyGenericTypeName = genericTypeDefinition.FullName;
-				var idx = anyGenericTypeName.IndexOf('`');
+				string anyGenericTypeName = genericTypeDefinition.FullName;
+				int idx = anyGenericTypeName.IndexOf('`');
 				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
-				var genericParams = genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray();
+				CodeTypeReference[] genericParams = genericArguments.Select(t => TranslateToClientTypeReference(t)).ToArray();
 				return new CodeTypeReference(anyGenericTypeName, genericParams);
 			}
 
 			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
 				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictionaryType(type) ||
-				(TypeHelper.IsIEnumerableType(genericTypeDefinition) && !settings.IEnumerableToArray))
+				(TypeHelper.IsIEnumerableType(genericTypeDefinition) && !codeGenOutputsSettings.IEnumerableToArray))
 			{
 				return CreateGenericType();
 			}
@@ -542,11 +575,11 @@ namespace Fonlow.Poco2Client
 				return TranslateToClientTypeReference(genericArguments[0]);
 			}
 
-			if ((TypeHelper.IsIEnumerableType(genericTypeDefinition) && settings.IEnumerableToArray) ||
+			if ((TypeHelper.IsIEnumerableType(genericTypeDefinition) && codeGenOutputsSettings.IEnumerableToArray) ||
 				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
 				//Debug.Assert(type.GenericTypeArguments.Length == 1);
-				var elementType = type.GenericTypeArguments[0];
+				Type elementType = type.GenericTypeArguments[0];
 				return CreateArrayTypeReference(elementType, 1);
 			}
 
@@ -562,7 +595,7 @@ namespace Fonlow.Poco2Client
 
 		public string TranslateTypeToCSharp(Type type)
 		{
-			var codeTypeReference = TranslateToClientTypeReference(type);
+			CodeTypeReference codeTypeReference = TranslateToClientTypeReference(type);
 			return codeDomProvider.GetTypeOutput(codeTypeReference);
 		}
 
@@ -587,7 +620,7 @@ namespace Fonlow.Poco2Client
 			else if (type.IsArray)
 			{
 				Debug.Assert(type.Name.EndsWith(']'));
-				var elementTypeText = TranslateToClientTypeReferenceText(type.GetElementType(), forDocComment);
+				string elementTypeText = TranslateToClientTypeReferenceText(type.GetElementType(), forDocComment);
 				return $"{elementTypeText}[]";
 			}
 			else
@@ -602,7 +635,7 @@ namespace Fonlow.Poco2Client
 					return "System.Net.Http.HttpResponseMessage";
 
 				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-					return settings.UseSystemTextJson ? "System.Text.Json.Nodes.JsonObject" : "Newtonsoft.Json.Linq.JObject";
+					return codeGenOutputsSettings.UseSystemTextJson ? "System.Text.Json.Nodes.JsonObject" : "Newtonsoft.Json.Linq.JObject";
 			}
 
 
@@ -617,29 +650,29 @@ namespace Fonlow.Poco2Client
 
 			string CreateGenericTypeText()
 			{
-				var anyGenericTypeName = forDocComment ? genericTypeDefinition.FullName : RefineCustomComplexTypeText(genericTypeDefinition);
-				var idx = anyGenericTypeName.IndexOf('`');
+				string anyGenericTypeName = forDocComment ? genericTypeDefinition.FullName : RefineCustomComplexTypeText(genericTypeDefinition);
+				int idx = anyGenericTypeName.IndexOf('`');
 				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
-				var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
-				var left = forDocComment ? "{" : "<";
-				var right = forDocComment ? "}" : ">";
+				string genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
+				string left = forDocComment ? "{" : "<";
+				string right = forDocComment ? "}" : ">";
 				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 			}
 
 			string CreateSystemGenericTypeText()
 			{
-				var anyGenericTypeName = genericTypeDefinition.FullName;
-				var idx = anyGenericTypeName.IndexOf('`');
+				string anyGenericTypeName = genericTypeDefinition.FullName;
+				int idx = anyGenericTypeName.IndexOf('`');
 				anyGenericTypeName = anyGenericTypeName.Substring(0, idx);
-				var genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
-				var left = forDocComment ? "{" : "<";
-				var right = forDocComment ? "}" : ">";
+				string genericParamsText = String.Join(',', genericArguments.Select(t => TranslateToClientTypeReferenceText(t, forDocComment)).ToArray());
+				string left = forDocComment ? "{" : "<";
+				string right = forDocComment ? "}" : ">";
 				return $"{anyGenericTypeName}{left}{genericParamsText}{right}";
 			}
 
 			if (genericTypeDefinition == typeof(Nullable<>) || TypeHelper.IsTuple(genericTypeDefinition) >= 0 ||
 				genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(KeyValuePair<,>) || TypeHelper.IsIDictionaryType(type) ||
-				(TypeHelper.IsIEnumerableType(genericTypeDefinition) && !settings.IEnumerableToArray))
+				(TypeHelper.IsIEnumerableType(genericTypeDefinition) && !codeGenOutputsSettings.IEnumerableToArray))
 			{
 				return CreateSystemGenericTypeText();
 			}
@@ -649,11 +682,11 @@ namespace Fonlow.Poco2Client
 				return TranslateToClientTypeReferenceText(genericArguments[0], forDocComment);
 			}
 
-			if ((TypeHelper.IsIEnumerableType(genericTypeDefinition) && settings.IEnumerableToArray) ||
+			if ((TypeHelper.IsIEnumerableType(genericTypeDefinition) && codeGenOutputsSettings.IEnumerableToArray) ||
 				genericTypeDefinition.FullName == "System.Collections.Generic.IAsyncEnumerable`1") //Handle IAsyncEnumerable which can't be serialized because of lacking of a collection interface. Thus need to translate to array.
 			{
 				Debug.Assert(type.GenericTypeArguments.Length == 1);
-				var elementType = type.GenericTypeArguments[0];
+				Type elementType = type.GenericTypeArguments[0];
 				return CreateArrayTypeReferenceText(elementType, 1);
 			}
 
@@ -667,7 +700,7 @@ namespace Fonlow.Poco2Client
 		/// <returns></returns>
 		string RefineCustomComplexTypeText(Type t)
 		{
-			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;
+			return t.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix + "." + t.Name;
 		}
 
 		//string RefineCustomComplexTypeTextForNullableReferenceType(Type t)
@@ -682,7 +715,7 @@ namespace Fonlow.Poco2Client
 				return CreateArrayOfCustomTypeReference(elementType, arrayRank);
 			}
 
-			var otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
+			CodeTypeReference otherArrayType = new CodeTypeReference(new CodeTypeReference(), arrayRank)//CodeDom does not care. The baseType is always overwritten by ArrayElementType.
 			{
 				ArrayElementType = TranslateToClientTypeReference(elementType),
 			};
@@ -696,15 +729,15 @@ namespace Fonlow.Poco2Client
 				return CreateArrayOfCustomTypeReferenceText(elementType, arrayRank);
 			}
 
-			var t = TranslateToClientTypeReference(elementType);
+			CodeTypeReference t = TranslateToClientTypeReference(elementType);
 			string s = new string(',', arrayRank - 1);
 			return $"{t}[{s}]";
 		}
 
 		CodeTypeReference CreateArrayOfCustomTypeReference(Type elementType, int arrayRank)
 		{
-			var elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
-			var typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
+			CodeTypeReference elementTypeReference = new CodeTypeReference(RefineCustomComplexTypeText(elementType));
+			CodeTypeReference typeReference = new CodeTypeReference(new CodeTypeReference(), arrayRank)
 			{
 				ArrayElementType = elementTypeReference,
 			};
@@ -713,7 +746,7 @@ namespace Fonlow.Poco2Client
 
 		string CreateArrayOfCustomTypeReferenceText(Type elementType, int arrayRank)
 		{
-			var t = RefineCustomComplexTypeText(elementType);
+			string t = RefineCustomComplexTypeText(elementType);
 			string s = new string(',', arrayRank - 1);
 			return $"{t}[{s}]";
 		}
@@ -726,7 +759,7 @@ namespace Fonlow.Poco2Client
 		string[] GenerateCommentsFromAttributes(MemberInfo memberInfo)
 		{
 			if ((dataAnnotationsToComments.HasValue && !dataAnnotationsToComments.Value) || //dataModel.dataAnnotationsToComments explicitly tells not to
-				(!dataAnnotationsToComments.HasValue && !settings.DataAnnotationsToComments)) // dataModel.dataAnnotationsToComments does not tell, and global setting tells not to
+				(!dataAnnotationsToComments.HasValue && !codeGenOutputsSettings.DataAnnotationsToComments)) // dataModel.dataAnnotationsToComments does not tell, and global setting tells not to
 			{
 				return Array.Empty<string>();
 			}
@@ -736,7 +769,7 @@ namespace Fonlow.Poco2Client
 
 		void AddValidationAttributes(MemberInfo memberInfo, CodeTypeMember codeTypeMember, bool requiredAdded)
 		{
-			var attributes = memberInfo.GetCustomAttributes().ToList();
+			List<Attribute> attributes = memberInfo.GetCustomAttributes().ToList();
 			attributes.Sort((x, y) =>
 			{
 				// Special-case RequiredAttribute so that it shows up on top
@@ -754,7 +787,7 @@ namespace Fonlow.Poco2Client
 
 			foreach (Attribute attribute in attributes)
 			{
-				var attributeType = attribute.GetType();
+				Type attributeType = attribute.GetType();
 				if (attributeType == typeof(RequiredAttribute) && requiredAdded)
 				{
 					continue;
@@ -765,6 +798,31 @@ namespace Fonlow.Poco2Client
 					codeTypeMember.CustomAttributes.Add(textGenerator(attribute));
 				}
 			}
+		}
+
+		/// <summary>
+		/// Lookup existing CodeTypeDeclaration created for controller class.
+		/// </summary>
+		/// <param name="namespaceText"></param>
+		/// <param name="className">Controller name plus suffix</param>
+		/// <returns></returns>
+		public CodeTypeDeclaration LookupExistingClassOfCs(string namespaceText, string className)
+		{
+			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
+			{
+				CodeNamespace ns = codeCompileUnit.Namespaces[i];
+				if (ns.Name == namespaceText + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix)
+				{
+					for (int k = 0; k < ns.Types.Count; k++)
+					{
+						CodeTypeDeclaration c = ns.Types[k];
+						if (c.Name == className)
+							return c;
+					}
+				}
+			}
+
+			return null;
 		}
 
 		static readonly Type typeOfDefaultValueAttribute = typeof(DefaultValueAttribute);
@@ -778,7 +836,7 @@ namespace Fonlow.Poco2Client
 				return null;
 			}
 
-			var type = a.Value.GetType();
+			Type type = a.Value.GetType();
 			if (type == typeof(string))
 			{
 				return "\"" + a.Value.ToString() + "\"";

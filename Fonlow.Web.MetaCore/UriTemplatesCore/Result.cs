@@ -100,7 +100,7 @@ namespace Tavis.UriTemplates
         private static string Encode(string p, bool allowReserved)
         {
 
-            var result = new StringBuilder();
+			StringBuilder result = new StringBuilder();
             foreach (char c in p)
             {
                 if ((c >= 'A' && c <= 'z')   //Alpha
@@ -112,8 +112,8 @@ namespace Tavis.UriTemplates
                 }
                 else
                 {
-                    var bytes = Encoding.UTF8.GetBytes(new []{c});
-                    foreach (var abyte in bytes)
+					byte[] bytes = Encoding.UTF8.GetBytes(new []{c});
+                    foreach (byte abyte in bytes)
                     {
                         result.Append(HexEscape(abyte));
                     }
@@ -128,14 +128,14 @@ namespace Tavis.UriTemplates
 
          public static string HexEscape(byte i)
         {
-            var esc = new char[3];
+			char[] esc = new char[3];
             esc[0] = '%';
             esc[1] = HexDigits[((i & 240) >> 4)];
             esc[2] = HexDigits[(i & 15)];
             return new string(esc);
         }
         public static string HexEscape(char c) {
-            var esc = new char[3];
+			char[] esc = new char[3];
             esc[0] = '%';
             esc[1] = HexDigits[(((int) c & 240) >> 4)];
             esc[2] = HexDigits[((int) c & 15)];

@@ -33,15 +33,15 @@ namespace WebApp.Utilities
 
 		private async Task HandleExceptionAsync(HttpContext context, Exception ex)
 		{
-			var endpoint = context.GetEndpoint().DisplayName;
+			string? endpoint = context.GetEndpoint().DisplayName;
 #if DEBUG
-			var exceptionErrorMessage = ex.ToString(); // call stack available
+			string exceptionErrorMessage = ex.ToString(); // call stack available
 #else
 			var exceptionErrorMessage = ex.Message; // not to expose too much implementation details to the worlds.
 #endif
 			logger.LogError("Endpoint: {endpoint}; Exception: {exceptionErrorMessage}", endpoint, exceptionErrorMessage);
 
-			var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+			HttpStatusCode code = HttpStatusCode.InternalServerError; // 500 if unexpected
 			if (typeof(ArgumentException).IsAssignableFrom(ex.GetType()))
 			{
 				code = HttpStatusCode.BadRequest;
@@ -52,7 +52,7 @@ namespace WebApp.Utilities
 			}
 			else if (typeof(System.Security.Authentication.AuthenticationException).IsAssignableFrom(ex.GetType())) // must go before HttpRequestException. Apparently
 			{
-				var mcpException = ex as System.Security.Authentication.AuthenticationException;
+				System.Security.Authentication.AuthenticationException? mcpException = ex as System.Security.Authentication.AuthenticationException;
 				code = HttpStatusCode.BadRequest;
 				context.Response.StatusCode = (int)code;
 				await context.Response.WriteAsync(mcpException.Message);

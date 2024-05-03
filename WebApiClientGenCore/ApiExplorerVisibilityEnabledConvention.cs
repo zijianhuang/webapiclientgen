@@ -16,7 +16,7 @@ namespace Fonlow.CodeDom.Web
 		/// <param name="application"></param>
 		public void Apply(ApplicationModel application)
 		{
-			foreach (var controller in application.Controllers)
+			foreach (ControllerModel controller in application.Controllers)
 			{
 				if (controller.ApiExplorer.IsVisible == null)
 				{

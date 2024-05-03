@@ -12,14 +12,14 @@ namespace IntegrationTests
 		[Fact]
 		public void TestSerializeBigIntWithSomeSetting_Wrong()
 		{
-			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
+			JsonSerializerOptions jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 				PropertyNameCaseInsensitive = true,
 			};
 
 			BigInteger bigInt = UInt128.MaxValue;
-			var contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
+			string contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
 			Assert.Equal("{\"Sign\":1}", contentJson);
 		}
 
@@ -27,38 +27,38 @@ namespace IntegrationTests
 		public void TestSerializeBigIntWitoutSetting_Wrong()
 		{
 			BigInteger bigInt = UInt128.MaxValue;
-			var contentJson = JsonSerializer.Serialize(bigInt);
+			string contentJson = JsonSerializer.Serialize(bigInt);
 			Assert.Equal("{\"IsPowerOfTwo\":false,\"IsZero\":false,\"IsOne\":false,\"IsEven\":false,\"Sign\":1}", contentJson);
 		}
 
 		[Fact]
 		public void TestSerializeBigIntWithDefaultsWeb_Wrong()
 		{
-			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions(JsonSerializerDefaults.Web)
+			JsonSerializerOptions jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions(JsonSerializerDefaults.Web)
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 				PropertyNameCaseInsensitive = true,
 			};
 
 			BigInteger bigInt = UInt128.MaxValue;
-			var contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
+			string contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
 			Assert.Equal("{\"sign\":1}", contentJson); // just camelCase
 		}
 
 		[Fact]
 		public void TestSerializeBigIntWithCustomConverter()
 		{
-			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions();
+			JsonSerializerOptions jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions();
 			jsonSerializerSettings.Converters.Add(new DemoTextJsonWeb.BigIntegerConverter());
 
 			BigInteger bigInt = UInt128.MaxValue;
-			var contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
+			string contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
 			Assert.Equal("340282366920938463463374607431768211455", contentJson);
 			Assert.Equal(UInt128.MaxValue.ToString(), contentJson);
 			Assert.Equal(bigInt.ToString(), contentJson);
 
 			//And deserialize
-			var v = JsonSerializer.Deserialize<BigInteger>(contentJson, jsonSerializerSettings);
+			BigInteger v = JsonSerializer.Deserialize<BigInteger>(contentJson, jsonSerializerSettings);
 			Assert.Equal(bigInt, v);
 			Assert.Equal("340282366920938463463374607431768211455", v.ToString());
 		}
@@ -66,18 +66,18 @@ namespace IntegrationTests
 		[Fact]
 		public void TestDeSerializeBigIntQuotedTextWithCustomConverter()
 		{
-			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions(JsonSerializerDefaults.Web);
+			JsonSerializerOptions jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions(JsonSerializerDefaults.Web);
 			jsonSerializerSettings.Converters.Add(new DemoTextJsonWeb.BigIntegerConverter());
 
 			BigInteger bigInt = UInt128.MaxValue;
-			var contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
+			string contentJson = JsonSerializer.Serialize(bigInt, jsonSerializerSettings);
 			Assert.Equal("340282366920938463463374607431768211455", contentJson);
 			Assert.Equal(UInt128.MaxValue.ToString(), contentJson);
 			Assert.Equal(bigInt.ToString(), contentJson);
 
 			//And deserialize
-			var quotedText = "\"" + contentJson + "\"";
-			var v = JsonSerializer.Deserialize<BigInteger>(quotedText, jsonSerializerSettings);
+			string quotedText = "\"" + contentJson + "\"";
+			BigInteger v = JsonSerializer.Deserialize<BigInteger>(quotedText, jsonSerializerSettings);
 			Assert.Equal(bigInt, v);
 			Assert.Equal("340282366920938463463374607431768211455", v.ToString());
 		}
@@ -86,7 +86,7 @@ namespace IntegrationTests
 		public void TestSerializeNullableDateTime()
 		{
 			DateTime? dn = null;
-			var d = JsonSerializer.Serialize(dn);
+			string d = JsonSerializer.Serialize(dn);
 			Assert.Equal("null", d); //var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json"); will make it a null object
 
 			//var d2 = JsonSerializer.Deserialize<System.Nullable<System.DateTime>>("");
@@ -97,7 +97,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestDeserializeNullableDateTime()
 		{
-			var d = JsonSerializer.Deserialize<System.Nullable<System.DateTime>>("null");
+			DateTime? d = JsonSerializer.Deserialize<System.Nullable<System.DateTime>>("null");
 			Assert.False(d.HasValue);
 
 			Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<System.Nullable<System.DateTime>>("")); // ASP.NET Core without Newtonsoft.Json will return empty string and status code 204 No Content. Newtonsoft.Json's serializer will interpret empty string as null for nullable struct.
@@ -121,8 +121,8 @@ namespace IntegrationTests
 		[Fact]
 		public void TestDeserializeDynamic_RuntimeBinderException()
 		{
-			var s = "{\"Id\":\"12345\",\"Name\":\"Something\"}";
-			var d = JsonSerializer.Deserialize<dynamic>(s);
+			string s = "{\"Id\":\"12345\",\"Name\":\"Something\"}";
+			dynamic d = JsonSerializer.Deserialize<dynamic>(s);
 			Assert.Throws<Microsoft.CSharp.RuntimeBinder.RuntimeBinderException>(() => d["Id"].ToString());
 		}
 

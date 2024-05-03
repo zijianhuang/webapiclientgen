@@ -117,13 +117,13 @@ namespace Fonlow.Reflection
 		/// <exception cref="InvalidOperationException"></exception>
 		internal static bool GetRequired(Attribute a, string propertyName, string expectedValue)
 		{
-			var type = a.GetType();
-			var publicProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
-			var expectedProperty = publicProperties.FirstOrDefault(d => d.Name == propertyName);
+			Type type = a.GetType();
+			PropertyInfo[] publicProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
+			PropertyInfo expectedProperty = publicProperties.FirstOrDefault(d => d.Name == propertyName);
 			if (expectedProperty == null)
 				throw new InvalidOperationException($"Expected property {propertyName} does not exist in {a.GetType().FullName}");
 
-			var propertyValue = expectedProperty.GetValue(a);
+			object propertyValue = expectedProperty.GetValue(a);
 			if (propertyValue == null)
 				return false;
 
@@ -139,13 +139,13 @@ namespace Fonlow.Reflection
 		/// <exception cref="InvalidOperationException">If property does not exist</exception>
 		public static object GetAttributePropertyValue(Attribute a, string propertyName)
 		{
-			var type = a.GetType();
-			var publicProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
-			var expectedProperty = publicProperties.FirstOrDefault(d => d.Name == propertyName);
+			Type type = a.GetType();
+			PropertyInfo[] publicProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
+			PropertyInfo expectedProperty = publicProperties.FirstOrDefault(d => d.Name == propertyName);
 			if (expectedProperty == null)
 				throw new InvalidOperationException($"Expected property {propertyName} does not exist in {a.GetType().FullName}");
 
-			var propertyValue = expectedProperty.GetValue(a);
+			object propertyValue = expectedProperty.GetValue(a);
 			return propertyValue;
 		}
 

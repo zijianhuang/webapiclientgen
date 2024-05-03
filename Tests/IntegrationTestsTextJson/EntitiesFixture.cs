@@ -18,7 +18,7 @@ namespace IntegrationTests
 	{
 		public EntitiesFixture()
 		{
-			var jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
+			System.Text.Json.JsonSerializerOptions jsonSerializerSettings = new System.Text.Json.JsonSerializerOptions()
 			{
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 				PropertyNameCaseInsensitive = true,

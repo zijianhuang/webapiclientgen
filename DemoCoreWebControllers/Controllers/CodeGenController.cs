@@ -42,7 +42,7 @@ namespace Fonlow.WebApiClientGen
 			Fonlow.Web.Meta.WebApiDescription[] webApiDescriptions;
 			try
 			{
-				var descriptions = ApiExplorerHelper.GetApiDescriptions(apiExplorer);
+				ApiDescription[] descriptions = ApiExplorerHelper.GetApiDescriptions(apiExplorer);
 				webApiDescriptions = descriptions.Select(d => Fonlow.Web.Meta.MetaTransform.GetWebApiDescription(d)).OrderBy(d => d.ActionDescriptor.ActionName).ToArray();
 
 			}
@@ -68,7 +68,7 @@ namespace Fonlow.WebApiClientGen
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{
-				var msg = e.Message + (string.IsNullOrEmpty(e.Description) ? string.Empty : (" : " + e.Description));
+				string msg = e.Message + (string.IsNullOrEmpty(e.Description) ? string.Empty : (" : " + e.Description));
 				System.Diagnostics.Trace.TraceError(msg);
 				return BadRequest(msg);
 			}

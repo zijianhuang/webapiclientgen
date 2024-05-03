@@ -8,26 +8,26 @@ namespace Poco2TsTests
 	{
 		static void Verify(Type type, string expected)
 		{
-			var targetUnit = new CodeCompileUnit();
-			var gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces));
+			CodeCompileUnit targetUnit = new CodeCompileUnit();
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces));
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.DataContract);
-			using (var writer = new StringWriter())
+			using (StringWriter writer = new StringWriter())
 			{
 				gen.WriteCode(writer);
-				var s = writer.ToString();
+				string s = writer.ToString();
 				Assert.Equal(expected, s);
 			}
 		}
 
 		static void VerifyJson(Type type, string expected)
 		{
-			var targetUnit = new CodeCompileUnit();
-			var gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces));
+			CodeCompileUnit targetUnit = new CodeCompileUnit();
+			Poco2TsGen gen = new Poco2TsGen(targetUnit, ".Client", false, new Fonlow.TypeScriptCodeDom.CodeObjectHelperForNg2FormGroup(targetUnit.Namespaces));
 			gen.CreateCodeDom(new Type[] { type }, CherryPickingMethods.NewtonsoftJson);
-			using (var writer = new StringWriter())
+			using (StringWriter writer = new StringWriter())
 			{
 				gen.WriteCode(writer);
-				var s = writer.ToString();
+				string s = writer.ToString();
 				Assert.Equal(expected, s);
 			}
 		}

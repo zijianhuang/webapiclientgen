@@ -52,7 +52,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				methodName = methodName.Substring(0, methodName.Length - 5);
 			}
 
-			var returnTypeOfProducesResponseType = GetTypeTextOfResponse2xx(description.ActionDescriptor.CustomAttributes);
+			Type returnTypeOfProducesResponseType = GetTypeTextOfResponse2xx(description.ActionDescriptor.CustomAttributes);
 			returnType = returnTypeOfProducesResponseType ?? (webApiDescription.ResponseDescription?.ResponseType ?? webApiDescription.ActionDescriptor.ReturnType);
 
 			returnTypeIsStream = returnType != null && ((returnType.FullName == typeNameOfHttpResponseMessage)
@@ -66,7 +66,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			returnTypeIsDynamicObject = returnType != null && returnType.FullName != null && returnType.FullName.StartsWith("System.Threading.Tasks.Task`1[[System.Object", StringComparison.Ordinal);
 
-			var methodInfo = webApiDescription.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(webApiDescription.ActionDescriptor.MethodName, webApiDescription.ActionDescriptor.MethodParameterTypes);
+			MethodInfo methodInfo = webApiDescription.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(webApiDescription.ActionDescriptor.MethodName, webApiDescription.ActionDescriptor.MethodParameterTypes);
 			if (methodInfo != null)
 			{
 				parameterInfoArray = methodInfo.GetParameters();
@@ -92,7 +92,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		public static CodeMemberMethod Create(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
 		{
-			var gen = new ClientApiFunctionGen(webApiDescription, poco2CsGen, settings, forAsync);
+			ClientApiFunctionGen gen = new ClientApiFunctionGen(webApiDescription, poco2CsGen, settings, forAsync);
 			return gen.CreateApiFunction();
 		}
 
@@ -177,8 +177,8 @@ namespace Fonlow.CodeDom.Web.Cs
 
 				if (settings.DataAnnotationsToComments)
 				{
-					var parameterInfo = parameterInfoArray.SingleOrDefault(p => p?.Name == paramName);
-					var customAttributes = parameterInfo.GetCustomAttributes();
+					ParameterInfo parameterInfo = parameterInfoArray.SingleOrDefault(p => p?.Name == paramName);
+					IEnumerable<Attribute> customAttributes = parameterInfo.GetCustomAttributes();
 					foreach (Attribute a in customAttributes)
 					{
 						if (attribueCommentDic.TryGetValue(a.GetType(), out Func<object, string> textGenerator))
@@ -210,7 +210,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			clientMethod.Comments.Add(new CodeCommentStatement("<summary>", true));
-			var methodFullName = description.ActionDescriptor.MethodFullName;
+			string methodFullName = description.ActionDescriptor.MethodFullName;
 			if (description.ParameterDescriptions.Length > 0)
 			{
 				methodFullName += "(" + description.ParameterDescriptions.Select(d =>
@@ -243,10 +243,10 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (WebApiDocSingleton.Instance.Lookup != null)
 			{
 				methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);
-				var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
+				string[] noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
 				if (noIndent != null)
 				{
-					foreach (var item in noIndent)
+					foreach (string item in noIndent)
 					{
 						clientMethod.Comments.Add(new CodeCommentStatement(item, true));
 					}
@@ -254,23 +254,23 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			clientMethod.Comments.Add(new CodeCommentStatement(description.HttpMethod + " " + description.RelativePath, true));
-			var methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(description.ActionDescriptor.CustomAttributes);
+			string[] methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(description.ActionDescriptor.CustomAttributes);
 			if (methodAttributesAsComments.Length > 0)
 			{
-				foreach (var item in methodAttributesAsComments)
+				foreach (string item in methodAttributesAsComments)
 				{
 					clientMethod.Comments.Add(new CodeCommentStatement(item, true));
 				}
 			}
 
 			clientMethod.Comments.Add(new CodeCommentStatement("</summary>", true));
-			foreach (var pd in description.ParameterDescriptions)
+			foreach (ParameterDescription pd in description.ParameterDescriptions)
 			{
-				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, pd.Name);
+				string parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, pd.Name);
 				CreateParamDocComment(pd.Name, parameterComment);
 			}
 
-			var returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);
+			string returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);
 			if (returnComment != null)
 			{
 				CreateDocComment("returns", returnComment);
@@ -287,7 +287,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.None)
 				.Select(d =>
 				{
-					var exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
+					CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
 					exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 					return exp;
 				}).ToArray();
@@ -304,7 +304,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
 			}
 
-			var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+			string jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
 			string uriText = string.IsNullOrWhiteSpace(jsUriQuery) ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
 
 
@@ -352,11 +352,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		void RenderPostOrPutImplementation(string httpMethod)
 		{
 			//Create function parameters in prototype
-			var parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
+			CodeParameterDeclarationExpression[] parameters = description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
 			{
-				var exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
+				CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
 				exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 				return exp;
 			}
@@ -373,7 +373,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
 			}
 
-			var fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+			ParameterDescription[] fromBodyParameterDescriptions = description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri) || (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
 			if (fromBodyParameterDescriptions.Length > 1)
 			{
@@ -383,12 +383,12 @@ namespace Fonlow.CodeDom.Web.Cs
 				};
 			}
 
-			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+			ParameterDescription singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
 			void AddRequestUriWithQueryAssignmentStatement()
 			{
 
-				var jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
+				string jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
 				string uriText = jsUriQuery == null ? $"\"{description.RelativePath}\"" : RemoveTrialEmptyString($"\"{jsUriQuery}\"");
 
 				clientMethod.Statements.Add(new CodeVariableDeclarationStatement(
@@ -432,7 +432,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			AddResponseMessageSendAsync(clientMethod);
 
-			var resultReference = new CodeVariableReferenceExpression("responseMessage");
+			CodeVariableReferenceExpression resultReference = new CodeVariableReferenceExpression("responseMessage");
 
 			if (returnTypeIsStream)
 			{
@@ -476,7 +476,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddResponseMessageSendAsync(CodeMemberMethod method)
 		{
-			var cancellationToken = settings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty;
+			string cancellationToken = settings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty;
 			method.Statements.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression($"await client.SendAsync(httpRequestMessage{cancellationToken})") : new CodeSnippetExpression($"client.SendAsync(httpRequestMessage{cancellationToken}).Result")));
 		}
@@ -684,13 +684,13 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		private static string RemoveTrialEmptyString(string s)
 		{
-			var p = s.IndexOf("+\"\"", StringComparison.Ordinal);
+			int p = s.IndexOf("+\"\"", StringComparison.Ordinal);
 			if (p >= 0)
 			{
 				return s.Remove(p, 3);
 			}
 
-			var p2 = s.IndexOf("))\"", StringComparison.Ordinal);
+			int p2 = s.IndexOf("))\"", StringComparison.Ordinal);
 			if (p2 >= 0)
 			{
 				return s.Remove(p2 + 2, 1);
@@ -707,9 +707,9 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <returns></returns>
 		static Type GetTypeTextOfResponse2xx(Attribute[] customAttributes)
 		{
-			foreach (var c in customAttributes)
+			foreach (Attribute c in customAttributes)
 			{
-				var responseAttribute = c as Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute;
+				Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute responseAttribute = c as Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute;
 				if (responseAttribute != null)
 				{
 					if (responseAttribute.StatusCode >= 200 && responseAttribute.StatusCode <= 202)

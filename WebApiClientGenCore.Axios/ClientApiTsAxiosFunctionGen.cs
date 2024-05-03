@@ -69,7 +69,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeMemberMethod CreateMethodName()
 		{
-			var returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
+			CodeTypeReference returnTypeReference = Poco2TsGen.TranslateToClientTypeReference(ReturnType);
 			returnTypeText = TypeMapper.MapCodeTypeReferenceToTsText(returnTypeReference);
 			if (returnTypeText == "any" || returnTypeText == "void")
 			{
@@ -94,9 +94,9 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 			}
 
-			var callbackTypeText = $"Promise<{returnTypeText}>";
+			string callbackTypeText = $"Promise<{returnTypeText}>";
 			Debug.WriteLine("callback: " + callbackTypeText);
-			var returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
+			CodeSnipetTypeReference returnTypeReferenceWithObservable = new CodeSnipetTypeReference(callbackTypeText);
 
 			return new CodeMemberMethod()
 			{
@@ -116,7 +116,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					"() => {[header: string]: string}", "headersHandler?"));
 			}
 
-			var uriText = GetFullUriText();
+			string uriText = GetFullUriText();
 
 			if (ReturnType!=null && TypeHelper.IsStringType(ReturnType) && this.StringAsString)//stringAsString is for .NET Core Web API
 			{
@@ -128,7 +128,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForString}).then(d => {{if (d.status<=204) return d.status == 204 ? null : d.data; throw d;}});"));
@@ -151,7 +151,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForBlob}).then(d => {{if (d.status<=204) return d.data; throw d;}});"));
@@ -174,7 +174,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null, {OptionsForResponse});"));
@@ -197,7 +197,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 				if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (dataToPost == "null")
 					{
 						Method.Statements.Add(new CodeSnippetStatement($"return Axios.{HttpMethodName}({uriText}, null{Options});"));
@@ -227,7 +227,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				}
 				else if (HttpMethodName == "post" || HttpMethodName == "put" || HttpMethodName == "patch")
 				{
-					var dataToPost = GetDataToPost();
+					string dataToPost = GetDataToPost();
 					if (returnTypeText == null)//http response
 					{
 						if (dataToPost == "null")

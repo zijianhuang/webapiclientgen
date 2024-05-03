@@ -16,9 +16,9 @@ namespace Tavis.UriTemplates
 
 		public TemplateMatch Match(Uri url, QueryStringParameterOrder order = QueryStringParameterOrder.Strict)
 		{
-			foreach (var template in _Templates )
+			foreach (KeyValuePair<string, UriTemplate> template in _Templates )
 			{
-				var parameters = template.Value.GetParameters(url, order);
+				IDictionary<string, object> parameters = template.Value.GetParameters(url, order);
 				if (parameters != null)
 				{
 					return new TemplateMatch(template.Key, template.Value, parameters);

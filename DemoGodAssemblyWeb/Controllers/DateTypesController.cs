@@ -80,7 +80,7 @@ namespace DemoWebApi.Controllers
 		[Route("ForDateTimeOffsetStringForOffset")]
 		public TimeSpan PostDateTimeOffsetStringForOffset([FromBody] string s)
 		{
-			var dt = DateTimeOffset.Parse(s);
+			DateTimeOffset dt = DateTimeOffset.Parse(s);
 			return dt.Offset;
 		}
 

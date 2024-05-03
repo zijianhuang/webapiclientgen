@@ -15,14 +15,28 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetDictionary()
 		{
+
+/* Unmerged change from project 'IntegrationTestsTextJson'
+Before:
 			var dic = api.GetDictionary();
+After:
+			IDictionary<string, dic = api.GetDictionary();
+*/
+			System.Collections.Generic.IDictionary<string, string> dic = api.GetDictionary();
 			Assert.Equal("number", dic["System.Int64"]);
 		}
 
 		[Fact]
 		public void TestGetDictionaryOfPeople()
 		{
+
+/* Unmerged change from project 'IntegrationTestsTextJson'
+Before:
 			var dic = api.GetDictionaryOfPeople();
+After:
+			IDictionary<string, DemoWebApi.DemoData.Client.Person> dic = api.GetDictionaryOfPeople();
+*/
+			System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person> dic = api.GetDictionaryOfPeople();
 			Assert.Equal("Tony Stark", dic["Iron Man"].Name);
 			Assert.Equal("New York", dic["Spider Man"].Addresses[0].City);
 			Assert.Throws<System.Collections.Generic.KeyNotFoundException>(() => dic["iron Man"].Name); //the camelCase filter is in play in the web api

@@ -61,7 +61,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			ReturnType = description.ResponseDescription?.ResponseType ?? description.ActionDescriptor.ReturnType;
 
-			var methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodParameterTypes);
+			MethodInfo methodInfo = description.ActionDescriptor.ControllerDescriptor.ControllerType.GetMethod(description.ActionDescriptor.MethodName, description.ActionDescriptor.MethodParameterTypes);
 			if (methodInfo != null)
 			{
 				parameterInfoArray = methodInfo.GetParameters();
@@ -108,7 +108,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		void CreateDocComments()
 		{
-			var methodFullName = Description.ActionDescriptor.MethodFullName;
+			string methodFullName = Description.ActionDescriptor.MethodFullName;
 			if (Description.ParameterDescriptions.Length > 0)
 			{
 				methodFullName += "(" + Description.ParameterDescriptions.Select(d =>
@@ -141,10 +141,10 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (WebApiDocSingleton.Instance.Lookup != null)
 			{
 				methodComments = WebApiDocSingleton.Instance.Lookup.GetMember("M:" + methodFullName);
-				var noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
+				string[] noIndent = Fonlow.DocComment.StringFunctions.TrimIndentedMultiLineTextToArray(Fonlow.DocComment.DocCommentHelper.GetSummary(methodComments));
 				if (noIndent != null)
 				{
-					foreach (var item in noIndent)
+					foreach (string item in noIndent)
 					{
 						builder.AppendLine(item);
 					}
@@ -153,15 +153,15 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			builder.AppendLine(Description.HttpMethod + " " + Description.RelativePath);
 
-			var methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(Description.ActionDescriptor.CustomAttributes);
+			string[] methodAttributesAsComments = WebApiClientGenCore.Abstract.AspNetAttributesHelper.CreateDocCommentBasedOnAttributes(Description.ActionDescriptor.CustomAttributes);
 			if (methodAttributesAsComments.Length>0){
-				foreach (var item in methodAttributesAsComments)
+				foreach (string item in methodAttributesAsComments)
 				{
 					builder.AppendLine(item);
 				}
 			}
 
-			foreach (var paramDesc in Description.ParameterDescriptions)
+			foreach (ParameterDescription paramDesc in Description.ParameterDescriptions)
 			{
 				//var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);
 				//var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
@@ -177,15 +177,15 @@ namespace Fonlow.CodeDom.Web.Ts
 				//{
 				//	builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {parameterComment}");
 				//}
-				var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
+				string parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
 				CreateParamDocComment(builder, paramDesc, parameterComment);
 			}
 
 			Type responseType = Description.ResponseDescription.ResponseType ?? Description.ResponseDescription.DeclaredType;
-			var tsResponseType = Poco2TsGen.TranslateToClientTypeReference(responseType);
-			var returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
+			CodeTypeReference tsResponseType = Poco2TsGen.TranslateToClientTypeReference(responseType);
+			string returnTypeOfResponse = responseType == null ? "void" : TypeMapper.MapCodeTypeReferenceToTsText(tsResponseType);
 
-			var returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);
+			string returnComment = Fonlow.DocComment.DocCommentHelper.GetReturnComment(methodComments);
 			if (returnComment == null)
 			{
 				if (responseType != null)
@@ -214,7 +214,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <param name="parameterComment"></param>
 		void CreateParamDocComment(StringBuilder builder, ParameterDescription paramDesc, string parameterComment)
 		{
-			var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);
+			CodeTypeReference tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);
 			if (!String.IsNullOrWhiteSpace(parameterComment))
 			{
 				builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {parameterComment}");
@@ -226,15 +226,15 @@ namespace Fonlow.CodeDom.Web.Ts
 			{
 				try
 				{
-					var parameterInfo = parameterInfoArray.Single(p => p.Name == paramDesc.Name);
-					var customAttributes = parameterInfo.GetCustomAttributes().ToList();
+					ParameterInfo parameterInfo = parameterInfoArray.Single(p => p.Name == paramDesc.Name);
+					List<Attribute> customAttributes = parameterInfo.GetCustomAttributes().ToList();
 					bool rangeAttributeExists = customAttributes.Any(d => d.GetType() == typeof(RangeAttribute));
 					bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
 					if (paramTypeCommentExists)
 					{
 						if (rangeAttributeExists)
 						{
-							var splited = paramTypeComment.Split(",");
+							string[] splited = paramTypeComment.Split(",");
 							lines.Add(splited[0]);
 						}
 						else
@@ -243,7 +243,7 @@ namespace Fonlow.CodeDom.Web.Ts
 						}
 					}
 
-					var commentsFromAttributes = CommentsHelper.GenerateCommentsFromAttributes(customAttributes, attribueCommentDic);
+					string[] commentsFromAttributes = CommentsHelper.GenerateCommentsFromAttributes(customAttributes, attribueCommentDic);
 					if (commentsFromAttributes.Length > 0)
 					{
 						lines.AddRange(commentsFromAttributes);
@@ -258,7 +258,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			if (lines.Count > 0)
 			{
-				var linesOfParamComment = LinesToIndentedLines(lines);
+				string linesOfParamComment = LinesToIndentedLines(lines);
 				builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {linesOfParamComment}");
 			}
 		}
@@ -293,7 +293,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected static string RemoveTrialEmptyString(string s)
 		{
-			var p = s.IndexOf(" + ''", StringComparison.Ordinal);
+			int p = s.IndexOf(" + ''", StringComparison.Ordinal);
 			if (p > -1)
 			{
 				return s.Remove(p, 5);
@@ -304,28 +304,28 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected string GetDataToPost()
 		{
-			var fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
+			ParameterDescription[] fromBodyParameterDescriptions = Description.ParameterDescriptions.Where(d => d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| (TypeHelper.IsComplexType(d.ParameterDescriptor.ParameterType) && (!(d.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri)
 				|| (d.ParameterDescriptor.ParameterBinder == ParameterBinder.None)))).ToArray();
 			if (fromBodyParameterDescriptions.Length > 1)
 			{
 				throw new InvalidOperationException(String.Format("This API function {0} has more than 1 FromBody bindings in parameters", Description.ActionDescriptor.ActionName));
 			}
-			var singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+			ParameterDescription singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
 
 			return singleFromBodyParameterDescription == null ? "null" : singleFromBodyParameterDescription.ParameterDescriptor.ParameterName;
 		}
 
 		protected void RenderMethodPrototype()
 		{
-			var parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
+			CodeParameterDeclarationExpression[] parameters = Description.ParameterDescriptions.Where(p => p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromUri
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
 				{
-					var originalType = d.ParameterDescriptor.ParameterType;
-					var originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
+					Type originalType = d.ParameterDescriptor.ParameterType;
+					CodeTypeReference originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
 					originalCodeTypeReference.UserData.Add(UserDataKeys.IsMethodParameter, true); // so I can add optional null later
-					var exp = new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
+					CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));
 					exp.UserData.Add(UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 					return exp;
 				}).ToArray();
@@ -339,8 +339,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// <returns></returns>
 		protected string GetFullUriText()
 		{
-			var jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
-			var hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
+			string jsUriQuery = UriQueryHelper.CreateUriQueryForTs(Description.RelativePath, Description.ParameterDescriptions);
+			bool hasArrayJoin = jsUriQuery != null && jsUriQuery.Contains(".join(");
 			return jsUriQuery == null ? $"this.baseUri + '{Description.RelativePath}'" :
 				RemoveTrialEmptyString(hasArrayJoin ? $"this.baseUri + '{jsUriQuery}" : $"this.baseUri + '{jsUriQuery}'");
 		}

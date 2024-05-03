@@ -2,122 +2,6 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-export namespace DemoWebApi_Controllers_Client {
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResult {
-
-		/**
-		 * Gets or sets the local path of the file saved on the server.
-		 */
-		fileNames?: Array<string>;
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter?: string | null;
-	}
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResultFormProperties {
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter: FormControl<string | null | undefined>,
-	}
-	export function CreateFileResultFormGroup() {
-		return new FormGroup<FileResultFormProperties>({
-			submitter: new FormControl<string | null | undefined>(undefined),
-		});
-
-	}
-
-
-	/**
-	 * Complex hero type
-	 */
-	export interface Hero {
-		address?: DemoWebApi_DemoData_Client.Address;
-		death?: Date | null;
-
-		/** Type: DateOnly */
-		dob?: Date | null;
-		emailAddress?: string | null;
-
-		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
-		id?: string | null;
-
-		/**
-		 * Required
-		 * String length: inclusive between 2 and 120
-		 */
-		name?: string | null;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
-
-		/** Min length: 6 */
-		webAddress?: string | null;
-	}
-
-	/**
-	 * Complex hero type
-	 */
-	export interface HeroFormProperties {
-		death: FormControl<Date | null | undefined>,
-
-		/** Type: DateOnly */
-		dob: FormControl<Date | null | undefined>,
-		emailAddress: FormControl<string | null | undefined>,
-
-		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
-		id: FormControl<string | null | undefined>,
-
-		/**
-		 * Required
-		 * String length: inclusive between 2 and 120
-		 */
-		name: FormControl<string | null | undefined>,
-
-		/** Min length: 6 */
-		webAddress: FormControl<string | null | undefined>,
-	}
-	export function CreateHeroFormGroup() {
-		return new FormGroup<HeroFormProperties>({
-			death: new FormControl<Date | null | undefined>(undefined),
-			dob: new FormControl<Date | null | undefined>(undefined),
-			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
-			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
-			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
-		});
-
-	}
-
-	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
-		super?: boolean | null;
-	}
-	export interface SuperHeroFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
-		super: FormControl<boolean | null | undefined>,
-	}
-	export function CreateSuperHeroFormGroup() {
-		return new FormGroup<SuperHeroFormProperties>({
-			death: new FormControl<Date | null | undefined>(undefined),
-			dob: new FormControl<Date | null | undefined>(undefined),
-			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
-			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
-			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
-			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
-			super: new FormControl<boolean | null | undefined>(undefined),
-		});
-
-	}
-
-}
-
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 
@@ -905,6 +789,122 @@ export namespace DemoWebApi_Models_Client {
 			issued: new FormControl<string | null | undefined>(undefined),
 			token_type: new FormControl<string | null | undefined>(undefined),
 			username: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+}
+
+export namespace DemoWebApi_Controllers_Client {
+
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string | null;
+	}
+
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResultFormProperties {
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter: FormControl<string | null | undefined>,
+	}
+	export function CreateFileResultFormGroup() {
+		return new FormGroup<FileResultFormProperties>({
+			submitter: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+
+	/**
+	 * Complex hero type
+	 */
+	export interface Hero {
+		address?: DemoWebApi_DemoData_Client.Address;
+		death?: Date | null;
+
+		/** Type: DateOnly */
+		dob?: Date | null;
+		emailAddress?: string | null;
+
+		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
+		id?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 2 and 120
+		 */
+		name?: string | null;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+
+		/** Min length: 6 */
+		webAddress?: string | null;
+	}
+
+	/**
+	 * Complex hero type
+	 */
+	export interface HeroFormProperties {
+		death: FormControl<Date | null | undefined>,
+
+		/** Type: DateOnly */
+		dob: FormControl<Date | null | undefined>,
+		emailAddress: FormControl<string | null | undefined>,
+
+		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
+		id: FormControl<string | null | undefined>,
+
+		/**
+		 * Required
+		 * String length: inclusive between 2 and 120
+		 */
+		name: FormControl<string | null | undefined>,
+
+		/** Min length: 6 */
+		webAddress: FormControl<string | null | undefined>,
+	}
+	export function CreateHeroFormGroup() {
+		return new FormGroup<HeroFormProperties>({
+			death: new FormControl<Date | null | undefined>(undefined),
+			dob: new FormControl<Date | null | undefined>(undefined),
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
+			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+		});
+
+	}
+
+	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
+		super?: boolean | null;
+	}
+	export interface SuperHeroFormProperties extends DemoWebApi_Controllers_Client.HeroFormProperties {
+		super: FormControl<boolean | null | undefined>,
+	}
+	export function CreateSuperHeroFormGroup() {
+		return new FormGroup<SuperHeroFormProperties>({
+			death: new FormControl<Date | null | undefined>(undefined),
+			dob: new FormControl<Date | null | undefined>(undefined),
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
+			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
+			webAddress: new FormControl<string | null | undefined>(undefined, [Validators.minLength(6), Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			super: new FormControl<boolean | null | undefined>(undefined),
 		});
 
 	}

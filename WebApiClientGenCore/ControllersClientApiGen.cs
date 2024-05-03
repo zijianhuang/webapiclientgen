@@ -17,7 +17,7 @@ namespace Fonlow.CodeDom.Web.Cs
 	public class ControllersClientApiGen : IDisposable
 	{
 		CodeCompileUnit targetUnit;
-		CodeGenSettings codeGenParameters;
+		CodeGenSettings codeGenSettings;
 		CodeDomProvider provider;
 
 
@@ -31,14 +31,14 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="codeGenParameters"></param>
+		/// <param name="codeGenSettings"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		public ControllersClientApiGen(CodeGenSettings codeGenParameters)
+		public ControllersClientApiGen(CodeGenSettings codeGenSettings)
 		{
-			this.codeGenParameters = codeGenParameters ?? throw new System.ArgumentNullException(nameof(codeGenParameters));
+			this.codeGenSettings = codeGenSettings ?? throw new System.ArgumentNullException(nameof(codeGenSettings));
 			targetUnit = new CodeCompileUnit();
 			provider = CodeDomProvider.CreateProvider("CSharp");
-			Poco2CsGenerator = new Poco2CsGen(targetUnit, provider, this.codeGenParameters);
+			Poco2CsGenerator = new Poco2CsGen(targetUnit, provider, this.codeGenSettings);
 		}
 
 		/// <summary>
@@ -63,7 +63,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			using StreamReader stringReader = new StreamReader(stream);
 			using StreamWriter fileWriter = new StreamWriter(fileName);
 			string s = stringReader.ReadToEnd();
-			if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
+			if (codeGenSettings.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenSettings.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 			{
 				fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
 			}
@@ -91,13 +91,13 @@ namespace Fonlow.CodeDom.Web.Cs
 		CodeNamespaceEx[] GenerateCsFromPoco()
 		{
 			List<CodeNamespaceEx> listOfNamespaces = new();
-			if (codeGenParameters.ApiSelections.DataModelAssemblyNames != null)
+			if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null)
 			{
 				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				Assembly[] assemblies = allAssemblies.Where(d => codeGenParameters.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.OrdinalIgnoreCase)))
+				Assembly[] assemblies = allAssemblies.Where(d => codeGenSettings.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.OrdinalIgnoreCase)))
 					.OrderBy(n => n.FullName)
 					.ToArray();
-				CherryPickingMethods cherryPickingMethods = codeGenParameters.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenParameters.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+				CherryPickingMethods cherryPickingMethods = codeGenSettings.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenSettings.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 				foreach (Assembly assembly in assemblies)
 				{
 					CodeNamespaceEx[] namespaces = Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, null);
@@ -105,17 +105,17 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 			}
 
-			if (codeGenParameters.ApiSelections.DataModels != null)
+			if (codeGenSettings.ApiSelections.DataModels != null)
 			{
 				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				foreach (DataModel dataModel in codeGenParameters.ApiSelections.DataModels)
+				foreach (DataModel dataModel in codeGenSettings.ApiSelections.DataModels)
 				{
 					Assembly assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dataModel.AssemblyName, StringComparison.OrdinalIgnoreCase));
 					if (assembly != null)
 					{
 						CherryPickingMethods cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 						bool dataAnnotationsToComments = (dataModel.DataAnnotationsToComments.HasValue && dataModel.DataAnnotationsToComments.Value) // dm explicitly tell to do
-							|| (!dataModel.DataAnnotationsToComments.HasValue && codeGenParameters.ClientApiOutputs.DataAnnotationsToComments);
+							|| (!dataModel.DataAnnotationsToComments.HasValue && codeGenSettings.ClientApiOutputs.DataAnnotationsToComments);
 						CodeNamespaceEx[] namespaces = Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, dataAnnotationsToComments);
 						listOfNamespaces.AddRange(namespaces);
 					}
@@ -143,7 +143,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			//Create client classes mapping to controller classes
 			foreach (IGrouping<string, ControllerDescriptor> grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
-				string clientNamespaceText = grouppedControllerDescriptions.Key + codeGenParameters.ClientApiOutputs.CSClientNamespaceSuffix;
+				string clientNamespaceText = grouppedControllerDescriptions.Key + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix;
 				CodeNamespaceEx clientNamespace = new CodeNamespaceEx(clientNamespaceText, false);
 				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 
@@ -156,7 +156,7 @@ namespace Fonlow.CodeDom.Web.Cs
 						new CodeNamespaceImport("System.Net.Http"),
 				});
 
-				if (codeGenParameters.ClientApiOutputs.UseSystemTextJson)
+				if (codeGenSettings.ClientApiOutputs.UseSystemTextJson)
 				{
 					clientNamespace.Imports.Add(new CodeNamespaceImport("System.Text.Json"));
 					clientNamespace.Imports.Add(new CodeNamespaceImport("System.Text.Json.Serialization"));
@@ -166,7 +166,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					clientNamespace.Imports.Add(new CodeNamespaceImport("Newtonsoft.Json"));
 				}
 
-				if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
+				if (codeGenSettings.ClientApiOutputs.UseEnsureSuccessStatusCodeEx)
 				{
 					clientNamespace.Imports.Add(new CodeNamespaceImport("Fonlow.Net.Http"));
 				}
@@ -176,7 +176,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					.Select(d =>
 					{
 						string controllerFullName = d.ControllerType.Namespace + "." + d.ControllerName; // like DemoCoreWeb.Controllers  Entities
-						if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+						if (codeGenSettings.ApiSelections.ExcludedControllerNames != null && codeGenSettings.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 							return null;
 
 						string containerClassName = ConcatOptionalSuffix(d.ControllerName); // optionally become EntitiesClient
@@ -229,21 +229,21 @@ namespace Fonlow.CodeDom.Web.Cs
 				string controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
 				string controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
 				string controllerFullName = controllerNamespace + "." + controllerName;
-				if (codeGenParameters.ApiSelections.ExcludedControllerNames != null && codeGenParameters.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
+				if (codeGenSettings.ApiSelections.ExcludedControllerNames != null && codeGenSettings.ApiSelections.ExcludedControllerNames.Contains(controllerFullName))
 					continue;
 
 				CodeTypeDeclaration existingClientClass = LookupExistingClassOfCs(controllerNamespace, ConcatOptionalSuffix(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				CodeMemberMethod apiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenParameters.ClientApiOutputs, true);
+				CodeMemberMethod apiFunction = ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenSettings, true);
 				existingClientClass.Members.Add(apiFunction);
-				if (codeGenParameters.ClientApiOutputs.GenerateBothAsyncAndSync)
+				if (codeGenSettings.ClientApiOutputs.GenerateBothAsyncAndSync)
 				{
-					existingClientClass.Members.Add(ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenParameters.ClientApiOutputs, false));
+					existingClientClass.Members.Add(ClientApiFunctionGen.Create(d, Poco2CsGenerator, this.codeGenSettings, false));
 				}
 			}
 
-			if (codeGenParameters.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenParameters.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
+			if (codeGenSettings.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenSettings.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 			{
 				CreateDummyOfEnsureSuccessStatusCodeEx();
 			}
@@ -253,7 +253,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		string ConcatOptionalSuffix(string controllerName)
 		{
-			return controllerName + (codeGenParameters.ClientApiOutputs.ContainerNameSuffix ?? String.Empty);
+			return controllerName + (codeGenSettings.ClientApiOutputs.ContainerNameSuffix ?? String.Empty);
 		}
 
 		/// <summary>
@@ -297,7 +297,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				Attributes = MemberAttributes.Private,
 				Name = "jsonSerializerSettings",
-				Type = codeGenParameters.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions") : new CodeTypeReference("JsonSerializerSettings")
+				Type = codeGenSettings.ClientApiOutputs.UseSystemTextJson ? new CodeTypeReference("JsonSerializerOptions") : new CodeTypeReference("JsonSerializerSettings")
 			};
 			targetClass.Members.Add(jsonSettingsField);
 		}
@@ -314,7 +314,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
 				"System.Net.Http.HttpClient", "client"));
 			constructor.Parameters.Add(new CodeParameterDeclarationExpression(
-				codeGenParameters.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" : "JsonSerializerSettings", "jsonSerializerSettings=null"));
+				codeGenSettings.ClientApiOutputs.UseSystemTextJson ? "JsonSerializerOptions" : "JsonSerializerSettings", "jsonSerializerSettings=null"));
 
 			constructor.Statements.Add(new CodeSnippetStatement(@"			if (client == null)
 				throw new ArgumentNullException(nameof(client), ""Null HttpClient."");

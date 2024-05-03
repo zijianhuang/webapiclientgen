@@ -169,10 +169,11 @@ namespace Fonlow.Poco2Client
 
 		/// <summary>
 		/// Check if custom Poco type is already registered as a client type.
-		/// If not, create a new CodeTypeDeclaration, optionally with a new CodeNamespace
+		/// If not, create a new CodeTypeDeclaration, optionally with a new CodeNamespace.
+		/// It is up to the client codes to decide what pocoType to come int. BCL types and other non-POCO types are not welcome.
 		/// </summary>
-		/// <param name="pocoType">Existing or newly created CodeTypeDeclaration.</param>
-		/// <returns></returns>
+		/// <param name="pocoType">Custom POCO types.</param>
+		/// <returns>Existing or newly created CodeTypeDeclaration.</returns>
 		public CodeTypeDeclaration CheckOrAdd(Type pocoType)
 		{
 			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(pocoType.Namespace, pocoType.Name);

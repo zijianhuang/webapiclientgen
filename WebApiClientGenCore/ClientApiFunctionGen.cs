@@ -32,20 +32,20 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly bool forAsync;
 		readonly bool stringAsString;
 		readonly string statementOfEnsureSuccessStatusCode;
-		readonly CodeGenOutputs settings;
+		readonly CodeGenSettings codeGenSettings;
+		readonly CodeGenOutputs codeGenOutputsSettings;
 		readonly System.Reflection.ParameterInfo[] parameterInfoArray;
 		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
 
-		ClientApiFunctionGen(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
+		ClientApiFunctionGen(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenSettings codeGenSettings, bool forAsync)
 		{
 			this.description = webApiDescription;
-			//this.sharedContext = sharedContext;
 			this.poco2CsGen = poco2CsGen;
-			this.settings = settings;
+			this.codeGenSettings = codeGenSettings;
+			this.codeGenOutputsSettings = codeGenSettings.ClientApiOutputs;
 			this.forAsync = forAsync;
-			this.stringAsString = settings.StringAsString;
-			//this.diFriendly = settings.DIFriendly;
-			statementOfEnsureSuccessStatusCode = settings.UseEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
+			this.stringAsString = codeGenOutputsSettings.StringAsString;
+			statementOfEnsureSuccessStatusCode = codeGenOutputsSettings.UseEnsureSuccessStatusCodeEx ? "EnsureSuccessStatusCodeEx" : "EnsureSuccessStatusCode";
 			methodName = webApiDescription.ActionDescriptor.ActionName;
 			if (methodName.EndsWith("Async", StringComparison.Ordinal))
 			{
@@ -70,11 +70,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (methodInfo != null)
 			{
 				parameterInfoArray = methodInfo.GetParameters();
-				if (settings.MaybeNullAttributeOnMethod)
+				if (codeGenOutputsSettings.MaybeNullAttributeOnMethod)
 				{
 					returnTypeDecoratedWithMaybeNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.MaybeNullAttribute));
 				}
-				else if (settings.NotNullAttributeOnMethod)
+				else if (codeGenOutputsSettings.NotNullAttributeOnMethod)
 				{
 					returnTypeDecoratedWithNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
@@ -85,19 +85,38 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 		const string typeOfIHttpActionResult = "System.Web.Http.IHttpActionResult";
-		const string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
-		const string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1. I did not need this for .net core 2.0
+		const string typeOfIActionResult = "Microsoft.AspNetCore.Mvc.IActionResult"; //for .net core 2.1
+		const string typeOfActionResult = "Microsoft.AspNetCore.Mvc.ActionResult"; //for .net core 2.1
 
 		static readonly Type typeOfChar = typeof(char);
 
-		public static CodeMemberMethod Create(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenOutputs settings, bool forAsync)
+		public static CodeMemberMethod Create(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenSettings codeGenOutputsSettings, bool forAsync)
 		{
-			ClientApiFunctionGen gen = new ClientApiFunctionGen(webApiDescription, poco2CsGen, settings, forAsync);
+			ClientApiFunctionGen gen = new ClientApiFunctionGen(webApiDescription, poco2CsGen, codeGenOutputsSettings, forAsync);
 			return gen.CreateApiFunction();
+		}
+
+		/// <summary>
+		/// Candidate could be custom POCO, or custom POCO wrapped in IActionResult, ActionResult etc.
+		/// </summary>
+		/// <param name="candidateType"></param>
+		void AddCustomPocoType(Type candidateType)
+		{
+			if (candidateType == null)
+			{
+				return;
+			}
+
+			var assemblyFilename = candidateType.Assembly.FullName;
+			if (codeGenSettings.ApiSelections.DataModelAssemblyNames!=null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
+			{
+				poco2CsGen.CheckOrAdd(candidateType);
+			}
 		}
 
 		CodeMemberMethod CreateApiFunction()
 		{
+			AddCustomPocoType(returnType);
 			//create method
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 #if DEBUG
@@ -107,11 +126,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 #endif
 			CreateDocComments();
-			if (settings.MaybeNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
+			if (codeGenOutputsSettings.MaybeNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
 			{
 				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.MaybeNullAttribute"));
 			}
-			else if (settings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)
+			else if (codeGenOutputsSettings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)
 			{
 				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
 			}
@@ -175,7 +194,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					ss.Add(doc);
 				}
 
-				if (settings.DataAnnotationsToComments)
+				if (codeGenOutputsSettings.DataAnnotationsToComments)
 				{
 					ParameterInfo parameterInfo = parameterInfoArray.SingleOrDefault(p => p?.Name == paramName);
 					IEnumerable<Attribute> customAttributes = parameterInfo.GetCustomAttributes();
@@ -287,6 +306,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.None)
 				.Select(d =>
 				{
+					AddCustomPocoType(d.ParameterDescriptor.ParameterType);
 					CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
 					exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 					return exp;
@@ -294,12 +314,12 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			clientMethod.Parameters.AddRange(parameters);
 
-			if (settings.CancellationTokenEnabled)
+			if (codeGenOutputsSettings.CancellationTokenEnabled)
 			{
 				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("System.Threading.CancellationToken", "cancellationToken"));
 			}
 
-			if (settings.HandleHttpRequestHeaders)
+			if (codeGenOutputsSettings.HandleHttpRequestHeaders)
 			{
 				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
 			}
@@ -314,7 +334,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"using var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri);"));
 
-			if (settings.HandleHttpRequestHeaders)
+			if (codeGenOutputsSettings.HandleHttpRequestHeaders)
 			{
 				clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\thandleHeaders?.Invoke(httpRequestMessage.Headers);"));
 			}
@@ -356,6 +376,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
 			{
+				AddCustomPocoType(d.ParameterDescriptor.ParameterType);
 				CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
 				exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 				return exp;
@@ -363,12 +384,12 @@ namespace Fonlow.CodeDom.Web.Cs
 			).ToArray();
 			clientMethod.Parameters.AddRange(parameters);
 
-			if (settings.CancellationTokenEnabled)
+			if (codeGenOutputsSettings.CancellationTokenEnabled)
 			{
 				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("System.Threading.CancellationToken", "cancellationToken"));
 			}
 
-			if (settings.HandleHttpRequestHeaders)
+			if (codeGenOutputsSettings.HandleHttpRequestHeaders)
 			{
 				clientMethod.Parameters.Add(new CodeParameterDeclarationExpression("Action<System.Net.Http.Headers.HttpRequestHeaders>", "handleHeaders = null"));
 			}
@@ -403,7 +424,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (singleFromBodyParameterDescription != null)
 			{
-				if (settings.UseSystemTextJson)
+				if (codeGenOutputsSettings.UseSystemTextJson)
 				{
 					clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
 					clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + @"var content = new StringContent(contentJson, System.Text.Encoding.UTF8, ""application/json"");"));
@@ -424,7 +445,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				}
 
 				clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\thttpRequestMessage.Content = content;"));
-				if (settings.HandleHttpRequestHeaders)
+				if (codeGenOutputsSettings.HandleHttpRequestHeaders)
 				{
 					clientMethod.Statements.Add(new CodeSnippetStatement("\t\t\thandleHeaders?.Invoke(httpRequestMessage.Headers);"));
 				}
@@ -459,36 +480,20 @@ namespace Fonlow.CodeDom.Web.Cs
 				try1.FinallyStatements.Add(new CodeMethodInvokeExpression(resultReference, "Dispose"));
 			}
 
-			if (singleFromBodyParameterDescription != null && !settings.UseSystemTextJson)
+			if (singleFromBodyParameterDescription != null && !codeGenOutputsSettings.UseSystemTextJson)
 			{
 				//Add3TEndBacket(clientMethod);
 			}
 
-			//Add3TEndBacket(clientMethod);
-		}
-
-		static void Add3TEndBacket(CodeMemberMethod method)
-		{
-			method.Statements.Add(new CodeSnippetStatement("\t\t\t}"));
 		}
 
 		static string ThreeTabs => "\t\t\t";
 
 		void AddResponseMessageSendAsync(CodeMemberMethod method)
 		{
-			string cancellationToken = settings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty;
+			string cancellationToken = codeGenOutputsSettings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty;
 			method.Statements.Add(new CodeVariableDeclarationStatement(
 				new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression($"await client.SendAsync(httpRequestMessage{cancellationToken})") : new CodeSnippetExpression($"client.SendAsync(httpRequestMessage{cancellationToken}).Result")));
-		}
-
-		static void Add4TEndBacket(CodeStatementCollection statementCollection)
-		{
-			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t}"));
-		}
-
-		static void Add4TStartBacket(CodeStatementCollection statementCollection)
-		{
-			statementCollection.Add(new CodeSnippetStatement("\t\t\t\t{"));
 		}
 
 		static void AddNewtonSoftJsonTextReader(CodeStatementCollection statementCollection)
@@ -498,12 +503,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void AddNewtonSoftJsonSerializerDeserialize(CodeStatementCollection statementCollection)
 		{
-			//statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression( this had been working well, however, there's not built-in way of supporting nullable in codedom.
-			//	new CodeMethodReferenceExpression(new CodeVariableReferenceExpression("serializer"), "Deserialize", poco2CsGen.TranslateToClientTypeReference(returnType)),
-			//		new CodeSnippetExpression("jsonReader"))));
-
 			statementCollection.Add(new CodeSnippetStatement($"\t\t\t\treturn serializer.Deserialize<{poco2CsGen.TranslateTypeToCSharp(returnType)}>(jsonReader);"));
-
 		}
 
 		static void AddNewtonSoftJsonSerializer(CodeStatementCollection statementCollection)
@@ -527,7 +527,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				statementCollection.Add(new CodeSnippetStatement("\t\t\t\tif (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }"));
 			}
 
-			if (settings.UseSystemTextJson)
+			if (codeGenOutputsSettings.UseSystemTextJson)
 			{
 				if (returnType != null && TypeHelper.IsStringType(returnType) && this.stringAsString)
 				{
@@ -562,31 +562,15 @@ namespace Fonlow.CodeDom.Web.Cs
 			else if (returnTypeIsDynamicObject) // .NET Core ApiExplorer could get return type out of Task<> in most cases, however, not for dynamic and anynomous, while .NET Framework ApiExplorer is fine.
 			{
 				AddResponseMessageRead(statementCollection);
-				if (settings.UseSystemTextJson)
+				if (codeGenOutputsSettings.UseSystemTextJson)
 				{
 					DeserializeContentString(statementCollection); //todo: may not be good
 				}
 				else
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
-					//Add4TStartBacket(statementCollection);
-
 					AddNewtonSoftJsonSerializer(statementCollection);
-
-					//var invokeExpression = new CodeMethodInvokeExpression(
-					//	new CodeMethodReferenceExpression(
-					//		new CodeVariableReferenceExpression("serializer"),
-					//		"Deserialize",
-					//		poco2CsGen.TranslateToClientTypeReference(returnType)
-					//	),
-
-					//	new CodeSnippetExpression("jsonReader")
-					//);
-					//statementCollection.Add(new CodeMethodReturnStatement(invokeExpression));
-
 					statementCollection.Add(new CodeSnippetStatement($"\t\t\t\treturn serializer.Deserialize<{poco2CsGen.TranslateTypeToCSharp(returnType)}>(jsonReader);"));
-
-					//Add4TEndBacket(statementCollection);
 				}
 
 				return;
@@ -609,13 +593,11 @@ namespace Fonlow.CodeDom.Web.Cs
 				if (this.stringAsString)
 				{
 					statementCollection.Add(new CodeSnippetStatement("\t\t\t\tusing System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);"));
-					//Add4TStartBacket(statementCollection); for C# 6, no backets needed
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("streamReader.ReadToEnd();")));
-					//Add4TEndBacket(statementCollection);
 				}
 				else
 				{
-					if (settings.UseSystemTextJson)
+					if (codeGenOutputsSettings.UseSystemTextJson)
 					{
 						statementCollection.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(
 							new CodeMethodReferenceExpression(
@@ -626,44 +608,38 @@ namespace Fonlow.CodeDom.Web.Cs
 					else
 					{
 						AddNewtonSoftJsonTextReader(statementCollection);
-						//Add4TStartBacket(statementCollection);
 						statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("jsonReader.ReadAsString()")));
-						//Add4TEndBacket(statementCollection);
 					}
 				}
 			}
 			else if (returnType == typeOfChar)
 			{
-				if (settings.UseSystemTextJson)
+				if (codeGenOutputsSettings.UseSystemTextJson)
 				{
 					DeserializeContentString(statementCollection);
 				}
 				else
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
-					//Add4TStartBacket(statementCollection);
 					AddNewtonSoftJsonSerializer(statementCollection);
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression("serializer.Deserialize<char>(jsonReader)")));
-					//Add4TEndBacket(statementCollection);
 				}
 			}
 			else if (returnType.IsPrimitive)
 			{
-				if (settings.UseSystemTextJson)
+				if (codeGenOutputsSettings.UseSystemTextJson)
 				{
 					DeserializeContentString(statementCollection);
 				}
 				else
 				{
 					AddNewtonSoftJsonTextReader(statementCollection);
-					//Add4TStartBacket(statementCollection);
 					statementCollection.Add(new CodeMethodReturnStatement(new CodeSnippetExpression(String.Format("{0}.Parse(jsonReader.ReadAsString())", returnType.FullName))));
-					//Add4TEndBacket(statementCollection);
 				}
 			}
 			else if (returnType.IsGenericType || TypeHelper.IsComplexType(returnType) || returnType.IsEnum)
 			{
-				if (settings.UseSystemTextJson)
+				if (codeGenOutputsSettings.UseSystemTextJson)
 				{
 					DeserializeContentString(statementCollection);
 				}

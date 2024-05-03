@@ -1,0 +1,6 @@
+@DemoGodAssemblyWeb_HostAddress = http://localhost:5193
+
+GET {{DemoGodAssemblyWeb_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

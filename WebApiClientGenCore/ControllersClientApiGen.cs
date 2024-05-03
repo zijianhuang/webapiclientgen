@@ -73,6 +73,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 		}
 
+		/// <summary>
+		/// Generate CodeDom of POCO classes in data model assemblies and the client API for ApiDescriptions.
+		/// </summary>
+		/// <param name="webApiDescriptions"></param>
+		/// <param name="fileName"></param>
 		public void CreateCodeDomAndSaveCsharp(WebApiDescription[] webApiDescriptions, string fileName)
 		{
 			var namespacesOfPoco = CreateCodeDom(webApiDescriptions);
@@ -80,7 +85,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 		/// <summary>
-		/// 
+		/// Generate CodeDOM of POCO classes of namespaces of assemblies loaded and filtered out by what define in codeGenParameters.ApiSelections.DataModelAssemblyNames or codeGenParameters.ApiSelections.DataModels
 		/// </summary>
 		/// <returns>Namespaces of POCO types.</returns>
 		CodeNamespaceEx[] GenerateCsFromPoco()
@@ -121,11 +126,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 		/// <summary>
-		/// Generate CodeDom of the client API for ApiDescriptions.
+		/// Generate CodeDom of the client API for ApiDescriptions, as well as POCO classes in data model assemblies
 		/// </summary>
 		/// <param name="webApiDescriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
 		/// <returns>Namespaces of types of POCO.</returns>
-		public CodeNamespaceEx[] CreateCodeDom(WebApiDescription[] webApiDescriptions)
+		CodeNamespaceEx[] CreateCodeDom(WebApiDescription[] webApiDescriptions)
 		{
 			ArgumentNullException.ThrowIfNull(webApiDescriptions);
 
@@ -166,7 +171,7 @@ namespace Fonlow.CodeDom.Web.Cs
 					clientNamespace.Imports.Add(new CodeNamespaceImport("Fonlow.Net.Http"));
 				}
 
-				var newControllerClassesCreated = grouppedControllerDescriptions
+				CodeTypeDeclaration[] newControllerClassesCreated = grouppedControllerDescriptions
 					.OrderBy(d => d.ControllerName) // order by groupname, and do group by group
 					.Select(d =>
 					{
@@ -252,10 +257,10 @@ namespace Fonlow.CodeDom.Web.Cs
 		}
 
 		/// <summary>
-		/// Lookup existing CodeTypeDeclaration created.
+		/// Lookup existing CodeTypeDeclaration created for controller class.
 		/// </summary>
 		/// <param name="namespaceText"></param>
-		/// <param name="containerClassName"></param>
+		/// <param name="containerClassName">Controller name plus suffix</param>
 		/// <returns></returns>
 		CodeTypeDeclaration LookupExistingClass(string namespaceText, string containerClassName)
 		{

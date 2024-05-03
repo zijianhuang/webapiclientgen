@@ -3,7 +3,6 @@ using Fonlow.CodeDom.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using System.Linq;
 using System.Net;
 
 namespace Fonlow.WebApiClientGen
@@ -66,7 +65,6 @@ namespace Fonlow.WebApiClientGen
 			try
 			{
 				CodeGen.GenerateClientAPIs(this.webRootPath, settings, webApiDescriptions);
-				//System.IO.File.WriteAllText(@"c:\temp\mygen.json", Newtonsoft.Json.JsonConvert.SerializeObject(apiDescriptions, Newtonsoft.Json.Formatting.Indented)); //Log some runtime info if something is wrong.
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{

@@ -219,7 +219,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		}
 
 		/// <summary>
-		/// Lookup existing CodeTypeDeclaration created.
+		/// Lookup existing CodeTypeDeclaration created for controller class, for TS.
 		/// </summary>
 		/// <param name="clrNamespaceText"></param>
 		/// <param name="containerClassName"></param>

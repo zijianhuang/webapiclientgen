@@ -61,13 +61,14 @@ namespace Fonlow.Poco2Client
 		}
 
 		/// <summary>
-		/// 
+		/// Create CodeDOM of POCO classes
 		/// </summary>
 		/// <param name="assembly"></param>
 		/// <param name="methods"></param>
 		/// <param name="docLookup"></param>
 		/// <param name="codeGenOutputs"></param>
 		/// <param name="dataAnnotationsToComments">Optional. This may be independent of the global setting in settings of ModelGenOutputs</param>
+		/// <returns>CodeDOM namespaces containing POCO classes.</returns>
 		public CodeNamespaceEx[] CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods methods, bool? dataAnnotationsToComments)
 		{
 			var xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
@@ -84,7 +85,8 @@ namespace Fonlow.Poco2Client
 		}
 
 		/// <summary>
-		/// Translate custom types, generic types, array and some special http message types to client code type refernce
+		/// Translate custom types, generic types, array and some special http message types to client code type refernce.
+		/// For custom complex types, it will return the propery client CodeTypeReference.
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
@@ -125,44 +127,6 @@ namespace Fonlow.Poco2Client
 
 			return new CodeTypeReference(type);
 		}
-
-		//public CodeTypeReference TranslateToClientTypeReferenceForNullableReference(Type type)
-		//{
-		//	if (type == null)
-		//		return null;// new CodeTypeReference("void");
-
-		//	if (pendingTypes.Contains(type))
-		//	{
-		//		return new CodeTypeReference(RefineCustomComplexTypeText(type));
-		//	}
-		//	else if (type.IsGenericType)
-		//	{
-		//		return TranslateGenericToTypeReference(type);
-		//	}
-		//	else if (type.IsArray)
-		//	{
-		//		Debug.Assert(type.Name.EndsWith("]"));
-		//		var elementType = type.GetElementType();
-		//		var arrayRank = type.GetArrayRank();
-		//		return CreateArrayTypeReference(elementType, arrayRank);
-		//	}
-		//	else
-		//	{
-		//		if (type.FullName == "System.Web.Http.IHttpActionResult")
-		//			return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-		//		if (type.FullName == "Microsoft.AspNetCore.Mvc.IActionResult" || type.FullName == "Microsoft.AspNetCore.Mvc.ActionResult")
-		//			return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-		//		if (type.FullName == "System.Net.Http.HttpResponseMessage")
-		//			return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
-
-		//		if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
-		//			return new CodeTypeReference("Newtonsoft.Json.Linq.JObject");
-		//	}
-
-		//	return new CodeTypeReference(type);
-		//}
 
 		/// <summary>
 		/// Create CodeDOM for POCO types. 
@@ -395,6 +359,10 @@ namespace Fonlow.Poco2Client
 			}
 
 			return clientNamespaceNames.ToArray();
+		}
+
+		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type){
+
 		}
 
 		static void AddDataMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)
@@ -692,6 +660,11 @@ namespace Fonlow.Poco2Client
 			return CreateGenericTypeText();
 		}
 
+		/// <summary>
+		/// Giving something like MyNamespace.Client.TName
+		/// </summary>
+		/// <param name="t"></param>
+		/// <returns></returns>
 		string RefineCustomComplexTypeText(Type t)
 		{
 			return t.Namespace + this.settings.CSClientNamespaceSuffix + "." + t.Name;

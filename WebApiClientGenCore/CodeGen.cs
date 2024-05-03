@@ -5,6 +5,13 @@ namespace Fonlow.CodeDom.Web
 {
 	public static class CodeGen
 	{
+		/// <summary>
+		/// Called by CodeGenController to create client API codes in CS and TS.
+		/// </summary>
+		/// <param name="webRootPath"></param>
+		/// <param name="settings"></param>
+		/// <param name="webApiDescriptions"></param>
+		/// <exception cref="CodeGenException"></exception>
 		public static void GenerateClientAPIs(string webRootPath, CodeGenSettings settings, WebApiDescription[] webApiDescriptions)
 		{
 			if (webRootPath == null)//Run the .net core web through dotnet may have IHostingEnvironment.WebRootPath==null

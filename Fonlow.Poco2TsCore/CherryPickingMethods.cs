@@ -41,6 +41,11 @@ namespace Fonlow.Poco2Client
         /// For .NET Core Json*Attribute
         /// </summary>
         NetCore= 16,
+
+        /// <summary>
+        /// Pick types in APIs only, matching certain namespace prefixes for custom types
+        /// </summary>
+        GodAssembly= 32,
     }
 
     /// <summary>

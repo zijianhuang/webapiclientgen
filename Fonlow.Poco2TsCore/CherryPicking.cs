@@ -159,7 +159,13 @@ namespace Fonlow.Poco2Client
 			if ((methods & CherryPickingMethods.AspNet) == CherryPickingMethods.AspNet)
 			{
 				var a = TypeHelper.ReadAttribute<RequiredAttribute>(memberInfo);
-				r[4]= a == null ? CherryType.Cherry : CherryType.BigCherry;
+				r[4] = a == null ? CherryType.Cherry : CherryType.BigCherry;
+			}
+
+			if ((methods & CherryPickingMethods.GodAssembly) == CherryPickingMethods.GodAssembly)
+			{
+				var a = TypeHelper.ReadAttribute<RequiredAttribute>(memberInfo);
+				r[4] = a == null ? CherryType.Cherry : CherryType.BigCherry;
 			}
 
 

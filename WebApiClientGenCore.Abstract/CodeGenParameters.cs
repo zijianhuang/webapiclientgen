@@ -38,6 +38,10 @@
 		/// </summary>
 		public int? CherryPickingMethods { get; set; }
 
+		/// <summary>
+		/// Used when cherry picking methods is for god assembly (32)
+		/// </summary>
+		public string[] NamespacePrefixesOfGodAssemblyTypes { get; set; }
 	}
 
 	public class DataModel

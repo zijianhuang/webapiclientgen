@@ -133,10 +133,10 @@ namespace Fonlow.Poco2Client
 		/// For an enum type, all members will be processed regardless of EnumMemberAttribute.
 		/// </summary>
 		/// <param name="types">POCO types.</param>
-		/// <param name="methods">How to cherry pick data to be exposed to the clients.</param>
+		/// <param name="cherryPickingMethods">How to cherry pick data to be exposed to the clients.</param>
 		/// <param name="clientNamespaceSuffix"></param>
 		/// <returns>Namespaces of types.</returns>
-		CodeNamespaceEx[] CreateCodeDomForTypes(Type[] types, CherryPickingMethods methods, string clientNamespaceSuffix)
+		CodeNamespaceEx[] CreateCodeDomForTypes(Type[] types, CherryPickingMethods cherryPickingMethods, string clientNamespaceSuffix)
 		{
 			if (types == null)
 				throw new ArgumentNullException(nameof(types), "types is not defined.");
@@ -146,223 +146,223 @@ namespace Fonlow.Poco2Client
 			var typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
 				.OrderBy(k => k.Key).ToArray(); // order by namespace
-			var namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
+			string[] namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
 			List<CodeNamespaceEx> clientNamespaceNames = new();
 			foreach (var groupedTypes in typeGroupedByNamespace)
 			{
 				var clientNamespaceText = (groupedTypes.Key + clientNamespaceSuffix);
-				var clientNamespace = new CodeNamespaceEx(clientNamespaceText, true);
+				CodeNamespaceEx clientNamespace = new CodeNamespaceEx(clientNamespaceText, true);
 				codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
 				clientNamespaceNames.Add(clientNamespace);
 
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
 				CodeTypeDeclaration[] codeTypeDeclarations = groupedTypes.OrderBy(t => t.Name).Select(type =>
 				{
-					var tsName = type.Name;
-					Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
-
-					CodeTypeDeclaration typeDeclaration;
-					if (TypeHelper.IsClassOrStruct(type))
-					{
-						if (type.IsGenericType)
-						{
-							typeDeclaration = PodGenHelper.CreatePodClientGenericClass(clientNamespace, type);
-						}
-						else
-						{
-							typeDeclaration = type.IsClass ? PodGenHelper.CreatePodClientClass(clientNamespace, tsName) : PodGenHelper.CreatePodClientStruct(clientNamespace, tsName);
-						}
-
-						if (!type.IsValueType)
-						{
-							if (namespacesOfTypes.Contains(type.BaseType.Namespace))
-							{
-								typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
-							}
-							else
-							{
-								typeDeclaration.BaseTypes.Add(type.BaseType);
-							}
-						}
-
-						CreateTypeDocComment(type, typeDeclaration);
-
-						var typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);
-						bool withDataContract = (typeCherryMethods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract;
-						var typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
-						foreach (var propertyInfo in typeProperties)
-						{
-							var cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods, withDataContract);
-							if (cherryType == CherryType.None)
-								continue;
-							string tsPropertyName;
-
-
-							//todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
-							tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
-							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
-							var defaultValue = GetDefaultValue(propertyInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
-
-							var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType, defaultValue); //hacky way of creating clean getter and writter.
-							var isRequired = cherryType == CherryType.BigCherry;
-							if (isRequired)
-							{
-								clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
-							}
-
-							if (settings.DataAnnotationsEnabled)
-							{
-								AddValidationAttributes(propertyInfo, clientProperty, isRequired);
-							}
-
-							CreatePropertyDocComment(propertyInfo, clientProperty);
-
-							if (settings.DecorateDataModelWithDataContract)
-							{
-								AddDataMemberAttribute(propertyInfo, clientProperty);
-							}
-
-							typeDeclaration.Members.Add(clientProperty);
-						}
-
-						var typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
-						foreach (var fieldInfo in typeFields)
-						{
-							var cherryType = CherryPicking.GetMemberCherryType(fieldInfo, methods, withDataContract);
-							if (cherryType == CherryType.None)
-								continue;
-							string tsPropertyName;
-
-
-							tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
-							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
-							var defaultValue = GetDefaultValue(fieldInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
-
-							//public fields of a class will be translated into properties
-							if (type.IsClass)
-							{
-								var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType, defaultValue); //hacky way of creating clean getter and writter.
-								var isRequired = cherryType == CherryType.BigCherry;
-								if (isRequired)
-								{
-									clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
-								}
-
-								if (settings.DataAnnotationsEnabled)
-								{
-									AddValidationAttributes(fieldInfo, clientProperty, isRequired);
-								}
-
-								CreateFieldDocComment(fieldInfo, clientProperty);
-
-								if (settings.DecorateDataModelWithDataContract)
-								{
-									AddDataMemberAttribute(fieldInfo, clientProperty);
-								}
-
-								typeDeclaration.Members.Add(clientProperty);
-							}
-							else //public fields of struct
-							{
-								var clientField = new CodeMemberField()
-								{
-									Name = tsPropertyName,
-									Type = TranslateToClientTypeReference(fieldInfo.FieldType),
-									Attributes = MemberAttributes.Public | MemberAttributes.Final,
-									//todo: add some attributes                               
-								};
-
-								CreateFieldDocComment(fieldInfo, clientField);
-
-								if (settings.DecorateDataModelWithDataContract)
-								{
-									AddDataMemberAttribute(fieldInfo, clientField);
-								}
-
-								typeDeclaration.Members.Add(clientField);
-							}
-						}
-
-						if (settings.DecorateDataModelWithDataContract)
-						{
-							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
-						}
-
-						if (settings.DecorateDataModelWithSerializable)
-						{
-							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
-						}
-					}
-					else if (type.IsEnum)
-					{
-						typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
-
-						CreateTypeDocComment(type, typeDeclaration);
-
-						var newtonJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "Newtonsoft.Json.JsonConverterAttribute");
-						if (newtonJsonConverterAttributeData != null)
-						{
-							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration(settings.UseSystemTextJson ? "System.Text.Json.Serialization.JsonConverterAttribute" : "Newtonsoft.Json.JsonConverterAttribute", new CodeAttributeArgument(new CodeSnippetExpression(settings.UseSystemTextJson ? "typeof(System.Text.Json.Serialization.JsonStringEnumConverter)" : "typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
-						}
-
-						var systemJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Text.Json.Serialization.JsonConverterAttribute");
-						if (systemJsonConverterAttributeData != null)
-						{
-							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonConverter", new CodeAttributeArgument(new CodeSnippetExpression("typeof(System.Text.Json.Serialization.JsonStringEnumConverter)"))));
-						}
-
-						int k = 0;
-						foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))//not to sort
-						{
-							var name = fieldInfo.Name;
-							var intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
-							Debug.WriteLine(name + " -- " + intValue);
-							var isInitialized = intValue != k;
-
-							var clientField = new CodeMemberField()
-							{
-								Name = name,
-								Type = new CodeTypeReference(fieldInfo.FieldType),
-								InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
-							};
-
-							CreateFieldDocComment(fieldInfo, clientField);
-
-							if (settings.DecorateDataModelWithDataContract)
-							{
-								AddEnumMemberAttribute(fieldInfo, clientField);
-							}
-
-							typeDeclaration.Members.Add(clientField);
-							k++;
-						}
-
-						if (settings.DecorateDataModelWithDataContract)
-						{
-							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
-						}
-
-						if (settings.DecorateDataModelWithSerializable)
-						{
-							typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
-						}
-					}
-					else
-					{
-						Trace.TraceWarning("Not yet supported: " + type.Name);
-						typeDeclaration = null;
-					}
-
-					return typeDeclaration;
-				}
-					).ToArray();//add classes into the namespace
+					return TypeToCodeTypeDeclaration(type, clientNamespace, namespacesOfTypes, cherryPickingMethods);
+				}).ToArray();//add classes into the namespace
 			}
 
 			return clientNamespaceNames.ToArray();
 		}
 
-		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type){
+		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods cherryPickingMethods)
+		{
+			var tsName = type.Name;
+			Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
 
+			CodeTypeDeclaration typeDeclaration;
+			if (TypeHelper.IsClassOrStruct(type))
+			{
+				if (type.IsGenericType)
+				{
+					typeDeclaration = PodGenHelper.CreatePodClientGenericClass(clientNamespace, type);
+				}
+				else
+				{
+					typeDeclaration = type.IsClass ? PodGenHelper.CreatePodClientClass(clientNamespace, tsName) : PodGenHelper.CreatePodClientStruct(clientNamespace, tsName);
+				}
+
+				if (!type.IsValueType)
+				{
+					if (namespacesOfTypes.Contains(type.BaseType.Namespace))
+					{
+						typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
+					}
+					else
+					{
+						typeDeclaration.BaseTypes.Add(type.BaseType);
+					}
+				}
+
+				CreateTypeDocComment(type, typeDeclaration);
+
+				var typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);
+				bool withDataContract = (typeCherryMethods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract;
+				var typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
+				foreach (var propertyInfo in typeProperties)
+				{
+					var cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);
+					if (cherryType == CherryType.None)
+						continue;
+					string tsPropertyName;
+
+
+					//todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
+					tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
+					var defaultValue = GetDefaultValue(propertyInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
+
+					var clientProperty = CreateProperty(tsPropertyName, propertyInfo.PropertyType, defaultValue); //hacky way of creating clean getter and writter.
+					var isRequired = cherryType == CherryType.BigCherry;
+					if (isRequired)
+					{
+						clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+					}
+
+					if (settings.DataAnnotationsEnabled)
+					{
+						AddValidationAttributes(propertyInfo, clientProperty, isRequired);
+					}
+
+					CreatePropertyDocComment(propertyInfo, clientProperty);
+
+					if (settings.DecorateDataModelWithDataContract)
+					{
+						AddDataMemberAttribute(propertyInfo, clientProperty);
+					}
+
+					typeDeclaration.Members.Add(clientProperty);
+				}
+
+				var typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
+				foreach (var fieldInfo in typeFields)
+				{
+					var cherryType = CherryPicking.GetMemberCherryType(fieldInfo, cherryPickingMethods, withDataContract);
+					if (cherryType == CherryType.None)
+						continue;
+					string tsPropertyName;
+
+
+					tsPropertyName = fieldInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
+					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
+					var defaultValue = GetDefaultValue(fieldInfo.GetCustomAttribute(typeOfDefaultValueAttribute) as DefaultValueAttribute);
+
+					//public fields of a class will be translated into properties
+					if (type.IsClass)
+					{
+						var clientProperty = CreateProperty(tsPropertyName, fieldInfo.FieldType, defaultValue); //hacky way of creating clean getter and writter.
+						var isRequired = cherryType == CherryType.BigCherry;
+						if (isRequired)
+						{
+							clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+						}
+
+						if (settings.DataAnnotationsEnabled)
+						{
+							AddValidationAttributes(fieldInfo, clientProperty, isRequired);
+						}
+
+						CreateFieldDocComment(fieldInfo, clientProperty);
+
+						if (settings.DecorateDataModelWithDataContract)
+						{
+							AddDataMemberAttribute(fieldInfo, clientProperty);
+						}
+
+						typeDeclaration.Members.Add(clientProperty);
+					}
+					else //public fields of struct
+					{
+						var clientField = new CodeMemberField()
+						{
+							Name = tsPropertyName,
+							Type = TranslateToClientTypeReference(fieldInfo.FieldType),
+							Attributes = MemberAttributes.Public | MemberAttributes.Final,
+							//todo: add some attributes                               
+						};
+
+						CreateFieldDocComment(fieldInfo, clientField);
+
+						if (settings.DecorateDataModelWithDataContract)
+						{
+							AddDataMemberAttribute(fieldInfo, clientField);
+						}
+
+						typeDeclaration.Members.Add(clientField);
+					}
+				}
+
+				if (settings.DecorateDataModelWithDataContract)
+				{
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
+				}
+
+				if (settings.DecorateDataModelWithSerializable)
+				{
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
+				}
+			}
+			else if (type.IsEnum)
+			{
+				typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
+
+				CreateTypeDocComment(type, typeDeclaration);
+
+				var newtonJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "Newtonsoft.Json.JsonConverterAttribute");
+				if (newtonJsonConverterAttributeData != null)
+				{
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration(settings.UseSystemTextJson ? "System.Text.Json.Serialization.JsonConverterAttribute" : "Newtonsoft.Json.JsonConverterAttribute", new CodeAttributeArgument(new CodeSnippetExpression(settings.UseSystemTextJson ? "typeof(System.Text.Json.Serialization.JsonStringEnumConverter)" : "typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
+				}
+
+				var systemJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Text.Json.Serialization.JsonConverterAttribute");
+				if (systemJsonConverterAttributeData != null)
+				{
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonConverter", new CodeAttributeArgument(new CodeSnippetExpression("typeof(System.Text.Json.Serialization.JsonStringEnumConverter)"))));
+				}
+
+				int k = 0;
+				foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))//not to sort
+				{
+					var name = fieldInfo.Name;
+					var intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
+					Debug.WriteLine(name + " -- " + intValue);
+					var isInitialized = intValue != k;
+
+					var clientField = new CodeMemberField()
+					{
+						Name = name,
+						Type = new CodeTypeReference(fieldInfo.FieldType),
+						InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
+					};
+
+					CreateFieldDocComment(fieldInfo, clientField);
+
+					if (settings.DecorateDataModelWithDataContract)
+					{
+						AddEnumMemberAttribute(fieldInfo, clientField);
+					}
+
+					typeDeclaration.Members.Add(clientField);
+					k++;
+				}
+
+				if (settings.DecorateDataModelWithDataContract)
+				{
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{settings.DataContractNamespace}\""))));
+				}
+
+				if (settings.DecorateDataModelWithSerializable)
+				{
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
+				}
+			}
+			else
+			{
+				Trace.TraceWarning("Not yet supported: " + type.Name);
+				typeDeclaration = null;
+			}
+
+			return typeDeclaration;
 		}
 
 		static void AddDataMemberAttribute(MemberInfo memberField, CodeMemberField clientProperty)

@@ -1,3 +1,53 @@
+export namespace DemoWebApi_Controllers_Client {
+
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string | null;
+	}
+
+
+	/**
+	 * Complex hero type
+	 */
+	export interface Hero {
+		address?: DemoWebApi_DemoData_Client.Address;
+		death?: Date | null;
+
+		/** Type: DateOnly */
+		dob?: Date | null;
+		emailAddress?: string | null;
+
+		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
+		id?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 2 and 120
+		 */
+		name?: string | null;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+
+		/** Min length: 6 */
+		webAddress?: string | null;
+	}
+
+	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
+		super?: boolean | null;
+	}
+
+}
+
 export namespace DemoWebApi_DemoData_Client {
 	export interface Address {
 
@@ -356,56 +406,6 @@ export namespace DemoWebApi_Models_Client {
 		issued?: string | null;
 		token_type?: string | null;
 		username?: string | null;
-	}
-
-}
-
-export namespace DemoWebApi_Controllers_Client {
-
-	/**
-	 * This class is used to carry the result of various file uploads.
-	 */
-	export interface FileResult {
-
-		/**
-		 * Gets or sets the local path of the file saved on the server.
-		 */
-		fileNames?: Array<string>;
-
-		/**
-		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		 */
-		submitter?: string | null;
-	}
-
-
-	/**
-	 * Complex hero type
-	 */
-	export interface Hero {
-		address?: DemoWebApi_DemoData_Client.Address;
-		death?: Date | null;
-
-		/** Type: DateOnly */
-		dob?: Date | null;
-		emailAddress?: string | null;
-
-		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
-		id?: string | null;
-
-		/**
-		 * Required
-		 * String length: inclusive between 2 and 120
-		 */
-		name?: string | null;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
-
-		/** Min length: 6 */
-		webAddress?: string | null;
-	}
-
-	export interface SuperHero extends DemoWebApi_Controllers_Client.Hero {
-		super?: boolean | null;
 	}
 
 }

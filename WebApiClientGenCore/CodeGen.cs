@@ -34,8 +34,8 @@ namespace Fonlow.CodeDom.Web
 				}
 
 				string path = System.IO.Path.Combine(csharpClientProjectDir, settings.ClientApiOutputs.FileName);
-				using Cs.ControllersClientApiGen gen = new Cs.ControllersClientApiGen(settings);
-				gen.CreateCodeDomAndSaveCsharp(webApiDescriptions, path);
+				using Cs.ControllersClientApiGen csGen = new Cs.ControllersClientApiGen(settings);
+				csGen.CreateCodeDomAndSaveCsharp(webApiDescriptions, path);
 			}
 
 			if (settings.ClientApiOutputs.Plugins != null)

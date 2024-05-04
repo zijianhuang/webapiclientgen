@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Collections.Specialized;
 using WebApiClientGenCore.Abstract;
 using System.Text;
+using Fonlow.CodeDom;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -93,9 +94,9 @@ namespace Fonlow.CodeDom.Web.Ts
 			foreach (IGrouping<string, ControllerDescriptor> grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
 				string clientNamespaceText = (grouppedControllerDescriptions.Key + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
-				CodeNamespace clientNamespace = new CodeNamespace(clientNamespaceText);
+				CodeNamespaceEx clientNamespace = new(clientNamespaceText, false);
 
-				TargetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+				TargetUnit.Namespaces.InsertToSortedCollection(clientNamespace);//namespace added to Dom
 
 				newControllerClassesCreated = grouppedControllerDescriptions
 					.OrderBy(d => d.ControllerName)

@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata;
+using Fonlow.CodeDom;
 
 namespace Fonlow.Poco2Ts
 {
@@ -228,8 +229,8 @@ namespace Fonlow.Poco2Ts
 			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
 				string clientNamespaceText = (groupedTypes.Key + ClientNamespaceSuffix).Replace('.', '_');
-				CodeNamespace clientNamespace = new CodeNamespace(clientNamespaceText);
-				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+				CodeNamespaceEx clientNamespace = new(clientNamespaceText, true);
+				targetUnit.Namespaces.InsertToSortedCollection(clientNamespace);//namespace added to Dom
 
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
 				IOrderedEnumerable<Type> orderedGroupedTypes = groupedTypes.OrderBy(t => t.Name);

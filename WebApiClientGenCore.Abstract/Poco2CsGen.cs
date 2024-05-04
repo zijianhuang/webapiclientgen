@@ -71,13 +71,13 @@ namespace Fonlow.Poco2Client
 		/// <param name="codeGenOutputs"></param>
 		/// <param name="dataAnnotationsToComments">Optional. This may be independent of the global setting in settings of ModelGenOutputs</param>
 		/// <returns>CodeDOM namespaces containing POCO classes.</returns>
-		public CodeNamespaceEx[] CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods methods, bool? dataAnnotationsToComments)
+		public void CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods methods, bool? dataAnnotationsToComments)
 		{
 			string xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 			docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 			this.dataAnnotationsToComments = dataAnnotationsToComments;
 			Type[] cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
-			return CreateCodeDomForTypes(cherryTypes, methods);
+			CreateCodeDomForTypes(cherryTypes, methods);
 		}
 
 
@@ -138,7 +138,7 @@ namespace Fonlow.Poco2Client
 		/// <param name="cherryPickingMethods">How to cherry pick data to be exposed to the clients.</param>
 		/// <param name="clientNamespaceSuffix"></param>
 		/// <returns>Namespaces of types.</returns>
-		CodeNamespaceEx[] CreateCodeDomForTypes(Type[] types, CherryPickingMethods cherryPickingMethods)
+		void CreateCodeDomForTypes(Type[] types, CherryPickingMethods cherryPickingMethods)
 		{
 			if (types == null)
 				throw new ArgumentNullException(nameof(types), "types is not defined.");
@@ -149,13 +149,11 @@ namespace Fonlow.Poco2Client
 				.GroupBy(d => d.Namespace)
 				.OrderBy(k => k.Key).ToArray(); // order by namespace
 			string[] namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
-			List<CodeNamespaceEx> clientNamespaceNames = new();
 			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
 				string clientNamespaceText = groupedTypes.Key + codeGenOutputsSettings.CSClientNamespaceSuffix;
 				CodeNamespaceEx clientNamespace = new CodeNamespaceEx(clientNamespaceText, true);
-				codeCompileUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
-				clientNamespaceNames.Add(clientNamespace);
+				codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespace);//namespace added to Dom
 
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
 				CodeTypeDeclaration[] codeTypeDeclarations = groupedTypes.OrderBy(t => t.Name).Select(type =>
@@ -163,8 +161,6 @@ namespace Fonlow.Poco2Client
 					return TypeToCodeTypeDeclaration(type, clientNamespace, namespacesOfTypes, cherryPickingMethods);
 				}).ToArray();//add classes into the namespace
 			}
-
-			return clientNamespaceNames.ToArray();
 		}
 
 		/// <summary>
@@ -183,15 +179,15 @@ namespace Fonlow.Poco2Client
 			}
 
 			string clientNamespaceText = pocoType.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
-			CodeNamespace clientNamespace = new CodeNamespaceEx(clientNamespaceText, true);
+			CodeNamespaceEx clientNamespace = new(clientNamespaceText, true);
 			int foundIndex = codeCompileUnit.Namespaces.IndexOf(clientNamespace);
 			if (foundIndex >= 0)
 			{
-				clientNamespace = codeCompileUnit.Namespaces[foundIndex];
+				clientNamespace = codeCompileUnit.Namespaces[foundIndex] as CodeNamespaceEx;
 			}
 			else
 			{
-				codeCompileUnit.Namespaces.Add(clientNamespace);
+				codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespace);
 			}
 
 			string[] namespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d=>d.Name).ToArray();

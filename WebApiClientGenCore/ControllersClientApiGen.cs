@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using WebApiClientGenCore.Abstract;
+using Fonlow.CodeDom;
 
 namespace Fonlow.CodeDom.Web.Cs
 {
@@ -19,7 +20,6 @@ namespace Fonlow.CodeDom.Web.Cs
 		CodeCompileUnit targetUnit;
 		CodeGenSettings codeGenSettings;
 		CodeDomProvider provider;
-
 
 		private bool disposedValue;
 
@@ -45,9 +45,8 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// Save C# codes into a file.
 		/// </summary>
 		/// <param name="fileName"></param>
-		/// <param name="namespacesOfPoco"></param>
 		// hack inspired by https://csharpcodewhisperer.blogspot.com/2014/10/create-c-class-code-from-datatable.html
-		public void Save(string fileName, CodeNamespaceEx[] namespacesOfPoco)
+		public void Save(string fileName)
 		{
 			CodeGeneratorOptions options = new CodeGeneratorOptions
 			{
@@ -80,17 +79,16 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// <param name="fileName"></param>
 		public void CreateCodeDomAndSaveCsharp(WebApiDescription[] webApiDescriptions, string fileName)
 		{
-			CodeNamespaceEx[] namespacesOfPoco = CreateCodeDom(webApiDescriptions);
-			Save(fileName, namespacesOfPoco);
+			CreateCodeDom(webApiDescriptions);
+			Save(fileName);
 		}
 
 		/// <summary>
 		/// Generate CodeDOM of POCO classes of namespaces of assemblies loaded and filtered out by what define in codeGenParameters.ApiSelections.DataModelAssemblyNames or codeGenParameters.ApiSelections.DataModels
 		/// </summary>
 		/// <returns>Namespaces of POCO types.</returns>
-		CodeNamespaceEx[] GenerateCsFromPoco()
+		void GenerateCsFromPocoAssemblies()
 		{
-			List<CodeNamespaceEx> listOfNamespaces = new();
 			if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null)
 			{
 				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -100,8 +98,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				CherryPickingMethods cherryPickingMethods = codeGenSettings.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenSettings.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 				foreach (Assembly assembly in assemblies)
 				{
-					CodeNamespaceEx[] namespaces = Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, null);
-					listOfNamespaces.AddRange(namespaces);
+					Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, null);
 				}
 			}
 
@@ -116,13 +113,10 @@ namespace Fonlow.CodeDom.Web.Cs
 						CherryPickingMethods cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
 						bool dataAnnotationsToComments = (dataModel.DataAnnotationsToComments.HasValue && dataModel.DataAnnotationsToComments.Value) // dm explicitly tell to do
 							|| (!dataModel.DataAnnotationsToComments.HasValue && codeGenSettings.ClientApiOutputs.DataAnnotationsToComments);
-						CodeNamespaceEx[] namespaces = Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, dataAnnotationsToComments);
-						listOfNamespaces.AddRange(namespaces);
+						Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, dataAnnotationsToComments);
 					}
 				}
 			}
-
-			return listOfNamespaces.Distinct(new CodeNamespaceComparer()).ToArray();
 		}
 
 		/// <summary>
@@ -130,11 +124,11 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// </summary>
 		/// <param name="webApiDescriptions">Web Api descriptions exposed by Configuration.Services.GetApiExplorer().ApiDescriptions</param>
 		/// <returns>Namespaces of types of POCO.</returns>
-		CodeNamespaceEx[] CreateCodeDom(WebApiDescription[] webApiDescriptions)
+		void CreateCodeDom(WebApiDescription[] webApiDescriptions)
 		{
 			ArgumentNullException.ThrowIfNull(webApiDescriptions);
 
-			CodeNamespaceEx[] namespacesOfTypes = GenerateCsFromPoco();
+			GenerateCsFromPocoAssemblies();
 			IOrderedEnumerable<IGrouping<string, ControllerDescriptor>> controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
 				.Distinct()
 				.GroupBy(d => d.ControllerType.Namespace)
@@ -145,7 +139,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				string clientNamespaceText = grouppedControllerDescriptions.Key + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix;
 				CodeNamespaceEx clientNamespace = new CodeNamespaceEx(clientNamespaceText, false);
-				targetUnit.Namespaces.Add(clientNamespace);//namespace added to Dom
+				targetUnit.Namespaces.InsertToSortedCollection(clientNamespace);//namespace added to Dom
 
 				clientNamespace.Imports.AddRange(
 					new CodeNamespaceImport[]{
@@ -247,8 +241,6 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				CreateDummyOfEnsureSuccessStatusCodeEx();
 			}
-
-			return namespacesOfTypes;
 		}
 
 		string ConcatOptionalSuffix(string controllerName)
@@ -332,7 +324,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void CreateDummyOfEnsureSuccessStatusCodeEx()
 		{
-			targetUnit.Namespaces.Add(new CodeNamespaceEx("EnsureSuccessStatusCodeExDummy", false));
+			targetUnit.Namespaces.InsertToSortedCollection(new CodeNamespaceEx("EnsureSuccessStatusCodeExDummy", false));
 		}
 
 		/// <summary>

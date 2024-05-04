@@ -152,9 +152,7 @@ namespace Fonlow.Poco2Client
 			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
 				string clientNamespaceText = groupedTypes.Key + codeGenOutputsSettings.CSClientNamespaceSuffix;
-				CodeNamespaceEx clientNamespace = new CodeNamespaceEx(clientNamespaceText, true);
-				codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespace);//namespace added to Dom
-
+				CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, true);
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
 				CodeTypeDeclaration[] codeTypeDeclarations = groupedTypes.OrderBy(t => t.Name).Select(type =>
 				{
@@ -170,7 +168,7 @@ namespace Fonlow.Poco2Client
 		/// </summary>
 		/// <param name="pocoType">Custom POCO types.</param>
 		/// <returns>Existing or newly created CodeTypeDeclaration.</returns>
-		public CodeTypeDeclaration CheckOrAdd(Type pocoType)
+		public CodeTypeDeclaration CheckOrAdd(Type pocoType, bool dcOnly)
 		{
 			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(pocoType.Namespace, pocoType.Name);
 			if (codeTypeDeclaration != null)
@@ -179,17 +177,7 @@ namespace Fonlow.Poco2Client
 			}
 
 			string clientNamespaceText = pocoType.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
-			CodeNamespaceEx clientNamespace = new(clientNamespaceText, true);
-			int foundIndex = codeCompileUnit.Namespaces.IndexOf(clientNamespace);
-			if (foundIndex >= 0)
-			{
-				clientNamespace = codeCompileUnit.Namespaces[foundIndex] as CodeNamespaceEx;
-			}
-			else
-			{
-				codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespace);
-			}
-
+			CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
 			string[] namespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d=>d.Name).ToArray();
 			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(pocoType, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods??CherryPickingMethods.All);
 			return r;

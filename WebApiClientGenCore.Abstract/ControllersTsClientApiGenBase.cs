@@ -94,10 +94,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			foreach (IGrouping<string, ControllerDescriptor> grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
 				string clientNamespaceText = (grouppedControllerDescriptions.Key + jsOutput.ClientNamespaceSuffix).Replace('.', '_');
-				CodeNamespaceEx clientNamespace = new(clientNamespaceText, false);
-
-				TargetUnit.Namespaces.InsertToSortedCollection(clientNamespace);//namespace added to Dom
-
+				CodeNamespaceEx clientNamespace = TargetUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, false);
 				newControllerClassesCreated = grouppedControllerDescriptions
 					.OrderBy(d => d.ControllerName)
 					.Select(d =>

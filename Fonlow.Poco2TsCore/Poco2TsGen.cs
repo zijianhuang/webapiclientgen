@@ -229,9 +229,7 @@ namespace Fonlow.Poco2Ts
 			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
 				string clientNamespaceText = (groupedTypes.Key + ClientNamespaceSuffix).Replace('.', '_');
-				CodeNamespaceEx clientNamespace = new(clientNamespaceText, true);
-				targetUnit.Namespaces.InsertToSortedCollection(clientNamespace);//namespace added to Dom
-
+				CodeNamespaceEx clientNamespace = targetUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, true);
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
 				IOrderedEnumerable<Type> orderedGroupedTypes = groupedTypes.OrderBy(t => t.Name);
 				foreach (Type type in orderedGroupedTypes)

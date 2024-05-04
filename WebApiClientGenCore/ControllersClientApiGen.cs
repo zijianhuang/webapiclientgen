@@ -138,9 +138,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			foreach (IGrouping<string, ControllerDescriptor> grouppedControllerDescriptions in controllersGroupByNamespace)
 			{
 				string clientNamespaceText = grouppedControllerDescriptions.Key + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix;
-				CodeNamespaceEx clientNamespace = new CodeNamespaceEx(clientNamespaceText, false);
-				targetUnit.Namespaces.InsertToSortedCollection(clientNamespace);//namespace added to Dom
-
+				CodeNamespaceEx clientNamespace = targetUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, false);
 				clientNamespace.Imports.AddRange(
 					new CodeNamespaceImport[]{
 						new CodeNamespaceImport("System"),
@@ -324,7 +322,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void CreateDummyOfEnsureSuccessStatusCodeEx()
 		{
-			targetUnit.Namespaces.InsertToSortedCollection(new CodeNamespaceEx("EnsureSuccessStatusCodeExDummy", false));
+			targetUnit.Namespaces.InsertToSortedCollection("EnsureSuccessStatusCodeExDummy", false);
 		}
 
 		/// <summary>

@@ -110,7 +110,8 @@ namespace Fonlow.CodeDom.Web.Cs
 			var assemblyFilename = candidateType.Assembly.GetName().Name;
 			if (codeGenSettings.ApiSelections.DataModelAssemblyNames!=null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
 			{
-				poco2CsGen.CheckOrAdd(candidateType);
+				string controllerAssemblyName = description.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly.GetName().Name;
+				poco2CsGen.CheckOrAdd(candidateType, controllerAssemblyName != assemblyFilename);
 			}
 		}
 

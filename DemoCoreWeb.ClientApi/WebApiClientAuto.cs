@@ -7,6 +7,161 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace DemoWebApi.Controllers.Client
+{
+	
+	
+	/// <summary>
+	/// This class is used to carry the result of various file uploads.
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class FileResult : object
+	{
+		
+		/// <summary>
+		/// Gets or sets the local path of the file saved on the server.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IEnumerable<string> FileNames { get; set; }
+		
+		/// <summary>
+		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Submitter { get; set; }
+	}
+	
+	/// <summary>
+	/// Complex hero type
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Hero : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public DemoWebApi.DemoData.Client.Address Address { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateOnly> Death { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateOnly DOB { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string EmailAddress { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public long Id { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 2 and 120
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(120, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
+		public string Name { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
+		
+		/// <summary>
+		/// Min length: 6
+		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MinLength(6)]
+		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.Runtime.Serialization.DataMember()]
+		public string WebAddress { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class SuperHero : DemoWebApi.Controllers.Client.Hero
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public bool Super { get; set; }
+	}
+}
+namespace DemoWebApi.DemoData.Another.Client
+{
+	
+	
+	/// <summary>
+	/// 2D position
+	/// with X and Y
+	/// for Demo
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public struct MyPoint
+	{
+		
+		/// <summary>
+		/// X
+		/// </summary>
+		public double X;
+		
+		/// <summary>
+		/// Y
+		/// </summary>
+		public double Y;
+	}
+}
+namespace DemoWebApi.DemoData.Base.Client
+{
+	
+	
+	/// <summary>
+	/// Base class of company and person
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Entity : object
+	{
+		
+		/// <summary>
+		/// Multiple addresses
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
+		
+		/// <summary>
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		[System.Runtime.Serialization.DataMember()]
+		public string EmailAddress { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.Guid> Id { get; set; }
+		
+		/// <summary>
+		/// Name of the entity.
+		/// Required
+		/// Min length: 2
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.MinLength(2)]
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public string Name { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
+		
+		/// <summary>
+		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.Runtime.Serialization.DataMember()]
+		public System.Uri Web { get; set; }
+	}
+}
 namespace DemoWebApi.DemoData.Client
 {
 	
@@ -435,82 +590,6 @@ namespace DemoWebApi.DemoData.Client
 		Fax,
 	}
 }
-namespace DemoWebApi.DemoData.Another.Client
-{
-	
-	
-	/// <summary>
-	/// 2D position
-	/// with X and Y
-	/// for Demo
-	/// </summary>
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public struct MyPoint
-	{
-		
-		/// <summary>
-		/// X
-		/// </summary>
-		public double X;
-		
-		/// <summary>
-		/// Y
-		/// </summary>
-		public double Y;
-	}
-}
-namespace DemoWebApi.DemoData.Base.Client
-{
-	
-	
-	/// <summary>
-	/// Base class of company and person
-	/// </summary>
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class Entity : object
-	{
-		
-		/// <summary>
-		/// Multiple addresses
-		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
-		
-		/// <summary>
-		/// Max length: 255
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.MaxLength(255)]
-		[System.Runtime.Serialization.DataMember()]
-		public string EmailAddress { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.Guid> Id { get; set; }
-		
-		/// <summary>
-		/// Name of the entity.
-		/// Required
-		/// Min length: 2
-		/// Max length: 255
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
-		[System.ComponentModel.DataAnnotations.MinLength(2)]
-		[System.ComponentModel.DataAnnotations.MaxLength(255)]
-		[System.Runtime.Serialization.DataMember(IsRequired =true)]
-		public string Name { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
-		
-		/// <summary>
-		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
-		[System.Runtime.Serialization.DataMember()]
-		public System.Uri Web { get; set; }
-	}
-}
 namespace DemoWebApi.Models.Client
 {
 	
@@ -662,85 +741,6 @@ namespace DemoWebApi.Models.Client
 		
 		[System.Runtime.Serialization.DataMember(Name="username")]
 		public string Username { get; set; }
-	}
-}
-namespace DemoWebApi.Controllers.Client
-{
-	
-	
-	/// <summary>
-	/// This class is used to carry the result of various file uploads.
-	/// </summary>
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class FileResult : object
-	{
-		
-		/// <summary>
-		/// Gets or sets the local path of the file saved on the server.
-		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IEnumerable<string> FileNames { get; set; }
-		
-		/// <summary>
-		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
-		/// </summary>
-		[System.Runtime.Serialization.DataMember()]
-		public string Submitter { get; set; }
-	}
-	
-	/// <summary>
-	/// Complex hero type
-	/// </summary>
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class Hero : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public DemoWebApi.DemoData.Client.Address Address { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Nullable<System.DateOnly> Death { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.DateOnly DOB { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string EmailAddress { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public long Id { get; set; }
-		
-		/// <summary>
-		/// Required
-		/// String length: inclusive between 2 and 120
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
-		[System.ComponentModel.DataAnnotations.StringLength(120, MinimumLength=2)]
-		[System.Runtime.Serialization.DataMember()]
-		public string Name { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
-		
-		/// <summary>
-		/// Min length: 6
-		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.MinLength(6)]
-		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
-		[System.Runtime.Serialization.DataMember()]
-		public string WebAddress { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class SuperHero : DemoWebApi.Controllers.Client.Hero
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public bool Super { get; set; }
 	}
 }
 namespace DemoCoreWeb.Controllers.Client

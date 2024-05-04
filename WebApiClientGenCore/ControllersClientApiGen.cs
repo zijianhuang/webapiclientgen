@@ -119,6 +119,15 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 		}
 
+		void GenerateClientTypesFormWebApis(WebApiDescription[] webApiDescriptions)
+		{
+			for (int i = 0; i < webApiDescriptions.Length; i++)
+			{
+				var d = webApiDescriptions[i];
+				Poco2CsGenerator.CheckOrAdd(d.ActionDescriptor.ReturnType, false);
+			}
+		}
+
 		/// <summary>
 		/// Generate CodeDom of the client API for ApiDescriptions, as well as POCO classes in data model assemblies
 		/// </summary>
@@ -129,6 +138,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			ArgumentNullException.ThrowIfNull(webApiDescriptions);
 
 			GenerateCsFromPocoAssemblies();
+			if (codeGenSettings.ApiSelections.CherryPickingMethods == CherryPickingMethods.GodAssembly)
+			{
+				GenerateClientTypesFormWebApis(webApiDescriptions);
+			}
+
 			IOrderedEnumerable<IGrouping<string, ControllerDescriptor>> controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
 				.Distinct()
 				.GroupBy(d => d.ControllerType.Namespace)

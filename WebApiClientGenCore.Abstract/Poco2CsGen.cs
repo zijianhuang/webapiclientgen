@@ -1,6 +1,7 @@
 ﻿using Fonlow.CodeDom;
 using Fonlow.CodeDom.Web;
 using Fonlow.DocComment;
+using Fonlow.Poco2Ts;
 using Fonlow.Reflection;
 using System;
 using System.CodeDom;
@@ -166,21 +167,56 @@ namespace Fonlow.Poco2Client
 		/// If not, create a new CodeTypeDeclaration, optionally with a new CodeNamespace.
 		/// It is up to the client codes to decide what pocoType to come int. BCL types and other non-POCO types are not welcome.
 		/// </summary>
-		/// <param name="pocoType">Custom POCO types.</param>
+		/// <param name="type">Custom POCO types.</param>
 		/// <returns>Existing or newly created CodeTypeDeclaration.</returns>
-		public CodeTypeDeclaration CheckOrAdd(Type pocoType, bool dcOnly)
+		public CodeTypeDeclaration CheckOrAdd(Type type, bool dcOnly)
 		{
-			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(pocoType.Namespace, pocoType.Name);
+			if (type == null)
+			{
+				return null;
+			}
+
+			if (type.Name== "Hero[]"){
+				Console.WriteLine("hheh");
+			}
+
+			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(type.Namespace, type.Name);
 			if (codeTypeDeclaration != null)
 			{
 				return codeTypeDeclaration;
 			}
 
-			string clientNamespaceText = pocoType.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
-			CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
-			string[] namespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d=>d.Name).ToArray();
-			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(pocoType, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods??CherryPickingMethods.All);
-			return r;
+			if (type.IsGenericType)
+			{
+				Type[] genericArguments = type.GetGenericArguments();
+				for (int i = 0; i < genericArguments.Length; i++)
+				{
+					CheckOrAdd(genericArguments[0], true);
+				}
+			}
+			else if (TypeHelper.IsSimpleArrayType(type))
+			{
+				return null;
+			}
+			else if (type.IsArray)
+			{
+				Type elementType = type.GetElementType();
+				return CheckOrAdd(elementType, true);
+			}
+			else
+			{
+				var assemblyFilename = type.Assembly.GetName().Name;
+				if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
+				{
+					string clientNamespaceText = type.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
+					CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
+					string[] namespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
+					CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods ?? CherryPickingMethods.All);
+					return r;
+				}
+			}
+
+			return null;
 		}
 
 		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods cherryPickingMethods)
@@ -219,6 +255,8 @@ namespace Fonlow.Poco2Client
 				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
 				foreach (PropertyInfo propertyInfo in typeProperties)
 				{
+					CheckOrAdd(propertyInfo.PropertyType, true);
+
 					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);
 					if (cherryType == CherryType.None)
 						continue;
@@ -255,6 +293,8 @@ namespace Fonlow.Poco2Client
 				FieldInfo[] typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
 				foreach (FieldInfo fieldInfo in typeFields)
 				{
+					CheckOrAdd(fieldInfo.FieldType, true);
+
 					CherryType cherryType = CherryPicking.GetMemberCherryType(fieldInfo, cherryPickingMethods, withDataContract);
 					if (cherryType == CherryType.None)
 						continue;

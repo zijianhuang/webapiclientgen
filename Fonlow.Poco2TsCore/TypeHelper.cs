@@ -28,12 +28,14 @@ namespace Fonlow.Reflection
 		new string[] {
 		   "Int32[]",
 		   "Int64[]",
+		   "Int128[]",
 		   "Decimal[]",
 		   "Double[]",
 		   "Single[]",
 		   "String[]",
 		   "UInt32[]",
 		   "UInt64[]",
+		   "UInt128[]",
 		   "Int16[]",
 		   "UInt16[]",
 	   }

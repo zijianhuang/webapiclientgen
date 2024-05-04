@@ -77,7 +77,7 @@ namespace Fonlow.Poco2Client
 
 		public static CherryType GetMemberCherryType(MemberInfo memberInfo, CherryPickingMethods methods, bool typeIsWithDataContract)
 		{
-			CherryType[] r = { CherryType.None, CherryType.None, CherryType.None, CherryType.None, CherryType.None };
+			CherryType[] r = { CherryType.None, CherryType.None, CherryType.None, CherryType.None, CherryType.None, CherryType.None };
 
 
 			//opt-in for DataContract through DataMemberAttribute , and the type may or may not be decorated by DataContractAttribute.
@@ -165,7 +165,7 @@ namespace Fonlow.Poco2Client
 			if ((methods & CherryPickingMethods.GodAssembly) == CherryPickingMethods.GodAssembly)
 			{
 				RequiredAttribute a = TypeHelper.ReadAttribute<RequiredAttribute>(memberInfo);
-				r[4] = a == null ? CherryType.Cherry : CherryType.BigCherry;
+				r[5] = a == null ? CherryType.Cherry : CherryType.BigCherry;
 			}
 
 

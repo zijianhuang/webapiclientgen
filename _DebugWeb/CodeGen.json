@@ -1,25 +1,18 @@
 {
 	"ApiSelections": {
 		"ExcludedControllerNames": [
+			"DemoWebApi.Controllers.Home",
+			"DemoWebApi.Controllers.FileUpload"
 		],
 
-		"DataModels": [
-			{
-				"AssemblyName": "DemoWebApi.DemoDataCore",
-				"CherryPickingMethods": 3
-			},
-
-			{
-				"AssemblyName": "DebugWeb",
-				"CherryPickingMethods": 1
-			}
-		]
+		"DataModelAssemblyNames": [ "DemoGodAssemblyWeb" ],
+		"CherryPickingMethods": 32
 	},
 
 	"ClientApiOutputs": {
-		"ClientLibraryProjectFolderName": "..\\..\\..\\..\\DebugWebClientApi",
+		"ClientLibraryProjectFolderName": "..\\DemoCoreWeb.ClientApiTextJson",
 		"FileName": "WebApiClientTextJsonAuto.cs",
-		"GenerateBothAsyncAndSync": false,
+		"GenerateBothAsyncAndSync": true,
 		"CamelCase": true,
 		"CSClientNamespaceSuffix": ".Client",
 		"DataAnnotationsEnabled": true,
@@ -37,6 +30,8 @@
 		"UseSystemTextJson": true,
 
 		"Plugins": [
+
+
 		]
 	}
 }

@@ -14,7 +14,7 @@ namespace DemoWebApi.Controllers
 	/// </summary>
 	//[ApiController] for opt-in without ApiExplorerVisibilityEnabledConvention
 	[Route("api/[controller]")]
-	[ApiExplorerSettings(IgnoreApi = false)]
+	[ApiExplorerSettings(IgnoreApi = false)] // to test opt-in of exposing controller.
 	public class HeroesController : ControllerBase
 	{
 		/// <summary>

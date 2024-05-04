@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
     <ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
   </ItemGroup>
 

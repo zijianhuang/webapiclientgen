@@ -30,7 +30,6 @@ builder.Services.AddControllers(configure =>
 	configure.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
 #endif
 	configure.Filters.Add(new DemoCoreWeb.ValidateModelAttribute());
-
 })
 .AddJsonOptions(// as of .NET 7/8, could not handle JS/CS test cases getInt2D, postInt2D and PostDictionaryOfPeople, around 14 C# test cases fail.
 options =>

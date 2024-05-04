@@ -137,10 +137,13 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			ArgumentNullException.ThrowIfNull(webApiDescriptions);
 
-			GenerateCsFromPocoAssemblies();
 			if (codeGenSettings.ApiSelections.CherryPickingMethods == CherryPickingMethods.GodAssembly)
 			{
 				GenerateClientTypesFormWebApis(webApiDescriptions);
+			}
+			else
+			{
+				GenerateCsFromPocoAssemblies();
 			}
 
 			IOrderedEnumerable<IGrouping<string, ControllerDescriptor>> controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)

@@ -149,7 +149,7 @@ namespace Fonlow.Poco2Client
 			IGrouping<string, Type>[] typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
 				.OrderBy(k => k.Key).ToArray(); // order by namespace
-			string[] namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
+			string[] namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray(); // service type namespaces without client suffix
 			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
 				string clientNamespaceText = groupedTypes.Key + codeGenOutputsSettings.CSClientNamespaceSuffix;
@@ -176,10 +176,10 @@ namespace Fonlow.Poco2Client
 				return null;
 			}
 
-			if (type.Name== "Hero[]"){
-				Console.WriteLine("hheh");
+			if (type.Name.Contains("Person"))
+			{
+				Console.WriteLine("hehe");
 			}
-
 			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(type.Namespace, type.Name);
 			if (codeTypeDeclaration != null)
 			{
@@ -208,10 +208,14 @@ namespace Fonlow.Poco2Client
 				var assemblyFilename = type.Assembly.GetName().Name;
 				if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
 				{
+					CodeTypeDeclaration parentDeclaration = CheckOrAdd(type.BaseType, true);
 					string clientNamespaceText = type.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
 					CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
-					string[] namespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
+					string[] clientNamespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
+					string[] namespacesOfTypes = clientNamespacesOfTypes.Select(d => d.Substring(0, d.Length - codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix.Length)).ToArray();
 					CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods ?? CherryPickingMethods.All);
+
+					pendingTypes.Add(type);
 					return r;
 				}
 			}
@@ -219,6 +223,14 @@ namespace Fonlow.Poco2Client
 			return null;
 		}
 
+		/// <summary>
+		/// From type, create CodeTypeDeclaration of client type, including properies and fields. And for GodAssembly, optionall create types of properties and fields in CodeDom.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="clientNamespace"></param>
+		/// <param name="namespacesOfTypes"></param>
+		/// <param name="cherryPickingMethods"></param>
+		/// <returns></returns>
 		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods cherryPickingMethods)
 		{
 			string tsName = type.Name;
@@ -255,14 +267,18 @@ namespace Fonlow.Poco2Client
 				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
 				foreach (PropertyInfo propertyInfo in typeProperties)
 				{
+					if (propertyInfo.PropertyType.Name.Contains("Address")){
+						Console.WriteLine("hehe");
+					}
 					CheckOrAdd(propertyInfo.PropertyType, true);
 
 					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);
-					if (cherryType == CherryType.None)
+					if (cherryType == CherryType.None && cherryPickingMethods != CherryPickingMethods.GodAssembly)
+					{
 						continue;
+					}
+
 					string tsPropertyName;
-
-
 					//todo: Maybe the required of JsonMemberAttribute?       var isRequired = cherryType == CherryType.BigCherry;
 					tsPropertyName = propertyInfo.Name;//todo: String.IsNullOrEmpty(dataMemberAttribute.Name) ? propertyInfo.Name : dataMemberAttribute.Name;
 					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));

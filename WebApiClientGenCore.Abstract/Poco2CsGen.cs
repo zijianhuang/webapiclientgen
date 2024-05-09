@@ -175,7 +175,7 @@ namespace Fonlow.Poco2Client
 				return null;
 			}
 
-			if (type.Name.Contains("MimsResult"))
+			if (type.Name.Contains("Entity"))
 			{
 				Console.WriteLine("hehe");
 			}
@@ -230,13 +230,14 @@ namespace Fonlow.Poco2Client
 		{
 			CheckOrAdd(type.BaseType, true); // for baseType
 
+			pendingTypes.Add(type); //do this first, in case of recursive relationship between class and property.
+
 			string clientNamespaceText = type.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
 			CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
 			string[] clientNamespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
 			string[] namespacesOfTypes = clientNamespacesOfTypes.Select(d => d.Substring(0, d.Length - codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix.Length)).ToArray();
 			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods ?? CherryPickingMethods.All);
 
-			pendingTypes.Add(type);
 			return r;
 		}
 
@@ -253,15 +254,15 @@ namespace Fonlow.Poco2Client
 			string tsName = type.Name;
 			Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
 
+			if (type.Name.Contains("MyPoint"))
+			{
+				Console.WriteLine("hehe");
+			}
 			CodeTypeDeclaration typeDeclaration;
 			if (TypeHelper.IsClassOrStruct(type))
 			{
 				if (type.IsGenericType)
 				{
-					if (type.Name.Contains("MimsResult"))
-					{
-						Console.WriteLine("hehe");
-					}
 					typeDeclaration = PodGenHelper.CreatePodClientGenericClass(clientNamespace, type);
 				}
 				else
@@ -288,7 +289,7 @@ namespace Fonlow.Poco2Client
 				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
 				foreach (PropertyInfo propertyInfo in typeProperties)
 				{
-					if (propertyInfo.PropertyType.Name.Contains("Address"))
+					if (propertyInfo.PropertyType.Name.Contains("Entity"))
 					{
 						Console.WriteLine("hehe");
 					}

@@ -67,20 +67,19 @@ namespace Fonlow.Poco2Client
 		/// Create CodeDOM of POCO classes
 		/// </summary>
 		/// <param name="assembly"></param>
-		/// <param name="methods"></param>
+		/// <param name="cherryPickingMethods"></param>
 		/// <param name="docLookup"></param>
 		/// <param name="codeGenOutputs"></param>
 		/// <param name="dataAnnotationsToComments">Optional. This may be independent of the global setting in settings of ModelGenOutputs</param>
 		/// <returns>CodeDOM namespaces containing POCO classes.</returns>
-		public void CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods methods, bool? dataAnnotationsToComments)
+		public void CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods cherryPickingMethods, bool? dataAnnotationsToComments)
 		{
 			string xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 			docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
 			this.dataAnnotationsToComments = dataAnnotationsToComments;
-			Type[] cherryTypes = PodGenHelper.GetCherryTypes(assembly, methods);
-			CreateCodeDomForTypes(cherryTypes, methods);
+			Type[] cherryTypes = PodGenHelper.GetCherryTypes(assembly, cherryPickingMethods);
+			CreateCodeDomForTypes(cherryTypes, cherryPickingMethods);
 		}
-
 
 		public string TranslateToClientTypeReferenceTextForDocComment(Type type)
 		{
@@ -176,11 +175,11 @@ namespace Fonlow.Poco2Client
 				return null;
 			}
 
-			if (type.Name.Contains("Person"))
+			if (type.Name.Contains("MimsResult"))
 			{
 				Console.WriteLine("hehe");
 			}
-			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(type.Namespace, type.Name);
+			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(type);
 			if (codeTypeDeclaration != null)
 			{
 				return codeTypeDeclaration;
@@ -188,6 +187,18 @@ namespace Fonlow.Poco2Client
 
 			if (type.IsGenericType)
 			{
+				var assemblyFilename = type.Assembly.GetName().Name;
+				if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
+				{
+					var foundTypeDef = PodGenHelper.FindGenericTypeDef(type.Assembly, $"{type.Namespace}.{type.Name}");
+					if (foundTypeDef is not null && LookupExistingClassOfCs(foundTypeDef) is null)
+					{
+						//string clientNamespaceText = foundTypeDef.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
+						//CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
+						AddCodeTypeDeclaration(foundTypeDef, dcOnly);
+					}
+				}
+
 				Type[] genericArguments = type.GetGenericArguments();
 				for (int i = 0; i < genericArguments.Length; i++)
 				{
@@ -208,19 +219,25 @@ namespace Fonlow.Poco2Client
 				var assemblyFilename = type.Assembly.GetName().Name;
 				if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
 				{
-					CodeTypeDeclaration parentDeclaration = CheckOrAdd(type.BaseType, true);
-					string clientNamespaceText = type.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
-					CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
-					string[] clientNamespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
-					string[] namespacesOfTypes = clientNamespacesOfTypes.Select(d => d.Substring(0, d.Length - codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix.Length)).ToArray();
-					CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods ?? CherryPickingMethods.All);
-
-					pendingTypes.Add(type);
-					return r;
+					AddCodeTypeDeclaration(type, dcOnly);
 				}
 			}
 
 			return null;
+		}
+
+		CodeTypeDeclaration AddCodeTypeDeclaration(Type type, bool dcOnly)
+		{
+			CheckOrAdd(type.BaseType, true); // for baseType
+
+			string clientNamespaceText = type.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
+			CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
+			string[] clientNamespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
+			string[] namespacesOfTypes = clientNamespacesOfTypes.Select(d => d.Substring(0, d.Length - codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix.Length)).ToArray();
+			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods ?? CherryPickingMethods.All);
+
+			pendingTypes.Add(type);
+			return r;
 		}
 
 		/// <summary>
@@ -228,7 +245,7 @@ namespace Fonlow.Poco2Client
 		/// </summary>
 		/// <param name="type"></param>
 		/// <param name="clientNamespace"></param>
-		/// <param name="namespacesOfTypes"></param>
+		/// <param name="namespacesOfTypes">Used by non value type, not used by generic type</param>
 		/// <param name="cherryPickingMethods"></param>
 		/// <returns></returns>
 		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods cherryPickingMethods)
@@ -241,6 +258,10 @@ namespace Fonlow.Poco2Client
 			{
 				if (type.IsGenericType)
 				{
+					if (type.Name.Contains("MimsResult"))
+					{
+						Console.WriteLine("hehe");
+					}
 					typeDeclaration = PodGenHelper.CreatePodClientGenericClass(clientNamespace, type);
 				}
 				else
@@ -267,7 +288,8 @@ namespace Fonlow.Poco2Client
 				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
 				foreach (PropertyInfo propertyInfo in typeProperties)
 				{
-					if (propertyInfo.PropertyType.Name.Contains("Address")){
+					if (propertyInfo.PropertyType.Name.Contains("Address"))
+					{
 						Console.WriteLine("hehe");
 					}
 					CheckOrAdd(propertyInfo.PropertyType, true);
@@ -842,12 +864,43 @@ namespace Fonlow.Poco2Client
 		}
 
 		/// <summary>
-		/// Lookup existing CodeTypeDeclaration created for controller class.
+		/// Lookup existing CodeTypeDeclaration created for controller class from codeCompileUnit
 		/// </summary>
 		/// <param name="namespaceText"></param>
 		/// <param name="className">Controller name plus suffix</param>
 		/// <returns></returns>
-		public CodeTypeDeclaration LookupExistingClassOfCs(string namespaceText, string className)
+		public CodeTypeDeclaration LookupExistingClassOfCs(Type type)
+		{
+			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
+			{
+				CodeNamespace ns = codeCompileUnit.Namespaces[i];
+				if (ns.Name == type.Namespace + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix)
+				{
+					for (int k = 0; k < ns.Types.Count; k++)
+					{
+						CodeTypeDeclaration c = ns.Types[k];
+						if (type.IsGenericTypeDefinition && type.IsTypeDefinition)
+						{
+							string[] nameSegments = type.Name.Split('`');
+							string genericClassName = nameSegments[0];
+							int numOfGenericParameters = int.Parse(nameSegments[1]);
+							if (c.Name == genericClassName && c.TypeParameters.Count == numOfGenericParameters)
+							{
+								return c;
+							}
+						}
+						else if (c.Name == type.Name)
+						{
+							return c;
+						}
+					}
+				}
+			}
+
+			return null;
+		}
+
+		public CodeTypeDeclaration LookupExistingClassOfCs(string namespaceText, string typeName)
 		{
 			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
 			{
@@ -857,8 +910,10 @@ namespace Fonlow.Poco2Client
 					for (int k = 0; k < ns.Types.Count; k++)
 					{
 						CodeTypeDeclaration c = ns.Types[k];
-						if (c.Name == className)
+						if (c.Name == typeName)
+						{
 							return c;
+						}
 					}
 				}
 			}

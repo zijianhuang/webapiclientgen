@@ -23,12 +23,12 @@ namespace Fonlow.Poco2Client
 			return targetClass;
 		}
 
-		public static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods methods)
+		public static Type[] GetCherryTypes(Assembly assembly, CherryPickingMethods cherryPickingMethods)
 		{
 			try
 			{
 				return assembly.GetTypes().Where(type => (TypeHelper.IsClassOrStruct(type) || type.IsEnum)
-				&& CherryPicking.IsCherryType(type, methods)).ToArray();
+				&& CherryPicking.IsCherryType(type, cherryPickingMethods)).ToArray();
 			}
 			catch (ReflectionTypeLoadException e)
 			{
@@ -43,6 +43,14 @@ namespace Fonlow.Poco2Client
 			}
 
 			return null;
+		}
+
+
+		public static Type FindGenericTypeDef(Assembly assembly, string typeFullName)
+		{
+			var types = GetCherryTypes(assembly, CherryPickingMethods.All);
+			var found = types.SingleOrDefault(d => d.FullName == typeFullName && d.IsGenericTypeDefinition && d.IsTypeDefinition && d.ContainsGenericParameters);
+			return found;
 		}
 
 		public static CodeTypeDeclaration CreatePodClientClass(CodeNamespace ns, string className)

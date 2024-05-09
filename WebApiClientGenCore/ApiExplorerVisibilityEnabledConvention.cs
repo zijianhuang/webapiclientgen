@@ -9,7 +9,6 @@ namespace Fonlow.CodeDom.Web
 	/// Visible controlers are still subject to the filter defined in ApiSelections/ExcludedControllerNames in the POST payload of CodeGen.
 	/// Thus controllers defined in the array will be excluded from generating client codes.
 	/// </summary>
-	[Obsolete("DotNet Core apps are mostly having ApiExplorer in favour of SwashBuckle and OpenAPI. And API explorer is almost always visible.")]
 	public class ApiExplorerVisibilityEnabledConvention : IApplicationModelConvention
 	{
 		/// <summary>

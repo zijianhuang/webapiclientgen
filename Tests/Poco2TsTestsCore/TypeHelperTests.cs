@@ -2,6 +2,7 @@
 using Xunit;
 using Fonlow.Reflection;
 using System;
+using Fonlow.Poco2Client;
 
 namespace Poco2TsTests
 {
@@ -29,5 +30,18 @@ namespace Poco2TsTests
 			Assert.False(!TypeHelper.IsValueType(type) && !TypeHelper.IsNullablePrimitive(type));
 		}
 
+		[Fact]
+		public void TestFindGeneric(){
+			Type t = PodGenHelper.FindGenericTypeDef(this.GetType().Assembly, "Poco2TsTests.MyGeneric`2");
+			Assert.NotNull(t);
+		}
+
+	}
+
+	public class MyGeneric<T, Y>
+	{
+		public string MyName { get; set; }
+		public T MyT { get; set; }
+		public Y MyY { get; set; }
 	}
 }

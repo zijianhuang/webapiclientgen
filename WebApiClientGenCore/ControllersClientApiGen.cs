@@ -3,12 +3,10 @@ using Fonlow.Web.Meta;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using WebApiClientGenCore.Abstract;
-using Fonlow.CodeDom;
 
 namespace Fonlow.CodeDom.Web.Cs
 {

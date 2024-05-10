@@ -19,6 +19,30 @@ namespace DemoWebApi.Controllers.Client
 	using Fonlow.Net.Http;
 	
 	
+	/// <summary>
+	/// This class is used to carry the result of various file uploads.
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class FileResult : object
+	{
+		
+		/// <summary>
+		/// Gets or sets the local path of the file saved on the server.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IEnumerable<string> FileNames { get; set; }
+		
+		/// <summary>
+		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Submitter { get; set; }
+	}
+	
+	/// <summary>
+	/// Complex hero type
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class Hero : object
@@ -39,7 +63,11 @@ namespace DemoWebApi.Controllers.Client
 		[System.Runtime.Serialization.DataMember()]
 		public long Id { get; set; }
 		
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 2 and 120
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.StringLength(120, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Name { get; set; }
@@ -47,6 +75,10 @@ namespace DemoWebApi.Controllers.Client
 		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
 		
+		/// <summary>
+		/// Min length: 6
+		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.MinLength(6)]
 		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
 		[System.Runtime.Serialization.DataMember()]
@@ -60,18 +92,6 @@ namespace DemoWebApi.Controllers.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public bool Super { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class FileResult : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IEnumerable<string> FileNames { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string Submitter { get; set; }
 	}
 	
 	/// <summary>
@@ -8615,13 +8635,24 @@ namespace DemoWebApi.DemoData.Another.Client
 {
 	
 	
+	/// <summary>
+	/// 2D position
+	/// with X and Y
+	/// for Demo
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public struct MyPoint
 	{
 		
+		/// <summary>
+		/// X
+		/// </summary>
 		public double X;
 		
+		/// <summary>
+		/// Y
+		/// </summary>
 		public double Y;
 	}
 }
@@ -8629,28 +8660,50 @@ namespace DemoWebApi.DemoData.Base.Client
 {
 	
 	
+	/// <summary>
+	/// Base class of company and person
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class Entity : object
 	{
 		
+		/// <summary>
+		/// Multiple addresses
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
 		
+		/// <summary>
+		/// Max length: 255
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.MaxLength(255)]
 		[System.Runtime.Serialization.DataMember()]
 		public string EmailAddress { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<System.Guid> Id { get; set; }
 		
+		/// <summary>
+		/// Name of the entity.
+		/// Required
+		/// Min length: 2
+		/// Max length: 255
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.ComponentModel.DataAnnotations.MinLength(2)]
 		[System.ComponentModel.DataAnnotations.MaxLength(255)]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string Name { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
 		
+		/// <summary>
+		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.Runtime.Serialization.DataMember()]
 		public System.Uri Web { get; set; }
 	}
 }
@@ -8663,34 +8716,60 @@ namespace DemoWebApi.DemoData.Client
 	public class Address : object
 	{
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 50
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string City { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 30
+		/// </summary>
 		[System.ComponentModel.DefaultValueAttribute("Australia")]
 		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string Country { get; set; } = "Australia";
 		
-		public DemoWebApi.DemoData.Base.Client.Entity Entity { get; set; }
-		
-		public System.Guid EntityId { get; set; }
-		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Guid Id { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 10
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(10, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string PostalCode { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 30
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string State { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 100
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string Street1 { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 100
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string Street2 { get; set; }
 		
 		[System.ComponentModel.DefaultValueAttribute(AddressType.Residential)]
+		[System.Runtime.Serialization.DataMember()]
 		public DemoWebApi.DemoData.Client.AddressType Type { get; set; } = AddressType.Residential;
 		
+		/// <summary>
+		/// It is a field
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
 		public DemoWebApi.DemoData.Another.Client.MyPoint Location { get; set; }
 	}
 	
@@ -8699,127 +8778,15 @@ namespace DemoWebApi.DemoData.Client
 	public enum AddressType
 	{
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Postal,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Residential,
 	}
 	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class PhoneNumber : object
-	{
-		
-		public System.Guid EntityId { get; set; }
-		
-		[System.ComponentModel.DataAnnotations.MaxLength(120)]
-		public string FullNumber { get; set; }
-		
-		public System.Guid Id { get; set; }
-		
-		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public enum PhoneType
-	{
-		
-		Tel,
-		
-		Mobile,
-		
-		Skype,
-		
-		Fax,
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class Person : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		public System.Nullable<System.DateTimeOffset> Baptised { get; set; }
-		
-		public System.Nullable<System.DateOnly> DOB { get; set; }
-		
-		public string GivenName { get; set; }
-		
-		public string Surname { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class Company : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
-		public string BusinessNumber { get; set; }
-		
-		public string BusinessNumberType { get; set; }
-		
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		public System.DateTimeOffset FoundDate { get; set; }
-		
-		public System.DateOnly RegisterDate { get; set; }
-		
-		public string[][] TextMatrix { get; set; }
-		
-		public int[,] Int2D { get; set; }
-		
-		public int[][] Int2DJagged { get; set; }
-		
-		public System.Collections.Generic.IEnumerable<string> Lines { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public enum Days
-	{
-		
-		Sat = 1,
-		
-		Sun = 2,
-		
-		Mon = 3,
-		
-		Tue = 4,
-		
-		Wed = 5,
-		
-		Thu = 6,
-		
-		Fri = 7,
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class MimsResult<T> : object
-	{
-		
-		public System.DateTime GeneratedAt { get; set; }
-		
-		public string Message { get; set; }
-		
-		public T Result { get; set; }
-		
-		public bool Success { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class MyGeneric<T, K, U> : object
-	{
-		
-		public K MyK { get; set; }
-		
-		public T MyT { get; set; }
-		
-		public U MyU { get; set; }
-		
-		public string Status { get; set; }
-	}
-	
+	/// <summary>
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class BigNumbers : object
@@ -8828,27 +8795,106 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public System.Numerics.BigInteger BigInt { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Int128 Signed128 { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public long Signed64 { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.UInt128 Unsigned128 { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public ulong Unsigned64 { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
+	public class Company : DemoWebApi.DemoData.Base.Client.Entity
+	{
+		
+		/// <summary>
+		/// BusinessNumber to be serialized as BusinessNum
+		/// </summary>
+		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
+		public string BusinessNumber { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string BusinessNumberType { get; set; }
+		
+		/// <summary>
+		/// Data type: Date
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateTimeOffset FoundDate { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateOnly RegisterDate { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string[][] TextMatrix { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public int[,] Int2D { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public int[][] Int2DJagged { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IEnumerable<string> Lines { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum Days
+	{
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Sat = 1,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Sun = 2,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Mon = 3,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Tue = 4,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Wed = 5,
+		
+		/// <summary>
+		/// Thursday
+		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
+		Thu = 6,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Fri = 7,
+	}
+	
+	/// <summary>
+	/// To test different serializations against Guid
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
 	public class IdMap : object
 	{
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Guid Id { get; set; }
 		
 		[System.Runtime.Serialization.DataMember(EmitDefaultValue=false)]
 		public System.Guid IdNotEmitDefaultValue { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<System.Guid> NullableId { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string RequiredName { get; set; }
@@ -8862,20 +8908,64 @@ namespace DemoWebApi.DemoData.Client
 	public class IntegralEntity : DemoWebApi.DemoData.Base.Client.Entity
 	{
 		
+		[System.Runtime.Serialization.DataMember()]
 		public byte Byte { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public int Int { get; set; }
 		
+		/// <summary>
+		/// Range: inclusive between -1000 and 1000000
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "-1000", "1000000")]
+		[System.Runtime.Serialization.DataMember()]
 		public int ItemCount { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public sbyte SByte { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public short Short { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public uint UInt { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public ushort UShort { get; set; }
+	}
+	
+	[System.Text.Json.Serialization.JsonConverterAttribute(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum MedicalContraindiationResponseTypeReason
+	{
+		
+		[System.Runtime.Serialization.EnumMember(Value="Mm")]
+		M,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Ss")]
+		S,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Pp")]
+		P,
+		
+		[System.Runtime.Serialization.EnumMember(Value="I")]
+		I,
+		
+		[System.Runtime.Serialization.EnumMember(Value="A")]
+		A,
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum MedicalContraindiationResponseTypeTypeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMember(Value="P")]
+		P,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Tt")]
+		T,
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -8883,19 +8973,50 @@ namespace DemoWebApi.DemoData.Client
 	public class MimsPackage : object
 	{
 		
+		/// <summary>
+		/// Range: inclusive between 10 and 100
+		/// </summary>
 		[System.ComponentModel.DefaultValueAttribute(20)]
 		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "10", "100", ErrorMessage="KK has to be between 10 and 100.")]
+		[System.Runtime.Serialization.DataMember()]
 		public int KK { get; set; } = 20;
 		
+		/// <summary>
+		/// Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
+		/// and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
 		public int KK2 { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<DemoWebApi.DemoData.Client.MyEnumType> OptionalEnum { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<int> OptionalInt { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public string Tag { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MimsResult<T> : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateTime GeneratedAt { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Message { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public T Result { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public bool Success { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -8903,9 +9024,268 @@ namespace DemoWebApi.DemoData.Client
 	public enum MyEnumType
 	{
 		
+		[System.Runtime.Serialization.EnumMember()]
 		First = 1,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Two = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MyGeneric<T, K, U> : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public K MyK { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public T MyT { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public U MyU { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Status { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MyPeopleDic : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IDictionary<string, string> AnotherDic { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person> Dic { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IDictionary<int, string> IntDic { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Person : DemoWebApi.DemoData.Base.Client.Entity
+	{
+		
+		/// <summary>
+		/// Data type: Date
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateTimeOffset> Baptised { get; set; }
+		
+		/// <summary>
+		/// Date of Birth.
+		/// This is optional.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateOnly> DOB { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string GivenName { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Surname { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PhoneNumber : object
+	{
+		
+		/// <summary>
+		/// Max length: 120
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(120)]
+		[System.Runtime.Serialization.DataMember()]
+		public string FullNumber { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
+	}
+	
+	/// <summary>
+	/// Phone type
+	/// Tel, Mobile, Skyp and Fax
+	/// 
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum PhoneType
+	{
+		
+		/// <summary>
+		/// Land line
+		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
+		Tel,
+		
+		/// <summary>
+		/// Mobile phone
+		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
+		Mobile,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Skype,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Fax,
+	}
+}
+namespace DemoWebApi.Models.Client
+{
+	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class AddExternalLoginBindingModel : object
+	{
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string ExternalAccessToken { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class ChangePasswordBindingModel : object
+	{
+		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string ConfirmPassword { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string NewPassword { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string OldPassword { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class RegisterBindingModel : object
+	{
+		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string ConfirmPassword { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string Email { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string Password { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class RegisterExternalBindingModel : object
+	{
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string Email { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class RemoveLoginBindingModel : object
+	{
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string LoginProvider { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string ProviderKey { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class SetPasswordBindingModel : object
+	{
+		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string ConfirmPassword { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string NewPassword { get; set; }
+	}
+	
+	/// <summary>
+	/// Auth token
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class TokenResponseModel : object
+	{
+		
+		[System.Runtime.Serialization.DataMember(Name="access_token")]
+		public string AccessToken { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="expires")]
+		public string Expires { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="expires_in")]
+		public int ExpiresIn { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="issued")]
+		public string Issued { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="token_type")]
+		public string TokenType { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="username")]
+		public string Username { get; set; }
 	}
 }
 namespace DemoCoreWeb.Controllers.Client

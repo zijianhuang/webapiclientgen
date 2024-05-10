@@ -229,7 +229,9 @@ namespace DemoWebApi.DemoData
 	
 	public class Person : Entity
 	{
-		
+		/// <summary>
+		/// 
+		/// </summary>
 		public string Surname { get; set; }
 		
 		public string GivenName { get; set; }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace IntegrationTests
 {
@@ -303,7 +304,7 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public async void TestGetTextStream()
+		public async Task TestGetTextStream()
 		{
 
 /* Unmerged change from project 'IntegrationTestsTextJson'
@@ -529,7 +530,7 @@ After:
 		}
 
 		[Fact]
-		public async void TestPostActionResult()
+		public async Task TestPostActionResult()
 		{
 
 /* Unmerged change from project 'IntegrationTestsTextJson'
@@ -545,7 +546,7 @@ After:
 		}
 
 		[Fact]
-		public async void TestGetActionResult()
+		public async Task TestGetActionResult()
 		{
 
 /* Unmerged change from project 'IntegrationTestsTextJson'
@@ -562,7 +563,7 @@ After:
 		}
 
 		[Fact]
-		public async void TestGetActionResult2()
+		public async Task TestGetActionResult2()
 		{
 
 /* Unmerged change from project 'IntegrationTestsTextJson'

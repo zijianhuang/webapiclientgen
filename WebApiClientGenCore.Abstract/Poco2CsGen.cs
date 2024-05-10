@@ -170,15 +170,11 @@ namespace Fonlow.Poco2Client
 		/// <returns>Existing or newly created CodeTypeDeclaration.</returns>
 		public CodeTypeDeclaration CheckOrAdd(Type type, bool dcOnly)
 		{
-			if (type == null)
+			if (type == null || type == typeof(Object) || (type.IsGenericTypeParameter && type.IsGenericParameter))
 			{
 				return null;
 			}
 
-			if (type.Name.Contains("Entity"))
-			{
-				Console.WriteLine("hehe");
-			}
 			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(type);
 			if (codeTypeDeclaration != null)
 			{
@@ -190,12 +186,10 @@ namespace Fonlow.Poco2Client
 				var assemblyFilename = type.Assembly.GetName().Name;
 				if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
 				{
-					var foundTypeDef = PodGenHelper.FindGenericTypeDef(type.Assembly, $"{type.Namespace}.{type.Name}");
+					Type foundTypeDef = PodGenHelper.FindGenericTypeDef(type.Assembly, $"{type.Namespace}.{type.Name}");
 					if (foundTypeDef is not null && LookupExistingClassOfCs(foundTypeDef) is null)
 					{
-						//string clientNamespaceText = foundTypeDef.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
-						//CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
-						AddCodeTypeDeclaration(foundTypeDef, dcOnly);
+						return AddCodeTypeDeclaration(foundTypeDef, dcOnly); // for generic definition type
 					}
 				}
 
@@ -228,6 +222,11 @@ namespace Fonlow.Poco2Client
 
 		CodeTypeDeclaration AddCodeTypeDeclaration(Type type, bool dcOnly)
 		{
+			if (type.IsGenericTypeParameter && type.IsGenericParameter)
+			{
+				return null;
+			}
+
 			CheckOrAdd(type.BaseType, true); // for baseType
 
 			pendingTypes.Add(type); //do this first, in case of recursive relationship between class and property.
@@ -254,10 +253,6 @@ namespace Fonlow.Poco2Client
 			string tsName = type.Name;
 			Debug.WriteLine("clientClass: " + clientNamespace + "  " + tsName);
 
-			if (type.Name.Contains("MyPoint"))
-			{
-				Console.WriteLine("hehe");
-			}
 			CodeTypeDeclaration typeDeclaration;
 			if (TypeHelper.IsClassOrStruct(type))
 			{
@@ -289,10 +284,6 @@ namespace Fonlow.Poco2Client
 				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
 				foreach (PropertyInfo propertyInfo in typeProperties)
 				{
-					if (propertyInfo.PropertyType.Name.Contains("Entity"))
-					{
-						Console.WriteLine("hehe");
-					}
 					CheckOrAdd(propertyInfo.PropertyType, true);
 
 					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, cherryPickingMethods, withDataContract);

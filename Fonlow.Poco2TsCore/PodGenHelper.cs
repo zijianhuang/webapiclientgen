@@ -45,7 +45,12 @@ namespace Fonlow.Poco2Client
 			return null;
 		}
 
-
+		/// <summary>
+		/// Find if a genertic type exists in assembly according typeFullName
+		/// </summary>
+		/// <param name="assembly"></param>
+		/// <param name="typeFullName">full name including namespace</param>
+		/// <returns>Type if found, null if not found</returns>
 		public static Type FindGenericTypeDef(Assembly assembly, string typeFullName)
 		{
 			var types = GetCherryTypes(assembly, CherryPickingMethods.All);

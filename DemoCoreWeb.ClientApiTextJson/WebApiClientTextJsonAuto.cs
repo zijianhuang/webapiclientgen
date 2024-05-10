@@ -8801,15 +8801,9 @@ namespace DemoWebApi.DemoData.Client
 		
 		public string Message { get; set; }
 		
-		public DemoWebApi.DemoData.Client.T Result { get; set; }
+		public T Result { get; set; }
 		
 		public bool Success { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class T : object
-	{
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -8817,25 +8811,13 @@ namespace DemoWebApi.DemoData.Client
 	public class MyGeneric<T, K, U> : object
 	{
 		
-		public DemoWebApi.DemoData.Client.K MyK { get; set; }
+		public K MyK { get; set; }
 		
 		public T MyT { get; set; }
 		
-		public DemoWebApi.DemoData.Client.U MyU { get; set; }
+		public U MyU { get; set; }
 		
 		public string Status { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class K : object
-	{
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class U : object
-	{
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]

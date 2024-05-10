@@ -356,7 +356,7 @@ namespace IntegrationTests
 		}
 
 		[Fact]
-		public async void TestQueryDateOnlyString()
+		public async Task TestQueryDateOnlyString()
 		{
 			DateOnly d = new DateOnly(2008, 12, 18);
 			DateOnly r = await api.QueryDateOnlyAsStringAsync(d.ToString("O"));

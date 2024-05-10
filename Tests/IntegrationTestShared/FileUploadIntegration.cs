@@ -24,7 +24,7 @@ namespace IntegrationTests
 
 
 		//[Fact]
-		public async void TestUpload()
+		public async Task TestUpload()
 		{
 			FileResult r = await SendFiles(_filename);
 			Assert.Equal("OK", r.Submitter);

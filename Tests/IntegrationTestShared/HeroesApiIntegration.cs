@@ -1,6 +1,7 @@
 ﻿using Fonlow.Net.Http;
 using System.Net;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace IntegrationTests
 {
@@ -16,7 +17,7 @@ namespace IntegrationTests
 
 
 		[Fact]
-		public async void TestGetAsyncHeroes()
+		public async Task TestGetAsyncHeroes()
 		{
 			DemoWebApi.Controllers.Client.Hero[] array = await api.GetAsyncHeroesAsync();
 			Assert.NotEmpty(array);

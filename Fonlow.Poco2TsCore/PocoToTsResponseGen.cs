@@ -9,8 +9,14 @@ namespace Fonlow.Poco2Ts
 	/// </summary>
 	public class PocoToTsResponseGen : Poco2TsGen
 	{
-		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper=null) 
+		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper)
 			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true))
+		{
+
+		}
+
+		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, string[] dataModelAssemblyNames)
+			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true), dataModelAssemblyNames)
 		{
 
 		}

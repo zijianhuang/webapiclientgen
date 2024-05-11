@@ -100,7 +100,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		/// Candidate could be custom POCO, or custom POCO wrapped in IActionResult, ActionResult etc.
 		/// </summary>
 		/// <param name="candidateType"></param>
-		void AddCustomPocoType(Type candidateType)
+		void AddCustomPocoTypeForCs(Type candidateType)
 		{
 			if (candidateType == null)
 			{
@@ -114,7 +114,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		CodeMemberMethod CreateApiFunction()
 		{
-			AddCustomPocoType(returnType);
+			AddCustomPocoTypeForCs(returnType);
 			//create method
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
 #if DEBUG
@@ -304,7 +304,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.None)
 				.Select(d =>
 				{
-					AddCustomPocoType(d.ParameterDescriptor.ParameterType);
+					AddCustomPocoTypeForCs(d.ParameterDescriptor.ParameterType);
 					CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
 					exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 					return exp;
@@ -374,7 +374,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromQuery || p.ParameterDescriptor.ParameterBinder == ParameterBinder.FromBody
 			|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
 			{
-				AddCustomPocoType(d.ParameterDescriptor.ParameterType);
+				AddCustomPocoTypeForCs(d.ParameterDescriptor.ParameterType);
 				CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(poco2CsGen.TranslateToClientTypeReference(d.ParameterDescriptor.ParameterType), d.Name);
 				exp.UserData.Add(Fonlow.TypeScriptCodeDom.UserDataKeys.ParameterDescriptor, d.ParameterDescriptor);
 				return exp;

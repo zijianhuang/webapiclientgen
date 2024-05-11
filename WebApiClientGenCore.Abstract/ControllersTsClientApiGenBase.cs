@@ -81,7 +81,14 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			AddBasicReferences();
 
-			GenerateTsFromPoco();
+			if (apiSelections.CherryPickingMethods == CherryPickingMethods.GodAssembly)
+			{
+				GenerateClientTypesFormWebApis(webApiDescriptions);
+			}
+			else
+			{
+				GenerateTsFromPocoAssemblies();
+			}
 
 			//controllers of ApiDescriptions (functions) grouped by namespace
 			IOrderedEnumerable<IGrouping<string, ControllerDescriptor>> controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
@@ -175,7 +182,16 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 		}
 
-		void GenerateTsFromPoco()
+		void GenerateClientTypesFormWebApis(WebApiDescription[] webApiDescriptions)
+		{
+			for (int i = 0; i < webApiDescriptions.Length; i++)
+			{
+				var d = webApiDescriptions[i];
+				Poco2TsGen.CheckOrAdd(d.ActionDescriptor.ReturnType, false);
+			}
+		}
+
+		void GenerateTsFromPocoAssemblies()
 		{
 			if (apiSelections.DataModelAssemblyNames != null)
 			{

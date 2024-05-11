@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Globalization;
+using Fonlow.Poco2Ts;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -84,6 +85,8 @@ namespace Fonlow.CodeDom.Web.Ts
 				throw new ArgumentException("Is this possible, without methodInfo?");
 			}
 
+			AddCustomPocoTypeForTs(ReturnType, description);
+
 			//create method
 			Method = CreateMethodName();
 
@@ -104,6 +107,22 @@ namespace Fonlow.CodeDom.Web.Ts
 			}
 
 			return Method;
+		}
+
+		/// <summary>
+		/// Candidate could be custom POCO, or custom POCO wrapped in IActionResult, ActionResult etc.
+		/// </summary>
+		/// <param name="candidateType"></param>
+		void AddCustomPocoTypeForTs(Type candidateType, WebApiDescription description)
+		{
+			if (candidateType == null)
+			{
+				return;
+			}
+
+			var assemblyFilename = candidateType.Assembly.GetName().Name;
+			string controllerAssemblyName = description.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly.GetName().Name;
+			Poco2TsGen.CheckOrAdd(candidateType, controllerAssemblyName != assemblyFilename);
 		}
 
 		void CreateDocComments()
@@ -323,6 +342,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				|| p.ParameterDescriptor.ParameterBinder == ParameterBinder.None).Select(d =>
 				{
 					Type originalType = d.ParameterDescriptor.ParameterType;
+					AddCustomPocoTypeForTs(originalType, Description); // for god assembly
 					CodeTypeReference originalCodeTypeReference = Poco2TsGen.TranslateToClientTypeReference(originalType);
 					originalCodeTypeReference.UserData.Add(UserDataKeys.IsMethodParameter, true); // so I can add optional null later
 					CodeParameterDeclarationExpression exp = new CodeParameterDeclarationExpression(originalCodeTypeReference, d.Name + (StrictMode ? "?" : String.Empty));

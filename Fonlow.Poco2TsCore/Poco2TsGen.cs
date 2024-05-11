@@ -22,7 +22,7 @@ namespace Fonlow.Poco2Ts
 	/// </summary>
 	public class Poco2TsGen : IPoco2Client
 	{
-		readonly CodeCompileUnit targetUnit;
+		readonly CodeCompileUnit codeCompileUnit;
 
 		readonly string ClientNamespaceSuffix;
 
@@ -36,6 +36,8 @@ namespace Fonlow.Poco2Ts
 
 		readonly IDictionary<Type, string> dotNetTypeCommentDic;
 
+		readonly string[] dataModelAssemblyNames;
+
 		/// <summary>
 		/// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.
 		/// </summary>
@@ -45,7 +47,7 @@ namespace Fonlow.Poco2Ts
 		/// <param name="codeObjectHelper"></param>
 		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper)
 		{
-			targetUnit = codeCompileUnit;
+			this.codeCompileUnit = codeCompileUnit;
 			pendingTypes = new List<Type>();
 			this.ClientNamespaceSuffix = clientNamespaceSuffix;
 			this.helpStrictMode = helpStrictMode;
@@ -57,7 +59,18 @@ namespace Fonlow.Poco2Ts
 			dotNetTypeCommentDic = DotNetTypeCommentGenerator.Get();
 		}
 
-
+		/// <summary>
+		/// For god assembly.
+		/// </summary>
+		/// <param name="codeCompileUnit"></param>
+		/// <param name="clientNamespaceSuffix"></param>
+		/// <param name="helpStrictMode"></param>
+		/// <param name="codeObjectHelper"></param>
+		/// <param name="dataModelAssemblyNames"></param>
+		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, string[] dataModelAssemblyNames) : this(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper)
+		{
+			this.dataModelAssemblyNames = dataModelAssemblyNames;
+		}
 		/// <summary>
 		/// Save TypeScript codes generated into a file.
 		/// </summary>
@@ -105,7 +118,7 @@ namespace Fonlow.Poco2Ts
 				options.BracingStyle = "JS";
 				options.IndentString = "\t";
 
-				provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);
+				provider.GenerateCodeFromCompileUnit(codeCompileUnit, writer, options);
 			}
 		}
 
@@ -225,198 +238,206 @@ namespace Fonlow.Poco2Ts
 			List<IGrouping<string, Type>> typeGroupedByNamespace = types
 				.GroupBy(d => d.Namespace)
 				.OrderBy(k => k.Key).ToList(); // order by namespace
-			string[] namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray();
+			string[] namespacesOfTypes = typeGroupedByNamespace.Select(d => d.Key).ToArray(); // service type namespaces without client suffix
 			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
 				string clientNamespaceText = (groupedTypes.Key + ClientNamespaceSuffix).Replace('.', '_');
-				CodeNamespaceEx clientNamespace = targetUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, true);
+				CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, true);
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
 				IOrderedEnumerable<Type> orderedGroupedTypes = groupedTypes.OrderBy(t => t.Name);
 				foreach (Type type in orderedGroupedTypes)
 				{
-					string tsName = type.Name;
-					Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);
-
-					CodeTypeDeclaration typeDeclaration;
-					if (TypeHelper.IsClassOrStruct(type))
-					{
-						if (type.IsGenericType)
-						{
-							typeDeclaration = PodGenHelper.CreatePodClientGenericInterface(clientNamespace, type);
-						}
-						else
-						{
-							typeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, tsName);
-						}
-
-						if (!type.IsValueType)
-						{
-							if (namespacesOfTypes.Contains(type.BaseType.Namespace))
-							{
-								typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
-							}
-							else
-							{
-								typeDeclaration.BaseTypes.Add(type.BaseType);
-							}
-						}
-
-						CreateTypeDocComment(type, typeDeclaration);
-
-						CherryPickingMethods typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);
-						bool withDataContract = (typeCherryMethods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract;
-						PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
-						foreach (PropertyInfo propertyInfo in typeProperties)
-						{
-							CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods, withDataContract);
-							if (cherryType == CherryType.None)
-								continue;
-							string tsPropertyName;
-
-
-							bool isRequired = cherryType == CherryType.BigCherry;
-							string customName = CherryPicking.GetFieldCustomName(propertyInfo, methods);
-							if (String.IsNullOrEmpty(customName))
-							{
-								tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(propertyInfo.Name) : propertyInfo.Name;
-							}
-							else
-							{
-								tsPropertyName = customName;
-							}
-
-							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
-							CodeMemberField clientField = new CodeMemberField()//Yes, clr property translated to ts field
-							{
-								Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-								Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
-
-							};
-
-							AddValidationAttributesCodeTypeMember(propertyInfo, clientField, false);
-							clientField.UserData.Add(UserDataKeys.CustomAttributes, propertyInfo.GetCustomAttributes().ToArray());
-							clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo,
-								new FieldTypeInfo
-								{
-									IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
-									IsArray = clientField.Type.ArrayRank > 0,
-									ClrType = propertyInfo.PropertyType,
-								});
-
-							CreatePropertyDocComment(propertyInfo, clientField);
-
-							typeDeclaration.Members.Add(clientField);
-						}
-
-						FieldInfo[] typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
-						foreach (FieldInfo fieldInfo in typeFields)
-						{
-							CherryType cherryType = CherryPicking.GetMemberCherryType(fieldInfo, methods, withDataContract);
-							if (cherryType == CherryType.None)
-								continue;
-							string tsPropertyName;
-
-
-							bool isRequired = (cherryType == CherryType.BigCherry) || !type.IsClass;//public fields in struct should all be value types, so required
-							string customName = CherryPicking.GetFieldCustomName(fieldInfo, methods);
-							if (String.IsNullOrEmpty(customName))
-							{
-								tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(fieldInfo.Name) : fieldInfo.Name;
-							}
-							else
-							{
-								tsPropertyName = customName;
-							}
-
-							Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
-
-							CodeMemberField clientField = new CodeMemberField()
-							{
-								Name = tsPropertyName + (isRequired ? String.Empty : "?"),
-								Type = TranslateToClientTypeReference(fieldInfo.FieldType),
-							};
-
-							clientField.UserData.Add(UserDataKeys.CustomAttributes, fieldInfo.GetCustomAttributes().ToArray());
-							clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo, new FieldTypeInfo
-							{
-								IsComplex = CodeObjectHelper.IsComplexType(fieldInfo.FieldType),
-								IsArray = clientField.Type.ArrayRank > 0,
-								ClrType = fieldInfo.FieldType,
-							});
-							CreateFieldDocComment(fieldInfo, clientField);
-
-							typeDeclaration.Members.Add(clientField);
-						}
-					}
-					else if (type.IsEnum)
-					{
-						typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
-
-						CreateTypeDocComment(type, typeDeclaration);
-
-						int k = 0;
-						foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
-						{
-							string name = fieldInfo.Name;
-
-							CustomAttributeData enumMemberAttributeData = fieldInfo.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Runtime.Serialization.EnumMemberAttribute");
-							void AddFieldWithoutEnumMemberAttribute()
-							{
-								int intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
-								Debug.WriteLine(name + " -- " + intValue);
-								bool isInitialized = intValue != k;
-
-								CodeMemberField clientField = new CodeMemberField()
-								{
-									Name = name,
-									Type = new CodeTypeReference(fieldInfo.FieldType),
-									InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
-								};
-
-								CreateFieldDocComment(fieldInfo, clientField);
-								typeDeclaration.Members.Add(clientField);
-							}
-
-							if (enumMemberAttributeData == null)
-							{
-								AddFieldWithoutEnumMemberAttribute();
-							}
-							else
-							{
-								CustomAttributeNamedArgument vm = enumMemberAttributeData.NamedArguments.FirstOrDefault(k => k.MemberName == "Value");
-
-								if (vm.TypedValue.Value != null)
-								{
-									CodeMemberField mField = new CodeMemberField()
-									{
-										Name = name,
-										Type = new CodeTypeReference(fieldInfo.FieldType),
-										InitExpression = new CodePrimitiveExpression(vm.TypedValue),
-									};
-
-									CreateFieldDocComment(fieldInfo, mField);
-									typeDeclaration.Members.Add(mField);
-								}
-								else
-								{
-									AddFieldWithoutEnumMemberAttribute();
-								}
-
-							}
-
-							k++;
-						}
-
-					}
-					else
-					{
-						Trace.TraceWarning("Not yet supported: " + type.Name);
-					}
+					TypeToCodeTypeDeclaration(type, clientNamespace, namespacesOfTypes, methods);
 				};
 			}
 
 
 		}
+
+		CodeTypeDeclaration TypeToCodeTypeDeclaration(Type type, CodeNamespaceEx clientNamespace, string[] namespacesOfTypes, CherryPickingMethods methods){
+			string tsName = type.Name;
+			Debug.WriteLine("tsClass: " + clientNamespace + "  " + tsName);
+
+			CodeTypeDeclaration typeDeclaration;
+			if (TypeHelper.IsClassOrStruct(type))
+			{
+				if (type.IsGenericType)
+				{
+					typeDeclaration = PodGenHelper.CreatePodClientGenericInterface(clientNamespace, type);
+				}
+				else
+				{
+					typeDeclaration = PodGenHelper.CreatePodClientInterface(clientNamespace, tsName);
+				}
+
+				if (!type.IsValueType)
+				{
+					if (namespacesOfTypes.Contains(type.BaseType.Namespace))
+					{
+						typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
+					}
+					else
+					{
+						typeDeclaration.BaseTypes.Add(type.BaseType);
+					}
+				}
+
+				CreateTypeDocComment(type, typeDeclaration);
+
+				CherryPickingMethods typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);
+				bool withDataContract = (typeCherryMethods & CherryPickingMethods.DataContract) == CherryPickingMethods.DataContract;
+				PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name).ToArray();
+				foreach (PropertyInfo propertyInfo in typeProperties)
+				{
+					CherryType cherryType = CherryPicking.GetMemberCherryType(propertyInfo, methods, withDataContract);
+					if (cherryType == CherryType.None)
+						continue;
+					string tsPropertyName;
+
+
+					bool isRequired = cherryType == CherryType.BigCherry;
+					string customName = CherryPicking.GetFieldCustomName(propertyInfo, methods);
+					if (String.IsNullOrEmpty(customName))
+					{
+						tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(propertyInfo.Name) : propertyInfo.Name;
+					}
+					else
+					{
+						tsPropertyName = customName;
+					}
+
+					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, propertyInfo.PropertyType.Name));
+					CodeMemberField clientField = new CodeMemberField()//Yes, clr property translated to ts field
+					{
+						Name = tsPropertyName + (isRequired ? String.Empty : "?"),
+						Type = TranslateToClientTypeReference(propertyInfo.PropertyType),
+
+					};
+
+					AddValidationAttributesCodeTypeMember(propertyInfo, clientField, false);
+					clientField.UserData.Add(UserDataKeys.CustomAttributes, propertyInfo.GetCustomAttributes().ToArray());
+					clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo,
+						new FieldTypeInfo
+						{
+							IsComplex = CodeObjectHelper.IsComplexType(propertyInfo.PropertyType),
+							IsArray = clientField.Type.ArrayRank > 0,
+							ClrType = propertyInfo.PropertyType,
+						});
+
+					CreatePropertyDocComment(propertyInfo, clientField);
+
+					typeDeclaration.Members.Add(clientField);
+				}
+
+				FieldInfo[] typeFields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(f => f.Name).ToArray();
+				foreach (FieldInfo fieldInfo in typeFields)
+				{
+					CherryType cherryType = CherryPicking.GetMemberCherryType(fieldInfo, methods, withDataContract);
+					if (cherryType == CherryType.None)
+						continue;
+					string tsPropertyName;
+
+
+					bool isRequired = (cherryType == CherryType.BigCherry) || !type.IsClass;//public fields in struct should all be value types, so required
+					string customName = CherryPicking.GetFieldCustomName(fieldInfo, methods);
+					if (String.IsNullOrEmpty(customName))
+					{
+						tsPropertyName = Fonlow.TypeScriptCodeDom.TsCodeGenerationOptions.Instance.CamelCase ? Fonlow.Text.StringExtensions.ToCamelCase(fieldInfo.Name) : fieldInfo.Name;
+					}
+					else
+					{
+						tsPropertyName = customName;
+					}
+
+					Debug.WriteLine(String.Format("{0} : {1}", tsPropertyName, fieldInfo.FieldType.Name));
+
+					CodeMemberField clientField = new CodeMemberField()
+					{
+						Name = tsPropertyName + (isRequired ? String.Empty : "?"),
+						Type = TranslateToClientTypeReference(fieldInfo.FieldType),
+					};
+
+					clientField.UserData.Add(UserDataKeys.CustomAttributes, fieldInfo.GetCustomAttributes().ToArray());
+					clientField.Type.UserData.Add(UserDataKeys.FieldTypeInfo, new FieldTypeInfo
+					{
+						IsComplex = CodeObjectHelper.IsComplexType(fieldInfo.FieldType),
+						IsArray = clientField.Type.ArrayRank > 0,
+						ClrType = fieldInfo.FieldType,
+					});
+					CreateFieldDocComment(fieldInfo, clientField);
+
+					typeDeclaration.Members.Add(clientField);
+				}
+			}
+			else if (type.IsEnum)
+			{
+				typeDeclaration = PodGenHelper.CreatePodClientEnum(clientNamespace, tsName);
+
+				CreateTypeDocComment(type, typeDeclaration);
+
+				int k = 0;
+				foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
+				{
+					string name = fieldInfo.Name;
+
+					CustomAttributeData enumMemberAttributeData = fieldInfo.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Runtime.Serialization.EnumMemberAttribute");
+					void AddFieldWithoutEnumMemberAttribute()
+					{
+						int intValue = (int)Convert.ChangeType(fieldInfo.GetValue(null), typeof(int));
+						Debug.WriteLine(name + " -- " + intValue);
+						bool isInitialized = intValue != k;
+
+						CodeMemberField clientField = new CodeMemberField()
+						{
+							Name = name,
+							Type = new CodeTypeReference(fieldInfo.FieldType),
+							InitExpression = isInitialized ? new CodePrimitiveExpression(intValue) : null,
+						};
+
+						CreateFieldDocComment(fieldInfo, clientField);
+						typeDeclaration.Members.Add(clientField);
+					}
+
+					if (enumMemberAttributeData == null)
+					{
+						AddFieldWithoutEnumMemberAttribute();
+					}
+					else
+					{
+						CustomAttributeNamedArgument vm = enumMemberAttributeData.NamedArguments.FirstOrDefault(k => k.MemberName == "Value");
+
+						if (vm.TypedValue.Value != null)
+						{
+							CodeMemberField mField = new CodeMemberField()
+							{
+								Name = name,
+								Type = new CodeTypeReference(fieldInfo.FieldType),
+								InitExpression = new CodePrimitiveExpression(vm.TypedValue),
+							};
+
+							CreateFieldDocComment(fieldInfo, mField);
+							typeDeclaration.Members.Add(mField);
+						}
+						else
+						{
+							AddFieldWithoutEnumMemberAttribute();
+						}
+
+					}
+
+					k++;
+				}
+
+			}
+			else
+			{
+				Trace.TraceWarning("Not yet supported: " + type.Name);
+				typeDeclaration = null;
+			}
+
+			return typeDeclaration;
+		}
+
 
 		/// <summary>
 		/// Translate a service type into a CodeTypeReference for client.
@@ -608,7 +629,142 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
+		/// <summary>
+		/// Check if custom Poco type is already registered as a client type.
+		/// If not, create a new CodeTypeDeclaration, optionally with a new CodeNamespace.
+		/// It is up to the client codes to decide what pocoType to come int. BCL types and other non-POCO types are not welcome.
+		/// </summary>
+		/// <param name="type">Custom POCO types.</param>
+		/// <returns>Existing or newly created CodeTypeDeclaration.</returns>
+		public CodeTypeDeclaration CheckOrAdd(Type type, bool dcOnly)
+		{
+			if (type == null || type == typeof(Object) || (type.IsGenericTypeParameter && type.IsGenericParameter))
+			{
+				return null;
+			}
 
+			CodeTypeDeclaration codeTypeDeclaration = LookupExistingClassOfCs(type);
+			if (codeTypeDeclaration != null)
+			{
+				return codeTypeDeclaration;
+			}
+
+			if (type.IsGenericType)
+			{
+				var assemblyFilename = type.Assembly.GetName().Name;
+				if (dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
+				{
+					Type foundTypeDef = PodGenHelper.FindGenericTypeDef(type.Assembly, $"{type.Namespace}.{type.Name}");
+					if (foundTypeDef is not null && LookupExistingClassOfCs(foundTypeDef) is null)
+					{
+						return AddCodeTypeDeclaration(foundTypeDef, dcOnly); // for generic definition type
+					}
+				}
+
+				Type[] genericArguments = type.GetGenericArguments();
+				for (int i = 0; i < genericArguments.Length; i++)
+				{
+					CheckOrAdd(genericArguments[0], true);
+				}
+			}
+			else if (TypeHelper.IsSimpleArrayType(type))
+			{
+				return null;
+			}
+			else if (type.IsArray)
+			{
+				Type elementType = type.GetElementType();
+				return CheckOrAdd(elementType, true);
+			}
+			else
+			{
+				var assemblyFilename = type.Assembly.GetName().Name;
+				if (dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
+				{
+					AddCodeTypeDeclaration(type, dcOnly);
+				}
+			}
+
+			return null;
+		}
+
+		/// <summary>
+		/// Lookup existing CodeTypeDeclaration created for controller class from codeCompileUnit
+		/// </summary>
+		/// <param name="namespaceText"></param>
+		/// <param name="className">Controller name plus suffix</param>
+		/// <returns></returns>
+		public CodeTypeDeclaration LookupExistingClassOfCs(Type type)
+		{
+			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
+			{
+				CodeNamespace ns = codeCompileUnit.Namespaces[i];
+				if (ns.Name == type.Namespace + ClientNamespaceSuffix)
+				{
+					for (int k = 0; k < ns.Types.Count; k++)
+					{
+						CodeTypeDeclaration c = ns.Types[k];
+						if (type.IsGenericTypeDefinition && type.IsTypeDefinition)
+						{
+							string[] nameSegments = type.Name.Split('`');
+							string genericClassName = nameSegments[0];
+							int numOfGenericParameters = int.Parse(nameSegments[1]);
+							if (c.Name == genericClassName && c.TypeParameters.Count == numOfGenericParameters)
+							{
+								return c;
+							}
+						}
+						else if (c.Name == type.Name)
+						{
+							return c;
+						}
+					}
+				}
+			}
+
+			return null;
+		}
+
+		public CodeTypeDeclaration LookupExistingClassOfCs(string namespaceText, string typeName)
+		{
+			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
+			{
+				CodeNamespace ns = codeCompileUnit.Namespaces[i];
+				if (ns.Name == namespaceText + ClientNamespaceSuffix)
+				{
+					for (int k = 0; k < ns.Types.Count; k++)
+					{
+						CodeTypeDeclaration c = ns.Types[k];
+						if (c.Name == typeName)
+						{
+							return c;
+						}
+					}
+				}
+			}
+
+			return null;
+		}
+
+		CodeTypeDeclaration AddCodeTypeDeclaration(Type type, bool dcOnly)
+		{
+			if (type.IsGenericTypeParameter && type.IsGenericParameter)
+			{
+				return null;
+			}
+
+			CheckOrAdd(type.BaseType, true); // for baseType
+
+			pendingTypes.Add(type); //do this first, in case of recursive relationship between class and property.
+
+			string clientNamespaceText = type.Namespace + ClientNamespaceSuffix;
+			CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
+			string[] clientNamespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
+			string[] namespacesOfTypes = clientNamespacesOfTypes.Select(d => d.Substring(0, d.Length - ClientNamespaceSuffix.Length)).ToArray();
+			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, CherryPickingMethods.GodAssembly);
+
+			return r;
+		}
 
 
 	}

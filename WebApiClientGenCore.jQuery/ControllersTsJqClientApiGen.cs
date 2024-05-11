@@ -1,5 +1,4 @@
 ﻿using System.CodeDom;
-using Fonlow.Poco2Client;
 
 namespace Fonlow.CodeDom.Web.Ts
 {
@@ -20,7 +19,8 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override void CreatePoco2TsGen(string clientNamespaceSuffix)
 		{
-			Poco2TsGen = new Fonlow.Poco2Ts.Poco2TsGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(false));
+			Poco2TsGen = jsOutput.ApiSelections.CherryPickingMethods == Poco2Client.CherryPickingMethods.GodAssembly ? new Fonlow.Poco2Ts.Poco2TsGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(false), jsOutput.ApiSelections.DataModelAssemblyNames)
+			: new Fonlow.Poco2Ts.Poco2TsGen(TargetUnit, clientNamespaceSuffix, jsOutput.HelpStrictMode, new TypeScriptCodeDom.CodeObjectHelper(false));
 		}
 
 		protected override void AddBasicReferences()

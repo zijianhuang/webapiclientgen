@@ -8,13 +8,13 @@
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Aurelia.</Description>
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<PackageTags>aurelia TypeScript</PackageTags>
-		<PackageReleaseNotes>Throw error/response if status code not between 200 and 204.</PackageReleaseNotes>
+		<PackageReleaseNotes>For god assembly.</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyName>Fonlow.WebApiClientGenCore.Aurelia</AssemblyName>
-		<Version>3.8.2</Version>
+		<Version>3.9</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 		<AnalysisLevel>latest-all</AnalysisLevel>

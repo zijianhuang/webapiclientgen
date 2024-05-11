@@ -184,7 +184,7 @@ namespace Fonlow.Poco2Client
 			if (type.IsGenericType)
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
-				if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename))
+				if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null && codeGenSettings.ApiSelections.DataModelAssemblyNames.Contains(assemblyFilename)) //to ensure the generic type is custom made, not from BCL or 3rd party you don't want.
 				{
 					Type foundTypeDef = PodGenHelper.FindGenericTypeDef(type.Assembly, $"{type.Namespace}.{type.Name}");
 					if (foundTypeDef is not null && LookupExistingClassOfCs(foundTypeDef) is null)

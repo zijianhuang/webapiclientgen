@@ -7,14 +7,14 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>Fetch TypeScript</PackageTags>
-		<PackageReleaseNotes>Throw error/response if status code not between 200 and 204.</PackageReleaseNotes>
+		<PackageReleaseNotes>For god assembly.</PackageReleaseNotes>
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3.10.1</Version>
+		<Version>3.11</Version>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 		<AnalysisLevel>latest-all</AnalysisLevel>

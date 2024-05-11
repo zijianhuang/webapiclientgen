@@ -1,4 +1,4 @@
-import { DemoWebApi_Controllers_Client, DemoWebApi_Models_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Base_Client } from './clientapi/WebApiCoreFetchClientAuto';
+import { DemoWebApi_Controllers_Client, DemoWebApi_DemoData_Client, DemoWebApi_DemoData_Base_Client } from './clientapi/WebApiCoreFetchClientAuto';
 
 export async function errorResponseToString(error: Response | any): Promise<string> {
   let errMsg: string;

@@ -1,3 +1,2 @@
-To test, run:
-karma start ./karma.conf.js
-along with .net core web api.
+1. Run Web API
+2. Run `npx jest` to test

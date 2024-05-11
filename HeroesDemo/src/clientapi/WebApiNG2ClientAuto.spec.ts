@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { async, TestBed } from '@angular/core/testing';
-import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNG2FormGroupClientAuto';
+import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNg2ClientAuto';
 
 //const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
 const apiBaseUri = 'http://localhost:5000/'; // for DemoCoreWeb

@@ -1,14 +1,46 @@
 import {HttpClient} from 'aurelia-fetch-client';
 import {autoinject} from 'aurelia-framework';
 export namespace DemoWebApi_Controllers_Client {
+
+	/**
+	 * This class is used to carry the result of various file uploads.
+	 */
+	export interface FileResult {
+
+		/**
+		 * Gets or sets the local path of the file saved on the server.
+		 */
+		fileNames?: Array<string>;
+
+		/**
+		 * Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		 */
+		submitter?: string | null;
+	}
+
+
+	/**
+	 * Complex hero type
+	 */
 	export interface Hero {
-		address?: any;
+		address?: DemoWebApi_DemoData_Client.Address;
 		death?: Date | null;
+
+		/** Type: DateOnly */
 		dob?: Date | null;
 		emailAddress?: string | null;
+
+		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
 		id?: string | null;
-		name: string;
-		phoneNumbers?: Array<any>;
+
+		/**
+		 * Required
+		 * String length: inclusive between 2 and 120
+		 */
+		name?: string | null;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+
+		/** Min length: 6 */
 		webAddress?: string | null;
 	}
 
@@ -16,154 +48,6 @@ export namespace DemoWebApi_Controllers_Client {
 		super?: boolean | null;
 	}
 
-	export interface FileResult {
-		fileNames?: Array<string>;
-		submitter?: string | null;
-	}
-
-}
-
-export namespace DemoWebApi_DemoData_Base_Client {
-	export interface Entity {
-		addresses?: Array<any>;
-		emailAddress?: string | null;
-		id?: string | null;
-		name: string;
-		phoneNumbers?: Array<any>;
-		web?: string | null;
-	}
-
-}
-
-export namespace DemoCoreWeb_Controllers_Client {
-	@autoinject()
-	export class SpecialTypes {
-		constructor(private http: HttpClient) {
-		}
-
-		/**
-		 * Anonymous Dynamic of C#
-		 * GET api/SpecialTypes/AnonymousDynamic
-		 * @return {any} dyanmic things
-		 */
-		getAnonymousDynamic(headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.get('api/SpecialTypes/AnonymousDynamic', { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * Async function returing dynamic
-		 * GET api/SpecialTypes/AnonymousDynamic2
-		 */
-		getAnonymousDynamic2(headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.get('api/SpecialTypes/AnonymousDynamic2', { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * GET api/SpecialTypes/AnonymousObject
-		 */
-		getAnonymousObject(headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.get('api/SpecialTypes/AnonymousObject', { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * Async function returning object
-		 * GET api/SpecialTypes/AnonymousObject2
-		 */
-		getAnonymousObject2(headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.get('api/SpecialTypes/AnonymousObject2', { headers: headersHandler ? headersHandler() : undefined });
-		}
-
-		/**
-		 * POST api/SpecialTypes/AnonymousObject
-		 */
-		postAnonymousObject(obj: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.post('api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
-		}
-
-		/**
-		 * Async returning object, Post dynamic
-		 * POST api/SpecialTypes/AnonymousObject2
-		 */
-		postAnonymousObject2(obj: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return this.http.post('api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
-		}
-	}
-
-}
-
-export namespace DemoWebApi_DemoData_Client {
-	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
-		baptised?: Date | null;
-		dob?: Date | null;
-		givenName?: string | null;
-		surname?: string | null;
-	}
-
-	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
-		businessNumber?: string | null;
-		businessNumberType?: string | null;
-		foundDate?: Date | null;
-		registerDate?: Date | null;
-		textMatrix?: Array<Array<string>>;
-		int2D?: number[][];
-		int2DJagged?: Array<Array<number>>;
-		lines?: Array<string>;
-	}
-
-	export enum Days { Sat = 1, Sun = 2, Mon = 3, Tue = 4, Wed = 5, Thu = 6, Fri = 7 }
-
-	export interface MimsResult<T> {
-		generatedAt?: Date | null;
-		message?: string | null;
-		result?: T;
-		success?: boolean | null;
-	}
-
-	export interface MyGeneric<T, K, U> {
-		myK?: K;
-		myT?: T;
-		myU?: U;
-		status?: string | null;
-	}
-
-	export interface BigNumbers {
-		bigInt?: string | null;
-		signed128?: string | null;
-		signed64?: string | null;
-		unsigned128?: string | null;
-		unsigned64?: string | null;
-	}
-
-	export interface IdMap {
-		id?: string | null;
-		idNotEmitDefaultValue?: string | null;
-		nullableId?: string | null;
-		requiredName: string;
-		text?: string | null;
-	}
-
-	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
-		byte?: number | null;
-		int?: number | null;
-		itemCount?: number | null;
-		sByte?: number | null;
-		short?: number | null;
-		uInt?: number | null;
-		uShort?: number | null;
-	}
-
-	export interface MimsPackage {
-		kk?: number | null;
-		kK2?: number | null;
-		optionalEnum?: number | null;
-		optionalInt?: number | null;
-		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
-		tag?: string | null;
-	}
-
-}
-
-export namespace DemoWebApi_Controllers_Client {
 
 	/**
 	 * For testing different commbinations of parameters and returns
@@ -1664,6 +1548,1063 @@ export namespace DemoWebApi_Controllers_Client {
 		 */
 		put(id: number | null, value: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return this.http.put('api/Values/' + id, JSON.stringify(value), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+	}
+
+}
+
+export namespace DemoWebApi_DemoData_Another_Client {
+
+	/**
+	 * 2D position
+	 * with X and Y
+	 * for Demo
+	 */
+	export interface MyPoint {
+
+		/**
+		 * X
+		 * Type: double
+		 */
+		x: number;
+
+		/**
+		 * Y
+		 * Type: double
+		 */
+		y: number;
+	}
+
+}
+
+export namespace DemoWebApi_DemoData_Base_Client {
+
+	/**
+	 * Base class of company and person
+	 */
+	export interface Entity {
+
+		/**
+		 * Multiple addresses
+		 */
+		addresses?: Array<DemoWebApi_DemoData_Client.Address>;
+
+		/** Max length: 255 */
+		emailAddress?: string | null;
+		id?: string | null;
+
+		/**
+		 * Name of the entity.
+		 * Required
+		 * Min length: 2
+		 * Max length: 255
+		 */
+		name: string;
+		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+
+		/** Type: Uri */
+		web?: string | null;
+	}
+
+}
+
+export namespace DemoWebApi_DemoData_Client {
+	export interface Address {
+
+		/** String length: inclusive between 2 and 50 */
+		city?: string | null;
+
+		/** String length: inclusive between 2 and 30 */
+		country?: string | null;
+
+		/** Type: GUID */
+		id?: string | null;
+
+		/** String length: inclusive between 2 and 10 */
+		postalCode?: string | null;
+
+		/** String length: inclusive between 2 and 30 */
+		state?: string | null;
+
+		/** String length: inclusive between 2 and 100 */
+		street1?: string | null;
+
+		/** String length: inclusive between 2 and 100 */
+		street2?: string | null;
+		type?: DemoWebApi_DemoData_Client.AddressType | null;
+
+		/**
+		 * It is a field
+		 */
+		location?: DemoWebApi_DemoData_Another_Client.MyPoint;
+	}
+
+	export enum AddressType { Postal, Residential }
+
+
+	/**  */
+	export interface BigNumbers {
+
+		/** Type: BigInteger */
+		bigInt?: string | null;
+
+		/** Type: Int128, -170141183460469231731687303715884105728 to 170141183460469231731687303715884105727 */
+		signed128?: string | null;
+
+		/** Type: long, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 */
+		signed64?: string | null;
+
+		/** Type: UInt128, 0 to 340282366920938463463374607431768211455 */
+		unsigned128?: string | null;
+
+		/** Type: ulong, 0 to 18,446,744,073,709,551,615 */
+		unsigned64?: string | null;
+	}
+
+	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
+
+		/**
+		 * BusinessNumber to be serialized as BusinessNum
+		 */
+		BusinessNum?: string | null;
+		businessNumberType?: string | null;
+
+		/** Data type: Date */
+		foundDate?: Date | null;
+
+		/** Type: DateOnly */
+		registerDate?: Date | null;
+		textMatrix?: Array<Array<string>>;
+		int2D?: number[][];
+		int2DJagged?: Array<Array<number>>;
+		lines?: Array<string>;
+	}
+
+	export enum Days {
+		Sat = 1,
+		Sun = 2,
+		Mon = 3,
+		Tue = 4,
+		Wed = 5,
+
+		/**
+		 * Thursday
+		 */
+		Thu = 6,
+		Fri = 7
+	}
+
+
+	/**
+	 * To test different serializations against Guid
+	 */
+	export interface IdMap {
+
+		/** Type: GUID */
+		id?: string | null;
+
+		/** Type: GUID */
+		idNotEmitDefaultValue?: string | null;
+		nullableId?: string | null;
+
+		/** Required */
+		requiredName: string;
+		text?: string | null;
+	}
+
+	export interface IntegralEntity extends DemoWebApi_DemoData_Base_Client.Entity {
+
+		/** Type: byte, 0 to 255 */
+		byte?: number | null;
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		int?: number | null;
+
+		/**
+		 * Type: int
+		 * Range: inclusive between -1000 and 1000000
+		 */
+		itemCount?: number | null;
+
+		/** Type: sbyte, -128 to 127 */
+		sByte?: number | null;
+
+		/** Type: short, -32,768 to 32,767 */
+		short?: number | null;
+
+		/** Type: uint, 0 to 4,294,967,295 */
+		uInt?: number | null;
+
+		/** Type: ushort, 0 to 65,535 */
+		uShort?: number | null;
+	}
+
+	export enum MedicalContraindiationResponseTypeReason { M = "Mm", S = "Ss", P = "Pp", I = "I", A = "A" }
+
+	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
+
+	export interface MimsPackage {
+
+		/**
+		 * Type: int
+		 * Range: inclusive between 10 and 100
+		 */
+		kk?: number | null;
+
+		/**
+		 * Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
+		 * and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		 * Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		kK2?: number | null;
+		optionalEnum?: DemoWebApi_DemoData_Client.MyEnumType | null;
+		optionalInt?: number | null;
+		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
+		tag?: string | null;
+	}
+
+	export interface MimsResult<T> {
+		generatedAt?: Date | null;
+		message?: string | null;
+		result?: T;
+		success?: boolean | null;
+	}
+
+	export enum MyEnumType { First = 1, Two = 2 }
+
+	export interface MyGeneric<T, K, U> {
+		myK?: K;
+		myT?: T;
+		myU?: U;
+		status?: string | null;
+	}
+
+	export interface MyPeopleDic {
+		anotherDic?: {[id: string]: string };
+		dic?: {[id: string]: DemoWebApi_DemoData_Client.Person };
+		intDic?: {[id: number]: string };
+	}
+
+	export interface Person extends DemoWebApi_DemoData_Base_Client.Entity {
+
+		/** Data type: Date */
+		baptised?: Date | null;
+
+		/**
+		 * Date of Birth.
+		 * This is optional.
+		 */
+		dob?: Date | null;
+		givenName?: string | null;
+		surname?: string | null;
+	}
+
+	export interface PhoneNumber {
+
+		/** Max length: 120 */
+		fullNumber?: string | null;
+		phoneType?: DemoWebApi_DemoData_Client.PhoneType | null;
+	}
+
+
+	/**
+	 * Phone type
+	 * Tel, Mobile, Skyp and Fax
+	 */
+	export enum PhoneType {
+
+		/**
+		 * Land line
+		 */
+		Tel,
+
+		/**
+		 * Mobile phone
+		 */
+		Mobile,
+		Skype,
+		Fax
+	}
+
+}
+
+export namespace DemoWebApi_Models_Client {
+	export interface AddExternalLoginBindingModel {
+
+		/** Required */
+		externalAccessToken?: string | null;
+	}
+
+	export interface ChangePasswordBindingModel {
+
+		/** Data type: Password */
+		confirmPassword?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
+		newPassword: string;
+
+		/**
+		 * Required
+		 * Data type: Password
+		 */
+		OldPwd: string;
+	}
+
+	export interface RegisterBindingModel {
+
+		/** Data type: Password */
+		confirmPassword?: string | null;
+
+		/** Required */
+		email?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
+		password?: string | null;
+	}
+
+	export interface RegisterExternalBindingModel {
+
+		/** Required */
+		email?: string | null;
+	}
+
+	export interface RemoveLoginBindingModel {
+
+		/** Required */
+		loginProvider?: string | null;
+
+		/** Required */
+		providerKey?: string | null;
+	}
+
+	export interface SetPasswordBindingModel {
+
+		/** Data type: Password */
+		confirmPassword?: string | null;
+
+		/**
+		 * Required
+		 * String length: inclusive between 6 and 100
+		 * Data type: Password
+		 */
+		newPassword?: string | null;
+	}
+
+
+	/**
+	 * Auth token
+	 */
+	export interface TokenResponseModel {
+		access_token?: string | null;
+		expires?: string | null;
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		expires_in?: number | null;
+		issued?: string | null;
+		token_type?: string | null;
+		username?: string | null;
+	}
+
+}
+
+export namespace DemoCoreWeb_Controllers_Client {
+	@autoinject()
+	export class SpecialTypes {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * Anonymous Dynamic of C#
+		 * GET api/SpecialTypes/AnonymousDynamic
+		 * @return {any} dyanmic things
+		 */
+		getAnonymousDynamic(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/SpecialTypes/AnonymousDynamic', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Async function returing dynamic
+		 * GET api/SpecialTypes/AnonymousDynamic2
+		 */
+		getAnonymousDynamic2(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/SpecialTypes/AnonymousDynamic2', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/SpecialTypes/AnonymousObject
+		 */
+		getAnonymousObject(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/SpecialTypes/AnonymousObject', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Async function returning object
+		 * GET api/SpecialTypes/AnonymousObject2
+		 */
+		getAnonymousObject2(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/SpecialTypes/AnonymousObject2', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * POST api/SpecialTypes/AnonymousObject
+		 */
+		postAnonymousObject(obj: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.post('api/SpecialTypes/AnonymousObject', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Async returning object, Post dynamic
+		 * POST api/SpecialTypes/AnonymousObject2
+		 */
+		postAnonymousObject2(obj: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.post('api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+	}
+
+}
+
+export namespace PoemsApp_Controllers_Client {
+
+	/**
+	 * Album specific operations
+	 */
+	@autoinject()
+	export class Albums {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * Add album. If publisheDate is not defined, it will be now.
+		 * POST api/Albums
+		 */
+		add(album: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.post('api/Albums', JSON.stringify(album), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Delete along with what in poemAlbumMap.
+		 * DELETE api/Albums?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		delete(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
+			return this.http.delete('api/Albums?id=' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Get Album. Support ZH Convert.
+		 * GET api/Albums?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		get(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/Albums?id=' + id, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Get all albums. Support ZH Convert.
+		 * GET api/Albums/all
+		 * @param {number} timezoneOffset int in header
+		 */
+		getAll(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Albums/all', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Get all albums as dictionary. Support ZH Convert.
+		 * GET api/Albums/allDic
+		 * @param {number} timezoneOffset int in header
+		 */
+		getAllDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: any }> {
+			return this.http.get('api/Albums/allDic', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * PUT api/Albums
+		 */
+		update(album: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Albums', JSON.stringify(album), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+	}
+
+
+	/**
+	 * Annotations management
+	 */
+	@autoinject()
+	export class Annotations {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Annotations
+		 * @return {string} Type: GUID
+		 */
+		add(annotation: any, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.post('api/Annotations', JSON.stringify(annotation), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Delete along with what in poemAnnotationMap.
+		 * DELETE api/Annotations?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		delete(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
+			return this.http.delete('api/Annotations?id=' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * POST api/Annotations/Orphaned
+		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		deleteOrphaned(ids: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Annotations/Orphaned', JSON.stringify(ids), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Get annotation. Support ZH Convert.
+		 * GET api/Annotations?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		get(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/Annotations?id=' + id, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/Annotations/all
+		 */
+		getAnnotationBriefs(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Annotations/all', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Get all annotation briefs. Support ZH Convert.
+		 * GET api/Annotations/allDic
+		 */
+		getAnnotationBriefsDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: any }> {
+			return this.http.get('api/Annotations/allDic', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * GET api/Annotations/Orphaned
+		 */
+		getOrphaned(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Annotations/Orphaned', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * GET api/Annotations/PoemCountOfAnnotations
+		 */
+		getPoemCountOfAnnotations(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Annotations/PoemCountOfAnnotations', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * PUT api/Annotations
+		 */
+		update(annotation: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Annotations', JSON.stringify(annotation), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+	}
+
+
+	/**
+	 * Annotations management
+	 */
+	@autoinject()
+	export class NumberedAnnotations {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/NumberedAnnotations
+		 * @return {string} Type: GUID
+		 */
+		add(numberedAnnotation: any, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.post('api/NumberedAnnotations', JSON.stringify(numberedAnnotation), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Add multiple annotations
+		 * POST api/NumberedAnnotations/poem/{poemId}
+		 * @param {string} poemId Type: GUID
+		 */
+		addMuitiple(poemId: string | null, orderNumbers: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.post('api/NumberedAnnotations/poem/' + poemId, JSON.stringify(orderNumbers), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Update the orders of numbered annotations in a transaction
+		 * PUT api/NumberedAnnotations/BulkOrderNumbers
+		 */
+		bulkUpdateOrderNumbers(idAndOrderArray: Array<{item1: string, item2: number}> | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/NumberedAnnotations/BulkOrderNumbers', JSON.stringify(idAndOrderArray), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Delete along with what in poemNumberedAnnotationMap.
+		 * DELETE api/NumberedAnnotations?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		delete(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
+			return this.http.delete('api/NumberedAnnotations?id=' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Get numberedAnnotation. Support ZH Convert.
+		 * GET api/NumberedAnnotations?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		get(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/NumberedAnnotations?id=' + id, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Update annotation
+		 * PUT api/NumberedAnnotations
+		 */
+		update(numberedAnnotation: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/NumberedAnnotations', JSON.stringify(numberedAnnotation), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Update Order Number
+		 * PUT api/NumberedAnnotations/OrderNumber?id={id}&orderNumber={orderNumber}
+		 * @param {string} id Type: GUID
+		 * @param {number} orderNumber Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		updateOrderNumber(id: string | null, orderNumber: number | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/NumberedAnnotations/OrderNumber?id=' + id + '&orderNumber=' + orderNumber, null, { headers: headersHandler ? headersHandler() : undefined });
+		}
+	}
+
+
+	/**
+	 * Poems operations; associations with tags, albums and annotations.
+	 */
+	@autoinject()
+	export class Poems {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * Add poem. If created is undefined, it will be now. And modified is always now.
+		 * POST api/Poems
+		 * @return {any} Id of newly added
+		 */
+		add(poem: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.post('api/Poems', JSON.stringify(poem), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Add new poem with existing annotations and new annotation names.
+		 * PUT api/Poems/AddWithExistingAnnotations
+		 * @param {{item1: any, item2: Array<string>}} poemAndAnnotations new poem, existing Annotation Ids, and new annotation names
+		 * @return {any} Poem Id and new annotation objects
+		 */
+		addWithExistingAnnotations(poemAndAnnotations: {item1: any, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/AddWithExistingAnnotations', JSON.stringify(poemAndAnnotations), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Poem with Tags
+		 * POST api/Poems/addWithExistingTags
+		 */
+		addWithExistingTags(poemAndTags: {item1: any, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.post('api/Poems/addWithExistingTags', JSON.stringify(poemAndTags), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * PUT api/Poems/AddWithNewAnnotationNames
+		 */
+		addWithNewAnnotationNames(poemAndAnnotations: {item1: any, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/AddWithNewAnnotationNames', JSON.stringify(poemAndAnnotations), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Add new poem with existing tags, and new tag names.
+		 * POST api/Poems/AddWithNewTagNames
+		 * @param {{item1: any, item2: Array<string>}} poemAndNewTags new poem, existing Tag Ids, and new tag names
+		 * @return {any} Poem Id and new tag objects
+		 */
+		addWithNewTagNames(poemAndNewTags: {item1: any, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.post('api/Poems/AddWithNewTagNames', JSON.stringify(poemAndNewTags), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Associate album with existing poems.
+		 * PUT api/Poems/poemsToAlbum?albumId={albumId}
+		 * @param {string} albumId Type: GUID
+		 */
+		associateAlbumWithPoems(albumId: string | null, poemIds: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/poemsToAlbum?albumId=' + albumId, JSON.stringify(poemIds), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Associate with existing albums.
+		 * PUT api/Poems/albums?poemId={poemId}
+		 * @param {string} poemId Type: GUID
+		 */
+		associateWithAlbums(poemId: string | null, albumIds: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/albums?poemId=' + poemId, JSON.stringify(albumIds), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Associate with existing annotations.
+		 * PUT api/Poems/existingAnnotations?poemId={poemId}
+		 * @param {string} poemId Type: GUID
+		 */
+		associateWithExistingAnnotations(poemId: string | null, existingAnnotationIds: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/existingAnnotations?poemId=' + poemId, JSON.stringify(existingAnnotationIds), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Associate with existing tags.
+		 * PUT api/Poems/existingTags?poemId={poemId}
+		 * @param {string} poemId Type: GUID
+		 */
+		associateWithExistingTags(poemId: string | null, existingTagIds: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/existingTags?poemId=' + poemId, JSON.stringify(existingTagIds), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Save the new annotation, and associate with the poem.
+		 * If the annotation exists, return null. Nevertheless, the client should check if the annotation had actually been in the annotation list, to avoid exceptions.
+		 * PUT api/Poems/newAnnotationName?poemId={poemId}&newAnnotationName={newAnnotationName}
+		 * @param {string} poemId Type: GUID
+		 * @return {any} New annotation, or null if the annotation exists
+		 */
+		associateWithNewAnnotationName(poemId: string | null, newAnnotationName: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/newAnnotationName?poemId=' + poemId + '&newAnnotationName=' + (!newAnnotationName ? '' : encodeURIComponent(newAnnotationName)), null, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Associate poem with new tag names.
+		 * PUT api/Poems/newAnnotationNames?poemId={poemId}
+		 * @param {string} poemId Type: GUID
+		 * @return {Array<any>} New annotation objects based on newAnnotationNames
+		 */
+		associateWithNewAnnotationNames(poemId: string | null, newAnnotationNames: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.put('api/Poems/newAnnotationNames?poemId=' + poemId, JSON.stringify(newAnnotationNames), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Save the new tag, and associate with the poem.
+		 * If the tag exists, return null. Nevertheless, the client should check if the tag had actually been in the tag list, to avoid exceptions.
+		 * PUT api/Poems/newTagName?poemId={poemId}&newTagName={newTagName}
+		 * @param {string} poemId Type: GUID
+		 * @return {any} New tag, or null if the tag exists
+		 */
+		associateWithNewTagName(poemId: string | null, newTagName: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/newTagName?poemId=' + poemId + '&newTagName=' + (!newTagName ? '' : encodeURIComponent(newTagName)), null, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Associate poem with new tag names.
+		 * PUT api/Poems/newTagNames?poemId={poemId}
+		 * @param {string} poemId Type: GUID
+		 * @return {Array<any>} New tag objects based on newTagNames
+		 */
+		associateWithNewTagNames(poemId: string | null, newTagNames: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.put('api/Poems/newTagNames?poemId=' + poemId, JSON.stringify(newTagNames), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Reconcile among all images, poemImageMaps, and actually img local
+		 * POST api/Poems/AuditAndReconcile
+		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		auditAndReconcile(headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Poems/AuditAndReconcile', null, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * DELETE api/Poems/all
+		 */
+		clearAllTables(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.delete('api/Poems/all', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Delete poem, along with association with albums. However, associated tags and annotations are still in maps.
+		 * DELETE api/Poems?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		delete(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
+			return this.http.delete('api/Poems?id=' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Dissociate album.
+		 * DELETE api/Poems/DissociateAlbum?poemId={poemId}&albumId={albumId}
+		 * @param {string} poemId Type: GUID
+		 * @param {string} albumId Type: GUID
+		 */
+		dissociateAlbum(poemId: string | null, albumId: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.delete('api/Poems/DissociateAlbum?poemId=' + poemId + '&albumId=' + albumId, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Disassociate annotation.
+		 * DELETE api/Poems/DissociateAnnotation?poemId={poemId}&annotationId={annotationId}
+		 * @param {string} poemId Type: GUID
+		 * @param {string} annotationId Type: GUID
+		 */
+		dissociateAnnotation(poemId: string | null, annotationId: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.delete('api/Poems/DissociateAnnotation?poemId=' + poemId + '&annotationId=' + annotationId, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * DissociateT tag.
+		 * DELETE api/Poems/DissociateTag?poemId={poemId}&tagId={tagId}
+		 * @param {string} poemId Type: GUID
+		 * @param {string} tagId Type: GUID
+		 */
+		dissociateTag(poemId: string | null, tagId: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.delete('api/Poems/DissociateTag?poemId=' + poemId + '&tagId=' + tagId, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Fix the problem of escaped unicode string, because of the DomSanitizer of Angular. Once off solution
+		 * PUT api/Poems/EscapeStringToUnicode
+		 */
+		escapeStringToUnicode(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/EscapeStringToUnicode', null, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Include TagMap and AlbumMap. Support ZH Convert.
+		 * GET api/Poems?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		get(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/Poems?id=' + id, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Img Src Url to multiple poem Ids
+		 * GET api/Poems/AllNotLocalImagesOfPoems
+		 */
+		getAllNotLocalImagesOfPoems(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: Array<string> }> {
+			return this.http.get('api/Poems/AllNotLocalImagesOfPoems', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Scan all poems' HTML to create mapping from imageIds to poems. Dic of imageId to poems with img local.
+		 * POST api/Poems/AssociatedPoemsOfImages
+		 */
+		getAssociatedPoemsOfAllImages(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: Array<any> }> {
+			return this.http.post('api/Poems/AssociatedPoemsOfImages', null, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * All, OrderByDescending published. Support ZH Convert. If the user is not loggedin, not returning those not yet published.
+		 * GET api/Poems/AllBriefs
+		 * @param {number} timezoneOffset int in header
+		 */
+		getBriefsOfPoems(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Poems/AllBriefs', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * All poems of album, order by published. Support ZH Convert.
+		 * GET api/Poems/GetOfAlbum?albumId={albumId}
+		 * @param {string} albumId Type: GUID
+		 * @param {string} convertZH string in header
+		 * @param {number} timezoneOffset int in header
+		 */
+		getOfAlbum(albumId: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Poems/GetOfAlbum?albumId=' + albumId, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * GET api/Poems/GetPoemBriefsOfAlbum?albumId={albumId}
+		 * @param {string} albumId Type: GUID
+		 * @param {number} timezoneOffset int in header
+		 */
+		getPoemBriefsOfAlbum(albumId: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Poems/GetPoemBriefsOfAlbum?albumId=' + albumId, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * GET api/Poems/PoemCollection
+		 */
+		getPoemCollection(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/Poems/PoemCollection', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/Poems/PoemCollectionInOtherChineseWriting
+		 */
+		getPoemCollectionInOtherChineseWriting(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/Poems/PoemCollectionInOtherChineseWriting', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/Poems/PoemCollectionPublished
+		 * @param {number} timezoneOffset In request headers
+		 */
+		getPoemCollectionPublished(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/Poems/PoemCollectionPublished', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/Poems/PoemCollectionPublishedInOtherChineseWriting
+		 * @param {number} timezoneOffset timezoneOffset in headers
+		 */
+		getPoemCollectionPublishedInOtherChineseWriting(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/Poems/PoemCollectionPublishedInOtherChineseWriting', { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * GET api/Poems/PoemsWithInternalImageId?imageId={imageId}
+		 * @param {string} imageId Type: GUID
+		 */
+		getPoemsWithInternalImageId(imageId: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Poems/PoemsWithInternalImageId?imageId=' + imageId, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * GET api/Poems/TotalCountOfStanza
+		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		getTotalCountOfStanza(headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.get('api/Poems/TotalCountOfStanza', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * POST api/Poems/PoemCollection
+		 */
+		importPoemCollection(collection: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.post('api/Poems/PoemCollection', JSON.stringify(collection), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * GET api/Poems/ByAnnotation?annotationId={annotationId}
+		 * @param {string} annotationId Type: GUID
+		 */
+		searchByAnnotation(annotationId: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Poems/ByAnnotation?annotationId=' + annotationId, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Search by keywords, separated by comma and Chinese comma. Support ZH Convert.
+		 * POST api/Poems/ByKeywords
+		 * @param {number} timezoneOffset int in header
+		 */
+		searchByKeywords(keywords: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.post('api/Poems/ByKeywords', JSON.stringify(keywords), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Update poem.
+		 * PUT api/Poems
+		 */
+		update(poem: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems', JSON.stringify(poem), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+
+		/**
+		 * Just for maintenance, while the plaintext should be produced in the frontend.
+		 * POST api/Poems/UpdatePlainTextOfHtmlPoems
+		 */
+		updatePlainTextOfHtmlPoems(headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.post('api/Poems/UpdatePlainTextOfHtmlPoems', null, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * PUT api/Poems/UpdatePublished?poemId={poemId}
+		 * @param {string} poemId Type: GUID
+		 */
+		updatePublished(poemId: string | null, dt: Date | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Poems/UpdatePublished?poemId=' + poemId, JSON.stringify(dt), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
+		}
+	}
+
+
+	/**
+	 * Tags management
+	 */
+	@autoinject()
+	export class Tags {
+		constructor(private http: HttpClient) {
+		}
+
+		/**
+		 * POST api/Tags
+		 * @return {string} Type: GUID
+		 */
+		add(tag: any, headersHandler?: () => {[header: string]: string}): Promise<string> {
+			return this.http.post('api/Tags', JSON.stringify(tag), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Delete along with what in poemTagMap.
+		 * DELETE api/Tags?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		delete(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<boolean> {
+			return this.http.delete('api/Tags?id=' + id, { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * POST api/Tags/Orphaned
+		 * @return {number} Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		deleteOrphaned(ids: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<number> {
+			return this.http.post('api/Tags/Orphaned', JSON.stringify(ids), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Get tag. Support ZH Convert.
+		 * GET api/Tags?id={id}
+		 * @param {string} id Type: GUID
+		 */
+		get(id: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.get('api/Tags?id=' + id, { headers: headersHandler ? headersHandler() : undefined });
+		}
+
+		/**
+		 * Get all tags. Support ZH Convert.
+		 * GET api/Tags/all
+		 */
+		getAll(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Tags/all', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * Get all tags as dictionary. Support ZH Convert.
+		 * GET api/Tags/allDic
+		 */
+		getAllDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: any }> {
+			return this.http.get('api/Tags/allDic', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * GET api/Tags/Orphaned
+		 */
+		getOrphaned(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Tags/Orphaned', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * GET api/Tags/PoemCountOfTags
+		 */
+		getPoemCountOfTags(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+			return this.http.get('api/Tags/PoemCountOfTags', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.json(); throw d;});
+		}
+
+		/**
+		 * PUT api/Tags
+		 */
+		update(tag: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+			return this.http.put('api/Tags', JSON.stringify(tag), { headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' } });
 		}
 	}
 

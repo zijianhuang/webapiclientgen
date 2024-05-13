@@ -232,7 +232,7 @@ namespace IntegrationTests
 		/// Expected to fail, before MS would fix Text.Json.JsonSerializer for 2 dimensional array
 		/// Web API: public int[,] GetInt2D()
 		/// </summary>
-		[Fact]
+		[Fact(Skip = "Expected to fail, before MS would fix Text.Json.JsonSerializer for 2 dimensional array")]
 		public void TestInt2D()
 		{
 			int[,] d = api.GetInt2D();
@@ -270,7 +270,7 @@ namespace IntegrationTests
 		/// <summary>
 		/// Expected to fail, before MS would fix Text.Json.JsonSerializer for 2 dimensional array
 		/// </summary>
-		[Fact]
+		[Fact(Skip = "Expected to fail, before MS would fix Text.Json.JsonSerializer for 2 dimensional array")]
 		public void TestPostInt2DExpectedFalse()
 		{
 			bool d = api.PostInt2D(new int[,]

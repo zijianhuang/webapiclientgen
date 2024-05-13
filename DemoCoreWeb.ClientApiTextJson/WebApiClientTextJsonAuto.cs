@@ -19,6 +19,30 @@ namespace DemoWebApi.Controllers.Client
 	using Fonlow.Net.Http;
 	
 	
+	/// <summary>
+	/// This class is used to carry the result of various file uploads.
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class FileResult : object
+	{
+		
+		/// <summary>
+		/// Gets or sets the local path of the file saved on the server.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IEnumerable<string> FileNames { get; set; }
+		
+		/// <summary>
+		/// Gets or sets the submitter as indicated in the HTML form used to upload the data.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Submitter { get; set; }
+	}
+	
+	/// <summary>
+	/// Complex hero type
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class Hero : object
@@ -39,7 +63,11 @@ namespace DemoWebApi.Controllers.Client
 		[System.Runtime.Serialization.DataMember()]
 		public long Id { get; set; }
 		
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 2 and 120
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.StringLength(120, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Name { get; set; }
@@ -47,6 +75,10 @@ namespace DemoWebApi.Controllers.Client
 		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
 		
+		/// <summary>
+		/// Min length: 6
+		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.MinLength(6)]
 		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
 		[System.Runtime.Serialization.DataMember()]
@@ -60,18 +92,6 @@ namespace DemoWebApi.Controllers.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public bool Super { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class FileResult : object
-	{
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.Collections.Generic.IEnumerable<string> FileNames { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string Submitter { get; set; }
 	}
 	
 	/// <summary>
@@ -8615,13 +8635,24 @@ namespace DemoWebApi.DemoData.Another.Client
 {
 	
 	
+	/// <summary>
+	/// 2D position
+	/// with X and Y
+	/// for Demo
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public struct MyPoint
 	{
 		
+		/// <summary>
+		/// X
+		/// </summary>
 		public double X;
 		
+		/// <summary>
+		/// Y
+		/// </summary>
 		public double Y;
 	}
 }
@@ -8629,28 +8660,50 @@ namespace DemoWebApi.DemoData.Base.Client
 {
 	
 	
+	/// <summary>
+	/// Base class of company and person
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class Entity : object
 	{
 		
+		/// <summary>
+		/// Multiple addresses
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
 		
+		/// <summary>
+		/// Max length: 255
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.MaxLength(255)]
 		[System.Runtime.Serialization.DataMember()]
 		public string EmailAddress { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<System.Guid> Id { get; set; }
 		
+		/// <summary>
+		/// Name of the entity.
+		/// Required
+		/// Min length: 2
+		/// Max length: 255
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.ComponentModel.DataAnnotations.MinLength(2)]
 		[System.ComponentModel.DataAnnotations.MaxLength(255)]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string Name { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
 		
+		/// <summary>
+		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.Runtime.Serialization.DataMember()]
 		public System.Uri Web { get; set; }
 	}
 }
@@ -8663,34 +8716,60 @@ namespace DemoWebApi.DemoData.Client
 	public class Address : object
 	{
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 50
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string City { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 30
+		/// </summary>
 		[System.ComponentModel.DefaultValueAttribute("Australia")]
 		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string Country { get; set; } = "Australia";
 		
-		public DemoWebApi.DemoData.Base.Client.Entity Entity { get; set; }
-		
-		public System.Guid EntityId { get; set; }
-		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Guid Id { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 10
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(10, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string PostalCode { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 30
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string State { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 100
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string Street1 { get; set; }
 		
+		/// <summary>
+		/// String length: inclusive between 2 and 100
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
 		public string Street2 { get; set; }
 		
 		[System.ComponentModel.DefaultValueAttribute(AddressType.Residential)]
+		[System.Runtime.Serialization.DataMember()]
 		public DemoWebApi.DemoData.Client.AddressType Type { get; set; } = AddressType.Residential;
 		
+		/// <summary>
+		/// It is a field
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
 		public DemoWebApi.DemoData.Another.Client.MyPoint Location { get; set; }
 	}
 	
@@ -8699,127 +8778,15 @@ namespace DemoWebApi.DemoData.Client
 	public enum AddressType
 	{
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Postal,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Residential,
 	}
 	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class PhoneNumber : object
-	{
-		
-		public System.Guid EntityId { get; set; }
-		
-		[System.ComponentModel.DataAnnotations.MaxLength(120)]
-		public string FullNumber { get; set; }
-		
-		public System.Guid Id { get; set; }
-		
-		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public enum PhoneType
-	{
-		
-		Tel,
-		
-		Mobile,
-		
-		Skype,
-		
-		Fax,
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class Person : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		public System.Nullable<System.DateTimeOffset> Baptised { get; set; }
-		
-		public System.Nullable<System.DateOnly> DOB { get; set; }
-		
-		public string GivenName { get; set; }
-		
-		public string Surname { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class Company : DemoWebApi.DemoData.Base.Client.Entity
-	{
-		
-		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
-		public string BusinessNumber { get; set; }
-		
-		public string BusinessNumberType { get; set; }
-		
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		public System.DateTimeOffset FoundDate { get; set; }
-		
-		public System.DateOnly RegisterDate { get; set; }
-		
-		public string[][] TextMatrix { get; set; }
-		
-		public int[,] Int2D { get; set; }
-		
-		public int[][] Int2DJagged { get; set; }
-		
-		public System.Collections.Generic.IEnumerable<string> Lines { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public enum Days
-	{
-		
-		Sat = 1,
-		
-		Sun = 2,
-		
-		Mon = 3,
-		
-		Tue = 4,
-		
-		Wed = 5,
-		
-		Thu = 6,
-		
-		Fri = 7,
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class MimsResult<T> : object
-	{
-		
-		public System.DateTime GeneratedAt { get; set; }
-		
-		public string Message { get; set; }
-		
-		public T Result { get; set; }
-		
-		public bool Success { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class MyGeneric<T, K, U> : object
-	{
-		
-		public K MyK { get; set; }
-		
-		public T MyT { get; set; }
-		
-		public U MyU { get; set; }
-		
-		public string Status { get; set; }
-	}
-	
+	/// <summary>
+	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class BigNumbers : object
@@ -8828,27 +8795,106 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public System.Numerics.BigInteger BigInt { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Int128 Signed128 { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public long Signed64 { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.UInt128 Unsigned128 { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public ulong Unsigned64 { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
+	public class Company : DemoWebApi.DemoData.Base.Client.Entity
+	{
+		
+		/// <summary>
+		/// BusinessNumber to be serialized as BusinessNum
+		/// </summary>
+		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
+		public string BusinessNumber { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string BusinessNumberType { get; set; }
+		
+		/// <summary>
+		/// Data type: Date
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateTimeOffset FoundDate { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateOnly RegisterDate { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string[][] TextMatrix { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public int[,] Int2D { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public int[][] Int2DJagged { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IEnumerable<string> Lines { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum Days
+	{
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Sat = 1,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Sun = 2,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Mon = 3,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Tue = 4,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Wed = 5,
+		
+		/// <summary>
+		/// Thursday
+		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
+		Thu = 6,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Fri = 7,
+	}
+	
+	/// <summary>
+	/// To test different serializations against Guid
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
 	public class IdMap : object
 	{
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Guid Id { get; set; }
 		
 		[System.Runtime.Serialization.DataMember(EmitDefaultValue=false)]
 		public System.Guid IdNotEmitDefaultValue { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<System.Guid> NullableId { get; set; }
 		
+		/// <summary>
+		/// Required
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string RequiredName { get; set; }
@@ -8862,20 +8908,64 @@ namespace DemoWebApi.DemoData.Client
 	public class IntegralEntity : DemoWebApi.DemoData.Base.Client.Entity
 	{
 		
+		[System.Runtime.Serialization.DataMember()]
 		public byte Byte { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public int Int { get; set; }
 		
+		/// <summary>
+		/// Range: inclusive between -1000 and 1000000
+		/// </summary>
 		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "-1000", "1000000")]
+		[System.Runtime.Serialization.DataMember()]
 		public int ItemCount { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public sbyte SByte { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public short Short { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public uint UInt { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public ushort UShort { get; set; }
+	}
+	
+	[System.Text.Json.Serialization.JsonConverterAttribute(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum MedicalContraindiationResponseTypeReason
+	{
+		
+		[System.Runtime.Serialization.EnumMember(Value="Mm")]
+		M,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Ss")]
+		S,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Pp")]
+		P,
+		
+		[System.Runtime.Serialization.EnumMember(Value="I")]
+		I,
+		
+		[System.Runtime.Serialization.EnumMember(Value="A")]
+		A,
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum MedicalContraindiationResponseTypeTypeCode
+	{
+		
+		[System.Runtime.Serialization.EnumMember(Value="P")]
+		P,
+		
+		[System.Runtime.Serialization.EnumMember(Value="Tt")]
+		T,
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -8883,19 +8973,50 @@ namespace DemoWebApi.DemoData.Client
 	public class MimsPackage : object
 	{
 		
+		/// <summary>
+		/// Range: inclusive between 10 and 100
+		/// </summary>
 		[System.ComponentModel.DefaultValueAttribute(20)]
 		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "10", "100", ErrorMessage="KK has to be between 10 and 100.")]
+		[System.Runtime.Serialization.DataMember()]
 		public int KK { get; set; } = 20;
 		
+		/// <summary>
+		/// Having an initialized value in the property is not like defining a DefaultValueAttribute. Such intialization happens at run time,
+		/// and there's no reliable way for a codegen to know if the value is declared by the programmer, or is actually the natural default value like 0.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
 		public int KK2 { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<DemoWebApi.DemoData.Client.MyEnumType> OptionalEnum { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public System.Nullable<int> OptionalInt { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public DemoWebApi.DemoData.Client.MimsResult<decimal> Result { get; set; }
 		
+		[System.Runtime.Serialization.DataMember()]
 		public string Tag { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MimsResult<T> : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateTime GeneratedAt { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Message { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public T Result { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public bool Success { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -8903,9 +9024,781 @@ namespace DemoWebApi.DemoData.Client
 	public enum MyEnumType
 	{
 		
+		[System.Runtime.Serialization.EnumMember()]
 		First = 1,
 		
+		[System.Runtime.Serialization.EnumMember()]
 		Two = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MyGeneric<T, K, U> : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public K MyK { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public T MyT { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public U MyU { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Status { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MyPeopleDic : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IDictionary<string, string> AnotherDic { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person> Dic { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IDictionary<int, string> IntDic { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Person : DemoWebApi.DemoData.Base.Client.Entity
+	{
+		
+		/// <summary>
+		/// Data type: Date
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateTimeOffset> Baptised { get; set; }
+		
+		/// <summary>
+		/// Date of Birth.
+		/// This is optional.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateOnly> DOB { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string GivenName { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Surname { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PhoneNumber : object
+	{
+		
+		/// <summary>
+		/// Max length: 120
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(120)]
+		[System.Runtime.Serialization.DataMember()]
+		public string FullNumber { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
+	}
+	
+	/// <summary>
+	/// Phone type
+	/// Tel, Mobile, Skyp and Fax
+	/// 
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum PhoneType
+	{
+		
+		/// <summary>
+		/// Land line
+		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
+		Tel,
+		
+		/// <summary>
+		/// Mobile phone
+		/// </summary>
+		[System.Runtime.Serialization.EnumMember()]
+		Mobile,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Skype,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Fax,
+	}
+}
+namespace DemoWebApi.Models.Client
+{
+	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class AddExternalLoginBindingModel : object
+	{
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string ExternalAccessToken { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class ChangePasswordBindingModel : object
+	{
+		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string ConfirmPassword { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string NewPassword { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string OldPassword { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class RegisterBindingModel : object
+	{
+		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string ConfirmPassword { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string Email { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string Password { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class RegisterExternalBindingModel : object
+	{
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string Email { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class RemoveLoginBindingModel : object
+	{
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string LoginProvider { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		public string ProviderKey { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class SetPasswordBindingModel : object
+	{
+		
+		/// <summary>
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string ConfirmPassword { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// String length: inclusive between 6 and 100
+		/// Data type: Password
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		public string NewPassword { get; set; }
+	}
+	
+	/// <summary>
+	/// Auth token
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class TokenResponseModel : object
+	{
+		
+		[System.Runtime.Serialization.DataMember(Name="access_token")]
+		public string AccessToken { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="expires")]
+		public string Expires { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="expires_in")]
+		public int ExpiresIn { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="issued")]
+		public string Issued { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="token_type")]
+		public string TokenType { get; set; }
+		
+		[System.Runtime.Serialization.DataMember(Name="username")]
+		public string Username { get; set; }
+	}
+}
+namespace Fonlow.PoemsApp.Data.Client
+{
+	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Album : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public Fonlow.PoemsApp.Data.Client.BodyType BodyType { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Description { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		/// <summary>
+		/// Author should be able to alter. The default is the created time. DateTime.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateOnly> Published { get; set; }
+		
+		/// <summary>
+		/// First published Url
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string PublishedUrl { get; set; }
+		
+		/// <summary>
+		/// Album title should never be changed.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Title { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Annotation : object
+	{
+		
+		/// <summary>
+		/// HTML description
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Description { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		/// <summary>
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Name { get; set; }
+		
+		/// <summary>
+		/// Primary URL for online description like an entry in Wikipedia
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Url { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class AnnotationBrief : object
+	{
+		
+		/// <summary>
+		/// Count of poems associated
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<int> Count { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public System.Guid Id { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public string Name { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class AnnotationPoemCount : Fonlow.PoemsApp.Data.Client.MetaDataPoemCount
+	{
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum BodyType
+	{
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Text,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		HTML,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		MD,
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class ExternalImageMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Description { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Name { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid[] PoemIds { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string SrcUrl { get; set; }
+	}
+	
+	/// <summary>
+	/// For wrting or speaking.
+	/// https://www.loc.gov/standards/iso639-2/php/code_list.php
+	/// https://www.rfc-editor.org/rfc/rfc5646
+	/// https://iso639-3.sil.org/code_tables/639/read
+	/// https://iso639-3.sil.org/code_tables/download_tables
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class LanguageCode : object
+	{
+		
+		/// <summary>
+		/// iso639 code. Could be 639-3, 639-2 or 639-1
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Code { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Display { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class LoginModel : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string EmailAddress { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string FirstName { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string IdToken { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string LastName { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Name { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string PictureUrl { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Provider { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string UserId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MetaData : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Key { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Value { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MetaDataPoemCount : object
+	{
+		
+		/// <summary>
+		/// Count of poems associated
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public int Count { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public System.Guid Id { get; set; }
+	}
+	
+	/// <summary>
+	/// Associated with a specific poem only.
+	/// In case when a phase may be up to different interpretations, then used numbered annotation.
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class NumberedAnnotation : object
+	{
+		
+		/// <summary>
+		/// HTML description
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Description { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		/// <summary>
+		/// Range: inclusive between 1 and 2147483647
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "1", "2147483647")]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public int OrderNumber { get; set; }
+		
+		/// <summary>
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public System.Guid PoemId { get; set; }
+		
+		/// <summary>
+		/// Primary URL for online description like an entry in Wikipedia
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string Url { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class NumberedAnnotationBrief : object
+	{
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public System.Guid Id { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public int OrderNumber { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Picture : Fonlow.PoemsApp.Data.Client.PictureMeta
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public byte[] Content { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PictureMeta : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string ContentType { get; set; }
+		
+		/// <summary>
+		/// Max length: 512
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(512)]
+		[System.Runtime.Serialization.DataMember()]
+		public string Description { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		/// <summary>
+		/// Max length: 128
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(128)]
+		[System.Runtime.Serialization.DataMember()]
+		public string Name { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PicturePoemCount : Fonlow.PoemsApp.Data.Client.MetaDataPoemCount
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid[] PoemIds { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Poem : object
+	{
+		
+		/// <summary>
+		/// A poem may be included in multipe albums.
+		/// UI may use this to present albums
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid[] AlbumIds { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid[] AnnotationIds { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Body { get; set; }
+		
+		/// <summary>
+		/// When bodytype is HTML, a redundant copy for full text search. A poor man solution.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string BodyPlain { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public Fonlow.PoemsApp.Data.Client.BodyType BodyType { get; set; }
+		
+		/// <summary>
+		/// Author should be able to alter. The default is the created time.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateTime> Created { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateTime> Modified { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public Fonlow.PoemsApp.Data.Client.NumberedAnnotationBrief[] NumberedAnnotationBriefs { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public int NumberOfStanza { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid[] PictureIds { get; set; }
+		
+		/// <summary>
+		/// to distinguish draft or published. DateTime.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateOnly> Published { get; set; }
+		
+		/// <summary>
+		/// Initial published URL.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public string PublishedUrl { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string RyhmesCsv { get; set; }
+		
+		/// <summary>
+		/// UI use this to represent tags. This is not included n DB.
+		/// </summary>
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid[] TagIds { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Title { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemAlbumMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid AlbumId { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PoemId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemAnnotationMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid AnnotationId { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PoemId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemBrief : object
+	{
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public System.DateTime Date { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public System.Guid Id { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.DateOnly> Published { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid[] TagIds { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public string Title { get; set; }
+	}
+	
+	/// <summary>
+	/// Highest level container for every poems written by a poet, for exporting to other formats
+	/// </summary>
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemCollection : object
+	{
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.PoemAlbumMap[] AlbumMaps { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.Album[] Albums { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.PoemAnnotationMap[] AnnotationMaps { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.Annotation[] Annotations { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.MetaData[] KeyValues { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.NumberedAnnotation[] NumberedAnnotations { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public Fonlow.PoemsApp.Data.Client.PoemPictureMap[] PictureMaps { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public Fonlow.PoemsApp.Data.Client.PictureMeta[] PictureMetas { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.Poem[] Poems { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.PoemTagMap[] TagMaps { get; set; }
+		
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public Fonlow.PoemsApp.Data.Client.Tag[] Tags { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemPictureMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PictureId { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PoemId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemTagMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PoemId { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid TagId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Tag : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Name { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class TagPoemCount : Fonlow.PoemsApp.Data.Client.MetaDataPoemCount
+	{
 	}
 }
 namespace DemoCoreWeb.Controllers.Client
@@ -9259,6 +10152,3317 @@ namespace Fonlow.Net.Http
 				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
 				var contentType = responseMessage.Content.Headers.ContentType;
 				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, responseMessage.Headers, contentType);
+			}
+		}
+	}
+}
+namespace PoemsApp.Controllers.Client
+{
+	using System;
+	using System.Linq;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
+	using System.Net.Http;
+	using System.Text.Json;
+	using System.Text.Json.Serialization;
+	using Fonlow.Net.Http;
+	
+	
+	/// <summary>
+	/// Album specific operations
+	/// </summary>
+	public partial class Albums
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerOptions jsonSerializerSettings;
+		
+		public Albums(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// Add album. If publisheDate is not defined, it will be now.
+		/// POST api/Albums
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.Album> AddAsync(Fonlow.PoemsApp.Data.Client.Album album, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(album, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Album>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Add album. If publisheDate is not defined, it will be now.
+		/// POST api/Albums
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.Album Add(Fonlow.PoemsApp.Data.Client.Album album, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(album, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Album>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete along with what in poemAlbumMap.
+		/// DELETE api/Albums?id={id}
+		/// </summary>
+		public async Task<bool> DeleteAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete along with what in poemAlbumMap.
+		/// DELETE api/Albums?id={id}
+		/// </summary>
+		public bool Delete(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get Album. Support ZH Convert.
+		/// GET api/Albums?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.Album> GetAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Album>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get Album. Support ZH Convert.
+		/// GET api/Albums?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.Album Get(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Album>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all albums. Support ZH Convert.
+		/// GET api/Albums/all
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public async Task<Fonlow.PoemsApp.Data.Client.Album[]> GetAllAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums/all";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Album[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all albums. Support ZH Convert.
+		/// GET api/Albums/all
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public Fonlow.PoemsApp.Data.Client.Album[] GetAll(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums/all";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Album[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all albums as dictionary. Support ZH Convert.
+		/// GET api/Albums/allDic
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public async Task<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.Album>> GetAllDicAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums/allDic";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.Album>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all albums as dictionary. Support ZH Convert.
+		/// GET api/Albums/allDic
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.Album> GetAllDic(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums/allDic";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.Album>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Albums
+		/// </summary>
+		public async Task UpdateAsync(Fonlow.PoemsApp.Data.Client.Album album, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(album, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Albums
+		/// </summary>
+		public void Update(Fonlow.PoemsApp.Data.Client.Album album, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Albums";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(album, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Annotations management
+	/// </summary>
+	public partial class Annotations
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerOptions jsonSerializerSettings;
+		
+		public Annotations(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// POST api/Annotations
+		/// </summary>
+		public async Task<System.Guid> AddAsync(Fonlow.PoemsApp.Data.Client.Annotation annotation, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(annotation, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<System.Guid>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Annotations
+		/// </summary>
+		public System.Guid Add(Fonlow.PoemsApp.Data.Client.Annotation annotation, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(annotation, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<System.Guid>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete along with what in poemAnnotationMap.
+		/// DELETE api/Annotations?id={id}
+		/// </summary>
+		public async Task<bool> DeleteAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete along with what in poemAnnotationMap.
+		/// DELETE api/Annotations?id={id}
+		/// </summary>
+		public bool Delete(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Annotations/Orphaned
+		/// </summary>
+		public async Task<int> DeleteOrphanedAsync(System.Guid[] ids, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/Orphaned";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(ids, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<int>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Annotations/Orphaned
+		/// </summary>
+		public int DeleteOrphaned(System.Guid[] ids, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/Orphaned";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(ids, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<int>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get annotation. Support ZH Convert.
+		/// GET api/Annotations?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.Annotation> GetAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Annotation>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get annotation. Support ZH Convert.
+		/// GET api/Annotations?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.Annotation Get(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Annotation>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Annotations/all
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]> GetAnnotationBriefsAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/all";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Annotations/all
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.AnnotationBrief[] GetAnnotationBriefs(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/all";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all annotation briefs. Support ZH Convert.
+		/// GET api/Annotations/allDic
+		/// </summary>
+		public async Task<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.AnnotationBrief>> GetAnnotationBriefsDicAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/allDic";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.AnnotationBrief>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all annotation briefs. Support ZH Convert.
+		/// GET api/Annotations/allDic
+		/// </summary>
+		public System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.AnnotationBrief> GetAnnotationBriefsDic(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/allDic";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.AnnotationBrief>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Annotations/Orphaned
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]> GetOrphanedAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/Orphaned";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Annotations/Orphaned
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.AnnotationBrief[] GetOrphaned(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/Orphaned";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Annotations/PoemCountOfAnnotations
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.AnnotationPoemCount[]> GetPoemCountOfAnnotationsAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/PoemCountOfAnnotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationPoemCount[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Annotations/PoemCountOfAnnotations
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.AnnotationPoemCount[] GetPoemCountOfAnnotations(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations/PoemCountOfAnnotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationPoemCount[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Annotations
+		/// </summary>
+		public async Task UpdateAsync(Fonlow.PoemsApp.Data.Client.Annotation annotation, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(annotation, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Annotations
+		/// </summary>
+		public void Update(Fonlow.PoemsApp.Data.Client.Annotation annotation, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Annotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(annotation, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Annotations management
+	/// </summary>
+	public partial class NumberedAnnotations
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerOptions jsonSerializerSettings;
+		
+		public NumberedAnnotations(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// POST api/NumberedAnnotations
+		/// </summary>
+		public async Task<System.Guid> AddAsync(Fonlow.PoemsApp.Data.Client.NumberedAnnotation numberedAnnotation, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(numberedAnnotation, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<System.Guid>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/NumberedAnnotations
+		/// </summary>
+		public System.Guid Add(Fonlow.PoemsApp.Data.Client.NumberedAnnotation numberedAnnotation, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(numberedAnnotation, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<System.Guid>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Add multiple annotations
+		/// POST api/NumberedAnnotations/poem/{poemId}
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.NumberedAnnotation[]> AddMuitipleAsync(System.Guid poemId, int[] orderNumbers, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations/poem/"+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(orderNumbers, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.NumberedAnnotation[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Add multiple annotations
+		/// POST api/NumberedAnnotations/poem/{poemId}
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.NumberedAnnotation[] AddMuitiple(System.Guid poemId, int[] orderNumbers, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations/poem/"+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(orderNumbers, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.NumberedAnnotation[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update the orders of numbered annotations in a transaction
+		/// PUT api/NumberedAnnotations/BulkOrderNumbers
+		/// </summary>
+		public async Task BulkUpdateOrderNumbersAsync(System.Tuple<System.Guid, int>[] idAndOrderArray, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations/BulkOrderNumbers";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(idAndOrderArray, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update the orders of numbered annotations in a transaction
+		/// PUT api/NumberedAnnotations/BulkOrderNumbers
+		/// </summary>
+		public void BulkUpdateOrderNumbers(System.Tuple<System.Guid, int>[] idAndOrderArray, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations/BulkOrderNumbers";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(idAndOrderArray, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete along with what in poemNumberedAnnotationMap.
+		/// DELETE api/NumberedAnnotations?id={id}
+		/// </summary>
+		public async Task<bool> DeleteAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete along with what in poemNumberedAnnotationMap.
+		/// DELETE api/NumberedAnnotations?id={id}
+		/// </summary>
+		public bool Delete(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get numberedAnnotation. Support ZH Convert.
+		/// GET api/NumberedAnnotations?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.NumberedAnnotation> GetAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.NumberedAnnotation>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get numberedAnnotation. Support ZH Convert.
+		/// GET api/NumberedAnnotations?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.NumberedAnnotation Get(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.NumberedAnnotation>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update annotation
+		/// PUT api/NumberedAnnotations
+		/// </summary>
+		public async Task UpdateAsync(Fonlow.PoemsApp.Data.Client.NumberedAnnotation numberedAnnotation, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(numberedAnnotation, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update annotation
+		/// PUT api/NumberedAnnotations
+		/// </summary>
+		public void Update(Fonlow.PoemsApp.Data.Client.NumberedAnnotation numberedAnnotation, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(numberedAnnotation, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update Order Number
+		/// PUT api/NumberedAnnotations/OrderNumber?id={id}&orderNumber={orderNumber}
+		/// </summary>
+		public async Task UpdateOrderNumberAsync(System.Guid id, int orderNumber, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations/OrderNumber?id="+id+"&orderNumber="+orderNumber;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update Order Number
+		/// PUT api/NumberedAnnotations/OrderNumber?id={id}&orderNumber={orderNumber}
+		/// </summary>
+		public void UpdateOrderNumber(System.Guid id, int orderNumber, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/NumberedAnnotations/OrderNumber?id="+id+"&orderNumber="+orderNumber;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Poems operations; associations with tags, albums and annotations.
+	/// </summary>
+	public partial class Poems
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerOptions jsonSerializerSettings;
+		
+		public Poems(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// Add poem. If created is undefined, it will be now. And modified is always now.
+		/// POST api/Poems
+		/// </summary>
+		/// <returns>Id of newly added</returns>
+		public async Task<Fonlow.PoemsApp.Data.Client.Poem> AddAsync(Fonlow.PoemsApp.Data.Client.Poem poem, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(poem, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Add poem. If created is undefined, it will be now. And modified is always now.
+		/// POST api/Poems
+		/// </summary>
+		/// <returns>Id of newly added</returns>
+		public Fonlow.PoemsApp.Data.Client.Poem Add(Fonlow.PoemsApp.Data.Client.Poem poem, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(poem, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Add new poem with existing annotations and new annotation names.
+		/// PUT api/Poems/AddWithExistingAnnotations
+		/// </summary>
+		/// <param name="poemAndAnnotations">new poem, existing Annotation Ids, and new annotation names</param>
+		/// <returns>Poem Id and new annotation objects</returns>
+		public async Task<Fonlow.PoemsApp.Data.Client.Poem> AddWithExistingAnnotationsAsync(System.Tuple<Fonlow.PoemsApp.Data.Client.Poem, System.Guid[]> poemAndAnnotations, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AddWithExistingAnnotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemAndAnnotations, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Add new poem with existing annotations and new annotation names.
+		/// PUT api/Poems/AddWithExistingAnnotations
+		/// </summary>
+		/// <param name="poemAndAnnotations">new poem, existing Annotation Ids, and new annotation names</param>
+		/// <returns>Poem Id and new annotation objects</returns>
+		public Fonlow.PoemsApp.Data.Client.Poem AddWithExistingAnnotations(System.Tuple<Fonlow.PoemsApp.Data.Client.Poem, System.Guid[]> poemAndAnnotations, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AddWithExistingAnnotations";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemAndAnnotations, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Poem with Tags
+		/// POST api/Poems/addWithExistingTags
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.Poem> AddWithExistingTagsAsync(System.Tuple<Fonlow.PoemsApp.Data.Client.Poem, System.Guid[]> poemAndTags, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/addWithExistingTags";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemAndTags, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Poem with Tags
+		/// POST api/Poems/addWithExistingTags
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.Poem AddWithExistingTags(System.Tuple<Fonlow.PoemsApp.Data.Client.Poem, System.Guid[]> poemAndTags, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/addWithExistingTags";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemAndTags, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Poems/AddWithNewAnnotationNames
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.Poem> AddWithNewAnnotationNamesAsync(System.Tuple<Fonlow.PoemsApp.Data.Client.Poem, string[]> poemAndAnnotations, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AddWithNewAnnotationNames";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemAndAnnotations, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Poems/AddWithNewAnnotationNames
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.Poem AddWithNewAnnotationNames(System.Tuple<Fonlow.PoemsApp.Data.Client.Poem, string[]> poemAndAnnotations, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AddWithNewAnnotationNames";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemAndAnnotations, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Add new poem with existing tags, and new tag names.
+		/// POST api/Poems/AddWithNewTagNames
+		/// </summary>
+		/// <param name="poemAndNewTags">new poem, existing Tag Ids, and new tag names</param>
+		/// <returns>Poem Id and new tag objects</returns>
+		public async Task<Fonlow.PoemsApp.Data.Client.Poem> AddWithNewTagNamesAsync(System.Tuple<Fonlow.PoemsApp.Data.Client.Poem, string[]> poemAndNewTags, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AddWithNewTagNames";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemAndNewTags, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Add new poem with existing tags, and new tag names.
+		/// POST api/Poems/AddWithNewTagNames
+		/// </summary>
+		/// <param name="poemAndNewTags">new poem, existing Tag Ids, and new tag names</param>
+		/// <returns>Poem Id and new tag objects</returns>
+		public Fonlow.PoemsApp.Data.Client.Poem AddWithNewTagNames(System.Tuple<Fonlow.PoemsApp.Data.Client.Poem, string[]> poemAndNewTags, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AddWithNewTagNames";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemAndNewTags, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate album with existing poems.
+		/// PUT api/Poems/poemsToAlbum?albumId={albumId}
+		/// </summary>
+		public async Task AssociateAlbumWithPoemsAsync(System.Guid albumId, System.Guid[] poemIds, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/poemsToAlbum?albumId="+albumId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemIds, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate album with existing poems.
+		/// PUT api/Poems/poemsToAlbum?albumId={albumId}
+		/// </summary>
+		public void AssociateAlbumWithPoems(System.Guid albumId, System.Guid[] poemIds, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/poemsToAlbum?albumId="+albumId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(poemIds, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate with existing albums.
+		/// PUT api/Poems/albums?poemId={poemId}
+		/// </summary>
+		public async Task AssociateWithAlbumsAsync(System.Guid poemId, System.Guid[] albumIds, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/albums?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(albumIds, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate with existing albums.
+		/// PUT api/Poems/albums?poemId={poemId}
+		/// </summary>
+		public void AssociateWithAlbums(System.Guid poemId, System.Guid[] albumIds, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/albums?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(albumIds, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate with existing annotations.
+		/// PUT api/Poems/existingAnnotations?poemId={poemId}
+		/// </summary>
+		public async Task AssociateWithExistingAnnotationsAsync(System.Guid poemId, System.Guid[] existingAnnotationIds, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/existingAnnotations?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(existingAnnotationIds, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate with existing annotations.
+		/// PUT api/Poems/existingAnnotations?poemId={poemId}
+		/// </summary>
+		public void AssociateWithExistingAnnotations(System.Guid poemId, System.Guid[] existingAnnotationIds, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/existingAnnotations?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(existingAnnotationIds, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate with existing tags.
+		/// PUT api/Poems/existingTags?poemId={poemId}
+		/// </summary>
+		public async Task AssociateWithExistingTagsAsync(System.Guid poemId, System.Guid[] existingTagIds, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/existingTags?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(existingTagIds, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate with existing tags.
+		/// PUT api/Poems/existingTags?poemId={poemId}
+		/// </summary>
+		public void AssociateWithExistingTags(System.Guid poemId, System.Guid[] existingTagIds, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/existingTags?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(existingTagIds, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Save the new annotation, and associate with the poem.
+		/// If the annotation exists, return null. Nevertheless, the client should check if the annotation had actually been in the annotation list, to avoid exceptions.
+		/// PUT api/Poems/newAnnotationName?poemId={poemId}&newAnnotationName={newAnnotationName}
+		/// </summary>
+		/// <returns>New annotation, or null if the annotation exists</returns>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.AnnotationBrief> AssociateWithNewAnnotationNameAsync(System.Guid poemId, string newAnnotationName, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/newAnnotationName?poemId="+poemId+"&newAnnotationName="+(newAnnotationName == null ? "" : Uri.EscapeDataString(newAnnotationName));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationBrief>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Save the new annotation, and associate with the poem.
+		/// If the annotation exists, return null. Nevertheless, the client should check if the annotation had actually been in the annotation list, to avoid exceptions.
+		/// PUT api/Poems/newAnnotationName?poemId={poemId}&newAnnotationName={newAnnotationName}
+		/// </summary>
+		/// <returns>New annotation, or null if the annotation exists</returns>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.AnnotationBrief AssociateWithNewAnnotationName(System.Guid poemId, string newAnnotationName, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/newAnnotationName?poemId="+poemId+"&newAnnotationName="+(newAnnotationName == null ? "" : Uri.EscapeDataString(newAnnotationName));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationBrief>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate poem with new tag names.
+		/// PUT api/Poems/newAnnotationNames?poemId={poemId}
+		/// </summary>
+		/// <returns>New annotation objects based on newAnnotationNames</returns>
+		public async Task<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]> AssociateWithNewAnnotationNamesAsync(System.Guid poemId, string[] newAnnotationNames, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/newAnnotationNames?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(newAnnotationNames, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate poem with new tag names.
+		/// PUT api/Poems/newAnnotationNames?poemId={poemId}
+		/// </summary>
+		/// <returns>New annotation objects based on newAnnotationNames</returns>
+		public Fonlow.PoemsApp.Data.Client.AnnotationBrief[] AssociateWithNewAnnotationNames(System.Guid poemId, string[] newAnnotationNames, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/newAnnotationNames?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(newAnnotationNames, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.AnnotationBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Save the new tag, and associate with the poem.
+		/// If the tag exists, return null. Nevertheless, the client should check if the tag had actually been in the tag list, to avoid exceptions.
+		/// PUT api/Poems/newTagName?poemId={poemId}&newTagName={newTagName}
+		/// </summary>
+		/// <returns>New tag, or null if the tag exists</returns>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.Tag> AssociateWithNewTagNameAsync(System.Guid poemId, string newTagName, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/newTagName?poemId="+poemId+"&newTagName="+(newTagName == null ? "" : Uri.EscapeDataString(newTagName));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Save the new tag, and associate with the poem.
+		/// If the tag exists, return null. Nevertheless, the client should check if the tag had actually been in the tag list, to avoid exceptions.
+		/// PUT api/Poems/newTagName?poemId={poemId}&newTagName={newTagName}
+		/// </summary>
+		/// <returns>New tag, or null if the tag exists</returns>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.Tag AssociateWithNewTagName(System.Guid poemId, string newTagName, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/newTagName?poemId="+poemId+"&newTagName="+(newTagName == null ? "" : Uri.EscapeDataString(newTagName));
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate poem with new tag names.
+		/// PUT api/Poems/newTagNames?poemId={poemId}
+		/// </summary>
+		/// <returns>New tag objects based on newTagNames</returns>
+		public async Task<Fonlow.PoemsApp.Data.Client.Tag[]> AssociateWithNewTagNamesAsync(System.Guid poemId, string[] newTagNames, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/newTagNames?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(newTagNames, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Associate poem with new tag names.
+		/// PUT api/Poems/newTagNames?poemId={poemId}
+		/// </summary>
+		/// <returns>New tag objects based on newTagNames</returns>
+		public Fonlow.PoemsApp.Data.Client.Tag[] AssociateWithNewTagNames(System.Guid poemId, string[] newTagNames, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/newTagNames?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(newTagNames, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Reconcile among all images, poemImageMaps, and actually img local
+		/// POST api/Poems/AuditAndReconcile
+		/// </summary>
+		public async Task<int> AuditAndReconcileAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AuditAndReconcile";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<int>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Reconcile among all images, poemImageMaps, and actually img local
+		/// POST api/Poems/AuditAndReconcile
+		/// </summary>
+		public int AuditAndReconcile(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AuditAndReconcile";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<int>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// DELETE api/Poems/all
+		/// </summary>
+		public async Task ClearAllTablesAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/all";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// DELETE api/Poems/all
+		/// </summary>
+		public void ClearAllTables(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/all";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete poem, along with association with albums. However, associated tags and annotations are still in maps.
+		/// DELETE api/Poems?id={id}
+		/// </summary>
+		public async Task<bool> DeleteAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete poem, along with association with albums. However, associated tags and annotations are still in maps.
+		/// DELETE api/Poems?id={id}
+		/// </summary>
+		public bool Delete(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Dissociate album.
+		/// DELETE api/Poems/DissociateAlbum?poemId={poemId}&albumId={albumId}
+		/// </summary>
+		public async Task DissociateAlbumAsync(System.Guid poemId, System.Guid albumId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/DissociateAlbum?poemId="+poemId+"&albumId="+albumId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Dissociate album.
+		/// DELETE api/Poems/DissociateAlbum?poemId={poemId}&albumId={albumId}
+		/// </summary>
+		public void DissociateAlbum(System.Guid poemId, System.Guid albumId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/DissociateAlbum?poemId="+poemId+"&albumId="+albumId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Disassociate annotation.
+		/// DELETE api/Poems/DissociateAnnotation?poemId={poemId}&annotationId={annotationId}
+		/// </summary>
+		public async Task DissociateAnnotationAsync(System.Guid poemId, System.Guid annotationId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/DissociateAnnotation?poemId="+poemId+"&annotationId="+annotationId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Disassociate annotation.
+		/// DELETE api/Poems/DissociateAnnotation?poemId={poemId}&annotationId={annotationId}
+		/// </summary>
+		public void DissociateAnnotation(System.Guid poemId, System.Guid annotationId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/DissociateAnnotation?poemId="+poemId+"&annotationId="+annotationId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// DissociateT tag.
+		/// DELETE api/Poems/DissociateTag?poemId={poemId}&tagId={tagId}
+		/// </summary>
+		public async Task DissociateTagAsync(System.Guid poemId, System.Guid tagId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/DissociateTag?poemId="+poemId+"&tagId="+tagId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// DissociateT tag.
+		/// DELETE api/Poems/DissociateTag?poemId={poemId}&tagId={tagId}
+		/// </summary>
+		public void DissociateTag(System.Guid poemId, System.Guid tagId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/DissociateTag?poemId="+poemId+"&tagId="+tagId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Fix the problem of escaped unicode string, because of the DomSanitizer of Angular. Once off solution
+		/// PUT api/Poems/EscapeStringToUnicode
+		/// </summary>
+		public async Task EscapeStringToUnicodeAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/EscapeStringToUnicode";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Fix the problem of escaped unicode string, because of the DomSanitizer of Angular. Once off solution
+		/// PUT api/Poems/EscapeStringToUnicode
+		/// </summary>
+		public void EscapeStringToUnicode(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/EscapeStringToUnicode";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Include TagMap and AlbumMap. Support ZH Convert.
+		/// GET api/Poems?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.Poem> GetAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Include TagMap and AlbumMap. Support ZH Convert.
+		/// GET api/Poems?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.Poem Get(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Img Src Url to multiple poem Ids
+		/// GET api/Poems/AllNotLocalImagesOfPoems
+		/// </summary>
+		public async Task<System.Collections.Generic.Dictionary<string, System.Guid[]>> GetAllNotLocalImagesOfPoemsAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AllNotLocalImagesOfPoems";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, System.Guid[]>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Img Src Url to multiple poem Ids
+		/// GET api/Poems/AllNotLocalImagesOfPoems
+		/// </summary>
+		public System.Collections.Generic.Dictionary<string, System.Guid[]> GetAllNotLocalImagesOfPoems(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AllNotLocalImagesOfPoems";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, System.Guid[]>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Scan all poems' HTML to create mapping from imageIds to poems. Dic of imageId to poems with img local.
+		/// POST api/Poems/AssociatedPoemsOfImages
+		/// </summary>
+		public async Task<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.PoemBrief[]>> GetAssociatedPoemsOfAllImagesAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AssociatedPoemsOfImages";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.PoemBrief[]>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Scan all poems' HTML to create mapping from imageIds to poems. Dic of imageId to poems with img local.
+		/// POST api/Poems/AssociatedPoemsOfImages
+		/// </summary>
+		public System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.PoemBrief[]> GetAssociatedPoemsOfAllImages(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AssociatedPoemsOfImages";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.PoemBrief[]>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// All, OrderByDescending published. Support ZH Convert. If the user is not loggedin, not returning those not yet published.
+		/// GET api/Poems/AllBriefs
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemBrief[]> GetBriefsOfPoemsAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AllBriefs";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// All, OrderByDescending published. Support ZH Convert. If the user is not loggedin, not returning those not yet published.
+		/// GET api/Poems/AllBriefs
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public Fonlow.PoemsApp.Data.Client.PoemBrief[] GetBriefsOfPoems(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/AllBriefs";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// All poems of album, order by published. Support ZH Convert.
+		/// GET api/Poems/GetOfAlbum?albumId={albumId}
+		/// </summary>
+		/// <param name="convertZH">string in header</param>
+		/// <param name="timezoneOffset">int in header</param>
+		public async Task<Fonlow.PoemsApp.Data.Client.Poem[]> GetOfAlbumAsync(System.Guid albumId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/GetOfAlbum?albumId="+albumId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// All poems of album, order by published. Support ZH Convert.
+		/// GET api/Poems/GetOfAlbum?albumId={albumId}
+		/// </summary>
+		/// <param name="convertZH">string in header</param>
+		/// <param name="timezoneOffset">int in header</param>
+		public Fonlow.PoemsApp.Data.Client.Poem[] GetOfAlbum(System.Guid albumId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/GetOfAlbum?albumId="+albumId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Poem[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/GetPoemBriefsOfAlbum?albumId={albumId}
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemBrief[]> GetPoemBriefsOfAlbumAsync(System.Guid albumId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/GetPoemBriefsOfAlbum?albumId="+albumId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/GetPoemBriefsOfAlbum?albumId={albumId}
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public Fonlow.PoemsApp.Data.Client.PoemBrief[] GetPoemBriefsOfAlbum(System.Guid albumId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/GetPoemBriefsOfAlbum?albumId="+albumId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemCollection
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemCollection> GetPoemCollectionAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollection";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemCollection>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemCollection
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.PoemCollection GetPoemCollection(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollection";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemCollection>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemCollectionInOtherChineseWriting
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemCollection> GetPoemCollectionInOtherChineseWritingAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollectionInOtherChineseWriting";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemCollection>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemCollectionInOtherChineseWriting
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.PoemCollection GetPoemCollectionInOtherChineseWriting(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollectionInOtherChineseWriting";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemCollection>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemCollectionPublished
+		/// </summary>
+		/// <param name="timezoneOffset">In request headers</param>
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemCollection> GetPoemCollectionPublishedAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollectionPublished";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemCollection>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemCollectionPublished
+		/// </summary>
+		/// <param name="timezoneOffset">In request headers</param>
+		public Fonlow.PoemsApp.Data.Client.PoemCollection GetPoemCollectionPublished(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollectionPublished";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemCollection>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemCollectionPublishedInOtherChineseWriting
+		/// </summary>
+		/// <param name="timezoneOffset">timezoneOffset in headers</param>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemCollection> GetPoemCollectionPublishedInOtherChineseWritingAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollectionPublishedInOtherChineseWriting";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemCollection>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemCollectionPublishedInOtherChineseWriting
+		/// </summary>
+		/// <param name="timezoneOffset">timezoneOffset in headers</param>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.PoemCollection GetPoemCollectionPublishedInOtherChineseWriting(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollectionPublishedInOtherChineseWriting";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemCollection>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemsWithInternalImageId?imageId={imageId}
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemBrief[]> GetPoemsWithInternalImageIdAsync(System.Guid imageId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemsWithInternalImageId?imageId="+imageId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/PoemsWithInternalImageId?imageId={imageId}
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.PoemBrief[] GetPoemsWithInternalImageId(System.Guid imageId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemsWithInternalImageId?imageId="+imageId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/TotalCountOfStanza
+		/// </summary>
+		public async Task<int> GetTotalCountOfStanzaAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/TotalCountOfStanza";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<int>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/TotalCountOfStanza
+		/// </summary>
+		public int GetTotalCountOfStanza(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/TotalCountOfStanza";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<int>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Poems/PoemCollection
+		/// </summary>
+		public async Task ImportPoemCollectionAsync(Fonlow.PoemsApp.Data.Client.PoemCollection collection, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollection";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(collection, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Poems/PoemCollection
+		/// </summary>
+		public void ImportPoemCollection(Fonlow.PoemsApp.Data.Client.PoemCollection collection, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/PoemCollection";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(collection, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/ByAnnotation?annotationId={annotationId}
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemBrief[]> SearchByAnnotationAsync(System.Guid annotationId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/ByAnnotation?annotationId="+annotationId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Poems/ByAnnotation?annotationId={annotationId}
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.PoemBrief[] SearchByAnnotation(System.Guid annotationId, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/ByAnnotation?annotationId="+annotationId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Search by keywords, separated by comma and Chinese comma. Support ZH Convert.
+		/// POST api/Poems/ByKeywords
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public async Task<Fonlow.PoemsApp.Data.Client.PoemBrief[]> SearchByKeywordsAsync(string keywords, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/ByKeywords";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(keywords, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Search by keywords, separated by comma and Chinese comma. Support ZH Convert.
+		/// POST api/Poems/ByKeywords
+		/// </summary>
+		/// <param name="timezoneOffset">int in header</param>
+		public Fonlow.PoemsApp.Data.Client.PoemBrief[] SearchByKeywords(string keywords, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/ByKeywords";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(keywords, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.PoemBrief[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update poem.
+		/// PUT api/Poems
+		/// </summary>
+		public async Task UpdateAsync(Fonlow.PoemsApp.Data.Client.Poem poem, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(poem, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Update poem.
+		/// PUT api/Poems
+		/// </summary>
+		public void Update(Fonlow.PoemsApp.Data.Client.Poem poem, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(poem, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Just for maintenance, while the plaintext should be produced in the frontend.
+		/// POST api/Poems/UpdatePlainTextOfHtmlPoems
+		/// </summary>
+		public async Task UpdatePlainTextOfHtmlPoemsAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/UpdatePlainTextOfHtmlPoems";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Just for maintenance, while the plaintext should be produced in the frontend.
+		/// POST api/Poems/UpdatePlainTextOfHtmlPoems
+		/// </summary>
+		public void UpdatePlainTextOfHtmlPoems(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/UpdatePlainTextOfHtmlPoems";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Poems/UpdatePublished?poemId={poemId}
+		/// </summary>
+		public async Task UpdatePublishedAsync(System.Guid poemId, System.Nullable<System.DateOnly> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/UpdatePublished?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(dt, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Poems/UpdatePublished?poemId={poemId}
+		/// </summary>
+		public void UpdatePublished(System.Guid poemId, System.Nullable<System.DateOnly> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Poems/UpdatePublished?poemId="+poemId;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(dt, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Tags management
+	/// </summary>
+	public partial class Tags
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerOptions jsonSerializerSettings;
+		
+		public Tags(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// POST api/Tags
+		/// </summary>
+		public async Task<System.Guid> AddAsync(Fonlow.PoemsApp.Data.Client.Tag tag, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(tag, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<System.Guid>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Tags
+		/// </summary>
+		public System.Guid Add(Fonlow.PoemsApp.Data.Client.Tag tag, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(tag, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<System.Guid>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete along with what in poemTagMap.
+		/// DELETE api/Tags?id={id}
+		/// </summary>
+		public async Task<bool> DeleteAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Delete along with what in poemTagMap.
+		/// DELETE api/Tags?id={id}
+		/// </summary>
+		public bool Delete(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<bool>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Tags/Orphaned
+		/// </summary>
+		public async Task<int> DeleteOrphanedAsync(System.Guid[] ids, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/Orphaned";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(ids, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<int>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// POST api/Tags/Orphaned
+		/// </summary>
+		public int DeleteOrphaned(System.Guid[] ids, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/Orphaned";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var contentJson = JsonSerializer.Serialize(ids, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<int>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get tag. Support ZH Convert.
+		/// GET api/Tags?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public async Task<Fonlow.PoemsApp.Data.Client.Tag> GetAsync(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get tag. Support ZH Convert.
+		/// GET api/Tags?id={id}
+		/// </summary>
+		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		public Fonlow.PoemsApp.Data.Client.Tag Get(System.Guid id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags?id="+id;
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all tags. Support ZH Convert.
+		/// GET api/Tags/all
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.Tag[]> GetAllAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/all";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all tags. Support ZH Convert.
+		/// GET api/Tags/all
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.Tag[] GetAll(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/all";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all tags as dictionary. Support ZH Convert.
+		/// GET api/Tags/allDic
+		/// </summary>
+		public async Task<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.Tag>> GetAllDicAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/allDic";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.Tag>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// Get all tags as dictionary. Support ZH Convert.
+		/// GET api/Tags/allDic
+		/// </summary>
+		public System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.Tag> GetAllDic(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/allDic";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<System.Collections.Generic.IDictionary<System.Guid, Fonlow.PoemsApp.Data.Client.Tag>>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Tags/Orphaned
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.Tag[]> GetOrphanedAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/Orphaned";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Tags/Orphaned
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.Tag[] GetOrphaned(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/Orphaned";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.Tag[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Tags/PoemCountOfTags
+		/// </summary>
+		public async Task<Fonlow.PoemsApp.Data.Client.TagPoemCount[]> GetPoemCountOfTagsAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/PoemCountOfTags";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = await responseMessage.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.TagPoemCount[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET api/Tags/PoemCountOfTags
+		/// </summary>
+		public Fonlow.PoemsApp.Data.Client.TagPoemCount[] GetPoemCountOfTags(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags/PoemCountOfTags";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var contentString = responseMessage.Content.ReadAsStringAsync().Result;
+				return JsonSerializer.Deserialize<Fonlow.PoemsApp.Data.Client.TagPoemCount[]>(contentString, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Tags
+		/// </summary>
+		public async Task UpdateAsync(Fonlow.PoemsApp.Data.Client.Tag tag, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(tag, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// PUT api/Tags
+		/// </summary>
+		public void Update(Fonlow.PoemsApp.Data.Client.Tag tag, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Tags";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+			var contentJson = JsonSerializer.Serialize(tag, jsonSerializerSettings);
+			var content = new StringContent(contentJson, System.Text.Encoding.UTF8, "application/json");
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.SendAsync(httpRequestMessage).Result;
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+			}
+			finally
+			{
+				responseMessage.Dispose();
 			}
 		}
 	}

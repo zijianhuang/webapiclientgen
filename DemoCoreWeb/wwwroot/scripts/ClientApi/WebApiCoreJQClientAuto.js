@@ -1,118 +1,5 @@
 ///<reference path="../typings/jquery/jquery.d.ts" />
 ///<reference path="HttpClient.ts" />
-var DemoWebApi_DemoData_Client;
-(function (DemoWebApi_DemoData_Client) {
-    let AddressType;
-    (function (AddressType) {
-        AddressType[AddressType["Postal"] = 0] = "Postal";
-        AddressType[AddressType["Residential"] = 1] = "Residential";
-    })(AddressType = DemoWebApi_DemoData_Client.AddressType || (DemoWebApi_DemoData_Client.AddressType = {}));
-    let Days;
-    (function (Days) {
-        Days[Days["Sat"] = 1] = "Sat";
-        Days[Days["Sun"] = 2] = "Sun";
-        Days[Days["Mon"] = 3] = "Mon";
-        Days[Days["Tue"] = 4] = "Tue";
-        Days[Days["Wed"] = 5] = "Wed";
-        /**
-         * Thursday
-         */
-        Days[Days["Thu"] = 6] = "Thu";
-        Days[Days["Fri"] = 7] = "Fri";
-    })(Days = DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
-    let MedicalContraindiationResponseTypeReason;
-    (function (MedicalContraindiationResponseTypeReason) {
-        MedicalContraindiationResponseTypeReason["M"] = "Mm";
-        MedicalContraindiationResponseTypeReason["S"] = "Ss";
-        MedicalContraindiationResponseTypeReason["P"] = "Pp";
-        MedicalContraindiationResponseTypeReason["I"] = "I";
-        MedicalContraindiationResponseTypeReason["A"] = "A";
-    })(MedicalContraindiationResponseTypeReason = DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeReason || (DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeReason = {}));
-    let MedicalContraindiationResponseTypeTypeCode;
-    (function (MedicalContraindiationResponseTypeTypeCode) {
-        MedicalContraindiationResponseTypeTypeCode["P"] = "P";
-        MedicalContraindiationResponseTypeTypeCode["T"] = "Tt";
-    })(MedicalContraindiationResponseTypeTypeCode = DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeTypeCode || (DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeTypeCode = {}));
-    let MyEnumType;
-    (function (MyEnumType) {
-        MyEnumType[MyEnumType["First"] = 1] = "First";
-        MyEnumType[MyEnumType["Two"] = 2] = "Two";
-    })(MyEnumType = DemoWebApi_DemoData_Client.MyEnumType || (DemoWebApi_DemoData_Client.MyEnumType = {}));
-    /**
-     * Phone type
-     * Tel, Mobile, Skyp and Fax
-     */
-    let PhoneType;
-    (function (PhoneType) {
-        /**
-         * Land line
-         */
-        PhoneType[PhoneType["Tel"] = 0] = "Tel";
-        /**
-         * Mobile phone
-         */
-        PhoneType[PhoneType["Mobile"] = 1] = "Mobile";
-        PhoneType[PhoneType["Skype"] = 2] = "Skype";
-        PhoneType[PhoneType["Fax"] = 3] = "Fax";
-    })(PhoneType = DemoWebApi_DemoData_Client.PhoneType || (DemoWebApi_DemoData_Client.PhoneType = {}));
-})(DemoWebApi_DemoData_Client || (DemoWebApi_DemoData_Client = {}));
-var DemoCoreWeb_Controllers_Client;
-(function (DemoCoreWeb_Controllers_Client) {
-    class SpecialTypes {
-        baseUri;
-        httpClient;
-        error;
-        statusCode;
-        constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
-            this.baseUri = baseUri;
-            this.httpClient = httpClient;
-            this.error = error;
-            this.statusCode = statusCode;
-        }
-        /**
-         * Anonymous Dynamic of C#
-         * GET api/SpecialTypes/AnonymousDynamic
-         * @return {any} dyanmic things
-         */
-        getAnonymousDynamic(callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', callback, this.error, this.statusCode, headersHandler);
-        }
-        /**
-         * Async function returing dynamic
-         * GET api/SpecialTypes/AnonymousDynamic2
-         */
-        getAnonymousDynamic2(callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', callback, this.error, this.statusCode, headersHandler);
-        }
-        /**
-         * GET api/SpecialTypes/AnonymousObject
-         */
-        getAnonymousObject(callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', callback, this.error, this.statusCode, headersHandler);
-        }
-        /**
-         * Async function returning object
-         * GET api/SpecialTypes/AnonymousObject2
-         */
-        getAnonymousObject2(callback, headersHandler) {
-            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', callback, this.error, this.statusCode, headersHandler);
-        }
-        /**
-         * POST api/SpecialTypes/AnonymousObject
-         */
-        postAnonymousObject(obj, callback, headersHandler) {
-            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-        }
-        /**
-         * Async returning object, Post dynamic
-         * POST api/SpecialTypes/AnonymousObject2
-         */
-        postAnonymousObject2(obj, callback, headersHandler) {
-            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
-        }
-    }
-    DemoCoreWeb_Controllers_Client.SpecialTypes = SpecialTypes;
-})(DemoCoreWeb_Controllers_Client || (DemoCoreWeb_Controllers_Client = {}));
 var DemoWebApi_Controllers_Client;
 (function (DemoWebApi_Controllers_Client) {
     /**
@@ -1494,4 +1381,117 @@ var DemoWebApi_Controllers_Client;
     }
     DemoWebApi_Controllers_Client.Values = Values;
 })(DemoWebApi_Controllers_Client || (DemoWebApi_Controllers_Client = {}));
+var DemoWebApi_DemoData_Client;
+(function (DemoWebApi_DemoData_Client) {
+    let AddressType;
+    (function (AddressType) {
+        AddressType[AddressType["Postal"] = 0] = "Postal";
+        AddressType[AddressType["Residential"] = 1] = "Residential";
+    })(AddressType = DemoWebApi_DemoData_Client.AddressType || (DemoWebApi_DemoData_Client.AddressType = {}));
+    let Days;
+    (function (Days) {
+        Days[Days["Sat"] = 1] = "Sat";
+        Days[Days["Sun"] = 2] = "Sun";
+        Days[Days["Mon"] = 3] = "Mon";
+        Days[Days["Tue"] = 4] = "Tue";
+        Days[Days["Wed"] = 5] = "Wed";
+        /**
+         * Thursday
+         */
+        Days[Days["Thu"] = 6] = "Thu";
+        Days[Days["Fri"] = 7] = "Fri";
+    })(Days = DemoWebApi_DemoData_Client.Days || (DemoWebApi_DemoData_Client.Days = {}));
+    let MedicalContraindiationResponseTypeReason;
+    (function (MedicalContraindiationResponseTypeReason) {
+        MedicalContraindiationResponseTypeReason["M"] = "Mm";
+        MedicalContraindiationResponseTypeReason["S"] = "Ss";
+        MedicalContraindiationResponseTypeReason["P"] = "Pp";
+        MedicalContraindiationResponseTypeReason["I"] = "I";
+        MedicalContraindiationResponseTypeReason["A"] = "A";
+    })(MedicalContraindiationResponseTypeReason = DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeReason || (DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeReason = {}));
+    let MedicalContraindiationResponseTypeTypeCode;
+    (function (MedicalContraindiationResponseTypeTypeCode) {
+        MedicalContraindiationResponseTypeTypeCode["P"] = "P";
+        MedicalContraindiationResponseTypeTypeCode["T"] = "Tt";
+    })(MedicalContraindiationResponseTypeTypeCode = DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeTypeCode || (DemoWebApi_DemoData_Client.MedicalContraindiationResponseTypeTypeCode = {}));
+    let MyEnumType;
+    (function (MyEnumType) {
+        MyEnumType[MyEnumType["First"] = 1] = "First";
+        MyEnumType[MyEnumType["Two"] = 2] = "Two";
+    })(MyEnumType = DemoWebApi_DemoData_Client.MyEnumType || (DemoWebApi_DemoData_Client.MyEnumType = {}));
+    /**
+     * Phone type
+     * Tel, Mobile, Skyp and Fax
+     */
+    let PhoneType;
+    (function (PhoneType) {
+        /**
+         * Land line
+         */
+        PhoneType[PhoneType["Tel"] = 0] = "Tel";
+        /**
+         * Mobile phone
+         */
+        PhoneType[PhoneType["Mobile"] = 1] = "Mobile";
+        PhoneType[PhoneType["Skype"] = 2] = "Skype";
+        PhoneType[PhoneType["Fax"] = 3] = "Fax";
+    })(PhoneType = DemoWebApi_DemoData_Client.PhoneType || (DemoWebApi_DemoData_Client.PhoneType = {}));
+})(DemoWebApi_DemoData_Client || (DemoWebApi_DemoData_Client = {}));
+var DemoCoreWeb_Controllers_Client;
+(function (DemoCoreWeb_Controllers_Client) {
+    class SpecialTypes {
+        baseUri;
+        httpClient;
+        error;
+        statusCode;
+        constructor(baseUri = HttpClient.locationOrigin, httpClient = new HttpClient(), error, statusCode) {
+            this.baseUri = baseUri;
+            this.httpClient = httpClient;
+            this.error = error;
+            this.statusCode = statusCode;
+        }
+        /**
+         * Anonymous Dynamic of C#
+         * GET api/SpecialTypes/AnonymousDynamic
+         * @return {any} dyanmic things
+         */
+        getAnonymousDynamic(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * Async function returing dynamic
+         * GET api/SpecialTypes/AnonymousDynamic2
+         */
+        getAnonymousDynamic2(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousDynamic2', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * GET api/SpecialTypes/AnonymousObject
+         */
+        getAnonymousObject(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * Async function returning object
+         * GET api/SpecialTypes/AnonymousObject2
+         */
+        getAnonymousObject2(callback, headersHandler) {
+            this.httpClient.get(this.baseUri + 'api/SpecialTypes/AnonymousObject2', callback, this.error, this.statusCode, headersHandler);
+        }
+        /**
+         * POST api/SpecialTypes/AnonymousObject
+         */
+        postAnonymousObject(obj, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject', obj, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+        /**
+         * Async returning object, Post dynamic
+         * POST api/SpecialTypes/AnonymousObject2
+         */
+        postAnonymousObject2(obj, callback, headersHandler) {
+            this.httpClient.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', obj, callback, this.error, this.statusCode, 'application/json;charset=UTF-8', headersHandler);
+        }
+    }
+    DemoCoreWeb_Controllers_Client.SpecialTypes = SpecialTypes;
+})(DemoCoreWeb_Controllers_Client || (DemoCoreWeb_Controllers_Client = {}));
 //# sourceMappingURL=WebApiCoreJQClientAuto.js.map

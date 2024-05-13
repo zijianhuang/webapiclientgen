@@ -22,6 +22,11 @@
 			},
 
 			{
+				"AssemblyName": "Fonlow.PoemsApp.Data",
+				"CherryPickingMethods": 1
+			},
+
+			{
 				"AssemblyName": "DemoCoreWeb",
 				"CherryPickingMethods": 1
 			}

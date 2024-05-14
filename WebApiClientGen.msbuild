@@ -3,13 +3,6 @@
   <PropertyGroup>
     <Configuration>Release</Configuration>
     <Platform>Any CPU</Platform>
-
-    <!--<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>-->
-
-
-    <TPath>C:\Program Files (x86)\MSBuild\ExtensionPack\4.0\MSBuild.ExtensionPack.tasks</TPath>
-    <ETPath>C:\Program Files (x86)\MSBuild\ExtensionPack\4.0\</ETPath>
-
     <DebugSymbols>false</DebugSymbols>
     <DebugType>None</DebugType>
   </PropertyGroup>

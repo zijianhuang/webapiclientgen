@@ -25,7 +25,7 @@ namespace Poco2TsTests
 			{
 				gen.WriteCode(writer);
 				string s = writer.ToString();
-				Assert.Equal(expected, s);
+				Assert.Equal(expected, s, ignoreLineEndingDifferences: true);
 			}
 		}
 

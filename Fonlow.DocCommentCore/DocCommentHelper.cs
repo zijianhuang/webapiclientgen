@@ -10,6 +10,8 @@ namespace Fonlow.DocComment
 	/// </summary>
 	public static class DocCommentHelper
 	{
+		const string newLine="\r\n";
+
 		public static string GetSummary(docMember m)
 		{
 			if (m == null || m.summary == null || m.summary.Text == null || m.summary.Text.Length == 0)
@@ -18,7 +20,7 @@ namespace Fonlow.DocComment
 			}
 
 			IList<string> noIndent = StringFunctions.TrimTrimIndentsOfArray(m.summary.Text);
-			return String.Join(Environment.NewLine, noIndent);
+			return String.Join(newLine, noIndent);
 		}
 
 		public static string GetReturnComment(docMember m)
@@ -29,7 +31,7 @@ namespace Fonlow.DocComment
 			}
 
 			IList<string> noIndent = StringFunctions.TrimTrimIndentsOfArray(m.returns.Text);
-			return String.Join(Environment.NewLine, noIndent);
+			return String.Join(newLine, noIndent);
 		}
 
 		public static string GetParameterComment(docMember m, string name)
@@ -46,7 +48,7 @@ namespace Fonlow.DocComment
 			}
 
 			IList<string> noIndent = StringFunctions.TrimTrimIndentsOfArray(mc.Text);
-			return String.Join(Environment.NewLine, noIndent);
+			return String.Join(newLine, noIndent);
 		}
 	}
 }

@@ -6,6 +6,8 @@ namespace Fonlow.DocComment
 {
 	public static class StringFunctions
 	{
+		const string newLine = "\r\n";
+
 		/// <summary>
 		/// Trim indent of lines presented in a string, and get a new string
 		/// </summary>
@@ -22,7 +24,7 @@ namespace Fonlow.DocComment
 				return noIndent[0];
 			}
 
-			return String.Join(Environment.NewLine, noIndent).Trim('\r', '\n');
+			return String.Join(newLine, noIndent).Trim('\r', '\n');
 		}
 
 		/// <summary>
@@ -38,7 +40,7 @@ namespace Fonlow.DocComment
 			if (String.IsNullOrWhiteSpace(s))
 				return null;
 
-			string[] ss = s.Split(new string[] { Environment.NewLine, "\n" }, StringSplitOptions.None);
+			string[] ss = s.Split(new string[] { newLine, "\n" }, StringSplitOptions.None);
 			string[] noIndent = ss.Select(d => d.Trim()).ToArray();
 			return noIndent;
 		}
@@ -100,7 +102,7 @@ namespace Fonlow.DocComment
 			if (ss == null)
 				return null;
 
-			return String.Join(Environment.NewLine, TrimIndentsOfArray(ss));
+			return String.Join(newLine, TrimIndentsOfArray(ss));
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace Poco2TsTests
 			const string expected = @"abc
 efg hijk
 lmn";
-			Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s));
+			Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s), ignoreLineEndingDifferences: true);
 		}
 
 		[Fact]
@@ -28,7 +28,7 @@ lmn";
 			const string expected = @"abc
 efg hijk
 lmn";
-			Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s));
+			Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s), ignoreLineEndingDifferences: true);
 		}
 
 		[Fact]
@@ -99,7 +99,7 @@ lmn";
 			const string expected = @"abc
 efg hijk
 lmn";
-			Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s));
+			Assert.Equal(expected, StringFunctions.TrimIndentsOfMultiLineText(s), ignoreLineEndingDifferences: true);
 		}
 
 		[Fact]

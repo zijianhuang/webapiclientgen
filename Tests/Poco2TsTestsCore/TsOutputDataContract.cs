@@ -57,7 +57,7 @@ namespace Poco2TsTests
 }
 
 ";
-				Assert.Equal(expected, s);
+				Assert.Equal(expected, s, ignoreLineEndingDifferences: true);
 			}
 
 		}
@@ -94,7 +94,7 @@ namespace Poco2TsTests
 }
 
 ";
-				Assert.Equal(expected, s);
+				Assert.Equal(expected, s, ignoreLineEndingDifferences: true);
 			}
 
 		}

@@ -57,10 +57,6 @@
 		<ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
 	</ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="xcopy tests.html wwwroot\ /d /y&#xD;&#xA;xcopy wwwroot\*.* $(OutDir)wwwroot\ /s /d /y" />
-	</Target>
-
 	<ItemGroup>
 		<GlobalAnalyzerConfigFiles Include="DemoApps.globalconfig" />
 	</ItemGroup>

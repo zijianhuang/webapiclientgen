@@ -59,6 +59,9 @@ namespace Poco2TsTests
 			Assert.Equal("{\"Surname\":\"Smith\",\"GivenName\":\"John\"}", s);
 		}
 
+		/// <summary>
+		/// According to https://github.com/dotnet/runtime/issues/36785, MS somehow prefers opt-out by default.
+		/// </summary>
 		[Fact]
 		public void TestTextJsonPerson()
 		{

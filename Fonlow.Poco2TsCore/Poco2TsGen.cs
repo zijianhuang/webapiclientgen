@@ -210,7 +210,7 @@ namespace Fonlow.Poco2Ts
 			{
 				if (extra != null && extra.Count > 0)
 				{
-					comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(dm.summary.Text.Union(extra)), true));
+					comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(dm.summary.Text?.Union(extra.Where(d=>d!=null))), true));
 				}
 				else
 				{
@@ -219,7 +219,7 @@ namespace Fonlow.Poco2Ts
 			}
 			else if (extra != null && extra.Count > 0)
 			{
-				comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(extra), true));
+				comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(extra.Where(d => d != null)), true));
 			}
 		}
 

@@ -1904,6 +1904,302 @@ export namespace DemoWebApi_Models_Client {
 
 }
 
+export namespace Fonlow_PoemsApp_Data_Client {
+	export interface Album {
+		bodyType?: Fonlow_PoemsApp_Data_Client.BodyType | null;
+		description?: string | null;
+
+		/** Type: GUID */
+		id?: string | null;
+
+		/**
+		 * Author should be able to alter. The default is the created time. DateTime.
+		 */
+		published?: Date | null;
+
+		/**
+		 * First published Url
+		 */
+		publishedUrl?: string | null;
+
+		/**
+		 * Album title should never be changed.
+		 */
+		title?: string | null;
+	}
+
+	export interface Annotation {
+
+		/**
+		 * HTML description
+		 */
+		description?: string | null;
+
+		/** Type: GUID */
+		id?: string | null;
+
+		/**  */
+		name?: string | null;
+
+		/**
+		 * Primary URL for online description like an entry in Wikipedia
+		 */
+		url?: string | null;
+	}
+
+	export interface AnnotationBrief {
+
+		/**
+		 * Count of poems associated
+		 */
+		count?: number | null;
+
+		/** Type: GUID */
+		id: string;
+		name: string;
+	}
+
+	export interface AnnotationPoemCount extends Fonlow_PoemsApp_Data_Client.MetaDataPoemCount {
+	}
+
+	export enum BodyType { Text, HTML, MD }
+
+	export interface ExternalImageMap {
+		description?: string | null;
+		name?: string | null;
+		poemIds?: Array<string>;
+		srcUrl?: string | null;
+	}
+
+
+	/**
+	 * For wrting or speaking.
+	 * https://www.loc.gov/standards/iso639-2/php/code_list.php
+	 * https://www.rfc-editor.org/rfc/rfc5646
+	 * https://iso639-3.sil.org/code_tables/639/read
+	 * https://iso639-3.sil.org/code_tables/download_tables
+	 */
+	export interface LanguageCode {
+
+		/**
+		 * iso639 code. Could be 639-3, 639-2 or 639-1
+		 */
+		code?: string | null;
+		display?: string | null;
+	}
+
+	export interface LoginModel {
+		emailAddress?: string | null;
+		firstName?: string | null;
+		idToken?: string | null;
+		lastName?: string | null;
+		name?: string | null;
+		pictureUrl?: string | null;
+		provider?: string | null;
+		userId?: string | null;
+	}
+
+	export interface MetaData {
+		key?: string | null;
+		value?: string | null;
+	}
+
+	export interface MetaDataPoemCount {
+
+		/**
+		 * Count of poems associated
+		 * Type: int, -2,147,483,648 to 2,147,483,647
+		 */
+		count?: number | null;
+
+		/** Type: GUID */
+		id: string;
+	}
+
+
+	/**
+	 * Associated with a specific poem only.
+	 * In case when a phase may be up to different interpretations, then used numbered annotation.
+	 */
+	export interface NumberedAnnotation {
+
+		/**
+		 * HTML description
+		 */
+		description?: string | null;
+
+		/** Type: GUID */
+		id?: string | null;
+
+		/**
+		 * Type: int
+		 * Range: inclusive between 1 and 2147483647
+		 */
+		orderNumber: number;
+
+		/**  */
+		poemId: string;
+
+		/**
+		 * Primary URL for online description like an entry in Wikipedia
+		 */
+		url?: string | null;
+	}
+
+	export interface NumberedAnnotationBrief {
+
+		/** Type: GUID */
+		id: string;
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		orderNumber: number;
+	}
+
+	export interface Picture extends Fonlow_PoemsApp_Data_Client.PictureMeta {
+		content?: Array<number>;
+	}
+
+	export interface PictureMeta {
+		contentType?: string | null;
+
+		/** Max length: 512 */
+		description?: string | null;
+
+		/** Type: GUID */
+		id?: string | null;
+
+		/** Max length: 128 */
+		name?: string | null;
+	}
+
+	export interface PicturePoemCount extends Fonlow_PoemsApp_Data_Client.MetaDataPoemCount {
+		poemIds?: Array<string>;
+	}
+
+	export interface Poem {
+
+		/**
+		 * A poem may be included in multipe albums.
+		 * UI may use this to present albums
+		 */
+		albumIds?: Array<string>;
+		annotationIds?: Array<string>;
+		body?: string | null;
+
+		/**
+		 * When bodytype is HTML, a redundant copy for full text search. A poor man solution.
+		 */
+		bodyPlain?: string | null;
+		bodyType?: Fonlow_PoemsApp_Data_Client.BodyType | null;
+
+		/**
+		 * Author should be able to alter. The default is the created time.
+		 */
+		created?: Date | null;
+
+		/** Type: GUID */
+		id?: string | null;
+		modified?: Date | null;
+		numberedAnnotationBriefs?: Array<Fonlow_PoemsApp_Data_Client.NumberedAnnotationBrief>;
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		numberOfStanza?: number | null;
+		pictureIds?: Array<string>;
+
+		/**
+		 * to distinguish draft or published. DateTime.
+		 */
+		published?: Date | null;
+
+		/**
+		 * Initial published URL.
+		 */
+		publishedUrl?: string | null;
+		ryhmesCsv?: string | null;
+
+		/**
+		 * UI use this to represent tags. This is not included n DB.
+		 */
+		tagIds?: Array<string>;
+		title?: string | null;
+	}
+
+	export interface PoemAlbumMap {
+
+		/** Type: GUID */
+		albumId?: string | null;
+
+		/** Type: GUID */
+		poemId?: string | null;
+	}
+
+	export interface PoemAnnotationMap {
+
+		/** Type: GUID */
+		annotationId?: string | null;
+
+		/** Type: GUID */
+		poemId?: string | null;
+	}
+
+	export interface PoemBrief {
+		date: Date;
+
+		/** Type: GUID */
+		id: string;
+		published?: Date | null;
+		tagIds?: Array<string>;
+		title: string;
+	}
+
+
+	/**
+	 * Highest level container for every poems written by a poet, for exporting to other formats
+	 */
+	export interface PoemCollection {
+		albumMaps: Array<Fonlow_PoemsApp_Data_Client.PoemAlbumMap>;
+		albums: Array<Fonlow_PoemsApp_Data_Client.Album>;
+		annotationMaps: Array<Fonlow_PoemsApp_Data_Client.PoemAnnotationMap>;
+		annotations: Array<Fonlow_PoemsApp_Data_Client.Annotation>;
+		keyValues: Array<Fonlow_PoemsApp_Data_Client.MetaData>;
+		numberedAnnotations: Array<Fonlow_PoemsApp_Data_Client.NumberedAnnotation>;
+		pictureMaps?: Array<Fonlow_PoemsApp_Data_Client.PoemPictureMap>;
+		pictureMetas?: Array<Fonlow_PoemsApp_Data_Client.PictureMeta>;
+		poems: Array<Fonlow_PoemsApp_Data_Client.Poem>;
+		tagMaps: Array<Fonlow_PoemsApp_Data_Client.PoemTagMap>;
+		tags: Array<Fonlow_PoemsApp_Data_Client.Tag>;
+	}
+
+	export interface PoemPictureMap {
+
+		/** Type: GUID */
+		pictureId?: string | null;
+
+		/** Type: GUID */
+		poemId?: string | null;
+	}
+
+	export interface PoemTagMap {
+
+		/** Type: GUID */
+		poemId?: string | null;
+
+		/** Type: GUID */
+		tagId?: string | null;
+	}
+
+	export interface Tag {
+
+		/** Type: GUID */
+		id?: string | null;
+		name?: string | null;
+	}
+
+	export interface TagPoemCount extends Fonlow_PoemsApp_Data_Client.MetaDataPoemCount {
+	}
+
+}
+
 export namespace DemoCoreWeb_Controllers_Client {
 	export class SpecialTypes {
 		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
@@ -1972,8 +2268,8 @@ export namespace PoemsApp_Controllers_Client {
 		 * Add album. If publisheDate is not defined, it will be now.
 		 * POST api/Albums
 		 */
-		add(album?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Albums', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(album) });
+		add(album?: Fonlow_PoemsApp_Data_Client.Album | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Album> {
+			return fetch(this.baseUri + 'api/Albums', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(album) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
@@ -1990,8 +2286,8 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/Albums?id={id}
 		 * @param {string} id Type: GUID
 		 */
-		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Albums?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Album | null> {
+			return fetch(this.baseUri + 'api/Albums?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
@@ -1999,7 +2295,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/Albums/all
 		 * @param {number} timezoneOffset int in header
 		 */
-		getAll(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getAll(headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.Album>> {
 			return fetch(this.baseUri + 'api/Albums/all', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2008,14 +2304,14 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/Albums/allDic
 		 * @param {number} timezoneOffset int in header
 		 */
-		getAllDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: any }> {
+		getAllDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: Fonlow_PoemsApp_Data_Client.Album }> {
 			return fetch(this.baseUri + 'api/Albums/allDic', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * PUT api/Albums
 		 */
-		update(album?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		update(album?: Fonlow_PoemsApp_Data_Client.Album | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Albums', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(album) });
 		}
 	}
@@ -2032,7 +2328,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * POST api/Annotations
 		 * @return {string} Type: GUID
 		 */
-		add(annotation?: any, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		add(annotation?: Fonlow_PoemsApp_Data_Client.Annotation | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/Annotations', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(annotation) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2058,14 +2354,14 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/Annotations?id={id}
 		 * @param {string} id Type: GUID
 		 */
-		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Annotations?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Annotation | null> {
+			return fetch(this.baseUri + 'api/Annotations?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Annotations/all
 		 */
-		getAnnotationBriefs(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getAnnotationBriefs(headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.AnnotationBrief>> {
 			return fetch(this.baseUri + 'api/Annotations/all', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2073,28 +2369,28 @@ export namespace PoemsApp_Controllers_Client {
 		 * Get all annotation briefs. Support ZH Convert.
 		 * GET api/Annotations/allDic
 		 */
-		getAnnotationBriefsDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: any }> {
+		getAnnotationBriefsDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: Fonlow_PoemsApp_Data_Client.AnnotationBrief }> {
 			return fetch(this.baseUri + 'api/Annotations/allDic', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Annotations/Orphaned
 		 */
-		getOrphaned(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getOrphaned(headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.AnnotationBrief>> {
 			return fetch(this.baseUri + 'api/Annotations/Orphaned', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Annotations/PoemCountOfAnnotations
 		 */
-		getPoemCountOfAnnotations(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getPoemCountOfAnnotations(headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.AnnotationPoemCount>> {
 			return fetch(this.baseUri + 'api/Annotations/PoemCountOfAnnotations', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * PUT api/Annotations
 		 */
-		update(annotation?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		update(annotation?: Fonlow_PoemsApp_Data_Client.Annotation | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Annotations', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(annotation) });
 		}
 	}
@@ -2111,7 +2407,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * POST api/NumberedAnnotations
 		 * @return {string} Type: GUID
 		 */
-		add(numberedAnnotation?: any, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		add(numberedAnnotation?: Fonlow_PoemsApp_Data_Client.NumberedAnnotation | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/NumberedAnnotations', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(numberedAnnotation) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2120,7 +2416,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * POST api/NumberedAnnotations/poem/{poemId}
 		 * @param {string} poemId Type: GUID
 		 */
-		addMuitiple(poemId?: string | null, orderNumbers?: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		addMuitiple(poemId?: string | null, orderNumbers?: Array<number> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.NumberedAnnotation>> {
 			return fetch(this.baseUri + 'api/NumberedAnnotations/poem/' + poemId, { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(orderNumbers) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2146,15 +2442,15 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/NumberedAnnotations?id={id}
 		 * @param {string} id Type: GUID
 		 */
-		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/NumberedAnnotations?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.NumberedAnnotation | null> {
+			return fetch(this.baseUri + 'api/NumberedAnnotations?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * Update annotation
 		 * PUT api/NumberedAnnotations
 		 */
-		update(numberedAnnotation?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		update(numberedAnnotation?: Fonlow_PoemsApp_Data_Client.NumberedAnnotation | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/NumberedAnnotations', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(numberedAnnotation) });
 		}
 
@@ -2180,45 +2476,45 @@ export namespace PoemsApp_Controllers_Client {
 		/**
 		 * Add poem. If created is undefined, it will be now. And modified is always now.
 		 * POST api/Poems
-		 * @return {any} Id of newly added
+		 * @return {Fonlow_PoemsApp_Data_Client.Poem} Id of newly added
 		 */
-		add(poem?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poem) });
+		add(poem?: Fonlow_PoemsApp_Data_Client.Poem | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Poem> {
+			return fetch(this.baseUri + 'api/Poems', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poem) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * Add new poem with existing annotations and new annotation names.
 		 * PUT api/Poems/AddWithExistingAnnotations
-		 * @param {{item1: any, item2: Array<string>}} poemAndAnnotations new poem, existing Annotation Ids, and new annotation names
-		 * @return {any} Poem Id and new annotation objects
+		 * @param {{item1: Fonlow_PoemsApp_Data_Client.Poem, item2: Array<string>}} poemAndAnnotations new poem, existing Annotation Ids, and new annotation names
+		 * @return {Fonlow_PoemsApp_Data_Client.Poem} Poem Id and new annotation objects
 		 */
-		addWithExistingAnnotations(poemAndAnnotations?: {item1: any, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/AddWithExistingAnnotations', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poemAndAnnotations) });
+		addWithExistingAnnotations(poemAndAnnotations?: {item1: Fonlow_PoemsApp_Data_Client.Poem, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Poem> {
+			return fetch(this.baseUri + 'api/Poems/AddWithExistingAnnotations', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poemAndAnnotations) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * Poem with Tags
 		 * POST api/Poems/addWithExistingTags
 		 */
-		addWithExistingTags(poemAndTags?: {item1: any, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/addWithExistingTags', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poemAndTags) });
+		addWithExistingTags(poemAndTags?: {item1: Fonlow_PoemsApp_Data_Client.Poem, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Poem> {
+			return fetch(this.baseUri + 'api/Poems/addWithExistingTags', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poemAndTags) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * PUT api/Poems/AddWithNewAnnotationNames
 		 */
-		addWithNewAnnotationNames(poemAndAnnotations?: {item1: any, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/AddWithNewAnnotationNames', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poemAndAnnotations) });
+		addWithNewAnnotationNames(poemAndAnnotations?: {item1: Fonlow_PoemsApp_Data_Client.Poem, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Poem> {
+			return fetch(this.baseUri + 'api/Poems/AddWithNewAnnotationNames', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poemAndAnnotations) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * Add new poem with existing tags, and new tag names.
 		 * POST api/Poems/AddWithNewTagNames
-		 * @param {{item1: any, item2: Array<string>}} poemAndNewTags new poem, existing Tag Ids, and new tag names
-		 * @return {any} Poem Id and new tag objects
+		 * @param {{item1: Fonlow_PoemsApp_Data_Client.Poem, item2: Array<string>}} poemAndNewTags new poem, existing Tag Ids, and new tag names
+		 * @return {Fonlow_PoemsApp_Data_Client.Poem} Poem Id and new tag objects
 		 */
-		addWithNewTagNames(poemAndNewTags?: {item1: any, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/AddWithNewTagNames', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poemAndNewTags) });
+		addWithNewTagNames(poemAndNewTags?: {item1: Fonlow_PoemsApp_Data_Client.Poem, item2: Array<string>} | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Poem> {
+			return fetch(this.baseUri + 'api/Poems/AddWithNewTagNames', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poemAndNewTags) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
@@ -2262,19 +2558,19 @@ export namespace PoemsApp_Controllers_Client {
 		 * If the annotation exists, return null. Nevertheless, the client should check if the annotation had actually been in the annotation list, to avoid exceptions.
 		 * PUT api/Poems/newAnnotationName?poemId={poemId}&newAnnotationName={newAnnotationName}
 		 * @param {string} poemId Type: GUID
-		 * @return {any} New annotation, or null if the annotation exists
+		 * @return {Fonlow_PoemsApp_Data_Client.AnnotationBrief} New annotation, or null if the annotation exists
 		 */
-		associateWithNewAnnotationName(poemId?: string | null, newAnnotationName?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/newAnnotationName?poemId=' + poemId + '&newAnnotationName=' + (!newAnnotationName ? '' : encodeURIComponent(newAnnotationName)), { method: 'put', headers: headersHandler ? headersHandler() : undefined });
+		associateWithNewAnnotationName(poemId?: string | null, newAnnotationName?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.AnnotationBrief | null> {
+			return fetch(this.baseUri + 'api/Poems/newAnnotationName?poemId=' + poemId + '&newAnnotationName=' + (!newAnnotationName ? '' : encodeURIComponent(newAnnotationName)), { method: 'put', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * Associate poem with new tag names.
 		 * PUT api/Poems/newAnnotationNames?poemId={poemId}
 		 * @param {string} poemId Type: GUID
-		 * @return {Array<any>} New annotation objects based on newAnnotationNames
+		 * @return {Array<Fonlow_PoemsApp_Data_Client.AnnotationBrief>} New annotation objects based on newAnnotationNames
 		 */
-		associateWithNewAnnotationNames(poemId?: string | null, newAnnotationNames?: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		associateWithNewAnnotationNames(poemId?: string | null, newAnnotationNames?: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.AnnotationBrief>> {
 			return fetch(this.baseUri + 'api/Poems/newAnnotationNames?poemId=' + poemId, { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(newAnnotationNames) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2283,19 +2579,19 @@ export namespace PoemsApp_Controllers_Client {
 		 * If the tag exists, return null. Nevertheless, the client should check if the tag had actually been in the tag list, to avoid exceptions.
 		 * PUT api/Poems/newTagName?poemId={poemId}&newTagName={newTagName}
 		 * @param {string} poemId Type: GUID
-		 * @return {any} New tag, or null if the tag exists
+		 * @return {Fonlow_PoemsApp_Data_Client.Tag} New tag, or null if the tag exists
 		 */
-		associateWithNewTagName(poemId?: string | null, newTagName?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/newTagName?poemId=' + poemId + '&newTagName=' + (!newTagName ? '' : encodeURIComponent(newTagName)), { method: 'put', headers: headersHandler ? headersHandler() : undefined });
+		associateWithNewTagName(poemId?: string | null, newTagName?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Tag | null> {
+			return fetch(this.baseUri + 'api/Poems/newTagName?poemId=' + poemId + '&newTagName=' + (!newTagName ? '' : encodeURIComponent(newTagName)), { method: 'put', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * Associate poem with new tag names.
 		 * PUT api/Poems/newTagNames?poemId={poemId}
 		 * @param {string} poemId Type: GUID
-		 * @return {Array<any>} New tag objects based on newTagNames
+		 * @return {Array<Fonlow_PoemsApp_Data_Client.Tag>} New tag objects based on newTagNames
 		 */
-		associateWithNewTagNames(poemId?: string | null, newTagNames?: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		associateWithNewTagNames(poemId?: string | null, newTagNames?: Array<string> | null, headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.Tag>> {
 			return fetch(this.baseUri + 'api/Poems/newTagNames?poemId=' + poemId, { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(newTagNames) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2367,8 +2663,8 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/Poems?id={id}
 		 * @param {string} id Type: GUID
 		 */
-		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Poem | null> {
+			return fetch(this.baseUri + 'api/Poems?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
@@ -2383,7 +2679,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * Scan all poems' HTML to create mapping from imageIds to poems. Dic of imageId to poems with img local.
 		 * POST api/Poems/AssociatedPoemsOfImages
 		 */
-		getAssociatedPoemsOfAllImages(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: Array<any> }> {
+		getAssociatedPoemsOfAllImages(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: Array<Fonlow_PoemsApp_Data_Client.PoemBrief> }> {
 			return fetch(this.baseUri + 'api/Poems/AssociatedPoemsOfImages', { method: 'post', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2392,7 +2688,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/Poems/AllBriefs
 		 * @param {number} timezoneOffset int in header
 		 */
-		getBriefsOfPoems(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getBriefsOfPoems(headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.PoemBrief>> {
 			return fetch(this.baseUri + 'api/Poems/AllBriefs', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2403,7 +2699,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * @param {string} convertZH string in header
 		 * @param {number} timezoneOffset int in header
 		 */
-		getOfAlbum(albumId?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getOfAlbum(albumId?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.Poem>> {
 			return fetch(this.baseUri + 'api/Poems/GetOfAlbum?albumId=' + albumId, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2412,45 +2708,45 @@ export namespace PoemsApp_Controllers_Client {
 		 * @param {string} albumId Type: GUID
 		 * @param {number} timezoneOffset int in header
 		 */
-		getPoemBriefsOfAlbum(albumId?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getPoemBriefsOfAlbum(albumId?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.PoemBrief>> {
 			return fetch(this.baseUri + 'api/Poems/GetPoemBriefsOfAlbum?albumId=' + albumId, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Poems/PoemCollection
 		 */
-		getPoemCollection(headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/PoemCollection', { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		getPoemCollection(headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.PoemCollection> {
+			return fetch(this.baseUri + 'api/Poems/PoemCollection', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Poems/PoemCollectionInOtherChineseWriting
 		 */
-		getPoemCollectionInOtherChineseWriting(headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/PoemCollectionInOtherChineseWriting', { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		getPoemCollectionInOtherChineseWriting(headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.PoemCollection | null> {
+			return fetch(this.baseUri + 'api/Poems/PoemCollectionInOtherChineseWriting', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Poems/PoemCollectionPublished
 		 * @param {number} timezoneOffset In request headers
 		 */
-		getPoemCollectionPublished(headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/PoemCollectionPublished', { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		getPoemCollectionPublished(headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.PoemCollection> {
+			return fetch(this.baseUri + 'api/Poems/PoemCollectionPublished', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Poems/PoemCollectionPublishedInOtherChineseWriting
 		 * @param {number} timezoneOffset timezoneOffset in headers
 		 */
-		getPoemCollectionPublishedInOtherChineseWriting(headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Poems/PoemCollectionPublishedInOtherChineseWriting', { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		getPoemCollectionPublishedInOtherChineseWriting(headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.PoemCollection | null> {
+			return fetch(this.baseUri + 'api/Poems/PoemCollectionPublishedInOtherChineseWriting', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Poems/PoemsWithInternalImageId?imageId={imageId}
 		 * @param {string} imageId Type: GUID
 		 */
-		getPoemsWithInternalImageId(imageId?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getPoemsWithInternalImageId(imageId?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.PoemBrief>> {
 			return fetch(this.baseUri + 'api/Poems/PoemsWithInternalImageId?imageId=' + imageId, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2465,7 +2761,7 @@ export namespace PoemsApp_Controllers_Client {
 		/**
 		 * POST api/Poems/PoemCollection
 		 */
-		importPoemCollection(collection?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		importPoemCollection(collection?: Fonlow_PoemsApp_Data_Client.PoemCollection | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Poems/PoemCollection', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(collection) });
 		}
 
@@ -2473,7 +2769,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/Poems/ByAnnotation?annotationId={annotationId}
 		 * @param {string} annotationId Type: GUID
 		 */
-		searchByAnnotation(annotationId?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		searchByAnnotation(annotationId?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.PoemBrief>> {
 			return fetch(this.baseUri + 'api/Poems/ByAnnotation?annotationId=' + annotationId, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2482,7 +2778,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * POST api/Poems/ByKeywords
 		 * @param {number} timezoneOffset int in header
 		 */
-		searchByKeywords(keywords?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		searchByKeywords(keywords?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.PoemBrief>> {
 			return fetch(this.baseUri + 'api/Poems/ByKeywords', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(keywords) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2490,7 +2786,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * Update poem.
 		 * PUT api/Poems
 		 */
-		update(poem?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		update(poem?: Fonlow_PoemsApp_Data_Client.Poem | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Poems', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(poem) });
 		}
 
@@ -2523,7 +2819,7 @@ export namespace PoemsApp_Controllers_Client {
 		 * POST api/Tags
 		 * @return {string} Type: GUID
 		 */
-		add(tag?: any, headersHandler?: () => {[header: string]: string}): Promise<string> {
+		add(tag?: Fonlow_PoemsApp_Data_Client.Tag | null, headersHandler?: () => {[header: string]: string}): Promise<string> {
 			return fetch(this.baseUri + 'api/Tags', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tag) }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2549,15 +2845,15 @@ export namespace PoemsApp_Controllers_Client {
 		 * GET api/Tags?id={id}
 		 * @param {string} id Type: GUID
 		 */
-		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
-			return fetch(this.baseUri + 'api/Tags?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined });
+		get(id?: string | null, headersHandler?: () => {[header: string]: string}): Promise<Fonlow_PoemsApp_Data_Client.Tag | null> {
+			return fetch(this.baseUri + 'api/Tags?id=' + id, { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * Get all tags. Support ZH Convert.
 		 * GET api/Tags/all
 		 */
-		getAll(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getAll(headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.Tag>> {
 			return fetch(this.baseUri + 'api/Tags/all', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
@@ -2565,28 +2861,28 @@ export namespace PoemsApp_Controllers_Client {
 		 * Get all tags as dictionary. Support ZH Convert.
 		 * GET api/Tags/allDic
 		 */
-		getAllDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: any }> {
+		getAllDic(headersHandler?: () => {[header: string]: string}): Promise<{[id: string]: Fonlow_PoemsApp_Data_Client.Tag }> {
 			return fetch(this.baseUri + 'api/Tags/allDic', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Tags/Orphaned
 		 */
-		getOrphaned(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getOrphaned(headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.Tag>> {
 			return fetch(this.baseUri + 'api/Tags/Orphaned', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * GET api/Tags/PoemCountOfTags
 		 */
-		getPoemCountOfTags(headersHandler?: () => {[header: string]: string}): Promise<Array<any>> {
+		getPoemCountOfTags(headersHandler?: () => {[header: string]: string}): Promise<Array<Fonlow_PoemsApp_Data_Client.TagPoemCount>> {
 			return fetch(this.baseUri + 'api/Tags/PoemCountOfTags', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 
 		/**
 		 * PUT api/Tags
 		 */
-		update(tag?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
+		update(tag?: Fonlow_PoemsApp_Data_Client.Tag | null, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/Tags', { method: 'put', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(tag) });
 		}
 	}

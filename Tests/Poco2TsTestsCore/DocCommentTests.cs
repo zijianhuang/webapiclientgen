@@ -8,7 +8,7 @@ namespace Poco2TsTests
 		[Fact]
 		public void TestReadDocComment()
 		{
-			DocCommentLookup d = DocCommentLookup.Create(@"C:\VsProjects\OpenSource\webapiclientgen\DemoCoreWebControllers\bin\Debug\net8.0\DemoCoreWebControllers.xml");
+			DocCommentLookup d = DocCommentLookup.Create(@"DemoCoreWebControllers.xml");
 			Assert.NotNull(d);
 			Assert.Equal("DemoCoreWebControllers", d.XmlDoc.assembly.name);
 			docMemberSummary summary = d.GetMember("T:DemoWebApi.Controllers.HeroesController").summary;

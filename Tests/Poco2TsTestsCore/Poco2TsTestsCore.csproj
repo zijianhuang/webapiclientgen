@@ -25,4 +25,10 @@
 		<ProjectReference Include="..\..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="DemoCoreWebControllers.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

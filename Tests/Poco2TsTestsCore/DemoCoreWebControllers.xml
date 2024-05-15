@@ -1,0 +1,978 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DemoCoreWebControllers</name>
+    </assembly>
+    <members>
+        <member name="T:PoemsApp.Controllers.AlbumsController">
+            <summary>
+            Album specific operations
+            </summary>
+        </member>
+        <member name="M:PoemsApp.Controllers.AlbumsController.Delete(System.Guid)">
+            <summary>
+            Delete along with what in poemAlbumMap.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.AlbumsController.Add(Fonlow.PoemsApp.Data.Album)">
+            <summary>
+            Add album. If publisheDate is not defined, it will be now.
+            </summary>
+            <param name="album"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.AlbumsController.Update(Fonlow.PoemsApp.Data.Album)">
+            <summary>
+            
+            </summary>
+            <param name="album"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.AlbumsController.Get(System.Guid,System.String)">
+            <summary>
+            Get Album. Support ZH Convert.
+            </summary>
+            <param name="id"></param>
+            <param name="convertZH"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.AlbumsController.GetAll(System.String,System.Int32)">
+            <summary>
+            Get all albums. Support ZH Convert.
+            </summary>
+            <param name="convertZH"></param>
+            <param name="timezoneOffset">int in header</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.AlbumsController.GetAllDic(System.String,System.Int32)">
+            <summary>
+            Get all albums as dictionary. Support ZH Convert.
+            </summary>
+            <param name="convertZH"></param>
+            <param name="timezoneOffset">int in header</param>
+            <returns></returns>
+        </member>
+        <member name="T:PoemsApp.Controllers.AnnotationsController">
+            <summary>
+            Annotations management
+            </summary>
+        </member>
+        <member name="M:PoemsApp.Controllers.AnnotationsController.Delete(System.Guid)">
+            <summary>
+            Delete along with what in poemAnnotationMap.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.AnnotationsController.Add(Fonlow.PoemsApp.Data.Annotation)">
+            <summary>
+            
+            </summary>
+            <param name="annotation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.AnnotationsController.Update(Fonlow.PoemsApp.Data.Annotation)">
+            <summary>
+            
+            </summary>
+            <param name="annotation"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.AnnotationsController.Get(System.Guid,System.String)">
+            <summary>
+            Get annotation. Support ZH Convert.
+            </summary>
+            <param name="id"></param>
+            <param name="convertZH"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.AnnotationsController.GetAnnotationBriefsDic(System.String)">
+            <summary>
+            Get all annotation briefs. Support ZH Convert.
+            </summary>
+            <param name="convertZH"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PoemsApp.Controllers.NumberedAnnotationsController">
+            <summary>
+            Annotations management
+            </summary>
+        </member>
+        <member name="M:PoemsApp.Controllers.NumberedAnnotationsController.Delete(System.Guid)">
+            <summary>
+            Delete along with what in poemNumberedAnnotationMap.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.NumberedAnnotationsController.Add(Fonlow.PoemsApp.Data.NumberedAnnotation)">
+            <summary>
+            
+            </summary>
+            <param name="numberedAnnotation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.NumberedAnnotationsController.AddMuitiple(System.Guid,System.Int32[])">
+            <summary>
+            Add multiple annotations
+            </summary>
+            <param name="poemId"></param>
+            <param name="orderNumbers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.NumberedAnnotationsController.Update(Fonlow.PoemsApp.Data.NumberedAnnotation)">
+            <summary>
+            Update annotation
+            </summary>
+            <param name="numberedAnnotation"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.NumberedAnnotationsController.BulkUpdateOrderNumbers(System.Tuple{System.Guid,System.Int32}[])">
+            <summary>
+            Update the orders of numbered annotations in a transaction
+            </summary>
+            <param name="idAndOrderArray"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.NumberedAnnotationsController.UpdateOrderNumber(System.Guid,System.Int32)">
+            <summary>
+            Update Order Number
+            </summary>
+            <param name="id"></param>
+            <param name="orderNumber"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.NumberedAnnotationsController.Get(System.Guid,System.String)">
+            <summary>
+            Get numberedAnnotation. Support ZH Convert.
+            </summary>
+            <param name="id"></param>
+            <param name="convertZH"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PoemsApp.Controllers.PoemsController">
+            <summary>
+            Poems operations; associations with tags, albums and annotations.
+            </summary>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.Delete(System.Guid)">
+            <summary>
+            Delete poem, along with association with albums. However, associated tags and annotations are still in maps.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.Add(Fonlow.PoemsApp.Data.Poem)">
+            <summary>
+            Add poem. If created is undefined, it will be now. And modified is always now.
+            </summary>
+            <param name="poem"></param>
+            <returns>Id of newly added</returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.Update(Fonlow.PoemsApp.Data.Poem)">
+            <summary>
+            Update poem.
+            </summary>
+            <param name="poem"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.EscapeStringToUnicode">
+            <summary>
+            Fix the problem of escaped unicode string, because of the DomSanitizer of Angular. Once off solution
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.UpdatePublished(System.Guid,System.Nullable{System.DateOnly})">
+            <summary>
+            
+            </summary>
+            <param name="poemId"></param>
+            <param name="dt"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.Get(System.Guid,System.String)">
+            <summary>
+            Include TagMap and AlbumMap. Support ZH Convert.
+            </summary>
+            <param name="id"></param>
+            <param name="convertZH"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.GetBriefsOfPoems(System.String,System.Int32)">
+            <summary>
+            All, OrderByDescending published. Support ZH Convert. If the user is not loggedin, not returning those not yet published.
+            </summary>
+            <param name="convertZH"></param>
+            <param name="timezoneOffset">int in header</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.SearchByKeywords(System.String,System.String,System.Int32)">
+            <summary>
+            Search by keywords, separated by comma and Chinese comma. Support ZH Convert.
+            </summary>
+            <param name="keywords"></param>
+            <param name="convertZH"></param>
+            <param name="timezoneOffset">int in header</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AssociateWithAlbums(System.Guid,System.Guid[])">
+            <summary>
+            Associate with existing albums.
+            </summary>
+            <param name="poemId"></param>
+            <param name="albumIds"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.GetOfAlbum(System.Guid,System.String,System.Int32)">
+            <summary>
+            All poems of album, order by published. Support ZH Convert.
+            </summary>
+            <param name="albumId"></param>
+            <param name="convertZH">string in header</param>
+            <param name="timezoneOffset">int in header</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.GetPoemBriefsOfAlbum(System.Guid,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="albumId"></param>
+            <param name="timezoneOffset">int in header</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.DissociateAlbum(System.Guid,System.Guid)">
+            <summary>
+            Dissociate album.
+            </summary>
+            <param name="poemId"></param>
+            <param name="albumId"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AssociateAlbumWithPoems(System.Guid,System.Guid[])">
+            <summary>
+            Associate album with existing poems.
+            </summary>
+            <param name="albumId"></param>
+            <param name="poemIds"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AssociateWithExistingTags(System.Guid,System.Guid[])">
+            <summary>
+            Associate with existing tags.
+            </summary>
+            <param name="poemId"></param>
+            <param name="existingTagIds"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AssociateWithNewTagNames(System.Guid,System.String[])">
+            <summary>
+            Associate poem with new tag names.
+            </summary>
+            <param name="poemId"></param>
+            <param name="newTagNames"></param>
+            <returns>New tag objects based on newTagNames</returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AssociateWithNewTagName(System.Guid,System.String)">
+            <summary>
+            Save the new tag, and associate with the poem.
+            If the tag exists, return null. Nevertheless, the client should check if the tag had actually been in the tag list, to avoid exceptions.
+            </summary>
+            <param name="poemId"></param>
+            <param name="newTagName"></param>
+            <returns>New tag, or null if the tag exists</returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AddWithNewTagNames(System.Tuple{Fonlow.PoemsApp.Data.Poem,System.String[]})">
+            <summary>
+            Add new poem with existing tags, and new tag names.
+            </summary>
+            <param name="poemAndNewTags">new poem, existing Tag Ids, and new tag names</param>
+            <returns>Poem Id and new tag objects</returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AddWithExistingTags(System.Tuple{Fonlow.PoemsApp.Data.Poem,System.Guid[]})">
+            <summary>
+            Poem with Tags
+            </summary>
+            <param name="poemAndTags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.DissociateTag(System.Guid,System.Guid)">
+            <summary>
+            DissociateT tag.
+            </summary>
+            <param name="poemId"></param>
+            <param name="tagId"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AssociateWithExistingAnnotations(System.Guid,System.Guid[])">
+            <summary>
+            Associate with existing annotations.
+            </summary>
+            <param name="poemId"></param>
+            <param name="existingAnnotationIds"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AssociateWithNewAnnotationNames(System.Guid,System.String[])">
+            <summary>
+            Associate poem with new tag names.
+            </summary>
+            <param name="poemId"></param>
+            <param name="newAnnotationNames"></param>
+            <returns>New annotation objects based on newAnnotationNames</returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AssociateWithNewAnnotationName(System.Guid,System.String)">
+            <summary>
+            Save the new annotation, and associate with the poem.
+            If the annotation exists, return null. Nevertheless, the client should check if the annotation had actually been in the annotation list, to avoid exceptions.
+            </summary>
+            <param name="poemId"></param>
+            <param name="newAnnotationName"></param>
+            <returns>New annotation, or null if the annotation exists</returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AddWithExistingAnnotations(System.Tuple{Fonlow.PoemsApp.Data.Poem,System.Guid[]})">
+            <summary>
+            Add new poem with existing annotations and new annotation names.
+            </summary>
+            <param name="poemAndAnnotations">new poem, existing Annotation Ids, and new annotation names</param>
+            <returns>Poem Id and new annotation objects</returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.DissociateAnnotation(System.Guid,System.Guid)">
+            <summary>
+            Disassociate annotation.
+            </summary>
+            <param name="poemId"></param>
+            <param name="annotationId"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.GetPoemCollectionPublished(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="timezoneOffset">In request headers</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.GetPoemCollectionPublishedInOtherChineseWriting(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="timezoneOffset">timezoneOffset in headers</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.GetPoemCollectionInOtherChineseWriting(System.Boolean,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="publishedOnly"></param>
+            <param name="timezoneOffset">Used only when publishedOnly=true. Header parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.GetAllNotLocalImagesOfPoems">
+            <summary>
+            Img Src Url to multiple poem Ids
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.GetAssociatedPoemsOfAllImages">
+            <summary>
+            Scan all poems' HTML to create mapping from imageIds to poems. Dic of imageId to poems with img local.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.AuditAndReconcile">
+            <summary>
+            Reconcile among all images, poemImageMaps, and actually img local
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.PoemsController.UpdatePlainTextOfHtmlPoems">
+            <summary>
+            Just for maintenance, while the plaintext should be produced in the frontend.
+            </summary>
+        </member>
+        <member name="T:PoemsApp.Controllers.TagsController">
+            <summary>
+            Tags management
+            </summary>
+        </member>
+        <member name="M:PoemsApp.Controllers.TagsController.Delete(System.Guid)">
+            <summary>
+            Delete along with what in poemTagMap.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.TagsController.Add(Fonlow.PoemsApp.Data.Tag)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.TagsController.Update(Fonlow.PoemsApp.Data.Tag)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+        </member>
+        <member name="M:PoemsApp.Controllers.TagsController.Get(System.Guid,System.String)">
+            <summary>
+            Get tag. Support ZH Convert.
+            </summary>
+            <param name="id"></param>
+            <param name="convertZH"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.TagsController.GetAll(System.String)">
+            <summary>
+            Get all tags. Support ZH Convert.
+            </summary>
+            <param name="convertZH"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoemsApp.Controllers.TagsController.GetAllDic(System.String)">
+            <summary>
+            Get all tags as dictionary. Support ZH Convert.
+            </summary>
+            <param name="convertZH"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Fonlow.WebApiClientGen.CodeGenController.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionGroupCollectionProvider,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            For injecting some environment config by the run time.
+            </summary>
+            <param name="apiExplorer"></param>
+            <param name="hostingEnvironment"></param>
+        </member>
+        <member name="M:Fonlow.WebApiClientGen.CodeGenController.TriggerCodeGen(Fonlow.CodeDom.Web.CodeGenSettings)">
+            <summary>
+            Trigger the API to generate WebApiClientAuto.cs for an established client API project.
+            </summary>
+            <param name="settings"></param>
+            <returns>OK if OK</returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.DateTypesController">
+            <summary>
+            For testing different commbinations of parameters and returns
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.DateTypesController.GetDateTimeOffset">
+            <summary>
+            return DateTimeOffset.Now
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.DateTypesController.PostDateTimeOffset(System.DateTimeOffset)">
+            <summary>
+            return d;
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.DateTypesController.PostDateTimeOffsetForO(System.DateTimeOffset)">
+            <summary>
+            return d.ToString("O")
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.DateTypesController.IsDateTimeDate(System.DateTime)">
+            <summary>
+            Client should send DateTime.Date
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.DateTypesController.PostDateTimeOffsetNullable(System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Returned is DateTimeOffset?
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.DateTypesController.GetNextYearNullable(System.Int32,System.Nullable{System.DateTime})">
+            <summary>
+            If Dt is not defined, add a year from now
+            </summary>
+            <param name="n"></param>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.DateTypesController.GetNextHourNullable(System.Int32,System.Nullable{System.DateTimeOffset})">
+            <summary>
+            If Dt is not defined, add a hour from now
+            </summary>
+            <param name="n"></param>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.DateTypesController.SearchDateRange(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Return Tuple DateTime?, DateTime?
+            </summary>
+            <param name="startDate"> DateTime? startDate = null</param>
+            <param name="endDate">DateTime? endDate = null</param>
+            <returns></returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.EntitiesController">
+            <summary>
+            Entities, Person and Company
+            Some with AuthorizeAttribute
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.EntitiesController.GetPerson(System.Int64)">
+            <summary>
+            Get a person
+            so to know the person
+            </summary>
+            <param name="id">unique id of that guy</param>
+            <returns>person in db</returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.EntitiesController.CreatePersonWeak(DemoWebApi.DemoData.Person)">
+            <summary>
+            
+            </summary>
+            <param name="p"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:DemoWebApi.Controllers.EntitiesController.PatchPerson(DemoWebApi.DemoData.Person)">
+            <summary>
+            https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
+            </summary>
+            <param name="person"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.EntitiesController.GetNullCompany">
+            <summary>
+            Return empty body, status 204. MaybeNull
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.EntitiesController.GetMyGeneric(DemoWebApi.DemoData.MyGeneric{System.String,System.Decimal,System.Double})">
+            <summary>
+            Post MyGeneric string, decimal, double
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.EntitiesController.GetMyGenericPerson(DemoWebApi.DemoData.MyGeneric{System.String,System.Decimal,DemoWebApi.DemoData.Person})">
+            <summary>
+            Post MyGeneric string, decimal, Person
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.FileUploadController">
+            <summary>
+            This sample controller reads the contents of an HTML file upload asynchronously and writes one or more body parts to a local file.
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.FileUploadController.UploadAvatar(System.String,System.Collections.Generic.List{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            Post the avatar file with the userId.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.FileResult">
+            <summary>
+            This class is used to carry the result of various file uploads.
+            </summary>
+        </member>
+        <member name="P:DemoWebApi.Controllers.FileResult.FileNames">
+            <summary>
+            Gets or sets the local path of the file saved on the server.
+            </summary>
+            <value>
+            The local path.
+            </value> 
+        </member>
+        <member name="P:DemoWebApi.Controllers.FileResult.Submitter">
+            <summary>
+            Gets or sets the submitter as indicated in the HTML form used to upload the data.
+            </summary>
+            <value>
+            The submitter.
+            </value>
+        </member>
+        <member name="T:DemoWebApi.Controllers.HeroesController">
+            <summary>
+            Heroes operations. Decorated by nullable directive.
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Get">
+            <summary>
+            Get all heroes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Get(System.Int64)">
+            <summary>
+            Get a hero. Nullable reference. MaybeNull
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.GetSuper(System.Int64)">
+            <summary>
+            MaybeNull
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.PostWithQuery(System.String)">
+            <summary>
+            Add a hero. The client will not expect null. NotNull
+            </summary>
+            <param name="name">name of hero</param>
+            <returns>Always object.</returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Put(DemoWebApi.Controllers.Hero)">
+            <summary>
+            Update hero.
+            </summary>
+            <param name="hero"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.HeroesController.Search(System.String)">
+            <summary>
+            Search heroes
+            </summary>
+            <param name="name">keyword contained in hero name.</param>
+            <returns>Hero array matching the keyword.</returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.Hero">
+            <summary>
+            Complex hero type
+            </summary>
+        </member>
+        <member name="T:DemoWebApi.Controllers.NumbersController">
+            <summary>
+            For testing different commbinations of parameters and returns
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.NumbersController.GetByteWithRange(System.Byte)">
+            <summary>
+            
+            </summary>
+            <param name="d">Byte for small number.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:DemoWebApi.Controllers.NumbersController.PostLongWithRange(System.Int64)">
+            <summary>
+            Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.StringDataController">
+            <summary>
+            For testing posting and getting string data. Returned string is JSON object.
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.StringDataController.AthletheSearch(System.Nullable{System.Int32},System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Athlethe Search
+            </summary>
+            <param name="take">Generic optional parameter. Default 10</param>
+            <param name="skip">Default 0</param>
+            <param name="order">default null</param>
+            <param name="sort"></param>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.StringDataController.GetNullString">
+            <summary>
+            Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.StringDataController.GetEmptyString">
+            <summary>
+            Return empty string JSON object. Status 200.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.SuperDemoController">
+            <summary>
+            For testing different commbinations of parameters and returns
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetNullableDecimal(System.Boolean)">
+            <summary>
+            False to return null, and true to return 1000
+            </summary>
+            <param name="hasValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetDoubleZero">
+            <summary>
+            Result of 0.1d + 0.2d - 0.3d
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetNullPerson">
+            <summary>
+            MaybeNull
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetTextStream">
+            <summary>
+            ActionResult with FileStreamResult
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostInt2D(System.Int32[0:,0:])">
+            <summary>
+            Demo integer array 2D.
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostInt2DJagged(System.Int32[][])">
+            <summary>
+            Demo int[][]
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostIntArray(System.Int32[])">
+            <summary>
+            Demo int[]
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetIntArrayQ(System.Int32[])">
+            <summary>
+            Demo int[];
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetIntArrayQ2(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Demo IEnumerable long
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetDecimalArrayQ(System.Decimal[])">
+            <summary>
+            Demo 
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetStringArrayQ(System.String[])">
+            <summary>
+            Demo string array
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetStringArrayQ2(System.Collections.Generic.List{System.String})">
+            <summary>
+            Demo List string
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.GetEnumArrayDays(System.Collections.Generic.IEnumerable{DemoWebApi.DemoData.Days})">
+            <summary>
+            Demo IEnumerable Days
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostDictionary(System.Collections.Generic.IDictionary{System.String,DemoWebApi.DemoData.Person})">
+            <summary>
+            Demo Dic string and person
+            </summary>
+            <param name="dic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostICollection(System.Collections.Generic.ICollection{DemoWebApi.DemoData.Person})">
+            <summary>
+            Post ICollection of person
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostIList(System.Collections.Generic.IList{DemoWebApi.DemoData.Person})">
+            <summary>
+            Post IList of person
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostIReadOnlyList(System.Collections.Generic.IReadOnlyList{DemoWebApi.DemoData.Person})">
+            <summary>
+            Post e of person
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostIReadOnlyCollection(System.Collections.Generic.IReadOnlyCollection{DemoWebApi.DemoData.Person})">
+            <summary>
+            Post IReadOnlyCollection of person
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostList(System.Collections.Generic.List{DemoWebApi.DemoData.Person})">
+            <summary>
+            Post a list of person
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.SuperDemoController.PostCollection(System.Collections.ObjectModel.Collection{DemoWebApi.DemoData.Person})">
+            <summary>
+            Post a collection of person
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.TextDataController">
+            <summary>
+            For testing posting and getting string data. String returned is text/plain by default
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TextDataController.GetNullString">
+            <summary>
+            Return empty body with status 204 No Content.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TextDataController.GetNullableString">
+            <summary>
+            MaybeNull
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TextDataController.GetEmptyString">
+            <summary>
+            Return empty body with status 200.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DemoWebApi.Controllers.TupleController">
+            <summary>
+            https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
+            </summary>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TupleController.A1TupleArray(System.Tuple{System.Guid,System.Int32}[])">
+            <summary>
+            Update in a transaction
+            </summary>
+            <param name="idAndOrderArray"></param>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TupleController.A2TupleIEnumerable(System.Collections.Generic.IEnumerable{System.Tuple{System.Guid,System.Int32}})">
+            <summary>
+            Update IEnumerable Tuple in a transaction
+            </summary>
+            <param name="idAndOrderArray"></param>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TupleController.ChangeName(System.Tuple{System.String,DemoWebApi.DemoData.Person})">
+            <summary>
+            Post tuple
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TupleController.GetPeopleCompany4">
+            <summary>
+            Get Tuple in return. MaybeNull
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TupleController.GetPeopleCompany5">
+            <summary>
+            MaybeNull
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TupleController.LinkPeopleCompany7(System.Tuple{DemoWebApi.DemoData.Person,DemoWebApi.DemoData.Person,DemoWebApi.DemoData.Person,DemoWebApi.DemoData.Person,DemoWebApi.DemoData.Person,DemoWebApi.DemoData.Person,DemoWebApi.DemoData.Company})">
+            <summary>
+            Post long tuple
+            </summary>
+            <param name="peopleAndCompany"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TupleController.PostTuple2(System.Tuple{System.String,System.Int32})">
+            <summary>
+            Post tuple string int
+            </summary>
+            <param name="tuple"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.TupleController.GetTuple8">
+            <summary>
+            Post nested tuple
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.ValuesController.Get">
+            <summary>
+            Get a list of value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.ValuesController.Get2">
+            <summary>
+            Get a list of value async, it is get2
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.ValuesController.Get(System.Int32,System.String)">
+            <summary>
+            Get by both Id and name
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.ValuesController.Get(System.String)">
+            <summary>
+            Get by name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoWebApi.Controllers.ValuesController.Get(System.Int32)">
+            <summary>
+            Get by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:DemoWebApi.Controllers.ValuesController.Put(System.Int32,System.String)">
+            <summary>
+            Update with valjue
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:DemoCoreWeb.Controllers.SpecialTypesController.GetAnonymousDynamic">
+            <summary>
+            Anonymous Dynamic of C#
+            </summary>
+            <returns>dyanmic things</returns>
+        </member>
+        <member name="M:DemoCoreWeb.Controllers.SpecialTypesController.GetAnonymousDynamic2">
+            <summary>
+            Async function returing dynamic
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoCoreWeb.Controllers.SpecialTypesController.GetAnonymousObject2">
+            <summary>
+            Async function returning object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoCoreWeb.Controllers.SpecialTypesController.PostAnonymousObject2(System.Object)">
+            <summary>
+            Async returning object, Post dynamic
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DemoCoreWeb.ValidateModelAttribute">
+            <summary>
+            Simple model validation. 
+            While https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.infrastructure.modelstateinvalidfilter provides fairly comprehensive handlings.
+            </summary>
+        </member>
+    </members>
+</doc>

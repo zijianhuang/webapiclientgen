@@ -25,6 +25,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Run DemoCoreWeb
-      run: pwsh ./startDemoCoreWeb.ps1
+      run: pwsh ./StartDemoCoreWeb.ps1
     - name: Test
       run: dotnet test --no-build --verbosity normal 

@@ -369,7 +369,7 @@ namespace IntegrationTests
 		/// <summary>
 		/// Expected to fail, before MS would fix Text.Json.JsonSerializer for Jagged array
 		/// </summary>
-		[Fact]
+		[Fact(Skip = "Unitl MS would fix Text.Json.JsonSerializer for Jagged array")]
 		public void TestGetCompany()
 		{
 			Company c = api.GetCompany(1);

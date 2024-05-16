@@ -256,7 +256,7 @@ namespace IntegrationTests
 		/// <summary>
 		/// Expected to fail, before MS would fix Text.Json.JsonSerializer  for 2 dimensional array
 		/// </summary>
-		[Fact]
+		[Fact(Skip = "Unitl MS would fix Text.Json.JsonSerializer for Jagged array")]
 		public void TestPostInt2D()
 		{
 			bool d = api.PostInt2D(new int[,]

@@ -1,9 +1,9 @@
 ﻿#Launch WebApi Website and POST a request for generating client APIs
 cd $PSScriptRoot
-$path = "$PSScriptRoot\DemoGodAssemblyWeb"
+$path = "$PSScriptRoot/DemoGodAssemblyWeb"
 $procArgs = @{
     FilePath         = "dotnet.exe"
-    ArgumentList     = "run $path\DemoGodAssemblyWeb.csproj --no-build"
+    ArgumentList     = "run $path/DemoGodAssemblyWeb.csproj --no-build"
     WorkingDirectory = $path
     PassThru         = $true
 }

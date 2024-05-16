@@ -25,6 +25,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Run DemoCoreWeb
-      run: dotnet ./DemoCoreWeb/bin/Debug/net8.0/DemoCoreWeb.dll
+      run: pwsh ./startDemoCoreWeb.ps1
     - name: Test
       run: dotnet test --no-build --verbosity normal 

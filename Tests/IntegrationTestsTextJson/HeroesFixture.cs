@@ -2,7 +2,7 @@
 
 namespace IntegrationTests
 {
-	public class HeroesFixture : DefaultHttpClient
+	public class HeroesFixture : BasicHttpClient
 	{
 		public HeroesFixture()
 		{
@@ -15,6 +15,8 @@ namespace IntegrationTests
 
 			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
 			//jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			var c = TestingSettings.Instance.ServiceCommands[0];
+			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
 			Api = new DemoWebApi.Controllers.Client.Heroes(HttpClient, jsonSerializerSettings);
 		}
 

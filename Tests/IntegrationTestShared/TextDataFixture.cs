@@ -2,10 +2,12 @@
 
 namespace IntegrationTests
 {
-	public class TextDataFixture : DefaultHttpClient
+	public class TextDataFixture : BasicHttpClient
 	{
 		public TextDataFixture()
 		{
+			var c = TestingSettings.Instance.ServiceCommands[0];
+			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
 			Api = new DemoWebApi.Controllers.Client.TextData(HttpClient);
 		}
 

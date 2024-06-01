@@ -2,7 +2,7 @@
 
 namespace IntegrationTests
 {
-	public class NumbersFixture : DefaultHttpClient
+	public class NumbersFixture : BasicHttpClient
 	{
 		public NumbersFixture()
 		{
@@ -11,6 +11,8 @@ namespace IntegrationTests
 				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
 			};
 
+			var c = TestingSettings.Instance.ServiceCommands[0];
+			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
 			Api = new DemoWebApi.Controllers.Client.Numbers(HttpClient, jsonSerializerSettings);
 		}
 

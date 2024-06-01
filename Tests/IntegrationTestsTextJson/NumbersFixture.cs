@@ -2,7 +2,7 @@
 
 namespace IntegrationTests
 {
-	public class NumbersFixture : DefaultHttpClient
+	public class NumbersFixture : BasicHttpClient
 	{
 		public NumbersFixture()
 		{
@@ -15,6 +15,8 @@ namespace IntegrationTests
 
 			jsonSerializerSettings.Converters.Add(new DemoTextJsonWeb.BigIntegerConverter()); // both client and service must have the same conversion.
 
+			var c = TestingSettings.Instance.ServiceCommands[0];
+			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
 			Api = new DemoWebApi.Controllers.Client.Numbers(HttpClient, jsonSerializerSettings);
 		}
 

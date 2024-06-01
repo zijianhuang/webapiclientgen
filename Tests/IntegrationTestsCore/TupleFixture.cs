@@ -3,7 +3,7 @@ using Fonlow.DateOnlyExtensions;
 
 namespace IntegrationTests
 {
-	public class TupleFixture : DefaultHttpClient
+	public class TupleFixture : BasicHttpClient
 	{
 		public TupleFixture()
 		{
@@ -14,6 +14,8 @@ namespace IntegrationTests
 
 			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
 			//jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
+			var c = TestingSettings.Instance.ServiceCommands[0];
+			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
 			Api = new DemoWebApi.Controllers.Client.Tuple(HttpClient, jsonSerializerSettings);
 		}
 

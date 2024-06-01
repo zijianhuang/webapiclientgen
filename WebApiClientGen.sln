@@ -13,12 +13,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A209BA4-555C-45E6-979B-05F702889260}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		BuildRelease.ps1 = BuildRelease.ps1
 		CreateAspNetCoreClientApi.ps1 = CreateAspNetCoreClientApi.ps1
-		DotNetPack.bat = DotNetPack.bat
+		DotNetPack.ps1 = DotNetPack.ps1
 		Fonlow.ruleset = Fonlow.ruleset
 		readme.md = readme.md
-		ReleaseBuild.bat = ReleaseBuild.bat
-		SettingsExplained.md = SettingsExplained.md
 		SolutionInfo.cs = SolutionInfo.cs
 		WebApiClientGen.msbuild = WebApiClientGen.msbuild
 	EndProjectSection

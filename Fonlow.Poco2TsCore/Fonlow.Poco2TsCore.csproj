@@ -18,7 +18,7 @@
 		</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<NoWarn>1701;1702;1705;1591</NoWarn>
 		<AnalysisLevel>latest-all</AnalysisLevel>
 	</PropertyGroup>
@@ -41,11 +41,11 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
-		<None Include="Readme.md" Pack="true" PackagePath="\" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Readme.md">
+	  <None Update="README.md">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

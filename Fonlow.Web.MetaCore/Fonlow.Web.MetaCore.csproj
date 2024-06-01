@@ -28,7 +28,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<None Update="Readme.md">
+		<None Update="README.md">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

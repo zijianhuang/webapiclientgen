@@ -11,7 +11,7 @@
 		<Version>3.2</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReleaseNotes>For god assembly.</PackageReleaseNotes>
-		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<NoWarn>1701;1702;IDE0057</NoWarn>
 		<AnalysisLevel>latest-all</AnalysisLevel>
 	</PropertyGroup>
@@ -31,7 +31,7 @@
 		<ProjectReference Include="..\Fonlow.DocCommentCore\Fonlow.DocCommentCore.csproj" />
 		<ProjectReference Include="..\Fonlow.Poco2TsCore\Fonlow.Poco2TsCore.csproj" />
 		<ProjectReference Include="..\Fonlow.Web.MetaCore\Fonlow.Web.MetaCore.csproj" />
-		<None Include="Readme.md" Pack="true" PackagePath="\" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>

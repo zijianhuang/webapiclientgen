@@ -15,12 +15,12 @@
 	  <Version>1.0</Version>
 	  <Description>Make ASP.NET serialize integral types of 64bit and BigInteger as JSON string object, utilizing System.Text.Json.</Description>
 	  <RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
-	  <PackageReadmeFile>readme.md</PackageReadmeFile>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <AnalysisLevel>latest-all</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
-	  <None Include="readme.md" Pack="true" PackagePath="\" />
+	  <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

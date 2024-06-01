@@ -635,6 +635,7 @@ namespace Fonlow.Poco2Ts
 		/// It is up to the client codes to decide what pocoType to come int. BCL types and other non-POCO types are not welcome.
 		/// </summary>
 		/// <param name="type">Custom POCO types.</param>
+		/// <param name="dcOnly">Data Contract Only</param>
 		/// <returns>Existing or newly created CodeTypeDeclaration.</returns>
 		public CodeTypeDeclaration CheckOrAdd(Type type, bool dcOnly)
 		{
@@ -691,9 +692,6 @@ namespace Fonlow.Poco2Ts
 		/// <summary>
 		/// Lookup existing CodeTypeDeclaration created for controller class from codeCompileUnit
 		/// </summary>
-		/// <param name="namespaceText"></param>
-		/// <param name="className">Controller name plus suffix</param>
-		/// <returns></returns>
 		public CodeTypeDeclaration LookupExistingClassOfCs(Type type)
 		{
 			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)

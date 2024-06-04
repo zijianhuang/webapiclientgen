@@ -12,7 +12,7 @@ $process = Start-Process @procArgs
 
 #Step 2: Run CodeGen
 $restArgs = @{
-    Uri         = 'http://localhost:5000/api/codegen'
+    Uri         = 'http://localhost:6000/api/codegen'
     Method      = 'Post'
     InFile      = "$path\CodeGen.json"
     ContentType = 'application/json'

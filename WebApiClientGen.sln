@@ -16,7 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		BuildRelease.ps1 = BuildRelease.ps1
 		CreateAspNetCoreClientApi.ps1 = CreateAspNetCoreClientApi.ps1
 		DotNetPack.ps1 = DotNetPack.ps1
-		Fonlow.ruleset = Fonlow.ruleset
 		README.md = README.md
 	EndProjectSection
 EndProject

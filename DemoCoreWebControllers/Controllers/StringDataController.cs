@@ -6,6 +6,7 @@ namespace DemoWebApi.Controllers
 	/// <summary>
 	/// For testing posting and getting string data. Returned string is JSON object.
 	/// </summary>
+	[ApiController]
 	[Produces("application/json")]
 	[Route("api/[controller]")]
 	public class StringDataController : ControllerBase

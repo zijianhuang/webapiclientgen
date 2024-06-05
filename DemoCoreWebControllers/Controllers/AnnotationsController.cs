@@ -7,6 +7,7 @@ namespace PoemsApp.Controllers
 	/// <summary>
 	/// Annotations management
 	/// </summary>
+	[ApiController]
 	[Route("api/[controller]")]
 	public class AnnotationsController : ControllerBase
 	{

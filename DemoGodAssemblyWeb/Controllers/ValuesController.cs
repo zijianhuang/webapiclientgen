@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace DemoWebApi.Controllers
 {
+	[ApiController]
 	[Route("api/[controller]")]
 	public class ValuesController : ControllerBase
 	{

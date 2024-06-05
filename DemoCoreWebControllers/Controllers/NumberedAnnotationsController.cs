@@ -7,6 +7,7 @@ namespace PoemsApp.Controllers
 	/// <summary>
 	/// Annotations management
 	/// </summary>
+	[ApiController]
 	[Route("api/[controller]")]
 	public class NumberedAnnotationsController : ControllerBase
 	{
@@ -14,12 +15,12 @@ namespace PoemsApp.Controllers
 		{
 		}
 
-        /// <summary>
-        /// Delete along with what in poemNumberedAnnotationMap.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpDelete]
+		/// <summary>
+		/// Delete along with what in poemNumberedAnnotationMap.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		[HttpDelete]
 		public bool Delete([FromQuery] Guid id)
 		{
 			throw new NotImplementedException();

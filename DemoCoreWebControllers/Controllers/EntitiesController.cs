@@ -14,6 +14,7 @@ namespace DemoWebApi.Controllers
 	/// Entities, Person and Company
 	/// Some with AuthorizeAttribute
 	/// </summary>
+	[ApiController]
 	[Route("api/[controller]")]
 	public class EntitiesController : ControllerBase
 	{

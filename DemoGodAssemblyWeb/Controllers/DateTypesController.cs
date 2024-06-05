@@ -7,6 +7,7 @@ namespace DemoWebApi.Controllers
 	/// For testing different commbinations of parameters and returns
 	/// </summary>
 	[Route("api/[controller]")]
+	[ApiController]
 	public class DateTypesController : ControllerBase
 	{
 		[HttpGet]

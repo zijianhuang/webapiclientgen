@@ -13,6 +13,7 @@ namespace DemoWebApi.Controllers
 	/// Heroes operations. Decorated by nullable directive.
 	/// </summary>
 	//[ApiController] for opt-in without ApiExplorerVisibilityEnabledConvention
+	[ApiController]
 	[Route("api/[controller]")]
 	[ApiExplorerSettings(IgnoreApi = false)]
 	public class HeroesController : ControllerBase

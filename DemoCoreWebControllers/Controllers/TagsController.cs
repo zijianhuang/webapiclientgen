@@ -7,6 +7,7 @@ namespace PoemsApp.Controllers
 	/// <summary>
 	/// Tags management
 	/// </summary>
+	[ApiController]
 	[Route("api/[controller]")]
 	public class TagsController : ControllerBase
 	{

@@ -6,6 +6,7 @@ namespace DemoWebApi.Controllers
 	/// <summary>
 	/// For testing posting and getting string data. String returned is text/plain by default
 	/// </summary>
+	[ApiController]
 	[Route("api/[controller]")]
 	public class TextDataController : ControllerBase
 	{

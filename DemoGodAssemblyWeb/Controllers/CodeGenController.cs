@@ -8,6 +8,7 @@ using System.Net;
 namespace Fonlow.WebApiClientGen
 {
 	[ApiExplorerSettings(IgnoreApi = true)]
+	[ApiController]
 	[Route("api/[controller]")]
 	public class CodeGenController : ControllerBase
 	{

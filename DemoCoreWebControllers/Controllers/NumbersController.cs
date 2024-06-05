@@ -9,6 +9,7 @@ namespace DemoWebApi.Controllers
 	/// <summary>
 	/// For testing different commbinations of parameters and returns
 	/// </summary>
+	[ApiController]
 	[Route("api/[controller]")]
 	public class NumbersController : ControllerBase
 	{

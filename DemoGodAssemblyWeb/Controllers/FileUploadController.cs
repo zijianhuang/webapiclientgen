@@ -15,6 +15,7 @@ namespace DemoWebApi.Controllers
 	/// This sample controller reads the contents of an HTML file upload asynchronously and writes one or more body parts to a local file.
 	/// </summary>
 	[Route("api/[controller]")]
+	[ApiController]
 	public class FileUploadController : ControllerBase
 	{
 		//static readonly string ServerUploadFolder = Path.GetTempPath();

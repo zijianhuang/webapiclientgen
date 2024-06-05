@@ -6,6 +6,7 @@ namespace PoemsApp.Controllers
 	/// <summary>
 	/// Poems operations; associations with tags, albums and annotations.
 	/// </summary>
+	[ApiController]
 	[Route("api/[controller]")]
 	public class PoemsController : ControllerBase
 	{

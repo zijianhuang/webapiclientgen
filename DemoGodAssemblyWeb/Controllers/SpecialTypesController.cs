@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 namespace DemoCoreWeb.Controllers
 {
+	[ApiController]
 	[Route("api/SpecialTypes")]
 	public class SpecialTypesController : ControllerBase
 	{

@@ -29,7 +29,6 @@ builder.Services.AddControllers(configure =>
 #if DEBUG
 	configure.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
 #endif
-	configure.Filters.Add(new DemoCoreWeb.ValidateModelAttribute());
 })
 .AddNewtonsoftJson(
 	options =>

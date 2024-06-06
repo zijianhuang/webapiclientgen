@@ -42,7 +42,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface Hero {
-		address?: DemoWebApi_DemoData_Client.Address;
+		address?: any;
 		death?: Date | null;
 
 		/** Type: DateOnly */
@@ -57,7 +57,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * String length: inclusive between 2 and 120
 		 */
 		name?: string | null;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+		phoneNumbers?: Array<any>;
 
 		/** Min length: 6 */
 		webAddress?: string | null;
@@ -67,6 +67,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface HeroFormProperties {
+		address: FormControl<any | null | undefined>,
 		death: FormControl<Date | null | undefined>,
 
 		/** Type: DateOnly */
@@ -87,6 +88,7 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 	export function CreateHeroFormGroup() {
 		return new FormGroup<HeroFormProperties>({
+			address: new FormControl<any | null | undefined>(undefined),
 			death: new FormControl<Date | null | undefined>(undefined),
 			dob: new FormControl<Date | null | undefined>(undefined),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
@@ -105,6 +107,7 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 	export function CreateSuperHeroFormGroup() {
 		return new FormGroup<SuperHeroFormProperties>({
+			address: new FormControl<any | null | undefined>(undefined),
 			death: new FormControl<Date | null | undefined>(undefined),
 			dob: new FormControl<Date | null | undefined>(undefined),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),

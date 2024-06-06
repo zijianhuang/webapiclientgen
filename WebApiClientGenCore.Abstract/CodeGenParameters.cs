@@ -1,4 +1,6 @@
 ﻿using Fonlow.Poco2Client;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Fonlow.CodeDom.Web
 {
@@ -25,15 +27,35 @@ namespace Fonlow.CodeDom.Web
 		/// </summary>
 		public string[] ExcludedControllerNames { get; set; }
 
+		string[] dataModelAssemblyNames;
+
 		/// <summary>
 		/// To include assemblies containing data models. Assembly names should be without file extension. An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
 		/// </summary>
-		public string[] DataModelAssemblyNames { get; set; }
+		public string[] DataModelAssemblyNames
+		{
+			get { return dataModelAssemblyNames; }
+			set
+			{
+				dataModelAssemblyNames = value;
+				AllDataModelAssemblyNames = this.GetAllDataModelAssemblyNames();
+			}
+		}
+
+		DataModel[] dataModels;
 
 		/// <summary>
 		/// Similar to DataModelAssemblyNames however, each assembly could have a CherryPickingMethods. An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
 		/// </summary>
-		public DataModel[] DataModels { get; set; }
+		public DataModel[] DataModels
+		{
+			get { return dataModels; }
+			set
+			{
+				dataModels = value;
+				AllDataModelAssemblyNames = this.GetAllDataModelAssemblyNames();
+			}
+		}
 
 		/// <summary>
 		/// Cherry picking methods of POCO classes
@@ -44,6 +66,25 @@ namespace Fonlow.CodeDom.Web
 		/// Used when cherry picking methods is for god assembly (32)
 		/// </summary>
 		public string[] NamespacePrefixesOfGodAssemblyTypes { get; set; }
+
+		public string[] AllDataModelAssemblyNames { get; private set; }
+
+		string[] GetAllDataModelAssemblyNames()
+		{
+			int arraySize = (DataModelAssemblyNames == null ? 0 : DataModelAssemblyNames.Length) + (DataModels == null ? 0 : DataModels.Length);
+			var combinedArray = new string[arraySize];
+			if (DataModelAssemblyNames != null)
+			{
+				DataModelAssemblyNames.CopyTo(combinedArray, 0);
+			}
+
+			if (DataModels != null)
+			{
+				DataModels.Select(d => d.AssemblyName).ToArray().CopyTo(combinedArray, DataModelAssemblyNames == null ? 0 : DataModelAssemblyNames.Length);
+			}
+
+			return combinedArray;
+		}
 	}
 
 	public class DataModel

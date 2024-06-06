@@ -5,27 +5,8 @@
 			"DemoWebApi.Controllers.FileUpload"
 		],
 
-		"DataModels": [
-			{
-				"AssemblyName": "DemoWebApi.DemoDataCore",
-				"CherryPickingMethods": 3
-			},
-
-			{
-				"AssemblyName": "DemoCoreWebControllers",
-				"CherryPickingMethods": 3
-			},
-
-			{
-				"AssemblyName": "Fonlow.PoemsApp.Data",
-				"CherryPickingMethods": 1
-			},
-
-			{
-				"AssemblyName": "DemoCoreWeb",
-				"CherryPickingMethods": 1
-			}
-		]
+		"DataModelAssemblyNames": [ "DemoWebApi.DemoDataCore", "DemoCoreWebControllers", "Fonlow.PoemsApp.Data", "DemoTextJsonWeb" ],
+		"CherryPickingMethods": 3
 	},
 
 	"ClientApiOutputs": {

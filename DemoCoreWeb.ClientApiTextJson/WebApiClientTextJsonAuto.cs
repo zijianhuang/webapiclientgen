@@ -8635,6 +8635,16 @@ namespace DemoWebApi.DemoData.Another.Client
 {
 	
 	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public struct MyPoint
+	{
+		
+		public double X;
+		
+		public double Y;
+	}
+	
 	/// <summary>
 	/// 2D position
 	/// with X and Y
@@ -8659,6 +8669,46 @@ namespace DemoWebApi.DemoData.Another.Client
 namespace DemoWebApi.DemoData.Base.Client
 {
 	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Entity : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Address> Addresses { get; set; }
+		
+		/// <summary>
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		[System.Runtime.Serialization.DataMember()]
+		public string EmailAddress { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Nullable<System.Guid> Id { get; set; }
+		
+		/// <summary>
+		/// Required
+		/// Min length: 2
+		/// Max length: 255
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.MinLength(2)]
+		[System.ComponentModel.DataAnnotations.MaxLength(255)]
+		[System.Runtime.Serialization.DataMember(IsRequired =true)]
+		public string Name { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Collections.ObjectModel.ObservableCollection<DemoWebApi.DemoData.Client.PhoneNumber> PhoneNumbers { get; set; }
+		
+		/// <summary>
+		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.Runtime.Serialization.DataMember()]
+		public System.Uri Web { get; set; }
+	}
 	
 	/// <summary>
 	/// Base class of company and person
@@ -8710,6 +8760,111 @@ namespace DemoWebApi.DemoData.Base.Client
 namespace DemoWebApi.DemoData.Client
 {
 	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Address : object
+	{
+		
+		/// <summary>
+		/// String length: inclusive between 2 and 50
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
+		public string City { get; set; }
+		
+		/// <summary>
+		/// String length: inclusive between 2 and 30
+		/// </summary>
+		[System.ComponentModel.DefaultValueAttribute("Australia")]
+		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
+		public string Country { get; set; } = "Australia";
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		/// <summary>
+		/// String length: inclusive between 2 and 10
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(10, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
+		public string PostalCode { get; set; }
+		
+		/// <summary>
+		/// String length: inclusive between 2 and 30
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
+		public string State { get; set; }
+		
+		/// <summary>
+		/// String length: inclusive between 2 and 100
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
+		public string Street1 { get; set; }
+		
+		/// <summary>
+		/// String length: inclusive between 2 and 100
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.Runtime.Serialization.DataMember()]
+		public string Street2 { get; set; }
+		
+		[System.ComponentModel.DefaultValueAttribute(AddressType.Residential)]
+		[System.Runtime.Serialization.DataMember()]
+		public DemoWebApi.DemoData.Client.AddressType Type { get; set; } = AddressType.Residential;
+		
+		[System.Runtime.Serialization.DataMember()]
+		public DemoWebApi.DemoData.Another.Client.MyPoint Location { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PhoneNumber : object
+	{
+		
+		/// <summary>
+		/// Max length: 120
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.MaxLength(120)]
+		[System.Runtime.Serialization.DataMember()]
+		public string FullNumber { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public DemoWebApi.DemoData.Client.PhoneType PhoneType { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum PhoneType
+	{
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Tel,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Mobile,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Skype,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Fax,
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum AddressType
+	{
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Postal,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Residential,
+	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
@@ -8999,6 +9154,36 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string Tag { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum MyEnumType
+	{
+		
+		[System.Runtime.Serialization.EnumMember()]
+		First = 1,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Two = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class MimsResult<T> : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateTime GeneratedAt { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Message { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public T Result { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public bool Success { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -9323,6 +9508,21 @@ namespace Fonlow.PoemsApp.Data.Client
 		/// </summary>
 		[System.Runtime.Serialization.DataMember()]
 		public string Title { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public enum BodyType
+	{
+		
+		[System.Runtime.Serialization.EnumMember()]
+		Text,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		HTML,
+		
+		[System.Runtime.Serialization.EnumMember()]
+		MD,
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -9686,6 +9886,54 @@ namespace Fonlow.PoemsApp.Data.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
+	public class PoemPictureMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PictureId { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PoemId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemTagMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PoemId { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid TagId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemAlbumMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid AlbumId { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PoemId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class PoemAnnotationMap : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid AnnotationId { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid PoemId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
 	public class PoemBrief : object
 	{
 		
@@ -9757,6 +10005,18 @@ namespace Fonlow.PoemsApp.Data.Client
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public Fonlow.PoemsApp.Data.Client.Tag[] Tags { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Tag : object
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.Guid Id { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Name { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]

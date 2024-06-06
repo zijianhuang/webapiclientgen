@@ -23,7 +23,7 @@ export namespace DemoWebApi_Controllers_Client {
 	 * Complex hero type
 	 */
 	export interface Hero {
-		address?: DemoWebApi_DemoData_Client.Address;
+		address?: any;
 		death?: Date | null;
 
 		/** Type: DateOnly */
@@ -38,7 +38,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * String length: inclusive between 2 and 120
 		 */
 		name?: string | null;
-		phoneNumbers?: Array<DemoWebApi_DemoData_Client.PhoneNumber>;
+		phoneNumbers?: Array<any>;
 
 		/** Min length: 6 */
 		webAddress?: string | null;

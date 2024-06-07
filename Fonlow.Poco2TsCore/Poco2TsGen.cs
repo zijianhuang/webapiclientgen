@@ -37,6 +37,7 @@ namespace Fonlow.Poco2Ts
 		readonly IDictionary<Type, string> dotNetTypeCommentDic;
 
 		readonly string[] dataModelAssemblyNames;
+		readonly CherryPickingMethods cherryPickingMethod;
 
 		/// <summary>
 		/// Poco2TsGen will share the same CodeCompileUnit with other CodeGen components.
@@ -62,14 +63,10 @@ namespace Fonlow.Poco2Ts
 		/// <summary>
 		/// For god assembly.
 		/// </summary>
-		/// <param name="codeCompileUnit"></param>
-		/// <param name="clientNamespaceSuffix"></param>
-		/// <param name="helpStrictMode"></param>
-		/// <param name="codeObjectHelper"></param>
-		/// <param name="dataModelAssemblyNames"></param>
-		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, string[] dataModelAssemblyNames) : this(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper)
+		public Poco2TsGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, string[] dataModelAssemblyNames, CherryPickingMethods cherryPickingMethod) : this(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper)
 		{
 			this.dataModelAssemblyNames = dataModelAssemblyNames;
+			this.cherryPickingMethod = cherryPickingMethod;
 		}
 		/// <summary>
 		/// Save TypeScript codes generated into a file.
@@ -653,7 +650,7 @@ namespace Fonlow.Poco2Ts
 			if (type.IsGenericType)
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
-				if (dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
+				if (cherryPickingMethod== CherryPickingMethods.GodAssembly && dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
 				{
 					Type foundTypeDef = PodGenHelper.FindGenericTypeDef(type.Assembly, $"{type.Namespace}.{type.Name}");
 					if (foundTypeDef is not null && LookupExistingClassOfCs(foundTypeDef) is null)
@@ -680,7 +677,7 @@ namespace Fonlow.Poco2Ts
 			else
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
-				if (dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
+				if (cherryPickingMethod == CherryPickingMethods.GodAssembly &&  dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
 				{
 					AddCodeTypeDeclaration(type, dcOnly);
 				}

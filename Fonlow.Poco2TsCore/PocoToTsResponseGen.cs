@@ -1,4 +1,5 @@
-﻿using Fonlow.TypeScriptCodeDom;
+﻿using Fonlow.Poco2Client;
+using Fonlow.TypeScriptCodeDom;
 using System;
 using System.CodeDom;
 
@@ -15,8 +16,8 @@ namespace Fonlow.Poco2Ts
 
 		}
 
-		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, string[] dataModelAssemblyNames)
-			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true), dataModelAssemblyNames)
+		public PocoToTsResponseGen(CodeCompileUnit codeCompileUnit, string clientNamespaceSuffix, bool helpStrictMode, CodeObjectHelper codeObjectHelper, string[] dataModelAssemblyNames, CherryPickingMethods cherryPickingMethods)
+			: base(codeCompileUnit, clientNamespaceSuffix, helpStrictMode, codeObjectHelper ?? new CodeObjectHelper(true), dataModelAssemblyNames, cherryPickingMethods)
 		{
 
 		}

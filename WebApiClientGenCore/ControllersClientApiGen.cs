@@ -90,13 +90,14 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null)
 			{
 				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				Assembly[] assemblies = allAssemblies.Where(d => codeGenSettings.ApiSelections.DataModelAssemblyNames.Any(k => k.Equals(d.GetName().Name, StringComparison.OrdinalIgnoreCase)))
-					.OrderBy(n => n.FullName)
-					.ToArray();
 				CherryPickingMethods cherryPickingMethods = codeGenSettings.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenSettings.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
-				foreach (Assembly assembly in assemblies)
+				foreach (string assemblyName in codeGenSettings.ApiSelections.DataModelAssemblyNames)
 				{
-					Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, null);
+					Assembly assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(assemblyName, StringComparison.OrdinalIgnoreCase));
+					if (assembly != null)
+					{
+						Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, codeGenSettings.ClientApiOutputs.DataAnnotationsToComments);
+					}
 				}
 			}
 

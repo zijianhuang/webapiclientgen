@@ -18,7 +18,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DemoWebApi.DemoDataCore\DemoWebApi.DemoDataCore.csproj" />
-		<ProjectReference Include="..\Fonlow.PoemsApp.Data\Fonlow.PoemsApp.Data.csproj" />
 		<ProjectReference Include="..\WebApiClientGenCore\WebApiClientGenCore.csproj" />
 	</ItemGroup>
 

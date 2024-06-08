@@ -10,7 +10,7 @@
 		<Company></Company>
 		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
-		<Version>2.3.3</Version>
+		<Version>2.3.4</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<NoWarn>1701;1702;1705;1591</NoWarn>

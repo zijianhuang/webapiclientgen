@@ -31,6 +31,7 @@ namespace Fonlow.CodeDom.Web
 		/// <summary>
 		/// To include assemblies containing data models. Assembly names should be without file extension. 
 		/// An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
+		/// If the Web API assembly is also included, it should be behind those data model assemblies that it depends on.
 		/// </summary>
 		public string[] DataModelAssemblyNames
 		{
@@ -45,7 +46,9 @@ namespace Fonlow.CodeDom.Web
 		DataModel[] dataModels;
 
 		/// <summary>
+		/// This provides fine-grained control over the cherry picking method of each data model assemblies.
 		/// Similar to DataModelAssemblyNames however, each assembly could have a CherryPickingMethods. An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
+		/// If the Web API assembly is also included, it should be behind those data model assemblies that it depends on.
 		/// </summary>
 		public DataModel[] DataModels
 		{

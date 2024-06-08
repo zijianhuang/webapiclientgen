@@ -1,5 +1,6 @@
-﻿**For ASP.NET Core 6 **
-**For ASP.NET Core 7 and above, needed by .NET Framework clients, JavaScript clients and any naughty client, since System.Text.Json is a bit less fault tolerant thant Newtonsoft.Json **
+﻿**For ASP.NET Core 6**
+
+**For ASP.NET Core 7 and above, needed by .NET Framework clients, JavaScript clients and any naughty client, since System.Text.Json is a bit less fault tolerant than Newtonsoft.Json**
 
 Customized serialization for DateOnly in ASP.NET Core 6 and above.
 

@@ -10971,43 +10971,6 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 	}
 }
-
-namespace Fonlow.Net.Http
-{
-	using System.Net.Http;
-
-	public class WebApiRequestException : HttpRequestException
-	{
-		public new System.Net.HttpStatusCode StatusCode { get; private set; }
-
-		public string Response { get; private set; }
-
-		public System.Net.Http.Headers.HttpResponseHeaders Headers { get; private set; }
-
-		public System.Net.Http.Headers.MediaTypeHeaderValue ContentType { get; private set; }
-
-		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.HttpResponseHeaders headers, System.Net.Http.Headers.MediaTypeHeaderValue contentType) : base(message)
-		{
-			StatusCode = statusCode;
-			Response = response;
-			Headers = headers;
-			ContentType = contentType;
-		}
-	}
-
-	public static class ResponseMessageExtensions
-	{
-		public static void EnsureSuccessStatusCodeEx(this HttpResponseMessage responseMessage)
-		{
-			if (!responseMessage.IsSuccessStatusCode)
-			{
-				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
-				var contentType = responseMessage.Content.Headers.ContentType;
-				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, responseMessage.Headers, contentType);
-			}
-		}
-	}
-}
 namespace PoemsApp.Controllers.Client
 {
 	using System;
@@ -14604,6 +14567,43 @@ namespace PoemsApp.Controllers.Client
 			finally
 			{
 				responseMessage.Dispose();
+			}
+		}
+	}
+}
+
+namespace Fonlow.Net.Http
+{
+	using System.Net.Http;
+
+	public class WebApiRequestException : HttpRequestException
+	{
+		public new System.Net.HttpStatusCode StatusCode { get; private set; }
+
+		public string Response { get; private set; }
+
+		public System.Net.Http.Headers.HttpResponseHeaders Headers { get; private set; }
+
+		public System.Net.Http.Headers.MediaTypeHeaderValue ContentType { get; private set; }
+
+		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.HttpResponseHeaders headers, System.Net.Http.Headers.MediaTypeHeaderValue contentType) : base(message)
+		{
+			StatusCode = statusCode;
+			Response = response;
+			Headers = headers;
+			ContentType = contentType;
+		}
+	}
+
+	public static class ResponseMessageExtensions
+	{
+		public static void EnsureSuccessStatusCodeEx(this HttpResponseMessage responseMessage)
+		{
+			if (!responseMessage.IsSuccessStatusCode)
+			{
+				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
+				var contentType = responseMessage.Content.Headers.ContentType;
+				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, responseMessage.Headers, contentType);
 			}
 		}
 	}

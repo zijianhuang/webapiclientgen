@@ -10,11 +10,11 @@
 		<PackageReleaseNotes>For god assembly.</PackageReleaseNotes>
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
-		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
+		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3.11.1</Version>
+		<Version>3.11.2</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 		<AnalysisLevel>latest-all</AnalysisLevel>

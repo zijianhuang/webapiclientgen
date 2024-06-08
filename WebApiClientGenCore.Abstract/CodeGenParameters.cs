@@ -29,7 +29,8 @@ namespace Fonlow.CodeDom.Web
 		string[] dataModelAssemblyNames;
 
 		/// <summary>
-		/// To include assemblies containing data models. Assembly names should be without file extension. An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
+		/// To include assemblies containing data models. Assembly names should be without file extension. 
+		/// An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
 		/// </summary>
 		public string[] DataModelAssemblyNames
 		{

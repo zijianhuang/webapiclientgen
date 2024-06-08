@@ -338,7 +338,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		void CreateDummyOfEnsureSuccessStatusCodeEx()
 		{
-			targetUnit.Namespaces.InsertToSortedCollection("EnsureSuccessStatusCodeExDummy", false);
+			targetUnit.Namespaces.InsertToSortedCollection("ZZZzzzEnsureSuccessStatusCodeExDummy", false); // ZZZ to ensure this block is the last one, hopefully.
 		}
 
 		/// <summary>
@@ -389,7 +389,7 @@ namespace Fonlow.Net.Http
 		/// </summary>
 		const string dummyBlock =
 			@"
-namespace EnsureSuccessStatusCodeExDummy
+namespace ZZZzzzEnsureSuccessStatusCodeExDummy
 {
 	
 }";

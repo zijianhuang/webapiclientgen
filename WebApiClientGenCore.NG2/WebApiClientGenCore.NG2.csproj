@@ -8,12 +8,12 @@
 		<PackageReleaseNotes>For god assembly.</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
+		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyName>Fonlow.WebApiClientGenCore.NG2</AssemblyName>
-		<Version>3.10.1</Version>
+		<Version>3.10.2</Version>
 		<PackageTags>Angular</PackageTags>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

@@ -5,10 +5,10 @@
 		<AssemblyName>Fonlow.WebApiClientGenCore.Abstract</AssemblyName>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Description>Abstract classes and common classes shared by WebApiClientGen and its plugins</Description>
-		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
+		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Version>3.2.1</Version>
+		<Version>3.2.3</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReleaseNotes>For god assembly.</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

@@ -6,7 +6,7 @@
 		<Version>1.6.4</Version>
 		<Description>Basic functions of accessing XML Doc Comments.</Description>
 		<PackageReleaseNotes>Build for .NET 7</PackageReleaseNotes>
-		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
+		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>

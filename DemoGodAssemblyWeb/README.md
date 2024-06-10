@@ -4,9 +4,9 @@ WebApiClientGen presumes that application developers use opt-in approaches for c
 1. Publish some service data models to clients, but without API functions.
 1. Publish custom data models used in Web API functions plus some data models not used in Web API functions directly.
 
-However, typical scaffolding codes of Visual Studio for Web projects as well as other host projects like WinForms, WPF, Xamarin and MAUI are typically contained in a "god assembly". Many so called enterprise applications or ASP.NET Web API projects have been evolving from such god assembly from initial scaffolding codes, becoming a bigger and bigger god assembly.
+Typical scaffolding codes of Visual Studio for Web projects as well as other host projects like WinForms, WPF, Xamarin and MAUI are typically contained in a "god assembly", a single application project. Many so called enterprise applications or ASP.NET Web API projects have been evolving from such god assembly from the initial scaffolding codes, becoming a bigger and bigger god assembly.
 
-Having a god assembly is not wrong, since it is just a fact or an inconvenient truth in the software development industries, thus WebApiClientGen prvides some reluctant support to god ASP.NET Core Web API assembly.
+Having a god assembly is not wrong, since it is just a fact or an inconvenient truth in the software development industries, thus WebApiClientGen provides some reluctant support to god ASP.NET Core Web API assembly.
 
 Having a god class is not wrong, however nasty consequences have been well documented in various software engineering text books.
 

@@ -1,2 +1,3 @@
 #Run prod build with dotnet hosting
-dotnet-serve -d C:/VSProjects/OpenSource/webapiclientgen/ngdist/dev -p 5200
+cd $PSScriptRoot
+dotnet-serve -d ../ngdist/dev -p 5200

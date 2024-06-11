@@ -4,7 +4,7 @@ cd $PSScriptRoot
 $path = "$PSScriptRoot/DemoTextJsonWeb"
 $procArgs = @{
     FilePath         = "dotnet.exe"
-    ArgumentList     = "run $path/DemoTextJsonWeb.csproj --no-build"
+    ArgumentList     = "run $path/DemoTextJsonWeb.csproj --no-build --launch-profile CodeGen"
     WorkingDirectory = $path
     PassThru         = $true
 }
@@ -12,7 +12,7 @@ $process = Start-Process @procArgs
 
 #Step 2: Run CodeGen
 $restArgs = @{
-    Uri         = 'http://localhost:6000/api/codegen'
+    Uri         = 'http://localhost:5000/api/codegen'
     Method      = 'Post'
     InFile      = "$path/CodeGen.json"
     ContentType = 'application/json'

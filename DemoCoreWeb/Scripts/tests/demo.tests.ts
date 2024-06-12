@@ -42,7 +42,7 @@ module CommonCases {
 	QUnit.module("Heroes", function () {
 		QUnit.test("GetAll", function (assert) {
 			let done = assert.async();
-			heroesApi.getHeros(data => {
+			heroesApi.getHeroes(data => {
 				assert.ok(data.length > 0);
 				done();
 			});

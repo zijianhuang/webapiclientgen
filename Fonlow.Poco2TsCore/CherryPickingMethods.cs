@@ -48,7 +48,7 @@ namespace Fonlow.Poco2Client
 		/// DataModelAssemblyNames should include name of the god assembly, and optionally a few assemblies that the god assembly references to, which contain other custom POCO classes.
 		/// The normination of assemblies DataModelAssemblyNames also give signals to the codegen to distinguish custom POCO classes from BCL classes.
 		/// </summary>
-		GodAssembly = 32,
+		ApiOnly = 32,
 	}
 
 	/// <summary>

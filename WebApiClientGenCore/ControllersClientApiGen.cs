@@ -136,7 +136,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		{
 			ArgumentNullException.ThrowIfNull(webApiDescriptions);
 
-			if (codeGenSettings.ApiSelections.CherryPickingMethods == CherryPickingMethods.GodAssembly)
+			if (codeGenSettings.ApiSelections.CherryPickingMethods == CherryPickingMethods.ApiOnly)
 			{
 				GenerateClientTypesFormWebApis(webApiDescriptions);
 			}

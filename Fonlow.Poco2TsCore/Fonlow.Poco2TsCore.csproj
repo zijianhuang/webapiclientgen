@@ -35,7 +35,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Fonlow.TypeScriptCodeDomCore" Version="3.2.1" />
+		<PackageReference Include="Fonlow.TypeScriptCodeDomCore" Version="3.2.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 

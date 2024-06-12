@@ -650,7 +650,7 @@ namespace Fonlow.Poco2Ts
 			if (type.IsGenericType)
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
-				if (cherryPickingMethod== CherryPickingMethods.GodAssembly && dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
+				if (cherryPickingMethod== CherryPickingMethods.ApiOnly && dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
 				{
 					Type foundTypeDef = PodGenHelper.FindGenericTypeDef(type.Assembly, $"{type.Namespace}.{type.Name}");
 					if (foundTypeDef is not null && LookupExistingClassOfCs(foundTypeDef) is null)
@@ -677,7 +677,7 @@ namespace Fonlow.Poco2Ts
 			else
 			{
 				var assemblyFilename = type.Assembly.GetName().Name;
-				if (cherryPickingMethod == CherryPickingMethods.GodAssembly &&  dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
+				if (cherryPickingMethod == CherryPickingMethods.ApiOnly &&  dataModelAssemblyNames != null && dataModelAssemblyNames.Contains(assemblyFilename))
 				{
 					AddCodeTypeDeclaration(type, dcOnly);
 				}
@@ -756,7 +756,7 @@ namespace Fonlow.Poco2Ts
 			CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
 			string[] clientNamespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
 			string[] namespacesOfTypes = clientNamespacesOfTypes.Select(d => d.Substring(0, d.Length - ClientNamespaceSuffix.Length)).ToArray();
-			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, CherryPickingMethods.GodAssembly);
+			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, CherryPickingMethods.ApiOnly);
 
 			return r;
 		}

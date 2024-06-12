@@ -81,7 +81,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			AddBasicReferences();
 
-			if (apiSelections.CherryPickingMethods == CherryPickingMethods.GodAssembly)
+			if (apiSelections.CherryPickingMethods == CherryPickingMethods.ApiOnly)
 			{
 				GenerateClientTypesFormWebApis(webApiDescriptions);
 			}

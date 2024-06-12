@@ -10,7 +10,7 @@ namespace Fonlow.DocComment
 	/// </summary>
 	public static class DocCommentHelper
 	{
-		const string newLine="\r\n";
+		static readonly string newLine=Environment.NewLine;
 
 		public static string GetSummary(docMember m)
 		{

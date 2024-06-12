@@ -13,7 +13,7 @@
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <AssemblyName>Fonlow.WebApiClientGenCore.NG2FormGroup</AssemblyName>
-	  <Version>1.6.5</Version>
+	  <Version>1.6.6</Version>
 	  <PackageTags>Angular</PackageTags>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>

@@ -1,1 +1,2 @@
-﻿dotnet build webapiclientgen.sln  --configuration Release --no-incremental
+﻿cd $PSScriptRoot
+dotnet build webapiclientgen.sln  --configuration Release --no-incremental

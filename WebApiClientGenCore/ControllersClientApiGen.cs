@@ -62,7 +62,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			string s = stringReader.ReadToEnd();
 			if (codeGenSettings.ClientApiOutputs.UseEnsureSuccessStatusCodeEx && codeGenSettings.ClientApiOutputs.IncludeEnsureSuccessStatusCodeExBlock)
 			{
-				fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, blockOfEnsureSuccessStatusCodeEx));
+				fileWriter.Write(s.Replace("//;", "").Replace(dummyBlock, System.OperatingSystem.IsWindows() ? blockOfEnsureSuccessStatusCodeEx : GetBlockOfEnsureSuccessStatusCodeExForLinux()));
 			}
 			else
 			{
@@ -341,12 +341,16 @@ namespace Fonlow.CodeDom.Web.Cs
 			targetUnit.Namespaces.InsertToSortedCollection("ZZZzzzEnsureSuccessStatusCodeExDummy", false); // ZZZ to ensure this block is the last one, hopefully.
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <remarks>In .NEt 6, StatusCode of HttpRequestException is not there anymore.</remarks>
-		const string blockOfEnsureSuccessStatusCodeEx =
-		@"
+        static string GetBlockOfEnsureSuccessStatusCodeExForLinux()
+        {
+            return blockOfEnsureSuccessStatusCodeEx.ReplaceLineEndings();
+        }
+
+        /// <summary>
+        /// Code block for Windows with \r\n
+        /// </summary>
+        const string blockOfEnsureSuccessStatusCodeEx =
+        @"
 
 namespace Fonlow.Net.Http
 {
@@ -384,17 +388,13 @@ namespace Fonlow.Net.Http
 		}
 	}
 }";
-		/// <summary>
-		/// The block must be with CRLF (\r\n) for lline break, and tab between {}.
-		/// </summary>
-		const string dummyBlock =
-			@"
-namespace ZZZzzzEnsureSuccessStatusCodeExDummy
-{
-	
-}";
+        /// <summary>
+        /// Block also working well in Linux while C# CodeDOM outputs with \n
+        /// </summary>
+        string dummyBlock =
+            $"{Environment.NewLine}namespace ZZZzzzEnsureSuccessStatusCodeExDummy{Environment.NewLine}{{{Environment.NewLine}\t{Environment.NewLine}}}";
 
-		protected virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)
 			{

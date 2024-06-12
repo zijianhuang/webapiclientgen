@@ -501,7 +501,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get all heroes.
 		 * GET api/Heroes
 		 */
-		getHeros(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
+		getHeroes(headersHandler?: () => HttpHeaders): Observable<Array<DemoWebApi_Controllers_Client.Hero>> {
 			return this.http.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes', { headers: headersHandler ? headersHandler() : undefined });
 		}
 

@@ -14,7 +14,7 @@ export class HeroesComponent implements OnInit {
     private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes,
     private router: Router) { }
   getHeroes(): void {
-    this.heroService.getHeros().subscribe(
+    this.heroService.getHeroes().subscribe(
       heroes => {
         this.heroes = heroes;
       }

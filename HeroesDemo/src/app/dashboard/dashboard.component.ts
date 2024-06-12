@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   constructor(private heroService: namespaces.DemoWebApi_Controllers_Client.Heroes) { }
 
   ngOnInit(): void {
-    this.heroService.getHeros().subscribe(
+    this.heroService.getHeroes().subscribe(
       {
         next: heroes => {
           this.heroes = heroes.slice(1, 5);

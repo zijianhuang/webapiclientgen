@@ -430,7 +430,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get all heroes.
 		 * GET api/Heroes
 		 */
-		getHeros(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+		getHeroes(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
 			return Axios.get<Array<DemoWebApi_Controllers_Client.Hero>>(this.baseUri + 'api/Heroes', { headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=204) return d.data; throw d;});
 		}
 

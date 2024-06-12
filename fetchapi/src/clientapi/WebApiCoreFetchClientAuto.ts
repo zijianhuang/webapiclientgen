@@ -428,7 +428,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Get all heroes.
 		 * GET api/Heroes
 		 */
-		getHeros(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
+		getHeroes(headersHandler?: () => {[header: string]: string}): Promise<Array<DemoWebApi_Controllers_Client.Hero>> {
 			return fetch(this.baseUri + 'api/Heroes', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 

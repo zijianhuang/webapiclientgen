@@ -2319,7 +2319,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get all heroes.
 		/// GET api/Heroes
 		/// </summary>
-		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetHerosAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetHeroesAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -2342,7 +2342,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get all heroes.
 		/// GET api/Heroes
 		/// </summary>
-		public DemoWebApi.Controllers.Client.Hero[] GetHeros(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public DemoWebApi.Controllers.Client.Hero[] GetHeroes(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);

@@ -26,7 +26,7 @@ namespace IntegrationTests
 		[Fact]
 		public void TestGetHeroes()
 		{
-			DemoWebApi.Controllers.Client.Hero[] array = api.GetHeros();
+			DemoWebApi.Controllers.Client.Hero[] array = api.GetHeroes();
 			Assert.NotEmpty(array);
 		}
 

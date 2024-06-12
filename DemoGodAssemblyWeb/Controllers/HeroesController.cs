@@ -23,7 +23,7 @@ namespace DemoWebApi.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
-		[ActionName("GetHeros")]
+		[ActionName("GetHeroes")]
 		public Hero[] Get()
 		{
 			return HeroesData.Instance.Dic.Values.ToArray();

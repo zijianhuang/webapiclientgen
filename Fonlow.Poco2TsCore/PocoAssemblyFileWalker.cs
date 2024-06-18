@@ -42,7 +42,7 @@ namespace Fonlow.Poco2Ts
 		{
 			try
 			{
-				return Assembly.LoadFile(assemblyFilePath);
+				return Assembly.LoadFrom(assemblyFilePath);
 			}
 			catch (Exception ex) when (ex is System.IO.FileLoadException || ex is BadImageFormatException || ex is System.IO.FileNotFoundException || ex is ArgumentException )
 			{

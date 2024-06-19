@@ -430,7 +430,7 @@ namespace Fonlow.CodeDom.Web.Cs
 				else
 				{
 					clientMethod.Statements.Add(new CodeSnippetStatement(
-	$"\t\t\tusing var requestWriter = new System.IO.StringWriter();{Environment.NewLine}t\t\tvar requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
+	$"\t\t\tusing var requestWriter = new System.IO.StringWriter();{Environment.NewLine}\t\t\tvar requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
 	));
 					clientMethod.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
 						new CodeSnippetExpression("requestWriter"),

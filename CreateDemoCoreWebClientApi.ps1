@@ -37,4 +37,7 @@ Invoke-Expression "tsc.ps1 --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/Cli
 Invoke-Expression "tsc.ps1 --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/tests/demo.tests.ts"
 Invoke-Expression "tsc.ps1 --target es2022 $PSScriptRoot/DemoCoreWeb/Scripts/tests/special.tests.ts"
 
+#Step 4: Build the .NET lib to verify
+dotnet build ./DemoCoreWeb.ClientApi/DemoCoreWeb.ClientApi.csproj
+
 Stop-Process $process

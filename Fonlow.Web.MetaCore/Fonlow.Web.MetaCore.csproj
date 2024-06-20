@@ -31,5 +31,9 @@
 	<ItemGroup>
 		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="Tavis.UriTemplates" Version="2.0.0" />
+	</ItemGroup>
 
 </Project>

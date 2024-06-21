@@ -8,18 +8,15 @@ This project delivers these products:
 1. [TypeScript CodeDOM](https://github.com/zijianhuang/TypeScriptCodeDOM), a .NET CodeDOM component for TypeScript for developing TypeScript code generators.
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.
+1. Plugins for jQuery, AXIOS, Fetch API, Aurelia, Angular 2+ as well as Angular Typed Reactive Forms.
 1. [Fonlow.DataOnlyExtensions](https://www.codeproject.com/Articles/5325820/DateOnly-in-NET-6-and-ASP-NET-Core-6) with JSON converters for handling date only scenarios between the clients and server which sit in different timezones. A .NET Framework package is also available.
 
 
-![Packages](/Doc/images/WebApiClientGen.png)
+![Packages](./Doc/images/WebApiClientGen.png)
 
 ## Use Cases and Downloads
 
 The products are released mostly through NuGet.
-1. Develop TypeScript code generator through the CodeDOM approach, then use package [Fonlow.TypeScriptCodeDOMCore](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore).
-1. Develop TypeScript code generator through the CodeDOM approach for POCO and more, then use package [Fonlow.Poco2TSCore](https://www.nuget.org/packages/Fonlow.Poco2TsCore) 
-1. Generate TypeScript type interfaces, then use [Poco2TSCore.exe, a console app](https://github.com/zijianhuang/webapiclientgen/releases/tag/v7.2).
-1. Develop a feature that reads XML document of an .NET assembly, then use package [Fonlow.DocCommentCore](https://www.nuget.org/packages/Fonlow.DocCommentCore).
 1. Generate C# client API, then use package [Fonlow.WebApiClientGenCore](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore/)
 1. Generate TypeScript client API, then use one of the plugins of Fonlow.WebApiClientGenCore:
 	1. [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery/) and [HttpClient helper library](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWeb/Scripts/ClientApi/HttpClient.ts)
@@ -28,12 +25,16 @@ The products are released mostly through NuGet.
 	1. [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios/)
 	1. [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia/)
 	1. [Fetch API](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Fetch/)
+1. Develop TypeScript code generator through the CodeDOM approach, then use package [Fonlow.TypeScriptCodeDOMCore](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOMCore).
+1. Develop TypeScript code generator through the CodeDOM approach for POCO and more, then use package [Fonlow.Poco2TSCore](https://www.nuget.org/packages/Fonlow.Poco2TsCore) , or use PowerShell 7 scripts.
+1. Generate TypeScript type interfaces, then use [Poco2TSCore.exe, a console app](https://github.com/zijianhuang/webapiclientgen/releases/tag/v7.2).
+1. Develop a feature that reads XML document of an .NET assembly, then use package [Fonlow.DocCommentCore](https://www.nuget.org/packages/Fonlow.DocCommentCore).
 
 
 **Hints:**
 
 * [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) based on key components of WebApiClientGen is a spin-off for generating client API codes in C# and TypeScript according to a definition file of Swagger/Open API Specification.
-* WebApiClientGen does not utilize Swagger / OpenAPI definitions, but generate codes from run time type info of a running Web API of the debug build, getting rid of the inherent limitations of OpenAPI against .NET types and Web API to give better developer experience to ASP.NET Web API developers.
+* WebApiClientGen does not utilize Swagger / OpenAPI definitions, but generate codes from run time type info of a running Web API of the debug build, getting rid of the inherent limitations of OpenAPI against .NET types and Web API to give better developer experience to ASP.NET (Core) Web API developers.
 
 **Remarks:**
 
@@ -44,7 +45,8 @@ The products are released mostly through NuGet.
 ## Key Features
 1. Client API codes generated are directly mapped from the Web API controller methods, .NET primitive types and POCO classes. This is similar to what svcutil.exe in WCF has offered.
 1. Doc comments of controller methods and POCO classes are copied. 
-
+1. Some validation attributes are used to generate doc comments for TypeScript codes.
+ 
 ## Key Benefits for Developer Experience
 
 1. WebApiClientGen is seamlessly integrated with ASP.NET Core Web API with very little steps/overheads to setup, maintain and synchronize between Web API and client APIs, during RAD or Agile Software Development.
@@ -75,7 +77,7 @@ The products are released mostly through NuGet.
 
 # Concepts
 1. Web API vendors / developers should provide client API libraries to developers of client programs, as Google and Amazon etc. would do in order to make the RESTful Web API reach wider consumers (internal and external) efficiently.
-1. To client developers, classic function prototypes like `ReturnType DoSomething(Type1 t1, Type2 t2 ...) ` is the API function, and the rest is the technical implementation details of transportations: TCP/IP, HTTP, SOAP, resource-oriented, CRUD-based URIs, RESTful, XML and JSON etc. The function prototype and a piece of API document should be good enough for calling the API function.
+1. To client developers, classic function prototypes like `ReturnType DoSomething(Type1 t1, Type2 t2 ...) ` is the API function, and the rest is the technical implementation details of transportation: TCP/IP, HTTP, SOAP, resource-oriented, CRUD-based URIs, RESTful, XML and JSON etc. The function prototype and a piece of API document should be good enough for calling the API function.
 1. The better you have separation of concerns in your Web API design, the more you will benefit from the components of this project in order to deliver business values sooner, with less handcrafted codes , less repetitive tasks and less chances of human mistakes.
 
 ## Expected Programming Practices
@@ -111,7 +113,7 @@ References:
 * [Model Validation in ASP.NET Web API](https://learn.microsoft.com/en-us/aspnet/web-api/overview/formats-and-model-binding/model-validation-in-aspnet-web-api#handling-validation-errors)
 * [Model Validation in ASP.NET Core MVC and Razor Pages](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation)
 
-### Non-2xx HTTP Statu Codes Handled by Middleware, optional
+### Non-2xx HTTP Status Codes Handled by Middleware, optional
 
 Even if you explicitly write codes in an API function to handle exceptions and return non-2xx HTTP status code, you should have a safty net of catching uncaught exceptions and return HTTP status codes.
 
@@ -122,9 +124,9 @@ References:
 ## Prerequisites
 
 **Server side:**
-1. .NET 7
-
-And in the service startup codes, ensure the following:
+1. .NET 7/8
+2. Add [CodeGenController](https://github.com/zijianhuang/webapiclientgen/blob/master/DemoCoreWebControllers/Controllers/CodeGenController.cs).
+3. In the service startup codes, add the following:
 ```c#
 services.AddControllers(
 	options =>
@@ -192,9 +194,9 @@ These demo applications are actively maintained and kept up-to-date with the lat
 
 To illustrate the programmer experience of using WebApiClientGen, the following demo apps are crafted with similar architectural design for the same functional features on various development frameworks or libraries, however, talking to a real backend.
 
-1. [Angular 2+](https://github.com/zijianhuang/webapiclientgen/tree/master/HeroesDemo)
+1. [Angular 2+](https://github.com/zijianhuang/webapiclientgen/tree/master/HeroesDemo), and [Typed Reactive Forms](https://www.codeproject.com/Articles/5374226/Generate-Typed-FormGroup-of-Angular-Reactive-Forms)
 1. [Xamarin](https://github.com/zijianhuang/webapiclientgenexamples/tree/master/Mobile)
 1. [MAUI](https://github.com/zijianhuang/DemoCoreWeb/tree/master/mobile). Migrated from Xamarin Heroes.
 1. [Aurelia](https://github.com/zijianhuang/DemoCoreWeb/tree/master/AureliaHeroes). Integration test suite included.
 1. [React](https://github.com/zijianhuang/DemoCoreWeb/tree/master/ReactHeroes).  Integration test suite included.
-
+1. [Blazor Standalone](https://www.codeproject.com/Articles/5383736/Tour-of-Heroes-Blazor-WebAssembly-Standalone-App)

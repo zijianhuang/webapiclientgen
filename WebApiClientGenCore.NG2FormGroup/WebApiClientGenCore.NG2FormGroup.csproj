@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFramework>net7.0</TargetFramework>
+	  <TargetFramework>net8.0</TargetFramework>
 	  <PackageId>Fonlow.WebApiClientGenCore.NG2FormGroup</PackageId>
 	  <Authors>Zijian Huang</Authors>
 	  <Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+, plus helper interfaces and functions for creating FormGroup of Angular Reactive Forms.</Description>
@@ -13,7 +13,7 @@
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	  <AssemblyName>Fonlow.WebApiClientGenCore.NG2FormGroup</AssemblyName>
-	  <Version>1.6.6</Version>
+	  <Version>1.7</Version>
 	  <PackageTags>Angular</PackageTags>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>

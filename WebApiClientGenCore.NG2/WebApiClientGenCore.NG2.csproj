@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<PackageId>Fonlow.WebApiClientGenCore.NG2</PackageId>
 		<Authors>Zijian Huang</Authors>
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Angular 6+.</Description>
@@ -13,7 +13,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyName>Fonlow.WebApiClientGenCore.NG2</AssemblyName>
-		<Version>3.10.4</Version>
+		<Version>4.0</Version>
 		<PackageTags>Angular</PackageTags>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

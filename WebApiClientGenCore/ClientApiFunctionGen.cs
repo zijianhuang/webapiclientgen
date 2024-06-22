@@ -425,21 +425,20 @@ namespace Fonlow.CodeDom.Web.Cs
             {
                 if (codeGenOutputsSettings.UseSystemTextJson)
                 {
-                    //clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
                     clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"var content = System.Net.Http.Json.JsonContent.Create({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, mediaType: null, jsonSerializerSettings);"));
                 }
                 else
                 {
                     clientMethod.Statements.Add(new CodeSnippetStatement(
-    $"\t\t\tusing var requestWriter = new System.IO.StringWriter();{Environment.NewLine}\t\t\tvar requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
-    ));
+                        $"\t\t\tusing var requestWriter = new System.IO.StringWriter();{Environment.NewLine}\t\t\tvar requestSerializer = JsonSerializer.Create(jsonSerializerSettings);"
+                        ));
                     clientMethod.Statements.Add(new CodeMethodInvokeExpression(new CodeSnippetExpression("requestSerializer"), "Serialize",
                         new CodeSnippetExpression("requestWriter"),
                         new CodeSnippetExpression(singleFromBodyParameterDescription.ParameterDescriptor.ParameterName)));
 
 
                     clientMethod.Statements.Add(new CodeSnippetStatement(
-    @"			var content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, ""application/json"");"
+                        "\t\t\tvar content = new StringContent(requestWriter.ToString(), System.Text.Encoding.UTF8, \"application/json\");"
                         ));
                 }
 

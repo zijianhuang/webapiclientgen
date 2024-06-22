@@ -7,11 +7,10 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.Globalization;
-using Fonlow.Poco2Ts;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace Fonlow.CodeDom.Web.Ts
 {

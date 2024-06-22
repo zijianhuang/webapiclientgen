@@ -491,7 +491,7 @@ namespace Fonlow.CodeDom.Web.Cs
         {
             string cancellationToken = codeGenOutputsSettings.CancellationTokenEnabled ? ", cancellationToken" : String.Empty;
             method.Statements.Add(new CodeVariableDeclarationStatement(
-                new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression($"await client.SendAsync(httpRequestMessage{cancellationToken})") : new CodeSnippetExpression($"client.SendAsync(httpRequestMessage{cancellationToken}).Result")));
+                new CodeTypeReference("var"), "responseMessage", forAsync ? new CodeSnippetExpression($"await client.SendAsync(httpRequestMessage{cancellationToken})") : new CodeSnippetExpression($"client.Send(httpRequestMessage{cancellationToken})")));
         }
 
         static void AddNewtonSoftJsonTextReader(CodeStatementCollection statementCollection)

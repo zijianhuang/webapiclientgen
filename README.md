@@ -113,6 +113,16 @@ References:
 * [Model Validation in ASP.NET Web API](https://learn.microsoft.com/en-us/aspnet/web-api/overview/formats-and-model-binding/model-validation-in-aspnet-web-api#handling-validation-errors)
 * [Model Validation in ASP.NET Core MVC and Razor Pages](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation)
 
+### Model Validation through [ApiControllerAttribute](https://learn.microsoft.com/en-us/aspnet/core/web-api/#apicontroller-attribute)
+
+For example:
+```c#
+	[ApiController]
+	[Route("api/[controller]")]
+	public class HeroesController : ControllerBase
+	{
+```
+
 ### Non-2xx HTTP Status Codes Handled by Middleware, optional
 
 Even if you explicitly write codes in an API function to handle exceptions and return non-2xx HTTP status code, you should have a safty net of catching uncaught exceptions and return HTTP status codes.

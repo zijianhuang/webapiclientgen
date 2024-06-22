@@ -264,6 +264,19 @@ namespace Fonlow.TypeScriptCodeDom
 							}
 
 							break;
+						case "System.ComponentModel.DataAnnotations.LengthAttribute":
+							System.ComponentModel.DataAnnotations.LengthAttribute lenAtr = ca as System.ComponentModel.DataAnnotations.LengthAttribute;
+							if (lenAtr.MinimumLength > 0)
+							{
+								validatorList.Add($"Validators.minLength({lenAtr.MinimumLength})");
+							}
+
+							if (lenAtr.MaximumLength > 0)
+							{
+								validatorList.Add($"Validators.maxLength({lenAtr.MaximumLength})");
+							}
+
+							break;
 						case "System.ComponentModel.DataAnnotations.StringLengthAttribute":
 							System.ComponentModel.DataAnnotations.StringLengthAttribute ast = ca as System.ComponentModel.DataAnnotations.StringLengthAttribute;
 							if (ast.MinimumLength > 0)

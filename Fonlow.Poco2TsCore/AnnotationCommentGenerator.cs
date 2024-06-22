@@ -54,7 +54,13 @@ namespace Fonlow.Poco2Client
 					return String.Format(CultureInfo.CurrentCulture, "Min length: {0}", minLength.Length);
 				}
 			},
-			{ typeof(StringLengthAttribute), a =>
+            { typeof(LengthAttribute), a =>
+                {
+                    LengthAttribute lengthAttr = (LengthAttribute)a;
+                    return String.Format(CultureInfo.CurrentCulture, "Length min: {0}, max: {1}", lengthAttr.MinimumLength, lengthAttr.MaximumLength);
+                }
+            },
+            { typeof(StringLengthAttribute), a =>
 				{
 					StringLengthAttribute strLength = (StringLengthAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "String length: inclusive between {0} and {1}", strLength.MinimumLength, strLength.MaximumLength);

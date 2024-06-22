@@ -168,7 +168,7 @@ namespace DemoWebApi.DemoData
 		public string Street1 { get; set; }
 
 		
-		[StringLength(100, MinimumLength = 2)]
+		[Length(2, 100)]
 		public string Street2 { get; set; }
 
 		

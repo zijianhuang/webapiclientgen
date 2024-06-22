@@ -8756,9 +8756,9 @@ namespace DemoWebApi.DemoData.Client
 		public string Street1 { get; set; }
 		
 		/// <summary>
-		/// String length: inclusive between 2 and 100
+		/// Length min: 2, max: 100
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.ComponentModel.DataAnnotations.Length(2, 100)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Street2 { get; set; }
 		

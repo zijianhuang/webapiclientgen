@@ -403,8 +403,9 @@ namespace Fonlow.CodeDom.Web.Cs
 			}
 
 			ParameterDescription singleFromBodyParameterDescription = fromBodyParameterDescriptions.FirstOrDefault();
+			bool hasBody = singleFromBodyParameterDescription != null;
 
-			void AddRequestUriWithQueryAssignmentStatement()
+            void AddRequestUriWithQueryAssignmentStatement()
 			{
 
 				string jsUriQuery = UriQueryHelper.CreateUriQuery(description.RelativePath, description.ParameterDescriptions);
@@ -420,12 +421,12 @@ namespace Fonlow.CodeDom.Web.Cs
 			clientMethod.Statements.Add(new CodeSnippetStatement(
 				ThreeTabs + $"using var httpRequestMessage = new HttpRequestMessage(HttpMethod.{httpMethod}, requestUri);"));
 
-			if (singleFromBodyParameterDescription != null)
+			if (hasBody)
 			{
 				if (codeGenOutputsSettings.UseSystemTextJson)
 				{
-					clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
-					clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + @"var content = new StringContent(contentJson, System.Text.Encoding.UTF8, ""application/json"");"));
+					//clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"var contentJson = JsonSerializer.Serialize({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, jsonSerializerSettings);"));
+					clientMethod.Statements.Add(new CodeSnippetStatement(ThreeTabs + $"var content = System.Net.Http.Json.JsonContent.Create({singleFromBodyParameterDescription.ParameterDescriptor.ParameterName}, mediaType: null, jsonSerializerSettings);"));
 				}
 				else
 				{

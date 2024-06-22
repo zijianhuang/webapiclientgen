@@ -1620,7 +1620,7 @@ namespace DemoWebApi_DemoData_Client {
 		/** String length: inclusive between 2 and 100 */
 		street1?: string | null;
 
-		/** String length: inclusive between 2 and 100 */
+		/** Length min: 2, max: 100 */
 		street2?: string | null;
 		type?: DemoWebApi_DemoData_Client.AddressType | null;
 

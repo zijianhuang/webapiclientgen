@@ -150,7 +150,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateOnly>(jsonReader);
@@ -198,7 +198,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Nullable<System.DateTime>>(jsonReader);
@@ -246,7 +246,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
@@ -292,7 +292,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
@@ -340,7 +340,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
@@ -386,7 +386,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTime>(jsonReader);
@@ -434,7 +434,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTime>(jsonReader);
@@ -494,7 +494,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTime>>(jsonReader);
@@ -552,7 +552,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<System.DateOnly, System.DateTimeOffset>>(jsonReader);
@@ -608,7 +608,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateOnly>(jsonReader);
@@ -666,7 +666,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Nullable<System.DateOnly>>(jsonReader);
@@ -722,7 +722,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTime>(jsonReader);
@@ -780,7 +780,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Nullable<System.DateTime>>(jsonReader);
@@ -838,7 +838,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
@@ -897,7 +897,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -952,7 +952,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.TimeSpan>(jsonReader);
@@ -1012,7 +1012,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Nullable<System.DateTimeOffset>>(jsonReader);
@@ -1068,7 +1068,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.TimeSpan>(jsonReader);
@@ -1124,7 +1124,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTime>(jsonReader);
@@ -1170,7 +1170,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateOnly>(jsonReader);
@@ -1216,7 +1216,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DateTimeOffset>(jsonReader);
@@ -1270,7 +1270,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>>(jsonReader);
@@ -1352,7 +1352,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
@@ -1407,7 +1407,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int64.Parse(jsonReader.ReadAsString());
 			}
@@ -1464,7 +1464,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -1522,7 +1522,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -1582,7 +1582,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -1642,7 +1642,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -1702,7 +1702,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -1762,7 +1762,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -1848,7 +1848,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
@@ -1906,7 +1906,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.MimsResult<string>>(jsonReader);
@@ -1966,7 +1966,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>>(jsonReader);
@@ -2026,7 +2026,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -2078,7 +2078,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Company>(jsonReader);
@@ -2134,7 +2134,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -2182,7 +2182,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -2237,7 +2237,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Boolean.Parse(jsonReader.ReadAsString());
 			}
@@ -2295,7 +2295,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -2352,7 +2352,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.IdMap>(jsonReader);
@@ -2409,7 +2409,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -2515,7 +2515,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
@@ -2567,7 +2567,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
@@ -2617,7 +2617,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
@@ -2669,7 +2669,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.SuperHero>(jsonReader);
@@ -2727,7 +2727,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
@@ -2779,7 +2779,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
@@ -2839,7 +2839,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero>(jsonReader);
@@ -2893,7 +2893,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.Controllers.Client.Hero[]>(jsonReader);
@@ -2961,7 +2961,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Byte.Parse(jsonReader.ReadAsString());
 			}
@@ -3011,7 +3011,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Byte.Parse(jsonReader.ReadAsString());
 			}
@@ -3065,7 +3065,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Byte.Parse(jsonReader.ReadAsString());
 			}
@@ -3119,7 +3119,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.SByte.Parse(jsonReader.ReadAsString());
 			}
@@ -3173,7 +3173,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int16.Parse(jsonReader.ReadAsString());
 			}
@@ -3227,7 +3227,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.UInt16.Parse(jsonReader.ReadAsString());
 			}
@@ -3281,7 +3281,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -3335,7 +3335,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int64.Parse(jsonReader.ReadAsString());
 			}
@@ -3389,7 +3389,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.UInt64.Parse(jsonReader.ReadAsString());
 			}
@@ -3444,7 +3444,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Numerics.BigInteger>(jsonReader);
@@ -3501,7 +3501,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -3558,7 +3558,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.BigNumbers>(jsonReader);
@@ -3614,7 +3614,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Int128>(jsonReader);
@@ -3669,7 +3669,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int64.Parse(jsonReader.ReadAsString());
 			}
@@ -3726,7 +3726,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.IntegralEntity>(jsonReader);
@@ -3784,7 +3784,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.IntegralEntity>(jsonReader);
@@ -3841,7 +3841,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -3899,7 +3899,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int64.Parse(jsonReader.ReadAsString());
 			}
@@ -3954,7 +3954,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.UInt128>(jsonReader);
@@ -4009,7 +4009,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.UInt64.Parse(jsonReader.ReadAsString());
 			}
@@ -4086,7 +4086,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -4132,7 +4132,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -4180,7 +4180,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -4230,7 +4230,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -4353,7 +4353,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -4449,7 +4449,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Boolean.Parse(jsonReader.ReadAsString());
 			}
@@ -4493,7 +4493,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Byte.Parse(jsonReader.ReadAsString());
 			}
@@ -4540,7 +4540,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<byte[]>(jsonReader);
@@ -4586,7 +4586,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<char>(jsonReader);
@@ -4634,7 +4634,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.ObjectModel.Collection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -4680,7 +4680,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days>(jsonReader);
@@ -4726,7 +4726,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<decimal>(jsonReader);
@@ -4776,7 +4776,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<decimal[]>(jsonReader);
@@ -4822,7 +4822,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<decimal>(jsonReader);
@@ -4868,7 +4868,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<decimal>(jsonReader);
@@ -4914,7 +4914,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, string>>(jsonReader);
@@ -4960,7 +4960,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -5008,7 +5008,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.Dictionary<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -5053,7 +5053,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Double.Parse(jsonReader.ReadAsString());
 			}
@@ -5099,7 +5099,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Double.Parse(jsonReader.ReadAsString());
 			}
@@ -5148,7 +5148,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
@@ -5196,7 +5196,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.DayOfWeek[]>(jsonReader);
@@ -5241,7 +5241,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Single.Parse(jsonReader.ReadAsString());
 			}
@@ -5286,7 +5286,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.ICollection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -5332,7 +5332,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -5380,7 +5380,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<int[,]>(jsonReader);
@@ -5428,7 +5428,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<int[][]>(jsonReader);
@@ -5476,7 +5476,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<int[]>(jsonReader);
@@ -5526,7 +5526,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<int[]>(jsonReader);
@@ -5576,7 +5576,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<long[]>(jsonReader);
@@ -5621,7 +5621,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -5666,7 +5666,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -5712,7 +5712,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -5758,7 +5758,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.KeyValuePair<string, DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -5806,7 +5806,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.List<DemoWebApi.DemoData.Client.Person>>(jsonReader);
@@ -5856,7 +5856,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Nullable<decimal>>(jsonReader);
@@ -5908,7 +5908,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -5956,7 +5956,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
@@ -6004,7 +6004,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<System.Nullable<double>, System.Nullable<decimal>>>(jsonReader);
@@ -6049,7 +6049,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.SByte.Parse(jsonReader.ReadAsString());
 			}
@@ -6093,7 +6093,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int16.Parse(jsonReader.ReadAsString());
 			}
@@ -6142,7 +6142,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<string[]>(jsonReader);
@@ -6192,7 +6192,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<string[]>(jsonReader);
@@ -6265,7 +6265,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.UInt32.Parse(jsonReader.ReadAsString());
 			}
@@ -6309,7 +6309,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.UInt64.Parse(jsonReader.ReadAsString());
 			}
@@ -6353,7 +6353,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.UInt16.Parse(jsonReader.ReadAsString());
 			}
@@ -6505,7 +6505,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -6562,7 +6562,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Days[]>(jsonReader);
@@ -6619,7 +6619,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -6676,7 +6676,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Guid[]>(jsonReader);
@@ -6733,7 +6733,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -6789,7 +6789,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -6843,7 +6843,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Boolean.Parse(jsonReader.ReadAsString());
 			}
@@ -6899,7 +6899,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Boolean.Parse(jsonReader.ReadAsString());
 			}
@@ -6961,7 +6961,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Boolean.Parse(jsonReader.ReadAsString());
 			}
@@ -7017,7 +7017,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -7073,7 +7073,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -7129,7 +7129,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -7186,7 +7186,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader);
@@ -7256,7 +7256,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -7302,7 +7302,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -7350,7 +7350,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -7400,7 +7400,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -7450,7 +7450,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -7632,7 +7632,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -7684,7 +7684,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
@@ -7736,7 +7736,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>>(jsonReader);
@@ -7784,7 +7784,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<int>>(jsonReader);
@@ -7832,7 +7832,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, int>>(jsonReader);
@@ -7880,7 +7880,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, string, int>>(jsonReader);
@@ -7928,7 +7928,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, string, string, int>>(jsonReader);
@@ -7976,7 +7976,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, string, string, string, int>>(jsonReader);
@@ -8024,7 +8024,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, string, string, string, string, int>>(jsonReader);
@@ -8072,7 +8072,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, string, string, string, string, long, int>>(jsonReader);
@@ -8122,7 +8122,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>>(jsonReader);
@@ -8180,7 +8180,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -8238,7 +8238,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -8296,7 +8296,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -8354,7 +8354,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -8412,7 +8412,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -8472,7 +8472,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -8530,7 +8530,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -8588,7 +8588,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<DemoWebApi.DemoData.Client.Person>(jsonReader);
@@ -8643,7 +8643,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				return System.Int32.Parse(jsonReader.ReadAsString());
 			}
@@ -8701,7 +8701,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -8757,7 +8757,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -8813,7 +8813,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -8869,7 +8869,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -8925,7 +8925,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -8981,7 +8981,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -9037,7 +9037,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -9142,7 +9142,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
@@ -9191,7 +9191,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -9239,7 +9239,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -9287,7 +9287,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -9334,7 +9334,7 @@ namespace DemoWebApi.Controllers.Client
 			try
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<System.Collections.Generic.IEnumerable<string>>(jsonReader);
@@ -9391,7 +9391,7 @@ namespace DemoWebApi.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using System.IO.StreamReader streamReader = new System.IO.StreamReader(stream);
 				return streamReader.ReadToEnd();;
 			}
@@ -9577,9 +9577,9 @@ namespace DemoWebApi.DemoData.Client
 		public string Street1 { get; set; }
 		
 		/// <summary>
-		/// String length: inclusive between 2 and 100
+		/// Length min: 2, max: 100
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=2)]
+		[System.ComponentModel.DataAnnotations.Length(2, 100)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Street2 { get; set; }
 		
@@ -10180,7 +10180,7 @@ namespace DemoCoreWeb.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
@@ -10230,7 +10230,7 @@ namespace DemoCoreWeb.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
@@ -10278,7 +10278,7 @@ namespace DemoCoreWeb.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
@@ -10328,7 +10328,7 @@ namespace DemoCoreWeb.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
@@ -10386,7 +10386,7 @@ namespace DemoCoreWeb.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);
@@ -10446,7 +10446,7 @@ namespace DemoCoreWeb.Controllers.Client
 			{
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
-				var stream = responseMessage.Content.ReadAsStreamAsync().Result;
+				var stream = responseMessage.Content.ReadAsStream();
 				using JsonReader jsonReader = new JsonTextReader(new System.IO.StreamReader(stream));
 				var serializer = JsonSerializer.Create(jsonSerializerSettings);
 				return serializer.Deserialize<Newtonsoft.Json.Linq.JObject>(jsonReader);

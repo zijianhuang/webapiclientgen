@@ -178,19 +178,19 @@ namespace Fonlow.Web.Meta
 			{
 				string msg = ex.Message;
 				string errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} is defined with invalid parameters: {msg}";
-				Trace.TraceError(errorMsg);
+                Console.Error.WriteLine(errorMsg);
 				throw new CodeGenException(errorMsg, ex);
 			}
 			catch (NullReferenceException ex)
 			{
 				string msg = ex.Message;
 				string errorMsg = $"Web API {controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName} has problem: {msg}";
-				Trace.TraceError(errorMsg);
+                Console.Error.WriteLine(errorMsg);
 				throw new CodeGenException(errorMsg, ex);
 			}
 			catch (Exception ex)
 			{
-				Trace.TraceError(ex.ToString());
+                Console.Error.WriteLine(ex.ToString());
 				throw;
 			}
 		}

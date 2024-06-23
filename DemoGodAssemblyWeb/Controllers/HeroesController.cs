@@ -194,9 +194,18 @@ namespace DemoWebApi.Controllers
 
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>The 6th version of singleton is better in all threaded environments</remarks>
 	public sealed class HeroesData
 	{
 		public ConcurrentDictionary<long, Hero> Dic { get; private set; }
+
+		private static readonly Lazy<HeroesData> lazy =
+			new Lazy<HeroesData>(() => new HeroesData());
+
+		public static HeroesData Instance { get { return lazy.Value; } }
 
 		private HeroesData()
 		{
@@ -213,19 +222,6 @@ namespace DemoWebApi.Controllers
 				new KeyValuePair<long, Hero>(20, new Hero(29, "Tornado")),
 
 				});
-		}
-
-		public static HeroesData Instance { get { return Nested.instance; } }
-
-		private class Nested
-		{
-			// Explicit static constructor to tell C# compiler
-			// not to mark type as beforefieldinit
-			static Nested()
-			{
-			}
-
-			internal static readonly HeroesData instance = new HeroesData();
 		}
 	}
 }

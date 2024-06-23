@@ -12,7 +12,7 @@
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>ASP API Web Client webapi rest restful aspnet aspnetwebapi httpclient .net core aspnetcore jquery angular</PackageTags>
 		<PackageReleaseNotes>
-			For god assembly.
+			Simplified C# codes of client API utilizing new features after .NET 5 and .NET 8. Support LengthAttribute.
 		</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<NeutralLanguage>en</NeutralLanguage>

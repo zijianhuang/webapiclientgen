@@ -194,9 +194,53 @@ namespace DemoWebApi.Controllers
 
 	}
 
+	//public sealed class HeroesData
+	//{
+	//	public ConcurrentDictionary<long, Hero> Dic { get; private set; }
+
+	//	private HeroesData()
+	//	{
+	//		Dic = new ConcurrentDictionary<long, Hero>(new KeyValuePair<long, Hero>[] {
+	//			new KeyValuePair<long, Hero>(11, new Hero(11, "Mr. Nice")),
+	//			new KeyValuePair<long, Hero>(12, new Hero(12, "Narco")),
+	//			new KeyValuePair<long, Hero>(13, new Hero(13, "Bombasto")),
+	//			new KeyValuePair<long, Hero>(14, new Hero(14, "Celeritas")),
+	//			new KeyValuePair<long, Hero>(15, new Hero(15, "Magneta")),
+	//			new KeyValuePair<long, Hero>(16, new Hero(16, "RubberMan")),
+	//			new KeyValuePair<long, Hero>(17, new Hero(17, "Dynama")),
+	//			new KeyValuePair<long, Hero>(18, new Hero(18, "Dr IQ")),
+	//			new KeyValuePair<long, Hero>(19, new Hero(19, "Magma")),
+	//			new KeyValuePair<long, Hero>(20, new Hero(29, "Tornado")),
+
+	//			});
+	//	}
+
+	//	public static HeroesData Instance { get { return Nested.instance; } }
+
+	//	private class Nested
+	//	{
+	//		// Explicit static constructor to tell C# compiler
+	//		// not to mark type as beforefieldinit
+	//		static Nested()
+	//		{
+	//		}
+
+	//		internal static readonly HeroesData instance = new HeroesData();
+	//	}
+	//}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>The 6th version of singleton is better in all threaded environments</remarks>
 	public sealed class HeroesData
 	{
 		public ConcurrentDictionary<long, Hero> Dic { get; private set; }
+
+		private static readonly Lazy<HeroesData> lazy =
+			new Lazy<HeroesData>(() => new HeroesData());
+
+		public static HeroesData Instance { get { return lazy.Value; } }
 
 		private HeroesData()
 		{
@@ -213,19 +257,6 @@ namespace DemoWebApi.Controllers
 				new KeyValuePair<long, Hero>(20, new Hero(29, "Tornado")),
 
 				});
-		}
-
-		public static HeroesData Instance { get { return Nested.instance; } }
-
-		private class Nested
-		{
-			// Explicit static constructor to tell C# compiler
-			// not to mark type as beforefieldinit
-			static Nested()
-			{
-			}
-
-			internal static readonly HeroesData instance = new HeroesData();
 		}
 	}
 }

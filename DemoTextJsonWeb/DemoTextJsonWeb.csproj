@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AnalysisLevel>latest-minimum</AnalysisLevel>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Version>2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

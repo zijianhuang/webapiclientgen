@@ -1,5 +1,6 @@
 ﻿using Fonlow.Web.Meta;
 using System;
+using System.Reflection;
 
 namespace Fonlow.CodeDom.Web
 {
@@ -62,17 +63,17 @@ namespace Fonlow.CodeDom.Web
 						MaybeNullAttributeOnMethod = settings.ClientApiOutputs.MaybeNullAttributeOnMethod,
 					};
 
-					Ts.ControllersTsClientApiGenBase tsGen = PluginFactory.CreateImplementationsFromAssembly(plugin.AssemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);
-					if (tsGen != null)
+					var assemblyName = plugin.AssemblyName;
+					try
 					{
+						Ts.ControllersTsClientApiGenBase tsGen = PluginFactory.CreateImplementationsFromAssembly(assemblyName, jsOutput, settings.ClientApiOutputs.HandleHttpRequestHeaders, gen.Poco2CsGenerator);
 						tsGen.CreateCodeDom(webApiDescriptions);
 						tsGen.Save();
 					}
-					else
+					catch (Exception ex) when (ex is System.IO.FileLoadException || ex is BadImageFormatException || ex is System.IO.FileNotFoundException || ex is ArgumentException)
 					{
-						string s = $"Cannot instantiate plugin {plugin.AssemblyName}. Please check if the plugin assembly is in place.";
-						System.Diagnostics.Trace.TraceError(s);
-						throw new CodeGenException(s);
+						var s = $"When loading plugin {assemblyName}, {ex.GetType().FullName}: {ex.Message}";
+						throw new CodeGenException(s, ex);
 					}
 				}
 			}
@@ -93,7 +94,7 @@ namespace Fonlow.CodeDom.Web
 				}
 				catch (ArgumentException e)
 				{
-					System.Diagnostics.Trace.TraceWarning(e.Message);
+					Console.Error.WriteLine(e.Message);
 					throw new CodeGenException("Invalid TypeScript Folder")
 					{
 						Description = $"Invalid TypeScriptFolder {folder} while current directory is {currentDir}"

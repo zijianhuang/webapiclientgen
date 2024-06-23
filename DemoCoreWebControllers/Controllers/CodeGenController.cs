@@ -7,6 +7,9 @@ using System.Net;
 
 namespace Fonlow.WebApiClientGen
 {
+	/// <summary>
+	/// For CodeGen triggered by a client call.
+	/// </summary>
 	[ApiExplorerSettings(IgnoreApi = true)]
 	[ApiController]
 	[Route("api/[controller]")]
@@ -49,12 +52,12 @@ namespace Fonlow.WebApiClientGen
 			}
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{
-				System.Diagnostics.Trace.TraceWarning(e.Message);
+				Console.Error.WriteLine(e.Message);
 				return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
 			}
 			catch (System.InvalidOperationException e)
 			{
-				System.Diagnostics.Trace.TraceWarning(e.Message);
+				Console.Error.WriteLine(e.Message);
 				return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
 			}
 
@@ -70,7 +73,7 @@ namespace Fonlow.WebApiClientGen
 			catch (Fonlow.Web.Meta.CodeGenException e)
 			{
 				string msg = e.Message + (string.IsNullOrEmpty(e.Description) ? string.Empty : (" : " + e.Description));
-				System.Diagnostics.Trace.TraceError(msg);
+				Console.Error.WriteLine(msg);
 				return BadRequest(msg);
 			}
 

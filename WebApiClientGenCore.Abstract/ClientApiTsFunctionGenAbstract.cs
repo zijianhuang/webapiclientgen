@@ -101,7 +101,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					RenderImplementation();
 					break;
 				default:
-					Trace.TraceWarning("This HTTP method {0} is not yet supported", description.HttpMethod);
+                    Console.Error.WriteLine("This HTTP method {0} is not yet supported", description.HttpMethod);
 					break;
 			}
 

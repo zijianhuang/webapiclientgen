@@ -14,7 +14,7 @@
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>TypeScript,Code DOM</PackageTags>
 		<PackageReleaseNotes>
-			For god assembly.
+			.NET 8
 		</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -35,7 +35,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Fonlow.TypeScriptCodeDomCore" Version="3.2.2" />
+		<PackageReference Include="Fonlow.TypeScriptCodeDomCore" Version="3.3.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 

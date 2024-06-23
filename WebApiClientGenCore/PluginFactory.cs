@@ -1,17 +1,13 @@
 ﻿using Fonlow.CodeDom.Web.Ts;
+using Fonlow.Web.Meta;
 using System;
-using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 
 namespace Fonlow.CodeDom.Web
 {
-	public sealed class PluginFactory
+	public static class PluginFactory
 	{
-		PluginFactory()
-		{
-
-		}
-
 		/// <summary>
 		/// Load the first ICommand type found in the assembly and instantiate it.
 		/// </summary>
@@ -21,34 +17,20 @@ namespace Fonlow.CodeDom.Web
 		/// <param name="handleHttpRequestHeaders"></param>
 		/// <param name="docCommentTranslate"></param>
 		/// <returns>ICommand object. Null if not found</returns>
+		/// <exception cref="CodeGenLoadPluginException">Throws when doing loading plugin assembly</exception>
+		/// <exception cref="CodeGenReadPluginException">Throws when reading plugin assembly.</exception>
 		public static ControllersTsClientApiGenBase CreateImplementationsFromAssembly(string assemblyName, JSOutput jsOutput, bool handleHttpRequestHeaders, Poco2Client.IDocCommentTranslate docCommentTranslate)
 		{
 			Assembly assembly;
 			try
 			{
 				assembly = Assembly.Load(assemblyName);
-				Trace.TraceInformation("Assembly {0} is loaded for type {1}.", assemblyName, "ICommand");
+				Console.WriteLine("Assembly {0} is loaded for type {1}.", assemblyName, "ICommand");
 			}
-			catch (System.IO.FileLoadException e)
+			catch (Exception ex) when (ex is System.IO.FileLoadException || ex is BadImageFormatException || ex is System.IO.FileNotFoundException || ex is ArgumentException)
 			{
-				Trace.TraceWarning(String.Format("When loading plugin {0}, FileLoadException: {1}", assemblyName, e.Message));
-				return null;
-			}
-			catch (BadImageFormatException e)
-			{
-				Trace.TraceWarning(String.Format("When loading plugin {0}, BadImageFormatException: {1}", assemblyName, e.Message));
-				//when file is a win32 dll.
-				return null;
-			}
-			catch (System.IO.FileNotFoundException e)
-			{
-				Trace.TraceWarning(String.Format("When loading plugin {0}, FileNotFoundException: {1}", assemblyName, e.Message));
-				return null;
-			}
-			catch (ArgumentException e)
-			{
-				Trace.TraceWarning(String.Format("When loading plugin {0}, ArgumentException: {1}", assemblyName, e.Message));
-				return null;
+				var s = $"When loading plugin {assemblyName}, {ex.GetType().FullName}: {ex.Message}";
+				throw new CodeGenLoadPluginException(s, ex);
 			}
 
 			ControllersTsClientApiGenBase controllersTsClientApiGen = null;
@@ -71,19 +53,22 @@ namespace Fonlow.CodeDom.Web
 				return controllersTsClientApiGen;
 
 			}
-			catch (ReflectionTypeLoadException e)
+			catch (ReflectionTypeLoadException reflectionTypeLoadException)
 			{
-				foreach (Exception ex in e.LoaderExceptions)
+				var sb = new StringBuilder();
+				foreach (Exception ex in reflectionTypeLoadException.LoaderExceptions)
 				{
-					Trace.TraceWarning(String.Format("When loading plugin {0}, GetTypes errors occur: {1}", assemblyName, ex.Message));
+					sb.AppendLine(String.Format("When reading plugin {0}, GetTypes errors occur: {1}", assemblyName, ex.Message));
 				}
-			}
-			catch (TargetInvocationException e)
-			{
-				Trace.TraceWarning(String.Format("When loading plugin {0}, GetTypes errors occur: {1}", assemblyName, e.Message + "~~" + e.InnerException.Message));
-			}
 
-			return null;
+				var s = $"When reading plugin {assemblyName}, ReflectionTypeLoadException: {sb.ToString()}";
+				throw new CodeGenReadPluginException(s, reflectionTypeLoadException);
+			}
+			catch (TargetInvocationException ex)
+			{
+				var s = $"When reading plugin {assemblyName}, {ex.GetType().FullName}: {ex}";
+				throw new CodeGenReadPluginException(s, ex);
+			}
 		}
 	}
 }

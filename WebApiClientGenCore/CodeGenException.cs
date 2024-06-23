@@ -16,14 +16,31 @@ namespace Fonlow.Web.Meta
 		public CodeGenException(string message, Exception innerException) : base(message, innerException) { }
 
 		public string Description { get; set; }
+	}
 
-		public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	[Serializable]
+	public class CodeGenLoadPluginException : CodeGenException
+	{
+		public CodeGenLoadPluginException()
 		{
-			base.GetObjectData(info, context);
+
 		}
 
-		protected CodeGenException(SerializationInfo serializationInfo, StreamingContext streamingContext): base(serializationInfo, streamingContext)
+		public CodeGenLoadPluginException(string message) : base(message) { }
+
+		public CodeGenLoadPluginException(string message, Exception innerException) : base(message, innerException) { }
+	}
+
+	[Serializable]
+	public class CodeGenReadPluginException : CodeGenException
+	{
+		public CodeGenReadPluginException()
 		{
+
 		}
+
+		public CodeGenReadPluginException(string message) : base(message) { }
+
+		public CodeGenReadPluginException(string message, Exception innerException) : base(message, innerException) { }
 	}
 }

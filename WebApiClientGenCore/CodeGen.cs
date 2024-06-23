@@ -70,10 +70,10 @@ namespace Fonlow.CodeDom.Web
 						tsGen.CreateCodeDom(webApiDescriptions);
 						tsGen.Save();
 					}
-					catch (Exception ex) when (ex is System.IO.FileLoadException || ex is BadImageFormatException || ex is System.IO.FileNotFoundException || ex is ArgumentException)
+					catch (Exception ex) when (ex is CodeGenLoadPluginException || ex is CodeGenReadPluginException)
 					{
-						var s = $"When loading plugin {assemblyName}, {ex.GetType().FullName}: {ex.Message}";
-						throw new CodeGenException(s, ex);
+						Console.Error.WriteLine(ex);
+						throw;
 					}
 				}
 			}

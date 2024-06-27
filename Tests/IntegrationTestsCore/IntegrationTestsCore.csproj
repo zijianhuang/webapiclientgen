@@ -29,7 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Fonlow.Testing.ServiceCore" Version="3.6.2" />
+		<PackageReference Include="Fonlow.Testing.Integration" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
 		<PackageReference Include="xunit" Version="2.8.1" />

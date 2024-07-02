@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DemoWebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Fonlow.Auth.Models;
 namespace DemoCoreWeb.Controllers
 {
 	[ApiController]
@@ -108,6 +110,8 @@ namespace DemoCoreWeb.Controllers
 			obj.Name = obj.Name + "1";
 			return obj;
 		}
+
+
 
 	}
 }

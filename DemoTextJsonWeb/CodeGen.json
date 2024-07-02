@@ -2,6 +2,7 @@
 	"ApiSelections": {
 		"ExcludedControllerNames": [
 			"DemoWebApi.Controllers.Home",
+			"DemoWebApi.Controllers.Polymorphism",
 			"DemoWebApi.Controllers.FileUpload"
 		],
 

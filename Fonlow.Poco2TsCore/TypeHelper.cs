@@ -80,6 +80,14 @@ namespace Fonlow.Reflection
 			return null;
 		}
 
+		public static T[] ReadAttributes<T>(Type type) where T : Attribute
+		{
+			ArgumentNullException.ThrowIfNull(type);
+
+			object[] objects = type.GetCustomAttributes(typeof(T), false);
+			return objects.Cast<T>().ToArray();
+		}
+
 		/// <summary>
 		/// If exists, return the attribute
 		/// </summary>

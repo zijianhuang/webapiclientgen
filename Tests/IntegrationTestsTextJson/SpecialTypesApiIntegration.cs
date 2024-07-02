@@ -1,5 +1,4 @@
 ﻿using IntegrationTests;
-
 namespace TextJsonIntegrationTests
 {
 	[Collection(TestConstants.LaunchWebApiAndInit)]
@@ -78,6 +77,5 @@ namespace TextJsonIntegrationTests
 			Assert.Equal("Something1", r["Name"].ToString());
 
 		}
-
 	}
 }

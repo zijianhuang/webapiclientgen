@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace Fonlow.Poco2Client
 {
@@ -390,6 +391,11 @@ namespace Fonlow.Poco2Client
 					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataContract", new CodeAttributeArgument("Namespace", new CodeSnippetExpression($"\"{codeGenOutputsSettings.DataContractNamespace}\""))));
 				}
 
+				//if (codeGenOutputsSettings.UseSystemTextJson)
+				//{
+				//	AddJsonDerivedTypeAttributes
+				//}
+
 				if (codeGenOutputsSettings.DecorateDataModelWithSerializable)
 				{
 					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
@@ -522,6 +528,55 @@ namespace Fonlow.Poco2Client
 				Debug.Assert(!String.IsNullOrEmpty(jsonPropertyNameAttribute.Name));
 				arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression($"\"{jsonPropertyNameAttribute.Name}\"")));
 				clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonPropertyName", arguments.ToArray()));
+			}
+		}
+
+		//static void AddJsonDerivedTypeAttributes(Type type)
+		//{
+		//	var attbibutes = TypeHelper.ReadAttributes<System.Text.Json.Serialization.JsonDerivedTypeAttribute>(type);
+		//	foreach (var a in attbibutes)
+		//	{
+		//		List<CodeAttributeArgument> arguments = new();
+		//		if (!String.IsNullOrEmpty(a.type))
+		//		{
+		//			arguments.Add(new CodeAttributeArgument("Name", new CodeSnippetExpression($"\"{attbibute.Name}\"")));
+		//		}
+
+		//		if (!attbibute.EmitDefaultValue)
+		//		{
+		//			arguments.Add(new CodeAttributeArgument("EmitDefaultValue", new CodeSnippetExpression("false")));
+		//		}
+
+		//		if (attbibute.IsRequired)
+		//		{
+		//			arguments.Add(new CodeAttributeArgument("IsRequired ", new CodeSnippetExpression("true")));
+		//		}
+		//		if (attbibute.Order > -1) //it seems the default is -1
+		//		{
+		//			arguments.Add(new CodeAttributeArgument("Order", new CodeSnippetExpression(attbibute.Order.ToString())));
+		//		}
+
+
+		//		if (arguments.Count == 0)
+		//		{
+		//			clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember"));
+		//		}
+		//		else
+		//		{
+		//			clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.DataMember", arguments.ToArray()));
+		//		}
+		//	}
+
+		//}
+
+
+
+		static void AddJsonRequiredAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		{
+			System.Text.Json.Serialization.JsonRequiredAttribute jsonPropertyNameAttribute = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonRequiredAttribute>(memberField);
+			if (jsonPropertyNameAttribute != null)
+			{
+				clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonRequired"));
 			}
 		}
 

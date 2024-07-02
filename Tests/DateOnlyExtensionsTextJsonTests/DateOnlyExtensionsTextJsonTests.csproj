@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Fonlow.Auth.PayloadConverters\Fonlow.Auth.PayloadConverters.csproj" />
     <ProjectReference Include="..\..\Fonlow.DateOnlyExtensionsNet\Fonlow.DateOnlyExtensionsTextJson.csproj" />
   </ItemGroup>
 

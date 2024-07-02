@@ -1857,7 +1857,7 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
 		 */
-		BusinessNum?: string | null;
+		business_no?: string | null;
 		businessNumberType?: string | null;
 
 		/** Data type: Date */
@@ -1875,7 +1875,7 @@ export namespace DemoWebApi_DemoData_Client {
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
 		 */
-		BusinessNum: FormControl<string | null | undefined>,
+		business_no: FormControl<string | null | undefined>,
 		businessNumberType: FormControl<string | null | undefined>,
 
 		/** Data type: Date */
@@ -1890,7 +1890,7 @@ export namespace DemoWebApi_DemoData_Client {
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
-			BusinessNum: new FormControl<string | null | undefined>(undefined),
+			business_no: new FormControl<string | null | undefined>(undefined),
 			businessNumberType: new FormControl<string | null | undefined>(undefined),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
 			registerDate: new FormControl<Date | null | undefined>(undefined),

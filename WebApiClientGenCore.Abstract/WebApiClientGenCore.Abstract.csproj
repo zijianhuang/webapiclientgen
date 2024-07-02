@@ -8,7 +8,7 @@
 		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
-		<Version>3.4</Version>
+		<Version>3.4.1-Alpha</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReleaseNotes>.NET 8</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

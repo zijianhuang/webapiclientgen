@@ -226,12 +226,14 @@ namespace IntegrationTests
 				Name = "Super Co",
 				FoundDate = foundDate,
 				RegisterDate = regDate,
+				BusinessNumber="12345"
 			};
 
 			Company a = api.CreateCompany(c);
 			Assert.NotNull(a.Id);
 			Assert.Equal(regDate, a.RegisterDate);
 			Assert.Equal(foundDate, a.FoundDate);
+			Assert.Equal("12345", a.BusinessNumber);
 		}
 
 		[Fact]

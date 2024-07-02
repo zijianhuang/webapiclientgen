@@ -317,6 +317,11 @@ namespace Fonlow.Poco2Client
 						AddDataMemberAttribute(propertyInfo, clientProperty);
 					}
 
+					if (codeGenOutputsSettings.UseSystemTextJson)
+					{
+						AddJsonPropertyNameAttribute(propertyInfo, clientProperty);
+					}
+
 					typeDeclaration.Members.Add(clientProperty);
 				}
 
@@ -505,6 +510,18 @@ namespace Fonlow.Poco2Client
 				{
 					clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.Serialization.EnumMember", new CodeAttributeArgument("Value", new CodeSnippetExpression($"\"{v}\""))));
 				}
+			}
+		}
+
+		static void AddJsonPropertyNameAttribute(MemberInfo memberField, CodeMemberField clientProperty)
+		{
+			System.Text.Json.Serialization.JsonPropertyNameAttribute jsonPropertyNameAttribute = TypeHelper.ReadAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>(memberField);
+			if (jsonPropertyNameAttribute != null)
+			{
+				List<CodeAttributeArgument> arguments = new();
+				Debug.Assert(!String.IsNullOrEmpty(jsonPropertyNameAttribute.Name));
+				arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression($"\"{jsonPropertyNameAttribute.Name}\"")));
+				clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.Text.Json.Serialization.JsonPropertyName", arguments.ToArray()));
 			}
 		}
 

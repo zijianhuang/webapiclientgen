@@ -210,3 +210,11 @@ To illustrate the programmer experience of using WebApiClientGen, the following 
 1. [Aurelia](https://github.com/zijianhuang/DemoCoreWeb/tree/master/AureliaHeroes). Integration test suite included.
 1. [React](https://github.com/zijianhuang/DemoCoreWeb/tree/master/ReactHeroes).  Integration test suite included.
 1. [Blazor Standalone](https://www.codeproject.com/Articles/5383736/Tour-of-Heroes-Blazor-WebAssembly-Standalone-App)
+
+## NewtonSoft.Json or System.Text.Json
+
+While WebApiClientGen supports both, however, the primary support has shifted to System.Text.Json since 2024.
+
+NewtonSoft.Json still have a few advantages upon certain scenarios and contexts:
+1. If you have a lot POCO classes decorated by DataContractAttributes, because of supporting legacy apps, or supporting both XML and JSON serialization, NewtonSoft.Json gives you inherent support, while System.Text.Json provides some troublesome and indirect support since .NET 7.
+2. For some array types and dynamic, NewtonSoft.Json is still better.

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using DemoWebApi.DemoData.Base;
 using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace DemoWebApi.DemoData.Base
 {
@@ -258,7 +259,8 @@ namespace DemoWebApi.DemoData
 		/// <summary>
 		/// BusinessNumber to be serialized as BusinessNum
 		/// </summary>
-		[DataMember(Name = "BusinessNum")]
+		[DataMember(Name = "business_no")]
+		[JsonPropertyName("business_no")]
 		public string BusinessNumber { get; set; }
 
 		[DataMember]
@@ -357,7 +359,7 @@ namespace DemoWebApi.DemoData
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]
-	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+	[Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum MedicalContraindiationResponseTypeReason
 	{
 

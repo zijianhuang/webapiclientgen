@@ -1657,7 +1657,7 @@ namespace DemoWebApi_DemoData_Client {
 		/**
 		 * BusinessNumber to be serialized as BusinessNum
 		 */
-		BusinessNum?: string | null;
+		business_no?: string | null;
 		businessNumberType?: string | null;
 
 		/** Data type: Date */

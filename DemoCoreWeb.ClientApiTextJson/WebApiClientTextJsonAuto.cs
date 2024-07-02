@@ -8650,7 +8650,8 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// BusinessNumber to be serialized as BusinessNum
 		/// </summary>
-		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
+		[System.Runtime.Serialization.DataMember(Name="business_no")]
+		[System.Text.Json.Serialization.JsonPropertyName("business_no")]
 		public string BusinessNumber { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
@@ -9012,6 +9013,7 @@ namespace DemoWebApi.Models.Client
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+		[System.Text.Json.Serialization.JsonPropertyName("oldPwd")]
 		public string OldPassword { get; set; }
 	}
 	

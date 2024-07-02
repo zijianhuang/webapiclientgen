@@ -9637,7 +9637,7 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// BusinessNumber to be serialized as BusinessNum
 		/// </summary>
-		[System.Runtime.Serialization.DataMember(Name="BusinessNum")]
+		[System.Runtime.Serialization.DataMember(Name="business_no")]
 		public string BusinessNumber { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]

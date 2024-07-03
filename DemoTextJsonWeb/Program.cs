@@ -30,7 +30,7 @@ builder.Services.AddControllers(configure =>
 #if DEBUG
 	configure.Conventions.Add(new Fonlow.CodeDom.Web.ApiExplorerVisibilityEnabledConvention());//To make ApiExplorer be visible to WebApiClientGen
 #endif
-	//configure.ModelBinderProviders.Insert(0, new OAuth2RequestBinderProvider());
+	configure.ModelBinderProviders.Insert(0, new OAuth2RequestBinderProvider());
 })
 .AddJsonOptions(// as of .NET 7/8, could not handle JS/CS test cases getInt2D, postInt2D and PostDictionaryOfPeople, around 14 C# test cases fail.
 options =>

@@ -1,8 +1,6 @@
-﻿using System.Text.Json;
+﻿using Fonlow.Auth.Models;
+using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
-using System.Windows.Markup;
-using Fonlow.Auth.Models;
 
 namespace Fonlow.Text.Json.Auth
 {
@@ -10,7 +8,7 @@ namespace Fonlow.Text.Json.Auth
 	{
 		public override bool HandleNull => true;
 
-		public override void Write(Utf8JsonWriter writer, RequestBase value, JsonSerializerOptions options)
+		public override void Write(Utf8JsonWriter writer, RequestBase value, JsonSerializerOptions options) 
 		{
 			writer.WriteStartObject();
 			writer.WriteString("grant_type", value.GrantType);
@@ -20,10 +18,12 @@ namespace Fonlow.Text.Json.Auth
 					ROPCRequst ropcRequest = value as ROPCRequst;
 					writer.WriteString("username", ropcRequest.Username);
 					writer.WriteString("password", ropcRequest.Password);
+					writer.WriteString("scope", ropcRequest.Scope);
 					break;
 				case "refresh_token":
 					RefreshAccessTokenRequest refreshRequest = value as RefreshAccessTokenRequest;
 					writer.WriteString("refresh_token", refreshRequest.RefreshToken);
+					writer.WriteString("scope", refreshRequest.Scope);
 					break;
 				default:
 					throw new NotSupportedException();
@@ -59,45 +59,71 @@ namespace Fonlow.Text.Json.Auth
 
 			var typeDiscriminator = reader.GetString();
 
-			RequestBase requestBase = typeDiscriminator switch
+			switch (typeDiscriminator)
 			{
-				"password" => new ROPCRequst(),
-				"refresh_token" => new RefreshAccessTokenRequest(),
-				_ => throw new JsonException()
-			};
-			requestBase.GrantType = typeDiscriminator;
-
-			while (reader.Read())
-			{
-				if (reader.TokenType == JsonTokenType.EndObject)
-				{
-					return requestBase;
-				}
-
-				if (reader.TokenType == JsonTokenType.PropertyName)
-				{
-					propertyName = reader.GetString();
-					if (reader.Read())
+				case "password":
+					var ropcRequest = new ROPCRequst();
+					ropcRequest.GrantType = typeDiscriminator;
+					while (reader.Read())
 					{
-						switch (propertyName)
+						if (reader.TokenType == JsonTokenType.EndObject)
 						{
-							case "Username":
-							case "username":
-								((ROPCRequst)requestBase).Username = reader.GetString();
-								break;
-							case "Password":
-							case "password":
-								((ROPCRequst)requestBase).Password = reader.GetString();
-								break;
-							case "refresh_token":
-								((RefreshAccessTokenRequest)requestBase).RefreshToken = reader.GetString();
-								break;
+							return ropcRequest;
+						}
+
+						if (reader.TokenType == JsonTokenType.PropertyName)
+						{
+							propertyName = reader.GetString();
+							if (reader.Read())
+							{
+								switch (propertyName)
+								{
+									case "username":
+										ropcRequest.Username = reader.GetString();
+										break;
+									case "password":
+										ropcRequest.Password = reader.GetString();
+										break;
+									case "scope":
+										ropcRequest.Scope = reader.GetString();
+										break;
+								}
+							}
 						}
 					}
-				}
-			}
 
-			throw new JsonException();
+					return ropcRequest;
+				case "refresh_token":
+					var refreshTokenRequest = new RefreshAccessTokenRequest();
+					refreshTokenRequest.GrantType = typeDiscriminator;
+					while (reader.Read())
+					{
+						if (reader.TokenType == JsonTokenType.EndObject)
+						{
+							return refreshTokenRequest;
+						}
+
+						if (reader.TokenType == JsonTokenType.PropertyName)
+						{
+							propertyName = reader.GetString();
+							if (reader.Read())
+							{
+								switch (propertyName)
+								{
+									case "refresh_token":
+										refreshTokenRequest.RefreshToken = reader.GetString();
+										break;
+									case "scope":
+										refreshTokenRequest.Scope = reader.GetString();
+										break;
+								}
+							}
+						}
+					}
+					return refreshTokenRequest;
+				default:
+					throw new JsonException();
+			}
 		}
 	}
 }

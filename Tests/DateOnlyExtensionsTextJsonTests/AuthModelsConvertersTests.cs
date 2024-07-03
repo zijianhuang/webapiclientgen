@@ -1,10 +1,6 @@
 ﻿using Fonlow.Auth.Models;
 using Fonlow.Text.Json.Auth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace ConvertersTests
 {
@@ -20,16 +16,16 @@ namespace ConvertersTests
 				Password = "mypwd"
 			};
 
-			var s = System.Text.Json.JsonSerializer.Serialize(r);
-			Assert.Equal("{\"grant_type\":\"password\",\"Username\":\"Somebody\",\"Password\":\"mypwd\",\"Scope\":null}", s);
+			var s = System.Text.Json.JsonSerializer.Serialize(r, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+			Assert.Equal("{\"grant_type\":\"password\",\"username\":\"Somebody\",\"password\":\"mypwd\",\"scope\":null}", s);
 		}
 
 
 		[Fact]
 		public void TestROPCRequstDeserialize()
 		{
-			var s = "{\"Username\":\"Somebody\",\"Password\":\"mypwd\",\"Scope\":null,\"grant_type\":\"password\"}";
-			var r = System.Text.Json.JsonSerializer.Deserialize<ROPCRequst>(s);
+			var s = "{\"username\":\"Somebody\",\"password\":\"mypwd\",\"scope\":null,\"grant_type\":\"password\"}";
+			var r = System.Text.Json.JsonSerializer.Deserialize<ROPCRequst>(s, new JsonSerializerOptions(JsonSerializerDefaults.Web));
 			Assert.Equal("password", r.GrantType);
 			Assert.Equal("Somebody", r.Username);
 		}
@@ -37,8 +33,8 @@ namespace ConvertersTests
 		[Fact]
 		public void TestROPCRequstDeserializeAsRequestBase()
 		{
-			var s = "{\"Username\":\"Somebody\",\"Password\":\"mypwd\",\"Scope\":null,\"grant_type\":\"password\"}";
-			var r = System.Text.Json.JsonSerializer.Deserialize<RequestBase>(s);
+			var s = "{\"username\":\"Somebody\",\"password\":\"mypwd\",\"scope\":null,\"grant_type\":\"password\"}";
+			var r = System.Text.Json.JsonSerializer.Deserialize<RequestBase>(s, new JsonSerializerOptions(JsonSerializerDefaults.Web));
 			Assert.Equal("password", r.GrantType);
 			Assert.Null(r as ROPCRequst);
 		}
@@ -46,12 +42,33 @@ namespace ConvertersTests
 		[Fact]
 		public void TestROPCRequstDeserializeAsRequestBaseWithConverter()
 		{
-			var options = new System.Text.Json.JsonSerializerOptions();
+			var options = new System.Text.Json.JsonSerializerOptions(new JsonSerializerOptions(JsonSerializerDefaults.Web));
 			options.Converters.Add(new TokenRequestConverter());
-			var s = "{\"grant_type\":\"password\",\"Username\":\"Somebody\",\"Password\":\"mypwd\",\"Scope\":null}";
+			var s = "{\"grant_type\":\"password\",\"username\":\"Somebody\",\"password\":\"mypwd\",\"scope\":\"Something somewhere\"}";
 			var r = System.Text.Json.JsonSerializer.Deserialize<RequestBase>(s, options);
 			Assert.Equal("password", r.GrantType);
 			Assert.Equal("Somebody", (r as ROPCRequst).Username);
+			Assert.Equal("mypwd", (r as ROPCRequst).Password);
+			Assert.Equal("Something somewhere", (r as ROPCRequst).Scope);
+		}
+
+		[Fact]
+		public void TestRefreshTokenRequstDeserializeAsRequestBaseWithConverter()
+		{
+			var options = new System.Text.Json.JsonSerializerOptions(new JsonSerializerOptions(JsonSerializerDefaults.Web));
+			options.Converters.Add(new TokenRequestConverter());
+			var request = new RefreshAccessTokenRequest
+			{
+				GrantType = "refresh_token",
+				RefreshToken = "LongTokenString",
+				Scope = "Something",
+			};
+
+			var s = JsonSerializer.Serialize(request, options);
+			var r = System.Text.Json.JsonSerializer.Deserialize<RequestBase>(s, options);
+			Assert.Equal("refresh_token", r.GrantType);
+			Assert.Equal("LongTokenString", (r as RefreshAccessTokenRequest).RefreshToken);
+			Assert.Equal("Something", (r as RefreshAccessTokenRequest).Scope);
 		}
 
 

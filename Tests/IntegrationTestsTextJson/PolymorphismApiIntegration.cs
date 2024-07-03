@@ -74,5 +74,22 @@ namespace TextJsonIntegrationTests
 			Assert.Equal("MyName", r2.Username);
 		}
 
+
+		[Fact]
+		public async Task TestPostRopcTokenRequestToAuthAsync()
+		{
+			var r = await api.PostRopcTokenRequestToAuthAsync(new ROPCRequst
+			{
+				GrantType = "password",
+				Username = "MyName",
+				Password = "MyPassword"
+			});
+
+			Assert.Equal("password", r.GrantType);
+			Assert.Equal("MyName", r.Username);
+		}
+
+
+
 	}
 }

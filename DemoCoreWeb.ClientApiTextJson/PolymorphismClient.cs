@@ -28,6 +28,33 @@ namespace DemoCoreWeb.ClientApiTextJson
 			this.jsonSerializerSettings = jsonSerializerSettings;
 		}
 
+		public async Task<Fonlow.Auth.Models.ROPCRequst> PostRopcTokenRequestToAuthAsync(Fonlow.Auth.Models.ROPCRequst model, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Polymorphism";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var pairs = new KeyValuePair<string, string>[]
+						{
+							new KeyValuePair<string, string>( "grant_type", model.GrantType ),
+							//new KeyValuePair<string, string>( "username", model.Username ),
+							//new KeyValuePair<string, string> ( "password", model.Password )
+						};
+			var content = new FormUrlEncodedContent(pairs);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<Fonlow.Auth.Models.ROPCRequst>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
 		/// <summary>
 		/// POST api/Polymorphism/PostRequestBase
 		/// </summary>

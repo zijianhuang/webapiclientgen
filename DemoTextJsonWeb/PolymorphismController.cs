@@ -1,9 +1,5 @@
-﻿
-using Microsoft.AspNetCore.Authorization;
+﻿using Fonlow.Auth.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
-using Fonlow.Auth.Models;
 namespace DemoWebApi.Controllers
 {
 	/// <summary>
@@ -13,7 +9,8 @@ namespace DemoWebApi.Controllers
 	public class PolymorphismController : ControllerBase
 	{
 		[HttpPost]
-		public async Task<RequestBase> PostTokenRequest([FromBody] RequestBase model)
+		[Consumes("application/x-www-form-urlencoded")]
+		public async Task<RequestBase> PostTokenRequest([FromForm] RequestBase model)
 		{
 			return model;
 		}

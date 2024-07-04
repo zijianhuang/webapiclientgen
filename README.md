@@ -1,12 +1,10 @@
-Generate client API codes in C# and TypeScript from ASP.NET (Core) Web API directly without involving Swagger/OpenAPI or Swashbuckle, therefore maximizing the support for data types of your Code First approach of ASP.NET Web API. 
-
-Strongly Typed Client API Generators generate strongly typed client API in C# codes and TypeScript codes. You may then provide or publish either the generated source codes or the compiled client API libraries to other developers for developing client programs.
+Strongly Typed Client API Generators generate client API codes in C# and TypeScript from ASP.NET (Core) Web API directly without involving Swagger/OpenAPI or Swashbuckle, therefore maximizing the support for data types of your Code First approach of ASP.NET Web API. 
 
 # Products
 
 This project delivers these products:
 1. [Code generator for strongly typed client API in C#](https://github.com/zijianhuang/webapiclientgen/wiki/Documentation) supporting .NET and Xamarin.Forms. 
-1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2, Aurelia, Axios and Fetch API.
+1. [Code generators for strongly typed client API in TypeScript](https://github.com/zijianhuang/webapiclientgen/wiki/Code-generator-for-strongly-typed-client-API-in-TypeScript) for jQuery, Angular 2+, Aurelia, Axios and Fetch API.
 1. [TypeScript CodeDOM](https://github.com/zijianhuang/TypeScriptCodeDOM), a .NET CodeDOM component for TypeScript for developing TypeScript code generators.
 1. [POCO2TS.exe](https://github.com/zijianhuang/webapiclientgen/wiki/POCO2TS.exe), a command line program that generates TypeScript interfaces from POCO classes.
 1. [Fonlow.Poco2Ts](https://github.com/zijianhuang/webapiclientgen/wiki/Fonlow.Poco2Ts), a component that generates TypeScript interfaces from POCO classes.

@@ -22,7 +22,8 @@ namespace DemoWebApi.Controllers
 					RefreshToken = "RefreshTokenString",
 					Scope = "some scope"
 				};
-			} else if (model.GrantType == "refresh_token" && model is RefreshAccessTokenRequest)
+			}
+			else if (model.GrantType == "refresh_token" && model is RefreshAccessTokenRequest)
 			{
 				return new AccessTokenResponse
 				{

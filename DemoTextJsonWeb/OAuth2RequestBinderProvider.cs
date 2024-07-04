@@ -37,9 +37,16 @@ namespace WebApp.Utilities
 		{
 			this.binders = binders;
 		}
-		// https://www.c-sharpcorner.com/article/polymorphic-model-binding-in-net/ this may help
+
 		public async Task BindModelAsync(ModelBindingContext bindingContext)
 		{
+			if (bindingContext.HttpContext.Request.ContentType.Contains("application/json"))
+			{
+				return;
+			}
+			//using var sr = new StreamReader(bindingContext.HttpContext.Request.Body);
+			//var json = await sr.ReadToEndAsync(); //only work for Json payload
+
 			var modelKindName = ModelNames.CreatePropertyModelName(bindingContext.ModelName, "grant_type"); //todo: extract JsonPropertyName value or NewtonsoSoft JsonPropery value
 			var modelTypeValue = bindingContext.ValueProvider.GetValue(modelKindName).FirstValue;
 
@@ -71,7 +78,7 @@ namespace WebApp.Utilities
 
 			if (newBindingContext.Result.IsModelSet)
 			{
-				//(newBindingContext.Result.Model as RequestBase).GrantType = modelTypeValue;
+				(newBindingContext.Result.Model as RequestBase).GrantType = modelTypeValue;
 				// Setting the ValidationState ensures properties on derived types are correctly 
 				bindingContext.ValidationState[newBindingContext.Result.Model] = new ValidationStateEntry
 				{

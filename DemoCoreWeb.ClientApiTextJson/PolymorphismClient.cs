@@ -28,7 +28,7 @@ namespace DemoCoreWeb.ClientApiTextJson
 			this.jsonSerializerSettings = jsonSerializerSettings;
 		}
 
-		public async Task<Fonlow.Auth.Models.ROPCRequst> PostRopcTokenRequestToAuthAsync(Fonlow.Auth.Models.ROPCRequst model, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		public async Task<Fonlow.Auth.Models.AccessTokenResponse> PostRopcTokenRequestAsFormDataToAuthAsync(Fonlow.Auth.Models.ROPCRequst model, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Polymorphism";
 			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -47,13 +47,66 @@ namespace DemoCoreWeb.ClientApiTextJson
 				responseMessage.EnsureSuccessStatusCodeEx();
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				return JsonSerializer.Deserialize<Fonlow.Auth.Models.ROPCRequst>(stream, jsonSerializerSettings);
+				return JsonSerializer.Deserialize<Fonlow.Auth.Models.AccessTokenResponse>(stream, jsonSerializerSettings);
 			}
 			finally
 			{
 				responseMessage.Dispose();
 			}
 		}
+
+		public async Task<Fonlow.Auth.Models.AccessTokenResponse> PostRefreshTokenRequestAsFormDataToAuthAsync(Fonlow.Auth.Models.RefreshAccessTokenRequest model, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Polymorphism";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var pairs = new KeyValuePair<string, string>[]
+						{
+							new KeyValuePair<string, string>( "grant_type", model.GrantType ),
+							new KeyValuePair<string, string>( "RefreshTokenString", model.RefreshToken ),
+							new KeyValuePair<string, string> ( "something", model.Scope )
+						};
+			var content = new FormUrlEncodedContent(pairs);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<Fonlow.Auth.Models.AccessTokenResponse>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// POST api/Polymorphism/PostROPCRequst
+		/// </summary>
+		public async Task<Fonlow.Auth.Models.AccessTokenResponse> PostROPCRequstToAuthAsync(Fonlow.Auth.Models.ROPCRequst model, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "api/Polymorphism";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+			var content = System.Net.Http.Json.JsonContent.Create(model, mediaType: null, jsonSerializerSettings);
+			httpRequestMessage.Content = content;
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<Fonlow.Auth.Models.AccessTokenResponse>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+
+
 
 		/// <summary>
 		/// POST api/Polymorphism/PostRequestBase

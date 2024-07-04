@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Fonlow.Auth.Models
 {
+// Data contract attbibutes are basically for NewtonSoft.Json which respects these attributes
 	//[JsonPolymorphic(TypeDiscriminatorPropertyName = "grant_type")]
 	//[JsonDerivedType(typeof(ROPCRequst), "password")]
 	//[JsonDerivedType(typeof(RefreshAccessTokenRequest), "refresh_token")]
@@ -56,6 +57,9 @@ namespace Fonlow.Auth.Models
 	[DataContract]
 	public abstract class TokenResponseBase
 	{
+		/// <summary>
+		/// Such as bearer or Bearer
+		/// </summary>
 		[Required]
 		[JsonPropertyName("token_type")]
 		[DataMember(Name = "token_type")]
@@ -66,17 +70,12 @@ namespace Fonlow.Auth.Models
 	/// Section 5.1
 	/// </summary>
 	[DataContract]
-	public class AccessTokenResponse
+	public class AccessTokenResponse : TokenResponseBase
 	{
 		[JsonPropertyName("access_token")]
 		[DataMember(Name = "access_token")]
 		[Required]
 		public string AccessToken { get; set; }
-
-		[JsonPropertyName("token_type")]
-		[DataMember(Name = "token_type")]
-		[Required]
-		public string TokenType { get; set; }
 
 		/// <summary>
 		/// In the spec, it is recommended, however, it is bad in practice if not required.

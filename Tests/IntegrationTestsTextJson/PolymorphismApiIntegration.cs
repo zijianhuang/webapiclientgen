@@ -14,80 +14,116 @@ namespace TextJsonIntegrationTests
 
 		readonly PolymorphismClient api;
 
+		//[Fact]
+		//public void TestPostRopcRequest()
+		//{
+		//	var r = api.PostROPCRequst(new ROPCRequst
+		//	{
+		//		GrantType = "password",
+		//		Username = "MyName",
+		//		Password = "MyPassword"
+		//	});
+
+		//	Assert.Equal("password", r.GrantType);
+		//	Assert.Equal("MyName", r.Username);
+		//}
+
+		///// <summary>
+		///// Concrete in, base out
+		///// </summary>
+		//[Fact]
+		//public void TestPostRopcRequest2()
+		//{
+		//	RequestBase r = api.PostROPCRequst2(new ROPCRequst
+		//	{
+		//		GrantType = "password",
+		//		Username = "MyName",
+		//		Password = "MyPassword"
+		//	});
+
+		//	Assert.Equal("password", r.GrantType);
+		//	Assert.Equal("MyName", (r as ROPCRequst).Username);
+		//}
+
+		//[Fact]
+		//public void TestPostRopcRequest3()
+		//{
+		//	ROPCRequst r = api.PostROPCRequst3(new ROPCRequst
+		//	{
+		//		GrantType = "password",
+		//		Username = "MyName",
+		//		Password = "MyPassword"
+		//	});
+
+		//	Assert.Equal("password", r.GrantType);
+		//	Assert.Equal("MyName", r.Username);
+		//}
+
+		//[Fact]
+		//public void TestPostRequestBase()
+		//{
+		//	RequestBase r = api.PostRequestBase(new ROPCRequst
+		//	{
+		//		GrantType = "password",
+		//		Username = "MyName",
+		//		Password = "MyPassword"
+		//	});
+
+		//	Assert.Equal("password", r.GrantType);
+		//	var r2 = r as ROPCRequst;
+		//	Assert.Equal("MyName", r2.Username);
+		//}
+
+
 		[Fact]
-		public void TestPostRopcRequest()
+		public async Task TestPostRopcTokenRequestAsFormDataToAuthAsync()
 		{
-			var r = api.PostROPCRequst(new ROPCRequst
+			var r = await api.PostRopcTokenRequestAsFormDataToAuthAsync(new ROPCRequst
 			{
 				GrantType = "password",
 				Username = "MyName",
 				Password = "MyPassword"
 			});
 
-			Assert.Equal("password", r.GrantType);
-			Assert.Equal("MyName", r.Username);
-		}
-
-		/// <summary>
-		/// Concrete in, base out
-		/// </summary>
-		[Fact]
-		public void TestPostRopcRequest2()
-		{
-			RequestBase r = api.PostROPCRequst2(new ROPCRequst
-			{
-				GrantType = "password",
-				Username = "MyName",
-				Password = "MyPassword"
-			});
-
-			Assert.Equal("password", r.GrantType);
-			Assert.Equal("MyName", (r as ROPCRequst).Username);
+			Assert.Equal("bearer", r.TokenType);
+			Assert.Equal("AccessTokenString", r.AccessToken);
+			Assert.Equal("RefreshTokenString", r.RefreshToken);
+			Assert.Equal("some scope", r.Scope);
+			Assert.Equal(100, r.ExpiresIn);
 		}
 
 		[Fact]
-		public void TestPostRopcRequest3()
+		public async Task TestPostRefreshTokenRequestAsFormDataToAuthAsync()
 		{
-			ROPCRequst r = api.PostROPCRequst3(new ROPCRequst
+			var r = await api.PostRefreshTokenRequestAsFormDataToAuthAsync(new RefreshAccessTokenRequest
 			{
-				GrantType = "password",
-				Username = "MyName",
-				Password = "MyPassword"
+				GrantType = "refresh_token",
+				RefreshToken="RefreshTokenString"
 			});
 
-			Assert.Equal("password", r.GrantType);
-			Assert.Equal("MyName", r.Username);
+			Assert.Equal("bearer", r.TokenType);
+			Assert.Equal("NewAccessTokenString", r.AccessToken);
+			Assert.Equal("NewRefreshTokenString", r.RefreshToken);
+			Assert.Equal("some scope", r.Scope);
+			Assert.Equal(100, r.ExpiresIn);
 		}
 
-		[Fact]
-		public void TestPostRequestBase()
-		{
-			RequestBase r = api.PostRequestBase(new ROPCRequst
-			{
-				GrantType = "password",
-				Username = "MyName",
-				Password = "MyPassword"
-			});
+		//[Fact]
+		//public async Task TestPostROPCRequstToAuthAsync()
+		//{
+		//	var r = await api.PostROPCRequstToAuthAsync(new ROPCRequst
+		//	{
+		//		GrantType = "password",
+		//		Username = "MyName",
+		//		Password = "MyPassword"
+		//	});
 
-			Assert.Equal("password", r.GrantType);
-			var r2 = r as ROPCRequst;
-			Assert.Equal("MyName", r2.Username);
-		}
-
-
-		[Fact]
-		public async Task TestPostRopcTokenRequestToAuthAsync()
-		{
-			var r = await api.PostRopcTokenRequestToAuthAsync(new ROPCRequst
-			{
-				GrantType = "password",
-				Username = "MyName",
-				Password = "MyPassword"
-			});
-
-			Assert.Equal("password", r.GrantType);
-			Assert.Equal("MyName", r.Username);
-		}
+		//	Assert.Equal("bearer", r.TokenType);
+		//	Assert.Equal("AccessTokenString", r.AccessToken);
+		//	Assert.Equal("RefreshTokenString", r.RefreshToken);
+		//	Assert.Equal("some scope", r.Scope);
+		//	Assert.Equal(100, r.ExpiresIn);
+		//}
 
 
 

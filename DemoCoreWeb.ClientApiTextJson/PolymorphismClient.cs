@@ -62,8 +62,8 @@ namespace DemoCoreWeb.ClientApiTextJson
 			var pairs = new KeyValuePair<string, string>[]
 						{
 							new KeyValuePair<string, string>( "grant_type", model.GrantType ),
-							new KeyValuePair<string, string>( "RefreshTokenString", model.RefreshToken ),
-							new KeyValuePair<string, string> ( "something", model.Scope )
+							new KeyValuePair<string, string>( "refresh_token", model.RefreshToken ),
+							new KeyValuePair<string, string> ( "scope", model.Scope )
 						};
 			var content = new FormUrlEncodedContent(pairs);
 			httpRequestMessage.Content = content;

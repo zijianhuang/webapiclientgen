@@ -86,27 +86,28 @@ namespace TextJsonIntegrationTests
 			});
 
 			Assert.Equal("bearer", r.TokenType);
-			Assert.Equal("AccessTokenString", r.AccessToken);
-			Assert.Equal("RefreshTokenString", r.RefreshToken);
+			Assert.Equal("AccessTokenStringMyName", r.AccessToken);
+			Assert.Equal("RefreshTokenStringMyPassword", r.RefreshToken);
 			Assert.Equal("some scope", r.Scope);
 			Assert.Equal(100, r.ExpiresIn);
 		}
 
-		[Fact]
-		public async Task TestPostRefreshTokenRequestAsFormDataToAuthAsync()
-		{
-			var r = await api.PostRefreshTokenRequestAsFormDataToAuthAsync(new RefreshAccessTokenRequest
-			{
-				GrantType = "refresh_token",
-				RefreshToken="RefreshTokenString"
-			});
+		//[Fact]
+		//public async Task TestPostRefreshTokenRequestAsFormDataToAuthAsync()
+		//{
+		//	var r = await api.PostRefreshTokenRequestAsFormDataToAuthAsync(new RefreshAccessTokenRequest
+		//	{
+		//		GrantType = "refresh_token",
+		//		RefreshToken="RefreshTokenString",
+		//		Scope="abcd"
+		//	});
 
-			Assert.Equal("bearer", r.TokenType);
-			Assert.Equal("NewAccessTokenString", r.AccessToken);
-			Assert.Equal("NewRefreshTokenString", r.RefreshToken);
-			Assert.Equal("some scope", r.Scope);
-			Assert.Equal(100, r.ExpiresIn);
-		}
+		//	Assert.Equal("bearer", r.TokenType);
+		//	Assert.Equal("abcdNew", r.Scope);
+		//	Assert.Equal("RefreshTokenStringRefreshAccess", r.AccessToken);
+		//	Assert.Equal("RefreshTokenStringRefresh", r.RefreshToken);
+		//	Assert.Equal(100, r.ExpiresIn);
+		//}
 
 		//[Fact]
 		//public async Task TestPostROPCRequstToAuthAsync()

@@ -12,26 +12,26 @@ namespace DemoWebApi.Controllers
 		[Consumes("application/x-www-form-urlencoded")] //need explicit declaration for sharing endpoint
 		public async Task<TokenResponseBase> PostTokenRequestAsFormData([FromForm] RequestBase model)
 		{
-			if (model.GrantType == "password" && model is ROPCRequst)
+			if (model.GrantType == "password" && model is ROPCRequst ropcRequest)
 			{
 				return new AccessTokenResponse
 				{
 					TokenType = "bearer",
-					AccessToken = "AccessTokenString",
+					AccessToken = "AccessTokenString"+ ropcRequest.Username,
 					ExpiresIn = 100,
-					RefreshToken = "RefreshTokenString",
+					RefreshToken = "RefreshTokenString"+ropcRequest.Password,
 					Scope = "some scope"
 				};
 			}
-			else if (model.GrantType == "refresh_token" && model is RefreshAccessTokenRequest)
+			else if (model.GrantType == "refresh_token" && model is RefreshAccessTokenRequest refreshAccessTokenRequest)
 			{
 				return new AccessTokenResponse
 				{
 					TokenType = "bearer",
-					AccessToken = "NewAccessTokenString",
+					AccessToken = refreshAccessTokenRequest.RefreshToken + "Access",
 					ExpiresIn = 100,
-					RefreshToken = "NewRefreshTokenString",
-					Scope = "some scope"
+					RefreshToken = refreshAccessTokenRequest.RefreshToken + "Refresh",
+					Scope = refreshAccessTokenRequest.Scope + "New",
 				};
 			}
 

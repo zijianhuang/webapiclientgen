@@ -48,7 +48,7 @@ options =>
 	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeJsonConverter());
 	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.DateOnlyExtensions.DateTimeOffsetJsonConverter());
 	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.Auth.TokenRequestConverter());
-	options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.Auth.TokenResponseConverter());
+	//options.JsonSerializerOptions.Converters.Add(new Fonlow.Text.Json.Auth.TokenResponseConverter());
 
 });
 

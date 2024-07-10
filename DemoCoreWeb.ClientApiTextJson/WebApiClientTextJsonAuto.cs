@@ -8511,6 +8511,12 @@ namespace DemoWebApi.DemoData.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
+	public class Constants : object
+	{
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
 	public enum Days
 	{
 		
@@ -8811,7 +8817,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string ExternalAccessToken { get; set; }
 	}
 	
@@ -8848,6 +8854,32 @@ namespace DemoWebApi.Models.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
+	public class ExternalLoginViewModel : object
+	{
+		
+		public string Name { get; set; }
+		
+		public string State { get; set; }
+		
+		public string Url { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class ManageInfoViewModel : object
+	{
+		
+		public string Email { get; set; }
+		
+		public System.Collections.Generic.IEnumerable<DemoWebApi.Models.Client.ExternalLoginViewModel> ExternalLoginProviders { get; set; }
+		
+		public string LocalLoginProvider { get; set; }
+		
+		public System.Collections.Generic.IEnumerable<DemoWebApi.Models.Client.UserLoginInfoViewModel> Logins { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
 	public class RegisterBindingModel : object
 	{
 		
@@ -8860,7 +8892,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Email { get; set; }
 		
 		/// <summary>
@@ -8868,7 +8900,7 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string Password { get; set; }
@@ -8882,7 +8914,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string Email { get; set; }
 	}
 	
@@ -8894,13 +8926,13 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string LoginProvider { get; set; }
 		
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		public string ProviderKey { get; set; }
 	}
 	
@@ -8920,7 +8952,7 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.Required()]
+		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string NewPassword { get; set; }
@@ -8951,6 +8983,50 @@ namespace DemoWebApi.Models.Client
 		
 		[System.Runtime.Serialization.DataMember(Name="username")]
 		public string Username { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class UserInfoViewModel : object
+	{
+		
+		public string Email { get; set; }
+		
+		public bool HasRegistered { get; set; }
+		
+		public string LoginProvider { get; set; }
+		
+		public string Dummy1 { get; set; }
+		
+		public string Dumy2 { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class UserLoginInfoViewModel : object
+	{
+		
+		public string LoginProvider { get; set; }
+		
+		public string ProviderKey { get; set; }
+	}
+}
+namespace WebApplication1.Client
+{
+	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class WeatherForecast : object
+	{
+		
+		public System.DateOnly Date { get; set; }
+		
+		public string Summary { get; set; }
+		
+		public int TemperatureC { get; set; }
+		
+		public int TemperatureF { get; set; }
 	}
 }
 namespace DemoCoreWeb.Controllers.Client
@@ -9249,6 +9325,80 @@ namespace DemoCoreWeb.Controllers.Client
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStream();
 				return JsonSerializer.Deserialize<System.Text.Json.Nodes.JsonObject>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+	}
+}
+namespace WebApplication1.Controllers.Client
+{
+	using System;
+	using System.Linq;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
+	using System.Net.Http;
+	using System.Text.Json;
+	using System.Text.Json.Serialization;
+	using Fonlow.Net.Http;
+	
+	
+	public partial class WeatherForecast
+	{
+		
+		private System.Net.Http.HttpClient client;
+		
+		private JsonSerializerOptions jsonSerializerSettings;
+		
+		public WeatherForecast(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
+		{
+			if (client == null)
+				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
+
+			if (client.BaseAddress == null)
+				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
+
+			this.client = client;
+			this.jsonSerializerSettings = jsonSerializerSettings;
+		}
+		
+		/// <summary>
+		/// GET WeatherForecast
+		/// </summary>
+		public async Task<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>> GetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "WeatherForecast";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = await client.SendAsync(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = await responseMessage.Content.ReadAsStreamAsync();
+				return JsonSerializer.Deserialize<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>>(stream, jsonSerializerSettings);
+			}
+			finally
+			{
+				responseMessage.Dispose();
+			}
+		}
+		
+		/// <summary>
+		/// GET WeatherForecast
+		/// </summary>
+		public System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast> Get(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
+		{
+			var requestUri = "WeatherForecast";
+			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			handleHeaders?.Invoke(httpRequestMessage.Headers);
+			var responseMessage = client.Send(httpRequestMessage);
+			try
+			{
+				responseMessage.EnsureSuccessStatusCodeEx();
+				var stream = responseMessage.Content.ReadAsStream();
+				return JsonSerializer.Deserialize<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>>(stream, jsonSerializerSettings);
 			}
 			finally
 			{

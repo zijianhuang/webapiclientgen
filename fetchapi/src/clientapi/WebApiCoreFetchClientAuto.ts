@@ -1568,6 +1568,9 @@ export namespace DemoWebApi_DemoData_Client {
 		lines?: Array<string>;
 	}
 
+	export interface Constants {
+	}
+
 	export enum Days {
 		Sat = 1,
 		Sun = 2,
@@ -1720,7 +1723,7 @@ export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
 
 		/** Required */
-		externalAccessToken?: string | null;
+		externalAccessToken: string;
 	}
 
 	export interface ChangePasswordBindingModel {
@@ -1742,35 +1745,48 @@ export namespace DemoWebApi_Models_Client {
 		OldPwd: string;
 	}
 
+	export interface ExternalLoginViewModel {
+		name?: string | null;
+		state?: string | null;
+		url?: string | null;
+	}
+
+	export interface ManageInfoViewModel {
+		email?: string | null;
+		externalLoginProviders?: Array<DemoWebApi_Models_Client.ExternalLoginViewModel>;
+		localLoginProvider?: string | null;
+		logins?: Array<DemoWebApi_Models_Client.UserLoginInfoViewModel>;
+	}
+
 	export interface RegisterBindingModel {
 
 		/** Data type: Password */
 		confirmPassword?: string | null;
 
 		/** Required */
-		email?: string | null;
+		email: string;
 
 		/**
 		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		password?: string | null;
+		password: string;
 	}
 
 	export interface RegisterExternalBindingModel {
 
 		/** Required */
-		email?: string | null;
+		email: string;
 	}
 
 	export interface RemoveLoginBindingModel {
 
 		/** Required */
-		loginProvider?: string | null;
+		loginProvider: string;
 
 		/** Required */
-		providerKey?: string | null;
+		providerKey: string;
 	}
 
 	export interface SetPasswordBindingModel {
@@ -1783,7 +1799,7 @@ export namespace DemoWebApi_Models_Client {
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword?: string | null;
+		newPassword: string;
 	}
 
 
@@ -1799,6 +1815,35 @@ export namespace DemoWebApi_Models_Client {
 		issued?: string | null;
 		token_type?: string | null;
 		username?: string | null;
+	}
+
+	export interface UserInfoViewModel {
+		email?: string | null;
+		hasRegistered?: boolean | null;
+		loginProvider?: string | null;
+		dummy1?: string | null;
+		dumy2?: string | null;
+	}
+
+	export interface UserLoginInfoViewModel {
+		loginProvider?: string | null;
+		providerKey?: string | null;
+	}
+
+}
+
+export namespace WebApplication1_Client {
+	export interface WeatherForecast {
+
+		/** Type: DateOnly */
+		date?: Date | null;
+		summary?: string | null;
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		temperatureC?: number | null;
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		temperatureF?: number | null;
 	}
 
 }
@@ -1848,6 +1893,21 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 */
 		postAnonymousObject2(obj?: any, headersHandler?: () => {[header: string]: string}): Promise<Response> {
 			return fetch(this.baseUri + 'api/SpecialTypes/AnonymousObject2', { method: 'post', headers: headersHandler ? Object.assign(headersHandler(), { 'Content-Type': 'application/json;charset=UTF-8' }): { 'Content-Type': 'application/json;charset=UTF-8' }, body: JSON.stringify(obj) });
+		}
+	}
+
+}
+
+export namespace WebApplication1_Controllers_Client {
+	export class WeatherForecast {
+		constructor(private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/') {
+		}
+
+		/**
+		 * GET WeatherForecast
+		 */
+		get(headersHandler?: () => {[header: string]: string}): Promise<Array<WebApplication1_Client.WeatherForecast>> {
+			return fetch(this.baseUri + 'WeatherForecast', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
 		}
 	}
 

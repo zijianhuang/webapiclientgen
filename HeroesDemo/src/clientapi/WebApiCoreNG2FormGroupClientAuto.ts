@@ -1797,6 +1797,16 @@ export namespace DemoWebApi_DemoData_Client {
 
 	}
 
+	export interface Constants {
+	}
+	export interface ConstantsFormProperties {
+	}
+	export function CreateConstantsFormGroup() {
+		return new FormGroup<ConstantsFormProperties>({
+		});
+
+	}
+
 	export enum Days {
 		Sat = 1,
 		Sun = 2,
@@ -2100,7 +2110,7 @@ export namespace DemoWebApi_Models_Client {
 	export interface AddExternalLoginBindingModel {
 
 		/** Required */
-		externalAccessToken?: string | null;
+		externalAccessToken: string;
 	}
 	export interface AddExternalLoginBindingModelFormProperties {
 
@@ -2159,20 +2169,57 @@ export namespace DemoWebApi_Models_Client {
 
 	}
 
+	export interface ExternalLoginViewModel {
+		name?: string | null;
+		state?: string | null;
+		url?: string | null;
+	}
+	export interface ExternalLoginViewModelFormProperties {
+		name: FormControl<string | null | undefined>,
+		state: FormControl<string | null | undefined>,
+		url: FormControl<string | null | undefined>,
+	}
+	export function CreateExternalLoginViewModelFormGroup() {
+		return new FormGroup<ExternalLoginViewModelFormProperties>({
+			name: new FormControl<string | null | undefined>(undefined),
+			state: new FormControl<string | null | undefined>(undefined),
+			url: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface ManageInfoViewModel {
+		email?: string | null;
+		externalLoginProviders?: Array<DemoWebApi_Models_Client.ExternalLoginViewModel>;
+		localLoginProvider?: string | null;
+		logins?: Array<DemoWebApi_Models_Client.UserLoginInfoViewModel>;
+	}
+	export interface ManageInfoViewModelFormProperties {
+		email: FormControl<string | null | undefined>,
+		localLoginProvider: FormControl<string | null | undefined>,
+	}
+	export function CreateManageInfoViewModelFormGroup() {
+		return new FormGroup<ManageInfoViewModelFormProperties>({
+			email: new FormControl<string | null | undefined>(undefined),
+			localLoginProvider: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
 	export interface RegisterBindingModel {
 
 		/** Data type: Password */
 		confirmPassword?: string | null;
 
 		/** Required */
-		email?: string | null;
+		email: string;
 
 		/**
 		 * Required
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		password?: string | null;
+		password: string;
 	}
 	export interface RegisterBindingModelFormProperties {
 
@@ -2201,7 +2248,7 @@ export namespace DemoWebApi_Models_Client {
 	export interface RegisterExternalBindingModel {
 
 		/** Required */
-		email?: string | null;
+		email: string;
 	}
 	export interface RegisterExternalBindingModelFormProperties {
 
@@ -2218,10 +2265,10 @@ export namespace DemoWebApi_Models_Client {
 	export interface RemoveLoginBindingModel {
 
 		/** Required */
-		loginProvider?: string | null;
+		loginProvider: string;
 
 		/** Required */
-		providerKey?: string | null;
+		providerKey: string;
 	}
 	export interface RemoveLoginBindingModelFormProperties {
 
@@ -2249,7 +2296,7 @@ export namespace DemoWebApi_Models_Client {
 		 * String length: inclusive between 6 and 100
 		 * Data type: Password
 		 */
-		newPassword?: string | null;
+		newPassword: string;
 	}
 	export interface SetPasswordBindingModelFormProperties {
 
@@ -2311,6 +2358,84 @@ export namespace DemoWebApi_Models_Client {
 
 	}
 
+	export interface UserInfoViewModel {
+		email?: string | null;
+		hasRegistered?: boolean | null;
+		loginProvider?: string | null;
+		dummy1?: string | null;
+		dumy2?: string | null;
+	}
+	export interface UserInfoViewModelFormProperties {
+		email: FormControl<string | null | undefined>,
+		hasRegistered: FormControl<boolean | null | undefined>,
+		loginProvider: FormControl<string | null | undefined>,
+		dummy1: FormControl<string | null | undefined>,
+		dumy2: FormControl<string | null | undefined>,
+	}
+	export function CreateUserInfoViewModelFormGroup() {
+		return new FormGroup<UserInfoViewModelFormProperties>({
+			email: new FormControl<string | null | undefined>(undefined),
+			hasRegistered: new FormControl<boolean | null | undefined>(undefined),
+			loginProvider: new FormControl<string | null | undefined>(undefined),
+			dummy1: new FormControl<string | null | undefined>(undefined),
+			dumy2: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface UserLoginInfoViewModel {
+		loginProvider?: string | null;
+		providerKey?: string | null;
+	}
+	export interface UserLoginInfoViewModelFormProperties {
+		loginProvider: FormControl<string | null | undefined>,
+		providerKey: FormControl<string | null | undefined>,
+	}
+	export function CreateUserLoginInfoViewModelFormGroup() {
+		return new FormGroup<UserLoginInfoViewModelFormProperties>({
+			loginProvider: new FormControl<string | null | undefined>(undefined),
+			providerKey: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+}
+
+export namespace WebApplication1_Client {
+	export interface WeatherForecast {
+
+		/** Type: DateOnly */
+		date?: Date | null;
+		summary?: string | null;
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		temperatureC?: number | null;
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		temperatureF?: number | null;
+	}
+	export interface WeatherForecastFormProperties {
+
+		/** Type: DateOnly */
+		date: FormControl<Date | null | undefined>,
+		summary: FormControl<string | null | undefined>,
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		temperatureC: FormControl<number | null | undefined>,
+
+		/** Type: int, -2,147,483,648 to 2,147,483,647 */
+		temperatureF: FormControl<number | null | undefined>,
+	}
+	export function CreateWeatherForecastFormGroup() {
+		return new FormGroup<WeatherForecastFormProperties>({
+			date: new FormControl<Date | null | undefined>(undefined),
+			summary: new FormControl<string | null | undefined>(undefined),
+			temperatureC: new FormControl<number | null | undefined>(undefined),
+			temperatureF: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
 }
 
 export namespace DemoCoreWeb_Controllers_Client {
@@ -2359,6 +2484,22 @@ export namespace DemoCoreWeb_Controllers_Client {
 		 */
 		postAnonymousObject2(obj?: any, headersHandler?: () => HttpHeaders): Observable<HttpResponse<string>> {
 			return this.http.post(this.baseUri + 'api/SpecialTypes/AnonymousObject2', JSON.stringify(obj), { headers: headersHandler ? headersHandler().append('Content-Type', 'application/json;charset=UTF-8') : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' }), observe: 'response', responseType: 'text' });
+		}
+	}
+
+}
+
+export namespace WebApplication1_Controllers_Client {
+	@Injectable()
+	export class WeatherForecast {
+		constructor(@Inject('baseUri') private baseUri: string = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/', private http: HttpClient) {
+		}
+
+		/**
+		 * GET WeatherForecast
+		 */
+		get(headersHandler?: () => HttpHeaders): Observable<Array<WebApplication1_Client.WeatherForecast>> {
+			return this.http.get<Array<WebApplication1_Client.WeatherForecast>>(this.baseUri + 'WeatherForecast', { headers: headersHandler ? headersHandler() : undefined });
 		}
 	}
 

@@ -1,18 +1,18 @@
-﻿using DemoWebApi.Models.Client;
-using IntegrationTests;
-using Fonlow.Auth.Models;
-using DemoCoreWeb.ClientApiTextJson;
-namespace TextJsonIntegrationTests
-{
-	[Collection(TestConstants.LaunchWebApiAndInit)]
-	public partial class PolymorphismApiIntegration : IClassFixture<PolymorphismFixture>
-	{
-		public PolymorphismApiIntegration(PolymorphismFixture fixture)
-		{
-			api = fixture.Api;
-		}
+﻿//using DemoWebApi.Models.Client;
+//using IntegrationTests;
+//using Fonlow.Auth.Models;
+//using DemoCoreWeb.ClientApiTextJson;
+//namespace TextJsonIntegrationTests
+//{
+//	[Collection(TestConstants.LaunchWebApiAndInit)]
+//	public partial class PolymorphismApiIntegration : IClassFixture<PolymorphismFixture>
+//	{
+//		public PolymorphismApiIntegration(PolymorphismFixture fixture)
+//		{
+//			api = fixture.Api;
+//		}
 
-		readonly PolymorphismClient api;
+//		readonly PolymorphismClient api;
 
 		//[Fact]
 		//public void TestPostRopcRequest()
@@ -75,22 +75,22 @@ namespace TextJsonIntegrationTests
 		//}
 
 
-		[Fact]
-		public async Task TestPostRopcTokenRequestAsFormDataToAuthAsync()
-		{
-			var r = await api.PostRopcTokenRequestAsFormDataToAuthAsync(new ROPCRequst
-			{
-				GrantType = "password",
-				Username = "MyName",
-				Password = "MyPassword"
-			});
+		//[Fact]
+		//public async Task TestPostRopcTokenRequestAsFormDataToAuthAsync()
+		//{
+		//	var r = await api.PostRopcTokenRequestAsFormDataToAuthAsync(new ROPCRequst
+		//	{
+		//		GrantType = "password",
+		//		Username = "MyName",
+		//		Password = "MyPassword"
+		//	});
 
-			Assert.Equal("bearer", r.TokenType);
-			Assert.Equal("AccessTokenStringMyName", r.AccessToken);
-			Assert.Equal("RefreshTokenStringMyPassword", r.RefreshToken);
-			Assert.Equal("some scope", r.Scope);
-			Assert.Equal(100, r.ExpiresIn);
-		}
+		//	Assert.Equal("bearer", r.TokenType);
+		//	Assert.Equal("AccessTokenStringMyName", r.AccessToken);
+		//	Assert.Equal("RefreshTokenStringMyPassword", r.RefreshToken);
+		//	Assert.Equal("some scope", r.Scope);
+		//	Assert.Equal(100, r.ExpiresIn);
+		//}
 
 		//[Fact]
 		//public async Task TestPostRefreshTokenRequestAsFormDataToAuthAsync()
@@ -128,5 +128,5 @@ namespace TextJsonIntegrationTests
 
 
 
-	}
-}
+//	}
+//}

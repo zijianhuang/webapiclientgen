@@ -27,7 +27,7 @@ namespace IntegrationTests
 
 			//jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter()); //not needed in ASP.NET 7
 			//jsonSerializerSettings.Converters.Add(new DateOnlyNullableJsonConverter());
-			var c = TestingSettings.Instance.ServiceCommands[0];
+			var c = TestingSettings.Instance.ServiceCommands["LaunchWebApi"];
 			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
 			Api = new DemoWebApi.Controllers.Client.Entities(HttpClient, jsonSerializerSettings);
 		}

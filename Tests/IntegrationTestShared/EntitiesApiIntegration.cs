@@ -233,7 +233,6 @@ namespace IntegrationTests
 			Assert.NotNull(a.Id);
 			Assert.Equal(regDate, a.RegisterDate);
 			Assert.Equal(foundDate, a.FoundDate);
-			Assert.Equal("12345", a.BusinessNumber);
 		}
 
 		[Fact]

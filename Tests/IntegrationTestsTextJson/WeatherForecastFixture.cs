@@ -2,9 +2,9 @@
 
 namespace IntegrationTests
 {
-	public class ValuesFixture : BasicHttpClient
+	public class WeatherForecastFixture : BasicHttpClient
 	{
-		public ValuesFixture()
+		public WeatherForecastFixture()
 		{
 			//httpClient.DefaultRequestHeaders
 			//  .Accept
@@ -12,10 +12,10 @@ namespace IntegrationTests
 
 			var c = TestingSettings.Instance.ServiceCommands["LaunchWebApi"];
 			this.HttpClient.BaseAddress = new System.Uri(c.BaseUrl);
-			Api = new DemoWebApi.Controllers.Client.Values(HttpClient);
+			Api = new  WebApplication1.Controllers.Client.WeatherForecast(HttpClient);
 		}
 
-		public DemoWebApi.Controllers.Client.Values Api { get; private set; }
+		public WebApplication1.Controllers.Client.WeatherForecast Api { get; private set; }
 	}
 
 }

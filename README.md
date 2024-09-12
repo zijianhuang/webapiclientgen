@@ -1,4 +1,4 @@
-Strongly Typed Client API Generators generate client API codes in C# and TypeScript from ASP.NET (Core) Web API directly without involving Swagger/OpenAPI or Swashbuckle, therefore maximizing the support for data types of your Code First approach of ASP.NET Web API. 
+Strongly Typed Client Web API Generators generate client API codes in C# and TypeScript from ASP.NET (Core) Web API directly without involving Swagger/OpenAPI or Swashbuckle, therefore maximizing the support for data types of your Code First approach of ASP.NET Web API. 
 
 # Products
 

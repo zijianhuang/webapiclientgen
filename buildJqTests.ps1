@@ -1,4 +1,4 @@
-cd $PSScriptRoot
+Set-Location $PSScriptRoot
 
 #Step 3: Compile generated TS codes to JS for jQuery. https://www.typescriptlang.org/docs/handbook/compiler-options.html
 # make sure TS compiler is installed through npm install -g typescript, then tsc.ps1 is available in C:\Users\YourProfile\AppData\Roaming\npm

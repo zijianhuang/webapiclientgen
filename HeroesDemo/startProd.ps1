@@ -1,3 +1,3 @@
 #Run prod build with dotnet hosting
-cd $PSScriptRoot
+Set-Location $PSScriptRoot
 dotnet-serve -d ../ngdist/prod -p 5200

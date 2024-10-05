@@ -1,2 +1,2 @@
-﻿cd $PSScriptRoot
+﻿Set-Location $PSScriptRoot
 npx jest

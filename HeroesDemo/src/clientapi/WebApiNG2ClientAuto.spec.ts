@@ -205,7 +205,7 @@ describe('Heroes API', () => {
     }));
 
     it('getAll', (done) => {
-        service.getHeros().subscribe(
+        service.getHeroes().subscribe(
             data => {
                 console.debug(data!.length);
                 expect(data!.length).toBeGreaterThan(0);

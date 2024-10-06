@@ -1,5 +1,5 @@
-import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { async, TestBed } from '@angular/core/testing';
+import { HttpClient, HttpErrorResponse, HttpHeaders, provideHttpClient } from '@angular/common/http';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { DemoWebApi_DemoData_Client, DemoWebApi_Controllers_Client } from './WebApiCoreNg2ClientAuto';
 
 //const apiBaseUri = 'http://fonlow.org/'; // for DemoCoreWeb hosted in server of different timezone.
@@ -83,11 +83,12 @@ export function errorResponseBodyToString(error: HttpErrorResponse | any,): stri
 describe('Values API', () => {
     let service: DemoWebApi_Controllers_Client.Values;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.Values,
                     useFactory: valuesClientFactory,
@@ -187,10 +188,11 @@ describe('Values API', () => {
 describe('Heroes API', () => {
     let service: DemoWebApi_Controllers_Client.Heroes;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.Heroes,
                     useFactory: heroesClientFactory,
@@ -290,11 +292,12 @@ describe('Heroes API', () => {
 describe('entities API', () => {
     let client: DemoWebApi_Controllers_Client.Entities;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.Entities,
                     useFactory: entitiesClientFactory,
@@ -433,10 +436,11 @@ describe('entities API', () => {
 describe('DateTypes API', () => {
     let service: DemoWebApi_Controllers_Client.DateTypes;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.DateTypes,
                     useFactory: dateTypesClientFactory,
@@ -990,10 +994,11 @@ describe('DateTypes API', () => {
 describe('SuperDemo API', () => {
     let service: DemoWebApi_Controllers_Client.SuperDemo;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.SuperDemo,
                     useFactory: superDemoClientFactory,
@@ -1715,11 +1720,12 @@ fail: Microsoft.AspNetCore.Server.Kestrel[13]
 describe('Tuple API', () => {
     let service: DemoWebApi_Controllers_Client.Tuple;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.Tuple,
                     useFactory: tupleClientFactory,
@@ -1871,11 +1877,12 @@ describe('Tuple API', () => {
 describe('StringData API', () => {
     let service: DemoWebApi_Controllers_Client.StringData;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.StringData,
                     useFactory: stringDataClientFactory,
@@ -1993,7 +2000,7 @@ describe('StringData API', () => {
     it('TestAthletheSearchWithUndefinedInt', (done) => {
         service.athletheSearch(null, undefined!, 'Order', '', 'Search').subscribe(
             data => {
-               fail('validation')
+                fail('validation')
                 done();
             },
             error => {
@@ -2053,11 +2060,12 @@ describe('StringData API', () => {
 describe('TextData API', () => {
     let service: DemoWebApi_Controllers_Client.TextData;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.TextData,
                     useFactory: textDataClientFactory,
@@ -2155,10 +2163,11 @@ describe('TextData API', () => {
 describe('Numbers API', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.Numbers,
                     useFactory: numbersClientFactory,
@@ -2587,10 +2596,11 @@ describe('Numbers API', () => {
 xdescribe('Numbers API without customized serialization', () => {
     let service: DemoWebApi_Controllers_Client.Numbers;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
+            imports: [],
             providers: [
+                provideHttpClient(),
                 {
                     provide: DemoWebApi_Controllers_Client.Numbers,
                     useFactory: numbersClientFactory,

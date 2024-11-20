@@ -1184,6 +1184,9 @@ describe('SuperDemo API', () => {
     }
     );
 
+    /**
+     * Returned is blob
+     */
     it('getBadRequest', (done) => {
         service.getBadRequest().subscribe(
             data => {
@@ -1201,6 +1204,9 @@ describe('SuperDemo API', () => {
     }
     );
 
+    /**
+     * Returned is text
+     */
     it('getBadRequest2', (done) => {
         service.getBadRequest2().subscribe(
             data => {

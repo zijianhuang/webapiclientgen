@@ -4,8 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>1.6.1</Version>
-    <PackageReleaseNotes>Build for .NET 8</PackageReleaseNotes>
+    <Version>1.7</Version>
+    <PackageReleaseNotes>Build for .NET 9</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>

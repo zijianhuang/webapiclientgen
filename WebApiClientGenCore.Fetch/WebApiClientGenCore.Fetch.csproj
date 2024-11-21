@@ -7,14 +7,14 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
 		<PackageTags>Fetch TypeScript</PackageTags>
-		<PackageReleaseNotes>.NET 8</PackageReleaseNotes>
+		<PackageReleaseNotes>.NET 9</PackageReleaseNotes>
 		<Description>Plugin for WebApiClientGen 3.0+ to generate client API codes with Fetch API.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Copyright>Copyright © Zijian Huang 2015-$([System.DateTime]::Now.Year)</Copyright>
 		<Authors>Zijian Huang</Authors>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>4.0</Version>
+		<Version>4.1</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
 		<AnalysisLevel>latest-all</AnalysisLevel>

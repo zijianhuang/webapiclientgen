@@ -94,6 +94,9 @@ namespace DemoWebApi.Controllers.Client
 		public bool Super { get; set; }
 	}
 	
+	/// <summary>
+	/// For testing different commbinations of parameters and returns
+	/// </summary>
 	public partial class DateTypes
 	{
 		
@@ -200,6 +203,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// return DateTimeOffset.Now
 		/// GET api/DateTypes/ForDateTimeOffset
 		/// </summary>
 		public async Task<System.DateTimeOffset> GetDateTimeOffsetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -221,6 +225,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// return DateTimeOffset.Now
 		/// GET api/DateTypes/ForDateTimeOffset
 		/// </summary>
 		public System.DateTimeOffset GetDateTimeOffset(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -284,6 +289,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// If Dt is not defined, add a hour from now
 		/// GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		/// </summary>
 		public async Task<System.DateTimeOffset> GetNextHourNullableAsync(int n, System.Nullable<System.DateTimeOffset> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -305,6 +311,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// If Dt is not defined, add a hour from now
 		/// GET api/DateTypes/NextHourNullable?n={n}&dt={dt}
 		/// </summary>
 		public System.DateTimeOffset GetNextHourNullable(int n, System.Nullable<System.DateTimeOffset> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -368,6 +375,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// If Dt is not defined, add a year from now
 		/// GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		/// </summary>
 		public async Task<System.DateTime> GetNextYearNullableAsync(int n, System.Nullable<System.DateTime> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -389,6 +397,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// If Dt is not defined, add a year from now
 		/// GET api/DateTypes/NextYearNullable?n={n}&dt={dt}
 		/// </summary>
 		public System.DateTime GetNextYearNullable(int n, System.Nullable<System.DateTime> dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -410,6 +419,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Client should send DateTime.Date
 		/// POST api/DateTypes/IsDateTimeDate
 		/// </summary>
 		public async Task<System.Tuple<System.DateOnly, System.DateTime>> IsDateTimeDateAsync(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -434,6 +444,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Client should send DateTime.Date
 		/// POST api/DateTypes/IsDateTimeDate
 		/// </summary>
 		public System.Tuple<System.DateOnly, System.DateTime> IsDateTimeDate(System.DateTime dt, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -694,6 +705,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// return d;
 		/// POST api/DateTypes/ForDateTimeOffset
 		/// </summary>
 		public async Task<System.DateTimeOffset> PostDateTimeOffsetAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -717,6 +729,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// return d;
 		/// POST api/DateTypes/ForDateTimeOffset
 		/// </summary>
 		public System.DateTimeOffset PostDateTimeOffset(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -740,6 +753,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// return d.ToString("O")
 		/// POST api/DateTypes/ForDateTimeOffsetForO
 		/// </summary>
 		public async Task<string> PostDateTimeOffsetForOAsync(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -765,6 +779,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// return d.ToString("O")
 		/// POST api/DateTypes/ForDateTimeOffsetForO
 		/// </summary>
 		public string PostDateTimeOffsetForO(System.DateTimeOffset d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -836,6 +851,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Returned is DateTimeOffset?
 		/// POST api/DateTypes/DateTimeOffsetNullable
 		/// </summary>
 		public async Task<System.Nullable<System.DateTimeOffset>> PostDateTimeOffsetNullableAsync(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -860,6 +876,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Returned is DateTimeOffset?
 		/// POST api/DateTypes/DateTimeOffsetNullable
 		/// </summary>
 		public System.Nullable<System.DateTimeOffset> PostDateTimeOffsetNullable(System.Nullable<System.DateTimeOffset> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1060,8 +1077,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return Tuple DateTime?, DateTime?
 		/// GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
 		/// </summary>
+		/// <param name="startDate">DateTime? startDate = null</param>
+		/// <param name="endDate">DateTime? endDate = null</param>
 		public async Task<System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>>> SearchDateRangeAsync(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/DateTypes/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
@@ -1082,8 +1102,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return Tuple DateTime?, DateTime?
 		/// GET api/DateTypes/SearchDateRange?startDate={startDate}&endDate={endDate}
 		/// </summary>
+		/// <param name="startDate">DateTime? startDate = null</param>
+		/// <param name="endDate">DateTime? endDate = null</param>
 		public System.Tuple<System.Nullable<System.DateTime>, System.Nullable<System.DateTime>> SearchDateRange(System.Nullable<System.DateTime> startDate, System.Nullable<System.DateTime> endDate, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/DateTypes/SearchDateRange?"+(startDate.HasValue?"startDate="+startDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty)+(endDate.HasValue?"&endDate="+endDate.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"):String.Empty);
@@ -1104,6 +1127,10 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// Entities, Person and Company
+	/// Some with AuthorizeAttribute
+	/// </summary>
 	public partial class Entities
 	{
 		
@@ -1644,6 +1671,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post MyGeneric string, decimal, double
 		/// POST api/Entities/MyGeneric
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double>> GetMyGenericAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1668,6 +1696,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post MyGeneric string, decimal, double
 		/// POST api/Entities/MyGeneric
 		/// </summary>
 		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> GetMyGeneric(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, double> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1692,6 +1721,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post MyGeneric string, decimal, Person
 		/// POST api/Entities/MyGenericPerson
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person>> GetMyGenericPersonAsync(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1716,6 +1746,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post MyGeneric string, decimal, Person
 		/// POST api/Entities/MyGenericPerson
 		/// </summary>
 		public DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> GetMyGenericPerson(DemoWebApi.DemoData.Client.MyGeneric<string, decimal, DemoWebApi.DemoData.Client.Person> s, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1740,6 +1771,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body, status 204. MaybeNull
 		/// GET api/Entities/NullCompany
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -1763,6 +1795,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body, status 204. MaybeNull
 		/// GET api/Entities/NullCompany
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -1786,8 +1819,12 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a person
+		/// so to know the person
 		/// GET api/Entities/getPerson/{id}
 		/// </summary>
+		/// <param name="id">unique id of that guy</param>
+		/// <returns>person in db</returns>
 		public async Task<DemoWebApi.DemoData.Client.Person> GetPersonAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/getPerson/"+id;
@@ -1808,8 +1845,12 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a person
+		/// so to know the person
 		/// GET api/Entities/getPerson/{id}
 		/// </summary>
+		/// <param name="id">unique id of that guy</param>
+		/// <returns>person in db</returns>
 		public DemoWebApi.DemoData.Client.Person GetPerson(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/getPerson/"+id;
@@ -1920,6 +1961,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
 		/// PATCH api/Entities/patchPerson
 		/// </summary>
 		public async Task<string> PatchPersonAsync(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -1945,6 +1987,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
 		/// PATCH api/Entities/patchPerson
 		/// </summary>
 		public string PatchPerson(DemoWebApi.DemoData.Client.Person person, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -2068,6 +2111,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// Heroes operations. Decorated by nullable directive.
+	/// </summary>
 	public partial class Heroes
 	{
 		
@@ -2168,6 +2214,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a hero. Nullable reference. MaybeNull
 		/// GET api/Heroes/{id}
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -2191,6 +2238,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a hero. Nullable reference. MaybeNull
 		/// GET api/Heroes/{id}
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -2214,6 +2262,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get all heroes.
 		/// GET api/Heroes
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero[]> GetHeroesAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -2236,6 +2285,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get all heroes.
 		/// GET api/Heroes
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero[] GetHeroes(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -2258,6 +2308,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/Heroes/super?id={id}
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -2281,6 +2332,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/Heroes/super?id={id}
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -2352,8 +2404,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Add a hero. The client will not expect null. NotNull
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
+		/// <param name="name">name of hero</param>
+		/// <returns>Always object.</returns>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PostWithQueryAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
@@ -2373,8 +2428,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Add a hero. The client will not expect null. NotNull
 		/// POST api/Heroes/q?name={name}
 		/// </summary>
+		/// <param name="name">name of hero</param>
+		/// <returns>Always object.</returns>
 		public DemoWebApi.Controllers.Client.Hero PostWithQuery(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/q?name="+(name == null ? "" : Uri.EscapeDataString(name));
@@ -2394,6 +2452,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Update hero.
 		/// PUT api/Heroes
 		/// </summary>
 		public async Task<DemoWebApi.Controllers.Client.Hero> PutAsync(DemoWebApi.Controllers.Client.Hero hero, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -2418,6 +2477,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Update hero.
 		/// PUT api/Heroes
 		/// </summary>
 		public DemoWebApi.Controllers.Client.Hero Put(DemoWebApi.Controllers.Client.Hero hero, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -2442,8 +2502,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Search heroes
 		/// GET api/Heroes/search/{name}
 		/// </summary>
+		/// <param name="name">keyword contained in hero name.</param>
+		/// <returns>Hero array matching the keyword.</returns>
 		public async Task<DemoWebApi.Controllers.Client.Hero[]> SearchAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/search/"+(name == null ? "" : Uri.EscapeDataString(name));
@@ -2464,8 +2527,11 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Search heroes
 		/// GET api/Heroes/search/{name}
 		/// </summary>
+		/// <param name="name">keyword contained in hero name.</param>
+		/// <returns>Hero array matching the keyword.</returns>
 		public DemoWebApi.Controllers.Client.Hero[] Search(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/search/"+(name == null ? "" : Uri.EscapeDataString(name));
@@ -2486,6 +2552,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// For testing different commbinations of parameters and returns
+	/// </summary>
 	public partial class Numbers
 	{
 		
@@ -2550,7 +2619,9 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/Numbers/byteWithRange?d={d}
 		/// </summary>
-		/// <param name="d">Range: inclusive between 0 and 100</param>
+		/// <param name="d">Byte for small number.
+		/// Range: inclusive between 0 and 100
+		/// </param>
 		public async Task<byte> GetByteWithRangeAsync(byte d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Numbers/byteWithRange?d="+d;
@@ -2572,7 +2643,9 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/Numbers/byteWithRange?d={d}
 		/// </summary>
-		/// <param name="d">Range: inclusive between 0 and 100</param>
+		/// <param name="d">Byte for small number.
+		/// Range: inclusive between 0 and 100
+		/// </param>
 		public byte GetByteWithRange(byte d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Numbers/byteWithRange?d="+d;
@@ -3294,6 +3367,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
 		/// POST api/Numbers/longRange
 		/// </summary>
 		/// <param name="d">Range: inclusive between 1000 and 9223372036854775800</param>
@@ -3318,6 +3392,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Range is with double, not long. Precision of double: ~15-17 digits, while long.MaxValue 9223372036854775807 has 19 decimal digits.
 		/// POST api/Numbers/longRange
 		/// </summary>
 		/// <param name="d">Range: inclusive between 1000 and 9223372036854775800</param>
@@ -3434,6 +3509,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// For testing posting and getting string data. Returned string is JSON object.
+	/// </summary>
 	public partial class StringData
 	{
 		
@@ -3454,8 +3532,12 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Athlethe Search
 		/// GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		/// </summary>
+		/// <param name="take">Generic optional parameter. Default 10</param>
+		/// <param name="skip">Default 0</param>
+		/// <param name="order">default null</param>
 		public async Task<string> AthletheSearchAsync(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
@@ -3477,8 +3559,12 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Athlethe Search
 		/// GET api/StringData/AthletheSearch?take={take}&skip={skip}&order={order}&sort={sort}&search={search}
 		/// </summary>
+		/// <param name="take">Generic optional parameter. Default 10</param>
+		/// <param name="skip">Default 0</param>
+		/// <param name="order">default null</param>
 		public string AthletheSearch(System.Nullable<int> take, int skip, string order, string sort, string search, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/AthletheSearch?"+(take.HasValue?"take="+take.Value.ToString():String.Empty)+"&skip="+skip+"&order="+(order == null ? "" : Uri.EscapeDataString(order))+"&sort="+(sort == null ? "" : Uri.EscapeDataString(sort))+"&search="+(search == null ? "" : Uri.EscapeDataString(search));
@@ -3546,6 +3632,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty string JSON object. Status 200.
 		/// GET api/StringData/EmptyString
 		/// </summary>
 		public async Task<string> GetEmptyStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3569,6 +3656,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty string JSON object. Status 200.
 		/// GET api/StringData/EmptyString
 		/// </summary>
 		public string GetEmptyString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -3592,6 +3680,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
 		/// GET api/StringData/NullString
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -3616,6 +3705,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
 		/// GET api/StringData/NullString
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -3640,6 +3730,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// For testing different commbinations of parameters and returns
+	/// </summary>
 	public partial class SuperDemo
 	{
 		
@@ -4110,6 +4203,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo
 		/// GET api/SuperDemo/decimalArrayQ?a={a}
 		/// </summary>
 		public async Task<decimal[]> GetDecimalArrayQAsync(decimal[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4132,6 +4226,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo
 		/// GET api/SuperDemo/decimalArrayQ?a={a}
 		/// </summary>
 		public decimal[] GetDecimalArrayQ(decimal[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4408,6 +4503,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
 		public async Task<double> GetDoubleZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4429,6 +4525,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
 		public double GetDoubleZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4450,6 +4547,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo IEnumerable Days
 		/// GET api/SuperDemo/enumArrayDays?a={a}
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Days[]> GetEnumArrayDaysAsync(System.Collections.Generic.IEnumerable<DemoWebApi.DemoData.Client.Days> a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4472,6 +4570,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo IEnumerable Days
 		/// GET api/SuperDemo/enumArrayDays?a={a}
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Days[] GetEnumArrayDays(System.Collections.Generic.IEnumerable<DemoWebApi.DemoData.Client.Days> a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4796,6 +4895,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[];
 		/// GET api/SuperDemo/intArrayQ?a={a}
 		/// </summary>
 		public async Task<int[]> GetIntArrayQAsync(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4818,6 +4918,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[];
 		/// GET api/SuperDemo/intArrayQ?a={a}
 		/// </summary>
 		public int[] GetIntArrayQ(int[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4840,6 +4941,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo IEnumerable long
 		/// GET api/SuperDemo/intArrayQ2?a={a}
 		/// </summary>
 		public async Task<long[]> GetIntArrayQ2Async(System.Collections.Generic.IEnumerable<long> a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -4862,6 +4964,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo IEnumerable long
 		/// GET api/SuperDemo/intArrayQ2?a={a}
 		/// </summary>
 		public long[] GetIntArrayQ2(System.Collections.Generic.IEnumerable<long> a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5096,6 +5199,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// False to return null, and true to return 1000
 		/// GET api/SuperDemo/NullableDecimal/{hasValue}
 		/// </summary>
 		public async Task<System.Nullable<decimal>> GetNullableDecimalAsync(bool hasValue, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5118,6 +5222,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// False to return null, and true to return 1000
 		/// GET api/SuperDemo/NullableDecimal/{hasValue}
 		/// </summary>
 		public System.Nullable<decimal> GetNullableDecimal(bool hasValue, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5140,6 +5245,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -5163,6 +5269,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -5358,6 +5465,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo string array
 		/// GET api/SuperDemo/stringArrayQ?a={a}
 		/// </summary>
 		public async Task<string[]> GetStringArrayQAsync(string[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5380,6 +5488,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo string array
 		/// GET api/SuperDemo/stringArrayQ?a={a}
 		/// </summary>
 		public string[] GetStringArrayQ(string[] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5402,6 +5511,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo List string
 		/// GET api/SuperDemo/stringArrayQ2?a={a}
 		/// </summary>
 		public async Task<string[]> GetStringArrayQ2Async(System.Collections.Generic.List<string> a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5424,6 +5534,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo List string
 		/// GET api/SuperDemo/stringArrayQ2?a={a}
 		/// </summary>
 		public string[] GetStringArrayQ2(System.Collections.Generic.List<string> a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5446,6 +5557,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// ActionResult with FileStreamResult
 		/// GET api/SuperDemo/TextStream
 		/// </summary>
 		public async Task<System.Net.Http.HttpResponseMessage> GetTextStreamAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5459,6 +5571,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// ActionResult with FileStreamResult
 		/// GET api/SuperDemo/TextStream
 		/// </summary>
 		public System.Net.Http.HttpResponseMessage GetTextStream(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5682,6 +5795,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post a collection of person
 		/// POST api/SuperDemo/Collection
 		/// </summary>
 		public async Task<int> PostCollectionAsync(System.Collections.ObjectModel.Collection<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5705,6 +5819,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post a collection of person
 		/// POST api/SuperDemo/Collection
 		/// </summary>
 		public int PostCollection(System.Collections.ObjectModel.Collection<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5776,6 +5891,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo Dic string and person
 		/// POST api/SuperDemo/StringPersonDic
 		/// </summary>
 		public async Task<int> PostDictionaryAsync(System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person> dic, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5799,6 +5915,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo Dic string and person
 		/// POST api/SuperDemo/StringPersonDic
 		/// </summary>
 		public int PostDictionary(System.Collections.Generic.IDictionary<string, DemoWebApi.DemoData.Client.Person> dic, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5870,6 +5987,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post ICollection of person
 		/// POST api/SuperDemo/ICollection
 		/// </summary>
 		public async Task<int> PostICollectionAsync(System.Collections.Generic.ICollection<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5893,6 +6011,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post ICollection of person
 		/// POST api/SuperDemo/ICollection
 		/// </summary>
 		public int PostICollection(System.Collections.Generic.ICollection<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5916,6 +6035,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post IList of person
 		/// POST api/SuperDemo/IList
 		/// </summary>
 		public async Task<int> PostIListAsync(System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -5939,6 +6059,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post IList of person
 		/// POST api/SuperDemo/IList
 		/// </summary>
 		public int PostIList(System.Collections.Generic.IList<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6008,6 +6129,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[][]
 		/// POST api/SuperDemo/int2djagged
 		/// </summary>
 		public async Task<bool> PostInt2DJaggedAsync(int[][] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6031,6 +6153,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[][]
 		/// POST api/SuperDemo/int2djagged
 		/// </summary>
 		public bool PostInt2DJagged(int[][] a, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6054,6 +6177,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[]
 		/// POST api/SuperDemo/intArray
 		/// </summary>
 		/// <param name="a">Min length: 1
@@ -6080,6 +6204,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Demo int[]
 		/// POST api/SuperDemo/intArray
 		/// </summary>
 		/// <param name="a">Min length: 1
@@ -6106,6 +6231,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post IReadOnlyCollection of person
 		/// POST api/SuperDemo/IReadOnlyCollection
 		/// </summary>
 		public async Task<int> PostIReadOnlyCollectionAsync(System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6129,6 +6255,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post IReadOnlyCollection of person
 		/// POST api/SuperDemo/IReadOnlyCollection
 		/// </summary>
 		public int PostIReadOnlyCollection(System.Collections.Generic.IReadOnlyCollection<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6152,6 +6279,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post e of person
 		/// POST api/SuperDemo/IReadOnlyList
 		/// </summary>
 		public async Task<int> PostIReadOnlyListAsync(System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6175,6 +6303,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post e of person
 		/// POST api/SuperDemo/IReadOnlyList
 		/// </summary>
 		public int PostIReadOnlyList(System.Collections.Generic.IReadOnlyList<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6198,6 +6327,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post a list of person
 		/// POST api/SuperDemo/List
 		/// </summary>
 		public async Task<int> PostListAsync(System.Collections.Generic.List<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6221,6 +6351,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post a list of person
 		/// POST api/SuperDemo/List
 		/// </summary>
 		public int PostList(System.Collections.Generic.List<DemoWebApi.DemoData.Client.Person> list, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6292,6 +6423,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// For testing posting and getting string data. String returned is text/plain by default
+	/// </summary>
 	public partial class TextData
 	{
 		
@@ -6404,6 +6538,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body with status 200.
 		/// GET api/TextData/EmptyString
 		/// </summary>
 		public async Task<string> GetEmptyStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6427,6 +6562,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body with status 200.
 		/// GET api/TextData/EmptyString
 		/// </summary>
 		public string GetEmptyString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6450,6 +6586,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/TextData/NullableString
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -6474,6 +6611,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/TextData/NullableString
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -6498,6 +6636,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body with status 204 No Content.
 		/// GET api/TextData/NullString
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -6522,6 +6661,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Return empty body with status 204 No Content.
 		/// GET api/TextData/NullString
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -6546,6 +6686,9 @@ namespace DemoWebApi.Controllers.Client
 		}
 	}
 	
+	/// <summary>
+	/// https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3.3.3
+	/// </summary>
 	public partial class Tuple
 	{
 		
@@ -6566,6 +6709,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Update in a transaction
 		/// PUT api/Tuple/A1TupleArray
 		/// </summary>
 		public async Task A1TupleArrayAsync(System.Tuple<System.Guid, int>[] idAndOrderArray, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6587,6 +6731,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Update in a transaction
 		/// PUT api/Tuple/A1TupleArray
 		/// </summary>
 		public void A1TupleArray(System.Tuple<System.Guid, int>[] idAndOrderArray, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6608,6 +6753,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Update IEnumerable Tuple in a transaction
 		/// PUT api/Tuple/A2TupleArray
 		/// </summary>
 		public async Task A2TupleIEnumerableAsync(System.Collections.Generic.IEnumerable<System.Tuple<System.Guid, int>> idAndOrderArray, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6629,6 +6775,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Update IEnumerable Tuple in a transaction
 		/// PUT api/Tuple/A2TupleArray
 		/// </summary>
 		public void A2TupleIEnumerable(System.Collections.Generic.IEnumerable<System.Tuple<System.Guid, int>> idAndOrderArray, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6650,6 +6797,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post tuple
 		/// POST api/Tuple/ChangeName
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> ChangeNameAsync(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6674,6 +6822,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post tuple
 		/// POST api/Tuple/ChangeName
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person ChangeName(System.Tuple<string, DemoWebApi.DemoData.Client.Person> d, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -6698,6 +6847,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get Tuple in return. MaybeNull
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -6721,6 +6871,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get Tuple in return. MaybeNull
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -6744,6 +6895,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -6767,6 +6919,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// MaybeNull
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
 		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
@@ -7098,6 +7251,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post nested tuple
 		/// GET api/Tuple/Tuple8
 		/// </summary>
 		public async Task<System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>>> GetTuple8Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7120,6 +7274,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post nested tuple
 		/// GET api/Tuple/Tuple8
 		/// </summary>
 		public System.Tuple<string, string, string, string, string, string, int, System.Tuple<string, string, string>> GetTuple8(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7382,6 +7537,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post long tuple
 		/// POST api/Tuple/PeopleCompany7
 		/// </summary>
 		public async Task<DemoWebApi.DemoData.Client.Person> LinkPeopleCompany7Async(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7406,6 +7562,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post long tuple
 		/// POST api/Tuple/PeopleCompany7
 		/// </summary>
 		public DemoWebApi.DemoData.Client.Person LinkPeopleCompany7(System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> peopleAndCompany, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7572,6 +7729,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post tuple string int
 		/// POST api/Tuple/Tuple2
 		/// </summary>
 		public async Task<string> PostTuple2Async(System.Tuple<string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7597,6 +7755,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Post tuple string int
 		/// POST api/Tuple/Tuple2
 		/// </summary>
 		public string PostTuple2(System.Tuple<string, int> tuple, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -7980,6 +8139,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a list of value
 		/// GET api/Values
 		/// </summary>
 		public async Task<System.Collections.Generic.IEnumerable<string>> GetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8001,6 +8161,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a list of value
 		/// GET api/Values
 		/// </summary>
 		public System.Collections.Generic.IEnumerable<string> Get(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8022,6 +8183,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by both Id and name
 		/// GET api/Values/Name/{id}?name={name}
 		/// </summary>
 		public async Task<string> GetAsync(int id, string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8045,6 +8207,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by both Id and name
 		/// GET api/Values/Name/{id}?name={name}
 		/// </summary>
 		public string Get(int id, string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8068,6 +8231,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by name
 		/// GET api/Values?name={name}
 		/// </summary>
 		public async Task<string> GetAsync(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8091,6 +8255,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by name
 		/// GET api/Values?name={name}
 		/// </summary>
 		public string Get(string name, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8114,6 +8279,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by Id
 		/// GET api/Values/{id}
 		/// </summary>
 		public async Task<string> GetAsync(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8137,6 +8303,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get by Id
 		/// GET api/Values/{id}
 		/// </summary>
 		public string Get(int id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8160,6 +8327,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a list of value async, it is get2
 		/// GET api/Values/Get2
 		/// </summary>
 		public async Task<System.Collections.Generic.IEnumerable<string>> Get2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8181,6 +8349,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Get a list of value async, it is get2
 		/// GET api/Values/Get2
 		/// </summary>
 		public System.Collections.Generic.IEnumerable<string> Get2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8252,6 +8421,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Update with valjue
 		/// PUT api/Values/{id}
 		/// </summary>
 		public async Task PutAsync(int id, string value, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -8273,6 +8443,7 @@ namespace DemoWebApi.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Update with valjue
 		/// PUT api/Values/{id}
 		/// </summary>
 		public void Put(int id, string value, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -10137,8 +10308,10 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Anonymous Dynamic of C#
 		/// GET api/SpecialTypes/AnonymousDynamic
 		/// </summary>
+		/// <returns>dyanmic things</returns>
 		public async Task<System.Text.Json.Nodes.JsonObject> GetAnonymousDynamicAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SpecialTypes/AnonymousDynamic";
@@ -10159,8 +10332,10 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Anonymous Dynamic of C#
 		/// GET api/SpecialTypes/AnonymousDynamic
 		/// </summary>
+		/// <returns>dyanmic things</returns>
 		public System.Text.Json.Nodes.JsonObject GetAnonymousDynamic(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SpecialTypes/AnonymousDynamic";
@@ -10181,6 +10356,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async function returing dynamic
 		/// GET api/SpecialTypes/AnonymousDynamic2
 		/// </summary>
 		public async Task<System.Text.Json.Nodes.JsonObject> GetAnonymousDynamic2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -10203,6 +10379,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async function returing dynamic
 		/// GET api/SpecialTypes/AnonymousDynamic2
 		/// </summary>
 		public System.Text.Json.Nodes.JsonObject GetAnonymousDynamic2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -10269,6 +10446,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async function returning object
 		/// GET api/SpecialTypes/AnonymousObject2
 		/// </summary>
 		public async Task<System.Text.Json.Nodes.JsonObject> GetAnonymousObject2Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -10291,6 +10469,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async function returning object
 		/// GET api/SpecialTypes/AnonymousObject2
 		/// </summary>
 		public System.Text.Json.Nodes.JsonObject GetAnonymousObject2(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -10361,6 +10540,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async returning object, Post dynamic
 		/// POST api/SpecialTypes/AnonymousObject2
 		/// </summary>
 		public async Task<System.Text.Json.Nodes.JsonObject> PostAnonymousObject2Async(System.Text.Json.Nodes.JsonObject obj, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
@@ -10385,6 +10565,7 @@ namespace DemoCoreWeb.Controllers.Client
 		}
 		
 		/// <summary>
+		/// Async returning object, Post dynamic
 		/// POST api/SpecialTypes/AnonymousObject2
 		/// </summary>
 		public System.Text.Json.Nodes.JsonObject PostAnonymousObject2(System.Text.Json.Nodes.JsonObject obj, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)

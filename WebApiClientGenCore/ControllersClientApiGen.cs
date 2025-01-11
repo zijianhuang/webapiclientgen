@@ -103,10 +103,15 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			if (codeGenSettings.ApiSelections.DataModels != null)
 			{
-				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies(); //because of lazy loading, AppDomain include data assemblies that have been explicitly referenced in function prototypes.
 				foreach (DataModel dataModel in codeGenSettings.ApiSelections.DataModels)
 				{
 					Assembly assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(dataModel.AssemblyName, StringComparison.OrdinalIgnoreCase));
+					if (assembly == null)
+					{
+						assembly = GetNotReferencedAssembly(dataModel.AssemblyName); //For data models that will be used in the implementation of client codes.
+					}
+
 					if (assembly != null)
 					{
 						CherryPickingMethods cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
@@ -116,6 +121,14 @@ namespace Fonlow.CodeDom.Web.Cs
 					}
 				}
 			}
+		}
+
+
+		static Assembly GetNotReferencedAssembly(string assemblyName)
+		{
+			var executingAssembly = Assembly.GetExecutingAssembly();
+			var executingPath = Path.GetDirectoryName(executingAssembly.Location);
+			return Assembly.LoadFile(Path.Combine(executingPath, assemblyName+".dll"));
 		}
 
 		void GenerateClientTypesFormWebApis(WebApiDescription[] webApiDescriptions)
@@ -341,16 +354,16 @@ namespace Fonlow.CodeDom.Web.Cs
 			targetUnit.Namespaces.InsertToSortedCollection("ZZZzzzEnsureSuccessStatusCodeExDummy", false); // ZZZ to ensure this block is the last one, hopefully.
 		}
 
-        static string GetBlockOfEnsureSuccessStatusCodeExForLinux()
-        {
-            return blockOfEnsureSuccessStatusCodeEx.ReplaceLineEndings();
-        }
+		static string GetBlockOfEnsureSuccessStatusCodeExForLinux()
+		{
+			return blockOfEnsureSuccessStatusCodeEx.ReplaceLineEndings();
+		}
 
-        /// <summary>
-        /// Code block for Windows with \r\n
-        /// </summary>
-        const string blockOfEnsureSuccessStatusCodeEx =
-        @"
+		/// <summary>
+		/// Code block for Windows with \r\n
+		/// </summary>
+		const string blockOfEnsureSuccessStatusCodeEx =
+		@"
 
 namespace Fonlow.Net.Http
 {
@@ -388,13 +401,13 @@ namespace Fonlow.Net.Http
 		}
 	}
 }";
-        /// <summary>
-        /// Block also working well in Linux while C# CodeDOM outputs with \n
-        /// </summary>
-        string dummyBlock =
-            $"{Environment.NewLine}namespace ZZZzzzEnsureSuccessStatusCodeExDummy{Environment.NewLine}{{{Environment.NewLine}\t{Environment.NewLine}}}";
+		/// <summary>
+		/// Block also working well in Linux while C# CodeDOM outputs with \n
+		/// </summary>
+		string dummyBlock =
+			$"{Environment.NewLine}namespace ZZZzzzEnsureSuccessStatusCodeExDummy{Environment.NewLine}{{{Environment.NewLine}\t{Environment.NewLine}}}";
 
-        protected virtual void Dispose(bool disposing)
+		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)
 			{

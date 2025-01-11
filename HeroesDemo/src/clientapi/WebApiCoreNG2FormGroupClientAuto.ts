@@ -2414,6 +2414,1760 @@ export namespace DemoWebApi_Models_Client {
 
 }
 
+export namespace TT_Legacy_Models_Client {
+	export interface Client {
+		created?: Date | null;
+		id?: number | null;
+		lastunit?: number | null;
+		lastupdate?: Date | null;
+		registrationId?: string | null;
+	}
+	export interface ClientFormProperties {
+		created: FormControl<Date | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		lastunit: FormControl<number | null | undefined>,
+		lastupdate: FormControl<Date | null | undefined>,
+		registrationId: FormControl<string | null | undefined>,
+	}
+	export function CreateClientFormGroup() {
+		return new FormGroup<ClientFormProperties>({
+			created: new FormControl<Date | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			lastunit: new FormControl<number | null | undefined>(undefined),
+			lastupdate: new FormControl<Date | null | undefined>(undefined),
+			registrationId: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Clientunit {
+		clientId?: number | null;
+		unitId?: number | null;
+	}
+	export interface ClientunitFormProperties {
+		clientId: FormControl<number | null | undefined>,
+		unitId: FormControl<number | null | undefined>,
+	}
+	export function CreateClientunitFormGroup() {
+		return new FormGroup<ClientunitFormProperties>({
+			clientId: new FormControl<number | null | undefined>(undefined),
+			unitId: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Commandq {
+		added?: Date | null;
+		addedBy?: string | null;
+		clientAckStatus?: string | null;
+		clientAckTime?: Date | null;
+		clientId?: number | null;
+		command?: string | null;
+		commanddata?: string | null;
+		commanddate?: Date | null;
+		commanddesc?: string | null;
+		commandInfo?: string | null;
+		deleted?: number | null;
+		gcmResponse?: string | null;
+		gcmSent?: number | null;
+		gcmSentTime?: Date | null;
+		id?: number | null;
+		waitforregistration?: number | null;
+	}
+	export interface CommandqFormProperties {
+		added: FormControl<Date | null | undefined>,
+		addedBy: FormControl<string | null | undefined>,
+		clientAckStatus: FormControl<string | null | undefined>,
+		clientAckTime: FormControl<Date | null | undefined>,
+		clientId: FormControl<number | null | undefined>,
+		command: FormControl<string | null | undefined>,
+		commanddata: FormControl<string | null | undefined>,
+		commanddate: FormControl<Date | null | undefined>,
+		commanddesc: FormControl<string | null | undefined>,
+		commandInfo: FormControl<string | null | undefined>,
+		deleted: FormControl<number | null | undefined>,
+		gcmResponse: FormControl<string | null | undefined>,
+		gcmSent: FormControl<number | null | undefined>,
+		gcmSentTime: FormControl<Date | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		waitforregistration: FormControl<number | null | undefined>,
+	}
+	export function CreateCommandqFormGroup() {
+		return new FormGroup<CommandqFormProperties>({
+			added: new FormControl<Date | null | undefined>(undefined),
+			addedBy: new FormControl<string | null | undefined>(undefined),
+			clientAckStatus: new FormControl<string | null | undefined>(undefined),
+			clientAckTime: new FormControl<Date | null | undefined>(undefined),
+			clientId: new FormControl<number | null | undefined>(undefined),
+			command: new FormControl<string | null | undefined>(undefined),
+			commanddata: new FormControl<string | null | undefined>(undefined),
+			commanddate: new FormControl<Date | null | undefined>(undefined),
+			commanddesc: new FormControl<string | null | undefined>(undefined),
+			commandInfo: new FormControl<string | null | undefined>(undefined),
+			deleted: new FormControl<number | null | undefined>(undefined),
+			gcmResponse: new FormControl<string | null | undefined>(undefined),
+			gcmSent: new FormControl<number | null | undefined>(undefined),
+			gcmSentTime: new FormControl<Date | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			waitforregistration: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Company {
+		companyname?: string | null;
+		displayname?: string | null;
+		dnsname?: string | null;
+		externalid?: number | null;
+		id?: number | null;
+		isactive?: number | null;
+		languageId?: string | null;
+		logo?: string | null;
+		orggroup?: string | null;
+		provisioned?: Date | null;
+		provisionemailsent?: Date | null;
+		region?: string | null;
+		termsagreed?: number | null;
+		tstamp?: Date | null;
+		tzone?: string | null;
+	}
+	export interface CompanyFormProperties {
+		companyname: FormControl<string | null | undefined>,
+		displayname: FormControl<string | null | undefined>,
+		dnsname: FormControl<string | null | undefined>,
+		externalid: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		isactive: FormControl<number | null | undefined>,
+		languageId: FormControl<string | null | undefined>,
+		logo: FormControl<string | null | undefined>,
+		orggroup: FormControl<string | null | undefined>,
+		provisioned: FormControl<Date | null | undefined>,
+		provisionemailsent: FormControl<Date | null | undefined>,
+		region: FormControl<string | null | undefined>,
+		termsagreed: FormControl<number | null | undefined>,
+		tstamp: FormControl<Date | null | undefined>,
+		tzone: FormControl<string | null | undefined>,
+	}
+	export function CreateCompanyFormGroup() {
+		return new FormGroup<CompanyFormProperties>({
+			companyname: new FormControl<string | null | undefined>(undefined),
+			displayname: new FormControl<string | null | undefined>(undefined),
+			dnsname: new FormControl<string | null | undefined>(undefined),
+			externalid: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			isactive: new FormControl<number | null | undefined>(undefined),
+			languageId: new FormControl<string | null | undefined>(undefined),
+			logo: new FormControl<string | null | undefined>(undefined),
+			orggroup: new FormControl<string | null | undefined>(undefined),
+			provisioned: new FormControl<Date | null | undefined>(undefined),
+			provisionemailsent: new FormControl<Date | null | undefined>(undefined),
+			region: new FormControl<string | null | undefined>(undefined),
+			termsagreed: new FormControl<number | null | undefined>(undefined),
+			tstamp: new FormControl<Date | null | undefined>(undefined),
+			tzone: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Companyreportsetting {
+		companyid?: number | null;
+		disclaimer?: string | null;
+		footerimage?: string | null;
+		headerimage?: string | null;
+		heading?: string | null;
+		id?: number | null;
+		introduction?: string | null;
+		subheading?: string | null;
+	}
+	export interface CompanyreportsettingFormProperties {
+		companyid: FormControl<number | null | undefined>,
+		disclaimer: FormControl<string | null | undefined>,
+		footerimage: FormControl<string | null | undefined>,
+		headerimage: FormControl<string | null | undefined>,
+		heading: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		introduction: FormControl<string | null | undefined>,
+		subheading: FormControl<string | null | undefined>,
+	}
+	export function CreateCompanyreportsettingFormGroup() {
+		return new FormGroup<CompanyreportsettingFormProperties>({
+			companyid: new FormControl<number | null | undefined>(undefined),
+			disclaimer: new FormControl<string | null | undefined>(undefined),
+			footerimage: new FormControl<string | null | undefined>(undefined),
+			headerimage: new FormControl<string | null | undefined>(undefined),
+			heading: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			introduction: new FormControl<string | null | undefined>(undefined),
+			subheading: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Dashboardmsg {
+		active?: number | null;
+		created?: Date | null;
+		createdBy?: number | null;
+		forall?: number | null;
+		fromdate?: Date | null;
+		id?: number | null;
+		message?: string | null;
+		todate?: Date | null;
+	}
+	export interface DashboardmsgFormProperties {
+		active: FormControl<number | null | undefined>,
+		created: FormControl<Date | null | undefined>,
+		createdBy: FormControl<number | null | undefined>,
+		forall: FormControl<number | null | undefined>,
+		fromdate: FormControl<Date | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		message: FormControl<string | null | undefined>,
+		todate: FormControl<Date | null | undefined>,
+	}
+	export function CreateDashboardmsgFormGroup() {
+		return new FormGroup<DashboardmsgFormProperties>({
+			active: new FormControl<number | null | undefined>(undefined),
+			created: new FormControl<Date | null | undefined>(undefined),
+			createdBy: new FormControl<number | null | undefined>(undefined),
+			forall: new FormControl<number | null | undefined>(undefined),
+			fromdate: new FormControl<Date | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			message: new FormControl<string | null | undefined>(undefined),
+			todate: new FormControl<Date | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Dashboardmsgfor {
+		companyId?: number | null;
+		msgId?: number | null;
+	}
+	export interface DashboardmsgforFormProperties {
+		companyId: FormControl<number | null | undefined>,
+		msgId: FormControl<number | null | undefined>,
+	}
+	export function CreateDashboardmsgforFormGroup() {
+		return new FormGroup<DashboardmsgforFormProperties>({
+			companyId: new FormControl<number | null | undefined>(undefined),
+			msgId: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Emailtemplate {
+		companyId?: number | null;
+		heading?: string | null;
+		id?: number | null;
+		language?: string | null;
+		name?: string | null;
+		subject?: string | null;
+		template?: string | null;
+		userTemplate?: number | null;
+	}
+	export interface EmailtemplateFormProperties {
+		companyId: FormControl<number | null | undefined>,
+		heading: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		language: FormControl<string | null | undefined>,
+		name: FormControl<string | null | undefined>,
+		subject: FormControl<string | null | undefined>,
+		template: FormControl<string | null | undefined>,
+		userTemplate: FormControl<number | null | undefined>,
+	}
+	export function CreateEmailtemplateFormGroup() {
+		return new FormGroup<EmailtemplateFormProperties>({
+			companyId: new FormControl<number | null | undefined>(undefined),
+			heading: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			language: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			subject: new FormControl<string | null | undefined>(undefined),
+			template: new FormControl<string | null | undefined>(undefined),
+			userTemplate: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Eventlog {
+		companyId?: number | null;
+		eventname?: string | null;
+		id?: number | null;
+		ipaddress?: string | null;
+		note?: string | null;
+		response?: string | null;
+		timestamp?: Date | null;
+		userId?: number | null;
+	}
+	export interface EventlogFormProperties {
+		companyId: FormControl<number | null | undefined>,
+		eventname: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		ipaddress: FormControl<string | null | undefined>,
+		note: FormControl<string | null | undefined>,
+		response: FormControl<string | null | undefined>,
+		timestamp: FormControl<Date | null | undefined>,
+		userId: FormControl<number | null | undefined>,
+	}
+	export function CreateEventlogFormGroup() {
+		return new FormGroup<EventlogFormProperties>({
+			companyId: new FormControl<number | null | undefined>(undefined),
+			eventname: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			ipaddress: new FormControl<string | null | undefined>(undefined),
+			note: new FormControl<string | null | undefined>(undefined),
+			response: new FormControl<string | null | undefined>(undefined),
+			timestamp: new FormControl<Date | null | undefined>(undefined),
+			userId: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Job {
+		buildingCategory?: string | null;
+		companyId?: number | null;
+		customerName?: string | null;
+		dateTime?: Date | null;
+		flags?: number | null;
+		id?: number | null;
+		jobType?: string | null;
+		locationId?: number | null;
+		notes?: string | null;
+		number?: string | null;
+		operatorId?: string | null;
+		uuid?: string | null;
+	}
+	export interface JobFormProperties {
+		buildingCategory: FormControl<string | null | undefined>,
+		companyId: FormControl<number | null | undefined>,
+		customerName: FormControl<string | null | undefined>,
+		dateTime: FormControl<Date | null | undefined>,
+		flags: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		jobType: FormControl<string | null | undefined>,
+		locationId: FormControl<number | null | undefined>,
+		notes: FormControl<string | null | undefined>,
+		number: FormControl<string | null | undefined>,
+		operatorId: FormControl<string | null | undefined>,
+		uuid: FormControl<string | null | undefined>,
+	}
+	export function CreateJobFormGroup() {
+		return new FormGroup<JobFormProperties>({
+			buildingCategory: new FormControl<string | null | undefined>(undefined),
+			companyId: new FormControl<number | null | undefined>(undefined),
+			customerName: new FormControl<string | null | undefined>(undefined),
+			dateTime: new FormControl<Date | null | undefined>(undefined),
+			flags: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			jobType: new FormControl<string | null | undefined>(undefined),
+			locationId: new FormControl<number | null | undefined>(undefined),
+			notes: new FormControl<string | null | undefined>(undefined),
+			number: new FormControl<string | null | undefined>(undefined),
+			operatorId: new FormControl<string | null | undefined>(undefined),
+			uuid: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Lang {
+		encoding?: string | null;
+		errorText?: string | null;
+		hidden?: number | null;
+		id?: string | null;
+		meta?: string | null;
+		name?: string | null;
+	}
+	export interface LangFormProperties {
+		encoding: FormControl<string | null | undefined>,
+		errorText: FormControl<string | null | undefined>,
+		hidden: FormControl<number | null | undefined>,
+		id: FormControl<string | null | undefined>,
+		meta: FormControl<string | null | undefined>,
+		name: FormControl<string | null | undefined>,
+	}
+	export function CreateLangFormGroup() {
+		return new FormGroup<LangFormProperties>({
+			encoding: new FormControl<string | null | undefined>(undefined),
+			errorText: new FormControl<string | null | undefined>(undefined),
+			hidden: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<string | null | undefined>(undefined),
+			meta: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Lead {
+		id?: number | null;
+		leadaddr?: string | null;
+		leadcompany?: string | null;
+		leadcontact?: string | null;
+		leademail?: string | null;
+		leadphone?: string | null;
+		opportunity?: string | null;
+		reseller?: string | null;
+		resellerid?: number | null;
+		salesemail?: string | null;
+		salesperson?: string | null;
+		submitdate?: Date | null;
+	}
+	export interface LeadFormProperties {
+		id: FormControl<number | null | undefined>,
+		leadaddr: FormControl<string | null | undefined>,
+		leadcompany: FormControl<string | null | undefined>,
+		leadcontact: FormControl<string | null | undefined>,
+		leademail: FormControl<string | null | undefined>,
+		leadphone: FormControl<string | null | undefined>,
+		opportunity: FormControl<string | null | undefined>,
+		reseller: FormControl<string | null | undefined>,
+		resellerid: FormControl<number | null | undefined>,
+		salesemail: FormControl<string | null | undefined>,
+		salesperson: FormControl<string | null | undefined>,
+		submitdate: FormControl<Date | null | undefined>,
+	}
+	export function CreateLeadFormGroup() {
+		return new FormGroup<LeadFormProperties>({
+			id: new FormControl<number | null | undefined>(undefined),
+			leadaddr: new FormControl<string | null | undefined>(undefined),
+			leadcompany: new FormControl<string | null | undefined>(undefined),
+			leadcontact: new FormControl<string | null | undefined>(undefined),
+			leademail: new FormControl<string | null | undefined>(undefined),
+			leadphone: new FormControl<string | null | undefined>(undefined),
+			opportunity: new FormControl<string | null | undefined>(undefined),
+			reseller: new FormControl<string | null | undefined>(undefined),
+			resellerid: new FormControl<number | null | undefined>(undefined),
+			salesemail: new FormControl<string | null | undefined>(undefined),
+			salesperson: new FormControl<string | null | undefined>(undefined),
+			submitdate: new FormControl<Date | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Leaseapp {
+		acn?: string | null;
+		amtowing?: number | null;
+		android?: number | null;
+		applicantname?: string | null;
+		applicanttitle?: string | null;
+		billto?: string | null;
+		businessfax?: string | null;
+		businessname?: string | null;
+		businessphone?: string | null;
+		contactemail?: string | null;
+		contactname?: string | null;
+		contactphone?: string | null;
+		country?: string | null;
+		created?: Date | null;
+		deleted?: number | null;
+		deposit?: number | null;
+		depositmethod?: number | null;
+		guarantorname?: string | null;
+		id?: number | null;
+		monthlyamount?: number | null;
+		ordervalue?: number | null;
+		paymethod?: number | null;
+		periods?: number | null;
+		proddesc?: string | null;
+		prodprice?: string | null;
+		prodqty?: string | null;
+		shipto?: string | null;
+		signdate?: string | null;
+		signedip?: string | null;
+		signtimestamp?: Date | null;
+		uuid?: string | null;
+	}
+	export interface LeaseappFormProperties {
+		acn: FormControl<string | null | undefined>,
+		amtowing: FormControl<number | null | undefined>,
+		android: FormControl<number | null | undefined>,
+		applicantname: FormControl<string | null | undefined>,
+		applicanttitle: FormControl<string | null | undefined>,
+		billto: FormControl<string | null | undefined>,
+		businessfax: FormControl<string | null | undefined>,
+		businessname: FormControl<string | null | undefined>,
+		businessphone: FormControl<string | null | undefined>,
+		contactemail: FormControl<string | null | undefined>,
+		contactname: FormControl<string | null | undefined>,
+		contactphone: FormControl<string | null | undefined>,
+		country: FormControl<string | null | undefined>,
+		created: FormControl<Date | null | undefined>,
+		deleted: FormControl<number | null | undefined>,
+		deposit: FormControl<number | null | undefined>,
+		depositmethod: FormControl<number | null | undefined>,
+		guarantorname: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		monthlyamount: FormControl<number | null | undefined>,
+		ordervalue: FormControl<number | null | undefined>,
+		paymethod: FormControl<number | null | undefined>,
+		periods: FormControl<number | null | undefined>,
+		proddesc: FormControl<string | null | undefined>,
+		prodprice: FormControl<string | null | undefined>,
+		prodqty: FormControl<string | null | undefined>,
+		shipto: FormControl<string | null | undefined>,
+		signdate: FormControl<string | null | undefined>,
+		signedip: FormControl<string | null | undefined>,
+		signtimestamp: FormControl<Date | null | undefined>,
+		uuid: FormControl<string | null | undefined>,
+	}
+	export function CreateLeaseappFormGroup() {
+		return new FormGroup<LeaseappFormProperties>({
+			acn: new FormControl<string | null | undefined>(undefined),
+			amtowing: new FormControl<number | null | undefined>(undefined),
+			android: new FormControl<number | null | undefined>(undefined),
+			applicantname: new FormControl<string | null | undefined>(undefined),
+			applicanttitle: new FormControl<string | null | undefined>(undefined),
+			billto: new FormControl<string | null | undefined>(undefined),
+			businessfax: new FormControl<string | null | undefined>(undefined),
+			businessname: new FormControl<string | null | undefined>(undefined),
+			businessphone: new FormControl<string | null | undefined>(undefined),
+			contactemail: new FormControl<string | null | undefined>(undefined),
+			contactname: new FormControl<string | null | undefined>(undefined),
+			contactphone: new FormControl<string | null | undefined>(undefined),
+			country: new FormControl<string | null | undefined>(undefined),
+			created: new FormControl<Date | null | undefined>(undefined),
+			deleted: new FormControl<number | null | undefined>(undefined),
+			deposit: new FormControl<number | null | undefined>(undefined),
+			depositmethod: new FormControl<number | null | undefined>(undefined),
+			guarantorname: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			monthlyamount: new FormControl<number | null | undefined>(undefined),
+			ordervalue: new FormControl<number | null | undefined>(undefined),
+			paymethod: new FormControl<number | null | undefined>(undefined),
+			periods: new FormControl<number | null | undefined>(undefined),
+			proddesc: new FormControl<string | null | undefined>(undefined),
+			prodprice: new FormControl<string | null | undefined>(undefined),
+			prodqty: new FormControl<string | null | undefined>(undefined),
+			shipto: new FormControl<string | null | undefined>(undefined),
+			signdate: new FormControl<string | null | undefined>(undefined),
+			signedip: new FormControl<string | null | undefined>(undefined),
+			signtimestamp: new FormControl<Date | null | undefined>(undefined),
+			uuid: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Location {
+		address?: string | null;
+		companyId?: number | null;
+		id?: number | null;
+		uuid?: string | null;
+	}
+	export interface LocationFormProperties {
+		address: FormControl<string | null | undefined>,
+		companyId: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		uuid: FormControl<string | null | undefined>,
+	}
+	export function CreateLocationFormGroup() {
+		return new FormGroup<LocationFormProperties>({
+			address: new FormControl<string | null | undefined>(undefined),
+			companyId: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			uuid: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Menu {
+		enabled?: number | null;
+		icon?: string | null;
+		id?: number | null;
+		name?: string | null;
+		optionid?: string | null;
+		seq?: number | null;
+		type?: string | null;
+		url?: string | null;
+		userlevel?: string | null;
+	}
+	export interface MenuFormProperties {
+		enabled: FormControl<number | null | undefined>,
+		icon: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+		optionid: FormControl<string | null | undefined>,
+		seq: FormControl<number | null | undefined>,
+		type: FormControl<string | null | undefined>,
+		url: FormControl<string | null | undefined>,
+		userlevel: FormControl<string | null | undefined>,
+	}
+	export function CreateMenuFormGroup() {
+		return new FormGroup<MenuFormProperties>({
+			enabled: new FormControl<number | null | undefined>(undefined),
+			icon: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			optionid: new FormControl<string | null | undefined>(undefined),
+			seq: new FormControl<number | null | undefined>(undefined),
+			type: new FormControl<string | null | undefined>(undefined),
+			url: new FormControl<string | null | undefined>(undefined),
+			userlevel: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Menuoption {
+		enabled?: number | null;
+		id?: number | null;
+		menuId?: number | null;
+		name?: string | null;
+		optionid?: string | null;
+		seq?: number | null;
+		url?: string | null;
+	}
+	export interface MenuoptionFormProperties {
+		enabled: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		menuId: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+		optionid: FormControl<string | null | undefined>,
+		seq: FormControl<number | null | undefined>,
+		url: FormControl<string | null | undefined>,
+	}
+	export function CreateMenuoptionFormGroup() {
+		return new FormGroup<MenuoptionFormProperties>({
+			enabled: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			menuId: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			optionid: new FormControl<string | null | undefined>(undefined),
+			seq: new FormControl<number | null | undefined>(undefined),
+			url: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Office {
+		address?: string | null;
+		companyId?: number | null;
+		email?: string | null;
+		exoOffice?: number | null;
+		id?: number | null;
+		lat?: string | null;
+		lng?: string | null;
+		name?: string | null;
+		phone?: string | null;
+		publish?: number | null;
+		tstamp?: Date | null;
+		unitId?: number | null;
+	}
+	export interface OfficeFormProperties {
+		address: FormControl<string | null | undefined>,
+		companyId: FormControl<number | null | undefined>,
+		email: FormControl<string | null | undefined>,
+		exoOffice: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		lat: FormControl<string | null | undefined>,
+		lng: FormControl<string | null | undefined>,
+		name: FormControl<string | null | undefined>,
+		phone: FormControl<string | null | undefined>,
+		publish: FormControl<number | null | undefined>,
+		tstamp: FormControl<Date | null | undefined>,
+		unitId: FormControl<number | null | undefined>,
+	}
+	export function CreateOfficeFormGroup() {
+		return new FormGroup<OfficeFormProperties>({
+			address: new FormControl<string | null | undefined>(undefined),
+			companyId: new FormControl<number | null | undefined>(undefined),
+			email: new FormControl<string | null | undefined>(undefined),
+			exoOffice: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			lat: new FormControl<string | null | undefined>(undefined),
+			lng: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			phone: new FormControl<string | null | undefined>(undefined),
+			publish: new FormControl<number | null | undefined>(undefined),
+			tstamp: new FormControl<Date | null | undefined>(undefined),
+			unitId: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Pplanapp {
+		acn?: string | null;
+		amtowing?: number | null;
+		applicantname?: string | null;
+		applicanttitle?: string | null;
+		billto?: string | null;
+		businessfax?: string | null;
+		businessname?: string | null;
+		businessphone?: string | null;
+		contactemail?: string | null;
+		contactname?: string | null;
+		contactphone?: string | null;
+		country?: string | null;
+		created?: Date | null;
+		deleted?: number | null;
+		deposit?: number | null;
+		depositmethod?: number | null;
+		id?: number | null;
+		monthlyamount?: number | null;
+		ordervalue?: number | null;
+		paymethod?: number | null;
+		periods?: number | null;
+		planfee?: number | null;
+		proddesc?: string | null;
+		prodprice?: string | null;
+		prodqty?: string | null;
+		shipto?: string | null;
+		signdate?: string | null;
+		signedip?: string | null;
+		signtimestamp?: Date | null;
+		uuid?: string | null;
+	}
+	export interface PplanappFormProperties {
+		acn: FormControl<string | null | undefined>,
+		amtowing: FormControl<number | null | undefined>,
+		applicantname: FormControl<string | null | undefined>,
+		applicanttitle: FormControl<string | null | undefined>,
+		billto: FormControl<string | null | undefined>,
+		businessfax: FormControl<string | null | undefined>,
+		businessname: FormControl<string | null | undefined>,
+		businessphone: FormControl<string | null | undefined>,
+		contactemail: FormControl<string | null | undefined>,
+		contactname: FormControl<string | null | undefined>,
+		contactphone: FormControl<string | null | undefined>,
+		country: FormControl<string | null | undefined>,
+		created: FormControl<Date | null | undefined>,
+		deleted: FormControl<number | null | undefined>,
+		deposit: FormControl<number | null | undefined>,
+		depositmethod: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		monthlyamount: FormControl<number | null | undefined>,
+		ordervalue: FormControl<number | null | undefined>,
+		paymethod: FormControl<number | null | undefined>,
+		periods: FormControl<number | null | undefined>,
+		planfee: FormControl<number | null | undefined>,
+		proddesc: FormControl<string | null | undefined>,
+		prodprice: FormControl<string | null | undefined>,
+		prodqty: FormControl<string | null | undefined>,
+		shipto: FormControl<string | null | undefined>,
+		signdate: FormControl<string | null | undefined>,
+		signedip: FormControl<string | null | undefined>,
+		signtimestamp: FormControl<Date | null | undefined>,
+		uuid: FormControl<string | null | undefined>,
+	}
+	export function CreatePplanappFormGroup() {
+		return new FormGroup<PplanappFormProperties>({
+			acn: new FormControl<string | null | undefined>(undefined),
+			amtowing: new FormControl<number | null | undefined>(undefined),
+			applicantname: new FormControl<string | null | undefined>(undefined),
+			applicanttitle: new FormControl<string | null | undefined>(undefined),
+			billto: new FormControl<string | null | undefined>(undefined),
+			businessfax: new FormControl<string | null | undefined>(undefined),
+			businessname: new FormControl<string | null | undefined>(undefined),
+			businessphone: new FormControl<string | null | undefined>(undefined),
+			contactemail: new FormControl<string | null | undefined>(undefined),
+			contactname: new FormControl<string | null | undefined>(undefined),
+			contactphone: new FormControl<string | null | undefined>(undefined),
+			country: new FormControl<string | null | undefined>(undefined),
+			created: new FormControl<Date | null | undefined>(undefined),
+			deleted: new FormControl<number | null | undefined>(undefined),
+			deposit: new FormControl<number | null | undefined>(undefined),
+			depositmethod: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			monthlyamount: new FormControl<number | null | undefined>(undefined),
+			ordervalue: new FormControl<number | null | undefined>(undefined),
+			paymethod: new FormControl<number | null | undefined>(undefined),
+			periods: new FormControl<number | null | undefined>(undefined),
+			planfee: new FormControl<number | null | undefined>(undefined),
+			proddesc: new FormControl<string | null | undefined>(undefined),
+			prodprice: new FormControl<string | null | undefined>(undefined),
+			prodqty: new FormControl<string | null | undefined>(undefined),
+			shipto: new FormControl<string | null | undefined>(undefined),
+			signdate: new FormControl<string | null | undefined>(undefined),
+			signedip: new FormControl<string | null | undefined>(undefined),
+			signtimestamp: new FormControl<Date | null | undefined>(undefined),
+			uuid: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Report {
+		comments?: string | null;
+		companyId?: number | null;
+		customername?: string | null;
+		id?: number | null;
+		jobId?: number | null;
+		locationId?: number | null;
+		name?: string | null;
+		operator?: string | null;
+		opercert?: string | null;
+		reportnum?: string | null;
+		reportscanlogs?: Array<TT_Legacy_Models_Client.Reportscanlog>;
+		reportsections?: Array<TT_Legacy_Models_Client.Reportsection>;
+		requestedby?: string | null;
+		tstamp?: Date | null;
+		userId?: number | null;
+	}
+	export interface ReportFormProperties {
+		comments: FormControl<string | null | undefined>,
+		companyId: FormControl<number | null | undefined>,
+		customername: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		jobId: FormControl<number | null | undefined>,
+		locationId: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+		operator: FormControl<string | null | undefined>,
+		opercert: FormControl<string | null | undefined>,
+		reportnum: FormControl<string | null | undefined>,
+		requestedby: FormControl<string | null | undefined>,
+		tstamp: FormControl<Date | null | undefined>,
+		userId: FormControl<number | null | undefined>,
+	}
+	export function CreateReportFormGroup() {
+		return new FormGroup<ReportFormProperties>({
+			comments: new FormControl<string | null | undefined>(undefined),
+			companyId: new FormControl<number | null | undefined>(undefined),
+			customername: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			jobId: new FormControl<number | null | undefined>(undefined),
+			locationId: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			operator: new FormControl<string | null | undefined>(undefined),
+			opercert: new FormControl<string | null | undefined>(undefined),
+			reportnum: new FormControl<string | null | undefined>(undefined),
+			requestedby: new FormControl<string | null | undefined>(undefined),
+			tstamp: new FormControl<Date | null | undefined>(undefined),
+			userId: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Reportscanlog {
+		id?: number | null;
+		notes?: string | null;
+		report?: TT_Legacy_Models_Client.Report;
+		reportId?: number | null;
+		scanid?: number | null;
+		sectionId?: number | null;
+		seq?: number | null;
+	}
+	export interface ReportscanlogFormProperties {
+		id: FormControl<number | null | undefined>,
+		notes: FormControl<string | null | undefined>,
+		reportId: FormControl<number | null | undefined>,
+		scanid: FormControl<number | null | undefined>,
+		sectionId: FormControl<number | null | undefined>,
+		seq: FormControl<number | null | undefined>,
+	}
+	export function CreateReportscanlogFormGroup() {
+		return new FormGroup<ReportscanlogFormProperties>({
+			id: new FormControl<number | null | undefined>(undefined),
+			notes: new FormControl<string | null | undefined>(undefined),
+			reportId: new FormControl<number | null | undefined>(undefined),
+			scanid: new FormControl<number | null | undefined>(undefined),
+			sectionId: new FormControl<number | null | undefined>(undefined),
+			seq: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Reportsection {
+		comments?: string | null;
+		conclusive?: number | null;
+		id?: number | null;
+		insectother?: string | null;
+		insecttype?: number | null;
+		name?: string | null;
+		nameoverride?: string | null;
+		report?: TT_Legacy_Models_Client.Report;
+		reportId?: number | null;
+		seq?: number | null;
+	}
+	export interface ReportsectionFormProperties {
+		comments: FormControl<string | null | undefined>,
+		conclusive: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		insectother: FormControl<string | null | undefined>,
+		insecttype: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+		nameoverride: FormControl<string | null | undefined>,
+		reportId: FormControl<number | null | undefined>,
+		seq: FormControl<number | null | undefined>,
+	}
+	export function CreateReportsectionFormGroup() {
+		return new FormGroup<ReportsectionFormProperties>({
+			comments: new FormControl<string | null | undefined>(undefined),
+			conclusive: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			insectother: new FormControl<string | null | undefined>(undefined),
+			insecttype: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			nameoverride: new FormControl<string | null | undefined>(undefined),
+			reportId: new FormControl<number | null | undefined>(undefined),
+			seq: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Reseller {
+		email?: string | null;
+		id?: number | null;
+		name?: string | null;
+		reportifnoleads?: number | null;
+	}
+	export interface ResellerFormProperties {
+		email: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+		reportifnoleads: FormControl<number | null | undefined>,
+	}
+	export function CreateResellerFormGroup() {
+		return new FormGroup<ResellerFormProperties>({
+			email: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			reportifnoleads: new FormControl<number | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Scan {
+		appVer?: string | null;
+		batteryvolt?: string | null;
+		companyId?: number | null;
+		compass?: string | null;
+		created?: Date | null;
+		damageVisible?: number | null;
+		data?: string | null;
+		dateTime?: Date | null;
+		deviceFirmwareVersion?: string | null;
+		deviceSerialNumber?: string | null;
+		flags?: string | null;
+		floor?: string | null;
+		gainSetting?: number | null;
+		howPositioned?: string | null;
+		howUsed?: string | null;
+		id?: number | null;
+		image?: string | null;
+		jobId?: number | null;
+		logNumber?: number | null;
+		moisturedelta?: string | null;
+		moisturemax?: number | null;
+		moisturemin?: number | null;
+		moistureoffset?: string | null;
+		moistureslope?: string | null;
+		notes?: string | null;
+		room?: string | null;
+		scanArea?: string | null;
+		sensorId?: number | null;
+		thumbnail?: string | null;
+		unitId?: number | null;
+		uuid?: string | null;
+	}
+	export interface ScanFormProperties {
+		appVer: FormControl<string | null | undefined>,
+		batteryvolt: FormControl<string | null | undefined>,
+		companyId: FormControl<number | null | undefined>,
+		compass: FormControl<string | null | undefined>,
+		created: FormControl<Date | null | undefined>,
+		damageVisible: FormControl<number | null | undefined>,
+		data: FormControl<string | null | undefined>,
+		dateTime: FormControl<Date | null | undefined>,
+		deviceFirmwareVersion: FormControl<string | null | undefined>,
+		deviceSerialNumber: FormControl<string | null | undefined>,
+		flags: FormControl<string | null | undefined>,
+		floor: FormControl<string | null | undefined>,
+		gainSetting: FormControl<number | null | undefined>,
+		howPositioned: FormControl<string | null | undefined>,
+		howUsed: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		image: FormControl<string | null | undefined>,
+		jobId: FormControl<number | null | undefined>,
+		logNumber: FormControl<number | null | undefined>,
+		moisturedelta: FormControl<string | null | undefined>,
+		moisturemax: FormControl<number | null | undefined>,
+		moisturemin: FormControl<number | null | undefined>,
+		moistureoffset: FormControl<string | null | undefined>,
+		moistureslope: FormControl<string | null | undefined>,
+		notes: FormControl<string | null | undefined>,
+		room: FormControl<string | null | undefined>,
+		scanArea: FormControl<string | null | undefined>,
+		sensorId: FormControl<number | null | undefined>,
+		thumbnail: FormControl<string | null | undefined>,
+		unitId: FormControl<number | null | undefined>,
+		uuid: FormControl<string | null | undefined>,
+	}
+	export function CreateScanFormGroup() {
+		return new FormGroup<ScanFormProperties>({
+			appVer: new FormControl<string | null | undefined>(undefined),
+			batteryvolt: new FormControl<string | null | undefined>(undefined),
+			companyId: new FormControl<number | null | undefined>(undefined),
+			compass: new FormControl<string | null | undefined>(undefined),
+			created: new FormControl<Date | null | undefined>(undefined),
+			damageVisible: new FormControl<number | null | undefined>(undefined),
+			data: new FormControl<string | null | undefined>(undefined),
+			dateTime: new FormControl<Date | null | undefined>(undefined),
+			deviceFirmwareVersion: new FormControl<string | null | undefined>(undefined),
+			deviceSerialNumber: new FormControl<string | null | undefined>(undefined),
+			flags: new FormControl<string | null | undefined>(undefined),
+			floor: new FormControl<string | null | undefined>(undefined),
+			gainSetting: new FormControl<number | null | undefined>(undefined),
+			howPositioned: new FormControl<string | null | undefined>(undefined),
+			howUsed: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			image: new FormControl<string | null | undefined>(undefined),
+			jobId: new FormControl<number | null | undefined>(undefined),
+			logNumber: new FormControl<number | null | undefined>(undefined),
+			moisturedelta: new FormControl<string | null | undefined>(undefined),
+			moisturemax: new FormControl<number | null | undefined>(undefined),
+			moisturemin: new FormControl<number | null | undefined>(undefined),
+			moistureoffset: new FormControl<string | null | undefined>(undefined),
+			moistureslope: new FormControl<string | null | undefined>(undefined),
+			notes: new FormControl<string | null | undefined>(undefined),
+			room: new FormControl<string | null | undefined>(undefined),
+			scanArea: new FormControl<string | null | undefined>(undefined),
+			sensorId: new FormControl<number | null | undefined>(undefined),
+			thumbnail: new FormControl<string | null | undefined>(undefined),
+			unitId: new FormControl<number | null | undefined>(undefined),
+			uuid: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Session {
+		custId?: string | null;
+		id?: number | null;
+		nonce?: string | null;
+		ssn?: string | null;
+	}
+	export interface SessionFormProperties {
+		custId: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		nonce: FormControl<string | null | undefined>,
+		ssn: FormControl<string | null | undefined>,
+	}
+	export function CreateSessionFormGroup() {
+		return new FormGroup<SessionFormProperties>({
+			custId: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			nonce: new FormControl<string | null | undefined>(undefined),
+			ssn: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Staff {
+		companyid?: number | null;
+		id?: number | null;
+		name?: string | null;
+	}
+	export interface StaffFormProperties {
+		companyid: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+	}
+	export function CreateStaffFormGroup() {
+		return new FormGroup<StaffFormProperties>({
+			companyid: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface String {
+		en?: string | null;
+		es?: string | null;
+		fr?: string | null;
+		it?: string | null;
+		ja?: string | null;
+		ko?: string | null;
+		pageId?: string | null;
+		pt?: string | null;
+		stringId?: string | null;
+		tstamp?: Date | null;
+		zhCht?: string | null;
+		zhCn?: string | null;
+	}
+	export interface StringFormProperties {
+		en: FormControl<string | null | undefined>,
+		es: FormControl<string | null | undefined>,
+		fr: FormControl<string | null | undefined>,
+		it: FormControl<string | null | undefined>,
+		ja: FormControl<string | null | undefined>,
+		ko: FormControl<string | null | undefined>,
+		pageId: FormControl<string | null | undefined>,
+		pt: FormControl<string | null | undefined>,
+		stringId: FormControl<string | null | undefined>,
+		tstamp: FormControl<Date | null | undefined>,
+		zhCht: FormControl<string | null | undefined>,
+		zhCn: FormControl<string | null | undefined>,
+	}
+	export function CreateStringFormGroup() {
+		return new FormGroup<StringFormProperties>({
+			en: new FormControl<string | null | undefined>(undefined),
+			es: new FormControl<string | null | undefined>(undefined),
+			fr: new FormControl<string | null | undefined>(undefined),
+			it: new FormControl<string | null | undefined>(undefined),
+			ja: new FormControl<string | null | undefined>(undefined),
+			ko: new FormControl<string | null | undefined>(undefined),
+			pageId: new FormControl<string | null | undefined>(undefined),
+			pt: new FormControl<string | null | undefined>(undefined),
+			stringId: new FormControl<string | null | undefined>(undefined),
+			tstamp: new FormControl<Date | null | undefined>(undefined),
+			zhCht: new FormControl<string | null | undefined>(undefined),
+			zhCn: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface SystemTbl {
+		id?: number | null;
+		lastGet?: Date | null;
+		lastPut?: Date | null;
+		lastSosBearerTokenRefresh?: Date | null;
+		lastSosNewCustomerSync?: Date | null;
+		lastSosNewSerialSync?: Date | null;
+		lastSosUpdatedCustomerSync?: Date | null;
+		lastSosUpdatedSerialSync?: Date | null;
+		lastT5sync?: Date | null;
+		mode?: number | null;
+		sosBearerToken?: string | null;
+		sosRefreshToken?: string | null;
+	}
+	export interface SystemTblFormProperties {
+		id: FormControl<number | null | undefined>,
+		lastGet: FormControl<Date | null | undefined>,
+		lastPut: FormControl<Date | null | undefined>,
+		lastSosBearerTokenRefresh: FormControl<Date | null | undefined>,
+		lastSosNewCustomerSync: FormControl<Date | null | undefined>,
+		lastSosNewSerialSync: FormControl<Date | null | undefined>,
+		lastSosUpdatedCustomerSync: FormControl<Date | null | undefined>,
+		lastSosUpdatedSerialSync: FormControl<Date | null | undefined>,
+		lastT5sync: FormControl<Date | null | undefined>,
+		mode: FormControl<number | null | undefined>,
+		sosBearerToken: FormControl<string | null | undefined>,
+		sosRefreshToken: FormControl<string | null | undefined>,
+	}
+	export function CreateSystemTblFormGroup() {
+		return new FormGroup<SystemTblFormProperties>({
+			id: new FormControl<number | null | undefined>(undefined),
+			lastGet: new FormControl<Date | null | undefined>(undefined),
+			lastPut: new FormControl<Date | null | undefined>(undefined),
+			lastSosBearerTokenRefresh: new FormControl<Date | null | undefined>(undefined),
+			lastSosNewCustomerSync: new FormControl<Date | null | undefined>(undefined),
+			lastSosNewSerialSync: new FormControl<Date | null | undefined>(undefined),
+			lastSosUpdatedCustomerSync: new FormControl<Date | null | undefined>(undefined),
+			lastSosUpdatedSerialSync: new FormControl<Date | null | undefined>(undefined),
+			lastT5sync: new FormControl<Date | null | undefined>(undefined),
+			mode: new FormControl<number | null | undefined>(undefined),
+			sosBearerToken: new FormControl<string | null | undefined>(undefined),
+			sosRefreshToken: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface T5calcentre {
+		address1?: string | null;
+		address2?: string | null;
+		address3?: string | null;
+		city?: string | null;
+		contact?: string | null;
+		country?: string | null;
+		displayname?: string | null;
+		email1?: string | null;
+		email2?: string | null;
+		id?: number | null;
+		name?: string | null;
+		notes?: string | null;
+		permissions?: number | null;
+		phone1?: string | null;
+		phone2?: string | null;
+		region?: string | null;
+		state?: string | null;
+		zip?: string | null;
+	}
+	export interface T5calcentreFormProperties {
+		address1: FormControl<string | null | undefined>,
+		address2: FormControl<string | null | undefined>,
+		address3: FormControl<string | null | undefined>,
+		city: FormControl<string | null | undefined>,
+		contact: FormControl<string | null | undefined>,
+		country: FormControl<string | null | undefined>,
+		displayname: FormControl<string | null | undefined>,
+		email1: FormControl<string | null | undefined>,
+		email2: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		name: FormControl<string | null | undefined>,
+		notes: FormControl<string | null | undefined>,
+		permissions: FormControl<number | null | undefined>,
+		phone1: FormControl<string | null | undefined>,
+		phone2: FormControl<string | null | undefined>,
+		region: FormControl<string | null | undefined>,
+		state: FormControl<string | null | undefined>,
+		zip: FormControl<string | null | undefined>,
+	}
+	export function CreateT5calcentreFormGroup() {
+		return new FormGroup<T5calcentreFormProperties>({
+			address1: new FormControl<string | null | undefined>(undefined),
+			address2: new FormControl<string | null | undefined>(undefined),
+			address3: new FormControl<string | null | undefined>(undefined),
+			city: new FormControl<string | null | undefined>(undefined),
+			contact: new FormControl<string | null | undefined>(undefined),
+			country: new FormControl<string | null | undefined>(undefined),
+			displayname: new FormControl<string | null | undefined>(undefined),
+			email1: new FormControl<string | null | undefined>(undefined),
+			email2: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined),
+			notes: new FormControl<string | null | undefined>(undefined),
+			permissions: new FormControl<number | null | undefined>(undefined),
+			phone1: new FormControl<string | null | undefined>(undefined),
+			phone2: new FormControl<string | null | undefined>(undefined),
+			region: new FormControl<string | null | undefined>(undefined),
+			state: new FormControl<string | null | undefined>(undefined),
+			zip: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface T5calibration {
+		ambientTemperature?: string | null;
+		appVersion?: string | null;
+		batteryLevel?: string | null;
+		borescope?: string | null;
+		borescopeResult?: string | null;
+		calCentre?: string | null;
+		caldate?: Date | null;
+		certificate?: string | null;
+		firmwareVersion?: string | null;
+		humidity?: string | null;
+		id?: string | null;
+		lastsync?: Date | null;
+		lastupdate?: Date | null;
+		latitude?: string | null;
+		longitude?: string | null;
+		miscdata?: string | null;
+		moisture?: string | null;
+		moistureResult?: string | null;
+		nextcaldate?: Date | null;
+		notes?: string | null;
+		owner?: string | null;
+		radar?: string | null;
+		radarResult?: string | null;
+		sensorMask?: string | null;
+		sensorTimes?: string | null;
+		temperature?: string | null;
+		temperatureprobe?: string | null;
+		temperatureProbeResult?: string | null;
+		temperatureResult?: string | null;
+		thermalcamera?: string | null;
+		thermalCameraResult?: string | null;
+		unitid?: number | null;
+		user?: string | null;
+	}
+	export interface T5calibrationFormProperties {
+		ambientTemperature: FormControl<string | null | undefined>,
+		appVersion: FormControl<string | null | undefined>,
+		batteryLevel: FormControl<string | null | undefined>,
+		borescope: FormControl<string | null | undefined>,
+		borescopeResult: FormControl<string | null | undefined>,
+		calCentre: FormControl<string | null | undefined>,
+		caldate: FormControl<Date | null | undefined>,
+		certificate: FormControl<string | null | undefined>,
+		firmwareVersion: FormControl<string | null | undefined>,
+		humidity: FormControl<string | null | undefined>,
+		id: FormControl<string | null | undefined>,
+		lastsync: FormControl<Date | null | undefined>,
+		lastupdate: FormControl<Date | null | undefined>,
+		latitude: FormControl<string | null | undefined>,
+		longitude: FormControl<string | null | undefined>,
+		miscdata: FormControl<string | null | undefined>,
+		moisture: FormControl<string | null | undefined>,
+		moistureResult: FormControl<string | null | undefined>,
+		nextcaldate: FormControl<Date | null | undefined>,
+		notes: FormControl<string | null | undefined>,
+		owner: FormControl<string | null | undefined>,
+		radar: FormControl<string | null | undefined>,
+		radarResult: FormControl<string | null | undefined>,
+		sensorMask: FormControl<string | null | undefined>,
+		sensorTimes: FormControl<string | null | undefined>,
+		temperature: FormControl<string | null | undefined>,
+		temperatureprobe: FormControl<string | null | undefined>,
+		temperatureProbeResult: FormControl<string | null | undefined>,
+		temperatureResult: FormControl<string | null | undefined>,
+		thermalcamera: FormControl<string | null | undefined>,
+		thermalCameraResult: FormControl<string | null | undefined>,
+		unitid: FormControl<number | null | undefined>,
+		user: FormControl<string | null | undefined>,
+	}
+	export function CreateT5calibrationFormGroup() {
+		return new FormGroup<T5calibrationFormProperties>({
+			ambientTemperature: new FormControl<string | null | undefined>(undefined),
+			appVersion: new FormControl<string | null | undefined>(undefined),
+			batteryLevel: new FormControl<string | null | undefined>(undefined),
+			borescope: new FormControl<string | null | undefined>(undefined),
+			borescopeResult: new FormControl<string | null | undefined>(undefined),
+			calCentre: new FormControl<string | null | undefined>(undefined),
+			caldate: new FormControl<Date | null | undefined>(undefined),
+			certificate: new FormControl<string | null | undefined>(undefined),
+			firmwareVersion: new FormControl<string | null | undefined>(undefined),
+			humidity: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<string | null | undefined>(undefined),
+			lastsync: new FormControl<Date | null | undefined>(undefined),
+			lastupdate: new FormControl<Date | null | undefined>(undefined),
+			latitude: new FormControl<string | null | undefined>(undefined),
+			longitude: new FormControl<string | null | undefined>(undefined),
+			miscdata: new FormControl<string | null | undefined>(undefined),
+			moisture: new FormControl<string | null | undefined>(undefined),
+			moistureResult: new FormControl<string | null | undefined>(undefined),
+			nextcaldate: new FormControl<Date | null | undefined>(undefined),
+			notes: new FormControl<string | null | undefined>(undefined),
+			owner: new FormControl<string | null | undefined>(undefined),
+			radar: new FormControl<string | null | undefined>(undefined),
+			radarResult: new FormControl<string | null | undefined>(undefined),
+			sensorMask: new FormControl<string | null | undefined>(undefined),
+			sensorTimes: new FormControl<string | null | undefined>(undefined),
+			temperature: new FormControl<string | null | undefined>(undefined),
+			temperatureprobe: new FormControl<string | null | undefined>(undefined),
+			temperatureProbeResult: new FormControl<string | null | undefined>(undefined),
+			temperatureResult: new FormControl<string | null | undefined>(undefined),
+			thermalcamera: new FormControl<string | null | undefined>(undefined),
+			thermalCameraResult: new FormControl<string | null | undefined>(undefined),
+			unitid: new FormControl<number | null | undefined>(undefined),
+			user: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface T5config {
+		active?: number | null;
+		ai?: number | null;
+		aitrainer?: number | null;
+		applied?: number | null;
+		applieddate?: Date | null;
+		apptermsagreed?: number | null;
+		borescope?: number | null;
+		borescopeuse?: number | null;
+		calcentreid?: number | null;
+		camera?: number | null;
+		data?: string | null;
+		expiryDate?: Date | null;
+		firmware?: string | null;
+		id?: number | null;
+		iTrakerName?: string | null;
+		lastcheck?: Date | null;
+		lastupdate?: Date | null;
+		moisture?: number | null;
+		moistureuse?: number | null;
+		nextCalibration?: Date | null;
+		ownerid?: number | null;
+		radar?: number | null;
+		radaruse?: number | null;
+		sensorTimes?: string | null;
+		subscriptionlevel?: number | null;
+		suspendreason?: number | null;
+		tconnex?: number | null;
+		technicianid?: number | null;
+		temperature?: number | null;
+		temperatureuse?: number | null;
+		tempprobe?: number | null;
+		tempprobeuse?: number | null;
+		thermalcam?: number | null;
+		thermalcamuse?: number | null;
+		ttGlobalUser?: string | null;
+		unitid?: number | null;
+		usageMode?: string | null;
+	}
+	export interface T5configFormProperties {
+		active: FormControl<number | null | undefined>,
+		ai: FormControl<number | null | undefined>,
+		aitrainer: FormControl<number | null | undefined>,
+		applied: FormControl<number | null | undefined>,
+		applieddate: FormControl<Date | null | undefined>,
+		apptermsagreed: FormControl<number | null | undefined>,
+		borescope: FormControl<number | null | undefined>,
+		borescopeuse: FormControl<number | null | undefined>,
+		calcentreid: FormControl<number | null | undefined>,
+		camera: FormControl<number | null | undefined>,
+		data: FormControl<string | null | undefined>,
+		expiryDate: FormControl<Date | null | undefined>,
+		firmware: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		iTrakerName: FormControl<string | null | undefined>,
+		lastcheck: FormControl<Date | null | undefined>,
+		lastupdate: FormControl<Date | null | undefined>,
+		moisture: FormControl<number | null | undefined>,
+		moistureuse: FormControl<number | null | undefined>,
+		nextCalibration: FormControl<Date | null | undefined>,
+		ownerid: FormControl<number | null | undefined>,
+		radar: FormControl<number | null | undefined>,
+		radaruse: FormControl<number | null | undefined>,
+		sensorTimes: FormControl<string | null | undefined>,
+		subscriptionlevel: FormControl<number | null | undefined>,
+		suspendreason: FormControl<number | null | undefined>,
+		tconnex: FormControl<number | null | undefined>,
+		technicianid: FormControl<number | null | undefined>,
+		temperature: FormControl<number | null | undefined>,
+		temperatureuse: FormControl<number | null | undefined>,
+		tempprobe: FormControl<number | null | undefined>,
+		tempprobeuse: FormControl<number | null | undefined>,
+		thermalcam: FormControl<number | null | undefined>,
+		thermalcamuse: FormControl<number | null | undefined>,
+		ttGlobalUser: FormControl<string | null | undefined>,
+		unitid: FormControl<number | null | undefined>,
+		usageMode: FormControl<string | null | undefined>,
+	}
+	export function CreateT5configFormGroup() {
+		return new FormGroup<T5configFormProperties>({
+			active: new FormControl<number | null | undefined>(undefined),
+			ai: new FormControl<number | null | undefined>(undefined),
+			aitrainer: new FormControl<number | null | undefined>(undefined),
+			applied: new FormControl<number | null | undefined>(undefined),
+			applieddate: new FormControl<Date | null | undefined>(undefined),
+			apptermsagreed: new FormControl<number | null | undefined>(undefined),
+			borescope: new FormControl<number | null | undefined>(undefined),
+			borescopeuse: new FormControl<number | null | undefined>(undefined),
+			calcentreid: new FormControl<number | null | undefined>(undefined),
+			camera: new FormControl<number | null | undefined>(undefined),
+			data: new FormControl<string | null | undefined>(undefined),
+			expiryDate: new FormControl<Date | null | undefined>(undefined),
+			firmware: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			iTrakerName: new FormControl<string | null | undefined>(undefined),
+			lastcheck: new FormControl<Date | null | undefined>(undefined),
+			lastupdate: new FormControl<Date | null | undefined>(undefined),
+			moisture: new FormControl<number | null | undefined>(undefined),
+			moistureuse: new FormControl<number | null | undefined>(undefined),
+			nextCalibration: new FormControl<Date | null | undefined>(undefined),
+			ownerid: new FormControl<number | null | undefined>(undefined),
+			radar: new FormControl<number | null | undefined>(undefined),
+			radaruse: new FormControl<number | null | undefined>(undefined),
+			sensorTimes: new FormControl<string | null | undefined>(undefined),
+			subscriptionlevel: new FormControl<number | null | undefined>(undefined),
+			suspendreason: new FormControl<number | null | undefined>(undefined),
+			tconnex: new FormControl<number | null | undefined>(undefined),
+			technicianid: new FormControl<number | null | undefined>(undefined),
+			temperature: new FormControl<number | null | undefined>(undefined),
+			temperatureuse: new FormControl<number | null | undefined>(undefined),
+			tempprobe: new FormControl<number | null | undefined>(undefined),
+			tempprobeuse: new FormControl<number | null | undefined>(undefined),
+			thermalcam: new FormControl<number | null | undefined>(undefined),
+			thermalcamuse: new FormControl<number | null | undefined>(undefined),
+			ttGlobalUser: new FormControl<string | null | undefined>(undefined),
+			unitid: new FormControl<number | null | undefined>(undefined),
+			usageMode: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface T5datum {
+		data?: string | null;
+		datakind?: string | null;
+		id?: number | null;
+		info?: string | null;
+		localtime?: Date | null;
+		serial?: string | null;
+		timestamp?: Date | null;
+	}
+	export interface T5datumFormProperties {
+		data: FormControl<string | null | undefined>,
+		datakind: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		info: FormControl<string | null | undefined>,
+		localtime: FormControl<Date | null | undefined>,
+		serial: FormControl<string | null | undefined>,
+		timestamp: FormControl<Date | null | undefined>,
+	}
+	export function CreateT5datumFormGroup() {
+		return new FormGroup<T5datumFormProperties>({
+			data: new FormControl<string | null | undefined>(undefined),
+			datakind: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			info: new FormControl<string | null | undefined>(undefined),
+			localtime: new FormControl<Date | null | undefined>(undefined),
+			serial: new FormControl<string | null | undefined>(undefined),
+			timestamp: new FormControl<Date | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface T5message {
+		hasread?: number | null;
+		id?: number | null;
+		message?: string | null;
+		readdate?: Date | null;
+		unitid?: string | null;
+	}
+	export interface T5messageFormProperties {
+		hasread: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		message: FormControl<string | null | undefined>,
+		readdate: FormControl<Date | null | undefined>,
+		unitid: FormControl<string | null | undefined>,
+	}
+	export function CreateT5messageFormGroup() {
+		return new FormGroup<T5messageFormProperties>({
+			hasread: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			message: new FormControl<string | null | undefined>(undefined),
+			readdate: new FormControl<Date | null | undefined>(undefined),
+			unitid: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface T5owner {
+		active?: string | null;
+		address1?: string | null;
+		address2?: string | null;
+		address3?: string | null;
+		calcentre?: number | null;
+		city?: string | null;
+		company?: string | null;
+		contact?: string | null;
+		country?: string | null;
+		displayname?: string | null;
+		email?: string | null;
+		id?: number | null;
+		lastcheck?: Date | null;
+		lastupdate?: Date | null;
+		notes?: string | null;
+		phone1?: string | null;
+		phone2?: string | null;
+		state?: string | null;
+		userKind?: string | null;
+		zip?: string | null;
+	}
+	export interface T5ownerFormProperties {
+		active: FormControl<string | null | undefined>,
+		address1: FormControl<string | null | undefined>,
+		address2: FormControl<string | null | undefined>,
+		address3: FormControl<string | null | undefined>,
+		calcentre: FormControl<number | null | undefined>,
+		city: FormControl<string | null | undefined>,
+		company: FormControl<string | null | undefined>,
+		contact: FormControl<string | null | undefined>,
+		country: FormControl<string | null | undefined>,
+		displayname: FormControl<string | null | undefined>,
+		email: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		lastcheck: FormControl<Date | null | undefined>,
+		lastupdate: FormControl<Date | null | undefined>,
+		notes: FormControl<string | null | undefined>,
+		phone1: FormControl<string | null | undefined>,
+		phone2: FormControl<string | null | undefined>,
+		state: FormControl<string | null | undefined>,
+		userKind: FormControl<string | null | undefined>,
+		zip: FormControl<string | null | undefined>,
+	}
+	export function CreateT5ownerFormGroup() {
+		return new FormGroup<T5ownerFormProperties>({
+			active: new FormControl<string | null | undefined>(undefined),
+			address1: new FormControl<string | null | undefined>(undefined),
+			address2: new FormControl<string | null | undefined>(undefined),
+			address3: new FormControl<string | null | undefined>(undefined),
+			calcentre: new FormControl<number | null | undefined>(undefined),
+			city: new FormControl<string | null | undefined>(undefined),
+			company: new FormControl<string | null | undefined>(undefined),
+			contact: new FormControl<string | null | undefined>(undefined),
+			country: new FormControl<string | null | undefined>(undefined),
+			displayname: new FormControl<string | null | undefined>(undefined),
+			email: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			lastcheck: new FormControl<Date | null | undefined>(undefined),
+			lastupdate: new FormControl<Date | null | undefined>(undefined),
+			notes: new FormControl<string | null | undefined>(undefined),
+			phone1: new FormControl<string | null | undefined>(undefined),
+			phone2: new FormControl<string | null | undefined>(undefined),
+			state: new FormControl<string | null | undefined>(undefined),
+			userKind: new FormControl<string | null | undefined>(undefined),
+			zip: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface T5technician {
+		active?: number | null;
+		calcentre?: number | null;
+		company?: string | null;
+		deviceId?: string | null;
+		deviceManufacturer?: string | null;
+		deviceModel?: string | null;
+		email?: string | null;
+		id?: number | null;
+		level?: number | null;
+		password?: string | null;
+		permissions?: number | null;
+		region?: number | null;
+		technician?: string | null;
+		username?: string | null;
+	}
+	export interface T5technicianFormProperties {
+		active: FormControl<number | null | undefined>,
+		calcentre: FormControl<number | null | undefined>,
+		company: FormControl<string | null | undefined>,
+		deviceId: FormControl<string | null | undefined>,
+		deviceManufacturer: FormControl<string | null | undefined>,
+		deviceModel: FormControl<string | null | undefined>,
+		email: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		level: FormControl<number | null | undefined>,
+		password: FormControl<string | null | undefined>,
+		permissions: FormControl<number | null | undefined>,
+		region: FormControl<number | null | undefined>,
+		technician: FormControl<string | null | undefined>,
+		username: FormControl<string | null | undefined>,
+	}
+	export function CreateT5technicianFormGroup() {
+		return new FormGroup<T5technicianFormProperties>({
+			active: new FormControl<number | null | undefined>(undefined),
+			calcentre: new FormControl<number | null | undefined>(undefined),
+			company: new FormControl<string | null | undefined>(undefined),
+			deviceId: new FormControl<string | null | undefined>(undefined),
+			deviceManufacturer: new FormControl<string | null | undefined>(undefined),
+			deviceModel: new FormControl<string | null | undefined>(undefined),
+			email: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			level: new FormControl<number | null | undefined>(undefined),
+			password: new FormControl<string | null | undefined>(undefined),
+			permissions: new FormControl<number | null | undefined>(undefined),
+			region: new FormControl<number | null | undefined>(undefined),
+			technician: new FormControl<string | null | undefined>(undefined),
+			username: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Unit {
+		active?: number | null;
+		assignedto?: string | null;
+		associatedcompany?: number | null;
+		companyextid?: number | null;
+		companyid?: number | null;
+		externalid?: number | null;
+		firmwareversion?: string | null;
+		id?: number | null;
+		location?: number | null;
+		make?: string | null;
+		model?: string | null;
+		nextdue?: Date | null;
+		paymentplan?: number | null;
+		paymentsremain?: number | null;
+		purchasetype?: string | null;
+		sensormask?: string | null;
+		serial?: string | null;
+		stolen?: number | null;
+		tstamp?: Date | null;
+		usagemode?: string | null;
+	}
+	export interface UnitFormProperties {
+		active: FormControl<number | null | undefined>,
+		assignedto: FormControl<string | null | undefined>,
+		associatedcompany: FormControl<number | null | undefined>,
+		companyextid: FormControl<number | null | undefined>,
+		companyid: FormControl<number | null | undefined>,
+		externalid: FormControl<number | null | undefined>,
+		firmwareversion: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		location: FormControl<number | null | undefined>,
+		make: FormControl<string | null | undefined>,
+		model: FormControl<string | null | undefined>,
+		nextdue: FormControl<Date | null | undefined>,
+		paymentplan: FormControl<number | null | undefined>,
+		paymentsremain: FormControl<number | null | undefined>,
+		purchasetype: FormControl<string | null | undefined>,
+		sensormask: FormControl<string | null | undefined>,
+		serial: FormControl<string | null | undefined>,
+		stolen: FormControl<number | null | undefined>,
+		tstamp: FormControl<Date | null | undefined>,
+		usagemode: FormControl<string | null | undefined>,
+	}
+	export function CreateUnitFormGroup() {
+		return new FormGroup<UnitFormProperties>({
+			active: new FormControl<number | null | undefined>(undefined),
+			assignedto: new FormControl<string | null | undefined>(undefined),
+			associatedcompany: new FormControl<number | null | undefined>(undefined),
+			companyextid: new FormControl<number | null | undefined>(undefined),
+			companyid: new FormControl<number | null | undefined>(undefined),
+			externalid: new FormControl<number | null | undefined>(undefined),
+			firmwareversion: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			location: new FormControl<number | null | undefined>(undefined),
+			make: new FormControl<string | null | undefined>(undefined),
+			model: new FormControl<string | null | undefined>(undefined),
+			nextdue: new FormControl<Date | null | undefined>(undefined),
+			paymentplan: new FormControl<number | null | undefined>(undefined),
+			paymentsremain: new FormControl<number | null | undefined>(undefined),
+			purchasetype: new FormControl<string | null | undefined>(undefined),
+			sensormask: new FormControl<string | null | undefined>(undefined),
+			serial: new FormControl<string | null | undefined>(undefined),
+			stolen: new FormControl<number | null | undefined>(undefined),
+			tstamp: new FormControl<Date | null | undefined>(undefined),
+			usagemode: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface User {
+		company?: number | null;
+		deleted?: number | null;
+		displayname?: string | null;
+		email?: string | null;
+		emailVerified?: number | null;
+		id?: number | null;
+		lastlogin?: Date | null;
+		password?: string | null;
+		tzone?: string | null;
+		usergroup?: number | null;
+		username?: string | null;
+	}
+	export interface UserFormProperties {
+		company: FormControl<number | null | undefined>,
+		deleted: FormControl<number | null | undefined>,
+		displayname: FormControl<string | null | undefined>,
+		email: FormControl<string | null | undefined>,
+		emailVerified: FormControl<number | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		lastlogin: FormControl<Date | null | undefined>,
+		password: FormControl<string | null | undefined>,
+		tzone: FormControl<string | null | undefined>,
+		usergroup: FormControl<number | null | undefined>,
+		username: FormControl<string | null | undefined>,
+	}
+	export function CreateUserFormGroup() {
+		return new FormGroup<UserFormProperties>({
+			company: new FormControl<number | null | undefined>(undefined),
+			deleted: new FormControl<number | null | undefined>(undefined),
+			displayname: new FormControl<string | null | undefined>(undefined),
+			email: new FormControl<string | null | undefined>(undefined),
+			emailVerified: new FormControl<number | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			lastlogin: new FormControl<Date | null | undefined>(undefined),
+			password: new FormControl<string | null | undefined>(undefined),
+			tzone: new FormControl<string | null | undefined>(undefined),
+			usergroup: new FormControl<number | null | undefined>(undefined),
+			username: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+	export interface Usergroup {
+		admin?: number | null;
+		displayname?: string | null;
+		id?: number | null;
+		termatracadmin?: number | null;
+		tzone?: string | null;
+	}
+	export interface UsergroupFormProperties {
+		admin: FormControl<number | null | undefined>,
+		displayname: FormControl<string | null | undefined>,
+		id: FormControl<number | null | undefined>,
+		termatracadmin: FormControl<number | null | undefined>,
+		tzone: FormControl<string | null | undefined>,
+	}
+	export function CreateUsergroupFormGroup() {
+		return new FormGroup<UsergroupFormProperties>({
+			admin: new FormControl<number | null | undefined>(undefined),
+			displayname: new FormControl<string | null | undefined>(undefined),
+			id: new FormControl<number | null | undefined>(undefined),
+			termatracadmin: new FormControl<number | null | undefined>(undefined),
+			tzone: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+}
+
 export namespace DemoCoreWeb_Controllers_Client {
 	@Injectable()
 	export class SpecialTypes {

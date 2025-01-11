@@ -8511,12 +8511,6 @@ namespace DemoWebApi.DemoData.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
-	public class Constants : object
-	{
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
 	public enum Days
 	{
 		
@@ -8817,7 +8811,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string ExternalAccessToken { get; set; }
 	}
 	
@@ -8854,32 +8848,6 @@ namespace DemoWebApi.Models.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
-	public class ExternalLoginViewModel : object
-	{
-		
-		public string Name { get; set; }
-		
-		public string State { get; set; }
-		
-		public string Url { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class ManageInfoViewModel : object
-	{
-		
-		public string Email { get; set; }
-		
-		public System.Collections.Generic.IEnumerable<DemoWebApi.Models.Client.ExternalLoginViewModel> ExternalLoginProviders { get; set; }
-		
-		public string LocalLoginProvider { get; set; }
-		
-		public System.Collections.Generic.IEnumerable<DemoWebApi.Models.Client.UserLoginInfoViewModel> Logins { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
 	public class RegisterBindingModel : object
 	{
 		
@@ -8892,7 +8860,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string Email { get; set; }
 		
 		/// <summary>
@@ -8900,7 +8868,7 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string Password { get; set; }
@@ -8914,7 +8882,7 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string Email { get; set; }
 	}
 	
@@ -8926,13 +8894,13 @@ namespace DemoWebApi.Models.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string LoginProvider { get; set; }
 		
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		public string ProviderKey { get; set; }
 	}
 	
@@ -8952,7 +8920,7 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string NewPassword { get; set; }
@@ -8984,49 +8952,1157 @@ namespace DemoWebApi.Models.Client
 		[System.Runtime.Serialization.DataMember(Name="username")]
 		public string Username { get; set; }
 	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class UserInfoViewModel : object
-	{
-		
-		public string Email { get; set; }
-		
-		public bool HasRegistered { get; set; }
-		
-		public string LoginProvider { get; set; }
-		
-		public string Dummy1 { get; set; }
-		
-		public string Dumy2 { get; set; }
-	}
-	
-	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
-	public class UserLoginInfoViewModel : object
-	{
-		
-		public string LoginProvider { get; set; }
-		
-		public string ProviderKey { get; set; }
-	}
 }
-namespace WebApplication1.Client
+namespace TT.Legacy.Models.Client
 {
 	
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
-	public class WeatherForecast : object
+	public class Client : object
 	{
 		
-		public System.DateOnly Date { get; set; }
+		public System.DateTime Created { get; set; }
 		
-		public string Summary { get; set; }
+		public int Id { get; set; }
 		
-		public int TemperatureC { get; set; }
+		public System.Nullable<int> Lastunit { get; set; }
 		
-		public int TemperatureF { get; set; }
+		public System.DateTime Lastupdate { get; set; }
+		
+		public string RegistrationId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Clientunit : object
+	{
+		
+		public int ClientId { get; set; }
+		
+		public int UnitId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Commandq : object
+	{
+		
+		public System.DateTime Added { get; set; }
+		
+		public string AddedBy { get; set; }
+		
+		public string ClientAckStatus { get; set; }
+		
+		public System.Nullable<System.DateTime> ClientAckTime { get; set; }
+		
+		public System.Nullable<int> ClientId { get; set; }
+		
+		public string Command { get; set; }
+		
+		public string Commanddata { get; set; }
+		
+		public System.Nullable<System.DateOnly> Commanddate { get; set; }
+		
+		public string Commanddesc { get; set; }
+		
+		public string CommandInfo { get; set; }
+		
+		public int Deleted { get; set; }
+		
+		public string GcmResponse { get; set; }
+		
+		public int GcmSent { get; set; }
+		
+		public System.Nullable<System.DateTime> GcmSentTime { get; set; }
+		
+		public int Id { get; set; }
+		
+		public int Waitforregistration { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Company : object
+	{
+		
+		public string Companyname { get; set; }
+		
+		public string Displayname { get; set; }
+		
+		public string Dnsname { get; set; }
+		
+		public int Externalid { get; set; }
+		
+		public int Id { get; set; }
+		
+		public int Isactive { get; set; }
+		
+		public string LanguageId { get; set; }
+		
+		public string Logo { get; set; }
+		
+		public string Orggroup { get; set; }
+		
+		public System.Nullable<System.DateTime> Provisioned { get; set; }
+		
+		public System.Nullable<System.DateTime> Provisionemailsent { get; set; }
+		
+		public string Region { get; set; }
+		
+		public int Termsagreed { get; set; }
+		
+		public System.DateTime Tstamp { get; set; }
+		
+		public string Tzone { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Companyreportsetting : object
+	{
+		
+		public int Companyid { get; set; }
+		
+		public string Disclaimer { get; set; }
+		
+		public string Footerimage { get; set; }
+		
+		public string Headerimage { get; set; }
+		
+		public string Heading { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Introduction { get; set; }
+		
+		public string Subheading { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Dashboardmsg : object
+	{
+		
+		public int Active { get; set; }
+		
+		public System.Nullable<System.DateTime> Created { get; set; }
+		
+		public System.Nullable<int> CreatedBy { get; set; }
+		
+		public int Forall { get; set; }
+		
+		public System.Nullable<System.DateOnly> Fromdate { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Message { get; set; }
+		
+		public System.Nullable<System.DateOnly> Todate { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Dashboardmsgfor : object
+	{
+		
+		public int CompanyId { get; set; }
+		
+		public int MsgId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Emailtemplate : object
+	{
+		
+		public int CompanyId { get; set; }
+		
+		public string Heading { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Language { get; set; }
+		
+		public string Name { get; set; }
+		
+		public string Subject { get; set; }
+		
+		public string Template { get; set; }
+		
+		public int UserTemplate { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Eventlog : object
+	{
+		
+		public int CompanyId { get; set; }
+		
+		public string Eventname { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Ipaddress { get; set; }
+		
+		public string Note { get; set; }
+		
+		public string Response { get; set; }
+		
+		public System.DateTime Timestamp { get; set; }
+		
+		public System.Nullable<int> UserId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Job : object
+	{
+		
+		public string BuildingCategory { get; set; }
+		
+		public int CompanyId { get; set; }
+		
+		public string CustomerName { get; set; }
+		
+		public System.DateTime DateTime { get; set; }
+		
+		public System.Nullable<int> Flags { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string JobType { get; set; }
+		
+		public int LocationId { get; set; }
+		
+		public string Notes { get; set; }
+		
+		public string Number { get; set; }
+		
+		public string OperatorId { get; set; }
+		
+		public string Uuid { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Lang : object
+	{
+		
+		public string Encoding { get; set; }
+		
+		public string ErrorText { get; set; }
+		
+		public int Hidden { get; set; }
+		
+		public string Id { get; set; }
+		
+		public string Meta { get; set; }
+		
+		public string Name { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Lead : object
+	{
+		
+		public int Id { get; set; }
+		
+		public string Leadaddr { get; set; }
+		
+		public string Leadcompany { get; set; }
+		
+		public string Leadcontact { get; set; }
+		
+		public string Leademail { get; set; }
+		
+		public string Leadphone { get; set; }
+		
+		public string Opportunity { get; set; }
+		
+		public string Reseller { get; set; }
+		
+		public int Resellerid { get; set; }
+		
+		public string Salesemail { get; set; }
+		
+		public string Salesperson { get; set; }
+		
+		public System.DateTime Submitdate { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Leaseapp : object
+	{
+		
+		public string Acn { get; set; }
+		
+		public decimal Amtowing { get; set; }
+		
+		public decimal Android { get; set; }
+		
+		public string Applicantname { get; set; }
+		
+		public string Applicanttitle { get; set; }
+		
+		public string Billto { get; set; }
+		
+		public string Businessfax { get; set; }
+		
+		public string Businessname { get; set; }
+		
+		public string Businessphone { get; set; }
+		
+		public string Contactemail { get; set; }
+		
+		public string Contactname { get; set; }
+		
+		public string Contactphone { get; set; }
+		
+		public string Country { get; set; }
+		
+		public System.DateTime Created { get; set; }
+		
+		public int Deleted { get; set; }
+		
+		public decimal Deposit { get; set; }
+		
+		public System.Nullable<int> Depositmethod { get; set; }
+		
+		public string Guarantorname { get; set; }
+		
+		public int Id { get; set; }
+		
+		public decimal Monthlyamount { get; set; }
+		
+		public decimal Ordervalue { get; set; }
+		
+		public System.Nullable<int> Paymethod { get; set; }
+		
+		public int Periods { get; set; }
+		
+		public string Proddesc { get; set; }
+		
+		public string Prodprice { get; set; }
+		
+		public string Prodqty { get; set; }
+		
+		public string Shipto { get; set; }
+		
+		public string Signdate { get; set; }
+		
+		public string Signedip { get; set; }
+		
+		public System.Nullable<System.DateTime> Signtimestamp { get; set; }
+		
+		public string Uuid { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Location : object
+	{
+		
+		public string Address { get; set; }
+		
+		public int CompanyId { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Uuid { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Menu : object
+	{
+		
+		public int Enabled { get; set; }
+		
+		public string Icon { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Name { get; set; }
+		
+		public string Optionid { get; set; }
+		
+		public int Seq { get; set; }
+		
+		public string Type { get; set; }
+		
+		public string Url { get; set; }
+		
+		public string Userlevel { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Menuoption : object
+	{
+		
+		public int Enabled { get; set; }
+		
+		public int Id { get; set; }
+		
+		public int MenuId { get; set; }
+		
+		public string Name { get; set; }
+		
+		public string Optionid { get; set; }
+		
+		public int Seq { get; set; }
+		
+		public string Url { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Office : object
+	{
+		
+		public string Address { get; set; }
+		
+		public int CompanyId { get; set; }
+		
+		public string Email { get; set; }
+		
+		public int ExoOffice { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Lat { get; set; }
+		
+		public string Lng { get; set; }
+		
+		public string Name { get; set; }
+		
+		public string Phone { get; set; }
+		
+		public int Publish { get; set; }
+		
+		public System.DateTime Tstamp { get; set; }
+		
+		public System.Nullable<int> UnitId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Pplanapp : object
+	{
+		
+		public string Acn { get; set; }
+		
+		public decimal Amtowing { get; set; }
+		
+		public string Applicantname { get; set; }
+		
+		public string Applicanttitle { get; set; }
+		
+		public string Billto { get; set; }
+		
+		public string Businessfax { get; set; }
+		
+		public string Businessname { get; set; }
+		
+		public string Businessphone { get; set; }
+		
+		public string Contactemail { get; set; }
+		
+		public string Contactname { get; set; }
+		
+		public string Contactphone { get; set; }
+		
+		public string Country { get; set; }
+		
+		public System.DateTime Created { get; set; }
+		
+		public int Deleted { get; set; }
+		
+		public decimal Deposit { get; set; }
+		
+		public System.Nullable<int> Depositmethod { get; set; }
+		
+		public int Id { get; set; }
+		
+		public decimal Monthlyamount { get; set; }
+		
+		public decimal Ordervalue { get; set; }
+		
+		public System.Nullable<int> Paymethod { get; set; }
+		
+		public int Periods { get; set; }
+		
+		public decimal Planfee { get; set; }
+		
+		public string Proddesc { get; set; }
+		
+		public string Prodprice { get; set; }
+		
+		public string Prodqty { get; set; }
+		
+		public string Shipto { get; set; }
+		
+		public string Signdate { get; set; }
+		
+		public string Signedip { get; set; }
+		
+		public System.Nullable<System.DateTime> Signtimestamp { get; set; }
+		
+		public string Uuid { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Report : object
+	{
+		
+		public string Comments { get; set; }
+		
+		public int CompanyId { get; set; }
+		
+		public string Customername { get; set; }
+		
+		public int Id { get; set; }
+		
+		public int JobId { get; set; }
+		
+		public int LocationId { get; set; }
+		
+		public string Name { get; set; }
+		
+		public string Operator { get; set; }
+		
+		public string Opercert { get; set; }
+		
+		public string Reportnum { get; set; }
+		
+		public System.Collections.Generic.ICollection<TT.Legacy.Models.Client.Reportscanlog> Reportscanlogs { get; set; }
+		
+		public System.Collections.Generic.ICollection<TT.Legacy.Models.Client.Reportsection> Reportsections { get; set; }
+		
+		public string Requestedby { get; set; }
+		
+		public System.DateTime Tstamp { get; set; }
+		
+		public int UserId { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Reportscanlog : object
+	{
+		
+		public int Id { get; set; }
+		
+		public string Notes { get; set; }
+		
+		public TT.Legacy.Models.Client.Report Report { get; set; }
+		
+		public int ReportId { get; set; }
+		
+		public int Scanid { get; set; }
+		
+		public int SectionId { get; set; }
+		
+		public int Seq { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Reportsection : object
+	{
+		
+		public string Comments { get; set; }
+		
+		public int Conclusive { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Insectother { get; set; }
+		
+		public int Insecttype { get; set; }
+		
+		public string Name { get; set; }
+		
+		public string Nameoverride { get; set; }
+		
+		public TT.Legacy.Models.Client.Report Report { get; set; }
+		
+		public int ReportId { get; set; }
+		
+		public int Seq { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Reseller : object
+	{
+		
+		public string Email { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Name { get; set; }
+		
+		public int Reportifnoleads { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Scan : object
+	{
+		
+		public string AppVer { get; set; }
+		
+		public string Batteryvolt { get; set; }
+		
+		public int CompanyId { get; set; }
+		
+		public string Compass { get; set; }
+		
+		public System.Nullable<System.DateTime> Created { get; set; }
+		
+		public int DamageVisible { get; set; }
+		
+		public string Data { get; set; }
+		
+		public System.DateTime DateTime { get; set; }
+		
+		public string DeviceFirmwareVersion { get; set; }
+		
+		public string DeviceSerialNumber { get; set; }
+		
+		public string Flags { get; set; }
+		
+		public string Floor { get; set; }
+		
+		public int GainSetting { get; set; }
+		
+		public string HowPositioned { get; set; }
+		
+		public string HowUsed { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Image { get; set; }
+		
+		public int JobId { get; set; }
+		
+		public int LogNumber { get; set; }
+		
+		public string Moisturedelta { get; set; }
+		
+		public System.Nullable<int> Moisturemax { get; set; }
+		
+		public System.Nullable<int> Moisturemin { get; set; }
+		
+		public string Moistureoffset { get; set; }
+		
+		public string Moistureslope { get; set; }
+		
+		public string Notes { get; set; }
+		
+		public string Room { get; set; }
+		
+		public string ScanArea { get; set; }
+		
+		public int SensorId { get; set; }
+		
+		public string Thumbnail { get; set; }
+		
+		public System.Nullable<int> UnitId { get; set; }
+		
+		public string Uuid { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Session : object
+	{
+		
+		public string CustId { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Nonce { get; set; }
+		
+		public string Ssn { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Staff : object
+	{
+		
+		public int Companyid { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Name { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class String : object
+	{
+		
+		public string En { get; set; }
+		
+		public string Es { get; set; }
+		
+		public string Fr { get; set; }
+		
+		public string It { get; set; }
+		
+		public string Ja { get; set; }
+		
+		public string Ko { get; set; }
+		
+		public string PageId { get; set; }
+		
+		public string Pt { get; set; }
+		
+		public string StringId { get; set; }
+		
+		public System.DateTime Tstamp { get; set; }
+		
+		public string ZhCht { get; set; }
+		
+		public string ZhCn { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class SystemTbl : object
+	{
+		
+		public int Id { get; set; }
+		
+		public System.Nullable<System.DateTime> LastGet { get; set; }
+		
+		public System.Nullable<System.DateTime> LastPut { get; set; }
+		
+		public System.Nullable<System.DateTime> LastSosBearerTokenRefresh { get; set; }
+		
+		public System.Nullable<System.DateTime> LastSosNewCustomerSync { get; set; }
+		
+		public System.Nullable<System.DateTime> LastSosNewSerialSync { get; set; }
+		
+		public System.Nullable<System.DateTime> LastSosUpdatedCustomerSync { get; set; }
+		
+		public System.Nullable<System.DateTime> LastSosUpdatedSerialSync { get; set; }
+		
+		public System.Nullable<System.DateTime> LastT5sync { get; set; }
+		
+		public int Mode { get; set; }
+		
+		public string SosBearerToken { get; set; }
+		
+		public string SosRefreshToken { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class T5calcentre : object
+	{
+		
+		public string Address1 { get; set; }
+		
+		public string Address2 { get; set; }
+		
+		public string Address3 { get; set; }
+		
+		public string City { get; set; }
+		
+		public string Contact { get; set; }
+		
+		public string Country { get; set; }
+		
+		public string Displayname { get; set; }
+		
+		public string Email1 { get; set; }
+		
+		public string Email2 { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Name { get; set; }
+		
+		public string Notes { get; set; }
+		
+		public System.Nullable<int> Permissions { get; set; }
+		
+		public string Phone1 { get; set; }
+		
+		public string Phone2 { get; set; }
+		
+		public string Region { get; set; }
+		
+		public string State { get; set; }
+		
+		public string Zip { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class T5calibration : object
+	{
+		
+		public string AmbientTemperature { get; set; }
+		
+		public string AppVersion { get; set; }
+		
+		public string BatteryLevel { get; set; }
+		
+		public string Borescope { get; set; }
+		
+		public string BorescopeResult { get; set; }
+		
+		public string CalCentre { get; set; }
+		
+		public System.Nullable<System.DateTime> Caldate { get; set; }
+		
+		public string Certificate { get; set; }
+		
+		public string FirmwareVersion { get; set; }
+		
+		public string Humidity { get; set; }
+		
+		public long Id { get; set; }
+		
+		public System.Nullable<System.DateTime> Lastsync { get; set; }
+		
+		public System.Nullable<System.DateTime> Lastupdate { get; set; }
+		
+		public string Latitude { get; set; }
+		
+		public string Longitude { get; set; }
+		
+		public string Miscdata { get; set; }
+		
+		public string Moisture { get; set; }
+		
+		public string MoistureResult { get; set; }
+		
+		public System.Nullable<System.DateTime> Nextcaldate { get; set; }
+		
+		public string Notes { get; set; }
+		
+		public string Owner { get; set; }
+		
+		public string Radar { get; set; }
+		
+		public string RadarResult { get; set; }
+		
+		public string SensorMask { get; set; }
+		
+		public string SensorTimes { get; set; }
+		
+		public string Temperature { get; set; }
+		
+		public string Temperatureprobe { get; set; }
+		
+		public string TemperatureProbeResult { get; set; }
+		
+		public string TemperatureResult { get; set; }
+		
+		public string Thermalcamera { get; set; }
+		
+		public string ThermalCameraResult { get; set; }
+		
+		public System.Nullable<int> Unitid { get; set; }
+		
+		public string User { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class T5config : object
+	{
+		
+		public System.Nullable<int> Active { get; set; }
+		
+		public System.Nullable<int> Ai { get; set; }
+		
+		public System.Nullable<int> Aitrainer { get; set; }
+		
+		public System.Nullable<int> Applied { get; set; }
+		
+		public System.Nullable<System.DateTime> Applieddate { get; set; }
+		
+		public System.Nullable<int> Apptermsagreed { get; set; }
+		
+		public System.Nullable<int> Borescope { get; set; }
+		
+		public System.Nullable<int> Borescopeuse { get; set; }
+		
+		public System.Nullable<int> Calcentreid { get; set; }
+		
+		public System.Nullable<int> Camera { get; set; }
+		
+		public string Data { get; set; }
+		
+		public System.Nullable<System.DateTime> ExpiryDate { get; set; }
+		
+		public string Firmware { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string ITrakerName { get; set; }
+		
+		public System.Nullable<System.DateTime> Lastcheck { get; set; }
+		
+		public System.Nullable<System.DateTime> Lastupdate { get; set; }
+		
+		public System.Nullable<int> Moisture { get; set; }
+		
+		public System.Nullable<int> Moistureuse { get; set; }
+		
+		public System.Nullable<System.DateTime> NextCalibration { get; set; }
+		
+		public System.Nullable<int> Ownerid { get; set; }
+		
+		public System.Nullable<int> Radar { get; set; }
+		
+		public System.Nullable<int> Radaruse { get; set; }
+		
+		public string SensorTimes { get; set; }
+		
+		public System.Nullable<int> Subscriptionlevel { get; set; }
+		
+		public System.Nullable<int> Suspendreason { get; set; }
+		
+		public System.Nullable<int> Tconnex { get; set; }
+		
+		public System.Nullable<int> Technicianid { get; set; }
+		
+		public System.Nullable<int> Temperature { get; set; }
+		
+		public System.Nullable<int> Temperatureuse { get; set; }
+		
+		public System.Nullable<int> Tempprobe { get; set; }
+		
+		public System.Nullable<int> Tempprobeuse { get; set; }
+		
+		public System.Nullable<int> Thermalcam { get; set; }
+		
+		public System.Nullable<int> Thermalcamuse { get; set; }
+		
+		public string TtGlobalUser { get; set; }
+		
+		public System.Nullable<int> Unitid { get; set; }
+		
+		public string UsageMode { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class T5datum : object
+	{
+		
+		public string Data { get; set; }
+		
+		public string Datakind { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Info { get; set; }
+		
+		public System.DateTime Localtime { get; set; }
+		
+		public string Serial { get; set; }
+		
+		public System.Nullable<System.DateTime> Timestamp { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class T5message : object
+	{
+		
+		public System.Nullable<int> Hasread { get; set; }
+		
+		public int Id { get; set; }
+		
+		public string Message { get; set; }
+		
+		public System.Nullable<System.DateTime> Readdate { get; set; }
+		
+		public string Unitid { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class T5owner : object
+	{
+		
+		public string Active { get; set; }
+		
+		public string Address1 { get; set; }
+		
+		public string Address2 { get; set; }
+		
+		public string Address3 { get; set; }
+		
+		public int Calcentre { get; set; }
+		
+		public string City { get; set; }
+		
+		public string Company { get; set; }
+		
+		public string Contact { get; set; }
+		
+		public string Country { get; set; }
+		
+		public string Displayname { get; set; }
+		
+		public string Email { get; set; }
+		
+		public int Id { get; set; }
+		
+		public System.Nullable<System.DateTime> Lastcheck { get; set; }
+		
+		public System.Nullable<System.DateTime> Lastupdate { get; set; }
+		
+		public string Notes { get; set; }
+		
+		public string Phone1 { get; set; }
+		
+		public string Phone2 { get; set; }
+		
+		public string State { get; set; }
+		
+		public string UserKind { get; set; }
+		
+		public string Zip { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class T5technician : object
+	{
+		
+		public System.Nullable<int> Active { get; set; }
+		
+		public System.Nullable<int> Calcentre { get; set; }
+		
+		public string Company { get; set; }
+		
+		public string DeviceId { get; set; }
+		
+		public string DeviceManufacturer { get; set; }
+		
+		public string DeviceModel { get; set; }
+		
+		public string Email { get; set; }
+		
+		public int Id { get; set; }
+		
+		public System.Nullable<int> Level { get; set; }
+		
+		public string Password { get; set; }
+		
+		public System.Nullable<int> Permissions { get; set; }
+		
+		public System.Nullable<int> Region { get; set; }
+		
+		public string Technician { get; set; }
+		
+		public string Username { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Unit : object
+	{
+		
+		public int Active { get; set; }
+		
+		public string Assignedto { get; set; }
+		
+		public System.Nullable<int> Associatedcompany { get; set; }
+		
+		public int Companyextid { get; set; }
+		
+		public int Companyid { get; set; }
+		
+		public int Externalid { get; set; }
+		
+		public string Firmwareversion { get; set; }
+		
+		public int Id { get; set; }
+		
+		public int Location { get; set; }
+		
+		public string Make { get; set; }
+		
+		public string Model { get; set; }
+		
+		public System.DateOnly Nextdue { get; set; }
+		
+		public int Paymentplan { get; set; }
+		
+		public int Paymentsremain { get; set; }
+		
+		public string Purchasetype { get; set; }
+		
+		public string Sensormask { get; set; }
+		
+		public string Serial { get; set; }
+		
+		public int Stolen { get; set; }
+		
+		public System.DateTime Tstamp { get; set; }
+		
+		public string Usagemode { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class User : object
+	{
+		
+		public int Company { get; set; }
+		
+		public int Deleted { get; set; }
+		
+		public string Displayname { get; set; }
+		
+		public string Email { get; set; }
+		
+		public int EmailVerified { get; set; }
+		
+		public int Id { get; set; }
+		
+		public System.Nullable<System.DateTime> Lastlogin { get; set; }
+		
+		public string Password { get; set; }
+		
+		public string Tzone { get; set; }
+		
+		public int Usergroup { get; set; }
+		
+		public string Username { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Usergroup : object
+	{
+		
+		public int Admin { get; set; }
+		
+		public string Displayname { get; set; }
+		
+		public int Id { get; set; }
+		
+		public int Termatracadmin { get; set; }
+		
+		public string Tzone { get; set; }
 	}
 }
 namespace DemoCoreWeb.Controllers.Client
@@ -9325,80 +10401,6 @@ namespace DemoCoreWeb.Controllers.Client
 				if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent) { return null; }
 				var stream = responseMessage.Content.ReadAsStream();
 				return JsonSerializer.Deserialize<System.Text.Json.Nodes.JsonObject>(stream, jsonSerializerSettings);
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-	}
-}
-namespace WebApplication1.Controllers.Client
-{
-	using System;
-	using System.Linq;
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
-	using System.Net.Http;
-	using System.Text.Json;
-	using System.Text.Json.Serialization;
-	using Fonlow.Net.Http;
-	
-	
-	public partial class WeatherForecast
-	{
-		
-		private System.Net.Http.HttpClient client;
-		
-		private JsonSerializerOptions jsonSerializerSettings;
-		
-		public WeatherForecast(System.Net.Http.HttpClient client, JsonSerializerOptions jsonSerializerSettings=null)
-		{
-			if (client == null)
-				throw new ArgumentNullException(nameof(client), "Null HttpClient.");
-
-			if (client.BaseAddress == null)
-				throw new ArgumentNullException(nameof(client), "HttpClient has no BaseAddress");
-
-			this.client = client;
-			this.jsonSerializerSettings = jsonSerializerSettings;
-		}
-		
-		/// <summary>
-		/// GET WeatherForecast
-		/// </summary>
-		public async Task<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>> GetAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "WeatherForecast";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = await client.SendAsync(httpRequestMessage);
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = await responseMessage.Content.ReadAsStreamAsync();
-				return JsonSerializer.Deserialize<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>>(stream, jsonSerializerSettings);
-			}
-			finally
-			{
-				responseMessage.Dispose();
-			}
-		}
-		
-		/// <summary>
-		/// GET WeatherForecast
-		/// </summary>
-		public System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast> Get(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
-		{
-			var requestUri = "WeatherForecast";
-			using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-			handleHeaders?.Invoke(httpRequestMessage.Headers);
-			var responseMessage = client.SendAsync(httpRequestMessage).Result;
-			try
-			{
-				responseMessage.EnsureSuccessStatusCodeEx();
-				var stream = responseMessage.Content.ReadAsStream();
-				return JsonSerializer.Deserialize<System.Collections.Generic.IEnumerable<WebApplication1.Client.WeatherForecast>>(stream, jsonSerializerSettings);
 			}
 			finally
 			{

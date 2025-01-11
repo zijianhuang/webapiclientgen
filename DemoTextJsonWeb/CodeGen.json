@@ -7,26 +7,21 @@
 		],
 
 		"DataModels": [
+			{
+				"AssemblyName": "TT.Legacy.Models",
+				"CherryPickingMethods": 0
+			},
 
 			{
 				"AssemblyName": "DemoWebApi.DemoDataCore",
-				"CherryPickingMethods": 11
+				"CherryPickingMethods": 3
 			},
 
 			{
 				"AssemblyName": "DemoCoreWebControllers",
 				"CherryPickingMethods": 3
-			},
-
-			{
-				"AssemblyName": "Fonlow.PoemsApp.Data",
-				"CherryPickingMethods": 1
-			},
-
-			{
-				"AssemblyName": "DemoTextJsonWeb",
-				"CherryPickingMethods": 1
 			}
+
 		]
 
 	

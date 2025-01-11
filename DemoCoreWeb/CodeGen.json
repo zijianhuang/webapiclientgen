@@ -5,11 +5,6 @@
 			"DemoWebApi.Controllers.FileUpload"
 		],
 
-		//"DataModelAssemblyNames": [
-		//	"DemoWebApi.DemoDataCore",
-		//	"DemoCoreWeb"
-		//],
-
 		"DataModels": [
 			{
 				"AssemblyName": "TT.Legacy.Models",
@@ -24,27 +19,18 @@
 			{
 				"AssemblyName": "DemoCoreWebControllers",
 				"CherryPickingMethods": 3
-			},
-
-			{
-				"AssemblyName": "DemoCoreWeb",
-				"CherryPickingMethods": 1
 			}
 		]
-
-		//"CherryPickingMethods": 3
 	},
 
 	"ClientApiOutputs": {
 		"ClientLibraryProjectFolderName": "../DemoCoreWeb.ClientApi",
 		"GenerateBothAsyncAndSync": true,
-		//"StringAsString": true, default is true
 		"CamelCase": true,
 		"CSClientNamespaceSuffix": ".Client",
 		"DataAnnotationsEnabled": true,
 		"DataAnnotationsToComments": true,
 		"HandleHttpRequestHeaders": true,
-		//"CancellationTokenEnabled": true,
 		"DecorateDataModelWithDataContract": true,
 		"DataContractNamespace": "http://fonlowdemo.com/2020/09",
 		"DecorateDataModelWithSerializable": true,
@@ -54,7 +40,6 @@
 		"IncludeEnsureSuccessStatusCodeExBlock": true,
 		"JsMethodSuffixWithClrTypeName": true,
 
-		//"NotNullAttributeOnMethod": true,
 		"UseSystemTextJson": false,
 
 		"Plugins": [

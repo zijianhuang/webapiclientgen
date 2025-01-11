@@ -169,8 +169,8 @@ namespace DemoWebApi.DemoData
 		public string Street1 { get; set; }
 
 		[DataMember]
-        [Length(2, 100)]
-        public string Street2 { get; set; }
+		[Length(2, 100)]
+		public string Street2 { get; set; }
 
 		[DataMember]
 		[StringLength(50, MinimumLength = 2)]

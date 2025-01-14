@@ -7,11 +7,6 @@
 
 		"DataModels": [
 			{
-				"AssemblyName": "TT.Legacy.Models",
-				"CherryPickingMethods": 0
-			},
-
-			{
 				"AssemblyName": "DemoWebApi.DemoDataCore",
 				"CherryPickingMethods": 3
 			},

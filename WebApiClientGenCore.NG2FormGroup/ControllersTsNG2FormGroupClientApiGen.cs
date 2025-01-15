@@ -36,6 +36,18 @@ namespace Fonlow.CodeDom.Web.Ts
 			TargetUnit.ReferencedAssemblies.Add("import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';");
 			TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs';");
 			TargetUnit.ReferencedAssemblies.Add("import { FormControl, FormGroup, Validators } from '@angular/forms';");
+
+			TargetUnit.ReferencedAssemblies.Add(@"function CreateDateOnlyFormControl(){
+	const fc = new FormControl<any | null | undefined>(undefined);
+	fc.valueChanges.subscribe(v=>{
+		if (v){
+			fc.setValue(v.toLocaleDateString(""sv"").substring(0, 10));
+		}
+	});
+
+	return fc;
+}
+");
 		}
 	}
 

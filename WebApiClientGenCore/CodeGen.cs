@@ -58,6 +58,7 @@ namespace Fonlow.CodeDom.Web
 						ContainerNameSuffix = plugin.ContainerNameSuffix,
 						DataAnnotationsToComments = plugin.DataAnnotationsToComments,
 						HelpStrictMode = plugin.HelpStrictMode,
+						NgDateOnlyFormControlEnabled = plugin.NgDateOnlyFormControlEnabled,
 						MethodSuffixWithClrTypeName = settings.ClientApiOutputs.JsMethodSuffixWithClrTypeName,
 						NotNullAttributeOnMethod = settings.ClientApiOutputs.NotNullAttributeOnMethod,
 						MaybeNullAttributeOnMethod = settings.ClientApiOutputs.MaybeNullAttributeOnMethod,

@@ -13,7 +13,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// </summary>
 		/// <param name="jsOutput"></param>
 		/// <remarks>The client data types should better be generated through SvcUtil.exe with the DC option. The client namespace will then be the original namespace plus suffix ".client". </remarks>
-		public ControllersTsNG2FormGroupClientApiGen(JSOutput jsOutput, bool handleHttpRequestHeaders, Fonlow.Poco2Client.IDocCommentTranslate docCommentTranslate) 
+		public ControllersTsNG2FormGroupClientApiGen(JSOutput jsOutput, bool handleHttpRequestHeaders, Fonlow.Poco2Client.IDocCommentTranslate docCommentTranslate)
 			: base(jsOutput, handleHttpRequestHeaders, docCommentTranslate)
 		{
 			CreatePoco2TsGen(jsOutput.ClientNamespaceSuffix);
@@ -27,7 +27,7 @@ namespace Fonlow.CodeDom.Web.Ts
 
 		protected override CodeObjectHelper CreateCodeObjectHelper(bool asModule)
 		{
-			return new CodeObjectHelperForNg2FormGroup(TargetUnit.Namespaces);
+			return new CodeObjectHelperForNg2FormGroup(TargetUnit.Namespaces, jsOutput.NgDateOnlyFormControlEnabled);
 		}
 
 		protected override void AddBasicReferences()
@@ -37,7 +37,10 @@ namespace Fonlow.CodeDom.Web.Ts
 			TargetUnit.ReferencedAssemblies.Add("import { Observable } from 'rxjs';");
 			TargetUnit.ReferencedAssemblies.Add("import { FormControl, FormGroup, Validators } from '@angular/forms';");
 
-			TargetUnit.ReferencedAssemblies.Add(@"function CreateDateOnlyFormControl(){
+			if (jsOutput.NgDateOnlyFormControlEnabled)
+			{
+				TargetUnit.ReferencedAssemblies.Add(@"
+function CreateDateOnlyFormControl(){
 	const fc = new FormControl<any | null | undefined>(undefined);
 	fc.valueChanges.subscribe(v=>{
 		if (v){
@@ -48,6 +51,7 @@ namespace Fonlow.CodeDom.Web.Ts
 	return fc;
 }
 ");
+			}
 		}
 	}
 

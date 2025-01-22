@@ -15,10 +15,12 @@ namespace Fonlow.TypeScriptCodeDom
 	public class CodeObjectHelperForNg2FormGroup : CodeObjectHelper
 	{
 		readonly CodeNamespaceCollection codeNamespaceCollection;
+		readonly bool careForDateOnly;
 
-		public CodeObjectHelperForNg2FormGroup(CodeNamespaceCollection codeNamespaceCollection) : base(true)
+		public CodeObjectHelperForNg2FormGroup(CodeNamespaceCollection codeNamespaceCollection, bool careForDateOnly=false) : base(true)
 		{
 			this.codeNamespaceCollection = codeNamespaceCollection;
+			this.careForDateOnly = careForDateOnly;
 		}
 
 		/// <summary>
@@ -228,6 +230,7 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			Attribute[] customAttributes = codeMemberField.UserData[UserDataKeys.CustomAttributes] as Attribute[];
 			string fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			FieldTypeInfo fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
 
 			if (customAttributes?.Length > 0)
 			{
@@ -309,7 +312,8 @@ namespace Fonlow.TypeScriptCodeDom
 					}
 				}
 
-				FieldTypeInfo fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
+				bool isFieldDateOnly = false;
+
 				if (fieldTypeInfo != null)
 				{
 					bool validatorsHasValidatorMinOrMax = validatorList.Exists(d => d.Contains("max(") || d.Contains("min"));
@@ -321,15 +325,29 @@ namespace Fonlow.TypeScriptCodeDom
 						}
 					}
 
-					if (integralJsStringValidatorsDic.TryGetValue(fieldTypeInfo.ClrType.FullName, out string integralJsStringValidators)){
+					if (integralJsStringValidatorsDic.TryGetValue(fieldTypeInfo.ClrType.FullName, out string integralJsStringValidators))
+					{
 						validatorList.Add(integralJsStringValidators);
+					}
+
+					if (fieldTypeInfo.ClrType == typeof(DateOnly) || fieldTypeInfo.ClrType == typeof(DateOnly?))
+					{
+						isFieldDateOnly = true;
 					}
 				}
 
 				string text = String.Join(", ", validatorList);
 				string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
-				return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{tsTypeName}>(undefined)" :
-					$"{fieldName}: new FormControl<{tsTypeName}>(undefined, [{text}])";
+
+				if (isFieldDateOnly && careForDateOnly)
+				{
+					return $"{fieldName}: CreateDateOnlyFormControl()";
+				}
+				else
+				{
+					return string.IsNullOrEmpty(text) ? $"{fieldName}: new FormControl<{tsTypeName}>(undefined)" :
+						$"{fieldName}: new FormControl<{tsTypeName}>(undefined, [{text}])";
+				}
 			}
 			else
 			{

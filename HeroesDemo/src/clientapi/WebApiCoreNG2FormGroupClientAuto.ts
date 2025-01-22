@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 function CreateDateOnlyFormControl(){
 	const fc = new FormControl<any | null | undefined>(undefined);
 	fc.valueChanges.subscribe(v=>{
@@ -98,8 +99,8 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 	export function CreateHeroFormGroup() {
 		return new FormGroup<HeroFormProperties>({
-			death: new FormControl<Date | null | undefined>(undefined),
-			dob: new FormControl<Date | null | undefined>(undefined),
+			death: CreateDateOnlyFormControl(),
+			dob: CreateDateOnlyFormControl(),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
@@ -116,8 +117,8 @@ export namespace DemoWebApi_Controllers_Client {
 	}
 	export function CreateSuperHeroFormGroup() {
 		return new FormGroup<SuperHeroFormProperties>({
-			death: new FormControl<Date | null | undefined>(undefined),
-			dob: new FormControl<Date | null | undefined>(undefined),
+			death: CreateDateOnlyFormControl(),
+			dob: CreateDateOnlyFormControl(),
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
 			id: new FormControl<string | null | undefined>(undefined, [Validators.pattern('/^-?\d{0,19}$/')]),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(120)]),
@@ -1904,7 +1905,7 @@ export namespace DemoWebApi_DemoData_Client {
 			business_no: new FormControl<string | null | undefined>(undefined),
 			businessNumberType: new FormControl<string | null | undefined>(undefined),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
-			registerDate: new FormControl<Date | null | undefined>(undefined),
+			registerDate: CreateDateOnlyFormControl(),
 		});
 
 	}
@@ -2159,7 +2160,7 @@ export namespace DemoWebApi_DemoData_Client {
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
 			baptised: new FormControl<Date | null | undefined>(undefined),
-			dob: new FormControl<Date | null | undefined>(undefined),
+			dob: CreateDateOnlyFormControl(),
 			givenName: new FormControl<string | null | undefined>(undefined),
 			surname: new FormControl<string | null | undefined>(undefined),
 		});

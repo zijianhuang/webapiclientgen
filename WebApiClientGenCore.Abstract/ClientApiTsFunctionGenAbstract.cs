@@ -101,7 +101,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					RenderImplementation();
 					break;
 				default:
-                    Console.Error.WriteLine("This HTTP method {0} is not yet supported", description.HttpMethod);
+					Console.Error.WriteLine("This HTTP method {0} is not yet supported", description.HttpMethod);
 					break;
 			}
 
@@ -286,7 +286,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		/// </summary>
 		/// <param name="lines"></param>
 		/// <returns></returns>
-		static string LinesToIndentedLines(IList<string> lines)
+		static string LinesToIndentedLines(List<string> lines)
 		{
 			if (lines == null || lines.Count == 0)
 			{

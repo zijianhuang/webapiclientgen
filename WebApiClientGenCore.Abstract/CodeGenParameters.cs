@@ -286,6 +286,11 @@ namespace Fonlow.CodeDom.Web
 		/// The returned types and parameters may be null. And some primitive types in data model / interface may be null.
 		/// </summary>
 		public bool HelpStrictMode { get; set; }
+
+		/// <summary>
+		/// For Angular reactive form control binding with DateOnly, requiring yyyy-MM-dd local date, while the strongly typed field is JavaScript Date.
+		/// </summary>
+		public bool NgDateOnlyFormControlEnabled { get; set; }
 	}
 
 	/// <summary>
@@ -327,5 +332,8 @@ namespace Fonlow.CodeDom.Web
 		public bool MaybeNullAttributeOnMethod { get; set; }
 
 		public bool MethodSuffixWithClrTypeName { get; set; }
+
+		public bool NgDateOnlyFormControlEnabled { get; set; }
+
 	}
 }

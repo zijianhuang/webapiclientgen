@@ -201,7 +201,7 @@ namespace Fonlow.Poco2Ts
 			}
 		}
 
-		static void AddDocComments(CodeCommentStatementCollection comments, docMember dm, IList<string> extra)
+		static void AddDocComments(CodeCommentStatementCollection comments, docMember dm, List<string> extra)
 		{
 			if (dm != null && dm.summary != null)
 			{

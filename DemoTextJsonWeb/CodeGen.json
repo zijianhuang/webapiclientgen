@@ -63,7 +63,8 @@
 				"ClientNamespaceSuffix": ".Client",
 				"ContainerNameSuffix": "",
 				"DataAnnotationsToComments": true,
-				"HelpStrictMode": true
+				"HelpStrictMode": true,
+				"NgDateOnlyFormControlEnabled":  true
 			},
 
 			{

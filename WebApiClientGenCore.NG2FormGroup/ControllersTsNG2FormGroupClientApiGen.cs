@@ -43,7 +43,7 @@ namespace Fonlow.CodeDom.Web.Ts
 function CreateDateOnlyFormControl(){
 	const fc = new FormControl<any | null | undefined>(undefined);
 	fc.valueChanges.subscribe(v=>{
-		if (v){
+		if (v && v instanceof Date){
 			fc.setValue(v.toLocaleDateString(""sv"").substring(0, 10));
 		}
 	});

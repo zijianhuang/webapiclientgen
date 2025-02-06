@@ -6,7 +6,7 @@ And WebApiClientGen receives settings through an API call "api/codegen" with a P
 
 The schema and the semantic meanings of the JSON data are described in "[CodeGenParameters](https://github.com/zijianhuang/webapiclientgen/blob/master/WebApiClientGenCore.Abstract/CodeGenParameters.cs)". And the followig sections give further explaination.
 
-![Packages](/Doc/images/Settings.png)
+![Packages](Doc/images/Settings.png)
 
 ## ApiSelection
 
@@ -272,12 +272,6 @@ Nevertheless, for TypeScript client codes, the mapping is always `Array<T>`.
 
 IDictionary<T> and its derived types will always be mapped to respective types. Nevertheless, for TypeScript client codes, the mapping is always `{[index:T]:Y}`.
 
-### HelpStrictMode
-
-Give TypeScript strict mode more signal for null value in both data models and client API functions. The returned types and parameters may be null. And some primitive types in data model / interface may be null.
-
-Except for legacy TypeScript apps that you don't plan to conform to the strict mode, it is recommended to turn this option on. For more details, please check [Required, Optional and Nullable in TypeScript](Required-Optional-Nullable).
-
 ### MaybeNullAttributeOnMethod
 
 When this setting is on along with HelpStrictMode=true, the return type of API functions associated with MaybeNullAttribute has an alternative type null, so to signal client codes that the return may be null, and the return type of all other functions will be without an alternative type null.
@@ -305,7 +299,7 @@ getHero(id?: number, headersHandler?: () => HttpHeaders): Observable<DemoWebApi_
 
 At the mean time, all other functions without 
 
-![TS2532 warning](https://github.com/zijianhuang/webapiclientgen/blob/gh-pages/media/Screenshot%202022-07-15%20115132.jpg)
+![TS2531 warning](Doc/images/TS2531Warning.jpg)
 
 So you should then do:
 ```js
@@ -609,7 +603,7 @@ public async Task AddPetAsync(Pet requestBody, System.Threading.CancellationToke
 }
 ```
 
-## Plugins
+## TypeScript Plugins
 
 Plugins are for plugin assemblies that generate TypeScript codes for JavaScript libraries and frameworks.
 
@@ -728,3 +722,38 @@ TypeScript client codes:
 * [Dealing with Large Integral Numbers in JavaScript for Integral Types of ASP.NET Core Web API](https://www.codeproject.com/Articles/5377807/Dealing-with-large-integral-numbers-in-JavaScript)
 * [Enjoy Rich Integral Types of .NET and Overcome the 53-bit Limitation of JavaScript](https://www.codeproject.com/Articles/5378038/Enjoy-rich-integral-types-of-NET-and-overcome-the)
 
+### HelpStrictMode
+
+Give TypeScript strict mode more signal for null value in both data models and client API functions. The returned types and parameters may be null. And some primitive types in data model / interface may be null.
+
+Except for legacy TypeScript apps that you don't plan to conform to the strict mode, it is recommended to turn this option on. For more details, please check [Required, Optional and Nullable in TypeScript](Required-Optional-Nullable).
+
+### NgDateOnlyFormControlEnabled
+
+For Angular Reactive Forms dealing with DateOnly fields. 
+
+When true, the FormControl generated is like:
+
+
+```js
+	export function CreateHeroFormGroup() {
+		return new FormGroup<HeroFormProperties>({
+			death: CreateDateOnlyFormControl(),
+			dob: CreateDateOnlyFormControl(),
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email]),
+			...
+			...
+function CreateDateOnlyFormControl(){
+	const fc = new FormControl<any | null | undefined>(undefined);
+	fc.valueChanges.subscribe(v=>{
+		if (v && v instanceof Date){
+			fc.setValue(v.toLocaleDateString("sv").substring(0, 10));
+		}
+	});
+
+	return fc;
+}
+
+Hints:
+* JavaScript Date object is always internally UTC DateTime, while HTML date picker and Angular Material DatePicker handle well both JS Date object and string. However, for DateOnly info, this FormControl generated enforce string "yyyy-MM-dd".
+```

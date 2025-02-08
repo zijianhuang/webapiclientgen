@@ -230,7 +230,13 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			Attribute[] customAttributes = codeMemberField.UserData[UserDataKeys.CustomAttributes] as Attribute[];
 			string fieldName = codeMemberField.Name.EndsWith('?') ? codeMemberField.Name.Substring(0, codeMemberField.Name.Length - 1) : codeMemberField.Name;
+			string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
+			bool isFieldDateOnly = false;
 			FieldTypeInfo fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
+			if (fieldTypeInfo?.ClrType == typeof(DateOnly) || fieldTypeInfo?.ClrType == typeof(DateOnly?))
+			{
+				isFieldDateOnly = true;
+			}
 
 			if (customAttributes?.Length > 0)
 			{
@@ -312,8 +318,6 @@ namespace Fonlow.TypeScriptCodeDom
 					}
 				}
 
-				bool isFieldDateOnly = false;
-
 				if (fieldTypeInfo != null)
 				{
 					bool validatorsHasValidatorMinOrMax = validatorList.Exists(d => d.Contains("max(") || d.Contains("min"));
@@ -329,15 +333,9 @@ namespace Fonlow.TypeScriptCodeDom
 					{
 						validatorList.Add(integralJsStringValidators);
 					}
-
-					if (fieldTypeInfo.ClrType == typeof(DateOnly) || fieldTypeInfo.ClrType == typeof(DateOnly?))
-					{
-						isFieldDateOnly = true;
-					}
 				}
 
 				string text = String.Join(", ", validatorList);
-				string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
 
 				if (isFieldDateOnly && careForDateOnly)
 				{
@@ -351,8 +349,14 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 			else
 			{
-				string tsTypeName = RefineAngularFormControlTypeName(codeMemberField);
-				return $"{fieldName}: new FormControl<{tsTypeName}>(undefined)";
+				if (isFieldDateOnly && careForDateOnly)
+				{
+					return $"{fieldName}: CreateDateOnlyFormControl()";
+				}
+				else
+				{
+					return $"{fieldName}: new FormControl<{tsTypeName}>(undefined)";
+				}
 			}
 		}
 

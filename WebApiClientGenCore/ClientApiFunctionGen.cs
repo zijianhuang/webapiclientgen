@@ -117,12 +117,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			AddCustomPocoTypeForCs(returnType);
 			//create method
 			clientMethod = forAsync ? CreateMethodBasicForAsync() : CreateMethodBasic();
-//#if DEBUG
-//			if (methodName == "GetHeroes")
-//			{
-//				Console.WriteLine("GetHeroes");
-//			}
-//#endif
+
 			CreateDocComments();
 			if (codeGenOutputsSettings.MaybeNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
 			{

@@ -23,7 +23,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected CodeCompileUnit TargetUnit { get; private set; }
 
 		readonly CodeGenConfig apiSelections;
-		protected JSOutput jsOutput;
+		protected readonly JSOutput jsOutput;
 		readonly ClientApiTsFunctionGenAbstract apiFunctionGen; //to be injected in ctor of derived class.
 		readonly IDocCommentTranslate poco2CsGen;
 

@@ -45,7 +45,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			TsCodeGenerationOptions options = TsCodeGenerationOptions.Instance;
 			options.BracingStyle = "JS";
 			options.IndentString = "\t";
-			options.CamelCase = jsOutput.CamelCase ?? false;
+			options.CamelCase = jsOutput.CamelCase;
 
 		}
 
@@ -196,7 +196,7 @@ namespace Fonlow.CodeDom.Web.Ts
 			if (apiSelections.DataModelAssemblyNames != null)
 			{
 				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				CherryPickingMethods cherryPickingMethods = apiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)apiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+				CherryPickingMethods cherryPickingMethods = apiSelections.CherryPickingMethods;
 				foreach (var assemblyName in apiSelections.DataModelAssemblyNames)
 				{
 					Assembly assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(assemblyName, StringComparison.OrdinalIgnoreCase));
@@ -219,7 +219,7 @@ namespace Fonlow.CodeDom.Web.Ts
 					{
 						string xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
 						DocComment.DocCommentLookup docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
-						CherryPickingMethods cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+						CherryPickingMethods cherryPickingMethods = dataModel.CherryPickingMethods;
 						bool dataAnnotationsToComments = (dataModel.DataAnnotationsToComments.HasValue && dataModel.DataAnnotationsToComments.Value) // dm explicitly tell to do
 							|| (!dataModel.DataAnnotationsToComments.HasValue && jsOutput.DataAnnotationsToComments);
 						Poco2TsGen.CreateCodeDomInAssembly(assembly, cherryPickingMethods, docLookup, dataAnnotationsToComments);

@@ -1,0 +1,255 @@
+{
+  "title": "CodeGen Meta of WebApiClientGen",
+  "description": "POST to CodeGen controller",
+  "definitions": {
+    "CodeGenConfig": {
+      "description": "Cherry picking of data models and API controllers.",
+      "type": "object",
+      "properties": {
+        "ExcludedControllerNames": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "DataModelAssemblyNames": {
+          "description": "Exclusive to DataModels.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "DataModels": {
+          "description": "Exclusive to DataModelAssemblyNames",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/DataModel"
+          }
+        },
+        "CherryPickingMethods": {
+          "type": "integer"
+        },
+        "NamespacePrefixesOfGodAssemblyTypes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "AllDataModelAssemblyNames": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "CodeGenOutputs": {
+      "description": "Options of output",
+      "type": "object",
+      "properties": {
+        "ClientLibraryProjectFolderName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "FileName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "GenerateBothAsyncAndSync": {
+          "type": "boolean"
+        },
+        "StringAsString": {
+          "type": "boolean"
+        },
+        "CamelCase": {
+          "type": "boolean"
+        },
+        "UseSystemTextJson": {
+          "type": "boolean"
+        },
+        "ContainerNameSuffix": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UseEnsureSuccessStatusCodeEx": {
+          "type": "boolean"
+        },
+        "IncludeEnsureSuccessStatusCodeExBlock": {
+          "type": "boolean"
+        },
+        "HandleHttpRequestHeaders": {
+          "type": "boolean"
+        },
+        "CancellationTokenEnabled": {
+          "type": "boolean"
+        },
+        "JsMethodSuffixWithClrTypeName": {
+          "type": "boolean"
+        },
+        "Plugins": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/JSPlugin"
+          }
+        },
+        "CSClientNamespaceSuffix": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DataAnnotationsEnabled": {
+          "type": "boolean"
+        },
+        "DataAnnotationsToComments": {
+          "type": "boolean"
+        },
+        "DecorateDataModelWithDataContract": {
+          "type": "boolean"
+        },
+        "DataContractNamespace": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DecorateDataModelWithSerializable": {
+          "type": "boolean"
+        },
+        "IEnumerableToArray": {
+          "type": "boolean"
+        },
+        "NotNullAttributeOnMethod": {
+          "type": "boolean"
+        },
+        "MaybeNullAttributeOnMethod": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DataModel": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "AssemblyName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "CherryPickingMethods": {
+          "type": "integer"
+        },
+        "DataAnnotationsToComments": {
+          "type": "boolean"
+        }
+      }
+    },
+    "JSPlugin": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "AssemblyName": {
+          "type": "string"
+        },
+        "TargetDir": {
+          "type": "string"
+        },
+        "TSFile": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ContentType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "AsModule": {
+          "type": "boolean"
+        },
+        "ClientNamespaceSuffix": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ContainerNameSuffix": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DataAnnotationsToComments": {
+          "type": "boolean"
+        },
+        "HelpStrictMode": {
+          "type": "boolean"
+        },
+        "NgDateOnlyFormControlEnabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "AssemblyName",
+        "TargetDir",
+        "AsModule"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "ClientApiOutputs": {
+      "$ref": "#/definitions/CodeGenOutputs"
+    },
+    "ApiSelections": {
+      "$ref": "#/definitions/CodeGenConfig"
+    }
+  },
+  "required": [
+    "ClientApiOutputs",
+    "ApiSelections"
+  ]
+}

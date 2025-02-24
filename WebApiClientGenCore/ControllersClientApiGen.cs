@@ -90,7 +90,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			if (codeGenSettings.ApiSelections.DataModelAssemblyNames != null)
 			{
 				Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-				CherryPickingMethods cherryPickingMethods = codeGenSettings.ApiSelections.CherryPickingMethods.HasValue ? (CherryPickingMethods)codeGenSettings.ApiSelections.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+				CherryPickingMethods cherryPickingMethods = codeGenSettings.ApiSelections.CherryPickingMethods;
 				foreach (string assemblyName in codeGenSettings.ApiSelections.DataModelAssemblyNames)
 				{
 					Assembly assembly = allAssemblies.FirstOrDefault(d => d.GetName().Name.Equals(assemblyName, StringComparison.OrdinalIgnoreCase));
@@ -114,7 +114,7 @@ namespace Fonlow.CodeDom.Web.Cs
 
 					if (assembly != null)
 					{
-						CherryPickingMethods cherryPickingMethods = dataModel.CherryPickingMethods.HasValue ? (CherryPickingMethods)dataModel.CherryPickingMethods.Value : CherryPickingMethods.DataContract;
+						CherryPickingMethods cherryPickingMethods = dataModel.CherryPickingMethods;
 						bool dataAnnotationsToComments = (dataModel.DataAnnotationsToComments.HasValue && dataModel.DataAnnotationsToComments.Value) // dm explicitly tell to do
 							|| (!dataModel.DataAnnotationsToComments.HasValue && codeGenSettings.ClientApiOutputs.DataAnnotationsToComments);
 						Poco2CsGenerator.CreateCodeDomForAssembly(assembly, cherryPickingMethods, dataAnnotationsToComments);

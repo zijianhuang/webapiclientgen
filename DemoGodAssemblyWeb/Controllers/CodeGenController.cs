@@ -57,11 +57,6 @@ namespace Fonlow.WebApiClientGen
 				System.Diagnostics.Trace.TraceWarning(e.Message);
 				return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
 			}
-
-			if (!settings.ClientApiOutputs.CamelCase.HasValue)
-			{
-				settings.ClientApiOutputs.CamelCase = true;
-			}
 			
 			try
 			{

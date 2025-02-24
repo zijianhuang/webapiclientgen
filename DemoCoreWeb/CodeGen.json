@@ -1,4 +1,5 @@
 {
+	"$schema": "CodeGenSchema.json",
 	"ApiSelections": {
 		"ExcludedControllerNames": [
 			"DemoWebApi.Controllers.Home",

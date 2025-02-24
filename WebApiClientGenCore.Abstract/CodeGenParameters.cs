@@ -1,11 +1,18 @@
 ﻿using Fonlow.Poco2Client;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Linq;
+using System.Text.Json.Serialization;
+using System;
 
 namespace Fonlow.CodeDom.Web
 {
 	public class CodeGenSettingsBase
 	{
-		public CodeGenConfig ApiSelections { get; set; }
+		[Required]
+		[JsonRequired]
+		[Description("Cherry picking of data models and API controllers.")]
+		public required CodeGenConfig ApiSelections { get; set; }
 	}
 
 	/// <summary>
@@ -13,7 +20,10 @@ namespace Fonlow.CodeDom.Web
 	/// </summary>
 	public class CodeGenSettings : CodeGenSettingsBase
 	{
-		public CodeGenOutputs ClientApiOutputs { get; set; }
+		[Required]
+		[JsonRequired]
+		[Description("Options of output")]
+		public required CodeGenOutputs ClientApiOutputs { get; set; }
 	}
 
 	/// <summary>
@@ -33,6 +43,7 @@ namespace Fonlow.CodeDom.Web
 		/// An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
 		/// If the Web API assembly is also included, it should be behind those data model assemblies that it depends on.
 		/// </summary>
+		[Description("Exclusive to DataModels.")]
 		public string[] DataModelAssemblyNames
 		{
 			get { return dataModelAssemblyNames; }
@@ -50,6 +61,7 @@ namespace Fonlow.CodeDom.Web
 		/// Similar to DataModelAssemblyNames however, each assembly could have a CherryPickingMethods. An assembly should appear in either DataModelAssemblyNames or DataModels, not both.
 		/// If the Web API assembly is also included, it should be behind those data model assemblies that it depends on.
 		/// </summary>
+		[Description("Exclusive to DataModelAssemblyNames")]
 		public DataModel[] DataModels
 		{
 			get { return dataModels; }
@@ -63,7 +75,7 @@ namespace Fonlow.CodeDom.Web
 		/// <summary>
 		/// Cherry picking methods of POCO classes
 		/// </summary>
-		public CherryPickingMethods? CherryPickingMethods { get; set; }
+		public CherryPickingMethods CherryPickingMethods { get; set; }
 
 		/// <summary>
 		/// Used when cherry picking methods is for god assembly (32)
@@ -92,16 +104,17 @@ namespace Fonlow.CodeDom.Web
 
 	public class DataModel
 	{
-		public string AssemblyName { get; set; }
+		[JsonRequired]
+		public required string AssemblyName { get; set; }
 
-		public CherryPickingMethods? CherryPickingMethods { get; set; }
+		public required CherryPickingMethods CherryPickingMethods { get; set; }
 
 		/// <summary>
 		/// For each selected assembly with POCO classes. System.ComponentModel.DataAnnotations attributes are translated into Doc Comments, 
 		/// including Required, Range, MaxLength, MinLength, StringLength, DataType and RegularExpression.
 		/// If defined, overwrite the global setting in ModelGenOutputs; if not defined, follow the global setting.
 		/// </summary>
-		public bool? DataAnnotationsToComments { get; set; }
+		public Nullable<bool> DataAnnotationsToComments { get; set; }
 	}
 
 	public class ModelGenOutputs
@@ -189,7 +202,7 @@ namespace Fonlow.CodeDom.Web
 		/// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
 		/// If CamelCasePropertyNamesContractResolver is presented, camelCasing will be used. If not, no camelCasing transformation will be used.
 		/// </summary>
-		public bool? CamelCase { get; set; }
+		public bool CamelCase { get; set; }
 
 		/// <summary>
 		/// Use System.Text.Json instead of Newtonsoft.Json
@@ -243,17 +256,23 @@ namespace Fonlow.CodeDom.Web
 	/// </summary>
 	public class JSPlugin
 	{
-		public string AssemblyName { get; set; }
+		[Required]
+		[JsonRequired] //.NET Extract Schema like this
+		public required string AssemblyName { get; set; }
 
 		/// <summary>
 		/// Relative or absolute directory.
 		/// </summary>
-		public string TargetDir { get; set; }
+		[Required]
+		[JsonRequired]
+		public required string TargetDir { get; set; }
 
 		/// <summary>
 		/// Name of TypeScript file to be geneated under TargetDir.
 		/// </summary>
-		public string TSFile { get; set; }
+		//[DataMember(IsRequired = true)] nobody likes it.
+		[JsonRequired]
+		public required string TSFile { get; set; }
 
 		/// <summary>
 		/// HTTP content type used in POST of HTTP of NG2. so text/plain could be used to avoid preflight in CORS.
@@ -263,7 +282,9 @@ namespace Fonlow.CodeDom.Web
 		/// <summary>
 		/// True to have "export namespace"; false to have "namespace". jQuery wants "namespace".
 		/// </summary>
-		public bool AsModule { get; set; }
+		[Required]
+		[JsonRequired]
+		public required bool AsModule { get; set; }
 
 		/// <summary>
 		/// Default is ".Client", and the dot will be translate to underscore.
@@ -303,7 +324,7 @@ namespace Fonlow.CodeDom.Web
 		/// If not defined, WebApiClientGen will check if GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver is Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver;
 		/// If CamelCasePropertyNamesContractResolver is presented, camelCasing will be used. If not, no camelCasing transformation will be used.
 		/// </summary>
-		public bool? CamelCase { get; set; }
+		public bool CamelCase { get; set; }
 
 		public string JSPath { get; set; }
 
@@ -336,4 +357,5 @@ namespace Fonlow.CodeDom.Web
 		public bool NgDateOnlyFormControlEnabled { get; set; }
 
 	}
+
 }

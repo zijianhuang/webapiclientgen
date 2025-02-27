@@ -412,9 +412,7 @@ namespace Fonlow.TypeScriptCodeDom
 				if (typeDeclaration.BaseTypes.Count > 0)
 				{
 					CodeTypeReference parentTypeReference = typeDeclaration.BaseTypes[0];
-					string parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included
-																										  //Console.WriteLine("parentTypeName: " + parentTypeName);
-
+					string parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included														
 					WriteAngularFormGroupMembersOfParent(parentTypeName, w, o);
 				}
 
@@ -428,14 +426,21 @@ namespace Fonlow.TypeScriptCodeDom
 			}
 		}
 
+		/// <summary>
+		/// Write for properties of parent type, after writing the properties of grant parent type, and so on, recrusively.
+		/// </summary>
+		/// <param name="parentTypeName"></param>
+		/// <param name="w"></param>
+		/// <param name="o"></param>
 		void WriteAngularFormGroupMembersOfParent(string parentTypeName, TextWriter w, CodeGeneratorOptions o)
 		{
 			CodeTypeDeclaration parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
 			if (parentCodeTypeDeclaration != null)
 			{
-				if (parentCodeTypeDeclaration.BaseTypes.Count >0){
+				if (parentCodeTypeDeclaration.BaseTypes.Count > 0)
+				{
 					CodeTypeReference grantParentTypeReference = parentCodeTypeDeclaration.BaseTypes[0];
-					string grantParentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(grantParentTypeReference); 
+					string grantParentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(grantParentTypeReference);
 					WriteAngularFormGroupMembersOfParent(grantParentTypeName, w, o);
 				};
 

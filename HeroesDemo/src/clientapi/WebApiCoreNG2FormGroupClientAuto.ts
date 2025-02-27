@@ -1864,31 +1864,15 @@ export namespace DemoWebApi_DemoData_Client {
 
 	}
 
-	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
-
-		/**
-		 * BusinessNumber to be serialized as BusinessNum
-		 */
-		business_no?: string | null;
-		businessNumberType?: string | null;
+	export interface BizEntity extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/** Data type: Date */
 		foundDate?: Date | null;
 
 		/** Type: DateOnly */
 		registerDate?: Date | null;
-		textMatrix?: Array<Array<string>>;
-		int2D?: number[][];
-		int2DJagged?: Array<Array<number>>;
-		lines?: Array<string>;
 	}
-	export interface CompanyFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
-
-		/**
-		 * BusinessNumber to be serialized as BusinessNum
-		 */
-		business_no: FormControl<string | null | undefined>,
-		businessNumberType: FormControl<string | null | undefined>,
+	export interface BizEntityFormProperties extends DemoWebApi_DemoData_Base_Client.EntityFormProperties {
 
 		/** Data type: Date */
 		foundDate: FormControl<Date | null | undefined>,
@@ -1896,16 +1880,48 @@ export namespace DemoWebApi_DemoData_Client {
 		/** Type: DateOnly */
 		registerDate: FormControl<Date | null | undefined>,
 	}
+	export function CreateBizEntityFormGroup() {
+		return new FormGroup<BizEntityFormProperties>({
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
+			id: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			foundDate: new FormControl<Date | null | undefined>(undefined),
+			registerDate: CreateDateOnlyFormControl(),
+		});
+
+	}
+
+	export interface Company extends DemoWebApi_DemoData_Client.BizEntity {
+
+		/**
+		 * BusinessNumber to be serialized as BusinessNum
+		 */
+		business_no?: string | null;
+		businessNumberType?: string | null;
+		textMatrix?: Array<Array<string>>;
+		int2D?: number[][];
+		int2DJagged?: Array<Array<number>>;
+		lines?: Array<string>;
+	}
+	export interface CompanyFormProperties extends DemoWebApi_DemoData_Client.BizEntityFormProperties {
+
+		/**
+		 * BusinessNumber to be serialized as BusinessNum
+		 */
+		business_no: FormControl<string | null | undefined>,
+		businessNumberType: FormControl<string | null | undefined>,
+	}
 	export function CreateCompanyFormGroup() {
 		return new FormGroup<CompanyFormProperties>({
 			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
 			id: new FormControl<string | null | undefined>(undefined),
 			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
 			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
-			business_no: new FormControl<string | null | undefined>(undefined),
-			businessNumberType: new FormControl<string | null | undefined>(undefined),
 			foundDate: new FormControl<Date | null | undefined>(undefined),
 			registerDate: CreateDateOnlyFormControl(),
+			business_no: new FormControl<string | null | undefined>(undefined),
+			businessNumberType: new FormControl<string | null | undefined>(undefined),
 		});
 
 	}

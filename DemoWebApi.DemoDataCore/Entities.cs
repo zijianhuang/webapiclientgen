@@ -254,7 +254,18 @@ namespace DemoWebApi.DemoData
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]
-	public class Company : Entity
+	public class BizEntity : Entity {
+
+		[DataMember]
+		public DateOnly RegisterDate { get; set; }
+
+		[DataMember]
+		[DataType(DataType.Date)]
+		public DateTimeOffset FoundDate { get; set; }
+	};
+
+	[DataContract(Namespace = Constants.DataNamespace)]
+	public class Company : BizEntity
 	{
 		/// <summary>
 		/// BusinessNumber to be serialized as BusinessNum
@@ -279,12 +290,6 @@ namespace DemoWebApi.DemoData
 		[DataMember]
 		public IEnumerable<string> Lines;
 
-		[DataMember]
-		public DateOnly RegisterDate { get; set; }
-
-		[DataMember]
-		[DataType(DataType.Date)]
-		public DateTimeOffset FoundDate { get; set; }
 	}
 
 	[DataContract(Namespace = Constants.DataNamespace)]

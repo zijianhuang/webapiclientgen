@@ -17,7 +17,7 @@ namespace Fonlow.TypeScriptCodeDom
 		readonly CodeNamespaceCollection codeNamespaceCollection;
 		readonly bool careForDateOnly;
 
-		public CodeObjectHelperForNg2FormGroup(CodeNamespaceCollection codeNamespaceCollection, bool careForDateOnly=false) : base(true)
+		public CodeObjectHelperForNg2FormGroup(CodeNamespaceCollection codeNamespaceCollection, bool careForDateOnly = false) : base(true)
 		{
 			this.codeNamespaceCollection = codeNamespaceCollection;
 			this.careForDateOnly = careForDateOnly;
@@ -414,14 +414,8 @@ namespace Fonlow.TypeScriptCodeDom
 					CodeTypeReference parentTypeReference = typeDeclaration.BaseTypes[0];
 					string parentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(parentTypeReference); //namspace prefix included
 																										  //Console.WriteLine("parentTypeName: " + parentTypeName);
-					CodeTypeDeclaration parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
-					if (parentCodeTypeDeclaration != null)
-					{
-						for (int i = 0; i < parentCodeTypeDeclaration.Members.Count; i++)
-						{
-							WriteCodeTypeMemberOfAngularFormGroup(parentCodeTypeDeclaration.Members[i], w, o);
-						};
-					}
+
+					WriteAngularFormGroupMembersOfParent(parentTypeName, w, o);
 				}
 
 				for (int i = 0; i < typeDeclaration.Members.Count; i++)
@@ -431,6 +425,24 @@ namespace Fonlow.TypeScriptCodeDom
 				w.WriteLine(currentIndent + BasicIndent + "});");
 				w.WriteLine();
 				o.IndentString = currentIndent;
+			}
+		}
+
+		void WriteAngularFormGroupMembersOfParent(string parentTypeName, TextWriter w, CodeGeneratorOptions o)
+		{
+			CodeTypeDeclaration parentCodeTypeDeclaration = FindCodeTypeDeclaration(parentTypeName);
+			if (parentCodeTypeDeclaration != null)
+			{
+				if (parentCodeTypeDeclaration.BaseTypes.Count >0){
+					CodeTypeReference grantParentTypeReference = parentCodeTypeDeclaration.BaseTypes[0];
+					string grantParentTypeName = TypeMapper.MapCodeTypeReferenceToTsText(grantParentTypeReference); 
+					WriteAngularFormGroupMembersOfParent(grantParentTypeName, w, o);
+				};
+
+				for (int i = 0; i < parentCodeTypeDeclaration.Members.Count; i++)
+				{
+					WriteCodeTypeMemberOfAngularFormGroup(parentCodeTypeDeclaration.Members[i], w, o);
+				};
 			}
 		}
 

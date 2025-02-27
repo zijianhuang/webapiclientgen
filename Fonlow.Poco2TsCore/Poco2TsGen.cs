@@ -741,6 +741,32 @@ namespace Fonlow.Poco2Ts
 			return null;
 		}
 
+		///// <summary>
+		///// Including namespace
+		///// </summary>
+		///// <param name="className"></param>
+		///// <returns></returns>
+		//public CodeTypeDeclaration LookupExistingClassOfCs(string className)
+		//{
+		//	for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
+		//	{
+		//		CodeNamespace ns = codeCompileUnit.Namespaces[i];
+		//		if (ns.Name == namespaceText + ClientNamespaceSuffix)
+		//		{
+		//			for (int k = 0; k < ns.Types.Count; k++)
+		//			{
+		//				CodeTypeDeclaration c = ns.Types[k];
+		//				if (c.Name == typeName)
+		//				{
+		//					return c;
+		//				}
+		//			}
+		//		}
+		//	}
+
+		//	return null;
+		//}
+
 		CodeTypeDeclaration AddCodeTypeDeclaration(Type type, bool dcOnly)
 		{
 			if (type.IsGenericTypeParameter && type.IsGenericParameter)

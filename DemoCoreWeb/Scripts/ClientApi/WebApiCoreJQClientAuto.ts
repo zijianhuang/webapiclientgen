@@ -1652,19 +1652,22 @@ namespace DemoWebApi_DemoData_Client {
 		unsigned64?: string | null;
 	}
 
-	export interface Company extends DemoWebApi_DemoData_Base_Client.Entity {
-
-		/**
-		 * BusinessNumber to be serialized as BusinessNum
-		 */
-		business_no?: string | null;
-		businessNumberType?: string | null;
+	export interface BizEntity extends DemoWebApi_DemoData_Base_Client.Entity {
 
 		/** Data type: Date */
 		foundDate?: Date | null;
 
 		/** Type: DateOnly */
 		registerDate?: Date | null;
+	}
+
+	export interface Company extends DemoWebApi_DemoData_Client.BizEntity {
+
+		/**
+		 * BusinessNumber to be serialized as BusinessNum
+		 */
+		business_no?: string | null;
+		businessNumberType?: string | null;
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;

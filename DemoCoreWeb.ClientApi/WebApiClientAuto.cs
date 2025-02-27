@@ -9631,17 +9631,8 @@ namespace DemoWebApi.DemoData.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
-	public class Company : DemoWebApi.DemoData.Base.Client.Entity
+	public class BizEntity : DemoWebApi.DemoData.Base.Client.Entity
 	{
-		
-		/// <summary>
-		/// BusinessNumber to be serialized as BusinessNum
-		/// </summary>
-		[System.Runtime.Serialization.DataMember(Name="business_no")]
-		public string BusinessNumber { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public string BusinessNumberType { get; set; }
 		
 		/// <summary>
 		/// Data type: Date
@@ -9652,6 +9643,21 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public System.DateOnly RegisterDate { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Company : DemoWebApi.DemoData.Client.BizEntity
+	{
+		
+		/// <summary>
+		/// BusinessNumber to be serialized as BusinessNum
+		/// </summary>
+		[System.Runtime.Serialization.DataMember(Name="business_no")]
+		public string BusinessNumber { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string BusinessNumberType { get; set; }
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string[][] TextMatrix { get; set; }

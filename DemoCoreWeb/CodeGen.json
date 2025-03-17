@@ -13,6 +13,11 @@
 			},
 
 			{
+				"AssemblyName": "DemoWebApiDemoDataEx",
+				"CherryPickingMethods": 1
+			},
+
+			{
 				"AssemblyName": "DemoCoreWebControllers",
 				"CherryPickingMethods": 3
 			}

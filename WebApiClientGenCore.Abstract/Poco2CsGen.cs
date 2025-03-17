@@ -29,7 +29,7 @@ namespace Fonlow.Poco2Client
 	/// </summary>
 	public class Poco2CsGen : IDocCommentTranslate
 	{
-		readonly CodeCompileUnit codeCompileUnit;
+		readonly CodeCompileUnit clientCodeCompileUnit;
 		readonly CodeGenOutputs codeGenOutputsSettings;
 		readonly CodeGenSettings codeGenSettings;
 		readonly CodeDomProvider codeDomProvider;
@@ -53,7 +53,7 @@ namespace Fonlow.Poco2Client
 		/// <param name="codeCompileUnit"></param>
 		public Poco2CsGen(CodeCompileUnit codeCompileUnit, CodeDomProvider csharpCodeDomProvider, CodeGenSettings codeGenSettings)
 		{
-			this.codeCompileUnit = codeCompileUnit;
+			this.clientCodeCompileUnit = codeCompileUnit;
 			codeDomProvider = csharpCodeDomProvider;
 			pendingTypes = new List<Type>();
 			this.codeGenSettings = codeGenSettings;
@@ -135,7 +135,7 @@ namespace Fonlow.Poco2Client
 		/// Create CodeDOM for POCO types. 
 		/// For an enum type, all members will be processed regardless of EnumMemberAttribute.
 		/// </summary>
-		/// <param name="types">POCO types.</param>
+		/// <param name="types">POCO types, generally of the same assembly</param>
 		/// <param name="cherryPickingMethods">How to cherry pick data to be exposed to the clients.</param>
 		/// <param name="clientNamespaceSuffix"></param>
 		/// <returns>Namespaces of types.</returns>
@@ -153,7 +153,7 @@ namespace Fonlow.Poco2Client
 			foreach (IGrouping<string, Type> groupedTypes in typeGroupedByNamespace)
 			{
 				string clientNamespaceText = groupedTypes.Key + codeGenOutputsSettings.CSClientNamespaceSuffix;
-				CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, true);
+				CodeNamespaceEx clientNamespace = clientCodeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, true);
 				Debug.WriteLine("Generating types in namespace: " + groupedTypes.Key + " ...");
 				CodeTypeDeclaration[] codeTypeDeclarations = groupedTypes.OrderBy(t => t.Name).Select(type =>
 				{
@@ -228,13 +228,14 @@ namespace Fonlow.Poco2Client
 				return null;
 			}
 
+
 			CheckOrAdd(type.BaseType, true); // for baseType
 
 			pendingTypes.Add(type); //do this first, in case of recursive relationship between class and property.
 
 			string clientNamespaceText = type.Namespace + codeGenOutputsSettings.CSClientNamespaceSuffix;
-			CodeNamespaceEx clientNamespace = codeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
-			string[] clientNamespacesOfTypes = codeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
+			CodeNamespaceEx clientNamespace = clientCodeCompileUnit.Namespaces.InsertToSortedCollection(clientNamespaceText, dcOnly);
+			string[] clientNamespacesOfTypes = clientCodeCompileUnit.Namespaces.Cast<CodeNamespace>().Select(d => d.Name).ToArray();
 			string[] namespacesOfTypes = clientNamespacesOfTypes.Select(d => d.Substring(0, d.Length - codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix.Length)).ToArray();
 			CodeTypeDeclaration r = TypeToCodeTypeDeclaration(type, clientNamespace as CodeNamespaceEx, namespacesOfTypes, codeGenSettings.ApiSelections.CherryPickingMethods);
 
@@ -268,13 +269,27 @@ namespace Fonlow.Poco2Client
 
 				if (!type.IsValueType)
 				{
+
+					if (type.Name.Contains("Trust"))
+					{
+						Console.WriteLine(type.Name);
+					}
+
 					if (namespacesOfTypes.Contains(type.BaseType.Namespace))
 					{
 						typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
 					}
 					else
 					{
-						typeDeclaration.BaseTypes.Add(type.BaseType);
+						var existingClientNamespaceIdx = clientCodeCompileUnit.Namespaces.FindIndex(type.BaseType.Namespace + this.codeGenOutputsSettings.CSClientNamespaceSuffix);
+						if (existingClientNamespaceIdx >= 0) // for base class in the other assembly
+						{
+							typeDeclaration.BaseTypes.Add(RefineCustomComplexTypeText(type.BaseType));
+						}
+						else
+						{
+							typeDeclaration.BaseTypes.Add(type.BaseType);
+						}
 					}
 				}
 
@@ -935,9 +950,9 @@ namespace Fonlow.Poco2Client
 		/// <returns></returns>
 		public CodeTypeDeclaration LookupExistingClassOfCs(Type type)
 		{
-			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
+			for (int i = 0; i < clientCodeCompileUnit.Namespaces.Count; i++)
 			{
-				CodeNamespace ns = codeCompileUnit.Namespaces[i];
+				CodeNamespace ns = clientCodeCompileUnit.Namespaces[i];
 				if (ns.Name == type.Namespace + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix)
 				{
 					for (int k = 0; k < ns.Types.Count; k++)
@@ -966,9 +981,9 @@ namespace Fonlow.Poco2Client
 
 		public CodeTypeDeclaration LookupExistingClassOfCs(string namespaceText, string typeName)
 		{
-			for (int i = 0; i < codeCompileUnit.Namespaces.Count; i++)
+			for (int i = 0; i < clientCodeCompileUnit.Namespaces.Count; i++)
 			{
-				CodeNamespace ns = codeCompileUnit.Namespaces[i];
+				CodeNamespace ns = clientCodeCompileUnit.Namespaces[i];
 				if (ns.Name == namespaceText + codeGenSettings.ClientApiOutputs.CSClientNamespaceSuffix)
 				{
 					for (int k = 0; k < ns.Types.Count; k++)

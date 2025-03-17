@@ -1633,6 +1633,22 @@ export namespace DemoWebApi_Controllers_Client {
 
 }
 
+export namespace DemoWebApi_DemoDataEx_Client {
+	export interface Trust extends DemoWebApi.DemoData.BizEntity {
+		trustee?: string | null;
+	}
+	export interface TrustFormProperties extends DemoWebApi.DemoData.BizEntityFormProperties {
+		trustee: FormControl<string | null | undefined>,
+	}
+	export function CreateTrustFormGroup() {
+		return new FormGroup<TrustFormProperties>({
+			trustee: new FormControl<string | null | undefined>(undefined),
+		});
+
+	}
+
+}
+
 export namespace DemoWebApi_DemoData_Another_Client {
 
 	/**

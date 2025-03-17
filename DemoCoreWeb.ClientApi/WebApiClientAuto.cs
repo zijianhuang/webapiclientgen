@@ -9962,6 +9962,19 @@ namespace DemoWebApi.DemoData.Client
 		Fax,
 	}
 }
+namespace DemoWebApi.DemoDataEx.Client
+{
+	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Trust : DemoWebApi.DemoData.Client.BizEntity
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Trustee { get; set; }
+	}
+}
 namespace DemoWebApi.Models.Client
 {
 	

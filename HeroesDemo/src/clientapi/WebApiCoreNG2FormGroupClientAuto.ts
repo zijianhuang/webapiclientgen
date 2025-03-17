@@ -1634,14 +1634,20 @@ export namespace DemoWebApi_Controllers_Client {
 }
 
 export namespace DemoWebApi_DemoDataEx_Client {
-	export interface Trust extends DemoWebApi.DemoData.BizEntity {
+	export interface Trust extends DemoWebApi_DemoData_Client.BizEntity {
 		trustee?: string | null;
 	}
-	export interface TrustFormProperties extends DemoWebApi.DemoData.BizEntityFormProperties {
+	export interface TrustFormProperties extends DemoWebApi_DemoData_Client.BizEntityFormProperties {
 		trustee: FormControl<string | null | undefined>,
 	}
 	export function CreateTrustFormGroup() {
 		return new FormGroup<TrustFormProperties>({
+			emailAddress: new FormControl<string | null | undefined>(undefined, [Validators.email, Validators.maxLength(255)]),
+			id: new FormControl<string | null | undefined>(undefined),
+			name: new FormControl<string | null | undefined>(undefined, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+			web: new FormControl<string | null | undefined>(undefined, [Validators.pattern('https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)')]),
+			foundDate: new FormControl<Date | null | undefined>(undefined),
+			registerDate: CreateDateOnlyFormControl(),
 			trustee: new FormControl<string | null | undefined>(undefined),
 		});
 

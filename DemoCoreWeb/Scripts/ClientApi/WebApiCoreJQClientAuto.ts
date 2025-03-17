@@ -1545,7 +1545,7 @@ namespace DemoWebApi_Controllers_Client {
 }
 
 namespace DemoWebApi_DemoDataEx_Client {
-	export interface Trust extends DemoWebApi.DemoData.BizEntity {
+	export interface Trust extends DemoWebApi_DemoData_Client.BizEntity {
 		trustee?: string | null;
 	}
 

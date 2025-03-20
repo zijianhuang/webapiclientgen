@@ -9659,6 +9659,7 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public string BusinessNumberType { get; set; }
 		
+		[System.ObsoleteAttribute("")]
 		[System.Runtime.Serialization.DataMember()]
 		public string[][] TextMatrix { get; set; }
 		
@@ -9826,6 +9827,14 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string Tag { get; set; }
+		
+		[System.ObsoleteAttribute("Just for testing", true)]
+		[System.Runtime.Serialization.DataMember()]
+		public string TagForTest { get; set; }
+		
+		[System.ObsoleteAttribute("Just for testing", DiagnosticId="someId", UrlFormat="WhateverFormat")]
+		[System.Runtime.Serialization.DataMember()]
+		public string TagForTest2 { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]

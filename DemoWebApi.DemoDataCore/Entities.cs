@@ -277,6 +277,7 @@ namespace DemoWebApi.DemoData
 		[DataMember]
 		public string BusinessNumberType { get; set; }
 
+		[Obsolete]
 		[DataMember]
 		public string[][] TextMatrix
 		{ get; set; }
@@ -327,6 +328,14 @@ namespace DemoWebApi.DemoData
 
 		[DataMember]
 		public string Tag { get; set; }
+
+		[Obsolete("Just for testing", true)]
+		[DataMember]
+		public string TagForTest { get; set; }
+
+		[Obsolete("Just for testing", DiagnosticId ="someId", UrlFormat ="WhateverFormat")]
+		[DataMember]
+		public string TagForTest2 { get; set; }
 
 		[DataMember]
 		[Range(10, 100, ErrorMessage = "KK has to be between 10 and 100.")]

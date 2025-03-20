@@ -1772,6 +1772,8 @@ export namespace DemoWebApi_DemoData_Client {
 		optionalInt?: number | null;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string | null;
+		tagForTest?: string | null;
+		tagForTest2?: string | null;
 	}
 
 	export interface MimsResult<T> {

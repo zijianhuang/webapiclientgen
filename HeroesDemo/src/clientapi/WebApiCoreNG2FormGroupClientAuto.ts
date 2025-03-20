@@ -2098,6 +2098,8 @@ export namespace DemoWebApi_DemoData_Client {
 		optionalInt?: number | null;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string | null;
+		tagForTest?: string | null;
+		tagForTest2?: string | null;
 	}
 	export interface MimsPackageFormProperties {
 
@@ -2117,6 +2119,8 @@ export namespace DemoWebApi_DemoData_Client {
 		optionalInt: FormControl<number | null | undefined>,
 		result: FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>,
 		tag: FormControl<string | null | undefined>,
+		tagForTest: FormControl<string | null | undefined>,
+		tagForTest2: FormControl<string | null | undefined>,
 	}
 	export function CreateMimsPackageFormGroup() {
 		return new FormGroup<MimsPackageFormProperties>({
@@ -2126,6 +2130,8 @@ export namespace DemoWebApi_DemoData_Client {
 			optionalInt: new FormControl<number | null | undefined>(undefined),
 			result: new FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>(undefined),
 			tag: new FormControl<string | null | undefined>(undefined),
+			tagForTest: new FormControl<string | null | undefined>(undefined),
+			tagForTest2: new FormControl<string | null | undefined>(undefined),
 		});
 
 	}

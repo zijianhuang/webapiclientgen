@@ -1921,6 +1921,8 @@ export namespace DemoWebApi_DemoData_Client {
 		 */
 		business_no?: string | null;
 		businessNumberType?: string | null;
+
+		/** @deprecated */
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;
@@ -2098,8 +2100,15 @@ export namespace DemoWebApi_DemoData_Client {
 		optionalInt?: number | null;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string | null;
+
+		/** @deprecated Just for testing ~ Is Error. */
 		tagForTest?: string | null;
+
+		/** @deprecated Just for testing */
 		tagForTest2?: string | null;
+
+		/** @deprecated Just for testing ~ Is Error. */
+		tagForTest3?: string | null;
 	}
 	export interface MimsPackageFormProperties {
 
@@ -2119,8 +2128,15 @@ export namespace DemoWebApi_DemoData_Client {
 		optionalInt: FormControl<number | null | undefined>,
 		result: FormControl<DemoWebApi_DemoData_Client.MimsResult<number> | null | undefined>,
 		tag: FormControl<string | null | undefined>,
+
+		/** @deprecated Just for testing ~ Is Error. */
 		tagForTest: FormControl<string | null | undefined>,
+
+		/** @deprecated Just for testing */
 		tagForTest2: FormControl<string | null | undefined>,
+
+		/** @deprecated Just for testing ~ Is Error. */
+		tagForTest3: FormControl<string | null | undefined>,
 	}
 	export function CreateMimsPackageFormGroup() {
 		return new FormGroup<MimsPackageFormProperties>({
@@ -2132,6 +2148,7 @@ export namespace DemoWebApi_DemoData_Client {
 			tag: new FormControl<string | null | undefined>(undefined),
 			tagForTest: new FormControl<string | null | undefined>(undefined),
 			tagForTest2: new FormControl<string | null | undefined>(undefined),
+			tagForTest3: new FormControl<string | null | undefined>(undefined),
 		});
 
 	}

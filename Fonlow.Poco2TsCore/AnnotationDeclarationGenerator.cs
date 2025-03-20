@@ -133,20 +133,30 @@ namespace Fonlow.Poco2Client
 			{ typeof(ObsoleteAttribute), a =>
 				{
 					ObsoleteAttribute obj= a as ObsoleteAttribute;
-					CodeSnippetExpression messageExp = new CodeSnippetExpression($"\"{obj.Message}\"");
-					CodeSnippetExpression errorExp= new CodeSnippetExpression(obj.IsError?"true":"false");
-					List<CodeAttributeArgument> attributeParams = obj.IsError ? new() { new CodeAttributeArgument(messageExp), new CodeAttributeArgument(errorExp) }
-						: new() { new CodeAttributeArgument(messageExp)};
+
+
+					List<CodeAttributeArgument> attributeParams = new();
+
+					if (!string.IsNullOrEmpty(obj.Message)){
+						CodeSnippetExpression messageExp = new CodeSnippetExpression($"\"{obj.Message}\"");
+						attributeParams.Add( new CodeAttributeArgument(messageExp));
+					}
+
+					if (obj.IsError){
+						CodeSnippetExpression errorExp= new CodeSnippetExpression(obj.IsError?"true":"false");
+						attributeParams.Add(string.IsNullOrEmpty(obj.Message) ? new CodeAttributeArgument("IsError", errorExp) : new CodeAttributeArgument(errorExp));
+					}
+
 					if (!String.IsNullOrEmpty(obj.DiagnosticId))
 					{
-					CodeSnippetExpression diagnosticIdExp= new CodeSnippetExpression($"\"{obj.DiagnosticId}\"");
-					attributeParams.Add(new CodeAttributeArgument("DiagnosticId", diagnosticIdExp));
+						CodeSnippetExpression diagnosticIdExp= new CodeSnippetExpression($"\"{obj.DiagnosticId}\"");
+						attributeParams.Add(new CodeAttributeArgument("DiagnosticId", diagnosticIdExp));
 					}
 
 					if (!String.IsNullOrEmpty(obj.UrlFormat))
 					{
-					CodeSnippetExpression urlFormatExp= new CodeSnippetExpression($"\"{obj.UrlFormat}\"");
-					attributeParams.Add(new CodeAttributeArgument("UrlFormat", urlFormatExp));
+						CodeSnippetExpression urlFormatExp= new CodeSnippetExpression($"\"{obj.UrlFormat}\"");
+						attributeParams.Add(new CodeAttributeArgument("UrlFormat", urlFormatExp));
 					}
 
 					return new CodeAttributeDeclaration("System.ObsoleteAttribute", attributeParams.ToArray());

@@ -333,9 +333,13 @@ namespace DemoWebApi.DemoData
 		[DataMember]
 		public string TagForTest { get; set; }
 
-		[Obsolete("Just for testing", DiagnosticId ="someId", UrlFormat ="WhateverFormat")]
+		[Obsolete("Just for testing", DiagnosticId = "someId", UrlFormat = "WhateverFormat")]
 		[DataMember]
 		public string TagForTest2 { get; set; }
+
+		[Obsolete("Just for testing", true, DiagnosticId = "someId", UrlFormat = "WhateverFormat")]
+		[DataMember]
+		public string TagForTest3 { get; set; }
 
 		[DataMember]
 		[Range(10, 100, ErrorMessage = "KK has to be between 10 and 100.")]

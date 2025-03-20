@@ -1675,6 +1675,8 @@ namespace DemoWebApi_DemoData_Client {
 		 */
 		business_no?: string | null;
 		businessNumberType?: string | null;
+
+		/** @deprecated */
 		textMatrix?: Array<Array<string>>;
 		int2D?: number[][];
 		int2DJagged?: Array<Array<number>>;
@@ -1762,8 +1764,15 @@ namespace DemoWebApi_DemoData_Client {
 		optionalInt?: number | null;
 		result?: DemoWebApi_DemoData_Client.MimsResult<number>;
 		tag?: string | null;
+
+		/** @deprecated Just for testing ~ Is Error. */
 		tagForTest?: string | null;
+
+		/** @deprecated Just for testing */
 		tagForTest2?: string | null;
+
+		/** @deprecated Just for testing ~ Is Error. */
+		tagForTest3?: string | null;
 	}
 
 	export interface MimsResult<T> {

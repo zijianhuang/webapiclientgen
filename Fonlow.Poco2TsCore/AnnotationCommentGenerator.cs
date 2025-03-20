@@ -13,7 +13,15 @@ namespace Fonlow.Poco2Client
 		/// <param name="forTS">JsDoc does not support some regular expressions, not even with mechanism of eacaping. For generating TS codes this should be true.</param>
 		public AnnotationCommentGenerator(bool forTS=false)
 		{
-			if (!forTS)
+			if (forTS)
+			{
+				generator.Add(typeof(ObsoleteAttribute), a => //https://jsdoc.app/tags-deprecated
+				{
+					ObsoleteAttribute obsoleteAttr = (ObsoleteAttribute)a;
+					return $"@deprecated {obsoleteAttr.Message}" + (obsoleteAttr.IsError ? " ~ Is Error." : string.Empty);
+				});
+			}
+			else
 			{
 				generator.Add(typeof(RegularExpressionAttribute), a =>
 				{
@@ -54,13 +62,13 @@ namespace Fonlow.Poco2Client
 					return String.Format(CultureInfo.CurrentCulture, "Min length: {0}", minLength.Length);
 				}
 			},
-            { typeof(LengthAttribute), a =>
-                {
-                    LengthAttribute lengthAttr = (LengthAttribute)a;
-                    return String.Format(CultureInfo.CurrentCulture, "Length min: {0}, max: {1}", lengthAttr.MinimumLength, lengthAttr.MaximumLength);
-                }
-            },
-            { typeof(StringLengthAttribute), a =>
+			{ typeof(LengthAttribute), a =>
+				{
+					LengthAttribute lengthAttr = (LengthAttribute)a;
+					return String.Format(CultureInfo.CurrentCulture, "Length min: {0}, max: {1}", lengthAttr.MinimumLength, lengthAttr.MaximumLength);
+				}
+			},
+			{ typeof(StringLengthAttribute), a =>
 				{
 					StringLengthAttribute strLength = (StringLengthAttribute)a;
 					return String.Format(CultureInfo.CurrentCulture, "String length: inclusive between {0} and {1}", strLength.MinimumLength, strLength.MaximumLength);
@@ -72,6 +80,7 @@ namespace Fonlow.Poco2Client
 					return String.Format(CultureInfo.CurrentCulture, "Data type: {0}", dataType.CustomDataType ?? dataType.DataType.ToString());
 				}
 			}
+
 		};
 	}
 }

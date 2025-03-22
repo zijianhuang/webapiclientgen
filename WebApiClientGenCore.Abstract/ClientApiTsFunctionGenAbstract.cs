@@ -34,6 +34,8 @@ namespace Fonlow.CodeDom.Web.Ts
 		readonly IDictionary<Type, string> dotNetTypeCommentDic;
 		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
 
+		protected ObsoleteAttribute obsoleteAttribute;
+
 		System.Reflection.ParameterInfo[] parameterInfoArray;
 
 		JSOutput jsOutput;
@@ -41,7 +43,7 @@ namespace Fonlow.CodeDom.Web.Ts
 		protected ClientApiTsFunctionGenAbstract()
 		{
 			dotNetTypeCommentDic = DotNetTypeCommentGenerator.Get();
-			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
+			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator(true);
 			attribueCommentDic = annotationCommentGenerator.Get();
 		}
 
@@ -78,6 +80,9 @@ namespace Fonlow.CodeDom.Web.Ts
 				{
 					ReturnTypeIsNullable = ReturnType != null && !Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
+
+				var attributes = methodInfo.GetCustomAttributes<ObsoleteAttribute>();
+				obsoleteAttribute = attributes.FirstOrDefault();
 			}
 			else
 			{
@@ -218,6 +223,11 @@ namespace Fonlow.CodeDom.Web.Ts
 			else
 			{
 				builder.AppendLine($"@return {{{returnTypeOfResponse}}} {returnComment}");
+			}
+
+			if (obsoleteAttribute != null)
+			{
+				builder.AppendLine(AnnotationCommentGenerator.GenerateComments(obsoleteAttribute));
 			}
 
 			Method.Comments.Add(new CodeCommentStatement(builder.ToString(), true));

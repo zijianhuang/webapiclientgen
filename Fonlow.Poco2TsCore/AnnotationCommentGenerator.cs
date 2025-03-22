@@ -18,7 +18,7 @@ namespace Fonlow.Poco2Client
 				generator.Add(typeof(ObsoleteAttribute), a => //https://jsdoc.app/tags-deprecated
 				{
 					ObsoleteAttribute obsoleteAttr = (ObsoleteAttribute)a;
-					return $"@deprecated {obsoleteAttr.Message}" + (obsoleteAttr.IsError ? " ~ Is Error." : string.Empty);
+					return GenerateComments(obsoleteAttr);
 				});
 			}
 			else
@@ -82,5 +82,10 @@ namespace Fonlow.Poco2Client
 			}
 
 		};
+
+		public static string GenerateComments(ObsoleteAttribute obsoleteAttr)
+		{
+			return $"@deprecated {obsoleteAttr.Message}" + (obsoleteAttr.IsError ? " ~ Is Error." : string.Empty);
+		}
 	}
 }

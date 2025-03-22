@@ -820,6 +820,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/DecimalZero
 		 * @return {number} Type: decimal
+		 * @deprecated Just for test
 		 */
 		getDecimalZero(headersHandler?: () => {[header: string]: string}): Promise<number> {
 			return fetch(this.baseUri + 'api/SuperDemo/DecimalZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
@@ -858,6 +859,7 @@ export namespace DemoWebApi_Controllers_Client {
 		 * Result of 0.1d + 0.2d - 0.3d
 		 * GET api/SuperDemo/DoubleZero
 		 * @return {number} Type: double
+		 * @deprecated for testing
 		 */
 		getDoubleZero(headersHandler?: () => {[header: string]: string}): Promise<number> {
 			return fetch(this.baseUri + 'api/SuperDemo/DoubleZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});
@@ -881,6 +883,7 @@ export namespace DemoWebApi_Controllers_Client {
 		/**
 		 * GET api/SuperDemo/FloatZero
 		 * @return {number} Type: float
+		 * @deprecated 
 		 */
 		getFloatZero(headersHandler?: () => {[header: string]: string}): Promise<number> {
 			return fetch(this.baseUri + 'api/SuperDemo/FloatZero', { method: 'get', headers: headersHandler ? headersHandler() : undefined }).then(d => {if (d.status<=202) return d.json(); else if (d.status==204) return null; throw d;});

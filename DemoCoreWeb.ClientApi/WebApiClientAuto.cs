@@ -4836,6 +4836,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/DecimalZero
 		/// </summary>
+		[System.ObsoleteAttribute("Just for test", DiagnosticId="abc", UrlFormat="efg")]
 		public async Task<decimal> GetDecimalZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DecimalZero";
@@ -4859,6 +4860,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/DecimalZero
 		/// </summary>
+		[System.ObsoleteAttribute("Just for test", DiagnosticId="abc", UrlFormat="efg")]
 		public decimal GetDecimalZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DecimalZero";
@@ -5067,6 +5069,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
+		[System.ObsoleteAttribute("for testing")]
 		public async Task<double> GetDoubleZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DoubleZero";
@@ -5090,6 +5093,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
+		[System.ObsoleteAttribute("for testing")]
 		public double GetDoubleZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DoubleZero";
@@ -5210,6 +5214,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/FloatZero
 		/// </summary>
+		[System.ObsoleteAttribute()]
 		public async Task<float> GetFloatZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/FloatZero";
@@ -5232,6 +5237,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/FloatZero
 		/// </summary>
+		[System.ObsoleteAttribute()]
 		public float GetFloatZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/FloatZero";

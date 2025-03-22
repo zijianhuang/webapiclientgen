@@ -157,7 +157,7 @@ namespace Fonlow.CodeDom.Web.Cs
 			{
 				GenerateCsFromPocoAssemblies();
 			}
-
+			
 			IOrderedEnumerable<IGrouping<string, ControllerDescriptor>> controllersGroupByNamespace = webApiDescriptions.Select(d => d.ActionDescriptor.ControllerDescriptor)
 				.Distinct()
 				.GroupBy(d => d.ControllerType.Namespace)

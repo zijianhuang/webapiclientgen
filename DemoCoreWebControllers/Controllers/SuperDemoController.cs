@@ -51,6 +51,7 @@ namespace DemoWebApi.Controllers
 			});
 		}
 
+		[Obsolete]
 		[HttpGet]
 		[Route("FloatZero")]
 		public float GetFloatZero()
@@ -66,6 +67,7 @@ namespace DemoWebApi.Controllers
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// </summary>
 		/// <returns></returns>
+		[Obsolete("for testing")]
 		[HttpGet]
 		[Route("DoubleZero")]
 		public double GetDoubleZero()
@@ -73,6 +75,7 @@ namespace DemoWebApi.Controllers
 			return 0.1d + 0.2d - 0.3d;
 		}
 
+		[Obsolete("Just for test", DiagnosticId ="abc", UrlFormat ="efg")]
 		[HttpGet]
 		[Route("DecimalZero")]
 		public decimal GetDecimalZero()

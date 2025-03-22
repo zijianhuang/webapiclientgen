@@ -152,10 +152,10 @@ namespace Fonlow.CodeDom.Web.Ts
 					}).Where(d => d != null).ToArray();//add classes into the namespace
 			}
 
-			foreach (WebApiDescription d in webApiDescriptions)
+			foreach (WebApiDescription apiDesc in webApiDescriptions)
 			{
-				string controllerNamespace = d.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
-				string controllerName = d.ActionDescriptor.ControllerDescriptor.ControllerName;
+				string controllerNamespace = apiDesc.ActionDescriptor.ControllerDescriptor.ControllerType.Namespace;
+				string controllerName = apiDesc.ActionDescriptor.ControllerDescriptor.ControllerName;
 				string controllerFullName = controllerNamespace + "." + controllerName;
 				if (apiSelections.ExcludedControllerNames != null && apiSelections.ExcludedControllerNames.Contains(controllerFullName))
 					continue;
@@ -163,7 +163,7 @@ namespace Fonlow.CodeDom.Web.Ts
 				CodeTypeDeclaration existingClientClass = LookupExistingClassOfTsInCodeDom(controllerNamespace, GetContainerClassName(controllerName));
 				System.Diagnostics.Trace.Assert(existingClientClass != null);
 
-				CodeMemberMethod apiFunction = apiFunctionGen.CreateApiFunction(d, Poco2TsGen, poco2CsGen, this.jsOutput);
+				CodeMemberMethod apiFunction = apiFunctionGen.CreateApiFunction(apiDesc, Poco2TsGen, poco2CsGen, this.jsOutput);
 				existingClientClass.Members.Add(apiFunction);
 			}
 

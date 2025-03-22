@@ -36,6 +36,7 @@ namespace Fonlow.CodeDom.Web.Cs
 		readonly CodeGenOutputs codeGenOutputsSettings;
 		readonly System.Reflection.ParameterInfo[] parameterInfoArray;
 		readonly IDictionary<Type, Func<object, string>> attribueCommentDic;
+		readonly ObsoleteAttribute obsoleteAttribute;
 
 		ClientApiFunctionGen(WebApiDescription webApiDescription, Poco2Client.Poco2CsGen poco2CsGen, CodeGenSettings codeGenSettings, bool forAsync)
 		{
@@ -78,6 +79,9 @@ namespace Fonlow.CodeDom.Web.Cs
 				{
 					returnTypeDecoratedWithNotNullable = returnType != null && Attribute.IsDefined(methodInfo.ReturnParameter, typeof(System.Diagnostics.CodeAnalysis.NotNullAttribute));
 				}
+
+				var attributes = methodInfo.GetCustomAttributes<ObsoleteAttribute>();
+				obsoleteAttribute = attributes.FirstOrDefault();
 			}
 
 			AnnotationCommentGenerator annotationCommentGenerator = new AnnotationCommentGenerator();
@@ -150,23 +154,37 @@ namespace Fonlow.CodeDom.Web.Cs
 
 		CodeMemberMethod CreateMethodBasic()
 		{
-			return new CodeMemberMethod()
+			var cmm = new CodeMemberMethod()
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName,
 				ReturnType = poco2CsGen.TranslateToClientTypeReference(returnType),
 			};
+
+			if (obsoleteAttribute != null)
+			{
+				cmm.CustomAttributes.Add(AnnotationDeclarationGenerator.CreateDeclaration(obsoleteAttribute));
+			}
+
+			return cmm;
 		}
 
 		CodeMemberMethod CreateMethodBasicForAsync()
 		{
-			return new CodeMemberMethod()
+			var cmm = new CodeMemberMethod()
 			{
 				Attributes = MemberAttributes.Public | MemberAttributes.Final,
 				Name = methodName + "Async",
 				ReturnType = returnType == null ? new CodeTypeReference("async Task")
 				: new CodeTypeReference("async Task", poco2CsGen.TranslateToClientTypeReference(returnType)),
 			};
+
+			if (obsoleteAttribute != null)
+			{
+				cmm.CustomAttributes.Add(AnnotationDeclarationGenerator.CreateDeclaration(obsoleteAttribute));
+			}
+
+			return cmm;
 		}
 
 		void CreateDocComments()
@@ -672,8 +690,5 @@ namespace Fonlow.CodeDom.Web.Cs
 
 			return null;
 		}
-
-
 	}
-
 }

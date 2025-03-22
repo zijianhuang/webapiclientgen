@@ -75,5 +75,6 @@ namespace Fonlow.CodeDom
 				return nullableAttribute != null && (byte)nullableAttribute.ConstructorArguments[0].Value == 2;
 			}
 		}
+
 	}
 }

@@ -133,37 +133,41 @@ namespace Fonlow.Poco2Client
 			{ typeof(ObsoleteAttribute), a =>
 				{
 					ObsoleteAttribute obj= a as ObsoleteAttribute;
-
-
-					List<CodeAttributeArgument> attributeParams = new();
-
-					if (!string.IsNullOrEmpty(obj.Message)){
-						CodeSnippetExpression messageExp = new CodeSnippetExpression($"\"{obj.Message}\"");
-						attributeParams.Add( new CodeAttributeArgument(messageExp));
-					}
-
-					if (obj.IsError){
-						CodeSnippetExpression errorExp= new CodeSnippetExpression(obj.IsError?"true":"false");
-						attributeParams.Add(string.IsNullOrEmpty(obj.Message) ? new CodeAttributeArgument("IsError", errorExp) : new CodeAttributeArgument(errorExp));
-					}
-
-					if (!String.IsNullOrEmpty(obj.DiagnosticId))
-					{
-						CodeSnippetExpression diagnosticIdExp= new CodeSnippetExpression($"\"{obj.DiagnosticId}\"");
-						attributeParams.Add(new CodeAttributeArgument("DiagnosticId", diagnosticIdExp));
-					}
-
-					if (!String.IsNullOrEmpty(obj.UrlFormat))
-					{
-						CodeSnippetExpression urlFormatExp= new CodeSnippetExpression($"\"{obj.UrlFormat}\"");
-						attributeParams.Add(new CodeAttributeArgument("UrlFormat", urlFormatExp));
-					}
-
-					return new CodeAttributeDeclaration("System.ObsoleteAttribute", attributeParams.ToArray());
+					return CreateDeclaration(obj);
 				}
 			},
 
 		};
+
+		public static CodeAttributeDeclaration CreateDeclaration(ObsoleteAttribute obj){
+			List<CodeAttributeArgument> attributeParams = new();
+
+			if (!string.IsNullOrEmpty(obj.Message))
+			{
+				CodeSnippetExpression messageExp = new CodeSnippetExpression($"\"{obj.Message}\"");
+				attributeParams.Add(new CodeAttributeArgument(messageExp));
+			}
+
+			if (obj.IsError)
+			{
+				CodeSnippetExpression errorExp = new CodeSnippetExpression(obj.IsError ? "true" : "false");
+				attributeParams.Add(string.IsNullOrEmpty(obj.Message) ? new CodeAttributeArgument("IsError", errorExp) : new CodeAttributeArgument(errorExp));
+			}
+
+			if (!String.IsNullOrEmpty(obj.DiagnosticId))
+			{
+				CodeSnippetExpression diagnosticIdExp = new CodeSnippetExpression($"\"{obj.DiagnosticId}\"");
+				attributeParams.Add(new CodeAttributeArgument("DiagnosticId", diagnosticIdExp));
+			}
+
+			if (!String.IsNullOrEmpty(obj.UrlFormat))
+			{
+				CodeSnippetExpression urlFormatExp = new CodeSnippetExpression($"\"{obj.UrlFormat}\"");
+				attributeParams.Add(new CodeAttributeArgument("UrlFormat", urlFormatExp));
+			}
+
+			return new CodeAttributeDeclaration("System.ObsoleteAttribute", attributeParams.ToArray());
+		}
 
 	}
 }

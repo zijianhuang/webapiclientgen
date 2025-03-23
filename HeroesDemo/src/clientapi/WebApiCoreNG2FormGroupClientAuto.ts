@@ -2085,6 +2085,8 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
 
+
+	/** @deprecated Type deprecated for testing */
 	export interface MimsPackage {
 
 		/**
@@ -2113,6 +2115,8 @@ export namespace DemoWebApi_DemoData_Client {
 		/** @deprecated Just for testing ~ Is Error. */
 		tagForTest3?: string | null;
 	}
+
+	/** @deprecated Type deprecated for testing */
 	export interface MimsPackageFormProperties {
 
 		/**

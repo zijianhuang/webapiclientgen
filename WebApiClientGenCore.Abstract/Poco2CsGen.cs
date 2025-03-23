@@ -293,6 +293,12 @@ namespace Fonlow.Poco2Client
 					}
 				}
 
+				var obsoleteAttribute = type.GetCustomAttribute<ObsoleteAttribute>();
+				if (obsoleteAttribute != null)
+				{
+					typeDeclaration.CustomAttributes.Add(AnnotationDeclarationGenerator.CreateDeclaration(obsoleteAttribute));
+				}
+
 				CreateTypeDocComment(type, typeDeclaration);
 
 				CherryPickingMethods typeCherryMethods = CherryPicking.GetTypeCherryMethods(type);

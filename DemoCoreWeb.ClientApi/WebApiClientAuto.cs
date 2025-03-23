@@ -9802,6 +9802,7 @@ namespace DemoWebApi.DemoData.Client
 		T,
 	}
 	
+	[System.ObsoleteAttribute("Type deprecated for testing")]
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class MimsPackage : object

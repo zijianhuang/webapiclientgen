@@ -1758,6 +1758,8 @@ export namespace DemoWebApi_DemoData_Client {
 
 	export enum MedicalContraindiationResponseTypeTypeCode { P = "P", T = "Tt" }
 
+
+	/** @deprecated Type deprecated for testing */
 	export interface MimsPackage {
 
 		/**

@@ -320,6 +320,7 @@ namespace DemoWebApi.DemoData
 		public string Message { get; set; }
 	}
 
+	[Obsolete("Type deprecated for testing")]
 	[DataContract(Namespace = Constants.DataNamespace)]
 	public class MimsPackage
 	{

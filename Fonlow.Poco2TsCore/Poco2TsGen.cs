@@ -141,6 +141,13 @@ namespace Fonlow.Poco2Ts
 					typeDeclaration.Comments.Add(new CodeCommentStatement(StringFunctions.IndentedArrayToString(docComment.summary.Text), true));
 				}
 			}
+
+
+			var obsoleteAttribute = type.GetCustomAttribute<ObsoleteAttribute>();
+			if (obsoleteAttribute != null)
+			{
+				typeDeclaration.Comments.Add(new CodeCommentStatement(AnnotationCommentGenerator.GenerateComments(obsoleteAttribute), true));
+			}
 		}
 
 		/// <summary>

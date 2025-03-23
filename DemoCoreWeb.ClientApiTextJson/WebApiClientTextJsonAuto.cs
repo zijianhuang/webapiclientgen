@@ -23,7 +23,7 @@ namespace DemoWebApi.Controllers.Client
 	/// This class is used to carry the result of various file uploads.
 	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class FileResult : object
 	{
 		
@@ -44,7 +44,7 @@ namespace DemoWebApi.Controllers.Client
 	/// Complex hero type
 	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class Hero : object
 	{
 		
@@ -80,13 +80,13 @@ namespace DemoWebApi.Controllers.Client
 		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
 		/// </summary>
 		[System.ComponentModel.DataAnnotations.MinLength(6)]
-		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
 		[System.Runtime.Serialization.DataMember()]
 		public string WebAddress { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class SuperHero : DemoWebApi.Controllers.Client.Hero
 	{
 		
@@ -1774,7 +1774,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body, status 204. MaybeNull
 		/// GET api/Entities/NullCompany
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<DemoWebApi.DemoData.Client.Company> GetNullCompanyAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/NullCompany";
@@ -1798,7 +1798,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body, status 204. MaybeNull
 		/// GET api/Entities/NullCompany
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public DemoWebApi.DemoData.Client.Company GetNullCompany(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Entities/NullCompany";
@@ -2217,7 +2217,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get a hero. Nullable reference. MaybeNull
 		/// GET api/Heroes/{id}
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<DemoWebApi.Controllers.Client.Hero> GetHeroAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/"+id;
@@ -2241,7 +2241,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get a hero. Nullable reference. MaybeNull
 		/// GET api/Heroes/{id}
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public DemoWebApi.Controllers.Client.Hero GetHero(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/"+id;
@@ -2311,7 +2311,7 @@ namespace DemoWebApi.Controllers.Client
 		/// MaybeNull
 		/// GET api/Heroes/super?id={id}
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<DemoWebApi.Controllers.Client.SuperHero> GetSuperHeroAsync(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/super?id="+id;
@@ -2335,7 +2335,7 @@ namespace DemoWebApi.Controllers.Client
 		/// MaybeNull
 		/// GET api/Heroes/super?id={id}
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public DemoWebApi.Controllers.Client.SuperHero GetSuperHero(long id, Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Heroes/super?id="+id;
@@ -3683,7 +3683,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
 		/// GET api/StringData/NullString
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<string> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/NullString";
@@ -3708,7 +3708,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body with status 204 No Content, even though the default mime type is application/json. MaybeNull
 		/// GET api/StringData/NullString
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public string GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/StringData/NullString";
@@ -4293,7 +4293,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/DecimalZero
 		/// </summary>
-		[System.ObsoleteAttribute("Just for test", DiagnosticId="abc", UrlFormat="efg")]
+		[System.Obsolete("Just for test", DiagnosticId="abc", UrlFormat="efg")]
 		public async Task<decimal> GetDecimalZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DecimalZero";
@@ -4315,7 +4315,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/DecimalZero
 		/// </summary>
-		[System.ObsoleteAttribute("Just for test", DiagnosticId="abc", UrlFormat="efg")]
+		[System.Obsolete("Just for test", DiagnosticId="abc", UrlFormat="efg")]
 		public decimal GetDecimalZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DecimalZero";
@@ -4508,7 +4508,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
-		[System.ObsoleteAttribute("for testing")]
+		[System.Obsolete("for testing")]
 		public async Task<double> GetDoubleZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DoubleZero";
@@ -4531,7 +4531,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
-		[System.ObsoleteAttribute("for testing")]
+		[System.Obsolete("for testing")]
 		public double GetDoubleZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DoubleZero";
@@ -4643,7 +4643,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/FloatZero
 		/// </summary>
-		[System.ObsoleteAttribute()]
+		[System.Obsolete()]
 		public async Task<float> GetFloatZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/FloatZero";
@@ -4665,7 +4665,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/FloatZero
 		/// </summary>
-		[System.ObsoleteAttribute()]
+		[System.Obsolete()]
 		public float GetFloatZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/FloatZero";
@@ -5254,7 +5254,7 @@ namespace DemoWebApi.Controllers.Client
 		/// MaybeNull
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<DemoWebApi.DemoData.Client.Person> GetNullPersonAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/NullObject";
@@ -5278,7 +5278,7 @@ namespace DemoWebApi.Controllers.Client
 		/// MaybeNull
 		/// GET api/SuperDemo/NullObject
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public DemoWebApi.DemoData.Client.Person GetNullPerson(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/NullObject";
@@ -6595,7 +6595,7 @@ namespace DemoWebApi.Controllers.Client
 		/// MaybeNull
 		/// GET api/TextData/NullableString
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<string> GetNullableStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/TextData/NullableString";
@@ -6620,7 +6620,7 @@ namespace DemoWebApi.Controllers.Client
 		/// MaybeNull
 		/// GET api/TextData/NullableString
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public string GetNullableString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/TextData/NullableString";
@@ -6645,7 +6645,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body with status 204 No Content.
 		/// GET api/TextData/NullString
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<string> GetNullStringAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/TextData/NullString";
@@ -6670,7 +6670,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Return empty body with status 204 No Content.
 		/// GET api/TextData/NullString
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public string GetNullString(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/TextData/NullString";
@@ -6856,7 +6856,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get Tuple in return. MaybeNull
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany4Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany4";
@@ -6880,7 +6880,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Get Tuple in return. MaybeNull
 		/// GET api/Tuple/PeopleCompany4
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany4(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany4";
@@ -6904,7 +6904,7 @@ namespace DemoWebApi.Controllers.Client
 		/// MaybeNull
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public async Task<System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company>> GetPeopleCompany5Async(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany5";
@@ -6928,7 +6928,7 @@ namespace DemoWebApi.Controllers.Client
 		/// MaybeNull
 		/// GET api/Tuple/PeopleCompany5
 		/// </summary>
-		[return: System.Diagnostics.CodeAnalysis.MaybeNullAttribute()]
+		[return: System.Diagnostics.CodeAnalysis.MaybeNull()]
 		public System.Tuple<DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Person, DemoWebApi.DemoData.Client.Company> GetPeopleCompany5(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/Tuple/PeopleCompany5";
@@ -8481,7 +8481,7 @@ namespace DemoWebApi.DemoData.Another.Client
 	/// for Demo
 	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public struct MyPoint
 	{
 		
@@ -8504,7 +8504,7 @@ namespace DemoWebApi.DemoData.Base.Client
 	/// Base class of company and person
 	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class Entity : object
 	{
 		
@@ -8530,7 +8530,7 @@ namespace DemoWebApi.DemoData.Base.Client
 		/// Min length: 2
 		/// Max length: 255
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.MinLength(2)]
 		[System.ComponentModel.DataAnnotations.MaxLength(255)]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
@@ -8542,7 +8542,7 @@ namespace DemoWebApi.DemoData.Base.Client
 		/// <summary>
 		/// Matching regular expression pattern: https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RegularExpressionAttribute(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
+		[System.ComponentModel.DataAnnotations.RegularExpression(@"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]
 		[System.Runtime.Serialization.DataMember()]
 		public System.Uri Web { get; set; }
 	}
@@ -8552,7 +8552,7 @@ namespace DemoWebApi.DemoData.Client
 	
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class Address : object
 	{
 		
@@ -8566,7 +8566,7 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// String length: inclusive between 2 and 30
 		/// </summary>
-		[System.ComponentModel.DefaultValueAttribute("Australia")]
+		[System.ComponentModel.DefaultValue("Australia")]
 		[System.ComponentModel.DataAnnotations.StringLength(30, MinimumLength=2)]
 		[System.Runtime.Serialization.DataMember()]
 		public string Country { get; set; } = "Australia";
@@ -8602,7 +8602,7 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public string Street2 { get; set; }
 		
-		[System.ComponentModel.DefaultValueAttribute(AddressType.Residential)]
+		[System.ComponentModel.DefaultValue(AddressType.Residential)]
 		[System.Runtime.Serialization.DataMember()]
 		public DemoWebApi.DemoData.Client.AddressType Type { get; set; } = AddressType.Residential;
 		
@@ -8614,7 +8614,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public enum AddressType
 	{
 		
@@ -8628,7 +8628,7 @@ namespace DemoWebApi.DemoData.Client
 	/// <summary>
 	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class BigNumbers : object
 	{
 		
@@ -8649,7 +8649,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class BizEntity : DemoWebApi.DemoData.Base.Client.Entity
 	{
 		
@@ -8665,7 +8665,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class Company : DemoWebApi.DemoData.Client.BizEntity
 	{
 		
@@ -8679,7 +8679,7 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public string BusinessNumberType { get; set; }
 		
-		[System.ObsoleteAttribute()]
+		[System.Obsolete()]
 		[System.Runtime.Serialization.DataMember()]
 		public string[][] TextMatrix { get; set; }
 		
@@ -8694,7 +8694,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public enum Days
 	{
 		
@@ -8727,7 +8727,7 @@ namespace DemoWebApi.DemoData.Client
 	/// To test different serializations against Guid
 	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class IdMap : object
 	{
 		
@@ -8743,7 +8743,7 @@ namespace DemoWebApi.DemoData.Client
 		/// <summary>
 		/// Required
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.Runtime.Serialization.DataMember(IsRequired =true)]
 		public string RequiredName { get; set; }
 		
@@ -8752,7 +8752,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class IntegralEntity : DemoWebApi.DemoData.Base.Client.Entity
 	{
 		
@@ -8782,9 +8782,9 @@ namespace DemoWebApi.DemoData.Client
 		public ushort UShort { get; set; }
 	}
 	
-	[System.Text.Json.Serialization.JsonConverterAttribute(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+	[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public enum MedicalContraindiationResponseTypeReason
 	{
 		
@@ -8805,7 +8805,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public enum MedicalContraindiationResponseTypeTypeCode
 	{
 		
@@ -8816,16 +8816,16 @@ namespace DemoWebApi.DemoData.Client
 		T,
 	}
 	
-	[System.ObsoleteAttribute("Type deprecated for testing")]
+	[System.Obsolete("Type deprecated for testing")]
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class MimsPackage : object
 	{
 		
 		/// <summary>
 		/// Range: inclusive between 10 and 100
 		/// </summary>
-		[System.ComponentModel.DefaultValueAttribute(20)]
+		[System.ComponentModel.DefaultValue(20)]
 		[System.ComponentModel.DataAnnotations.Range(typeof(System.Int32), "10", "100", ErrorMessage="KK has to be between 10 and 100.")]
 		[System.Runtime.Serialization.DataMember()]
 		public int KK { get; set; } = 20;
@@ -8849,21 +8849,21 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public string Tag { get; set; }
 		
-		[System.ObsoleteAttribute("Just for testing", true)]
+		[System.Obsolete("Just for testing", true)]
 		[System.Runtime.Serialization.DataMember()]
 		public string TagForTest { get; set; }
 		
-		[System.ObsoleteAttribute("Just for testing", DiagnosticId="someId", UrlFormat="WhateverFormat")]
+		[System.Obsolete("Just for testing", DiagnosticId="someId", UrlFormat="WhateverFormat")]
 		[System.Runtime.Serialization.DataMember()]
 		public string TagForTest2 { get; set; }
 		
-		[System.ObsoleteAttribute("Just for testing", true, DiagnosticId="someId", UrlFormat="WhateverFormat")]
+		[System.Obsolete("Just for testing", true, DiagnosticId="someId", UrlFormat="WhateverFormat")]
 		[System.Runtime.Serialization.DataMember()]
 		public string TagForTest3 { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class MimsResult<T> : object
 	{
 		
@@ -8881,7 +8881,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public enum MyEnumType
 	{
 		
@@ -8893,7 +8893,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class MyGeneric<T, K, U> : object
 	{
 		
@@ -8911,7 +8911,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class MyPeopleDic : object
 	{
 		
@@ -8926,7 +8926,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class Person : DemoWebApi.DemoData.Base.Client.Entity
 	{
 		
@@ -8952,7 +8952,7 @@ namespace DemoWebApi.DemoData.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class PhoneNumber : object
 	{
 		
@@ -8973,7 +8973,7 @@ namespace DemoWebApi.DemoData.Client
 	/// 
 	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public enum PhoneType
 	{
 		
@@ -9001,7 +9001,7 @@ namespace DemoWebApi.DemoDataEx.Client
 	
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class Trust : DemoWebApi.DemoData.Client.BizEntity
 	{
 		
@@ -9014,7 +9014,7 @@ namespace DemoWebApi.Models.Client
 	
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class AddExternalLoginBindingModel : object
 	{
 		
@@ -9026,7 +9026,7 @@ namespace DemoWebApi.Models.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class ChangePasswordBindingModel : object
 	{
 		
@@ -9041,7 +9041,7 @@ namespace DemoWebApi.Models.Client
 		/// String length: inclusive between 6 and 100
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength=6, ErrorMessage="The {0} must be at least {2} characters long.")]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		public string NewPassword { get; set; }
@@ -9050,14 +9050,14 @@ namespace DemoWebApi.Models.Client
 		/// Required
 		/// Data type: Password
 		/// </summary>
-		[System.ComponentModel.DataAnnotations.RequiredAttribute()]
+		[System.ComponentModel.DataAnnotations.Required()]
 		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
 		[System.Text.Json.Serialization.JsonPropertyName("oldPwd")]
 		public string OldPassword { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class RegisterBindingModel : object
 	{
 		
@@ -9085,7 +9085,7 @@ namespace DemoWebApi.Models.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class RegisterExternalBindingModel : object
 	{
 		
@@ -9097,7 +9097,7 @@ namespace DemoWebApi.Models.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class RemoveLoginBindingModel : object
 	{
 		
@@ -9115,7 +9115,7 @@ namespace DemoWebApi.Models.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class SetPasswordBindingModel : object
 	{
 		
@@ -9140,7 +9140,7 @@ namespace DemoWebApi.Models.Client
 	/// Auth token
 	/// </summary>
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
-	[System.SerializableAttribute()]
+	[System.Serializable()]
 	public class TokenResponseModel : object
 	{
 		

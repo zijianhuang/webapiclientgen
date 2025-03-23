@@ -186,20 +186,6 @@ namespace Fonlow.CodeDom.Web.Ts
 
 			foreach (ParameterDescription paramDesc in Description.ParameterDescriptions)
 			{
-				//var tsParameterType = Poco2TsGen.TranslateToClientTypeReference(paramDesc.ParameterDescriptor.ParameterType);
-				//var parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
-				//if (String.IsNullOrEmpty(parameterComment))
-				//{
-				//	bool paramTypeCommentExists = dotNetTypeCommentDic.TryGetValue(paramDesc.ParameterDescriptor.ParameterType, out string paramTypeComment);
-				//	if (paramTypeCommentExists)
-				//	{
-				//		builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {paramTypeComment}");
-				//	}
-				//}
-				//else
-				//{
-				//	builder.AppendLine($"@param {{{TypeMapper.MapCodeTypeReferenceToTsText(tsParameterType)}}} {paramDesc.Name} {parameterComment}");
-				//}
 				string parameterComment = Fonlow.DocComment.DocCommentHelper.GetParameterComment(methodComments, paramDesc.Name);
 				CreateParamDocComment(builder, paramDesc, parameterComment);
 			}

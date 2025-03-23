@@ -324,7 +324,7 @@ namespace Fonlow.Poco2Client
 					bool isRequired = cherryType == CherryType.BigCherry;
 					if (isRequired)
 					{
-						clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+						clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Required"));
 					}
 
 					if (codeGenOutputsSettings.DataAnnotationsEnabled)
@@ -369,7 +369,7 @@ namespace Fonlow.Poco2Client
 						bool isRequired = cherryType == CherryType.BigCherry;
 						if (isRequired)
 						{
-							clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RequiredAttribute"));
+							clientProperty.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.Required"));
 						}
 
 						if (codeGenOutputsSettings.DataAnnotationsEnabled)
@@ -419,7 +419,7 @@ namespace Fonlow.Poco2Client
 
 				if (codeGenOutputsSettings.DecorateDataModelWithSerializable)
 				{
-					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Serializable"));
 				}
 			}
 			else if (type.IsEnum)
@@ -431,7 +431,7 @@ namespace Fonlow.Poco2Client
 				CustomAttributeData newtonJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "Newtonsoft.Json.JsonConverterAttribute");
 				if (newtonJsonConverterAttributeData != null)
 				{
-					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration(codeGenOutputsSettings.UseSystemTextJson ? "System.Text.Json.Serialization.JsonConverterAttribute" : "Newtonsoft.Json.JsonConverterAttribute", new CodeAttributeArgument(new CodeSnippetExpression(codeGenOutputsSettings.UseSystemTextJson ? "typeof(System.Text.Json.Serialization.JsonStringEnumConverter)" : "typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration(codeGenOutputsSettings.UseSystemTextJson ? "System.Text.Json.Serialization.JsonConverter" : "Newtonsoft.Json.JsonConverter", new CodeAttributeArgument(new CodeSnippetExpression(codeGenOutputsSettings.UseSystemTextJson ? "typeof(System.Text.Json.Serialization.JsonStringEnumConverter)" : "typeof(Newtonsoft.Json.Converters.StringEnumConverter)"))));
 				}
 
 				CustomAttributeData systemJsonConverterAttributeData = type.CustomAttributes.FirstOrDefault(d => d.AttributeType.FullName == "System.Text.Json.Serialization.JsonConverterAttribute");
@@ -473,7 +473,7 @@ namespace Fonlow.Poco2Client
 
 				if (codeGenOutputsSettings.DecorateDataModelWithSerializable)
 				{
-					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.SerializableAttribute"));
+					typeDeclaration.CustomAttributes.Add(new CodeAttributeDeclaration("System.Serializable"));
 				}
 			}
 			else
@@ -690,7 +690,7 @@ namespace Fonlow.Poco2Client
 
 			if (!String.IsNullOrEmpty(defaultValue))
 			{
-				result.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DefaultValueAttribute", new CodeAttributeArgument(new CodeSnippetExpression(defaultValue))));
+				result.CustomAttributes.Add(new CodeAttributeDeclaration("System.ComponentModel.DefaultValue", new CodeAttributeArgument(new CodeSnippetExpression(defaultValue))));
 			}
 
 
@@ -782,7 +782,7 @@ namespace Fonlow.Poco2Client
 				if (type.FullName == "System.Net.Http.HttpResponseMessage")
 					return "System.Net.Http.HttpResponseMessage";
 
-				if (type.FullName == "System.Object" && (type.Attributes & TypeAttributes.Serializable) == TypeAttributes.Serializable)
+				if (type.FullName == "System.Object")// && (type.Attributes & TypeAttributes.Serializable) == TypeAttributes.Serializable)
 					return codeGenOutputsSettings.UseSystemTextJson ? "System.Text.Json.Nodes.JsonObject" : "Newtonsoft.Json.Linq.JObject";
 			}
 

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Fonlow.Poco2Client
 {
 	/// <summary>
-	/// Provide a dictionary to translate an attribute type to CodeAttributeDeclaration
+	/// Provide a dictionary to translate an attribute object to CodeAttributeDeclaration
 	/// </summary>
 	public sealed class AnnotationDeclarationGenerator
 	{
@@ -127,7 +127,7 @@ namespace Fonlow.Poco2Client
 					attributeParams.Add(new CodeAttributeArgument("ErrorMessage", error));
 					}
 
-					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RegularExpressionAttribute", attributeParams.ToArray());
+					return new CodeAttributeDeclaration("System.ComponentModel.DataAnnotations.RegularExpression", attributeParams.ToArray());
 				}
 			},
 			{ typeof(ObsoleteAttribute), a =>
@@ -166,7 +166,7 @@ namespace Fonlow.Poco2Client
 				attributeParams.Add(new CodeAttributeArgument("UrlFormat", urlFormatExp));
 			}
 
-			return new CodeAttributeDeclaration("System.ObsoleteAttribute", attributeParams.ToArray());
+			return new CodeAttributeDeclaration("System.Obsolete", attributeParams.ToArray());
 		}
 
 	}

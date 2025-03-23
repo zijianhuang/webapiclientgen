@@ -125,11 +125,11 @@ namespace Fonlow.CodeDom.Web.Cs
 			CreateDocComments();
 			if (codeGenOutputsSettings.MaybeNullAttributeOnMethod && returnTypeDecoratedWithMaybeNullable)
 			{
-				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.MaybeNullAttribute"));
+				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.MaybeNull"));
 			}
 			else if (codeGenOutputsSettings.NotNullAttributeOnMethod && returnTypeDecoratedWithNotNullable)
 			{
-				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNullAttribute"));
+				clientMethod.ReturnTypeCustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.CodeAnalysis.NotNull"));
 			}
 
 			System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;

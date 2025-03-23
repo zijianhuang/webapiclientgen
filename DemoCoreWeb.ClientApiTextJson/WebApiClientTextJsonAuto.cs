@@ -4293,6 +4293,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/DecimalZero
 		/// </summary>
+		[System.ObsoleteAttribute("Just for test", DiagnosticId="abc", UrlFormat="efg")]
 		public async Task<decimal> GetDecimalZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DecimalZero";
@@ -4314,6 +4315,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/DecimalZero
 		/// </summary>
+		[System.ObsoleteAttribute("Just for test", DiagnosticId="abc", UrlFormat="efg")]
 		public decimal GetDecimalZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DecimalZero";
@@ -4506,6 +4508,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
+		[System.ObsoleteAttribute("for testing")]
 		public async Task<double> GetDoubleZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DoubleZero";
@@ -4528,6 +4531,7 @@ namespace DemoWebApi.Controllers.Client
 		/// Result of 0.1d + 0.2d - 0.3d
 		/// GET api/SuperDemo/DoubleZero
 		/// </summary>
+		[System.ObsoleteAttribute("for testing")]
 		public double GetDoubleZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/DoubleZero";
@@ -4639,6 +4643,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/FloatZero
 		/// </summary>
+		[System.ObsoleteAttribute()]
 		public async Task<float> GetFloatZeroAsync(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/FloatZero";
@@ -4660,6 +4665,7 @@ namespace DemoWebApi.Controllers.Client
 		/// <summary>
 		/// GET api/SuperDemo/FloatZero
 		/// </summary>
+		[System.ObsoleteAttribute()]
 		public float GetFloatZero(Action<System.Net.Http.Headers.HttpRequestHeaders> handleHeaders = null)
 		{
 			var requestUri = "api/SuperDemo/FloatZero";
@@ -8644,7 +8650,23 @@ namespace DemoWebApi.DemoData.Client
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
-	public class Company : DemoWebApi.DemoData.Base.Client.Entity
+	public class BizEntity : DemoWebApi.DemoData.Base.Client.Entity
+	{
+		
+		/// <summary>
+		/// Data type: Date
+		/// </summary>
+		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateTimeOffset FoundDate { get; set; }
+		
+		[System.Runtime.Serialization.DataMember()]
+		public System.DateOnly RegisterDate { get; set; }
+	}
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Company : DemoWebApi.DemoData.Client.BizEntity
 	{
 		
 		/// <summary>
@@ -8657,16 +8679,7 @@ namespace DemoWebApi.DemoData.Client
 		[System.Runtime.Serialization.DataMember()]
 		public string BusinessNumberType { get; set; }
 		
-		/// <summary>
-		/// Data type: Date
-		/// </summary>
-		[System.ComponentModel.DataAnnotations.DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-		[System.Runtime.Serialization.DataMember()]
-		public System.DateTimeOffset FoundDate { get; set; }
-		
-		[System.Runtime.Serialization.DataMember()]
-		public System.DateOnly RegisterDate { get; set; }
-		
+		[System.ObsoleteAttribute()]
 		[System.Runtime.Serialization.DataMember()]
 		public string[][] TextMatrix { get; set; }
 		
@@ -8803,6 +8816,7 @@ namespace DemoWebApi.DemoData.Client
 		T,
 	}
 	
+	[System.ObsoleteAttribute("Type deprecated for testing")]
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
 	[System.SerializableAttribute()]
 	public class MimsPackage : object
@@ -8834,6 +8848,18 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.DataMember()]
 		public string Tag { get; set; }
+		
+		[System.ObsoleteAttribute("Just for testing", true)]
+		[System.Runtime.Serialization.DataMember()]
+		public string TagForTest { get; set; }
+		
+		[System.ObsoleteAttribute("Just for testing", DiagnosticId="someId", UrlFormat="WhateverFormat")]
+		[System.Runtime.Serialization.DataMember()]
+		public string TagForTest2 { get; set; }
+		
+		[System.ObsoleteAttribute("Just for testing", true, DiagnosticId="someId", UrlFormat="WhateverFormat")]
+		[System.Runtime.Serialization.DataMember()]
+		public string TagForTest3 { get; set; }
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
@@ -8968,6 +8994,19 @@ namespace DemoWebApi.DemoData.Client
 		
 		[System.Runtime.Serialization.EnumMember()]
 		Fax,
+	}
+}
+namespace DemoWebApi.DemoDataEx.Client
+{
+	
+	
+	[System.Runtime.Serialization.DataContract(Namespace="http://fonlowdemo.com/2020/09")]
+	[System.SerializableAttribute()]
+	public class Trust : DemoWebApi.DemoData.Client.BizEntity
+	{
+		
+		[System.Runtime.Serialization.DataMember()]
+		public string Trustee { get; set; }
 	}
 }
 namespace DemoWebApi.Models.Client

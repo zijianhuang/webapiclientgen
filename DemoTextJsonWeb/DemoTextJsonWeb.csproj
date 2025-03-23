@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DemoCoreWebControllers\DemoCoreWebControllers.csproj" />
+		<ProjectReference Include="..\DemoWebApiDemoDataEx\DemoWebApiDemoDataEx.csproj" />
 		<ProjectReference Include="..\Fonlow.DateOnlyExtensionsNet\Fonlow.DateOnlyExtensionsTextJson.csproj" />
 		<ProjectReference Include="..\Fonlow.IntegralExtensionsTextJson\Fonlow.IntegralExtensionsTextJson.csproj" />
 		<ProjectReference Include="..\WebApiClientGenCore.Abstract\WebApiClientGenCore.Abstract.csproj" />

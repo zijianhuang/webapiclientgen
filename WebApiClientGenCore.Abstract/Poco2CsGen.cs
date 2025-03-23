@@ -75,8 +75,8 @@ namespace Fonlow.Poco2Client
 		/// <returns>CodeDOM namespaces containing POCO classes.</returns>
 		public void CreateCodeDomForAssembly(Assembly assembly, CherryPickingMethods cherryPickingMethods, bool? dataAnnotationsToComments)
 		{
-			string xmlDocFileName = DocComment.DocCommentLookup.GetXmlPath(assembly);
-			docLookup = Fonlow.DocComment.DocCommentLookup.Create(xmlDocFileName);
+			string xmlDocFileName = DocCommentLookup.GetXmlPath(assembly);
+			docLookup = DocCommentLookup.Create(xmlDocFileName);
 			this.dataAnnotationsToComments = dataAnnotationsToComments;
 			Type[] cherryTypes = PodGenHelper.GetCherryTypes(assembly, cherryPickingMethods);
 			CreateCodeDomForTypes(cherryTypes, cherryPickingMethods);
@@ -124,7 +124,7 @@ namespace Fonlow.Poco2Client
 				if (type.FullName == "System.Net.Http.HttpResponseMessage")
 					return new CodeTypeReference("System.Net.Http.HttpResponseMessage");
 
-				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+				if (type.FullName == "System.Object")// && (type.Attributes & TypeAttributes.Serializable) == TypeAttributes.Serializable)
 					return codeGenOutputsSettings.UseSystemTextJson ? new CodeTypeReference("System.Text.Json.Nodes.JsonObject") : new CodeTypeReference("Newtonsoft.Json.Linq.JObject"); // possible only after .NET 6
 			}
 
@@ -782,7 +782,7 @@ namespace Fonlow.Poco2Client
 				if (type.FullName == "System.Net.Http.HttpResponseMessage")
 					return "System.Net.Http.HttpResponseMessage";
 
-				if (type.FullName == "System.Object" && (type.Attributes & System.Reflection.TypeAttributes.Serializable) == System.Reflection.TypeAttributes.Serializable)
+				if (type.FullName == "System.Object" && (type.Attributes & TypeAttributes.Serializable) == TypeAttributes.Serializable)
 					return codeGenOutputsSettings.UseSystemTextJson ? "System.Text.Json.Nodes.JsonObject" : "Newtonsoft.Json.Linq.JObject";
 			}
 
